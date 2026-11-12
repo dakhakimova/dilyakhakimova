@@ -55,6 +55,51 @@
 
   <p class="lead">Главная мысль главы: перестань думать о «шансах» и представь, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
 </section>
+<section class="card" data-title="Монетка" aria-label="Монетка">
+  <span class="step-tag">Начнём с монетки</span>
+  <h2>Бросаем монетку 10 раз. Сколько выпадет орлов?</h2>
+  <p>Все знают ответ «половина». Но в скольких сериях из 10 бросков орлов будет <b>ровно пять</b>? Прикинь, а потом бросай.</p>
+  <div class="sheet c-butter">
+    <label class="field" for="coin-guess">Ровно 5 орлов из 10 будет примерно в
+      <input type="number" id="coin-guess" min="0" max="100" step="1" placeholder="?"> % серий
+    </label>
+  </div>
+  <div class="sheet c-white">
+    <div class="coins" id="coins" aria-label="Последние броски"></div>
+    <div class="controls">
+      <button class="btn" type="button" data-toss="10">Бросить 10 раз</button>
+      <button class="btn ghost" type="button" data-toss="100">+100 бросков</button>
+      <button class="btn ghost" type="button" data-toss="1000">+1000 бросков</button>
+      <button class="btn ghost" type="button" id="coin-reset">Сначала</button>
+    </div>
+    <div class="stats">
+      <div><b id="c-n">0</b>бросков</div>
+      <div><b id="c-share">—</b>доля орлов</div>
+      <div><b id="c-five">—</b>серий по 10, где ровно 5 орлов</div>
+    </div>
+    <canvas id="coin-chart" width="640" height="200" role="img" aria-label="Доля орлов по мере бросков: сначала скачет, потом прижимается к половине"></canvas>
+    <div class="verdict" id="coin-verdict" hidden></div>
+  </div>
+  <p>Доля орлов на длинной серии упрямо ползёт к ½ — <b>это и есть вероятность</b>. А короткая серия из 10 бросков ровно на «половину» попадает только в четверти случаев.</p>
+</section>
+<section class="card" data-title="От монетки к посетителю" aria-label="От монетки к посетителю">
+  <span class="step-tag">От игры к продукту</span>
+  <h2>Кубик, монетка — и посетитель сайта</h2>
+  <p>У кубика шесть граней, поэтому шестёрка выпадает в ⅙ бросков: из 600 бросков — около 100. У монетки орёл выпадает в половине бросков.</p>
+  <p>Посетитель сайта — та же монетка, только «кривая»: сторона «купил» выпадает не в половине случаев, а, скажем, в 5%. Из 1000 посетителей купят около 50. Эти 5% и называют <b>конверсией</b>.</p>
+  <div class="sheet c-mint">
+    <p style="margin:0"><b>Запомни образ:</b> любой случайный исход — это монетка или кубик, который бросают снова и снова. Вероятность — доля нужного исхода в длинной серии бросков.</p>
+  </div>
+</section>
+<section class="card" data-title="Что такое вероятность" aria-label="Что такое вероятность">
+  <span class="step-tag">Определение</span>
+  <h2>Что такое вероятность</h2>
+  <div class="def">
+    <p><b>Вероятность события</b> — доля случаев, в которых оно происходит, если повторять одну и ту же ситуацию очень много раз. Записывают <i>P</i>(событие), это число от 0 до 1.</p>
+    <p><b>Случайная величина</b> — число, которое получается в результате такого повторения: сколько купили в группе, сколько длилась сессия, какой был чек.</p>
+  </div>
+  <p>Всё остальное в этой главе — три правила, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
+</section>
 <section class="card" data-title="Вопрос Боба" aria-label="Вопрос Боба">
   <figure class="art"><img src="img/ch01-01-bob-question.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с «5%», очередь из 20 покупателей</figcaption></figure>
   <span class="step-tag">Вопрос</span>
@@ -70,8 +115,8 @@
 </section>
 <section class="card" data-title="Предскажи" aria-label="Предскажи">
   <span class="step-tag">Предскажи</span>
-  <h2>Как часто в группе из 20 будет ровно один покупатель?</h2>
-  <p>Каждый посетитель покупает с вероятностью 5%, независимо от остальных. Мы смотрим на группы по 20 человек. В какой доле групп купит <b>ровно один</b>?</p>
+  <h2>Ровно один из двадцати — как часто?</h2>
+  <p>Это та же задача, что с монеткой: 20 бросков «кривой монетки», у которой «купил» выпадает в 5% случаев. Боб ждёт, что ровно один покупатель будет почти всегда. А в какой доле групп по 20 человек он будет на самом деле?</p>
   <div class="sheet c-butter squared pin" style="--r:.3deg; --pc:#7FA7C9">
     <label class="field" for="guess">Моя догадка:
       <input type="number" id="guess" min="0" max="100" step="1" value="" placeholder="?"> % групп
@@ -110,15 +155,6 @@
     <p>Общая доля покупателей быстро становится близкой к 5% — это и есть вероятность. Но отдельные группы ведут себя совсем не «по среднему»: <b>ровно один</b> покупатель только примерно в 38% групп, <b>ни одного</b> — примерно в 36%, а в каждой четвёртой группе покупателей двое и больше.</p>
     <p>«5%» описывает долгую серию, а не каждую маленькую порцию. Чем меньше порция, тем сильнее она прыгает. Это первая встреча с шумом — дальше в курсе мы научимся его измерять.</p>
   </div>
-</section>
-<section class="card" data-title="Что такое вероятность" aria-label="Что такое вероятность">
-  <span class="step-tag">Определение</span>
-  <h2>Что такое вероятность</h2>
-  <div class="def">
-    <p><b>Вероятность события</b> — доля случаев, в которых оно происходит, если повторять одну и ту же ситуацию очень много раз. Записывают <i>P</i>(событие), это число от 0 до 1.</p>
-    <p><b>Случайная величина</b> — число, которое получается в результате такого повторения: сколько купили в группе, сколько длилась сессия, какой был чек.</p>
-  </div>
-  <p>Всё остальное в этой главе — три правила, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
 </section>
 <section class="card" data-title="Не, и, или" aria-label="Не, и, или">
   <span class="step-tag">Правила</span>
@@ -289,6 +325,53 @@ _check()
 
 
 <script>
+// ---------- Монетка ----------
+(function(){
+  const coins = document.getElementById('coins'), cv = document.getElementById('coin-chart'), ctx = cv.getContext('2d');
+  let tosses = [], heads = 0, series = 0, fives = 0, cur = 0;
+  const fmt = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+  function toss(k){
+    for (let i = 0; i < k; i++){
+      const h = Math.random() < .5; tosses.push(h); if (h) heads++;
+      if (h) cur++;
+      if (tosses.length % 10 === 0){ series++; if (cur === 5) fives++; cur = 0; }
+    }
+    render();
+  }
+  function render(){
+    const last = tosses.slice(-20);
+    coins.innerHTML = last.map(h => '<span class="' + (h ? 'h' : 't') + '">' + (h ? 'О' : 'Р') + '</span>').join('');
+    const n = tosses.length;
+    document.getElementById('c-n').textContent = n.toLocaleString('ru-RU');
+    document.getElementById('c-share').textContent = n ? fmt(heads / n) : '—';
+    document.getElementById('c-five').textContent = series ? fmt(fives / series) : '—';
+    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.3);
+    if (!w) return;
+    cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const L = 36, R = 8, T = 8, B = 20, pw = w - L - R, ph = h - T - B;
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = '#6B675F'; ctx.strokeStyle = 'rgba(36,34,31,.15)';
+    [0, .5, 1].forEach(v => { const y = T + (1 - v) * ph; ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(L + pw, y); ctx.stroke(); ctx.fillText(Math.round(v * 100) + '%', 2, y + 4); });
+    ctx.fillText('бросков: ' + n.toLocaleString('ru-RU'), L + pw - 90, h - 4);
+    if (!n) return;
+    ctx.strokeStyle = '#23418A'; ctx.lineWidth = 1.8; ctx.beginPath();
+    let hh = 0;
+    for (let i = 0; i < n; i++){ if (tosses[i]) hh++; const x = L + (n === 1 ? 0 : i / (n - 1)) * pw, y = T + (1 - hh / (i + 1)) * ph; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    ctx.stroke();
+    const v = document.getElementById('coin-verdict');
+    if (series >= 50){
+      v.hidden = false;
+      const g = parseFloat(document.getElementById('coin-guess').value), act = 100 * fives / series;
+      v.className = 'verdict good';
+      v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — <b>' + g + '%</b>. ') + 'Ровно 5 орлов из 10 — примерно в <b>' + act.toFixed(0) + '%</b> серий; теория даёт 24,6%. Остальные три четверти серий дают 3, 4, 6, 7 орлов — и это нормально.';
+    }
+  }
+  document.querySelectorAll('[data-toss]').forEach(b => b.addEventListener('click', () => toss(+b.dataset.toss)));
+  document.getElementById('coin-reset').addEventListener('click', () => { tosses = []; heads = 0; series = 0; fives = 0; cur = 0; document.getElementById('coin-verdict').hidden = true; render(); });
+  window.addEventListener('resize', render);
+  render();
+})();
+
 // ---------- Предскажи ----------
 let guess = null;
 document.getElementById('guess-save').addEventListener('click', () => {
