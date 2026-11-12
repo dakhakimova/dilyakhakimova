@@ -90,6 +90,7 @@ h1 .hand svg{position:absolute; left:0; bottom:-.1em; width:100%; height:.2em; o
 .lab-n{font-size:13px; color:var(--muted); margin-bottom:6px; display:flex; justify-content:space-between}
 canvas{width:100%; height:auto; display:block}
 .btn{font:500 15px/1 var(--body); padding:12px 18px; border-radius:999px; background:var(--ink); color:#fff; border:0; cursor:pointer}
+.hand-line{font:400 26px/1.3 var(--script); color:var(--pen); margin:26px 0 0}
 .soon{display:inline-block; font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 9px; border-radius:6px; background:#F8D5D8; color:var(--ink)}
 
 footer{padding:10px 0 44px; color:var(--muted); font-size:15px}
@@ -117,7 +118,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
       <a href="#teach">Курсы и лекции</a>
       <a href="#writing">Статьи</a>
       <a href="#science">Наука</a>
-      <a href="#next">Скоро</a>
+      <a href="#next">Курсы</a>
     </nav>
   </header>
 
@@ -125,7 +126,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     <div>
       <h1>Учу видеть в данных <span class="hand">сигнал<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 110 18, 196 6" fill="none" stroke="#7E8DB8" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
       <p class="sub">Математик, аналитик и преподаватель. Пятнадцать лет разбираюсь, где в цифрах правда, а где шум.</p>
-      <p class="lead">Преподаю в Школе анализа данных с 2011 года, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю интерактивную книжку по статистике и свои курсы.</p>
+      <p class="lead">Преподаю в Школе анализа данных с 2011 года, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю свои курсы: бесплатный «Сигнал или шум» и «A/B без мифов».</p>
     </div>
     <figure class="polaroid tape">
       <img src="img/dilya.jpg" alt="Диля Хакимова на лекции" width="460" height="431">
@@ -210,7 +211,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
   <section class="sheet plain lab" aria-labelledby="lab-h">
     <div>
       <h2 id="lab-h">Шум успокаивается</h2>
-      <p>Четыре потока визитов с конверсией 5%. Сначала доля скачет от 0 до 20%, а к тысячам визитов все потоки сходятся внутрь полосы ±2 стандартные ошибки. Так будет выглядеть интерактивная книжка: всё можно запустить ещё раз.</p>
+      <p>Четыре потока визитов с конверсией 5%. Сначала доля скачет от 0 до 20%, а к тысячам визитов все потоки сходятся внутрь полосы ±2 стандартные ошибки. Так будет выглядеть «Сигнал или шум»: всё можно запустить ещё раз.</p>
       <button class="btn" id="lab-again" type="button">Запустить ещё раз</button>
     </div>
     <div class="lab-paper">
@@ -220,14 +221,25 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
   </section>
 
   <section class="sheet plain" id="next" aria-labelledby="next-h">
-    <span class="soon">скоро</span>
-    <h2 id="next-h" style="margin-top:12px">Интерактивная книжка по статистике</h2>
-    <p style="color:var(--muted); margin:0; max-width:44em">Случайность, распределения, ловушки в данных и A/B-тесты: всё можно двигать, запускать и проверять своим кодом прямо в браузере. Бесплатно. Следом — курсы по A/B-тестам.</p>
+    <h2 id="next-h">Скоро: два курса</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr">
+      <div>
+        <span class="soon">бесплатно</span>
+        <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«Сигнал или шум»</h3>
+        <p>Интерактивный курс: случайность, распределения, ловушки в данных и первые A/B-тесты. Всё можно двигать, запускать и проверять своим кодом прямо в браузере.</p>
+      </div>
+      <div>
+        <span class="soon" style="background:#C9DBF0">следом</span>
+        <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«A/B без мифов»</h3>
+        <p>Как ставить честные эксперименты в продукте: метрики-отношения, бакеты, CUPED, подглядывание, множественные проверки — и как отвечать на это на собеседовании.</p>
+      </div>
+    </div>
+    <p class="hand-line">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
   </section>
 
   <footer>
     <div class="row">
-      <div>Сайт собирается — скоро здесь появятся книжка и курсы</div>
+      <div>Сайт собирается — скоро здесь появятся курсы</div>
       <div>© 2026 Диля Хакимова · Белград</div>
     </div>
   </footer>
