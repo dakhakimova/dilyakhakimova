@@ -78,6 +78,10 @@
       <div><b id="c-five">—</b>серий по 10, где ровно 5 орлов</div>
     </div>
     <canvas id="coin-chart" width="640" height="200" role="img" aria-label="Доля орлов по мере бросков: сначала скачет, потом прижимается к половине"></canvas>
+    <h3 style="margin-top:22px">Сколько орлов выпадает в серии из 10 бросков</h3>
+    <div class="hist" id="coin-hist" aria-hidden="true"></div>
+    <div class="hist-labels" id="coin-hist-l"></div>
+    <p class="muted" style="font-size:14px; margin:6px 0 0">столбик — доля серий с таким числом орлов · точка — сколько должно быть по теории</p>
     <div class="verdict" id="coin-verdict" hidden></div>
   </div>
   <p>Доля орлов на длинной серии упрямо ползёт к ½ — <b>это и есть вероятность</b>. А короткая серия из 10 бросков ровно на «половину» попадает только в четверти случаев.</p>
@@ -327,17 +331,29 @@ _check()
 // ---------- Монетка ----------
 (function(){
   const coins = document.getElementById('coins'), cv = document.getElementById('coin-chart'), ctx = cv.getContext('2d');
-  let tosses = [], heads = 0, series = 0, fives = 0, cur = 0;
+  let tosses = [], heads = 0, series = 0, fives = 0, cur = 0, dist = new Array(11).fill(0);
+  const C = [1,10,45,120,210,252,210,120,45,10,1].map(c => c / 1024);
+  const hist = document.getElementById('coin-hist'), hl = document.getElementById('coin-hist-l');
+  for (let k = 0; k <= 10; k++){ const b = document.createElement('div'); b.className = 'hbar' + (k === 5 ? ' hl' : ''); b.innerHTML = '<span></span><i></i><em></em>'; hist.appendChild(b); const l = document.createElement('span'); l.textContent = k; hl.appendChild(l); }
   const fmt = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
   function toss(k){
     for (let i = 0; i < k; i++){
       const h = Math.random() < .5; tosses.push(h); if (h) heads++;
       if (h) cur++;
-      if (tosses.length % 10 === 0){ series++; if (cur === 5) fives++; cur = 0; }
+      if (tosses.length % 10 === 0){ series++; dist[cur]++; if (cur === 5) fives++; cur = 0; }
     }
     render();
   }
   function render(){
+    const top = 0.3;
+    [...hist.children].forEach((b, k) => {
+      const share = series ? dist[k] / series : 0;
+      const hp = 100 * Math.min(share, top) / top;
+      b.querySelector('span').style.height = hp + '%';
+      b.querySelector('i').style.bottom = 'calc(' + Math.max(hp, 100 * C[k] / top) + '% + 8px)';
+      b.querySelector('em').style.bottom = (100 * C[k] / top) + '%';
+      b.querySelector('i').textContent = series ? Math.round(100 * share) + '%' : '';
+    });
     const last = tosses.slice(-20);
     coins.innerHTML = last.map(h => '<span class="' + (h ? 'h' : 't') + '">' + (h ? 'О' : 'Р') + '</span>').join('');
     const n = tosses.length;
@@ -351,11 +367,12 @@ _check()
     ctx.clearRect(0, 0, w, h);
     ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = '#6B675F'; ctx.strokeStyle = 'rgba(36,34,31,.15)';
     [0, .5, 1].forEach(v => { const y = T + (1 - v) * ph; ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(L + pw, y); ctx.stroke(); ctx.fillText(Math.round(v * 100) + '%', 2, y + 4); });
-    ctx.fillText('бросков: ' + n.toLocaleString('ru-RU'), L + pw - 90, h - 4);
+    ctx.fillText('бросков (шкала растягивает начало): ' + n.toLocaleString('ru-RU'), L + pw - 250, h - 4);
     if (!n) return;
     ctx.strokeStyle = '#23418A'; ctx.lineWidth = 1.8; ctx.beginPath();
     let hh = 0;
-    for (let i = 0; i < n; i++){ if (tosses[i]) hh++; const x = L + (n === 1 ? 0 : i / (n - 1)) * pw, y = T + (1 - hh / (i + 1)) * ph; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    const lx = i => L + (n === 1 ? 0 : Math.log(i + 1) / Math.log(n)) * pw;
+    for (let i = 0; i < n; i++){ if (tosses[i]) hh++; const x = lx(i), y = T + (1 - hh / (i + 1)) * ph; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
     ctx.stroke();
     const v = document.getElementById('coin-verdict');
     if (series >= 50){
@@ -366,7 +383,7 @@ _check()
     }
   }
   document.querySelectorAll('[data-toss]').forEach(b => b.addEventListener('click', () => toss(+b.dataset.toss)));
-  document.getElementById('coin-reset').addEventListener('click', () => { tosses = []; heads = 0; series = 0; fives = 0; cur = 0; document.getElementById('coin-verdict').hidden = true; render(); });
+  document.getElementById('coin-reset').addEventListener('click', () => { tosses = []; heads = 0; series = 0; fives = 0; cur = 0; dist.fill(0); document.getElementById('coin-verdict').hidden = true; render(); });
   window.addEventListener('resize', render);
   render();
 })();

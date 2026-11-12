@@ -186,3 +186,12 @@ body{background:#FAF8F4; background-image:none}
 .coins{display:flex; flex-wrap:wrap; gap:6px; min-height:34px; margin:6px 0 10px}
 .coins span{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; font:600 13px/1 var(--body); color:#fff}
 .coins .h{background:var(--pen)} .coins .t{background:#B9B3A7}
+
+.hist{display:grid; grid-template-columns:repeat(11,1fr); gap:6px; height:150px; align-items:end; margin-top:28px}
+.hbar{position:relative; height:100%; display:flex; align-items:flex-end}
+.hbar span{display:block; width:100%; background:var(--pen); border-radius:3px 3px 0 0; transition:height .2s}
+.hbar.hl span{background:var(--accent)}
+.hbar i{position:absolute; left:-4px; right:-4px; text-align:center; font:500 12px/1 var(--body); font-style:normal; font-variant-numeric:tabular-nums}
+.hbar em{position:absolute; left:50%; width:10px; height:10px; margin:0 0 -5px -5px; border-radius:50%; background:#fff; border:2px solid var(--ink)}
+.hist-labels{display:grid; grid-template-columns:repeat(11,1fr); gap:6px; text-align:center; font-size:13px; color:var(--muted); margin-top:4px}
+@media (prefers-reduced-motion: reduce){ .hbar span{transition:none} }
