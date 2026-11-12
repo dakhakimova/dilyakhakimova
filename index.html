@@ -28,7 +28,7 @@ a{color:var(--pen); text-underline-offset:3px}
 a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
 .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
 
-header.top{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding:22px 0 0}
+header.top{display:flex; justify-content:flex-end; align-items:center; gap:16px; flex-wrap:wrap; padding:22px 0 0}
 .logo{font:500 18px/1 var(--serif); color:var(--ink); text-decoration:none}
 .logo i{font:400 22px/1 var(--script); color:var(--pen); font-style:normal}
 nav{display:flex; gap:22px; flex-wrap:wrap; font-size:15px}
@@ -73,6 +73,28 @@ h1 .hand svg{position:absolute; left:0; bottom:-.1em; width:100%; height:.2em; o
 .item .links a::after{content:" ↗"; font-size:.85em}
 .item .num{font:400 26px/1 var(--script); color:var(--pen)}
 
+
+/* цвета и разлиновка листов */
+.sheet{--bg:var(--paper); background-color:var(--bg); transform:rotate(var(--r,0deg))}
+.c-butter{--bg:#FBF1C9} .c-mint{--bg:#E2F1E7} .c-sky{--bg:#E1EBF7} .c-rose{--bg:#FBE4E4} .c-lilac{--bg:#ECE5F6} .c-white{--bg:#FFFFFF}
+.ruled{background-image:linear-gradient(90deg, transparent 84px, var(--margin) 84px, var(--margin) 85px, transparent 85px),
+  linear-gradient(transparent 31px, rgba(61,125,196,.20) 31px) !important; background-size:100% 100%, 100% 32px !important}
+.squared{background-image:linear-gradient(90deg, transparent 84px, var(--margin) 84px, var(--margin) 85px, transparent 85px),
+  linear-gradient(rgba(61,125,196,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.14) 1px, transparent 1px) !important;
+  background-size:100% 100%, 18px 18px, 18px 18px !important}
+.sheet.plain.squared, .sheet.plain.ruled{background-size:100% 100%, 18px 18px, 18px 18px !important}
+.sheet.plain.ruled{background-image:linear-gradient(transparent 31px, rgba(61,125,196,.20) 31px) !important; background-size:100% 32px !important}
+.sheet.plain.squared{background-image:linear-gradient(rgba(61,125,196,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.14) 1px, transparent 1px) !important; background-size:18px 18px !important}
+.ruled .item, .squared .item{border-color:transparent}
+/* кнопка */
+.pin::after{content:""; position:absolute; top:-10px; left:calc(50% - 12px); width:24px; height:24px; border-radius:50%; z-index:2;
+  background:radial-gradient(circle at 35% 30%, #fff9 0 12%, var(--pc,#E07A6C) 32%, color-mix(in srgb, var(--pc,#E07A6C) 65%, #000) 100%);
+  box-shadow:0 4px 5px rgba(0,0,0,.25)}
+/* скрепка */
+.clip::after{content:""; position:absolute; top:-22px; left:var(--cx,46px); width:26px; height:70px; z-index:2;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 70'%3E%3Cpath d='M8 20 V54 a5 5 0 0 0 10 0 V12 a8 8 0 0 0 -16 0 V50' fill='none' stroke='%238A8F98' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 2px 1px rgba(0,0,0,.18)); transform:rotate(-8deg)}
+
 /* что делаю */
 .cols{display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
 .cols h3{font:500 20px/1.3 var(--serif); margin:0 0 8px}
@@ -105,7 +127,8 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
 }
 @media (max-width:620px){
   .wrap{padding:0 16px}
-  .sheet{padding:26px 20px 22px 20px; background-image:none}
+  .sheet{padding:26px 20px 22px 20px; --r:0deg !important}
+  .ruled:not(.plain), .squared:not(.plain){background-size:0 0, 100% 32px !important}
   .item .when{position:static; width:auto; text-align:left; padding:0; display:block; margin-bottom:4px}
 }
 </style>
@@ -113,7 +136,6 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="logo" href="#">Диля <i>Хакимова</i></a>
     <nav aria-label="Разделы">
       <a href="#teach">Курсы и лекции</a>
       <a href="#writing">Статьи</a>
@@ -129,8 +151,8 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
       <p class="lead">Преподаю с 2002 года — от олимпиадной математики до Школы анализа данных, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю свои курсы: бесплатный «Сигнал или шум» и «A/B без мифов».</p>
     </div>
     <figure class="polaroid tape">
-      <img src="img/dilya.jpg" alt="Диля Хакимова на лекции" width="460" height="431">
-      <figcaption>A/B Week, ШАД</figcaption>
+      <img src="img/dilya.jpg" alt="Диля Хакимова на лекции A/B Week в ШАДе" width="460" height="431">
+      <figcaption>Диля Хакимова</figcaption>
     </figure>
   </section>
 
@@ -141,7 +163,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     <div class="fact"><div class="n">МГУ</div><div class="t">математик по образованию, теория игр и аукционов в РЭШ</div></div>
   </div>
 
-  <section class="sheet plain" aria-labelledby="what-h">
+  <section class="sheet plain squared c-butter clip" style="--r:-.5deg" aria-labelledby="what-h">
     <h2 id="what-h">Чем занимаюсь</h2>
     <div class="cols">
       <div><span class="k">аналитика</span><h3>Эксперименты и решения на данных</h3><p>A/B-тесты, метрики и платформы экспериментов: что на самом деле сдвинуло цифры, а что шум.</p></div>
@@ -150,7 +172,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </div>
   </section>
 
-  <section class="sheet" id="teach" aria-labelledby="teach-h">
+  <section class="sheet ruled c-mint pin" style="--r:.45deg; --pc:#7FA7C9" id="teach" aria-labelledby="teach-h">
     <h2 id="teach-h">Курсы и лекции</h2>
     <ul class="list">
       <li class="item">
@@ -175,7 +197,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </ul>
   </section>
 
-  <section class="sheet" id="writing" aria-labelledby="writing-h">
+  <section class="sheet ruled c-sky tape" style="--r:-.4deg" id="writing" aria-labelledby="writing-h">
     <h2 id="writing-h">Статьи и интервью</h2>
     <ul class="list">
       <li class="item">
@@ -195,7 +217,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </ul>
   </section>
 
-  <section class="sheet" id="science" aria-labelledby="science-h">
+  <section class="sheet squared c-white clip" style="--r:.35deg; --cx:calc(100% - 80px)" id="science" aria-labelledby="science-h">
     <h2 id="science-h">Наука</h2>
     <ul class="list">
       <li class="item">
@@ -214,7 +236,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </ul>
   </section>
 
-  <section class="sheet plain lab" aria-labelledby="lab-h">
+  <section class="sheet plain lab c-lilac tape" style="--r:-.3deg" aria-labelledby="lab-h">
     <div>
       <h2 id="lab-h">Шум успокаивается</h2>
       <p>Четыре потока визитов с конверсией 5%. Сначала доля скачет от 0 до 20%, а к тысячам визитов все потоки сходятся внутрь полосы ±2 стандартные ошибки. Так будет выглядеть «Сигнал или шум»: всё можно запустить ещё раз.</p>
@@ -226,7 +248,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </div>
   </section>
 
-  <section class="sheet plain" id="next" aria-labelledby="next-h">
+  <section class="sheet plain ruled c-rose pin" style="--r:.5deg; --pc:#E07A6C" id="next" aria-labelledby="next-h">
     <h2 id="next-h">Скоро: два курса</h2>
     <div class="cols" style="grid-template-columns:1fr 1fr">
       <div>
