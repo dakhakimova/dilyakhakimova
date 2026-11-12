@@ -1,5 +1,6 @@
 /* Общие стили глав курса «Сигнал или шум».
-   Та же визуальная система, что на главной: стол в точку, листы тетради, Literata + Marck Script + Onest. */
+   Спокойная учебная вёрстка: те же шрифты и цвета, что на главной, но без декора (скотча, кнопок, наклонов, разлиновки),
+   чтобы ничего не отвлекало от текста и интерактивов. */
 :root{
   --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6;
   --ink:#24221F; --muted:#6B675F; --pen:#23418A; --margin:rgba(232,100,74,.5); --rule:rgba(61,125,196,.18);
@@ -83,7 +84,7 @@ input[type=number]{font:500 18px/1 var(--body); width:90px; padding:8px 10px; bo
 .dots{display:grid; grid-template-columns:repeat(20, 1fr); gap:6px; max-width:520px; margin:12px 0}
 .dots span{aspect-ratio:1; border-radius:50%; background:#D6D2C9}
 .dots span.buy{background:var(--accent)}
-.bars{display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; align-items:end; height:160px; margin:16px 0 4px; max-width:520px}
+.bars{display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; align-items:end; height:160px; margin:36px 0 4px; max-width:520px}
 .bar{background:var(--pen); border-radius:3px 3px 0 0; position:relative; min-height:2px; transition:height .25s}
 .bar.hl{background:var(--accent)}
 .bar i{position:absolute; top:-22px; left:0; right:0; text-align:center; font:500 13px/1 var(--body); font-style:normal; color:var(--ink); font-variant-numeric:tabular-nums}
@@ -124,3 +125,16 @@ details[open] summary{margin-bottom:8px}
   .bob .ava{width:44px; height:44px; font-size:24px}
 }
 @media (prefers-reduced-motion: reduce){ .bar{transition:none} }
+
+/* ---- спокойный режим для курса: перекрывает декор выше ---- */
+body{background:#FAF8F4; background-image:none}
+.sheet{transform:none !important; box-shadow:none; border:1px solid rgba(36,34,31,.10); border-radius:12px; background-image:none !important}
+.c-white{background-color:#fff}
+.tape::before, .pin::after{display:none}
+.ruled, .squared{background-image:none !important}
+.kicker{font:500 13px/1 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:18px 0 10px}
+.hand{font:500 1.05em/1.4 var(--serif); color:var(--ink)}
+.readout, .stats b{font:500 26px/1.1 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
+.bob .ava{font:500 22px/1 var(--serif)}
+.step-tag{background:transparent; border:0; padding:0; color:var(--accent); font-size:12px}
+.ladder li{background:#fff}
