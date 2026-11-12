@@ -138,3 +138,47 @@ body{background:#FAF8F4; background-image:none}
 .bob .ava{font:500 22px/1 var(--serif)}
 .step-tag{background:transparent; border:0; padding:0; color:var(--accent); font-size:12px}
 .ladder li{background:#fff}
+
+/* ---- глава-карточки: меню слева, одна карточка на экране ---- */
+.reader{max-width:1180px; margin:0 auto; padding:16px 28px 40px; display:grid; grid-template-columns:260px minmax(0,1fr); gap:36px; align-items:start}
+.reader.collapsed{grid-template-columns:0 minmax(0,1fr); gap:0}
+.toc-side{position:sticky; top:16px; font-size:14px; max-height:calc(100vh - 32px); overflow:auto}
+.reader.collapsed .toc-side{display:none}
+.toc-side h2{font:500 13px/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:6px 0 10px}
+.toc-side ol{list-style:none; margin:0; padding:0; counter-reset:c}
+.toc-side li button{all:unset; box-sizing:border-box; display:grid; grid-template-columns:24px 1fr; gap:6px; width:100%; padding:7px 8px; border-radius:8px; cursor:pointer; color:var(--muted); line-height:1.35}
+.toc-side li button:hover{background:#fff; color:var(--ink)}
+.toc-side li button:focus-visible{outline:2px solid var(--accent)}
+.toc-side li.done button{color:var(--ink)}
+.toc-side li.done button .i::before{content:"✓"; color:var(--good)}
+.toc-side li.cur button{background:#fff; color:var(--ink); box-shadow:inset 3px 0 0 var(--accent)}
+.toc-side .i{font-variant-numeric:tabular-nums; text-align:right}
+.toc-side .i::before{content:attr(data-n)}
+.toggle{font:500 14px/1 var(--body); padding:9px 12px; border-radius:8px; border:1px solid rgba(36,34,31,.18); background:#fff; color:var(--ink); cursor:pointer}
+.stage{max-width:780px; width:100%}
+.stage-head{display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap}
+.progress{flex:1; min-width:120px; height:6px; background:rgba(36,34,31,.08); border-radius:3px; overflow:hidden}
+.progress span{display:block; height:100%; background:var(--accent); width:0; transition:width .25s}
+.count{font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
+.card{display:none}
+.card.on{display:block}
+.card > h2:first-child, .card > .step-tag:first-child{margin-top:4px}
+.card > .step-tag:first-child + h2{margin-top:10px}
+.pager{display:flex; justify-content:space-between; gap:12px; margin-top:28px; padding-top:18px; border-top:1px solid rgba(36,34,31,.12)}
+.pager .btn{min-width:120px}
+.art{margin:6px 0 18px; border-radius:12px; overflow:hidden; background:#EFEBE4; aspect-ratio:16/9; display:grid; place-items:center}
+.art img{width:100%; height:100%; object-fit:cover; display:block}
+.art .ph{display:none; padding:20px; text-align:center; color:var(--muted); font-size:14px; max-width:36em}
+.art.missing img{display:none}
+.art.missing .ph{display:block}
+.heroes{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 6px}
+.heroes div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px; font-size:16px}
+.heroes b{display:block; font:500 19px/1.3 var(--serif); margin-bottom:4px}
+.heroes span{color:var(--muted)}
+@media (max-width:900px){
+  .reader{grid-template-columns:1fr; gap:0}
+  .toc-side{position:static; max-height:none; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px; margin-bottom:16px}
+  .reader:not(.open) .toc-side{display:none}
+  .reader.collapsed .toc-side{display:none}
+  .heroes{grid-template-columns:1fr}
+}

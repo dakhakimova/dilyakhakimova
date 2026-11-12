@@ -15,14 +15,35 @@
 <body>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
-  <span><a href="./">Оглавление</a> · <a href="/">Диля Хакимова</a></span>
+  <span><a href="./">Оглавление курса</a> · <a href="/">Диля Хакимова</a></span>
 </nav>
-
-<main class="chapter">
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Шаги главы">
+    <h2>Глава 1 · шаги</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Шаги главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Знакомство" aria-label="Знакомство">
   <p class="kicker">Часть 0 · глава 1</p>
   <h1>Вероятность — это доля в штуках</h1>
-  <p class="lead">Самый надёжный способ решать задачи на вероятность — перестать думать о «шансах» и представить, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
-
+  <figure class="art"><img src="img/ch01-00-heroes.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса, Боб и Котейка знакомятся</figcaption></figure>
+  <p class="lead">Знакомься с командой, с которой мы пройдём весь курс.</p>
+  <div class="heroes">
+    <div><b>Алиса</b><span>Аналитик. На любое «очевидно» отвечает: «А сколько это в штуках?»</span></div>
+    <div><b>Боб</b><span>Продакт-менеджер. Быстро делает выводы — иногда слишком быстро.</span></div>
+    <div><b>Котейка</b><span>Кот в мешке: никогда не знаешь, что внутри. Отвечает за случайность.</span></div>
+  </div>
+  <p style="margin-top:14px">В каждой главе Боб задаёт вопрос, Алиса разбирается, а Котейка подбрасывает кубики. Ты — вместе с Алисой: сначала предсказываешь, потом проверяешь руками и в коде.</p>
+</section>
+<section class="card" data-title="Об этой главе" aria-label="Об этой главе">
+  <span class="step-tag">О главе</span>
+  <h2>Один алгоритм на весь курс</h2>
+  <p>Весь курс строится вокруг шести шагов, которые помогают отличить сигнал от шума. Каждая глава добавляет шаг. Эта глава — о первом: <b>что здесь случайно</b> и как говорить о случайности числами.</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава учит первому">
     <li class="on"><b>1.</b> Что здесь случайно?</li>
     <li>2. Как распределено?</li>
@@ -32,7 +53,10 @@
     <li>6. Ответ бизнесу</li>
   </ol>
 
-  <!-- 1. Вопрос -->
+  <p class="lead">Главная мысль главы: перестань думать о «шансах» и представь, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
+</section>
+<section class="card" data-title="Вопрос Боба" aria-label="Вопрос Боба">
+  <figure class="art"><img src="img/ch01-01-bob-question.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с «5%», очередь из 20 покупателей</figcaption></figure>
   <span class="step-tag">Вопрос</span>
   <div class="sheet c-sky tape" style="--r:-.4deg">
     <div class="bob">
@@ -43,8 +67,8 @@
       </div>
     </div>
   </div>
-
-  <!-- 2. Предскажи -->
+</section>
+<section class="card" data-title="Предскажи" aria-label="Предскажи">
   <span class="step-tag">Предскажи</span>
   <h2>Как часто в группе из 20 будет ровно один покупатель?</h2>
   <p>Каждый посетитель покупает с вероятностью 5%, независимо от остальных. Мы смотрим на группы по 20 человек. В какой доле групп купит <b>ровно один</b>?</p>
@@ -53,12 +77,13 @@
       <input type="number" id="guess" min="0" max="100" step="1" value="" placeholder="?"> % групп
     </label>
     <div class="controls"><button class="btn" id="guess-save" type="button">Запомнить и проверить на модели</button></div>
-    <p class="muted" id="guess-note" style="margin:0">Сначала напиши число — потом запустим магазин и сравним.</p>
+    <p class="muted" id="guess-note" style="margin:0">Напиши число — на следующей карточке запустим магазин и сравним.</p>
   </div>
-
-  <!-- 3. Поиграй -->
+</section>
+<section class="card" data-title="Магазин" aria-label="Магазин">
   <span class="step-tag">Поиграй</span>
   <h2>Магазин, в который приходят группами по 20</h2>
+  <figure class="art"><img src="img/ch01-02-shop.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: магазин, куда приходят группы по 20</figcaption></figure>
   <p>Каждая точка — посетитель, красная — купил. Запускай группы и смотри, сколько покупателей в них оказывается.</p>
   <div class="sheet c-white" style="--r:-.2deg">
     <div class="dots" id="dots" aria-label="Последняя группа из 20 посетителей"></div>
@@ -78,15 +103,15 @@
     </div>
     <div class="verdict" id="shop-verdict" hidden></div>
   </div>
-
-  <!-- 4. Что увидели -->
+</section>
+<section class="card" data-title="Что мы увидели" aria-label="Что мы увидели">
   <span class="step-tag">Что мы увидели</span>
   <div class="sheet c-mint ruled" style="--r:.3deg">
     <p>Общая доля покупателей быстро становится близкой к 5% — это и есть вероятность. Но отдельные группы ведут себя совсем не «по среднему»: <b>ровно один</b> покупатель только примерно в 38% групп, <b>ни одного</b> — примерно в 36%, а в каждой четвёртой группе покупателей двое и больше.</p>
     <p>«5%» описывает долгую серию, а не каждую маленькую порцию. Чем меньше порция, тем сильнее она прыгает. Это первая встреча с шумом — дальше в курсе мы научимся его измерять.</p>
   </div>
-
-  <!-- 5. Определение -->
+</section>
+<section class="card" data-title="Что такое вероятность" aria-label="Что такое вероятность">
   <span class="step-tag">Определение</span>
   <h2>Что такое вероятность</h2>
   <div class="def">
@@ -94,8 +119,10 @@
     <p><b>Случайная величина</b> — число, которое получается в результате такого повторения: сколько купили в группе, сколько длилась сессия, какой был чек.</p>
   </div>
   <p>Всё остальное в этой главе — три правила, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
-
-  <!-- 6. Правила -->
+</section>
+<section class="card" data-title="Не, и, или" aria-label="Не, и, или">
+  <span class="step-tag">Правила</span>
+  <h2>Три правила в штуках</h2>
   <h3>Не случилось: 1 − p</h3>
   <p>Если покупка случается в 5% случаев, то в остальных 95% её нет. <span class="formula" style="display:block">P(не A) = 1 − P(A)</span></p>
 
@@ -105,8 +132,10 @@
 
   <h3>«Или» для несовместных событий: складываем</h3>
   <p>Несовместные — значит, не могут случиться одновременно: «в группе 0 покупателей» и «в группе ровно 1». Тогда <span class="num">P(0 или 1) = P(0) + P(1) ≈ 0,36 + 0,38 = 0,74</span>. Если события могут совпасть, сумма посчитает общие случаи дважды: <span class="num">P(A или B) = P(A) + P(B) − P(A и B)</span>.</p>
-
-  <h3>«Хотя бы один»: через противоположное</h3>
+</section>
+<section class="card" data-title="Хотя бы один" aria-label="Хотя бы один">
+  <figure class="art"><img src="img/ch01-03-lamps.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: гирлянда лампочек, пара перегорела</figcaption></figure>
+  <h2>«Хотя бы один»: через противоположное</h2>
   <p>«Хотя бы один» — это «не ни одного». Посчитать «ни одного» легко: умножить вероятности «не случилось» для каждого.</p>
   <p class="formula">P(хотя бы один из n) = 1 − (1 − p)<sup>n</sup></p>
 
@@ -124,10 +153,11 @@
     <canvas id="l-chart" width="640" height="220" role="img" aria-label="Вероятность, что перегорит хотя бы одна лампочка, в зависимости от размера партии"></canvas>
   </div>
   <p>Интуиция подсказывает «1% на лампочку — значит, почти ничего не сломается». Но при сотне лампочек хотя бы одна перегорит почти в двух случаях из трёх. Тот же эффект в продукте: если у каждого из 100 сервисов 1% риска упасть сегодня, хотя бы один упадёт почти наверняка.</p>
-
-  <!-- 7. Как решать -->
+</section>
+<section class="card" data-title="Рецепт решения" aria-label="Рецепт решения">
   <span class="step-tag">Как решать</span>
   <h2>Рецепт для любой задачи этой главы</h2>
+  <figure class="art"><img src="img/ch01-04-thousand.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса считает 1000 повторов одной сцены</figcaption></figure>
   <div class="sheet c-butter ruled pin" style="--r:.4deg">
     <ol style="margin:0; padding-left:22px">
       <li><b>Назови событие словами.</b> «Хотя бы одна лампочка перегорела», а не «вероятность лампочек».</li>
@@ -136,8 +166,8 @@
       <li><b>Проверь симуляцией.</b> Десять строк кода — и ты видишь, сошлось ли.</li>
     </ol>
   </div>
-
-  <!-- 8. Код -->
+</section>
+<section class="card" data-title="Код: симуляция" aria-label="Код: симуляция">
   <span class="step-tag">Попробуй в коде</span>
   <h2>Симуляция магазина</h2>
   <p>Этот код повторяет 100 000 групп по 20 посетителей. Запусти его, потом поменяй конверсию или размер группы и посмотри, что станет с долей групп «ровно один».</p>
@@ -156,8 +186,10 @@ print(f"групп без покупателей: {(buyers == 0).mean():.1%}")
 print(f"групп ровно с одним:   {(buyers == 1).mean():.1%}")
 print(f"групп с 2 и больше:    {(buyers >= 2).mean():.1%}")</textarea>
   </div>
-
-  <h3>Теперь сам</h3>
+</section>
+<section class="card" data-title="Код: напиши сам" aria-label="Код: напиши сам">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Теперь сам</h2>
   <p>Допиши функцию: вероятность, что из <code>n</code> независимых событий с вероятностью <code>p</code> случится хотя бы одно. Нажми «Проверить» — проверка прогонит её на нескольких примерах.</p>
   <div class="cell" data-title="Напиши сам" data-check="check-at-least-one">
 <textarea spellcheck="false" aria-label="Задание: функция p_at_least_one">def p_at_least_one(p, n):
@@ -193,18 +225,20 @@ def _check():
         pass
 _check()
 </script>
-
-  <!-- 9. Ловушка -->
+</section>
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
   <span class="step-tag">Ловушка</span>
+  <figure class="art"><img src="img/ch01-06-trap.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб уверен, что в группе ровно один покупатель</figcaption></figure>
   <div class="sheet c-rose ruled tape" style="--r:-.3deg">
     <p class="hand" style="margin-bottom:8px">«Пять процентов — значит, один из двадцати»</p>
     <p>Это верно только в среднем на длинной серии. В конкретной группе из 20 человек ровно один покупатель бывает лишь в 38% случаев. Отсюда частая ошибка в продукте: смотреть на маленький срез (один день, один город, двадцать пользователей) и удивляться, что метрика «скачет». Она и должна скакать.</p>
     <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Шесть бросков кубика не дают «шестёрку» с вероятностью 6 · ⅙ = 1: на самом деле <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
   </div>
-
-  <!-- 10. Собеседование -->
+</section>
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
   <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
   <h2>Три задачи и как на них отвечать</h2>
+  <figure class="art"><img src="img/ch01-05-dice.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: собеседование: Котейка бросил шесть кубиков</figcaption></figure>
   <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → (если можно) проверь симуляцией → скажи вывод одной фразой.</p>
 
   <details>
@@ -229,8 +263,8 @@ _check()
     <p><b>Формула:</b> <span class="num">6/6 · 5/6 · 4/6 · 3/6 · 2/6 · 1/6 = 6! / 6<sup>6</sup> = 720 / 46 656 ≈ 1,5%</span>.</p>
     <p><b>Вывод:</b> полтора процента — «все разные» встречается гораздо реже, чем кажется. Это младший брат парадокса дней рождения из главы 2.</p>
   </details>
-
-  <!-- 11. Шпаргалка -->
+</section>
+<section class="card" data-title="Шпаргалка" aria-label="Шпаргалка">
   <span class="step-tag">Шпаргалка</span>
   <div class="sheet c-white squared pin" style="--r:.3deg; --pc:#7FA7C9">
     <ul class="cheat" style="margin:0; padding-left:20px">
@@ -242,11 +276,17 @@ _check()
     </ul>
   </div>
 
-  <div class="next">
-    <a href="./">← Оглавление</a>
-    <span class="muted">Дальше: глава 2 «Условная вероятность и Байес» — скоро</span>
-  </div>
-</main>
+  <figure class="art"><img src="img/ch01-07-next.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка открывает дверь в следующую главу</figcaption></figure>
+  <p>Дальше — глава 2 «Условная вероятность и Байес»: тест на редкую болезнь, антифрод и Монти Холл. Скоро.</p>
+  <p><a href="./">← К оглавлению курса</a></p>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
 
 <script>
 // ---------- Предскажи ----------
@@ -256,8 +296,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   const note = document.getElementById('guess-note');
   if (isNaN(v) || v < 0 || v > 100){ note.textContent = 'Введи число от 0 до 100.'; return; }
   guess = v;
-  note.textContent = 'Запомнили: ' + v + '%. Теперь запусти магазин ниже — кнопкой «+1000 групп» — и сравни.';
-  document.getElementById('dots').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'});
+  note.textContent = 'Запомнили: ' + v + '%. Жми «Далее» — запустим магазин и сравним.';
 });
 
 // ---------- Магазин ----------
@@ -340,6 +379,59 @@ document.getElementById('guess-save').addEventListener('click', () => {
   }
   nIn.addEventListener('input', draw); pIn.addEventListener('input', draw); window.addEventListener('resize', draw);
   draw();
+})();
+</script>
+<script>
+// ---------- карточки ----------
+(function(){
+  const cards = [...document.querySelectorAll('.card')];
+  const list = document.getElementById('toc-list'), reader = document.getElementById('reader');
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const key = 'signal:ch01:seen';
+  let seen = new Set(); try { seen = new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch(e) {}
+  cards.forEach((c, i) => {
+    c.id = 'card-' + (i + 1);
+    const li = document.createElement('li');
+    li.innerHTML = '<button type="button"><span class="i" data-n="' + (i + 1) + '"></span><span>' + c.dataset.title + '</span></button>';
+    li.querySelector('button').addEventListener('click', () => { go(i); if (matchMedia('(max-width: 900px)').matches) setOpen(false); });
+    list.appendChild(li);
+  });
+  let cur = 0;
+  function go(i, push = true){
+    cur = Math.max(0, Math.min(cards.length - 1, i));
+    cards.forEach((c, k) => c.classList.toggle('on', k === cur));
+    seen.add(cur); try { localStorage.setItem(key, JSON.stringify([...seen])); } catch(e) {}
+    [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
+    document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
+    document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
+    prev.disabled = cur === 0;
+    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее →';
+    if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
+    window.scrollTo({top: 0, behavior: 'auto'});
+    window.dispatchEvent(new Event('resize'));
+  }
+  prev.addEventListener('click', () => go(cur - 1));
+  next.addEventListener('click', () => cur === cards.length - 1 ? (location.href = './') : go(cur + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('textarea, input')) return;
+    if (e.key === 'ArrowRight') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+  });
+  const toggle = document.getElementById('toc-toggle');
+  function setOpen(open){
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    reader.classList.toggle(mobile ? 'open' : 'collapsed', mobile ? open : !open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', () => {
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    const isOpen = mobile ? reader.classList.contains('open') : !reader.classList.contains('collapsed');
+    setOpen(!isOpen);
+  });
+  if (matchMedia('(max-width: 900px)').matches) toggle.setAttribute('aria-expanded', 'false');
+  const m = location.hash.match(/^#card-(\d+)$/);
+  go(m ? +m[1] - 1 : 0, false);
+  window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
 })();
 </script>
 <script src="py.js"></script>
