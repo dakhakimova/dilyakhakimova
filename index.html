@@ -236,17 +236,6 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     </ul>
   </section>
 
-  <section class="sheet plain lab c-lilac tape" style="--r:-.3deg" aria-labelledby="lab-h">
-    <div>
-      <h2 id="lab-h">Шум успокаивается</h2>
-      <p>Четыре потока визитов с конверсией 5%. Сначала доля скачет от 0 до 20%, а к тысячам визитов все потоки сходятся внутрь полосы ±2 стандартные ошибки. Так будет выглядеть «Сигнал или шум»: всё можно запустить ещё раз.</p>
-      <button class="btn" id="lab-again" type="button">Запустить ещё раз</button>
-    </div>
-    <div class="lab-paper">
-      <div class="lab-n"><span>конверсия 5%, 4 потока</span><span id="lab-n">n = 0</span></div>
-      <canvas id="lab" width="640" height="360" role="img" aria-label="Бегущая доля конверсий в четырёх потоках визитов сходится к 5% внутри полосы ±2 стандартные ошибки"></canvas>
-    </div>
-  </section>
 
   <section class="sheet plain ruled c-rose pin" style="--r:.5deg; --pc:#E07A6C" id="next" aria-labelledby="next-h">
     <h2 id="next-h">Скоро: два курса</h2>
@@ -273,54 +262,5 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
   </footer>
 </div>
 
-<script>
-(function(){
-  const cv = document.getElementById('lab'), ctx = cv.getContext('2d');
-  const nLabel = document.getElementById('lab-n');
-  const P = 0.05, N = 3000, STREAMS = 4;
-  const C = {muted:'#6B675F', line:'rgba(36,34,31,.18)', band:'rgba(35,65,138,.10)', pen:'#23418A'};
-  const cols = ['#23418A', '#E8644A', '#2F8F6B', '#8C6BB8'];
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let paths = [], raf = null, shown = N;
-  function setup(){
-    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.58);
-    cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return {w, h};
-  }
-  function simulate(){
-    paths = [];
-    for (let s = 0; s < STREAMS; s++){ let k = 0; const p = new Float32Array(N);
-      for (let i = 0; i < N; i++){ if (Math.random() < P) k++; p[i] = k / (i + 1); } paths.push(p); }
-  }
-  function draw(upto){
-    shown = upto; const {w, h} = setup();
-    const L = 36, R = 8, T = 8, B = 24, pw = w - L - R, ph = h - T - B, ymax = 0.20;
-    const X = n => L + Math.log(n) / Math.log(N) * pw, Y = v => T + (1 - v / ymax) * ph;
-    ctx.clearRect(0, 0, w, h);
-    ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = C.muted; ctx.strokeStyle = C.line; ctx.lineWidth = 1;
-    [0, .05, .10, .15, .20].forEach(v => { ctx.beginPath(); ctx.moveTo(L, Y(v)); ctx.lineTo(L + pw, Y(v)); ctx.stroke(); ctx.fillText(Math.round(v * 100) + '%', 2, Y(v) + 4); });
-    [1, 10, 100, 1000].forEach(n => ctx.fillText(n.toLocaleString('ru-RU'), X(n) - (n > 1 ? 12 : 0), h - 6));
-    ctx.fillStyle = C.band; ctx.beginPath();
-    for (let n = 1; n <= N; n *= 1.05){ const se = Math.sqrt(P * (1 - P) / n); ctx.lineTo(X(n), Y(Math.min(ymax, P + 2 * se))); }
-    for (let n = N; n >= 1; n /= 1.05){ const se = Math.sqrt(P * (1 - P) / n); ctx.lineTo(X(n), Y(Math.max(0, P - 2 * se))); }
-    ctx.closePath(); ctx.fill();
-    ctx.strokeStyle = C.pen; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(L, Y(P)); ctx.lineTo(L + pw, Y(P)); ctx.stroke(); ctx.setLineDash([]);
-    paths.forEach((p, s) => { ctx.strokeStyle = cols[s]; ctx.lineWidth = 1.7; ctx.beginPath();
-      for (let i = 0; i < upto; i++){ const v = Math.min(p[i], ymax); i ? ctx.lineTo(X(i + 1), Y(v)) : ctx.moveTo(X(1), Y(v)); } ctx.stroke(); });
-    nLabel.textContent = 'n = ' + upto.toLocaleString('ru-RU');
-  }
-  function run(){
-    cancelAnimationFrame(raf); simulate();
-    if (reduce){ draw(N); return; }
-    let frame = 0;
-    const step = () => { frame++; const upto = Math.max(1, Math.min(N, Math.round(Math.pow(N, Math.min(1, frame / 150)))));
-      draw(upto); if (upto < N) raf = requestAnimationFrame(step); };
-    step();
-  }
-  document.getElementById('lab-again').addEventListener('click', run);
-  window.addEventListener('resize', () => draw(shown));
-  run();
-})();
-</script>
 </body>
 </html>
