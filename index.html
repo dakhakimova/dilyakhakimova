@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Диля Хакимова</title>
+<meta name="description" content="Диля Хакимова — математик, аналитик и преподаватель. A/B-тесты, статистика, теория игр.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Идея: стена исследователя — записки, миллиметровка и тетрадные листы, приколотые к пробковой доске в точку.
+   Одна визуальная тема (без тёмной), цвета записок — пастельные версии палитры курса. */
+:root{
+  --wall:#E9E5DE; --dot:rgba(120,110,90,.22);
+  --ink:#24221F; --muted:#6B675F; --pen:#23418A; --accent:#E8644A;
+  --peach:#FCCBAA; --mint:#C7E6D3; --lilac:#DCD2EE; --sky:#C9DBF0; --butter:#F8EBA6; --rose:#F8D5D8; --paper:#FBFAF6;
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --script:"Marck Script", "Segoe Script", cursive;
+  --body:"Onest", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background-color:var(--wall);
+  background-image:radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size:18px 18px;
+  color:var(--ink); font:400 17px/1.55 var(--body);
+}
+a{color:var(--pen); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:8px}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+header.top{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding:22px 0 0}
+.logo{font:500 18px/1 var(--serif); color:var(--ink); text-decoration:none}
+.logo i{font:400 22px/1 var(--script); color:var(--pen); font-style:normal}
+nav{display:flex; gap:22px; flex-wrap:wrap; font-size:15px}
+nav a{color:var(--muted); text-decoration:none}
+nav a:hover{color:var(--ink)}
+
+.hero{padding:44px 0 28px}
+.hero-grid{display:grid; grid-template-columns:1.25fr 1fr; gap:44px; align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+h1{font:400 clamp(42px,6vw,84px)/1.02 var(--serif); letter-spacing:-.02em; margin:0; text-wrap:balance}
+h1 .hand{font:400 1.12em/1 var(--script); color:var(--pen); position:relative; display:inline-block; white-space:nowrap; padding:0 .05em}
+h1 .hand svg{position:absolute; left:0; right:0; bottom:-.12em; width:100%; height:.22em; overflow:visible}
+.sub{font:400 clamp(22px,2.6vw,32px)/1.3 var(--serif); margin:26px 0 18px; max-width:30em; text-wrap:balance}
+.lead{color:var(--muted); font-size:19px; max-width:38em; margin:0 0 26px}
+.cta{display:flex; gap:12px; flex-wrap:wrap}
+.pill{display:inline-flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; font:500 16px/1 var(--body); text-decoration:none; border:0; cursor:pointer}
+.pill.dark{background:var(--ink); color:#fff}
+.pill.hot{background:var(--accent); color:#fff}
+.pill svg{width:18px; height:18px}
+
+.filters{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:34px 0 8px}
+.filters span{color:var(--muted)}
+.chip{font:500 15px/1 var(--body); padding:11px 16px; border-radius:999px; border:1px solid rgba(36,34,31,.18); background:transparent; color:var(--ink); cursor:pointer}
+.chip b{font-weight:400; color:var(--muted); margin-left:6px; font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+.chip[aria-pressed="true"] b{color:rgba(255,255,255,.7)}
+
+/* стена */
+.board{columns:3 330px; column-gap:28px; padding:22px 0 20px}
+.note{break-inside:avoid; margin:0 0 30px; padding:26px 26px 22px; position:relative; background:var(--paper);
+  box-shadow:0 1px 1px rgba(0,0,0,.06), 0 10px 18px -12px rgba(60,40,10,.35); border-radius:2px;
+  transform:rotate(var(--r,0deg)); transition:transform .2s ease}
+.note:hover{transform:rotate(0deg) translateY(-2px)}
+.note.hidden{display:none}
+.note .who{font-size:15px; color:var(--ink); margin-top:18px; font-weight:500}
+.note .who span{color:var(--muted); font-weight:400}
+.big{font:400 46px/1.05 var(--script); color:var(--pen); margin:4px 0 10px}
+.hand-p{font:400 27px/1.25 var(--script); color:var(--pen); margin:0}
+.note h3{font:500 21px/1.25 var(--serif); margin:0 0 8px}
+.note p{margin:0}
+.note .muted{color:var(--muted); font-size:16px}
+
+.peach{background:var(--peach)} .mint{background:var(--mint)} .lilac{background:var(--lilac)}
+.sky{background:var(--sky)} .butter{background:var(--butter)} .rose{background:var(--rose)}
+.grid{background-color:var(--paper);
+  background-image:linear-gradient(rgba(61,125,196,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.13) 1px, transparent 1px);
+  background-size:16px 16px}
+.lined{background-color:var(--paper);
+  background-image:linear-gradient(90deg, transparent 38px, rgba(232,100,74,.45) 38px, rgba(232,100,74,.45) 39px, transparent 39px),
+                   linear-gradient(transparent 31px, rgba(61,125,196,.22) 31px);
+  background-size:100% 100%, 100% 32px; padding-left:54px}
+.lined.rose-l{background-color:var(--rose)}
+.tape::before{content:""; position:absolute; top:-12px; left:50%; width:118px; height:28px; transform:translateX(-50%) rotate(-2deg);
+  background:rgba(250,246,226,.72); box-shadow:0 1px 2px rgba(0,0,0,.08);
+  background-image:repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 2px, transparent 2px 6px)}
+.pin::after{content:""; position:absolute; top:-9px; left:calc(50% - 11px); width:22px; height:22px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff8 0 12%, var(--pc,#E07A6C) 30%, color-mix(in srgb, var(--pc,#E07A6C) 70%, #000) 100%);
+  box-shadow:0 3px 4px rgba(0,0,0,.25)}
+
+/* миллиметровка с экспериментом */
+.lab-title{font-size:14px; color:var(--muted); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+.lab-title b{color:var(--ink); font-weight:500}
+canvas{width:100%; height:auto; display:block}
+.lab-foot{display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; margin-top:10px}
+.lab-foot p{font-size:14px; color:var(--muted); max-width:24em}
+.btn-s{font:500 14px/1 var(--body); padding:10px 14px; border-radius:999px; background:var(--ink); color:#fff; border:0; cursor:pointer}
+
+/* путь */
+.path{list-style:none; margin:6px 0 0; padding:0}
+.path li{line-height:32px; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.path li b{font-weight:500}
+.path .y{display:inline-block; min-width:80px; color:var(--muted); font-variant-numeric:tabular-nums}
+
+/* полароид */
+.polaroid{background:#fff; padding:14px 14px 18px}
+.photo{aspect-ratio:4/3.4; background:repeating-linear-gradient(135deg, #EEEAE2 0 10px, #E6E1D7 10px 20px); display:grid; place-items:center;
+  color:var(--muted); font:400 26px/1.2 var(--script); text-align:center}
+.soon{display:inline-block; font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 9px; border-radius:6px; background:rgba(255,255,255,.65); color:var(--ink); margin-bottom:12px}
+
+footer{padding:30px 0 46px; color:var(--muted); font-size:15px}
+footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid rgba(36,34,31,.15); padding-top:20px}
+
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  .board{columns:1}
+  .note{--r:0deg !important}
+  .big{font-size:40px}
+}
+@media (prefers-reduced-motion: reduce){ .note{transition:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">Диля <i>Хакимова</i></a>
+    <nav aria-label="Разделы">
+      <a href="#wall">Стена</a>
+      <a href="#next">Курсы и книжка</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+   <div class="hero-grid">
+    <div>
+    <h1>Учу видеть в данных <span class="hand">сигнал<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 110 18, 196 6" fill="none" stroke="#7E8DB8" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
+    <p class="sub">Математик, аналитик и преподаватель. Пятнадцать лет разбираюсь, где в цифрах правда, а где шум.</p>
+    <p class="lead">С 2011 года преподаю в Школе анализа данных, ставила A/B-эксперименты в Яндексе и строила образовательные продукты. Сейчас собираю интерактивную книжку по статистике и свои курсы.</p>
+    <div class="cta">
+      <a class="pill dark" href="#next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v12H7a3 3 0 0 1-3-3z"/><path d="M8 9h6M8 13h6"/></svg>
+        Курсы и книжка</a>
+    </div>
+    </div>
+    <figure class="note grid tape" data-t="data teach" style="--r:-.6deg; margin:0">
+      <div class="lab-title"><span>эксперимент: <b>конверсия 5%</b>, 4 потока визитов</span><span id="lab-n">n = 0</span></div>
+      <canvas id="lab" width="640" height="360" role="img" aria-label="Бегущая доля конверсий в четырёх потоках визитов сходится к 5% внутри полосы ±2 стандартные ошибки"></canvas>
+      <div class="lab-foot">
+        <p>Сначала доля скачет от 0 до 20%, к тысячам визитов все потоки сходятся к 5%. Полоса — ±2 стандартные ошибки.</p>
+        <button class="btn-s" id="lab-again" type="button">Ещё раз</button>
+      </div>
+    </figure>
+   </div>
+
+    <div class="filters" role="group" aria-label="Фильтр записок">
+      <span>Что показать:</span>
+      <button class="chip" type="button" data-f="all" aria-pressed="true">Всё <b id="c-all"></b></button>
+      <button class="chip" type="button" data-f="data" aria-pressed="false">Аналитика <b id="c-data"></b></button>
+      <button class="chip" type="button" data-f="teach" aria-pressed="false">Преподавание <b id="c-teach"></b></button>
+      <button class="chip" type="button" data-f="product" aria-pressed="false">Продукты <b id="c-product"></b></button>
+    </div>
+  </section>
+
+  <main class="board" id="wall">
+
+    <div class="note peach" data-t="teach" style="--r:1.2deg">
+      <div class="big">с 2011</div>
+      <p>преподаю в Школе анализа данных: теория игр, контракты, дизайн механизмов, прикладная статистика</p>
+      <div class="who">ШАД</div>
+    </div>
+
+    <div class="note lined pin" data-t="data teach product" style="--r:-.8deg; --pc:#7FA7C9">
+      <h3>Путь</h3>
+      <ul class="path">
+        <li><span class="y">2000–05</span><b>МГУ</b>, математика</li>
+        <li><span class="y">2009–11</span><b>РЭШ</b>, теория игр</li>
+        <li><span class="y">2011–14</span><b>Яндекс</b>, исследования</li>
+        <li><span class="y">с 2011</span><b>ШАД</b>, преподаю</li>
+        <li><span class="y">с 2014</span><b>«Пеликан»</b>, продукт</li>
+        <li><span class="y">2015–20</span><b>Туту.ру</b>, исследования</li>
+        <li><span class="y">сейчас</span><b>A/B и аналитика</b></li>
+      </ul>
+    </div>
+
+    <div class="note lilac" data-t="data" style="--r:.9deg">
+      <div class="big">+13%</div>
+      <p>выручки на отдельных рекламных рынках после серии A/B-экспериментов в Яндексе</p>
+      <div class="who">Яндекс <span>· рекламный поиск</span></div>
+    </div>
+
+    <div class="note polaroid tape" data-t="all" style="--r:-1.6deg">
+      <div class="photo">здесь будет<br>фото</div>
+      <div class="who">Белград</div>
+    </div>
+
+    <div class="note mint" data-t="teach" style="--r:-.4deg">
+      <div class="big">1000+</div>
+      <p>студентов прошли мою теорию игр. Ещё читала в Jacobs University и вела проекты студентов МФТИ</p>
+    </div>
+
+    <div class="note butter tape" data-t="product" style="--r:.7deg">
+      <h3>«Пеликан»</h3>
+      <p class="muted">Платформа олимпиадной математики для младших школьников. Запустила, продала Яндексу, развиваю дальше. Задачи для неё писали авторы со всего мира, среди них нобелевский лауреат.</p>
+      <div class="who"><a href="https://pelican.study">pelican.study</a></div>
+    </div>
+
+    <div class="note sky" data-t="product" style="--r:-1deg">
+      <div class="big">5 → 30</div>
+      <p>выросла команда образовательной платформы, когда «Пеликан» стал частью Яндекса</p>
+    </div>
+
+    <div class="note rose lined rose-l pin" id="next" data-t="teach product" style="--r:.5deg; --pc:#E07A6C">
+      <span class="soon">скоро</span>
+      <p class="hand-p">Интерактивная книжка по статистике: двигай, запускай, пиши свой код прямо в браузере. Бесплатно.</p>
+      <div class="who">Курсы по A/B-тестам — следом</div>
+    </div>
+
+    <div class="note paper" data-t="data" style="--r:-.7deg">
+      <h3>Чем занимаюсь</h3>
+      <p class="muted">A/B-тесты и метрики: что на самом деле сдвинуло цифры, а что шум. Начинала с исследований онлайн-аукционов, сейчас — продуктовая аналитика.</p>
+    </div>
+
+    <div class="note peach" data-t="data teach" style="--r:1.4deg">
+      <p class="hand-p">«Прокрасилось» ещё не значит «работает».</p>
+      <div class="who">мой любимый тезис</div>
+    </div>
+  </main>
+
+  <footer id="contact">
+    <div class="row">
+      <div>Сайт собирается — скоро здесь появятся книжка и курсы</div>
+      <div>© 2026 Диля Хакимова · Белград</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// фильтр записок
+(function(){
+  const notes = [...document.querySelectorAll('.board .note')];
+  const has = (n, f) => f === 'all' || n.dataset.t.split(' ').some(t => t === f || t === 'all');
+  ['all','data','teach','product'].forEach(f => {
+    const el = document.getElementById('c-' + f); if (el) el.textContent = notes.filter(n => has(n, f)).length;
+  });
+  document.querySelectorAll('.chip').forEach(ch => ch.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c === ch)));
+    notes.forEach(n => n.classList.toggle('hidden', !has(n, ch.dataset.f)));
+  }));
+})();
+
+// эксперимент на миллиметровке
+(function(){
+  const cv = document.getElementById('lab'), ctx = cv.getContext('2d');
+  const nLabel = document.getElementById('lab-n');
+  const P = 0.05, N = 3000, STREAMS = 4;
+  const C = {ink:'#24221F', muted:'#6B675F', line:'rgba(36,34,31,.18)', band:'rgba(35,65,138,.10)', pen:'#23418A'};
+  const cols = ['#23418A', '#E8644A', '#2F8F6B', '#8C6BB8'];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let paths = [], raf = null, shown = N;
+
+  function setup(){
+    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.6);
+    cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return {w, h};
+  }
+  function simulate(){
+    paths = [];
+    for (let s = 0; s < STREAMS; s++){
+      let k = 0; const p = new Float32Array(N);
+      for (let i = 0; i < N; i++){ if (Math.random() < P) k++; p[i] = k / (i + 1); }
+      paths.push(p);
+    }
+  }
+  function draw(upto){
+    shown = upto;
+    const {w, h} = setup();
+    const L = 36, R = 8, T = 8, B = 24, pw = w - L - R, ph = h - T - B, ymax = 0.20;
+    const X = n => L + Math.log(n) / Math.log(N) * pw;
+    const Y = v => T + (1 - v / ymax) * ph;
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = C.muted;
+    ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+    [0, .05, .10, .15, .20].forEach(v => {
+      ctx.beginPath(); ctx.moveTo(L, Y(v)); ctx.lineTo(L + pw, Y(v)); ctx.stroke();
+      ctx.fillText(Math.round(v * 100) + '%', 2, Y(v) + 4);
+    });
+    [1, 10, 100, 1000].forEach(n => ctx.fillText(n.toLocaleString('ru-RU'), X(n) - (n > 1 ? 12 : 0), h - 6));
+    ctx.fillStyle = C.band; ctx.beginPath();
+    for (let n = 1; n <= N; n *= 1.05){ const se = Math.sqrt(P * (1 - P) / n); ctx.lineTo(X(n), Y(Math.min(ymax, P + 2 * se))); }
+    for (let n = N; n >= 1; n /= 1.05){ const se = Math.sqrt(P * (1 - P) / n); ctx.lineTo(X(n), Y(Math.max(0, P - 2 * se))); }
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = C.pen; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Y(P)); ctx.lineTo(L + pw, Y(P)); ctx.stroke(); ctx.setLineDash([]);
+    paths.forEach((p, s) => {
+      ctx.strokeStyle = cols[s]; ctx.lineWidth = 1.7; ctx.beginPath();
+      for (let i = 0; i < upto; i++){ const v = Math.min(p[i], ymax); i ? ctx.lineTo(X(i + 1), Y(v)) : ctx.moveTo(X(1), Y(v)); }
+      ctx.stroke();
+    });
+    nLabel.textContent = 'n = ' + upto.toLocaleString('ru-RU');
+  }
+  function run(){
+    cancelAnimationFrame(raf); simulate();
+    if (reduce){ draw(N); return; }
+    let frame = 0;
+    const step = () => {
+      frame++;
+      const upto = Math.max(1, Math.min(N, Math.round(Math.pow(N, Math.min(1, frame / 150)))));
+      draw(upto);
+      if (upto < N) raf = requestAnimationFrame(step);
+    };
+    step();
+  }
+  document.getElementById('lab-again').addEventListener('click', run);
+  window.addEventListener('resize', () => draw(shown));
+  run();
+})();
+</script>
+</body>
+</html>
