@@ -48,3 +48,7 @@ Bob triumphantly holds up a sign showing exactly one shopping bag drawn on it, s
 ## ch01-07-next — карточка «Шпаргалка и дальше»
 
 Kotejka, in its sack, sits in front of a slightly open door through which soft light falls, holding the door open with one paw. Alice and Bob walk toward the door together: Alice carries her notebook, Bob carries a small medical test kit with a plus sign on the lid (a hint at the next chapter about tests and Bayes). Inviting mood: the next chapter is behind that door. Plain light background, simple composition.
+
+## ch01-08-defs — карточка «Событие, вероятность, случайная величина»
+
+Three equal side-by-side panels on a plain cream background, separated by thin hand-drawn lines. Left panel: Kotejka flips a coin high in the air; next to it a small thought bubble with a check mark and a cross (yes/no) and a second bubble with a tally of several coins. Middle panel: Alice rolls a large six-sided die on a table; one bubble shows a check mark and a cross, another shows a row of dice faces. Right panel: Bob looks at a laptop showing a single website visitor icon with a shopping bag; one bubble shows a check mark and a cross, another shows a small receipt. Calm, clear, educational composition, the three panels visually parallel so they read as "the same idea in three places". No text, no numbers.

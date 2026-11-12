@@ -195,3 +195,14 @@ body{background:#FAF8F4; background-image:none}
 .hbar em{position:absolute; left:50%; width:10px; height:10px; margin:0 0 -5px -5px; border-radius:50%; background:#fff; border:2px solid var(--ink)}
 .hist-labels{display:grid; grid-template-columns:repeat(11,1fr); gap:6px; text-align:center; font-size:13px; color:var(--muted); margin-top:4px}
 @media (prefers-reduced-motion: reduce){ .hbar span{transition:none} }
+
+.cmp{border:1px solid rgba(36,34,31,.12); border-radius:12px; overflow:hidden; background:#fff; font-size:16px}
+.cmp-row{display:grid; grid-template-columns:1.1fr 1fr 1fr 1.2fr}
+.cmp-row > span{padding:10px 12px; border-top:1px solid rgba(36,34,31,.08)}
+.cmp-row.head > span{border-top:0; font:500 16px/1.3 var(--serif); background:#F3F0EA}
+.cmp-row > span[role=rowheader]{color:var(--muted); font-size:14px}
+@media (max-width:620px){
+  .cmp-row{grid-template-columns:1fr 1fr 1fr}
+  .cmp-row > span:first-child{grid-column:1 / -1; background:#F7F5F0; padding:6px 12px}
+  .cmp-row.head > span:first-child{display:none}
+}
