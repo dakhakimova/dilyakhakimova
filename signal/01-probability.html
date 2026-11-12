@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вероятность — это доля в штуках · Сигнал или шум</title>
+<meta name="description" content="Глава 1 бесплатного интерактивного курса «Сигнал или шум»: что такое вероятность, правила «и», «или», «хотя бы один» и задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="book.css">
+</head>
+<body>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление</a> · <a href="/">Диля Хакимова</a></span>
+</nav>
+
+<main class="chapter">
+  <p class="kicker">Часть 0 · глава 1</p>
+  <h1>Вероятность — это доля в штуках</h1>
+  <p class="lead">Самый надёжный способ решать задачи на вероятность — перестать думать о «шансах» и представить, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
+
+  <ol class="ladder" aria-label="Шаги алгоритма, глава учит первому">
+    <li class="on"><b>1.</b> Что здесь случайно?</li>
+    <li>2. Как распределено?</li>
+    <li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li>
+    <li>5. Сколько SE до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+
+  <!-- 1. Вопрос -->
+  <span class="step-tag">Вопрос</span>
+  <div class="sheet c-sky tape" style="--r:-.4deg">
+    <div class="bob">
+      <div class="ava" aria-hidden="true">Б</div>
+      <div>
+        <div class="say">«Конверсия в покупку у нас 5%. Значит, из каждых 20 посетителей ровно один что-нибудь купит?»</div>
+        <div class="who">Боб, продакт-менеджер</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Предскажи -->
+  <span class="step-tag">Предскажи</span>
+  <h2>Как часто в группе из 20 будет ровно один покупатель?</h2>
+  <p>Каждый посетитель покупает с вероятностью 5%, независимо от остальных. Мы смотрим на группы по 20 человек. В какой доле групп купит <b>ровно один</b>?</p>
+  <div class="sheet c-butter squared pin" style="--r:.3deg; --pc:#7FA7C9">
+    <label class="field" for="guess">Моя догадка:
+      <input type="number" id="guess" min="0" max="100" step="1" value="" placeholder="?"> % групп
+    </label>
+    <div class="controls"><button class="btn" id="guess-save" type="button">Запомнить и проверить на модели</button></div>
+    <p class="muted" id="guess-note" style="margin:0">Сначала напиши число — потом запустим магазин и сравним.</p>
+  </div>
+
+  <!-- 3. Поиграй -->
+  <span class="step-tag">Поиграй</span>
+  <h2>Магазин, в который приходят группами по 20</h2>
+  <p>Каждая точка — посетитель, красная — купил. Запускай группы и смотри, сколько покупателей в них оказывается.</p>
+  <div class="sheet c-white" style="--r:-.2deg">
+    <div class="dots" id="dots" aria-label="Последняя группа из 20 посетителей"></div>
+    <div class="controls">
+      <button class="btn" type="button" data-groups="1">Ещё группа</button>
+      <button class="btn ghost" type="button" data-groups="100">+100 групп</button>
+      <button class="btn ghost" type="button" data-groups="1000">+1000 групп</button>
+      <button class="btn ghost" type="button" id="shop-reset">Сначала</button>
+    </div>
+    <div class="bars" id="bars" aria-hidden="true"></div>
+    <div class="bar-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5+</span></div>
+    <p class="muted" style="font-size:14px; text-align:center; max-width:520px; margin:4px 0 0">покупателей в группе · высота — доля групп</p>
+    <div class="stats">
+      <div><b id="s-groups">0</b>групп</div>
+      <div><b id="s-share">—</b>купили, от всех посетителей</div>
+      <div><b id="s-one">—</b>групп, где ровно один</div>
+    </div>
+    <div class="verdict" id="shop-verdict" hidden></div>
+  </div>
+
+  <!-- 4. Что увидели -->
+  <span class="step-tag">Что мы увидели</span>
+  <div class="sheet c-mint ruled" style="--r:.3deg">
+    <p>Общая доля покупателей быстро становится близкой к 5% — это и есть вероятность. Но отдельные группы ведут себя совсем не «по среднему»: <b>ровно один</b> покупатель только примерно в 38% групп, <b>ни одного</b> — примерно в 36%, а в каждой четвёртой группе покупателей двое и больше.</p>
+    <p>«5%» описывает долгую серию, а не каждую маленькую порцию. Чем меньше порция, тем сильнее она прыгает. Это первая встреча с шумом — дальше в курсе мы научимся его измерять.</p>
+  </div>
+
+  <!-- 5. Определение -->
+  <span class="step-tag">Определение</span>
+  <h2>Что такое вероятность</h2>
+  <div class="def">
+    <p><b>Вероятность события</b> — доля случаев, в которых оно происходит, если повторять одну и ту же ситуацию очень много раз. Записывают <i>P</i>(событие), это число от 0 до 1.</p>
+    <p><b>Случайная величина</b> — число, которое получается в результате такого повторения: сколько купили в группе, сколько длилась сессия, какой был чек.</p>
+  </div>
+  <p>Всё остальное в этой главе — три правила, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
+
+  <!-- 6. Правила -->
+  <h3>Не случилось: 1 − p</h3>
+  <p>Если покупка случается в 5% случаев, то в остальных 95% её нет. <span class="formula" style="display:block">P(не A) = 1 − P(A)</span></p>
+
+  <h3>«И» для независимых событий: умножаем</h3>
+  <p>Двое посетителей покупают независимо. Из 1000 пар первый купит в 50, и из этих 50 второй купит в 5% — это 2,5 пары. Доля от доли:</p>
+  <p class="formula">P(A и B) = P(A) · P(B) = 0,05 · 0,05 = 0,0025</p>
+
+  <h3>«Или» для несовместных событий: складываем</h3>
+  <p>Несовместные — значит, не могут случиться одновременно: «в группе 0 покупателей» и «в группе ровно 1». Тогда <span class="num">P(0 или 1) = P(0) + P(1) ≈ 0,36 + 0,38 = 0,74</span>. Если события могут совпасть, сумма посчитает общие случаи дважды: <span class="num">P(A или B) = P(A) + P(B) − P(A и B)</span>.</p>
+
+  <h3>«Хотя бы один»: через противоположное</h3>
+  <p>«Хотя бы один» — это «не ни одного». Посчитать «ни одного» легко: умножить вероятности «не случилось» для каждого.</p>
+  <p class="formula">P(хотя бы один из n) = 1 − (1 − p)<sup>n</sup></p>
+
+  <div class="sheet c-lilac tape" style="--r:-.3deg">
+    <p style="margin-bottom:6px"><b>Лампочки.</b> В партии <span id="l-n-t">100</span> лампочек, каждая перегорает за год с вероятностью <span id="l-p-t">1</span>%, независимо от других.</p>
+    <div class="controls">
+      <label class="field" for="l-n">лампочек <input type="range" id="l-n" min="1" max="300" value="100"></label>
+      <label class="field" for="l-p">вероятность отказа <input type="range" id="l-p" min="1" max="50" value="10"></label>
+    </div>
+    <div class="stats">
+      <div><b id="l-none">36,6%</b>ни одна не перегорит</div>
+      <div><b id="l-some">63,4%</b>перегорит хотя бы одна</div>
+    </div>
+    <p class="muted" id="l-count" style="margin-top:10px"></p>
+    <canvas id="l-chart" width="640" height="220" role="img" aria-label="Вероятность, что перегорит хотя бы одна лампочка, в зависимости от размера партии"></canvas>
+  </div>
+  <p>Интуиция подсказывает «1% на лампочку — значит, почти ничего не сломается». Но при сотне лампочек хотя бы одна перегорит почти в двух случаях из трёх. Тот же эффект в продукте: если у каждого из 100 сервисов 1% риска упасть сегодня, хотя бы один упадёт почти наверняка.</p>
+
+  <!-- 7. Как решать -->
+  <span class="step-tag">Как решать</span>
+  <h2>Рецепт для любой задачи этой главы</h2>
+  <div class="sheet c-butter ruled pin" style="--r:.4deg">
+    <ol style="margin:0; padding-left:22px">
+      <li><b>Назови событие словами.</b> «Хотя бы одна лампочка перегорела», а не «вероятность лампочек».</li>
+      <li><b>Представь 1000 повторов.</b> Сколько раз из 1000 случится событие? Считай штуками, а не процентами.</li>
+      <li><b>Запиши формулой</b> — и проверь, что «и», «или», «хотя бы один» применены правильно.</li>
+      <li><b>Проверь симуляцией.</b> Десять строк кода — и ты видишь, сошлось ли.</li>
+    </ol>
+  </div>
+
+  <!-- 8. Код -->
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Симуляция магазина</h2>
+  <p>Этот код повторяет 100 000 групп по 20 посетителей. Запусти его, потом поменяй конверсию или размер группы и посмотри, что станет с долей групп «ровно один».</p>
+  <div class="cell" data-title="Поменяй и запусти">
+<textarea spellcheck="false" aria-label="Код симуляции магазина">import numpy as np
+
+p = 0.05          # конверсия
+group = 20        # посетителей в группе
+n_groups = 100_000
+
+rng = np.random.default_rng()
+buyers = rng.binomial(group, p, size=n_groups)   # покупателей в каждой группе
+
+print(f"доля покупателей:      {buyers.sum() / (group * n_groups):.3f}")
+print(f"групп без покупателей: {(buyers == 0).mean():.1%}")
+print(f"групп ровно с одним:   {(buyers == 1).mean():.1%}")
+print(f"групп с 2 и больше:    {(buyers >= 2).mean():.1%}")</textarea>
+  </div>
+
+  <h3>Теперь сам</h3>
+  <p>Допиши функцию: вероятность, что из <code>n</code> независимых событий с вероятностью <code>p</code> случится хотя бы одно. Нажми «Проверить» — проверка прогонит её на нескольких примерах.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-at-least-one">
+<textarea spellcheck="false" aria-label="Задание: функция p_at_least_one">def p_at_least_one(p, n):
+    # вероятность, что из n независимых событий случится хотя бы одно
+    return ...
+
+print(p_at_least_one(0.01, 100))   # лампочки: должно быть около 0.634</textarea>
+  </div>
+<script type="text/x-python" id="check-at-least-one">
+def _check():
+    cases = [((0.01, 100), 1 - 0.99**100), ((0.5, 1), 0.5), ((0.05, 20), 1 - 0.95**20), ((0.0, 10), 0.0), ((1/6, 4), 1 - (5/6)**4)]
+    try:
+        f = p_at_least_one
+    except NameError:
+        print("FAIL функции p_at_least_one нет — запусти ячейку с ней"); return
+    if f(0.5, 1) is ... or f(0.5, 1) is None:
+        print("FAIL функция пока ничего не считает: замени ... на формулу"); return
+    bad = 0
+    for args, want in cases:
+        try:
+            got = f(*args)
+            if got is ... or got is None or abs(float(got) - want) > 1e-9:
+                bad += 1; print(f"FAIL p_at_least_one{args}: ждали {want:.4f}, получили {got}")
+        except Exception as e:
+            bad += 1; print(f"FAIL p_at_least_one{args}: ошибка {e}")
+    if not bad:
+        print("OK все проверки пройдены: 1 − (1 − p)^n — то, что нужно")
+        return
+    try:
+        if abs(float(f(0.01, 100)) - 1.0) < 1e-9:
+            print("FAIL похоже, вероятности сложены: p·n. Так можно только для несовместных событий")
+    except Exception:
+        pass
+_check()
+</script>
+
+  <!-- 9. Ловушка -->
+  <span class="step-tag">Ловушка</span>
+  <div class="sheet c-rose ruled tape" style="--r:-.3deg">
+    <p class="hand" style="margin-bottom:8px">«Пять процентов — значит, один из двадцати»</p>
+    <p>Это верно только в среднем на длинной серии. В конкретной группе из 20 человек ровно один покупатель бывает лишь в 38% случаев. Отсюда частая ошибка в продукте: смотреть на маленький срез (один день, один город, двадцать пользователей) и удивляться, что метрика «скачет». Она и должна скакать.</p>
+    <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Шесть бросков кубика не дают «шестёрку» с вероятностью 6 · ⅙ = 1: на самом деле <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
+  </div>
+
+  <!-- 10. Собеседование -->
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и как на них отвечать</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → (если можно) проверь симуляцией → скажи вывод одной фразой.</p>
+
+  <details>
+    <summary>P(A) = 0,6, P(B) = 0,7. Могут ли события A и B быть несовместными?</summary>
+    <p><b>Переформулирую:</b> могут ли A и B ни разу не случиться вместе?</p>
+    <p><b>В штуках:</b> из 100 повторов A случается в 60, B — в 70. Вместе это 130 «случаев», а повторов всего 100 — значит, минимум в 30 повторах они совпали.</p>
+    <p><b>Формула:</b> <span class="num">P(A и B) ≥ P(A) + P(B) − 1 = 0,3</span>.</p>
+    <p><b>Вывод:</b> нет, не могут — они обязаны пересекаться хотя бы в 30% случаев.</p>
+  </details>
+
+  <details>
+    <summary>Партия из 100 лампочек, каждая перегорает с вероятностью 1%. Какова вероятность, что не перегорит ни одна?</summary>
+    <p><b>В штуках:</b> одна лампочка выживает в 99 случаях из 100, две — в 99% от 99%, и так 100 раз.</p>
+    <p><b>Формула:</b> <span class="num">0,99<sup>100</sup> ≈ 0,366</span>.</p>
+    <p><b>Бонус, который ценят:</b> это близко к <span class="num">e<sup>−1</sup> ≈ 0,368</span>, потому что <span class="num">(1 − 1/n)<sup>n</sup> → e<sup>−1</sup></span>. Если в среднем ожидается одно событие, то «ни одного» бывает примерно в трети случаев.</p>
+    <p><b>Вывод:</b> около 37%; почти в двух случаях из трёх хотя бы одна лампочка перегорит.</p>
+  </details>
+
+  <details>
+    <summary>Кубик бросают 6 раз. Какова вероятность, что все шесть результатов разные?</summary>
+    <p><b>В штуках:</b> первый бросок — любой, второй должен не совпасть с первым (5 из 6), третий — с двумя первыми (4 из 6), и так далее.</p>
+    <p><b>Формула:</b> <span class="num">6/6 · 5/6 · 4/6 · 3/6 · 2/6 · 1/6 = 6! / 6<sup>6</sup> = 720 / 46 656 ≈ 1,5%</span>.</p>
+    <p><b>Вывод:</b> полтора процента — «все разные» встречается гораздо реже, чем кажется. Это младший брат парадокса дней рождения из главы 2.</p>
+  </details>
+
+  <!-- 11. Шпаргалка -->
+  <span class="step-tag">Шпаргалка</span>
+  <div class="sheet c-white squared pin" style="--r:.3deg; --pc:#7FA7C9">
+    <ul class="cheat" style="margin:0; padding-left:20px">
+      <li>Вероятность — доля случаев в длинной серии повторов. Считай в штуках на 1000.</li>
+      <li><span class="num">P(не A) = 1 − P(A)</span>.</li>
+      <li>Независимые «и»: умножаем. Несовместные «или»: складываем. Пересекаются — вычитаем пересечение.</li>
+      <li>«Хотя бы один» = <span class="num">1 − (1 − p)<sup>n</sup></span>. Никогда не <span class="num">p · n</span>.</li>
+      <li>Маленькие порции скачут вокруг среднего — это шум, а не поломка.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <a href="./">← Оглавление</a>
+    <span class="muted">Дальше: глава 2 «Условная вероятность и Байес» — скоро</span>
+  </div>
+</main>
+
+<script>
+// ---------- Предскажи ----------
+let guess = null;
+document.getElementById('guess-save').addEventListener('click', () => {
+  const v = parseFloat(document.getElementById('guess').value);
+  const note = document.getElementById('guess-note');
+  if (isNaN(v) || v < 0 || v > 100){ note.textContent = 'Введи число от 0 до 100.'; return; }
+  guess = v;
+  note.textContent = 'Запомнили: ' + v + '%. Теперь запусти магазин ниже — кнопкой «+1000 групп» — и сравни.';
+  document.getElementById('dots').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'});
+});
+
+// ---------- Магазин ----------
+(function(){
+  const P = 0.05, G = 20;
+  const dots = document.getElementById('dots'), bars = document.getElementById('bars');
+  let counts = [0,0,0,0,0,0], groups = 0, buyers = 0;
+  for (let i = 0; i < G; i++) dots.appendChild(document.createElement('span'));
+  for (let i = 0; i < 6; i++){ const b = document.createElement('div'); b.className = 'bar' + (i === 1 ? ' hl' : ''); b.appendChild(document.createElement('i')); bars.appendChild(b); }
+  const fmt = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+
+  function one(){
+    const row = [];
+    let k = 0;
+    for (let i = 0; i < G; i++){ const b = Math.random() < P; row.push(b); if (b) k++; }
+    counts[Math.min(k, 5)]++; groups++; buyers += k;
+    return row;
+  }
+  function render(row){
+    if (row) [...dots.children].forEach((d, i) => d.classList.toggle('buy', row[i]));
+    const max = Math.max(...counts, 1);
+    [...bars.children].forEach((b, i) => {
+      b.style.height = (groups ? 100 * counts[i] / max : 0) + '%';
+      b.querySelector('i').textContent = groups ? fmt(counts[i] / groups) : '';
+    });
+    document.getElementById('s-groups').textContent = groups.toLocaleString('ru-RU');
+    document.getElementById('s-share').textContent = groups ? fmt(buyers / (groups * G)) : '—';
+    document.getElementById('s-one').textContent = groups ? fmt(counts[1] / groups) : '—';
+    const v = document.getElementById('shop-verdict');
+    if (groups >= 500){
+      const actual = 100 * counts[1] / groups;
+      v.hidden = false;
+      if (guess === null){
+        v.className = 'verdict good';
+        v.innerHTML = 'Ровно один покупатель — примерно в <b>' + actual.toFixed(0) + '%</b> групп. Теория даёт 37,7%: <span class="num">20 · 0,05 · 0,95<sup>19</sup></span>.';
+      } else {
+        const close = Math.abs(guess - actual) <= 5;
+        v.className = 'verdict ' + (close ? 'good' : 'bad');
+        v.innerHTML = 'Твоя догадка — <b>' + guess + '%</b>, модель показывает <b>' + actual.toFixed(0) + '%</b>. ' +
+          (close ? 'Отличная интуиция!' : (guess > actual ? 'Обычно ждут больше: кажется, что «5% от 20» — это почти всегда ровно один.' : 'Меньше, чем на самом деле.')) +
+          ' Теория: <span class="num">20 · 0,05 · 0,95<sup>19</sup> ≈ 37,7%</span>.';
+      }
+    }
+  }
+  document.querySelectorAll('[data-groups]').forEach(btn => btn.addEventListener('click', () => {
+    let row; for (let i = 0; i < +btn.dataset.groups; i++) row = one(); render(row);
+  }));
+  document.getElementById('shop-reset').addEventListener('click', () => { counts = [0,0,0,0,0,0]; groups = 0; buyers = 0; render(new Array(G).fill(false)); document.getElementById('shop-verdict').hidden = true; });
+  render(one());
+})();
+
+// ---------- Лампочки ----------
+(function(){
+  const nIn = document.getElementById('l-n'), pIn = document.getElementById('l-p');
+  const cv = document.getElementById('l-chart'), ctx = cv.getContext('2d');
+  const pct = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+  function draw(){
+    const n = +nIn.value, p = +pIn.value / 1000;
+    const none = Math.pow(1 - p, n);
+    document.getElementById('l-n-t').textContent = n;
+    document.getElementById('l-p-t').textContent = (p * 100).toLocaleString('ru-RU', {maximumFractionDigits: 1});
+    document.getElementById('l-none').textContent = pct(none);
+    document.getElementById('l-some').textContent = pct(1 - none);
+    document.getElementById('l-count').textContent = 'В штуках: из 1000 таких партий примерно в ' + Math.round(1000 * none).toLocaleString('ru-RU') +
+      ' не перегорит ни одна лампочка, а в ' + Math.round(1000 * (1 - none)).toLocaleString('ru-RU') + ' — хотя бы одна. В среднем перегорает ' +
+      (n * p).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' лампочки на партию.';
+    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.34);
+    cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const L = 40, R = 10, T = 10, B = 26, pw = w - L - R, ph = h - T - B, N = 300;
+    const X = k => L + (k - 1) / (N - 1) * pw, Y = v => T + (1 - v) * ph;
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = '#6B675F'; ctx.strokeStyle = 'rgba(36,34,31,.15)';
+    [0, .5, 1].forEach(v => { ctx.beginPath(); ctx.moveTo(L, Y(v)); ctx.lineTo(L + pw, Y(v)); ctx.stroke(); ctx.fillText(Math.round(v * 100) + '%', 4, Y(v) + 4); });
+    [1, 100, 200, 300].forEach(k => ctx.fillText(k, X(k) - 8, h - 8));
+    ctx.strokeStyle = '#23418A'; ctx.lineWidth = 2; ctx.beginPath();
+    for (let k = 1; k <= N; k++){ const v = 1 - Math.pow(1 - p, k); k === 1 ? ctx.moveTo(X(k), Y(v)) : ctx.lineTo(X(k), Y(v)); }
+    ctx.stroke();
+    ctx.fillStyle = '#E8644A'; ctx.beginPath(); ctx.arc(X(n), Y(1 - none), 5, 0, 2 * Math.PI); ctx.fill();
+    ctx.fillStyle = '#6B675F'; ctx.fillText('хотя бы одна перегорит', L + 6, T + 12);
+  }
+  nIn.addEventListener('input', draw); pIn.addEventListener('input', draw); window.addEventListener('resize', draw);
+  draw();
+})();
+</script>
+<script src="py.js"></script>
+</body>
+</html>
