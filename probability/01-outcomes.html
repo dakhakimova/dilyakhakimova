@@ -196,14 +196,16 @@
 <section class="card" data-title="Формула" aria-label="Формула">
   <span class="step-tag">Правило</span>
   <h2>Первая формула вероятности</h2>
-  <div class="three">
-    <div><span class="lbl">История</span>Боб моет посуду, когда выпал ровно один орёл.</div>
-    <div><span class="lbl">В штуках</span>Из 1000 вечеров примерно по 250 придётся на ОО, ОР, РО и РР. Ровно один орёл — ОР и РО: 250 + 250 = <b>500</b> вечеров.</div>
-    <div><span class="lbl">Формула</span>P(ровно один орёл) = <span class="num" style="white-space:nowrap">2/4 = ½</span></div>
+  <div class="flow">
+    <div><span class="lbl">История</span><p>Боб моет посуду, если выпал ровно один орёл.</p></div>
+    <i aria-hidden="true">→</i>
+    <div><span class="lbl">В штуках</span><p class="num">Из 1000 вечеров по 250 на ОО, ОР, РО, РР. Боб моет 250 + 250 = <b>500</b>.</p></div>
+    <i aria-hidden="true">→</i>
+    <div><span class="lbl">Формула</span><p class="math">P = <span class="frac"><span>2</span><span>4</span></span> = <span class="frac"><span>1</span><span>2</span></span></p></div>
   </div>
-  <div class="sheet c-white squared">
-    <p class="formula" style="margin:6px 0">P(A) = <span style="display:inline-block; vertical-align:middle; text-align:center"><span style="display:block; border-bottom:1px solid; padding:0 6px">число исходов в A</span><span style="display:block; padding:0 6px">число всех исходов</span></span></p>
-    <p style="text-align:center; margin:4px 0 0">Читается так: <i>«вероятность события A — это доля подходящих исходов среди всех»</i>.<br>В учебниках пишут коротко: <span class="num">P(A) = |A| / |Ω|</span>.</p>
+  <div class="sheet c-white formula-box">
+    <p class="math big">P(<i>A</i>) = <span class="frac"><span>число исходов в <i>A</i></span><span>число всех исходов</span></span> = <span class="frac"><span>|<i>A</i>|</span><span>|Ω|</span></span></p>
+    <p class="muted read">Доля подходящих исходов среди всех. |<i>A</i>| — сколько исходов в событии, |Ω| — сколько исходов всего.</p>
   </div>
   <div class="def">
     <p><b>Когда работает:</b> только если все исходы <b>равновероятны</b> — как четыре плитки монеток или шесть граней честного кубика. Для «0, 1 или 2 орла» формула даёт неверные ⅓ — это и есть ловушка Д'Аламбера.</p>
