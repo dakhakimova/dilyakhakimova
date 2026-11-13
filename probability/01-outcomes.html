@@ -104,7 +104,9 @@
       <button class="btn" type="button" data-pair="1">Ещё вечер</button>
       <button class="btn ghost" type="button" data-pair="10">+10 вечеров</button>
       <button class="btn ghost" type="button" data-pair="100">+100 вечеров</button>
-      <button class="btn ghost" type="button" data-pair="1000">+1000 вечеров</button>
+      <button class="btn ghost" type="button" data-pair="1000">+1000</button>
+      <button class="btn ghost" type="button" data-pair="10000">+10&nbsp;000</button>
+      <button class="btn ghost" type="button" data-pair="100000">+100&nbsp;000</button>
       <button class="btn ghost" type="button" id="pair-reset">Сначала</button>
     </div>
     <div class="stats">
@@ -232,6 +234,8 @@
       <button class="btn" type="button" data-dice="10">Бросить 10 раз</button>
       <button class="btn ghost" type="button" data-dice="100">+100</button>
       <button class="btn ghost" type="button" data-dice="1000">+1000</button>
+      <button class="btn ghost" type="button" data-dice="10000">+10&nbsp;000</button>
+      <button class="btn ghost" type="button" data-dice="100000">+100&nbsp;000</button>
       <button class="btn ghost" type="button" id="dice-reset">Сначала</button>
     </div>
     <div class="stats"><div><b id="d-n">0</b>бросков</div><div><b id="d-7">—</b>доля суммы 7</div></div>
@@ -425,7 +429,7 @@ function tileHTML(o){ return '<span class="pair"><span class="c1 ' + (o[0] === '
   OUT.forEach(o => { const t = document.createElement('div'); t.className = 'tile'; t.innerHTML = tileHTML(o); outTiles.appendChild(t); });
   let evenings = [], byOut = [0, 0, 0, 0], guess = null;
   function draw(){
-    const n = evenings.length, ones = byOut[1] + byOut[2];
+    const n = byOut[0] + byOut[1] + byOut[2] + byOut[3], ones = byOut[1] + byOut[2];
     render([byOut[3], ones, byOut[0]]);
     box.innerHTML = evenings.slice(-12).map(e => '<span class="' + (e === 1 || e === 2 ? 'h' : 't') + '" style="width:auto; padding:0 9px; border-radius:15px" title="' + (e === 1 || e === 2 ? 'моет Боб' : 'моет Алиса') + '">' + OUT[e] + '</span>').join('');
     document.getElementById('pr-n').textContent = n.toLocaleString('ru-RU');
@@ -441,6 +445,7 @@ function tileHTML(o){ return '<span class="pair"><span class="c1 ' + (o[0] === '
   }
   function toss(k){
     for (let i = 0; i < k; i++){ const e = (Math.random() < .5 ? 0 : 2) + (Math.random() < .5 ? 0 : 1); evenings.push(e); byOut[e]++; }
+    if (evenings.length > 50) evenings = evenings.slice(-50);
     if (k === 1){ const t = outTiles.children[evenings[evenings.length - 1]]; t.classList.remove('flash'); void t.offsetWidth; t.classList.add('flash'); }
     draw();
   }
