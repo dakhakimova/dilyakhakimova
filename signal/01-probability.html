@@ -56,10 +56,39 @@
 
   <p class="lead">Главная мысль главы: перестань думать о «шансах» и представь, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
 </section>
-<section class="card" data-title="Монетка" aria-label="Монетка">
+<section class="card" data-title="Две монетки" aria-label="Две монетки">
   <span class="step-tag">Начнём с монетки</span>
-  <h2>Бросаем монетку 10 раз. Сколько выпадет орлов?</h2>
-  <p>Все знают ответ «половина». Но в скольких сериях из 10 бросков орлов будет <b>ровно пять</b>? Прикинь, а потом бросай.</p>
+  <h2>Бросаем монетку 2 раза. Сколько выпадет орлов?</h2>
+  <p>Вариантов всего три: 0, 1 или 2 орла. Но выпадают они не одинаково часто. Как ты думаешь, в какой доле пар будет <b>ровно один</b> орёл? Ответ можно найти в уме.</p>
+  <div class="sheet c-butter">
+    <span class="field">Ровно 1 орёл из 2 — примерно в
+      <button class="btn ghost" type="button" data-pguess="33">трети пар</button>
+      <button class="btn ghost" type="button" data-pguess="50">половине пар</button>
+      <button class="btn ghost" type="button" data-pguess="75">трёх четвертях пар</button>
+    </span>
+  </div>
+  <div class="sheet c-white">
+    <div class="coins" id="pairs" aria-label="Последние пары бросков"></div>
+    <div class="controls">
+      <button class="btn" type="button" data-pair="1">Бросить пару</button>
+      <button class="btn ghost" type="button" data-pair="10">+10 пар</button>
+      <button class="btn ghost" type="button" data-pair="100">+100 пар</button>
+      <button class="btn ghost" type="button" id="pair-reset">Сначала</button>
+    </div>
+    <div class="hist" id="pair-hist" style="grid-template-columns:repeat(3,1fr); max-width:340px" aria-hidden="true"></div>
+    <div class="hist-labels" id="pair-hist-l" style="grid-template-columns:repeat(3,1fr); max-width:340px"></div>
+    <p class="muted" style="font-size:14px; margin:6px 0 0">число орлов в паре · столбик — доля пар · точка — сколько должно быть по теории</p>
+    <div class="verdict" id="pair-verdict" hidden></div>
+  </div>
+  <details class="sheet c-mint" style="margin-top:14px">
+    <summary><b>Почему так?</b> Выпиши все исходы</summary>
+    <p>У пары бросков четыре равноправных исхода: <b>ОО, ОР, РО, РР</b>. Ноль орлов — только РР, два — только ОО, а ровно один — сразу два исхода, ОР и РО. Поэтому 0, 1 и 2 орла выпадают в пропорции <b>¼ : ½ : ¼</b>.</p>
+  </details>
+</section>
+<section class="card" data-title="Десять бросков" aria-label="Десять бросков">
+  <span class="step-tag">Серия подлиннее</span>
+  <h2>А теперь бросаем 10 раз. Сколько выпадет орлов?</h2>
+  <p>У двух бросков всего 4 исхода, их легко выписать. У десяти их уже 1024, тут проще бросать. Все знают ответ «половина». Но в скольких сериях из 10 бросков орлов будет <b>ровно пять</b>? Прикинь, а потом бросай.</p>
   <div class="sheet c-butter">
     <label class="field" for="coin-guess">Ровно 5 орлов из 10 будет примерно в
       <input type="number" id="coin-guess" min="0" max="100" step="1" placeholder="?"> % серий
@@ -341,6 +370,41 @@ _check()
 </div>
 
 
+<script>
+// ---------- Две монетки ----------
+(function(){
+  const box = document.getElementById('pairs'), hist = document.getElementById('pair-hist'), hl = document.getElementById('pair-hist-l');
+  const C = [.25, .5, .25];
+  let pairs = [], dist = [0, 0, 0], guess = null;
+  for (let k = 0; k <= 2; k++){ const b = document.createElement('div'); b.className = 'hbar' + (k === 1 ? ' hl' : ''); b.innerHTML = '<span></span><i></i><em></em>'; hist.appendChild(b); const l = document.createElement('span'); l.textContent = k; hl.appendChild(l); }
+  function render(){
+    const n = pairs.length, top = .7;
+    [...hist.children].forEach((b, k) => {
+      const share = n ? dist[k] / n : 0, hp = 100 * Math.min(share, top) / top;
+      b.querySelector('span').style.height = hp + '%';
+      b.querySelector('i').style.bottom = 'calc(' + Math.max(hp, 100 * C[k] / top) + '% + 8px)';
+      b.querySelector('em').style.bottom = (100 * C[k] / top) + '%';
+      b.querySelector('i').textContent = n ? Math.round(100 * share) + '%' : '';
+    });
+    box.innerHTML = pairs.slice(-10).map(p => '<span class="' + (p[0] + p[1] ? 'h' : 't') + '" style="width:auto; padding:0 9px; border-radius:15px">' + p.map(h => h ? 'О' : 'Р').join('') + '</span>').join('');
+    const v = document.getElementById('pair-verdict');
+    if (n >= 20){
+      v.hidden = false; v.className = 'verdict good';
+      v.innerHTML = (guess === null ? '' : (guess === 50 ? 'Верно, половина. ' : 'Твой вариант — ' + (guess === 33 ? 'треть' : 'три четверти') + ', а выходит половина. ')) +
+        'Пар ровно с одним орлом — <b>' + Math.round(100 * dist[1] / n) + '%</b> из ' + n.toLocaleString('ru-RU') + ', по теории 50%. Ноль и два орла — примерно по четверти.';
+    } else v.hidden = true;
+  }
+  function toss(k){ for (let i = 0; i < k; i++){ const p = [Math.random() < .5 ? 1 : 0, Math.random() < .5 ? 1 : 0]; pairs.push(p); dist[p[0] + p[1]]++; } render(); }
+  document.querySelectorAll('[data-pair]').forEach(b => b.addEventListener('click', () => toss(+b.dataset.pair)));
+  document.querySelectorAll('[data-pguess]').forEach(b => b.addEventListener('click', () => {
+    guess = +b.dataset.pguess;
+    document.querySelectorAll('[data-pguess]').forEach(x => x.classList.toggle('ghost', x !== b));
+    render();
+  }));
+  document.getElementById('pair-reset').addEventListener('click', () => { pairs = []; dist = [0, 0, 0]; render(); });
+  render();
+})();
+</script>
 <script>
 // ---------- Монетка ----------
 (function(){
