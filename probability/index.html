@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вероятность на пальцах — бесплатный интерактивный курс</title>
+<meta name="description" content="Бесплатный интерактивный курс Дили Хакимовой: теория вероятностей с нуля — на монетках, кубиках и посетителях магазина. Всё можно потрогать и запустить в коде прямо в браузере.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<style>
+.toc{list-style:none; margin:0; padding:0}
+.toc li{display:grid; grid-template-columns:64px 1fr auto; gap:12px; align-items:baseline; padding:12px 0; border-top:1px solid var(--rule)}
+.toc li:last-child{border-bottom:1px solid var(--rule)}
+.toc .n{font:500 18px/1.3 var(--serif); color:var(--pen)}
+.toc .t{font:500 18px/1.35 var(--serif)}
+.toc .t small{display:block; font:400 15px/1.45 var(--body); color:var(--muted); margin-top:2px}
+.toc .s{font-size:13px; color:var(--muted); white-space:nowrap}
+.toc a{text-decoration:none; color:var(--ink)}
+.toc a:hover .t{color:var(--pen)}
+.toc .live .s{color:var(--good); font-weight:500}
+.part{font:400 26px/1.2 var(--serif); margin:30px 0 8px}
+.steps{counter-reset:s; list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.steps li{background:#fff; border:1px solid rgba(36,34,31,.10); padding:12px 14px; border-radius:8px; font-size:15px}
+.steps li b{display:block; font:500 20px/1 var(--serif); color:var(--pen); margin-bottom:4px}
+@media (max-width:620px){ .steps{grid-template-columns:1fr} .toc li{grid-template-columns:44px 1fr} .toc .s{grid-column:2} }
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="/signal/">Сигнал или шум</a> · <a href="/">Диля Хакимова</a></span>
+</nav>
+
+<main class="chapter">
+  <p class="kicker">бесплатный интерактивный курс</p>
+  <h1>Вероятность на пальцах</h1>
+  <p class="lead">Теория вероятностей для тех, кто её забыл или никогда не понимал. Без формул ради формул: монетки, кубики, посетители магазина и одна главная привычка — представить, что ситуация повторилась тысячу раз, и считать в штуках.</p>
+
+  <h2>Как устроен курс</h2>
+  <p>Восемь шагов, каждый опирается на предыдущий. В каждом — одна история с Алисой, Бобом и Котейкой, опыт, который можно провести руками, одно правило, код в браузере и задача с собеседования.</p>
+
+  <h2>Оглавление</h2>
+  <ol class="toc">
+    <li class="live"><span class="n">1</span><a href="01-chance.html"><span class="t">Исходы и события<small>Две монетки и десять бросков. Почему 0, 1 и 2 орла выпадают не одинаково часто.</small></span></a><span class="s">готово</span></li>
+    <li><span class="n">2</span><span class="t">Вероятность как частота<small>Доля орлов на длинной серии и разброс коротких серий.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">3</span><span class="t">Считаем исходы<small>Правило умножения и дерево: откуда 1024 и почему ровно 5 орлов — это 24,6%.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">4</span><span class="t">Не, и, или<small>Противоположное событие, «хотя бы один», пересечения. Лампочки и ловушка сложения.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">5</span><span class="t">Условная вероятность и независимость<small>Таблица 2×2 в штуках и дерево вероятностей.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">6</span><span class="t">Байес<small>Тест с ложными срабатываниями, антифрод, Монти Холл — всё в штуках из 1000.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">7</span><span class="t">Случайная величина и распределение<small>Биномиальное распределение: снова монетки, но уже формулой.</small></span><span class="s">скоро</span></li>
+    <li><span class="n">8</span><span class="t">Среднее и разброс<small>Матожидание, дисперсия и почему среднее по большой выборке стабильно.</small></span><span class="s">скоро</span></li>
+  </ol>
+
+  <div class="sheet c-mint ruled pin" style="--r:-.3deg; margin-top:40px">
+    <p class="hand" style="margin:0 0 6px">Дальше — «Сигнал или шум»</p>
+    <p style="margin:0">Как отличить настоящий эффект от случайного колебания: распределения, ловушки в данных, A/A и первые A/B-тесты. <a href="/signal/">Оглавление курса</a></p>
+  </div>
+</main>
+</body>
+</html>

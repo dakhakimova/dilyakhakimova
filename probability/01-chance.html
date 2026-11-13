@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Вероятность — это доля в штуках · Сигнал или шум</title>
+<title>Вероятность — это доля в штуках · Вероятность на пальцах</title>
 <meta name="description" content="Глава 1 бесплатного интерактивного курса «Сигнал или шум»: что такое вероятность, правила «и», «или», «хотя бы один» и задачи с собеседований.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="book.css">
+<link rel="stylesheet" href="/signal/book.css">
 </head>
-<body data-chapter="ch01">
-<script src="progress.js"></script>
+<body data-chapter="p01">
+<script src="/signal/progress.js"></script>
 <nav class="top" aria-label="Навигация">
-  <a class="course" href="./">Сигнал или шум</a>
+  <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -397,7 +397,9 @@ _check()
   function toss(k){ for (let i = 0; i < k; i++){ const p = [Math.random() < .5 ? 1 : 0, Math.random() < .5 ? 1 : 0]; pairs.push(p); dist[p[0] + p[1]]++; } render(); }
   document.querySelectorAll('[data-pair]').forEach(b => b.addEventListener('click', () => toss(+b.dataset.pair)));
   document.querySelectorAll('[data-pguess]').forEach(b => b.addEventListener('click', () => {
+    const first = guess === null;
     guess = +b.dataset.pguess;
+    if (first && window.SignalProgress) SignalProgress.track('p01', 'predict', 'pair', guess);
     document.querySelectorAll('[data-pguess]').forEach(x => x.classList.toggle('ghost', x !== b));
     render();
   }));
@@ -456,7 +458,7 @@ _check()
     if (series >= 50){
       v.hidden = false;
       const g = parseFloat(document.getElementById('coin-guess').value), act = 100 * fives / series;
-      if (!isNaN(g) && g >= 0 && g <= 100 && !coinSent && window.SignalProgress){ coinSent = true; SignalProgress.track('ch01', 'predict', 'coin', g); }
+      if (!isNaN(g) && g >= 0 && g <= 100 && !coinSent && window.SignalProgress){ coinSent = true; SignalProgress.track('p01', 'predict', 'coin', g); }
       v.className = 'verdict good';
       v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — <b>' + g + '%</b>. ') + 'Ровно 5 орлов из 10 — примерно в <b>' + act.toFixed(0) + '%</b> серий; теория даёт 24,6%. Остальные три четверти серий дают 3, 4, 6, 7 орлов — и это нормально.';
     }
@@ -474,7 +476,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   const note = document.getElementById('guess-note');
   if (isNaN(v) || v < 0 || v > 100){ note.textContent = 'Введи число от 0 до 100.'; return; }
   guess = v;
-  if (window.SignalProgress) SignalProgress.track('ch01', 'predict', 'shop', v);
+  if (window.SignalProgress) SignalProgress.track('p01', 'predict', 'shop', v);
   note.textContent = 'Запомнили: ' + v + '%. Жми «Далее» — запустим магазин и сравним.';
 });
 
@@ -566,7 +568,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   const cards = [...document.querySelectorAll('.card')];
   const list = document.getElementById('toc-list'), reader = document.getElementById('reader');
   const prev = document.getElementById('prev'), next = document.getElementById('next');
-  const key = 'signal:ch01:seen';
+  const key = 'signal:p01:seen';
   let seen = new Set(); try { seen = new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch(e) {}
   cards.forEach((c, i) => {
     c.id = 'card-' + (i + 1);
@@ -579,7 +581,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
-    if (window.SignalProgress) SignalProgress.track('ch01', 'card', cur + 1);
+    if (window.SignalProgress) SignalProgress.track('p01', 'card', cur + 1);
     seen.add(cur); try { localStorage.setItem(key, JSON.stringify([...seen])); } catch(e) {}
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
@@ -616,9 +618,9 @@ document.getElementById('guess-save').addEventListener('click', () => {
 </script>
 <script>
 document.querySelectorAll('details[data-key]').forEach(d => d.addEventListener('toggle', () => {
-  if (d.open && window.SignalProgress) SignalProgress.track('ch01', 'interview', d.dataset.key);
+  if (d.open && window.SignalProgress) SignalProgress.track('p01', 'interview', d.dataset.key);
 }));
 </script>
-<script src="py.js"></script>
+<script src="/signal/py.js"></script>
 </body>
 </html>

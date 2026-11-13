@@ -1,5 +1,5 @@
 // POST /api/event — сохранить события прохождения (пачкой, до 50 за раз).
-// Тело: { events: [{ chapter: 'ch01', kind: 'predict', key: 'coin', value: 30 }, ...] }
+// Тело: { events: [{ chapter: 'p01', kind: 'predict', key: 'coin', value: 30 }, ...] }
 // Повтор того же события баллов не добавляет (UNIQUE в базе).
 import { json, bad, currentUser, scoreEvent, summary } from './_lib.js';
 

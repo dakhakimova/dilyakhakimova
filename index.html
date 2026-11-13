@@ -121,7 +121,9 @@ canvas{width:100%; height:auto; display:block}
 footer{padding:10px 0 44px; color:var(--muted); font-size:15px}
 footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid rgba(36,34,31,.15); padding-top:20px}
 
+.cols.cols-3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:860px){
+  .cols.cols-3{grid-template-columns:1fr}
   .hero, .lab{grid-template-columns:1fr; gap:32px}
   .facts{grid-template-columns:1fr 1fr}
   .fact:nth-child(3){padding-left:0; border-left:0}
@@ -151,7 +153,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
     <div>
       <h1>Учу видеть в данных <span class="hand">сигнал<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 110 18, 196 6" fill="none" stroke="#7E8DB8" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
       <p class="sub">Математик, аналитик и преподаватель. Пятнадцать лет разбираюсь, где в цифрах правда, а где шум.</p>
-      <p class="lead">Преподаю с 2002 года — от олимпиадной математики до Школы анализа данных, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю свои курсы: бесплатный «Сигнал или шум» и «A/B без мифов».</p>
+      <p class="lead">Преподаю с 2002 года — от олимпиадной математики до Школы анализа данных, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю свои курсы: бесплатные «Вероятность на пальцах» и «Сигнал или шум», платный «A/B без мифов».</p>
     </div>
     <figure class="polaroid tape">
       <img src="img/dilya.jpg" alt="Диля Хакимова на лекции A/B Week в ШАДе" width="460" height="431">
@@ -247,12 +249,17 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
 
 
   <section class="sheet plain ruled c-rose pin" style="--r:.5deg; --pc:#E07A6C" id="next" aria-labelledby="next-h">
-    <h2 id="next-h">Скоро: два курса</h2>
-    <div class="cols" style="grid-template-columns:1fr 1fr">
+    <h2 id="next-h">Скоро: три курса</h2>
+    <div class="cols cols-3">
+      <div>
+        <span class="soon">бесплатно</span>
+        <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«Вероятность на пальцах»</h3>
+        <p>Теория вероятностей с нуля — на монетках, кубиках и посетителях магазина. Для тех, кто забыл или никогда не понимал.</p>
+      </div>
       <div>
         <span class="soon">бесплатно</span>
         <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«Сигнал или шум»</h3>
-        <p>Интерактивный курс: случайность, распределения, ловушки в данных и первые A/B-тесты. Всё можно двигать, запускать и проверять своим кодом прямо в браузере.</p>
+        <p>Интерактивный курс: распределения, ловушки в данных и первые A/B-тесты. Всё можно двигать, запускать и проверять своим кодом прямо в браузере.</p>
       </div>
       <div>
         <span class="soon" style="background:#C9DBF0">следом</span>
@@ -260,7 +267,7 @@ footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wra
         <p>Как ставить честные эксперименты в продукте: метрики-отношения, бакеты, CUPED, подглядывание, множественные проверки — и как отвечать на это на собеседовании.</p>
       </div>
     </div>
-    <p class="hand-line">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
+    <p class="hand-line">Сначала пойми случай, потом научись отличать шум, потом ставь честные эксперименты.</p>
   </section>
 
   <footer>
