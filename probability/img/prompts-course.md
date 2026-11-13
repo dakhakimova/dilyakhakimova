@@ -14,11 +14,15 @@
 Use case: illustration-story. Illustration for a free interactive online course about probability.
 Image 1: established character design and rendering style reference only. Keep the established exact appearance, clothes and colors of Alice, Bob and Kotejka whenever present. Match the cat's blue eyes and orange, blue, navy and white markings, orange scarf and burlap sack. Do not add characters from the reference unless the scene calls for them.
 Flat vector storybook illustration, clean outlines, soft shading, calm warm palette (deep blue #23418A, coral #E8644A, soft green, cream), plain light background, 16:9, no text, no letters, no numbers unless stated, no logos, no watermark. Clear uncluttered composition, natural anatomy.
-Coins in all scenes: one side shows a simple eagle emblem (heads), the other side a simple flower pattern (tails).
+Coins in all scenes: SILVER Russian five-ruble coins, HEADS shows a recognizable double-headed eagle, TAILS shows a large clear numeral 5 with a small botanical scroll beside it. No flower emblem. No other text on coins. Cartoon rendering, not photorealism.
 
 ## Блок «Кафе» (добавлять во все сцены с пометкой [Кафе])
 
 Setting: the heroes' own small cozy café. Cream walls, a wooden counter with a coffee machine, a chalkboard menu with simple drawings instead of words, a few round tables, potted plants, big front window. A garland of warm light bulbs hangs above the counter. Keep the same interior in every scene.
+
+## Статус
+
+Все картинки нарисованы (13.11.2026) и лежат в этой папке в формате JPEG 1600 px. Финальные правки — в `final-corrections.md` на компьютере Дили.
 
 ## Что уже есть
 
