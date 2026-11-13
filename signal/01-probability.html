@@ -49,7 +49,7 @@
     <li>2. Как распределено?</li>
     <li>3. Центр и разброс</li>
     <li>4. Насколько шумит среднее</li>
-    <li>5. Сколько SE до порога</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
     <li>6. Ответ бизнесу</li>
   </ol>
 
@@ -116,7 +116,7 @@
   <p style="margin-top:16px">Гистограмма на карточке с монеткой — как раз картина случайной величины «число орлов из 10»: какие реализации она принимает и как часто. Такая картина называется <b>распределением</b> — о нём будет отдельная глава.</p>
   <p>Дальше в этой главе — три правила для событий, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
 </section>
-<section class="card" data-title="Вопрос Боба" aria-label="Вопрос Боба">
+<section class="card" data-title="Вопрос Боба" aria-label="Вопрос Боба и прогноз">
   <figure class="art"><img src="img/ch01-01-bob-question.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с «5%», очередь из 20 покупателей</figcaption></figure>
   <span class="step-tag">Вопрос</span>
   <div class="sheet c-sky tape" style="--r:-.4deg">
@@ -128,8 +128,8 @@
       </div>
     </div>
   </div>
-</section>
-<section class="card" data-title="Предскажи" aria-label="Предскажи">
+
+
   <span class="step-tag">Предскажи</span>
   <h2>Ровно один из двадцати — как часто?</h2>
   <p>Это та же задача, что с монеткой: 20 бросков «кривой монетки», у которой «купил» выпадает в 5% случаев. Боб ждёт, что ровно один покупатель будет почти всегда. А в какой доле групп по 20 человек он будет на самом деле?</p>
@@ -179,7 +179,7 @@
   <p>Если покупка случается в 5% случаев, то в остальных 95% её нет. <span class="formula" style="display:block">P(не A) = 1 − P(A)</span></p>
 
   <h3>«И» для независимых событий: умножаем</h3>
-  <p>Двое посетителей покупают независимо. Из 1000 пар первый купит в 50, и из этих 50 второй купит в 5% — это 2,5 пары. Доля от доли:</p>
+  <p>Двое посетителей покупают независимо — решение одного никак не влияет на другого, как две монетки. Из 10 000 пар первый купит в 500, и из этих 500 второй тоже купит в 5% — это 25 пар. Доля от доли:</p>
   <p class="formula">P(A и B) = P(A) · P(B) = 0,05 · 0,05 = 0,0025</p>
 
   <h3>«Или» для несовместных событий: складываем</h3>
@@ -187,6 +187,7 @@
 </section>
 <section class="card" data-title="Хотя бы один" aria-label="Хотя бы один">
   <figure class="art"><img src="img/ch01-03-lamps.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: гирлянда лампочек, пара перегорела</figcaption></figure>
+  <span class="step-tag">Правила</span>
   <h2>«Хотя бы один»: через противоположное</h2>
   <p>«Хотя бы один» — это «не ни одного». Посчитать «ни одного» легко: умножить вероятности «не случилось» для каждого.</p>
   <p class="formula">P(хотя бы один из n) = 1 − (1 − p)<sup>n</sup></p>
@@ -284,7 +285,7 @@ _check()
   <div class="sheet c-rose ruled tape" style="--r:-.3deg">
     <p class="hand" style="margin-bottom:8px">«Пять процентов — значит, один из двадцати»</p>
     <p>Это верно только в среднем на длинной серии. В конкретной группе из 20 человек ровно один покупатель бывает лишь в 38% случаев. Отсюда частая ошибка в продукте: смотреть на маленький срез (один день, один город, двадцать пользователей) и удивляться, что метрика «скачет». Она и должна скакать.</p>
-    <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Шесть бросков кубика не дают «шестёрку» с вероятностью 6 · ⅙ = 1: на самом деле <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
+    <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Вероятность хотя бы одной шестёрки за шесть бросков — не 6 · ⅙ = 1, а <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
   </div>
 </section>
 <section class="card" data-title="Собеседование" aria-label="Собеседование">
@@ -456,7 +457,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
     let row; for (let i = 0; i < +btn.dataset.groups; i++) row = one(); render(row);
   }));
   document.getElementById('shop-reset').addEventListener('click', () => { counts = [0,0,0,0,0,0]; groups = 0; buyers = 0; render(new Array(G).fill(false)); document.getElementById('shop-verdict').hidden = true; });
-  render(one());
+  render(new Array(G).fill(false));
 })();
 
 // ---------- Лампочки ----------
@@ -472,8 +473,8 @@ document.getElementById('guess-save').addEventListener('click', () => {
     document.getElementById('l-none').textContent = pct(none);
     document.getElementById('l-some').textContent = pct(1 - none);
     document.getElementById('l-count').textContent = 'В штуках: из 1000 таких партий примерно в ' + Math.round(1000 * none).toLocaleString('ru-RU') +
-      ' не перегорит ни одна лампочка, а в ' + Math.round(1000 * (1 - none)).toLocaleString('ru-RU') + ' — хотя бы одна. В среднем перегорает ' +
-      (n * p).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' лампочки на партию.';
+      ' не перегорит ни одна лампочка, а в ' + Math.round(1000 * (1 - none)).toLocaleString('ru-RU') + ' — хотя бы одна. В среднем на партию перегорает ' +
+      (n * p).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' шт.';
     const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.34);
     cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const L = 40, R = 10, T = 10, B = 26, pw = w - L - R, ph = h - T - B, N = 300;
