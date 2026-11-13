@@ -47,7 +47,7 @@
     const run = Object.assign(document.createElement('button'), {className:'run', type:'button', textContent:'▶ Запустить'});
     const reset = Object.assign(document.createElement('button'), {type:'button', textContent:'↺ Вернуть исходный код'});
     bar.append(run);
-    let check = null;
+    let check = null, attempts = 0;
     if (cell.dataset.check){
       check = Object.assign(document.createElement('button'), {className:'check', type:'button', textContent:'✓ Проверить'});
       bar.append(check);
@@ -71,6 +71,7 @@
         await py.runPythonAsync(ta.value);
         let html = esc(buf);
         if (withCheck){
+          attempts++;
           const src = document.getElementById(cell.dataset.check).textContent;
           let cbuf = '';
           py.setStdout({batched: s => { cbuf += s + '\n'; }});
@@ -78,6 +79,8 @@
           html += cbuf.split('\n').filter(Boolean).map(l =>
             l.startsWith('OK') ? '<span class="ok">✓ ' + esc(l.slice(3)) + '</span>' :
             l.startsWith('FAIL') ? '<span class="err">✗ ' + esc(l.slice(5)) + '</span>' : esc(l)).join('\n');
+          if (/^OK/m.test(cbuf) && !/^FAIL/m.test(cbuf) && window.SignalProgress)
+            SignalProgress.track(document.body.dataset.chapter || '', 'code', cell.dataset.check.replace(/^check-/, ''), attempts);
         }
         out.innerHTML = html || '<span class="info">Готово (код ничего не напечатал)</span>';
       } catch (e) {

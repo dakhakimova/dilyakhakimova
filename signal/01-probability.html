@@ -12,10 +12,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="book.css">
 </head>
-<body>
+<body data-chapter="ch01">
+<script src="progress.js"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
-  <span><a href="./">Оглавление курса</a> · <a href="/">Диля Хакимова</a></span>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
   <aside class="toc-side" id="toc-side" aria-label="Шаги главы">
@@ -294,7 +295,7 @@ _check()
   <figure class="art"><img src="img/ch01-05-dice.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: собеседование: Котейка бросил шесть кубиков</figcaption></figure>
   <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → (если можно) проверь симуляцией → скажи вывод одной фразой.</p>
 
-  <details>
+  <details data-key="disjoint">
     <summary>P(A) = 0,6, P(B) = 0,7. Могут ли события A и B быть несовместными?</summary>
     <p><b>Переформулирую:</b> могут ли A и B ни разу не случиться вместе?</p>
     <p><b>В штуках:</b> из 100 повторов A случается в 60, B — в 70. Вместе это 130 «случаев», а повторов всего 100 — значит, минимум в 30 повторах они совпали.</p>
@@ -302,14 +303,14 @@ _check()
     <p><b>Вывод:</b> нет, не могут — они обязаны пересекаться хотя бы в 30% случаев.</p>
   </details>
 
-  <details>
+  <details data-key="lamps">
     <summary>Партия из 100 лампочек, каждая перегорает с вероятностью 1%. Какова вероятность, что не перегорит ни одна?</summary>
     <p><b>В штуках:</b> одна лампочка выживает в 99 случаях из 100, две — в 99% от 99%, и так 100 раз.</p>
     <p><b>Формула:</b> <span class="num">0,99<sup>100</sup> ≈ 0,366</span>.</p>
     <p><b>Вывод:</b> около 37%; значит, почти в двух случаях из трёх хотя бы одна лампочка перегорит.</p>
   </details>
 
-  <details>
+  <details data-key="dice">
     <summary>Кубик бросают 6 раз. Какова вероятность, что все шесть результатов разные?</summary>
     <p><b>В штуках:</b> первый бросок — любой, второй должен не совпасть с первым (5 из 6), третий — с двумя первыми (4 из 6), и так далее.</p>
     <p><b>Формула:</b> <span class="num">6/6 · 5/6 · 4/6 · 3/6 · 2/6 · 1/6 = 6! / 6<sup>6</sup> = 720 / 46 656 ≈ 1,5%</span>.</p>
@@ -344,7 +345,7 @@ _check()
 // ---------- Монетка ----------
 (function(){
   const coins = document.getElementById('coins'), cv = document.getElementById('coin-chart'), ctx = cv.getContext('2d');
-  let tosses = [], heads = 0, series = 0, fives = 0, cur = 0, dist = new Array(11).fill(0);
+  let tosses = [], heads = 0, series = 0, fives = 0, cur = 0, dist = new Array(11).fill(0), coinSent = false;
   const C = [1,10,45,120,210,252,210,120,45,10,1].map(c => c / 1024);
   const hist = document.getElementById('coin-hist'), hl = document.getElementById('coin-hist-l');
   for (let k = 0; k <= 10; k++){ const b = document.createElement('div'); b.className = 'hbar' + (k === 5 ? ' hl' : ''); b.innerHTML = '<span></span><i></i><em></em>'; hist.appendChild(b); const l = document.createElement('span'); l.textContent = k; hl.appendChild(l); }
@@ -391,6 +392,7 @@ _check()
     if (series >= 50){
       v.hidden = false;
       const g = parseFloat(document.getElementById('coin-guess').value), act = 100 * fives / series;
+      if (!isNaN(g) && g >= 0 && g <= 100 && !coinSent && window.SignalProgress){ coinSent = true; SignalProgress.track('ch01', 'predict', 'coin', g); }
       v.className = 'verdict good';
       v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — <b>' + g + '%</b>. ') + 'Ровно 5 орлов из 10 — примерно в <b>' + act.toFixed(0) + '%</b> серий; теория даёт 24,6%. Остальные три четверти серий дают 3, 4, 6, 7 орлов — и это нормально.';
     }
@@ -408,6 +410,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   const note = document.getElementById('guess-note');
   if (isNaN(v) || v < 0 || v > 100){ note.textContent = 'Введи число от 0 до 100.'; return; }
   guess = v;
+  if (window.SignalProgress) SignalProgress.track('ch01', 'predict', 'shop', v);
   note.textContent = 'Запомнили: ' + v + '%. Жми «Далее» — запустим магазин и сравним.';
 });
 
@@ -512,6 +515,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
+    if (window.SignalProgress) SignalProgress.track('ch01', 'card', cur + 1);
     seen.add(cur); try { localStorage.setItem(key, JSON.stringify([...seen])); } catch(e) {}
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
@@ -545,6 +549,11 @@ document.getElementById('guess-save').addEventListener('click', () => {
   go(m ? +m[1] - 1 : 0, false);
   window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
 })();
+</script>
+<script>
+document.querySelectorAll('details[data-key]').forEach(d => d.addEventListener('toggle', () => {
+  if (d.open && window.SignalProgress) SignalProgress.track('ch01', 'interview', d.dataset.key);
+}));
 </script>
 <script src="py.js"></script>
 </body>

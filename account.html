@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мой прогресс · Сигнал или шум</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<style>
+.panel{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:22px 24px; margin:18px 0}
+.big{font:500 44px/1 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
+.bar{height:10px; background:rgba(36,34,31,.08); border-radius:5px; overflow:hidden; margin:12px 0 6px; position:relative}
+.bar span{display:block; height:100%; background:var(--accent)}
+.ticks{position:relative; height:18px; font-size:12px; color:var(--muted)}
+.ticks i{position:absolute; transform:translateX(-50%); font-style:normal}
+.code{font:500 20px/1 ui-monospace, Menlo, monospace; background:#F3F0EA; padding:10px 14px; border-radius:8px; display:inline-block; letter-spacing:.05em}
+.who{display:flex; align-items:center; gap:12px}
+.who img{width:44px; height:44px; border-radius:50%}
+#tg-login{min-height:48px; margin:16px 0}
+.err{color:var(--bad)}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="/signal/">Сигнал или шум</a>
+  <span><a href="/signal/">Оглавление курса</a> · <a href="/">Диля Хакимова</a></span>
+</nav>
+<main class="chapter">
+  <p class="kicker">личный кабинет</p>
+  <h1>Мой прогресс</h1>
+
+  <section id="guest" hidden>
+    <p class="lead">Войди через Telegram, чтобы баллы и прогресс сохранялись на любом устройстве.</p>
+    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Баллы превращаются в скидку на курс «A/B без мифов».</p>
+    <div id="tg-login"></div>
+    <p class="muted" id="queued"></p>
+    <p class="err" id="login-err" role="alert"></p>
+  </section>
+
+  <section id="member" hidden>
+    <div class="panel">
+      <div class="who"><img id="m-photo" alt="" hidden><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
+    </div>
+    <div class="panel">
+      <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:20px">из <span id="m-max">0</span> баллов</span></div>
+      <div class="bar"><span id="m-bar"></span></div>
+      <div class="ticks" aria-hidden="true"><i style="left:40%">−10%</i><i style="left:70%">−20%</i><i style="left:90%">−30%</i></div>
+      <p id="m-next" style="margin-top:10px"></p>
+      <p class="muted" id="m-calib"></p>
+    </div>
+    <div class="panel" id="promo-box" hidden>
+      <h2 style="margin-top:0">Твой промокод</h2>
+      <p>Скидка <b id="p-tier"></b> на курс «A/B без мифов». Код личный и одноразовый.</p>
+      <span class="code" id="p-code"></span>
+    </div>
+    <div class="panel">
+      <h2 style="margin-top:0">Главы</h2>
+      <ul id="m-chapters" style="padding-left:20px; margin:0"></ul>
+    </div>
+    <button class="btn ghost" id="logout" type="button">Выйти</button>
+  </section>
+
+  <section id="down" hidden>
+    <p>Личный кабинет пока не подключён. Прогресс сохраняется в этом браузере.</p>
+  </section>
+</main>
+<script src="/signal/progress.js"></script>
+<script>
+const CHAPTERS = { ch01: { title: 'Вероятность — это доля в штуках', url: '/signal/01-probability.html', cards: 16 } };
+const $ = id => document.getElementById(id);
+
+function showMember(me){
+  $('guest').hidden = true; $('member').hidden = false;
+  $('m-name').textContent = me.user.first_name || 'Без имени';
+  $('m-user').textContent = me.user.username ? '@' + me.user.username : '';
+  if (me.user.photo_url){ $('m-photo').src = me.user.photo_url; $('m-photo').hidden = false; }
+  $('m-points').textContent = me.points; $('m-max').textContent = me.max;
+  $('m-bar').style.width = Math.min(100, me.share) + '%';
+  $('m-next').textContent = me.next_tier
+    ? 'До скидки ' + me.next_tier.discount + '% осталось ' + me.next_tier.need_points + ' б.'
+    : 'Максимальная скидка открыта!';
+  $('m-calib').textContent = me.calibration_error === null ? 'Калибровка появится после первых прогнозов.'
+    : 'Калибровка: твои прогнозы в среднем ошибаются на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
+  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + '%'; $('p-code').textContent = me.promos[0].code; }
+  const ul = $('m-chapters'); ul.innerHTML = '';
+  for (const [id, c] of Object.entries(CHAPTERS)){
+    const st = me.chapters[id] || {points: 0, cards: []};
+    const li = document.createElement('li');
+    li.innerHTML = '<a href="' + c.url + '">' + c.title + '</a> — пройдено карточек ' + new Set(st.cards).size + ' из ' + c.cards + ', баллов ' + st.points;
+    ul.appendChild(li);
+  }
+}
+
+async function start(){
+  let me = await SignalProgress.refresh();
+  if (me){ showMember(me); return; }
+  let cfg = null;
+  try { const r = await fetch('/api/config'); cfg = r.ok ? await r.json() : null; } catch(e) {}
+  if (!cfg || !cfg.telegram_bot){ $('down').hidden = false; return; }
+  $('guest').hidden = false;
+  let q = []; try { q = JSON.parse(localStorage.getItem('signal:queue') || '[]'); } catch(e) {}
+  const pts = q.filter(e => e.kind !== 'card').length;
+  if (pts) $('queued').textContent = 'В этом браузере уже сохранено действий с баллами: ' + pts + '. Они перенесутся после входа.';
+  window.onTelegramAuth = async user => {
+    $('login-err').textContent = '';
+    const r = await fetch('/api/auth/telegram', {method: 'POST', headers: {'content-type': 'application/json'}, credentials: 'same-origin', body: JSON.stringify(user)});
+    if (!r.ok){ $('login-err').textContent = (await r.json().catch(() => ({}))).error || 'Не получилось войти'; return; }
+    me = await SignalProgress.refresh(); await SignalProgress.flush(); me = await SignalProgress.refresh();
+    if (me) showMember(me);
+  };
+  const s = document.createElement('script');
+  s.async = true; s.src = 'https://telegram.org/js/telegram-widget.js?22';
+  s.setAttribute('data-telegram-login', cfg.telegram_bot);
+  s.setAttribute('data-size', 'large'); s.setAttribute('data-radius', '10');
+  s.setAttribute('data-onauth', 'onTelegramAuth(user)'); s.setAttribute('data-request-access', 'write');
+  $('tg-login').appendChild(s);
+}
+$('logout').addEventListener('click', async () => { await fetch('/api/logout', {method: 'POST', credentials: 'same-origin'}); location.reload(); });
+start();
+</script>
+</body>
+</html>
