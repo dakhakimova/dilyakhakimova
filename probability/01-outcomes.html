@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шаг 1. Исходы и события · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 1 бесплатного интерактивного курса «Вероятность на пальцах»: исходы, события и первая формула вероятности — на двух монетках и двух кубиках. С симуляциями, кодом в браузере и задачами с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+</head>
+<body data-chapter="p01">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 1 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Знакомство" aria-label="Знакомство">
+  <p class="kicker">Вероятность на пальцах · шаг 1</p>
+  <h1>Исходы и события</h1>
+  <figure class="art"><img src="img/p00-cafe.png" alt="Алиса, Боб и Котейка в своём кафе" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/ch01-00-heroes.jpg'}else{this.parentNode.classList.add('missing')}"><figcaption class="ph">Здесь будет иллюстрация: Алиса, Боб и Котейка открывают кафе</figcaption></figure>
+  <p class="lead">Алиса, Боб и Котейка открыли маленькое кафе. Весь курс — это истории из его жизни, и в каждой прячется вероятность.</p>
+  <div class="heroes">
+    <div><b>Алиса</b><span>Варит кофе и считает. На любое «очевидно» отвечает: «А сколько это в штуках?»</span></div>
+    <div><b>Боб</b><span>Отвечает за гостей и идеи. Быстро делает выводы — иногда слишком быстро.</span></div>
+    <div><b>Котейка</b><span>Кот в мешке: никогда не знаешь, что внутри. Отвечает за случайность — бросает монетки и кубики.</span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="О шаге" aria-label="О шаге">
+  <span class="step-tag">О шаге</span>
+  <h2>Что будет в этом шаге</h2>
+  <p>Главная привычка всего курса: <b>представь, что ситуация повторилась тысячу раз, и считай в штуках</b>. Тогда вероятность — это просто доля случаев.</p>
+  <p>В этом шаге ты:</p>
+  <ul>
+    <li>поймёшь, что такое <b>исход</b> и <b>событие</b>, и почему не все варианты одинаково вероятны;</li>
+    <li>получишь первую формулу вероятности и узнаешь, когда ей можно верить;</li>
+    <li>соберёшь таблицу двух кубиков и посчитаешь вероятности сумм;</li>
+    <li>напишешь функцию на Python и решишь три задачи с собеседований.</li>
+  </ul>
+  <p class="muted">Каждое правило будет трижды: историей, в штуках и формулой. Сначала угадываешь, потом проверяешь руками.</p>
+  <ol class="ladder" aria-label="Шаги курса, это первый">
+    <li class="on"><b>1.</b> Исходы и события</li>
+    <li>2. Частота</li>
+    <li>3. Считаем исходы</li>
+    <li>4. Не, и, или</li>
+    <li>5. Условная вероятность</li>
+    <li>6. Байес</li>
+    <li>7. Распределение</li>
+    <li>8. Среднее и разброс</li>
+    <li>9. Собеседование</li>
+  </ol>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Кто моет посуду" aria-label="Кто моет посуду">
+  <span class="step-tag">История</span>
+  <h2>Кто моет посуду?</h2>
+  <figure class="art"><img src="img/p01-dishes.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: вечер после закрытия, гора чашек, Боб предлагает бросить две монетки</figcaption></figure>
+  <p>Вечер, кафе закрыто, в мойке гора чашек. Мыть не хочет никто. Боб достаёт две монетки:</p>
+  <div class="sheet c-butter">
+    <div class="bob"><div class="ava">Б</div><div>
+      <div class="say">«Бросаем обе. Выпал ровно один орёл — мою я. Ноль орлов или два — моешь ты. Справедливо?»</div>
+      <div class="who">Боб, про себя: «Вариантов три — 0, 1 или 2 орла. Мне достаётся один из трёх. Буду мыть треть вечеров!»</div>
+    </div></div>
+  </div>
+  <p>Алиса подумала секунду и спокойно согласилась. А ты как думаешь?</p>
+  <div class="sheet c-white">
+    <p style="margin:0 0 6px"><b>Как часто посуду будет мыть Боб?</b></p>
+    <div class="choice" role="group" aria-label="Твой прогноз">
+      <button class="btn ghost" type="button" data-pguess="33">треть вечеров</button>
+      <button class="btn ghost" type="button" data-pguess="50">половину вечеров</button>
+      <button class="btn ghost" type="button" data-pguess="67">две трети вечеров</button>
+    </div>
+    <p class="muted" id="pguess-note" style="margin:6px 0 0">Выбери вариант — и на следующей карточке проверим: бросим монетки за много вечеров.</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Бросаем монетки" aria-label="Бросаем монетки">
+  <span class="step-tag">Опыт</span>
+  <h2>Проверим: бросаем монетки вечер за вечером</h2>
+  <p>Каждый вечер — две монетки. Смотрим, сколько выпало орлов, и кто моет посуду.</p>
+  <div class="sheet c-white">
+    <div class="coins" id="pairs" aria-label="Последние вечера"></div>
+    <div class="controls">
+      <button class="btn" type="button" data-pair="1">Ещё вечер</button>
+      <button class="btn ghost" type="button" data-pair="10">+10 вечеров</button>
+      <button class="btn ghost" type="button" data-pair="100">+100 вечеров</button>
+      <button class="btn ghost" type="button" data-pair="1000">+1000 вечеров</button>
+      <button class="btn ghost" type="button" id="pair-reset">Сначала</button>
+    </div>
+    <div class="stats">
+      <div><b id="pr-n">0</b>вечеров</div>
+      <div><b id="pr-bob">—</b>моет Боб (ровно 1 орёл)</div>
+      <div><b id="pr-alice">—</b>моет Алиса (0 или 2)</div>
+    </div>
+    <h3 style="margin-top:22px">Сколько орлов выпадает за вечер</h3>
+    <div class="hist" id="pair-hist" style="grid-template-columns:repeat(3,1fr); max-width:360px" aria-hidden="true"></div>
+    <div class="hist-labels" id="pair-hist-l" style="grid-template-columns:repeat(3,1fr); max-width:360px"></div>
+    <p class="muted" style="font-size:14px; margin:6px 0 0">столбик — доля вечеров · точка — сколько должно быть по теории</p>
+    <div class="verdict" id="pair-verdict" hidden></div>
+  </div>
+  <p>Ноль, один и два орла выпадают <b>не одинаково часто</b>. Один орёл — примерно в половине вечеров. Почему — на следующей карточке.</p>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Все исходы" aria-label="Все исходы">
+  <span class="step-tag">В штуках</span>
+  <h2>Покрасим монетки — и всё станет видно</h2>
+  <figure class="art"><img src="img/p01-two-coins.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две монетки в воздухе, на столе четыре салфетки с парами монет</figcaption></figure>
+  <p>Пусть одну монетку бросает Котейка, а другую — Алиса. Тогда у вечера не три варианта, а <b>четыре</b>:</p>
+  <div class="legend-coins"><span><i style="border-color:#7FA7C9"></i>монетка Котейки</span><span><i style="border-color:var(--accent)"></i>монетка Алисы</span></div>
+  <div class="tiles" id="out-tiles"></div>
+  <p>Каждая монетка сама по себе — орёл или решка поровну, и друг другу они не мешают. Поэтому все четыре варианта выпадают <b>одинаково часто</b> — по четверти. Под плитками — сколько раз каждый выпал в твоих бросках.</p>
+  <div class="sheet c-mint">
+    <p style="margin:0"><b>Вот и разгадка.</b> «Ровно один орёл» получается <b>двумя</b> способами: орёл у Котейки и решка у Алисы — или наоборот. А «ноль орлов» и «два орла» — только одним способом каждый. Поэтому Боб моет <b>половину</b> вечеров, а не треть. Алиса это знала.</p>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Ловушка Д'Аламбера" aria-label="Ловушка Д'Аламбера">
+  <span class="step-tag">⚠ Ловушка</span>
+  <h2>Ошибка, которую сделал великий математик</h2>
+  <figure class="art"><img src="img/p01-dalembert.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб раскладывает монеты поровну в три банки «0, 1, 2 орла», Алиса его останавливает</figcaption></figure>
+  <p>Боб ошибся не один. В 1754 году Жан Д'Аламбер — один из главных математиков своего времени — написал в статье для «Энциклопедии», что шанс получить хотя бы одного орла за два броска равен <b>2/3</b>. Он рассуждал так: вариантов три — орёл сразу (дальше можно не бросать), решка-орёл, решка-решка. Два из трёх подходят.</p>
+  <p>Но эти три варианта <b>не равноценны</b>: «орёл сразу» — это на самом деле два исхода, ОО и ОР. Правильный ответ — <b>3 из 4</b>.</p>
+  <div class="def">
+    <p><b>Правило:</b> делить «подходящие на все» можно, только если варианты <b>равновозможны</b>. Если сомневаешься — покрась монетки и выпиши варианты для каждой по отдельности.</p>
+  </div>
+  <p class="muted">Похожую ошибку делал и Лейбниц — его задачу ты встретишь на собеседовании в конце шага.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Исход и событие" aria-label="Исход и событие">
+  <span class="step-tag">Определение</span>
+  <h2>Исход и событие</h2>
+  <div class="def">
+    <p><b>Опыт</b> — то, что можно повторять: бросок двух монеток, бросок кубика, визит гостя в кафе.</p>
+    <p><b>Исход</b> — один из вариантов, чем может закончиться опыт. Варианты выбирают так, чтобы всегда случался ровно один. У двух монеток четыре исхода: ОО, ОР, РО, РР. Их список называют <b>пространством исходов</b> и обозначают Ω (омега).</p>
+    <p><b>Событие</b> — набор исходов, утверждение, которое после опыта либо верно, либо нет. «Ровно один орёл» — это набор {ОР, РО}.</p>
+  </div>
+  <p><b>Собери событие сам:</b> нажимай на плитки или выбери готовое.</p>
+  <div class="choice" role="group" aria-label="Готовые события">
+    <button class="btn ghost" type="button" data-ev="ОР,РО">ровно один орёл</button>
+    <button class="btn ghost" type="button" data-ev="ОО,ОР,РО">хотя бы один орёл</button>
+    <button class="btn ghost" type="button" data-ev="ОО,РР">монетки одинаковые</button>
+    <button class="btn ghost" type="button" data-ev="ОО,ОР">у Котейки орёл</button>
+    <button class="btn ghost" type="button" data-ev="ОО,ОР,РО,РР">что-нибудь выпадет</button>
+    <button class="btn ghost" type="button" data-ev="">орла три</button>
+  </div>
+  <div class="tiles" id="ev-tiles"></div>
+  <div class="sheet c-butter" style="margin-top:6px">
+    <p style="margin:0" id="ev-out">Выбери исходы — посчитаем вероятность события.</p>
+  </div>
+  <p class="muted">Событие из всех исходов называют <b>достоверным</b> (вероятность 1), из ни одного — <b>невозможным</b> (вероятность 0).</p>
+</section>
+
+<!-- 8 -->
+<section class="card" data-title="Случайная величина" aria-label="Случайная величина">
+  <span class="step-tag">Определение</span>
+  <h2>Случайная величина и реализация</h2>
+  <figure class="art"><img src="img/ch01-08-defs.png" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: монетка, кубик и гость кафе — возможные исходы и тот, что случился</figcaption></figure>
+  <div class="def">
+    <p><b>Случайная величина</b> — то, что мы наблюдаем в опыте: сторона монетки, число очков на кубике, сделал ли гость заказ. До опыта мы не знаем, что выпадет.</p>
+    <p><b>Реализация</b> — конкретное значение в конкретном опыте: в этом броске выпал орёл, в следующем — решка. Каждый опыт даёт одну реализацию.</p>
+  </div>
+  <div class="cmp" role="table" aria-label="Примеры случайных величин, реализаций и событий">
+    <div class="cmp-row head" role="row"><span role="columnheader"></span><span role="columnheader">Монетка</span><span role="columnheader">Кубик</span><span role="columnheader">Гость кафе</span></div>
+    <div class="cmp-row" role="row"><span role="rowheader">Опыт</span><span role="cell">бросок</span><span role="cell">бросок</span><span role="cell">гость зашёл</span></div>
+    <div class="cmp-row" role="row"><span role="rowheader">Случайная величина</span><span role="cell">сторона монетки</span><span role="cell">число очков</span><span role="cell">заказал или нет</span></div>
+    <div class="cmp-row" role="row"><span role="rowheader">Реализации</span><span role="cell">орёл, решка</span><span role="cell">1, 2, 3, 4, 5, 6</span><span role="cell">заказал, не заказал</span></div>
+    <div class="cmp-row" role="row"><span role="rowheader">Событие</span><span role="cell">«орёл» — ½</span><span role="cell">«шестёрка» — ⅙<br>«чётное» — ½</span><span role="cell">«заказал» — ? <small class="muted">(узнаем в шаге 2)</small></span></div>
+  </div>
+  <p style="margin-top:16px">Из опыта с двумя монетками можно собрать новую случайную величину — <b>число орлов</b>. Её реализации — 0, 1 и 2, а гистограмма на карточке «Бросаем монетки» показывает, как часто выпадает каждая. Такая картина называется <b>распределением</b>, о нём будет шаг 7.</p>
+</section>
+
+<!-- 9 -->
+<section class="card" data-title="Формула" aria-label="Формула">
+  <span class="step-tag">Правило</span>
+  <h2>Первая формула вероятности</h2>
+  <div class="three">
+    <div><span class="lbl">История</span>Боб моет посуду, когда выпал ровно один орёл.</div>
+    <div><span class="lbl">В штуках</span>Из 1000 вечеров примерно по 250 придётся на ОО, ОР, РО и РР. Ровно один орёл — ОР и РО: 250 + 250 = <b>500</b> вечеров.</div>
+    <div><span class="lbl">Формула</span>P(ровно один орёл) = <span class="num" style="white-space:nowrap">2/4 = ½</span></div>
+  </div>
+  <div class="sheet c-white squared">
+    <p class="formula" style="margin:6px 0">P(A) = <span style="display:inline-block; vertical-align:middle; text-align:center"><span style="display:block; border-bottom:1px solid; padding:0 6px">число исходов в A</span><span style="display:block; padding:0 6px">число всех исходов</span></span></p>
+    <p style="text-align:center; margin:4px 0 0">Читается так: <i>«вероятность события A — это доля подходящих исходов среди всех»</i>.<br>В учебниках пишут коротко: <span class="num">P(A) = |A| / |Ω|</span>.</p>
+  </div>
+  <div class="def">
+    <p><b>Когда работает:</b> только если все исходы <b>равновозможны</b> — как четыре плитки монеток или шесть граней честного кубика. Для «0, 1 или 2 орла» формула даёт неверные ⅓ — это и есть ловушка Д'Аламбера.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="card" data-title="Два кубика" aria-label="Два кубика">
+  <span class="step-tag">Игра</span>
+  <h2>Два кубика: какая сумма выпадает чаще?</h2>
+  <p>Боб придумал для гостей игру: Котейка бросает два кубика, и если сумма угадана — кофе в подарок. Какую сумму загадывать?</p>
+  <div class="sheet c-butter">
+    <label class="field" for="dice-guess">Сумма 7 выпадет примерно в
+      <input type="number" id="dice-guess" min="0" max="100" step="1" placeholder="?"> % бросков
+    </label>
+  </div>
+  <p><b>Таблица исходов.</b> Синий кубик — по строкам, коралловый — по столбцам. В клетке — сумма. Все 36 клеток равновозможны. Выбери сумму:</p>
+  <div class="choice" id="sum-btns" role="group" aria-label="Сумма двух кубиков"></div>
+  <div class="grid66" id="grid66" aria-label="Таблица 6 на 6: суммы двух кубиков"></div>
+  <p class="readout" id="sum-out" style="font-size:26px"></p>
+  <div class="sheet c-white">
+    <p style="margin:0 0 6px"><b>Проверим бросками</b></p>
+    <div class="controls">
+      <button class="btn" type="button" data-dice="10">Бросить 10 раз</button>
+      <button class="btn ghost" type="button" data-dice="100">+100</button>
+      <button class="btn ghost" type="button" data-dice="1000">+1000</button>
+      <button class="btn ghost" type="button" id="dice-reset">Сначала</button>
+    </div>
+    <div class="stats"><div><b id="d-n">0</b>бросков</div><div><b id="d-7">—</b>доля суммы 7</div></div>
+    <div class="hist" id="dice-hist" aria-hidden="true"></div>
+    <div class="hist-labels" id="dice-hist-l"></div>
+    <p class="muted" style="font-size:14px; margin:6px 0 0">сумма двух кубиков · столбик — доля бросков · точка — клеток из 36</p>
+    <div class="verdict" id="dice-verdict" hidden></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="card" data-title="Рецепт" aria-label="Рецепт">
+  <span class="step-tag">Рецепт</span>
+  <h2>Как решать такие задачи</h2>
+  <div class="sheet c-white ruled">
+    <ol style="margin:0; padding-left:22px">
+      <li><b>Опиши опыт.</b> Что именно повторяется: бросок двух монеток, двух кубиков?</li>
+      <li><b>Выпиши исходы.</b> Покрась монетки и кубики, чтобы ОР и РО не слиплись в одно.</li>
+      <li><b>Проверь равновозможность.</b> Нет ли варианта, который на деле — несколько исходов?</li>
+      <li><b>Посчитай подходящие</b> и раздели на все.</li>
+      <li><b>Проверь симуляцией</b> — бросками или кодом. Если не сошлось, ищи ошибку в шаге 2 или 3.</li>
+    </ol>
+  </div>
+  <p>Следующие две карточки — то же самое, но в коде.</p>
+</section>
+
+<!-- 12 -->
+<section class="card" data-title="Код: симуляция" aria-label="Код: симуляция">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Сто тысяч бросков за секунду</h2>
+  <p>Этот код бросает два кубика 100 000 раз и сравнивает доли сумм с таблицей. Запусти, а потом поменяй: брось три кубика или посчитай не сумму, а максимум.</p>
+  <div class="cell" data-title="Поменяй и запусти">
+<textarea spellcheck="false" aria-label="Код симуляции двух кубиков">import numpy as np
+
+n = 100_000
+rng = np.random.default_rng()
+a = rng.integers(1, 7, size=n)   # синий кубик
+b = rng.integers(1, 7, size=n)   # коралловый кубик
+s = a + b
+
+for target in range(2, 13):
+    cells = min(target - 1, 13 - target)          # клеток с такой суммой в таблице 6×6
+    print(f"сумма {target:2}:  броски {np.mean(s == target):.3f}   таблица {cells}/36 = {cells/36:.3f}")</textarea>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="card" data-title="Код: напиши сам" aria-label="Код: напиши сам">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Теперь сам: точная вероятность суммы</h2>
+  <p>Допиши функцию: пусть она переберёт все 36 пар <code>(a, b)</code> и посчитает, в скольких сумма равна <code>s</code>. Это та же таблица 6×6, только в коде. Нажми «Проверить».</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-p-sum">
+<textarea spellcheck="false" aria-label="Задание: функция p_sum">def p_sum(s):
+    # вероятность, что сумма двух кубиков равна s
+    favorable = 0
+    for a in range(1, 7):
+        for b in range(1, 7):
+            ...   # если a + b == s, увеличь favorable на 1
+    return favorable / 36
+
+print(p_sum(7))    # должно быть 6/36 ≈ 0.1667</textarea>
+  </div>
+<script type="text/x-python" id="check-p-sum">
+def _check():
+    try:
+        f = p_sum
+    except NameError:
+        print("FAIL функции p_sum нет — запусти ячейку с ней"); return
+    want = {s: min(s - 1, 13 - s) / 36 if 2 <= s <= 12 else 0.0 for s in range(0, 15)}
+    bad = 0
+    for s, w in want.items():
+        try:
+            got = f(s)
+            if got is None or got is ... or abs(float(got) - w) > 1e-9:
+                bad += 1
+                if bad <= 3: print(f"FAIL p_sum({s}): ждали {w:.4f}, получили {got}")
+        except Exception as e:
+            bad += 1
+            if bad <= 3: print(f"FAIL p_sum({s}): ошибка {e}")
+    if not bad:
+        print("OK все суммы от 0 до 14 сходятся с таблицей 6×6"); return
+    try:
+        if all(abs(float(f(s)) - 1/11) < 1e-9 for s in range(2, 13)):
+            print("FAIL похоже, все 11 сумм считаются равновозможными — это ловушка Д'Аламбера: равновозможны 36 пар, а не 11 сумм")
+        elif all(abs(float(f(s))) < 1e-12 for s in range(2, 13)):
+            print("FAIL функция всегда возвращает 0: замени ... на  if a + b == s: favorable += 1")
+    except Exception:
+        pass
+_check()
+</script>
+</section>
+
+<!-- 14 -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и как на них отвечать</h2>
+  <figure class="art"><img src="img/ch01-05-dice.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: собеседование, Котейка бросил кубики</figcaption></figure>
+  <p>Схема ответа одна: переформулируй → выпиши исходы → посчитай в штуках → запиши формулой → скажи вывод одной фразой. Сначала реши сам, потом открывай.</p>
+
+  <details data-key="sum7">
+    <summary>Бросают два кубика. Какова вероятность, что сумма равна 7?</summary>
+    <p><b>Исходы:</b> 36 равновозможных пар (синий, коралловый).</p>
+    <p><b>Подходящие:</b> (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) — шесть штук, вся диагональ таблицы.</p>
+    <p><b>Формула:</b> <span class="num">P = 6/36 = 1/6 ≈ 16,7%</span>.</p>
+    <p><b>Вывод:</b> одна шестая — и это самая частая сумма. В 1000 бросков — около 167 семёрок.</p>
+  </details>
+
+  <details data-key="three-coins">
+    <summary>Бросают три монетки. Какова вероятность, что орлов выпадет хотя бы два?</summary>
+    <p><b>Исходы:</b> у каждой монетки 2 варианта, всего <span class="num">2 · 2 · 2 = 8</span>: ООО, ООР, ОРО, РОО, ОРР, РОР, РРО, РРР.</p>
+    <p><b>Подходящие:</b> ООО, ООР, ОРО, РОО — четыре.</p>
+    <p><b>Формула:</b> <span class="num">P = 4/8 = 1/2</span>.</p>
+    <p><b>Вывод:</b> ровно половина. Можно и без перебора: «хотя бы два орла» и «хотя бы две решки» симметричны и вместе покрывают все исходы.</p>
+  </details>
+
+  <details data-key="eleven-twelve">
+    <summary>Что выпадает чаще при броске двух кубиков: сумма 11 или сумма 12?</summary>
+    <p><b>Ловушка:</b> «и то и другое получается одним способом — 5 и 6, 6 и 6, значит поровну». Так ошибся Лейбниц.</p>
+    <p><b>Исходы:</b> покрасим кубики. Сумма 11 — это (5,6) и (6,5), две клетки. Сумма 12 — только (6,6), одна клетка.</p>
+    <p><b>Формула:</b> <span class="num">P(11) = 2/36</span>, <span class="num">P(12) = 1/36</span>.</p>
+    <p><b>Вывод:</b> 11 выпадает вдвое чаще — та же история, что с ОР и РО у монеток.</p>
+  </details>
+</section>
+
+<!-- 15 -->
+<section class="card" data-title="Шпаргалка" aria-label="Шпаргалка">
+  <span class="step-tag">Шпаргалка шага 1</span>
+  <div class="sheet c-white squared pin" style="--r:.3deg; --pc:#7FA7C9">
+    <ul class="cheat" style="margin:0; padding-left:20px">
+      <li><b>Исход</b> — один вариант, чем кончится опыт. <b>Ω</b> — список всех исходов.</li>
+      <li><b>Событие</b> — набор исходов. «Ровно один орёл» = {ОР, РО}.</li>
+      <li><b>Случайная величина</b> — то, что наблюдаем (сторона монетки, число орлов); <b>реализация</b> — что выпало в этот раз.</li>
+      <li><span class="num">P(A) = |A| / |Ω|</span> — только для <b>равновозможных</b> исходов.</li>
+      <li>Покрась монетки и кубики: ОР и РО — разные исходы. 0, 1, 2 орла — не равновозможны (¼, ½, ¼).</li>
+      <li>Два кубика: 36 клеток. Сумма 7 — 6 клеток (1/6), сумма 2 и 12 — по одной (1/36).</li>
+      <li>Не уверен — проверь симуляцией.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="card" data-title="Что дальше" aria-label="Что дальше">
+  <span class="step-tag">Дальше</span>
+  <h2>Через неделю Боб приходит с претензией</h2>
+  <figure class="art"><img src="img/ch01-07-next.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка открывает дверь в следующий шаг</figcaption></figure>
+  <div class="sheet c-butter">
+    <div class="bob"><div class="ava">Б</div><div>
+      <div class="say">«Ты говорила — половина вечеров. А я мыл посуду 5 вечеров из 7! Монетки нечестные?»</div>
+    </div></div>
+  </div>
+  <p>Может ли так быть при честных монетках? И сколько вечеров нужно, чтобы доля стала похожа на половину? Об этом — <b>шаг 2 «Вероятность как частота»</b>. Скоро.</p>
+  <p><a href="./">← К оглавлению курса</a></p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script>
+// ---------- общие помощники ----------
+function makeHist(hist, labelsEl, labels, theory, top, hl){
+  labels.forEach((t, k) => {
+    const b = document.createElement('div'); b.className = 'hbar' + (k === hl ? ' hl' : '');
+    b.innerHTML = '<span></span><i></i><em></em>'; hist.appendChild(b);
+    const l = document.createElement('span'); l.textContent = t; labelsEl.appendChild(l);
+  });
+  return function(counts){
+    const n = counts.reduce((a, b) => a + b, 0);
+    [...hist.children].forEach((b, k) => {
+      const share = n ? counts[k] / n : 0, hp = 100 * Math.min(share, top) / top, tp = 100 * theory[k] / top;
+      b.querySelector('span').style.height = hp + '%';
+      b.querySelector('em').style.bottom = tp + '%';
+      const i = b.querySelector('i'); i.style.bottom = 'calc(' + Math.max(hp, tp) + '% + 8px)';
+      i.textContent = n ? Math.round(100 * share) + '%' : '';
+    });
+  };
+}
+const plural = (n, a, b, c) => { const m = n % 100, d = n % 10; return m > 10 && m < 20 ? c : d === 1 ? a : d >= 2 && d <= 4 ? b : c; };
+const pct = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+const OUT = ['ОО', 'ОР', 'РО', 'РР'];
+function tileHTML(o){ return '<span class="pair"><span class="c1 ' + (o[0] === 'О' ? 'h' : '') + '">' + o[0] + '</span><span class="c2 ' + (o[1] === 'О' ? 'h' : '') + '">' + o[1] + '</span></span><small></small>'; }
+
+// ---------- посуда: прогноз и броски пар ----------
+(function(){
+  const box = document.getElementById('pairs');
+  const render = makeHist(document.getElementById('pair-hist'), document.getElementById('pair-hist-l'), ['0 орлов', '1 орёл', '2 орла'], [.25, .5, .25], .7, 1);
+  const outTiles = document.getElementById('out-tiles');
+  OUT.forEach(o => { const t = document.createElement('div'); t.className = 'tile'; t.innerHTML = tileHTML(o); outTiles.appendChild(t); });
+  let evenings = [], byOut = [0, 0, 0, 0], guess = null;
+  function draw(){
+    const n = evenings.length, ones = byOut[1] + byOut[2];
+    render([byOut[3], ones, byOut[0]]);
+    box.innerHTML = evenings.slice(-12).map(e => '<span class="' + (e === 1 || e === 2 ? 'h' : 't') + '" style="width:auto; padding:0 9px; border-radius:15px" title="' + (e === 1 || e === 2 ? 'моет Боб' : 'моет Алиса') + '">' + OUT[e] + '</span>').join('');
+    document.getElementById('pr-n').textContent = n.toLocaleString('ru-RU');
+    document.getElementById('pr-bob').textContent = n ? pct(ones / n) : '—';
+    document.getElementById('pr-alice').textContent = n ? pct(1 - ones / n) : '—';
+    [...outTiles.children].forEach((t, k) => t.querySelector('small').textContent = n ? byOut[k].toLocaleString('ru-RU') + ' раз · ' + Math.round(100 * byOut[k] / n) + '%' : 'ещё не выпадал');
+    const v = document.getElementById('pair-verdict');
+    if (n >= 30){
+      v.hidden = false; v.className = 'verdict good';
+      const gtxt = guess === null ? '' : (guess === 50 ? 'Верно: половина. ' : 'Твой прогноз — ' + (guess === 33 ? 'треть' : 'две трети') + ', а выходит половина. ');
+      v.innerHTML = gtxt + 'За ' + n.toLocaleString('ru-RU') + ' ' + plural(n, 'вечер', 'вечера', 'вечеров') + ' Боб мыл посуду в <b>' + pct(ones / n) + '</b> случаев. Не треть, как он надеялся, а около половины.';
+    } else v.hidden = true;
+  }
+  function toss(k){
+    for (let i = 0; i < k; i++){ const e = (Math.random() < .5 ? 0 : 2) + (Math.random() < .5 ? 0 : 1); evenings.push(e); byOut[e]++; }
+    if (k === 1){ const t = outTiles.children[evenings[evenings.length - 1]]; t.classList.remove('flash'); void t.offsetWidth; t.classList.add('flash'); }
+    draw();
+  }
+  document.querySelectorAll('[data-pair]').forEach(b => b.addEventListener('click', () => toss(+b.dataset.pair)));
+  document.getElementById('pair-reset').addEventListener('click', () => { evenings = []; byOut = [0, 0, 0, 0]; draw(); });
+  document.querySelectorAll('[data-pguess]').forEach(b => b.addEventListener('click', () => {
+    const first = guess === null; guess = +b.dataset.pguess;
+    document.querySelectorAll('[data-pguess]').forEach(x => x.classList.toggle('ghost', x !== b));
+    document.getElementById('pguess-note').textContent = 'Прогноз записан. Жми «Далее» — проверим.';
+    if (first && window.SignalProgress) SignalProgress.track('p01', 'predict', 'pair', guess);
+    draw();
+  }));
+  draw();
+})();
+
+// ---------- конструктор событий ----------
+(function(){
+  const box = document.getElementById('ev-tiles'), out = document.getElementById('ev-out');
+  const sel = new Set();
+  OUT.forEach(o => { const t = document.createElement('button'); t.type = 'button'; t.className = 'tile'; t.innerHTML = tileHTML(o); t.setAttribute('aria-pressed', 'false'); t.dataset.o = o; t.addEventListener('click', () => { sel.has(o) ? sel.delete(o) : sel.add(o); draw(); }); box.appendChild(t); });
+  const frac = {0: '0', 1: '¼', 2: '½', 3: '¾', 4: '1'};
+  function draw(){
+    [...box.children].forEach(t => { const on = sel.has(t.dataset.o); t.classList.toggle('on', on); t.setAttribute('aria-pressed', String(on)); t.querySelector('small').textContent = on ? 'в событии' : ''; });
+    const k = sel.size, list = OUT.filter(o => sel.has(o));
+    out.innerHTML = 'Событие = {' + list.join(', ') + '} — <b>' + k + ' из 4</b> исходов. ' +
+      '<span class="num">P = ' + k + '/4 = ' + frac[k] + '</span>. В штуках: примерно <b>' + (250 * k) + '</b> вечеров из 1000.' +
+      (k === 4 ? ' Это достоверное событие.' : k === 0 ? ' Это невозможное событие.' : '');
+  }
+  document.querySelectorAll('[data-ev]').forEach(b => b.addEventListener('click', () => { sel.clear(); b.dataset.ev.split(',').filter(Boolean).forEach(o => sel.add(o)); draw(); }));
+  out.textContent = 'Выбери исходы — посчитаем вероятность события.';
+})();
+
+// ---------- два кубика ----------
+(function(){
+  const grid = document.getElementById('grid66'), btns = document.getElementById('sum-btns'), out = document.getElementById('sum-out');
+  const cells = [];
+  grid.insertAdjacentHTML('beforeend', '<span class="hd">+</span>');
+  for (let c = 1; c <= 6; c++) grid.insertAdjacentHTML('beforeend', '<span class="hd r">' + c + '</span>');
+  for (let r = 1; r <= 6; r++){
+    grid.insertAdjacentHTML('beforeend', '<span class="hd c">' + r + '</span>');
+    for (let c = 1; c <= 6; c++){ const s = document.createElement('span'); s.textContent = r + c; s.dataset.s = r + c; grid.appendChild(s); cells.push(s); }
+  }
+  const ways = s => Math.max(0, Math.min(s - 1, 13 - s));
+  let target = 7;
+  function pick(s){
+    target = s;
+    cells.forEach(c => c.classList.toggle('on', +c.dataset.s === s));
+    [...btns.children].forEach(b => b.classList.toggle('ghost', +b.dataset.s !== s));
+    const w = ways(s);
+    out.textContent = 'Сумма ' + s + ': ' + w + ' ' + (w === 1 ? 'клетка' : w < 5 ? 'клетки' : 'клеток') + ' из 36 = ' + pct(w / 36);
+  }
+  for (let s = 2; s <= 12; s++){ const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = s; b.dataset.s = s; b.style.minWidth = '44px'; b.addEventListener('click', () => pick(s)); btns.appendChild(b); }
+  pick(7);
+
+  const labels = [], theory = [];
+  for (let s = 2; s <= 12; s++){ labels.push(s); theory.push(ways(s) / 36); }
+  const render = makeHist(document.getElementById('dice-hist'), document.getElementById('dice-hist-l'), labels, theory, .25, 5);
+  let counts = new Array(11).fill(0), n = 0, sent = false;
+  function draw(){
+    render(counts);
+    document.getElementById('d-n').textContent = n.toLocaleString('ru-RU');
+    document.getElementById('d-7').textContent = n ? pct(counts[5] / n) : '—';
+    const v = document.getElementById('dice-verdict');
+    if (n >= 300){
+      const g = parseFloat(document.getElementById('dice-guess').value);
+      if (!isNaN(g) && g >= 0 && g <= 100 && !sent && window.SignalProgress){ sent = true; SignalProgress.track('p01', 'predict', 'dice7', g); }
+      v.hidden = false; v.className = 'verdict good';
+      v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — <b>' + g + '%</b>. ') + 'Семёрка выпала в <b>' + pct(counts[5] / n) + '</b> бросков, по таблице — 6 из 36 ≈ 16,7%. Загадывай 7: это самая частая сумма. А 2 и 12 — самые редкие, по одной клетке.';
+    } else v.hidden = true;
+  }
+  function roll(k){ for (let i = 0; i < k; i++){ const s = 2 + Math.floor(Math.random() * 6) + Math.floor(Math.random() * 6); counts[s - 2]++; n++; } draw(); }
+  document.querySelectorAll('[data-dice]').forEach(b => b.addEventListener('click', () => roll(+b.dataset.dice)));
+  document.getElementById('dice-reset').addEventListener('click', () => { counts.fill(0); n = 0; draw(); });
+  draw();
+})();
+
+// ---------- карточки ----------
+(function(){
+  const cards = [...document.querySelectorAll('.card')];
+  const list = document.getElementById('toc-list'), reader = document.getElementById('reader');
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const key = 'signal:p01:seen';
+  let seen = new Set(); try { seen = new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch(e) {}
+  cards.forEach((c, i) => {
+    c.id = 'card-' + (i + 1);
+    const li = document.createElement('li');
+    li.innerHTML = '<button type="button"><span class="i" data-n="' + (i + 1) + '"></span><span>' + c.dataset.title + '</span></button>';
+    li.querySelector('button').addEventListener('click', () => { go(i); if (matchMedia('(max-width: 900px)').matches) setOpen(false); });
+    list.appendChild(li);
+  });
+  let cur = 0;
+  function go(i, push = true){
+    cur = Math.max(0, Math.min(cards.length - 1, i));
+    cards.forEach((c, k) => c.classList.toggle('on', k === cur));
+    if (window.SignalProgress) SignalProgress.track('p01', 'card', cur + 1);
+    seen.add(cur); try { localStorage.setItem(key, JSON.stringify([...seen])); } catch(e) {}
+    [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
+    document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
+    document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
+    prev.disabled = cur === 0;
+    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее →';
+    if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
+    window.scrollTo({top: 0, behavior: 'auto'});
+    window.dispatchEvent(new Event('resize'));
+  }
+  prev.addEventListener('click', () => go(cur - 1));
+  next.addEventListener('click', () => cur === cards.length - 1 ? (location.href = './') : go(cur + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('textarea, input')) return;
+    if (e.key === 'ArrowRight') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+  });
+  const toggle = document.getElementById('toc-toggle');
+  function setOpen(open){
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    reader.classList.toggle(mobile ? 'open' : 'collapsed', mobile ? open : !open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', () => {
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    const isOpen = mobile ? reader.classList.contains('open') : !reader.classList.contains('collapsed');
+    setOpen(!isOpen);
+  });
+  if (matchMedia('(max-width: 900px)').matches) toggle.setAttribute('aria-expanded', 'false');
+  const m = location.hash.match(/^#card-(\d+)$/);
+  go(m ? +m[1] - 1 : 0, false);
+  window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
+})();
+
+document.querySelectorAll('details[data-key]').forEach(d => d.addEventListener('toggle', () => {
+  if (d.open && window.SignalProgress) SignalProgress.track('p01', 'interview', d.dataset.key);
+}));
+</script>
+<script src="/signal/py.js"></script>
+</body>
+</html>

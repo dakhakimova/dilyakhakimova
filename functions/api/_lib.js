@@ -53,10 +53,10 @@ export async function currentUser(request, env) {
 export const RULES = {
   // «Вероятность на пальцах»: главы p01…p08. «Сигнал или шум»: главы s01…
   p01: {
-    title: 'Вероятность — это доля в штуках',
-    predict: { pair: 50, coin: 24.6, shop: 37.7 },          // правильный ответ, % — для «попал ±5 п.п.»
-    code: ['at-least-one'],
-    interview: ['disjoint', 'lamps', 'dice'],
+    title: 'Исходы и события',
+    predict: { pair: 50, dice7: 16.7 },            // правильный ответ, % — для «попал ±5 п.п.»
+    code: ['p-sum'],
+    interview: ['sum7', 'three-coins', 'eleven-twelve'],
   },
 };
 export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1 };

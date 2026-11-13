@@ -207,3 +207,29 @@ body{background:#FAF8F4; background-image:none}
   .cmp-row > span:first-child{grid-column:1 / -1; background:#F7F5F0; padding:6px 12px}
   .cmp-row.head > span:first-child{display:none}
 }
+
+/* ---------- исходы: плитки, конструктор событий, таблица 6×6 ---------- */
+.tiles{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; max-width:560px; margin:14px 0}
+.tile{background:#fff; border:2px solid rgba(36,34,31,.12); border-radius:12px; padding:14px 8px 10px; text-align:center; font:inherit; color:var(--ink); cursor:default}
+button.tile{cursor:pointer}
+.tile .pair{display:flex; justify-content:center; gap:6px}
+.tile .pair span{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font:600 14px/1 var(--body); color:#fff; background:#B9B3A7; border:3px solid transparent}
+.tile .pair span.h{background:var(--pen)}
+.tile .pair span.c1{border-color:#7FA7C9} .tile .pair span.c2{border-color:var(--accent)}
+.tile small{display:block; margin-top:8px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; min-height:1.2em}
+.tile.on{border-color:var(--accent); background:#FDF0EC}
+.tile.flash{animation:tileflash .5s}
+@keyframes tileflash{from{background:#FBD9CF}to{background:#fff}}
+.legend-coins{display:flex; gap:18px; flex-wrap:wrap; font-size:14px; color:var(--muted); margin:6px 0}
+.legend-coins i{display:inline-block; width:14px; height:14px; border-radius:50%; vertical-align:-2px; margin-right:6px; border:3px solid}
+.choice{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
+.grid66{display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:4px; max-width:430px; margin:14px 0; font-variant-numeric:tabular-nums}
+.grid66 span{aspect-ratio:1; display:grid; place-items:center; border-radius:6px; background:#fff; border:1px solid rgba(36,34,31,.10); font:500 15px/1 var(--body); transition:background .15s}
+.grid66 span.hd{background:transparent; border:0; font-weight:600}
+.grid66 span.hd.r{color:var(--accent)} .grid66 span.hd.c{color:#5B86B3}
+.grid66 span.on{background:var(--accent); color:#fff; border-color:var(--accent)}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:14px 0}
+.three > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px}
+.three .lbl{display:block; font:500 13px/1.2 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+@media (max-width:620px){ .tiles{grid-template-columns:repeat(2, minmax(0,1fr))} .three{grid-template-columns:1fr} }
+@media (prefers-reduced-motion: reduce){ .tile.flash{animation:none} .grid66 span{transition:none} }
