@@ -23,6 +23,15 @@
 
 ---
 
+## Обложка курса
+
+### ab-cover.jpg
+Обложка на странице курса и картинка для превью ссылки в мессенджерах (og:image). Главное в центре кадра: превью может обрезать края.
+
+Cover illustration for the whole course. The front of the heroes' cozy café at golden hour, with two identical entrance doors side by side, one door frame painted soft blue, the other soft orange. Kotejka sits in its burlap sack on a small stool exactly between the doors, tossing a big shiny coin high into the air. Above the doors, instead of a sign, two smooth overlapping bell curves are painted on the wall, one soft blue and one soft orange, the orange one shifted slightly to the right (no axes, no numbers). Alice stands on the left holding a laptop showing a simple chart with two lines, looking curious and confident. Bob stands on the right holding up a smartphone with a plain app screen and one big coral button, smiling. A few diverse customers with phones approach the doors. Warm, inviting, optimistic mood; balanced symmetrical composition with all three heroes and the coin within the central area of the frame.
+
+---
+
 ## Шаг 1. До и после — не доказательство
 
 ### ab01-00-cafe-team.jpg
