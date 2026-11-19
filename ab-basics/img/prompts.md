@@ -8,7 +8,7 @@
 
 Общий блок стиля — вставлять в начало каждого промпта:
 
-> Use case: illustration-story. Illustration for an interactive online course about A/B testing for software developers.
+> Use case: illustration-story. Illustration for an interactive online course about A/B testing for non-specialists (managers, product people, developers).
 > Image 1: established character design and rendering style reference only. Keep the established exact appearance, clothes and colors of Alice, Bob and Kotejka whenever present. Match the cat's blue eyes and orange, blue, navy and white markings, orange scarf and burlap sack. Do not add characters from the reference unless the scene calls for them.
 > Flat vector storybook illustration, clean outlines, soft shading, calm warm palette (deep blue #23418A, coral #E8644A, soft blue #3D7DC4, soft orange #E59157, soft green, cream), plain light background, 16:9, no text, no letters, no numbers unless stated, no logos, no watermark. Clear uncluttered composition, natural anatomy.
 
