@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>До и после — не доказательство · A/B на пальцах</title>
+<meta name="description" content="Шаг 1 интерактивного курса «A/B на пальцах»: почему сравнение «до и после релиза» обманывает и зачем сравнивать группы одновременно.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab01">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 1 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Знакомство" aria-label="Знакомство">
+  <p class="kicker">Шаг 1 из 10</p>
+  <h1>До и после — не доказательство</h1>
+  <figure class="art"><img src="img/ab01-00-cafe-team.jpg" alt="Алиса, Боб и Котейка в своём кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда кафе и приложение для заказов</figcaption></figure>
+  <p class="lead">У Алисы, Боба и Котейки небольшая сеть кафе, а у неё — приложение для заказов с собой. Его делаешь ты.</p>
+  <div class="heroes">
+    <div><b>Алиса</b><span>Аналитик. На любое «очевидно» спрашивает: «А с чем сравниваем?»</span></div>
+    <div><b>Боб</b><span>Продакт. Придумывает фичи и очень хочет, чтобы они работали.</span></div>
+    <div><b>Котейка</b><span>Кот в мешке. Отвечает за всё случайное: погоду, монетки и капризы гостей.</span></div>
+  </div>
+  <p style="margin-top:14px">За десять коротких шагов мы разберёмся, как устроен A/B-тест и как читать его результаты: что такое шум, откуда берутся колокола, что значат интервал и p-value и когда отчёту нельзя верить. Формул не будет: всё можно подвигать руками.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Новая кнопка" aria-label="Новая кнопка">
+  <span class="step-tag">История</span>
+  <h2>Боб выкатил кнопку «Повторить заказ»</h2>
+  <figure class="art"><img src="img/ab01-01-bob-chart.jpg" alt="Боб радостно показывает на растущий график" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с растущим графиком, Алиса сомневается</figcaption></figure>
+  <div class="sheet c-white bob">
+    <div class="ava">Б</div>
+    <div><div class="say">«1 декабря мы выпустили кнопку „Повторить заказ“. Сравнил неделю до и неделю после: было <span id="b-before">…</span> заказов в день, стало <span id="b-after">…</span>. Это <b id="b-lift">…</b>! Кнопка работает».</div><div class="who">Боб, продакт</div></div>
+  </div>
+  <p>Как думаешь, кнопка правда подняла заказы на столько?</p>
+  <div class="choice" id="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="yes" aria-pressed="false">Да, цифры же</button>
+    <button type="button" data-v="no" aria-pressed="false">Нет, кнопка ни при чём</button>
+    <button type="button" data-v="idk" aria-pressed="false">Пока нельзя сказать</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее»: проверим на графике.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Весь график" aria-label="Весь график">
+  <span class="step-tag">Посмотри шире</span>
+  <h2>Две недели — это замочная скважина</h2>
+  <p>Вот заказы по дням с сентября по декабрь. Тонкая линия — каждый день, толстая — среднее за последние 7 дней. Выделены неделя до и неделя после релиза.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-year" aria-label="Заказы по дням, сентябрь — декабрь"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>этот год, с кнопкой с 1 декабря</span><span id="lg-last" hidden><i style="background:var(--theory)"></i>прошлый год, кнопки не было</span></div>
+    <div class="controls"><button class="btn" type="button" id="btn-last">Наложить прошлый год</button></div>
+    <div class="big2">
+      <div class="ctrl"><b id="y-this">…</b><span>этот год: неделя после 1 декабря против недели до</span></div>
+      <div id="y-last-box" hidden><b id="y-last">…</b><span>прошлый год, те же даты, кнопки ещё не было</span></div>
+    </div>
+    <div class="verdict" id="v-year" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Подвинь релиз" aria-label="Подвинь релиз">
+  <span class="step-tag">Игрушка</span>
+  <h2>Кнопка, которая ничего не делает</h2>
+  <p>Представим, что кнопка вообще не влияет на заказы. Её можно выпустить в любой день года, а потом сравнить неделю до и неделю после. Какой самый большой «эффект» можно так получить, если удачно выбрать день?</p>
+  <div class="sheet c-butter">
+    <label class="field" for="g2">Думаю, до плюс <input type="number" id="g2" min="0" max="100" step="1" placeholder="?"> %</label>
+  </div>
+  <div class="sheet c-white">
+    <label class="field" for="rel">День релиза: <b id="rel-t" class="num">1 дек</b></label>
+    <input type="range" id="rel" min="7" max="358" value="334" style="width:100%">
+    <canvas id="ch-move" aria-label="Заказы за год и выбранные недели до и после"></canvas>
+    <div class="big2">
+      <div class="trap"><b id="mv-est">…</b><span>«эффект» по сравнению до и после</span></div>
+      <div class="truth"><b>0 %</b><span>настоящий эффект: кнопка ничего не делает</span></div>
+    </div>
+    <div class="controls"><button class="btn" type="button" id="btn-all">Посчитать для всех дней года</button></div>
+    <canvas id="ch-hist" aria-label="Распределение эффектов по всем дням релиза" hidden></canvas>
+    <div class="verdict" id="v-move" hidden></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Что ещё меняется" aria-label="Что ещё меняется">
+  <span class="step-tag">Почему так</span>
+  <h2>В день релиза меняется не только кнопка</h2>
+  <p>Сравнение «до и после» приписывает фиче всё, что изменилось за это время. А меняется почти всё. Открой карточки.</p>
+  <div class="tiles" id="tiles">
+    <button type="button" aria-expanded="false"><b>Сезон</b><span>Зимой заказывают больше, летом меньше. В декабре включается зимнее меню.</span></button>
+    <button type="button" aria-expanded="false"><b>Праздники</b><span>Перед Новым годом пик, 1 января провал, в майские все на дачах.</span></button>
+    <button type="button" aria-expanded="false"><b>День недели</b><span>В пятницу и субботу заказов на 10% больше, чем в понедельник. Неделя «до» и «после» должны быть целыми.</span></button>
+    <button type="button" aria-expanded="false"><b>Погода</b><span>Дождь неделю подряд — и все заказывают домой. Котейка не предупреждает.</span></button>
+    <button type="button" aria-expanded="false"><b>Другие релизы</b><span>В тот же день маркетинг запустил рассылку, а соседняя команда починила оплату.</span></button>
+    <button type="button" aria-expanded="false"><b>Кто обновился первым</b><span>Новую версию приложения сначала ставят самые активные. Их заказы росли бы и без кнопки.</span></button>
+  </div>
+  <div class="def">Правило: если сравниваешь разные <b>моменты времени</b> или разных <b>людей</b>, разница складывается из эффекта и всего остального. Отделить одно от другого потом уже нельзя.</div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Делим монеткой" aria-label="Делим монеткой">
+  <span class="step-tag">Как честно</span>
+  <h2>Одновременно, а кому что — решает монетка</h2>
+  <figure class="art"><img src="img/ab01-02-coin-door.jpg" alt="Котейка у входа подбрасывает монетку для каждого гостя" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у двери кафе подбрасывает монетку каждому гостю</figcaption></figure>
+  <p>Алиса предлагает по-другому. С 1 декабря каждому пользователю Котейка подбрасывает монетку: орёл — видит новую кнопку, решка — старое приложение. Обе группы живут в одни и те же дни: у них одна погода, одни праздники и одно зимнее меню. Разница между ними — это кнопка и немного случайности.</p>
+  <p>Проверим, какой способ ближе к правде. Задай настоящий эффект кнопки и запускай эксперименты в случайные дни года.</p>
+  <div class="sheet c-white">
+    <label class="field" for="eff">Настоящий эффект кнопки: <b id="eff-t" class="num">+2 %</b></label>
+    <input type="range" id="eff" min="-5" max="10" step="1" value="2" style="width:100%">
+    <div class="controls">
+      <button class="btn" type="button" data-runs="1">Один эксперимент</button>
+      <button class="btn ghost" type="button" data-runs="100">+100 экспериментов</button>
+      <button class="btn ghost" type="button" id="sim-reset">Сначала</button>
+    </div>
+    <canvas id="ch-ab" aria-label="Заказы по дням в двух группах последнего эксперимента"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>старое приложение</span><span><i style="background:var(--test)"></i>новая кнопка</span><span id="ab-days"></span></div>
+    <h3>Что показал каждый способ</h3>
+    <canvas id="ch-strip" aria-label="Оценки эффекта двумя способами"></canvas>
+    <div class="big2">
+      <div class="trap"><b id="err-ba">—</b><span>до и после: на сколько в среднем ошибаемся</span></div>
+      <div class="truth"><b id="err-ab">—</b><span>одновременно, по монетке: на сколько в среднем ошибаемся</span></div>
+    </div>
+    <div class="verdict" id="v-sim" hidden></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Найди, что ещё изменилось</h2>
+  <p>Три истории из жизни разработчика. В каждой эффект фичи перемешан с чем-то ещё. С чем?</p>
+  <div class="quiz" data-right="b">
+    <p class="q">В пятницу выкатили новый экран оплаты. В субботу и воскресенье заказов на 9% больше, чем в среду и четверг.</p>
+    <div class="choice"><button type="button" data-v="a">Экран работает</button><button type="button" data-v="b">Сравнивают разные дни недели</button><button type="button" data-v="c">Слишком мало дней</button></div>
+    <p class="why">Выходные и будни — разные дни: в нашем кафе в пятницу и субботу заказов и так на 10% больше. Эффект экрана тут не виден совсем. Мало дней — тоже проблема, но не главная.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Новую версию приложения поставили уже 30% пользователей. У них заказов на 20% больше, чем у остальных.</p>
+    <div class="choice"><button type="button" data-v="a">Новая версия сильно помогает</button><button type="button" data-v="b">Первыми обновляются самые активные</button><button type="button" data-v="c">Это обычный шум</button></div>
+    <p class="why">Кто обновился, а кто нет, выбирали сами пользователи. Те, кто часто открывает приложение, и обновляются раньше, и заказывают больше. Сравниваем разных людей, а не версии.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Фичу включили только в Казани. Там заказы за месяц выросли на 6%, а в Самаре — на 1%.</p>
+    <div class="choice"><button type="button" data-v="a">Фича даёт +5%</button><button type="button" data-v="b">Города отличаются не только фичей</button><button type="button" data-v="c">Надо сравнить с прошлым годом</button></div>
+    <p class="why">В Казани за этот месяц могло случиться что угодно: фестиваль, своя погода, реклама конкурента в Самаре. Город выбрали не монеткой, и сравнение с прошлым годом от этого не спасает.</p>
+  </div>
+  <p class="note" id="quiz-score"></p>
+</section>
+
+<!-- 8 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 1</span>
+  <h2>Сравниваем одновременно, делим случайно</h2>
+  <ul class="cheat">
+    <li><b>До и после</b> приписывает фиче всё, что изменилось во времени: сезон, праздники, погоду, другие релизы.</li>
+    <li><b>«Кто включил» против «кто не включил»</b> приписывает фиче то, чем эти люди отличались с самого начала.</li>
+    <li><b>Честное сравнение</b>: две группы живут в одно и то же время, а кто в какую попал, решает монетка. Тогда всё, кроме фичи, у групп общее.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>Контроль</dt><dd>группа, которая видит старую версию</dd>
+    <dt>Тест</dt><dd>группа, которая видит новую версию</dd>
+    <dt>A/B-тест</dt><dd>одновременное сравнение контроля и теста, когда пользователей разделили случайно</dd>
+  </dl>
+  <figure class="art"><img src="img/ab01-03-next.jpg" alt="Котейка держит монетку у двери в следующий шаг" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: следующий шаг — как приложение подбрасывает монетку</figcaption></figure>
+  <p class="lead">Дальше, шаг 2: как приложение «подбрасывает монетку» на самом деле. Соль, хеш и слоты — и почему пользователь не прыгает из группы в группу.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script>
+// ---------- общее ----------
+const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const MLEN = [31,28,31,30,31,30,31,31,30,31,30,31];
+const MSTART = MLEN.reduce((a, d, i) => (a.push(i ? a[i - 1] + MLEN[i - 1] : 0), a), []);
+const dayLabel = d => { let m = 11; while (MSTART[m] > d) m--; return (d - MSTART[m] + 1) + ' ' + MON[m]; };
+const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(100 * x).toLocaleString('ru-RU', {maximumFractionDigits: d, minimumFractionDigits: d}) + ' %';
+const pp = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1, minimumFractionDigits: 1}) + ' п.п.';
+const int = x => Math.round(x).toLocaleString('ru-RU');
+const sum = (a, i, j) => { let s = 0; for (let k = i; k < j; k++) s += a[k]; return s; };
+const avg7 = (a, d) => sum(a, Math.max(0, d - 6), d + 1) / (d + 1 - Math.max(0, d - 6));
+const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
+const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#EB8D82', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillB:'#FBE8E5'};
+const store = {get(k){ try { return JSON.parse(localStorage.getItem('ab:' + k)); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem('ab:' + k, JSON.stringify(v)); } catch(e) {} }};
+
+function canvas(cv){
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth;
+  if (!w) return null;
+  const h = Math.round(w * (w < 520 ? 0.62 : 0.4));
+  cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px';
+  const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
+  c.font = '12px Onest, system-ui, sans-serif'; c.textBaseline = 'alphabetic';
+  return {c, w, h};
+}
+function axisY(c, L, R, T, ph, w, lo, hi, step, fmtY){
+  c.strokeStyle = COL.grid; c.fillStyle = COL.ink2; c.lineWidth = 1;
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step){
+    const y = T + (1 - (v - lo) / (hi - lo)) * ph;
+    c.beginPath(); c.moveTo(L, y); c.lineTo(w - R, y); c.stroke();
+    c.fillText(fmtY(v), 2, y + 4);
+  }
+}
+
+// ---------- карточки ----------
+(function(){
+  const cards = [...document.querySelectorAll('.card')];
+  const list = document.getElementById('toc-list'), reader = document.getElementById('reader');
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const seen = new Set(store.get('s01:seen') || []);
+  cards.forEach((c, i) => {
+    c.id = 'card-' + (i + 1);
+    const li = document.createElement('li');
+    li.innerHTML = '<button type="button"><span class="i" data-n="' + (i + 1) + '"></span><span>' + c.dataset.title + '</span></button>';
+    li.querySelector('button').addEventListener('click', () => { go(i); if (matchMedia('(max-width: 900px)').matches) setOpen(false); });
+    list.appendChild(li);
+  });
+  let cur = 0;
+  function go(i, push = true){
+    cur = Math.max(0, Math.min(cards.length - 1, i));
+    cards.forEach((c, k) => c.classList.toggle('on', k === cur));
+    seen.add(cur); store.set('s01:seen', [...seen]);
+    [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
+    document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
+    document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
+    prev.disabled = cur === 0;
+    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее →';
+    if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
+    window.scrollTo({top: 0, behavior: 'auto'});
+    window.dispatchEvent(new Event('resize'));
+  }
+  prev.addEventListener('click', () => go(cur - 1));
+  next.addEventListener('click', () => cur === cards.length - 1 ? (location.href = './') : go(cur + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('textarea, input')) return;
+    if (e.key === 'ArrowRight') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+  });
+  const toggle = document.getElementById('toc-toggle');
+  function setOpen(open){
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    reader.classList.toggle(mobile ? 'open' : 'collapsed', mobile ? open : !open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', () => {
+    const mobile = matchMedia('(max-width: 900px)').matches;
+    setOpen(mobile ? !reader.classList.contains('open') : reader.classList.contains('collapsed'));
+  });
+  if (matchMedia('(max-width: 900px)').matches) toggle.setAttribute('aria-expanded', 'false');
+  const m = location.hash.match(/^#card-(\d+)$/);
+  go(m ? +m[1] - 1 : 0, false);
+  window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
+})();
+
+// ---------- выбор ответа (карточка 2) ----------
+let g1 = store.get('s01:g1');
+(function(){
+  const box = document.getElementById('g1');
+  const paint = () => box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === g1)));
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    g1 = b.dataset.v; store.set('s01:g1', g1); paint();
+    document.getElementById('g1-note').textContent = 'Запомнили. Жми «Далее».';
+  });
+  paint();
+})();
+
+// ---------- карточки 5 и 7 ----------
+document.querySelectorAll('#tiles button').forEach(b => b.addEventListener('click', () => b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'))));
+(function(){
+  const qs = [...document.querySelectorAll('.quiz')];
+  const score = () => {
+    const done = qs.filter(q => q.classList.contains('done'));
+    if (done.length === qs.length) document.getElementById('quiz-score').textContent = 'С первого раза верно: ' + qs.filter(q => q.dataset.first === '1').length + ' из ' + qs.length + '.';
+  };
+  qs.forEach(q => q.querySelector('.choice').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b || q.classList.contains('done')) return;
+    const ok = b.dataset.v === q.dataset.right;
+    if (!q.dataset.first) q.dataset.first = ok ? '1' : '0';
+    b.classList.add(ok ? 'right' : 'wrong');
+    if (ok){ q.classList.add('done'); score(); }
+  }));
+})();
+
+// ---------- данные ----------
+fetch('data/step01.json').then(r => r.json()).then(init).catch(() => {
+  document.querySelectorAll('canvas').forEach(cv => { const p = document.createElement('p'); p.className = 'note'; p.textContent = 'Не удалось загрузить данные. Открой страницу через сайт, а не как файл.'; cv.replaceWith(p); });
+});
+
+function init(D){
+  const R = D.release, ba = a => sum(a, R, R + 7) / sum(a, R - 7, R) - 1;
+
+  // карточка 2: цифры Боба
+  document.getElementById('b-before').textContent = int(sum(D.thisYear, R - 7, R) / 7);
+  document.getElementById('b-after').textContent = int(sum(D.thisYear, R, R + 7) / 7);
+  document.getElementById('b-lift').textContent = pct(ba(D.thisYear), 0);
+
+  // карточка 3: сентябрь — декабрь
+  let showLast = false;
+  const cvY = document.getElementById('ch-year');
+  function drawYear(){
+    const g = canvas(cvY); if (!g) return; const {c, w, h} = g;
+    const A = 243, B = 364, L = 48, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm;
+    const lo = Math.floor(Math.min(...D.thisYear.slice(A), ...D.lastYear.slice(A)) / 1000) * 1000, hi = Math.ceil(Math.max(...D.thisYear.slice(A), ...D.lastYear.slice(A)) / 1000) * 1000, X = d => L + (d - A) / (B - A) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    c.fillStyle = COL.fillC; c.fillRect(X(R - 7), T, X(R) - X(R - 7), ph);
+    c.fillStyle = COL.fillT; c.fillRect(X(R), T, X(R + 7) - X(R), ph);
+    axisY(c, L, Rm, T, ph, w, lo, hi, 1000, v => int(v));
+    c.fillStyle = COL.ink2;
+    [243, 273, 304, 334].forEach(d => c.fillText('1 ' + MON[MSTART.indexOf(d)], X(d) + 2, h - 6));
+    const line = (a, col, lw, f) => { c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); for (let d = A; d <= B; d++){ const v = f(a, d); d === A ? c.moveTo(X(d), Y(v)) : c.lineTo(X(d), Y(v)); } c.stroke(); };
+    if (showLast){ c.globalAlpha = .35; line(D.lastYear, COL.gray, 1, (a, d) => a[d]); c.globalAlpha = 1; line(D.lastYear, COL.gray, 2.2, avg7); }
+    c.globalAlpha = .35; line(D.thisYear, COL.ctrl, 1, (a, d) => a[d]); c.globalAlpha = 1; line(D.thisYear, COL.ctrl, 2.4, avg7);
+    c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(X(R), T); c.lineTo(X(R), T + ph); c.stroke(); c.setLineDash([]);
+    c.fillStyle = COL.ink; c.fillText('новая кнопка', Math.min(X(R) - 84, w - 90), T + 14);
+  }
+  document.getElementById('y-this').textContent = pct(ba(D.thisYear));
+  document.getElementById('y-last').textContent = pct(ba(D.lastYear));
+  document.getElementById('btn-last').addEventListener('click', e => {
+    showLast = !showLast; e.target.textContent = showLast ? 'Убрать прошлый год' : 'Наложить прошлый год';
+    document.getElementById('lg-last').hidden = document.getElementById('y-last-box').hidden = !showLast;
+    const v = document.getElementById('v-year');
+    if (showLast){
+      v.hidden = false;
+      const head = g1 === 'yes' ? 'Боб тоже так подумал. ' : g1 === 'no' ? 'Похоже на правду, но не совсем. ' : g1 === 'idk' ? 'Да, по двум неделям сказать нельзя. ' : '';
+      v.className = 'verdict ' + (g1 === 'idk' ? 'good' : 'bad');
+      v.innerHTML = head + 'В прошлом году кнопки не было, а заказы в первую неделю декабря тоже выросли, на <b>' + pct(ba(D.lastYear)) + '</b>. С 1 декабря кафе каждый год включает зимнее меню, и становится холодно. Большая часть роста — сезон. Сколько дала сама кнопка, по этому графику не понять: годы отличаются ещё и погодой.';
+    }
+    drawYear();
+  });
+
+  // карточка 4: подвинь релиз
+  const est = []; for (let r = 7; r <= 358; r++) est.push({r, v: sum(D.noButton, r, r + 7) / sum(D.noButton, r - 7, r) - 1});
+  const maxE = est.reduce((m, e) => e.v > m.v ? e : m), minE = est.reduce((m, e) => e.v < m.v ? e : m);
+  const rel = document.getElementById('rel'), cvM = document.getElementById('ch-move'), cvH = document.getElementById('ch-hist');
+  let showAll = false;
+  function drawMove(){
+    const r = +rel.value, v = est[r - 7].v;
+    document.getElementById('rel-t').textContent = dayLabel(r);
+    document.getElementById('mv-est').textContent = pct(v);
+    const g = canvas(cvM); if (!g) return; const {c, w, h} = g;
+    const L = 48, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, lo = Math.floor(Math.min(...D.noButton) / 1000) * 1000, hi = Math.ceil(Math.max(...D.noButton) / 1000) * 1000;
+    const X = d => L + d / 364 * pw, Y = x => T + (1 - (x - lo) / (hi - lo)) * ph;
+    c.fillStyle = COL.fillC; c.fillRect(X(r - 7), T, X(r) - X(r - 7), ph);
+    c.fillStyle = COL.fillT; c.fillRect(X(r), T, X(r + 7) - X(r), ph);
+    axisY(c, L, Rm, T, ph, w, lo, hi, 1000, x => int(x));
+    c.fillStyle = COL.ink2; [0, 90, 181, 273].forEach(d => c.fillText(dayLabel(d), X(d) + 2, h - 6));
+    c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(x)) : c.moveTo(X(d), Y(x))); c.stroke();
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(avg7(D.noButton, d))) : c.moveTo(X(d), Y(avg7(D.noButton, d)))); c.stroke();
+    if (showAll) drawHist(v);
+  }
+  function drawHist(cur){
+    const g = canvas(cvH); if (!g) return; const {c, w, h} = g;
+    const lo = -0.12, hi = 0.2, bw = 0.01, n = Math.round((hi - lo) / bw), bins = new Array(n).fill(0);
+    est.forEach(e => bins[Math.max(0, Math.min(n - 1, Math.floor((e.v - lo) / bw)))]++);
+    const L = 10, Rm = 10, T = 18, Bm = 24, pw = w - L - Rm, ph = h - T - Bm, top = Math.max(...bins);
+    const X = v => L + (v - lo) / (hi - lo) * pw, ci = Math.floor((cur - lo) / bw);
+    bins.forEach((k, i) => { c.fillStyle = i === ci ? COL.trap : '#CFCBC1'; const bh = ph * k / top; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw / n - 2, bh); });
+    c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(0), T - 6); c.lineTo(X(0), T + ph); c.stroke();
+    c.fillStyle = COL.truth; c.fillText('правда: 0 %', X(0) + 4, T - 6);
+    c.fillStyle = COL.ink2; [-0.1, 0, 0.1, 0.2].forEach(v => c.fillText(pct(v, 0), X(v) - 14, h - 6));
+  }
+  rel.addEventListener('input', drawMove);
+  document.getElementById('btn-all').addEventListener('click', () => {
+    showAll = true; cvH.hidden = false;
+    const g = parseFloat(document.getElementById('g2').value), v = document.getElementById('v-move');
+    const share = est.filter(e => Math.abs(e.v) >= 0.05).length / est.length;
+    v.hidden = false; v.className = 'verdict bad';
+    v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — до <b>+' + g + ' %</b>. ') + 'Кнопка, которая ничего не делает, «поднимает» заказы до <b>' + pct(maxE.v) + '</b> при релизе ' + dayLabel(maxE.r) + ' и «роняет» на <b>' + pct(minE.v) + '</b> при релизе ' + dayLabel(minE.r) + '. В <b>' + Math.round(100 * share) + ' %</b> дней года «эффект» больше 5 % в ту или другую сторону. Двигай ползунок: коралловый столбик показывает, где твой день.';
+    drawMove();
+  });
+
+  // карточка 6: монетка против «до и после»
+  let runs = [], last = null;
+  const effIn = document.getElementById('eff'), cvA = document.getElementById('ch-ab'), cvS = document.getElementById('ch-strip');
+  const eff = () => +effIn.value / 100;
+  function one(){
+    const e = eff(), S = 7 + Math.floor(Math.random() * 344);
+    let wth = 0; for (let k = 0; k < 10; k++) wth = 0.75 * wth + 0.025 * gauss();
+    const mean = []; for (let d = S - 7; d < S + 14; d++){ wth = 0.75 * wth + 0.025 * gauss(); mean[d] = D.base * D.season[d] * D.weekly[(d + D.firstWeekday) % 7] * (1 + wth); }
+    const noisy = (m, k = 1.3) => Math.max(0, m + Math.sqrt(m) * k * gauss());
+    let before = 0, after = 0; for (let d = S - 7; d < S; d++) before += noisy(mean[d]); for (let d = S; d < S + 7; d++) after += noisy(mean[d] * (1 + e));
+    const ctrl = [], test = []; for (let d = S; d < S + 14; d++){ const day = 1 + 0.004 * gauss(); ctrl.push(noisy(mean[d] / 2 * day, 1)); test.push(noisy(mean[d] / 2 * (1 + e) * day, 1)); }
+    const sc = ctrl.reduce((a, b) => a + b), st = test.reduce((a, b) => a + b);
+    return {S, ba: after / before - 1, ab: st / sc - 1, ctrl, test, e};
+  }
+  function drawAB(){
+    const g = canvas(cvA); if (!g) return; const {c, w, h} = g;
+    if (!last){ c.fillStyle = COL.ink2; c.font = '14px Onest, system-ui, sans-serif'; c.fillText('Запусти эксперимент — здесь появятся заказы двух групп по дням.', 10, h / 2); return; }
+    const all = last.ctrl.concat(last.test), lo = Math.floor(Math.min(...all) / 500) * 500, hi = Math.ceil(Math.max(...all) / 500) * 500;
+    const L = 48, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, X = i => L + i / 13 * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, Rm, T, ph, w, lo, hi, 500, v => int(v));
+    c.fillStyle = COL.ink2; [0, 7, 13].forEach(i => c.fillText(dayLabel(last.S + i), Math.min(X(i), w - 50), h - 6));
+    [[last.ctrl, COL.ctrl], [last.test, COL.test]].forEach(([a, col]) => { c.strokeStyle = col; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); });
+    document.getElementById('ab-days').textContent = '14 дней с ' + dayLabel(last.S);
+  }
+  function drawStrip(){
+    const g = canvas(cvS); if (!g) return; const {c, w} = g;
+    const h = 160; cvS.style.height = h + 'px'; cvS.height = h * (window.devicePixelRatio || 1); c.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
+    c.font = '12px Onest, system-ui, sans-serif';
+    const lo = -0.15, hi = 0.25, L = 10, Rm = 10, pw = w - L - Rm, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+    const rows = [['до и после', 'ba', COL.trap, 46], ['одновременно, по монетке', 'ab', COL.ctrl, 110]];
+    c.strokeStyle = COL.grid; c.lineWidth = 1; [-0.1, 0, 0.1, 0.2].forEach(v => { c.beginPath(); c.moveTo(X(v), 14); c.lineTo(X(v), 126); c.stroke(); c.fillStyle = COL.ink2; c.fillText(pct(v, 0), X(v) - 14, 150); });
+    rows.forEach(([name, k, col, y]) => {
+      c.fillStyle = COL.ink; c.fillText(name, L, y - 20);
+      runs.forEach((r, i) => { c.fillStyle = col; c.globalAlpha = .6; c.beginPath(); c.arc(X(r[k]), y + ((i * 7919) % 17) - 8, 3.2, 0, 2 * Math.PI); c.fill(); });
+      c.globalAlpha = 1;
+    });
+    c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(eff()), 14); c.lineTo(X(eff()), 128); c.stroke();
+    c.fillStyle = COL.truth; c.fillText('правда', Math.min(X(eff()) + 4, w - 46), 12);
+  }
+  function stats(){
+    const n = runs.length;
+    const mae = k => n ? runs.reduce((a, r) => a + Math.abs(r[k] - r.e), 0) / n : null;
+    document.getElementById('err-ba').textContent = n ? pp(mae('ba')) : '—';
+    document.getElementById('err-ab').textContent = n ? pp(mae('ab')) : '—';
+    const v = document.getElementById('v-sim');
+    if (n >= 30){
+      v.hidden = false; v.className = 'verdict good';
+      v.innerHTML = 'За ' + n + ' экспериментов «до и после» в среднем промахивается на <b>' + pp(mae('ba')) + '</b>, а сравнение групп по монетке — всего на <b>' + pp(mae('ab')) + '</b> мимо правды. Сезон, праздники и погода у двух групп общие, поэтому в разнице их не видно. Остаётся только случайность, и её мы научимся измерять в следующих шагах.';
+    }
+  }
+  const redraw = () => { drawAB(); drawStrip(); stats(); };
+  document.querySelectorAll('[data-runs]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.runs; i++){ last = one(); runs.push(last); } redraw(); }));
+  document.getElementById('sim-reset').addEventListener('click', () => { runs = []; last = null; document.getElementById('v-sim').hidden = true; redraw(); });
+  effIn.addEventListener('input', () => { document.getElementById('eff-t').textContent = (eff() > 0 ? '+' : eff() < 0 ? '−' : '') + Math.abs(+effIn.value) + ' %'; runs = []; last = null; document.getElementById('v-sim').hidden = true; redraw(); });
+
+  const all = () => { drawYear(); drawMove(); redraw(); };
+  window.addEventListener('resize', all);
+  all();
+}
+</script>
+</body>
+</html>
