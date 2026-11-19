@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Когда зелёное врёт · A/B на пальцах</title>
+<meta name="description" content="Шаг 10 интерактивного курса «A/B на пальцах»: подглядывание, много метрик, перекос групп и тренажёр по чтению отчётов A/B-тестов.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab10">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 10 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Знакомство" aria-label="Знакомство">
+  <p class="kicker">Шаг 10 из 10</p>
+  <h1>Когда зелёное врёт</h1>
+  <figure class="art"><img src="img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб тянется к зелёной кнопке, под ковром ловушки</figcaption></figure>
+  <p class="lead">Мы научились отличать эффект от шума и читать интервал и p-value. Осталось последнее: способы обмануть себя, даже когда всё посчитано правильно.</p>
+  <p>Их три, и они встречаются постоянно: подглядывать каждый день, смотреть на десятки метрик и не замечать, что группы разделились неровно. В конце — тренажёр на пяти отчётах.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Подглядывание" aria-label="Подглядывание">
+  <span class="step-tag">Ловушка 1</span>
+  <h2>Боб смотрит отчёт каждое утро</h2>
+  <figure class="art"><img src="img/ab10-01-peeking.jpg" alt="Боб с утренним кофе заглядывает в ноутбук через плечо Алисы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб каждое утро заглядывает в отчёт</figcaption></figure>
+  <p>Тест запланирован на 30 дней. Но Боб открывает отчёт каждое утро и готов выкатить фичу в первый же день, когда разница станет значимой.</p>
+  <p>Возьмём A/A-тест: обе группы видят одно и то же, эффекта нет. Если смотреть каждый день все 30 дней и остановиться при первом «значимо», как часто Боб найдёт эффект, которого нет?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="5" aria-pressed="false">В 5 % случаев, как обычно</button>
+    <button type="button" data-v="10" aria-pressed="false">Около 10 %</button>
+    <button type="button" data-v="25" aria-pressed="false">Около четверти</button>
+    <button type="button" data-v="50" aria-pressed="false">Больше половины</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее».</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Подглядываем" aria-label="Подглядываем">
+  <span class="step-tag">Игрушка</span>
+  <h2>Тридцать утр с отчётом</h2>
+  <p>Линия — насколько разница между группами больше обычного шума, день за днём. Серая полоса — обычный шум. Если линия вышла из полосы, отчёт в этот день показывает «значимо».</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" data-aa="1">Один A/A на 30 дней</button>
+      <button class="btn ghost" type="button" data-aa="100">+100 A/A</button>
+      <button class="btn ghost" type="button" id="aa-reset">Сначала</button>
+    </div>
+    <canvas id="ch-peek" aria-label="Разница в A/A-тесте по дням в сравнении с границей шума"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>последний A/A</span><span><i style="background:var(--trap)"></i>день, когда Боб увидел бы «значимо»</span></div>
+    <div class="big2">
+      <div class="trap"><b id="pk-any">—</b><span>A/A, где Боб хоть раз увидел «значимо» и выкатил</span></div>
+      <div class="truth"><b id="pk-end">—</b><span>A/A, где «значимо» на 30-й день, если смотреть только в конце</span></div>
+    </div>
+    <div class="verdict" id="v-peek" hidden></div>
+  </div>
+  <div class="def">Как правильно: длину теста решают заранее (по MDE) и решение принимают в конце. Каждый день можно смотреть только на поломки: не упало ли приложение, ровно ли делятся группы.</div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Много метрик" aria-label="Много метрик">
+  <span class="step-tag">Ловушка 2</span>
+  <h2>Двадцать метрик — хоть одна да покраснеет</h2>
+  <p>В отчёте обычно не одна метрика, а двадцать: заказы, выручка, средний чек, отмены… Снова A/A-тест, эффекта нет нигде. Цветом отмечены «значимые» разницы.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" data-mm="1">Ещё один A/A</button>
+      <button class="btn ghost" type="button" data-mm="100">+100 A/A</button>
+    </div>
+    <div class="metrics20" id="metrics"></div>
+    <div class="big2">
+      <div class="trap"><b id="mm-any">—</b><span>A/A, где «прокрасилась» хотя бы одна метрика</span></div>
+      <div class="ctrl"><b id="mm-avg">—</b><span>«значимых» метрик в среднем на один A/A</span></div>
+    </div>
+    <div class="verdict bad" id="v-mm" hidden></div>
+  </div>
+  <div class="def">Как правильно: до запуска выбрать одну главную метрику, по которой принимаем решение, и пару «сторожевых», которые не должны ухудшиться. Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Перекос групп" aria-label="Перекос групп">
+  <span class="step-tag">Ловушка 3</span>
+  <h2>Делили пополам, а получилось неровно</h2>
+  <figure class="art"><img src="img/ab10-02-uneven-doors.jpg" alt="У синей двери очередь длиннее, чем у оранжевой, Алиса хмурится" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у синей двери очередь заметно длиннее, чем у оранжевой</figcaption></figure>
+  <p>Тест на новый экран оплаты, сплит 50/50. В отчёте миллион пользователей: в контроле <b>508 000</b>, в тесте <b>492 000</b>, то есть 50,8 % против 49,2 %. Мелочь? Проверим, бывает ли такое случайно.</p>
+  <div class="sheet c-white">
+    <label class="field" for="srm-n">Пользователей в эксперименте: <b id="srm-n-t" class="num">1 000 000</b></label>
+    <input type="range" id="srm-n" min="0" max="4" value="4" style="width:100%">
+    <canvas id="ch-srm" aria-label="Доля теста при честном делении и наша доля"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>200 честных делений пополам</span><span><i style="background:var(--trap)"></i>наша доля теста, 49,2 %</span></div>
+    <div class="big2">
+      <div class="ctrl"><b id="srm-sd">…</b><span>обычный разброс доли теста при честной монетке (±2 ширины)</span></div>
+      <div class="trap"><b id="srm-x">…</b><span>во столько ширин наш перекос больше нормы</span></div>
+    </div>
+  </div>
+  <p>При миллионе пользователей честная монетка почти никогда не отклоняется больше чем на 0,1 п.п. Наши 0,8 п.п. значат, что где-то баг: например, новый экран падает у части людей и они не доезжают до логов. Тогда в тесте остались самые «живучие» пользователи, и сравнение нечестное.</p>
+  <div class="def">Если доли групп заметно не совпадают с планом, результаты читать нельзя, даже зелёные. Сначала ищем баг в делении или логировании.</div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Тренажёр" aria-label="Тренажёр">
+  <span class="step-tag">Тренажёр</span>
+  <h2>Пять отчётов: что решаем?</h2>
+  <p>Главная метрика в каждом тесте — конверсия в заказ. Зелёным и красным отмечены значимые изменения.</p>
+
+  <div class="quiz" data-right="a">
+    <p class="q">1. Фото блюд крупнее</p>
+    <div class="report-wrap"><table class="report">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
+      <tr><td>Конверсия в заказ</td><td>10,02 %</td><td>10,23 %</td><td class="up">+2,1 %</td><td class="up">[+0,8; +3,4]</td><td class="up">0,002</td></tr>
+      <tr><td>Средний чек</td><td>612 ₽</td><td>610 ₽</td><td>−0,3 %</td><td>[−1,5; +0,9]</td><td>0,62</td></tr>
+      <tr><td>Отмены</td><td>3,1 %</td><td>3,1 %</td><td>+0,5 %</td><td>[−2,0; +3,0]</td><td>0,70</td></tr>
+    </table></div>
+    <p class="report-meta">21 день из 21 запланированного, 420 000 пользователей, доли 50,0 / 50,0.</p>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <p class="why">Тест дошёл до конца, доли ровные, главная метрика выросла, и интервал целиком выше нуля. Средний чек и отмены не ухудшились. Катим.</p>
+  </div>
+
+  <div class="quiz" data-right="c">
+    <p class="q">2. Кнопка «Добавить соус»</p>
+    <div class="report-wrap"><table class="report">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
+      <tr><td>Конверсия в заказ</td><td>9,98 %</td><td>10,10 %</td><td>+1,2 %</td><td>[−0,6; +3,0]</td><td>0,19</td></tr>
+      <tr><td>Средний чек</td><td>605 ₽</td><td>611 ₽</td><td>+1,0 %</td><td>[−0,4; +2,4]</td><td>0,16</td></tr>
+    </table></div>
+    <p class="report-meta">7 дней из 21 запланированного, MDE на 21 день — 1,8 %, доли 50,1 / 49,9.</p>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <p class="why">Прошла только треть теста. Интервал широкий и задевает ноль, но решение по плану принимают через 21 день. Останавливаться сейчас — то самое подглядывание. Ждём.</p>
+  </div>
+
+  <div class="quiz" data-right="d">
+    <p class="q">3. Новый экран оплаты</p>
+    <div class="report-wrap"><table class="report">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
+      <tr><td>Конверсия в заказ</td><td>9,91 %</td><td>10,39 %</td><td class="up">+4,8 %</td><td class="up">[+3,9; +5,7]</td><td class="up">&lt; 0,001</td></tr>
+      <tr><td>Выручка на пользователя</td><td>61,4 ₽</td><td>64,1 ₽</td><td class="up">+4,4 %</td><td class="up">[+2,6; +6,2]</td><td class="up">&lt; 0,001</td></tr>
+    </table></div>
+    <p class="report-meta">21 день из 21, 400 000 пользователей, доли 51,3 / 48,7 при плане 50 / 50.</p>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <p class="why">Всё зелёное, но в тесте на 5 000 человек меньше, чем должно быть при 50 / 50. При 400 000 пользователей такой перекос случайно не бывает. Похоже, часть людей в тесте потерялась (например, экран у них падает), и остались самые активные. Ищем баг.</p>
+  </div>
+
+  <div class="quiz" data-right="b">
+    <p class="q">4. Рекомендации «Вам понравится»</p>
+    <div class="report-wrap"><table class="report">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
+      <tr><td>Конверсия в заказ</td><td>10,05 %</td><td>10,03 %</td><td>−0,2 %</td><td>[−1,1; +0,7]</td><td>0,66</td></tr>
+      <tr><td>Средний чек</td><td>609 ₽</td><td>612 ₽</td><td>+0,5 %</td><td>[−0,5; +1,5]</td><td>0,33</td></tr>
+    </table></div>
+    <p class="report-meta">28 дней из 28, MDE — 1,5 %, доли 50,0 / 50,0. Рекомендации стоят денег на поддержку.</p>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <p class="why">Тест длинный и чувствительный: эффект от 1,5 % он бы заметил. Интервал узкий вокруг нуля, так что большого эффекта точно нет, а поддержка стоит денег. Не катим. Ждать дальше бессмысленно: тест уже закончился.</p>
+  </div>
+
+  <div class="quiz" data-right="b">
+    <p class="q">5. Новая иконка приложения</p>
+    <div class="report-wrap"><table class="report">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
+      <tr><td>Конверсия в заказ</td><td>10,00 %</td><td>10,04 %</td><td>+0,4 %</td><td>[−0,9; +1,7]</td><td>0,55</td></tr>
+      <tr><td>…ещё 13 метрик</td><td></td><td></td><td>±1 %</td><td>задевают ноль</td><td>от 0,12 до 0,94</td></tr>
+      <tr><td>Повторные заказы за неделю</td><td>2,31</td><td>2,45</td><td class="up">+6,1 %</td><td class="up">[+0,6; +11,6]</td><td class="up">0,03</td></tr>
+    </table></div>
+    <p class="report-meta">21 день из 21, доли 50,0 / 49,9. Боб: «Повторные заказы выросли на 6 %! Катим».</p>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <p class="why">Главная метрика не изменилась. Из 15 метрик одна «прокрасилась» с p = 0,03, а при 15 метриках хотя бы одна такая в A/A бывает примерно в половине случаев. Это не повод катить. Если идея про повторные заказы интересна, её проверяют отдельным тестом, где это главная метрика.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Итог курса" aria-label="Итог курса">
+  <span class="step-tag">Шпаргалка всего курса</span>
+  <h2>Что запомнить</h2>
+  <ul class="cheat">
+    <li><b>Сравниваем одновременно, делим случайно.</b> «До и после» и «кто включил против кто нет» смешивают эффект со всем остальным.</li>
+    <li><b>Шум есть всегда.</b> Даже одинаковые группы отличаются, вопрос только в том, больше ли разница обычного шума.</li>
+    <li><b>Средние ложатся колоколом,</b> и ширина колокола уменьшается как корень из числа людей.</li>
+    <li><b>Эффект — это вилка.</b> Смотрим на интервал: целиком выше нуля, задевает ноль или ниже.</li>
+    <li><b>p-value</b> — насколько удивительна такая разница, если эффекта нет. Это не вероятность того, что фича работает.</li>
+    <li><b>Ошибки бывают двух видов:</b> ложная тревога примерно в одном пустом тесте из двадцати и пропуск, когда тест короткий.</li>
+    <li><b>MDE считают до запуска.</b> Вдвое меньший эффект стоит вчетверо больше людей.</li>
+    <li><b>Не подглядываем, выбираем главную метрику заранее, проверяем доли групп.</b></li>
+  </ul>
+  <p>И последние названия:</p>
+  <dl class="terms">
+    <dt>Подглядывание</dt><dd>остановка теста при первом «значимо» вместо запланированного конца</dd>
+    <dt>Множественные сравнения</dt><dd>много метрик или групп сразу, из-за чего случайные «победы» почти неизбежны</dd>
+    <dt>SRM</dt><dd>sample ratio mismatch, перекос групп: фактические доли не совпадают с планом, значит, где-то баг</dd>
+  </dl>
+  <figure class="art"><img src="img/ab10-03-final.jpg" alt="Алиса, Боб и Котейка празднуют в кафе, на стене два колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда празднует конец курса</figcaption></figure>
+  <p class="lead">Курс пройден. Теперь отчёт A/B-теста можно читать самому и задавать аналитику правильные вопросы: какой MDE, сколько дней по плану, какая главная метрика и ровно ли поделились группы.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+
+// ---------- подглядывание ----------
+const P0 = 0.10, PER_DAY = 10000, DAYS = 30;
+let aa = [];
+function oneAA(){
+  let a = 0, b = 0, n = 0; const z = [];
+  for (let d = 0; d < DAYS; d++){
+    n += PER_DAY; a += binom(PER_DAY, P0); b += binom(PER_DAY, P0);
+    const pp = (a + b) / (2 * n); z.push((b - a) / n / Math.sqrt(pp * (1 - pp) * 2 / n));
+  }
+  const first = z.findIndex(v => Math.abs(v) > 1.96);
+  return {z, first, any: first >= 0, end: Math.abs(z[DAYS - 1]) > 1.96};
+}
+function drawPeek(){
+  const g = canvas($('ch-peek'), 0.42, 0.7); if (!g) return; const {c, w, h} = g;
+  const L = 28, R = 26, T = 10, B = 24, pw = w - L - R, ph = h - T - B, lim = 3.5;
+  const X = d => L + d / (DAYS - 1) * pw, Y = v => T + (1 - (Math.max(-lim, Math.min(lim, v)) + lim) / (2 * lim)) * ph;
+  c.fillStyle = COL.fillGray; c.fillRect(L, Y(1.96), pw, Y(-1.96) - Y(1.96));
+  c.strokeStyle = COL.gray; c.setLineDash([4, 3]); [1.96, -1.96].forEach(v => { c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); }); c.setLineDash([]);
+  c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(w - R, Y(0)); c.stroke();
+  label(c, 'обычный шум', w - R - 6, Y(-1.96) - 6, COL.ink2, 'right');
+  label(c, '«значимо»', L + 6, Y(1.96) - 6, COL.ink2);
+  label(c, '«значимо»', L + 6, Y(-1.96) + 16, COL.ink2);
+  axisX(c, X, [0, 6, 13, 20, 29], h - 6, d => (d + 1) + ' дн.');
+  const recent = aa.slice(-15);
+  recent.forEach((r, k) => {
+    const lastOne = k === recent.length - 1;
+    c.strokeStyle = lastOne ? COL.ctrl : 'rgba(61,125,196,.18)'; c.lineWidth = lastOne ? 2.4 : 1.2;
+    c.beginPath(); r.z.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
+    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); }
+  });
+  if (!aa.length) label(c, 'Запусти A/A-тест — здесь появится его линия.', L + 10, Y(0) - 10, COL.ink2);
+}
+function peekStats(){
+  const n = aa.length;
+  $('pk-any').textContent = n ? share(aa.filter(r => r.any).length / n, 0) : '—';
+  $('pk-end').textContent = n ? share(aa.filter(r => r.end).length / n, 0) : '—';
+  const v = $('v-peek');
+  if (n < 50){ v.hidden = true; return; }
+  const any = aa.filter(r => r.any).length / n, g1 = AB.choice('g1');
+  const head = g1 === '25' ? 'Ты угадал. ' : g1 ? 'Ты ставил на ' + (g1 === '50' ? 'больше половины' : g1 + ' %') + '. ' : '';
+  v.hidden = false; v.className = 'verdict ' + (g1 === '25' ? 'good' : 'bad');
+  v.innerHTML = head + 'Из ' + n + ' запусков A/A Боб нашёл несуществующий эффект в <b>' + share(any, 0) + '</b> случаев. Если смотреть только в последний день, выходит около <b>5 %</b>, как и обещает порог. Каждый лишний взгляд — ещё один шанс, что шум случайно выйдет за полосу.';
+}
+document.querySelectorAll('[data-aa]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.aa; i++) aa.push(oneAA()); drawPeek(); peekStats(); }));
+$('aa-reset').addEventListener('click', () => { aa = []; drawPeek(); peekStats(); });
+
+// ---------- много метрик ----------
+const METRICS = [['Конверсия в заказ', .012], ['Заказы на пользователя', .02], ['Выручка на пользователя', .03], ['Средний чек', .01], ['Отмены', .05], ['Повторные заказы', .03], ['Время до заказа', .015], ['Добавления в корзину', .012], ['Брошенные корзины', .02], ['Заказы с десертом', .03], ['Заказы с напитком', .02], ['Промокоды', .05], ['Чаевые', .04], ['Оценки заказов', .03], ['Жалобы в поддержку', .08], ['Открытия приложения', .008], ['Просмотры меню', .01], ['Поиск по меню', .02], ['Заказы ночью', .06], ['Отписки от рассылки', .07]];
+let mmRuns = 0, mmAny = 0, mmSig = 0, mmLast = null;
+function oneMM(){ return METRICS.map(([name, se]) => { const z = gauss(); return {name, d: z * se, sig: Math.abs(z) > 1.96}; }); }
+function paintMM(){
+  $('metrics').innerHTML = (mmLast || METRICS.map(([name]) => ({name, d: null}))).map(m => '<span class="' + (m.sig ? (m.d > 0 ? 'up' : 'down') : '') + '">' + m.name + '<small>' + (m.d === null ? '—' : pct(m.d, 1)) + '</small></span>').join('');
+  $('mm-any').textContent = mmRuns ? share(mmAny / mmRuns, 0) : '—';
+  $('mm-avg').textContent = mmRuns ? num(mmSig / mmRuns, 1) : '—';
+  const v = $('v-mm');
+  if (mmRuns >= 30){ v.hidden = false; v.innerHTML = 'В A/A-тесте нет ни одного настоящего эффекта, а хотя бы одна из 20 метрик «прокрашивается» в <b>' + share(mmAny / mmRuns, 0) + '</b> тестов: в среднем одна метрика на тест. Это ожидаемо: каждая метрика ошибается в 5 % случаев, а метрик двадцать.'; }
+}
+document.querySelectorAll('[data-mm]').forEach(b => b.addEventListener('click', () => {
+  for (let i = 0; i < +b.dataset.mm; i++){ mmLast = oneMM(); const k = mmLast.filter(m => m.sig).length; mmRuns++; mmSig += k; if (k) mmAny++; }
+  paintMM();
+}));
+
+// ---------- перекос групп ----------
+const SRM_N = [10000, 30000, 100000, 300000, 1000000], OBS = 0.492;
+let srmDots = [];
+function srmRun(){ const n = SRM_N[+$('srm-n').value]; srmDots = Array.from({length: 200}, () => binom(n, 0.5) / n); }
+function drawSrm(){
+  const n = SRM_N[+$('srm-n').value], sdv = Math.sqrt(0.25 / n);
+  $('srm-n-t').textContent = int(n);
+  $('srm-sd').textContent = '±' + pp(2 * sdv);
+  $('srm-x').textContent = num((0.5 - OBS) / sdv, (0.5 - OBS) / sdv < 10 ? 1 : 0);
+  const g = canvas($('ch-srm'), 0.28, 0.5); if (!g) return; const {c, w, h} = g;
+  const lo = 0.485, hi = 0.515, L = 10, R = 10, T = 14, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+  c.fillStyle = COL.fillC; c.fillRect(X(0.5 - 2 * sdv), T, X(0.5 + 2 * sdv) - X(0.5 - 2 * sdv), ph);
+  c.strokeStyle = COL.grid; [0.49, 0.5, 0.51].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
+  axisX(c, X, [0.49, 0.495, 0.5, 0.505, 0.51], h - 6, v => num(100 * v, 1) + ' %');
+  srmDots.forEach((v, i) => { c.fillStyle = 'rgba(61,125,196,.55)'; c.beginPath(); c.arc(X(v), T + 8 + ((i * 7919) % (ph - 16)), 3, 0, 2 * Math.PI); c.fill(); });
+  c.strokeStyle = COL.trap; c.lineWidth = 3; c.beginPath(); c.moveTo(X(OBS), T - 4); c.lineTo(X(OBS), T + ph); c.stroke();
+  label(c, 'у нас', X(OBS) + 5, T + 6, COL.ink);
+}
+$('srm-n').addEventListener('input', () => { srmRun(); drawSrm(); });
+
+window.addEventListener('resize', () => { drawPeek(); drawSrm(); });
+srmRun(); paintMM(); peekStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Толпа предсказуема · A/B на пальцах</title>
+<meta name="description" content="Шаг 4 интерактивного курса «A/B на пальцах»: почему средние по толпе складываются в колокол, даже если люди непредсказуемы. Центральная предельная теорема и бакеты.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab04" data-next="05-bell-width.html">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 4 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="У шума есть форма" aria-label="У шума есть форма">
+  <p class="kicker">Шаг 4 из 10</p>
+  <h1>Толпа предсказуема</h1>
+  <figure class="art"><img src="img/ab04-00-galton.jpg" alt="Котейка сыплет кофейные зёрна в доску с гвоздиками, внизу они складываются в горку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка сыплет зёрна в доску с гвоздиками, внизу растёт горка</figcaption></figure>
+  <p class="lead">В шаге 3 мы видели: разница между одинаковыми группами прыгает. Но прыгает она не как попало. У шума есть форма, и её можно предсказать. Это главный секрет, на котором держится весь анализ A/B-тестов.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Один гость" aria-label="Один гость">
+  <span class="step-tag">Посмотри</span>
+  <h2>Один гость непредсказуем</h2>
+  <p>Вот сколько заказов делают гости приложения за неделю. Больше половины не заказывают ничего, многие — один-два раза, а редкие фанаты — двадцать и больше. В среднем выходит около одного заказа на человека.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-pmf" aria-label="Сколько заказов за неделю делает один гость"></canvas>
+    <p class="note">По горизонтали — заказов за неделю, по вертикали — доля гостей.</p>
+  </div>
+  <p>Угадать, сколько закажет случайный гость, невозможно. А если взять 100 случайных гостей и посчитать их среднее? И повторить так много раз? Какой формы будет гистограмма этих средних?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="same" aria-pressed="false">Такой же: горка у нуля и длинный хвост</button>
+    <button type="button" data-v="bell" aria-pressed="false">Ровный колокол</button>
+    <button type="button" data-v="flat" aria-pressed="false">Ровная полка</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее».</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Средние по выборкам" aria-label="Средние по выборкам">
+  <span class="step-tag">Игрушка</span>
+  <h2>Собираем средние</h2>
+  <p>Выбери, сколько гостей брать за раз. Каждая выборка даёт одно число — среднее число заказов у этих гостей. Складывай эти числа в гистограмму.</p>
+  <div class="sheet c-white">
+    <div class="nsel" id="nsel" role="group" aria-label="Гостей в выборке">
+      <button type="button" data-n="1" aria-pressed="false">по 1 гостю</button>
+      <button type="button" data-n="10" aria-pressed="false">по 10</button>
+      <button type="button" data-n="100" aria-pressed="true">по 100</button>
+      <button type="button" data-n="1000" aria-pressed="false">по 1000</button>
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" data-add="1">+1 выборка</button>
+      <button class="btn ghost" type="button" data-add="500">+500 выборок</button>
+      <button class="btn ghost" type="button" id="btn-bell">Наложить колокол</button>
+    </div>
+    <canvas id="ch-means" aria-label="Гистограмма средних по выборкам"></canvas>
+    <p class="note" id="means-stat"></p>
+    <div class="verdict" id="v-means" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Почему колокол" aria-label="Почему колокол">
+  <span class="step-tag">Почему так</span>
+  <h2>Крайности гасят друг друга</h2>
+  <figure class="art"><img src="img/ab04-01-superfan.jpg" alt="Один гость несёт башню из пакетов с заказами, рядом очередь обычных гостей с одним стаканчиком" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: фанат с башней пакетов среди обычных гостей</figcaption></figure>
+  <p>В выборку из ста гостей обычно попадает пара фанатов, несколько десятков «один-два раза» и много тех, кто ничего не заказал. Если фанатов случайно оказалось трое, среднее немного вырастет. Если ни одного, немного упадёт. Сильно отклониться среднее может, только если много случайностей сложатся в одну сторону сразу, а это редкость.</p>
+  <p>Поэтому средние кучкуются вокруг настоящего среднего, а чем дальше от него, тем реже. Так и получается колокол. И неважно, насколько странно ведёт себя один человек: для колокола нужно только, чтобы людей было много и они не зависели друг от друга.</p>
+  <div class="def">Один гость непредсказуем, а среднее по толпе предсказуемо: оно ложится колоколом вокруг правды.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Корзины" aria-label="Корзины">
+  <span class="step-tag">Игрушка</span>
+  <h2>Как это используют платформы экспериментов</h2>
+  <figure class="art"><img src="img/ab04-02-baskets.jpg" alt="Котейка раскладывает гостей по длинному ряду одинаковых корзин" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка раскладывает гостей по длинному ряду корзин</figcaption></figure>
+  <p>В эксперименте одна группа — это один набор гостей, и среднее по ней одно. Как узнать, насколько оно шатается? Многие платформы делают так: раскладывают гостей группы по 256 корзинам тем же хешем от id и считают среднее в каждой корзине. Получается 256 «маленьких экспериментов» сразу.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-buckets" aria-label="Средние по 256 корзинам"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="bk-mean">—</b><span>среднее по всей группе, заказов на гостя</span></div>
+      <div><b id="bk-sd">—</b><span>разброс между корзинами</span></div>
+    </div>
+    <div class="controls"><button class="btn" type="button" id="btn-buckets">Новая группа из 20 000 гостей</button></div>
+    <div class="verdict good" id="v-buckets"></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Три вопроса про колокол</h2>
+  <div class="quiz" data-right="a">
+    <p class="q">Метрика — выручка на гостя за месяц. У большинства 0, у некоторых тысячи. Ляжет ли колоколом среднее по 50 000 гостей, если повторять эксперимент много раз?</p>
+    <div class="choice"><button type="button" data-v="a">Да, людей много и они независимы</button><button type="button" data-v="b">Нет, выручка слишком неровная</button><button type="button" data-v="c">Только если убрать нули</button></div>
+    <p class="why">Колокол получается у среднего, а не у отдельных людей. Чем неровнее метрика, тем больше людей нужно, но 50 000 обычно хватает с запасом.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Заказы одного гостя за неделю распределены колоколом?</p>
+    <div class="choice"><button type="button" data-v="a">Да</button><button type="button" data-v="b">Нет, это горка у нуля с длинным хвостом</button><button type="button" data-v="c">Да, если гостей много</button></div>
+    <p class="why">У одного человека распределение какое угодно. Колоколом ложится среднее по многим людям.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Зачем платформа раскладывает гостей группы по корзинам?</p>
+    <div class="choice"><button type="button" data-v="a">Чтобы корзины можно было выкатывать по очереди</button><button type="button" data-v="b">Чтобы убрать шум</button><button type="button" data-v="c">Чтобы по разбросу между корзинами увидеть шум среднего</button></div>
+    <p class="why">Шум корзины никуда не убирают, его измеряют. По разбросу между корзинами видно, насколько шатается среднее всей группы. И считать так быстро и дёшево.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 4</span>
+  <h2>Один непредсказуем, толпа предсказуема</h2>
+  <ul class="cheat">
+    <li>Заказы одного гостя распределены как угодно: много нулей и длинный хвост.</li>
+    <li>Среднее по многим независимым гостям ложится колоколом вокруг настоящего среднего. Крайности гасят друг друга.</li>
+    <li>Чем больше гостей в выборке, тем уже колокол.</li>
+    <li>Платформы экспериментов раскладывают гостей по корзинам и по разбросу между корзинами видят, насколько шатается среднее.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>Нормальное распределение</dt><dd>тот самый колокол: значения кучкуются вокруг середины и редеют к краям</dd>
+    <dt>ЦПТ</dt><dd>центральная предельная теорема: среднее многих независимых величин распределено почти нормально, какими бы ни были сами величины</dd>
+    <dt>Бакет</dt><dd>корзина, в которую гость попадает по хешу; разброс средних по бакетам показывает шум</dd>
+  </dl>
+  <figure class="art"><img src="img/ab04-03-next.jpg" alt="Боб пытается раскатать широкое тесто в форме колокола скалкой, чтобы оно стало уже" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб пытается сделать колокол уже</figcaption></figure>
+  <p class="lead">Дальше, шаг 5: от чего зависит ширина колокола и почему вчетверо больше гостей дают только вдвое более точный ответ.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+// Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
+const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
+const MU = PMF.reduce((a, p, k) => a + p * k, 0);
+const SIG = Math.sqrt(PMF.reduce((a, p, k) => a + p * k * k, 0) - MU * MU);
+const CDF = PMF.reduce((a, p) => (a.push((a.length ? a[a.length - 1] : 0) + p), a), []);
+const draw1 = () => { const u = Math.random(); let k = 0; while (k < CDF.length - 1 && CDF[k] < u) k++; return k; };
+const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); return s / n; };
+
+// ---------- карточка 2: один гость ----------
+(function(){
+  const cv = document.getElementById('ch-pmf');
+  function draw(){
+    const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
+    const K = 16, L = 40, R = 8, T = 16, B = 22, pw = w - L - R, ph = h - T - B, hi = 0.6;
+    const vals = PMF.slice(0, K).concat([PMF.slice(K).reduce((a, b) => a + b)]);
+    axisY(c, L, R, T, ph, w, 0, hi, 0.2, v => num(100 * v + 0, 0) + ' %');
+    const bw = pw / vals.length;
+    vals.forEach((p, k) => {
+      const bh = ph * p / hi, x = L + k * bw;
+      c.fillStyle = k === 0 ? COL.gray : COL.ctrl; c.fillRect(x + 2, T + ph - bh, bw - 4, bh);
+      if (k < 4 || k === K) label(c, num(100 * p, p < 0.1 ? 1 : 0) + ' %', x + bw / 2, T + ph - bh - 4, COL.ink2, 'center');
+      if (k % 5 === 0 || k === K) label(c, k === K ? K + '+' : String(k), x + bw / 2, h - 6, COL.ink2, 'center');
+    });
+  }
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 3: средние ----------
+(function(){
+  const cv = document.getElementById('ch-means');
+  const RANGES = {1: [-0.5, 20.5, 1], 10: [0, 4, 0.1], 100: [0.3, 1.7, 0.035], 1000: [0.775, 1.225, 0.01125]};
+  let n = 100, means = [], bell = false;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.66); if (!g) return; const {c, w, h} = g;
+    const [lo, hi, bw] = RANGES[n], L = 10, R = 10, T = 14, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
+    const clipped = means.map(m => Math.min(m, hi - bw / 2));
+    const b = bins(clipped, lo, hi, bw), se = SIG / Math.sqrt(n);
+    const peak = means.length * bw * normPdf(0) / se;
+    const top = Math.max(5, ...b, bell && n > 1 ? peak : 0) * 1.08;
+    b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, Math.max(1, pw * bw / (hi - lo) - 2), bh); });
+    c.globalAlpha = 1;
+    if (bell && means.length){
+      c.strokeStyle = COL.test; c.lineWidth = 2.6; c.beginPath();
+      for (let i = 0; i <= 200; i++){ const x = lo + (hi - lo) * i / 200, y = means.length * bw * normPdf((x - MU) / se) / se; const px = X(x), py = T + ph - ph * y / top; i ? c.lineTo(px, py) : c.moveTo(px, py); }
+      c.stroke();
+    }
+    c.strokeStyle = COL.truth; c.lineWidth = 1.5; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(X(MU), T); c.lineTo(X(MU), T + ph); c.stroke(); c.setLineDash([]);
+    label(c, 'настоящее среднее', Math.min(X(MU) + 4, w - 110), T + 2, COL.truth);
+    const ticks = {1: [0, 5, 10, 15, 20], 10: [0, 1, 2, 3, 4], 100: [0.4, 0.7, 1, 1.3, 1.6], 1000: [0.8, 0.9, 1, 1.1, 1.2]}[n];
+    axisX(c, X, ticks, h - 6, v => n === 1 && v === 20 ? '20+' : num(v, n >= 100 ? 1 : 0));
+    if (!means.length) label(c, 'Добавь выборки: здесь появится гистограмма средних', w / 2, T + ph / 2, COL.ink2, 'center');
+  }
+  function update(){
+    document.querySelectorAll('#nsel button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+    document.getElementById('btn-bell').textContent = bell ? 'Убрать колокол' : 'Наложить колокол';
+    const st = document.getElementById('means-stat');
+    st.textContent = means.length ? 'Выборок: ' + int(means.length) + '. Последнее среднее: ' + num(means[means.length - 1], 2) + ' заказа на гостя. Средние разбросаны примерно на ±' + num(means.length > 2 ? sd(means) : 0, 2) + ' вокруг ' + num(MU, 2) + '.' : '';
+    const v = document.getElementById('v-means'), g1 = AB.choice('g1');
+    if (means.length >= 200 && n >= 100){
+      v.hidden = false; v.className = 'verdict ' + (g1 === 'bell' || !g1 ? 'good' : 'bad');
+      v.innerHTML = (g1 === 'bell' ? 'Верно! ' : g1 === 'same' ? 'Удивительно, правда? ' : g1 ? 'Не полка. ' : '') + 'Один гость — это горка у нуля с хвостом до сорока заказов. А средние по ' + n + ' гостям собрались в аккуратный колокол вокруг ' + num(MU, 2) + '. ' + (bell ? 'Оранжевая кривая — теоретический колокол, и он почти совпадает с гистограммой.' : 'Нажми «Наложить колокол»: теоретическая кривая почти совпадает с гистограммой.') + ' Попробуй «по 1» и «по 10», чтобы увидеть, как колокол собирается.';
+    } else if (means.length >= 200 && n === 1){
+      v.hidden = false; v.className = 'verdict bad';
+      v.innerHTML = 'По одному гостю гистограмма повторяет исходную горку: колокола нет. Переключись на «по 10» и «по 100».';
+    } else if (means.length >= 200 && n === 10){
+      v.hidden = false; v.className = 'verdict good';
+      v.innerHTML = 'По 10 гостей уже похоже на колокол, но он ещё кривой: длинный хвост тянет вправо. Включи колокол и сравни. На «по 100» совпадение почти идеальное.';
+    } else v.hidden = true;
+    draw();
+  }
+  document.querySelectorAll('#nsel button').forEach(b => b.addEventListener('click', () => { n = +b.dataset.n; means = []; update(); }));
+  document.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.add; i++) means.push(sampleMean(n)); update(); }));
+  document.getElementById('btn-bell').addEventListener('click', () => { bell = !bell; update(); });
+  window.addEventListener('resize', draw);
+  update();
+})();
+
+// ---------- карточка 5: корзины ----------
+(function(){
+  const cv = document.getElementById('ch-buckets'), NB = 256, NU = 20000;
+  let bm = [], gm = 0;
+  function gen(){
+    const s = new Array(NB).fill(0), k = new Array(NB).fill(0); let tot = 0;
+    for (let i = 0; i < NU; i++){ const b = Math.floor(Math.random() * NB), x = draw1(); s[b] += x; k[b]++; tot += x; }
+    bm = s.map((x, i) => x / k[i]); gm = tot / NU;
+    document.getElementById('bk-mean').textContent = num(gm, 3);
+    document.getElementById('bk-sd').textContent = '±' + num(sd(bm), 2);
+    document.getElementById('v-buckets').innerHTML = 'В каждой корзине около ' + Math.round(NU / NB) + ' гостей, и средние по корзинам разбросаны колоколом примерно на ±' + num(sd(bm), 2) + '. Это и есть шум, только увиденный внутри одного эксперимента. Из этого разброса платформа и узнаёт, насколько может шататься среднее всей группы. Как именно — в шаге 5.';
+    draw();
+  }
+  function draw(){
+    const g = canvas(cv, 0.38, 0.62); if (!g) return; const {c, w, h} = g;
+    const lo = 0.1, hi = 1.9, bw = 0.06, L = 10, R = 10, T = 14, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
+    const b = bins(bm.map(x => Math.max(lo, Math.min(hi - 1e-9, x))), lo, hi, bw), s = sd(bm), m = mean(bm);
+    const top = Math.max(...b, NB * bw * normPdf(0) / s) * 1.08;
+    b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw * bw / (hi - lo) - 2, bh); });
+    c.globalAlpha = 1; c.strokeStyle = COL.test; c.lineWidth = 2.4; c.beginPath();
+    for (let i = 0; i <= 200; i++){ const x = lo + (hi - lo) * i / 200, y = NB * bw * normPdf((x - m) / s) / s; i ? c.lineTo(X(x), T + ph - ph * y / top) : c.moveTo(X(x), T + ph - ph * y / top); }
+    c.stroke();
+    axisX(c, X, [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75], h - 6, v => num(v, 2));
+    label(c, '256 корзин: среднее заказов в каждой', L, T, COL.ink2);
+  }
+  document.getElementById('btn-buckets').addEventListener('click', gen);
+  window.addEventListener('resize', draw);
+  gen();
+})();
+</script>
+</body>
+</html>

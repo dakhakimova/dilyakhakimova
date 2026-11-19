@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шум есть всегда · A/B на пальцах</title>
+<meta name="description" content="Шаг 3 интерактивного курса «A/B на пальцах»: A/A-тест и шум — почему одинаковые группы дают разные цифры.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab03" data-next="04-clt.html">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 3 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Две одинаковые группы" aria-label="Две одинаковые группы">
+  <p class="kicker">Шаг 3 из 10</p>
+  <h1>Шум есть всегда</h1>
+  <figure class="art"><img src="img/ab03-00-twins.jpg" alt="Боб удивлённо смотрит на два одинаковых телефона, а столбики над ними разной высоты" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: два одинаковых приложения, а столбики над ними разной высоты</figcaption></figure>
+  <p class="lead">Теперь гости поделены честно: по хешу, каждый в своей группе. Проверим самое простое. Если обе группы видят одно и то же приложение, будут ли у них одинаковые цифры?</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Тест без разницы" aria-label="Тест без разницы">
+  <span class="step-tag">История</span>
+  <h2>Алиса запускает тест, где ничего не меняется</h2>
+  <div class="sheet c-white bob">
+    <div class="ava">Б</div>
+    <div><div class="say">«Алиса, зачем тебе эксперимент, в котором обе группы видят старое приложение? Там же будет ноль».</div><div class="who">Боб, продакт</div></div>
+  </div>
+  <p>В обеих группах заказ делают 10 % зашедших в приложение. Изменений нет никаких. Какую разницу в конверсии покажет такой тест?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="zero" aria-pressed="false">Ровно ноль</button>
+    <button type="button" data-v="small" aria-pressed="false">Крошечную, почти ноль</button>
+    <button type="button" data-v="big" aria-pressed="false">Бывает и заметная</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее»: проверим на гостях.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Сто гостей" aria-label="Сто гостей">
+  <span class="step-tag">Игрушка</span>
+  <h2>По сто гостей в каждой группе</h2>
+  <p>Каждый кружок — гость. Закрашен — сделал заказ. Шанс заказать у всех одинаковый, 10 %. Перемешивай гостей и смотри, что выходит.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-grid" aria-label="Две группы по 100 гостей, закрашены сделавшие заказ"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="gr-c">—</b><span>заказали в первой группе</span></div>
+      <div class="test"><b id="gr-t">—</b><span>заказали во второй группе</span></div>
+    </div>
+    <div class="controls"><button class="btn" type="button" id="btn-shuffle">Перемешать гостей</button></div>
+    <div class="verdict" id="v-grid" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="A/A на тысячах" aria-label="A/A на тысячах">
+  <span class="step-tag">Угадай, потом проверь</span>
+  <h2>А если гостей тысячи?</h2>
+  <p>Тот же тест без изменений, но в каждой группе по 1000 гостей. Запустим его 100 раз. Как думаешь, в скольких запусках какая-нибудь из групп обгонит другую на 10 % и больше? Например, 10 % против 11 %.</p>
+  <div class="sheet c-butter">
+    <label class="field" for="g2">Думаю, в <input type="number" id="g2" min="0" max="100" step="1" placeholder="?"> запусках из 100</label>
+  </div>
+  <div class="sheet c-white">
+    <label class="field" for="n-aa">Гостей в каждой группе: <b id="n-aa-t" class="num">1 000</b></label>
+    <input type="range" id="n-aa" min="0" max="6" step="1" value="2" style="width:100%">
+    <div class="big2">
+      <div class="ctrl"><b id="aa-c">—</b><span>конверсия первой группы</span></div>
+      <div class="test"><b id="aa-t">—</b><span>конверсия второй группы</span></div>
+    </div>
+    <p class="note" id="aa-diff">Запусти тест.</p>
+    <div class="controls">
+      <button class="btn" type="button" data-runs="1">Один запуск</button>
+      <button class="btn ghost" type="button" data-runs="100">+100 запусков</button>
+      <button class="btn ghost" type="button" id="aa-reset">Сначала</button>
+    </div>
+    <canvas id="ch-aa" aria-label="Гистограмма разниц между одинаковыми группами"></canvas>
+    <p class="note" id="aa-stat"></p>
+    <div class="verdict" id="v-aa" hidden></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Дашборд по дням" aria-label="Дашборд по дням">
+  <span class="step-tag">Игрушка</span>
+  <h2>Боб каждое утро смотрит дашборд</h2>
+  <figure class="art"><img src="img/ab03-01-dashboard.jpg" alt="Боб у доски с двумя переплетёнными линиями: в один день радуется, в другой хватается за голову" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у дашборда, то радуется, то хватается за голову</figcaption></figure>
+  <p>Обе группы снова одинаковые, в каждой по 1000 гостей в день. Вот конверсия по дням за две недели.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-days" aria-label="Конверсия двух одинаковых групп по дням"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>первая группа</span><span><i style="background:var(--test)"></i>вторая группа</span><span><i style="background:var(--theory)"></i>настоящая конверсия обеих: 10 %</span></div>
+    <div class="controls"><button class="btn" type="button" id="btn-days">Другие две недели</button></div>
+    <div class="verdict good" id="v-days"></div>
+  </div>
+  <div class="def">Разница между группами есть всегда, даже когда группы ничем не отличаются. Поэтому главный вопрос A/B-теста такой: больше ли эта разница обычного разброса?</div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Три вопроса про шум</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В A/A-тесте по 2000 гостей в группе. Конверсия 10,4 % против 10,0 %. Значит, где-то баг?</p>
+    <div class="choice"><button type="button" data-v="a">Да, должно быть одинаково</button><button type="button" data-v="b">Нет, это обычный разброс</button><button type="button" data-v="c">Да, деление сломано</button></div>
+    <p class="why">При 2000 гостях в группе конверсии одинаковых групп обычно расходятся примерно на процентный пункт: 10,0 и 10,9 % — обычное дело. 10,4 против 10,0 — нормальный шум.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что происходит с разбросом между одинаковыми группами, если гостей в них становится больше?</p>
+    <div class="choice"><button type="button" data-v="a">Не меняется</button><button type="button" data-v="b">Растёт</button><button type="button" data-v="c">Уменьшается</button></div>
+    <p class="why">Чем больше гостей, тем меньше случайные везения влияют на общую долю. В игрушке при 100 000 гостей разница почти всегда меньше пары процентов.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Зачем запускать A/A-тест, если в нём ничего не меняется?</p>
+    <div class="choice"><button type="button" data-v="a">Проверить деление и подсчёт и увидеть обычный шум</button><button type="button" data-v="b">Чтобы занять трафик</button><button type="button" data-v="c">Незачем, он всегда показывает ноль</button></div>
+    <p class="why">A/A проверяет, что группы делятся правильно, а метрики считаются одинаково. И показывает, какие разницы бывают сами по себе. Если A/A «значимо» нашёл эффект, ищи баг.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 3</span>
+  <h2>Разница есть всегда</h2>
+  <ul class="cheat">
+    <li>Даже одинаковые группы почти никогда не дают одинаковых цифр: кому-то случайно достались любители заказывать.</li>
+    <li>Чем меньше гостей, тем больше разброс. При 100 гостях в группе одна группа запросто обгоняет другую в полтора раза, при 1000 — на 10–25 %, при 100 000 — на 1–3 %.</li>
+    <li>«Лидер» на дневном графике меняется сам по себе. По одному дню ничего не решаем.</li>
+    <li>Вопрос A/B-теста: больше ли разница, чем обычно бывает без всякого эффекта.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>A/A-тест</dt><dd>эксперимент, где обе группы видят одно и то же; показывает, какие разницы бывают сами по себе, и проверяет, что всё считается правильно</dd>
+    <dt>Шум</dt><dd>случайный разброс цифр, который есть даже без всякого эффекта</dd>
+  </dl>
+  <figure class="art"><img src="img/ab03-02-next.jpg" alt="Котейка бросает шарики в доску с гвоздиками, и внизу они складываются в горку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у доски Гальтона, шарики складываются в горку</figcaption></figure>
+  <p class="lead">Дальше, шаг 4: у шума есть форма. Узнаем, почему средние по толпе всегда складываются в колокол, даже если люди совсем непредсказуемы.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+const P = 0.10;
+
+// ---------- карточка 3: две сетки по 100 ----------
+(function(){
+  const cv = document.getElementById('ch-grid');
+  let a = [], b = [], shown = 0;
+  const draw = () => {
+    const g = canvas(cv, 0.45, 0.62); if (!g) return; const {c, w, h} = g;
+    const gap = 24, side = Math.min((w - gap) / 2, h - 26), cell = side / 10, r = cell * 0.36;
+    [[a, COL.ctrl, 0, 'первая группа'], [b, COL.test, side + gap, 'вторая группа']].forEach(([arr, col, ox, name]) => {
+      label(c, name, ox, 14, COL.ink2);
+      for (let i = 0; i < 100; i++){
+        const x = ox + (i % 10 + 0.5) * cell, y = 24 + (Math.floor(i / 10) + 0.5) * cell;
+        c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI);
+        if (arr[i]){ c.fillStyle = col; c.fill(); } else { c.strokeStyle = COL.gray; c.lineWidth = 1.2; c.stroke(); }
+      }
+    });
+  };
+  function shuffle(){
+    a = Array.from({length: 100}, () => Math.random() < P); b = Array.from({length: 100}, () => Math.random() < P); shown++;
+    const ka = a.filter(Boolean).length, kb = b.filter(Boolean).length;
+    document.getElementById('gr-c').textContent = ka + ' из 100';
+    document.getElementById('gr-t').textContent = kb + ' из 100';
+    const v = document.getElementById('v-grid'), g1 = AB.choice('g1');
+    const lo = Math.min(ka, kb), hi = Math.max(ka, kb);
+    const rel = lo ? (hi / lo - 1) : null;
+    v.hidden = false; v.className = 'verdict ' + (g1 === 'big' ? 'good' : 'bad');
+    v.innerHTML = (shown === 1 ? (g1 === 'big' ? 'Похоже, ты прав. ' : g1 ? 'Смотри, что вышло. ' : '') : '') +
+      (ka === kb ? 'В этот раз совпало: по ' + ka + '. Перемешай ещё раз — так бывает редко.' :
+       'Группы одинаковые, а заказали ' + hi + ' против ' + lo + (rel !== null ? ': одна группа «лучше» на <b>' + num(100 * rel, 0) + ' %</b>.' : '.') + ' Просто кому-то случайно достались гости, которые как раз хотели есть.');
+    draw();
+  }
+  shuffle(); shown = 0; document.getElementById('v-grid').hidden = true;
+  document.getElementById('btn-shuffle').addEventListener('click', shuffle);
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 4: A/A много раз ----------
+(function(){
+  const NS = [100, 300, 1000, 3000, 10000, 30000, 100000];
+  const inp = document.getElementById('n-aa'), cv = document.getElementById('ch-aa');
+  let runs = [];
+  const n = () => NS[+inp.value];
+  const sdRel = () => Math.sqrt(2 * P * (1 - P) / n()) / P;
+  function one(){ const c = binom(n(), P) / n(), t = binom(n(), P) / n(); return {c, t, d: c > 0 ? t / c - 1 : 0}; }
+  function draw(){
+    const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
+    const s = sdRel(), lim = Math.max(0.12, Math.ceil(4 * s * 20) / 20), lo = -lim, hi = lim, nb = 40, bw = (hi - lo) / nb;
+    const L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
+    const b = bins(runs.map(r => Math.max(lo, Math.min(hi - 1e-9, r.d))), lo, hi, bw), top = Math.max(5, ...b);
+    c.fillStyle = COL.fillB; c.fillRect(L, T, X(-0.1) - L, ph); c.fillRect(X(0.1), T, w - R - X(0.1), ph);
+    b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = Math.abs(lo + (i + 0.5) * bw) >= 0.1 ? COL.trap : COL.gray; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw / nb - 2, bh); });
+    c.strokeStyle = COL.ink; c.lineWidth = 1; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke();
+    const step = lim > 0.6 ? 0.5 : lim > 0.3 ? 0.2 : 0.1;
+    const ticks = []; for (let v = -Math.floor(lim / step) * step; v <= lim + 1e-9; v += step) ticks.push(+v.toFixed(2));
+    axisX(c, X, ticks, h - 6, v => pct(v, 0));
+    label(c, 'разница 10 % и больше', w - R, 12, '#B5473B', 'right');
+    if (!runs.length) label(c, 'Здесь появится гистограмма разниц', w / 2, T + 24, COL.ink2, 'center');
+  }
+  function update(){
+    const last = runs[runs.length - 1];
+    document.getElementById('n-aa-t').textContent = int(n());
+    document.getElementById('aa-c').textContent = last ? num(100 * last.c, 2) + ' %' : '—';
+    document.getElementById('aa-t').textContent = last ? num(100 * last.t, 2) + ' %' : '—';
+    document.getElementById('aa-diff').textContent = last ? 'Вторая группа отличается от первой на ' + pct(last.d) + '.' : 'Запусти тест.';
+    const k = runs.filter(r => Math.abs(r.d) >= 0.1).length;
+    document.getElementById('aa-stat').textContent = runs.length ? 'Запусков: ' + runs.length + '. Разница 10 % и больше: ' + k + ' (' + share(k / runs.length, 0) + ').' : '';
+    const v = document.getElementById('v-aa');
+    if (runs.length >= 100){
+      const g = parseFloat(document.getElementById('g2').value);
+      v.hidden = false; v.className = 'verdict good';
+      v.innerHTML = (!isNaN(g) && n() === 1000 ? 'Твоя догадка — ' + g + ' из 100. ' : '') +
+        'При ' + int(n()) + ' гостях в группе одинаковые группы расходятся на 10 % и больше в <b>' + share(k / runs.length, 0) + '</b> запусков' + '. ' +
+        (n() <= 1000 ? 'Это без всякого эффекта! Подвинь ползунок вправо: с ростом числа гостей горка сжимается к нулю.' : n() >= 30000 ? 'Горка прижалась к нулю: при таком числе гостей случайная разница редко превышает пару процентов.' : 'Горка уже, чем при тысяче гостей: шум меньше, но всё ещё есть.');
+    } else v.hidden = true;
+    draw();
+  }
+  document.querySelectorAll('[data-runs]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.runs; i++) runs.push(one()); update(); }));
+  document.getElementById('aa-reset').addEventListener('click', () => { runs = []; update(); });
+  inp.addEventListener('input', () => { runs = []; update(); });
+  window.addEventListener('resize', draw);
+  update();
+})();
+
+// ---------- карточка 5: дашборд ----------
+(function(){
+  const cv = document.getElementById('ch-days'), N = 1000;
+  let A = [], B = [];
+  function gen(){
+    A = Array.from({length: 14}, () => binom(N, P) / N); B = Array.from({length: 14}, () => binom(N, P) / N);
+    let ch = 0; for (let i = 1; i < 14; i++) if ((A[i] > B[i]) !== (A[i - 1] > B[i - 1])) ch++;
+    const winsB = B.filter((x, i) => x > A[i]).length, maxGap = Math.max(...A.map((x, i) => Math.abs(B[i] / x - 1)));
+    document.getElementById('v-days').innerHTML = 'За две недели лидер сменился <b>' + ch + '</b> ' + (ch % 10 === 1 && ch !== 11 ? 'раз' : 'раза') + ': вторая группа впереди ' + winsB + ' ' + (winsB % 10 === 1 && winsB !== 11 ? 'день' : winsB % 10 >= 2 && winsB % 10 <= 4 && (winsB < 10 || winsB > 20) ? 'дня' : 'дней') + ' из 14. Самый большой разрыв за день — <b>' + num(100 * maxGap, 0) + ' %</b>. Если бы Боб смотрел только на этот день, он бы точно «нашёл эффект».';
+    draw();
+  }
+  function draw(){
+    const g = canvas(cv, 0.4, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 8, T = 10, Bm = 22, pw = w - L - R, ph = h - T - Bm, lo = 0.06, hi = 0.14;
+    const X = i => L + i / 13 * pw, Y = v => T + (1 - (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ph;
+    axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => num(100 * v, 0) + ' %');
+    c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(P)); c.lineTo(w - R, Y(P)); c.stroke(); c.setLineDash([]);
+    [[A, COL.ctrl], [B, COL.test]].forEach(([arr, col]) => {
+      c.strokeStyle = col; c.lineWidth = 2.4; c.beginPath(); arr.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke();
+      c.fillStyle = col; arr.forEach((v, i) => { c.beginPath(); c.arc(X(i), Y(v), 3, 0, 2 * Math.PI); c.fill(); });
+    });
+    label(c, 'день 1', L, h - 6, COL.ink2); label(c, 'день 7', X(6), h - 6, COL.ink2, 'center'); label(c, 'день 14', w - R, h - 6, COL.ink2, 'right');
+  }
+  document.getElementById('btn-days').addEventListener('click', gen);
+  window.addEventListener('resize', draw);
+  gen();
+})();
+</script>
+</body>
+</html>

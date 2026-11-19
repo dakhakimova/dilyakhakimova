@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Эффект — это вилка · A/B на пальцах</title>
+<meta name="description" content="Шаг 6 интерактивного курса «A/B на пальцах»: два колокола, разница между ними и почему результат эксперимента — это интервал, а не одно число.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab06" data-next="07-p-value.html">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 6 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Два колокола" aria-label="Два колокола">
+  <p class="kicker">Шаг 6 из 10</p>
+  <h1>Эффект — это вилка</h1>
+  <figure class="art"><img src="img/ab06-00-two-bells.jpg" alt="Два колокола, синий и оранжевый, висят рядом, Алиса и Боб их слушают" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: синий и оранжевый колокола рядом</figcaption></figure>
+  <p class="lead">Мы знаем, что любое среднее шатается и живёт на колоколе. В эксперименте средних два: у контроля и у теста. Значит, и колоколов два.</p>
+  <p>Пусть команда проверяет фото блюд в меню. В контроле заказ делают 10 % зашедших в приложение. Фото на самом деле поднимают эту долю на 3 %, до 10,3 %. В каждой группе по 100 000 человек. Запусти эксперимент и посмотри, что он покажет.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-two" aria-label="Колокола конверсии контроля и теста"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>контроль, правда 10 %</span><span><i style="background:var(--test)"></i>тест с фото, правда 10,3 %</span></div>
+    <div class="controls"><button class="btn" type="button" id="b-two">Запустить эксперимент</button></div>
+    <canvas id="ch-diff" aria-label="Колокол разницы между тестом и контролем"></canvas>
+    <div class="big2">
+      <div class="test"><b id="two-d">—</b><span>разница теста и контроля в этом эксперименте</span></div>
+      <div class="truth"><b>+3,0 %</b><span>настоящий эффект фото</span></div>
+    </div>
+    <p class="note" id="two-note">Нажми несколько раз: каждый запуск даёт свою разницу.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Одно число" aria-label="Одно число">
+  <span class="step-tag">История</span>
+  <h2>Боб записывает в отчёт одно число</h2>
+  <figure class="art"><img src="img/ab06-01-bob-pin.jpg" alt="Боб втыкает булавку в одну точку линейки, Алиса показывает широкую скобку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с булавкой, Алиса со скобкой</figcaption></figure>
+  <div class="sheet c-white bob">
+    <div class="ava">Б</div>
+    <div><div class="say">«Эксперимент показал +2,3 %. Так и пишу: фото дают +2,3 % к заказам».</div><div class="who">Боб, продакт</div></div>
+  </div>
+  <p>Ты только что видел: тот же эксперимент мог показать и +1 %, и +5 %. Одно число — лишь одна точка с колокола разницы. Алиса предлагает писать вилку: разница плюс-минус две ширины колокола. Мы знаем из шага 5, что в такую полосу попадают 95 % случаев.</p>
+  <p>Если запустить 20 одинаковых экспериментов и для каждого нарисовать вилку, сколько из них накроют настоящий эффект?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="10" aria-pressed="false">Около 10</button>
+    <button type="button" data-v="15" aria-pressed="false">Около 15</button>
+    <button type="button" data-v="19" aria-pressed="false">Около 19</button>
+    <button type="button" data-v="20" aria-pressed="false">Все 20</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее».</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Лесенка вилок" aria-label="Лесенка вилок">
+  <span class="step-tag">Игрушка</span>
+  <h2>Лесенка вилок</h2>
+  <figure class="art"><img src="img/ab06-02-ring-toss.jpg" alt="Котейка бросает кольца на шест, почти все кольца надеваются" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: почти все кольца Котейки надеваются на шест</figcaption></figure>
+  <p>Каждая строка — один эксперимент: точка — его разница, отрезок — вилка ± 2 ширины. Зелёная линия — настоящий эффект. Подвигай эффект и число людей.</p>
+  <div class="sheet c-white">
+    <label class="field" for="eff6">Настоящий эффект: <b id="eff6-t" class="num">+3 %</b></label>
+    <input type="range" id="eff6" min="-4" max="8" step="0.5" value="3" style="width:100%">
+    <label class="field" for="n6">Людей в каждой группе: <b id="n6-t" class="num">100 000</b></label>
+    <input type="range" id="n6" min="0" max="5" step="1" value="3" style="width:100%">
+    <div class="controls">
+      <button class="btn" type="button" id="b6-1">Один эксперимент</button>
+      <button class="btn ghost" type="button" id="b6-20">+20 экспериментов</button>
+      <button class="btn ghost" type="button" id="b6-reset">Сначала</button>
+    </div>
+    <canvas id="ch-ladder" aria-label="Интервалы последних экспериментов"></canvas>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>целиком выше нуля</span><span><i style="background:var(--theory)"></i>задевает ноль</span><span><i style="background:var(--trap)"></i>целиком ниже нуля</span></div>
+    <div class="big2">
+      <div class="truth"><b id="cov6">—</b><span>вилок накрыли настоящий эффект</span></div>
+      <div class="ctrl"><b id="wid6">—</b><span>ширина вилки: ± от разницы</span></div>
+    </div>
+    <div class="verdict" id="v6" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Как читать вилку" aria-label="Как читать вилку">
+  <span class="step-tag">Как читать</span>
+  <h2>Три вилки — три разных вывода</h2>
+  <p>В отчёте о тесте обычно стоят разница и вилка вокруг неё. Вилка говорит, какие эффекты согласуются с данными. Вот три типичных случая.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-read" aria-label="Три примера интервалов"></canvas>
+  </div>
+  <div class="tiles">
+    <button type="button" aria-expanded="false"><b>А: от +0,4 до +4,2 %</b><span>Эффект положительный. Каким именно, точно не знаем: может, совсем маленьким, может, заметным. Но не нулевым и не отрицательным.</span></button>
+    <button type="button" aria-expanded="false"><b>Б: от −1,5 до +3,1 %</b><span>Внутри и плюсы, и минусы. Данных не хватает, чтобы отличить эффект от шума. Это не «фича не работает», это «пока не знаем».</span></button>
+    <button type="button" aria-expanded="false"><b>В: от +0,1 до +0,3 %</b><span>Эффект точно есть, но крошечный. Стоит ли он того, решает уже не статистика, а бизнес.</span></button>
+  </div>
+  <div class="def">Если вилка целиком по одну сторону от нуля, про эффект говорят «значимо». Если задевает ноль — «не значимо»: данные не отличают эффект от шума.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Ширина вилки" aria-label="Ширина вилки">
+  <span class="step-tag">Закономерность</span>
+  <h2>От чего зависит ширина вилки</h2>
+  <p>Вилка — это колокол разницы, и его ширина подчиняется тем же правилам, что в шаге 5. Только колокол разницы чуть шире каждого из двух: у разницы шатаются обе группы сразу.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-wid" aria-label="Ширина вилки в зависимости от числа людей"></canvas>
+  </div>
+  <div class="big2">
+    <div class="ctrl"><b>× 4 людей</b><span>вилка вдвое уже</span></div>
+    <div class="ctrl"><b id="w-100k">± 2,6 %</b><span>вилка при 100 000 человек в группе и конверсии 10 %</span></div>
+  </div>
+  <p>Поэтому эффект в +3 % при 100 000 людях то ловится, то нет: вилка в ± 2,6 % почти такая же, как сам эффект. Как выбирать число людей заранее, разберём в шаге 9.</p>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Читаем вилки</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Разница +1,4 %, вилка от −0,8 до +3,6 %. Что можно сказать?</p>
+    <div class="choice"><button type="button" data-v="a">Фича работает, эффект +1,4 %</button><button type="button" data-v="b">Данные не отличают эффект от шума</button><button type="button" data-v="c">Фича точно не работает</button></div>
+    <p class="why">Вилка задевает ноль: в ней есть и небольшие минусы, и заметные плюсы. Это «не значимо», то есть «пока не знаем». Сказать «точно не работает» тоже нельзя.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Тест показал +2,3 %, вилка от +0,2 до +4,4 %. Что честнее написать в отчёте?</p>
+    <div class="choice"><button type="button" data-v="a">Фото дают +2,3 %</button><button type="button" data-v="b">Фото дают до +4,4 %</button><button type="button" data-v="c">Фото дают от +0,2 до +4,4 %, скорее всего около +2 %</button></div>
+    <p class="why">Эффект положительный, но его размер известен только с точностью до вилки. Одно число создаёт ложное ощущение точности, а верхний край — ложные ожидания.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Команда провела 20 экспериментов, в которых фича на самом деле ничего не меняла. Сколько вилок, примерно, не накроют ноль?</p>
+    <div class="choice"><button type="button" data-v="a">Около одной</button><button type="button" data-v="b">Ни одной</button><button type="button" data-v="c">Около десяти</button></div>
+    <p class="why">Вилка накрывает правду в 95 % случаев, значит промахивается в 5 %: одна из двадцати. Эта одна покажет «значимый» эффект, которого нет. К этому вернёмся в шагах 8 и 10.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 6</span>
+  <h2>Результат — это вилка</h2>
+  <ul class="cheat">
+    <li><b>Разница в эксперименте шатается</b>: у контроля и теста по колоколу, и у разницы свой колокол.</li>
+    <li><b>Вилка</b> — разница ± 2 ширины колокола разницы. В 95 случаях из 100 она накрывает настоящий эффект.</li>
+    <li><b>Вилка целиком выше нуля</b> — эффект положительный. Задевает ноль — данных не хватает, это не «фича не работает».</li>
+    <li>Ширина вилки падает по корню из числа людей, как в шаге 5.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>Доверительный интервал</dt><dd>вилка вокруг разницы, в 95 % случаев накрывает настоящий эффект</dd>
+    <dt>Значимо</dt><dd>интервал целиком по одну сторону от нуля</dd>
+  </dl>
+  <figure class="art"><img src="img/ab06-03-next.jpg" alt="Котейка ставит флажок на склоне холма-колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: флажок на склоне колокола</figcaption></figure>
+  <p class="lead">Дальше, шаг 7: p-value. Насколько удивительна наша разница в мире, где эффекта нет, и как это связано с вилкой.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+const P0 = 0.10, Z = 1.96;
+const NS = [10000, 25000, 50000, 100000, 200000, 400000];
+// Ширина колокола относительной разницы при n в каждой группе
+const seRel = (n, e) => { const p1 = P0 * (1 + e); return Math.sqrt(P0 * (1 - P0) / n + p1 * (1 - p1) / n) / P0; };
+function experiment(n, e){
+  const c = binom(n, P0) / n, t = binom(n, P0 * (1 + e)) / n;
+  const d = t / c - 1, se = Math.sqrt(c * (1 - c) / n + t * (1 - t) / n) / c;
+  return {c, t, d, lo: d - Z * se, hi: d + Z * se, e};
+}
+const bell = (c, X, Y, m, s, col, fill) => {
+  c.beginPath(); for (let i = 0; i <= 160; i++){ const v = m - 4 * s + 8 * s * i / 160, y = normPdf((v - m) / s); i ? c.lineTo(X(v), Y(y)) : c.moveTo(X(v), Y(y)); }
+  if (fill){ c.lineTo(X(m + 4 * s), Y(0)); c.lineTo(X(m - 4 * s), Y(0)); c.closePath(); c.fillStyle = fill; c.fill(); }
+  c.strokeStyle = col; c.lineWidth = 2.2; c.stroke();
+};
+const pctAx = v => (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(100 * v), 0) + ' %';
+
+// ---------- карточка 1: два колокола ----------
+const N1 = 100000, E1 = 0.03; let last1 = null, seen1 = [];
+function drawTwo(){
+  const g = canvas(document.getElementById('ch-two'), 0.3, 0.55); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 10, B = 24, pw = w - L - R, ph = h - T - B, lo = 0.0965, hi = 0.1065;
+  const X = v => L + (v - lo) / (hi - lo) * pw, Y = y => T + ph - y / 0.42 * ph;
+  const sc = Math.sqrt(P0 * (1 - P0) / N1), p1 = P0 * (1 + E1), st = Math.sqrt(p1 * (1 - p1) / N1);
+  bell(c, X, Y, P0, sc, COL.ctrl, COL.fillC); bell(c, X, Y, p1, st, COL.test, 'rgba(229,145,87,.18)');
+  axisX(c, X, [0.097, 0.099, 0.101, 0.103, 0.105], h - 6, v => num(100 * v, 1) + ' %');
+  if (last1){
+    [[last1.c, COL.ctrl], [last1.t, COL.test]].forEach(([v, col]) => { c.strokeStyle = col; c.lineWidth = 3; c.beginPath(); c.moveTo(X(v), T + 4); c.lineTo(X(v), T + ph); c.stroke(); c.fillStyle = col; c.beginPath(); c.arc(X(v), T + 4, 5, 0, 2 * Math.PI); c.fill(); });
+  }
+}
+function drawDiff(){
+  const g = canvas(document.getElementById('ch-diff'), 0.22, 0.42); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 16, B = 24, pw = w - L - R, ph = h - T - B, lo = -0.03, hi = 0.09, s = seRel(N1, E1);
+  const X = v => L + (v - lo) / (hi - lo) * pw, Y = y => T + ph - y / 0.42 * ph;
+  bell(c, X, Y, E1, s, COL.ink2, COL.fillGray);
+  c.strokeStyle = COL.gray; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke(); c.setLineDash([]);
+  c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(E1), T); c.lineTo(X(E1), T + ph); c.stroke();
+  axisX(c, X, [-0.02, 0, 0.02, 0.04, 0.06, 0.08], h - 6, pctAx);
+  label(c, 'колокол разницы', L, T - 4, COL.ink2);
+  seen1.forEach(d => { c.fillStyle = COL.test; c.globalAlpha = .45; c.beginPath(); c.arc(X(d), T + ph - 6, 4, 0, 2 * Math.PI); c.fill(); });
+  c.globalAlpha = 1;
+  if (last1){ c.fillStyle = COL.test; c.beginPath(); c.arc(X(last1.d), T + ph - 6, 6, 0, 2 * Math.PI); c.fill(); }
+}
+document.getElementById('b-two').addEventListener('click', () => {
+  last1 = experiment(N1, E1); seen1.push(last1.d);
+  document.getElementById('two-d').textContent = pct(last1.d);
+  const ds = seen1.slice().sort((a, b) => a - b);
+  document.getElementById('two-note').textContent = seen1.length < 3 ? 'Нажми ещё: каждый запуск даёт свою разницу.' : 'Запусков: ' + seen1.length + '. Разница была от ' + pct(ds[0]) + ' до ' + pct(ds[ds.length - 1]) + ', хотя эффект всегда один и тот же: +3,0 %.';
+  drawTwo(); drawDiff();
+});
+
+// ---------- карточка 3: лесенка ----------
+const eff6 = document.getElementById('eff6'), n6 = document.getElementById('n6');
+let runs = [];
+const E = () => +eff6.value / 100, N = () => NS[+n6.value];
+function drawLadder(){
+  const g = canvas(document.getElementById('ch-ladder'), 0.5, 0.9); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, e = E();
+  const s = seRel(N(), e), span = Math.max(0.06, 2 * Z * s * 1.7 + Math.abs(e)), lo = Math.min(-0.02, e - span / 2), hi = Math.max(0.02, e + span / 2);
+  const X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+  const step = (hi - lo) > 0.2 ? 0.05 : (hi - lo) > 0.08 ? 0.02 : 0.01, ticks = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(+v.toFixed(4));
+  c.strokeStyle = COL.grid; ticks.forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
+  axisX(c, X, ticks, h - 6, pctAx);
+  c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke();
+  c.strokeStyle = COL.truth; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X(e), T - 6); c.lineTo(X(e), T + ph); c.stroke();
+  label(c, 'правда', X(e) + 4, T - 6, COL.truth);
+  const show = runs.slice(-30), rh = ph / 30;
+  if (!show.length) label(c, 'Запусти эксперимент.', w / 2, T + ph / 2, COL.ink2, 'center');
+  show.forEach((r, i) => {
+    const y = T + (show.length - 1 - i) * rh + rh / 2, col = r.lo > 0 ? COL.truth : r.hi < 0 ? COL.trap : COL.gray, miss = r.lo > r.e || r.hi < r.e;
+    c.strokeStyle = col; c.lineWidth = Math.max(2, Math.min(5, rh * 0.45)); c.lineCap = 'round';
+    c.beginPath(); c.moveTo(X(r.lo), y); c.lineTo(X(r.hi), y); c.stroke();
+    c.fillStyle = miss ? COL.ink : col; c.beginPath(); c.arc(X(r.d), y, Math.max(2.5, Math.min(4.5, rh * 0.4)), 0, 2 * Math.PI); c.fill();
+    if (miss){ c.fillStyle = COL.ink; c.fillText('мимо', Math.min(X(r.hi) + 6, w - 34), y + 4); }
+  });
+  c.lineCap = 'butt';
+}
+function stats6(){
+  const n = runs.length, cov = runs.filter(r => r.lo <= r.e && r.e <= r.hi).length;
+  document.getElementById('cov6').textContent = n ? cov + ' из ' + n : '—';
+  document.getElementById('wid6').textContent = '± ' + num(100 * Z * seRel(N(), E()), 1) + ' %';
+  const v = document.getElementById('v6');
+  if (n < 20){ v.hidden = true; return; }
+  const g1 = AB.choice('g1'), sig = runs.filter(r => r.lo > 0).length, zero = runs.filter(r => r.lo <= 0 && r.hi >= 0).length;
+  v.hidden = false; v.className = 'verdict ' + (g1 === '19' ? 'good' : 'bad');
+  v.innerHTML = (g1 === '19' ? 'Ты угадал. ' : g1 ? 'Ответ — около 19. ' : '') + 'Настоящий эффект накрыли <b>' + cov + ' вилок из ' + n + '</b>, то есть ' + share(cov / n, 0) + '. На длинной серии будет около 95 %: одна вилка из двадцати промахивается, и это нормально. ' +
+    (E() !== 0 ? 'Целиком выше нуля оказались ' + sig + ' вилок, задели ноль ' + zero + '. Задевшие ноль не говорят «эффекта нет»: просто этот запуск его не разглядел.' : 'Эффекта нет, и почти все вилки задевают ноль. Те, что не задели, — ложные «значимые» результаты.');
+}
+function upd6(reset){
+  document.getElementById('eff6-t').textContent = (E() > 0 ? '+' : E() < 0 ? '−' : '') + num(Math.abs(100 * E()), 1).replace(',0', '') + ' %';
+  document.getElementById('n6-t').textContent = int(N());
+  if (reset) runs = [];
+  drawLadder(); stats6();
+}
+eff6.addEventListener('input', () => upd6(true));
+n6.addEventListener('input', () => upd6(true));
+document.getElementById('b6-1').addEventListener('click', () => { runs.push(experiment(N(), E())); upd6(); });
+document.getElementById('b6-20').addEventListener('click', () => { for (let i = 0; i < 20; i++) runs.push(experiment(N(), E())); upd6(); });
+document.getElementById('b6-reset').addEventListener('click', () => upd6(true));
+
+// ---------- карточка 4: три вилки ----------
+function drawRead(){
+  const ex = [['А', 0.004, 0.042], ['Б', -0.015, 0.031], ['В', 0.001, 0.003]];
+  const g = canvas(document.getElementById('ch-read'), 0.26, 0.5); if (!g) return; const {c, w, h} = g;
+  const L = 34, R = 12, T = 10, B = 24, pw = w - L - R, ph = h - T - B, lo = -0.03, hi = 0.05, X = v => L + (v - lo) / (hi - lo) * pw;
+  c.strokeStyle = COL.grid; [-0.02, 0, 0.02, 0.04].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
+  c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke();
+  axisX(c, X, [-0.02, 0, 0.02, 0.04], h - 6, pctAx);
+  ex.forEach(([n, a, b], i) => {
+    const y = T + ph * (i + 0.5) / 3, col = a > 0 ? COL.truth : b < 0 ? COL.trap : COL.gray;
+    c.font = '600 14px Onest, system-ui, sans-serif'; label(c, n, 6, y + 5, COL.ink); c.font = '12px Onest, system-ui, sans-serif';
+    c.strokeStyle = col; c.lineWidth = 6; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); c.lineCap = 'butt';
+    c.fillStyle = COL.ink; c.beginPath(); c.arc(X((a + b) / 2), y, 4.5, 0, 2 * Math.PI); c.fill();
+  });
+}
+
+// ---------- карточка 5: ширина вилки от числа людей ----------
+function drawWid(){
+  const g = canvas(document.getElementById('ch-wid'), 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+  const L = 48, R = 30, T = 14, B = 26, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.12;
+  const a = Math.log10(5000), b = Math.log10(1000000), X = n => L + (Math.log10(n) - a) / (b - a) * pw, Y = v => T + (1 - v / hi) * ph;
+  axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => '± ' + num(Math.abs(100 * v) < 1e-6 ? 0 : 100 * v, 0) + ' %');
+  axisX(c, X, [10000, 100000, 1000000], h - 6, n => int(n));
+  c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
+  for (let i = 0; i <= 200; i++){ const n = 10 ** (a + (b - a) * i / 200), v = Z * seRel(n, 0); i ? c.lineTo(X(n), Y(v)) : c.moveTo(X(n), Y(v)); }
+  c.stroke();
+  [25000, 100000, 400000].forEach(n => { const v = Z * seRel(n, 0); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); label(c, int(n) + ': ± ' + num(100 * v, 1) + ' %', X(n) + 7, Y(v) - 7, COL.ink); });
+  label(c, 'людей в каждой группе', w - R, T + ph - 6, COL.ink2, 'right');
+}
+document.getElementById('w-100k').textContent = '± ' + num(100 * Z * seRel(100000, 0.03), 1) + ' %';
+
+window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRead(); drawWid(); });
+</script>
+</body>
+</html>

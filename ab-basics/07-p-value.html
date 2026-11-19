@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>p-value на пальцах · A/B на пальцах</title>
+<meta name="description" content="Шаг 7 интерактивного курса «A/B на пальцах»: что такое p-value, как он связан с доверительным интервалом и чем он не является.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab07" data-next="08-errors.html">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 7 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Удивительно ли" aria-label="Удивительно ли">
+  <p class="kicker">Шаг 7 из 10</p>
+  <h1>p-value на пальцах</h1>
+  <figure class="art"><img src="img/ab07-00-flag-hill.jpg" alt="Котейка втыкает флажок далеко на склоне холма в форме колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: флажок на склоне холма-колокола</figcaption></figure>
+  <p class="lead">В шаге 3 мы видели: даже когда группы одинаковые, разница между ними не нулевая. Значит, про любую разницу хочется спросить: это эффект или обычный шум?</p>
+  <p>Трюк такой. Представим мир, где фича ничего не делает, и посмотрим, как часто в нём случается разница не меньше нашей. Если часто — наша разница ничем не примечательна. Если почти никогда — похоже, мы живём не в этом мире, и эффект есть.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Угадай</span>
+  <h2>Боб получил +3,1 %</h2>
+  <figure class="art"><img src="img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом, Алиса держит стопку одинаковых карточек" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с результатом, Алиса со стопкой A/A-тестов</figcaption></figure>
+  <div class="sheet c-white bob">
+    <div class="ava">Б</div>
+    <div><div class="say">«Новая кнопка оплаты: в тесте заказов на 3,1 % больше. По 100 000 человек в группе. Это же явно не случайность?»</div><div class="who">Боб, продакт</div></div>
+  </div>
+  <p>Алиса предлагает проверить. Запустим много A/A-тестов с теми же 100 000 людьми в группе: в них кнопки нет, группы одинаковые. Как думаешь, в скольких A/A из 100 разница будет такой же или ещё больше, в любую сторону?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="30" aria-pressed="false">Около 30</button>
+    <button type="button" data-v="10" aria-pressed="false">Около 10</button>
+    <button type="button" data-v="2" aria-pressed="false">Около 2</button>
+    <button type="button" data-v="0" aria-pressed="false">Ни в одном</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее».</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Мир без эффекта" aria-label="Мир без эффекта">
+  <span class="step-tag">Игрушка</span>
+  <h2>Мир, где эффекта нет</h2>
+  <p>Насыпь 1000 A/A-тестов: каждая точка — разница в одном из них. Флажок — разница Боба. Красным отмечены A/A, где разница не меньше, чем у Боба, в любую сторону. Флажок можно двигать.</p>
+  <div class="sheet c-white">
+    <label class="field" for="flag">Наша разница: <b id="flag-t" class="num">+3,1 %</b></label>
+    <input type="range" id="flag" min="-6" max="6" step="0.1" value="3.1" style="width:100%">
+    <div class="controls"><button class="btn" type="button" id="b-aa">Насыпать 1000 A/A</button></div>
+    <canvas id="ch-null" aria-label="Разницы в 1000 A/A-тестах и наша разница"></canvas>
+    <div class="big2">
+      <div class="trap"><b id="share-aa">—</b><span>A/A-тестов с разницей не меньше нашей</span></div>
+      <div class="ctrl"><b id="p-theory">—</b><span>то же по колоколу: так бывает в мире без эффекта</span></div>
+    </div>
+    <div class="verdict" id="v-aa" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Порог 5 %" aria-label="Порог 5 %">
+  <span class="step-tag">Название</span>
+  <h2>Эта доля и есть p-value</h2>
+  <p>Доля A/A-тестов, где разница не меньше нашей, называется <b>p-value</b>. Маленький p-value значит: в мире без эффекта такое случается редко.</p>
+  <p>Чтобы не спорить каждый раз, договорились о пороге: если p-value меньше 5 %, разницу называют <b>значимой</b>. На колоколе мира без эффекта это порог примерно в двух ширинах от нуля по обе стороны: всё, что дальше, случается там реже, чем в 5 случаях из 100. Порог увидишь на следующей карточке.</p>
+  <div class="def">p-value — насколько удивительна наша разница, если эффекта нет. Чем он меньше, тем труднее объяснить разницу одним шумом.</div>
+  <div class="tiles">
+    <button type="button" aria-expanded="false"><b>p = 40 %</b><span>Такая разница в мире без эффекта бывает сплошь и рядом. Ничего не доказывает.</span></button>
+    <button type="button" aria-expanded="false"><b>p = 6 %</b><span>Редковато, но порог не пройден. Не значимо: данных не хватило, чтобы отличить от шума.</span></button>
+    <button type="button" aria-expanded="false"><b>p = 0,2 %</b><span>В мире без эффекта так почти не бывает. Значимо: скорее всего, эффект есть.</span></button>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="p и вилка" aria-label="p и вилка">
+  <span class="step-tag">Игрушка</span>
+  <h2>p-value и вилка — одно и то же</h2>
+  <p>В шаге 6 мы называли разницу значимой, если вилка не задевает ноль. Сейчас — если p-value меньше 5 %. Это одно правило, только сказанное двумя способами. Двигай разницу и смотри на оба.</p>
+  <div class="sheet c-white">
+    <label class="field" for="d5">Разница в эксперименте: <b id="d5-t" class="num">+2,0 %</b></label>
+    <input type="range" id="d5" min="-5" max="6" step="0.1" value="2" style="width:100%">
+    <canvas id="ch-both" aria-label="Колокол мира без эффекта и вилка вокруг разницы"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="p5">—</b><span>p-value</span></div>
+      <div class="test"><b id="ci5">—</b><span>вилка ± 2 ширины</span></div>
+    </div>
+    <div class="verdict" id="v5" hidden></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="Значимо ≠ важно" aria-label="Значимо не значит важно">
+  <span class="step-tag">Игрушка</span>
+  <h2>Крошечный эффект и огромный трафик</h2>
+  <p>Пусть разница в эксперименте совсем маленькая: +0,5 %. Посмотри, что происходит с p-value, если людей становится всё больше.</p>
+  <div class="sheet c-white">
+    <label class="field" for="n6">Людей в каждой группе: <b id="n6-t" class="num">100 000</b></label>
+    <input type="range" id="n6" min="0" max="6" step="1" value="2" style="width:100%">
+    <div class="big2">
+      <div class="ctrl"><b id="p6">—</b><span>p-value при разнице +0,5 %</span></div>
+      <div class="test"><b id="ci6">—</b><span>вилка</span></div>
+    </div>
+    <p class="note" id="n6-note"></p>
+  </div>
+  <div class="def">При огромном трафике значимым становится даже эффект, который никому не нужен. p-value отвечает на вопрос «есть ли эффект», но не «большой ли он». Размер эффекта смотрим по вилке.</div>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Чем он не является" aria-label="Чем p-value не является">
+  <span class="step-tag">Осторожно</span>
+  <h2>Чем p-value не является</h2>
+  <figure class="art"><img src="img/ab07-02-myths.jpg" alt="Котейка отбрасывает в сторону три неправильные таблички" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка выбрасывает ложные толкования</figcaption></figure>
+  <div class="tiles">
+    <button type="button" aria-expanded="false"><b>Не вероятность, что фича не работает</b><span>p = 3 % не значит «с вероятностью 3 % фича бесполезна». Это доля A/A с такой же разницей: мы считаем в мире без эффекта, а не про нашу фичу.</span></button>
+    <button type="button" aria-expanded="false"><b>Не размер эффекта</b><span>p = 0,001 бывает у эффекта +0,2 %, а p = 0,04 у эффекта +6 %. Размер — по разнице и вилке.</span></button>
+    <button type="button" aria-expanded="false"><b>Не «доказательство, что эффекта нет»</b><span>p = 30 % значит только, что данные не отличают эффект от шума. Возможно, эффект есть, но людей мало.</span></button>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Читаем p-value</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В отчёте p-value = 0,03. Что это значит?</p>
+    <div class="choice"><button type="button" data-v="a">С вероятностью 3 % фича не работает</button><button type="button" data-v="b">Если эффекта нет, такая или большая разница бывает в 3 % экспериментов</button><button type="button" data-v="c">Эффект равен 3 %</button></div>
+    <p class="why">p-value считается в мире без эффекта: как часто там случается разница не меньше нашей. Это редкость, поэтому разница значима. Но вероятность, что фича работает, он не сообщает.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Тест А: разница +0,2 %, p = 0,001. Тест Б: разница +3 %, p = 0,04. У какого теста эффект больше?</p>
+    <div class="choice"><button type="button" data-v="a">У А: у него p-value меньше</button><button type="button" data-v="b">У Б: по разнице он больше</button><button type="button" data-v="c">Сравнить нельзя</button></div>
+    <p class="why">Маленький p-value у теста А — заслуга огромного трафика, а не большого эффекта. Значимы оба, а эффект больше у Б.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">p-value = 0,25. Боб: «Фича не работает, выключаем». Что не так?</p>
+    <div class="choice"><button type="button" data-v="a">Ничего, всё верно</button><button type="button" data-v="b">p-value слишком маленький</button><button type="button" data-v="c">Это значит «не отличили от шума», а не «эффекта нет»</button></div>
+    <p class="why">Большой p-value говорит только, что разница не удивительна для мира без эффекта. Возможно, эффекта и правда нет, а возможно, людей не хватило. Смотрим на вилку: насколько большой эффект она ещё допускает.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 9 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 7</span>
+  <h2>Насколько удивительна разница</h2>
+  <ul class="cheat">
+    <li><b>p-value</b> — как часто в мире без эффекта случается разница не меньше нашей.</li>
+    <li><b>Меньше 5 %</b> — разницу называют значимой. Это то же самое, что вилка не задевает ноль.</li>
+    <li><b>p-value — не вероятность</b>, что фича не работает, и не размер эффекта.</li>
+    <li>При огромном трафике значимым становится и крошечный эффект. Важен ли он — решает вилка и бизнес.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>p-value</dt><dd>доля экспериментов без эффекта, где разница не меньше нашей</dd>
+    <dt>Уровень значимости</dt><dd>порог для p-value, обычно 5 %; ниже порога разница «значима»</dd>
+  </dl>
+  <figure class="art"><img src="img/ab07-03-next.jpg" alt="Алиса раскладывает сто карточек экспериментов на столе, Котейка подглядывает" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: сто карточек экспериментов</figcaption></figure>
+  <p class="lead">Дальше, шаг 8: порог в 5 % иногда ошибается. Как часто мы будем выкатывать пустые фичи и пропускать хорошие — на игре из ста экспериментов.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+const P0 = 0.10, Z = 1.96, N0 = 100000;
+const se0 = n => Math.sqrt(2 * P0 * (1 - P0) / n) / P0;      // ширина колокола разницы в мире без эффекта
+const aa = n => { const a = binom(n, P0) / n, b = binom(n, P0) / n; return b / a - 1; };
+const sgnPct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(100 * x), d) + ' %';
+const pctAx = v => (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(100 * v), 0) + ' %';
+const pShow = p => p < 0.001 ? 'меньше 0,1 %' : share(p, p < 0.1 ? 1 : 0);
+function bellPath(c, X, Y, s, lo, hi){ c.beginPath(); for (let i = 0; i <= 200; i++){ const v = lo + (hi - lo) * i / 200; const y = normPdf(v / s); i ? c.lineTo(X(v), Y(y)) : c.moveTo(X(v), Y(y)); } }
+function tail(c, X, Y, s, a, b){ c.beginPath(); c.moveTo(X(a), Y(0)); for (let i = 0; i <= 60; i++){ const v = a + (b - a) * i / 60; c.lineTo(X(v), Y(normPdf(v / s))); } c.lineTo(X(b), Y(0)); c.closePath(); c.fill(); }
+
+// ---------- карточка 3: мир без эффекта ----------
+const flag = document.getElementById('flag'); let sims = [];
+const F = () => +flag.value / 100;
+function drawNull(){
+  const g = canvas(document.getElementById('ch-null'), 0.42, 0.7); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 22, B = 24, pw = w - L - R, ph = h - T - B, lo = -0.065, hi = 0.065, s = se0(N0), f = Math.abs(F());
+  const X = v => L + (v - lo) / (hi - lo) * pw, bw = 0.002, binW = pw / ((hi - lo) / bw);
+  // высота колокола согласована с точками: ожидаемое число A/A в столбике × шаг точки
+  const tot = {}; sims.forEach(d => { const i = Math.round(d / bw); tot[i] = (tot[i] || 0) + 1; });
+  const expMax = 1000 * bw * normPdf(0) / s, mx = Math.max(expMax, ...Object.values(tot), 1);
+  const step = Math.min(binW * 0.95, (ph - 4) / mx), r = Math.max(1, step / 2.1);
+  const Y = y => T + ph - 1000 * bw * y / s * step;
+  if (sims.length){
+    const cnt = {};
+    sims.forEach(d => { const i = Math.round(d / bw); cnt[i] = (cnt[i] || 0) + 1; const k = cnt[i], v = i * bw; if (v < lo || v > hi) return; const out = Math.abs(d) >= f;
+      c.fillStyle = out ? COL.trap : COL.gray; c.beginPath(); c.arc(X(v), T + ph - r - (k - 1) * step, r, 0, 2 * Math.PI); c.fill(); });
+  }
+  c.fillStyle = 'rgba(235,141,130,.35)'; if (f < hi){ tail(c, X, Y, s, f, hi); tail(c, X, Y, s, lo, -f); }
+  bellPath(c, X, Y, s, lo, hi); c.strokeStyle = COL.ink2; c.lineWidth = 2; c.stroke();
+  axisX(c, X, [-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06], h - 6, pctAx);
+  // флажок
+  const fx = X(F()); c.strokeStyle = COL.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, T + ph); c.lineTo(fx, T - 8); c.stroke();
+  c.fillStyle = COL.test; c.beginPath(); c.moveTo(fx, T - 8); c.lineTo(fx + (F() >= 0 ? 16 : -16), T - 3); c.lineTo(fx, T + 2); c.fill();
+  const right = F() >= 0 ? fx + 110 < w : fx - 110 < 0;
+  label(c, 'наша разница', fx + (right ? 20 : -20), T, COL.ink, right ? 'left' : 'right');
+  if (!sims.length) label(c, 'Нажми «Насыпать 1000 A/A».', w / 2, T + ph * 0.25, COL.ink2, 'center');
+}
+function stats3(){
+  const f = Math.abs(F()), p = pTwo(f / se0(N0));
+  document.getElementById('flag-t').textContent = sgnPct(F());
+  document.getElementById('p-theory').textContent = pShow(p);
+  if (!sims.length){ document.getElementById('share-aa').textContent = '—'; return; }
+  const k = sims.filter(d => Math.abs(d) >= f).length;
+  document.getElementById('share-aa').textContent = k + ' из ' + sims.length;
+  const v = document.getElementById('v-aa'), g1 = AB.choice('g1');
+  if (Math.abs(F() - 0.031) < 1e-9){
+    v.hidden = false; v.className = 'verdict ' + (g1 === '2' ? 'good' : 'bad');
+    v.innerHTML = (g1 === '2' ? 'Ты угадал. ' : g1 ? 'Посмотри, что вышло. ' : '') + 'Разница в +3,1 % или больше в любую сторону случилась в <b>' + k + ' A/A-тестах из 1000</b>. По колоколу так бывает в ' + pShow(p) + ' случаев, то есть примерно в 2 из 100. В мире без эффекта результат Боба — редкость. Значит, похоже, кнопка правда что-то меняет.';
+  } else { v.hidden = false; v.className = 'verdict'; v.innerHTML = 'При разнице ' + sgnPct(F()) + ' A/A-тестов с разницей не меньше: ' + k + ' из 1000, по колоколу ' + pShow(p) + '. Чем дальше флажок от нуля, тем реже такое бывает без эффекта.'; }
+}
+flag.addEventListener('input', () => { drawNull(); stats3(); });
+document.getElementById('b-aa').addEventListener('click', () => { sims = []; for (let i = 0; i < 1000; i++) sims.push(aa(N0)); drawNull(); stats3(); });
+
+// ---------- карточка 5: p и вилка ----------
+const d5 = document.getElementById('d5'); const D5 = () => +d5.value / 100;
+function drawBoth(){
+  const g = canvas(document.getElementById('ch-both'), 0.46, 0.8); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 16, B = 24, pw = w - L - R, lo = -0.065, hi = 0.065, s = se0(N0), d = D5();
+  const X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+  const top = h - B - 64, Y = y => T + (top - T) * (1 - y / 0.42);
+  // верх: мир без эффекта
+  label(c, 'мир без эффекта: где окажется разница', L, T - 2, COL.ink2);
+  c.fillStyle = 'rgba(235,141,130,.35)'; const f = Math.abs(d); if (f < hi){ tail(c, X, Y, s, f, hi); tail(c, X, Y, s, lo, -f); }
+  bellPath(c, X, Y, s, lo, hi); c.strokeStyle = COL.ink2; c.lineWidth = 2; c.stroke();
+  c.strokeStyle = COL.ink; c.setLineDash([4, 3]); c.lineWidth = 1;
+  [-Z * s, Z * s].forEach(v => { c.beginPath(); c.moveTo(X(v), T + 6); c.lineTo(X(v), Y(0)); c.stroke(); });
+  c.setLineDash([]); label(c, 'порог 5 %', X(Z * s) + 4, T + 14, COL.ink);
+  c.strokeStyle = COL.test; c.lineWidth = 3; c.beginPath(); c.moveTo(X(d), T + 4); c.lineTo(X(d), Y(0)); c.stroke();
+  // низ: вилка вокруг разницы
+  const yI = h - B - 22, a = d - Z * s, b = d + Z * s, col = a > 0 ? COL.truth : b < 0 ? COL.trap : COL.gray;
+  label(c, 'вилка вокруг нашей разницы', L, yI - 16, COL.ink2);
+  c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), yI - 12); c.lineTo(X(0), yI + 12); c.stroke();
+  c.strokeStyle = col; c.lineWidth = 7; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(a), yI); c.lineTo(X(b), yI); c.stroke(); c.lineCap = 'butt';
+  c.fillStyle = COL.test; c.beginPath(); c.arc(X(d), yI, 6, 0, 2 * Math.PI); c.fill();
+  axisX(c, X, [-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06], h - 6, pctAx);
+}
+function stats5(){
+  const d = D5(), s = se0(N0), p = pTwo(d / s), a = d - Z * s, b = d + Z * s;
+  document.getElementById('d5-t').textContent = sgnPct(d);
+  document.getElementById('p5').textContent = pShow(p);
+  document.getElementById('ci5').textContent = 'от ' + sgnPct(a) + ' до ' + sgnPct(b);
+  const v = document.getElementById('v5'), sig = p < 0.05;
+  v.hidden = false; v.className = 'verdict ' + (sig ? 'good' : '');
+  v.innerHTML = sig ? 'p-value меньше 5 %, и вилка не задевает ноль: <b>значимо</b>. Флажок за порогом на колоколе — и ноль за краем вилки.' : 'p-value больше 5 %, и вилка задевает ноль: <b>не значимо</b>. Найди положение, где край вилки касается нуля: там p-value ровно 5 %. Это около ' + sgnPct(Z * s) + '.';
+}
+d5.addEventListener('input', () => { drawBoth(); stats5(); });
+
+// ---------- карточка 6: крошечный эффект ----------
+const NS6 = [10000, 30000, 100000, 300000, 1000000, 3000000, 10000000], n6 = document.getElementById('n6');
+function upd6(){
+  const n = NS6[+n6.value], s = se0(n), d = 0.005, p = pTwo(d / s);
+  document.getElementById('n6-t').textContent = int(n);
+  document.getElementById('p6').textContent = pShow(p);
+  document.getElementById('ci6').textContent = 'от ' + sgnPct(d - Z * s, 2) + ' до ' + sgnPct(d + Z * s, 2);
+  document.getElementById('n6-note').textContent = p < 0.05 ? 'Значимо: вилка уже не задевает ноль. Но весь эффект — полпроцента, и вилка говорит, что больше он вряд ли.' : 'Не значимо: при таком трафике полпроцента не отличить от шума.';
+}
+n6.addEventListener('input', upd6);
+
+window.addEventListener('resize', () => { drawNull(); stats3(); drawBoth(); stats5(); upd6(); });
+</script>
+</body>
+</html>

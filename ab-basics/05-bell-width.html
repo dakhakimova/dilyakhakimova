@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ширина колокола · A/B на пальцах</title>
+<meta name="description" content="Шаг 5 интерактивного курса «A/B на пальцах»: насколько шатается среднее, почему в 4 раза больше людей дают только вдвое точнее и что такое правило двух ширин.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css">
+</head>
+<body data-chapter="ab05" data-next="06-interval.html">
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 5 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1 -->
+<section class="card" data-title="Ширина колокола" aria-label="Ширина колокола">
+  <p class="kicker">Шаг 5 из 10</p>
+  <h1>Ширина колокола</h1>
+  <figure class="art"><img src="img/ab05-00-bell-ruler.jpg" alt="Алиса измеряет линейкой ширину большого колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса меряет колокол линейкой</figcaption></figure>
+  <p class="lead">В прошлом шаге средние по многим людям собрались в колокол. Теперь главный вопрос: насколько он широкий.</p>
+  <p>Ширина колокола показывает, насколько среднее шатается от раза к разу. Узкий колокол — среднее почти не меняется, ему можно верить. Широкий — сегодня одно, завтра другое. В A/B-тесте от этой ширины зависит всё: какую разницу мы заметим, а какую примем за шум.</p>
+  <p>Считаем, как и в шаге 4, заказы на человека за неделю: у 60 % ноль, у остальных один, два, иногда десять и больше. В среднем около 1 заказа.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Угадай</span>
+  <h2>Людей в 4 раза больше</h2>
+  <figure class="art"><img src="img/ab05-01-bob-crowd.jpg" alt="Боб приводит в кафе толпу людей, Котейка считает их на пальцах" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб приводит вчетверо больше гостей</figcaption></figure>
+  <div class="sheet c-white bob">
+    <div class="ava">Б</div>
+    <div><div class="say">«Если в эксперименте будет в 4 раза больше людей, среднее станет в 4 раза точнее. Логично же!»</div><div class="who">Боб, продакт</div></div>
+  </div>
+  <p>Средние считаем по выборкам. Людей в каждой выборке стало в 4 раза больше. Во сколько раз сузится колокол средних?</p>
+  <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="4" aria-pressed="false">В 4 раза</button>
+    <button type="button" data-v="2" aria-pressed="false">В 2 раза</button>
+    <button type="button" data-v="16" aria-pressed="false">В 16 раз</button>
+    <button type="button" data-v="1" aria-pressed="false">Не изменится</button>
+  </div>
+  <p class="note" id="g1-note">Выбери ответ и жми «Далее»: проверим руками.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" data-title="Двигай людей" aria-label="Двигай людей">
+  <span class="step-tag">Игрушка</span>
+  <h2>Колокол и число людей</h2>
+  <p>Выбери, по скольку людей в каждой выборке, и насыпь 500 выборок. Каждая точка гистограммы — одно среднее. Скобка под колоколом — его ширина: на столько среднее обычно отходит от правды. Попробуй несколько размеров подряд: 25, 100, 400, 1600.</p>
+  <div class="sheet c-white">
+    <label class="field" for="n5">Людей в выборке: <b id="n5-t" class="num">100</b></label>
+    <input type="range" id="n5" min="0" max="5" step="1" value="1" style="width:100%" aria-describedby="n5-t">
+    <div class="controls">
+      <button class="btn" type="button" id="b5-run">Насыпать 500 выборок</button>
+    </div>
+    <canvas id="ch-bell" aria-label="Гистограмма 500 средних"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="w5">—</b><span>ширина колокола: обычный отход среднего от правды</span></div>
+      <div><b id="w5-n" class="num">—</b><span>людей в каждой выборке</span></div>
+    </div>
+    <p class="note">Твои замеры: <span id="hist5">пока нет</span></p>
+    <div class="verdict" id="v5" hidden></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" data-title="Цена точности" aria-label="Цена точности">
+  <span class="step-tag">Закономерность</span>
+  <h2>Точность дорожает быстро</h2>
+  <p>Вот как ширина колокола зависит от числа людей. Линия — то, что получается всегда, точки — твои замеры с прошлой карточки.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-curve" aria-label="Ширина колокола в зависимости от числа людей"></canvas>
+    <div class="legend-row"><span><i style="background:var(--theory)"></i>так бывает всегда</span><span><i style="background:var(--ctrl)"></i>твои замеры</span></div>
+  </div>
+  <div class="big2">
+    <div class="ctrl"><b>× 4 людей</b><span>колокол уже вдвое</span></div>
+    <div class="ctrl"><b>× 100 людей</b><span>колокол уже в 10 раз</span></div>
+  </div>
+  <div class="def">Правило: ширина колокола падает как <b>корень</b> из числа людей. Хочешь вдвое точнее — нужно вчетверо больше людей или вчетверо больше дней. Поэтому эксперименты иногда идут неделями: последние проценты точности самые дорогие.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" data-title="Правило двух ширин" aria-label="Правило двух ширин">
+  <span class="step-tag">Игрушка</span>
+  <h2>Где почти наверняка окажется среднее</h2>
+  <figure class="art"><img src="img/ab05-02-band.jpg" alt="Котейка бросает мячики, почти все падают в зелёную полосу" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: почти все мячики Котейки ложатся в зелёную полосу</figcaption></figure>
+  <p>Возьмём выборки по 1000 человек. Ширина колокола тут около 0,075 заказа. Отложим от правды по две ширины в каждую сторону: получится полоса примерно от 0,85 до 1,15.</p>
+  <p>Сколько из 1000 средних попадёт в эту полосу, как думаешь?</p>
+  <div class="choice" data-key="g2" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="50" aria-pressed="false">Около половины</button>
+    <button type="button" data-v="68" aria-pressed="false">Около двух третей</button>
+    <button type="button" data-v="95" aria-pressed="false">Почти все, около 95 %</button>
+    <button type="button" data-v="100" aria-pressed="false">Все до одного</button>
+  </div>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="b-band">Насыпать 1000 средних</button>
+      <button class="btn ghost" type="button" id="b-band1" aria-pressed="false">Показать полосу в одну ширину</button>
+    </div>
+    <canvas id="ch-band" aria-label="1000 средних и полоса двух ширин"></canvas>
+    <div class="big2">
+      <div class="truth"><b id="in2">—</b><span>средних внутри полосы ± 2 ширины</span></div>
+      <div class="ctrl"><b id="in1">—</b><span>внутри полосы ± 1 ширина</span></div>
+    </div>
+    <div class="verdict" id="v-band" hidden></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" data-title="От чего зависит" aria-label="От чего зависит">
+  <span class="step-tag">Почему так</span>
+  <h2>От чего зависит ширина</h2>
+  <p>Ширина колокола складывается всего из двух вещей. Открой карточки.</p>
+  <div class="tiles">
+    <button type="button" aria-expanded="false"><b>Сколько людей</b><span>Больше людей — уже колокол. Но по корню: в 4 раза больше людей дают вдвое уже колокол.</span></button>
+    <button type="button" aria-expanded="false"><b>Насколько люди разные</b><span>Если все заказывают ровно по одному, среднее не шатается вовсе. Если кто-то 0, а кто-то 30, оно шатается сильно. Метрики с редкими крупными значениями, вроде выручки, самые шумные.</span></button>
+    <button type="button" aria-expanded="false"><b>Чего здесь нет</b><span>Размер всей базы пользователей не важен. Колокол по 10 000 людям одинаково узкий, взяли их из города или из целой страны.</span></button>
+  </div>
+  <div class="def">Ширина колокола среднего — это разброс одного человека, делённый на корень из числа людей. Больше ничего не нужно.</div>
+</section>
+
+<!-- 7 -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Ширина на глаз</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Эксперимент шёл неделю. Боб продлил его ещё на три недели при том же трафике. Что стало с шириной колокола?</p>
+    <div class="choice"><button type="button" data-v="a">Стала в 4 раза уже</button><button type="button" data-v="b">Стала вдвое уже</button><button type="button" data-v="c">Не изменилась</button></div>
+    <p class="why">Людей стало в 4 раза больше: неделя превратилась в четыре. Ширина падает по корню, значит колокол вдвое уже.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Нужно, чтобы колокол стал в 10 раз уже. Во сколько раз больше людей понадобится?</p>
+    <div class="choice"><button type="button" data-v="a">В 10 раз</button><button type="button" data-v="b">В 20 раз</button><button type="button" data-v="c">В 100 раз</button></div>
+    <p class="why">Корень из 100 — это 10. Поэтому крошечные эффекты так дорого ловить: каждый следующий знак точности стоит в сто раз больше людей.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">В среднем человек делает 1 заказ в неделю. Берём выборку из 400 человек, ширина колокола 0,12. Где почти наверняка окажется её среднее?</p>
+    <div class="choice"><button type="button" data-v="a">От 0,94 до 1,06</button><button type="button" data-v="b">От 0,76 до 1,24</button><button type="button" data-v="c">От 0 до 2</button></div>
+    <p class="why">Две ширины — это 0,24. Отложи их от правды в обе стороны: от 0,76 до 1,24. Так бывает примерно в 95 случаях из 100.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 8 -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 5</span>
+  <h2>Ширина решает всё</h2>
+  <ul class="cheat">
+    <li><b>Ширина колокола</b> показывает, насколько среднее обычно отходит от правды.</li>
+    <li><b>Больше людей — уже колокол</b>, но по корню: ×4 людей дают вдвое уже, ×100 — в 10 раз.</li>
+    <li><b>Правило двух ширин</b>: в полосу ± 2 ширины вокруг правды попадает около 95 % средних.</li>
+    <li>Ширина зависит только от числа людей и от того, насколько люди разные.</li>
+  </ul>
+  <p>Теперь у того, что мы сделали руками, есть названия:</p>
+  <dl class="terms">
+    <dt>Стандартная ошибка</dt><dd>ширина колокола среднего, обычный отход среднего от правды</dd>
+    <dt>Правило ± 2</dt><dd>в пределах двух стандартных ошибок от правды лежит около 95 % средних</dd>
+  </dl>
+  <figure class="art"><img src="img/ab05-03-next.jpg" alt="Два колокола, синий и оранжевый, стоят рядом, Алиса и Боб их сравнивают" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: два колокола рядом — контроль и тест</figcaption></figure>
+  <p class="lead">Дальше, шаг 6: в эксперименте колоколов два, у контроля и у теста. Что тогда значит «тест лучше на 2 %» и почему эффект — это вилка, а не одно число.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="course.js"></script>
+<script>
+// Заказы одного гостя за неделю — то же распределение, что в шаге 4: 60 % ноль, остальные 1…40 с длинным хвостом.
+const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
+const CDF = PMF.reduce((a, p) => (a.push((a.length ? a[a.length - 1] : 0) + p), a), []);
+const MEAN = PMF.reduce((a, p, k) => a + p * k, 0), SD1 = Math.sqrt(PMF.reduce((a, p, k) => a + p * k * k, 0) - MEAN * MEAN);   // ≈ 1,0 и ≈ 2,36
+function orders(){ const u = Math.random(); let k = 0; while (k < CDF.length - 1 && CDF[k] < u) k++; return k; }
+// Среднее по n людям: честно до 1000 человек, дальше — колоколом с той же шириной (шаг 4 показал, что так и есть).
+function sampleMean(n){ if (n <= 1000){ let s = 0; for (let i = 0; i < n; i++) s += orders(); return s / n; } return MEAN + SD1 / Math.sqrt(n) * gauss(); }
+const NS = [25, 100, 400, 1600, 6400, 25600];
+const w3 = x => num(x, x < 0.1 ? 3 : 2);
+
+// ---------- карточка 3: колокол и число людей ----------
+const n5 = document.getElementById('n5'), cvB = document.getElementById('ch-bell');
+let means = [], curN = null;
+const measured = {};           // n → измеренная ширина
+function drawBell(){
+  const g = canvas(cvB, 0.38, 0.62); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 14, B = 26, pw = w - L - R, ph = h - T - B, lo = 0, hi = 2;
+  const X = v => L + (v - lo) / (hi - lo) * pw;
+  c.strokeStyle = COL.grid; [0, 0.5, 1, 1.5, 2].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
+  axisX(c, X, [0, 0.5, 1, 1.5, 2], h - 6, v => num(v, 1));
+  label(c, 'правда: около 1 заказа', X(MEAN) + 4, T + 2, COL.truth);
+  if (!means.length){ label(c, 'Нажми «Насыпать 500 выборок».', w / 2, T + ph / 2, COL.ink2, 'center'); return; }
+  const s = SD1 / Math.sqrt(curN), bw = Math.max(0.004, Math.min(0.05, s / 4));
+  const b = bins(means, lo, hi, bw), top = Math.max(...b);
+  c.fillStyle = COL.ctrl; c.globalAlpha = .75;
+  b.forEach((k, i) => { if (!k) return; const bh = (ph - 22) * k / top; c.fillRect(X(lo + i * bw), T + ph - bh, Math.max(1, pw * bw / (hi - lo) - 0.5), bh); });
+  c.globalAlpha = 1;
+  c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(MEAN), T + 6); c.lineTo(X(MEAN), T + ph); c.stroke();
+  // скобка ширины: от среднего ± 1 ширина
+  const ws = sd(means), y = T + ph + 2;
+  c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(MEAN - ws), y - 6); c.lineTo(X(MEAN - ws), y); c.lineTo(X(MEAN + ws), y); c.lineTo(X(MEAN + ws), y - 6); c.stroke();
+}
+function showHist(){
+  const ks = Object.keys(measured).map(Number).sort((a, b) => a - b);
+  document.getElementById('hist5').textContent = ks.length ? ks.map(k => int(k) + ' чел. → ' + w3(measured[k])).join(' · ') : 'пока нет';
+  // вердикт: есть хотя бы два размера, отличающихся в 4 раза
+  const pairs = ks.filter(k => measured[k * 4]);
+  const v = document.getElementById('v5');
+  if (!pairs.length) return;
+  const k = pairs[0], r = measured[k] / measured[k * 4], g1 = AB.choice('g1');
+  const head = g1 === '2' ? 'Ты угадал. ' : g1 ? 'Не совсем так, как ты думал. ' : '';
+  v.hidden = false; v.className = 'verdict ' + (g1 === '2' ? 'good' : 'bad');
+  v.innerHTML = head + 'При ' + int(k) + ' людях ширина ' + w3(measured[k]) + ', при ' + int(4 * k) + ' — ' + w3(measured[4 * k]) + '. Людей в 4 раза больше, а колокол уже всего в <b>' + num(r, 1) + ' раза</b>, то есть примерно вдвое. Боб ошибся: точность растёт медленнее, чем число людей.';
+}
+function run5(){
+  curN = NS[+n5.value]; means = []; for (let i = 0; i < 500; i++) means.push(sampleMean(curN));
+  measured[curN] = sd(means);
+  document.getElementById('w5').textContent = w3(measured[curN]);
+  document.getElementById('w5-n').textContent = int(curN);
+  drawBell(); showHist(); drawCurve();
+}
+n5.addEventListener('input', () => { document.getElementById('n5-t').textContent = int(NS[+n5.value]); });
+document.getElementById('b5-run').addEventListener('click', run5);
+
+// ---------- карточка 4: кривая ширины ----------
+const cvC = document.getElementById('ch-curve');
+function drawCurve(){
+  const g = canvas(cvC, 0.4, 0.66); if (!g) return; const {c, w, h} = g;
+  const L = 44, R = 30, T = 12, B = 26, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.4;
+  const lx0 = Math.log10(40), lx1 = Math.log10(100000), X = n => L + (Math.log10(n) - lx0) / (lx1 - lx0) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+  axisY(c, L, R, T, ph, w, lo, hi, 0.1, v => num(Math.abs(v) < 1e-9 ? 0 : v, 1));
+  axisX(c, X, [100, 1000, 10000, 100000], h - 6, n => int(n));
+  c.strokeStyle = COL.gray; c.lineWidth = 2.4; c.beginPath();
+  for (let i = 0; i <= 200; i++){ const n = 10 ** (lx0 + (lx1 - lx0) * i / 200), v = Math.min(hi, SD1 / Math.sqrt(n)); i ? c.lineTo(X(n), Y(v)) : c.moveTo(X(n), Y(v)); }
+  c.stroke();
+  Object.entries(measured).forEach(([n, v]) => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(+n), Y(Math.min(hi, v)), 5, 0, 2 * Math.PI); c.fill(); });
+  // подсказка ×4 → ÷2
+  const a = 100, b = 400; c.strokeStyle = COL.ink; c.setLineDash([3, 3]); c.lineWidth = 1;
+  [a, b].forEach(n => { c.beginPath(); c.moveTo(X(n), Y(SD1 / Math.sqrt(n))); c.lineTo(X(n), T + ph); c.stroke(); });
+  c.setLineDash([]);
+  label(c, '100 чел.: ' + w3(SD1 / 10), X(a) + 6, Y(SD1 / 10) - 6, COL.ink);
+  label(c, '400 чел.: ' + w3(SD1 / 20), X(b) + 6, Y(SD1 / 20) - 6, COL.ink);
+  label(c, 'ширина колокола', w - R, T + 10, COL.ink2, 'right');
+  label(c, 'людей в выборке', w - R, T + ph - 6, COL.ink2, 'right');
+}
+
+// ---------- карточка 5: правило двух ширин ----------
+const cvBand = document.getElementById('ch-band'), N_BAND = 1000, W_BAND = SD1 / Math.sqrt(N_BAND);
+let band = [], show1 = false;
+function drawBand(){
+  const g = canvas(cvBand, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
+  const L = 10, R = 10, T = 16, B = 26, pw = w - L - R, ph = h - T - B, lo = 0.7, hi = 1.3, X = v => L + (v - lo) / (hi - lo) * pw;
+  c.fillStyle = COL.fillG; c.fillRect(X(MEAN - 2 * W_BAND), T, 4 * W_BAND / (hi - lo) * pw, ph);
+  if (show1){ c.fillStyle = COL.fillC; c.fillRect(X(MEAN - W_BAND), T, 2 * W_BAND / (hi - lo) * pw, ph); }
+  axisX(c, X, [0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3], h - 6, v => num(v, 1));
+  label(c, '± 2 ширины', X(MEAN + 2 * W_BAND) - 4, T + 10, COL.truth, 'right');
+  if (!band.length){ label(c, 'Нажми «Насыпать 1000 средних».', w / 2, T + ph / 2, COL.ink2, 'center'); return; }
+  const bw = 0.006, b = bins(band, lo, hi, bw), top = Math.max(...b);
+  b.forEach((k, i) => { const v = lo + (i + 0.5) * bw, inside = Math.abs(v - MEAN) <= 2 * W_BAND; c.fillStyle = inside ? COL.ctrl : COL.trap; const bh = (ph - 20) * k / top; c.fillRect(X(lo + i * bw) + 0.5, T + ph - bh, pw * bw / (hi - lo) - 1, bh); });
+  c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(MEAN), T); c.lineTo(X(MEAN), T + ph); c.stroke();
+}
+function bandStats(){
+  if (!band.length) return;
+  const in2 = band.filter(v => Math.abs(v - MEAN) <= 2 * W_BAND).length, in1 = band.filter(v => Math.abs(v - MEAN) <= W_BAND).length;
+  document.getElementById('in2').textContent = share(in2 / band.length, 1);
+  document.getElementById('in1').textContent = share(in1 / band.length, 1);
+  const g2 = AB.choice('g2'), v = document.getElementById('v-band');
+  v.hidden = false; v.className = 'verdict ' + (g2 === '95' ? 'good' : 'bad');
+  v.innerHTML = (g2 === '95' ? 'Так и есть. ' : g2 ? 'Посмотри, что вышло. ' : '') + 'В полосу ± 2 ширины попало <b>' + in2 + ' из 1000</b> средних. Так бывает всегда: около 95 % внутри, около 5 % снаружи, и коралловые столбики по краям — эти редкие 5 %. В полосу в одну ширину попадает около двух третей, сейчас ' + in1 + '.';
+}
+document.getElementById('b-band').addEventListener('click', () => { band = []; for (let i = 0; i < 1000; i++) band.push(sampleMean(N_BAND)); drawBand(); bandStats(); });
+document.getElementById('b-band1').addEventListener('click', e => { show1 = !show1; e.target.setAttribute('aria-pressed', String(show1)); e.target.textContent = show1 ? 'Убрать полосу в одну ширину' : 'Показать полосу в одну ширину'; drawBand(); });
+
+window.addEventListener('resize', () => { drawBell(); drawCurve(); drawBand(); });
+</script>
+</body>
+</html>
