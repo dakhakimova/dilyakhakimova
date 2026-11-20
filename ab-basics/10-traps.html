@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201223">
+<link rel="stylesheet" href="ab.css?v=202611201511">
 </head>
 <body data-chapter="ab10">
 <nav class="top" aria-label="Навигация">
@@ -117,6 +117,61 @@
   <div class="def">Если доли групп заметно не совпадают с планом, результаты читать нельзя, даже зелёные. Сначала ищем баг в делении или логировании.</div>
 </section>
 
+<!-- 5b -->
+<section class="card" data-title="Срезы" aria-label="Срезы">
+  <span class="step-tag">Игрушка</span>
+  <h2>В среднем ноль, а внутри — нет</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Акция «второй кофе в подарок» за три недели дала 0 %. Выключаем.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Давай посмотрим по кафе.</p></div></div>
+  </div>
+  <div class="sheet c-white">
+    <canvas id="ch-seg" aria-label="Эффект акции по кафе"></canvas>
+    <div class="controls"><button class="btn" type="button" id="seg-btn">Разложить по кафе</button></div>
+    <div class="verdict" id="seg-v" hidden></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Алиса разрезала результат на 30 срезов: кафе, города, дни недели, iPhone и Android. В кафе у вокзала эффект +15 %, p = 0,04. Что делать?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Рано: при 30 срезах один-два «значимых» почти неизбежны даже без всякого эффекта — вспомни карточку про много метрик.">Включить акцию только у вокзала</button>
+      <button type="button" data-v="b">Проверить отдельным тестом в кафе у вокзала</button>
+      <button type="button" data-v="c" data-why="Отмахиваться тоже не стоит: эффект может быть настоящим. Просто одного найденного задним числом среза мало.">Забыть: это точно шум</button>
+    </div>
+    <p class="why">Срез, найденный задним числом среди тридцати, — это гипотеза, а не результат. Её проверяют новым тестом, где кафе у вокзала — главная цель с самого начала.</p>
+  </div>
+</section>
+
+<!-- 5c -->
+<section class="card" data-title="Найди подвох" aria-label="Найди подвох">
+  <span class="step-tag">Игра</span>
+  <h2>Где Боб приукрасил дашборд</h2>
+  <p>Цифры могут быть честными, а картинка — нет. Боб принёс три графика. Найди в каждом, в чём подвох.</p>
+  <div class="quiz" data-right="a">
+    <p class="q">«Тест обогнал контроль в три раза!»</p>
+    <canvas class="dash" id="dash1" aria-label="Столбики контроля и теста"></canvas>
+    <div class="choice"><button type="button" data-v="a">Шкала не от нуля</button><button type="button" data-v="b" data-why="Числа тут не крошечные: в каждой группе по 50 000 гостей.">Проценты от крошечных чисел</button><button type="button" data-v="c" data-why="Тут нет времени вообще — только два столбика.">Выбран удобный кусок времени</button></div>
+    <p class="why">Шкала начинается с 10 %, поэтому разница 10,2 % и 10,5 % выглядит трёхкратной. От нуля это почти одинаковые столбики: тест лучше на 3 %, а не в 3 раза.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash1h" aria-label="Те же столбики от нуля"></canvas>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">«Конверсия в новом разделе выросла на 50 %!»</p>
+    <canvas class="dash" id="dash2" aria-label="Большая цифра плюс 50 процентов"></canvas>
+    <div class="choice"><button type="button" data-v="a" data-why="Шкалы тут нет — только одна большая цифра. Подвох в том, из чего она посчитана.">Шкала не от нуля</button><button type="button" data-v="b">Проценты от крошечных чисел</button><button type="button" data-v="c" data-why="Время тут ни при чём. Посмотри, сколько людей стоит за этими процентами.">Выбран удобный кусок времени</button></div>
+    <p class="why">Было 2 заказа из 40 гостей, стало 3 из 40. Формально это +50 %, но один заказ туда-сюда — чистая случайность. Когда видишь большой процент, спрашивай: «а в штуках сколько?»</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash2h" aria-label="Те же данные в штуках"></canvas>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">«Три дня подряд тест впереди — эффект стабильный!»</p>
+    <canvas class="dash" id="dash3" aria-label="Разница по трём дням"></canvas>
+    <div class="choice"><button type="button" data-v="a" data-why="Шкала тут честная, от нуля. Подвох в том, какие дни попали на график.">Шкала не от нуля</button><button type="button" data-v="b" data-why="Людей тут много, по 10 000 в день. Подвох в выборе дней.">Проценты от крошечных чисел</button><button type="button" data-v="c">Выбран удобный кусок времени</button></div>
+    <p class="why">Тест шёл 21 день, и разница скакала то вверх, то вниз вокруг нуля. Боб показал только три удачных дня подряд. Смотри на весь период — и на итог, посчитанный заранее запланированным способом.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash3h" aria-label="Разница по всем 21 дням"></canvas>
+  </div>
+</section>
+
 <!-- 6 -->
 <section class="card" data-title="Тренажёр" aria-label="Тренажёр">
   <span class="step-tag">Тренажёр</span>
@@ -201,6 +256,8 @@
     <li><b>Ошибки бывают двух видов:</b> ложная тревога примерно в одном пустом тесте из двадцати и пропуск, когда тест короткий.</li>
     <li><b>MDE считают до запуска.</b> Вдвое меньший эффект стоит вчетверо больше людей.</li>
     <li><b>Не подглядываем, выбираем главную метрику заранее, проверяем доли групп.</b></li>
+    <li><b>Средний ноль может прятать плюсы и минусы,</b> но срез, найденный задним числом, — только гипотеза для нового теста.</li>
+    <li><b>Не верим картинке на слово:</b> шкала от нуля? сколько это в штуках? какой период показан?</li>
   </ul>
   <p>И последние названия:</p>
   <dl class="terms">
@@ -219,7 +276,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201223"></script>
+<script src="course.js?v=202611201511"></script>
 <script>
 const $ = id => document.getElementById(id);
 
@@ -307,6 +364,68 @@ $('srm-n').addEventListener('input', () => { srmRun(); drawSrm(); });
 
 window.addEventListener('resize', () => { drawPeek(); drawSrm(); });
 srmRun(); paintMM(); peekStats();
+
+// ---------- срезы ----------
+(function(){
+  const cafes = [['у вокзала', 0.09, 0.15], ['в центре', 0.06, 0.2], ['у офисов', 0.02, 0.2], ['в спальном районе', -0.03, 0.15], ['у университета', -0.06, 0.15], ['в ТЦ', -0.07, 0.15]];
+  const tot = cafes.reduce((a, x) => a + x[1] * x[2], 0) / cafes.reduce((a, x) => a + x[2], 0);
+  let split = false; const cv = document.getElementById('ch-seg');
+  function draw(){
+    const g = canvas(cv, 0.42, 0.8); if (!g) return; const {c, w, h} = g;
+    const rows = split ? cafes : [['все кафе', tot, 1]], lo = -0.1, hi = 0.1, L = w < 520 ? 120 : 150, R = 50, pw = w - L - R, X = v => L + (v - lo) / (hi - lo) * pw;
+    const rh = Math.min(34, (h - 30) / rows.length);
+    c.strokeStyle = COL.grid; [-0.1, -0.05, 0, 0.05, 0.1].forEach(v => { c.beginPath(); c.moveTo(X(v), 4); c.lineTo(X(v), h - 22); c.stroke(); label(c, pct(v, 0), X(v), h - 6, COL.ink2, 'center'); });
+    rows.forEach(([n, v], i) => {
+      const y = 8 + i * rh; label(c, n, L - 8, y + rh / 2 + 4, COL.ink, 'right');
+      c.fillStyle = Math.abs(v) < 0.005 ? COL.gray : v > 0 ? COL.truth : COL.trap; c.fillRect(Math.min(X(0), X(v)), y + 4, Math.max(3, Math.abs(X(v) - X(0))), rh - 10);
+      label(c, pct(v, 0), v >= 0 ? X(v) + 6 : X(v) - 6, y + rh / 2 + 4, COL.ink2, v >= 0 ? 'left' : 'right');
+    });
+  }
+  document.getElementById('seg-btn').addEventListener('click', e => {
+    split = !split; e.target.textContent = split ? 'Сложить обратно' : 'Разложить по кафе';
+    const v = document.getElementById('seg-v'); v.hidden = !split; v.className = 'verdict good';
+    v.innerHTML = 'У вокзала и в центре акция поднимает заказы, а у университета и в ТЦ — снижает: там гости и так брали по два кофе, а теперь второй получают даром. В сумме плюсы и минусы съели друг друга. Это повод для нового теста, а не готовый вывод — о подвохе ниже.';
+    draw();
+  });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- найди подвох ----------
+(function(){
+  function bars(cv, lo, hi, step){
+    const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const L = 46, T = 10, B = 24, ph = h - T - B, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, 10, T, ph, w, lo, hi, step, v => num(v, 1) + ' %');
+    [['контроль', 10.2, COL.ctrl], ['тест', 10.5, COL.test]].forEach(([n, v, col], i) => { const x = L + 30 + i * (w - L - 60) / 2, bw = (w - L - 60) / 2 - 30; c.fillStyle = col; c.fillRect(x, Y(v), bw, Y(lo) - Y(v)); label(c, n + ': ' + num(v, 1) + ' %', x + bw / 2, h - 6, COL.ink, 'center'); });
+  }
+  function big(cv){
+    const g = canvas(cv, 0.25, 0.4); if (!g) return; const {c, w, h} = g;
+    c.fillStyle = COL.fillG; c.fillRect(0, 0, w, h); c.font = '600 ' + Math.round(h * 0.45) + 'px Onest, system-ui'; label(c, '+50 %', w / 2, h * 0.62, COL.truth, 'center'); c.font = '13px Onest, system-ui'; label(c, 'конверсия в новом разделе', w / 2, h * 0.85, COL.ink2, 'center');
+  }
+  function counts(cv){
+    const g = canvas(cv, 0, 0, 96); if (!g) return; const {c, w, h} = g;
+    [['до', 2], ['после', 3]].forEach(([n, k], r) => {
+      const y = 16 + r * 46; label(c, n + ': ' + k + ' заказа из 40 гостей', 0, y, COL.ink);
+      const sz = Math.min(14, (w - 10) / 40 - 2);
+      for (let i = 0; i < 40; i++){ c.fillStyle = i < k ? COL.truth : COL.grid; c.beginPath(); c.arc(6 + i * (sz + 2) + sz / 2, y + 16, sz / 2, 0, 2 * Math.PI); c.fill(); }
+    });
+  }
+  const diffs = [0.4, -1.1, 0.8, -0.3, 1.5, -1.7, 0.2, 1.2, 1.4, 1.6, -0.9, -1.3, 0.5, -0.6, 0.9, -1.4, 0.3, -0.2, 1.1, -1.0, -0.4];
+  function days(cv, from, to){
+    const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const L = 46, T = 10, B = 24, ph = h - T - B, pw = w - L - 10, lo = -2, hi = 2, n = to - from, X = i => L + (i + 0.5) * pw / n, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, 10, T, ph, w, lo, hi, 1, v => pct(v / 100, 0));
+    for (let i = 0; i < n; i++){ const v = diffs[from + i]; c.fillStyle = v > 0 ? COL.test : COL.ctrl; c.fillRect(X(i) - pw / n * 0.35, Math.min(Y(v), Y(0)), pw / n * 0.7, Math.abs(Y(v) - Y(0))); }
+    label(c, 'день ' + (from + 1), X(0), h - 6, COL.ink2, 'center'); label(c, 'день ' + to, X(n - 1), h - 6, COL.ink2, 'center');
+  }
+  function draw(){
+    bars(document.getElementById('dash1'), 10, 10.6, 0.2); bars(document.getElementById('dash1h'), 0, 12, 4);
+    big(document.getElementById('dash2')); counts(document.getElementById('dash2h'));
+    days(document.getElementById('dash3'), 7, 10); days(document.getElementById('dash3h'), 0, 21);
+  }
+  window.addEventListener('resize', draw);
+  document.querySelectorAll('.quiz canvas.honest').forEach(cv => { const q = cv.closest('.quiz'); new MutationObserver(() => window.dispatchEvent(new Event('resize'))).observe(q, {attributes: true, attributeFilter: ['class']}); });
+})();
 </script>
 </body>
 </html>

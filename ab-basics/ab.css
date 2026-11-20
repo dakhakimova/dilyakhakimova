@@ -159,3 +159,11 @@
 
 .qfb .hint2{font-size:13px; color:var(--muted)}
 .quiz .qnext{margin-top:12px}
+
+/* подвохи дашбордов: честная версия появляется после верного ответа */
+.quiz canvas.dash{display:block; width:100%; margin:8px 0 10px; border-radius:8px}
+.quiz canvas.honest{display:none}
+.quiz.done canvas.honest{display:block}
+.quiz.done canvas.honest::before{content:""}
+.quiz .honest-cap{display:none; margin:12px 0 0; font-weight:600}
+.quiz.done .honest-cap{display:block}

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201223">
+<link rel="stylesheet" href="ab.css?v=202611201511">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -57,6 +57,32 @@
 </section>
 
 <!-- 3 -->
+<section class="card" data-title="Среднее и выбросы" aria-label="Среднее и выбросы">
+  <span class="step-tag">Игрушка</span>
+  <h2>Один заказ на 50 000 ₽</h2>
+  <p>Средний чек — главная метрика многих тестов. Вот 20 обычных заказов из приложения. Посчитаем две вещи: <b>среднее</b> (сумма, делённая на число заказов) и <b>медиану</b> (чек ровно посередине, если выстроить заказы от меньшего к большему).</p>
+  <div class="sheet c-white">
+    <canvas id="ch-cheq" aria-label="Чеки заказов"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="cq-mean">…</b><span>среднее</span></div>
+      <div class="test"><b id="cq-med">…</b><span>медиана</span></div>
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" id="cq-add">Добавить корпоративный заказ на 50 000 ₽</button>
+    </div>
+    <div class="verdict" id="cq-v" hidden></div>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">В тесте средний чек вырос на 12 %, а медиана не изменилась. Что проверить первым?</p>
+    <div class="choice">
+      <button type="button" data-v="a">Не попало ли в тест несколько огромных заказов</button>
+      <button type="button" data-v="b" data-why="Не спеши: если бы фича поднимала чеки всем, выросла бы и медиана. Так ведут себя несколько огромных заказов.">Ничего, фича отлично работает</button>
+      <button type="button" data-v="c" data-why="Медиана посчитана правильно. Она просто не замечает крайних значений — в этом её смысл.">Не ошиблись ли в подсчёте медианы</button>
+    </div>
+    <p class="why">Когда среднее растёт, а медиана стоит, почти всегда виноваты несколько гигантских заказов. Поэтому перед расчётом аналитики ограничивают выбросы: например, всё, что выше 99 % заказов, считают по этому порогу. Иначе исход теста решит один корпоратив.</p>
+  </div>
+</section>
+
 <section class="card" data-title="Средние по выборкам" aria-label="Средние по выборкам">
   <span class="step-tag">Игрушка</span>
   <h2>Собираем средние</h2>
@@ -155,7 +181,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201223"></script>
+<script src="course.js?v=202611201511"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
@@ -265,6 +291,34 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
   document.getElementById('btn-buckets').addEventListener('click', gen);
   window.addEventListener('resize', draw);
   gen();
+})();
+
+// ---------- карточка «Среднее и выбросы» ----------
+(function(){
+  const base = [350, 420, 280, 510, 390, 460, 300, 620, 410, 370, 450, 330, 480, 520, 290, 400, 440, 360, 550, 470];
+  let big = false;
+  const cv = document.getElementById('ch-cheq'), med = a => { const b = [...a].sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; };
+  const rub = x => int(x) + ' ₽';
+  function draw(){
+    const a = big ? base.concat([50000]) : base, m = mean(a), md = med(a);
+    document.getElementById('cq-mean').textContent = rub(m); document.getElementById('cq-med').textContent = rub(md);
+    const g = canvas(cv, 0.22, 0.4); if (!g) return; const {c, w, h} = g;
+    const lo = 0, hi = 1000, L = 12, R = big ? 70 : 12, pw = w - L - R, X = v => L + (Math.min(v, hi) - lo) / (hi - lo) * pw, y0 = h - 28;
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, y0); c.lineTo(L + pw, y0); c.stroke();
+    [0, 250, 500, 750, 1000].forEach(v => label(c, int(v), X(v), h - 10, COL.ink2, 'center'));
+    const cnt = {}; base.forEach(v => { const k = Math.round(v / 40); cnt[k] = (cnt[k] || 0) + 1; c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(v), y0 - 8 - (cnt[k] - 1) * 12, 5, 0, 2 * Math.PI); c.fill(); });
+    if (big){ c.fillStyle = COL.trap; c.beginPath(); c.arc(w - 40, y0 - 8, 9, 0, 2 * Math.PI); c.fill(); label(c, '50 000 ₽ →', w - 40, y0 - 24, COL.ink, 'center'); c.setLineDash([3, 3]); c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(L + pw + 4, y0); c.lineTo(w - 52, y0); c.stroke(); c.setLineDash([]); }
+    const mk = (v, col, t, up) => { const x = v > hi ? L + pw : X(v); c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); c.moveTo(x, 6); c.lineTo(x, y0); c.stroke(); c.lineWidth = 1; label(c, t, x > w - 200 ? x - 6 : x + 4, up ? 16 : 30, col, x > w - 200 ? 'right' : 'left'); };
+    mk(m, COL.ctrl, m > hi ? 'среднее ' + rub(m) + ' — за краем шкалы' : 'среднее', true); mk(md, '#B8642A', 'медиана', false);
+  }
+  document.getElementById('cq-add').addEventListener('click', e => {
+    big = !big; e.target.textContent = big ? 'Убрать корпоративный заказ' : 'Добавить корпоративный заказ на 50 000 ₽';
+    const v = document.getElementById('cq-v'); v.hidden = !big; v.className = 'verdict bad';
+    const m0 = mean(base), m1 = mean(base.concat([50000])), d0 = med(base), d1 = med(base.concat([50000]));
+    v.innerHTML = 'Один заказ из 21 поднял <b>среднее</b> с ' + rub(m0) + ' до ' + rub(m1) + ' — почти в ' + Math.round(m1 / m0) + ' раз. <b>Медиана</b> сдвинулась с ' + rub(d0) + ' до ' + rub(d1) + ': ей всё равно, насколько велик крайний заказ. Если такой корпоратив случайно попадёт в тест, «средний чек» вырастет, и фича тут будет ни при чём.';
+    draw();
+  });
+  window.addEventListener('resize', draw);
 })();
 </script>
 </body>

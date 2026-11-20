@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201223">
+<link rel="stylesheet" href="ab.css?v=202611201511">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -131,6 +131,29 @@
   <div class="def">Правило: если сравниваешь разные <b>моменты времени</b> или разных <b>людей</b>, разница складывается из эффекта и всего остального. Отделить одно от другого потом уже нельзя.</div>
 </section>
 
+<!-- 5b -->
+<section class="card" data-title="Связь — не причина" aria-label="Связь — не причина">
+  <span class="step-tag">Подвох</span>
+  <h2>Что из чего следует</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Смотрите: в кафе, где гости чаще жмут «Повторить заказ», заказов на 30 % больше. Значит, кнопка работает!</p></div></div>
+  </div>
+  <div class="quiz" data-right="d">
+    <p class="q">Какие объяснения у этой связи возможны?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Это одно из возможных объяснений, но не единственное. Связь может идти и в обратную сторону, и от третьей причины.">Только одно: кнопка увеличивает заказы</button>
+      <button type="button" data-v="b" data-why="Да, и так может быть. Но это не единственное объяснение: есть ещё третья причина и простое совпадение.">Наоборот: кто много заказывает, тот и жмёт «Повторить»</button>
+      <button type="button" data-v="c" data-why="И так может быть. Но и кнопка могла помочь, и связь могла пойти в обратную сторону.">Третья причина: в больших кафе в центре и гостей больше, и кнопку жмут чаще</button>
+      <button type="button" data-v="d">Все три, а ещё это может быть просто совпадение</button>
+    </div>
+    <p class="why">У любой связи двух вещей есть четыре объяснения. <b>Причина</b>: кнопка увеличивает заказы. <b>Обратная причина</b>: кто много заказывает, тому кнопка и нужна. <b>Третий фактор</b>: большие кафе в центре дают и много заказов, и много нажатий. <b>Совпадение</b>: кафе мало, связь случайная. По одной связи не понять, какое из них верное.</p>
+  </div>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Прошлой весной я чихал, мне дали таблетку — через неделю прошло. Осенью таблетки не было — и тоже через неделю прошло.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот поэтому нужна контрольная группа: те, кто живёт в то же время, но без новинки. А чтобы группы были одинаковыми, делить их должна монетка.</p></div></div>
+  </div>
+</section>
+
 <!-- 6 -->
 <section class="card" data-title="Делим монеткой" aria-label="Делим монеткой">
   <span class="step-tag">Как честно</span>
@@ -207,6 +230,7 @@
   <ul class="cheat">
     <li><b>До и после</b> приписывает фиче всё, что изменилось во времени: сезон, праздники, погоду, другие релизы.</li>
     <li><b>«Кто включил» против «кто не включил»</b> приписывает фиче то, чем эти люди отличались с самого начала.</li>
+    <li><b>Связь — ещё не причина.</b> У неё всегда четыре объяснения: причина, обратная причина, третий фактор и совпадение.</li>
     <li><b>Честное сравнение</b>: две группы живут в одно и то же время, а кто в какую попал, решает монетка. Тогда всё, кроме фичи, у групп общее.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
@@ -226,7 +250,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201223"></script>
+<script src="course.js?v=202611201511"></script>
 <script>
 // ---------- данные ----------
 fetch('data/step01.json').then(r => r.json()).then(init).catch(() => {

@@ -215,7 +215,7 @@ document.querySelectorAll('.card').forEach(card => {
         const next = qs[qi + 1];
         if (!done && next){
           const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = 'Следующий вопрос →';
-          nb.addEventListener('click', () => { next.classList.remove('later'); nb.remove(); next.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); });
+          nb.addEventListener('click', () => { next.classList.remove('later'); nb.remove(); window.dispatchEvent(new Event('resize')); next.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); });
           q.appendChild(nb);
         }
         if (!next && out) out.textContent = 'С первого раза верно: ' + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
