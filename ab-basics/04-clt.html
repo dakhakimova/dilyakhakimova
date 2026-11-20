@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -112,17 +112,17 @@
   <h2>Три вопроса про колокол</h2>
   <div class="quiz" data-right="a">
     <p class="q">Метрика — выручка на гостя за месяц. У большинства 0, у некоторых тысячи. Ляжет ли колоколом среднее по 50 000 гостей, если повторять эксперимент много раз?</p>
-    <div class="choice"><button type="button" data-v="a">Да, людей много и они независимы</button><button type="button" data-v="b">Нет, выручка слишком неровная</button><button type="button" data-v="c">Только если убрать нули</button></div>
+    <div class="choice"><button type="button" data-v="a">Да, людей много и они независимы</button><button type="button" data-v="b" data-why="Неровность мешает отдельным людям, а не среднему. При 50 000 гостей среднее всё равно ляжет колоколом.">Нет, выручка слишком неровная</button><button type="button" data-v="c" data-why="Нули убирать не нужно: среднее с нулями тоже ложится колоколом, если людей много.">Только если убрать нули</button></div>
     <p class="why">Колокол получается у среднего, а не у отдельных людей. Чем неровнее метрика, тем больше людей нужно, но 50 000 обычно хватает с запасом.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Заказы одного гостя за неделю распределены колоколом?</p>
-    <div class="choice"><button type="button" data-v="a">Да</button><button type="button" data-v="b">Нет, это горка у нуля с длинным хвостом</button><button type="button" data-v="c">Да, если гостей много</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Посмотри на гистограмму одного гостя: горка у нуля и длинный хвост, совсем не колокол.">Да</button><button type="button" data-v="b">Нет, это горка у нуля с длинным хвостом</button><button type="button" data-v="c" data-why="Много гостей превращают в колокол среднее, а не заказы одного человека.">Да, если гостей много</button></div>
     <p class="why">У одного человека распределение какое угодно. Колоколом ложится среднее по многим людям.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Зачем платформа раскладывает гостей группы по корзинам?</p>
-    <div class="choice"><button type="button" data-v="a">Чтобы корзины можно было выкатывать по очереди</button><button type="button" data-v="b">Чтобы убрать шум</button><button type="button" data-v="c">Чтобы по разбросу между корзинами увидеть шум среднего</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Корзины не выкатывают по очереди: все они — части одной группы с одной версией.">Чтобы корзины можно было выкатывать по очереди</button><button type="button" data-v="b" data-why="Шум корзины не убирают, а измеряют: по нему видно, насколько шатается среднее.">Чтобы убрать шум</button><button type="button" data-v="c">Чтобы по разбросу между корзинами увидеть шум среднего</button></div>
     <p class="why">Шум корзины никуда не убирают, его измеряют. По разбросу между корзинами видно, насколько шатается среднее всей группы. И считать так быстро и дёшево.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -155,7 +155,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab10">
 <nav class="top" aria-label="Навигация">
@@ -132,7 +132,7 @@
       <tr><td>Отмены</td><td>3,1 %</td><td>3,1 %</td><td>+0,5 %</td><td>[−2,0; +3,0]</td><td>0,70</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21 запланированного, 420 000 пользователей, доли 50,0 / 50,0.</p>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b" data-why="Не катить нет причин: тест дошёл до конца, доли ровные, интервал выше нуля, остальное не ухудшилось.">Не катим</button><button type="button" data-v="c" data-why="Ждать нечего: тест уже дошёл до запланированного 21-го дня.">Ждём</button><button type="button" data-v="d" data-why="Доли 50,0 / 50,0 — с делением всё в порядке.">Ищем баг</button></div>
     <p class="why">Тест дошёл до конца, доли ровные, главная метрика выросла, и интервал целиком выше нуля. Средний чек и отмены не ухудшились. Катим.</p>
   </div>
 
@@ -144,7 +144,7 @@
       <tr><td>Средний чек</td><td>605 ₽</td><td>611 ₽</td><td>+1,0 %</td><td>[−0,4; +2,4]</td><td>0,16</td></tr>
     </table></div>
     <p class="report-meta">7 дней из 21 запланированного, MDE на 21 день — 1,8 %, доли 50,1 / 49,9.</p>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Рано: прошла только треть теста, интервал задевает ноль.">Катим</button><button type="button" data-v="b" data-why="Рано и это решать: тест ещё идёт, и данных пока мало.">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d" data-why="Доли 50,1 / 49,9 — нормальный разброс, деление в порядке.">Ищем баг</button></div>
     <p class="why">Прошла только треть теста. Интервал широкий и задевает ноль, но решение по плану принимают через 21 день. Останавливаться сейчас — то самое подглядывание. Ждём.</p>
   </div>
 
@@ -156,7 +156,7 @@
       <tr><td>Выручка на пользователя</td><td>61,4 ₽</td><td>64,1 ₽</td><td class="up">+4,4 %</td><td class="up">[+2,6; +6,2]</td><td class="up">&lt; 0,001</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21, 400 000 пользователей, доли 51,3 / 48,7 при плане 50 / 50.</p>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Не спеши: доли 51,3 / 48,7 при 400 000 человек — сильный перекос. Результатам такого теста верить нельзя.">Катим</button><button type="button" data-v="b" data-why="Решать про фичу рано: сначала нужно понять, почему группы разного размера.">Не катим</button><button type="button" data-v="c" data-why="Ждать бессмысленно: перекос групп — баг, сам он не исчезнет.">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
     <p class="why">Всё зелёное, но в тесте на 5 000 человек меньше, чем должно быть при 50 / 50. При 400 000 пользователей такой перекос случайно не бывает. Похоже, часть людей в тесте потерялась (например, экран у них падает), и остались самые активные. Ищем баг.</p>
   </div>
 
@@ -168,7 +168,7 @@
       <tr><td>Средний чек</td><td>609 ₽</td><td>612 ₽</td><td>+0,5 %</td><td>[−0,5; +1,5]</td><td>0,33</td></tr>
     </table></div>
     <p class="report-meta">28 дней из 28, MDE — 1,5 %, доли 50,0 / 50,0. Рекомендации стоят денег на поддержку.</p>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Интервал узкий вокруг нуля: заметного эффекта нет, а поддержка фичи стоит денег.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Ждать дальше бессмысленно: тест уже закончился и был достаточно чувствительным.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные, с делением всё в порядке.">Ищем баг</button></div>
     <p class="why">Тест длинный и чувствительный: эффект от 1,5 % он бы заметил. Интервал узкий вокруг нуля, так что большого эффекта точно нет, а поддержка стоит денег. Не катим. Ждать дальше бессмысленно: тест уже закончился.</p>
   </div>
 
@@ -182,7 +182,7 @@
     </table></div>
     <p class="report-meta">21 день из 21, доли 50,0 / 49,9.</p>
     <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Повторные заказы выросли на 6 %! Катим.</p></div></div></div>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Одна «прокрасившаяся» метрика из 15 — это почти наверняка случайность, а главная метрика не изменилась.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Тест закончился, ждать нечего.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные: с делением всё в порядке.">Ищем баг</button></div>
     <p class="why">Главная метрика не изменилась. Из 15 метрик одна «прокрасилась» с p = 0,03, а при 15 метриках хотя бы одна такая в A/A бывает примерно в половине случаев. Это не повод катить. Если идея про повторные заказы интересна, её проверяют отдельным тестом, где это главная метрика.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -219,7 +219,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 const $ = id => document.getElementById(id);
 

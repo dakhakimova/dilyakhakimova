@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -103,12 +103,12 @@
     <h3>Проверь себя</h3>
     <div class="quiz" data-right="c">
       <p class="q">Кнопка ничего не делает. Какой самый большой «эффект» можно получить, если удачно выбрать день релиза?</p>
-      <div class="choice"><button type="button" data-v="a">Около +3 %</button><button type="button" data-v="b">Около +8 %</button><button type="button" data-v="c">Около +16 %</button><button type="button" data-v="d">Около +40 %</button></div>
+      <div class="choice"><button type="button" data-v="a" data-why="Маловато. Подвигай ползунок к концу декабря: перед Новым годом точки уходят намного выше.">Около +3 %</button><button type="button" data-v="b" data-why="Бывает и больше. Посмотри на самую высокую точку графика — она в конце декабря.">Около +8 %</button><button type="button" data-v="c">Около +16 %</button><button type="button" data-v="d" data-why="Столько не набирается даже в самый удачный день: выше всего точки поднимаются примерно до +16 %.">Около +40 %</button></div>
       <p class="why">Самая высокая точка — релиз 20 декабря: +15,8 % перед Новым годом. Самая низкая — релиз 6 июня: −6,9 %. Кнопка ни при чём, это сезон и праздники.</p>
     </div>
     <div class="quiz" data-right="b">
       <p class="q">В скольких днях года «эффект» получается больше 5 % в ту или другую сторону?</p>
-      <div class="choice"><button type="button" data-v="a">Почти ни в одном</button><button type="button" data-v="b">Примерно в каждом четвёртом</button><button type="button" data-v="c">Почти во всех</button></div>
+      <div class="choice"><button type="button" data-v="a" data-why="Посмотри на гистограмму: за границами ±5 % лежит немало точек, хвосты толстые.">Почти ни в одном</button><button type="button" data-v="b">Примерно в каждом четвёртом</button><button type="button" data-v="c" data-why="Не так плохо: большая часть точек всё же лежит между −5 % и +5 %.">Почти во всех</button></div>
       <p class="why">В 28 % дней года, то есть примерно в каждом четвёртом. Посмотри на гистограмму: хвосты за ±5 % толстые. Если выпустить пустую кнопку в случайный день, шанс увидеть «эффект» больше 5 % — как выбросить на кубике шестёрку или пятёрку.</p>
     </div>
     <p class="note quiz-score"></p>
@@ -184,17 +184,17 @@
   <p>Три истории из жизни продуктовой команды. В каждой эффект фичи перемешан с чем-то ещё. С чем?</p>
   <div class="quiz" data-right="b">
     <p class="q">В пятницу выкатили новый экран оплаты. В субботу и воскресенье заказов на 9% больше, чем в среду и четверг.</p>
-    <div class="choice"><button type="button" data-v="a">Экран работает</button><button type="button" data-v="b">Сравнивают разные дни недели</button><button type="button" data-v="c">Слишком мало дней</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Рост есть, но экран тут, скорее всего, ни при чём: сравнили выходные с буднями, а в выходные заказов и так больше.">Экран работает</button><button type="button" data-v="b">Сравнивают разные дни недели</button><button type="button" data-v="c" data-why="Дней действительно мало, но главная беда в другом: «до» — это будни, «после» — выходные.">Слишком мало дней</button></div>
     <p class="why">Выходные и будни — разные дни: в нашем кафе в пятницу и субботу заказов и так на 10% больше. Эффект экрана тут не виден совсем. Мало дней — тоже проблема, но не главная.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Новую версию приложения поставили уже 30% пользователей. У них заказов на 20% больше, чем у остальных.</p>
-    <div class="choice"><button type="button" data-v="a">Новая версия сильно помогает</button><button type="button" data-v="b">Первыми обновляются самые активные</button><button type="button" data-v="c">Это обычный шум</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Не спеши: обновились не случайные люди, а те, кто чаще пользуется приложением. Они и без новой версии заказывают больше.">Новая версия сильно помогает</button><button type="button" data-v="b">Первыми обновляются самые активные</button><button type="button" data-v="c" data-why="20 % для такой большой группы — слишком много для шума. Дело в том, кто именно обновился.">Это обычный шум</button></div>
     <p class="why">Кто обновился, а кто нет, выбирали сами пользователи. Те, кто часто открывает приложение, и обновляются раньше, и заказывают больше. Сравниваем разных людей, а не версии.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Фичу включили только в Казани. Там заказы за месяц выросли на 6%, а в Самаре — на 1%.</p>
-    <div class="choice"><button type="button" data-v="a">Фича даёт +5%</button><button type="button" data-v="b">Города отличаются не только фичей</button><button type="button" data-v="c">Надо сравнить с прошлым годом</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Если бы города были одинаковыми — да. Но в Казани за месяц могло измениться что угодно ещё.">Фича даёт +5%</button><button type="button" data-v="b">Города отличаются не только фичей</button><button type="button" data-v="c" data-why="Прошлый год не поможет: в этом году у городов своя погода, свои события и своя реклама.">Надо сравнить с прошлым годом</button></div>
     <p class="why">В Казани за этот месяц могло случиться что угодно: фестиваль, своя погода, реклама конкурента в Самаре. Город выбрали не монеткой, и сравнение с прошлым годом от этого не спасает.</p>
   </div>
   <p class="note" id="quiz-score"></p>
@@ -226,7 +226,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 // ---------- данные ----------
 fetch('data/step01.json').then(r => r.json()).then(init).catch(() => {

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab02" data-next="03-noise.html">
 <nav class="top" aria-label="Навигация">
@@ -44,7 +44,7 @@
   <h2>Боб предлагает бросать монетку при каждом заходе</h2>
   <div class="chat">
     <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: когда человек открывает приложение, берём случайное число от 0 до 1. Меньше 0,5 — старый экран, больше — новая кнопка.</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Тогда он всегда видит одну и ту же версию.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Такой номер у каждого свой и не меняется, поэтому гость всегда видит одну и ту же версию.</p></div></div>
   </div>
   <p>Представь гостя, который открывает приложение каждый день. Что с ним будет при таком способе?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -54,7 +54,7 @@
   </div>
   <div class="sheet c-white">
     <div class="daysrow" id="days-rand"><b>Случайно при каждом заходе</b></div>
-    <div class="daysrow" id="days-hash"><b>Как предлагает Алиса: по номеру гостя <span class="uid" id="week-uid"></span></b></div>
+    <div class="daysrow" id="days-hash"><b>Как предлагает Алиса: по номеру гостя<span class="uid" id="week-uid"></span></b></div>
     <div class="legend-row"><span><i style="background:var(--ctrl)"></i>старый экран</span><span><i style="background:var(--test)"></i>новая кнопка</span></div>
     <div class="controls"><button class="btn" type="button" id="btn-week">Прожить неделю</button><button class="btn ghost" type="button" id="btn-guest">Другой гость</button></div>
     <div class="verdict" id="v-week" hidden></div>
@@ -166,17 +166,17 @@
   <h2>Три вопроса про деление</h2>
   <div class="quiz" data-right="a">
     <p class="q">Гость открыл приложение с телефона, а вечером с ноутбука. Вход по одному и тому же аккаунту. Какую версию он увидит вечером?</p>
-    <div class="choice"><button type="button" data-v="a">Ту же, что утром</button><button type="button" data-v="b">Как повезёт</button><button type="button" data-v="c">Всегда старую</button></div>
+    <div class="choice"><button type="button" data-v="a">Ту же, что утром</button><button type="button" data-v="b" data-why="Не повезёт и не случайно: группа считается из id и названия эксперимента, а они не поменялись.">Как повезёт</button><button type="button" data-v="c" data-why="Устройство не важно: важен id аккаунта. Он тот же, значит, и группа та же, что утром.">Всегда старую</button></div>
     <p class="why">Группа считается по хешу от id и соли. id тот же, соль та же, значит, и ячейка та же. Поэтому для эксперимента важно, чтобы id был одинаковым на всех устройствах.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Сплит 50/50, в эксперименте 1000 человек. В тесте оказалось 516, в контроле 484. Это баг?</p>
-    <div class="choice"><button type="button" data-v="a">Да, должно быть ровно 500</button><button type="button" data-v="b">Нет, это обычный разброс</button><button type="button" data-v="c">Да, сплит перепутали</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Ровно 500 почти никогда не бывает: монетка не обязана выпадать строго поровну. Вспомни игрушку с 1000 гостей.">Да, должно быть ровно 500</button><button type="button" data-v="b">Нет, это обычный разброс</button><button type="button" data-v="c" data-why="Если бы сплит перепутали, перекос был бы большим, например 900 на 100. 516 — обычное колебание.">Да, сплит перепутали</button></div>
     <p class="why">При 1000 гостях число в тесте обычно гуляет примерно от 470 до 530, как в игрушке. 516 — нормально. А вот при миллионе гостей такой же перекос в процентах был бы подозрителен: к этому вернёмся в шаге 10.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Две команды запустили свои эксперименты, но хешируют только id, без названия эксперимента. Что плохого?</p>
-    <div class="choice"><button type="button" data-v="a">Ничего, так даже проще</button><button type="button" data-v="b">Группы получатся разного размера</button><button type="button" data-v="c">В тестах обоих окажутся одни и те же люди</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Проще, но опасно: у каждого человека будет одна ячейка на все эксперименты, и тестовые группы совпадут.">Ничего, так даже проще</button><button type="button" data-v="b" data-why="Размеры будут нормальные. Беда в том, что это будут одни и те же люди в обоих тестах.">Группы получатся разного размера</button><button type="button" data-v="c">В тестах обоих окажутся одни и те же люди</button></div>
     <p class="why">Без соли ячейка у человека одна на все эксперименты. Тестовые группы совпадут, и эффекты двух фич смешаются: непонятно, что сработало.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -210,7 +210,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 // FNV-1a, 32 бита: простой и честный хеш для учебных целей
 function fnv(str){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)){ h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }

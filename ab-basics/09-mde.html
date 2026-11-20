@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab09" data-next="10-traps.html">
 <nav class="top" aria-label="Навигация">
@@ -130,17 +130,17 @@
   <h2>Проверь себя</h2>
   <div class="quiz" data-right="b">
     <p class="q">MDE теста за две недели — 3 %. Тест закончился: +1,5 %, незначимо. Что можно сказать?</p>
-    <div class="choice"><button type="button" data-v="a">Эффекта точно нет</button><button type="button" data-v="b">Эффекта больше 3 %, скорее всего, нет, а маленький мог и быть</button><button type="button" data-v="c">Эффект +1,5 %, просто незначимый</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Слишком смело: эффект меньше 3 % тест легко пропускает.">Эффекта точно нет</button><button type="button" data-v="b">Эффекта больше 3 %, скорее всего, нет, а маленький мог и быть</button><button type="button" data-v="c" data-why="+1,5 % — лишь точка. Тест не отличает её от нуля, так что называть это эффектом нельзя.">Эффект +1,5 %, просто незначимый</button></div>
     <p class="why">Тест хорошо замечает эффекты от 3 % и больше. Эффект в 1–2 % он легко пропускает, так что про него сказать ничего нельзя.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Тест за неделю замечает +4 %. Боб хочет замечать +1 %. Сколько недель нужно?</p>
-    <div class="choice"><button type="button" data-v="a">4 недели</button><button type="button" data-v="b">8 недель</button><button type="button" data-v="c">16 недель</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Эффект в 4 раза меньше требует не в 4, а в 16 раз больше людей.">4 недели</button><button type="button" data-v="b" data-why="Всё ещё мало: людей нужно в 4² = 16 раз больше, то есть 16 недель.">8 недель</button><button type="button" data-v="c">16 недель</button></div>
     <p class="why">Эффект меньше в 4 раза, значит людей нужно в 4² = 16 раз больше. При том же трафике это 16 недель.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Как уменьшить MDE, не удлиняя тест?</p>
-    <div class="choice"><button type="button" data-v="a">Сделать сплит 50/50 вместо 90/10</button><button type="button" data-v="b">Надеяться на эффект побольше</button><button type="button" data-v="c">Смотреть на p-value каждый день</button></div>
+    <div class="choice"><button type="button" data-v="a">Сделать сплит 50/50 вместо 90/10</button><button type="button" data-v="b" data-why="MDE считается до теста, от трафика и длительности. Надежда его не меняет.">Надеяться на эффект побольше</button><button type="button" data-v="c" data-why="От подглядывания MDE не уменьшится, зато вырастут ложные тревоги.">Смотреть на p-value каждый день</button></div>
     <p class="why">MDE зависит от того, сколько людей в группах. При 90/10 в тесте всего десятая часть трафика, и колокол разницы гораздо шире.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -172,7 +172,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 const TRAFFIC = [5000, 10000, 20000, 50000, 100000, 200000], BASE = [0.02, 0.05, 0.10, 0.20, 0.30], Z = 1.96, ZP = 0.84;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab05" data-next="06-interval.html">
 <nav class="top" aria-label="Навигация">
@@ -141,17 +141,17 @@
   <h2>Ширина на глаз</h2>
   <div class="quiz" data-right="b">
     <p class="q">Эксперимент шёл неделю. Боб продлил его ещё на три недели при том же трафике. Что стало с шириной колокола?</p>
-    <div class="choice"><button type="button" data-v="a">Стала в 4 раза уже</button><button type="button" data-v="b">Стала вдвое уже</button><button type="button" data-v="c">Не изменилась</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Людей стало в 4 раза больше, но ширина падает медленнее — по корню: в 2 раза.">Стала в 4 раза уже</button><button type="button" data-v="b">Стала вдвое уже</button><button type="button" data-v="c" data-why="Изменилась: людей стало вчетверо больше, и колокол сузился.">Не изменилась</button></div>
     <p class="why">Людей стало в 4 раза больше: неделя превратилась в четыре. Ширина падает по корню, значит колокол вдвое уже.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Нужно, чтобы колокол стал в 10 раз уже. Во сколько раз больше людей понадобится?</p>
-    <div class="choice"><button type="button" data-v="a">В 10 раз</button><button type="button" data-v="b">В 20 раз</button><button type="button" data-v="c">В 100 раз</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Мало: при ×10 людей колокол сузится лишь примерно в 3 раза.">В 10 раз</button><button type="button" data-v="b" data-why="Всё ещё мало: ширина падает по корню, и для ×10 нужно 10 × 10 людей.">В 20 раз</button><button type="button" data-v="c">В 100 раз</button></div>
     <p class="why">Корень из 100 — это 10. Поэтому крошечные эффекты так дорого ловить: каждый следующий знак точности стоит в сто раз больше людей.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">В среднем человек делает 1 заказ в неделю. Берём выборку из 400 человек, ширина колокола 0,12. Где почти наверняка окажется её среднее?</p>
-    <div class="choice"><button type="button" data-v="a">От 0,94 до 1,06</button><button type="button" data-v="b">От 0,76 до 1,24</button><button type="button" data-v="c">От 0 до 2</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Это всего полширины в каждую сторону: туда попадёт меньше половины средних.">От 0,94 до 1,06</button><button type="button" data-v="b">От 0,76 до 1,24</button><button type="button" data-v="c" data-why="Слишком широко: среднее почти всегда ближе к правде, чем на две ширины.">От 0 до 2</button></div>
     <p class="why">Две ширины — это 0,24. Отложи их от правды в обе стороны: от 0,76 до 1,24. Так бывает примерно в 95 случаях из 100.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -183,7 +183,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 // Заказы одного гостя за неделю — то же распределение, что в шаге 4: 60 % ноль, остальные 1…40 с длинным хвостом.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();

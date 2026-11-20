@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab06" data-next="07-p-value.html">
 <nav class="top" aria-label="Навигация">
@@ -132,17 +132,17 @@
   <h2>Читаем вилки</h2>
   <div class="quiz" data-right="b">
     <p class="q">Разница +1,4 %, вилка от −0,8 до +3,6 %. Что можно сказать?</p>
-    <div class="choice"><button type="button" data-v="a">Фича работает, эффект +1,4 %</button><button type="button" data-v="b">Данные не отличают эффект от шума</button><button type="button" data-v="c">Фича точно не работает</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="+1,4 % — лишь середина вилки. Вилка задевает ноль, так что и «эффекта нет» данные не исключают.">Фича работает, эффект +1,4 %</button><button type="button" data-v="b">Данные не отличают эффект от шума</button><button type="button" data-v="c" data-why="«Точно» сказать нельзя: в вилке есть и заметные плюсы, до +3,6 %.">Фича точно не работает</button></div>
     <p class="why">Вилка задевает ноль: в ней есть и небольшие минусы, и заметные плюсы. Это «не значимо», то есть «пока не знаем». Сказать «точно не работает» тоже нельзя.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Тест показал +2,3 %, вилка от +0,2 до +4,4 %. Что честнее написать в отчёте?</p>
-    <div class="choice"><button type="button" data-v="a">Фото дают +2,3 %</button><button type="button" data-v="b">Фото дают до +4,4 %</button><button type="button" data-v="c">Фото дают от +0,2 до +4,4 %, скорее всего около +2 %</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Одно число создаёт ложное ощущение точности: эффект может быть и +0,5 %, и +4 %.">Фото дают +2,3 %</button><button type="button" data-v="b" data-why="Верхний край — самый оптимистичный вариант. Обещать его — значит разочаровать.">Фото дают до +4,4 %</button><button type="button" data-v="c">Фото дают от +0,2 до +4,4 %, скорее всего около +2 %</button></div>
     <p class="why">Эффект положительный, но его размер известен только с точностью до вилки. Одно число создаёт ложное ощущение точности, а верхний край — ложные ожидания.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Команда провела 20 экспериментов, в которых фича на самом деле ничего не меняла. Сколько вилок, примерно, не накроют ноль?</p>
-    <div class="choice"><button type="button" data-v="a">Около одной</button><button type="button" data-v="b">Ни одной</button><button type="button" data-v="c">Около десяти</button></div>
+    <div class="choice"><button type="button" data-v="a">Около одной</button><button type="button" data-v="b" data-why="Вилки промахиваются примерно в 5 % случаев, так что и пустые эксперименты иногда «находят» эффект.">Ни одной</button><button type="button" data-v="c" data-why="Слишком много: вилка накрывает правду в 95 % случаев, промахивается одна из двадцати.">Около десяти</button></div>
     <p class="why">Вилка накрывает правду в 95 % случаев, значит промахивается в 5 %: одна из двадцати. Эта одна покажет «значимый» эффект, которого нет. К этому вернёмся в шагах 8 и 10.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -174,7 +174,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 const P0 = 0.10, Z = 1.96;
 const NS = [10000, 25000, 50000, 100000, 200000, 400000];

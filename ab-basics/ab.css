@@ -85,7 +85,7 @@
 .twoinputs label{display:flex; flex-direction:column; gap:4px; font-size:14px; color:var(--muted)}
 .twoinputs input{font:500 16px/1.2 ui-monospace, Menlo, Consolas, monospace; padding:8px 10px; border:1px solid rgba(36,34,31,.3); border-radius:8px; background:#fff; color:var(--ink); width:100%; box-sizing:border-box}
 .daysrow{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:6px 0 10px}
-.daysrow b{font:500 15px/1.3 var(--body); min-width:330px}
+.daysrow b{font:500 15px/1.3 var(--body); flex:0 0 250px}
 .daysrow span{width:36px; height:36px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font:600 12px/1 var(--body); color:#fff}
 .daysrow span.c{background:var(--ctrl)} .daysrow span.t{background:var(--test)}
 .hist-log{width:100%; border-collapse:collapse; font-size:14px; margin:8px 0; font-variant-numeric:tabular-nums}
@@ -98,7 +98,7 @@
 .nsel{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0}
 .nsel button{font:500 15px/1 var(--body); padding:9px 14px; border-radius:999px; border:1px solid rgba(36,34,31,.3); background:#fff; color:var(--ink); cursor:pointer}
 .nsel button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
-@media (max-width:620px){ .twoinputs{grid-template-columns:1fr} .daysrow b{min-width:100%} .daysrow span{width:32px; height:32px} }
+@media (max-width:620px){ .twoinputs{grid-template-columns:1fr} .daysrow b{flex:0 0 100%} .daysrow span{width:32px; height:32px} }
 
 /* баллы, отклик на выбор, подсказки на графиках */
 .score{margin-left:auto; font:600 13px/1 var(--body); color:var(--ink); background:#F8F0D9; border-radius:999px; padding:6px 10px; white-space:nowrap}
@@ -141,4 +141,21 @@
 .chat.mini .msg .say{font-size:16px}
 @media (max-width:620px){ .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:16px} }
 
-.daysrow b span.uid{display:inline; width:auto; height:auto; border-radius:0; background:none; font:500 13px/1 ui-monospace, Menlo, monospace; color:var(--muted); margin-left:4px}
+.daysrow b span.uid{display:block; width:auto; height:auto; border-radius:0; background:none; font:500 13px/1.4 ui-monospace, Menlo, monospace; color:var(--muted); justify-content:flex-start}
+
+/* вопросы по одному, вердикт и объяснение */
+.quiz.later{display:none}
+.quiz .why, .quiz.done .why{display:none !important}
+.quiz .qnum{font:600 12px/1.3 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--muted); margin:0 0 6px}
+.qfb{margin-top:12px; padding:12px 14px; border-radius:10px; font-size:16px; line-height:1.5}
+.qfb p{margin:0 0 6px} .qfb p:last-child{margin-bottom:0}
+.qfb .vd{font:600 17px/1.3 var(--body)}
+.qfb.ok{background:var(--truth-bg)} .qfb.ok .vd{color:var(--truth)}
+.qfb.no{background:var(--trap-bg)} .qfb.no .vd{color:#B5473B}
+.qfb .again{font-weight:600}
+.qfb .plus{display:inline-block; margin-left:6px; font-size:13px; color:#8A6A10; background:#F8F0D9; border-radius:999px; padding:2px 8px; vertical-align:2px}
+.qfb .qnext{margin-top:6px}
+.choice button.picked{outline:2px solid var(--ink); outline-offset:1px}
+
+.qfb .hint2{font-size:13px; color:var(--muted)}
+.quiz .qnext{margin-top:12px}

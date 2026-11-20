@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab03" data-next="04-clt.html">
 <nav class="top" aria-label="Навигация">
@@ -118,17 +118,17 @@
   <h2>Три вопроса про шум</h2>
   <div class="quiz" data-right="b">
     <p class="q">В A/A-тесте по 2000 гостей в группе. Конверсия 10,4 % против 10,0 %. Значит, где-то баг?</p>
-    <div class="choice"><button type="button" data-v="a">Да, должно быть одинаково</button><button type="button" data-v="b">Нет, это обычный разброс</button><button type="button" data-v="c">Да, деление сломано</button></div>
-    <p class="why">При 2000 гостях в группе конверсии одинаковых групп обычно расходятся примерно на процентный пункт: 10,0 и 10,9 % — обычное дело. 10,4 против 10,0 — нормальный шум.</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Одинаково не бывает почти никогда: гости — живые люди, и в одной группе случайно окажется чуть больше любителей заказывать.">Да, должно быть одинаково</button><button type="button" data-v="b">Нет, это обычный разброс</button><button type="button" data-v="c" data-why="Деление тут ни при чём: такая разница при 2000 гостях — обычный шум.">Да, деление сломано</button></div>
+    <p class="why">При 2000 гостях в группе конверсии одинаковых групп обычно расходятся примерно на 1 процент: 10,0 и 10,9 % — обычное дело. 10,4 против 10,0 — нормальный шум.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что происходит с разбросом между одинаковыми группами, если гостей в них становится больше?</p>
-    <div class="choice"><button type="button" data-v="a">Не меняется</button><button type="button" data-v="b">Растёт</button><button type="button" data-v="c">Уменьшается</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Подвигай ползунок в игрушке: при 100 гостях разница огромная, при 100 000 — крошечная.">Не меняется</button><button type="button" data-v="b" data-why="Наоборот: чем больше гостей, тем меньше случайность влияет на общую долю.">Растёт</button><button type="button" data-v="c">Уменьшается</button></div>
     <p class="why">Чем больше гостей, тем меньше случайные везения влияют на общую долю. В игрушке при 100 000 гостей разница почти всегда меньше пары процентов.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Зачем запускать A/A-тест, если в нём ничего не меняется?</p>
-    <div class="choice"><button type="button" data-v="a">Проверить деление и подсчёт и увидеть обычный шум</button><button type="button" data-v="b">Чтобы занять трафик</button><button type="button" data-v="c">Незачем, он всегда показывает ноль</button></div>
+    <div class="choice"><button type="button" data-v="a">Проверить деление и подсчёт и увидеть обычный шум</button><button type="button" data-v="b" data-why="Трафик A/A действительно занимает, но запускают его не за этим.">Чтобы занять трафик</button><button type="button" data-v="c" data-why="Ноль A/A как раз не показывает: какая-то разница есть всегда. Именно поэтому он и полезен.">Незачем, он всегда показывает ноль</button></div>
     <p class="why">A/A проверяет, что группы делятся правильно, а метрики считаются одинаково. И показывает, какие разницы бывают сами по себе. Если A/A «значимо» нашёл эффект, ищи баг.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -160,7 +160,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 const P = 0.10;
 

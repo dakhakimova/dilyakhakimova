@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css">
+<link rel="stylesheet" href="ab.css?v=202611201223">
 </head>
 <body data-chapter="ab08" data-next="09-mde.html">
 <nav class="top" aria-label="Навигация">
@@ -118,19 +118,19 @@
   <h2>Какая это ошибка?</h2>
   <div class="quiz" data-right="a">
     <p class="q">Новый экран оплаты дал в тесте +2,5 %, p = 0,03. Выкатили на всех, а через полгода повторили тест: ноль. Что, скорее всего, случилось в первый раз?</p>
-    <div class="choice"><button type="button" data-v="a">Ложная тревога</button><button type="button" data-v="b">Пропуск</button><button type="button" data-v="c">Экран со временем сломался</button></div>
+    <div class="choice"><button type="button" data-v="a">Ложная тревога</button><button type="button" data-v="b" data-why="Пропуск — это когда эффект был, а тест его не заметил. Здесь наоборот: тест «увидел» эффект, которого нет.">Пропуск</button><button type="button" data-v="c" data-why="Экран мог и сломаться, но скорее первый тест просто попал в те 5 %, где пустая фича выглядит значимой.">Экран со временем сломался</button></div>
     <p class="why">Если экран ничего не делает, тест примерно в одном случае из двадцати всё равно покажет значимую разницу. Похоже, это был тот самый случай.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Тест рекомендаций шёл два дня, разница незначима.</p>
     <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Рекомендации бесполезны, удаляем.</p></div></div></div>
     <p class="q">Чем он рискует?</p>
-    <div class="choice"><button type="button" data-v="a">Ложной тревогой</button><button type="button" data-v="b">Пропуском</button><button type="button" data-v="c">Ничем, тест же честный</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Ложная тревога — когда тест «видит» эффект, которого нет. Здесь тест ничего не увидел.">Ложной тревогой</button><button type="button" data-v="b">Пропуском</button><button type="button" data-v="c" data-why="Тест честный, но за два дня он заметит только огромный эффект. Настоящий небольшой эффект он, скорее всего, пропустил.">Ничем, тест же честный</button></div>
     <p class="why">За два дня тест заметит только огромный эффект. Если настоящий эффект +3 %, его почти наверняка пропустили. «Не увидели» не равно «нет».</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Как уменьшить долю пропусков, не увеличивая ложные тревоги?</p>
-    <div class="choice"><button type="button" data-v="a">Поднять порог с 5 % до 20 %</button><button type="button" data-v="b">Смотреть отчёт каждый день</button><button type="button" data-v="c">Дать тесту больше людей или дней</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Пропусков станет меньше, но ложных тревог — вчетверо больше.">Поднять порог с 5 % до 20 %</button><button type="button" data-v="b" data-why="Подглядывание только добавит ложных тревог: об этом шаг 10.">Смотреть отчёт каждый день</button><button type="button" data-v="c">Дать тесту больше людей или дней</button></div>
     <p class="why">Больше людей — уже колокол, и настоящий эффект легче отличить от шума. Поднять порог тоже уменьшит пропуски, но ложных тревог станет вчетверо больше.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -163,7 +163,7 @@
   </main>
 </div>
 
-<script src="course.js"></script>
+<script src="course.js?v=202611201223"></script>
 <script>
 const DAYS = [1, 3, 7, 14, 21, 28], P0 = 0.10, LIFT = 0.03, PER_DAY = 10000, REAL = 20;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');

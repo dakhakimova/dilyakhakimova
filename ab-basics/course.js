@@ -184,22 +184,48 @@ document.querySelectorAll('.choice[data-key]').forEach(box => {
 // ---------- плитки: .tiles button ----------
 document.querySelectorAll('.tiles button').forEach(b => b.addEventListener('click', () => b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'))));
 
-// ---------- квизы: .quiz[data-right], счёт в .quiz-score ----------
+// ---------- квизы: .quiz[data-right] ----------
+// Вопросы в карточке открываются по одному. На каждый выбор — вердикт и объяснение:
+// верный — «Отлично!» + .why, неверный — «Не совсем» + data-why кнопки + «попробуй ещё раз».
+// После верного ответа остальные варианты можно открыть и прочитать. Балл — за верный ответ с первой попытки.
+const RIGHT = ['Отлично!', 'Всё правильно!', 'Точно!', 'Верно!', 'Так и есть!'];
 document.querySelectorAll('.card').forEach(card => {
   const qs = [...card.querySelectorAll('.quiz')]; if (!qs.length) return;
   const out = card.querySelector('.quiz-score');
-  qs.forEach(q => q.querySelector('.choice').addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b || q.classList.contains('done')) return;
-    const ok = b.dataset.v === q.dataset.right;
-    if (!q.dataset.first) q.dataset.first = ok ? '1' : '0';
-    b.classList.add(ok ? 'right' : 'wrong');
-    if (ok){
-      q.classList.add('done');
-      if (q.dataset.first === '1'){
-        const qi = [...document.querySelectorAll('.quiz')].indexOf(q);
-        if (AB.award('q' + qi)){ const why = q.querySelector('.why'); if (why) why.insertAdjacentHTML('afterbegin', '<b class="plus">+1 балл.</b> '); }
+  qs.forEach((q, qi) => {
+    if (qs.length > 1){ const n = document.createElement('p'); n.className = 'qnum'; n.textContent = 'Вопрос ' + (qi + 1) + ' из ' + qs.length; q.prepend(n); }
+    if (qi > 0) q.classList.add('later');
+    const box = q.querySelector('.choice'), fb = document.createElement('div'); fb.className = 'qfb'; fb.hidden = true; box.after(fb);
+    const why = q.querySelector('.why'), whyHtml = why ? why.innerHTML : '';
+    box.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      const ok = b.dataset.v === q.dataset.right, done = q.classList.contains('done');
+      box.querySelectorAll('button').forEach(x => x.classList.remove('picked')); b.classList.add('picked');
+      b.classList.add(ok ? 'right' : 'wrong');
+      if (!q.dataset.first) q.dataset.first = ok ? '1' : '0';
+      let html;
+      if (ok){
+        let plus = '';
+        if (!done){
+          q.classList.add('done');
+          const gi = [...document.querySelectorAll('.quiz')].indexOf(q);
+          if (q.dataset.first === '1' && AB.award('q' + gi)) plus = ' <span class="plus">+1 балл</span>';
+        }
+        html = '<p class="vd">' + RIGHT[(qi + (q.dataset.first === '1' ? 0 : 3)) % RIGHT.length] + plus + '</p><p>' + whyHtml + '</p>';
+        const next = qs[qi + 1];
+        if (!done && next){
+          const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = 'Следующий вопрос →';
+          nb.addEventListener('click', () => { next.classList.remove('later'); nb.remove(); next.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); });
+          q.appendChild(nb);
+        }
+        if (!next && out) out.textContent = 'С первого раза верно: ' + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
+        fb.className = 'qfb ok';
+      } else {
+        html = '<p class="vd">' + (done ? 'Этот вариант неверный.' : 'Не совсем.') + '</p><p>' + (b.dataset.why || 'Этот вариант не подходит.') + '</p>' + (done ? '' : '<p class="again">Попробуй ещё раз.</p>');
+        fb.className = 'qfb no';
       }
-      if (out && qs.every(x => x.classList.contains('done'))) out.textContent = 'С первого раза верно: ' + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
-    }
-  }));
+      fb.innerHTML = html; fb.hidden = false;
+      if (done || ok) fb.insertAdjacentHTML('beforeend', '<p class="hint2">Можно открыть и другие варианты — у каждого своё объяснение.</p>');
+    });
+  });
 });
