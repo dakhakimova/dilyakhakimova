@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab03" data-next="04-clt.html">
 <nav class="top" aria-label="Навигация">
@@ -104,12 +104,49 @@
   <figure class="art"><img src="img/ab03-01-dashboard.jpg" alt="Боб у доски с двумя переплетёнными линиями: в один день радуется, в другой хватается за голову" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у дашборда, то радуется, то хватается за голову</figcaption></figure>
   <p>Обе группы снова одинаковые, в каждой по 1000 гостей в день. Вот конверсия по дням за две недели.</p>
   <div class="sheet c-white">
+    <p class="chart-title">Лидер всё время меняется, хотя группы одинаковые</p>
+    <p class="note">Пунктир — настоящая конверсия обеих групп, 10 %.</p>
     <canvas id="ch-days" aria-label="Конверсия двух одинаковых групп по дням"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>первая группа</span><span><i style="background:var(--test)"></i>вторая группа</span><span><i style="background:var(--theory)"></i>настоящая конверсия обеих: 10 %</span></div>
     <div class="controls"><button class="btn" type="button" id="btn-days">Другие две недели</button></div>
     <div class="verdict good" id="v-days"></div>
   </div>
   <div class="def">Разница между группами есть всегда, даже когда группы ничем не отличаются. Поэтому главный вопрос A/B-теста такой: больше ли эта разница обычного разброса?</div>
+</section>
+
+<section class="card" data-title="Автомат Котейки" aria-label="Автомат Котейки">
+  <span class="step-tag">Игрушка</span>
+  <h2>Котейка нашёл систему</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. У меня в кафе автомат с игрушками и три кнопки. Я нашёл систему: правая кнопка выигрывает чаще, а после двух проигрышей надо жать среднюю.</p></div></div>
+  </div>
+  <p>После нажатия автомат либо пищит — выигрыш, — либо молчит. Понажимай кнопки 20–30 раз и найди, какая из них выигрышная.</p>
+  <div class="sheet c-white">
+    <div class="slot-btns" id="slot-btns">
+      <button type="button" class="slot-b" data-b="0">Левая</button>
+      <button type="button" class="slot-b" data-b="1">Средняя</button>
+      <button type="button" class="slot-b" data-b="2">Правая</button>
+    </div>
+    <div class="slot-log" id="slot-log" aria-live="polite"></div>
+    <p class="note" id="slot-count">Нажато 0 раз.</p>
+    <div id="slot-ask" hidden>
+      <p>Какая кнопка выигрышная?</p>
+      <div class="choice" data-key="slot" role="group" aria-label="Твой ответ">
+        <button type="button" data-v="l" data-fb="Посмотрим, что скажет тысяча нажатий.">Левая</button>
+        <button type="button" data-v="m" data-fb="Как у Котейки. Проверим тысячей нажатий.">Средняя</button>
+        <button type="button" data-v="r" data-fb="Котейка тоже так думает. Проверим тысячей нажатий.">Правая</button>
+        <button type="button" data-v="same" data-fb="Осторожная версия. Проверим тысячей нажатий.">Все одинаковые</button>
+      </div>
+      <p class="note" id="slot-note">Выбери вариант.</p>
+    </div>
+    <div id="slot-big" hidden>
+      <div class="controls"><button class="btn" type="button" id="slot-1000">Нажать каждую кнопку ещё 1000 раз</button></div>
+      <p class="chart-title" id="slot-title">Доля выигрышей у каждой кнопки</p>
+      <p class="note">Зелёный пунктир — как автомат устроен на самом деле: 30 % у любой кнопки.</p>
+      <canvas id="ch-slot" aria-label="Доля выигрышей по кнопкам"></canvas>
+      <div class="verdict" id="slot-v" hidden></div>
+    </div>
+  </div>
+  <p class="src">Идея из книги: <a href="./#books">Джозеф О'Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
 </section>
 
 <!-- 5b -->
@@ -194,7 +231,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const P = 0.10;
 
@@ -281,6 +318,18 @@ const P = 0.10;
   update();
 })();
 
+
+// Подписи серий: на широком экране — справа от концов линий (разводим, чтобы не слипались),
+// на телефоне — строкой-легендой над графиком.
+function seriesLabels(c, items, xEnd, w, wide, yTop){
+  if (wide){
+    const it = items.slice().sort((a, b) => a.y - b.y);
+    for (let i = 1; i < it.length; i++) if (it[i].y - it[i - 1].y < 15) it[i].y = it[i - 1].y + 15;
+    it.forEach(x => label(c, x.text, xEnd + 6, x.y + 4, x.col));
+  } else {
+    let x0 = 4; items.forEach(x => { c.fillStyle = x.col; c.fillRect(x0, yTop - 5, 12, 3); label(c, x.text, x0 + 16, yTop, x.col); x0 += 16 + c.measureText(x.text).width + 14; });
+  }
+}
 // ---------- карточка 5: дашборд ----------
 (function(){
   const cv = document.getElementById('ch-days'), N = 1000;
@@ -289,19 +338,20 @@ const P = 0.10;
     A = Array.from({length: 14}, () => binom(N, P) / N); B = Array.from({length: 14}, () => binom(N, P) / N);
     let ch = 0; for (let i = 1; i < 14; i++) if ((A[i] > B[i]) !== (A[i - 1] > B[i - 1])) ch++;
     const winsB = B.filter((x, i) => x > A[i]).length, maxGap = Math.max(...A.map((x, i) => Math.abs(B[i] / x - 1)));
-    document.getElementById('v-days').innerHTML = 'За две недели лидер сменился <b>' + ch + '</b> ' + (ch % 10 === 1 && ch !== 11 ? 'раз' : 'раза') + ': вторая группа впереди ' + winsB + ' ' + (winsB % 10 === 1 && winsB !== 11 ? 'день' : winsB % 10 >= 2 && winsB % 10 <= 4 && (winsB < 10 || winsB > 20) ? 'дня' : 'дней') + ' из 14. Самый большой разрыв за день — <b>' + num(100 * maxGap, 0) + ' %</b>. Если бы Боб смотрел только на этот день, он бы точно «нашёл эффект».';
+    document.getElementById('v-days').innerHTML = 'За две недели лидер сменился <b>' + ch + '</b> ' + plural(ch, 'раз', 'раза', 'раз') + ': вторая группа впереди ' + winsB + ' ' + plural(winsB, 'день', 'дня', 'дней') + ' из 14. Самый большой разрыв за день — <b>' + num(100 * maxGap, 0) + ' %</b>. Если бы Боб смотрел только на этот день, он бы точно «нашёл эффект».';
     draw();
   }
   function draw(){
     const g = canvas(cv, 0.4, 0.62); if (!g) return; const {c, w, h} = g;
-    const L = 40, R = 8, T = 10, Bm = 22, pw = w - L - R, ph = h - T - Bm, lo = 0.06, hi = 0.14;
+    const wide = w >= 520, L = 40, R = wide ? 112 : 8, T = wide ? 10 : 24, Bm = 22, pw = w - L - R, ph = h - T - Bm, lo = 0.06, hi = 0.14;
     const X = i => L + i / 13 * pw, Y = v => T + (1 - (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ph;
     axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => num(100 * v, 0) + ' %');
     c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(P)); c.lineTo(w - R, Y(P)); c.stroke(); c.setLineDash([]);
     [[A, COL.ctrl], [B, COL.test]].forEach(([arr, col]) => {
       c.strokeStyle = col; c.lineWidth = 2.4; c.beginPath(); arr.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke();
-      c.fillStyle = col; arr.forEach((v, i) => { c.beginPath(); c.arc(X(i), Y(v), 3, 0, 2 * Math.PI); c.fill(); });
     });
+    // подписи у концов линий и у пунктира вместо легенды
+    seriesLabels(c, [{y: Y(A[13]), text: 'первая группа', col: COL.ctrl}, {y: Y(B[13]), text: 'вторая группа', col: '#B8642A'}].concat(wide ? [{y: Y(P), text: '10\u00a0% у обеих', col: COL.ink2}] : []), X(13), w, wide, 14);
     label(c, 'день 1', L, h - 6, COL.ink2); label(c, 'день 7', X(6), h - 6, COL.ink2, 'center'); label(c, 'день 14', w - R, h - 6, COL.ink2, 'right');
   }
   document.getElementById('btn-days').addEventListener('click', gen);
@@ -353,6 +403,40 @@ const P = 0.10;
   });
   document.getElementById('perm-back').addEventListener('click', () => { labels = orig.slice(); drawT(); });
   window.addEventListener('resize', redraw);
+})();
+
+// ---------- автомат Котейки: выигрыш случайный, 30 % у любой кнопки ----------
+(function(){
+  const PW = 0.3, names = ['левая', 'средняя', 'правая'], n = [0, 0, 0], k = [0, 0, 0], log = [];
+  const $ = id => document.getElementById(id), cv = $('ch-slot');
+  function press(b){
+    const win = Math.random() < PW; n[b]++; if (win) k[b]++; log.push([b, win]);
+    $('slot-log').innerHTML = log.slice(-30).map(([bb, ww]) => '<span class="' + (ww ? 'w' : '') + '">' + 'ЛСП'[bb] + '</span>').join('');
+    const tot = n.reduce((a, x) => a + x, 0);
+    $('slot-count').innerHTML = 'Нажато ' + tot + ' ' + plural(tot, 'раз', 'раза', 'раз') + '. ' + names.map((x, i) => x + ': ' + k[i] + ' из ' + n[i]).join(' · ') + (tot < 20 ? '' : '');
+    if (tot >= 20) $('slot-ask').hidden = false;
+  }
+  document.querySelectorAll('#slot-btns .slot-b').forEach(bt => bt.addEventListener('click', () => press(+bt.dataset.b)));
+  document.querySelector('.choice[data-key="slot"]').addEventListener('chosen', () => { $('slot-big').hidden = false; window.dispatchEvent(new Event('resize')); });
+  function draw(){
+    const g = canvas(cv, 0.3, 0.5); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 10, T = 12, B = 24, pw = w - L - R, ph = h - T - B, mx = 0.6, Y = v => T + (1 - v / mx) * ph, bw = pw / 3;
+    axisY(c, L, R, T, ph, w, 0, mx, 0.2, v => num(100 * v, 0) + '\u00a0%');
+    const bars = [];
+    n.forEach((nn, i) => { const v = nn ? k[i] / nn : 0, x = L + i * bw + bw * 0.2; c.fillStyle = COL.ctrl; c.fillRect(x, Y(v), bw * 0.6, Y(0) - Y(v)); label(c, names[i] + ' (' + int(nn) + ')', x + bw * 0.3, h - 6, COL.ink2, 'center'); label(c, share(v, 0), x + bw * 0.3, Y(v) - 5, COL.ink, 'center'); bars.push({x0: x, x1: x + bw * 0.6, html: '<b>' + names[i] + '</b> кнопка<br>' + int(k[i]) + ' выигрышей из ' + int(nn) + ' (' + share(v, 1) + ')'}); });
+    c.strokeStyle = COL.truth; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(L, Y(PW)); c.lineTo(w - R, Y(PW)); c.stroke(); c.setLineDash([]); c.lineWidth = 1;
+    hoverBars(cv, bars);
+  }
+  $('slot-1000').addEventListener('click', e => {
+    e.target.disabled = true; let left = 1000; const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function tick(){ const step = reduce ? left : Math.min(left, 25); for (let s = 0; s < step; s++) for (let b = 0; b < 3; b++){ n[b]++; if (Math.random() < PW) k[b]++; } left -= step; draw(); if (left) requestAnimationFrame(tick); else done(); })();
+  });
+  function done(){
+    $('slot-title').textContent = 'Все три кнопки выигрывают одинаково — примерно в 30\u00a0% нажатий';
+    const ch = AB.choice('slot'), v = $('slot-v'); v.hidden = false; v.className = 'verdict ' + (ch === 'same' ? 'good' : 'bad');
+    v.innerHTML = (ch === 'same' ? 'Так и есть. ' : 'Не угадали — и это нормально. ') + 'Автомат пищит случайно, в 30\u00a0% нажатий, какую кнопку ни жми. Но на двадцати нажатиях одна из кнопок почти всегда выглядит «счастливой», а в серии выигрышей и проигрышей мерещатся правила. Мозг ищет закономерность даже там, где её нет, — поэтому разницу и проверяют на большом числе повторов, а не на ощущениях.';
+  }
+  window.addEventListener('resize', draw);
 })();
 </script>
 </body>

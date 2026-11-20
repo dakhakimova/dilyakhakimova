@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab10">
 <nav class="top" aria-label="Навигация">
@@ -66,8 +66,8 @@
       <button class="btn ghost" type="button" data-aa="100">+100 A/A</button>
       <button class="btn ghost" type="button" id="aa-reset">Сначала</button>
     </div>
+    <p class="chart-title">Каждый день — новый шанс, что шум выйдет за полосу</p>
     <canvas id="ch-peek" aria-label="Разница в A/A-тесте по дням в сравнении с границей шума"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>последний A/A</span><span><i style="background:var(--trap)"></i>день, когда Боб увидел бы «значимо»</span></div>
     <div class="big2">
       <div class="trap"><b id="pk-any">—</b><span>A/A, где Боб хоть раз увидел «значимо» и выкатил</span></div>
       <div class="truth"><b id="pk-end">—</b><span>A/A, где «значимо» на 30-й день, если смотреть только в конце</span></div>
@@ -97,6 +97,46 @@
   <div class="def">Как правильно: до запуска выбрать одну главную метрику, по которой принимаем решение, и пару «сторожевых», которые не должны ухудшиться. Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</div>
 </section>
 
+<!-- 4a -->
+<section class="card" data-title="Сторожевые метрики" aria-label="Сторожевые метрики">
+  <span class="step-tag">Ловушка</span>
+  <h2>Главная метрика выросла, а что сломалось?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый экран оформления: конверсия в заказ +4 %, значимо. Катим!</p></div></div>
+  </div>
+  <p>Изменение никогда не бывает точечным: ускорили оформление — нагрузка переехала на кухню и курьеров. Поэтому кроме главной метрики заранее выбирают несколько <b>сторожевых</b>: тех, что не должны ухудшиться.</p>
+  <div class="sheet c-white">
+    <div class="report-wrap"><table class="report" id="guard-t">
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th></tr>
+      <tr><td><b>Конверсия в заказ</b> · главная</td><td>10,0 %</td><td>10,4 %</td><td class="up">+4,0 %</td><td class="up">[+2,6; +5,4]</td></tr>
+      <tr class="g" hidden><td>Время доставки · сторожевая</td><td>38 мин</td><td>43 мин</td><td class="down">+13 %</td><td class="down">[+10; +16]</td></tr>
+      <tr class="g" hidden><td>Отмены · сторожевая</td><td>3,0 %</td><td>3,6 %</td><td class="down">+20 %</td><td class="down">[+12; +28]</td></tr>
+      <tr class="g" hidden><td>Оценка заказа · сторожевая</td><td>4,62</td><td>4,51</td><td class="down">−2,4 %</td><td class="down">[−3,1; −1,7]</td></tr>
+    </table></div>
+    <div class="controls"><button class="btn" type="button" id="guard-btn">Показать сторожевые метрики</button></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Катим?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Главная выросла, но доставка стала дольше на 5 минут, а отмен на пятую часть больше. Через месяц гости это запомнят.">Катим: главная метрика выросла значимо</button><button type="button" data-v="b">Не катим, пока не разберёмся с доставкой и отменами</button><button type="button" data-v="c" data-why="Данных уже достаточно: интервалы сторожевых метрик далеко от нуля. Ждать нечего — нужно чинить.">Ждём, пока тест покажет больше данных</button></div>
+    <p class="why">Новый экран так хорошо подгоняет к заказу, что кухня и курьеры не успевают: доставка дольше, отмен больше, оценки ниже. Сначала поднимаем мощность кухни и курьеров или разносим нагрузку, потом проверяем снова. Сторожевые метрики выбирают до запуска, вместе с главной.</p>
+  </div>
+  <p class="src">Идея из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
+</section>
+
+<!-- 4b -->
+<section class="card" data-title="Кого мы видим" aria-label="Кого мы видим">
+  <span class="step-tag">Разминка</span>
+  <h2>Задача о поездах</h2>
+  <p>По железной дороге ходят поезда двух видов, поровну: короткие пассажирские по 5 вагонов и длинные товарные по 45 вагонов. Котейка в случайный момент выглядывает к переезду — а там идёт поезд.</p>
+  <div class="quiz" data-right="c">
+    <p class="q">Какой поезд Котейка будет видеть чаще?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Поездов поровну, но длинный дольше проезжает мимо переезда. В случайный момент его застать легче.">Оба поровну: их ведь поровну</button><button type="button" data-v="b" data-why="Скорость тут ни при чём, пусть она одинаковая. Важно, сколько времени поезд занимает переезд.">Пассажирский: он ходит быстрее</button><button type="button" data-v="c">Товарный, примерно в 9 раз чаще</button></div>
+    <p class="why">Товарный поезд в 9 раз длиннее, значит, в 9 раз дольше стоит перед глазами. В случайный момент Котейка видит его в 9 раз чаще, хотя поездов поровну. Так же и в данных: если брать «кто сейчас в приложении», чаще попадаются те, кто сидит в нём долго. Типичный человек в логах — не типичный гость.</p>
+  </div>
+  <div class="def">В A/B это важно: сравнивать можно только тех, кого мы одинаково видим в обеих группах. Если фича меняет, кто вообще попадает в данные, группы перестают быть сравнимыми. Как это обнаружить — на следующей карточке.</div>
+  <p class="src">Идея из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
+</section>
+
 <!-- 5 -->
 <section class="card" data-title="Перекос групп" aria-label="Перекос групп">
   <span class="step-tag">Ловушка 3</span>
@@ -106,8 +146,8 @@
   <div class="sheet c-white">
     <label class="field" for="srm-n">Пользователей в эксперименте: <b id="srm-n-t" class="num">1 000 000</b></label>
     <input type="range" id="srm-n" min="0" max="4" value="4" style="width:100%">
+    <p class="chart-title">Где оказывается доля теста при честной монетке</p>
     <canvas id="ch-srm" aria-label="Доля теста при честном делении и наша доля"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>200 честных делений пополам</span><span><i style="background:var(--trap)"></i>наша доля теста, 49,2 %</span></div>
     <div class="big2">
       <div class="ctrl"><b id="srm-sd">…</b><span>в таких пределах обычно гуляет доля теста при честной монетке</span></div>
       <div class="trap"><b id="srm-x">…</b><span>во столько ширин наш перекос больше нормы</span></div>
@@ -126,6 +166,7 @@
     <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Давай посмотрим по кафе.</p></div></div>
   </div>
   <div class="sheet c-white">
+    <p class="chart-title" id="seg-title">Эффект акции во всех кафе вместе — ноль</p>
     <canvas id="ch-seg" aria-label="Эффект акции по кафе"></canvas>
     <div class="controls"><button class="btn" type="button" id="seg-btn">Разложить по кафе</button></div>
     <div class="verdict" id="seg-v" hidden></div>
@@ -172,7 +213,7 @@
   <span class="step-tag">Два вида тестов</span>
   <h2>Поисковый тест ищет идеи, подтверждающий их проверяет</h2>
   <div class="tiles tiles2">
-    <div class="tile"><b>Поисковый</b><span>Смотрим широко: много метрик, срезы по кафе и дням, «что интересного». Это нормально, но всё найденное — гипотезы, а не выводы.</span></button>
+    <div class="tile"><b>Поисковый</b><span>Смотрим широко: много метрик, срезы по кафе и дням, «что интересного». Это нормально, но всё найденное — гипотезы, а не выводы.</span></div>
     <div class="tile"><b>Подтверждающий</b><span>До запуска записываем одну гипотезу, одну главную метрику, длину и правило решения. Вывод делаем только по ней.</span></div>
   </div>
   <p>Ошибка — делать выводы по поисковому тесту так, будто он подтверждающий. Определи, какой тест перед тобой.</p>
@@ -193,6 +234,34 @@
     <p class="why">Одна гипотеза, одна главная метрика и правило решения, записанные до запуска, — это подтверждающий тест. По нему уже можно принимать решение.</p>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Дэвид Шпигельхалтер, «Искусство статистики»</a></p>
+</section>
+
+<!-- 5b4 -->
+<section class="card" data-title="Запиши заранее" aria-label="Запиши заранее">
+  <span class="step-tag">Привычка</span>
+  <h2>Если бы вышло наоборот — что бы ты сказал?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Конверсия выросла — значит, новое меню понятнее. А если бы упала — значит, гости внимательнее его изучают. В любом случае меню удачное!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так с рассуждением Боба?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Каждое по отдельности правдоподобно. Беда в том, что вместе они превращают любой результат в «успех».">Ничего, оба объяснения правдоподобны</button><button type="button" data-v="b">Любой результат он объявит подтверждением</button><button type="button" data-v="c" data-why="Срок тут ни при чём: при таком подходе и через год любой исход окажется «успехом».">Он мало ждал</button></div>
+    <p class="why">Если подтверждением считается и рост, и падение, тест ничего не проверяет. Полезный вопрос к себе: «Если бы результат был обратным, принял бы я его как подтверждение?» Если да — проверки нет.</p>
+  </div>
+  <div class="tiles tiles2">
+    <div class="tile"><b>До запуска запиши</b><span>Главную метрику и сторожевые. Срок теста. Что будем считать успехом и что — провалом.</span></div>
+    <div class="tile"><b>После теста</b><span>Решаем по записанному. Всё, что нашли сверх этого, — гипотезы для следующих тестов.</span></div>
+  </div>
+  <p>Ещё одна ловушка того же рода: мы привыкли искать подтверждения, а не опровержения.</p>
+  <div class="cards4">
+    <span>получил промокод</span><span>не получал промокода</span><span>сделал повторный заказ</span><span>не сделал повторный заказ</span>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Правило Боба: «Если гость получил промокод, он сделал повторный заказ». На каждой карточке — гость: с одной стороны, был ли промокод, с другой — был ли повторный заказ. Какие карточки нужно перевернуть, чтобы проверить правило?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Карточка «сделал повторный заказ» правило не проверит: повторный заказ мог быть и без промокода, правило этого не запрещает. Ищи карточку, которая может правило опровергнуть.">«получил промокод» и «сделал повторный заказ»</button><button type="button" data-v="b">«получил промокод» и «не сделал повторный заказ»</button><button type="button" data-v="c" data-why="Этого мало: гость без повторного заказа мог тоже получить промокод — и тогда правило нарушено.">Только «получил промокод»</button><button type="button" data-v="d" data-why="Про «не получал промокода» правило ничего не говорит, а «сделал повторный заказ» его никак не опровергнет. Лишние проверки.">Все четыре</button></div>
+    <p class="why">Правило нарушает только гость, который получил промокод, но не сделал повторный заказ. Поэтому переворачиваем «получил промокод» (что на обороте?) и «не сделал повторный заказ» (был ли промокод?). Большинство людей выбирают «получил» и «сделал»: мы ищем подтверждения, а проверяют правило опровержения.</p>
+  </div>
+  <p class="src">Идея из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
 </section>
 
 <!-- 5c -->
@@ -248,7 +317,7 @@
 <section class="card" data-title="Найди подвох в цифрах" aria-label="Найди подвох в цифрах">
   <span class="step-tag">Игра</span>
   <h2>Где Боб приукрасил цифры</h2>
-  <p>Теперь подвох не в рисунке, а в самих числах. Четыре фразы из отчётов Боба.</p>
+  <p>Теперь подвох не в рисунке, а в самих числах. Пять фраз из отчётов Боба.</p>
   <div class="quiz" data-right="a">
     <p class="q">«Больше всего жалоб на курьеров в пятницу вечером — снимаем курьеров с пятницы!»</p>
     <canvas class="dash" id="dash6" aria-label="Жалобы по дням недели"></canvas>
@@ -279,8 +348,57 @@
     <p class="honest-cap">Как это выглядит честно:</p>
     <canvas class="dash honest" id="dash9h" aria-label="Три онбординга"></canvas>
   </div>
+  <div class="quiz" data-right="a">
+    <p class="q">«Новое меню не изменило время приготовления: 12 минут и там, и там».</p>
+    <p class="chart-title">Среднее время приготовления, мин</p>
+    <canvas class="dash" id="dash13" aria-label="Среднее время приготовления, заказы короче 5 минут отброшены"></canvas>
+    <div class="choice"><button type="button" data-v="a">Отфильтровали как «ошибку» именно то, что изменилось</button><button type="button" data-v="b" data-why="Заказов тысячи. Посмотри на подпись под графиком: какие заказы выбросили?">Мало заказов</button><button type="button" data-v="c" data-why="Шкала от нуля. Подвох — в том, каких заказов на графике нет.">Шкала не от нуля</button></div>
+    <p class="why">В новом меню есть быстрые блюда, которые готовятся за 3–4 минуты. Фильтр «короче 5 минут — ошибка логов» выбросил именно их, и вместе с ними эффект. Так NASA годами не замечало озоновую дыру: программа отбрасывала слишком низкие значения как сбой прибора. Прежде чем чистить данные, проверь, не чистишь ли ты сам эффект.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <p class="chart-title honest-t">В тесте появились быстрые заказы — их и выбросил фильтр</p>
+    <canvas class="dash honest" id="dash13h" aria-label="Время приготовления без фильтра"></canvas>
+  </div>
   <p class="note quiz-score"></p>
-  <p class="src">Идея из книги: <a href="./#books">Дарелл Хафф, «Как лгать при помощи статистики»</a></p>
+  <p class="src">Идея из книги: <a href="./#books">Дарелл Хафф, «Как лгать при помощи статистики»</a>. Раунд с фильтром — из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
+</section>
+
+<!-- 5d2 -->
+<section class="card" data-title="Найди подвох в оформлении" aria-label="Найди подвох в оформлении">
+  <span class="step-tag">Игра</span>
+  <h2>Цифры честные, а смотреть невозможно</h2>
+  <p>Бывает, что Боб ничего не приукрашивает, но график всё равно сбивает с толку. Три примера.</p>
+  <div class="quiz" data-right="a">
+    <p class="q">Боб хочет показать, что тест поднял конверсию. Что не так с графиком?</p>
+    <p class="chart-title">Метрики теста, разница с контролем</p>
+    <canvas class="dash" id="dash10" aria-label="Шесть метрик разными цветами"></canvas>
+    <div class="choice"><button type="button" data-v="a">Шесть линий одного веса: непонятно, куда смотреть</button><button type="button" data-v="b" data-why="Ноль тут как раз в середине — это разница теста и контроля. Подвох в том, сколько всего на графике.">Шкала не от нуля</button><button type="button" data-v="c" data-why="21 день — нормальный тест. Беда в оформлении: глазу не за что зацепиться.">Мало дней</button></div>
+    <p class="why">Боб вывалил на график все метрики сразу, и главная утонула. Честнее: главную линию — ярко, остальные — серым, а в заголовок — вывод, а не «Метрики теста».</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <p class="chart-title honest-t">Конверсия в тесте выше контроля все 21 день</p>
+    <canvas class="dash honest" id="dash10h" aria-label="Та же картинка, главная линия выделена"></canvas>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">«С середины месяца средний чек обогнал заказы — гости стали заказывать дороже!»</p>
+    <p class="chart-title">Заказы (слева) и средний чек (справа)</p>
+    <canvas class="dash" id="dash11" aria-label="Заказы и средний чек на двух шкалах"></canvas>
+    <div class="choice"><button type="button" data-v="a">У линий разные шкалы: их пересечение ничего не значит</button><button type="button" data-v="b" data-why="Дело не в днях. Посмотри на подписи слева и справа: это две разные шкалы.">Мало дней</button><button type="button" data-v="c" data-why="Это тоже бывает, но главный подвох в другом: сдвинь правую шкалу — и линии разойдутся или пересекутся где угодно.">Шкала заказов не от нуля</button></div>
+    <p class="why">Заказы и средний чек нарисованы на одном графике с двумя шкалами. Где они «пересекутся», зависит только от того, как Боб подобрал шкалы. Честно — два графика с общей осью дней: заказы чуть растут, чек чуть падает, и никакого «обогнал».</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <p class="chart-title honest-t">Заказы чуть растут, средний чек чуть падает</p>
+    <canvas class="dash honest" id="dash11h" aria-label="Заказы и средний чек на отдельных графиках"></canvas>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Вопрос был: на что чаще всего жалуются гости? Что должно быть выделено цветом?</p>
+    <p class="chart-title">Причины низких оценок за месяц</p>
+    <canvas class="dash" id="dash12" aria-label="Причины низких оценок, выделено «дорого»"></canvas>
+    <div class="choice"><button type="button" data-v="a">Долгая доставка</button><button type="button" data-v="b" data-why="Боб выделил свою любимую тему, но жалоб на цены в четыре раза меньше, чем на доставку. Выделять нужно ответ на вопрос.">«Дорого», как у Боба</button><button type="button" data-v="c" data-why="Без акцента читатель сам ищет, что важно. Помоги ему: выдели ответ на вопрос.">Ничего, пусть всё будет одного цвета</button></div>
+    <p class="why">Яркий цвет — это указка: туда посмотрят первым делом. Боб выделил «дорого», потому что хотел поговорить о ценах, а вопрос был про самую частую жалобу. Честно — выделить долгую доставку и написать это в заголовке.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <p class="chart-title honest-t">Чаще всего недовольны долгой доставкой</p>
+    <canvas class="dash honest" id="dash12h" aria-label="Причины низких оценок, выделена долгая доставка"></canvas>
+  </div>
+  <p class="note quiz-score"></p>
+  <p class="src">Идея из книги: <a href="./#books">Коул Нассбаумер Нафлик, «Данные: визуализируй, расскажи, используй»</a></p>
 </section>
 
 <section class="card" data-title="Проклятие победителя" aria-label="Проклятие победителя">
@@ -294,8 +412,8 @@
       <button class="btn ghost" type="button" id="wc-reset" hidden>Сначала</button>
     </div>
     <p class="note" id="wc-last"></p>
+    <p class="chart-title">Выкатывают только тех, кому шум подыграл</p>
     <canvas id="ch-wc" aria-label="Эффекты двадцати тестов: выкаченные и на кладбище"></canvas>
-    <div class="legend-row"><span><i style="background:var(--truth)"></i>победил, выкатили</span><span><i style="background:#A3A19A"></i>не победил, на кладбище</span></div>
     <div class="big2">
       <div class="ctrl"><b id="wc-all">—</b><span>средний эффект по всем тестам</span></div>
       <div class="trap"><b id="wc-win">—</b><span>средний эффект выкаченных</span></div>
@@ -322,8 +440,8 @@
     <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлая неделя была провальной, и мы запустили тест акции. За неделю заказы в тесте выросли на 9 %!</p></div></div>
   </div>
   <div class="sheet c-white">
+    <p class="chart-title">После провала выросли обе группы, а не только тест</p>
     <canvas id="ch-bw" aria-label="Заказы контроля и теста по неделям"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>контроль</span><span><i style="background:var(--test)"></i>тест</span></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что на самом деле показал тест?</p>
@@ -348,6 +466,7 @@
   <div class="sheet c-white">
     <label class="field" for="look">Смотрим на результат через <b id="look-t" class="num">7 дней</b></label>
     <input type="range" id="look" min="3" max="28" value="7" style="width:100%">
+    <p class="chart-title">Что попадёт в отчёт, зависит от дня, когда смотрим</p>
     <canvas id="ch-late" aria-label="Разница теста и контроля по дням"></canvas>
     <div class="big2">
       <div class="trap"><b id="late-est">—</b><span>эффект, который мы увидим в отчёте на этот день</span></div>
@@ -376,11 +495,11 @@
   <div class="sheet c-white">
     <label class="field" for="roll">Бесплатная доставка в <b id="roll-t" class="num">3 кафе</b></label>
     <input type="range" id="roll" min="1" max="40" value="3" style="width:100%">
+    <p class="chart-title">Чем больше кафе, тем дальше реальность от пилота</p>
     <canvas id="ch-roll" aria-label="Прирост заказов сети в зависимости от числа кафе"></canvas>
-    <div class="legend-row"><span><i style="background:#A3A19A"></i>ожидали по пилоту</span><span><i style="background:var(--test)"></i>получилось</span></div>
     <div class="big2">
-      <div class="ctrl"><b id="roll-exp">—</b><span>ожидали по пилоту</span></div>
-      <div class="test"><b id="roll-real">—</b><span>получилось на самом деле</span></div>
+      <div><b id="roll-exp">—</b><span>ожидали по пилоту</span></div>
+      <div class="ctrl"><b id="roll-real">—</b><span>получилось на самом деле</span></div>
     </div>
     <div class="verdict" id="roll-v" hidden></div>
   </div>
@@ -474,6 +593,37 @@
   <p class="src">Пять вопросов к цифре — из книги: <a href="./#books">Дарелл Хафф, «Как лгать при помощи статистики»</a></p>
 </section>
 
+<!-- 6b -->
+<section class="card" data-title="Как рассказать результат" aria-label="Как рассказать результат">
+  <span class="step-tag">Финальный навык</span>
+  <h2>Как рассказать результат руководителю</h2>
+  <p>Тест посчитан. Теперь его нужно рассказать так, чтобы за три минуты стало понятно, что делать. Порядок простой:</p>
+  <div class="tiles tiles2 tell4">
+    <div class="tile"><b>1. Контекст</b><span>Что меняли и зачем.</span></div>
+    <div class="tile"><b>2. Вывод</b><span>Одним предложением: что получилось, с вилкой.</span></div>
+    <div class="tile"><b>3. Доказательства</b><span>Главная и сторожевые метрики, срок, доли групп.</span></div>
+    <div class="tile"><b>4. Что делать</b><span>Решение и следующий шаг.</span></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Какой заголовок лучше для отчёта про новый экран оплаты?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Номер теста ничего не говорит: прочитав заголовок, руководитель всё ещё не знает, что случилось.">«Результаты теста №42»</button><button type="button" data-v="b" data-why="Это цифры, а не вывод. Хорошо это или плохо, значимо ли и что делать — непонятно.">«Конверсия: 4,1 % против 4,3 %»</button><button type="button" data-v="c">«Новый экран оплаты поднял конверсию примерно на 5 %, раскатываем на все кафе»</button><button type="button" data-v="d" data-why="Успешно — это как? Тест может «пройти успешно» и показать, что фича вредит.">«Тест прошёл успешно»</button></div>
+    <p class="why">Хороший заголовок — это вывод и решение: прочитав только его, человек уже знает главное. Цифры и подробности — ниже, как доказательства.</p>
+  </div>
+  <h3>Тест трёх минут</h3>
+  <p>Собери отчёт из фраз: нажимай «В отчёт» в нужном порядке, а лишнее отправляй в приложение. Порядок в отчёте можно менять стрелками.</p>
+  <div class="sheet c-white" id="rep-game">
+    <div class="rep-pool" id="rep-pool"></div>
+    <div class="rep-cols">
+      <div><b>Отчёт</b><ol class="rep-list" id="rep-list"></ol></div>
+      <div><b>Приложение</b><ul class="rep-list rep-app" id="rep-app"></ul></div>
+    </div>
+    <div class="controls"><button class="btn" type="button" id="rep-check">Проверить</button><button class="btn ghost" type="button" id="rep-reset">Сначала</button></div>
+    <div class="qfb" id="rep-fb" hidden></div>
+  </div>
+  <div class="def"><b>Если тест вышел «серым»,</b> не прячь его и не ищи «зелёный» срез. Скажи, что эффект не отличили от нуля, и какой эффект тест исключил: «если бы экран давал больше +2 %, мы бы это увидели». И предложи следующий шаг: проверить на большем трафике, переделать идею или закрыть её.</div>
+  <p class="src">Идея из книги: <a href="./#books">Коул Нассбаумер Нафлик, «Данные: визуализируй, расскажи, используй»</a></p>
+</section>
+
 <!-- 7 -->
 <section class="card" data-title="Итог курса" aria-label="Итог курса">
   <span class="step-tag">Шпаргалка всего курса</span>
@@ -490,6 +640,8 @@
     <li><b>Средний ноль может прятать плюсы и минусы,</b> но срез, найденный задним числом, — только гипотеза для нового теста.</li>
     <li><b>Победители завышены,</b> а сравнение «кто включил / кто нет» может перевернуть вывод из-за состава групп. Перепроверяем и делим монеткой.</li>
     <li><b>Не верим картинке на слово:</b> шкала от нуля? сколько это в штуках? какой период показан?</li>
+    <li><b>Заранее записываем</b> главную и сторожевые метрики, срок и что будет провалом. Рост главной метрики не повод катить, если сломались сторожевые.</li>
+    <li><b>Рассказываем выводом:</b> заголовок — что получилось и что делаем, цифры — как доказательства.</li>
   </ul>
   <p>И последние названия:</p>
   <dl class="terms">
@@ -508,7 +660,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const $ = id => document.getElementById(id);
 
@@ -540,7 +692,7 @@ function drawPeek(){
     const lastOne = k === recent.length - 1;
     c.strokeStyle = lastOne ? COL.ctrl : 'rgba(61,125,196,.18)'; c.lineWidth = lastOne ? 2.4 : 1.2;
     c.beginPath(); r.z.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
-    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); }
+    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут Боб выкатил бы', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, '#B5473B', xr ? 'right' : 'left'); }
   });
   if (!aa.length) label(c, 'Запусти A/A-тест — здесь появится его линия.', L + 10, Y(0) - 10, COL.ink2);
 }
@@ -584,13 +736,14 @@ function drawSrm(){
   $('srm-sd').textContent = share(0.5 - 2 * sdv, 1) + '–' + share(0.5 + 2 * sdv, 1);
   $('srm-x').textContent = num((0.5 - OBS) / sdv, (0.5 - OBS) / sdv < 10 ? 1 : 0);
   const g = canvas($('ch-srm'), 0.28, 0.5); if (!g) return; const {c, w, h} = g;
-  const lo = 0.485, hi = 0.515, L = 10, R = 10, T = 14, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+  const lo = 0.485, hi = 0.515, L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
   c.fillStyle = COL.fillC; c.fillRect(X(0.5 - 2 * sdv), T, X(0.5 + 2 * sdv) - X(0.5 - 2 * sdv), ph);
   c.strokeStyle = COL.grid; [0.49, 0.5, 0.51].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
   axisX(c, X, [0.49, 0.495, 0.5, 0.505, 0.51], h - 6, v => num(100 * v, 1) + ' %');
   srmDots.forEach((v, i) => { c.fillStyle = 'rgba(61,125,196,.55)'; c.beginPath(); c.arc(X(v), T + 8 + ((i * 7919) % (ph - 16)), 3, 0, 2 * Math.PI); c.fill(); });
   c.strokeStyle = COL.trap; c.lineWidth = 3; c.beginPath(); c.moveTo(X(OBS), T - 4); c.lineTo(X(OBS), T + ph); c.stroke();
-  label(c, 'у нас', X(OBS) + 5, T + 6, COL.ink);
+  label(c, 'у нас 49,2 %', X(OBS) + 6, T + 6, '#B5473B');
+  label(c, 'честные деления', X(0.5), T - 2, COL.ctrl, 'center');
 }
 $('srm-n').addEventListener('input', () => { srmRun(); drawSrm(); });
 
@@ -615,6 +768,7 @@ srmRun(); paintMM(); peekStats();
   }
   document.getElementById('seg-btn').addEventListener('click', e => {
     split = !split; e.target.textContent = split ? 'Сложить обратно' : 'Разложить по кафе';
+    document.getElementById('seg-title').textContent = split ? 'В одних кафе акция помогает, в других вредит' : 'Эффект акции во всех кафе вместе — ноль';
     const v = document.getElementById('seg-v'); v.hidden = !split; v.className = 'verdict good';
     v.innerHTML = 'У вокзала и в центре акция поднимает заказы, а у университета и в ТЦ — снижает: там гости и так брали по два кофе, а теперь второй получают даром. В сумме плюсы и минусы съели друг друга. Это повод для нового теста, а не готовый вывод — о подвохе ниже.';
     draw();
@@ -697,11 +851,12 @@ srmRun(); paintMM(); peekStats();
     const g = canvas(cv, 0, 0, 150); if (!g) return; const {c, w, h} = g;
     const lo = -0.05, hi = 0.13, L = 10, R = 10, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * (w - L - R);
     c.strokeStyle = COL.grid; [-0.04, 0, 0.04, 0.08, 0.12].forEach(v => { c.beginPath(); c.moveTo(X(v), 14); c.lineTo(X(v), 118); c.stroke(); label(c, pct(v, 0), X(v), 136, COL.ink2, 'center'); });
-    c.fillStyle = COL.fillG; c.fillRect(X(CUT), 14, X(hi) - X(CUT), 104); label(c, 'зона «победы»', X(CUT) + 4, 28, COL.truth);
+    c.fillStyle = COL.fillG; c.fillRect(X(CUT), 14, X(hi) - X(CUT), 104); label(c, 'победили, выкатили', X(CUT) + 4, 28, COL.truth);
     tests.forEach((t, i) => { const last = i === tests.length - 1 && tests.length <= 20; c.fillStyle = t.win ? COL.truth : COL.gray; c.globalAlpha = last ? 1 : 0.7; c.beginPath(); c.arc(X(t.e), 66 + ((i * 7919) % 31) - 15, last ? 7 : 4, 0, 2 * Math.PI); c.fill(); });
     c.globalAlpha = 1;
     c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), 10); c.lineTo(X(TRUE), 122); c.stroke(); c.lineWidth = 1;
     label(c, 'правда +3 %', X(TRUE) - 4, 10, COL.ink, 'right');
+    label(c, 'на кладбище', X(lo) + 4, 28, COL.ink2);
     const wins = tests.filter(t => t.win);
     if (wins.length){ const m = mean(wins.map(t => t.e)); c.strokeStyle = COL.trap; c.setLineDash([5, 4]); c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), 14); c.lineTo(X(m), 122); c.stroke(); c.setLineDash([]); c.lineWidth = 1; label(c, 'среднее выкаченных', X(m) > w - 140 ? X(m) - 4 : X(m) + 4, 116, '#B5473B', X(m) > w - 140 ? 'right' : 'left'); }
   }
@@ -723,14 +878,14 @@ srmRun(); paintMM(); peekStats();
   const ctrl = [10050, 9930, 10110, 9980, 9000, 9720], test = [10010, 9970, 10060, 10020, 9000, 9810], cv = document.getElementById('ch-bw');
   function draw(){
     const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
-    const L = 52, R = w < 520 ? 50 : 120, T = 14, B = 24, ph = h - T - B, lo = 8500, hi = 10500, X = i => L + i / 5 * (w - L - R), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    const L = 52, R = w < 520 ? 96 : 130, T = 14, B = 24, ph = h - T - B, lo = 8500, hi = 10500, X = i => L + i / 5 * (w - L - R), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
     c.fillStyle = COL.fillB; c.fillRect(X(3.5), T, X(4.5) - X(3.5), ph); label(c, w < 520 ? '' : 'провал', X(4), T + 12, '#B5473B', 'center');
     c.fillStyle = COL.fillG; c.fillRect(X(4.5), T, X(5) - X(4.5) + 12, ph); label(c, w < 520 ? '' : 'тест идёт', X(5) + 8, T + 12, COL.truth);
     axisY(c, L, R, T, ph, w, lo, hi, 500, v => int(v));
-    [ctrl, test].forEach((a, k) => { c.strokeStyle = k ? COL.test : COL.ctrl; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); c.fillStyle = c.strokeStyle; a.forEach((v, i) => { c.beginPath(); c.arc(X(i), Y(v), 3, 0, 2 * Math.PI); c.fill(); }); });
+    [ctrl, test].forEach((a, k) => { c.strokeStyle = k ? COL.test : COL.ctrl; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); });
     const nar = w < 520; for (let i = 0; i < 6; i++) label(c, (i + 1) + (nar ? '' : ' нед.'), X(i), h - 6, COL.ink2, 'center');
-    label(c, (nar ? '' : 'тест ') + pct(test[5] / test[4] - 1, 0), X(5) + 10, Y(test[5]) - 4, '#B8642A');
-    label(c, (nar ? '' : 'контроль ') + pct(ctrl[5] / ctrl[4] - 1, 0), X(5) + 10, Y(ctrl[5]) + 14, COL.ctrl);
+    label(c, 'тест ' + pct(test[5] / test[4] - 1, 0), X(5) + 8, Y(test[5]) - 4, '#B8642A');
+    label(c, 'контроль ' + pct(ctrl[5] / ctrl[4] - 1, 0), X(5) + 8, Y(ctrl[5]) + 14, COL.ctrl);
   }
   window.addEventListener('resize', draw);
 })();
@@ -809,9 +964,9 @@ srmRun(); paintMM(); peekStats();
     document.getElementById('late-true').textContent = pct(story === 'novel' ? 0.01 : 0.03, 0);
     const g = canvas(cv, 0.34, 0.6); if (!g) return; const {c, w, h} = g;
     const L = 46, T0 = 10, B = 24, pw = w - L - 10, ph = h - T0 - B, lo = -0.02, hi = 0.1, X = d => L + d / 27 * pw, Y = v => T0 + (1 - (v - lo) / (hi - lo)) * ph;
-    c.fillStyle = COL.fillT; c.fillRect(L, T0, X(n - 1) - L, ph);
+    c.fillStyle = COL.fillC; c.fillRect(L, T0, X(n - 1) - L, ph);
     axisY(c, L, 10, T0, ph, w, lo, hi, 0.02, v => pct(v, 0));
-    c.strokeStyle = COL.test; c.lineWidth = 2.4; c.beginPath(); daily.forEach(d => { const v = eff(d) + noise[d]; d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v)); }); c.stroke();
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath(); daily.forEach(d => { const v = eff(d) + noise[d]; d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v)); }); c.stroke();
     const tv = story === 'novel' ? 0.01 : 0.03; c.strokeStyle = COL.truth; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(tv)); c.lineTo(L + pw, Y(tv)); c.stroke(); c.setLineDash([]);
     label(c, 'надолго ' + pct(tv, 0), L + pw, Y(tv) - 5, COL.truth, 'right');
     label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 28', X(27), h - 6, COL.ink2, 'right');
@@ -847,13 +1002,143 @@ srmRun(); paintMM(); peekStats();
     const L = 46, T0 = 10, B = 24, pw = w - L - 10, ph = h - T0 - B, lo = -0.15, hi = 0.15, X = k => L + (k - 1) / 39 * pw, Y = val => T0 + (1 - (val - lo) / (hi - lo)) * ph;
     axisY(c, L, 10, T0, ph, w, lo, hi, 0.05, val => pct(val, 0));
     c.strokeStyle = COL.gray; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); for (let k = 1; k <= 40; k++) k > 1 ? c.lineTo(X(k), Y(exp(k))) : c.moveTo(X(k), Y(exp(k))); c.stroke(); c.setLineDash([]);
-    c.strokeStyle = COL.test; c.lineWidth = 2.6; c.beginPath(); for (let k = 1; k <= 40; k++) k > 1 ? c.lineTo(X(k), Y(real(k))) : c.moveTo(X(k), Y(real(k))); c.stroke();
-    c.fillStyle = COL.test; c.beginPath(); c.arc(X(n), Y(real(n)), 5, 0, 2 * Math.PI); c.fill();
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.6; c.beginPath(); for (let k = 1; k <= 40; k++) k > 1 ? c.lineTo(X(k), Y(real(k))) : c.moveTo(X(k), Y(real(k))); c.stroke();
+    label(c, 'ожидали по пилоту', X(32), Y(exp(32)) - 10, COL.ink2, 'right'); label(c, 'получилось', X(40), Y(real(40)) - 8, COL.ctrl, 'right');
+    c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(real(n)), 5, 0, 2 * Math.PI); c.fill();
     label(c, '1 кафе', X(1), h - 6, COL.ink2); label(c, '40 кафе', X(40), h - 6, COL.ink2, 'right');
     c.lineWidth = 1;
   }
   roll.addEventListener('input', draw);
   window.addEventListener('resize', draw);
+})();
+
+// ---------- сторожевые метрики ----------
+(function(){
+  const b = document.getElementById('guard-btn');
+  b.addEventListener('click', () => { const show = b.dataset.on !== '1'; b.dataset.on = show ? '1' : ''; document.querySelectorAll('#guard-t tr.g').forEach(r => r.hidden = !show); b.textContent = show ? 'Скрыть сторожевые метрики' : 'Показать сторожевые метрики'; });
+})();
+
+// ---------- подвох в оформлении и фильтре ----------
+(function(){
+  const P = ' %';
+  const NAMES = ['конверсия', 'средний чек', 'отмены', 'время до заказа', 'повторные', 'оценки'];
+  const COLS6 = ['#3D7DC4', '#E59157', '#0E7E5F', '#EB8D82', '#8F6FC9', '#C9A43A'];
+  const series = NAMES.map((n, k) => Array.from({length: 21}, (_, d) => k === 0 ? 2 + 0.5 * Math.sin(d * 1.7) + 0.3 * Math.cos(d * 0.9) : 1.4 * Math.sin(d * (0.6 + k * 0.37) + k) + 0.5 * Math.cos(d * (1.3 + k * 0.21))));
+  function spaghetti(cv, honest){
+    const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = honest ? 86 : 10, T = 10, B = 24, pw = w - L - R, ph = h - T - B, lo = -3, hi = 3, X = d => L + d / 20 * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, R, T, ph, w, lo, hi, honest ? 2 : 1, v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + P);
+    const order = honest ? [1, 2, 3, 4, 5, 0] : [0, 1, 2, 3, 4, 5];
+    order.forEach(k => { const main = honest && k === 0; c.strokeStyle = honest ? (main ? COL.ctrl : '#CFCBC1') : COLS6[k]; c.lineWidth = main ? 3 : honest ? 1.2 : 2; c.beginPath(); series[k].forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); });
+    c.lineWidth = 1;
+    if (honest){ label(c, 'конверсия', X(20) + 6, Y(series[0][20]) + 4, COL.ctrl); label(c, 'остальные', X(20) + 6, Y(series[3][20]) + 4, COL.ink2); }
+    else { const lg = NAMES.map((n, k) => [n, k]); lg.forEach(([n, k], i) => { const x = L + 6 + (i % 3) * (pw / 3), y = T + 12 + Math.floor(i / 3) * 15; c.fillStyle = COLS6[k]; c.fillRect(x, y - 8, 10, 3); label(c, n, x + 14, y - 4, COL.ink2); }); }
+    label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 21', X(20), h - 6, COL.ink2, 'right');
+  }
+  const ord = Array.from({length: 30}, (_, d) => 9800 + d * 20 + 60 * Math.sin(d * 1.1));
+  const chk = Array.from({length: 30}, (_, d) => 640 - d * 1.2 + 3 * Math.cos(d * 0.8));
+  function twoAxes(cv){
+    const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+    const L = 56, R = 48, T = 12, B = 24, pw = w - L - R, ph = h - T - B, X = d => L + d / 29 * pw;
+    const Y1 = v => T + (1 - (v - 9700) / (10500 - 9700)) * ph, Y2 = v => T + (1 - (v - 590) / (650 - 590)) * ph;
+    axisY(c, L, R, T, ph, w, 9700, 10500, 200, v => int(v));
+    c.fillStyle = COL.test; [600, 620, 640].forEach(v => label(c, v + ' ₽', w - 2, Y2(v) + 4, '#B8642A', 'right'));
+    c.lineWidth = 2.5; c.strokeStyle = COL.ctrl; c.beginPath(); ord.forEach((v, d) => d ? c.lineTo(X(d), Y1(v)) : c.moveTo(X(d), Y1(v))); c.stroke();
+    c.strokeStyle = COL.test; c.beginPath(); chk.forEach((v, d) => d ? c.lineTo(X(d), Y2(v)) : c.moveTo(X(d), Y2(v))); c.stroke(); c.lineWidth = 1;
+    label(c, 'заказы', X(2), Y1(ord[2]) + 16, COL.ctrl); label(c, 'средний чек', X(2), Y2(chk[2]) - 8, '#B8642A');
+    label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 30', X(29), h - 6, COL.ink2, 'right');
+  }
+  function twoPanels(cv){
+    const g = canvas(cv, 0.55, 0.9); if (!g) return; const {c, w, h} = g;
+    const L = 56, R = 12, B = 22, gap = 30, ph = (h - B - gap - 20) / 2, pw = w - L - R, X = d => L + d / 29 * pw;
+    [[ord, 0, 12000, 4000, 'заказы в день', COL.ctrl, int], [chk, 0, 800, 200, 'средний чек, ₽', COL.ctrl, int]].forEach(([a, lo, hi, step, name, col, f], k) => {
+      const T = 14 + k * (ph + gap), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+      axisY(c, L, R, T, ph, w, lo, hi, step, f);
+      c.strokeStyle = col; c.lineWidth = 2.5; c.beginPath(); a.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); c.lineWidth = 1;
+      label(c, name, L + 4, T + 2, COL.ink);
+    });
+    label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 30', X(29), h - 6, COL.ink2, 'right');
+  }
+  const REAS = [['долгая доставка', 412], ['холодная еда', 236], ['ошибка в заказе', 151], ['дорого', 98], ['другое', 63]];
+  function reasons(cv, hi){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = w < 520 ? 116 : 140, R = 46, T = 6, rh = (h - T - 6) / REAS.length, mx = 450, X = v => L + v / mx * (w - L - R);
+    REAS.forEach(([n, v], i) => { const y = T + i * rh, on = n === hi; c.fillStyle = on ? (hi === 'дорого' ? COL.trap : COL.ctrl) : '#D9D6CE'; c.fillRect(L, y + 4, X(v) - L, rh - 10); label(c, n, L - 8, y + rh / 2 + 4, on ? COL.ink : COL.ink2, 'right'); label(c, int(v), X(v) + 6, y + rh / 2 + 4, on ? COL.ink : COL.ink2); });
+  }
+  // время приготовления: контроль ~ 12 мин; в тесте 30 % быстрых блюд ~ 3,5 мин
+  const binsC = [0, 0, 0, 1, 2, 8, 30, 70, 120, 170, 200, 210, 200, 170, 130, 90, 60, 35, 20, 10, 6, 3, 2, 1, 1];
+  const binsT = binsC.map((v, i) => Math.round(v * 0.7) + (i === 3 ? 180 : i === 4 ? 230 : i === 2 ? 60 : i === 5 ? 50 : 0));
+  const meanOf = (b, from) => { let s = 0, n = 0; b.forEach((k, i) => { if (i >= from){ s += k * (i + 0.5); n += k; } }); return s / n; };
+  function cookBars(cv){
+    const g = canvas(cv, 0.3, 0.55); if (!g) return; const {c, w, h} = g;
+    const vals = [meanOf(binsC, 5), meanOf(binsT, 5)], L = 46, T = 12, B = 34, ph = h - T - B, Y = v => T + (1 - v / 16) * ph;
+    axisY(c, L, 10, T, ph, w, 0, 16, 4, v => int(v));
+    vals.forEach((v, i) => { const bw = (w - L - 60) / 2 - 30, x = L + 30 + i * (bw + 60); c.fillStyle = i ? COL.test : COL.ctrl; c.fillRect(x, Y(v), bw, Y(0) - Y(v)); label(c, num(v, 1) + ' мин', x + bw / 2, Y(v) - 4, COL.ink, 'center'); label(c, i ? 'тест' : 'контроль', x + bw / 2, h - 20, COL.ink2, 'center'); });
+    label(c, 'заказы короче 5 минут отброшены как ошибка логов', w / 2, h - 4, COL.ink2, 'center');
+  }
+  function cookHist(cv){
+    const g = canvas(cv, 0.38, 0.65); if (!g) return; const {c, w, h} = g;
+    const L = 10, R = 10, T = 14, B = 22, pw = w - L - R, ph = h - T - B, n = binsC.length, bw = pw / n, mx = 420;
+    c.fillStyle = COL.fillB; c.fillRect(L, T, 5 * bw, ph); label(c, 'выброшено фильтром', L + 4, T + 10, '#B5473B');
+    binsC.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(61,125,196,.55)'; c.fillRect(L + i * bw + 1, T + ph - bh, bw / 2 - 1, bh); });
+    binsT.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(229,145,87,.85)'; c.fillRect(L + i * bw + bw / 2, T + ph - bh, bw / 2 - 1, bh); });
+    [0, 5, 10, 15, 20, 25].forEach(m => label(c, m + ' мин', L + m * bw, h - 6, COL.ink2, m === 0 ? 'left' : m === 25 ? 'right' : 'center'));
+    label(c, 'тест: среднее ' + num(meanOf(binsT, 0), 1) + ' мин', w - R, T + 12, '#B8642A', 'right'); label(c, 'контроль: ' + num(meanOf(binsC, 0), 1) + ' мин', w - R, T + 28, COL.ctrl, 'right');
+  }
+  function draw(){
+    spaghetti(document.getElementById('dash10'), false); spaghetti(document.getElementById('dash10h'), true);
+    twoAxes(document.getElementById('dash11')); twoPanels(document.getElementById('dash11h'));
+    reasons(document.getElementById('dash12'), 'дорого'); reasons(document.getElementById('dash12h'), 'долгая доставка');
+    cookBars(document.getElementById('dash13')); cookHist(document.getElementById('dash13h'));
+  }
+  window.addEventListener('resize', draw);
+  document.querySelectorAll('#dash10h, #dash11h, #dash12h, #dash13h').forEach(cv => new MutationObserver(() => window.dispatchEvent(new Event('resize'))).observe(cv.closest('.quiz'), {attributes: true, attributeFilter: ['class']}));
+})();
+
+// ---------- тест трёх минут ----------
+(function(){
+  const F = [
+    {id: 'ctx', t: 'Мы проверяли новый экран оплаты: долгая оплата была главной причиной брошенных корзин.', ok: 0},
+    {id: 'res', t: 'Новый экран поднял конверсию в заказ примерно на 5 % — от +4 до +6 %.', ok: 1},
+    {id: 'ev', t: 'Тест шёл 21 день по плану, группы поделились ровно, средний чек и отмены не изменились.', ok: 2},
+    {id: 'act', t: 'Предлагаем раскатить экран на все кафе с понедельника.', ok: 3},
+    {id: 'next', t: 'Через месяц сравним с небольшой контрольной группой, держится ли эффект.', ok: 4},
+    {id: 'p', t: 'p-value = 0,00038.', ok: -1},
+    {id: 'boot', t: 'Интервал считали бутстрепом по 256 корзинам.', ok: -1}
+  ].map(x => ({...x, t: x.t.replace(/(\d) %/g, '$1 %')}));
+  const shuffled = [3, 5, 1, 6, 0, 4, 2].map(i => F[i]);
+  let rep = [], app = [], first = true;
+  const pool = document.getElementById('rep-pool'), list = document.getElementById('rep-list'), appL = document.getElementById('rep-app'), fb = document.getElementById('rep-fb');
+  function paint(){
+    const used = new Set(rep.concat(app));
+    pool.innerHTML = shuffled.filter(f => !used.has(f.id)).map(f => '<div class="rep-item"><span>' + f.t + '</span><span class="rep-btns"><button type="button" class="btn" data-to="rep" data-id="' + f.id + '">В отчёт</button><button type="button" class="btn ghost" data-to="app" data-id="' + f.id + '">В приложение</button></span></div>').join('') || '<p class="note">Все фразы разложены. Нажми «Проверить».</p>';
+    const by = id => F.find(f => f.id === id);
+    list.innerHTML = rep.map((id, i) => '<li><span>' + by(id).t + '</span><span class="rep-btns"><button type="button" class="mini" data-up="' + i + '" aria-label="Выше">↑</button><button type="button" class="mini" data-down="' + i + '" aria-label="Ниже">↓</button><button type="button" class="mini" data-back="' + id + '" aria-label="Убрать">×</button></span></li>').join('');
+    appL.innerHTML = app.map(id => '<li><span>' + by(id).t + '</span><span class="rep-btns"><button type="button" class="mini" data-back="' + id + '" aria-label="Убрать">×</button></span></li>').join('');
+  }
+  document.getElementById('rep-game').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.to){ (b.dataset.to === 'rep' ? rep : app).push(b.dataset.id); }
+    else if (b.dataset.up){ const i = +b.dataset.up; if (i > 0) [rep[i - 1], rep[i]] = [rep[i], rep[i - 1]]; }
+    else if (b.dataset.down){ const i = +b.dataset.down; if (i < rep.length - 1) [rep[i + 1], rep[i]] = [rep[i], rep[i + 1]]; }
+    else if (b.dataset.back){ rep = rep.filter(x => x !== b.dataset.back); app = app.filter(x => x !== b.dataset.back); }
+    else return;
+    fb.hidden = true; paint();
+  });
+  document.getElementById('rep-check').addEventListener('click', () => {
+    const by = id => F.find(f => f.id === id), left = 7 - rep.length - app.length;
+    let html, ok = false;
+    if (left){ html = '<p class="vd">Ещё не всё.</p><p>Разложи все фразы: осталось ' + left + '.</p>'; }
+    else if (rep.some(id => by(id).ok < 0)){ html = '<p class="vd">Не совсем.</p><p>В отчёте осталась техническая подробность: «' + by(rep.find(id => by(id).ok < 0)).t + '» Руководителю она не поможет решить, что делать, — её место в приложении. Попробуй ещё раз.</p>'; }
+    else if (app.some(id => by(id).ok >= 0)){ html = '<p class="vd">Не совсем.</p><p>В приложение попала нужная фраза: «' + by(app.find(id => by(id).ok >= 0)).t + '» Без неё история неполная. Попробуй ещё раз.</p>'; }
+    else { const bad = rep.findIndex((id, i) => by(id).ok !== i);
+      if (bad >= 0) html = '<p class="vd">Почти.</p><p>Фразы те, а порядок не тот: на месте ' + (bad + 1) + ' должно быть ' + ['что меняли и зачем', 'вывод', 'доказательства', 'решение', 'следующий шаг'][bad] + '. Попробуй ещё раз.</p>';
+      else { ok = true; const plus = first && AB.award('rep3min') ? ' <span class="plus">+1 балл</span>' : ''; html = '<p class="vd">Отлично!' + plus + '</p><p>Контекст → вывод → доказательства → решение → следующий шаг. Такой отчёт читается за минуту, а p-value и способ расчёта — в приложении для тех, кто захочет проверить.</p>'; } }
+    if (!ok && left === 0) first = false;
+    fb.className = 'qfb ' + (ok ? 'ok' : 'no'); fb.innerHTML = html; fb.hidden = false;
+  });
+  document.getElementById('rep-reset').addEventListener('click', () => { rep = []; app = []; fb.hidden = true; paint(); });
+  paint();
 })();
 </script>
 </body>

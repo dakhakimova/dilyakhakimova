@@ -203,3 +203,34 @@
 .src a{color:var(--muted); text-decoration:underline; text-underline-offset:2px}
 .src a:hover{color:var(--ink)}
 .controls [aria-pressed="true"].btn.ghost{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* раунд 3: шаги 1–5 */
+.chart-title{font:600 16px/1.35 var(--body); color:var(--ink); margin:6px 0 6px}
+.slot-btns{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 10px}
+.slot-b{font:600 16px/1 var(--body); padding:16px 22px; border-radius:14px; border:2px solid var(--ink); background:#F8F0D9; color:var(--ink); cursor:pointer; min-width:96px}
+.slot-b:active{transform:translateY(2px)}
+.slot-b:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.slot-log{display:flex; flex-wrap:wrap; gap:4px; min-height:26px}
+.slot-log span{width:22px; height:22px; border-radius:6px; background:#F4F3F0; color:var(--muted); font:600 11px/22px var(--body); text-align:center}
+.slot-log span.w{background:var(--truth); color:#fff}
+
+/* раунд 3: шаг 10 */
+.quiz .honest-t{display:none} .quiz.done .honest-t{display:block}
+.tiles.tiles2.tell4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:760px){ .tiles.tiles2.tell4{grid-template-columns:1fr 1fr} }
+.cards4{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0}
+.cards4 span{background:#fff; border:2px solid var(--ink); border-radius:10px; padding:16px 8px; text-align:center; font:500 14px/1.3 var(--body); min-height:74px; display:flex; align-items:center; justify-content:center}
+@media (max-width:620px){ .cards4{grid-template-columns:1fr 1fr} }
+.rep-pool{display:grid; gap:8px; margin-bottom:12px}
+.rep-item, .rep-list li{display:flex; gap:10px; align-items:center; justify-content:space-between; background:#F3F1EC; border-radius:10px; padding:8px 10px; font-size:15px; line-height:1.4}
+.rep-btns{display:flex; gap:6px; flex:none}
+.rep-btns .btn{padding:6px 10px; font-size:13px}
+.rep-cols{display:grid; grid-template-columns:3fr 2fr; gap:14px}
+.rep-cols > div > b{display:block; font:600 14px/1.3 var(--body); color:var(--muted); margin-bottom:6px}
+.rep-list{margin:0; padding:0; list-style:none; display:grid; gap:6px; min-height:44px; border:1px dashed rgba(36,34,31,.2); border-radius:10px; padding:6px}
+ol.rep-list{counter-reset:r} ol.rep-list li{counter-increment:r} ol.rep-list li::before{content:counter(r); font-weight:600; color:var(--muted); margin-right:4px}
+.rep-app li{background:#F4F3F0; color:var(--muted)}
+button.mini{border:1px solid rgba(36,34,31,.25); background:#fff; border-radius:8px; width:30px; height:30px; cursor:pointer; font-size:14px; line-height:1}
+button.mini:focus-visible{outline:2px solid var(--accent)}
+@media (max-width:620px){ .rep-cols{grid-template-columns:1fr} .rep-item{flex-direction:column; align-items:flex-start} }
+@media (max-width:620px){ .rep-list li{flex-wrap:wrap} .rep-list li > span:first-child{flex:1 1 100%} .rep-list li .rep-btns{margin-left:auto} }

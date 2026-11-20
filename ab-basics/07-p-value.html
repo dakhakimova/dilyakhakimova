@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab07" data-next="08-errors.html">
 <nav class="top" aria-label="Навигация">
@@ -66,6 +66,7 @@
     <label class="field" for="flag">Наша разница: <b id="flag-t" class="num">+3,1 %</b></label>
     <input type="range" id="flag" min="-6" max="6" step="0.1" value="3.1" style="width:100%">
     <div class="controls"><button class="btn" type="button" id="b-aa">Насыпать 1000 A/A</button></div>
+    <p class="chart-title">Если эффекта нет, разницы ложатся колоколом вокруг нуля</p>
     <canvas id="ch-null" aria-label="Разницы в 1000 A/A-тестах и наша разница"></canvas>
     <div class="big2">
       <div class="trap"><b id="share-aa">—</b><span>A/A-тестов с разницей не меньше нашей</span></div>
@@ -97,6 +98,7 @@
   <div class="sheet c-white">
     <label class="field" for="d5">Разница в эксперименте: <b id="d5-t" class="num">+2,0 %</b></label>
     <input type="range" id="d5" min="-5" max="6" step="0.1" value="2" style="width:100%">
+    <p class="chart-title">Разница за порогом — значит, и вилка не задевает ноль</p>
     <canvas id="ch-both" aria-label="Колокол мира без эффекта и вилка вокруг разницы"></canvas>
     <div class="big2">
       <div class="ctrl"><b id="p5">—</b><span>p-value</span></div>
@@ -235,7 +237,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const P0 = 0.10, Z = 1.96, N0 = 100000;
 const se0 = n => Math.sqrt(2 * P0 * (1 - P0) / n) / P0;      // ширина колокола разницы в мире без эффекта
@@ -265,10 +267,10 @@ function drawNull(){
   }
   c.fillStyle = 'rgba(235,141,130,.35)'; if (f < hi){ tail(c, X, Y, s, f, hi); tail(c, X, Y, s, lo, -f); }
   bellPath(c, X, Y, s, lo, hi); c.strokeStyle = COL.ink2; c.lineWidth = 2; c.stroke();
-  axisX(c, X, [-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06], h - 6, pctAx);
+  axisX(c, X, [-0.06, -0.03, 0, 0.03, 0.06], h - 6, pctAx);
   // флажок
   const fx = X(F()); c.strokeStyle = COL.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, T + ph); c.lineTo(fx, T - 8); c.stroke();
-  c.fillStyle = COL.test; c.beginPath(); c.moveTo(fx, T - 8); c.lineTo(fx + (F() >= 0 ? 16 : -16), T - 3); c.lineTo(fx, T + 2); c.fill();
+  c.fillStyle = COL.ink; c.beginPath(); c.moveTo(fx, T - 8); c.lineTo(fx + (F() >= 0 ? 16 : -16), T - 3); c.lineTo(fx, T + 2); c.fill();
   const right = F() >= 0 ? fx + 110 < w : fx - 110 < 0;
   label(c, 'наша разница', fx + (right ? 20 : -20), T, COL.ink, right ? 'left' : 'right');
   if (!sims.length) label(c, 'Нажми «Насыпать 1000 A/A».', w / 2, T + ph * 0.25, COL.ink2, 'center');
@@ -303,14 +305,15 @@ function drawBoth(){
   c.strokeStyle = COL.ink; c.setLineDash([4, 3]); c.lineWidth = 1;
   [-Z * s, Z * s].forEach(v => { c.beginPath(); c.moveTo(X(v), T + 6); c.lineTo(X(v), Y(0)); c.stroke(); });
   c.setLineDash([]); label(c, 'порог 5 %', X(Z * s) + 4, T + 14, COL.ink);
-  c.strokeStyle = COL.test; c.lineWidth = 3; c.beginPath(); c.moveTo(X(d), T + 4); c.lineTo(X(d), Y(0)); c.stroke();
+  c.strokeStyle = COL.ink; c.lineWidth = 3; c.beginPath(); c.moveTo(X(d), T + 4); c.lineTo(X(d), Y(0)); c.stroke();
+  label(c, 'наша разница', X(d) + (d >= 0 ? -6 : 6), (T + top) / 2, COL.ink, d >= 0 ? 'right' : 'left');
   // низ: вилка вокруг разницы
   const yI = h - B - 22, a = d - Z * s, b = d + Z * s, col = a > 0 ? COL.truth : b < 0 ? COL.trap : COL.gray;
   label(c, 'вилка вокруг нашей разницы', L, yI - 16, COL.ink2);
   c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), yI - 12); c.lineTo(X(0), yI + 12); c.stroke();
   c.strokeStyle = col; c.lineWidth = 7; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(a), yI); c.lineTo(X(b), yI); c.stroke(); c.lineCap = 'butt';
-  c.fillStyle = COL.test; c.beginPath(); c.arc(X(d), yI, 6, 0, 2 * Math.PI); c.fill();
-  axisX(c, X, [-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06], h - 6, pctAx);
+  c.fillStyle = COL.ink; c.beginPath(); c.arc(X(d), yI, 6, 0, 2 * Math.PI); c.fill();
+  axisX(c, X, [-0.06, -0.03, 0, 0.03, 0.06], h - 6, pctAx);
 }
 function stats5(){
   const d = D5(), s = se0(N0), p = pTwo(d / s), a = d - Z * s, b = d + Z * s;
@@ -351,12 +354,12 @@ window.addEventListener('resize', () => { drawNull(); stats3(); drawBoth(); stat
   function draw(){
     const g = canvas(cv, 0.26, 0.45); if (!g) return; const {c, w, h} = g;
     const lo = -0.01, hi = 0.11, L = 90, R = 14, pw = w - L - R, X = v => L + (v - lo) / (hi - lo) * pw;
-    c.strokeStyle = COL.grid; (w < 520 ? [0, 0.05, 0.1] : [0, 0.02, 0.04, 0.06, 0.08, 0.1]).forEach(v => { c.beginPath(); c.moveTo(X(v), 4); c.lineTo(X(v), h - 22); c.stroke(); label(c, pct(v, 0), X(v), h - 6, COL.ink2, 'center'); });
+    c.strokeStyle = COL.grid; [0, 0.05, 0.1].forEach(v => { c.beginPath(); c.moveTo(X(v), 4); c.lineTo(X(v), h - 22); c.stroke(); label(c, pct(v, 0), X(v), h - 6, COL.ink2, 'center'); });
     c.strokeStyle = COL.ink2; c.beginPath(); c.moveTo(X(0), 4); c.lineTo(X(0), h - 22); c.stroke();
     T.forEach((t, i) => {
       const y = 22 + i * (h - 44) / 2 + 10;
       label(c, i ? 'Тест Б' : 'Тест А', 0, y + 4, COL.ink);
-      c.strokeStyle = COL.test; c.lineWidth = 4; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(t.lo), y); c.lineTo(X(t.hi), y); c.stroke(); c.lineWidth = 1; c.lineCap = 'butt';
+      c.strokeStyle = COL.ctrl; c.lineWidth = 4; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(t.lo), y); c.lineTo(X(t.hi), y); c.stroke(); c.lineWidth = 1; c.lineCap = 'butt';
       c.fillStyle = COL.ink; c.beginPath(); c.arc(X(t.e), y, 5, 0, 2 * Math.PI); c.fill();
       const f = v => pct(v, Math.abs(v) < 0.01 ? 2 : 1); label(c, 'от ' + f(t.lo) + ' до ' + f(t.hi), Math.max(L, Math.min(X(t.lo), w - 160)), y - 9, COL.ink2);
     });

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab09" data-next="10-traps.html">
 <nav class="top" aria-label="Навигация">
@@ -68,8 +68,8 @@
       <label class="field" for="traffic">Людей в день в эксперименте: <b id="traffic-t" class="num">20 000</b><input type="range" id="traffic" min="0" max="5" value="2" style="width:100%"></label>
       <label class="field" for="base">Конверсия в контроле: <b id="base-t" class="num">10 %</b><input type="range" id="base" min="0" max="4" value="2" style="width:100%"></label>
     </div>
+    <p class="chart-title">Зелёная доля — как часто тест заметит такой эффект</p>
     <canvas id="ch-bells" aria-label="Колокол разниц без эффекта и с эффектом"></canvas>
-    <div class="legend-row"><span><i style="background:var(--theory)"></i>эффекта нет</span><span><i style="background:var(--test)"></i>эффект есть</span><span><i style="background:var(--truth)"></i>заметим</span></div>
     <div class="big2">
       <div class="truth"><b id="pw">…</b><span>шанс заметить эффект, если он есть (мощность)</span></div>
       <div class="ctrl"><b id="mde">…</b><span>самый маленький эффект, который заметим с шансом 80 %</span></div>
@@ -84,8 +84,8 @@
   <h2>Ниже этой линии тест слепой</h2>
   <p>Самый маленький эффект, который тест заметит с шансом 80 %, называют <b>MDE</b> (minimum detectable effect, минимальный заметный эффект). Он зависит от трафика, длины теста и метрики, но не от того, какой эффект мы надеемся получить.</p>
   <div class="sheet c-white">
+    <p class="chart-title">Чем дольше тест, тем меньший эффект он способен заметить</p>
     <canvas id="ch-mde" aria-label="MDE в зависимости от длины теста"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>MDE при 20 000 человек в день и конверсии 10 %</span><span><i style="background:var(--test)"></i>эффект, который ждёт Боб</span></div>
     <div class="verdict" id="v-mde"></div>
   </div>
 </section>
@@ -200,7 +200,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const TRAFFIC = [5000, 10000, 20000, 50000, 100000, 200000], BASE = [0.02, 0.05, 0.10, 0.20, 0.30], Z = 1.96, ZP = 0.84;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -228,7 +228,7 @@ function readMain(){
 function drawBells(){
   const g = canvas($('ch-bells'), 0.42, 0.7); if (!g) return; const {c, w, h} = g;
   const se = seRel(S.traffic, S.days, S.base), lo = -4 * se, hi = Math.max(S.eff + 4 * se, 4 * se);
-  const L = 10, R = 10, T = 16, B = 24, pw = w - L - R, ph = h - T - B;
+  const L = 10, R = 10, T = 26, B = 24, pw = w - L - R, ph = h - T - B;
   const X = v => L + (v - lo) / (hi - lo) * pw, top = normPdf(0) / se, Y = d => T + ph - d / top * ph * 0.95;
   const pdf = (v, m) => normPdf((v - m) / se) / se, thr = Z * se;
   const area = (m, from, to, fill) => { c.fillStyle = fill; c.beginPath(); c.moveTo(X(from), Y(0)); for (let k = 0; k <= 120; k++){ const v = from + (to - from) * k / 120; c.lineTo(X(v), Y(pdf(v, m))); } c.lineTo(X(to), Y(0)); c.closePath(); c.fill(); };
@@ -245,7 +245,12 @@ function drawBells(){
   const step = (hi - lo) > 0.2 ? 0.05 : (hi - lo) > 0.08 ? 0.02 : (hi - lo) > 0.04 ? 0.01 : 0.005, ticks = [];
   for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(+v.toFixed(4));
   axisX(c, X, ticks, h - 6, v => pct(v, step < 0.01 ? 1 : 0));
-  label(c, 'граница значимости', Math.min(X(thr) + 4, w - 120), T + 4, COL.ink2);
+  label(c, 'граница значимости', X(thr) - 4, T + ph - 6, COL.ink, 'right');
+  // подписи прямо у колоколов вместо легенды
+  const peak = Y(pdf(0, 0)) - 6, near = X(S.eff) - X(0) < 110;
+  label(c, 'эффекта нет', X(0), peak, COL.ink2, near ? 'right' : 'center');
+  label(c, 'эффект есть', X(S.eff), peak, '#B8642A', near ? 'left' : 'center');
+  if (thr < hi){ const zv = Math.min(hi - 0.3 * se, Math.max(thr + 0.8 * se, S.eff)); label(c, 'заметим', X(zv) + 4, Y(pdf(zv, S.eff) * 0.45), COL.truth, 'left'); }
 }
 
 // карточка 4: MDE от длины теста
@@ -253,14 +258,15 @@ function drawMde(){
   const g = canvas($('ch-mde')); if (!g) return; const {c, w, h} = g;
   const L = 44, R = 26, T = 12, B = 24, pw = w - L - R, ph = h - T - B, maxV = 0.1;
   const X = d => L + (d - 1) / 41 * pw, Y = v => T + (1 - Math.min(v, maxV) / maxV) * ph;
-  axisY(c, L, R, T, ph, w, 0, maxV, 0.02, v => Math.round(v * 100) + ' %');
-  axisX(c, X, [1, 7, 14, 21, 28, 35, 42], h - 6, d => d + ' дн.');
+  axisY(c, L, R, T, ph, w, 0, maxV, 0.05, v => Math.round(v * 100) + '\u00a0%');
+  axisX(c, X, [1, 14, 28, 42], h - 6, d => d + ' дн.');
   const mdeAt = d => (Z + ZP) * seRel(20000, d, 0.10);
   c.fillStyle = 'rgba(61,125,196,.10)'; c.beginPath(); c.moveTo(X(1), Y(0));
   for (let d = 1; d <= 42; d += 0.25) c.lineTo(X(d), Y(mdeAt(d))); c.lineTo(X(42), Y(0)); c.closePath(); c.fill();
   c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
   for (let d = 1; d <= 42; d += 0.25){ d === 1 ? c.moveTo(X(d), Y(mdeAt(d))) : c.lineTo(X(d), Y(mdeAt(d))); } c.stroke();
-  c.strokeStyle = COL.test; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(L, Y(0.02)); c.lineTo(w - R, Y(0.02)); c.stroke(); c.setLineDash([]);
+  c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(L, Y(0.02)); c.lineTo(w - R, Y(0.02)); c.stroke(); c.setLineDash([]);
+  label(c, w < 520 ? 'MDE' : 'MDE при 20\u00a0000 человек в день', X(14), Y(mdeAt(14)) - 10, COL.ctrl, 'left');
   label(c, 'Боб ждёт +2 %', L + 6, Y(0.02) - 6, COL.ink2);
   label(c, 'тест слепой', X(3), Y(0.012), COL.ink2);
   [7, Math.ceil(daysFor(0.02, 20000, 0.10))].forEach(d => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(d), Y(mdeAt(d)), 5, 0, 2 * Math.PI); c.fill(); });

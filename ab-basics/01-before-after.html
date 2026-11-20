@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -68,7 +68,7 @@
   <p>Вот заказы по дням с сентября по декабрь. Тонкая линия — каждый день, толстая — среднее за последние 7 дней. Выделены неделя до и неделя после релиза.</p>
   <div class="sheet c-white">
     <canvas id="ch-year" aria-label="Заказы по дням, сентябрь — декабрь"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>этот год, с кнопкой с 1 декабря</span><span id="lg-last" hidden><i style="background:var(--theory)"></i>прошлый год, кнопки не было</span></div>
+    <span id="lg-last" hidden></span>
     <div class="controls"><button class="btn" type="button" id="btn-last">Наложить прошлый год</button></div>
     <div class="big2">
       <div class="ctrl"><b id="y-this">…</b><span>этот год: неделя после 1 декабря против недели до</span></div>
@@ -318,8 +318,20 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
+
+// Подписи серий: на широком экране — справа от концов линий (разводим, чтобы не слипались),
+// на телефоне — строкой-легендой над графиком.
+function seriesLabels(c, items, xEnd, w, wide, yTop){
+  if (wide){
+    const it = items.slice().sort((a, b) => a.y - b.y);
+    for (let i = 1; i < it.length; i++) if (it[i].y - it[i - 1].y < 15) it[i].y = it[i - 1].y + 15;
+    it.forEach(x => label(c, x.text, xEnd + 6, x.y + 4, x.col));
+  } else {
+    let x0 = 4; items.forEach(x => { c.fillStyle = x.col; c.fillRect(x0, yTop - 5, 12, 3); label(c, x.text, x0 + 16, yTop, x.col); x0 += 16 + c.measureText(x.text).width + 14; });
+  }
+}
 // ---------- данные ----------
 fetch('data/step01.json').then(r => r.json()).then(init).catch(() => {
   document.querySelectorAll('canvas').forEach(cv => { const p = document.createElement('p'); p.className = 'note'; p.textContent = 'Не удалось загрузить данные. Открой страницу через сайт, а не как файл.'; cv.replaceWith(p); });
@@ -338,11 +350,11 @@ function init(D){
   const cvY = document.getElementById('ch-year');
   function drawYear(){
     const g = canvas(cvY); if (!g) return; const {c, w, h} = g;
-    const A = 243, B = 364, L = 48, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm;
+    const wide = w >= 520, A = 243, B = 364, L = 48, Rm = wide ? 84 : 8, T = wide ? 10 : 24, Bm = 22, pw = w - L - Rm, ph = h - T - Bm;
     const lo = Math.floor(Math.min(...D.thisYear.slice(A), ...D.lastYear.slice(A)) / 1000) * 1000, hi = Math.ceil(Math.max(...D.thisYear.slice(A), ...D.lastYear.slice(A)) / 1000) * 1000, X = d => L + (d - A) / (B - A) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
     c.fillStyle = COL.fillC; c.fillRect(X(R - 7), T, X(R) - X(R - 7), ph);
     c.fillStyle = COL.fillT; c.fillRect(X(R), T, X(R + 7) - X(R), ph);
-    axisY(c, L, Rm, T, ph, w, lo, hi, 1000, v => int(v));
+    axisY(c, L, Rm, T, ph, w, lo, hi, 2000, v => int(v));
     c.fillStyle = COL.ink2;
     [243, 273, 304, 334].forEach(d => c.fillText('1 ' + MON[MSTART.indexOf(d)], X(d) + 2, h - 6));
     const line = (a, col, lw, f) => { c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); for (let d = A; d <= B; d++){ const v = f(a, d); d === A ? c.moveTo(X(d), Y(v)) : c.lineTo(X(d), Y(v)); } c.stroke(); };
@@ -350,6 +362,10 @@ function init(D){
     c.globalAlpha = .35; line(D.thisYear, COL.ctrl, 1, (a, d) => a[d]); c.globalAlpha = 1; line(D.thisYear, COL.ctrl, 2.4, avg7);
     c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(X(R), T); c.lineTo(X(R), T + ph); c.stroke(); c.setLineDash([]);
     c.fillStyle = COL.ink; c.fillText('новая кнопка', Math.min(X(R) - 84, w - 90), T + 14);
+    // подписи прямо у линий вместо легенды
+    const items = [{y: Y(avg7(D.thisYear, B)), text: 'этот год', col: COL.ctrl}];
+    if (showLast) items.push({y: Y(avg7(D.lastYear, B)), text: 'прошлый год', col: COL.ink2});
+    seriesLabels(c, items, X(B), w, wide, 14);
   }
   document.getElementById('y-this').textContent = pct(ba(D.thisYear));
   document.getElementById('y-last').textContent = pct(ba(D.lastYear));
@@ -382,7 +398,7 @@ function init(D){
     const X = d => L + d / 364 * pw, Y = x => T + (1 - (x - lo) / (hi - lo)) * ph;
     c.fillStyle = COL.fillC; c.fillRect(X(r - 7), T, X(r) - X(r - 7), ph);
     c.fillStyle = COL.fillT; c.fillRect(X(r), T, X(r + 7) - X(r), ph);
-    axisY(c, L, Rm, T, ph, w, lo, hi, 1000, x => int(x));
+    axisY(c, L, Rm, T, ph, w, lo, hi, 2000, x => int(x));
     c.fillStyle = COL.ink2; [0, 90, 181, 273].forEach(d => c.fillText(dayLabel(d), X(d) + 2, h - 6));
     c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(x)) : c.moveTo(X(d), Y(x))); c.stroke();
     c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(avg7(D.noButton, d))) : c.moveTo(X(d), Y(avg7(D.noButton, d)))); c.stroke();
@@ -470,7 +486,7 @@ function init(D){
   function lines(cv, series, labels, S, split){
     const g = canvas(cv, 0.55, 0.62); if (!g) return; const {c, w, h} = g;
     const all = series.flatMap(x => x.a), lo = Math.floor(Math.min(...all) / 500) * 500, hi = Math.ceil(Math.max(...all) / 500) * 500;
-    const n = Math.max(...series.map(x => x.a.length + (x.off || 0))), L = 46, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, X = i => L + i / (n - 1) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    const named = series.some(x => x.name), wide = w >= 520, n = Math.max(...series.map(x => x.a.length + (x.off || 0))), L = 46, Rm = named && wide ? 92 : 8, T = named && !wide ? 24 : 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, X = i => L + i / (n - 1) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
     if (split != null){ c.fillStyle = COL.fillC; c.fillRect(L, T, X(split - 0.5) - L, ph); c.fillStyle = COL.fillT; c.fillRect(X(split - 0.5), T, X(n - 1) - X(split - 0.5), ph); }
     axisY(c, L, Rm, T, ph, w, lo, hi, hi - lo > 2000 ? 1000 : 500, v => int(v));
     c.fillStyle = COL.ink2; labels.forEach(([i, t]) => c.fillText(t, Math.min(X(i), w - 46), h - 6));
@@ -478,12 +494,13 @@ function init(D){
       c.strokeStyle = x.col; c.lineWidth = 2.4; c.beginPath(); x.a.forEach((v, i) => { const xx = X(i + (x.off || 0)); i ? c.lineTo(xx, Y(v)) : c.moveTo(xx, Y(v)); }); c.stroke();
       if (x.avg){ const m = mean(x.a); c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(x.off || 0), Y(m)); c.lineTo(X((x.off || 0) + x.a.length - 1), Y(m)); c.stroke(); c.setLineDash([]); }
     });
+    if (named) seriesLabels(c, series.filter(x => x.name).map(x => ({y: Y(x.a[x.a.length - 1]), text: x.name, col: x.col === COL.test ? '#B8642A' : x.col})), X(n - 1), w, wide, 14);
   }
   function drawDuo(){
     if (!last) return;
     const S = last.S;
     lines(cvBA, [{a: last.bef, col: COL.ctrl, avg: true}, {a: last.aft, col: COL.test, off: 7, avg: true}], [[0, dayLabel(S - 7)], [7, dayLabel(S)], [13, dayLabel(S + 6)]], S, 7);
-    lines(cvA, [{a: last.ctrl, col: COL.ctrl}, {a: last.test, col: COL.test}], [[0, dayLabel(S)], [7, dayLabel(S + 7)], [13, dayLabel(S + 13)]], S, null);
+    lines(cvA, [{a: last.ctrl, col: COL.ctrl, name: 'старое'}, {a: last.test, col: COL.test, name: 'новая кнопка'}], [[0, dayLabel(S)], [7, dayLabel(S + 7)], [13, dayLabel(S + 13)]], S, null);
   }
   function drawStrip(){
     const g = canvas(cvS, 0, 0, 170); if (!g) return; const {c, w} = g;

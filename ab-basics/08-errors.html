@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab08" data-next="09-mde.html">
 <nav class="top" aria-label="Навигация">
@@ -101,8 +101,8 @@
   <div class="sheet c-white">
     <label class="field" for="days2">Длина эксперимента: <b id="days2-t" class="num">7 дней</b></label>
     <input type="range" id="days2" min="0" max="5" value="2" style="width:100%">
+    <p class="chart-title">Дольше тест — реже пропуски, а ложных тревог всегда 5 %</p>
     <canvas id="ch-power" aria-label="Доля замеченных эффектов и ложных тревог от длины эксперимента"></canvas>
-    <div class="legend-row"><span><i style="background:var(--truth)"></i>замечаем настоящие +3 %</span><span><i style="background:var(--trap)"></i>ложная тревога у пустой идеи</span></div>
     <div class="big2">
       <div class="truth"><b id="pw">…</b><span>настоящих +3 % тест заметит</span></div>
       <div class="trap"><b>5 %</b><span>пустых идей покажут значимую разницу при любой длине</span></div>
@@ -120,8 +120,8 @@
   <div class="sheet c-white">
     <label class="field" for="judge">Порог: <b id="judge-t" class="num">5 %</b> <span class="note" id="judge-word" style="display:inline">обычная строгость</span></label>
     <input type="range" id="judge" min="0" max="4" value="2" style="width:100%">
+    <p class="chart-title">Строже порог — меньше ложных тревог, но больше пропусков</p>
     <canvas id="ch-judge" aria-label="Колокол пустых идей и колокол хороших идей с порогом"></canvas>
-    <div class="legend-row"><span><i style="background:#A3A19A"></i>разница у пустых идей</span><span><i style="background:var(--truth)"></i>разница у хороших идей</span><span><i style="background:var(--trap)"></i>ложные тревоги</span><span><i style="background:#C9A43A"></i>пропуски</span></div>
     <div class="big2">
       <div class="trap"><b id="j-fa">…</b><span>из 100 пустых идей «осудим» — ложные тревоги</span></div>
       <div class="test"><b id="j-miss">…</b><span>из 100 хороших идей «отпустим» — пропуски</span></div>
@@ -260,7 +260,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const DAYS = [1, 3, 7, 14, 21, 28], P0 = 0.10, LIFT = 0.03, PER_DAY = 10000, REAL = 20;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -311,15 +311,18 @@ function drawPower(){
   const g = canvas(document.getElementById('ch-power')); if (!g) return; const {c, w, h} = g;
   const L = 40, R = 24, T = 12, B = 24, pw = w - L - R, ph = h - T - B;
   const X = d => L + (d - 1) / 27 * pw, Y = v => T + (1 - v) * ph;
-  axisY(c, L, R, T, ph, w, 0, 1, 0.2, v => Math.round(v * 100) + ' %');
+  axisY(c, L, R, T, ph, w, 0, 1, 0.25, v => Math.round(v * 100) + '\u00a0%');
   axisX(c, X, [1, 7, 14, 21, 28], h - 6, d => d + ' дн.');
   c.strokeStyle = COL.gray; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(L, Y(0.8)); c.lineTo(w - R, Y(0.8)); c.stroke(); c.setLineDash([]);
-  label(c, '80 %', w - R - 30, Y(0.8) - 5, COL.ink2);
+  label(c, '80\u00a0%', L + 4, Y(0.8) - 5, COL.ink2);
   c.strokeStyle = COL.truth; c.lineWidth = 2.4; c.beginPath();
   for (let d = 1; d <= 28; d += 0.25){ const y = Y(power(d)); d === 1 ? c.moveTo(X(d), y) : c.lineTo(X(d), y); } c.stroke();
   c.strokeStyle = COL.trap; c.beginPath(); c.moveTo(X(1), Y(0.05)); c.lineTo(X(28), Y(0.05)); c.stroke();
   const d = DAYS[di]; c.fillStyle = COL.truth; c.beginPath(); c.arc(X(d), Y(power(d)), 5, 0, 2 * Math.PI); c.fill();
   c.fillStyle = COL.trap; c.beginPath(); c.arc(X(d), Y(0.05), 5, 0, 2 * Math.PI); c.fill();
+  // подписи прямо у линий вместо легенды
+  label(c, 'замечаем настоящие +3\u00a0%', X(28), Y(power(28)) + 16, COL.truth, 'right');
+  label(c, 'ложные тревоги у пустых идей', X(28), Y(0.05) - 7, '#B5473B', 'right');
 }
 window.addEventListener('resize', drawPower);
 setDays(2); paint();
@@ -341,6 +344,10 @@ setDays(2); paint();
     [[0, COL.gray], [D, COL.truth]].forEach(([mu, col]) => { x.strokeStyle = col; x.lineWidth = 2.2; x.beginPath(); for (let z = lo; z <= hi; z += 0.02){ const yy = Y(normPdf(z - mu)); z === lo ? x.moveTo(X(z), yy) : x.lineTo(X(z), yy); } x.stroke(); });
     x.strokeStyle = COL.ink; x.lineWidth = 1.5; x.setLineDash([5, 4]); [c, -c].forEach(z => { x.beginPath(); x.moveTo(X(z), T); x.lineTo(X(z), Y(0)); x.stroke(); }); x.setLineDash([]);
     label(x, 'порог', X(c) + 4, T + 12, COL.ink);
+    // подписи закрашенных зон прямо на графике
+    const nar0 = w < 520;
+    if (nar0) label(x, 'ложные тревоги', 2, Y(0) - 30, '#B5473B', 'left'); else label(x, 'ложные тревоги', X(-c) - 6, Y(0) - 8, '#B5473B', 'right');
+    const zm = Math.max(-c, c - 1.2); label(x, 'пропуски', X(zm), Y(normPdf(zm - D) * 0.35) + 4, '#8A6A10', 'center');
     const nar = w < 520; label(x, nar ? 'пустые' : 'пустые идеи', X(0), h - 6, COL.ink2, 'center'); label(x, nar ? 'хорошие' : 'хорошие идеи', X(D) + (nar ? 10 : 0), h - 6, COL.truth, 'center');
   }
   el.addEventListener('input', draw); window.addEventListener('resize', draw);

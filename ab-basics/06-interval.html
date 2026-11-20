@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201548">
+<link rel="stylesheet" href="ab.css?v=202611201603">
 </head>
 <body data-chapter="ab06" data-next="07-p-value.html">
 <nav class="top" aria-label="Навигация">
@@ -38,8 +38,8 @@
   <p class="lead">Мы знаем, что любое среднее шатается и живёт на колоколе. В эксперименте средних два: у контроля и у теста. Значит, и колоколов два.</p>
   <p>Пусть команда проверяет фото блюд в меню. В контроле заказ делают 10 % зашедших в приложение. Фото на самом деле поднимают эту долю на 3 %, до 10,3 %. В каждой группе по 100 000 человек. Запусти эксперимент и посмотри, что он покажет.</p>
   <div class="sheet c-white">
+    <p class="chart-title">У каждой группы свой колокол: среднее шатается вокруг правды</p>
     <canvas id="ch-two" aria-label="Колокола конверсии контроля и теста"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>контроль, правда 10 %</span><span><i style="background:var(--test)"></i>тест с фото, правда 10,3 %</span></div>
     <div class="controls"><button class="btn" type="button" id="b-two">Запустить эксперимент</button></div>
     <canvas id="ch-diff" aria-label="Колокол разницы между тестом и контролем"></canvas>
     <div class="big2">
@@ -85,6 +85,7 @@
       <button class="btn ghost" type="button" id="b6-20">+20 экспериментов</button>
       <button class="btn ghost" type="button" id="b6-reset">Сначала</button>
     </div>
+    <p class="chart-title">Каждая полоска — вилка одного эксперимента, точка на ней — его разница</p>
     <canvas id="ch-ladder" aria-label="Интервалы последних экспериментов"></canvas>
     <div class="legend-row"><span><i style="background:var(--truth)"></i>целиком выше нуля</span><span><i style="background:var(--theory)"></i>задевает ноль</span><span><i style="background:var(--trap)"></i>целиком ниже нуля</span></div>
     <div class="big2">
@@ -166,6 +167,7 @@
   <h2>От чего зависит ширина вилки</h2>
   <p>Вилка — это колокол разницы, и его ширина подчиняется тем же правилам, что в шаге 5. Только колокол разницы чуть шире каждого из двух: у разницы шатаются обе группы сразу.</p>
   <div class="sheet c-white">
+    <p class="chart-title">В 4 раза больше людей — вилка вдвое уже</p>
     <canvas id="ch-wid" aria-label="Ширина вилки в зависимости от числа людей"></canvas>
   </div>
   <div class="big2">
@@ -196,7 +198,7 @@
       <h3>Средние всех вытянутых выборок</h3>
       <canvas id="ch-bs" aria-label="Гистограмма средних вытянутых выборок"></canvas>
       <div class="big2">
-        <div class="truth"><b id="bs-ci">—</b><span>вилка: где лежат средние 95 % вытянутых выборок</span></div>
+        <div><b id="bs-ci">—</b><span>вилка: где лежат средние 95 % вытянутых выборок</span></div>
         <div class="ctrl"><b id="bs-f">—</b><span>вилка по правилу ± 2 ширины из шага 5</span></div>
       </div>
     </div>
@@ -253,7 +255,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201548"></script>
+<script src="course.js?v=202611201603"></script>
 <script>
 const P0 = 0.10, Z = 1.96;
 const NS = [10000, 25000, 50000, 100000, 200000, 400000];
@@ -275,10 +277,14 @@ const pctAx = v => (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(100 * v), 0
 const N1 = 100000, E1 = 0.03; let last1 = null, seen1 = [];
 function drawTwo(){
   const g = canvas(document.getElementById('ch-two'), 0.3, 0.55); if (!g) return; const {c, w, h} = g;
-  const L = 10, R = 10, T = 10, B = 24, pw = w - L - R, ph = h - T - B, lo = 0.0965, hi = 0.1065;
+  const L = 10, R = 10, T = 24, B = 24, pw = w - L - R, ph = h - T - B, lo = 0.0965, hi = 0.1065;
   const X = v => L + (v - lo) / (hi - lo) * pw, Y = y => T + ph - y / 0.42 * ph;
   const sc = Math.sqrt(P0 * (1 - P0) / N1), p1 = P0 * (1 + E1), st = Math.sqrt(p1 * (1 - p1) / N1);
   bell(c, X, Y, P0, sc, COL.ctrl, COL.fillC); bell(c, X, Y, p1, st, COL.test, 'rgba(229,145,87,.18)');
+  // подписи прямо у вершин вместо легенды
+  const nar = w < 520, tC = nar ? 'контроль' : 'контроль · 10\u00a0%', tT = nar ? 'тест с фото' : 'тест с фото · 10,3\u00a0%';
+  label(c, tC, Math.max(c.measureText(tC).width + 2, X(P0) - 4), 14, COL.ctrl, 'right');
+  label(c, tT, Math.min(X(p1) + 4, w - c.measureText(tT).width - 2), 14, '#B8642A', 'left');
   axisX(c, X, [0.097, 0.099, 0.101, 0.103, 0.105], h - 6, v => num(100 * v, 1) + ' %');
   if (last1){
     [[last1.c, COL.ctrl], [last1.t, COL.test]].forEach(([v, col]) => { c.strokeStyle = col; c.lineWidth = 3; c.beginPath(); c.moveTo(X(v), T + 4); c.lineTo(X(v), T + ph); c.stroke(); c.fillStyle = col; c.beginPath(); c.arc(X(v), T + 4, 5, 0, 2 * Math.PI); c.fill(); });
@@ -293,9 +299,10 @@ function drawDiff(){
   c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(E1), T); c.lineTo(X(E1), T + ph); c.stroke();
   axisX(c, X, [-0.02, 0, 0.02, 0.04, 0.06, 0.08], h - 6, pctAx);
   label(c, 'колокол разницы', L, T - 4, COL.ink2);
-  seen1.forEach(d => { c.fillStyle = COL.test; c.globalAlpha = .45; c.beginPath(); c.arc(X(d), T + ph - 6, 4, 0, 2 * Math.PI); c.fill(); });
+  label(c, 'правда +3\u00a0%', X(E1) + 4, T - 4, COL.truth);
+  seen1.forEach(d => { c.fillStyle = COL.ctrl; c.globalAlpha = .45; c.beginPath(); c.arc(X(d), T + ph - 6, 4, 0, 2 * Math.PI); c.fill(); });
   c.globalAlpha = 1;
-  if (last1){ c.fillStyle = COL.test; c.beginPath(); c.arc(X(last1.d), T + ph - 6, 6, 0, 2 * Math.PI); c.fill(); }
+  if (last1){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(last1.d), T + ph - 6, 6, 0, 2 * Math.PI); c.fill(); }
 }
 document.getElementById('b-two').addEventListener('click', () => {
   last1 = experiment(N1, E1); seen1.push(last1.d);
@@ -315,7 +322,8 @@ function drawLadder(){
   const s = seRel(N(), e), span = Math.max(0.06, 2 * Z * s * 1.7 + Math.abs(e)), lo = Math.min(-0.02, e - span / 2), hi = Math.max(0.02, e + span / 2);
   const X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
   const step = (hi - lo) > 0.2 ? 0.05 : (hi - lo) > 0.08 ? 0.02 : 0.01, ticks = [];
-  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(+v.toFixed(4));
+  let st = step; while ((hi - lo) / st > 5) st *= 2;
+  for (let v = Math.ceil(lo / st) * st; v <= hi; v += st) ticks.push(+v.toFixed(4));
   c.strokeStyle = COL.grid; ticks.forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
   axisX(c, X, ticks, h - 6, pctAx);
   c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke();
@@ -376,12 +384,12 @@ function drawWid(){
   const g = canvas(document.getElementById('ch-wid'), 0.36, 0.62); if (!g) return; const {c, w, h} = g;
   const L = 48, R = 30, T = 14, B = 26, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.12;
   const a = Math.log10(5000), b = Math.log10(1000000), X = n => L + (Math.log10(n) - a) / (b - a) * pw, Y = v => T + (1 - v / hi) * ph;
-  axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => '± ' + num(Math.abs(100 * v) < 1e-6 ? 0 : 100 * v, 0) + ' %');
+  axisY(c, L, R, T, ph, w, lo, hi, 0.04, v => '± ' + num(Math.abs(100 * v) < 1e-6 ? 0 : 100 * v, 0) + ' %');
   axisX(c, X, [10000, 100000, 1000000], h - 6, n => int(n));
   c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
   for (let i = 0; i <= 200; i++){ const n = 10 ** (a + (b - a) * i / 200), v = Z * seRel(n, 0); i ? c.lineTo(X(n), Y(v)) : c.moveTo(X(n), Y(v)); }
   c.stroke();
-  [25000, 100000, 400000].forEach(n => { const v = Z * seRel(n, 0); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); label(c, int(n) + ': ± ' + num(100 * v, 1) + ' %', X(n) + 7, Y(v) - 7, COL.ink); });
+  [25000, 100000, 400000].forEach(n => { const v = Z * seRel(n, 0); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); const t = (w < 520 ? '' : int(n) + ': ') + '± ' + num(100 * v, 1) + ' %', right = X(n) + 7 + c.measureText(t).width > w - 4; label(c, t, right ? X(n) - 7 : X(n) + 7, Y(v) - 7, COL.ink, right ? 'right' : 'left'); });
   label(c, 'людей в каждой группе', w - R, T + ph - 6, COL.ink2, 'right');
 }
 document.getElementById('w-100k').textContent = '± ' + num(100 * Z * seRel(100000, 0.03), 1) + ' %';
@@ -431,11 +439,12 @@ window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRea
     const b = bins(means, lo, hi, bw), top = Math.max(...b, 1), L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
     const srt = [...means].sort((x, y) => x - y), q = f => srt[Math.min(srt.length - 1, Math.floor(f * srt.length))];
     const showCI = means.length >= 40, a = q(0.025), z = q(0.975);
-    if (showCI){ c.fillStyle = COL.fillG; c.fillRect(X(a), T, X(z) - X(a), ph); }
+    if (showCI){ c.fillStyle = COL.fillGray; c.fillRect(X(a), T, X(z) - X(a), ph); }
     b.forEach((k, i) => { if (!k) return; const bh = ph * k / top; c.fillStyle = COL.ctrl; c.fillRect(X(lo + i * bw) + 0.5, T + ph - bh, pw * bw / (hi - lo) - 1, bh); });
     hoverBins(cv, X, lo, bw, b, {fmt: v => rub(v), words: ['выборка', 'выборки', 'выборок'], total: means.length});
     c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(m0), T - 4); c.lineTo(X(m0), T + ph); c.stroke(); c.lineWidth = 1;
     label(c, 'наша выборка ' + rub(m0), X(m0) + 4, T - 6, COL.ink);
+    if (showCI){ c.strokeStyle = COL.ink2; c.setLineDash([4, 3]); [a, z].forEach(v => { c.beginPath(); c.moveTo(X(v), T + 10); c.lineTo(X(v), T + ph); c.stroke(); }); c.setLineDash([]); label(c, 'вилка', X(a) + 4, T + 22, COL.ink2); }
     for (let v = Math.ceil(lo / 50) * 50; v <= hi; v += 50) label(c, int(v), X(v), h - 6, COL.ink2, 'center');
     document.getElementById('bs-ci').textContent = showCI ? 'от ' + rub(a) + ' до ' + rub(z) : 'нужно больше выборок';
     document.getElementById('bs-f').textContent = 'от ' + rub(m0 - 2 * se) + ' до ' + rub(m0 + 2 * se);
