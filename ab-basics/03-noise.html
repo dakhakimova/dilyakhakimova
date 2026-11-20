@@ -215,6 +215,7 @@ const P = 0.10;
     const b = bins(runs.map(r => Math.max(lo, Math.min(hi - 1e-9, r.d))), lo, hi, bw), top = Math.max(5, ...b);
     c.fillStyle = COL.fillB; c.fillRect(L, T, X(-0.1) - L, ph); c.fillRect(X(0.1), T, w - R - X(0.1), ph);
     b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = Math.abs(lo + (i + 0.5) * bw) >= 0.1 ? COL.trap : COL.gray; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw / nb - 2, bh); });
+    hoverBins(cv, X, lo, bw, b, {fmt: v => pct(v, 1), words: ['запуск', 'запуска', 'запусков'], total: runs.length});
     c.strokeStyle = COL.ink; c.lineWidth = 1; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), T + ph); c.stroke();
     const step = lim > 0.6 ? 0.5 : lim > 0.3 ? 0.2 : 0.1;
     const ticks = []; for (let v = -Math.floor(lim / step) * step; v <= lim + 1e-9; v += step) ticks.push(+v.toFixed(2));

@@ -124,8 +124,8 @@
   <div class="tiles" id="tiles">
     <button type="button" aria-expanded="false"><b>Сезон</b><span>Зимой заказывают больше, летом меньше. В декабре включается зимнее меню.</span></button>
     <button type="button" aria-expanded="false"><b>Праздники</b><span>Перед Новым годом пик, 1 января провал, в майские все на дачах.</span></button>
-    <button type="button" aria-expanded="false"><b>День недели</b><span>В пятницу и субботу заказов на 10% больше, чем в понедельник. Неделя «до» и «после» должны быть целыми.</span></button>
-    <button type="button" aria-expanded="false"><b>Погода</b><span>Дождь неделю подряд — и все заказывают домой. Котейка не предупреждает.</span></button>
+    <button type="button" aria-expanded="false"><b>День недели</b><span>В пятницу и субботу заказов на 10 % больше, чем в понедельник. Если сравнивать не полные недели, а, скажем, четыре дня до и четыре после, в одну половину попадут выходные, а в другую нет — и рост появится сам собой.</span></button>
+    <button type="button" aria-expanded="false"><b>Погода</b><span>Неделю идут дожди — все сидят дома и чаще заказывают еду с собой. Выглянуло солнце — гуляют, и заказов меньше. Погода меняется сама по себе, кнопка тут ни при чём.</span></button>
     <button type="button" aria-expanded="false"><b>Другие релизы</b><span>В тот же день маркетинг запустил рассылку, а соседняя команда починила оплату.</span></button>
     <button type="button" aria-expanded="false"><b>Кто обновился первым</b><span>Новую версию приложения сначала ставят самые активные. Их заказы росли бы и без кнопки.</span></button>
   </div>
@@ -138,22 +138,41 @@
   <h2>Одновременно, а кому что — решает монетка</h2>
   <figure class="art"><img src="img/ab01-02-coin-door.jpg" alt="Котейка у входа подбрасывает монетку для каждого гостя" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у двери кафе подбрасывает монетку каждому гостю</figcaption></figure>
   <p>Алиса предлагает по-другому. С 1 декабря каждому пользователю Котейка подбрасывает монетку: орёл — видит новую кнопку, решка — старое приложение. Обе группы живут в одни и те же дни: у них одна погода, одни праздники и одно зимнее меню. Разница между ними — это кнопка и немного случайности.</p>
-  <p>Проверим, какой способ ближе к правде. Задай настоящий эффект кнопки и запускай эксперименты в случайные дни года.</p>
+  <p>Проверим, какой способ ближе к правде. Пусть кнопка на самом деле добавляет заказам +2 %. Котейка выбирает случайный день года и выпускает кнопку, а мы считаем эффект двумя способами и сравниваем с правдой.</p>
   <div class="sheet c-white">
     <label class="field" for="eff">Настоящий эффект кнопки: <b id="eff-t" class="num">+2 %</b></label>
     <input type="range" id="eff" min="-5" max="10" step="1" value="2" style="width:100%">
     <div class="controls">
-      <button class="btn" type="button" data-runs="1">Один эксперимент</button>
-      <button class="btn ghost" type="button" data-runs="100">+100 экспериментов</button>
-      <button class="btn ghost" type="button" id="sim-reset">Сначала</button>
+      <button class="btn" type="button" id="sim-one">Запустить эксперимент в случайный день</button>
     </div>
-    <canvas id="ch-ab" aria-label="Заказы по дням в двух группах последнего эксперимента"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>старое приложение</span><span><i style="background:var(--test)"></i>новая кнопка</span><span id="ab-days"></span></div>
-    <h3>Что показал каждый способ</h3>
-    <canvas id="ch-strip" aria-label="Оценки эффекта двумя способами"></canvas>
-    <div class="big2">
-      <div class="trap"><b id="err-ba">—</b><span>до и после: на сколько в среднем ошибаемся</span></div>
-      <div class="truth"><b id="err-ab">—</b><span>одновременно, по монетке: на сколько в среднем ошибаемся</span></div>
+    <div class="duo" id="duo" hidden>
+      <div>
+        <h3>Способ 1. До и после</h3>
+        <p class="note">Все заказы за неделю до релиза (синим) против недели после (оранжевым). Пунктир — среднее за неделю.</p>
+        <canvas id="ch-ba" aria-label="Заказы за неделю до и неделю после релиза"></canvas>
+        <p class="res">Показал: <b id="r-ba">…</b></p>
+      </div>
+      <div>
+        <h3>Способ 2. Одновременно, по монетке</h3>
+        <p class="note">Те же 14 дней после релиза: половина гостей видит старое приложение (синим), половина — новую кнопку (оранжевым).</p>
+        <canvas id="ch-ab" aria-label="Заказы двух групп по дням"></canvas>
+        <p class="res">Показал: <b id="r-ab">…</b></p>
+      </div>
+    </div>
+    <p class="note" id="duo-days"></p>
+    <div id="strip-box" hidden>
+      <h3>Каждый эксперимент — точка</h3>
+      <p class="note">Ставим точку там, какой эффект показал эксперимент. Зелёная линия — правда. Чем ближе точки к линии, тем честнее способ.</p>
+      <div class="tipwrap"><canvas id="ch-strip" aria-label="Оценки эффекта двумя способами"></canvas></div>
+      <div class="big2">
+        <div class="trap"><b id="err-ba">—</b><span>до и после: насколько в среднем мимо правды</span></div>
+        <div class="truth"><b id="err-ab">—</b><span>по монетке: насколько в среднем мимо правды</span></div>
+      </div>
+      <p class="note" id="more-note">Один эксперимент может случайно попасть близко к правде. Запусти ещё пару раз — или сразу сотню в разные дни года.</p>
+      <div class="controls">
+        <button class="btn ghost" type="button" id="sim-100">Ещё 100 экспериментов в случайные дни</button>
+        <button class="btn ghost" type="button" id="sim-reset">Сначала</button>
+      </div>
     </div>
     <div class="verdict" id="v-sim" hidden></div>
   </div>
@@ -343,60 +362,78 @@ function init(D){
     (function frame(now){ const k = Math.min(1, (now - t0) / 1600); gather = from + (to - from) * k; drawWow(); if (k < 1) anim = requestAnimationFrame(frame); else if (to) { revealQuiz(); document.getElementById('wow-note').textContent = 'Точки съехали вправо и легли в стопки на той же высоте: так получилась гистограмма. Каждая стопка — дни года, при которых «эффект» вышел примерно одинаковым. Чем длиннее стопка, тем чаще такой «эффект» встречается. Наведи на стопку, чтобы увидеть числа; коралловая точка — твой выбранный день.'; } })(t0);
   });
 
-  // карточка 6: монетка против «до и после»
-  let runs = [], last = null;
-  const effIn = document.getElementById('eff'), cvA = document.getElementById('ch-ab'), cvS = document.getElementById('ch-strip');
+  const miss = x => num(100 * Math.abs(x), 1) + ' %'; // промах «на сколько процентов мимо правды»
+  // карточка 6: один эксперимент по шагам → точки → сотня
+  let runs = [], last = null, adding = 0;
+  const effIn = document.getElementById('eff'), cvBA = document.getElementById('ch-ba'), cvA = document.getElementById('ch-ab'), cvS = document.getElementById('ch-strip');
   const eff = () => +effIn.value / 100;
   function one(){
     const e = eff(), S = 7 + Math.floor(Math.random() * 344);
     let wth = 0; for (let k = 0; k < 10; k++) wth = 0.75 * wth + 0.025 * gauss();
     const mean = []; for (let d = S - 7; d < S + 14; d++){ wth = 0.75 * wth + 0.025 * gauss(); mean[d] = D.base * D.season[d] * D.weekly[(d + D.firstWeekday) % 7] * (1 + wth); }
     const noisy = (m, k = 1.3) => Math.max(0, m + Math.sqrt(m) * k * gauss());
-    let before = 0, after = 0; for (let d = S - 7; d < S; d++) before += noisy(mean[d]); for (let d = S; d < S + 7; d++) after += noisy(mean[d] * (1 + e));
+    const bef = [], aft = []; for (let d = S - 7; d < S; d++) bef.push(noisy(mean[d])); for (let d = S; d < S + 7; d++) aft.push(noisy(mean[d] * (1 + e)));
     const ctrl = [], test = []; for (let d = S; d < S + 14; d++){ const day = 1 + 0.004 * gauss(); ctrl.push(noisy(mean[d] / 2 * day, 1)); test.push(noisy(mean[d] / 2 * (1 + e) * day, 1)); }
-    const sc = ctrl.reduce((a, b) => a + b), st = test.reduce((a, b) => a + b);
-    return {S, ba: after / before - 1, ab: st / sc - 1, ctrl, test, e};
+    return {S, bef, aft, ctrl, test, e, ba: sum(aft) / sum(bef) - 1, ab: sum(test) / sum(ctrl) - 1};
   }
-  function drawAB(){
-    const g = canvas(cvA); if (!g) return; const {c, w, h} = g;
-    if (!last){ c.fillStyle = COL.ink2; c.font = '14px Onest, system-ui, sans-serif'; c.fillText('Запусти эксперимент — здесь появятся заказы двух групп по дням.', 10, h / 2); return; }
-    const all = last.ctrl.concat(last.test), lo = Math.floor(Math.min(...all) / 500) * 500, hi = Math.ceil(Math.max(...all) / 500) * 500;
-    const L = 48, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, X = i => L + i / 13 * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
-    axisY(c, L, Rm, T, ph, w, lo, hi, 500, v => int(v));
-    c.fillStyle = COL.ink2; [0, 7, 13].forEach(i => c.fillText(dayLabel(last.S + i), Math.min(X(i), w - 50), h - 6));
-    [[last.ctrl, COL.ctrl], [last.test, COL.test]].forEach(([a, col]) => { c.strokeStyle = col; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); });
-    document.getElementById('ab-days').textContent = '14 дней с ' + dayLabel(last.S);
+  function lines(cv, series, labels, S, split){
+    const g = canvas(cv, 0.55, 0.62); if (!g) return; const {c, w, h} = g;
+    const all = series.flatMap(x => x.a), lo = Math.floor(Math.min(...all) / 500) * 500, hi = Math.ceil(Math.max(...all) / 500) * 500;
+    const n = Math.max(...series.map(x => x.a.length + (x.off || 0))), L = 46, Rm = 8, T = 10, Bm = 22, pw = w - L - Rm, ph = h - T - Bm, X = i => L + i / (n - 1) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    if (split != null){ c.fillStyle = COL.fillC; c.fillRect(L, T, X(split - 0.5) - L, ph); c.fillStyle = COL.fillT; c.fillRect(X(split - 0.5), T, X(n - 1) - X(split - 0.5), ph); }
+    axisY(c, L, Rm, T, ph, w, lo, hi, hi - lo > 2000 ? 1000 : 500, v => int(v));
+    c.fillStyle = COL.ink2; labels.forEach(([i, t]) => c.fillText(t, Math.min(X(i), w - 46), h - 6));
+    series.forEach(x => {
+      c.strokeStyle = x.col; c.lineWidth = 2.4; c.beginPath(); x.a.forEach((v, i) => { const xx = X(i + (x.off || 0)); i ? c.lineTo(xx, Y(v)) : c.moveTo(xx, Y(v)); }); c.stroke();
+      if (x.avg){ const m = mean(x.a); c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(x.off || 0), Y(m)); c.lineTo(X((x.off || 0) + x.a.length - 1), Y(m)); c.stroke(); c.setLineDash([]); }
+    });
+  }
+  function drawDuo(){
+    if (!last) return;
+    const S = last.S;
+    lines(cvBA, [{a: last.bef, col: COL.ctrl, avg: true}, {a: last.aft, col: COL.test, off: 7, avg: true}], [[0, dayLabel(S - 7)], [7, dayLabel(S)], [13, dayLabel(S + 6)]], S, 7);
+    lines(cvA, [{a: last.ctrl, col: COL.ctrl}, {a: last.test, col: COL.test}], [[0, dayLabel(S)], [7, dayLabel(S + 7)], [13, dayLabel(S + 13)]], S, null);
   }
   function drawStrip(){
-    const g = canvas(cvS); if (!g) return; const {c, w} = g;
-    const h = 160; cvS.style.height = h + 'px'; cvS.height = h * (window.devicePixelRatio || 1); c.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
-    c.font = '12px Onest, system-ui, sans-serif';
+    const g = canvas(cvS, 0, 0, 170); if (!g) return; const {c, w} = g;
     const lo = -0.15, hi = 0.25, L = 10, Rm = 10, pw = w - L - Rm, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
-    const rows = [['до и после', 'ba', COL.trap, 46], ['одновременно, по монетке', 'ab', COL.ctrl, 110]];
-    c.strokeStyle = COL.grid; c.lineWidth = 1; [-0.1, 0, 0.1, 0.2].forEach(v => { c.beginPath(); c.moveTo(X(v), 14); c.lineTo(X(v), 126); c.stroke(); c.fillStyle = COL.ink2; c.fillText(pct(v, 0), X(v) - 14, 150); });
+    const rows = [['до и после', 'ba', COL.trap, 50], ['одновременно, по монетке', 'ab', COL.ctrl, 116]];
+    c.strokeStyle = COL.grid; c.lineWidth = 1; [-0.1, 0, 0.1, 0.2].forEach(v => { c.beginPath(); c.moveTo(X(v), 18); c.lineTo(X(v), 132); c.stroke(); c.fillStyle = COL.ink2; c.textAlign = 'center'; c.fillText(pct(v, 0), X(v), 150); c.textAlign = 'left'; });
+    label(c, 'какой эффект показал эксперимент →', w - Rm, 166, COL.ink2, 'right');
     rows.forEach(([name, k, col, y]) => {
-      c.fillStyle = COL.ink; c.fillText(name, L, y - 20);
-      runs.forEach((r, i) => { c.fillStyle = col; c.globalAlpha = .6; c.beginPath(); c.arc(X(r[k]), y + ((i * 7919) % 17) - 8, 3.2, 0, 2 * Math.PI); c.fill(); });
+      c.fillStyle = COL.ink; c.fillText(name, L, y - 22);
+      runs.forEach((r, i) => { const isLast = r === last && runs.length <= 5; c.fillStyle = col; c.globalAlpha = isLast ? 1 : 0.55; c.beginPath(); c.arc(X(r[k]), y + ((i * 7919) % 17) - 8, isLast ? 6 : 3.2, 0, 2 * Math.PI); c.fill(); });
       c.globalAlpha = 1;
     });
-    c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(eff()), 14); c.lineTo(X(eff()), 128); c.stroke();
-    c.fillStyle = COL.truth; c.fillText('правда', Math.min(X(eff()) + 4, w - 46), 12);
+    c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(eff()), 16); c.lineTo(X(eff()), 132); c.stroke();
+    c.fillStyle = COL.truth; c.fillText('правда ' + pct(eff(), 0), Math.min(X(eff()) + 4, w - 70), 14);
   }
   function stats(){
-    const n = runs.length;
-    const mae = k => n ? runs.reduce((a, r) => a + Math.abs(r[k] - r.e), 0) / n : null;
-    document.getElementById('err-ba').textContent = n ? pp(mae('ba')) : '—';
-    document.getElementById('err-ab').textContent = n ? pp(mae('ab')) : '—';
+    const n = runs.length, mae = k => runs.reduce((a, r) => a + Math.abs(r[k] - r.e), 0) / n;
+    document.getElementById('err-ba').textContent = n ? miss(mae('ba')) : '—';
+    document.getElementById('err-ab').textContent = n ? miss(mae('ab')) : '—';
     const v = document.getElementById('v-sim');
     if (n >= 30){
       v.hidden = false; v.className = 'verdict good';
-      v.innerHTML = 'За ' + n + ' экспериментов «до и после» в среднем промахивается на <b>' + pp(mae('ba')) + '</b>, а сравнение групп по монетке — всего на <b>' + pp(mae('ab')) + '</b> мимо правды. Сезон, праздники и погода у двух групп общие, поэтому в разнице их не видно. Остаётся только случайность, и её мы научимся измерять в следующих шагах.';
-    }
+      v.innerHTML = 'За ' + n + ' экспериментов «до и после» в среднем уходит от правды на <b>' + miss(mae('ba')) + '</b> (например, показывает ' + pct(eff() + mae('ba'), 0) + ' вместо ' + pct(eff(), 0) + '), а сравнение групп по монетке — всего на <b>' + miss(mae('ab')) + '</b>. Сезон, праздники и погода у двух групп общие, поэтому в разнице их не видно. Остаётся только случайность, и её мы научимся измерять в следующих шагах.';
+    } else v.hidden = true;
+    document.getElementById('more-note').hidden = n >= 30;
   }
-  const redraw = () => { drawAB(); drawStrip(); stats(); };
-  document.querySelectorAll('[data-runs]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.runs; i++){ last = one(); runs.push(last); } redraw(); }));
-  document.getElementById('sim-reset').addEventListener('click', () => { runs = []; last = null; document.getElementById('v-sim').hidden = true; redraw(); });
-  effIn.addEventListener('input', () => { document.getElementById('eff-t').textContent = (eff() > 0 ? '+' : eff() < 0 ? '−' : '') + Math.abs(+effIn.value) + ' %'; runs = []; last = null; document.getElementById('v-sim').hidden = true; redraw(); });
+  function showRun(){
+    document.getElementById('duo').hidden = false; document.getElementById('strip-box').hidden = false;
+    document.getElementById('r-ba').textContent = pct(last.ba) + ' (правда ' + pct(last.e, 0) + ')';
+    document.getElementById('r-ab').textContent = pct(last.ab) + ' (правда ' + pct(last.e, 0) + ')';
+    document.getElementById('duo-days').textContent = 'Эксперимент №' + runs.length + ': релиз ' + dayLabel(last.S) + '. «До и после» показал ' + pct(last.ba) + ', монетка — ' + pct(last.ab) + ', а на самом деле ' + pct(last.e, 0) + '.';
+  }
+  const redraw = () => { drawDuo(); drawStrip(); stats(); };
+  document.getElementById('sim-one').addEventListener('click', () => { last = one(); runs.push(last); showRun(); redraw(); document.getElementById('sim-one').textContent = 'Ещё один эксперимент'; });
+  document.getElementById('sim-100').addEventListener('click', () => {
+    if (adding) return; adding = 100; const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function tick(){ if (!adding) return; const k = reduce ? adding : Math.min(adding, 4); for (let i = 0; i < k; i++){ last = one(); runs.push(last); } adding -= k; showRun(); redraw(); if (adding) requestAnimationFrame(tick); })();
+  });
+  const reset = () => { runs = []; last = null; adding = 0; document.getElementById('duo').hidden = true; document.getElementById('strip-box').hidden = true; document.getElementById('v-sim').hidden = true; document.getElementById('duo-days').textContent = ''; document.getElementById('sim-one').textContent = 'Запустить эксперимент в случайный день'; };
+  document.getElementById('sim-reset').addEventListener('click', reset);
+  effIn.addEventListener('input', () => { document.getElementById('eff-t').textContent = (eff() > 0 ? '+' : eff() < 0 ? '−' : '') + Math.abs(+effIn.value) + ' %'; reset(); });
 
   const all = () => { drawYear(); drawMove(); redraw(); };
   window.addEventListener('resize', all);

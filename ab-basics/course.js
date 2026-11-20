@@ -59,6 +59,29 @@ function bins(vals, lo, hi, bw){
   vals.forEach(v => { const i = Math.floor((v - lo) / bw); if (i >= 0 && i < n) b[i]++; });
   return b;
 }
+// Подсказка при наведении на столбик гистограммы. bars — [{x0, x1, html}] в пикселях холста.
+function hoverBars(cv, bars){
+  cv._bars = bars;
+  if (cv._tip) return;
+  const wrap = document.createElement('div'); wrap.className = 'tipwrap'; cv.parentNode.insertBefore(wrap, cv); wrap.appendChild(cv);
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; wrap.appendChild(tip); cv._tip = tip;
+  const show = ev => {
+    const r = cv.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+    const b = (cv._bars || []).find(b => x >= b.x0 && x <= b.x1);
+    if (!b){ tip.hidden = true; return; }
+    tip.innerHTML = b.html; tip.hidden = false;
+    tip.style.left = Math.max(0, Math.min(x + 12, r.width - tip.offsetWidth - 4)) + 'px';
+    tip.style.top = Math.max(0, y - tip.offsetHeight - 10) + 'px';
+  };
+  cv.addEventListener('pointermove', show); cv.addEventListener('pointerdown', show);
+  cv.addEventListener('pointerleave', () => { tip.hidden = true; });
+}
+// То же для обычной гистограммы из bins(): от lo с шагом bw, X — перевод значения в пиксели.
+// opt: fmt — подпись границ, words — [один, два, пять] («запуск», «запуска», «запусков»), total — всего наблюдений.
+function hoverBins(cv, X, lo, bw, b, opt){
+  const total = opt.total || b.reduce((a, k) => a + k, 0);
+  hoverBars(cv, b.map((k, i) => k ? {x0: X(lo + i * bw), x1: X(lo + (i + 1) * bw), html: 'от <b>' + opt.fmt(lo + i * bw) + '</b> до <b>' + opt.fmt(lo + (i + 1) * bw) + '</b><br>' + k + ' ' + plural(k, ...opt.words) + (total ? ' из ' + int(total) + ' (' + share(k / total, k / total < 0.1 ? 1 : 0) + ')' : '')} : null).filter(Boolean));
+}
 function label(c, text, x, y, color = COL.ink, align = 'left'){ c.fillStyle = color; c.textAlign = align; c.fillText(text, x, y); c.textAlign = 'left'; }
 
 const AB = {
@@ -113,6 +136,7 @@ AB.paintScore(false);
     window.scrollTo({top: 0, behavior: 'auto'});
     AB.shown.forEach(f => f(cur));
     window.dispatchEvent(new Event('resize'));
+    requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
   }
   AB.go = go;
   prev.addEventListener('click', () => go(cur - 1));

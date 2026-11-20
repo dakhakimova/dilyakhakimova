@@ -109,11 +109,11 @@
     <canvas id="ch-srm" aria-label="Доля теста при честном делении и наша доля"></canvas>
     <div class="legend-row"><span><i style="background:var(--ctrl)"></i>200 честных делений пополам</span><span><i style="background:var(--trap)"></i>наша доля теста, 49,2 %</span></div>
     <div class="big2">
-      <div class="ctrl"><b id="srm-sd">…</b><span>обычный разброс доли теста при честной монетке (±2 ширины)</span></div>
+      <div class="ctrl"><b id="srm-sd">…</b><span>в таких пределах обычно гуляет доля теста при честной монетке</span></div>
       <div class="trap"><b id="srm-x">…</b><span>во столько ширин наш перекос больше нормы</span></div>
     </div>
   </div>
-  <p>При миллионе пользователей честная монетка почти никогда не отклоняется больше чем на 0,1 п.п. Наши 0,8 п.п. значат, что где-то баг: например, новый экран падает у части людей и они не доезжают до логов. Тогда в тесте остались самые «живучие» пользователи, и сравнение нечестное.</p>
+  <p>При миллионе пользователей доля теста при честной монетке почти никогда не выходит за пределы 49,9–50,1 %. Наши 49,2 % значат, что где-то баг: например, новый экран падает у части людей и они не доезжают до логов. Тогда в тесте остались самые «живучие» пользователи, и сравнение нечестное.</p>
   <div class="def">Если доли групп заметно не совпадают с планом, результаты читать нельзя, даже зелёные. Сначала ищем баг в делении или логировании.</div>
 </section>
 
@@ -291,7 +291,7 @@ function srmRun(){ const n = SRM_N[+$('srm-n').value]; srmDots = Array.from({len
 function drawSrm(){
   const n = SRM_N[+$('srm-n').value], sdv = Math.sqrt(0.25 / n);
   $('srm-n-t').textContent = int(n);
-  $('srm-sd').textContent = '±' + pp(2 * sdv);
+  $('srm-sd').textContent = share(0.5 - 2 * sdv, 1) + '–' + share(0.5 + 2 * sdv, 1);
   $('srm-x').textContent = num((0.5 - OBS) / sdv, (0.5 - OBS) / sdv < 10 ? 1 : 0);
   const g = canvas($('ch-srm'), 0.28, 0.5); if (!g) return; const {c, w, h} = g;
   const lo = 0.485, hi = 0.515, L = 10, R = 10, T = 14, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;

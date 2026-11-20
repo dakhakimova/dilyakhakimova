@@ -180,6 +180,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
       if (k < 4 || k === K) label(c, num(100 * p, p < 0.1 ? 1 : 0) + ' %', x + bw / 2, T + ph - bh - 4, COL.ink2, 'center');
       if (k % 5 === 0 || k === K) label(c, k === K ? K + '+' : String(k), x + bw / 2, h - 6, COL.ink2, 'center');
     });
+    hoverBars(cv, vals.map((p, k) => ({x0: L + k * bw, x1: L + (k + 1) * bw, html: '<b>' + (k === K ? K + ' и больше' : k) + '</b> ' + plural(k === K ? 5 : k, 'заказ', 'заказа', 'заказов') + ' за неделю<br>' + share(p, p < 0.01 ? 2 : 1) + ' гостей'})));
   }
   window.addEventListener('resize', draw);
 })();
@@ -197,6 +198,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     const peak = means.length * bw * normPdf(0) / se;
     const top = Math.max(5, ...b, bell && n > 1 ? peak : 0) * 1.08;
     b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, Math.max(1, pw * bw / (hi - lo) - 2), bh); });
+    hoverBins(cv, X, lo, bw, b, {fmt: v => num(v, n >= 1000 ? 3 : n >= 10 ? 2 : 0), words: ['выборка', 'выборки', 'выборок'], total: means.length});
     c.globalAlpha = 1;
     if (bell && means.length){
       c.strokeStyle = COL.test; c.lineWidth = 2.6; c.beginPath();
@@ -253,6 +255,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     const b = bins(bm.map(x => Math.max(lo, Math.min(hi - 1e-9, x))), lo, hi, bw), s = sd(bm), m = mean(bm);
     const top = Math.max(...b, NB * bw * normPdf(0) / s) * 1.08;
     b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw * bw / (hi - lo) - 2, bh); });
+    hoverBins(cv, X, lo, bw, b, {fmt: v => num(v, 2), words: ['корзина', 'корзины', 'корзин'], total: bm.length});
     c.globalAlpha = 1; c.strokeStyle = COL.test; c.lineWidth = 2.4; c.beginPath();
     for (let i = 0; i <= 200; i++){ const x = lo + (hi - lo) * i / 200, y = NB * bw * normPdf((x - m) / s) / s; i ? c.lineTo(X(x), T + ph - ph * y / top) : c.moveTo(X(x), T + ph - ph * y / top); }
     c.stroke();

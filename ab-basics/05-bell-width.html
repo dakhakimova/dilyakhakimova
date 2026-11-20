@@ -212,6 +212,7 @@ function drawBell(){
   const b = bins(means, lo, hi, bw), top = Math.max(...b);
   c.fillStyle = COL.ctrl; c.globalAlpha = .75;
   b.forEach((k, i) => { if (!k) return; const bh = (ph - 22) * k / top; c.fillRect(X(lo + i * bw), T + ph - bh, Math.max(1, pw * bw / (hi - lo) - 0.5), bh); });
+  hoverBins(cvB, X, lo, bw, b, {fmt: v => num(v, 3), words: ['среднее', 'средних', 'средних'], total: means.length});
   c.globalAlpha = 1;
   c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(MEAN), T + 6); c.lineTo(X(MEAN), T + ph); c.stroke();
   // скобка ширины: от среднего ± 1 ширина
@@ -275,6 +276,7 @@ function drawBand(){
   if (!band.length){ label(c, 'Нажми «Насыпать 1000 средних».', w / 2, T + ph / 2, COL.ink2, 'center'); return; }
   const bw = 0.006, b = bins(band, lo, hi, bw), top = Math.max(...b);
   b.forEach((k, i) => { const v = lo + (i + 0.5) * bw, inside = Math.abs(v - MEAN) <= 2 * W_BAND; c.fillStyle = inside ? COL.ctrl : COL.trap; const bh = (ph - 20) * k / top; c.fillRect(X(lo + i * bw) + 0.5, T + ph - bh, pw * bw / (hi - lo) - 1, bh); });
+  hoverBins(cvBand, X, lo, bw, b, {fmt: v => num(v, 3), words: ['среднее', 'средних', 'средних'], total: band.length});
   c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(MEAN), T); c.lineTo(X(MEAN), T + ph); c.stroke();
 }
 function bandStats(){
