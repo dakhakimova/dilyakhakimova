@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab03" data-next="04-clt.html">
 <nav class="top" aria-label="Навигация">
@@ -112,6 +112,37 @@
   <div class="def">Разница между группами есть всегда, даже когда группы ничем не отличаются. Поэтому главный вопрос A/B-теста такой: больше ли эта разница обычного разброса?</div>
 </section>
 
+<!-- 5b -->
+<section class="card" data-title="Перетасуй ярлыки" aria-label="Перетасуй ярлыки">
+  <span class="step-tag">Игрушка</span>
+  <h2>Перетасуй ярлыки</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Проверил новые фото блюд на 40 гостях. Без фото — <b>1,15</b> заказа на гостя за неделю, с фото — <b>1,55</b>. Это +35 %!</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А если бы фото ничего не делали — такая разница бывала бы? Давай проверим, перетасовав ярлыки.</p></div></div>
+  </div>
+  <p>Вот эти 40 гостей. Число в кружке — сколько заказов гость сделал за неделю. Синие видели старое приложение (A), оранжевые — с фото (B).</p>
+  <p>Идея Алисы: если фото ни на что не влияют, ярлыки A и B можно раздать заново как угодно, и заказы гостей от этого не изменятся. Перетасуем ярлыки и посмотрим, какие разницы получаются сами по себе.</p>
+  <p>Как думаешь, часто ли простая перетасовка даст разницу не меньше, чем у Боба (0,4 заказа на гостя в ту или другую сторону)?</p>
+  <div class="choice" data-key="perm" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="never" aria-pressed="false" data-fb="Посмотрим: перетасуем и посчитаем.">Почти никогда</button>
+    <button type="button" data-v="rare" aria-pressed="false" data-fb="Ставка записана. Перетасуем и посчитаем.">Изредка, раз из двадцати</button>
+    <button type="button" data-v="half" aria-pressed="false" data-fb="Смелая ставка. Перетасуем и посчитаем.">Примерно в половине случаев</button>
+  </div>
+  <p class="note" id="perm-note">Выбери вариант.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-tokens" aria-label="40 гостей с ярлыками A и B"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>A, без фото</span><span><i style="background:var(--test)"></i>B, с фото</span><span id="perm-now"></span></div>
+    <div class="controls">
+      <button class="btn" type="button" id="perm-one">Перетасовать ярлыки</button>
+      <button class="btn ghost" type="button" id="perm-many" disabled>Ещё 1000 перетасовок</button>
+      <button class="btn ghost" type="button" id="perm-back">Вернуть как было</button>
+    </div>
+    <h3>Разница B − A после каждой перетасовки</h3>
+    <canvas id="ch-perm" aria-label="Гистограмма разниц после перетасовок"></canvas>
+    <div class="verdict" id="perm-v" hidden></div>
+  </div>
+</section>
+
 <!-- 6 -->
 <section class="card" data-title="Проверь себя" aria-label="Проверь себя">
   <span class="step-tag">Проверь себя</span>
@@ -142,11 +173,13 @@
     <li>Даже одинаковые группы почти никогда не дают одинаковых цифр: кому-то случайно достались любители заказывать.</li>
     <li>Чем меньше гостей, тем больше разброс. При 100 гостях в группе одна группа запросто обгоняет другую в полтора раза, при 1000 — на 10–25 %, при 100 000 — на 1–3 %.</li>
     <li>«Лидер» на дневном графике меняется сам по себе. По одному дню ничего не решаем.</li>
+    <li>Проверить это можно и без формул: перетасовать ярлыки A и B много раз и посмотреть, часто ли случайная раздача даёт такую же разницу.</li>
     <li>Вопрос A/B-теста: больше ли разница, чем обычно бывает без всякого эффекта.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
   <dl class="terms">
     <dt>A/A-тест</dt><dd>эксперимент, где обе группы видят одно и то же; показывает, какие разницы бывают сами по себе, и проверяет, что всё считается правильно</dd>
+    <dt>Перестановочный тест</dt><dd>проверка перетасовкой: раздаём ярлыки групп заново много раз и смотрим, насколько обычна настоящая разница среди случайных</dd>
     <dt>Шум</dt><dd>случайный разброс цифр, который есть даже без всякого эффекта</dd>
   </dl>
   <figure class="art"><img src="img/ab03-02-next.jpg" alt="Котейка бросает шарики в доску с гвоздиками, и внизу они складываются в горку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у доски Гальтона, шарики складываются в горку</figcaption></figure>
@@ -160,7 +193,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 const P = 0.10;
 
@@ -273,6 +306,52 @@ const P = 0.10;
   document.getElementById('btn-days').addEventListener('click', gen);
   window.addEventListener('resize', draw);
   gen();
+})();
+
+// ---------- перетасуй ярлыки ----------
+(function(){
+  const orders = [0,1,0,2,0,3,1,0,0,5,1,0,2,0,1,0,4,0,1,2, 1,0,2,0,3,1,0,6,2,0,1,3,0,2,0,1,4,2,0,3];
+  const orig = orders.map((_, i) => i < 20 ? 'A' : 'B');
+  let labels = orig.slice(), diffs = [], adding = 0;
+  const avg = l => { let s = 0, n = 0; orders.forEach((o, i) => { if (labels[i] === l){ s += o; n++; } }); return s / n; };
+  const real = (() => { const l = labels; labels = orig; const d = avg('B') - avg('A'); labels = l; return d; })();
+  const cvT = document.getElementById('ch-tokens'), cvP = document.getElementById('ch-perm');
+  function shuffle(){ const l = orig.slice(); for (let i = l.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [l[i], l[j]] = [l[j], l[i]]; } return l; }
+  function drawT(){
+    const g = canvas(cvT, 0.22, 0.5); if (!g) return; const {c, w, h} = g;
+    const cols = w < 520 ? 8 : 20, rows = Math.ceil(40 / cols), cw = w / cols, rh = h / rows, r = Math.min(cw, rh) * 0.38;
+    c.textAlign = 'center'; c.font = '600 ' + Math.round(r * 0.9) + 'px Onest, system-ui';
+    orders.forEach((o, i) => { const x = (i % cols + 0.5) * cw, y = (Math.floor(i / cols) + 0.5) * rh; c.fillStyle = labels[i] === 'A' ? COL.ctrl : COL.test; c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill(); c.fillStyle = '#fff'; c.fillText(o, x, y + r * 0.32); });
+    c.textAlign = 'left';
+    const d = avg('B') - avg('A');
+    document.getElementById('perm-now').innerHTML = 'A: <b>' + num(avg('A'), 2) + '</b>, B: <b>' + num(avg('B'), 2) + '</b>, разница <b>' + (d >= 0 ? '+' : '−') + num(Math.abs(d), 2) + '</b>';
+  }
+  function drawP(){
+    const g = canvas(cvP, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const lo = -1, hi = 1, bw = 0.05, L = 10, R = 10, T = 18, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
+    const b = bins(diffs.map(v => Math.max(lo, Math.min(hi - 1e-9, v + 1e-9))), lo, hi, bw), top = Math.max(1, ...b);
+    b.forEach((k, i) => { const x0 = lo + i * bw, bh = ph * k / top; c.fillStyle = Math.abs(x0) >= Math.abs(real) - 1e-6 ? COL.trap : '#CFCBC1'; c.fillRect(X(x0) + 1, T + ph - bh, pw * bw / (hi - lo) - 2, bh); });
+    hoverBars(cvP, b.map((k, i) => { const v = lo + i * bw; return k ? {x0: X(v), x1: X(v + bw), html: 'Разница <b>' + (v > 1e-6 ? '+' : v < -1e-6 ? '−' : '') + num(Math.abs(v), 2) + '</b><br>' + k + ' ' + plural(k, 'перетасовка', 'перетасовки', 'перетасовок') + ' из ' + int(diffs.length) + ' (' + share(k / diffs.length, 1) + ')'} : null; }).filter(Boolean));
+    [-1, -0.5, 0, 0.5, 1].forEach(v => label(c, (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(v), 1), X(v), h - 6, COL.ink2, 'center'));
+    if (diffs.length >= 20){ [real, -real].forEach((v, k) => { c.strokeStyle = COL.ink; c.lineWidth = 2; c.setLineDash(k ? [4, 3] : []); c.beginPath(); c.moveTo(X(v), T - 4); c.lineTo(X(v), T + ph); c.stroke(); }); c.setLineDash([]); label(c, 'как у Боба', X(real) + 4, T - 6, COL.ink); }
+    if (!diffs.length) label(c, 'Перетасуй ярлыки — здесь начнут копиться разницы.', w / 2, h / 2, COL.ink2, 'center');
+  }
+  function stats(){
+    const n = diffs.length, k = diffs.filter(d => Math.abs(d) >= Math.abs(real) - 1e-9).length, v = document.getElementById('perm-v');
+    document.getElementById('perm-many').disabled = n < 1;
+    if (n < 100){ v.hidden = true; return; }
+    const ch = AB.choice('perm'), frac = k / n;
+    v.hidden = false; v.className = 'verdict ' + (ch === 'half' ? 'good' : 'bad');
+    v.innerHTML = 'Разница не меньше, чем у Боба (0,4 заказа на гостя в любую сторону), получилась в <b>' + int(k) + '</b> из ' + int(n) + ' перетасовок — это <b>' + share(frac, 0).replace(' ', '\u00a0') + '</b>. Коралловые столбики — как раз такие случаи. Значит, его «+35 %» вполне могли получиться случайно, просто от того, кому какой ярлык достался. На 40 гостях фото от шума не отличить.';
+  }
+  const redraw = () => { drawT(); drawP(); stats(); };
+  document.getElementById('perm-one').addEventListener('click', () => { labels = shuffle(); diffs.push(avg('B') - avg('A')); redraw(); });
+  document.getElementById('perm-many').addEventListener('click', () => {
+    if (adding) return; adding = 1000; const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function tick(){ if (!adding) return; const k = reduce ? adding : Math.min(adding, 25); for (let i = 0; i < k; i++){ labels = shuffle(); diffs.push(avg('B') - avg('A')); } adding -= k; redraw(); if (adding) requestAnimationFrame(tick); })();
+  });
+  document.getElementById('perm-back').addEventListener('click', () => { labels = orig.slice(); drawT(); });
+  window.addEventListener('resize', redraw);
 })();
 </script>
 </body>

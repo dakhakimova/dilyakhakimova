@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab08" data-next="09-mde.html">
 <nav class="top" aria-label="Навигация">
@@ -112,6 +112,73 @@
   <div class="def">Пропуск обманчив: «тест не увидел эффекта» не значит «эффекта нет». Может быть, тест просто был слишком коротким, чтобы его заметить.</div>
 </section>
 
+<!-- 5b -->
+<section class="card" data-title="Строгость судьи" aria-label="Строгость судьи">
+  <span class="step-tag">Игрушка</span>
+  <h2>Порог — это строгость судьи</h2>
+  <p>Тест похож на суд. Пустая идея — невиновный, хорошая — виновный. <b>Ложная тревога</b> — осудить невиновного, <b>пропуск</b> — отпустить виновного. Порог 5 % — это строгость судьи: насколько удивительной должна быть разница, чтобы вынести приговор «эффект есть».</p>
+  <div class="sheet c-white">
+    <label class="field" for="judge">Порог: <b id="judge-t" class="num">5 %</b> <span class="note" id="judge-word" style="display:inline">обычная строгость</span></label>
+    <input type="range" id="judge" min="0" max="4" value="2" style="width:100%">
+    <canvas id="ch-judge" aria-label="Колокол пустых идей и колокол хороших идей с порогом"></canvas>
+    <div class="legend-row"><span><i style="background:#A3A19A"></i>разница у пустых идей</span><span><i style="background:var(--truth)"></i>разница у хороших идей</span><span><i style="background:var(--trap)"></i>ложные тревоги</span><span><i style="background:#C9A43A"></i>пропуски</span></div>
+    <div class="big2">
+      <div class="trap"><b id="j-fa">…</b><span>из 100 пустых идей «осудим» — ложные тревоги</span></div>
+      <div class="test"><b id="j-miss">…</b><span>из 100 хороших идей «отпустим» — пропуски</span></div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Давай порог 20 %, чтобы точно ничего хорошего не пропускать!</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подвинь ползунок и посмотри, сколько пустых идей мы тогда «осудим».</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что будет, если поднять порог с 5 % до 20 %?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Пропусков правда станет меньше, но бесплатно это не даётся: посмотри на коралловые хвосты пустого колокола.">Пропусков станет меньше, и всё</button>
+      <button type="button" data-v="b">Пропусков станет меньше, а ложных тревог — вчетверо больше</button>
+      <button type="button" data-v="c" data-why="Наоборот: мягкий судья чаще выносит приговор «эффект есть», в том числе пустым идеям.">Ложных тревог станет меньше</button>
+    </div>
+    <p class="why">Мягкий судья реже отпускает виновных, но чаще осуждает невиновных: при пороге 20 % каждая пятая пустая идея выглядит «победой». Убрать оба вида ошибок сразу можно только одним способом — дать тесту больше людей или дней, чтобы колокола разошлись.</p>
+  </div>
+</section>
+
+<!-- 5c -->
+<section class="card" data-title="Сколько побед настоящие" aria-label="Сколько побед настоящие">
+  <span class="step-tag">Игрушка</span>
+  <h2>Сколько «побед» настоящие</h2>
+  <p>За год команда проверяет 1000 идей. Хороших среди них обычно немного, скажем, каждая десятая. Тесты замечают хорошую идею в половине случаев, а пустая «побеждает» в 5 % случаев.</p>
+  <p>Как думаешь, какая доля значимых «побед» окажется настоящей?</p>
+  <div class="choice" data-key="g2" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="all" data-fb="Хотелось бы. Разложим 1000 идей и посчитаем.">Почти все</button>
+    <button type="button" data-v="34" data-fb="Ставка записана. Разложим 1000 идей и посчитаем.">Около трёх четвертей</button>
+    <button type="button" data-v="half" data-fb="Ставка записана. Разложим 1000 идей и посчитаем.">Около половины</button>
+    <button type="button" data-v="third" data-fb="Пессимистично! Разложим 1000 идей и посчитаем.">Меньше трети</button>
+  </div>
+  <p class="note" id="g2-note">Выбери вариант.</p>
+  <div class="sheet c-white" id="wins-box" hidden>
+    <div class="twoinputs">
+      <label class="field" for="w-good">Хороших идей: <b id="w-good-t" class="num">10 %</b><input type="range" id="w-good" min="1" max="50" value="10" style="width:100%"></label>
+      <label class="field" for="w-pow">Тест замечает хорошую идею: <b id="w-pow-t" class="num">50 %</b><input type="range" id="w-pow" min="10" max="95" step="5" value="50" style="width:100%"></label>
+    </div>
+    <canvas id="ch-wins" aria-label="1000 идей, раскрашенных по исходу теста"></canvas>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>настоящая победа</span><span><i style="background:var(--trap)"></i>ложная победа</span><span><i style="background:#C9A43A"></i>пропуск</span><span><i style="background:#E1E0D9"></i>верный отказ</span></div>
+    <div class="big2">
+      <div class="truth"><b id="w-share">…</b><span id="w-line">из значимых побед настоящие</span></div>
+      <div class="trap"><b id="w-false">…</b><span>пустых идей «победили»</span></div>
+    </div>
+    <div class="verdict" id="w-v" hidden></div>
+  </div>
+  <div class="quiz" data-right="a" id="w-quiz" hidden>
+    <p class="q">Как поднять долю настоящих побед?</p>
+    <div class="choice">
+      <button type="button" data-v="a">Проверять более сильные идеи и делать тесты чувствительнее</button>
+      <button type="button" data-v="b" data-why="Больше тестов — больше и настоящих, и ложных побед. Доля настоящих от этого не меняется.">Запускать больше тестов</button>
+      <button type="button" data-v="c" data-why="Подглядывание только добавляет ложных побед — об этом шаг 10.">Чаще смотреть на результаты</button>
+    </div>
+    <p class="why">Подвигай ползунки: доля настоящих побед растёт, когда хороших идей больше и тест чаще их замечает. Каждая ложная победа — это выкаченная пустая фича, которую потом поддерживают годами.</p>
+  </div>
+</section>
+
 <!-- 6 -->
 <section class="card" data-title="Проверь себя" aria-label="Проверь себя">
   <span class="step-tag">Проверь себя</span>
@@ -144,7 +211,8 @@
     <li><b>Ложная тревога</b>: фича пустая, а тест показал эффект. При пороге 5 % так бывает примерно с одной пустой идеей из двадцати, сколько бы людей ни было.</li>
     <li><b>Пропуск</b>: эффект есть, а тест его не заметил. Чем меньше людей и дней, тем чаще.</li>
     <li><b>«Не увидели» не значит «нет»</b>: короткий тест пропускает даже хорошие идеи.</li>
-    <li>Если идей много, а хороших мало, часть «победителей» неизбежно окажется пустышками.</li>
+    <li><b>Порог — строгость судьи.</b> Строже — меньше ложных тревог, но больше пропусков. Убрать оба сразу помогают только люди и дни.</li>
+    <li>Если идей много, а хороших мало, часть «победителей» неизбежно окажется пустышками: при 10 % хороших идей и мощности 50 % из 95 побед настоящих только 50.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
   <dl class="terms">
@@ -163,7 +231,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 const DAYS = [1, 3, 7, 14, 21, 28], P0 = 0.10, LIFT = 0.03, PER_DAY = 10000, REAL = 20;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -226,6 +294,52 @@ function drawPower(){
 }
 window.addEventListener('resize', drawPower);
 setDays(2); paint();
+
+// ---------- строгость судьи ----------
+(function(){
+  const ALPHAS = [0.01, 0.02, 0.05, 0.10, 0.20], WORDS = ['очень строгий судья', 'строгий судья', 'обычная строгость', 'мягкий судья', 'очень мягкий судья'], D = 2.5;
+  const inv = p => { let lo = -8, hi = 8; for (let i = 0; i < 60; i++){ const m = (lo + hi) / 2; normCdf(m) < p ? lo = m : hi = m; } return (lo + hi) / 2; };
+  const el = document.getElementById('judge'), cv = document.getElementById('ch-judge');
+  function draw(){
+    const a = ALPHAS[+el.value], c = inv(1 - a / 2), pw = 1 - normCdf(c - D) + normCdf(-c - D);
+    document.getElementById('judge-t').textContent = share(a, 0); document.getElementById('judge-word').textContent = WORDS[+el.value];
+    document.getElementById('j-fa').textContent = int(100 * a); document.getElementById('j-miss').textContent = int(100 * (1 - pw));
+    const g = canvas(cv, 0.38, 0.6); if (!g) return; const {c: x, w, h} = g;
+    const lo = -4, hi = 6.5, T = 10, B = 22, ph = h - T - B, X = z => (z - lo) / (hi - lo) * w, top = normPdf(0), Y = v => T + ph - v / top * ph * 0.95;
+    const area = (mu, from, to, col) => { x.fillStyle = col; x.beginPath(); x.moveTo(X(from), Y(0)); for (let z = from; z <= to; z += 0.02) x.lineTo(X(z), Y(normPdf(z - mu))); x.lineTo(X(to), Y(0)); x.closePath(); x.fill(); };
+    area(0, lo, -c, COL.fillB); area(0, c, hi, COL.fillB); area(D, lo, c, '#F8F0D9');
+    x.globalAlpha = 1; area(0, c, hi, 'rgba(235,141,130,.75)'); area(0, lo, -c, 'rgba(235,141,130,.75)'); area(D, -c, c, 'rgba(201,164,58,.55)');
+    [[0, COL.gray], [D, COL.truth]].forEach(([mu, col]) => { x.strokeStyle = col; x.lineWidth = 2.2; x.beginPath(); for (let z = lo; z <= hi; z += 0.02){ const yy = Y(normPdf(z - mu)); z === lo ? x.moveTo(X(z), yy) : x.lineTo(X(z), yy); } x.stroke(); });
+    x.strokeStyle = COL.ink; x.lineWidth = 1.5; x.setLineDash([5, 4]); [c, -c].forEach(z => { x.beginPath(); x.moveTo(X(z), T); x.lineTo(X(z), Y(0)); x.stroke(); }); x.setLineDash([]);
+    label(x, 'порог', X(c) + 4, T + 12, COL.ink);
+    const nar = w < 520; label(x, nar ? 'пустые' : 'пустые идеи', X(0), h - 6, COL.ink2, 'center'); label(x, nar ? 'хорошие' : 'хорошие идеи', X(D) + (nar ? 10 : 0), h - 6, COL.truth, 'center');
+  }
+  el.addEventListener('input', draw); window.addEventListener('resize', draw);
+})();
+
+// ---------- сколько побед настоящие ----------
+(function(){
+  const good = document.getElementById('w-good'), pow = document.getElementById('w-pow'), cv = document.getElementById('ch-wins');
+  let shown = false;
+  const calc = () => { const G = Math.round(1000 * good.value / 100), TP = Math.round(G * pow.value / 100), FN = G - TP, FP = Math.round((1000 - G) * 0.05), TN = 1000 - G - FP; return {G, TP, FN, FP, TN}; };
+  function draw(){
+    const r = calc(), wins = r.TP + r.FP;
+    document.getElementById('w-good-t').textContent = good.value + ' %'; document.getElementById('w-pow-t').textContent = pow.value + ' %';
+    document.getElementById('w-share').textContent = r.TP + ' из ' + wins + ' (' + share(wins ? r.TP / wins : 0, 0) + ')';
+    document.getElementById('w-false').textContent = r.FP + ' из ' + (1000 - r.G);
+    const g = canvas(cv, 0.4, 1.6); if (!g) return; const {c, w, h} = g;
+    const cols = w < 520 ? 25 : 50, rows = 1000 / cols, cell = Math.min(w / cols, (h - 4) / rows), rr = cell * 0.38;
+    const seq = [].concat(Array(r.TP).fill(COL.truth), Array(r.FP).fill(COL.trap), Array(r.FN).fill(COL.ochre), Array(r.TN).fill('#E1E0D9'));
+    seq.forEach((col, i) => { c.fillStyle = col; c.beginPath(); c.arc((i % cols + 0.5) * cell, (Math.floor(i / cols) + 0.5) * cell, rr, 0, 2 * Math.PI); c.fill(); });
+    const v = document.getElementById('w-v'), gu = AB.choice('g2');
+    v.hidden = false; v.className = 'verdict ' + (r.TP / wins < 0.6 ? 'bad' : 'good');
+    const real = wins ? r.TP / wins : 0, guessOk = {all: real > 0.9, '34': real >= 0.65 && real <= 0.85, half: real >= 0.4 && real < 0.65, third: real < 0.4}[gu];
+    v.innerHTML = (gu ? (guessOk ? 'Твой прогноз сбылся. ' : 'Прогноз не сбылся. ') : '') + 'Значимых побед <b>' + wins + '</b>, из них настоящих <b>' + r.TP + '</b> (' + share(real, 0) + '). Остальные <b>' + r.FP + '</b> — пустые идеи, которым повезло: их так много, что даже 5 % от них — это десятки «побед». А ещё <b>' + r.FN + '</b> хороших идей тест пропустил.';
+  }
+  document.querySelector('.choice[data-key="g2"]').addEventListener('chosen', () => { if (shown) return; shown = true; document.getElementById('wins-box').hidden = false; document.getElementById('w-quiz').hidden = false; window.dispatchEvent(new Event('resize')); });
+  if (AB.choice('g2')){ shown = true; document.getElementById('wins-box').hidden = false; document.getElementById('w-quiz').hidden = false; }
+  [good, pow].forEach(e => e.addEventListener('input', draw)); window.addEventListener('resize', draw);
+})();
 </script>
 </body>
 </html>

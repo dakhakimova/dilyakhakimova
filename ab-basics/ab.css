@@ -167,3 +167,33 @@
 .quiz.done canvas.honest::before{content:""}
 .quiz .honest-cap{display:none; margin:12px 0 0; font-weight:600}
 .quiz.done .honest-cap{display:block}
+
+/* книги: шаги 1, 3, 4 */
+.jarrow{display:grid; grid-template-columns:140px 1fr; gap:16px; align-items:center}
+.jarrow .field input{width:110px}
+@media (max-width:620px){ .jarrow{grid-template-columns:100px 1fr} }
+
+/* книги: шаги 5–7 */
+.report.prec{max-width:420px}
+.chips{display:flex; flex-wrap:wrap; gap:5px; margin:6px 0 10px}
+.chip{position:relative; display:inline-flex; align-items:center; justify-content:center; min-width:46px; padding:5px 7px; border-radius:7px; background:#E6EEF8; font:500 13px/1 var(--body); font-variant-numeric:tabular-nums; color:var(--ink); transition:opacity .25s}
+.chip.miss{opacity:.3}
+.chip.dup{background:#FBEDE3}
+.chip i{font-style:normal; font-size:11px; font-weight:600; color:#B8642A; margin-left:4px}
+@media (prefers-reduced-motion: reduce){ .chip{transition:none} }
+.rep2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0}
+.rep2 h3{margin:0 0 4px; font-size:17px}
+@media (max-width:620px){ .rep2{grid-template-columns:1fr} }
+
+/* книги: шаги 8–10 */
+.twoinputs .field input[type=range]{display:block; margin-top:4px}
+.tiles.tiles2{grid-template-columns:1fr 1fr}
+.tiles.tiles2 .tile{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.45}
+.tiles.tiles2 .tile b{display:block; font:500 17px/1.3 var(--serif); margin-bottom:4px}
+.tiles.tiles2 .tile span{color:var(--muted)}
+.simp table{width:100%; border-collapse:collapse; font-size:15px; font-variant-numeric:tabular-nums}
+.simp th, .simp td{padding:9px 10px; border-bottom:1px solid #E1E0D9; text-align:left; vertical-align:top}
+.simp th{font-weight:600; color:var(--muted); font-size:13px}
+.simp td b{display:block; font:500 22px/1.2 var(--serif); color:var(--ink)}
+.simp tr.tot td, .simp tr.tot th{background:#F4F3F0}
+@media (max-width:620px){ .tiles.tiles2{grid-template-columns:1fr} .simp table{font-size:14px} .simp td b{font-size:18px} }

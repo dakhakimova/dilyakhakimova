@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -154,6 +154,40 @@
   </div>
 </section>
 
+<!-- 5c -->
+<section class="card" data-title="Худшие кафе" aria-label="Худшие кафе">
+  <span class="step-tag">Игрушка</span>
+  <h2>Промо для худших кафе</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На прошлой неделе пять наших кафе провалились по заказам. Запускаю там промо — посмотрим, вытянет ли.</p></div></div>
+  </div>
+  <p>Ниже 20 кафе сети. Точка — сколько заказов на 100 гостей сделали в кафе на прошлой неделе. Кафе выстроены от худшего к лучшему. Оранжевые — пять худших, туда Боб отправил промо. Зелёные — пять лучших, там ничего не меняли.</p>
+  <p><b>Важно:</b> в этой игрушке промо не делает <i>ничего</i>. У каждого кафе свой обычный уровень, а неделя к неделе он гуляет от погоды и случая.</p>
+  <p>Что будет через неделю с пятью худшими?</p>
+  <div class="choice" data-key="rg" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="up" aria-pressed="false" data-fb="Посмотрим, откуда возьмётся рост, если промо ничего не делает.">Вырастут</button>
+    <button type="button" data-v="down" aria-pressed="false" data-fb="Логика понятна: плохие кафе так и останутся плохими. Проверим.">Упадут ещё ниже</button>
+    <button type="button" data-v="same" aria-pressed="false" data-fb="Разумно: раз промо пустое, ничего и не изменится. Проверим.">Не изменятся</button>
+  </div>
+  <p class="note" id="rg-note">Выбери вариант.</p>
+  <div class="sheet c-white">
+    <div class="tipwrap"><canvas id="ch-rg" aria-label="Заказы на 100 гостей в 20 кафе, прошлая и следующая неделя"></canvas><div class="tip" id="rg-tip" hidden></div></div>
+    <div class="legend-row"><span><i style="background:var(--test)"></i>5 худших, промо</span><span><i style="background:var(--truth)"></i>5 лучших, без промо</span><span><i style="background:var(--theory)"></i>остальные</span></div>
+    <div class="controls">
+      <button class="btn" type="button" id="rg-go">Прошла неделя</button>
+      <button class="btn ghost" type="button" id="rg-again" hidden>Другие две недели</button>
+    </div>
+    <div class="big2" id="rg-stats" hidden>
+      <div class="test"><b id="rg-worst">…</b><span>5 худших, с промо: изменение за неделю</span></div>
+      <div class="truth"><b id="rg-best">…</b><span>5 лучших, без промо: изменение за неделю</span></div>
+    </div>
+    <div class="verdict" id="rg-v" hidden></div>
+  </div>
+  <div class="chat" id="rg-chat" hidden>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Худшие на прошлой неделе были худшими во многом случайно: им не повезло. Через неделю невезение откатывается, и они растут сами. Чтобы проверить промо, нужна контрольная группа из таких же провальных кафе: половине промо, половине нет — по монетке.</p></div></div>
+  </div>
+</section>
+
 <!-- 6 -->
 <section class="card" data-title="Делим монеткой" aria-label="Делим монеткой">
   <span class="step-tag">Как честно</span>
@@ -220,6 +254,11 @@
     <div class="choice"><button type="button" data-v="a" data-why="Если бы города были одинаковыми — да. Но в Казани за месяц могло измениться что угодно ещё.">Фича даёт +5%</button><button type="button" data-v="b">Города отличаются не только фичей</button><button type="button" data-v="c" data-why="Прошлый год не поможет: в этом году у городов своя погода, свои события и своя реклама.">Надо сравнить с прошлым годом</button></div>
     <p class="why">В Казани за этот месяц могло случиться что угодно: фестиваль, своя погода, реклама конкурента в Самаре. Город выбрали не монеткой, и сравнение с прошлым годом от этого не спасает.</p>
   </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Гости, которые пользуются приложением больше года, заказывают втрое больше новичков. Значит, приложение со временем приучает заказывать?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Может быть и так, но сравнение этого не доказывает: в группе «больше года» люди не случайные.">Да, привычка растёт со временем</button><button type="button" data-v="b">Не обязательно: за год остались только те, кому приложение понравилось</button><button type="button" data-v="c" data-why="Втрое на тысячах гостей — не шум. Разница настоящая, вопрос в том, откуда она.">Нет, это просто шум</button></div>
+    <p class="why">Это ошибка выжившего. В «больше года» попали только те, кто не бросил приложение, а те, кому не понравилось, ушли, и их заказов в сравнении нет. Приучает ли приложение заказывать, покажет только эксперимент.</p>
+  </div>
   <p class="note" id="quiz-score"></p>
 </section>
 
@@ -231,6 +270,8 @@
     <li><b>До и после</b> приписывает фиче всё, что изменилось во времени: сезон, праздники, погоду, другие релизы.</li>
     <li><b>«Кто включил» против «кто не включил»</b> приписывает фиче то, чем эти люди отличались с самого начала.</li>
     <li><b>Связь — ещё не причина.</b> У неё всегда четыре объяснения: причина, обратная причина, третий фактор и совпадение.</li>
+    <li><b>Крайние значения сами возвращаются к обычным.</b> Худшие на прошлой неделе кафе вырастут и без промо, а лучшие просядут. Сравнивай с контрольной группой из таких же.</li>
+    <li><b>Ошибка выжившего:</b> «давние гости заказывают больше» — может, просто остались только довольные.</li>
     <li><b>Честное сравнение</b>: две группы живут в одно и то же время, а кто в какую попал, решает монетка. Тогда всё, кроме фичи, у групп общее.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
@@ -250,7 +291,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 // ---------- данные ----------
 fetch('data/step01.json').then(r => r.json()).then(init).catch(() => {
@@ -462,6 +503,65 @@ function init(D){
   window.addEventListener('resize', all);
   all();
 }
+
+// ---------- регрессия к среднему: промо для худших кафе ----------
+(function(){
+  const cv = document.getElementById('ch-rg'), tip = document.getElementById('rg-tip');
+  let cafes = [], t = 0, anim = null;
+  function make(){
+    cafes = Array.from({length: 20}, (_, i) => { const lvl = 20 + 1.5 * gauss(); return {lvl, w1: lvl + 3 * gauss(), w2: lvl + 3 * gauss()}; });
+    cafes.sort((a, b) => a.w1 - b.w1);
+    cafes.forEach((c, i) => c.kind = i < 5 ? 'worst' : i >= 15 ? 'best' : 'mid');
+    t = 0;
+  }
+  const avgChange = k => { const g = cafes.filter(c => c.kind === k); return g.reduce((a, c) => a + c.w2 - c.w1, 0) / g.length; };
+  const sgn1 = x => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(x), 1);
+  let geo = null;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const all = cafes.flatMap(x => [x.w1, x.w2]), lo = Math.floor(Math.min(...all) / 4) * 4, hi = Math.ceil(Math.max(...all) / 4) * 4;
+    const L = 34, R = 8, T = 10, B = 26, pw = w - L - R, ph = h - T - B, X = i => L + (i + 0.5) * pw / 20, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    geo = {X, Y, pw};
+    axisY(c, L, R, T, ph, w, lo, hi, 4, v => int(v));
+    label(c, 'худшие на прошлой неделе', L, h - 8, COL.ink2); label(c, 'лучшие →', w - R, h - 8, COL.ink2, 'right');
+    const col = k => k === 'worst' ? COL.test : k === 'best' ? COL.truth : COL.gray;
+    cafes.forEach((cf, i) => {
+      const y = cf.w1 + (cf.w2 - cf.w1) * t;
+      if (t > 0){ c.strokeStyle = col(cf.kind); c.globalAlpha = 0.5; c.lineWidth = 2; c.beginPath(); c.moveTo(X(i), Y(cf.w1)); c.lineTo(X(i), Y(y)); c.stroke(); c.globalAlpha = 1;
+        c.fillStyle = '#fff'; c.strokeStyle = col(cf.kind); c.lineWidth = 1.5; c.beginPath(); c.arc(X(i), Y(cf.w1), 3.5, 0, 2 * Math.PI); c.fill(); c.stroke(); }
+      c.fillStyle = col(cf.kind); c.beginPath(); c.arc(X(i), Y(y), 5.5, 0, 2 * Math.PI); c.fill();
+    });
+    if (t > 0) label(c, 'пустой кружок — прошлая неделя, точка — эта', w - R, T + 10, COL.ink2, 'right');
+  }
+  function hover(ev){
+    if (!geo) return; const r = cv.getBoundingClientRect(), x = ev.clientX - r.left;
+    const i = Math.floor((x - 34) / (geo.pw / 20)); const cf = cafes[i];
+    if (!cf){ tip.hidden = true; return; }
+    tip.innerHTML = 'Кафе: <b>' + num(cf.w1, 1) + '</b> заказа на 100 гостей на прошлой неделе' + (t >= 1 ? ', <b>' + num(cf.w2, 1) + '</b> на этой' : '') + (cf.kind === 'worst' ? '<br>промо' : '');
+    tip.hidden = false; tip.style.left = Math.max(0, Math.min(x + 12, r.width - tip.offsetWidth - 4)) + 'px'; tip.style.top = '4px';
+  }
+  cv.addEventListener('pointermove', hover); cv.addEventListener('pointerdown', hover); cv.addEventListener('pointerleave', () => tip.hidden = true);
+  function verdict(){
+    const wc = avgChange('worst'), bc = avgChange('best'), ch = AB.choice('rg');
+    document.getElementById('rg-worst').textContent = sgn1(wc) + ' на 100 гостей';
+    document.getElementById('rg-best').textContent = sgn1(bc) + ' на 100 гостей';
+    document.getElementById('rg-stats').hidden = false;
+    const v = document.getElementById('rg-v'); v.hidden = false; v.className = 'verdict ' + (ch === 'up' ? 'good' : 'bad');
+    const head = ch === 'up' ? 'Да, выросли. ' : ch === 'down' ? 'Не упали, а выросли. ' : ch === 'same' ? 'Изменились, и заметно. ' : '';
+    v.innerHTML = head + 'Пять худших кафе прибавили в среднем <b>' + sgn1(wc) + '</b> заказа на 100 гостей, хотя промо пустое. А пять лучших без всякого промо изменились на <b>' + sgn1(bc) + '</b>. Кафе попали в худшие во многом потому, что им не повезло на прошлой неделе. На этой неделе везение обычное — и они возвращаются к своему уровню. Это называется <b>регрессия к среднему</b>.';
+    document.getElementById('rg-chat').hidden = false;
+    document.getElementById('rg-again').hidden = false;
+  }
+  document.getElementById('rg-go').addEventListener('click', e => {
+    if (t >= 1) return; e.target.disabled = true;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches){ t = 1; draw(); verdict(); return; }
+    const t0 = performance.now(); cancelAnimationFrame(anim);
+    (function f(now){ t = Math.min(1, (now - t0) / 1200); t = t * t * (3 - 2 * t); draw(); if (now - t0 < 1200) anim = requestAnimationFrame(f); else { t = 1; draw(); verdict(); } })(t0);
+  });
+  document.getElementById('rg-again').addEventListener('click', () => { make(); draw(); document.getElementById('rg-go').disabled = false; document.getElementById('rg-v').hidden = true; document.getElementById('rg-stats').hidden = true; });
+  make();
+  window.addEventListener('resize', draw);
+})();
 </script>
 </body>
 </html>

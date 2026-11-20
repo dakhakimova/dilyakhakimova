@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab06" data-next="07-p-value.html">
 <nav class="top" aria-label="Навигация">
@@ -112,6 +112,53 @@
 </section>
 
 <!-- 5 -->
+<section class="card" data-title="Правда внутри?" aria-label="Правда внутри вилки?">
+  <span class="step-tag">Осторожно</span>
+  <h2>Монетка под лапой</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я бросил монетку и накрыл её лапой. Какой шанс, что там орёл?</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">До броска было 50 на 50. А сейчас орёл либо лежит под лапой, либо нет — просто мы не знаем.</p></div></div>
+  </div>
+  <p>С вилкой так же. Пока эксперимент не запущен, можно сказать: способ «разница ± 2 ширины» накроет правду примерно в 95 случаях из 100 — это мы видели на лесенке. Но когда вилка уже посчитана, правда либо внутри, либо снаружи. Про одну конкретную вилку «95 %» не говорят.</p>
+  <div class="def">Вилка — это все эффекты, при которых наш результат выглядел бы обычным. Эффекты за её краями с нашими данными плохо согласуются.</div>
+  <div class="quiz" data-right="b">
+    <p class="q">В отчёте: «эффект +2,3 %, вилка от +0,2 до +4,4 %». Какая формулировка верная?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Так говорят очень часто, но это неверно: правда уже либо внутри этой вилки, либо снаружи. 95 % относятся к способу, а не к одной вилке.">С вероятностью 95 % настоящий эффект внутри этой вилки</button>
+      <button type="button" data-v="b">Эффекты от +0,2 до +4,4 % хорошо согласуются с данными; способ построения таких вилок ошибается примерно в 5 случаях из 100</button>
+      <button type="button" data-v="c" data-why="Вилка говорит об эффекте в среднем по группе, а не о том, что почувствует каждый гость.">95 % гостей получат эффект от +0,2 до +4,4 %</button>
+      <button type="button" data-v="d" data-why="Середина вилки — лучшая догадка, но никакой вероятности «95 %» у неё нет. Правда может быть в любом месте вилки и даже за ней.">Эффект равен +2,3 % с вероятностью 95 %</button>
+    </div>
+    <p class="why">Вилка — это диапазон эффектов, которые согласуются с данными. А «95 %» — свойство способа: если повторять эксперименты, такие вилки накроют правду примерно в 95 случаях из 100. Конкретная вилка — как монетка под лапой: правда в ней либо есть, либо нет.</p>
+  </div>
+</section>
+
+<section class="card" data-title="В штуках" aria-label="В штуках">
+  <span class="step-tag">Игрушка</span>
+  <h2>Сколько это в заказах</h2>
+  <p>«+18 %» звучит внушительно. Но процент от процента легко обманывает. Переведём его в живых гостей.</p>
+  <div class="sheet c-white">
+    <label class="field" for="sh-p">Без фичи заказывают: <b id="sh-p-t" class="num">6 из 100 гостей</b></label>
+    <input type="range" id="sh-p" min="1" max="30" step="1" value="6" style="width:100%">
+    <label class="field" for="sh-e">Эффект фичи: <b id="sh-e-t" class="num">+18 %</b></label>
+    <input type="range" id="sh-e" min="1" max="50" step="1" value="18" style="width:100%">
+    <canvas id="ch-sh" aria-label="100 гостей без фичи и с фичей"></canvas>
+    <div class="big2">
+      <div class="truth"><b id="sh-1000">—</b><span>лишних заказов на каждую 1000 гостей</span></div>
+      <div class="ctrl"><b id="sh-nnt">—</b><span>столько гостей должны увидеть фичу ради одного лишнего заказа</span></div>
+    </div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Боб радуется: «В редком разделе „Торты на заказ“ конверсия выросла на 50 %!». Без фичи там заказывали 2 гостя из 1000. Сколько лишних заказов это даёт на 1000 гостей?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="+50 % — это половина от того, что было, а было всего 2 заказа на 1000 гостей. 500 не получится никак.">500</button>
+      <button type="button" data-v="b" data-why="Многовато: 50 % от 2 заказов — это 1 заказ, а не 50.">50</button>
+      <button type="button" data-v="c">1</button>
+    </div>
+    <p class="why">Было 2 заказа на 1000 гостей, стало 3. Полтора раза — это всего один лишний торт на тысячу посетителей раздела. Прежде чем радоваться процентам, спрашивай: «а в штуках сколько?»</p>
+  </div>
+</section>
+
 <section class="card" data-title="Ширина вилки" aria-label="Ширина вилки">
   <span class="step-tag">Закономерность</span>
   <h2>От чего зависит ширина вилки</h2>
@@ -127,6 +174,34 @@
 </section>
 
 <!-- 6 -->
+<section class="card" data-title="Вилка без формул" aria-label="Вилка без формул">
+  <span class="step-tag">Игрушка</span>
+  <h2>Выборка из выборки</h2>
+  <p>Ширину вилки можно получить и без всяких правил. У нас есть всего одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера <b>с возвращением</b>: вытянули чек, записали, положили обратно. Какие-то чеки попадут дважды, какие-то не попадут вовсе. Так мы имитируем «а что, если бы нам попались другие гости».</p>
+  <div class="sheet c-white">
+    <p class="note">Наша выборка (среднее <b id="bs-m0">—</b>):</p>
+    <div class="chips" id="bs-orig"></div>
+    <div class="controls">
+      <button class="btn" type="button" id="bs-one">Вытянуть выборку из выборки</button>
+      <button class="btn ghost" type="button" id="bs-500" hidden>Ещё 500 раз</button>
+      <button class="btn ghost" type="button" id="bs-reset" hidden>Сначала</button>
+    </div>
+    <div id="bs-last" hidden>
+      <p class="note">Вытянули (оранжевые с ×2, ×3 — чек попал несколько раз; бледные в нашей выборке — не попали ни разу). Среднее: <b id="bs-m1">—</b></p>
+      <div class="chips" id="bs-new"></div>
+    </div>
+    <div id="bs-hist-box" hidden>
+      <h3>Средние всех вытянутых выборок</h3>
+      <canvas id="ch-bs" aria-label="Гистограмма средних вытянутых выборок"></canvas>
+      <div class="big2">
+        <div class="truth"><b id="bs-ci">—</b><span>вилка: где лежат средние 95 % вытянутых выборок</span></div>
+        <div class="ctrl"><b id="bs-f">—</b><span>вилка по правилу ± 2 ширины из шага 5</span></div>
+      </div>
+    </div>
+    <div class="verdict" id="bs-v" hidden></div>
+  </div>
+</section>
+
 <section class="card" data-title="Проверь себя" aria-label="Проверь себя">
   <span class="step-tag">Проверь себя</span>
   <h2>Читаем вилки</h2>
@@ -156,7 +231,8 @@
     <li><b>Разница в эксперименте шатается</b>: у контроля и теста по колоколу, и у разницы свой колокол.</li>
     <li><b>Вилка</b> — разница ± 2 ширины колокола разницы. В 95 случаях из 100 она накрывает настоящий эффект.</li>
     <li><b>Вилка целиком выше нуля</b> — эффект положительный. Задевает ноль — данных не хватает, это не «фича не работает».</li>
-    <li>Ширина вилки падает по корню из числа людей, как в шаге 5.</li>
+    <li>Ширина вилки падает по корню из числа людей, как в шаге 5. Её можно получить и без правил — вытягивая выборки из выборки.</li>
+    <li><b>Про одну вилку не говорят «правда внутри с вероятностью 95 %»</b>: 95 % — свойство способа. И проценты всегда переводим в штуки: «+18 %» — это 6 заказов из 100 против 7.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
   <dl class="terms">
@@ -174,7 +250,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 const P0 = 0.10, Z = 1.96;
 const NS = [10000, 25000, 50000, 100000, 200000, 400000];
@@ -308,6 +384,79 @@ function drawWid(){
 document.getElementById('w-100k').textContent = '± ' + num(100 * Z * seRel(100000, 0.03), 1) + ' %';
 
 window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRead(); drawWid(); });
+
+// ---------- в штуках ----------
+(function(){
+  const pIn = document.getElementById('sh-p'), eIn = document.getElementById('sh-e'), cv = document.getElementById('ch-sh');
+  function upd(){
+    const p = +pIn.value / 100, e = +eIn.value / 100, p2 = p * (1 + e);
+    document.getElementById('sh-p-t').textContent = pIn.value + ' из 100 гостей';
+    document.getElementById('sh-e-t').textContent = '+' + eIn.value + ' %';
+    document.getElementById('sh-1000').textContent = '+' + num(1000 * (p2 - p), 1000 * (p2 - p) < 10 ? 1 : 0);
+    document.getElementById('sh-nnt').textContent = int(1 / (p2 - p));
+    const w0 = cv.clientWidth, per = w0 < 520 ? 20 : 50, sz = Math.min(13, (w0 - 4) / per - 3), rowsH = Math.ceil(100 / per) * (sz + 3), blockH = 22 + rowsH + 12;
+    const g = canvas(cv, 0, 0, 2 * blockH); if (!g) return; const {c, w} = g;
+    const rows = [['без фичи', p], ['с фичей', p2]];
+    rows.forEach(([n, q], r) => {
+      const y0 = r * blockH, k = q * 100;
+      const kr = Math.round(k * 10) / 10; label(c, n + ': ' + num(kr, kr % 1 ? 1 : 0) + ' ' + (kr % 1 ? 'заказа' : plural(kr, 'заказ', 'заказа', 'заказов')) + ' из 100 гостей', 0, y0 + 14, COL.ink);
+      for (let i = 0; i < 100; i++){
+        const x = (i % per) * (sz + 3) + sz / 2 + 1, y = y0 + 24 + Math.floor(i / per) * (sz + 3) + sz / 2;
+        const fill = Math.max(0, Math.min(1, k - i));
+        c.fillStyle = COL.grid; c.beginPath(); c.arc(x, y, sz / 2, 0, 2 * Math.PI); c.fill();
+        if (fill > 0){ c.fillStyle = r ? COL.test : COL.ctrl; c.beginPath(); c.moveTo(x, y); c.arc(x, y, sz / 2, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * fill); c.closePath(); c.fill(); }
+      }
+    });
+  }
+  pIn.addEventListener('input', upd); eIn.addEventListener('input', upd); window.addEventListener('resize', upd);
+})();
+
+// ---------- бутстреп ----------
+(function(){
+  function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const r = rng(42), g = () => Math.sqrt(-2 * Math.log(1 - r())) * Math.cos(2 * Math.PI * r());
+  const data = Array.from({length: 30}, () => Math.round(Math.exp(Math.log(420) + 0.45 * g()) / 10) * 10);
+  const N = data.length, m0 = mean(data), se = sd(data) / Math.sqrt(N), rub = x => int(x) + ' ₽';
+  let means = [], adding = 0;
+  const orig = document.getElementById('bs-orig'), nw = document.getElementById('bs-new'), cv = document.getElementById('ch-bs');
+  document.getElementById('bs-m0').textContent = rub(m0);
+  orig.innerHTML = data.map((v, i) => '<span class="chip" data-i="' + i + '">' + int(v) + '</span>').join('');
+  function draw(){
+    const box = document.getElementById('bs-hist-box'); if (!means.length){ box.hidden = true; return; } box.hidden = false;
+    const gr = canvas(cv, 0.36, 0.6); if (!gr) return; const {c, w, h} = gr;
+    const lo = Math.floor((m0 - 4.5 * se) / 10) * 10, hi = Math.ceil((m0 + 4.5 * se) / 10) * 10, bw = 10;
+    const b = bins(means, lo, hi, bw), top = Math.max(...b, 1), L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (v - lo) / (hi - lo) * pw;
+    const srt = [...means].sort((x, y) => x - y), q = f => srt[Math.min(srt.length - 1, Math.floor(f * srt.length))];
+    const showCI = means.length >= 40, a = q(0.025), z = q(0.975);
+    if (showCI){ c.fillStyle = COL.fillG; c.fillRect(X(a), T, X(z) - X(a), ph); }
+    b.forEach((k, i) => { if (!k) return; const bh = ph * k / top; c.fillStyle = COL.ctrl; c.fillRect(X(lo + i * bw) + 0.5, T + ph - bh, pw * bw / (hi - lo) - 1, bh); });
+    hoverBins(cv, X, lo, bw, b, {fmt: v => rub(v), words: ['выборка', 'выборки', 'выборок'], total: means.length});
+    c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(m0), T - 4); c.lineTo(X(m0), T + ph); c.stroke(); c.lineWidth = 1;
+    label(c, 'наша выборка ' + rub(m0), X(m0) + 4, T - 6, COL.ink);
+    for (let v = Math.ceil(lo / 50) * 50; v <= hi; v += 50) label(c, int(v), X(v), h - 6, COL.ink2, 'center');
+    document.getElementById('bs-ci').textContent = showCI ? 'от ' + rub(a) + ' до ' + rub(z) : 'нужно больше выборок';
+    document.getElementById('bs-f').textContent = 'от ' + rub(m0 - 2 * se) + ' до ' + rub(m0 + 2 * se);
+    const v = document.getElementById('bs-v');
+    if (means.length >= 300){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = 'Мы ни разу не использовали правило ± 2 ширины, а получили вилку <b>от ' + rub(a) + ' до ' + rub(z) + '</b> — почти ту же, что и по правилу. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют <b>бутстрепом</b>.'; } else v.hidden = true;
+  }
+  function one(show){
+    const cnt = new Array(N).fill(0), pick = [];
+    for (let i = 0; i < N; i++){ const j = Math.floor(Math.random() * N); cnt[j]++; pick.push(j); }
+    const m = mean(pick.map(j => data[j])); means.push(m);
+    if (show){
+      document.getElementById('bs-last').hidden = false; document.getElementById('bs-m1').textContent = rub(m);
+      orig.querySelectorAll('.chip').forEach(ch => ch.classList.toggle('miss', !cnt[+ch.dataset.i]));
+      nw.innerHTML = cnt.map((k, j) => k ? '<span class="chip' + (k > 1 ? ' dup' : '') + '">' + int(data[j]) + (k > 1 ? '<i>×' + k + '</i>' : '') + '</span>' : '').join('');
+    }
+  }
+  document.getElementById('bs-one').addEventListener('click', e => { one(true); e.target.textContent = 'Вытянуть ещё одну'; document.getElementById('bs-500').hidden = false; document.getElementById('bs-reset').hidden = false; draw(); });
+  document.getElementById('bs-500').addEventListener('click', () => {
+    if (adding) return; adding = 500; const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function tick(){ if (!adding) return; const k = reduce ? adding : Math.min(adding, 20); for (let i = 0; i < k; i++) one(i === k - 1); adding -= k; draw(); if (adding) requestAnimationFrame(tick); })();
+  });
+  document.getElementById('bs-reset').addEventListener('click', () => { means = []; adding = 0; document.getElementById('bs-last').hidden = true; orig.querySelectorAll('.chip').forEach(ch => ch.classList.remove('miss')); document.getElementById('bs-one').textContent = 'Вытянуть выборку из выборки'; draw(); document.getElementById('bs-v').hidden = true; });
+  window.addEventListener('resize', draw);
+})();
 </script>
 </body>
 </html>

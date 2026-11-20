@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab07" data-next="08-errors.html">
 <nav class="top" aria-label="Навигация">
@@ -124,6 +124,35 @@
 </section>
 
 <!-- 7 -->
+<section class="card" data-title="Два теста, одно p" aria-label="Два теста, одно p">
+  <span class="step-tag">Игра</span>
+  <h2>Два теста, одно p</h2>
+  <p>Две команды принесли отчёты. Конверсия в контроле у обеих 10 %.</p>
+  <div class="rep2">
+    <div><h3>Тест А: новое меню</h3><table class="report"><tbody>
+      <tr><td>Людей в каждой группе</td><td id="ta-n">—</td></tr>
+      <tr><td>Конверсия: контроль → тест</td><td id="ta-c">—</td></tr>
+      <tr><td>Разница</td><td id="ta-d">—</td></tr>
+      <tr><td>p-value</td><td id="ta-p">—</td></tr></tbody></table></div>
+    <div><h3>Тест Б: новый цвет кнопки</h3><table class="report"><tbody>
+      <tr><td>Людей в каждой группе</td><td id="tb-n">—</td></tr>
+      <tr><td>Конверсия: контроль → тест</td><td id="tb-c">—</td></tr>
+      <tr><td>Разница</td><td id="tb-d">—</td></tr>
+      <tr><td>p-value</td><td id="tb-p">—</td></tr></tbody></table></div>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">p-value почти одинаковые. Какой эффект важнее для бизнеса?</p>
+    <div class="choice">
+      <button type="button" data-v="a">Тест А: эффект +5 %</button>
+      <button type="button" data-v="b" data-why="p у тестов одинаковый, а людей в Б в сто раз больше — поэтому там и крошечная разница стала значимой. Сам эффект в Б в десять раз меньше.">Тест Б: p такой же, зато людей в сто раз больше</button>
+      <button type="button" data-v="c" data-why="Одинаковый p говорит только, что обе разницы одинаково удивительны для мира без эффекта. Про размер эффекта он не говорит ничего.">Одинаково: p ведь равны</button>
+    </div>
+    <p class="why">p-value смешивает две вещи: размер эффекта и число людей. В А эффект большой, а людей мало; в Б эффект крошечный, а людей очень много. Получилось одинаково «удивительно», но эффекты отличаются в 10 раз. Размер эффекта смотрим по разнице и вилке.</p>
+    <p class="honest-cap">Вилки обоих тестов на одной шкале:</p>
+    <canvas class="dash honest" id="ch-two" aria-label="Вилки тестов А и Б"></canvas>
+  </div>
+</section>
+
 <section class="card" data-title="Чем он не является" aria-label="Чем p-value не является">
   <span class="step-tag">Осторожно</span>
   <h2>Чем p-value не является</h2>
@@ -136,6 +165,24 @@
 </section>
 
 <!-- 8 -->
+<section class="card" data-title="Верный заголовок" aria-label="Верный заголовок">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Выбери верный заголовок</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест кнопки «Повторить заказ»: p = 0,03. Пишу новость в общий канал, помогите с заголовком!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Какой заголовок верно передаёт p = 0,03?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Самая частая ошибка. p-value считается в мире, где фича ничего не делает, и не говорит, с какой вероятностью мы живём в этом мире.">Шанс, что кнопка не работает, — всего 3 %</button>
+      <button type="button" data-v="b">Если бы кнопка ничего не делала, такая разница случалась бы примерно в 3 тестах из 100</button>
+      <button type="button" data-v="c" data-why="Это та же ошибка, только вывернутая наоборот. Вероятность, что фича работает, p-value не сообщает.">Кнопка работает с вероятностью 97 %</button>
+      <button type="button" data-v="d" data-why="p-value — не размер эффекта. Эффект может быть и +0,5 %, и +10 %: смотри на разницу и вилку.">Кнопка увеличила заказы на 3 %</button>
+    </div>
+    <p class="why">p-value отвечает только на один вопрос: насколько удивительна наша разница в мире, где фича ничего не делает. Удивительна — значит, есть повод думать, что эффект есть. Но «вероятность, что фича работает» и «размер эффекта» из него не получить.</p>
+  </div>
+</section>
+
 <section class="card" data-title="Проверь себя" aria-label="Проверь себя">
   <span class="step-tag">Проверь себя</span>
   <h2>Читаем p-value</h2>
@@ -168,6 +215,7 @@
     <li><b>Меньше 5 %</b> — разницу называют значимой. Это то же самое, что вилка не задевает ноль.</li>
     <li><b>p-value — не вероятность</b>, что фича не работает, и не размер эффекта.</li>
     <li>При огромном трафике значимым становится и крошечный эффект. Важен ли он — решает вилка и бизнес.</li>
+    <li><b>Одинаковый p — не одинаковый эффект.</b> 34 000 человек и +5 % дают тот же p, что 3,4 млн и +0,5 %.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
   <dl class="terms">
@@ -185,7 +233,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 const P0 = 0.10, Z = 1.96, N0 = 100000;
 const se0 = n => Math.sqrt(2 * P0 * (1 - P0) / n) / P0;      // ширина колокола разницы в мире без эффекта
@@ -285,6 +333,34 @@ function upd6(){
 n6.addEventListener('input', upd6);
 
 window.addEventListener('resize', () => { drawNull(); stats3(); drawBoth(); stats5(); upd6(); });
+
+// ---------- два теста, одно p ----------
+(function(){
+  const P = 0.10, T = [{k: 'ta', n: 34000, e: 0.05}, {k: 'tb', n: 3400000, e: 0.005}];
+  T.forEach(t => {
+    const p2 = P * (1 + t.e), se = Math.sqrt(P * (1 - P) / t.n + p2 * (1 - p2) / t.n), z = (p2 - P) / se;
+    t.p = pTwo(z); t.lo = (p2 - P - 1.96 * se) / P; t.hi = (p2 - P + 1.96 * se) / P;
+    document.getElementById(t.k + '-n').textContent = int(t.n);
+    document.getElementById(t.k + '-c').textContent = share(P, 1) + ' → ' + share(p2, 2);
+    document.getElementById(t.k + '-d').textContent = pct(t.e, 1);
+    document.getElementById(t.k + '-p').textContent = num(t.p, 3);
+  });
+  const cv = document.getElementById('ch-two');
+  function draw(){
+    const g = canvas(cv, 0.26, 0.45); if (!g) return; const {c, w, h} = g;
+    const lo = -0.01, hi = 0.11, L = 90, R = 14, pw = w - L - R, X = v => L + (v - lo) / (hi - lo) * pw;
+    c.strokeStyle = COL.grid; (w < 520 ? [0, 0.05, 0.1] : [0, 0.02, 0.04, 0.06, 0.08, 0.1]).forEach(v => { c.beginPath(); c.moveTo(X(v), 4); c.lineTo(X(v), h - 22); c.stroke(); label(c, pct(v, 0), X(v), h - 6, COL.ink2, 'center'); });
+    c.strokeStyle = COL.ink2; c.beginPath(); c.moveTo(X(0), 4); c.lineTo(X(0), h - 22); c.stroke();
+    T.forEach((t, i) => {
+      const y = 22 + i * (h - 44) / 2 + 10;
+      label(c, i ? 'Тест Б' : 'Тест А', 0, y + 4, COL.ink);
+      c.strokeStyle = COL.test; c.lineWidth = 4; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(t.lo), y); c.lineTo(X(t.hi), y); c.stroke(); c.lineWidth = 1; c.lineCap = 'butt';
+      c.fillStyle = COL.ink; c.beginPath(); c.arc(X(t.e), y, 5, 0, 2 * Math.PI); c.fill();
+      const f = v => pct(v, Math.abs(v) < 0.01 ? 2 : 1); label(c, 'от ' + f(t.lo) + ' до ' + f(t.hi), Math.max(L, Math.min(X(t.lo), w - 160)), y - 9, COL.ink2);
+    });
+  }
+  window.addEventListener('resize', draw);
+})();
 </script>
 </body>
 </html>

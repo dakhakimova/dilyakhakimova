@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab10">
 <nav class="top" aria-label="Навигация">
@@ -141,11 +141,63 @@
   </div>
 </section>
 
+<!-- 5b2 -->
+<section class="card" data-title="Парадокс Симпсона" aria-label="Парадокс Симпсона">
+  <span class="step-tag">Игрушка</span>
+  <h2>Лучше в каждой группе, хуже в сумме</h2>
+  <p>Функцию «Предзаказ» не тестировали, а просто дали включить желающим. Через месяц сравнили тех, кто включил, и тех, кто нет.</p>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У тех, кто включил предзаказ, заказывают 22 %, а у остальных 38 %. Функция вредит, выключаем!</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай разделим гостей на постоянных и новичков.</p></div></div>
+  </div>
+  <div class="sheet c-white">
+    <div class="simp" id="simp"></div>
+    <div class="controls"><button class="btn" type="button" id="simp-btn">Разделить на постоянных и новичков</button></div>
+    <div class="verdict" id="simp-v" hidden></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Почему в сумме «включившие» заказывают реже, хотя и среди постоянных, и среди новичков — чаще?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Посчитано всё верно: проверь сам, 100 + 120 = 220 из 1000.">В таблице ошибка в подсчёте</button>
+      <button type="button" data-v="b">Предзаказ чаще включали новички, а они в принципе заказывают редко</button>
+      <button type="button" data-v="c" data-why="Внутри обеих групп у включивших доля заказов выше. Значит, дело не во вреде функции.">Функция на самом деле вредит</button>
+    </div>
+    <p class="why">Среди включивших 800 новичков из 1000, среди остальных — только 200. Новички заказывают в три-четыре раза реже постоянных, и это тянет вниз общую долю. Так бывает, когда группы набирают сами себя. При честной монетке состав групп одинаковый, и такой переворот почти невозможен.</p>
+  </div>
+</section>
+
+<!-- 5b3 -->
+<section class="card" data-title="Поиск и проверка" aria-label="Поиск и проверка">
+  <span class="step-tag">Два вида тестов</span>
+  <h2>Поисковый тест ищет идеи, подтверждающий их проверяет</h2>
+  <div class="tiles tiles2">
+    <div class="tile"><b>Поисковый</b><span>Смотрим широко: много метрик, срезы по кафе и дням, «что интересного». Это нормально, но всё найденное — гипотезы, а не выводы.</span></button>
+    <div class="tile"><b>Подтверждающий</b><span>До запуска записываем одну гипотезу, одну главную метрику, длину и правило решения. Вывод делаем только по ней.</span></div>
+  </div>
+  <p>Ошибка — делать выводы по поисковому тесту так, будто он подтверждающий. Определи, какой тест перед тобой.</p>
+  <div class="quiz" data-right="a">
+    <p class="q">Запустили новую главную страницу и смотрим 25 метрик в 10 срезах: где что изменилось.</p>
+    <div class="choice">
+      <button type="button" data-v="a">Поисковый</button>
+      <button type="button" data-v="b" data-why="Здесь нет одной заранее записанной гипотезы и главной метрики: смотрим всё сразу. Так ищут, а не проверяют.">Подтверждающий</button>
+    </div>
+    <p class="why">Много метрик и срезов — это поиск. Найденное здесь записываем в гипотезы и проверяем следующими тестами.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">До запуска записали: «Кнопка „Повторить заказ“ в кафе у вокзала поднимет заказы на гостя. Главная метрика — заказы на гостя, 21 день, решение по 95 % вилке».</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Тут всё записано заранее: гипотеза, метрика, длина и правило решения. Это признаки проверки, а не поиска.">Поисковый</button>
+      <button type="button" data-v="b">Подтверждающий</button>
+    </div>
+    <p class="why">Одна гипотеза, одна главная метрика и правило решения, записанные до запуска, — это подтверждающий тест. По нему уже можно принимать решение.</p>
+  </div>
+</section>
+
 <!-- 5c -->
 <section class="card" data-title="Найди подвох" aria-label="Найди подвох">
   <span class="step-tag">Игра</span>
   <h2>Где Боб приукрасил дашборд</h2>
-  <p>Цифры могут быть честными, а картинка — нет. Боб принёс три графика. Найди в каждом, в чём подвох.</p>
+  <p>Цифры могут быть честными, а картинка — нет. Боб принёс пять графиков. Найди в каждом, в чём подвох.</p>
   <div class="quiz" data-right="a">
     <p class="q">«Тест обогнал контроль в три раза!»</p>
     <canvas class="dash" id="dash1" aria-label="Столбики контроля и теста"></canvas>
@@ -170,12 +222,120 @@
     <p class="honest-cap">Как это выглядит честно:</p>
     <canvas class="dash honest" id="dash3h" aria-label="Разница по всем 21 дням"></canvas>
   </div>
+  <div class="quiz" data-right="a">
+    <p class="q">«Через приложение заказывают в разы больше, чем по телефону!»</p>
+    <canvas class="dash" id="dash4" aria-label="Два стакана кофе разного размера"></canvas>
+    <div class="choice"><button type="button" data-v="a">Стакан вырос и в высоту, и в ширину</button><button type="button" data-v="b" data-why="Цвет тут для красоты. Посмотри на размер: что именно выросло вдвое?">Стаканы разного цвета</button><button type="button" data-v="c" data-why="Числа можно подписать, но картинка всё равно обманет глаз. Дело в том, как нарисованы стаканы.">Не подписаны числа</button></div>
+    <p class="why">Заказов через приложение вдвое больше: 2 400 против 1 200. Но Боб увеличил стакан вдвое и в высоту, и в ширину, поэтому по площади он вчетверо больше, а глаз сравнивает именно площадь. Честно — столбики одной ширины.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash4h" aria-label="Те же числа столбиками"></canvas>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">«Растём на 40 % в неделю — к Новому году будет миллион заказов!»</p>
+    <canvas class="dash" id="dash5" aria-label="Рост заказов по неделям и пунктир в будущее"></canvas>
+    <div class="choice"><button type="button" data-v="a">Пунктир — догадка, такой рост не продлится вечно</button><button type="button" data-v="b" data-why="Шкала тут от нуля. Посмотри на правую часть графика: откуда она взялась?">Шкала не от нуля</button><button type="button" data-v="c" data-why="Это не тест, а общий график заказов. Подвох — в том, что нарисовано правее последней точки.">Мало людей в тесте</button></div>
+    <p class="why">Шесть недель после запуска заказы и правда росли на 40 % в неделю: новое всегда растёт быстро. Но всё правее последней точки — фантазия Боба. Так рост не продолжается: приложение скачают все желающие, и кривая выйдет на плато.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash5h" aria-label="Только настоящие данные"></canvas>
+  </div>
+</section>
+
+<!-- 5d -->
+<!-- 5d -->
+<section class="card" data-title="Найди подвох в цифрах" aria-label="Найди подвох в цифрах">
+  <span class="step-tag">Игра</span>
+  <h2>Где Боб приукрасил цифры</h2>
+  <p>Теперь подвох не в рисунке, а в самих числах. Четыре фразы из отчётов Боба.</p>
+  <div class="quiz" data-right="a">
+    <p class="q">«Больше всего жалоб на курьеров в пятницу вечером — снимаем курьеров с пятницы!»</p>
+    <canvas class="dash" id="dash6" aria-label="Жалобы по дням недели"></canvas>
+    <div class="choice"><button type="button" data-v="a">Смотрят на штуки, а не на долю</button><button type="button" data-v="b" data-why="Шкала тут от нуля. Подумай, почему в пятницу вообще всего больше.">Шкала не от нуля</button><button type="button" data-v="c" data-why="День Боб не выбирал — он просто нашёл самый высокий столбик. Вопрос в том, что этот столбик значит.">Выбран удобный день</button></div>
+    <p class="why">В пятницу вечером жалоб больше, потому что больше заказов. Если считать жалобы на 1000 заказов, пятница — самый спокойный день недели. Снимать курьеров нужно было бы скорее со вторника.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash6h" aria-label="Жалобы на 1000 заказов"></canvas>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">«Конверсия выросла на 3 %!» Какой из графиков описывает фразу Боба?</p>
+    <canvas class="dash" id="dash7" aria-label="Два варианта роста конверсии"></canvas>
+    <div class="choice"><button type="button" data-v="a" data-why="Может быть и так — тогда конверсия выросла вдвое. Но фраза подходит и под правый график.">Левый: с 3 % до 6 %</button><button type="button" data-v="b" data-why="Может быть и так — тогда рост крошечный. Но фраза подходит и под левый график.">Правый: с 3 % до 3,09 %</button><button type="button" data-v="c">Оба: фраза двусмысленная</button></div>
+    <p class="why">«Выросла на 3 %» можно понять двумя способами: прибавилось 3 процента (с 3 % до 6 %, вдвое) или выросла на 3 % от себя (с 3 % до 3,09 %). Между ними разница в 33 раза. Всегда спрашивай: сколько было и сколько стало.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">«После обновления активных пользователей стало на 18 % больше!»</p>
+    <canvas class="dash" id="dash8" aria-label="Активные пользователи по дням, скачок в день обновления"></canvas>
+    <div class="choice"><button type="button" data-v="a">В этот день поменяли, что считают активностью</button><button type="button" data-v="b" data-why="Если бы понравилось, рост шёл бы постепенно, по мере обновления. А тут ступенька за один день — и точно в день релиза.">Обновление очень понравилось</button><button type="button" data-v="c" data-why="Выходные бывают каждую неделю, а такая ступенька — одна. Посмотри на пометку под графиком.">Совпало с выходными</button></div>
+    <p class="why">В новой версии активным стали считать и того, кто открыл приложение в фоне, например ради уведомления. Мир не изменился — изменился учёт. Если пересчитать по старому правилу, линия ровная. Перед тем как радоваться скачку, проверь, не менялось ли в этот день, что и как считают.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash8h" aria-label="Активные по старому и новому правилу"></canvas>
+  </div>
+  <div class="quiz" data-right="a">
+    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый онбординг даёт +26 % к заказам!</p></div></div></div>
+    <p class="q">Что спросить первым?</p>
+    <div class="choice"><button type="button" data-v="a">По сравнению с чем?</button><button type="button" data-v="b" data-why="Хороший вопрос, но второй. Сначала надо понять, с чем вообще сравнивали: от этого зависит всё остальное.">Значимо ли это?</button><button type="button" data-v="c" data-why="26 % — это много. Подозрительно много.">Почему так мало?</button></div>
+    <p class="why">Боб сравнил новый онбординг с прошлогодним, а не с тем, что работает сейчас. Нынешний онбординг уже даёт +24 % к прошлогоднему, так что новый лучше текущего всего на 1,6 %. Число без «по сравнению с чем» ничего не значит.</p>
+    <p class="honest-cap">Как это выглядит честно:</p>
+    <canvas class="dash honest" id="dash9h" aria-label="Три онбординга"></canvas>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<section class="card" data-title="Проклятие победителя" aria-label="Проклятие победителя">
+  <span class="step-tag">Игрушка</span>
+  <h2>Кладбище тестов</h2>
+  <p>Одну и ту же хорошую идею проверяют в 20 разных командах. Настоящий эффект <b>+3 %</b>, но тесты короткие: уверенно они замечают только эффекты от 6 %. Каждая команда выкатывает фичу, если её тест «победил», а остальные тесты отправляются на кладбище.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="wc-one">Запустить один тест</button>
+      <button class="btn ghost" type="button" id="wc-more" hidden>Ещё 19 тестов</button>
+      <button class="btn ghost" type="button" id="wc-reset" hidden>Сначала</button>
+    </div>
+    <p class="note" id="wc-last"></p>
+    <canvas id="ch-wc" aria-label="Эффекты двадцати тестов: выкаченные и на кладбище"></canvas>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>победил, выкатили</span><span><i style="background:#A3A19A"></i>не победил, на кладбище</span></div>
+    <div class="big2">
+      <div class="ctrl"><b id="wc-all">—</b><span>средний эффект по всем тестам</span></div>
+      <div class="trap"><b id="wc-win">—</b><span>средний эффект выкаченных</span></div>
+    </div>
+    <div class="verdict" id="wc-v" hidden></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">За год выкатили 5 фич, каждая победила примерно с +6 %. Чего ждать от общего роста заказов?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Это сумма цифр победителей, а они почти всегда завышены: шум подыграл каждой из них.">Около +30 %, как в сумме</button>
+      <button type="button" data-v="b">Заметно меньше, чем обещает сумма побед</button>
+      <button type="button" data-v="c" data-why="Победы не обязательно ложные: эффект может быть настоящим, просто меньше, чем показал тест.">Ничего: все победы ложные</button>
+    </div>
+    <p class="why">У победителей шум подыграл эффекту, поэтому их цифры завышены. Сумма приростов выкаченных фич всегда больше реального роста. Важные победы стоит перепроверять повторным тестом.</p>
+  </div>
+</section>
+
+<!-- 5e -->
+<section class="card" data-title="После плохой недели" aria-label="После плохой недели">
+  <span class="step-tag">Подвох</span>
+  <h2>После плохой недели всё растёт само</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлая неделя была провальной, и мы запустили тест акции. За неделю заказы в тесте выросли на 9 %!</p></div></div>
+  </div>
+  <div class="sheet c-white">
+    <canvas id="ch-bw" aria-label="Заказы контроля и теста по неделям"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>контроль</span><span><i style="background:var(--test)"></i>тест</span></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что на самом деле показал тест?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Контроль акции не видел, а вырос почти так же — на 8 %. Значит, большая часть роста не от акции.">Акция подняла заказы на 9 %</button>
+      <button type="button" data-v="b">Эффект — разница с контролем, около +1 %; остальной рост — откат после провала</button>
+      <button type="button" data-v="c" data-why="Ничего не сломано: после провальной недели заказы сами возвращаются к норме, в обеих группах сразу.">Тест сломан: не могут же вырасти обе группы</button>
+    </div>
+    <p class="why">Провальная неделя — это отчасти невезение: погода, праздник, сбой. На следующей неделе всё само откатывается к обычному уровню. Это называют <b>регрессией к среднему</b>. Поэтому смотрим только на разницу с контролем, а не на рост «до и после».</p>
+  </div>
 </section>
 
 <!-- 6 -->
 <section class="card" data-title="Тренажёр" aria-label="Тренажёр">
   <span class="step-tag">Тренажёр</span>
   <h2>Пять отчётов: что решаем?</h2>
+  <div class="def"><b>Пять вопросов к любой цифре.</b> Кто это говорит и зачем? Откуда он это знает? Чего не хватает (по сравнению с чем, сколько людей, какой период)? Не подменили ли предмет разговора? Есть ли в этом смысл?</div>
   <p>Главная метрика в каждом тесте — конверсия в заказ. Зелёным и красным отмечены значимые изменения.</p>
 
   <div class="quiz" data-right="a">
@@ -257,6 +417,7 @@
     <li><b>MDE считают до запуска.</b> Вдвое меньший эффект стоит вчетверо больше людей.</li>
     <li><b>Не подглядываем, выбираем главную метрику заранее, проверяем доли групп.</b></li>
     <li><b>Средний ноль может прятать плюсы и минусы,</b> но срез, найденный задним числом, — только гипотеза для нового теста.</li>
+    <li><b>Победители завышены,</b> а сравнение «кто включил / кто нет» может перевернуть вывод из-за состава групп. Перепроверяем и делим монеткой.</li>
     <li><b>Не верим картинке на слово:</b> шкала от нуля? сколько это в штуках? какой период показан?</li>
   </ul>
   <p>И последние названия:</p>
@@ -276,7 +437,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 const $ = id => document.getElementById(id);
 
@@ -425,6 +586,139 @@ srmRun(); paintMM(); peekStats();
   }
   window.addEventListener('resize', draw);
   document.querySelectorAll('.quiz canvas.honest').forEach(cv => { const q = cv.closest('.quiz'); new MutationObserver(() => window.dispatchEvent(new Event('resize'))).observe(q, {attributes: true, attributeFilter: ['class']}); });
+})();
+
+// ---------- парадокс Симпсона ----------
+(function(){
+  const D = {reg: {on: [200, 100], off: [800, 360]}, new: {on: [800, 120], off: [200, 24]}};
+  let split = false;
+  const row = (name, x) => '<tr><th>' + name + '</th><td>' + x.on[1] + ' из ' + x.on[0] + '<b>' + share(x.on[1] / x.on[0], 0) + '</b></td><td>' + x.off[1] + ' из ' + x.off[0] + '<b>' + share(x.off[1] / x.off[0], 0) + '</b></td></tr>';
+  function paint(){
+    const all = {on: [D.reg.on[0] + D.new.on[0], D.reg.on[1] + D.new.on[1]], off: [D.reg.off[0] + D.new.off[0], D.reg.off[1] + D.new.off[1]]};
+    document.getElementById('simp').innerHTML = '<table><tr><th></th><th>включили предзаказ</th><th>не включили</th></tr>' + (split ? row('постоянные', D.reg) + row('новички', D.new) : '') + row('все вместе', all).replace('<tr>', '<tr class="tot">') + '</table>';
+  }
+  document.getElementById('simp-btn').addEventListener('click', e => {
+    split = !split; e.target.textContent = split ? 'Сложить обратно' : 'Разделить на постоянных и новичков'; paint();
+    const v = document.getElementById('simp-v'); v.hidden = !split; v.className = 'verdict good';
+    v.innerHTML = 'Среди постоянных включившие заказывают чаще: <b>50 %</b> против 45 %. Среди новичков тоже: <b>15 %</b> против 12 %. А вместе — реже. Это <b>парадокс Симпсона</b>.';
+  });
+  paint();
+})();
+
+// ---------- проклятие победителя ----------
+(function(){
+  const TRUE = 0.03, SE = 0.022, CUT = 1.96 * SE, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tests = [], adding = 0; const cv = document.getElementById('ch-wc');
+  const one = () => { const e = TRUE + SE * gauss(); return {e, win: e > CUT}; };
+  function stats(){
+    const n = tests.length, wins = tests.filter(t => t.win);
+    document.getElementById('wc-all').textContent = n ? pct(mean(tests.map(t => t.e))) : '—';
+    document.getElementById('wc-win').textContent = wins.length ? pct(mean(wins.map(t => t.e))) + ' (' + wins.length + ' ' + plural(wins.length, 'тест', 'теста', 'тестов') + ')' : '—';
+    document.getElementById('wc-more').hidden = !n; document.getElementById('wc-reset').hidden = !n;
+    document.getElementById('wc-more').textContent = n < 20 ? 'Ещё ' + (20 - n) + ' ' + plural(20 - n, 'тест', 'теста', 'тестов') : 'Ещё 100 тестов';
+    const v = document.getElementById('wc-v');
+    if (n >= 20 && wins.length){
+      v.hidden = false; v.className = 'verdict bad';
+      v.innerHTML = 'Настоящий эффект у всех тестов один и тот же: <b>+3 %</b>. Среднее по всем тестам около него: ' + pct(mean(tests.map(t => t.e))) + '. А у выкаченных — <b>' + pct(mean(wins.map(t => t.e))) + '</b>: победили только те, кому шум подыграл. Победитель в среднем почти вдвое оптимистичнее правды.';
+    } else v.hidden = true;
+  }
+  function draw(){
+    const g = canvas(cv, 0, 0, 150); if (!g) return; const {c, w, h} = g;
+    const lo = -0.05, hi = 0.13, L = 10, R = 10, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * (w - L - R);
+    c.strokeStyle = COL.grid; [-0.04, 0, 0.04, 0.08, 0.12].forEach(v => { c.beginPath(); c.moveTo(X(v), 14); c.lineTo(X(v), 118); c.stroke(); label(c, pct(v, 0), X(v), 136, COL.ink2, 'center'); });
+    c.fillStyle = COL.fillG; c.fillRect(X(CUT), 14, X(hi) - X(CUT), 104); label(c, 'зона «победы»', X(CUT) + 4, 28, COL.truth);
+    tests.forEach((t, i) => { const last = i === tests.length - 1 && tests.length <= 20; c.fillStyle = t.win ? COL.truth : COL.gray; c.globalAlpha = last ? 1 : 0.7; c.beginPath(); c.arc(X(t.e), 66 + ((i * 7919) % 31) - 15, last ? 7 : 4, 0, 2 * Math.PI); c.fill(); });
+    c.globalAlpha = 1;
+    c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), 10); c.lineTo(X(TRUE), 122); c.stroke(); c.lineWidth = 1;
+    label(c, 'правда +3 %', X(TRUE) - 4, 10, COL.ink, 'right');
+    const wins = tests.filter(t => t.win);
+    if (wins.length){ const m = mean(wins.map(t => t.e)); c.strokeStyle = COL.trap; c.setLineDash([5, 4]); c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), 14); c.lineTo(X(m), 122); c.stroke(); c.setLineDash([]); c.lineWidth = 1; label(c, 'среднее выкаченных', X(m) > w - 140 ? X(m) - 4 : X(m) + 4, 116, '#B5473B', X(m) > w - 140 ? 'right' : 'left'); }
+  }
+  document.getElementById('wc-one').addEventListener('click', () => {
+    const t = one(); tests.push(t);
+    document.getElementById('wc-last').textContent = 'Тест №' + tests.length + ' показал ' + pct(t.e) + ' — ' + (t.win ? 'значимо, команда выкатила фичу.' : 'не значимо, тест на кладбище.');
+    draw(); stats();
+  });
+  document.getElementById('wc-more').addEventListener('click', () => {
+    if (adding) return; adding = tests.length < 20 ? 20 - tests.length : 100;
+    (function tick(){ if (!adding) return; const k = reduce ? adding : Math.min(adding, tests.length < 20 ? 1 : 5); for (let i = 0; i < k; i++) tests.push(one()); adding -= k; draw(); stats(); if (adding) setTimeout(tick, reduce ? 0 : 60); })();
+  });
+  document.getElementById('wc-reset').addEventListener('click', () => { tests = []; adding = 0; document.getElementById('wc-last').textContent = ''; draw(); stats(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- после плохой недели ----------
+(function(){
+  const ctrl = [10050, 9930, 10110, 9980, 9000, 9720], test = [10010, 9970, 10060, 10020, 9000, 9810], cv = document.getElementById('ch-bw');
+  function draw(){
+    const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
+    const L = 52, R = w < 520 ? 50 : 120, T = 14, B = 24, ph = h - T - B, lo = 8500, hi = 10500, X = i => L + i / 5 * (w - L - R), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    c.fillStyle = COL.fillB; c.fillRect(X(3.5), T, X(4.5) - X(3.5), ph); label(c, w < 520 ? '' : 'провал', X(4), T + 12, '#B5473B', 'center');
+    c.fillStyle = COL.fillG; c.fillRect(X(4.5), T, X(5) - X(4.5) + 12, ph); label(c, w < 520 ? '' : 'тест идёт', X(5) + 8, T + 12, COL.truth);
+    axisY(c, L, R, T, ph, w, lo, hi, 500, v => int(v));
+    [ctrl, test].forEach((a, k) => { c.strokeStyle = k ? COL.test : COL.ctrl; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); c.fillStyle = c.strokeStyle; a.forEach((v, i) => { c.beginPath(); c.arc(X(i), Y(v), 3, 0, 2 * Math.PI); c.fill(); }); });
+    const nar = w < 520; for (let i = 0; i < 6; i++) label(c, (i + 1) + (nar ? '' : ' нед.'), X(i), h - 6, COL.ink2, 'center');
+    label(c, (nar ? '' : 'тест ') + pct(test[5] / test[4] - 1, 0), X(5) + 10, Y(test[5]) - 4, '#B8642A');
+    label(c, (nar ? '' : 'контроль ') + pct(ctrl[5] / ctrl[4] - 1, 0), X(5) + 10, Y(ctrl[5]) + 14, COL.ctrl);
+  }
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- найди подвох: раунды из Хаффа ----------
+(function(){
+  function cups(cv){
+    const g = canvas(cv, 0.34, 0.6); if (!g) return; const {c, w, h} = g;
+    const base = h - 30, u = Math.min((h - 50) / 2, w / 7);
+    const cup = (x, k, col, t) => { const cw = u * 0.8 * k, ch = u * k; c.fillStyle = col; c.beginPath(); c.moveTo(x - cw / 2, base - ch); c.lineTo(x + cw / 2, base - ch); c.lineTo(x + cw * 0.38, base); c.lineTo(x - cw * 0.38, base); c.closePath(); c.fill(); c.fillStyle = '#fff'; c.fillRect(x - cw * 0.45, base - ch * 0.62, cw * 0.9, ch * 0.16); label(c, t, x, h - 8, COL.ink, 'center'); };
+    cup(w * 0.3, 1, COL.ctrl, 'по телефону: 1 200'); cup(w * 0.68, 2, COL.test, 'через приложение: 2 400');
+  }
+  function bars2(cv, vals, labels, cols, fmt){
+    const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const L = 46, T = 14, B = 24, ph = h - T - B, mx = Math.max(...vals) * 1.15, n = vals.length, bw = (w - L - 10) / n;
+    axisY(c, L, 10, T, ph, w, 0, mx, Math.pow(10, Math.floor(Math.log10(mx))) * (mx / Math.pow(10, Math.floor(Math.log10(mx))) > 5 ? 2 : 1), v => int(v));
+    vals.forEach((v, i) => { const x = L + i * bw + bw * 0.15, bh = v / mx * ph; c.fillStyle = cols[i] || COL.ctrl; c.fillRect(x, T + ph - bh, bw * 0.7, bh); label(c, labels[i], x + bw * 0.35, h - 6, COL.ink2, 'center'); label(c, fmt(v), x + bw * 0.35, T + ph - bh - 4, COL.ink, 'center'); });
+  }
+  function growth(cv, future){
+    const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const wk = [1000, 1400, 1960, 2744, 3842, 5378], last = future ? 20 : 6, mx = future ? 1000000 : 6000;
+    const L = 64, T = 12, B = 24, pw = w - L - 12, ph = h - T - B, X = i => L + (i - 1) / (last - 1) * pw, Y = v => T + (1 - v / mx) * ph;
+    axisY(c, L, 12, T, ph, w, 0, mx, future ? 250000 : 2000, v => int(v));
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath(); wk.forEach((v, i) => i ? c.lineTo(X(i + 1), Y(v)) : c.moveTo(X(1), Y(v))); c.stroke();
+    if (future){ c.setLineDash([6, 5]); c.strokeStyle = COL.trap; c.beginPath(); c.moveTo(X(6), Y(wk[5])); for (let i = 7; i <= 20; i++) c.lineTo(X(i), Y(Math.min(mx, wk[5] * Math.pow(1.4, i - 6)))); c.stroke(); c.setLineDash([]); label(c, 'миллион к Новому году?', w - 12, T + 12, COL.trap, 'right'); }
+    else { c.setLineDash([6, 5]); c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(X(6), Y(wk[5])); c.lineTo(X(6), T); c.stroke(); c.setLineDash([]); label(c, 'дальше данных нет', X(6) - 6, T + 12, COL.ink2, 'right'); }
+    label(c, 'неделя 1', X(1), h - 6, COL.ink2, 'left'); label(c, 'неделя ' + last, X(last), h - 6, COL.ink2, 'right');
+    c.lineWidth = 1;
+  }
+  function conv(cv){
+    const g = canvas(cv, 0.3, 0.55); if (!g) return; const {c, w, h} = g;
+    const half = w / 2, L = 40, T = 22, B = 24, ph = h - T - B, mx = 7, Y = v => T + (1 - v / mx) * ph;
+    [[0, [3, 6], 'левый'], [half, [3, 3.09], 'правый']].forEach(([x0, v, t]) => {
+      label(c, t + ' график', x0 + half / 2, 14, COL.ink, 'center');
+      v.forEach((val, i) => { const bw = (half - L - 20) / 2, x = x0 + L + i * (bw + 10); c.fillStyle = i ? COL.test : COL.ctrl; c.fillRect(x, Y(val), bw, Y(0) - Y(val)); label(c, num(val, i && val < 4 ? 2 : 0) + ' %', x + bw / 2, Y(val) - 4, COL.ink, 'center'); label(c, i ? 'стало' : 'было', x + bw / 2, h - 6, COL.ink2, 'center'); });
+    });
+  }
+  const dau = Array.from({length: 28}, (_, d) => 10000 + 120 * Math.sin(d * 1.3) + (d % 7 > 4 ? 300 : 0));
+  function active(cv, both){
+    const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
+    const L = 56, T = 12, B = 24, pw = w - L - 12, ph = h - T - B, lo = 8000, hi = 13000, X = d => L + d / 27 * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, 12, T, ph, w, lo, hi, 1000, v => int(v));
+    const nw = dau.map((v, d) => d >= 14 ? v * 1.18 : v);
+    c.lineWidth = 2.5; c.strokeStyle = COL.ctrl; c.beginPath(); nw.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
+    if (both){ c.strokeStyle = COL.truth; c.setLineDash([5, 4]); c.beginPath(); dau.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); c.setLineDash([]); label(c, 'по старому правилу', X(27), Y(dau[27]) + 16, COL.truth, 'right'); label(c, 'по новому', X(27), Y(nw[27]) - 8, COL.ctrl, 'right'); }
+    c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); c.moveTo(X(14), T); c.lineTo(X(14), T + ph); c.stroke();
+    label(c, 'обновление', X(14) + 4, T + 12, COL.ink2);
+    label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 28', X(27), h - 6, COL.ink2, 'right');
+  }
+  function draw(){
+    cups(document.getElementById('dash4')); bars2(document.getElementById('dash4h'), [1200, 2400], ['по телефону', 'через приложение'], [COL.ctrl, COL.test], int);
+    growth(document.getElementById('dash5'), true); growth(document.getElementById('dash5h'), false);
+    bars2(document.getElementById('dash6'), [52, 48, 50, 61, 96, 88, 70], ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'], Array(7).fill(COL.trap).map((x, i) => i === 4 ? COL.trap : COL.gray), int);
+    bars2(document.getElementById('dash6h'), [4.3, 4.6, 4.2, 4.1, 3.2, 3.5, 3.9], ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'], Array(7).fill(COL.ctrl).map((x, i) => i === 1 ? COL.trap : COL.ctrl), v => num(v, 1));
+    conv(document.getElementById('dash7'));
+    active(document.getElementById('dash8'), false); active(document.getElementById('dash8h'), true);
+    bars2(document.getElementById('dash9h'), [100, 124, 126], ['прошлогодний', 'нынешний', 'новый'], [COL.gray, COL.ctrl, COL.test], v => int(v));
+  }
+  window.addEventListener('resize', draw);
 })();
 </script>
 </body>

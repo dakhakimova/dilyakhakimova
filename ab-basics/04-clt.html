@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201511">
+<link rel="stylesheet" href="ab.css?v=202611201538">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -83,6 +83,30 @@
   </div>
 </section>
 
+<section class="card" data-title="Мудрость толпы" aria-label="Мудрость толпы">
+  <span class="step-tag">Игрушка</span>
+  <h2>Сколько драже в банке</h2>
+  <p>На кассе стоит банка с драже, и Котейка устроил конкурс: кто ближе угадает, сколько их там, получит банку. Угадай и ты.</p>
+  <div class="sheet c-white">
+    <div class="jarrow">
+      <canvas id="ch-jar" aria-label="Банка с драже"></canvas>
+      <div>
+        <label class="field" for="jar-guess">Моя догадка: <input type="number" id="jar-guess" min="1" max="100000" step="1" placeholder="?"> драже</label>
+        <div class="controls"><button class="btn" type="button" id="jar-show">Показать догадки 200 гостей</button></div>
+      </div>
+    </div>
+    <div id="jar-res" hidden>
+      <div class="tipwrap"><canvas id="ch-crowd" aria-label="Гистограмма догадок гостей"></canvas></div>
+      <div class="legend-row"><span><i style="background:var(--truth)"></i>правда</span><span><i style="background:var(--test)"></i>медиана догадок</span><span><i style="background:var(--ctrl)"></i>среднее догадок</span><span id="jar-me-lg" hidden><i style="background:var(--ink)"></i>твоя догадка</span></div>
+      <div class="big2">
+        <div class="test"><b id="jar-med">…</b><span>медиана догадок</span></div>
+        <div class="ctrl"><b id="jar-mean">…</b><span>среднее догадок</span></div>
+      </div>
+      <div class="verdict good" id="jar-v"></div>
+    </div>
+  </div>
+</section>
+
 <section class="card" data-title="Средние по выборкам" aria-label="Средние по выборкам">
   <span class="step-tag">Игрушка</span>
   <h2>Собираем средние</h2>
@@ -116,6 +140,24 @@
 </section>
 
 <!-- 5 -->
+<section class="card" data-title="Одно наблюдение" aria-label="Одно наблюдение">
+  <span class="step-tag">Подвох</span>
+  <h2>Что у нас одно наблюдение</h2>
+  <p>Три гостя за месяц сделали по 8 заказов. Каждая точка — чек одного заказа, цвет — гость.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-obs" aria-label="Чеки 24 заказов трёх гостей"></canvas>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Монетка в эксперименте бросается за человека. Сколько здесь независимых наблюдений?</p>
+    <div class="choice">
+      <button type="button" data-v="a" data-why="Заказы одного гостя не независимы: любитель дорогих завтраков и дальше берёт дорогие завтраки. 24 точки рассказывают, по сути, про трёх людей.">24 — по числу заказов</button>
+      <button type="button" data-v="b">3 — по числу гостей</button>
+      <button type="button" data-v="c" data-why="8 — это число заказов у одного гостя, а не число независимых наблюдений.">8 — по числу заказов у гостя</button>
+    </div>
+    <p class="why">Группа назначается человеку, и его заказы похожи друг на друга: один берёт только кофе, другой — дорогие завтраки. Поэтому считаем по людям — или по корзинам людей, как на следующей карточке. Если считать по заказам, шум покажется меньше настоящего, и «значимыми» станут пустые эффекты.</p>
+  </div>
+</section>
+
 <section class="card" data-title="Корзины" aria-label="Корзины">
   <span class="step-tag">Игрушка</span>
   <h2>Как это используют платформы экспериментов</h2>
@@ -162,6 +204,8 @@
     <li>Заказы одного гостя распределены как угодно: много нулей и длинный хвост.</li>
     <li>Среднее по многим независимым гостям ложится колоколом вокруг настоящего среднего. Крайности гасят друг друга.</li>
     <li>Чем больше гостей в выборке, тем уже колокол.</li>
+    <li>Медиана не боится выбросов: медиана догадок толпы ближе к правде, чем большинство отдельных догадок, а среднее тянут вверх единицы с огромными числами.</li>
+    <li>Одно наблюдение — это человек, а не заказ: группа назначается человеку, и его заказы похожи друг на друга.</li>
     <li>Платформы экспериментов раскладывают гостей по корзинам и по разбросу между корзинами видят, насколько шатается среднее.</li>
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
@@ -181,7 +225,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201511"></script>
+<script src="course.js?v=202611201538"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
@@ -318,6 +362,69 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     v.innerHTML = 'Один заказ из 21 поднял <b>среднее</b> с ' + rub(m0) + ' до ' + rub(m1) + ' — почти в ' + Math.round(m1 / m0) + ' раз. <b>Медиана</b> сдвинулась с ' + rub(d0) + ' до ' + rub(d1) + ': ей всё равно, насколько велик крайний заказ. Если такой корпоратив случайно попадёт в тест, «средний чек» вырастет, и фича тут будет ни при чём.';
     draw();
   });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- мудрость толпы ----------
+(function(){
+  const TRUTH = 1616;
+  let seed = 42; const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const g = () => Math.sqrt(-2 * Math.log(1 - rnd())) * Math.cos(2 * Math.PI * rnd());
+  const guesses = [];
+  for (let i = 0; i < 180; i++) guesses.push(Math.max(80, Math.round(Math.exp(Math.log(1700) + 0.55 * g()) / 10) * 10));
+  [1000,1000,1000,1000,1000,1000,2000,2000,2000,2000,2000,2000,5000,5000,5000,5000,5000,10000,10000,10000].forEach(v => guesses.push(v));
+  const sorted = [...guesses].sort((a, b) => a - b), med = (sorted[99] + sorted[100]) / 2, avg = mean(guesses);
+  const freq = {}; guesses.forEach(v => freq[v] = (freq[v] || 0) + 1);
+  const fav = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([v]) => int(+v)).sort((a, b) => parseInt(a.replace(/\D/g, '')) - parseInt(b.replace(/\D/g, ''))).join(', ').replace(/, ([^,]*)$/, ' и $1');
+  const beat = x => guesses.filter(v => Math.abs(v - TRUTH) > Math.abs(x - TRUTH)).length / guesses.length;
+  const sh = x => share(x, 0).replace(' ', '\u00a0');
+  const cvJ = document.getElementById('ch-jar'), cvC = document.getElementById('ch-crowd'), inp = document.getElementById('jar-guess');
+  let shown = false;
+  function jar(){
+    const r = canvas(cvJ, 0, 0, 170); if (!r) return; const {c, w, h} = r;
+    const cx = w / 2, jw = Math.min(110, w - 10), top = 22, bot = h - 6;
+    c.strokeStyle = COL.ink2; c.lineWidth = 2; c.beginPath(); c.moveTo(cx - jw / 2 + 8, top); c.lineTo(cx - jw / 2, top + 16); c.lineTo(cx - jw / 2, bot - 10); c.quadraticCurveTo(cx - jw / 2, bot, cx - jw / 2 + 10, bot); c.lineTo(cx + jw / 2 - 10, bot); c.quadraticCurveTo(cx + jw / 2, bot, cx + jw / 2, bot - 10); c.lineTo(cx + jw / 2, top + 16); c.lineTo(cx + jw / 2 - 8, top); c.stroke();
+    c.fillStyle = COL.ink2; c.fillRect(cx - jw / 2 + 4, top - 10, jw - 8, 10);
+    const cols = [COL.ctrl, COL.test, COL.truth, COL.trap, COL.ochre, COL.viol]; let s2 = 7; const rr = () => { s2 = (s2 * 16807) % 2147483647; return s2 / 2147483647; };
+    for (let y = bot - 6; y > top + 26; y -= 5.2) for (let x = cx - jw / 2 + 6; x < cx + jw / 2 - 5; x += 5.6){ c.fillStyle = cols[Math.floor(rr() * 6)]; c.beginPath(); c.arc(x + rr() * 1.5, y + rr() * 1.5, 2.6, 0, 2 * Math.PI); c.fill(); }
+  }
+  function crowd(){
+    const r = canvas(cvC, 0.36, 0.62); if (!r) return; const {c, w, h} = r;
+    const lo = 0, hi = 6000, bw = 250, L = 10, R = 46, T = 10, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + (Math.min(v, hi) - lo) / (hi - lo) * pw;
+    const b = bins(guesses.map(v => Math.min(v, hi - 1)), lo, hi, bw), over = guesses.filter(v => v >= hi).length, top = Math.max(...b, over);
+    b.forEach((k, i) => { const bh = ph * k / top; c.fillStyle = '#CFCBC1'; c.fillRect(X(i * bw) + 1, T + ph - bh, pw * bw / (hi - lo) - 2, bh); });
+    const oh = ph * over / top; c.fillStyle = '#B9B4A8'; c.fillRect(L + pw + 8, T + ph - oh, R - 12, oh); label(c, '6000+', L + pw + 8 + (R - 12) / 2, h - 6, COL.ink2, 'center');
+    [0, 1000, 2000, 3000, 4000, 5000].forEach(v => label(c, int(v), X(v), h - 6, COL.ink2, 'center'));
+    const bars = b.map((k, i) => k ? {x0: X(i * bw), x1: X((i + 1) * bw), html: 'от <b>' + int(i * bw) + '</b> до <b>' + int((i + 1) * bw) + '</b> драже<br>' + k + ' ' + plural(k, 'гость', 'гостя', 'гостей')} : null).filter(Boolean);
+    bars.push({x0: L + pw + 8, x1: w, html: '<b>6000 и больше</b><br>' + over + ' ' + plural(over, 'гость', 'гостя', 'гостей') + ' (в том числе ' + guesses.filter(v => v === 10000).length + ' сказали ровно 10 000)'});
+    hoverBars(cvC, bars);
+    const mark = (v, col, t, row, dash) => { const x = X(v); c.strokeStyle = col; c.lineWidth = 2; c.setLineDash(dash ? [4, 3] : []); c.beginPath(); c.moveTo(x, T - 2 - row * 0); c.lineTo(x, T + ph); c.stroke(); c.setLineDash([]); };
+    mark(TRUTH, COL.truth, 'правда ' + int(TRUTH), 0); mark(med, '#B8642A', 'медиана ' + int(med), 1); mark(avg, COL.ctrl, 'среднее ' + int(avg), 0);
+    const me = parseFloat(inp.value); if (me > 0) mark(me, COL.ink, 'ты', 1, true);
+  }
+  function show(){
+    shown = true; document.getElementById('jar-res').hidden = false;
+    document.getElementById('jar-med').textContent = int(med); document.getElementById('jar-mean').textContent = int(avg);
+    const me = parseFloat(inp.value); document.getElementById('jar-me-lg').hidden = !(me > 0);
+    document.getElementById('jar-v').innerHTML = 'В банке <b>' + int(TRUTH) + '</b> драже. Медиана догадок — <b>' + int(med) + '</b>: она ближе к правде, чем <b>' + sh(beat(med)) + '</b> гостей. Среднее — <b>' + int(avg) + '</b>: его тянут вверх те, кто сказал 5 000 и 10 000.' + (me > 0 ? ' Твоя догадка ближе к правде, чем ' + sh(beat(me)) + ' гостей.' : '') + ' Любимые ответы толпы — круглые числа: ' + fav + ' называли чаще любых других.';
+    crowd();
+  }
+  document.getElementById('jar-show').addEventListener('click', show);
+  inp.addEventListener('change', () => { if (shown) show(); });
+  window.addEventListener('resize', () => { jar(); if (shown) crowd(); });
+})();
+
+// ---------- одно наблюдение ----------
+(function(){
+  const guests = [[180, 190, 175, 200, 185, 170, 195, 180], [420, 380, 450, 400, 430, 410, 390, 440], [820, 900, 760, 880, 950, 840, 790, 870]];
+  const cols = [COL.ctrl, COL.test, COL.truth], names = ['гость 1 — только кофе', 'гость 2 — обеды', 'гость 3 — дорогие завтраки'];
+  const cv = document.getElementById('ch-obs');
+  function draw(){
+    const r = canvas(cv, 0.3, 0.6); if (!r) return; const {c, w, h} = r;
+    const lo = 0, hi = 1000, L = 12, R = 12, pw = w - L - R, X = v => L + (v - lo) / (hi - lo) * pw, rowH = (h - 26) / 3;
+    [0, 250, 500, 750, 1000].forEach(v => { c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(X(v), 4); c.lineTo(X(v), h - 22); c.stroke(); label(c, int(v) + ' ₽', X(v), h - 6, COL.ink2, 'center'); });
+    guests.forEach((g, i) => { const y = 14 + i * rowH; label(c, names[i], L, y, COL.ink2); g.forEach((v, k) => { c.fillStyle = cols[i]; c.globalAlpha = 0.85; c.beginPath(); c.arc(X(v), y + rowH * 0.45 + (k % 2 ? 7 : -1), 6, 0, 2 * Math.PI); c.fill(); c.globalAlpha = 1; }); });
+  }
   window.addEventListener('resize', draw);
 })();
 </script>
