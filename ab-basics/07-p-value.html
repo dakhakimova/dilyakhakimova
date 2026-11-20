@@ -44,9 +44,8 @@
   <span class="step-tag">Угадай</span>
   <h2>Боб получил +3,1 %</h2>
   <figure class="art"><img src="img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом, Алиса держит стопку одинаковых карточек" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с результатом, Алиса со стопкой A/A-тестов</figcaption></figure>
-  <div class="speech">
-    <img class="ava" src="img/ava-bob.jpg" alt="">
-    <div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в тесте заказов на 3,1 % больше. По 100 000 человек в группе. Это же явно не случайность?</p></div>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в тесте заказов на 3,1 % больше. По 100 000 человек в группе. Это же явно не случайность?</p></div></div>
   </div>
   <p>Алиса предлагает проверить. Запустим много A/A-тестов с теми же 100 000 людьми в группе: в них кнопки нет, группы одинаковые. Как думаешь, в скольких A/A из 100 разница будет такой же или ещё больше, в любую сторону?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -151,7 +150,9 @@
     <p class="why">Маленький p-value у теста А — заслуга огромного трафика, а не большого эффекта. Значимы оба, а эффект больше у Б.</p>
   </div>
   <div class="quiz" data-right="c">
-    <p class="q">p-value = 0,25. Боб: «Фича не работает, выключаем». Что не так?</p>
+    <p class="q">p-value = 0,25.</p>
+    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Фича не работает, выключаем.</p></div></div></div>
+    <p class="q">Что не так?</p>
     <div class="choice"><button type="button" data-v="a">Ничего, всё верно</button><button type="button" data-v="b">p-value слишком маленький</button><button type="button" data-v="c">Это значит «не отличили от шума», а не «эффекта нет»</button></div>
     <p class="why">Большой p-value говорит только, что разница не удивительна для мира без эффекта. Возможно, эффекта и правда нет, а возможно, людей не хватило. Смотрим на вилку: насколько большой эффект она ещё допускает.</p>
   </div>

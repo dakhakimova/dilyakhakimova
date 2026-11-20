@@ -32,6 +32,21 @@ Cover illustration for the whole course. The front of the heroes' cozy café at 
 
 ---
 
+## Иконки героев для переписки
+
+Квадрат 512×512, JPEG. Сейчас в курсе стоят временные вырезки из `ab01-00-cafe-team.jpg`; готовые иконки положить под теми же именами — они встанут сами. Лицо крупно по центру, плечи внизу кадра: на сайте иконка обрезается в круг.
+
+### ava-bob.jpg
+Square avatar icon of Bob for a chat interface: head and shoulders, centered, facing the viewer, friendly confident smile, tousled brown hair, light stubble, green shirt with collar, orange lanyard visible at the bottom. Plain soft green background (#E9F1E6). Same flat vector storybook style as the course illustrations. Face fills the central circle of the frame. No text, no letters.
+
+### ava-alice.jpg
+Square avatar icon of Alice for a chat interface: head and shoulders, centered, facing the viewer, calm curious half-smile, brown ponytail, round glasses, blue hoodie with white drawstrings. Plain soft blue background (#E6EEF8). Same flat vector storybook style as the course illustrations. Face fills the central circle of the frame. No text, no letters.
+
+### ava-kot.jpg
+Square avatar icon of Kotejka for a chat interface: the very fluffy multicolored cat (orange, blue, purple and white fur, big blue eyes, orange knitted scarf) peeking out of the top of its burlap sack, head and front paws visible, mischievous grin. Plain soft yellow background (#F8F0D9). Same flat vector storybook style as the course illustrations. Face fills the central circle of the frame. No text, no letters.
+
+---
+
 ## Шаг 1. До и после — не доказательство
 
 ### ab01-00-cafe-team.jpg
