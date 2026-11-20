@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201538">
+<link rel="stylesheet" href="ab.css?v=202611201548">
 </head>
 <body data-chapter="ab02" data-next="03-noise.html">
 <nav class="top" aria-label="Навигация">
@@ -62,6 +62,38 @@
 </section>
 
 <!-- 2b -->
+<section class="card" data-title="Цинга и монетка" aria-label="Цинга и монетка">
+  <span class="step-tag">Игрушка</span>
+  <h2>Почему решать должна монетка, а не мы</h2>
+  <p>Почти 300 лет назад корабельный врач проверял, помогают ли от цинги лимоны. Сыграем в его опыт. На корабле 40 больных моряков: 20 болеют легко, 20 тяжело. За неделю лёгкие обычно выздоравливают, тяжёлые — редко. А лимоны в нашей игре <b>не делают ничего</b>.</p>
+  <p>Лимоны раздаёт врач Котейка. Он добрый и даёт их тем, кому, как ему кажется, они нужнее. Что покажет сравнение «с лимонами» и «без»?</p>
+  <div class="choice" data-key="g3" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="same" data-fb="Логично: лимоны же ничего не делают. Проверим, так ли это, когда раздаёт Котейка.">Разницы не будет</button>
+    <button type="button" data-v="good" data-fb="Посмотрим, кому именно Котейка их раздаст. Проверим на корабле.">Лимоны «помогут»</button>
+    <button type="button" data-v="bad" data-fb="Интересная версия. Проверим на корабле.">Лимоны «навредят»</button>
+  </div>
+  <p class="note" id="g3-note">Выбери вариант.</p>
+  <div class="sheet c-white">
+    <div class="controls" role="group" aria-label="Кто решает, кому дать лимоны">
+      <button class="btn ghost" type="button" data-mode="light" aria-pressed="true">Котейка жалеет лёгких</button>
+      <button class="btn ghost" type="button" data-mode="heavy" aria-pressed="false">Котейка жалеет тяжёлых</button>
+      <button class="btn ghost" type="button" data-mode="coin" aria-pressed="false">Решает монетка</button>
+    </div>
+    <canvas id="ch-ship" aria-label="Сорок моряков, кому дали лимоны и кто выздоровел"></canvas>
+    <div class="legend-row"><span><i style="background:#F2D46B"></i>лимон</span><span><i style="background:#CFCBC1"></i>болеет легко</span><span><i style="background:#8A847A"></i>болеет тяжело</span><span><i style="background:var(--truth)"></i>выздоровел за неделю</span></div>
+    <div class="controls"><button class="btn" type="button" id="ship-run">Раздать лимоны и подождать неделю</button></div>
+    <div class="big2">
+      <div class="test"><b id="ship-lem">—</b><span>выздоровели с лимонами</span></div>
+      <div class="ctrl"><b id="ship-no">—</b><span>выздоровели без лимонов</span></div>
+    </div>
+    <div class="verdict" id="ship-v" hidden></div>
+  </div>
+  <div class="chat">
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш. Тогда лёгких и тяжёлых, активных и случайных гостей в группах поровну.</p></div></div>
+  </div>
+  <p class="src">Идея из книги: <a href="./#books">Саманта Клейнберг, «Почему»</a> — там подробно разобран опыт Джеймса Линда с цингой.</p>
+</section>
+
 <section class="card" data-title="Номер гостя" aria-label="Номер гостя">
   <span class="step-tag">Сначала разберёмся</span>
   <h2>У каждого гостя есть номер</h2>
@@ -210,7 +242,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201538"></script>
+<script src="course.js?v=202611201548"></script>
 <script>
 // FNV-1a, 32 бита: простой и честный хеш для учебных целей
 function fnv(str){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)){ h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }
@@ -359,6 +391,52 @@ const randId = () => 'user_' + (10000 + Math.floor(Math.random() * 90000));
   }
   document.getElementById('btn-same-salt').addEventListener('click', () => run(true));
   document.getElementById('btn-diff-salt').addEventListener('click', () => run(false));
+})();
+
+// ---------- цинга и монетка ----------
+(function(){
+  const N = 40, sev = Array.from({length: N}, (_, i) => i % 2 ? 'heavy' : 'light'); // перемешано через одного
+  let mode = 'light', lem = [], ok = [], ran = {};
+  const cv = document.getElementById('ch-ship');
+  function give(){
+    if (mode === 'coin') lem = sev.map(() => Math.random() < 0.5);
+    else lem = sev.map(s => s === mode);
+    ok = sev.map(s => Math.random() < (s === 'light' ? 0.8 : 0.3));
+  }
+  function draw(){
+    const g = canvas(cv, 0.26, 0.5); if (!g) return; const {c, w, h} = g;
+    const cols = w < 520 ? 10 : 20, rows = N / cols, cw = w / cols, chh = h / rows, r = Math.min(cw, chh) * 0.32;
+    sev.forEach((s, i) => {
+      const x = (i % cols + 0.5) * cw, y = (Math.floor(i / cols) + 0.5) * chh;
+      c.fillStyle = s === 'light' ? '#CFCBC1' : '#8A847A'; c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill();
+      if (ok.length && ok[i]){ c.strokeStyle = COL.truth; c.lineWidth = 3; c.beginPath(); c.arc(x, y, r + 3, 0, 2 * Math.PI); c.stroke(); }
+      if (lem[i]){ c.fillStyle = '#F2D46B'; c.strokeStyle = '#B8962A'; c.lineWidth = 1; c.beginPath(); c.ellipse(x + r * 0.7, y - r * 0.7, r * 0.42, r * 0.3, -0.5, 0, 2 * Math.PI); c.fill(); c.stroke(); }
+    });
+    c.lineWidth = 1;
+  }
+  function stats(){
+    const a = sev.map((_, i) => i).filter(i => lem[i]), b = sev.map((_, i) => i).filter(i => !lem[i]);
+    const f = ix => ix.length ? ix.filter(i => ok[i]).length + ' из ' + ix.length + ' (' + share(ix.filter(i => ok[i]).length / ix.length, 0) + ')' : '—';
+    document.getElementById('ship-lem').textContent = f(a); document.getElementById('ship-no').textContent = f(b);
+    const ra = a.length ? a.filter(i => ok[i]).length / a.length : 0, rb = b.length ? b.filter(i => ok[i]).length / b.length : 0;
+    ran[mode] = true;
+    const v = document.getElementById('ship-v'), g = AB.choice('g3'); v.hidden = false;
+    if (mode === 'coin'){
+      v.className = 'verdict good';
+      v.innerHTML = 'Монетка раздала лимоны и лёгким, и тяжёлым примерно поровну, и разница стала небольшой: ' + share(ra, 0) + ' против ' + share(rb, 0) + '. Нажми ещё пару раз — она будет колебаться то в одну, то в другую сторону вокруг нуля. Это обычный шум, а не лимоны.' + (ran.light || ran.heavy ? '' : ' Теперь попробуй, что будет, если решает Котейка.');
+    } else {
+      const lift = ra - rb;
+      v.className = 'verdict bad';
+      v.innerHTML = (mode === 'light' ? 'Котейка дал лимоны лёгким — и лимоны «вылечили» ' : 'Котейка дал лимоны тяжёлым — и лимоны «навредили»: ') + share(ra, 0) + ' против ' + share(rb, 0) + '. А ведь лимоны в этой игре ничего не делают! Разницу создал выбор Котейки: кому дали, те и так выздоравливали ' + (mode === 'light' ? 'чаще' : 'реже') + '.' + (g === 'same' ? ' Твой прогноз «разницы не будет» был бы верен, если бы решала монетка.' : '') + (ran.coin ? '' : ' Теперь переключи на монетку.');
+    }
+  }
+  document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    lem = []; ok = []; draw();
+    ['ship-lem', 'ship-no'].forEach(id => document.getElementById(id).textContent = '—');
+  }));
+  document.getElementById('ship-run').addEventListener('click', () => { give(); draw(); stats(); });
+  window.addEventListener('resize', draw);
 })();
 </script>
 </body>

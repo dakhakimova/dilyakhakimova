@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201538">
+<link rel="stylesheet" href="ab.css?v=202611201548">
 <style>
 .toc{list-style:none; margin:0; padding:0}
 .toc li{display:grid; grid-template-columns:48px 1fr auto; gap:12px; align-items:baseline; padding:12px 0; border-top:1px solid var(--rule)}
@@ -29,6 +29,11 @@
 .toc a:hover .t{color:var(--pen)}
 .toc .live .s{color:var(--good); font-weight:500}
 @media (max-width:620px){ .toc li{grid-template-columns:36px 1fr} .toc .s{grid-column:2} }
+.books{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.books li{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 16px}
+.books .ba{display:block; font-size:13px; color:var(--muted)}
+.books .bt{display:block; font:500 18px/1.35 var(--serif); margin:2px 0 4px}
+.books .bd{display:block; font-size:15px; line-height:1.5}
 </style>
 </head>
 <body>
@@ -44,7 +49,7 @@
 
   <h2>Шаги</h2>
   <ol class="toc">
-    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15 %, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15 %, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">2</span><a href="02-salt-hash.html"><span class="t">Монетка, соль и хеш<small>Как приложение делит пользователей на группы и почему человек не прыгает из группы в группу.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">3</span><a href="03-noise.html"><span class="t">Шум есть всегда<small>A/A-тест: два одинаковых варианта, а «победитель» каждый раз новый.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">4</span><a href="04-clt.html"><span class="t">Толпа предсказуема<small>Центральная предельная теорема и бакеты: откуда берётся колокол.</small></span></a><span class="s">открыть →</span></li>
@@ -52,9 +57,20 @@
     <li class="live"><span class="n">6</span><a href="06-interval.html"><span class="t">Эффект — это вилка<small>Два колокола и доверительный интервал.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">7</span><a href="07-p-value.html"><span class="t">p-value на пальцах<small>Насколько удивительна такая разница, если эффекта нет.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">8</span><a href="08-errors.html"><span class="t">Два вида ошибок<small>Ложные тревоги и пропуски на 100 экспериментах.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2 %.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2 %.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">10</span><a href="10-traps.html"><span class="t">Когда зелёное врёт<small>Подглядывание, много метрик, перекос групп и тренажёр по отчётам.</small></span></a><span class="s">открыть →</span></li>
   </ol>
+
+  <h2 id="books">Что почитать</h2>
+  <p>Книги, из которых в курс пришли некоторые истории и идеи. Все — для неспециалистов.</p>
+  <ul class="books">
+    <li><span class="ba">Владимир Савельев</span><span class="bt">«Статистика и котики»</span><span class="bd">Самое мягкое введение: среднее, разброс, графики и проверка гипотез на примерах с котиками — без страха перед формулами.</span></li>
+    <li><span class="ba">Дэвид Шпигельхалтер</span><span class="bt">«Искусство статистики. Как находить ответы в данных»</span><span class="bd">Как думать о данных: откуда берутся интервалы, что на самом деле значит p-value, почему «в штуках из 1000» понятнее процентов.</span></li>
+    <li><span class="ba">Дарелл Хафф</span><span class="bt">«Как лгать при помощи статистики»</span><span class="bd">Короткая классика про то, как цифрами и графиками вводят в заблуждение. После неё сложно не заметить шкалу не от нуля.</span></li>
+    <li><span class="ba">Майкл Херцог, Майкл Фрэнсис, Аарон Кларк</span><span class="bt">«Статистика и планирование эксперимента для непосвящённых»</span><span class="bd">Про ложные тревоги, пропуски и мощность через одну сквозную картинку двух колоколов; хорошо о том, почему «значимо» ещё не «важно».</span></li>
+    <li><span class="ba">Саманта Клейнберг</span><span class="bt">«Почему. Руководство по поиску причин и принятию решений»</span><span class="bd">Как отличить причину от совпадения, зачем нужна случайность в эксперименте и почему результат пилота не всегда повторяется на всех.</span></li>
+    <li><span class="ba">Коул Нассбаумер Нафлик</span><span class="bt">«Данные: визуализируй, расскажи, используй»</span><span class="bd">Как показать результат так, чтобы его поняли: какой график выбрать, что убрать и куда направить взгляд читателя.</span></li>
+  </ul>
 </main>
 </body>
 </html>

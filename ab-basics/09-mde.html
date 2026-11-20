@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201538">
+<link rel="stylesheet" href="ab.css?v=202611201548">
 </head>
 <body data-chapter="ab09" data-next="10-traps.html">
 <nav class="top" aria-label="Навигация">
@@ -35,7 +35,7 @@
   <p class="kicker">Шаг 9 из 10</p>
   <h1>MDE: что мы способны заметить</h1>
   <figure class="art"><img src="img/ab09-00-telescope.jpg" alt="Алиса смотрит в телескоп на кофейные зёрна: крупные видны, самые мелкие расплываются" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса в телескоп видит крупные зёрна, а мелкие расплываются</figcaption></figure>
-  <p class="lead">В прошлом шаге короткий тест пропускал настоящие эффекты. Значит, ещё до запуска стоит спросить: какой эффект наш тест вообще способен заметить? Если ответ «только +10 %», а мы ждём +1 %, тест можно не запускать.</p>
+  <p class="lead">В прошлом шаге короткий тест пропускал настоящие эффекты. Значит, ещё до запуска стоит спросить: какой эффект наш тест вообще способен заметить? Если ответ «только +10 %», а мы ждём +1 %, тест можно не запускать.</p>
 </section>
 
 <!-- 2 -->
@@ -45,7 +45,7 @@
   <figure class="art"><img src="img/ab09-01-bob-photos.jpg" alt="Боб фотографирует круассан, Котейка позирует рядом" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб фотографирует круассан, Котейка позирует</figcaption></figure>
   <div class="chat">
     <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новые фото красивее. Думаю, конверсия вырастет процента на два. Запустим тест на недельку?</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">За неделю мы +2 % не заметим.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">За неделю мы +2 % не заметим.</p></div></div>
   </div>
   <p>Как Алиса это знает, разберём на колоколах. А пока вопрос: если хочешь заметить эффект <b>вдвое меньше</b>, во сколько раз больше людей понадобится?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -60,19 +60,19 @@
 <section class="card" data-title="Два колокола" aria-label="Два колокола">
   <span class="step-tag">Игрушка</span>
   <h2>Мир, где эффекта нет, и мир, где он есть</h2>
-  <p>Серый колокол — какие разницы мы увидим, если фото ничего не меняют. Оранжевый — если фото правда дают эффект. Пунктир — граница значимости: дальше неё лежат 5 % серого колокола. Зелёная часть оранжевого колокола — эксперименты, где мы эффект <b>заметим</b>.</p>
+  <p>Серый колокол — какие разницы мы увидим, если фото ничего не меняют. Оранжевый — если фото правда дают эффект. Пунктир — граница значимости: дальше неё лежат 5 % серого колокола. Зелёная часть оранжевого колокола — эксперименты, где мы эффект <b>заметим</b>.</p>
   <div class="sheet c-white">
     <div class="big2" style="margin-top:0">
-      <label class="field" for="eff">Ожидаемый эффект: <b id="eff-t" class="num">+2 %</b><input type="range" id="eff" min="1" max="20" value="4" style="width:100%"></label>
+      <label class="field" for="eff">Ожидаемый эффект: <b id="eff-t" class="num">+2 %</b><input type="range" id="eff" min="1" max="20" value="4" style="width:100%"></label>
       <label class="field" for="days">Длина теста: <b id="days-t" class="num">7 дней</b><input type="range" id="days" min="1" max="42" value="7" style="width:100%"></label>
       <label class="field" for="traffic">Людей в день в эксперименте: <b id="traffic-t" class="num">20 000</b><input type="range" id="traffic" min="0" max="5" value="2" style="width:100%"></label>
-      <label class="field" for="base">Конверсия в контроле: <b id="base-t" class="num">10 %</b><input type="range" id="base" min="0" max="4" value="2" style="width:100%"></label>
+      <label class="field" for="base">Конверсия в контроле: <b id="base-t" class="num">10 %</b><input type="range" id="base" min="0" max="4" value="2" style="width:100%"></label>
     </div>
     <canvas id="ch-bells" aria-label="Колокол разниц без эффекта и с эффектом"></canvas>
     <div class="legend-row"><span><i style="background:var(--theory)"></i>эффекта нет</span><span><i style="background:var(--test)"></i>эффект есть</span><span><i style="background:var(--truth)"></i>заметим</span></div>
     <div class="big2">
       <div class="truth"><b id="pw">…</b><span>шанс заметить эффект, если он есть (мощность)</span></div>
-      <div class="ctrl"><b id="mde">…</b><span>самый маленький эффект, который заметим с шансом 80 %</span></div>
+      <div class="ctrl"><b id="mde">…</b><span>самый маленький эффект, который заметим с шансом 80 %</span></div>
     </div>
     <p class="note">Двигай длину теста и смотри: колокола сужаются и расходятся, зелёная часть растёт. Эффект при этом остаётся тем же.</p>
   </div>
@@ -82,10 +82,10 @@
 <section class="card" data-title="MDE" aria-label="MDE">
   <span class="step-tag">Главное число</span>
   <h2>Ниже этой линии тест слепой</h2>
-  <p>Самый маленький эффект, который тест заметит с шансом 80 %, называют <b>MDE</b> (minimum detectable effect, минимальный заметный эффект). Он зависит от трафика, длины теста и метрики, но не от того, какой эффект мы надеемся получить.</p>
+  <p>Самый маленький эффект, который тест заметит с шансом 80 %, называют <b>MDE</b> (minimum detectable effect, минимальный заметный эффект). Он зависит от трафика, длины теста и метрики, но не от того, какой эффект мы надеемся получить.</p>
   <div class="sheet c-white">
     <canvas id="ch-mde" aria-label="MDE в зависимости от длины теста"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>MDE при 20 000 человек в день и конверсии 10 %</span><span><i style="background:var(--test)"></i>эффект, который ждёт Боб</span></div>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>MDE при 20 000 человек в день и конверсии 10 %</span><span><i style="background:var(--test)"></i>эффект, который ждёт Боб</span></div>
     <div class="verdict" id="v-mde"></div>
   </div>
 </section>
@@ -97,11 +97,11 @@
   <p>Обычно вопрос ставят наоборот: какой эффект нам важен и сколько для него держать тест.</p>
   <div class="sheet c-white">
     <div class="big2" style="margin-top:0">
-      <label class="field" for="want">Хочу заметить эффект от <b id="want-t" class="num">+2 %</b><input type="range" id="want" min="1" max="20" value="4" style="width:100%"></label>
+      <label class="field" for="want">Хочу заметить эффект от <b id="want-t" class="num">+2 %</b><input type="range" id="want" min="1" max="20" value="4" style="width:100%"></label>
       <label class="field" for="traffic2">Людей в день в эксперименте: <b id="traffic2-t" class="num">20 000</b><input type="range" id="traffic2" min="0" max="5" value="2" style="width:100%"></label>
     </div>
     <div class="big2">
-      <div class="ctrl"><b id="need">…</b><span>нужно держать тест при конверсии 10 % и мощности 80 %</span></div>
+      <div class="ctrl"><b id="need">…</b><span>нужно держать тест при конверсии 10 % и мощности 80 %</span></div>
       <div class="test"><b id="need-half">…</b><span id="need-half-t">для эффекта вдвое меньше</span></div>
     </div>
     <div class="report-wrap"><table class="report" id="need-table"></table></div>
@@ -113,19 +113,20 @@
   <span class="step-tag">Подвох</span>
   <h2>MDE не берут из прошлой победы</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлый тест с фото победил с +6 %. Повторим его в других кафе и рассчитаем длину под те же +6 % — хватит недели.</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Опасно. Если план рассчитан на +6 %, а настоящий эффект меньше, тест почти наверняка его пропустит.</p></div></div>
+    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлый тест с фото победил с +6 %. Повторим его в других кафе и рассчитаем длину под те же +6 % — хватит недели.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Опасно. Если план рассчитан на +6 %, а настоящий эффект меньше, тест почти наверняка его пропустит.</p></div></div>
   </div>
   <div class="quiz" data-right="a">
-    <p class="q">Почему нельзя планировать тест под «прошлые +6 %»?</p>
+    <p class="q">Почему нельзя планировать тест под «прошлые +6 %»?</p>
     <div class="choice">
       <button type="button" data-v="a">Победившие тесты обычно завышают эффект, при повторе он заметно меньше</button>
-      <button type="button" data-v="b" data-why="+6 % — это как раз много. Беда в том, что прошлая цифра, скорее всего, больше настоящего эффекта.">Потому что +6 % — слишком маленький эффект</button>
+      <button type="button" data-v="b" data-why="+6 % — это как раз много. Беда в том, что прошлая цифра, скорее всего, больше настоящего эффекта.">Потому что +6 % — слишком маленький эффект</button>
       <button type="button" data-v="c" data-why="Прошлые тесты полезны: они подсказывают, где искать. Просто их цифры для «победителей» обычно завышены.">Прошлые тесты вообще нельзя использовать</button>
     </div>
-    <p class="why">Тест «побеждает», когда шум случайно подыграл эффекту. Поэтому у победителей эффект в среднем завышен, иногда вдвое, — в шаге 10 это видно на игрушке. Если рассчитать новый тест под +6 %, а на деле там +3 %, мощность упадёт с 80 % примерно до 30 %: тест пропустит эффект в двух случаях из трёх.</p>
+    <p class="why">Тест «побеждает», когда шум случайно подыграл эффекту. Поэтому у победителей эффект в среднем завышен, иногда вдвое, — в шаге 10 это видно на игрушке. Если рассчитать новый тест под +6 %, а на деле там +3 %, мощность упадёт с 80 % примерно до 30 %: тест пропустит эффект в двух случаях из трёх.</p>
   </div>
-  <div class="def">Длину теста считают под эффект, который <b>действительно важен для бизнеса</b>: «если кнопка даст меньше +2 %, её не стоит поддерживать». А не под цифру прошлой победы и не под «сколько не жалко ждать».</div>
+  <div class="def">Длину теста считают под эффект, который <b>действительно важен для бизнеса</b>: «если кнопка даст меньше +2 %, её не стоит поддерживать». А не под цифру прошлой победы и не под «сколько не жалко ждать».</div>
+  <p class="src">Идея из книги: <a href="./#books">Дэвид Шпигельхалтер, «Искусство статистики»</a></p>
 </section>
 
 <!-- 6 -->
@@ -149,12 +150,12 @@
   <span class="step-tag">Проверь себя</span>
   <h2>Проверь себя</h2>
   <div class="quiz" data-right="b">
-    <p class="q">MDE теста за две недели — 3 %. Тест закончился: +1,5 %, незначимо. Что можно сказать?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Слишком смело: эффект меньше 3 % тест легко пропускает.">Эффекта точно нет</button><button type="button" data-v="b">Эффекта больше 3 %, скорее всего, нет, а маленький мог и быть</button><button type="button" data-v="c" data-why="+1,5 % — лишь точка. Тест не отличает её от нуля, так что называть это эффектом нельзя.">Эффект +1,5 %, просто незначимый</button></div>
-    <p class="why">Тест хорошо замечает эффекты от 3 % и больше. Эффект в 1–2 % он легко пропускает, так что про него сказать ничего нельзя.</p>
+    <p class="q">MDE теста за две недели — 3 %. Тест закончился: +1,5 %, незначимо. Что можно сказать?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Слишком смело: эффект меньше 3 % тест легко пропускает.">Эффекта точно нет</button><button type="button" data-v="b">Эффекта больше 3 %, скорее всего, нет, а маленький мог и быть</button><button type="button" data-v="c" data-why="+1,5 % — лишь точка. Тест не отличает её от нуля, так что называть это эффектом нельзя.">Эффект +1,5 %, просто незначимый</button></div>
+    <p class="why">Тест хорошо замечает эффекты от 3 % и больше. Эффект в 1–2 % он легко пропускает, так что про него сказать ничего нельзя.</p>
   </div>
   <div class="quiz" data-right="c">
-    <p class="q">Тест за неделю замечает +4 %. Боб хочет замечать +1 %. Сколько недель нужно?</p>
+    <p class="q">Тест за неделю замечает +4 %. Боб хочет замечать +1 %. Сколько недель нужно?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Эффект в 4 раза меньше требует не в 4, а в 16 раз больше людей.">4 недели</button><button type="button" data-v="b" data-why="Всё ещё мало: людей нужно в 4² = 16 раз больше, то есть 16 недель.">8 недель</button><button type="button" data-v="c">16 недель</button></div>
     <p class="why">Эффект меньше в 4 раза, значит людей нужно в 4² = 16 раз больше. При том же трафике это 16 недель.</p>
   </div>
@@ -169,6 +170,7 @@
     <p class="why">Напоминание сработает у 0,5 гостя на группу — то есть в группе будет ноль или один такой человек. Такой тест не может заметить даже огромный эффект. Прежде чем запускать, прикинь, сколько людей вообще столкнутся с изменением: MDE считают по ним, а не по всем гостям.</p>
   </div>
 <p class="note quiz-score"></p>
+  <p class="src">Вопрос про редкое напоминание — идея из книги: <a href="./#books">Дарелл Хафф, «Как лгать при помощи статистики»</a></p>
 </section>
 
 <!-- 8 -->
@@ -184,7 +186,7 @@
   </ul>
   <p>Теперь у того, что мы сделали руками, есть названия:</p>
   <dl class="terms">
-    <dt>MDE</dt><dd>минимальный эффект, который тест заметит с шансом 80 %</dd>
+    <dt>MDE</dt><dd>минимальный эффект, который тест заметит с шансом 80 %</dd>
     <dt>Мощность</dt><dd>шанс заметить эффект заданного размера, если он есть</dd>
   </dl>
   <figure class="art"><img src="img/ab09-03-next.jpg" alt="Котейка заглядывает за зелёную занавеску, за которой ловушки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: за зелёной занавеской прячутся ловушки</figcaption></figure>
@@ -198,7 +200,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201538"></script>
+<script src="course.js?v=202611201548"></script>
 <script>
 const TRAFFIC = [5000, 10000, 20000, 50000, 100000, 200000], BASE = [0.02, 0.05, 0.10, 0.20, 0.30], Z = 1.96, ZP = 0.84;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -208,11 +210,11 @@ const powerOf = (eff, se) => normCdf(eff / se - Z) + normCdf(-eff / se - Z);
 const daysFor = (eff, perDay, p) => (Z + ZP) ** 2 * 2 * p * (1 - p) / (p * eff) ** 2 / (perDay / 2);
 const S = {eff: 0.02, days: 7, traffic: 20000, base: 0.10};
 const $ = id => document.getElementById(id);
-const pct0 = x => pct(x, x < 0.1 ? 1 : 0).replace(',0 %', ' %');
+const pct0 = x => pct(x, x < 0.1 ? 1 : 0).replace(',0 %', ' %');
 
 function readMain(){
   S.eff = +$('eff').value / 200; S.days = +$('days').value; S.traffic = TRAFFIC[+$('traffic').value]; S.base = BASE[+$('base').value];
-  $('eff-t').textContent = pct(S.eff, 1).replace(',0 %', ' %');
+  $('eff-t').textContent = pct(S.eff, 1).replace(',0 %', ' %');
   $('days-t').textContent = daysWord(S.days);
   $('traffic-t').textContent = int(S.traffic);
   $('base-t').textContent = share(S.base, 0);
@@ -259,7 +261,7 @@ function drawMde(){
   c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
   for (let d = 1; d <= 42; d += 0.25){ d === 1 ? c.moveTo(X(d), Y(mdeAt(d))) : c.lineTo(X(d), Y(mdeAt(d))); } c.stroke();
   c.strokeStyle = COL.test; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(L, Y(0.02)); c.lineTo(w - R, Y(0.02)); c.stroke(); c.setLineDash([]);
-  label(c, 'Боб ждёт +2 %', L + 6, Y(0.02) - 6, COL.ink2);
+  label(c, 'Боб ждёт +2 %', L + 6, Y(0.02) - 6, COL.ink2);
   label(c, 'тест слепой', X(3), Y(0.012), COL.ink2);
   [7, Math.ceil(daysFor(0.02, 20000, 0.10))].forEach(d => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(d), Y(mdeAt(d)), 5, 0, 2 * Math.PI); c.fill(); });
 }
@@ -268,18 +270,18 @@ function verdictMde(){
   const g1 = AB.choice('g1'), v = $('v-mde');
   const head = g1 === '4' ? 'Ты угадал: в 4 раза. ' : g1 ? 'Не в ' + g1 + ', а в 4 раза. ' : '';
   v.className = 'verdict ' + (g1 === '4' ? 'good' : 'bad');
-  v.innerHTML = head + 'За неделю при 20 000 человек в день тест уверенно замечает только эффекты от <b>' + pct(m7, 1) + '</b>. Чтобы заметить +2 %, нужно около <b>' + daysWord(Math.ceil(d2)) + '</b>. А чтобы заметить +1 %, вдвое меньше, уже <b>' + daysWord(Math.ceil(d1)) + '</b>: в 4 раза больше людей. Ширина колокола уменьшается как корень из числа людей.';
+  v.innerHTML = head + 'За неделю при 20 000 человек в день тест уверенно замечает только эффекты от <b>' + pct(m7, 1) + '</b>. Чтобы заметить +2 %, нужно около <b>' + daysWord(Math.ceil(d2)) + '</b>. А чтобы заметить +1 %, вдвое меньше, уже <b>' + daysWord(Math.ceil(d1)) + '</b>: в 4 раза больше людей. Ширина колокола уменьшается как корень из числа людей.';
 }
 AB.onShow(i => { if (i === 3) verdictMde(); });
 
 // карточка 5: сколько дней
 function readNeed(){
   const eff = +$('want').value / 200, tr = TRAFFIC[+$('traffic2').value];
-  $('want-t').textContent = pct(eff, 1).replace(',0 %', ' %'); $('traffic2-t').textContent = int(tr);
+  $('want-t').textContent = pct(eff, 1).replace(',0 %', ' %'); $('traffic2-t').textContent = int(tr);
   const fmtDays = d => d < 1 ? 'меньше дня' : d > 365 ? 'больше года' : daysWord(Math.ceil(d));
   $('need').textContent = fmtDays(daysFor(eff, tr, 0.10));
   $('need-half').textContent = fmtDays(daysFor(eff / 2, tr, 0.10));
-  $('need-half-t').textContent = 'для эффекта вдвое меньше, ' + pct(eff / 2, 1).replace(',0 %', ' %');
+  $('need-half-t').textContent = 'для эффекта вдвое меньше, ' + pct(eff / 2, 1).replace(',0 %', ' %');
   $('need-table').innerHTML = '<tr><th>Эффект</th>' + TRAFFIC.map(t => '<th>' + int(t) + ' в день</th>').join('') + '</tr>' +
     [0.01, 0.02, 0.03, 0.05, 0.1].map(e => '<tr><td>' + pct(e, 0) + '</td>' + TRAFFIC.map(t => { const d = daysFor(e, t, 0.10); return '<td' + (t === tr ? ' style="font-weight:600"' : '') + '>' + (d < 1 ? '< 1 дня' : d > 365 ? '> года' : Math.ceil(d) + ' дн.') + '</td>'; }).join('') + '</tr>').join('');
 }

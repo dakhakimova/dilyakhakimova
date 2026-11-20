@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201538">
+<link rel="stylesheet" href="ab.css?v=202611201548">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -73,14 +73,15 @@
     <div class="verdict" id="cq-v" hidden></div>
   </div>
   <div class="quiz" data-right="a">
-    <p class="q">В тесте средний чек вырос на 12 %, а медиана не изменилась. Что проверить первым?</p>
+    <p class="q">В тесте средний чек вырос на 12 %, а медиана не изменилась. Что проверить первым?</p>
     <div class="choice">
       <button type="button" data-v="a">Не попало ли в тест несколько огромных заказов</button>
       <button type="button" data-v="b" data-why="Не спеши: если бы фича поднимала чеки всем, выросла бы и медиана. Так ведут себя несколько огромных заказов.">Ничего, фича отлично работает</button>
       <button type="button" data-v="c" data-why="Медиана посчитана правильно. Она просто не замечает крайних значений — в этом её смысл.">Не ошиблись ли в подсчёте медианы</button>
     </div>
-    <p class="why">Когда среднее растёт, а медиана стоит, почти всегда виноваты несколько гигантских заказов. Поэтому перед расчётом аналитики ограничивают выбросы: например, всё, что выше 99 % заказов, считают по этому порогу. Иначе исход теста решит один корпоратив.</p>
+    <p class="why">Когда среднее растёт, а медиана стоит, почти всегда виноваты несколько гигантских заказов. Поэтому перед расчётом аналитики ограничивают выбросы: например, всё, что выше 99 % заказов, считают по этому порогу. Иначе исход теста решит один корпоратив.</p>
   </div>
+  <p class="src">Идея из книги: <a href="./#books">Владимир Савельев, «Статистика и котики»</a></p>
 </section>
 
 <section class="card" data-title="Мудрость толпы" aria-label="Мудрость толпы">
@@ -105,6 +106,7 @@
       <div class="verdict good" id="jar-v"></div>
     </div>
   </div>
+  <p class="src">Идея из книги: <a href="./#books">Дэвид Шпигельхалтер, «Искусство статистики»</a></p>
 </section>
 
 <section class="card" data-title="Средние по выборкам" aria-label="Средние по выборкам">
@@ -225,9 +227,9 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201538"></script>
+<script src="course.js?v=202611201548"></script>
 <script>
-// Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
+// Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
 const MU = PMF.reduce((a, p, k) => a + p * k, 0);
 const SIG = Math.sqrt(PMF.reduce((a, p, k) => a + p * k * k, 0) - MU * MU);
