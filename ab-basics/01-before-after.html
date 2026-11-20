@@ -41,7 +41,7 @@
     <div><b>Боб</b><span>Продакт. Придумывает фичи и очень хочет, чтобы они работали.</span></div>
     <div><b>Котейка</b><span>Кот в мешке. Отвечает за всё случайное: погоду, монетки и капризы гостей.</span></div>
   </div>
-  <p style="margin-top:14px">Курс для тех, кто принимает решения по результатам A/B-тестов: менеджеров, продактов, разработчиков. Считать самому не придётся. За десять коротких шагов мы разберёмся, как устроен A/B-тест и как читать его результаты: что такое шум, откуда берутся колокола, что значат интервал и p-value и когда отчёту нельзя верить. Формул не будет: всё можно подвигать руками.</p>
+  <p style="margin-top:14px">Курс для тех, кто принимает решения по результатам A/B-тестов: менеджеров, продактов, разработчиков. За десять коротких шагов мы разберёмся, как устроен A/B-тест и как читать его результаты: что такое шум, откуда берутся колокола, что значат интервал и p-value и когда отчёту нельзя верить.</p>
 </section>
 
 <!-- 2 -->
@@ -49,17 +49,17 @@
   <span class="step-tag">История</span>
   <h2>Боб выкатил кнопку «Повторить заказ»</h2>
   <figure class="art"><img src="img/ab01-01-bob-chart.jpg" alt="Боб радостно показывает на растущий график" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с растущим графиком, Алиса сомневается</figcaption></figure>
-  <div class="sheet c-white bob">
-    <div class="ava">Б</div>
-    <div><div class="say">«1 декабря мы выпустили кнопку „Повторить заказ“. Сравнил неделю до и неделю после: было <span id="b-before">…</span> заказов в день, стало <span id="b-after">…</span>. Это <b id="b-lift">…</b>! Кнопка работает».</div><div class="who">Боб, продакт</div></div>
+  <div class="speech">
+    <img class="ava" src="img/ava-bob.jpg" alt="">
+    <div class="bubble"><div class="who">Боб, продакт</div><p class="say">1 декабря мы выпустили кнопку «Повторить заказ». Сравнил неделю до и неделю после: было <span id="b-before">…</span> заказов в день, стало <span id="b-after">…</span>. Это <b id="b-lift">…</b>! Кнопка работает.</p></div>
   </div>
   <p>Как думаешь, кнопка правда подняла заказы на столько?</p>
   <div class="choice" id="g1" data-key="g1" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="yes" aria-pressed="false">Да, цифры же</button>
-    <button type="button" data-v="no" aria-pressed="false">Нет, кнопка ни при чём</button>
-    <button type="button" data-v="idk" aria-pressed="false">Пока нельзя сказать</button>
+    <button type="button" data-v="yes" data-fb="Цифры и правда выросли на 15 %. Осталось понять, только ли из-за кнопки. На следующей карточке посмотрим на график шире." aria-pressed="false">Да, цифры же</button>
+    <button type="button" data-v="no" data-fb="Смелая версия: кнопка могла и помочь. Посмотрим на график шире и разберёмся, что ещё случилось в начале декабря." aria-pressed="false">Нет, кнопка ни при чём</button>
+    <button type="button" data-v="idk" data-fb="Осторожный ответ. Посмотрим на график шире: что ещё случилось в начале декабря?" aria-pressed="false">Пока нельзя сказать</button>
   </div>
-  <p class="note" id="g1-note">Выбери ответ и жми «Далее»: проверим на графике.</p>
+  <p class="note" id="g1-note">Выбери вариант.</p>
 </section>
 
 <!-- 3 -->
@@ -83,10 +83,7 @@
 <section class="card" data-title="Подвинь релиз" aria-label="Подвинь релиз">
   <span class="step-tag">Игрушка</span>
   <h2>Кнопка, которая ничего не делает</h2>
-  <p>Представим, что кнопка вообще не влияет на заказы. Её можно выпустить в любой день года, а потом сравнить неделю до и неделю после. Какой самый большой «эффект» можно так получить, если удачно выбрать день?</p>
-  <div class="sheet c-butter">
-    <label class="field" for="g2">Думаю, до плюс <input type="number" id="g2" min="0" max="100" step="1" placeholder="?"> %</label>
-  </div>
+  <p>Представим, что кнопка вообще не влияет на заказы. Её можно выпустить в любой день года, а потом сравнить неделю до и неделю после. Двигай день релиза и смотри, какой «эффект» получается.</p>
   <div class="sheet c-white">
     <label class="field" for="rel">День релиза: <b id="rel-t" class="num">1 дек</b></label>
     <input type="range" id="rel" min="7" max="358" value="334" style="width:100%">
@@ -95,9 +92,27 @@
       <div class="trap"><b id="mv-est">…</b><span>«эффект» по сравнению до и после</span></div>
       <div class="truth"><b>0 %</b><span>настоящий эффект: кнопка ничего не делает</span></div>
     </div>
-    <div class="controls"><button class="btn" type="button" id="btn-all">Посчитать для всех дней года</button></div>
-    <canvas id="ch-hist" aria-label="Распределение эффектов по всем дням релиза" hidden></canvas>
-    <div class="verdict" id="v-move" hidden></div>
+    <h3>«Эффект» для каждого дня релиза</h3>
+    <p class="note" id="wow-note">Каждый день, который ты выбрал ползунком, ставит точку: какой «эффект» получился бы при релизе в этот день.</p>
+    <div class="tipwrap"><canvas id="ch-wow" aria-label="Эффект до и после для каждого дня релиза"></canvas><div class="tip" id="wow-tip" hidden></div></div>
+    <div class="controls">
+      <button class="btn" type="button" id="btn-fill">Заполнить весь год</button>
+      <button class="btn ghost" type="button" id="btn-hist" disabled>Собрать в гистограмму</button>
+    </div>
+  </div>
+  <div id="q4" hidden>
+    <h3>Проверь себя</h3>
+    <div class="quiz" data-right="c">
+      <p class="q">Кнопка ничего не делает. Какой самый большой «эффект» можно получить, если удачно выбрать день релиза?</p>
+      <div class="choice"><button type="button" data-v="a">Около +3 %</button><button type="button" data-v="b">Около +8 %</button><button type="button" data-v="c">Около +16 %</button><button type="button" data-v="d">Около +40 %</button></div>
+      <p class="why">Самая высокая точка — релиз 20 декабря: +15,8 % перед Новым годом. Самая низкая — релиз 6 июня: −6,9 %. Кнопка ни при чём, это сезон и праздники.</p>
+    </div>
+    <div class="quiz" data-right="b">
+      <p class="q">В скольких днях года «эффект» получается больше 5 % в ту или другую сторону?</p>
+      <div class="choice"><button type="button" data-v="a">Почти ни в одном</button><button type="button" data-v="b">Примерно в каждом четвёртом</button><button type="button" data-v="c">Почти во всех</button></div>
+      <p class="why">В 28 % дней года, то есть примерно в каждом четвёртом. Посмотри на гистограмму: хвосты за ±5 % толстые. Если выпустить пустую кнопку в случайный день, шанс увидеть «эффект» больше 5 % — как выбросить на кубике шестёрку или пятёрку.</p>
+    </div>
+    <p class="note quiz-score"></p>
   </div>
 </section>
 
@@ -242,11 +257,12 @@ function init(D){
     drawYear();
   });
 
-  // карточка 4: подвинь релиз
+  // карточка 4: подвинь релиз → точки «эффекта» по дням → гистограмма
   const est = []; for (let r = 7; r <= 358; r++) est.push({r, v: sum(D.noButton, r, r + 7) / sum(D.noButton, r - 7, r) - 1});
-  const maxE = est.reduce((m, e) => e.v > m.v ? e : m), minE = est.reduce((m, e) => e.v < m.v ? e : m);
-  const rel = document.getElementById('rel'), cvM = document.getElementById('ch-move'), cvH = document.getElementById('ch-hist');
-  let showAll = false;
+  const rel = document.getElementById('rel'), cvM = document.getElementById('ch-move'), cvW = document.getElementById('ch-wow');
+  const visited = new Set([+rel.value]);
+  let gather = 0, anim = null, geo = null, hoverK = null; // 0 — точки на графике по дням, 1 — собраны в гистограмму
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function drawMove(){
     const r = +rel.value, v = est[r - 7].v;
     document.getElementById('rel-t').textContent = dayLabel(r);
@@ -260,27 +276,71 @@ function init(D){
     c.fillStyle = COL.ink2; [0, 90, 181, 273].forEach(d => c.fillText(dayLabel(d), X(d) + 2, h - 6));
     c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(x)) : c.moveTo(X(d), Y(x))); c.stroke();
     c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); D.noButton.forEach((x, d) => d ? c.lineTo(X(d), Y(avg7(D.noButton, d))) : c.moveTo(X(d), Y(avg7(D.noButton, d)))); c.stroke();
-    if (showAll) drawHist(v);
+    drawWow();
   }
-  function drawHist(cur){
-    const g = canvas(cvH); if (!g) return; const {c, w, h} = g;
-    const lo = -0.12, hi = 0.2, bw = 0.01, n = Math.round((hi - lo) / bw), bins = new Array(n).fill(0);
-    est.forEach(e => bins[Math.max(0, Math.min(n - 1, Math.floor((e.v - lo) / bw)))]++);
-    const L = 10, Rm = 10, T = 18, Bm = 24, pw = w - L - Rm, ph = h - T - Bm, top = Math.max(...bins);
-    const X = v => L + (v - lo) / (hi - lo) * pw, ci = Math.floor((cur - lo) / bw);
-    bins.forEach((k, i) => { c.fillStyle = i === ci ? COL.trap : '#CFCBC1'; const bh = ph * k / top; c.fillRect(X(lo + i * bw) + 1, T + ph - bh, pw / n - 2, bh); });
-    c.strokeStyle = COL.truth; c.lineWidth = 2; c.beginPath(); c.moveTo(X(0), T - 6); c.lineTo(X(0), T + ph); c.stroke();
-    c.fillStyle = COL.truth; c.fillText('правда: 0 %', X(0) + 4, T - 6);
-    c.fillStyle = COL.ink2; [-0.1, 0, 0.1, 0.2].forEach(v => c.fillText(pct(v, 0), X(v) - 14, h - 6));
+  // Слева — «эффект» по дням релиза, справа — те же точки, сложенные в стопки по высоте (гистограмма лёжа).
+  function drawWow(){
+    const g = canvas(cvW, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const lo = -0.08, hi = 0.17, L = 44, T = 12, Bm = 22, ph = h - T - Bm;
+    const split = L + (w - L) * (w < 520 ? 0.58 : 0.66), Hx = split + 14, R = w - 6;
+    const X = d => L + (d - 7) / (358 - 7) * (split - 10 - L), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, 6, T, ph, w, lo, hi, 0.05, v => pct(v, 0));
+    c.strokeStyle = COL.truth; c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(R, Y(0)); c.stroke();
+    label(c, 'правда: 0 %', L + 4, Y(0) - 5, COL.truth);
+    c.fillStyle = COL.ink2; [0, 90, 181, 273].forEach(d => { if (d >= 7) c.fillText(dayLabel(d), X(d), h - 6); }); c.fillText(dayLabel(7), X(7), h - 6);
+    const bw = 0.01, counts = {}, pos = new Map();
+    est.forEach(e => { if (!visited.has(e.r)) return; const k = Math.floor(e.v / bw); counts[k] = (counts[k] || 0) + 1; pos.set(e.r, {k, i: counts[k] - 1}); });
+    const maxC = Math.max(1, ...Object.values(counts)), step = Math.min(6, (R - Hx) / Math.max(maxC, 20));
+    geo = {X, Y, lo, hi, L, T, ph, split, Hx, step, bw, counts, w};
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(split, T); c.lineTo(split, T + ph); c.stroke();
+    if (gather >= 1){
+      // под стопками — светлые столбики, чтобы читалось как гистограмма
+      Object.entries(counts).forEach(([k, n]) => { k = +k; c.fillStyle = k === hoverK ? COL.fillB : COL.fillC; const y = Y((k + 1) * bw); c.fillRect(Hx, y + 0.5, n * step, Y(k * bw) - y - 1); });
+      label(c, 'дней года →', Hx, h - 6, COL.ink2);
+      label(c, 'каждая точка — один день', Hx, T + 2, COL.ink2);
+    }
+    const cur = +rel.value, rr = Math.max(1.6, Math.min(2.6, step / 2));
+    est.forEach((e, idx) => {
+      if (!visited.has(e.r)) return;
+      const p = pos.get(e.r), delay = (idx / est.length) * 0.5, t = Math.max(0, Math.min(1, (gather - delay) / 0.5)), ease = t * t * (3 - 2 * t);
+      const x0 = X(e.r), y0 = Y(e.v), x1 = Hx + p.i * step + step / 2, y1 = Y((p.k + 0.5) * bw);
+      c.fillStyle = e.r === cur ? COL.trap : COL.ctrl; c.globalAlpha = e.r === cur ? 1 : 0.75;
+      c.beginPath(); c.arc(x0 + (x1 - x0) * ease, y0 + (y1 - y0) * ease, e.r === cur ? rr + 1.6 : rr, 0, 2 * Math.PI); c.fill();
+    });
+    c.globalAlpha = 1;
   }
-  rel.addEventListener('input', drawMove);
-  document.getElementById('btn-all').addEventListener('click', () => {
-    showAll = true; cvH.hidden = false;
-    const g = parseFloat(document.getElementById('g2').value), v = document.getElementById('v-move');
-    const share = est.filter(e => Math.abs(e.v) >= 0.05).length / est.length;
-    v.hidden = false; v.className = 'verdict bad';
-    v.innerHTML = (isNaN(g) ? '' : 'Твоя догадка — до <b>+' + g + ' %</b>. ') + 'Кнопка, которая ничего не делает, «поднимает» заказы до <b>' + pct(maxE.v) + '</b> при релизе ' + dayLabel(maxE.r) + ' и «роняет» на <b>' + pct(minE.v) + '</b> при релизе ' + dayLabel(minE.r) + '. В <b>' + Math.round(100 * share) + ' %</b> дней года «эффект» больше 5 % в ту или другую сторону. Двигай ползунок: коралловый столбик показывает, где твой день.';
-    drawMove();
+  const tip = document.getElementById('wow-tip');
+  function hover(ev){
+    if (!geo) return; const r = cvW.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+    let html = null;
+    if (gather >= 1 && x >= geo.split){
+      const v = geo.lo + (1 - (y - geo.T) / geo.ph) * (geo.hi - geo.lo), k = Math.floor(v / geo.bw), n = geo.counts[k] || 0;
+      hoverK = n ? k : null;
+      if (n) html = '«Эффект» от <b>' + pct(k * geo.bw, 0) + '</b> до <b>' + pct((k + 1) * geo.bw, 0) + '</b><br>' + n + ' ' + plural(n, 'день', 'дня', 'дней') + ' года (' + share(n / est.length, 0) + ')';
+    } else if (gather === 0 && x < geo.split){
+      let best = null; est.forEach(e => { if (!visited.has(e.r)) return; const dx = Math.abs(geo.X(e.r) - x), dy = Math.abs(geo.Y(e.v) - y); if (dx < 10 && dy < 24 && (!best || dx < best.dx)) best = {e, dx}; });
+      if (best) html = 'Релиз <b>' + dayLabel(best.e.r) + '</b>: «эффект» <b>' + pct(best.e.v) + '</b>';
+      hoverK = null;
+    } else hoverK = null;
+    drawWow();
+    if (!html){ tip.hidden = true; return; }
+    tip.innerHTML = html; tip.hidden = false;
+    tip.style.left = Math.min(x + 12, r.width - tip.offsetWidth - 4) + 'px'; tip.style.top = Math.max(0, y - tip.offsetHeight - 10) + 'px';
+  }
+  cvW.addEventListener('pointermove', hover); cvW.addEventListener('pointerdown', hover);
+  cvW.addEventListener('pointerleave', () => { tip.hidden = true; hoverK = null; drawWow(); });
+  function revealQuiz(){ document.getElementById('q4').hidden = false; }
+  rel.addEventListener('input', () => { visited.add(+rel.value); drawMove(); });
+  document.getElementById('btn-fill').addEventListener('click', e => {
+    e.target.disabled = true;
+    const todo = est.map(x => x.r).filter(r => !visited.has(r)), per = reduce ? todo.length : 6;
+    (function tick(){ todo.splice(0, per).forEach(r => visited.add(r)); drawWow(); if (todo.length) requestAnimationFrame(tick); else { document.getElementById('btn-hist').disabled = false; document.getElementById('wow-note').textContent = 'Весь год заполнен. Пустая кнопка «работает» то в плюс, то в минус — смотря на какой день выпало. Теперь сложим эти точки в стопки по высоте.'; } })();
+  });
+  document.getElementById('btn-hist').addEventListener('click', e => {
+    const to = gather < 1 ? 1 : 0; e.target.textContent = to ? 'Вернуть на график' : 'Собрать в гистограмму';
+    if (reduce){ gather = to; drawWow(); revealQuiz(); return; }
+    const from = gather, t0 = performance.now(); cancelAnimationFrame(anim);
+    (function frame(now){ const k = Math.min(1, (now - t0) / 1600); gather = from + (to - from) * k; drawWow(); if (k < 1) anim = requestAnimationFrame(frame); else if (to) { revealQuiz(); document.getElementById('wow-note').textContent = 'Точки съехали вправо и легли в стопки на той же высоте: так получилась гистограмма. Каждая стопка — дни года, при которых «эффект» вышел примерно одинаковым. Чем длиннее стопка, тем чаще такой «эффект» встречается. Наведи на стопку, чтобы увидеть числа; коралловая точка — твой выбранный день.'; } })(t0);
   });
 
   // карточка 6: монетка против «до и после»

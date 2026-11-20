@@ -11,6 +11,7 @@ const num = (x, d = 1) => x.toLocaleString('ru-RU', {maximumFractionDigits: d, m
 const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(100 * x), d) + ' %';
 const share = (x, d = 1) => num(100 * x, d) + ' %';
 const pp = x => num(100 * x, 1) + ' п.п.';
+const plural = (n, one, few, many) => { n = Math.abs(n) % 100; const d = n % 10; return n > 10 && n < 20 ? many : d === 1 ? one : d >= 2 && d <= 4 ? few : many; };
 const int = x => Math.round(x).toLocaleString('ru-RU');
 const sum = (a, i = 0, j = a.length) => { let s = 0; for (let k = i; k < j; k++) s += a[k]; return s; };
 const mean = a => sum(a) / a.length;
@@ -66,7 +67,23 @@ const AB = {
   onShow(f){ this.shown.push(f); },
   // Выбор одного ответа: <div class="choice" data-key="g1"> с кнопками data-v.
   choice(key){ return store.get(this.chapter + ':' + key); },
+  // Баллы: за верный ответ с первой попытки. Хранятся по шагам, в шапке — сумма за шаг и за курс.
+  award(id, pts = 1){
+    const k = this.chapter + ':pts', m = store.get(k) || {};
+    if (m[id] != null) return false;
+    m[id] = pts; store.set(k, m); this.paintScore(true); return true;
+  },
+  points(ch){ return Object.values(store.get((ch || this.chapter) + ':pts') || {}).reduce((a, b) => a + b, 0); },
+  total(){ let t = 0; for (let i = 1; i <= 10; i++) t += this.points('ab' + String(i).padStart(2, '0')); return t; },
+  paintScore(bump){
+    let el = document.getElementById('score');
+    if (!el){ el = document.createElement('span'); el.id = 'score'; el.className = 'score'; el.title = 'Баллы за верные ответы с первой попытки'; document.querySelector('.stage-head').appendChild(el); }
+    const n = this.points(), t = this.total();
+    el.textContent = '★ ' + n + ' ' + plural(n, 'балл', 'балла', 'баллов') + (t !== n ? ' · в курсе ' + t : '');
+    if (bump){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+  },
 };
+AB.paintScore(false);
 
 // ---------- карточки ----------
 (function(){
@@ -131,8 +148,10 @@ document.querySelectorAll('.choice[data-key]').forEach(box => {
   box.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     store.set(k, b.dataset.v); paint();
-    const note = document.getElementById(box.dataset.key + '-note');
-    if (note) note.textContent = 'Запомнили. Жми «Далее».';
+    let note = document.getElementById(box.dataset.key + '-note');
+    if (!note){ note = document.createElement('p'); note.id = box.dataset.key + '-note'; box.after(note); }
+    note.className = 'fb';
+    note.textContent = b.dataset.fb || 'Ответ записан. Сейчас проверим.';
     box.dispatchEvent(new CustomEvent('chosen', {detail: b.dataset.v}));
   });
   paint();
@@ -152,6 +171,10 @@ document.querySelectorAll('.card').forEach(card => {
     b.classList.add(ok ? 'right' : 'wrong');
     if (ok){
       q.classList.add('done');
+      if (q.dataset.first === '1'){
+        const qi = [...document.querySelectorAll('.quiz')].indexOf(q);
+        if (AB.award('q' + qi)){ const why = q.querySelector('.why'); if (why) why.insertAdjacentHTML('afterbegin', '<b class="plus">+1 балл.</b> '); }
+      }
       if (out && qs.every(x => x.classList.contains('done'))) out.textContent = 'С первого раза верно: ' + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
     }
   }));
