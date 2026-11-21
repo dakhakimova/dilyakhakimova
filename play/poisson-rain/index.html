@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/06-zoo.html?toy=poisson-rain" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Откуда берётся распределение Пуассона? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Режем 10 минут на клетки, в каждую заказ попадает с крошечным шансом. Дроби клетки мельче и смотри, во что превращается картинка.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/poisson-rain/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/poisson-rain/">
+<meta property="og:title" content="Откуда берётся распределение Пуассона? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Режем 10 минут на клетки, в каждую заказ попадает с крошечным шансом. Дроби клетки мельче и смотри, во что превращается картинка.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/poisson-rain.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Откуда берётся распределение Пуассона?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="poisson-rain" data-frame="/signal/06-zoo.html?toy=poisson-rain"
+  data-share-title="Откуда берётся распределение Пуассона?" data-share-text="В дашборде заказов за 10 минут бывает и 0, и 12, и продакт видит в этом аномалии. Средний поток — 5 заказов. Как распределено число заказов? Угадай форму и проверь на дожде"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="poisson-rain" data-show-from="0" hidden></span></p>
+  <h1>Откуда берётся распределение Пуассона?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В районе тысячи людей, и каждый может заказать кофе в любую секунду. Как тут вообще что-то предсказать?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">В среднем к нам приходит 5 заказов за 10 минут. Вопрос — как они разбросаны: бывает ноль, бывает двенадцать?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Это как дождь на листе в клеточку: капля попадает в клетку редко, но клеток много.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И что, для каждой клеточки своя формула?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай резать время всё мельче и посмотрим, к чему придёт картинка.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Режем 10 минут на n клеток. В каждую клетку заказ попадает с шансом 5/n — так, чтобы в среднем за 10 минут было 5 заказов. Число заказов — сумма n монеток, биномиальное распределение: это столбики.</p><p>Серые точки — распределение Пуассона с λ = 5. Дроби клетки мельче ползунком и смотри, как столбики подходят к точкам. Под графиком — наибольшая разница между ними.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/06-zoo.html?toy=poisson-rain" title="Игрушка: Откуда берётся распределение Пуассона?" style="height:850px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/06-zoo.html#card-5">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Поставь 10 клеток. Где столбики заметно расходятся с точками?</li><li>Дроби клетки до тысячи и больше. Разница ещё видна?</li><li>Найди число клеток, после которого столбик от точки уже не отличить.</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Пока клеток мало, биномиальное заметно уже Пуассона: в 10 клеток не уместится больше 10 заказов. Чем мельче клетки, тем ближе столбики к точкам, и от 200 клеток их уже не отличить. Пуассону всё равно, сколько клеток: важна только сила дождя λ = np. Поэтому он подходит для заказов в час, жалоб за день и падений сервера за месяц — если события приходят по одному и независимо.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Binomial(n, λ/n) → Poisson(λ) при большом n.</li><li>Poisson(λ): P(k) = e<sup>−λ</sup> · λ<sup>k</sup> / k!, E = Var = λ.</li><li>λ = 5 заказов за 10 минут: ни одного заказа — в 7 отрезках из 1000, ровно 5 — в 175.</li><li>Условия: события приходят по одному, независимо, с постоянной средней силой.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из лекций Джо Блицштейна, курс Stat 110 в Гарварде: дождь на листе в клеточку.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Пуассон объяснил пустые десятиминутки. А Котейка уже шестую минуту ждёт курьера и гадает, сколько ещё. Это глава 6 курса — <a href="/signal/06-zoo.html">«Зоопарк распределений»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/06-zoo.html">Открыть глава 6 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/dist-zoo/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Средний чек 640 ₽. Какая доля гостей тратит больше среднего?</b><span>Зоопарк распределений кафе: «заказал ли», «сколько за 10 минут», «сколько ждать», «сколько денег» — шесть вопросов и шесть разных форм.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="dist-zoo" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/no-memory/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Курьера нет уже 6 минут. Сколько ещё ждать?</b><span>Курьеры по строгому графику и курьеры со случайными интервалами: сколько ещё ждать, если с прошлого прошло несколько минут.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="no-memory" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/fat-tail-shift/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Средний чек вырос на 10 ₽. Во сколько раз чаще станут рекордные дни?</b><span>Рекордные дни живут в хвосте колокола. Сдвигай центр на несколько рублей и смотри, как быстро растёт число рекордов.</span><small>из курса «Сигнал или шум», глава 5</small><span class="play-count" data-count-for="fat-tail-shift" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

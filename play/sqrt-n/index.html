@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/07-clt.html?toy=sqrt-n" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Сто кубиков вместо десяти. Во сколько раз шире разброс суммы? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сумма n кубиков уезжает вправо и расплывается, среднее стоит на месте и сжимается. С какой скоростью?">
+<link rel="canonical" href="https://dilyakhakimova.com/play/sqrt-n/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/sqrt-n/">
+<meta property="og:title" content="Сто кубиков вместо десяти. Во сколько раз шире разброс суммы? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сумма n кубиков уезжает вправо и расплывается, среднее стоит на месте и сжимается. С какой скоростью?">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/sqrt-n.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="sqrt-n" data-frame="/signal/07-clt.html?toy=sqrt-n"
+  data-share-title="Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?" data-share-text="Продакт хочет вдвое сузить разброс метрики в A/B-тесте и предлагает удвоить число гостей. Хватит? Угадай, как растёт и сжимается разброс, и проверь на кубиках"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="sqrt-n" data-show-from="0" hidden></span></p>
+  <h1>Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая игра: гость бросает сразу 10 кубиков, приз — за большую сумму. Если кубиков станет сто, разброс суммы тоже вырастет в десять раз. Всё пропорционально.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Центр суммы правда уедет в десять раз дальше. А ширина?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Мои кубики друг с другом не договариваются: где один выкинет шестёрку, другой выкинет единицу.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посмотрим на точное распределение суммы и среднего для разного числа кубиков.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Ползунок — сколько кубиков бросаем, от 1 до 100. Режим «Сумма» показывает точное распределение суммы, «Среднее» — суммы, делённой на число кубиков. Поверх — колокол. Под графиком — центр и ширина σ.</p><p>Подумай, во сколько раз вырастет ширина суммы, если кубиков станет вдесятеро больше. Потом двигай ползунок и переключай режимы.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/07-clt.html?toy=sqrt-n" title="Игрушка: Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?" style="height:700px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/07-clt.html#card-5">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Поставь 10 кубиков, потом 100. Во сколько раз выросла σ суммы?</li><li>Переключи на «Среднее» и повтори. Что стало с шириной?</li><li>Сколько кубиков нужно, чтобы разброс среднего стал вдвое меньше, чем при 25?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Центр суммы уезжает на 3,5 за каждый кубик, а ширина растёт медленнее — как √n: у 10 кубиков σ ≈ 5,4, у 100 — около 17,1, всего в 3,2 раза больше. Складываются дисперсии, а не сигмы: отклонения разных кубиков частично гасят друг друга. Среднее стоит на 3,5 и сжимается как 1/√n. Чтобы шум среднего упал вдвое, кубиков нужно вчетверо больше.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Var(X₁ + … + Xₙ) = n·σ² для независимых слагаемых.</li><li>σ суммы = σ·√n, стандартная ошибка среднего SE = σ/√n.</li><li>Кубик: σ ≈ 1,71. Сто кубиков: σ суммы ≈ 17,1, SE среднего ≈ 0,17.</li><li>Вдвое меньше шум — вчетверо больше данных.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из видео Гранта Сандерсона (3Blue1Brown) «Convolutions | Why X+Y in probability is a beautiful mess».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб понял, почему данных нужно вчетверо больше, и спросил: как по одной выборке сказать, где правда? Это глава 7 курса — <a href="/signal/07-clt.html">«ЦПТ в деле»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/07-clt.html">Открыть глава 7 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/dice-diagonals/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Почему сумма 7 у двух кубиков выпадает чаще всего?</b><span>Таблица 6 × 6 пар двух кубиков: диагонали одинаковой суммы, гистограмма сумм и кривые кубики, у которых горка всё равно ровнее.</span><small>из курса «Сигнал или шум», глава 7</small><span class="play-count" data-count-for="dice-diagonals" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/catch-mu/"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><b>Вилка «95 %» из одной выборки. Как часто она накрывает правду?</b><span>Сотни выборок заказов, у каждой — своя вилка. Сколько из них накроют настоящий средний чек — и почему именно столько.</span><small>из курса «Сигнал или шум», глава 7</small><span class="play-count" data-count-for="catch-mu" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/clt-four/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Берём по 30 заказов. Сложатся ли их средние чеки в колокол?</b><span>Центральная предельная теорема на четырёх панелях: средние по 1, 5, 30 и 100 значений из кубика, ожидания курьера и чеков с банкетами.</span><small>из курса «Сигнал или шум», глава 7</small><span class="play-count" data-count-for="clt-four" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
