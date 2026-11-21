@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/07-distribution.html?toy=first-dessert" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Каким по счёту придёт первый гость с десертом? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Тысяча утр в кафе: ждём первого гостя, который возьмёт десерт. Самый частый ответ и среднее расходятся.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/first-dessert/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/first-dessert/">
+<meta property="og:title" content="Каким по счёту придёт первый гость с десертом? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Тысяча утр в кафе: ждём первого гостя, который возьмёт десерт. Самый частый ответ и среднее расходятся.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/first-dessert.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Каким по счёту придёт первый гость с десертом?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="first-dessert" data-frame="/probability/07-distribution.html?toy=first-dessert"
+  data-share-title="Каким по счёту придёт первый гость с десертом?" data-share-text="Конверсия визита в покупку — 25 %, и продакт пишет в отчёте: «Первая покупка нового гостя — на четвёртом визите». Угадай, какой визит чаще всего оказывается первым с покупкой, — и проверь на тысяче утр"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="first-dessert" data-show-from="0" hidden></span></p>
+  <h1>Каким по счёту придёт первый гость с десертом?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Утром кафе открылось. Жду первого гостя с десертом — хочу крошки.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Десерт берёт каждый четвёртый гость. Значит, первым десерт возьмёт четвёртый.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Каждый четвёртый — это в среднем. А какой номер первого гостя с десертом выпадает чаще всего?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Четвёртый, конечно. Ну, или около того.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Откроем кафе тысячу раз и посмотрим.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Каждый гость берёт десерт с шансом 25 %, сам по себе. Одно утро — ждём, пока кто-то возьмёт десерт, и записываем его номер. Столбики — доля утр, когда первый десерт взял гость № 1, № 2, № 3 и так далее.</p><p>Нажми «Открыть кафе 1000 раз» и посмотри, какой столбик самый высокий и какое получилось среднее. Ползунком можно поменять шанс десерта.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/probability/07-distribution.html?toy=first-dessert" title="Игрушка: Каким по счёту придёт первый гость с десертом?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/probability/07-distribution.html#card-8">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Нажми «Открыть кафе 1000 раз». Какой номер встречается чаще всего?</li><li>Сравни самый частый номер и среднее. Почему они разные?</li><li>Поставь шанс десерта 10 %. Что стало со средним, а что — с самым частым номером?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Самый частый ответ — первый же гость: так бывает в 25 % утр. Каждый следующий столбик на четверть ниже предыдущего: второй гость — около 19 %, третий — около 14 %. А в среднем первого десерта ждут 4 гостя — из-за длинного хвоста редких, но долгих утр. При шансе 10 % ждать в среднем 10 гостей, а самым частым всё равно остаётся первый. Самое частое значение и среднее — разные вещи.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Номер первого успеха — геометрическое распределение, geometric distribution.</li><li>P(X = k) = (1 − p)<sup>k − 1</sup> · p; среднее — 1 / p.</li><li>Самое частое значение всегда 1, а среднее — 1 / p: длинный хвост тянет среднее вправо.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Геометрическое распределение — классическая модель «ждём первого успеха»; пример с десертом придуман для курса.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Котейка дождался крошек и задумался, почему «в среднем четвёртый» так редко бывает четвёртым. Бином, геометрическое распределение и доска Гальтона — шаг 7 курса, <a href="/probability/07-distribution.html">«Случайная величина и распределение»</a>.</p>
+    <p class="ctas"><a class="btn" href="/probability/07-distribution.html">Открыть шаг 7 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/binom-20/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Как конверсия двигает число подписчиков в группе из 20 гостей?</b><span>Биномиальное распределение для групп по 20 гостей: двигай конверсию и смотри, как горка уезжает от нуля и расползается.</span><small>из курса «Вероятность на пальцах», шаг 7</small><span class="play-count" data-count-for="binom-20" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/prize-wheel/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько в среднем приносит гостю одно вращение колеса призов?</b><span>Колесо призов у стойки: крути и смотри, к чему прижимается средний приз — и кому на самом деле выгодна игра.</span><small>из курса «Вероятность на пальцах», шаг 8</small><span class="play-count" data-count-for="prize-wheel" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/one-order/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько чисел можно получить из одного заказа?</b><span>Случайный заказ кафе и три «линзы»: сумма чека, число позиций и опоздал ли курьер. Так выглядит случайная величина.</span><small>из курса «Вероятность на пальцах», шаг 7</small><span class="play-count" data-count-for="one-order" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

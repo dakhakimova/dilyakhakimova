@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/08-mean-spread.html?toy=sum-spins" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Почему казино не боится везунчиков? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сумма n вращений колеса призов: средний проигрыш растёт быстрее разброса, и везунчики исчезают.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/sum-spins/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/sum-spins/">
+<meta property="og:title" content="Почему казино не боится везунчиков? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сумма n вращений колеса призов: средний проигрыш растёт быстрее разброса, и везунчики исчезают.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/sum-spins.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Почему казино не боится везунчиков?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="sum-spins" data-frame="/probability/08-mean-spread.html?toy=sum-spins"
+  data-share-title="Почему казино не боится везунчиков?" data-share-text="Эффект в A/B-тесте маленький, а дневной шум большой. Продакт спрашивает, поможет ли просто держать тест дольше. Угадай, что растёт быстрее — накопленный эффект или шум, — и проверь на колесе призов"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="sum-spins" data-show-from="0" hidden></span></p>
+  <h1>Почему казино не боится везунчиков?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">После одного вращения колеса в плюсе больше трети гостей. Пусть крутят подольше — везунчиков станет ещё больше!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Каждое вращение в среднем отнимает у гостя 12,5 ₽. Чем дольше игра, тем дальше уезжает середина.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Но и разброс растёт! Чем больше вращений, тем сильнее может повезти.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Тогда пусть каждый гость крутит сколько хочет — хоть четыреста раз. Посмотрим, кто кого обгонит.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Двигай число вращений и смотри на облако итогов тысячи гостей.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>На колесе восемь секторов: пять пустых, два — кофе за 150 ₽, один — торт за 400 ₽; вращение стоит 100 ₽. Облако — итоги 1000 гостей после n вращений: призы минус всё, что они заплатили. Правее нуля — гости в плюсе.</p><p>Ползунок задаёт число вращений у каждого гостя, от 1 до 400. Следи за двумя вещами: куда уезжает центр облака и насколько оно расползается в ширину.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/probability/08-mean-spread.html?toy=sum-spins" title="Игрушка: Почему казино не боится везунчиков?" style="height:1100px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/probability/08-mean-spread.html#card-7">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Поставь 1 вращение, потом 10. Какая доля гостей в плюсе?</li><li>Поставь 100 вращений. Где центр облака и какая у него ширина?</li><li>Поставь 400. Во сколько раз уехал центр и во сколько выросла ширина по сравнению со 100?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>После одного вращения в плюсе 37,5 % гостей, после 10 — 32,5 %, после 100 — 17 %, после 400 — 3,2 %. Центр облака уезжает пропорционально числу вращений: −1250 ₽ за 100 и −5000 ₽ за 400. А ширина растёт только как корень: около 1340 ₽ за 100 и 2680 ₽ за 400. Вращений вчетверо больше — центр ушёл вчетверо, ширина выросла вдвое. Чем дольше игра, тем увереннее выигрыш заведения.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Средние складываются всегда: у суммы n вращений среднее n · EX.</li><li>Дисперсии складываются для независимых величин: SD суммы растёт как √n, а не как n.</li><li>Эффект растёт как n, шум — как √n: длинная серия выдаёт даже маленький перевес.</li><li>Колесо: SD одного вращения ≈ 134 ₽, за сто вращений ≈ 1340 ₽, а не 13 400 ₽.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Сложение дисперсий независимых величин — классическое свойство из теории вероятностей. Колесо придумано для курса.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб понял, почему казино спокойно. Тот же закон — эффект растёт как n, шум как корень из n — потом объясняет, сколько гостей нужно A/B-тесту. Среднее и разброс — шаг 8 курса, <a href="/probability/08-mean-spread.html">«Среднее и разброс»</a>.</p>
+    <p class="ctas"><a class="btn" href="/probability/08-mean-spread.html">Открыть шаг 8 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/thousand-guests/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько гостей уйдут в плюсе после сотни вращений колеса?</b><span>Тысяча гостей по сто жетонов: кафе в среднем выигрывает, а облако итогов показывает, сколько гостей всё равно уносят больше, чем заплатили.</span><small>из курса «Вероятность на пальцах», шаг 8</small><span class="play-count" data-count-for="thousand-guests" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/sticker-album/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько обедов нужно, чтобы собрать все шесть наклеек?</b><span>Альбом из шести наклеек, к каждому обеду — случайная: первые наклейки идут сами, последняя заставляет ждать.</span><small>из курса «Вероятность на пальцах», шаг 8</small><span class="play-count" data-count-for="sticker-album" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/prize-wheel/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько в среднем приносит гостю одно вращение колеса призов?</b><span>Колесо призов у стойки: крути и смотри, к чему прижимается средний приз — и кому на самом деле выгодна игра.</span><small>из курса «Вероятность на пальцах», шаг 8</small><span class="play-count" data-count-for="prize-wheel" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

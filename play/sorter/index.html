@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/05-conditional.html?toy=sorter" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Дождь меняет шанс, что гость закажет горячий шоколад? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сортировочная на 1000 гостей: надень рамку «только дождь» и посмотри, как меняется доля шоколада — и доля десерта.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/sorter/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/sorter/">
+<meta property="og:title" content="Дождь меняет шанс, что гость закажет горячий шоколад? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сортировочная на 1000 гостей: надень рамку «только дождь» и посмотри, как меняется доля шоколада — и доля десерта.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/sorter.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Дождь меняет шанс, что гость закажет горячий шоколад?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="sorter" data-frame="/probability/05-conditional.html?toy=sorter"
+  data-share-title="Дождь меняет шанс, что гость закажет горячий шоколад?" data-share-text="Продакт видит в дашборде: горячий шоколад берут 19 % гостей — и решает, что погода для прогноза спроса не нужна. Угадай, какая доля шоколада в дождливые дни, — и проверь на сортировочной"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="sorter" data-show-from="0" hidden></span></p>
+  <h1>Дождь меняет шанс, что гость закажет горячий шоколад?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За месяц пришли 1000 гостей, горячий шоколад взяли 190. Это 19 %. Погода тут ни при чём, это просто вкус.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Девятнадцать процентов — среди всех. 300 гостей пришли в дождь, 700 — в солнце. А если смотреть только на тех, кто пришёл в дождь?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Будут те же 19 %. Ну, может, чуть больше.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Я рассортирую гостей по погоде и заказу. А ты надевай рамку.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши, какая доля дождевых гостей взяла шоколад, и проверим.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Каждая точка — гость. Кнопка «Рассортировать» раскладывает их по погоде (дождь или солнце) и по заказу. Рамка «Только дождь» оставляет мир, где все пришли в дождь: остальные гаснут, и доля считается заново, только внутри рамки. Доля внутри рамки и есть условная вероятность.</p><p>Запиши догадку, рассортируй гостей и надень рамку «Только дождь», потом «Только солнце». Переключись на «Десерт» и повтори: меняет ли дождь и его?</p></div>
+    <figure class="art"><img src="/probability/img/vp05-00-rain.jpg" alt="Кафе в дождливый день: за окном ливень, у окна гости греют руки о кружки с горячим шоколадом" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/probability/05-conditional.html?toy=sorter" title="Игрушка: Дождь меняет шанс, что гость закажет горячий шоколад?" style="height:1350px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/probability/05-conditional.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Нажми «Рассортировать» и «Только дождь». Какая доля шоколада в рамке?</li><li>Переключи рамку на «Только солнце». Во сколько раз доля ниже?</li><li>Выбери «Десерт» и сравни дождь с солнцем. Погода что-то меняет?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>В рамке «дождь» 300 гостей, шоколад взяли 120 — это 40 %, вдвое больше, чем 19 % среди всех. В солнце — 70 из 700, всего 10 %. Значит, шоколад зависит от погоды. А десерт берут 25 % гостей и в дождь, и в солнце: рамка ничего не меняет, десерт от погоды не зависит. Условие сужает мир, и в новом мире долю считают заново.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>P(A | B) — доля A внутри рамки B: P(A и B) / P(B).</li><li>Шоколад: 19 % среди всех, 40 % в дождь, 10 % в солнце — зависит от погоды.</li><li>Независимость: рамка не меняет долю. Десерт — 25 % и в дождь, и в солнце.</li><li>Рамка «только с шоколадом» — другой мир: доля дождевых гостей в ней своя.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Пример с погодой и шоколадом придуман для курса; мысль «условие сужает мир» — из любого учебника вероятности, например «Introduction to Probability» Джозефа Блицштейна и Джессики Хван.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Алиса надела рамку «только дождь», а потом перевернула её: среди любителей шоколада сколько пришли в дождь? Это другой мир и другое число. Шаг 5 курса — <a href="/probability/05-conditional.html">«Условная вероятность и независимость»</a>.</p>
+    <p class="ctas"><a class="btn" href="/probability/05-conditional.html">Открыть шаг 5 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/or-rule/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>30 % берут кофе, 40 % — десерт. Значит, 70 % берут хоть что-то?</b><span>Тысяча гостей кафе точками: кофе, десерт и те, кого Боб посчитал дважды.</span><small>из курса «Вероятность на пальцах», шаг 4</small><span class="play-count" data-count-for="or-rule" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/base-rate/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Почему редкая беда почти всегда — ложная тревога?</b><span>Квадрат Байеса: узкая колонна фальшивок против широкого поля честных купюр. Подвигай базу и посмотри, когда писку можно верить.</span><small>из курса «Вероятность на пальцах», шаг 6</small><span class="play-count" data-count-for="base-rate" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/garland/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сто лампочек по 1 % — как часто за год перегорит хотя бы одна?</b><span>Гирлянда над входом: каждая лампочка надёжна, но их сотня. «Хотя бы одна» против «сложить шансы».</span><small>из курса «Вероятность на пальцах», шаг 4</small><span class="play-count" data-count-for="garland" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

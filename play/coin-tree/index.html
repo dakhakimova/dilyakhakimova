@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/03-counting.html?toy=coin-tree" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Сколько веток дерева из десяти бросков дают ровно пять орлов? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Конструктор дерева бросков: каждый бросок раздваивает ветки, а треугольник Паскаля считает листья без рисования.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/coin-tree/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/coin-tree/">
+<meta property="og:title" content="Сколько веток дерева из десяти бросков дают ровно пять орлов? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Конструктор дерева бросков: каждый бросок раздваивает ветки, а треугольник Паскаля считает листья без рисования.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/coin-tree.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Сколько веток дерева из десяти бросков дают ровно пять орлов?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="coin-tree" data-frame="/probability/03-counting.html?toy=coin-tree"
+  data-share-title="Сколько веток дерева из десяти бросков дают ровно пять орлов?" data-share-text="Аналитик пишет в отчёте A/A-теста: «Из 10 дней тест был выше контроля ровно 5 — всё как положено». Угадай, как часто бывает именно 5 из 10, — и проверь деревом из 1024 веток"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="coin-tree" data-show-from="0" hidden></span></p>
+  <h1>Сколько веток дерева из десяти бросков дают ровно пять орлов?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Если бросить монетку десять раз, ровно пять орлов выпадает не так уж часто. Я так и не понял почему.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нарисуем дерево: каждый бросок раздваивает каждую ветку. Лист дерева — одна серия бросков, и все листья одинаково вероятны.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Пять из десяти — середина. Значит, таких листьев, наверное, большинство.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Прикинь, какая доля листьев содержит ровно пять орлов, а потом вырастим дерево и посчитаем.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Каждое нажатие «+1 бросок» раздваивает все ветки: одна ветка — орёл, другая — решка. Лист дерева — вся серия бросков целиком, например ОРО. Выбери число орлов — подсветятся листья, где их ровно столько. Справа — треугольник Паскаля: его числа говорят то же самое без рисования.</p><p>Запиши догадку и вырасти дерево до десяти бросков. После шести бросков листьев становится слишком много, и дерево сворачивается в число, но счёт продолжается. Потом выбери «5 орлов».</p></div>
+    <figure class="art"><img src="/probability/img/vp03-01-tree.jpg" alt="Котейка сидит на ветке огромного дерева-развилки, на концах веток — пирожные" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/probability/03-counting.html?toy=coin-tree" title="Игрушка: Сколько веток дерева из десяти бросков дают ровно пять орлов?" style="height:1050px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/probability/03-counting.html#card-4">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Сделай три броска и выбери 2 орла. Сколько листьев подсветилось?</li><li>Дорасти дерево до 10 бросков и выбери 5 орлов. Какая это доля от всех листьев?</li><li>Нажми «Упорядочить по числу орлов». На что похожа форма?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>После n бросков у дерева 2<sup>n</sup> листьев: 8 после трёх бросков, 1024 после десяти. Ровно пять орлов — у 252 листьев из 1024, это 24,6 %. Середина — самая частая, но всё равно меньшинство: три четверти листьев дают другое число орлов. Число 252 стоит в треугольнике Паскаля в строке 10, и каждое число треугольника — сумма двух над ним.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>После n бросков у дерева 2<sup>n</sup> равновозможных листьев.</li><li>Листьев ровно с k орлами — C(n, k), число сочетаний из n по k. C(10, 5) = 252.</li><li>Треугольник Паскаля: каждое число — сумма двух над ним; в строке n стоят C(n, 0) … C(n, n).</li><li>Ровно 5 орлов из 10 — 24,6 % серий.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Треугольник назван по «Трактату об арифметическом треугольнике» Блеза Паскаля (написан в 1654 году); в Китае и Персии его знали задолго до Паскаля.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Котейка досчитал листья и спросил, сколькими способами можно собрать коробку из трёх десертов, если их восемь. Порядок, сочетания и C(n, k) — шаг 3 курса, <a href="/probability/03-counting.html">«Считаем исходы»</a>.</p>
+    <p class="ctas"><a class="btn" href="/probability/03-counting.html">Открыть шаг 3 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/combo-menu/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Четыре напитка, три десерта — сколько комбо в меню?</b><span>Конструктор меню: каждый напиток с каждым десертом — и правило умножения, которое заменяет нитки на доске.</span><small>из курса «Вероятность на пальцах», шаг 3</small><span class="play-count" data-count-for="combo-menu" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/garland/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сто лампочек по 1 % — как часто за год перегорит хотя бы одна?</b><span>Гирлянда над входом: каждая лампочка надёжна, но их сотня. «Хотя бы одна» против «сложить шансы».</span><small>из курса «Вероятность на пальцах», шаг 4</small><span class="play-count" data-count-for="garland" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/ten-of-ten/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Десять пятёрок из десяти — это много?</b><span>Отзывы блоками по десять у кафе с 95 % хороших: идеальные «10 из 10» выпадают куда чаще, чем кажется.</span><small>из курса «Вероятность на пальцах», шаг 2</small><span class="play-count" data-count-for="ten-of-ten" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

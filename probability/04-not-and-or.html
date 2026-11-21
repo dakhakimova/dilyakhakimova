@@ -71,7 +71,7 @@
 </section>
 
 <!-- 3: история и прогноз -->
-<section class="card" data-title="Угадай" aria-label="Угадай">
+<section class="card" data-toy-pre="birthday" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Совпадение — это редкость?</h2>
   <div class="chat">
@@ -88,7 +88,7 @@
 </section>
 
 <!-- 4: главная игрушка -->
-<section class="card" data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
+<section class="card" data-toy="birthday" data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
   <span class="step-tag">Поиграй</span>
   <h2>Гости входят по одному</h2>
   <p>Каждый гость приносит свой день рождения — точку в календаре. Если точка попадает в уже занятый день, обе вспыхивают оранжевым.</p>
@@ -171,7 +171,7 @@
 </section>
 
 <!-- 8: вторая игрушка — гирлянда -->
-<section class="card" data-title="Гирлянда" aria-label="Гирлянда">
+<section class="card" data-toy="garland" data-title="Гирлянда" aria-label="Гирлянда">
   <span class="step-tag">Сначала угадай</span>
   <h2>Хотя бы одна из ста</h2>
   <p>В гирлянде 100 лампочек, каждая перегорает за год с шансом 1 %. Как часто за год перегорит хотя бы одна?</p>
@@ -191,21 +191,21 @@
       <button class="btn" type="button" id="lm-1">Прожить год</button>
       <button class="btn ghost" type="button" id="lm-1000">1000 гирлянд</button>
     </div>
-    <div class="big2">
+    <div class="big2" data-toy-reveal>
       <div class="truth"><b id="lm-right">63,4 %</b><span>хотя бы одна перегорит: 1 − (1 − p)<sup>n</sup></span></div>
       <div class="trap"><b id="lm-naive">100 %</b><span>«сложить шансы»: n · p</span></div>
     </div>
     <div class="verdict" id="lm-v" hidden></div>
   </div>
-  <p class="formula">P(хотя бы одна из n) = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
-  <p>Подвигай ползунки: n · p быстро уходит за 100 %, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
+  <p class="formula" data-toy-reveal>P(хотя бы одна из n) = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
+  <p data-toy-reveal>Подвигай ползунки: n · p быстро уходит за 100 %, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
 </section>
 
 <!-- 9: правило «или» -->
-<section class="card" data-title="Правило «или»" aria-label="Правило «или»">
+<section class="card" data-toy="or-rule" data-title="Правило «или»" aria-label="Правило «или»">
   <span class="step-tag">Правило</span>
   <h2>«Или»: не считай общих дважды</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30 % гостей, десерт — 40 %. Значит, 70 % берут хоть что-то из двух!</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А тех, кто берёт кофе с десертом, ты посчитал два раза.</p></div></div>
   </div>
@@ -220,14 +220,14 @@
       <button class="btn" type="button" data-or="or">Кофе или десерт</button>
     </div>
   </div>
-  <div class="layers">
+  <div class="layers" data-toy-reveal>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 гостей 300 взяли кофе, 400 — десерт, 150 — и то и другое. Хотя бы одно взяли 300 + 400 − 150 = 550 гостей, а не 700.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
       <p class="formula">P(A или B) = P(A) + P(B) − P(A и B)</p>
       <p class="read">Словами: сложи обе доли и вычти тех, кого посчитал дважды. Если A и B вместе не бывают (несовместны), вычитать нечего — тогда просто сумма.</p>
     </div>
   </div>
-  <aside class="scary">
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Правило «сложи и вычти пересечение» называют <b class="term">формулой включений и исключений</b>; на собеседовании скажут <b>inclusion–exclusion</b>.</p>
     <p class="aside">Звучит солидно, а это просто «не считай одного гостя дважды».</p>

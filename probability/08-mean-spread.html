@@ -73,7 +73,7 @@
 </section>
 
 <!-- 3: история и прогноз -->
-<section class="card" data-title="Угадай" aria-label="Угадай">
+<section class="card" data-toy-pre="thousand-guests" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Кто уйдёт в плюсе?</h2>
   <div class="chat">
@@ -84,12 +84,12 @@
   <div class="guess" data-key="plus" data-min="0" data-max="100" data-unit="%">
     <label class="field">После 100 вращений в плюсе будет примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % гостей</label>
     <div class="controls"><button class="btn" type="button">Запомнить</button></div>
-    <p class="note">«В плюсе» — призы дороже 10 000 ₽, которые гость заплатил за 100 жетонов. Проверим через две карточки.</p>
+    <p class="note">«В плюсе» — призы дороже 10 000 ₽, которые гость заплатил за 100 жетонов. <span data-toy-hide>Проверим через две карточки.</span></p>
   </div>
 </section>
 
 <!-- 4: колесо -->
-<section class="card" data-title="Крути колесо" aria-label="Крути колесо">
+<section class="card" data-toy="prize-wheel" data-title="Крути колесо" aria-label="Крути колесо">
   <span class="step-tag">Поиграй</span>
   <h2>Крути и смотри на средний приз</h2>
   <p>Каждое вращение даёт приз: 0, 150 или 400 ₽. Синяя линия — средний приз за вращение по всем твоим вращениям. Куда она прижмётся?</p>
@@ -110,7 +110,7 @@
 </section>
 
 <!-- 5: облако 1000 гостей -->
-<section class="card" data-title="1000 гостей" aria-label="1000 гостей">
+<section class="card" data-toy="thousand-guests" data-title="1000 гостей" aria-label="1000 гостей">
   <span class="step-tag">Проверь прогноз</span>
   <h2>Тысяча гостей по сто жетонов</h2>
   <p>Средний приз прижимается к 87,5 ₽, а платит гость 100 ₽. Кафе в среднем зарабатывает 12,5 ₽ на вращении, за 100 вращений — 1250 ₽ на гостя. А что у каждого гостя? Пусть 1000 гостей купят по 100 жетонов.</p>
@@ -122,8 +122,8 @@
     <div class="legend-row"><span><i style="background:var(--trap)"></i>гость в минусе</span><span><i style="background:var(--truth)"></i>гость в плюсе</span></div>
     <div class="verdict" id="cl-v" hidden></div>
   </div>
-  <p>Облако широкое: призы шатаются сильнее, чем кафе берёт в среднем. Поэтому каждый шестой гость уходит в плюсе, хотя в среднем гости проигрывают. В среднем — не значит каждый раз.</p>
-  <span class="kot-says">Мяу, я в плюсе! А, нет, это был не я.</span>
+  <p data-toy-reveal>Облако широкое: призы шатаются сильнее, чем кафе берёт в среднем. Поэтому каждый шестой гость уходит в плюсе, хотя в среднем гости проигрывают. В среднем — не значит каждый раз.</p>
+  <span class="kot-says" data-toy-hide>Мяу, я в плюсе! А, нет, это был не я.</span>
 </section>
 
 <!-- 6: матожидание -->
@@ -168,27 +168,27 @@
 </section>
 
 <!-- 8: сумма n вращений -->
-<section class="card" data-title="Сумма вращений" aria-label="Сумма вращений">
+<section class="card" data-toy="sum-spins" data-title="Сумма вращений" aria-label="Сумма вращений">
   <span class="step-tag">Малый график</span>
   <h2>Среднее уходит быстрее, чем растёт разброс</h2>
-  <p>Почему после одного вращения в плюсе 3 гостя из 8, а после сотни — только каждый шестой? Двигай число вращений и смотри на облако итогов 1000 гостей.</p>
+  <p data-toy-hide>Почему после одного вращения в плюсе 3 гостя из 8, а после сотни — только каждый шестой? Двигай число вращений и смотри на облако итогов 1000 гостей.</p>
   <div class="sheet c-white">
     <canvas id="ch-sum" role="img" aria-label="Облако итогов после n вращений: центр уходит влево пропорционально n, ширина растёт как корень из n"></canvas>
     <div class="rng-row">
       <label><span>Вращений у гостя: <b id="sum-n-v">100</b></span><input type="range" id="sum-n" min="1" max="400" step="1" value="100" aria-label="Число вращений у одного гостя"></label>
     </div>
-    <div class="verdict" id="sum-v"></div>
+    <div class="verdict" id="sum-v" data-toy-reveal></div>
   </div>
-  <div class="layers">
+  <div class="layers" data-toy-reveal>
     <div class="things"><span class="lt">В штуках</span><p>При цене 100 ₽: после 1 вращения в плюсе 37,5 % гостей, после 10 — 32,5 %, после 100 — 17,0 %, после 400 — 3,2 %. Центр облака за 100 вращений уходит на −1250 ₽, а ширина растёт только до ≈ 1340 ₽; за 400 — центр −5000 ₽, ширина ≈ 2680 ₽.</p></div>
     <div class="formula-l"><span class="lt">Формула</span><p class="formula">E[X + Y] = EX + EY, Var(X + Y) = Var X + Var Y</p><p class="read">Словами: средние складываются всегда; дисперсии складываются, если X и Y независимы. Поэтому у суммы n вращений среднее растёт как n, а SD — как √n: 134 · √100 = 1340.</p></div>
   </div>
-  <p>Складываются дисперсии, а не стандартные отклонения: у суммы 100 вращений SD ≈ 1340 ₽, а не 100 · 134 = 13 400 ₽. Для казино это главный закон: чем дольше игра, тем увереннее выигрыш заведения.</p>
+  <p data-toy-reveal>Складываются дисперсии, а не стандартные отклонения: у суммы 100 вращений SD ≈ 1340 ₽, а не 100 · 134 = 13 400 ₽. Для казино это главный закон: чем дольше игра, тем увереннее выигрыш заведения.</p>
   <p class="xref"><span>Обратная сторона: SD суммы растёт как √n, а SD среднего падает как 1/√n. С этого начинается «Сигнал или шум», <a href="/signal/04-noise.html">глава 4 «Шум»</a>.</span></p>
 </section>
 
 <!-- 9: альбом наклеек -->
-<section class="card" data-title="Альбом наклеек" aria-label="Альбом наклеек">
+<section class="card" data-toy="sticker-album" data-title="Альбом наклеек" aria-label="Альбом наклеек">
   <span class="step-tag">Вторая игрушка</span>
   <h2>Собери все шесть наклеек</h2>
   <figure class="art"><img loading="lazy" src="img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ищет последнюю наклейку среди повторов</figcaption></figure>
@@ -210,12 +210,12 @@
     <canvas id="ch-album" role="img" aria-label="Гистограмма числа обедов до полного альбома у 1000 гостей"></canvas>
     <div class="verdict" id="al-v" hidden></div>
   </div>
-  <div class="xtab-wrap"><table class="xtab">
+  <div class="xtab-wrap" data-toy-reveal><table class="xtab">
     <tr><th>какая по счёту новая</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
     <tr><th>шанс новой</th><td>6/6</td><td>5/6</td><td>4/6</td><td>3/6</td><td>2/6</td><td>1/6</td></tr>
     <tr><th>обедов в среднем</th><td>1</td><td>1,2</td><td>1,5</td><td>2</td><td>3</td><td class="hot">6</td></tr>
   </table></div>
-  <p>Каждая следующая новая наклейка — геометрическое ожидание из шага 7: при шансе p ждём в среднем 1/p обедов. Складываем ожидания: 1 + 1,2 + 1,5 + 2 + 3 + 6 = 14,7. Последняя наклейка в одиночку стоит 6 обедов — почти столько же, сколько первые четыре вместе.</p>
+  <p data-toy-reveal>Каждая следующая новая наклейка — геометрическое ожидание из шага 7: при шансе p ждём в среднем 1/p обедов. Складываем ожидания: 1 + 1,2 + 1,5 + 2 + 3 + 6 = 14,7. Последняя наклейка в одиночку стоит 6 обедов — почти столько же, сколько первые четыре вместе.</p>
   <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
 </section>
 
