@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Считаем исходы · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 3 бесплатного интерактивного курса «Вероятность на пальцах»: дерево исходов, правило умножения, перестановки и C(n, k), треугольник Паскаля, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+.kot-says[hidden]{display:none}
+/* меню-конструктор */
+.menu-pick{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:8px 0}
+.menu-pick h3{margin:0 0 6px; font:600 13px/1.3 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.menu-pick .nsel button{min-height:44px}
+.combo{border-collapse:collapse; margin:12px 0 6px; font-size:14px; width:100%; max-width:520px; table-layout:fixed}
+.combo th, .combo td{border:1px solid rgba(36,34,31,.15); padding:8px 4px; text-align:center}
+.combo th{font-weight:500; color:var(--muted); background:#FAF9F6}
+.combo td{height:40px; transition:background .25s}
+.combo td.on{background:var(--test-bg)}
+.combo td.on::after{content:"✓"; font-weight:600; color:var(--test-ink)}
+.combo tr.off td, .combo tr.off th{opacity:.3}
+.combo td.just{background:var(--test)}
+@media (prefers-reduced-motion: reduce){ .combo td{transition:none} }
+@media (max-width:620px){ .menu-pick{grid-template-columns:1fr} }
+/* дерево и треугольник */
+.tree-wrap{display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:18px; align-items:start}
+.pascal{font:500 12px/1 var(--body); font-variant-numeric:tabular-nums; color:var(--muted); text-align:center}
+.pascal div{display:flex; justify-content:center; gap:3px; margin:0 0 3px}
+.pascal span{min-width:24px; padding:5px 2px; border-radius:5px}
+.pascal div.row{color:var(--ink); background:#F4F3F0; border-radius:6px}
+.pascal span.k{background:var(--test); color:#fff; font-weight:600}
+.pascal span.mirror{background:var(--test-bg); color:var(--test-ink); font-weight:600}
+.pascal-cap{font-size:13px; color:var(--muted); margin:6px 0 0; text-align:center}
+@media (max-width:760px){ .tree-wrap{grid-template-columns:1fr} .pascal span{min-width:22px; padding:4px 1px; font-size:11px} }
+.nsel.ks button{min-width:44px; min-height:44px; padding:9px 10px}
+.readout-l{font:400 18px/1.5 var(--body); margin:8px 0 0}
+/* полки и коробка */
+.shelves{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:10px 0}
+.shelves div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px; text-align:center; font-size:15px}
+.shelves div b{color:var(--muted); font-weight:500; font-size:12px; display:block}
+@media (max-width:620px){ .shelves{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body data-course="probability" data-chapter="p03" data-next="04-not-and-or.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 3 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 0: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним шаг 1</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Алиса выбирает десерт дня двумя монетками: два орла — эклер, две решки — тарт, разные — чизкейк. Какой десерт будет чаще?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Исходов три по названию, но «разные» — это сразу два исхода: ОР и РО.">Все поровну, по трети дней</button><button type="button" data-v="b">Чизкейк: «разные» — это ОР и РО</button><button type="button" data-v="c" data-why="Эклер и тарт в равном положении: у каждого один исход из четырёх.">Эклер: орлы выпадают чаще решек</button></div>
+    <p class="why">Исходов четыре: ОО, ОР, РО, РР. «Разные» — два из них, поэтому чизкейк будет в половине дней, эклер и тарт — по четверти.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Котейка бросает синий и оранжевый кубики. Сколько всего равновозможных исходов?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="6 + 6 — это число граней на двух кубиках, а исход — пара значений.">12: по шесть граней у каждого из кубиков</button><button type="button" data-v="b" data-why="21 получится, если считать «3 и 5» и «5 и 3» одним исходом. Но кубики подписаны, и это две разные клетки.">21: «3 и 5» и «5 и 3» — одно и то же</button><button type="button" data-v="c">36: каждая грань с каждой гранью</button></div>
+    <p class="why">Таблица 6 × 6: шесть значений синего на шесть значений оранжевого — 36 клеток, все равновозможны. Это и есть правило умножения, с которого начнётся шаг.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 1: обложка -->
+<section class="card" data-title="Меню комбо" aria-label="Меню комбо">
+  <p class="kicker">Шаг 3 из 9</p>
+  <h1>Считаем исходы</h1>
+  <p class="core">После шага ты сможешь <b>посчитать исходы деревом, правилом умножения и через C(n, k)</b>, не выписывая их все.</p>
+  <figure class="art"><img src="img/vp03-00-menu.jpg" alt="Алиса рисует на доске таблицу комбо, Боб соединяет чашки и пирожные нитками" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса рисует таблицу комбо, Боб соединяет чашки и пирожные нитками</figcaption></figure>
+  <p class="lead">Кафе составляет меню комбо: напиток плюс десерт. Боб собрался выписать все варианты на доску, Котейка хочет ещё и коробку «три десерта на выбор». Сколько там вариантов — и можно ли посчитать, ничего не выписывая?</p>
+</section>
+
+<!-- 2: меню-конструктор -->
+<section class="card" data-title="Комбо напиток + десерт" aria-label="Комбо: напиток плюс десерт">
+  <span class="step-tag">Собери меню</span>
+  <h2>Каждый напиток с каждым десертом</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Напитков четыре, десертов три. Сейчас соединю нитками все пары и пересчитаю.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нитки не нужны. Нарисуй таблицу: строки — напитки, столбцы — десерты.</p></div></div>
+  </div>
+  <p>Выбери напиток, потом десерт — клетка комбо загорится. Собери все.</p>
+  <div class="sheet c-white">
+    <div class="menu-pick">
+      <div><h3>Напиток</h3><div class="nsel" id="m-drinks" role="group" aria-label="Напиток"><button type="button" data-i="0" aria-pressed="false">кофе</button><button type="button" data-i="1" aria-pressed="false">чай</button><button type="button" data-i="2" aria-pressed="false">какао</button><button type="button" data-i="3" aria-pressed="false">лимонад</button></div></div>
+      <div><h3>Десерт</h3><div class="nsel" id="m-desserts" role="group" aria-label="Десерт"><button type="button" data-j="0">эклер</button><button type="button" data-j="1">чизкейк</button><button type="button" data-j="2">тарт</button></div></div>
+    </div>
+    <table class="combo" id="m-table" aria-label="Таблица комбо: строки — напитки, столбцы — десерты">
+      <thead><tr><th></th><th>эклер</th><th>чизкейк</th><th>тарт</th></tr></thead>
+      <tbody>
+        <tr><th>кофе</th><td></td><td></td><td></td></tr>
+        <tr><th>чай</th><td></td><td></td><td></td></tr>
+        <tr><th>какао</th><td></td><td></td><td></td></tr>
+        <tr><th>лимонад</th><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="controls">
+      <button class="btn ghost" type="button" id="m-all">Заполнить всё</button>
+      <button class="btn ghost" type="button" id="m-nocof" aria-pressed="false">Без кофе</button>
+      <button class="btn ghost" type="button" id="m-0">Сначала</button>
+    </div>
+    <p class="fb" id="m-v" aria-live="polite">Собрано 0 комбо.</p>
+  </div>
+</section>
+
+<!-- 3: правило умножения -->
+<section class="card" data-title="Правило умножения" aria-label="Правило умножения">
+  <span class="step-tag">Правило</span>
+  <h2>Не перечисляй — умножай</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Каждый напиток сочетается с каждым десертом. На каждый из 4 напитков приходится одна и та же тройка десертов.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>4 строки по 3 клетки — 12 комбо. Без кофе — 3 строки по 3 клетки, 9 комбо. Если ещё выбирать размер стакана (2 варианта), комбо станет 4 · 3 · 2 = 24.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">N = n₁ · n₂ · … · n<sub>k</sub></p><p class="read">Словами: если выбор идёт по шагам, и на каждом шаге число вариантов не зависит от того, что выбрали раньше, — числа вариантов перемножаются.</p></div>
+  </div>
+  <p>Порядок шагов не важен: можно сначала выбрать десерт, потом напиток. Таблица повернётся набок, а клеток останется 3 · 4 = 12. С монетками то же самое: каждый бросок — шаг с двумя вариантами, поэтому у двух монеток 2 · 2 = 4 исхода, у трёх — 8, у десяти — 2<sup>10</sup> = 1024.</p>
+  <p>Умножение считает варианты, а не их популярность. Даже если эклер с лимонадом никто не берёт, в меню это всё равно одна клетка из 12.</p>
+  <p class="src">Идея из лекций: Джозеф Блицштейн, курс Stat 110</p>
+</section>
+
+<!-- 4: угадай -->
+<section class="card" data-title="Угадай" aria-label="Угадай: сколько веток с пятью орлами">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Дерево из десяти бросков</h2>
+  <figure class="art"><img src="img/vp03-01-tree.jpg" alt="Котейка сидит на ветке огромного дерева-развилки, на концах веток — пирожные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на ветке огромного дерева-развилки</figcaption></figure>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Помнишь, в шаге 2 ровно пять орлов из десяти выпадали только в четверти серий? Я так и не понял почему.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нарисуем дерево: каждый бросок раздваивает каждую ветку. После десяти бросков у дерева 1024 листа, и все равновозможны. Осталось посчитать листья ровно с пятью орлами.</p></div></div>
+  </div>
+  <p>Прикинь: какая доля из 1024 листьев содержит ровно пять орлов?</p>
+  <div class="guess" data-key="five" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Ровно 5 орлов — у <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % листьев</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке вырастим дерево и посчитаем.</p>
+  </div>
+</section>
+
+<!-- 5: конструктор дерева -->
+<section class="card" data-title="Конструктор дерева" aria-label="Конструктор дерева исходов">
+  <span class="step-tag">Главная игрушка</span>
+  <h2>Конструктор дерева</h2>
+  <p>Каждый клик — ещё один бросок: каждая ветка раздваивается. Выбери число орлов — подсветятся листья, где их ровно столько, и число в треугольнике справа.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="t-add">+1 бросок</button>
+      <button class="btn ghost" type="button" id="t-sort" aria-pressed="false">Упорядочить по числу орлов</button>
+      <button class="btn ghost" type="button" id="t-0">Сначала</button>
+    </div>
+    <div class="nsel ks" id="t-ks" role="group" aria-label="Сколько орлов подсветить"></div>
+    <div class="tree-wrap">
+      <div>
+        <canvas id="tree" role="img" aria-label="Дерево исходов бросков монетки: каждая ветка раздваивается; листья с выбранным числом орлов подсвечены"></canvas>
+        <p class="readout-l" id="t-read" aria-live="polite"></p>
+      </div>
+      <div>
+        <div class="pascal" id="pascal" aria-label="Треугольник Паскаля: в строке n стоят числа C(n, k)"></div>
+        <p class="pascal-cap">Треугольник Паскаля: каждое число — сумма двух над ним</p>
+      </div>
+    </div>
+    <div class="verdict" id="t-v" hidden></div>
+  </div>
+</section>
+
+<!-- 6: порядок важен? -->
+<section class="card" data-title="Порядок важен?" aria-label="Порядок важен: полка и коробка">
+  <span class="step-tag">Полка или коробка</span>
+  <h2>Три десерта: на полку или в коробку</h2>
+  <p>В витрине 8 разных десертов. Боб выставляет три из них на полку «хит дня» — слева направо, порядок важен. Первый десерт — 8 вариантов, второй — 7, третий — 6: всего <span class="num">8 · 7 · 6 = 336</span> полок.</p>
+  <p>Котейка же собирает три десерта в коробку — там порядок не важен. Одна и та же коробка {эклер, тарт, макарон} — это сразу шесть полок:</p>
+  <div class="shelves" aria-label="Шесть порядков одной тройки десертов">
+    <div><b>1</b>эклер · тарт · макарон</div><div><b>2</b>эклер · макарон · тарт</div><div><b>3</b>тарт · эклер · макарон</div>
+    <div><b>4</b>тарт · макарон · эклер</div><div><b>5</b>макарон · эклер · тарт</div><div><b>6</b>макарон · тарт · эклер</div>
+  </div>
+  <p>Шесть — это <span class="num">3 · 2 · 1 = 3!</span>: способы расставить три десерта по местам. Значит, коробок в шесть раз меньше, чем полок: <span class="num">336 / 6 = 56</span>.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Число способов расставить n разных вещей по порядку — <b class="term">перестановки</b>, пишут n! («эн факториал»): 3! = 6, 10! = 3 628 800. На собеседовании скажут <b>permutations</b>.</p>
+    <p class="aside">А полки из k штук, выбранных из n, называют размещениями: 8 · 7 · 6 — это они.</p>
+  </aside>
+</section>
+
+<!-- 7: команда и скамейка -->
+<section class="card" data-title="Сочетания" aria-label="Сочетания: команда и скамейка">
+  <span class="step-tag">Правило</span>
+  <h2>Команда и скамейка</h2>
+  <p>Сначала прикинь: в кафе 10 бариста. Чего больше — разных пар на смену или разных восьмёрок на субботний аврал?</p>
+  <div class="choice" data-key="g-pairs" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="pairs" data-fb="Так отвечает большинство: пары кажутся «разнообразнее». Проверь правилом ниже." aria-pressed="false">Пар больше</button>
+    <button type="button" data-v="eights" data-fb="Интересно: обычно отвечают наоборот. Проверь правилом ниже." aria-pressed="false">Восьмёрок больше</button>
+    <button type="button" data-v="same" data-fb="Запомнили. Проверь правилом ниже — и подумай, кто остаётся на скамейке." aria-pressed="false">Поровну</button>
+  </div>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Выбрать 8 бариста на аврал — то же самое, что выбрать двоих, кто останется дома. Каждой восьмёрке соответствует ровно одна «скамейка» из двух. С десертами так же: собрать коробку из 3 — то же, что выбрать 5, которые останутся на витрине.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Пар из 10: <span class="num">10 · 9 / 2 = 45</span>. Восьмёрок: столько же скамеек из двух — тоже 45. Коробок из 3 десертов из 8: <span class="num">8 · 7 · 6 / 3! = 56</span>, и вариантов «пять на витрине» — тоже 56.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">C(n, k) = n! / (k! · (n − k)!)</p><p class="formula">C(n, k) = C(n, n − k)</p><p class="read">Словами: сколько способов выбрать k из n, если порядок не важен. Считаем полки и делим на k! — число порядков внутри одной коробки.</p></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>C(n, k) называют <b class="term">числом сочетаний</b> или биномиальным коэффициентом, читают «цэ из эн по ка»; на собеседовании скажут <b>n choose k</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «сколько разных коробок».</p>
+  </aside>
+  <p>Ровно пять орлов из десяти — это выбор пяти бросков из десяти, на которых выпал орёл: <span class="num">C(10, 5) = 252</span>. Отсюда 252 / 1024 = 24,6 % из шага 2.</p>
+  <p class="src">Идея из книги: Дэниел Канеман, «Thinking, Fast and Slow» (в опросе люди называли медианой 70 пар и 20 восьмёрок)</p>
+</section>
+
+<!-- 8: код -->
+<section class="card" data-title="Код" aria-label="Код: функция n_choose_k">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Напиши C(n, k) сам</h2>
+  <p>Допиши функцию без <code>math.comb</code>. Подсказка: перемножь k чисел n, n − 1, … и раздели на k!. Проверка прогонит её на нескольких парах и на симметрии.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-n-choose-k">
+<textarea spellcheck="false" aria-label="Задание: функция n_choose_k">def n_choose_k(n, k):
+    # сколькими способами выбрать k из n, если порядок не важен
+    shelves = 1     # число «полок»: n · (n − 1) · … — k множителей
+    orders = 1      # k! — порядков внутри одной коробки
+    ...
+    return ...
+
+print(n_choose_k(8, 3))    # должно быть 56
+print(n_choose_k(10, 5))   # 252</textarea>
+  </div>
+<script type="text/x-python" id="check-n-choose-k">
+def _check():
+    try:
+        f = n_choose_k
+    except NameError:
+        print("FAIL функции n_choose_k нет — запусти ячейку с ней"); return
+    try:
+        v = f(8, 3)
+    except Exception as e:
+        print(f"FAIL n_choose_k(8, 3) падает с ошибкой: {e}"); return
+    if v is ... or v is None:
+        print("FAIL функция пока ничего не считает: замени ... на код"); return
+    if abs(float(v) - 336) < 1e-9:
+        print("FAIL получилось 336 — это полки, порядок учтён. Раздели на k! = 6"); return
+    if abs(float(v) - 168) < 1e-9:
+        print("FAIL получилось 168: поделено на 2. Делить надо на k! — для трёх десертов это 6"); return
+    bad = 0
+    for (n, k), want in [((8, 3), 56), ((10, 5), 252), ((52, 2), 1326), ((10, 3), 120), ((12, 2), 66), ((10, 0), 1), ((10, 10), 1), ((0, 0), 1), ((30, 15), 155117520)]:
+        try:
+            got = f(n, k)
+            if abs(float(got) - want) > 0.5:
+                bad += 1; print(f"FAIL n_choose_k({n}, {k}): ждали {want}, получили {got}")
+        except Exception as e:
+            bad += 1; print(f"FAIL n_choose_k({n}, {k}): ошибка {e}")
+    try:
+        if abs(float(f(20, 7)) - float(f(20, 13))) > 0.5:
+            bad += 1; print("FAIL нарушена симметрия: C(20, 7) должно равняться C(20, 13)")
+    except Exception as e:
+        bad += 1; print(f"FAIL симметрия: ошибка {e}")
+    if not bad:
+        print("OK всё сошлось: C(8, 3) = 56, C(10, 5) = 252, и C(n, k) = C(n, n − k)")
+_check()
+</script>
+</section>
+
+<!-- 9: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка: делим на два">
+  <span class="step-tag">Ловушка</span>
+  <h2>Котейка считает коробки</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Коробка из трёх десертов, всего их восемь. Первый — 8 вариантов, второй — 7, третий — 6. Порядок в коробке не важен, значит, делю на два: 8 · 7 · 6 / 2 = 168 коробок!</p></div></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что не так в подсчёте Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Без деления каждая коробка посчитана шесть раз — по разу на каждый порядок трёх десертов.">Делить не нужно: коробок 336</button><button type="button" data-v="b" data-why="В коробке три разных десерта: взятый десерт второй раз не выбирают, поэтому 8, потом 7, потом 6.">Надо 8 · 8 · 8: десерты могут повторяться</button><button type="button" data-v="c">Делить надо на 3! = 6, а не на 2</button><button type="button" data-v="d" data-why="«Делим на 2» годится только для пар: у двух вещей два порядка. У трёх их шесть.">Всё верно: порядок не важен — делим на 2</button></div>
+    <p class="why">У трёх десертов 3! = 6 порядков, и все шесть дают одну коробку. Поэтому <span class="num">336 / 6 = 56</span> коробок. «Делим на 2» верно только для пар.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 10: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и как на них отвечать</h2>
+  <p>Схема ответа: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="aces">
+    <summary>Котейка тасует колоду из 52 карт и снимает две верхние. Какова вероятность, что обе — тузы?</summary>
+    <p><b>Переформулирую:</b> сколько из всех равновозможных пар карт — пары тузов.</p>
+    <p><b>Способ 1, деревом:</b> первая карта — туз в 4 случаях из 52; если так, вторая — туз в 3 из оставшихся 51. <span class="num">4/52 · 3/51 = 12 / 2652 = 1/221</span>.</p>
+    <p><b>Способ 2, через сочетания:</b> пар из 52 карт <span class="num">C(52, 2) = 1326</span>, пар тузов <span class="num">C(4, 2) = 6</span>. <span class="num">6 / 1326 = 1/221</span>.</p>
+    <p><b>В штуках:</b> из 221 000 раздач две туза сверху будут примерно в 1000, то есть около 0,45 %.</p>
+    <p><b>Вывод:</b> 1/221 ≈ 0,45 %. Два способа сходятся — хорошая проверка на собеседовании.</p>
+  </details>
+  <details class="ivw" data-key="handshakes">
+    <summary>На общем собрании 12 бариста, каждый пожал руку каждому. Сколько рукопожатий? А если людей n?</summary>
+    <p><b>Переформулирую:</b> рукопожатие — это пара людей, порядок в паре не важен.</p>
+    <p><b>В штуках:</b> каждый из 12 жмёт 11 рук — 132 «пожатия со своей стороны», но каждое рукопожатие посчитано дважды. 132 / 2 = 66.</p>
+    <p><b>Формула:</b> <span class="num">C(n, 2) = n(n − 1) / 2</span>, <span class="num">C(12, 2) = 66</span>.</p>
+    <p><b>Вывод:</b> 66 рукопожатий. Число пар растёт примерно как квадрат числа людей — это пригодится в шаге 4, в задаче о днях рождения.</p>
+  </details>
+  <details class="ivw" data-key="committee">
+    <summary>Из 10 бариста выбирают совет из трёх. Сколько вариантов? И чего больше: пар из 10 или восьмёрок из 10?</summary>
+    <p><b>Переформулирую:</b> выбрать 3 из 10 без порядка — внутри совета все равны.</p>
+    <p><b>В штуках:</b> «полок» из трёх <span class="num">10 · 9 · 8 = 720</span>, у каждого совета 3! = 6 порядков, <span class="num">720 / 6 = 120</span>.</p>
+    <p><b>Формула:</b> <span class="num">C(10, 3) = 10! / (3! · 7!) = 120</span>.</p>
+    <p><b>Поворот:</b> пар <span class="num">C(10, 2) = 45</span>, восьмёрок <span class="num">C(10, 8) = 45</span> — поровну: выбрать восьмёрку = выбрать двоих, кто останется. Проверка — функция <code>n_choose_k</code>.</p>
+    <p><b>Вывод:</b> 120 советов; пар и восьмёрок поровну, по 45.</p>
+  </details>
+</section>
+
+<!-- 11: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Четыре вопроса про подсчёт</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Что вероятнее при десяти бросках честной монетки: ОООООООООО или ОРРОРООРОР?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Каждая конкретная цепочка из 10 бросков — одна ветка из 1024. Пёстрая ничем не лучше.">Пёстрая: она похожа на случайность</button><button type="button" data-v="b" data-why="Монетка не помнит прошлых бросков, ей не «пора» менять сторону.">Пёстрая: десять орлов подряд не бывает</button><button type="button" data-v="c">Обе одинаково: по 1 из 1024</button></div>
+    <p class="why">Конкретная цепочка из 10 бросков — одна ветка дерева из 1024. Пёстрых цепочек много, поэтому «какая-нибудь пёстрая» выпадает часто, но каждая отдельная так же редка, как десять орлов.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Сколько разных исходов у десяти бросков монетки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Два исхода на бросок складываются только если бросок один. Каждый новый бросок раздваивает все ветки.">20: по два исхода на каждый из бросков</button><button type="button" data-v="b">1024: каждый бросок удваивает ветки</button><button type="button" data-v="c" data-why="Это число возможных значений «сколько орлов», а не исходов: «5 орлов» — это 252 разные цепочки.">11: орлов бывает от нуля до десяти</button></div>
+    <p class="why">Каждый бросок умножает число веток на 2: <span class="num">2<sup>10</sup> = 1024</span>. «Сколько орлов» принимает всего 11 значений, но каждое собирает разное число цепочек.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Боб: «Эклер с лимонадом почти никто не берёт, так что 4 · 3 = 12 комбо — неверный подсчёт». Прав ли он?</p>
+    <div class="choice"><button type="button" data-v="a">Нет: 12 — число вариантов, а не популярность</button><button type="button" data-v="b" data-why="Правило умножения считает варианты выбора. Вкусы гостей влияют на то, как часто берут комбо, а не на то, сколько их в меню.">Да: умножать можно, только если выборы независимы по вкусу</button><button type="button" data-v="c" data-why="Непопулярное комбо всё равно стоит в меню, его можно заказать. Клетка таблицы от этого не исчезает.">Да: непопулярные комбо надо вычесть — их будет 11</button></div>
+    <p class="why">Умножение отвечает на вопрос «сколько вариантов можно собрать». Сколько раз какой из них закажут — другой вопрос, про частоты.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Из 10 бариста выбирают троих на смену, внутри смены все равны. Сколько способов?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Делить на 2 нужно для пар. У троих 3! = 6 порядков, и все шесть дают одну смену.">360: 10 · 9 · 8, делённое на 2</button><button type="button" data-v="b">120: 10 · 9 · 8, делённое на 3!</button><button type="button" data-v="c" data-why="720 — это «полки»: порядок посчитан. В смене порядка нет, поэтому каждая смена учтена шесть раз.">720: порядок внутри смены тоже считаем</button><button type="button" data-v="d" data-why="10 · 3 не связано с выбором: на каждое следующее место вариантов становится меньше, и их надо перемножать.">30: десять бариста на три места</button></div>
+    <p class="why"><span class="num">C(10, 3) = 720 / 3! = 120</span>. Делим на число порядков внутри одной смены, а не на 2.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: итог -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 3</span>
+  <h2 data-proverb="p03">Не перечисляй — умножай</h2>
+  <ul class="cheat">
+    <li>Правило умножения: выбор по шагам — числа вариантов перемножаются, <span class="num">N = n₁ · n₂ · … · n<sub>k</sub></span>. 4 напитка × 3 десерта = 12 комбо; 10 бросков — <span class="num">2<sup>10</sup> = 1024</span> исхода.</li>
+    <li>Порядок важен (полка): <span class="num">n · (n − 1) · … · (n − k + 1)</span>. Все n вещей по местам — <span class="num">n!</span>.</li>
+    <li>Порядок не важен (коробка): <span class="num">C(n, k) = n! / (k! · (n − k)!)</span> — полки делим на k!, а не на 2.</li>
+    <li>Команда и скамейка: <span class="num">C(n, k) = C(n, n − k)</span>. Пар из 10 столько же, сколько восьмёрок, — 45.</li>
+    <li>Ровно 5 орлов из 10: <span class="num">C(10, 5) / 2<sup>10</sup> = 252 / 1024 ≈ 24,6 %</span>.</li>
+    <li>Любая конкретная цепочка из 10 бросков — 1 из 1024, пёстрая не вероятнее ООООООООО.</li>
+    <li>Треугольник Паскаля: в строке n стоят C(n, 0), …, C(n, n); каждое число — сумма двух над ним.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Правило умножения</dt><dd>числа вариантов на шагах перемножаются; rule of product, multiplication principle</dd>
+    <dt>Перестановки, n!</dt><dd>способы расставить n вещей по порядку; permutations, «n factorial»</dd>
+    <dt>Размещения</dt><dd>упорядоченный выбор k из n; на собеседовании — k-permutations</dd>
+    <dt>Сочетания, C(n, k)</dt><dd>выбор k из n без порядка; combinations, «n choose k», binomial coefficient</dd>
+    <dt>Треугольник Паскаля</dt><dd>таблица всех C(n, k); Pascal's triangle</dd>
+  </dl>
+  <figure class="art"><img src="img/vp03-02-next.jpg" alt="Котейка развешивает гирлянду над входом в кафе, на столе торт и свечки для вечеринки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка готовит вечеринку в честь открытия</figcaption></figure>
+  <a class="next-step" href="04-not-and-or.html"><b>Дальше, шаг 4: «Не, и, или»</b>На вечеринку в честь открытия пришли 23 гостя, и у двоих совпал день рождения. Совпадение? Посчитаем через пары — их тут 253.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    menu: (k, total, nocof) => 'Собрано ' + k + ' ' + plural(k, {one: 'комбо', few: 'комбо', many: 'комбо'}) + ' из ' + total + '.' +
+      (k === total ? (nocof ? ' Без кофе: 3 напитка × 3 десерта = 9.' : ' Все: 4 напитка × 3 десерта = 12. Нитки не понадобились.') : ''),
+    pickDrink: 'Теперь выбери десерт.', pickFirst: 'Сначала выбери напиток.',
+    heads: k => k + ' ' + plural(k, {one: 'орёл', few: 'орла', many: 'орлов'}),
+    read: (d, leaves, k, ck) => 'Бросков: <b>' + d + '</b>. Листьев: 2<sup>' + d + '</sup> = <b>' + leaves + '</b>.' +
+      (d ? ' Ровно ' + k + ' ' + plural(k, {one: 'орёл', few: 'орла', many: 'орлов'}) + ' — у <b>' + int(ck) + '</b> ' + plural(ck, {one: 'листа', few: 'листьев', many: 'листьев'}) + ', это C(' + d + ', ' + k + ') = ' + int(ck) + ', или ' + share(ck / leaves, 1) + '.' : ''),
+    collapsed: d => 'Дерево свернулось: ' + (Math.pow(2, d) < 1e4 ? String(Math.pow(2, d)) : int(Math.pow(2, d))) + ' листьев',
+    verdict: (g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'Ровно 5 орлов у <b>252 листьев из 1024</b> — это 24,6' + NBSP + '%. Именно столько серий из 10 бросков дали ровно пять орлов в шаге 2: дерево объясняет частоту.',
+    rootL: 'старт', hL: 'О', tL: 'Р',
+  },
+}[LANG] || {};
+
+// ---------- карточка 2: меню-конструктор ----------
+(function(){
+  const rows = [...document.querySelectorAll('#m-table tbody tr')], drinks = document.getElementById('m-drinks'), desserts = document.getElementById('m-desserts');
+  const out = document.getElementById('m-v'), nocof = document.getElementById('m-nocof');
+  let drink = null, off = false, just = null;
+  const cell = (i, j) => rows[i].querySelectorAll('td')[j];
+  function count(){
+    let k = 0; rows.forEach((r, i) => { if (off && i === 0) return; r.querySelectorAll('td').forEach(td => { if (td.classList.contains('on')) k++; }); });
+    out.textContent = ''; out.innerHTML = TXT.menu(k, off ? 9 : 12, off);
+  }
+  drinks.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (off && +b.dataset.i === 0) return;
+    drink = +b.dataset.i; drinks.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    out.textContent = TXT.pickDrink;
+  });
+  desserts.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (drink === null){ out.textContent = TXT.pickFirst; return; }
+    const td = cell(drink, +b.dataset.j); td.classList.add('on');
+    if (just) just.classList.remove('just'); if (!REDUCED){ td.classList.add('just'); just = td; setTimeout(() => td.classList.remove('just'), 400); }
+    count();
+  });
+  document.getElementById('m-all').addEventListener('click', () => { rows.forEach(r => r.querySelectorAll('td').forEach(td => td.classList.add('on'))); count(); });
+  nocof.addEventListener('click', () => {
+    off = !off; nocof.setAttribute('aria-pressed', String(off)); rows[0].classList.toggle('off', off);
+    drinks.querySelector('[data-i="0"]').disabled = off; if (off && drink === 0){ drink = null; drinks.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false')); }
+    count();
+  });
+  document.getElementById('m-0').addEventListener('click', () => { rows.forEach(r => r.querySelectorAll('td').forEach(td => td.classList.remove('on', 'just'))); drink = null; drinks.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false')); count(); });
+})();
+
+// ---------- карточка 5: конструктор дерева ----------
+(function(){
+  const cv = document.getElementById('tree'), ks = document.getElementById('t-ks'), pas = document.getElementById('pascal'), read = document.getElementById('t-read'), vEl = document.getElementById('t-v');
+  const sortBtn = document.getElementById('t-sort'), MAXD = 10, TREE_MAX = 6;
+  let d = 1, k = 0, userK = false, sorted = false;
+  const pop = i => { let c = 0; while (i){ c += i & 1; i >>= 1; } return c; };
+  // Паскаль: строки 0…10
+  for (let n = 0; n <= MAXD; n++){
+    const row = document.createElement('div'); row.dataset.n = n;
+    for (let j = 0; j <= n; j++){ const s = document.createElement('span'); s.textContent = choose(n, j); s.dataset.j = j; row.appendChild(s); }
+    pas.appendChild(row);
+  }
+  function buildKs(){
+    ks.innerHTML = '';
+    for (let j = 0; j <= d; j++){
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = j; b.setAttribute('aria-label', TXT.heads(j));
+      b.setAttribute('aria-pressed', String(j === k)); b.addEventListener('click', () => { k = j; userK = true; update(); }); ks.appendChild(b);
+    }
+  }
+  function draw(){
+    const N = 1 << d, tree = d <= TREE_MAX;
+    const g = canvas(cv, tree ? 0.62 : 0.6, tree ? 0.9 : 1); if (!g) return; const {c, w, h} = g;
+    if (tree){
+      const T0 = 18, Bt = sorted ? 70 : 26, L = 10, R = 10, pw = w - L - R, ph = h - T0 - Bt;
+      const X = (lvl, i) => L + (i + 0.5) / (1 << lvl) * pw, Y = lvl => T0 + lvl / d * ph;
+      // ветки: бит lvl-1 (считая от старшего) = 1 — орёл; орёл влево
+      for (let lvl = 1; lvl <= d; lvl++){
+        for (let i = 0; i < (1 << lvl); i++){
+          const parent = i >> 1, isHead = (i & 1) === 0;
+          c.strokeStyle = isHead ? COL.ctrl : COL.gray; c.lineWidth = Math.max(1, 2.4 - lvl * 0.25);
+          c.beginPath(); c.moveTo(X(lvl - 1, parent), Y(lvl - 1)); c.lineTo(X(lvl, i), Y(lvl)); c.stroke();
+          if (lvl <= 3){ label(c, isHead ? TXT.hL : TXT.tL, (X(lvl - 1, parent) + X(lvl, i)) / 2 + (isHead ? -10 : 4), (Y(lvl - 1) + Y(lvl)) / 2, isHead ? COL.ctrl : COL.ink2, 'left'); }
+        }
+      }
+      c.fillStyle = COL.ink; c.beginPath(); c.arc(X(0, 0), Y(0), 4, 0, 2 * Math.PI); c.fill();
+      // листья: номер листа i в дереве; число орлов = d − pop(i) (единица в бите — решка)
+      const r = Math.max(2.5, Math.min(7, pw / N / 2 - 1));
+      for (let i = 0; i < N; i++){
+        const hh = d - pop(i) === k;
+        c.fillStyle = hh ? COL.test : COL.fillC; c.beginPath(); c.arc(X(d, i), Y(d), hh ? r + 1 : r, 0, 2 * Math.PI); c.fill();
+      }
+      if (sorted){
+        // отдельный ряд листьев, упорядоченных по числу орлов
+        const y = h - 34, ids = Array.from({length: N}, (_, i) => i).sort((a, b) => (d - pop(a)) - (d - pop(b)) || a - b);
+        ids.forEach((i, pos) => { const hh = d - pop(i) === k; c.fillStyle = hh ? COL.test : COL.fillC; c.beginPath(); c.arc(L + (pos + 0.5) / N * pw, y, r, 0, 2 * Math.PI); c.fill(); });
+        let pos = 0;
+        for (let j = 0; j <= d; j++){ const cnt = choose(d, j), x0 = L + pos / N * pw, x1 = L + (pos + cnt) / N * pw; label(c, String(cnt), (x0 + x1) / 2, h - 12, j === k ? COL.testInk : COL.ink2, 'center'); pos += cnt; }
+      }
+    } else {
+      // свёрнуто: сетка клеток-листьев
+      const cols = 1 << Math.ceil(d / 2), rows = N / cols, T0 = 24, L = 10, R = 10;
+      const cell = Math.min((w - L - R) / cols, (h - T0 - 8) / rows), x0 = L + (w - L - R - cell * cols) / 2;
+      label(c, TXT.collapsed(d), w / 2, 14, COL.ink2, 'center');
+      const ids = sorted ? Array.from({length: N}, (_, i) => i).sort((a, b) => pop(b) - pop(a) || a - b) : Array.from({length: N}, (_, i) => i);
+      ids.forEach((i, pos) => {
+        const hh = d - pop(i) === k;
+        c.fillStyle = hh ? COL.test : COL.fillC;
+        c.fillRect(x0 + (pos % cols) * cell, T0 + Math.floor(pos / cols) * cell, Math.max(1, cell - (cell > 6 ? 1 : 0)), Math.max(1, cell - (cell > 6 ? 1 : 0)));
+      });
+    }
+  }
+  function update(){
+    if (!userK) k = Math.floor(d / 2); if (k > d) k = d;
+    buildKs();
+    pas.querySelectorAll('div').forEach(row => {
+      const n = +row.dataset.n; row.classList.toggle('row', n === d);
+      row.querySelectorAll('span').forEach(s => { const j = +s.dataset.j; s.classList.toggle('k', n === d && j === k); s.classList.toggle('mirror', n === d && j === d - k && j !== k); });
+    });
+    const leaves = 1 << d, ck = choose(d, k);
+    read.innerHTML = TXT.read(d, leaves, k, ck);
+    if (d === 10 && k === 5){ vEl.hidden = false; vEl.className = 'verdict good'; vEl.innerHTML = TXT.verdict(Book.guess('five')); }
+    draw();
+  }
+  document.getElementById('t-add').addEventListener('click', () => { if (d < MAXD){ d++; update(); } });
+  sortBtn.addEventListener('click', () => { sorted = !sorted; sortBtn.setAttribute('aria-pressed', String(sorted)); update(); });
+  document.getElementById('t-0').addEventListener('click', () => { d = 1; userK = false; vEl.hidden = true; update(); });
+  window.addEventListener('resize', draw);
+  update();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

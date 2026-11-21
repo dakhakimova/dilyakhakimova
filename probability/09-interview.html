@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пробное собеседование · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 9 бесплатного интерактивного курса «Вероятность на пальцах»: 10 классических задач по теории вероятностей с собеседований аналитиков на время, схема ответа, калибровка уверенности и шаги для повторения.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только шага 9 (кандидаты в free.css — в notes-C.md) */
+.task-cond{font:400 20px/1.5 var(--serif); margin:10px 0 6px}
+.timer{display:flex; align-items:center; gap:10px; margin:6px 0 4px; font:500 14px/1.2 var(--body); color:var(--muted); font-variant-numeric:tabular-nums}
+.timer .tm{min-width:3.2em}
+.timer i{flex:1; max-width:260px; height:6px; border-radius:3px; background:#E1E0D9; overflow:hidden}
+.timer i b{display:block; height:100%; width:0; background:var(--ctrl); transition:width .9s linear}
+.timer.over i b{background:#C9A43A}
+.timer.done i b{background:var(--truth)}
+.timer .tnote{font-weight:400}
+@media (prefers-reduced-motion: reduce){ .timer i b{transition:none} }
+.conf-q{margin:14px 0 0; font-weight:500}
+.choice.conf button{min-width:76px; text-align:center; font-variant-numeric:tabular-nums}
+.quiz.locked .choice, .quiz.locked .q{display:none}
+.quiz .lock-note{display:none; margin:0; color:var(--muted); font-size:15px}
+.quiz.locked .lock-note{display:block}
+.card.task .cell{display:none}
+.card.task .quiz.done ~ .cell, .card.task .quiz.done ~ .cell-intro{display:block}
+.cell-intro{display:none}
+.steps-say{counter-reset:s; list-style:none; padding:0; margin:12px 0; display:grid; gap:8px}
+.steps-say li{counter-increment:s; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px 14px 10px 46px; position:relative}
+.steps-say li::before{content:counter(s); position:absolute; left:14px; top:10px; width:22px; height:22px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 13px/22px var(--body); text-align:center}
+.steps-say li b{display:block; font-weight:600}
+.steps-say li q{font-family:var(--serif); quotes:"«" "»"}
+.res-tbl td.off{background:#F8F0D9}
+.proverbs{margin:10px 0; padding-left:1.4em}
+.proverbs li{margin:4px 0}
+.proverbs a{color:var(--ink)}
+</style>
+</head>
+<body data-course="probability" data-chapter="p09">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 9 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: обложка и инструкция -->
+<section class="card" data-title="Алиса на собеседовании" aria-label="Алиса на собеседовании">
+  <p class="kicker">Шаг 9 из 9</p>
+  <h1>Пробное собеседование</h1>
+  <p class="core">После шага ты сможешь <b>решить 10 задач на время по схеме ответа</b> и увидеть, какие шаги повторить и насколько точна твоя уверенность.</p>
+  <figure class="art"><img src="img/vp09-00-interview.jpg" alt="Алиса сидит за столом напротив Котейки в галстуке-бабочке, между ними песочные часы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса напротив Котейки в бабочке с песочными часами</figcaption></figure>
+  <p class="lead">Алиса идёт на собеседование аналитиком. Напротив — Котейка в бабочке и с песочными часами. Монетки, кубики, касса, колесо призов — всё, что было в кафе, сейчас пригодится.</p>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка, интервьюер</div><p class="say">Десять задач. Перед каждым ответом скажи, насколько ты уверен: 50, 70 или 90 %. В конце посмотрим, совпадает ли уверенность с точностью.</p></div></div>
+  </div>
+  <h3>Как устроено</h3>
+  <ul class="cheat">
+    <li>Каждая задача — на отдельной карточке. Задачи новые, но каждая опирается на один из шагов 1–8.</li>
+    <li>На задачу — около 3 минут. Таймер мягкий: когда время выйдет, можно решать дальше, он просто запишет время.</li>
+    <li>Сначала выбери уверенность, потом ответ. Балл — за верный ответ с первой попытки.</li>
+    <li>В конце — итог: баллы, время, калибровка и шаги, которые стоит повторить.</li>
+  </ul>
+  <p>Ошибка здесь — не провал, а данные: задача, на которой ты споткнулся, лучше всего покажет, что повторить. Трудная попытка запоминается крепче лёгкой.</p>
+  <p class="src">Идея из книги: Питер Браун, Генри Рёдигер, Марк Макдэниел, «Запомнить всё»</p>
+</section>
+
+<!-- 2: схема ответа -->
+<section class="card" data-title="Как отвечать вслух" aria-label="Как отвечать вслух">
+  <span class="step-tag">Правило шага</span>
+  <h2>Как отвечать вслух</h2>
+  <p>На собеседовании смотрят не только на число, но и на то, как ты к нему идёшь. Разберём вслух одну задачу.</p>
+  <p class="task-cond">Кубик бросили 10 раз. Какова вероятность, что ни разу не выпала единица?</p>
+  <ol class="steps-say">
+    <li><b>Переформулируй и назови допущения</b><q>Нужно, чтобы все 10 бросков были не единицей. Считаю кубик честным, а броски — независимыми.</q></li>
+    <li><b>Посчитай в штуках</b><q>Из 6 серий в 5 первый бросок не единица. Из 1000 серий 10 бросков переживут примерно 162.</q></li>
+    <li><b>Запиши формулу</b><q>Независимые броски — перемножаю: (5/6)¹⁰ ≈ 0,162.</q></li>
+    <li><b>Проверь</b><q>Крайний случай: один бросок — 5/6, верно. Симуляция в коде даёт около 0,16.</q></li>
+    <li><b>Скажи вывод одной фразой</b><q>Примерно 16 %: в каждой шестой серии единица не выпадет ни разу.</q></li>
+  </ol>
+  <aside class="scary">
+    <span class="scary-tag">Если завис</span>
+    <p>Назови <b>крайние случаи</b> (n = 1, p = 0 или 1). Посчитай <b>маленький пример</b> руками: два броска, три гостя. Представь <b>симуляцию</b>: «если повторить 1000 раз, что я увижу?» Скажи это вслух — интервьюер видит, что ты думаешь, а не угадываешь.</p>
+  </aside>
+  <figure class="art"><img src="img/vp09-01-whiteboard.jpg" alt="Алиса решает задачу у доски, за стеклянной дверью Боб показывает большой палец" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса у доски, Боб за стеклом показывает большой палец</figcaption></figure>
+</section>
+
+<!-- 3: задача 1 -->
+<section class="card task" data-title="Задача 1 · три кубика" aria-label="Задача 1" data-task="1">
+  <span class="step-tag">Задача 1 из 10 · шаг 1</span>
+  <h2>Три одинаковых</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Котейка бросает три кубика. Какова вероятность, что на всех трёх выпадет одно и то же число?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c1" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="a" data-step="1">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a">6 из 216, то есть 1/36</button><button type="button" data-v="b" data-why="1 из 216 — шанс одной конкретной тройки, например трёх шестёрок. А подходит любая из шести троек.">1 из 216: только три шестёрки</button><button type="button" data-v="c" data-why="1/6 — шанс, что второй кубик совпадёт с первым. Третий тоже должен совпасть.">1 из 6: как совпасть двум кубикам</button></div>
+    <p class="why"><b>Переформулирую:</b> исходов 6 · 6 · 6 = 216, подходят тройки 111, 222, …, 666. <b>В штуках:</b> 6 из 216. <b>Формула:</b> 6/216 = 1/36 ≈ 2,8 %. Или так: первый кубик любой, второй и третий совпадают с ним — 1/6 · 1/6. <b>Вывод:</b> примерно один бросок из 36.</p>
+  </div>
+</section>
+
+<!-- 4: задача 2 -->
+<section class="card task" data-title="Задача 2 · девять решек" aria-label="Задача 2" data-task="2">
+  <span class="step-tag">Задача 2 из 10 · шаг 2</span>
+  <h2>Девять решек из десяти</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Котейка бросил монетку 10 раз: 9 решек и 1 орёл. Боб: «Орлов было мало — следующим точно будет орёл». Как часто бывает ровно 9 решек из 10 и какой шанс орла в одиннадцатом броске?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c2" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="b" data-step="2">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Ровно 9 решек — около 1 %, тут верно. Но монетка не помнит прошлых бросков и не возвращает «долг» орлам.">Около 1 %, и орёл теперь вероятнее</button><button type="button" data-v="b">Около 1 %, а орёл — по-прежнему ½</button><button type="button" data-v="c" data-why="1/1024 — шанс одной конкретной цепочки. А орёл мог стоять на любом из 10 мест: цепочек 10.">Около 0,1 %, а орёл — по-прежнему ½</button><button type="button" data-v="d" data-why="Один орёл из десяти бросков — это наблюдённая доля, а не вероятность такой серии.">Около 10 %: орёл один из десяти</button></div>
+    <p class="why"><b>Переформулирую:</b> сколько цепочек из 10 бросков с ровно одним орлом. <b>В штуках:</b> орёл может стоять на любом из 10 мест — 10 цепочек из 1024. <b>Формула:</b> C(10, 1)/2¹⁰ = 10/1024 ≈ 0,98 %. Броски независимы, поэтому P(орёл в 11-м) = ½. <b>Вывод:</b> серия редкая, около 1 %, но монетка не помнит прошлого — следующий орёл по-прежнему ½.</p>
+  </div>
+</section>
+
+<!-- 5: задача 3 -->
+<section class="card task" data-title="Задача 3 · две смены" aria-label="Задача 3" data-task="3">
+  <span class="step-tag">Задача 3 из 10 · шаг 3</span>
+  <h2>Две смены по четыре</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Восемь бариста, среди них Алиса и Боб, случайно делят на две смены по четыре человека. Какова вероятность, что Алиса и Боб окажутся в одной смене?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c3" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="c" data-step="3">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Смен две, но они не равновероятны для Боба: в смене Алисы одно место уже занято ею.">1/2: смен ведь всего две</button><button type="button" data-v="b" data-why="15 из 70 — это составы, где оба в одной конкретной смене. Смен две, и их нужно сложить.">3/14: 15 составов из 70</button><button type="button" data-v="c">3/7: три места из семи</button><button type="button" data-v="d" data-why="½ · ½ считает попадания Алисы и Боба независимыми, а места в смене ограничены.">1/4: ½ · ½</button></div>
+    <p class="why"><b>Переформулирую:</b> Алиса уже где-то стоит; где окажется Боб? <b>В штуках:</b> для Боба осталось 7 мест, из них 3 — в смене Алисы. <b>Формула:</b> 3/7 ≈ 43 %. Проверка через сочетания: составов смены C(8, 4) = 70, с обоими в одной смене — 2 · C(6, 2) = 30, и 30/70 = 3/7. <b>Вывод:</b> чуть меньше половины, потому что место Алисы в её смене уже занято.</p>
+  </div>
+</section>
+
+<!-- 6: задача 4 -->
+<section class="card task" data-title="Задача 4 · автомат с игрушкой" aria-label="Задача 4" data-task="4">
+  <span class="step-tag">Задача 4 из 10 · шаг 4</span>
+  <h2>Автомат с игрушкой</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">У автомата с игрушкой в кафе три попытки. Каждая удачна с шансом 70 %, попытки не зависят друг от друга. Какой шанс достать игрушку хотя бы раз?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c4" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="a" data-step="4">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a">97,3 %: 1 − 0,3³</button><button type="button" data-v="b" data-why="Вероятности складывают только у несовместных событий. Две удачные попытки могут случиться вместе, а сумма больше 1 — сигнал ошибки.">100 %: 3 · 70 % больше единицы</button><button type="button" data-v="c" data-why="0,7³ — шанс, что удачны все три попытки. А нужна хотя бы одна.">34,3 %: 0,7 · 0,7 · 0,7</button><button type="button" data-v="d" data-why="70 % — шанс одной попытки. С тремя попытками шансов больше.">70 %: попытки же независимы</button></div>
+    <p class="why"><b>Переформулирую:</b> «хотя бы раз» — это «не все три неудачны». <b>В штуках:</b> из 1000 гостей первая попытка провалится у 300, вторая — у 90 из них, третья — у 27. Без игрушки уйдут 27, с игрушкой — 973. <b>Формула:</b> 1 − 0,3³ = 0,973. <b>Вывод:</b> 97,3 %: «хотя бы один» — через «ни одного».</p>
+  </div>
+</section>
+
+<!-- 7: задача 5 -->
+<section class="card task" data-title="Задача 5 · хотя бы одна шестёрка" aria-label="Задача 5" data-task="5">
+  <span class="step-tag">Задача 5 из 10 · шаг 5</span>
+  <h2>Хотя бы одна шестёрка</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Бросили два кубика. Котейка подсмотрел и говорит: «Хотя бы на одном шестёрка». Какова вероятность, что шестёрки на обоих?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c5" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="b" data-step="5">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так было бы, если бы сказали «на первом кубике шестёрка». «Хотя бы на одном» не говорит, на каком.">1/6: второй кубик сам по себе</button><button type="button" data-v="b">1/11: одна пара из 11</button><button type="button" data-v="c" data-why="1/36 — шанс двух шестёрок без всякой подсказки. Подсказка сужает мир и поднимает шанс.">1/36: две шестёрки из 36 пар</button><button type="button" data-v="d" data-why="Вариантов «одна шестёрка» и «две» не поровну: пар с одной шестёркой 10, с двумя — одна.">1/2: либо одна, либо обе</button></div>
+    <p class="why"><b>Переформулирую:</b> условие «хотя бы одна шестёрка» сужает мир до части из 36 пар. <b>В штуках:</b> пар с шестёркой на первом — 6, на втором — 6, пара (6, 6) посчитана дважды: 6 + 6 − 1 = 11. Из них обе шестёрки — одна. <b>Формула:</b> P(обе | хотя бы одна) = (1/36)/(11/36) = 1/11 ≈ 9 %. <b>Вывод:</b> 1/11 — меньше, чем 1/6, потому что подсказка не говорит, на каком кубике шестёрка.</p>
+  </div>
+</section>
+
+<!-- 8: задача 6 -->
+<section class="card task" data-title="Задача 6 · второй больше" aria-label="Задача 6" data-task="6">
+  <span class="step-tag">Задача 6 из 10 · шаг 5</span>
+  <h2>Второй больше первого</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Бросили два кубика по очереди, и на втором выпало больше, чем на первом. Какова вероятность, что на первом кубике больше трёх?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c6" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="d" data-step="5">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Без условия было бы ½. Но «второй больше» сужает мир: большим значениям первого кубика в нём тесно.">1/2: половина граней больше трёх</button><button type="button" data-v="b" data-why="3 из 36 — доля среди всех пар. А условие уже сузило мир до 15 пар.">1/12: три пары из 36</button><button type="button" data-v="c" data-why="Шесть пар получается, если считать и первый кубик, равный трём. А нужно строго больше трёх.">2/5: шесть пар из 15</button><button type="button" data-v="d">1/5: три пары из 15</button></div>
+    <p class="why"><b>Переформулирую:</b> сужаем мир до пар, где второй больше первого. <b>В штуках:</b> таких пар 15 (из 36 убрать 6 равных и поделить остаток пополам). Первый больше трёх: (4, 5), (4, 6), (5, 6) — три пары. <b>Формула:</b> 3/15 = 1/5 = 20 %. <b>Вывод:</b> 1/5 вместо ½: условие «второй больше» делает маленькие значения первого кубика гораздо вероятнее.</p>
+  </div>
+</section>
+
+<!-- 9: задача 7 -->
+<section class="card task" data-title="Задача 7 · синяя куртка" aria-label="Задача 7" data-task="7">
+  <span class="step-tag">Задача 7 из 10 · шаг 6</span>
+  <h2>Курьер в синей куртке</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">Вечером курьер задел самокатом машину и уехал. В районе 15 % курьеров ходят в синих куртках, остальные — в зелёных. Свидетель говорит: «Куртка была синяя». В сумерках он правильно называет цвет в 80 % случаев. Какова вероятность, что куртка правда синяя?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c7" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="c" data-step="6">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="80 % — шанс, что свидетель скажет «синяя» про синюю куртку. Спрашивают наоборот, и без базы не обойтись.">80 %: свидетель ведь надёжен</button><button type="button" data-v="b" data-why="15 % — база до показаний. Показания свидетеля её заметно поднимают.">15 %: столько синих курьеров</button><button type="button" data-v="c">Около 41 %: 12 из 29 «синих»</button><button type="button" data-v="d" data-why="0,15 · 0,8 — доля всех случаев «синяя и названа синей». Её надо поделить на все случаи, когда свидетель сказал «синяя».">12 %: 0,15 · 0,8</button></div>
+    <p class="why"><b>Переформулирую:</b> среди всех случаев, когда свидетель говорит «синяя», какая доля — правда синие? <b>В штуках:</b> из 100 курьеров 15 синих, про 12 из них свидетель скажет «синяя». Из 85 зелёных он ошибётся про 17. Всего «синих» показаний 29, верных — 12. <b>Формула:</b> P(синяя | «синяя») = 0,15 · 0,8 / (0,15 · 0,8 + 0,85 · 0,2) = 0,12/0,29 ≈ 41 %. <b>Вывод:</b> меньше половины: зелёных курьеров так много, что даже редкие ошибки свидетеля перевешивают. Сначала база, потом сигнал.</p>
+  </div>
+</section>
+
+<!-- 10: задача 8 -->
+<section class="card task" data-title="Задача 8 · связка ключей" aria-label="Задача 8" data-task="8">
+  <span class="step-tag">Задача 8 из 10 · шаг 7</span>
+  <h2>Связка ключей</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">У Боба связка из 5 похожих ключей, к подсобке подходит один. Сколько попыток в среднем нужно, если: а) пробовать ключи по очереди, не повторяясь; б) каждый раз брать случайный ключ из всей связки?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c8" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="a" data-step="7">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a">а) 3 попытки; б) 5 попыток</button><button type="button" data-v="b" data-why="Половина связки — 2,5, но попытки считаются с единицы: нужный ключ стоит на месте от 1 до 5, в среднем на третьем.">а) 2,5 попытки; б) 5 попыток</button><button type="button" data-v="c" data-why="С возвратом можно снова взять уже проверенный ключ, поэтому ждать дольше.">а) 3 попытки; б) тоже 3</button><button type="button" data-v="d" data-why="Без повторов каждый ключ пробуется один раз, и нужный в среднем находится к середине связки.">а) 5 попыток; б) тоже 5</button></div>
+    <p class="why"><b>Переформулирую:</b> а) номер нужного ключа в случайном порядке; б) номер первого успеха с шансом 1/5. <b>В штуках:</b> а) из 500 попыток открыть подсобку по 100 раз ключ найдётся на 1-й, 2-й, …, 5-й попытке — в среднем (1 + 2 + 3 + 4 + 5)/5 = 3. б) Это геометрическое распределение из шага 7. <b>Формула:</b> а) равномерное на 1…5, E = 3; б) P(X = k) = (4/5)<sup>k − 1</sup> · 1/5, E = 1/p = 5. <b>Вывод:</b> без повторов — 3 попытки, с возвратом — 5.</p>
+  </div>
+</section>
+
+<!-- 11: задача 9 -->
+<section class="card task" data-title="Задача 9 · до первого мальчика" aria-label="Задача 9" data-task="9">
+  <span class="step-tag">Задача 9 из 10 · шаг 8</span>
+  <h2>До первого мальчика</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">В одной сказочной стране указ: каждая семья заводит детей, пока не родится мальчик, и на этом останавливается. Мальчик и девочка рождаются с шансом ½ каждый, независимо от старших детей. Какой будет доля мальчиков среди всех детей страны?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c9" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="c" data-step="8">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="В каждой семье ровно один мальчик, но и девочек в среднем на семью — тоже одна.">Больше половины: в каждой семье есть мальчик</button><button type="button" data-v="b" data-why="Девочек в семье бывает несколько, но в половине семей их нет вовсе. В среднем выходит одна.">Меньше половины: девочек бывает несколько</button><button type="button" data-v="c">Половина: каждый ребёнок — честная монетка</button></div>
+    <p class="why"><b>Переформулирую:</b> сколько в среднем мальчиков и девочек в семье. <b>В штуках:</b> из 1000 семей первыми родятся ≈ 500 мальчиков и ≈ 500 девочек; 500 семей продолжают — ещё 250 и 250; дальше 125 и 125… Мальчиков ≈ 1000, девочек ≈ 1000. <b>Формула:</b> в семье ровно 1 мальчик; девочек — число неудач до первого успеха, в среднем 1/p − 1 = 1. Матожидания складываются, поэтому мальчиков и девочек в среднем поровну. <b>Вывод:</b> ½: правило остановки меняет размер семей, но не долю мальчиков — каждое рождение остаётся честной монеткой.</p>
+  </div>
+</section>
+
+<!-- 12: задача 10 + код -->
+<section class="card task" data-title="Задача 10 · банкет" aria-label="Задача 10" data-task="10">
+  <span class="step-tag">Задача 10 из 10 · трудная</span>
+  <h2>Рассеянный гость на банкете</h2>
+  <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
+  <p class="task-cond">На банкет в кафе пришли 100 гостей, у каждого — карточка с именем на своём месте. Первым входит Котейка: карточку он потерял и садится на случайное место. Каждый следующий садится на своё место, если оно свободно, а если занято — на случайное свободное. Какова вероятность, что последний гость сядет на своё место?</p>
+  <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
+  <div class="choice conf" data-key="c10" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
+  <div class="quiz locked" data-right="b" data-step="4">
+    <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
+    <p class="q">Твой ответ:</p>
+    <div class="choice"><button type="button" data-v="a" data-why="1/100 — шанс случайного места. Но последний садится не случайно: ему остаётся одно из двух «особых» мест.">1/100: как у случайного гостя</button><button type="button" data-v="b">1/2: решают всего два места</button><button type="button" data-v="c" data-why="Котейка занимает чужое место лишь вначале, но вытесненные гости садятся куда попало и сдвигают других.">99/100: занято лишь одно место</button><button type="button" data-v="d" data-why="1 − 1/e — ответ другой задачи, про совпадения в случайной перестановке. Здесь гости садятся по правилам.">Около 63 %: как 1 − 1/e</button></div>
+    <p class="why"><b>Переформулирую:</b> к концу свободным останется либо место Котейки, либо место последнего гостя — все остальные места к тому времени займут их хозяева или вытесненные гости. <b>Маленький пример:</b> гостей двое — Котейка с шансом ½ садится на своё место, и тогда второй тоже на своём: ½. Для трёх гостей перебор вариантов тоже даёт ½. <b>Симметрия:</b> каждый, кто выбирает случайно, с равным шансом берёт место Котейки или место последнего; как только одно из них занято, судьба решена. <b>Вывод:</b> ½ при любом числе гостей от двух.</p>
+  </div>
+  <p class="cell-intro">Не веришь? Проверь симуляцией: допиши цикл, где гости рассаживаются по правилам.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-seats">
+<textarea spellcheck="false" aria-label="Задание: функция simulate_seats">import random
+
+def simulate_seats(n, trials=4000):
+    # доля банкетов, где последний гость (номер n - 1) сел на своё место
+    hits = 0
+    for _ in range(trials):
+        free = set(range(n))
+        free.remove(random.randrange(n))   # Котейка (гость 0) садится куда попало
+        for guest in range(1, n - 1):
+            ...   # своё место свободно — садится на него, иначе — на случайное свободное
+        if n - 1 in free:
+            hits += 1
+    return hits / trials
+
+print(simulate_seats(100))   # ждём около 0.5
+print(simulate_seats(3))</textarea>
+  </div>
+<script type="text/x-python" id="check-seats">
+def _check():
+    try:
+        f = simulate_seats
+    except NameError:
+        print("FAIL функции simulate_seats нет — запусти ячейку с ней"); return
+    try:
+        v = f(100, 4000); v2 = f(3, 4000)
+    except Exception as e:
+        print("FAIL функция упала с ошибкой: " + str(e)); return
+    if v is ... or v is None:
+        print("FAIL функция пока ничего не считает: допиши цикл"); return
+    v, v2 = float(v), float(v2)
+    if v > 0.9:
+        print("FAIL вышло " + str(round(v, 3)) + ": похоже, гости не садятся — в цикле никто не убирает своё место из множества free"); return
+    if abs(v - 0.5) > 0.04 or abs(v2 - 0.5) > 0.04:
+        print("FAIL вышло " + str(round(v, 3)) + " при 100 гостях и " + str(round(v2, 3)) + " при трёх, а ждали около 0,5"); return
+    print("OK около 0,5 и при 100 гостях, и при трёх — симметрия работает")
+_check()
+</script>
+</section>
+
+<!-- 13: итог собеседования -->
+<section class="card" data-title="Итог собеседования" aria-label="Итог собеседования" data-results>
+  <span class="step-tag">Итог собеседования</span>
+  <h2>Что показало собеседование</h2>
+  <div class="counts">
+    <div><b id="r-ok">—</b>верно с первой попытки</div>
+    <div><b id="r-done">—</b>задач решено</div>
+    <div><b id="r-time">—</b>времени всего</div>
+    <div><b id="r-brier">—</b>мера Брайера</div>
+  </div>
+  <p id="r-left" hidden></p>
+  <h3>Калибровка: совпадает ли уверенность с точностью</h3>
+  <div class="sheet c-white">
+    <canvas id="ch-cal" role="img" aria-label="Калибровка: по горизонтали уверенность, по вертикали доля верных ответов; серая диагональ — идеальная калибровка"></canvas>
+    <div class="report-wrap"><table class="report res-tbl" id="r-tbl"><thead><tr><th>уверенность</th><th>задач</th><th>верно</th><th>доля верных</th></tr></thead><tbody></tbody></table></div>
+    <p class="verdict" id="r-cal">Реши хотя бы одну задачу — здесь появится калибровка.</p>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Насколько твоя уверенность совпадает с точностью, называют <b class="term">калибровкой</b> (calibration). Одно число для неё — <b>мера Брайера</b> (Brier score): средний квадрат разницы между уверенностью и исходом (1 — верно, 0 — нет). 0 — идеально, 0,25 — как всегда говорить «50 на 50».</p>
+    <p class="aside">Звучит солидно, а это просто «насколько честно ты оцениваешь себя». На собеседовании «не уверен, давайте проверю симуляцией» звучит сильнее уверенной ошибки.</p>
+  </aside>
+  <h3>Что повторить</h3>
+  <div id="r-steps"><p class="note">Ошибок пока нет — или задачи ещё не решены.</p></div>
+  <div class="controls"><button class="btn ghost" type="button" id="r-reset">Пройти собеседование заново</button></div>
+  <p class="note">Баллы за первую попытку уже записаны и при повторе не меняются; калибровка и время посчитаются заново.</p>
+  <p class="src">Идея из книги: Дэвид Шпигельхалтер, «The Art of Uncertainty»</p>
+</section>
+
+<!-- 14: итог курса -->
+<section class="card" data-title="Итог курса" aria-label="Итог курса">
+  <span class="step-tag">Шпаргалка шага 9</span>
+  <h2 data-proverb="p09">Считай в штуках, отвечай одной фразой</h2>
+  <ul class="cheat">
+    <li><b>Схема ответа:</b> переформулируй и назови допущения → посчитай в штуках → запиши формулу → проверь крайним случаем или симуляцией → скажи вывод одной фразой.</li>
+    <li><b>Если завис:</b> крайние случаи, маленький пример руками, «что я увижу, если повторить 1000 раз?».</li>
+    <li><b>Калибровка:</b> при уверенности 90 % ты должен быть прав примерно в 9 задачах из 10. Мера Брайера — средний квадрат разницы между уверенностью и исходом.</li>
+  </ul>
+  <h3>Девять пословиц курса</h3>
+  <ol class="proverbs">
+    <li><a href="01-outcomes.html">Подпиши монетки</a></li>
+    <li><a href="02-frequency.html">Короткая серия скачет, длинная успокаивается</a></li>
+    <li><a href="03-counting.html">Не перечисляй — умножай</a></li>
+    <li><a href="04-not-and-or.html">«Хотя бы один» — через «ни одного»</a></li>
+    <li><a href="05-conditional.html">Условие сужает мир</a></li>
+    <li><a href="06-bayes.html">Сначала база, потом сигнал</a></li>
+    <li><a href="07-distribution.html">Одна монетка — случай, сто монеток — горка</a></li>
+    <li><a href="08-mean-spread.html">В среднем — не значит каждый раз</a></li>
+    <li>Считай в штуках, отвечай одной фразой</li>
+  </ol>
+  <p class="note">Общую шпаргалку курса со всеми формулами соберём позже — в ней будут шпаргалки всех девяти шагов.</p>
+  <dl class="terms">
+    <dt>Калибровка</dt><dd>совпадение уверенности с долей верных ответов; calibration</dd>
+    <dt>Мера Брайера</dt><dd>средний квадрат разницы между прогнозом и исходом; Brier score</dd>
+  </dl>
+  <figure class="art"><img src="img/vp09-02-next.jpg" alt="Котейка открывает дверь, на которой нарисованы два колокола, за дверью — графики и данные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка открывает дверь в «Сигнал или шум»</figcaption></figure>
+  <a class="next-step" href="/signal/"><b>Дальше — «Сигнал или шум»: данные, шум и первые A/B</b>Кафе уже работает, и у Алисы есть данные. Как отличить настоящий эффект от шума — следующий курс.</a>
+  <p class="note">Или вернись <a href="/probability/">к оглавлению «Вероятности на пальцах»</a> и повтори шаги, на которых споткнулся.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    mmss: s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0'),
+    over: 'время вышло — решай спокойно дальше',
+    solved: s => 'решено за ' + Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0'),
+    kot: (ok, conf) => ok ? (conf === 90 ? 'Мур. Уверенно и верно.' : conf === 50 ? 'Верно! А ты сомневался — запишем в калибровку.' : 'Мур, принято.')
+                          : (conf === 90 ? 'Ой. Уверенность 90 %, а ответ мимо. Это тоже данные.' : 'Не беда: разбор — под ответом.'),
+    steps: {1: ['01-outcomes.html', 'Исходы и события'], 2: ['02-frequency.html', 'Вероятность как частота'], 3: ['03-counting.html', 'Считаем исходы'], 4: ['04-not-and-or.html', 'Не, и, или'], 5: ['05-conditional.html', 'Условная вероятность и независимость'], 6: ['06-bayes.html', 'Байес'], 7: ['07-distribution.html', 'Случайная величина и распределение'], 8: ['08-mean-spread.html', 'Среднее и разброс']},
+    stepLink: (n, f, t, tasks) => '<li><a href="' + f + '">Шаг ' + n + ' «' + t + '»</a> — ' + plural(tasks.length, {one: 'задача', few: 'задачи', many: 'задачи'}) + ' ' + tasks.join(', ') + '</li>',
+    stepsLead: 'Ошибки с первой попытки были в задачах на эти шаги:',
+    noErr: 'Ни одной ошибки с первой попытки — повторять нечего. Можно идти дальше.',
+    left: (k, links) => 'Не решено ' + k + ' ' + plural(k, {one: 'задача', few: 'задачи', many: 'задач'}) + ' из 10: ' + links + '. Итог посчитан по решённым.',
+    taskBtn: n => '<a href="#card-' + (n + 2) + '">№' + NBSP + n + '</a>',
+    calRow: (c, n, k) => '<tr><td>' + c + NBSP + '%</td><td>' + n + '</td><td>' + k + '</td><td' + (n && Math.abs(k / n - c / 100) > 0.2 ? ' class="off"' : '') + '>' + (n ? share(k / n, 0) : '—') + '</td></tr>',
+    calOne: (c, n, k) => 'При уверенности ' + c + NBSP + '% ты был прав в ' + k + ' из ' + n + (n < 3 ? '' : (k / n < c / 100 - 0.2 ? ' — уверенность выше точности.' : k / n > c / 100 + 0.2 ? ' — ты знаешь больше, чем думаешь.' : ' — хорошая калибровка.')),
+    calEnd: n => n < 5 ? ' Задач пока мало: калибровка на 2–3 ответах сильно шатается (шаг 2).' : '',
+    calX: 'уверенность', calY: 'доля верных', calDiag: 'идеальная калибровка',
+    calTip: (c, n, k) => 'уверенность <b>' + c + NBSP + '%</b>: верно ' + k + ' из ' + n,
+  },
+}[LANG] || {};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const RES = Book.chapter + ':res', TIME = Book.chapter + ':time';
+  let res = store.get(RES) || {}, times = store.get(TIME) || {};
+  const tasks = [...document.querySelectorAll('.card.task')];
+  let active = null, last = 0;
+
+  function paintTimer(card){
+    const id = card.dataset.task, t = card.querySelector('.timer'), s = res[id] ? res[id].sec : (times[id] || 0);
+    t.querySelector('.tm').textContent = TXT.mmss(s);
+    t.querySelector('i b').style.width = Math.min(100, s / 180 * 100) + '%';
+    t.classList.toggle('over', !res[id] && s >= 180); t.classList.toggle('done', !!res[id]);
+    t.querySelector('.tnote').textContent = res[id] ? TXT.solved(res[id].sec) : s >= 180 ? TXT.over : '';
+  }
+  function unlock(card){ const q = card.querySelector('.quiz'); if (Book.choice('c' + card.dataset.task)) q.classList.remove('locked'); }
+
+  tasks.forEach(card => {
+    const id = card.dataset.task, conf = card.querySelector('.choice.conf'), q = card.querySelector('.quiz'), box = q.querySelector('.choice');
+    unlock(card); paintTimer(card);
+    conf.addEventListener('chosen', () => { unlock(card); window.dispatchEvent(new Event('resize')); });
+    box.addEventListener('click', e => {
+      if (!e.target.closest('button') || res[id]) return;
+      const ok = q.dataset.first === '1', c = +Book.choice('c' + id);
+      res[id] = {ok: ok ? 1 : 0, conf: c, sec: Math.round(times[id] || 0), step: +q.dataset.step};
+      store.set(RES, res); paintTimer(card);
+      let k = card.querySelector('.kot-says'); if (!k){ k = document.createElement('span'); q.after(k); }
+      k.className = 'kot-says' + (ok ? '' : ' oops'); k.textContent = TXT.kot(ok, c);
+    });
+  });
+
+  Book.onShow((i, card) => {
+    active = card.classList.contains('task') ? card : null; last = performance.now();
+    if (active){ paintTimer(active); if (!timer) timer = setTimeout(tick, 1000); }
+    if (card.hasAttribute('data-results')) renderResults();
+  });
+  // таймер идёт только на карточке задачи (цепочка setTimeout, чтобы ничего не тикало на других карточках)
+  let timer = 0;
+  function tick(){
+    timer = 0;
+    const now = performance.now(), dt = (now - last) / 1000; last = now;
+    if (!active || res[active.dataset.task]) return;
+    if (!document.hidden){ const id = active.dataset.task; times[id] = (times[id] || 0) + Math.min(dt, 2); store.set(TIME, times); paintTimer(active); }
+    timer = setTimeout(tick, 1000);
+  }
+
+  // ---------- итог ----------
+  function levels(){
+    return [50, 70, 90].map(c => { const r = Object.values(res).filter(x => x.conf === c); return {c, n: r.length, k: r.filter(x => x.ok).length}; });
+  }
+  function renderResults(){
+    const done = Object.keys(res), n = done.length, ok = Object.values(res).filter(x => x.ok).length;
+    $('r-ok').textContent = n ? ok + ' из ' + n : '—';
+    $('r-done').textContent = n + ' из 10';
+    $('r-time').textContent = n ? TXT.mmss(Object.values(res).reduce((s, x) => s + x.sec, 0)) : '—';
+    $('r-brier').textContent = n ? num(mean(Object.values(res).map(x => (x.conf / 100 - x.ok) ** 2)), 2) : '—';
+    const left = tasks.map(t => +t.dataset.task).filter(i => !res[i]);
+    const L = $('r-left'); L.hidden = !(n && left.length); if (n && left.length) L.innerHTML = TXT.left(left.length, left.map(TXT.taskBtn).join(', '));
+    const lv = levels();
+    $('r-tbl').querySelector('tbody').innerHTML = lv.map(x => TXT.calRow(x.c, x.n, x.k)).join('');
+    const parts = lv.filter(x => x.n).map(x => TXT.calOne(x.c, x.n, x.k)).map(t => /[.!]$/.test(t) ? t : t + '.');
+    $('r-cal').innerHTML = n ? parts.join(' ') + TXT.calEnd(n) : 'Реши хотя бы одну задачу — здесь появится калибровка.';
+    $('r-cal').className = 'verdict' + (n ? ' good' : '');
+    // шаги с ошибками
+    const bad = {};
+    Object.entries(res).forEach(([id, x]) => { if (!x.ok) (bad[x.step] = bad[x.step] || []).push('№' + NBSP + id); });
+    const keys = Object.keys(bad).sort((a, b) => a - b);
+    $('r-steps').innerHTML = !n ? '<p class="note">Ошибок пока нет — или задачи ещё не решены.</p>' : !keys.length ? '<p>' + TXT.noErr + '</p>' : '<p>' + TXT.stepsLead + '</p><ul class="cheat">' + keys.map(s => TXT.stepLink(s, TXT.steps[s][0], TXT.steps[s][1], bad[s])).join('') + '</ul>';
+    drawCal();
+  }
+  function drawCal(){
+    const cv = $('ch-cal'), g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const L = 44, R = 14, T0 = 14, B = 38, pw = w - L - R, ph = h - T0 - B, X = v => L + (v - 40) / 60 * pw, Y = v => T0 + ph * (1 - v);
+    axisY(c, L, R, T0, ph, w, 0, 1, 0.25, v => shareT(v, 0));
+    axisX(c, X, [50, 70, 90], T0 + ph + 16, v => v + NBSP + '%');
+    c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(40), Y(0.4)); c.lineTo(X(100), Y(1)); c.stroke(); c.setLineDash([]);
+    label(c, TXT.calDiag, X(42), Y(0.4) - 8, COL.ink2);
+    label(c, TXT.calX, L + pw / 2, h - 3, COL.ink2, 'center');
+    const bars = [];
+    levels().forEach(x => { if (!x.n) return; const s = x.k / x.n;
+      c.fillStyle = Math.abs(s - x.c / 100) > 0.2 ? COL.ochre : COL.ctrl; c.beginPath(); c.arc(X(x.c), Y(s), 6 + 3 * Math.sqrt(x.n), 0, 2 * Math.PI); c.fill();
+      label(c, x.k + '/' + x.n, X(x.c) + 12 + 3 * Math.sqrt(x.n), Y(s) + 4, COL.ink);
+      bars.push({x0: X(x.c) - 30, x1: X(x.c) + 30, html: TXT.calTip(x.c, x.n, x.k)}); });
+    hoverBars(cv, bars);
+  }
+  window.addEventListener('resize', () => { if (document.querySelector('.card[data-results]').classList.contains('on')) drawCal(); });
+  $('r-reset').addEventListener('click', () => {
+    store.set(RES, {}); store.set(TIME, {});
+    tasks.forEach(t => store.set(Book.chapter + ':c' + t.dataset.task, null));
+    location.hash = '#card-3'; location.reload();
+  });
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

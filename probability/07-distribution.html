@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Случайная величина и распределение · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 7 бесплатного интерактивного курса «Вероятность на пальцах»: случайная величина, таблица «значение → вероятность», доска Гальтона, биномиальное и геометрическое распределения, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только шага 7 (кандидаты в free.css — в notes-C.md) */
+.rng-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin:10px 0 4px}
+.rng-row label{display:flex; flex-direction:column; gap:2px; font-size:15px; color:var(--muted)}
+.rng-row label b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+.rng-row input[type=range]{height:44px; margin:0; width:240px; max-width:100%}
+.order-card{display:grid; grid-template-columns:1fr; gap:6px; background:#FBF7EC; border-radius:12px; padding:12px 16px; margin:10px 0}
+.order-card .items{display:flex; flex-wrap:wrap; gap:6px}
+.order-card .items span{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:999px; padding:4px 10px; font-size:15px}
+.order-card .meta{font-size:15px; color:var(--muted)}
+.lenses{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:8px 0}
+.lenses > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:13px; color:var(--muted); line-height:1.35}
+.lenses b{display:block; font:500 24px/1.2 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
+@media (max-width:620px){ .lenses{grid-template-columns:1fr 1fr 1fr} .lenses b{font-size:20px} }
+.xtab.dist td, .xtab.dist th{min-width:56px}
+.xtab-wrap{overflow-x:auto; max-width:100%}
+</style>
+</head>
+<body data-course="probability" data-chapter="p07" data-next="08-mean-spread.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 7 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка — шаги 4 и 5 -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним шаги 4 и 5</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Каждый курьер опаздывает в 10 % заказов, курьеры друг от друга не зависят. Котейка заказал три доставки. Какой шанс, что хотя бы одна опоздает?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так складывают только несовместные события. Здесь два опоздания могут случиться вместе, и сумма считает такие вечера дважды.">30 %: три раза по 10 %</button><button type="button" data-v="b" data-why="10 % — шанс для одной доставки. Доставок три, и у каждой свой шанс опоздать, так что «хотя бы одна» случается чаще.">10 %: курьеры ведь не зависят друг от друга</button><button type="button" data-v="c">Около 27 %: 1 − 0,9³</button><button type="button" data-v="d" data-why="0,1 · 0,1 · 0,1 — это шанс, что опоздают все три сразу. А спрашивают про хотя бы одну.">0,1 %: 0,1 · 0,1 · 0,1</button></div>
+    <p class="why">«Хотя бы одна» считаем через «ни одной»: все три приедут вовремя с шансом 0,9 · 0,9 · 0,9 = 0,729. Значит, хотя бы одна опоздает в 1 − 0,729 = 0,271, то есть примерно в 27 вечерах из 100. Это было в шаге 4.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Из 1000 гостей утром пришли 300, из них круассан взяли 90. Всего круассанов за день взяли 150. Какая доля круассанов среди утренних гостей?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="15 % — доля круассанов среди всех 1000 гостей. Условие «утром» сужает мир до 300 человек.">15 %: 150 из 1000</button><button type="button" data-v="b">30 %: 90 из 300</button><button type="button" data-v="c" data-why="90 из 150 — это доля утренних среди тех, кто взял круассан. Условие перевёрнуто.">60 %: 90 из 150</button><button type="button" data-v="d" data-why="90 из 1000 — доля гостей, которые пришли утром и взяли круассан, среди всех. Мир не сужен.">9 %: 90 из 1000</button></div>
+    <p class="why">Условие сужает мир: смотрим только на 300 утренних гостей, и среди них 90 с круассаном — 30 %. Это было в шаге 5.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Доска у входа" aria-label="Доска у входа">
+  <p class="kicker">Шаг 7 из 9</p>
+  <h1>Случайная величина и распределение</h1>
+  <p class="core">После шага ты сможешь <b>описать случайную величину таблицей «значение → вероятность»</b> и посчитать биномиальное и геометрическое распределения.</p>
+  <figure class="art"><img src="img/vp07-00-galton.jpg" alt="Котейка ставит у входа в кафе доску с гвоздиками, гости спорят, куда упадут шарики" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона, гости спорят</figcaption></figure>
+  <p class="lead">Котейка поставил у входа аттракцион: шарик падает сквозь ряды гвоздиков и попадает в одну из корзинок. Куда упадёт один шарик, не скажет никто. А вот где вырастет горка из тысячи шариков и какой она будет высоты, можно посчитать заранее. Для этого нужны два слова: <b>случайная величина</b> и <b>распределение</b>.</p>
+</section>
+
+<!-- 3: случайная величина — линзы -->
+<section class="card" data-title="Один заказ — много чисел" aria-label="Один заказ — много чисел">
+  <span class="step-tag">Посмотри</span>
+  <h2>Один заказ — много чисел</h2>
+  <p>Опыт — пришёл случайный заказ. Исход — сам заказ: что в нём, когда его привезли. Из одного и того же заказа можно получить разные числа. Смотри на него через три «линзы».</p>
+  <div class="sheet c-white">
+    <div class="order-card" id="ord" aria-live="polite">
+      <div class="items" id="ord-items"><span>капучино</span><span>круассан</span></div>
+      <div class="meta" id="ord-meta">доставка за 32 минуты</div>
+    </div>
+    <div class="lenses">
+      <div><b id="ln-sum">270 ₽</b>сумма чека</div>
+      <div><b id="ln-n">2</b>позиций в заказе</div>
+      <div><b id="ln-late">0</b>опоздал? 1 — да, 0 — нет</div>
+    </div>
+    <div class="controls"><button class="btn" type="button" id="ord-new">Новый заказ</button></div>
+    <div class="report-wrap"><table class="report" id="ord-log"><thead><tr><th>заказ</th><th>чек</th><th>позиций</th><th>опоздал?</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Опоздание — дольше 40 минут. Меню: капучино 150 ₽, круассан 120 ₽, сырник 180 ₽, торт 400 ₽.</p>
+  </div>
+  <p>Каждая колонка таблицы — случайная величина. Заказ один, а величин из него — сколько придумаешь. Случайность приходит из опыта, а величина — просто правило «как из исхода получить число».</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Правило, которое каждому исходу опыта ставит в пару число, называют <b class="term">случайной величиной</b>; на собеседовании скажут <b>random variable</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «линза»: заказ → чек, заказ → число позиций, заказ → 1 или 0.</p>
+  </aside>
+  <p class="src">Идея из лекций: Джо Блицштейн, курс Stat 110 (Гарвард)</p>
+</section>
+
+<!-- 4: распределение — три монетки -->
+<section class="card" data-title="Таблица «значение → вероятность»" aria-label="Таблица «значение → вероятность»">
+  <span class="step-tag">Посмотри</span>
+  <h2>Чертёж случайной величины</h2>
+  <p>Бросаем три монетки, X — число орлов. Исходов 8 (подпиши монетки, как в шаге 1), а значений у X всего четыре. Сгруппируем исходы по значению X:</p>
+  <div class="xtab-wrap"><table class="xtab dist">
+    <tr><th>X = число орлов</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+    <tr><th>исходы</th><td>РРР</td><td>ОРР, РОР, РРО</td><td>ООР, ОРО, РОО</td><td>ООО</td></tr>
+    <tr><th>P(X = k)</th><td>1/8</td><td class="hot">3/8</td><td class="hot">3/8</td><td>1/8</td></tr>
+  </table></div>
+  <div class="sheet c-white">
+    <p class="chart-title">Сверху — «лестница» P(X ≤ k), снизу — столбики P(X = k)</p>
+    <canvas id="ch-3c" role="img" aria-label="Распределение числа орлов в трёх бросках: 1/8, 3/8, 3/8, 1/8; лестница накопленной вероятности: 1/8, 4/8, 7/8, 1"></canvas>
+    <p class="note">Наведи на столбик или ступеньку. Каждая ступенька лестницы поднимается ровно на высоту своего столбика, а наверху — 1.</p>
+  </div>
+  <p>Таблица «значение → вероятность» — это <b>чертёж</b> величины. По одному чертежу можно построить много «домов»: у Алисы выпало 2 орла, у Боба 0, у Котейки 3 — величина одна, броски разные. Сумма всех вероятностей в таблице равна 1: какое-нибудь значение выпадет обязательно.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Такую таблицу называют <b class="term">распределением</b> случайной величины; на собеседовании скажут <b>distribution</b>, а для таблицы со столбиками — <b>PMF</b> (probability mass function). Лестница P(X ≤ k) — <b>CDF</b>, функция распределения.</p>
+    <p class="aside">Звучит солидно, а это просто «какие числа бывают и как часто».</p>
+  </aside>
+</section>
+
+<!-- 5: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Сколько шариков в средней корзине?</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">На каждом гвоздике шарик прыгает влево или вправо — как монетка. Рядов десять, корзинок одиннадцать.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шарики стекаются к центру. Положу приз в среднюю корзину — туда будет попадать почти каждый!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">«Почти каждый» — это сколько в штуках? Давай сначала угадаем, потом бросим тысячу шариков.</p></div></div>
+  </div>
+  <div class="guess" data-key="mid" data-min="0" data-max="100" data-unit="%">
+    <label class="field">В среднюю корзину при 10 рядах попадёт примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % шариков</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке проверим.</p>
+  </div>
+</section>
+
+<!-- 6: доска Гальтона -->
+<section class="card" data-title="Доска Гальтона" aria-label="Доска Гальтона">
+  <span class="step-tag">Поиграй</span>
+  <h2>Бросай шарики</h2>
+  <p>Каждый шарик — это 10 бросков монетки, а номер корзины — сколько раз он ушёл вправо. Серые точки — сколько должно быть по теории.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-galton" role="img" aria-label="Доска Гальтона: шарики падают сквозь гвоздики в корзины, внизу растёт горка"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="gal-1">Бросить шарик</button>
+      <button class="btn ghost" type="button" id="gal-10">×10</button>
+      <button class="btn ghost" type="button" id="gal-1000">+1000 шариков</button>
+      <button class="btn ghost" type="button" id="gal-reset">Сначала</button>
+    </div>
+    <div class="rng-row">
+      <label><span>Рядов гвоздиков: <b id="gal-n-v">10</b></span><input type="range" id="gal-n" min="1" max="12" step="1" value="10" aria-label="Число рядов гвоздиков"></label>
+      <label><span>Шанс уйти вправо: <b id="gal-p-v">0,5</b></span><input type="range" id="gal-p" min="0.1" max="0.9" step="0.05" value="0.5" aria-label="Шанс уйти вправо на каждом гвоздике"></label>
+    </div>
+    <div class="verdict" id="gal-v" hidden></div>
+  </div>
+  <p class="note">Наклони доску ползунком «шанс уйти вправо» — горка поедет в сторону. Поменяй число рядов — изменится число корзин.</p>
+</section>
+
+<!-- 7: правило в трёх слоях -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>Число путей × шанс одного пути</h2>
+  <figure class="art"><img src="img/vp07-01-baskets.jpg" alt="Корзинки под доской с горкой шариков, средняя корзина подсвечена" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: корзинки с горкой шариков, одна подсвечена</figcaption></figure>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Чтобы попасть в корзину 5, шарик должен 5 раз уйти вправо и 5 раз влево — в любом порядке. Каждый порядок — свой путь сквозь гвоздики. Все пути одинаково вероятны, поэтому корзина тем полнее, чем больше путей в неё ведёт.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Путей всего 2¹⁰ = 1024. В корзину 5 ведут 252 из них — это C(10, 5) из шага 3. Значит, из 1024 шариков в среднюю корзину попадёт около 252, то есть 24,6 %. В крайние корзины ведёт по одному пути: туда попадёт примерно 1 шарик из 1024.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(X = k) = C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></p><p class="read">Словами: «число путей с k шагами вправо × шанс одного такого пути». При p = ½ шанс пути — (½)<sup>n</sup>. Сложи по всем k — получится 1.</p></div>
+  </div>
+  <p>Треугольник Паскаля из шага 3 — это и есть доска Гальтона: число в клетке треугольника — сколько путей ведёт к этому гвоздику.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Число успехов в n независимых попытках с одинаковым шансом p распределено по <b class="term">биномиальному закону</b>; на собеседовании скажут <b>binomial distribution</b>, Bin(n, p). Одна попытка «да/нет» — это <b>Бернулли</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «сколько раз шарик ушёл вправо».</p>
+  </aside>
+  <p class="xref"><span>Без формул и с кофейными зёрнами вместо шариков — в «A/B на пальцах», <a href="/ab-basics/04-clt.html">шаг 4 «Толпа предсказуема»</a>.</span></p>
+</section>
+
+<!-- 8: магазин групп по 20 -->
+<section class="card" data-title="Группы по 20 гостей" aria-label="Группы по 20 гостей">
+  <span class="step-tag">Малый график</span>
+  <h2>Ровно один покупатель из двадцати</h2>
+  <p>В шаге 2 мы смотрели на группы по 20 гостей при конверсии 5 % и видели: ровно один покупатель бывает только примерно в трети групп. Теперь у этой частоты есть формула. Каждый гость — монетка «купил/не купил» с шансом 5 %, гостей 20, и число покупателей распределено биномиально.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-shop" role="img" aria-label="Биномиальное распределение числа покупателей в группе из 20 гостей"></canvas>
+    <div class="rng-row">
+      <label><span>Конверсия: <b id="shop-p-v">5 %</b></span><input type="range" id="shop-p" min="0.01" max="0.3" step="0.01" value="0.05" aria-label="Конверсия гостя в покупателя"></label>
+    </div>
+    <div class="verdict good" id="shop-v"></div>
+  </div>
+  <p>При 5 %: P(X = 1) = 20 · 0,05 · 0,95¹⁹ ≈ 0,377. Из 1000 групп по 20 гостей ровно один покупатель будет примерно в 377, ни одного — в 358, а два и больше — в 264.</p>
+</section>
+
+<!-- 9: геометрическое -->
+<section class="card" data-title="До первого десерта" aria-label="До первого десерта">
+  <span class="step-tag">Вторая игрушка</span>
+  <h2>Сколько гостей до первого десерта</h2>
+  <p>Утром кафе открылось. Десерт берёт каждый четвёртый гость (25 %, как в шаге 5). Котейка ждёт первого десерта, чтобы попробовать крошки. Какой по счёту гость возьмёт его первым?</p>
+  <div class="sheet c-white">
+    <canvas id="ch-geo" role="img" aria-label="Номер гостя, который первым возьмёт десерт: столбики падают с каждым номером"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="geo-run">Открыть кафе 1000 раз</button>
+      <button class="btn ghost" type="button" id="geo-reset">Сначала</button>
+    </div>
+    <div class="rng-row">
+      <label><span>Шанс десерта у гостя: <b id="geo-p-v">25 %</b></span><input type="range" id="geo-p" min="0.05" max="0.6" step="0.05" value="0.25" aria-label="Шанс, что гость возьмёт десерт"></label>
+    </div>
+    <div class="verdict" id="geo-v" hidden></div>
+  </div>
+  <div class="layers">
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 утр в 250 десерт берёт первый же гость. В остальных 750 первый гость ушёл без десерта, и из них в четверти (≈ 188) десерт берёт второй. Дальше ≈ 141, ≈ 105… Каждый столбик — на четверть ниже предыдущего.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(X = k) = (1 − p)<sup>k − 1</sup> · p</p><p class="read">Словами: «первые k − 1 гостей без десерта, k-й — с десертом».</p></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Номер первого успеха распределён по <b class="term">геометрическому закону</b>; на собеседовании скажут <b>geometric distribution</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «сколько ждать первого десерта». Самый частый ответ — первый гость, хотя ждать в среднем приходится дольше. Почему — в шаге 8.</p>
+  </aside>
+  <p class="xref"><span>Родственники биномиального — Пуассон для числа заказов за час и экспонента для времени между заказами — в «Сигнале или шуме», <a href="/signal/06-zoo.html">глава 6 «Зоопарк распределений»</a>.</span></p>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Напиши биномиальное сам</h2>
+  <p>Так спрашивают на собеседовании: «напиши функцию вероятности биномиального распределения без библиотек статистики». Число сочетаний можно взять из <code>math.comb</code> — его ты уже писал руками в шаге 3.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-binom-pmf">
+<textarea spellcheck="false" aria-label="Задание: функция binom_pmf">from math import comb
+
+def binom_pmf(n, k, p):
+    # вероятность ровно k успехов из n попыток с шансом p:
+    # число путей × шанс одного пути
+    return ...
+
+print([binom_pmf(3, k, 0.5) for k in range(4)])   # ждём 0.125, 0.375, 0.375, 0.125
+print(binom_pmf(20, 1, 0.05))                      # группа из 20 гостей: около 0.377
+print(binom_pmf(10, 5, 0.5))                       # средняя корзина: около 0.246</textarea>
+  </div>
+<script type="text/x-python" id="check-binom-pmf">
+def _check():
+    try:
+        f = binom_pmf
+    except NameError:
+        print("FAIL функции binom_pmf нет — запусти ячейку с ней"); return
+    try:
+        v = [f(3, k, 0.5) for k in range(4)]
+    except Exception as e:
+        print("FAIL функция упала с ошибкой: " + str(e)); return
+    if any(x is ... or x is None for x in v):
+        print("FAIL функция пока ничего не считает: замени ... на формулу"); return
+    want = [0.125, 0.375, 0.375, 0.125]
+    if any(abs(float(a) - b) > 1e-9 for a, b in zip(v, want)):
+        if all(abs(float(a) - 0.125) < 1e-9 for a in v):
+            print("FAIL все значения 1/8: похоже, не хватает множителя C(n, k) — числа путей"); return
+        print("FAIL для трёх монеток получилось " + str(v) + ", а ждали 1/8, 3/8, 3/8, 1/8"); return
+    s = float(f(20, 1, 0.05))
+    if abs(s - 0.3773536) > 1e-5:
+        print("FAIL для 20 гостей при 5 % вышло " + str(round(s, 4)) + ", а ждали около 0,377: проверь степень (1 − p)"); return
+    tot = sum(float(f(10, k, 0.3)) for k in range(11))
+    if abs(tot - 1) > 1e-9:
+        print("FAIL при n = 10, p = 0,3 сумма по всем k равна " + str(round(tot, 4)) + ", а должна быть 1"); return
+    print("OK три монетки, группа из 20 гостей и сумма 1 — всё сходится")
+_check()
+</script>
+</section>
+
+<!-- 11: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Наклонили доску</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Подложу под доску салфетку: теперь шарик уходит вправо только в 3 случаях из 10. Горка просто съедет к корзине 3 и останется такой же симметричной, как была.</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так в словах Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Горка и правда сдвигается к корзине 3. Ошибка в другой половине фразы.">Горка не сдвинется: число рядов то же</button><button type="button" data-v="b">Горка перекосится: справа длинный хвост</button><button type="button" data-v="c" data-why="При 10 рядах полки не получится ни при каком наклоне: в крайние корзины ведёт по одному пути, а в средние — сотни.">Горка расплывётся в ровную полку</button><button type="button" data-v="d" data-why="Средняя корзина — пятая. При p = 0,3 в неё попадает около 10 % шариков, а не больше всех.">Средняя корзина всё равно останется самой полной</button></div>
+    <p class="why">При p = 0,3 и 10 рядах горка стоит над корзиной 3 (≈ 26,7 %), но слева от неё всего три корзины, а справа — семь. Левый склон короткий и крутой, правый — длинный хвост: в корзину 0 попадает 2,8 % шариков, в корзину 6 — 3,7 %, хотя обе на три шага от вершины. Поставь на доске ползунок 0,3 и посмотри сам.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и одна для любителей</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="first-heads">
+    <summary>Бросаем монетку, пока не выпадет орёл. Сколько бросков понадобится в среднем?</summary>
+    <p><b>Переформулирую:</b> X — номер броска с первым орлом. Это геометрическое распределение с p = ½.</p>
+    <p><b>В штуках:</b> из 1000 серий 500 закончатся на первом броске, 250 — на втором, 125 — на третьем, и так далее. Бросков всего ≈ 500 · 1 + 250 · 2 + 125 · 3 + … ≈ 2000, то есть по 2 на серию.</p>
+    <p><b>Формула (приём «первый шаг»):</b> сделаем один бросок. С шансом ½ это орёл, и мы закончили; с шансом ½ — решка, и всё начинается заново. Значит, <span class="num">E = 1 + ½ · E</span>, откуда <span class="num">E = 2</span>. В общем виде <span class="num">E = 1/p</span>; формально среднее — в шаге 8.</p>
+    <p><b>Проверка:</b> симуляция в коде: <code>np.random.geometric(0.5, 100_000).mean()</code> даёт около 2,0.</p>
+    <p><b>Вывод:</b> в среднем два броска.</p>
+  </details>
+  <details class="ivw" data-key="first-six">
+    <summary>Бросаем кубик до первой шестёрки. Какова вероятность, что она выпадет ровно на k-м броске, и сколько бросков нужно в среднем?</summary>
+    <p><b>Переформулирую:</b> геометрическое распределение с p = 1/6.</p>
+    <p><b>В штуках:</b> из 600 серий в 100 шестёрка на первом броске, в 500 · 1/6 ≈ 83 — на втором, ≈ 69 — на третьем. Самый частый ответ — первый бросок. При этом примерно в трети серий (5/6)⁶ ≈ 33,5 % шестёрки не будет даже за 6 бросков.</p>
+    <p><b>Формула:</b> <span class="num">P(X = k) = (5/6)<sup>k − 1</sup> · 1/6</span>, среднее <span class="num">E = 1/p = 6</span>.</p>
+    <p><b>Вывод:</b> в среднем шесть бросков, но чаще всего хватает одного — среднее тянет вверх длинный хвост.</p>
+  </details>
+  <details class="ivw" data-key="three-coins">
+    <summary>Бросаем три монетки. Запишите распределение числа орлов.</summary>
+    <p><b>Переформулирую:</b> X — число орлов, значения 0, 1, 2, 3; нужна таблица P(X = k).</p>
+    <p><b>В штуках:</b> 8 равновозможных исходов. 0 орлов — 1 исход (РРР), 1 орёл — 3, 2 орла — 3, 3 орла — 1.</p>
+    <p><b>Формула:</b> <span class="num">P(X = k) = C(3, k) / 8</span>: 1/8, 3/8, 3/8, 1/8. Сумма — 1.</p>
+    <p><b>Вывод:</b> это биномиальное распределение Bin(3, ½); один или два орла выпадают в 3 сериях из 4.</p>
+  </details>
+  <details class="ivw" data-key="ht-hh">
+    <summary><span>Для любителей: чего ждать дольше — «орёл, потом решка» (ОР) или «два орла подряд» (ОО)?</span><span class="lvl-tag">бонус</span></summary>
+    <p><b>Переформулирую:</b> сравниваем среднее число бросков до первого появления ОР и до первого ОО.</p>
+    <p><b>ОР:</b> сначала ждём орла (в среднем 2 броска), потом решку (ещё 2). Лишний орёл ничего не портит: мы всё ещё «после орла». Итого 4.</p>
+    <p><b>ОО:</b> решка после орла отбрасывает нас в самое начало. Приём «первый шаг»: E₀ — среднее с нуля, E₁ — после одного орла. <span class="num">E₁ = 1 + ½ · 0 + ½ · E₀</span>, <span class="num">E₀ = 1 + ½ · E₁ + ½ · E₀</span>. Отсюда <span class="num">E₀ = 6</span>.</p>
+    <p><b>Вывод:</b> ОР ждём в среднем 4 броска, ОО — 6, хотя у каждой пары шанс ¼.</p>
+  </details>
+  <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про распределения</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Боб говорит: «Случайная величина — это число». Как поправить Боба?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Список исходов — это сам опыт. Величина появляется, когда каждому исходу поставили число.">Это список всех исходов опыта</button><button type="button" data-v="b" data-why="Одно выпавшее число — это значение величины в одном опыте, «дом», а не «чертёж».">Это число, которое выпало в опыте</button><button type="button" data-v="c">Это правило: исход → число</button><button type="button" data-v="d" data-why="Вероятность — свойство значений величины. Сама величина — правило получения числа.">Это вероятность самого частого исхода</button></div>
+    <p class="why">Случайная величина — правило, которое каждому исходу ставит число: заказ → чек, три броска → число орлов. В каждом опыте она даёт своё значение, а распределение говорит, какие значения как часто.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Монетку бросают до первого орла. На каком броске первый орёл выпадает чаще всего?</p>
+    <div class="choice"><button type="button" data-v="a">На первом: в половине серий</button><button type="button" data-v="b" data-why="Второй бросок — это среднее число бросков. Но среднее и самое частое — разные вещи: столбики геометрического только падают.">На втором: в среднем ведь два броска</button><button type="button" data-v="c" data-why="Монетка не копит «долг»: шанс орла на каждом броске ½, а дойти до дальнего броска всё труднее.">На каком-то дальнем: орлу пора</button><button type="button" data-v="d" data-why="Номер не равновероятен: первый бросок — ½, второй — ¼, третий — ⅛.">На любом одинаково часто</button></div>
+    <p class="why">P(X = 1) = ½, P(X = 2) = ¼, P(X = 3) = ⅛ — каждый столбик вдвое ниже предыдущего. Самый частый ответ — первый бросок, а среднее (два броска) тянет вверх хвост из длинных серий.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">В группе 20 гостей, каждый покупает с шансом 5 %. Боб: «В среднем один покупатель — значит, почти в каждой группе ровно один». Сколько групп из 100 на самом деле?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Ровно один — лишь одно из значений. Ноль покупателей и два-три встречаются почти так же часто вместе взятые.">Около 95: среднее же равно одному</button><button type="button" data-v="b">Около 38 групп из 100</button><button type="button" data-v="c" data-why="5 % — шанс покупки у одного гостя, а не доля групп с одним покупателем.">Около 5: шанс покупки 5 %</button><button type="button" data-v="d" data-why="«Купит или не купит» — два исхода у одного гостя, но не у группы, и они не равновероятны.">Около 50: либо есть покупатель, либо нет</button></div>
+    <p class="why">P(X = 1) = 20 · 0,05 · 0,95¹⁹ ≈ 37,7 %: примерно 38 групп из 100. Ещё в 36 нет ни одного покупателя, в 26 — два и больше.</p>
+  </div>
+  <div class="quiz" data-right="d">
+    <p class="q">Котейка записал распределение числа десертов в заказе: 0 — 0,5, 1 — 0,3, 2 — 0,1, а больше двух десертов не бывает. Что не так?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Ноль десертов — тоже значение величины, и у него может быть любая вероятность от 0 до 1.">Ноль нельзя писать в распределение</button><button type="button" data-v="b" data-why="Вероятности не обязаны быть равными или убывать по правилу — важна их сумма.">Вероятности должны убывать вдвое</button><button type="button" data-v="c" data-why="Симметричным было распределение на доске при p = ½. У числа десертов горка может быть какой угодно.">Распределение должно быть симметричным</button><button type="button" data-v="d">Сумма 0,9, а должна быть 1</button></div>
+    <p class="why">Какое-нибудь значение выпадает в каждом заказе, поэтому сумма всех вероятностей распределения равна 1. Здесь 0,5 + 0,3 + 0,1 = 0,9: где-то потеряны 10 % заказов. Или пропущено значение, или ошиблись в одной из долей.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 7</span>
+  <h2 data-proverb="p07">Одна монетка — случай, сто монеток — горка</h2>
+  <ul class="cheat">
+    <li><b>Случайная величина</b> — правило «исход → число». Один заказ даёт много величин: чек, число позиций, опоздание 1/0.</li>
+    <li><b>Распределение</b> — таблица «значение → вероятность» (чертёж); сумма вероятностей = 1. Лестница P(X ≤ k) поднимается ступеньками высотой P(X = k).</li>
+    <li><b>Биномиальное:</b> сколько успехов из n независимых попыток с шансом p. <span class="num">P(X = k) = C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></span> — число путей × шанс одного пути.</li>
+    <li>10 рядов доски = 10 бросков монетки: в средней корзине 252 пути из 1024, 24,6 % шариков.</li>
+    <li><b>Геометрическое:</b> номер первого успеха. <span class="num">P(X = k) = (1 − p)<sup>k − 1</sup> · p</span>; чаще всего — первый, в среднем — 1/p.</li>
+    <li>При p ≠ ½ горка несимметрична: длинный хвост — в сторону, где больше корзин.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Случайная величина</dt><dd>правило, которое каждому исходу ставит число; на собеседовании — random variable</dd>
+    <dt>Распределение</dt><dd>какие значения бывают и с какими вероятностями; distribution, для дискретных — PMF</dd>
+    <dt>Функция распределения</dt><dd>P(X ≤ k), лестница; CDF</dd>
+    <dt>Бернулли</dt><dd>одна попытка «да/нет» с шансом p; Bernoulli</dd>
+    <dt>Биномиальное</dt><dd>число успехов из n попыток; binomial, Bin(n, p)</dd>
+    <dt>Геометрическое</dt><dd>номер первого успеха; geometric</dd>
+  </dl>
+  <figure class="art"><img src="img/vp07-02-next.jpg" alt="Боб с восторгом показывает на колесо призов у стойки, Алиса скептически держит калькулятор" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у стойки появляется колесо призов</figcaption></figure>
+  <a class="next-step" href="08-mean-spread.html"><b>Дальше, шаг 8: «Среднее и разброс»</b>Боб хочет поставить у стойки колесо призов. Окупится ли оно — и почему «в среднем окупится» не значит «каждый раз»?</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    rub: x => int(x) + NBSP + '₽',
+    menu: [['капучино', 150], ['круассан', 120], ['сырник', 180], ['торт', 400]],
+    delivery: m => 'доставка за ' + int(m) + NBSP + plural(m, {one: 'минуту', few: 'минуты', many: 'минут'}),
+    late: m => m > 40 ? ' — опоздание' : '',
+    // три монетки
+    c3x: 'X — число орлов', c3cdf: 'P(X ≤ k)', c3pmf: 'P(X = k)',
+    c3tip: (k, f, cdf) => 'X = <b>' + k + '</b>: P = <b>' + f + '</b>; P(X ≤ ' + k + ') = <b>' + cdf + '</b>',
+    // Гальтон
+    galX: 'сколько раз шарик ушёл вправо',
+    galInvite: 'Брось шарик — он покажет свой путь',
+    galTip: (k, c, n, th) => 'корзина <b>' + k + '</b>: ' + int(c) + ' ' + plural(c, {one: 'шарик', few: 'шарика', many: 'шариков'}) + (n ? ' из ' + int(n) + ' (' + share(c / n, 1) + ')' : '') + '<br>теория: ' + share(th, 1),
+    galMid: (c, n, g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'В средней корзине — <b>' + int(c) + '</b> ' + plural(c, {one: 'шарик', few: 'шарика', many: 'шариков'}) + ' из ' + int(n) + ', это <b>' + share(c / n, 1) + '</b>. Теория: 252 пути из 1024, то есть ' + share(252 / 1024, 1) + '. Далеко не «почти каждый» — Бобу стоит удешевить приз.',
+    galMidFew: n => 'Шариков пока ' + int(n) + '. Добавь тысячу — доля в средней корзине успокоится (это шаг 2).',
+    galOther: (n, p, k, c, N, th) => 'Рядов ' + n + ', шанс вправо ' + numT(p, 2) + '. Самая полная по теории корзина — <b>' + k + '</b> (' + share(th, 1) + '); у тебя в ней ' + share(c / N, 1) + ' из ' + int(N) + ' шариков.',
+    galAria: (n, N) => 'Доска Гальтона: ' + n + ' рядов, брошено ' + int(N) + ' шариков; столбики — доли шариков в корзинах, серые точки — теория',
+    // магазин
+    shopX: 'покупателей в группе из 20',
+    shopV: (p, p1, p0, p2) => 'Конверсия ' + shareT(p, 0) + '. Ровно один покупатель — в <b>' + share(p1, 1) + '</b> групп, ни одного — в ' + share(p0, 1) + ', два и больше — в ' + share(p2, 1) + '.',
+    shopTip: (k, v) => 'ровно <b>' + k + '</b>: ' + share(v, 1) + ' групп<br>из 1000 групп ≈ ' + int(1000 * v),
+    // геометрическое
+    geoX: 'номер гостя с первым десертом',
+    geoInvite: 'Нажми «Открыть кафе 1000 раз»',
+    geoV: (p, n, s1, avg) => 'Шанс десерта ' + shareT(p, 0) + '. За ' + int(n) + ' утр первый же гость взял десерт в <b>' + share(s1, 1) + '</b> (теория ' + share(p, 1) + ') — это самый частый ответ. А в среднем ждали <b>' + num(avg, 1) + '</b> гостя (теория 1/p = ' + numT(1 / p, 1) + ').',
+    geoTip: (k, c, n, th) => 'гость № <b>' + k + '</b>' + (k === 15 ? ' и дальше' : '') + (n ? ': ' + share(c / n, 1) + ' утр' : '') + '<br>теория: ' + share(th, 1),
+  },
+}[LANG] || {};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  // общий рисовальщик столбиков: vals — доли (или null), theory — доли, hl — номер подсвеченного столбика
+  function barsPanel(c, x0, x1, y0, y1, w, k0, vals, theory, hl, top, step, fmtX, fmtY, L){
+    axisY(c, L, w - x1, y0, y1 - y0, w, 0, top, step, fmtY);
+    const n = theory.length, bw = (x1 - x0) / n, bars = [];
+    for (let i = 0; i < n; i++){
+      const x = x0 + i * bw, v = vals ? vals[i] : 0, hh = (y1 - y0) * Math.min(v, top) / top;
+      c.fillStyle = i === hl ? COL.test : COL.ctrl;
+      if (v > 0) c.fillRect(x + Math.max(1, bw * 0.12), y1 - hh, bw - 2 * Math.max(1, bw * 0.12), hh);
+      c.fillStyle = COL.gray; c.beginPath(); c.arc(x + bw / 2, y1 - (y1 - y0) * Math.min(theory[i], top) / top, Math.min(4, bw / 5), 0, 2 * Math.PI); c.fill();
+      if (fmtX) label(c, fmtX(i + k0), x + bw / 2, y1 + 15, COL.ink2, 'center');
+      bars.push({x0: x, x1: x + bw, i});
+    }
+    return bars;
+  }
+  // приглашение на пустом графике: текст на светлой подложке, чтобы не пересекать линии
+  function invite(c, t, x, y){ const tw = c.measureText(t).width; c.fillStyle = COL.fillGray; c.fillRect(x - tw / 2 - 8, y - 14, tw + 16, 22); label(c, t, x, y, COL.ink2, 'center'); }
+  const niceTop = m => { const s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8, 1]; return s.find(v => v >= m * 1.12) || 1; };
+  const stepFor = top => top <= 0.15 ? 0.05 : top <= 0.3 ? 0.1 : top <= 0.6 ? 0.1 : 0.2;
+
+  // ---------- карточка 3: линзы ----------
+  (function(){
+    const tb = $('ord-log').querySelector('tbody'); let n = 0;
+    function newOrder(){
+      const k = randInt(1, 4), items = [];
+      for (let i = 0; i < k; i++) items.push(TXT.menu[randInt(0, TXT.menu.length - 1)]);
+      const sumR = items.reduce((s, it) => s + it[1], 0), mins = randInt(18, 52), late = mins > 40 ? 1 : 0;
+      $('ord-items').innerHTML = items.map(it => '<span>' + it[0] + '</span>').join('');
+      $('ord-meta').textContent = TXT.delivery(mins) + TXT.late(mins);
+      $('ln-sum').textContent = TXT.rub(sumR); $('ln-n').textContent = int(k); $('ln-late').textContent = String(late);
+      n++;
+      const tr = document.createElement('tr'); tr.innerHTML = '<td>№' + NBSP + n + '</td><td>' + TXT.rub(sumR) + '</td><td>' + int(k) + '</td><td>' + late + '</td>';
+      tb.prepend(tr); while (tb.children.length > 5) tb.lastChild.remove();
+    }
+    $('ord-new').addEventListener('click', newOrder);
+  })();
+
+  // ---------- карточка 4: три монетки, PMF и CDF ----------
+  (function(){
+    const cv = $('ch-3c'), pmf = [1, 3, 3, 1].map(v => v / 8), fr = ['1/8', '3/8', '3/8', '1/8'], cf = ['1/8', '4/8', '7/8', '1'];
+    function draw(){
+      const g = canvas(cv, 0.5, 0.9); if (!g) return; const {c, w, h} = g;
+      const L = 40, R = 10, pw = w - L - R, bw = pw / 4, mid = Math.round(h * 0.46);
+      // лестница
+      const t1 = 18, b1 = mid - 16;
+      axisY(c, L, R, t1, b1 - t1, w, 0, 1, 0.5, v => numT(v, 1));
+      label(c, TXT.c3cdf, L + 4, t1 - 6, COL.ink2);
+      let acc = 0;
+      for (let k = 0; k < 4; k++){
+        const prev = acc; acc += pmf[k];
+        const x = L + k * bw + bw / 2, xe = k < 3 ? L + (k + 1) * bw + bw / 2 : w - R, y = b1 - (b1 - t1) * acc, yp = b1 - (b1 - t1) * prev;
+        c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath(); c.moveTo(x, y); c.lineTo(xe, y); c.stroke();
+        c.setLineDash([3, 3]); c.lineWidth = 1; c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(x, yp); c.lineTo(x, y); c.stroke(); c.setLineDash([]);
+        c.fillStyle = COL.ctrl; c.beginPath(); c.arc(x, y, 4, 0, 2 * Math.PI); c.fill();
+        c.fillStyle = '#fff'; c.strokeStyle = COL.ctrl; c.lineWidth = 1.5; c.beginPath(); c.arc(x, yp, 3.5, 0, 2 * Math.PI); c.fill(); c.stroke();
+      }
+      // столбики
+      const t2 = mid + 14, b2 = h - 34;
+      label(c, TXT.c3pmf, L + 4, t2 - 4, COL.ink2);
+      const bars = barsPanel(c, L, w - R, t2 + 6, b2, w, 0, pmf, pmf, -1, 0.5, 0.25, k => String(k), v => numT(v, 2), L);
+      label(c, TXT.c3x, L + pw / 2, h - 3, COL.ink2, 'center');
+      hoverBars(cv, bars.map(b => ({x0: b.x0, x1: b.x1, html: TXT.c3tip(b.i, fr[b.i], cf[b.i])})));
+    }
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 6: доска Гальтона ----------
+  (function(){
+    const cv = $('ch-galton'), V = $('gal-v');
+    let n = 10, p = 0.5, counts, N, flying = [], raf = 0;
+    function reset(){ counts = new Array(n + 1).fill(0); N = 0; flying = []; V.hidden = true; draw(); }
+    const theory = () => Array.from({length: n + 1}, (_, k) => binomPmf(n, k, p));
+    let geo = null;
+    function layout(w, h){
+      const L = 40, R = 10, pw = w - L - R, slots = n + 1, dx = Math.min(pw / slots, 60), cx = L + pw / 2;
+      const T0 = 14, pegH = Math.round(h * 0.4), yb0 = T0 + pegH + 16, yb1 = h - 34;
+      return {L, R, pw, dx, cx, T0, pegH, rowH: pegH / n, yb0, yb1};
+    }
+    function draw(now){
+      const g = canvas(cv, 0.66, 1.1); if (!g) return; const {c, w, h} = g; geo = layout(w, h);
+      const {L, R, dx, cx, T0, rowH, yb0, yb1} = geo;
+      // гвоздики
+      c.fillStyle = COL.ink2;
+      for (let r = 0; r < n; r++) for (let j = 0; j <= r; j++){ c.beginPath(); c.arc(cx + (j - r / 2) * dx, T0 + (r + 0.5) * rowH, 2.6, 0, 2 * Math.PI); c.fill(); }
+      // корзины
+      const th = theory(), shares = N ? counts.map(k => k / N) : null;
+      const top = niceTop(Math.max(...th, ...(shares || [0])));
+      const x0 = cx - (n + 1) / 2 * dx, x1 = cx + (n + 1) / 2 * dx;
+      c.strokeStyle = COL.grid; c.lineWidth = 1;
+      for (let k = 0; k <= n + 1; k++){ const x = x0 + k * dx; c.beginPath(); c.moveTo(x, yb0 - 6); c.lineTo(x, yb1); c.stroke(); }
+      const hl = n % 2 === 0 ? n / 2 : -1;
+      axisY(c, L, w - x1 < R ? R : w - x1, yb0, yb1 - yb0, w, 0, top, stepFor(top), v => shareT(v, 0));
+      for (let k = 0; k <= n; k++){
+        const x = x0 + k * dx, v = shares ? shares[k] : 0, hh = (yb1 - yb0) * Math.min(v, top) / top;
+        c.fillStyle = k === hl ? COL.test : COL.ctrl; if (v > 0) c.fillRect(x + dx * 0.14, yb1 - hh, dx * 0.72, hh);
+        c.fillStyle = COL.gray; c.beginPath(); c.arc(x + dx / 2, yb1 - (yb1 - yb0) * Math.min(th[k], top) / top, Math.min(4, dx / 5), 0, 2 * Math.PI); c.fill();
+        label(c, String(k), x + dx / 2, yb1 + 15, COL.ink2, 'center');
+      }
+      label(c, TXT.galX, cx, h - 3, COL.ink2, 'center');
+      if (!N && !flying.length) invite(c, TXT.galInvite, cx, yb0 + 20);
+      // шарики в полёте
+      const t = now || performance.now(), msRow = 85, rad = Math.max(3, Math.min(6, dx * 0.16));
+      c.fillStyle = COL.test;
+      flying.forEach(b => {
+        const s = Math.max(0, (t - b.t0) / msRow);
+        let x, y;
+        if (s < n){
+          const r = Math.floor(s), f = s - r, j0 = b.cum[r], j1 = b.cum[r + 1];
+          const xa = cx + (j0 - r / 2) * dx, xb = cx + (j1 - (r + 1) / 2) * dx;
+          x = xa + (xb - xa) * f; y = T0 + (r + 0.5) * rowH - rad - 2 + rowH * f - Math.sin(Math.PI * f) * rowH * 0.25;
+        } else {
+          const f = Math.min(1, (s - n) / 2), k = b.cum[n];
+          x = cx + (k - n / 2) * dx; y = T0 + (n - 0.5) * rowH + (yb1 - 10 - (T0 + (n - 0.5) * rowH)) * f;
+        }
+        c.beginPath(); c.arc(x, y, rad, 0, 2 * Math.PI); c.fill();
+      });
+      cv.setAttribute('aria-label', TXT.galAria(n, N));
+      hoverBars(cv, counts.map((k, i) => ({x0: x0 + i * dx, x1: x0 + (i + 1) * dx, html: TXT.galTip(i, k, N, th[i])})));
+    }
+    function land(k){ counts[k]++; N++; }
+    function verdict(){
+      if (!N) return; V.hidden = false;
+      const th = theory();
+      if (n === 10 && Math.abs(p - 0.5) < 1e-9){
+        V.className = 'verdict good';
+        V.innerHTML = N >= 200 ? TXT.galMid(counts[5], N, Book.guess('mid')) : TXT.galMidFew(N);
+      } else {
+        const km = th.indexOf(Math.max(...th)); V.className = 'verdict';
+        V.innerHTML = TXT.galOther(n, p, km, counts[km], N, th[km]);
+      }
+    }
+    function path(){ const cum = [0]; for (let r = 0; r < n; r++) cum.push(cum[r] + (rand() < p ? 1 : 0)); return cum; }
+    function tick(t){
+      const msRow = 85, done = flying.filter(b => (t - b.t0) / msRow >= n + 2);
+      if (done.length){ done.forEach(b => land(b.cum[n])); flying = flying.filter(b => !done.includes(b)); verdict(); }
+      draw(t);
+      raf = flying.length ? requestAnimationFrame(tick) : 0;
+    }
+    function drop(m){
+      if (REDUCED){ for (let i = 0; i < m; i++) land(path()[n]); verdict(); draw(); return; }
+      const t = performance.now();
+      for (let i = 0; i < m; i++) flying.push({cum: path(), t0: t + i * 110});
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    $('gal-1').addEventListener('click', () => drop(1));
+    $('gal-10').addEventListener('click', () => drop(10));
+    $('gal-1000').addEventListener('click', () => { for (let i = 0; i < 1000; i++) land(path()[n]); verdict(); draw(); });
+    $('gal-reset').addEventListener('click', reset);
+    $('gal-n').addEventListener('input', e => { n = +e.target.value; $('gal-n-v').textContent = n; reset(); });
+    $('gal-p').addEventListener('input', e => { p = +e.target.value; $('gal-p-v').textContent = numT(p, 2); reset(); });
+    counts = new Array(n + 1).fill(0); N = 0;
+    window.addEventListener('resize', () => draw());
+  })();
+
+  // ---------- карточка 8: группы по 20 ----------
+  (function(){
+    const cv = $('ch-shop'); let p = 0.05;
+    function draw(){
+      const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+      const K = 11, th = Array.from({length: K}, (_, k) => binomPmf(20, k, p)), top = niceTop(Math.max(...th));
+      const L = 40, R = 10;
+      const bars = barsPanel(c, L, w - R, 14, h - 34, w, 0, th, th, 1, top, stepFor(top), k => String(k), v => shareT(v, 0), L);
+      label(c, TXT.shopX, L + (w - L - R) / 2, h - 3, COL.ink2, 'center');
+      hoverBars(cv, bars.map(b => ({x0: b.x0, x1: b.x1, html: TXT.shopTip(b.i, th[b.i])})));
+      const p0 = th[0], p1 = th[1];
+      $('shop-v').innerHTML = TXT.shopV(p, p1, p0, 1 - p0 - p1);
+    }
+    $('shop-p').addEventListener('input', e => { p = +e.target.value; $('shop-p-v').textContent = shareT(p, 0); draw(); });
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 9: геометрическое ----------
+  (function(){
+    const cv = $('ch-geo'), V = $('geo-v'), K = 15; let p = 0.25, cnt, n, tot;
+    function reset(){ cnt = new Array(K).fill(0); n = 0; tot = 0; V.hidden = true; draw(); }
+    function theory(){ const t = Array.from({length: K}, (_, i) => Math.pow(1 - p, i) * p); t[K - 1] = Math.pow(1 - p, K - 1); return t; }
+    function draw(){
+      const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+      const th = theory(), sh = n ? cnt.map(k => k / n) : null, top = niceTop(Math.max(...th, ...(sh || [0])));
+      const L = 40, R = 10;
+      const bars = barsPanel(c, L, w - R, 14, h - 34, w, 1, sh, th, 0, top, stepFor(top), k => (k === K ? K + '+' : (w < 520 && k % 2 === 0 ? '' : String(k))), v => shareT(v, 0), L);
+      label(c, TXT.geoX, L + (w - L - R) / 2, h - 3, COL.ink2, 'center');
+      if (!n) invite(c, TXT.geoInvite, L + (w - L - R) / 2, 40);
+      hoverBars(cv, bars.map(b => ({x0: b.x0, x1: b.x1, html: TXT.geoTip(b.i + 1, cnt[b.i], n, th[b.i])})));
+    }
+    $('geo-run').addEventListener('click', () => {
+      for (let i = 0; i < 1000; i++){ const k = geom(p); tot += k; cnt[Math.min(k, K) - 1]++; n++; }
+      V.hidden = false; V.className = 'verdict good'; V.innerHTML = TXT.geoV(p, n, cnt[0] / n, tot / n); draw();
+    });
+    $('geo-reset').addEventListener('click', reset);
+    $('geo-p').addEventListener('input', e => { p = +e.target.value; $('geo-p-v').textContent = shareT(p, 0); reset(); });
+    cnt = new Array(K).fill(0); n = 0; tot = 0;
+    window.addEventListener('resize', draw);
+  })();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

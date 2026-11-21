@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Среднее и разброс · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 8 бесплатного интерактивного курса «Вероятность на пальцах»: матожидание и дисперсия на колесе призов, почему разброс суммы растёт как √n, задача о купонах и задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только шага 8 (кандидаты в free.css — в notes-C.md) */
+.rng-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin:10px 0 4px}
+.rng-row label{display:flex; flex-direction:column; gap:2px; font-size:15px; color:var(--muted)}
+.rng-row label b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+.rng-row input[type=range]{height:44px; margin:0; width:240px; max-width:100%}
+.album{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin:10px 0; max-width:440px}
+.album span{aspect-ratio:1; border-radius:10px; border:2px dashed rgba(36,34,31,.25); display:flex; align-items:center; justify-content:center; font:600 22px/1 var(--body); color:var(--muted); background:#fff}
+.album span.got{border-style:solid; border-color:var(--ctrl); background:var(--ctrl-bg); color:var(--ink)}
+.album span.new{animation:pop .4s ease}
+@keyframes pop{50%{transform:scale(1.15)}}
+@media (prefers-reduced-motion: reduce){ .album span.new{animation:none} }
+.xtab-wrap{overflow-x:auto; max-width:100%}
+</style>
+</head>
+<body data-course="probability" data-chapter="p08" data-next="09-interview.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 8 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка — шаги 5 и 6 -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним шаги 5 и 6</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Пересолен 1 круассан из 100. Дегустатор замечает 90 % пересоленных и по ошибке бракует 5 % нормальных. Он забраковал круассан. Какой шанс, что тот правда пересолен?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="90 % — шанс забраковать пересоленный круассан. А спрашивают наоборот: сколько пересоленных среди забракованных.">Около 90 %: дегустатор ведь точен</button><button type="button" data-v="b">Около 15 %: 9 из ≈ 58 в браке</button><button type="button" data-v="c" data-why="5 % — доля ошибок среди нормальных круассанов, а не доля пересоленных среди забракованных.">Около 5 %: столько он ошибается</button><button type="button" data-v="d" data-why="1 % — доля пересоленных среди всех. Сигнал дегустатора эту долю поднимает.">Около 1 %: как и среди всех</button></div>
+    <p class="why">Из 1000 круассанов 10 пересолены, дегустатор поймает 9. Из 990 нормальных забракует 5 %, это ≈ 50. Среди ≈ 58 забракованных пересолены 9 — примерно 15 %. Сначала база, потом сигнал — это было в шаге 6.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Среди всех гостей десерт берут 25 %, среди пришедших в дождь — тоже 25 %. Что можно сказать про дождь и десерт?</p>
+    <div class="choice"><button type="button" data-v="a">Независимы: дождь не меняет долю</button><button type="button" data-v="b" data-why="Несовместные события не случаются вместе. А в дождь десерт берут — четверть гостей.">Несовместны: в дождь десерт не берут</button><button type="button" data-v="c" data-why="Чтобы дождь повышал спрос, доля среди «дождевых» должна быть больше 25 %. Она та же.">Зависимы: в дождь десерты берут чаще</button><button type="button" data-v="d" data-why="Доли уже даны, а для независимости достаточно сравнить P(десерт | дождь) и P(десерт).">Сравнить нельзя без числа гостей</button></div>
+    <p class="why">Условие «пришёл в дождь» не меняет долю десертов: P(десерт | дождь) = P(десерт) = 25 %. Это и есть независимость из шага 5.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Колесо призов" aria-label="Колесо призов">
+  <p class="kicker">Шаг 8 из 9</p>
+  <h1>Среднее и разброс</h1>
+  <p class="core">После шага ты сможешь <b>посчитать матожидание и дисперсию</b> и решить, выгодна ли игра в среднем и насколько этот средний результат шатается.</p>
+  <figure class="art"><img src="img/vp08-00-wheel.jpg" alt="Колесо призов у стойки кафе, Боб в восторге, Алиса с калькулятором" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: колесо призов у стойки, Боб в восторге, Алиса с калькулятором</figcaption></figure>
+  <p class="lead">Боб хочет поставить у стойки колесо призов: вращение за 100 ₽, можно выиграть кофе или торт. «Окупится!» — говорит Боб. Алиса задаёт два вопроса: сколько колесо отдаёт в среднем и насколько этот средний результат шатается от гостя к гостю. На первый вопрос отвечает <b>матожидание</b>, на второй — <b>дисперсия</b>.</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Кто уйдёт в плюсе?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На колесе 8 секторов: 5 пустых, 2 — кофе за 150 ₽, 1 — торт за 400 ₽. Вращение стоит 100 ₽. Гости в восторге, кафе в плюсе!</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я куплю сразу 100 жетонов. Если кафе в плюсе, значит, я точно в минусе?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не обязательно. Давай угадаем: из 100 гостей с сотней жетонов сколько уйдут с призами дороже, чем заплатили?</p></div></div>
+  </div>
+  <div class="guess" data-key="plus" data-min="0" data-max="100" data-unit="%">
+    <label class="field">После 100 вращений в плюсе будет примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % гостей</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">«В плюсе» — призы дороже 10 000 ₽, которые гость заплатил за 100 жетонов. Проверим через две карточки.</p>
+  </div>
+</section>
+
+<!-- 4: колесо -->
+<section class="card" data-title="Крути колесо" aria-label="Крути колесо">
+  <span class="step-tag">Поиграй</span>
+  <h2>Крути и смотри на средний приз</h2>
+  <p>Каждое вращение даёт приз: 0, 150 или 400 ₽. Синяя линия — средний приз за вращение по всем твоим вращениям. Куда она прижмётся?</p>
+  <div class="sheet c-white">
+    <canvas id="ch-wheel" role="img" aria-label="Колесо призов и линия среднего приза за вращение"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="wh-1">Крутить</button>
+      <button class="btn ghost" type="button" id="wh-10">×10</button>
+      <button class="btn ghost" type="button" id="wh-100">100 жетонов</button>
+      <button class="btn ghost" type="button" id="wh-reset">Сначала</button>
+    </div>
+    <div class="rng-row">
+      <label><span>Цена вращения: <b id="wh-price-v">100 ₽</b></span><input type="range" id="wh-price" min="50" max="150" step="10" value="100" aria-label="Цена одного вращения"></label>
+    </div>
+    <div class="verdict" id="wh-v" hidden></div>
+  </div>
+  <p class="note">Пустой сектор — серый, кофе — синий, торт — оранжевый.</p>
+</section>
+
+<!-- 5: облако 1000 гостей -->
+<section class="card" data-title="1000 гостей" aria-label="1000 гостей">
+  <span class="step-tag">Проверь прогноз</span>
+  <h2>Тысяча гостей по сто жетонов</h2>
+  <p>Средний приз прижимается к 87,5 ₽, а платит гость 100 ₽. Кафе в среднем зарабатывает 12,5 ₽ на вращении, за 100 вращений — 1250 ₽ на гостя. А что у каждого гостя? Пусть 1000 гостей купят по 100 жетонов.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-cloud" role="img" aria-label="Гистограмма итогов 1000 гостей после 100 вращений"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="cl-run">1000 гостей по 100 жетонов</button>
+    </div>
+    <div class="legend-row"><span><i style="background:var(--trap)"></i>гость в минусе</span><span><i style="background:var(--truth)"></i>гость в плюсе</span></div>
+    <div class="verdict" id="cl-v" hidden></div>
+  </div>
+  <p>Облако широкое: призы шатаются сильнее, чем кафе берёт в среднем. Поэтому каждый шестой гость уходит в плюсе, хотя в среднем гости проигрывают. В среднем — не значит каждый раз.</p>
+  <span class="kot-says">Мяу, я в плюсе! А, нет, это был не я.</span>
+</section>
+
+<!-- 6: матожидание -->
+<section class="card" data-title="Матожидание" aria-label="Матожидание">
+  <span class="step-tag">Правило</span>
+  <h2>Средний приз за вращение</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Окупится ли колесо, зависит не от одного вращения, а от того, сколько призов оно раздаёт в среднем. Сравниваем этот средний приз с ценой вращения.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 800 вращений ≈ 500 пустых, ≈ 200 с кофе и ≈ 100 с тортом. Призов на 200 · 150 + 100 · 400 = 70 000 ₽, по 70 000 / 800 = 87,5 ₽ на вращение.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">E[X] = Σ x · P(X = x) = 0 · ⅝ + 150 · ²⁄₈ + 400 · ⅛ = 87,5</p><p class="read">Словами: «каждое значение × его доля, и всё сложить». Это центр тяжести столбиков распределения из шага 7.</p></div>
+  </div>
+  <p>Приз 87,5 ₽ не выпадает ни разу: такого сектора нет. Среднее — не самое частое и не «типичное» значение, а точка равновесия: где подпереть столбики, чтобы они не перевесили.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Средний приз за вращение называют <b class="term">математическим ожиданием</b>, коротко — матожиданием; на собеседовании скажут <b>expected value</b> и напишут E[X].</p>
+    <p class="aside">Звучит солидно, а это просто «сколько в среднем на одно вращение, если крутить очень долго».</p>
+  </aside>
+  <p>Одно полезное следствие: если X — индикатор события (1 — случилось, 0 — нет), то E[X] = P(события). Средний «выпал ли торт» — это ⅛.</p>
+  <p class="src">Идея из лекций: Джо Блицштейн, курс Stat 110 (Гарвард)</p>
+</section>
+
+<!-- 7: дисперсия -->
+<section class="card" data-title="Разброс" aria-label="Разброс">
+  <span class="step-tag">Правило</span>
+  <h2>Два колеса с одним средним</h2>
+  <p>Котейка предлагает второе колесо: на 4 секторах чай за 75 ₽, на 4 — морс за 100 ₽. Средний приз тот же: (4 · 75 + 4 · 100) / 8 = 87,5 ₽. Но играть на нём совсем не то же самое.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-two" role="img" aria-label="Призы двух колёс: у колеса Боба от 0 до 400 рублей, у колеса Котейки 75 и 100; среднее у обоих 87,5; полоса — плюс-минус стандартное отклонение"></canvas>
+    <p class="note">Кружок тем больше, чем чаще приз. Вертикальная черта — среднее, полоса — среднее ± стандартное отклонение.</p>
+  </div>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>У колеса Боба приз обычно далеко от среднего: то ноль, то торт. У колеса Котейки — всегда рядом. Хотим одно число «насколько далеко от среднего в среднем».</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Отклонения просто так не усреднить: плюсы и минусы взаимно гасятся, их среднее всегда 0. Поэтому отклонения возводят в квадрат. У колеса Боба из 8 вращений: 5 раз (−87,5)², 2 раза (62,5)², 1 раз (312,5)² — в среднем 17 969. Корень из этого — ≈ 134 ₽. У колеса Котейки отклонения ±12,5, в квадрате 156,25, корень — 12,5 ₽.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">Var X = E[(X − EX)²] = E[X²] − (EX)², SD = √Var X</p><p class="read">Словами: «дисперсия — средний квадрат отклонения от среднего, стандартное отклонение — корень из неё, в тех же рублях».</p></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Средний квадрат отклонения называют <b class="term">дисперсией</b>, на собеседовании — <b>variance</b>, Var X. Корень из неё — <b>стандартное отклонение</b>, SD или σ.</p>
+    <p class="aside">Звучит солидно, а это просто «насколько обычно промахивается приз мимо среднего». У Боба — на ≈ 134 ₽, у Котейки — на 12,5 ₽.</p>
+  </aside>
+  <p class="src">Идея из книги: Владимир Савельев, «Статистика и котики»</p>
+</section>
+
+<!-- 8: сумма n вращений -->
+<section class="card" data-title="Сумма вращений" aria-label="Сумма вращений">
+  <span class="step-tag">Малый график</span>
+  <h2>Среднее уходит быстрее, чем растёт разброс</h2>
+  <p>Почему после одного вращения в плюсе 3 гостя из 8, а после сотни — только каждый шестой? Двигай число вращений и смотри на облако итогов 1000 гостей.</p>
+  <div class="sheet c-white">
+    <canvas id="ch-sum" role="img" aria-label="Облако итогов после n вращений: центр уходит влево пропорционально n, ширина растёт как корень из n"></canvas>
+    <div class="rng-row">
+      <label><span>Вращений у гостя: <b id="sum-n-v">100</b></span><input type="range" id="sum-n" min="1" max="400" step="1" value="100" aria-label="Число вращений у одного гостя"></label>
+    </div>
+    <div class="verdict" id="sum-v"></div>
+  </div>
+  <div class="layers">
+    <div class="things"><span class="lt">В штуках</span><p>При цене 100 ₽: после 1 вращения в плюсе 37,5 % гостей, после 10 — 32,5 %, после 100 — 17,0 %, после 400 — 3,2 %. Центр облака за 100 вращений уходит на −1250 ₽, а ширина растёт только до ≈ 1340 ₽; за 400 — центр −5000 ₽, ширина ≈ 2680 ₽.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">E[X + Y] = EX + EY, Var(X + Y) = Var X + Var Y</p><p class="read">Словами: средние складываются всегда; дисперсии складываются, если X и Y независимы. Поэтому у суммы n вращений среднее растёт как n, а SD — как √n: 134 · √100 = 1340.</p></div>
+  </div>
+  <p>Складываются дисперсии, а не стандартные отклонения: у суммы 100 вращений SD ≈ 1340 ₽, а не 100 · 134 = 13 400 ₽. Для казино это главный закон: чем дольше игра, тем увереннее выигрыш заведения.</p>
+  <p class="xref"><span>Обратная сторона: SD суммы растёт как √n, а SD среднего падает как 1/√n. С этого начинается «Сигнал или шум», <a href="/signal/04-noise.html">глава 4 «Шум»</a>.</span></p>
+</section>
+
+<!-- 9: альбом наклеек -->
+<section class="card" data-title="Альбом наклеек" aria-label="Альбом наклеек">
+  <span class="step-tag">Вторая игрушка</span>
+  <h2>Собери все шесть наклеек</h2>
+  <figure class="art"><img src="img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ищет последнюю наклейку среди повторов</figcaption></figure>
+  <p>В детском меню к каждому обеду — случайная наклейка из шести. Котейка хочет собрать весь альбом. Сколько обедов понадобится в среднем?</p>
+  <div class="choice" data-key="stick" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="6" data-fb="Шесть наклеек — шесть обедов? Это если бы ни одна не повторялась. Проверим." aria-pressed="false">6–7 обедов</button>
+    <button type="button" data-v="10" data-fb="Повторы будут — значит, больше шести. Проверим, насколько." aria-pressed="false">Около 10</button>
+    <button type="button" data-v="15" data-fb="Смелая догадка. Собери альбом и проверь." aria-pressed="false">Около 15</button>
+    <button type="button" data-v="25" data-fb="Последние наклейки и правда ловить долго. Проверим." aria-pressed="false">Больше 25</button>
+  </div>
+  <div class="sheet c-white">
+    <div class="album" id="album" aria-live="polite"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+    <p class="note" id="album-n">Обедов: 0</p>
+    <div class="controls">
+      <button class="btn" type="button" id="al-1">Обед</button>
+      <button class="btn ghost" type="button" id="al-full">Дособрать альбом</button>
+      <button class="btn ghost" type="button" id="al-1000">1000 альбомов</button>
+    </div>
+    <canvas id="ch-album" role="img" aria-label="Гистограмма числа обедов до полного альбома у 1000 гостей"></canvas>
+    <div class="verdict" id="al-v" hidden></div>
+  </div>
+  <div class="xtab-wrap"><table class="xtab">
+    <tr><th>какая по счёту новая</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+    <tr><th>шанс новой</th><td>6/6</td><td>5/6</td><td>4/6</td><td>3/6</td><td>2/6</td><td>1/6</td></tr>
+    <tr><th>обедов в среднем</th><td>1</td><td>1,2</td><td>1,5</td><td>2</td><td>3</td><td class="hot">6</td></tr>
+  </table></div>
+  <p>Каждая следующая новая наклейка — геометрическое ожидание из шага 7: при шансе p ждём в среднем 1/p обедов. Складываем ожидания: 1 + 1,2 + 1,5 + 2 + 3 + 6 = 14,7. Последняя наклейка в одиночку стоит 6 обедов — столько же, сколько первые четыре вместе.</p>
+  <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Посчитай альбом формулой и симуляцией</h2>
+  <p>Напиши функцию <code>expected_coupons(n)</code>: среднее число обедов, чтобы собрать все n наклеек. Симуляция уже готова — сравни с ней свой ответ.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-coupons">
+<textarea spellcheck="false" aria-label="Задание: функция expected_coupons">import random
+
+def expected_coupons(n):
+    # когда собрано k наклеек, новая приходит с шансом (n - k) / n,
+    # и ждём её в среднем n / (n - k) обедов; сложи по k = 0, 1, ..., n - 1
+    return ...
+
+def simulate_album(n, trials=10_000):
+    total = 0
+    for _ in range(trials):
+        seen, k = set(), 0
+        while len(seen) &lt; n:
+            seen.add(random.randrange(n)); k += 1
+        total += k
+    return total / trials
+
+print(expected_coupons(6), simulate_album(6))     # ждём около 14.7
+print(expected_coupons(10), simulate_album(10))   # а для 10 наклеек?</textarea>
+  </div>
+<script type="text/x-python" id="check-coupons">
+def _check():
+    try:
+        f = expected_coupons
+    except NameError:
+        print("FAIL функции expected_coupons нет — запусти ячейку с ней"); return
+    try:
+        v6 = f(6)
+    except Exception as e:
+        print("FAIL функция упала с ошибкой: " + str(e)); return
+    if v6 is ... or v6 is None:
+        print("FAIL функция пока ничего не считает: замени ... на формулу"); return
+    v6 = float(v6)
+    if abs(v6 - 6) < 1e-9:
+        print("FAIL получилось 6 — это число наклеек. Но повторы неизбежны, а последние наклейки ловить дольше всего"); return
+    if abs(v6 - 14.7) > 1e-6:
+        print("FAIL для 6 наклеек вышло " + str(round(v6, 3)) + ", а ждали 14,7 = 6 · (1 + 1/2 + … + 1/6)"); return
+    if abs(float(f(1)) - 1) > 1e-9 or abs(float(f(10)) - 29.2896825) > 1e-5:
+        print("FAIL для 6 сошлось, а для 1 или 10 наклеек — нет: проверь, что функция работает при любом n"); return
+    print("OK 14,7 обеда для 6 наклеек и ≈ 29,3 для 10 — формула и симуляция сходятся")
+_check()
+</script>
+</section>
+
+<!-- 11: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>«Проигрывают все»</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В среднем гость теряет 12,5 ₽ за вращение. Значит, после 100 вращений каждый гость в минусе на 1250 ₽. Колесо разоряет всех до одного!</p></div></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что не так в рассуждении Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="12,5 ₽ × 100 = 1250 ₽ — арифметика верная. Ошибка в слове «каждый».">Арифметика: за 100 вращений минус 125 ₽</button><button type="button" data-v="b" data-why="Средний приз 87,5 ₽ меньше цены 100 ₽: в среднем гость теряет. Ошибка в другом.">Колесо честное: в среднем никто не теряет</button><button type="button" data-v="c">Среднее не про каждого: многие в плюсе</button><button type="button" data-v="d" data-why="Итог ровно −1250 ₽ — одно из многих значений, и далеко не самое частое: облако шириной в тысячи рублей.">Все в минусе, и обычно ровно на 1250 ₽</button></div>
+    <p class="why">−1250 ₽ — центр облака итогов, а не итог каждого. Разброс суммы 100 вращений ≈ 1340 ₽, и примерно 17 гостей из 100 уходят в плюсе. В среднем — не значит каждый раз.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и как на них отвечать</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="all-faces">
+    <summary>Бросаем кубик, пока не выпадут все шесть граней. Сколько бросков нужно в среднем?</summary>
+    <p><b>Переформулирую:</b> это альбом из шести наклеек. Разобью ожидание на шесть кусков: ждём первую новую грань, вторую новую и так далее.</p>
+    <p><b>В штуках:</b> первая грань — с первого броска. Вторую новую ловим с шансом 5/6, ждём в среднем 6/5 = 1,2 броска; третью — 6/4 = 1,5; дальше 2, 3 и 6.</p>
+    <p><b>Формула:</b> <span class="num">E = 6 · (1 + 1/2 + 1/3 + 1/4 + 1/5 + 1/6) = 14,7</span>. Ожидания складываются всегда, даже если куски зависимы.</p>
+    <p><b>Проверка:</b> симуляция в ячейке кода выше даёт около 14,7.</p>
+    <p><b>Вывод:</b> в среднем 14,7 броска, и почти половину из них съедают две последние грани.</p>
+  </details>
+  <details class="ivw" data-key="reroll">
+    <summary>Бросаем кубик, выигрыш — число очков. Можно один раз перебросить, тогда считается второй бросок. Когда перебрасывать и сколько выигрываем в среднем?</summary>
+    <p><b>Переформулирую:</b> после переброса нас ждёт в среднем 3,5 очка. Перебрасывать выгодно, если выпало меньше 3,5.</p>
+    <p><b>В штуках:</b> из 600 игр в 300 выпадет 4, 5 или 6 — оставляем, в среднем 5 очков. В остальных 300 перебрасываем и получаем в среднем 3,5. Итого (300 · 5 + 300 · 3,5) / 600 = 4,25.</p>
+    <p><b>Формула:</b> <span class="num">E = (4 + 5 + 6)/6 + 3/6 · 3,5 = 4,25</span> против 3,5 без переброса.</p>
+    <p><b>Поворот:</b> а с двумя перебросами? Если перебросов осталось два, продолжение стоит 4,25, поэтому оставляем только 5 и 6: <span class="num">E = (5 + 6)/6 + 4/6 · 4,25 ≈ 4,67</span>.</p>
+    <p><b>Вывод:</b> перебрасывать 1–3; один переброс даёт 4,25 в среднем, два — 4,67.</p>
+  </details>
+  <details class="ivw" data-key="lottery">
+    <summary>Кафе выпустило лотерею: 1000 билетов по 100 ₽, призы — один за 20 000 ₽, десять по 2000 ₽ и сто по 200 ₽. Стоит ли покупать билет?</summary>
+    <p><b>Переформулирую:</b> сравниваю средний выигрыш на билет с ценой и смотрю на разброс.</p>
+    <p><b>В штуках:</b> на 1000 билетов призов на 20 000 + 10 · 2000 + 100 · 200 = 60 000 ₽, то есть по 60 ₽ на билет. Кафе собирает 100 000 ₽ и в среднем оставляет себе по 40 ₽ с билета. 889 билетов из 1000 не выигрывают ничего.</p>
+    <p><b>Формула:</b> <span class="num">E[X] = 20 000 · 0,001 + 2000 · 0,01 + 200 · 0,1 = 60 ₽</span> &lt; 100 ₽; SD ≈ 664 ₽ — разброс в 11 раз больше среднего.</p>
+    <p><b>Вывод:</b> в среднем лотерея убыточна для игрока: −40 ₽ на билет. Покупают её не ради среднего, а ради разброса — крошечного шанса на большой приз.</p>
+  </details>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про среднее и разброс</h2>
+  <div class="quiz" data-right="a">
+    <p class="q">Средний приз колеса — 87,5 ₽. Как часто выпадает приз в 87,5 ₽?</p>
+    <div class="choice"><button type="button" data-v="a">Ни разу: такого сектора нет</button><button type="button" data-v="b" data-why="Среднее — центр тяжести, а не самое частое значение. Самое частое здесь — пустой сектор.">Чаще всего: это же среднее значение</button><button type="button" data-v="c" data-why="Половина — это про медиану, и то не про конкретное значение. Сектора на 87,5 ₽ нет.">Примерно в половине всех вращений</button><button type="button" data-v="d" data-why="Секторов 8, но ни один из них не даёт 87,5 ₽: призы только 0, 150 и 400.">Примерно в одном вращении из восьми</button></div>
+    <p class="why">Призы бывают только 0, 150 и 400 ₽. Матожидание 87,5 ₽ — точка равновесия столбиков, и само значение может не выпадать никогда. Так и «в среднем 2,3 ребёнка в семье».</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Стандартное отклонение одного вращения ≈ 134 ₽. Какое стандартное отклонение у суммы четырёх независимых вращений?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Складываются дисперсии, а не SD: 4 · 134² под корнем даёт 2 · 134.">Около 536 ₽: четыре раза по 134</button><button type="button" data-v="b">Около 268 ₽: SD растёт как √4</button><button type="button" data-v="c" data-why="Разброс суммы больше разброса одного вращения: случайности накапливаются, хотя частично гасят друг друга.">Около 134 ₽: разброс не меняется</button><button type="button" data-v="d" data-why="Уменьшается разброс среднего, а не суммы. Сумма шатается сильнее одного вращения.">Около 67 ₽: разброс усредняется</button></div>
+    <p class="why">Для независимых вращений Var суммы = 4 · Var одного, значит SD = √4 · 134 = 268 ₽. Разброс растёт как √n, а не как n.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Боб: «E[X + Y] = EX + EY, значит и E[X · Y] = EX · EY». Когда это гарантированно верно?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Для суммы — да, всегда. Для произведения нет: возьми X = Y = «выпал ли орёл»: E[X · X] = ½, а EX · EX = ¼.">Всегда, как и для суммы</button><button type="button" data-v="b" data-why="Равенство средних тут ни при чём: в примере X = Y средние равны, а формула не работает.">Когда у X и Y равные средние</button><button type="button" data-v="c">Когда X и Y независимы</button><button type="button" data-v="d" data-why="Для независимых величин равенство выполняется, так что «никогда» — слишком сильно.">Никогда: это частая ошибка</button></div>
+    <p class="why">Линейность E[X + Y] = EX + EY работает для любых величин. А E[X · Y] = EX · EY гарантировано только для независимых. Пример: X = Y = «выпал орёл» (1 или 0), E[X · Y] = ½, а EX · EY = ¼.</p>
+  </div>
+  <div class="quiz" data-right="d">
+    <p class="q">У Котейки 5 наклеек из 6. Сколько обедов в среднем ждать последнюю?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Осталась одна наклейка, но шанс получить именно её в одном обеде — 1 из 6.">Один обед: осталась всего одна</button><button type="button" data-v="b" data-why="2,5 — средний промежуток по всему альбому (14,7 / 6). Последняя наклейка дороже остальных.">Около 2,5: столько в среднем на наклейку</button><button type="button" data-v="c" data-why="Половина от шести — это ни медиана, ни среднее ожидания. Ждём 1/p обедов.">Около 3: половина от шести</button><button type="button" data-v="d">Шесть: шанс новой — 1 из 6</button></div>
+    <p class="why">Новая наклейка приходит с шансом 1/6, а геометрическое ожидание — 1/p = 6 обедов. Последняя наклейка стоит столько же, сколько первые четыре вместе.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 8</span>
+  <h2 data-proverb="p08">В среднем — не значит каждый раз</h2>
+  <ul class="cheat">
+    <li><b>Матожидание</b> — «каждое значение × его доля, сложить»: <span class="num">E[X] = Σ x · P(X = x)</span>. Колесо: 0 · ⅝ + 150 · ²⁄₈ + 400 · ⅛ = 87,5 ₽ при цене 100 ₽.</li>
+    <li>Среднее может не выпадать ни разу и не быть самым частым значением.</li>
+    <li>Индикатор события: E[X] = P(события).</li>
+    <li><b>Дисперсия</b> — средний квадрат отклонения: <span class="num">Var X = E[(X − EX)²] = E[X²] − (EX)²</span>; <b>SD</b> = √Var, в тех же единицах.</li>
+    <li>E[X + Y] = EX + EY — всегда. Var(X + Y) = Var X + Var Y и E[X · Y] = EX · EY — для независимых.</li>
+    <li>У суммы n независимых вращений среднее растёт как n, SD — как √n: долгая игра работает на заведение.</li>
+    <li>Купоны: собрать n наклеек — в среднем <span class="num">n · (1 + 1/2 + … + 1/n)</span>; для 6 — 14,7, последние самые дорогие.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Матожидание</dt><dd>среднее значение величины при долгом повторении; expected value, E[X]</dd>
+    <dt>Дисперсия</dt><dd>средний квадрат отклонения от среднего; variance, Var X</dd>
+    <dt>Стандартное отклонение</dt><dd>корень из дисперсии; standard deviation, SD, σ</dd>
+    <dt>Линейность</dt><dd>E[X + Y] = EX + EY без всяких условий; linearity of expectation</dd>
+    <dt>Задача о купонах</dt><dd>сколько ждать полный набор; coupon collector</dd>
+  </dl>
+  <figure class="art"><img src="img/vp08-02-next.jpg" alt="Алиса в пиджаке выходит из кафе на собеседование, Боб и Котейка машут ей вслед" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса идёт на собеседование, Боб и Котейка машут вслед</figcaption></figure>
+  <a class="next-step" href="09-interview.html"><b>Дальше, шаг 9: «Пробное собеседование»</b>Алиса идёт на собеседование аналитиком. Десять задач на время, оценка уверенности перед каждым ответом — и честная калибровка в конце.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    rub: x => (x < 0 ? MINUS : '') + int(Math.abs(x)) + NBSP + '₽',
+    rub1: x => numT(x, 1) + NBSP + '₽',
+    whMean: 'средний приз за вращение', whTheory: 'теория 87,5 ₽', whPrice: p => 'цена ' + int(p) + NBSP + '₽',
+    whX: 'вращений', whInvite: 'Покрути колесо',
+    whV: (n, m, last, price) => 'Последний приз — <b>' + (last ? int(last) + NBSP + '₽' : 'пусто') + '</b>. За ' + int(n) + ' ' + plural(n, {one: 'вращение', few: 'вращения', many: 'вращений'}) + ' средний приз — <b>' + numT(m, 1) + NBSP + '₽</b> (теория 87,5 ₽). При цене ' + int(price) + NBSP + '₽ гость в среднем ' + (price > 87.5 ? 'теряет ' + numT(price - 87.5, 1) + NBSP + '₽' : price < 87.5 ? 'выигрывает ' + numT(87.5 - price, 1) + NBSP + '₽' : 'остаётся при своих') + ' за вращение.',
+    clX: 'итог гостя после 100 вращений, ₽', clInvite: 'Нажми «1000 гостей по 100 жетонов»',
+    clV: (k, g, th, price, m) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'В плюсе — <b>' + int(k) + '</b> гостей из 1000 (' + share(k / 1000, 1) + '). Теория при цене ' + int(price) + NBSP + '₽: ' + share(th, 1) + '. Средний итог — ' + (m < 0 ? MINUS : '') + int(Math.abs(m)) + NBSP + '₽.',
+    clTip: (a, b, k) => 'от <b>' + int(a) + '</b> до <b>' + int(b) + '</b> ₽<br>' + int(k) + ' ' + plural(k, {one: 'гость', few: 'гостя', many: 'гостей'}),
+    twoBob: 'колесо Боба', twoKot: 'колесо Котейки', twoX: 'приз, ₽', twoMean: 'среднее 87,5',
+    sumX: n => 'итог после ' + int(n) + ' ' + plural(n, {one: 'вращения', few: 'вращений', many: 'вращений'}) + ', ₽',
+    sumV: (n, pl, m, s) => 'После ' + int(n) + ' ' + plural(n, {one: 'вращения', few: 'вращений', many: 'вращений'}) + ' в плюсе <b>' + share(pl, 1) + '</b> гостей. Центр облака ' + (m < 0 ? MINUS : '') + int(Math.abs(m)) + NBSP + '₽ (−12,5 × ' + int(n) + '), ширина SD ≈ ' + int(s) + NBSP + '₽ (134 × √' + int(n) + ').',
+    alN: (n, k) => 'Обедов: ' + int(n) + ' · наклеек: ' + k + ' из 6' + (k === 6 ? ' — альбом собран!' : ''),
+    alX: 'обедов до полного альбома',
+    alV: (m, med, p20, ch) => (ch ? 'Твой прогноз — «' + ch + '». ' : '') + 'У 1000 альбомов в среднем <b>' + numT(m, 1) + '</b> обеда (теория 14,7), у половины гостей — не больше ' + int(med) + '. Двадцать и больше обедов — у ' + share(p20, 0) + ' гостей.',
+    alTip: (k, c, n) => '<b>' + k + '</b> ' + plural(k, {one: 'обед', few: 'обеда', many: 'обедов'}) + (k === 40 ? ' и больше' : '') + ': ' + int(c) + ' из ' + int(n),
+    stickLabels: {6: '6–7 обедов', 10: 'около 10', 15: 'около 15', 25: 'больше 25'},
+  },
+}[LANG] || {};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const PR8 = [0, 150, 0, 0, 400, 0, 150, 0];   // секторы колеса по кругу
+  const spin = () => PR8[randInt(0, 7)];
+  let price = 100;
+  // точная вероятность «призы дороже n · price» после n вращений (мультиномиальное распределение)
+  function pPlus(n, pr){
+    let s = 0; const l5 = Math.log(5 / 8), l2 = Math.log(2 / 8), l1 = Math.log(1 / 8), ln = lgamma(n + 1);
+    for (let c = 0; c <= n; c++) for (let t = 0; t <= n - c; t++){
+      if (150 * c + 400 * t > pr * n){ const z = n - c - t; s += Math.exp(ln - lgamma(z + 1) - lgamma(c + 1) - lgamma(t + 1) + z * l5 + c * l2 + t * l1); }
+    }
+    return s;
+  }
+  function invite(c, t, x, y){ const tw = c.measureText(t).width; c.fillStyle = COL.fillGray; c.fillRect(x - tw / 2 - 8, y - 14, tw + 16, 22); label(c, t, x, y, COL.ink2, 'center'); }
+  // гистограмма итогов: vals — массив чисел; цвет по знаку
+  function histo(cv, vals, lo, hi, bw, xTitle, mark){
+    const g = canvas(cv, 0.4, 0.7); if (!g) return null; const {c, w, h} = g;
+    const L = 40, R = 12, T0 = 14, B = 40, pw = w - L - R, ph = h - T0 - B;
+    const X = v => L + (v - lo) / (hi - lo) * pw;
+    let b = null;
+    if (vals && vals.length){
+      b = bins(vals, lo, hi, bw); const mx = Math.max(...b) / vals.length;
+      const top = [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1].find(v => v >= mx * 1.1) || 1;
+      axisY(c, L, R, T0, ph, w, 0, top, top <= 0.15 ? 0.05 : 0.1, v => shareT(v, 0));
+      b.forEach((k, i) => { const x0 = X(lo + i * bw), x1 = X(lo + (i + 1) * bw), hh = ph * (k / vals.length) / top;
+        c.fillStyle = lo + i * bw >= 0 ? COL.truth : COL.trap; c.fillRect(x0 + 0.5, T0 + ph - hh, Math.max(1, x1 - x0 - 1), hh); });
+    } else axisY(c, L, R, T0, ph, w, 0, 0.2, 0.1, v => shareT(v, 0));
+    // ось X: деления
+    const span = hi - lo, st = [100, 200, 500, 1000, 2000, 5000].find(s => span / s <= (w < 520 ? 5 : 9)) || 10000, ticks = [];
+    for (let v = Math.ceil(lo / st) * st; v <= hi; v += st) ticks.push(v);
+    axisX(c, X, ticks, T0 + ph + 15, v => (v < 0 ? MINUS : '') + int(Math.abs(v)));
+    if (lo < 0 && hi > 0){ c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), T0); c.lineTo(X(0), T0 + ph); c.stroke(); }
+    if (mark != null){ c.strokeStyle = COL.ink2; c.setLineDash([4, 4]); c.beginPath(); c.moveTo(X(mark), T0); c.lineTo(X(mark), T0 + ph); c.stroke(); c.setLineDash([]); }
+    label(c, xTitle, L + pw / 2, h - 3, COL.ink2, 'center');
+    return {c, w, h, X, b, L, pw, T0};
+  }
+
+  // ---------- карточка 4: колесо ----------
+  (function(){
+    const cv = $('ch-wheel'), V = $('wh-v'); let n = 0, total = 0, path = [], last = null, ang = 0, anim = 0;
+    const secCol = v => v === 400 ? COL.test : v === 150 ? COL.ctrl : COL.fillGray;
+    function draw(){
+      const g = canvas(cv, 0.42, 1.15); if (!g) return; const {c, w, h} = g;
+      const mob = w < 520, ws = mob ? Math.min(w, h * 0.45) : h, r = ws / 2 - 14, cx = mob ? w / 2 : ws / 2, cy = mob ? ws / 2 : h / 2;
+      // колесо
+      for (let i = 0; i < 8; i++){
+        const a0 = ang + i * Math.PI / 4 - Math.PI / 2, a1 = a0 + Math.PI / 4;
+        c.fillStyle = secCol(PR8[i]); c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, r, a0, a1); c.closePath(); c.fill();
+        c.strokeStyle = '#fff'; c.lineWidth = 2; c.stroke();
+        const am = (a0 + a1) / 2; label(c, PR8[i] ? String(PR8[i]) : '0', cx + Math.cos(am) * r * 0.66, cy + Math.sin(am) * r * 0.66 + 4, PR8[i] ? '#fff' : COL.ink2, 'center');
+      }
+      c.fillStyle = COL.ink; c.beginPath(); c.moveTo(cx - 8, cy - r - 12); c.lineTo(cx + 8, cy - r - 12); c.lineTo(cx, cy - r + 4); c.closePath(); c.fill();
+      c.fillStyle = '#fff'; c.beginPath(); c.arc(cx, cy, r * 0.12, 0, 2 * Math.PI); c.fill();
+      // бегущее среднее
+      // график справа (на телефоне — снизу): сдвигаем систему координат, чтобы подписи оси Y не легли на колесо
+      const ox = mob ? 0 : ws + 8; c.save(); c.translate(ox, 0);
+      const wl = w - ox, L = 44, R = 12, T0 = mob ? ws + 22 : 22, B = 34, pw = wl - L - R, ph = h - T0 - B, top = 250;
+      axisY(c, L, R, T0, ph, wl, 0, top, 50, v => int(v));
+      label(c, '₽', 2, T0 - 10, COL.ink2);
+      const N = Math.max(10, n), X = i => L + (i / N) * pw, Y = v => T0 + ph * (1 - Math.min(v, top) / top);
+      c.setLineDash([5, 4]); c.lineWidth = 1.5;
+      c.strokeStyle = COL.truth; c.beginPath(); c.moveTo(L, Y(87.5)); c.lineTo(L + pw, Y(87.5)); c.stroke();
+      c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(L, Y(price)); c.lineTo(L + pw, Y(price)); c.stroke(); c.setLineDash([]);
+      label(c, TXT.whTheory, L + pw - 4, Y(87.5) + 14, COL.truth, 'right');
+      label(c, TXT.whPrice(price), L + pw - 4, Y(price) - 5, COL.ink2, 'right');
+      if (path.length){
+        c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath();
+        const stepI = Math.max(1, Math.floor(path.length / 600));
+        for (let i = 0; i < path.length; i += stepI) { const x = X(i + 1), y = Y(path[i]); i ? c.lineTo(x, y) : c.moveTo(x, y); }
+        c.lineTo(X(path.length), Y(path[path.length - 1])); c.stroke();
+      } else invite(c, TXT.whInvite, L + pw / 2, T0 + 30);
+      axisX(c, X, [0, Math.round(N / 2), N], T0 + ph + 15, v => int(v));
+      label(c, TXT.whX, L + pw / 2, h - 3, COL.ink2, 'center');
+      c.restore();
+    }
+    function add(v){ n++; total += v; path.push(total / n); last = v; }
+    function verdict(){ V.hidden = false; V.className = 'verdict good'; V.innerHTML = TXT.whV(n, total / n, last, price); }
+    function setAngleFor(i){ return -(i + 0.5) * Math.PI / 4; }
+    $('wh-1').addEventListener('click', () => {
+      if (anim) return;
+      const i = randInt(0, 7), target = setAngleFor(i) - 2 * Math.PI * 3, start = ang % (2 * Math.PI), t0 = performance.now(), dur = 900;
+      if (REDUCED){ ang = setAngleFor(i); add(PR8[i]); verdict(); draw(); return; }
+      const stepA = t => { const f = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - f, 3); ang = start + (target - start) * e; draw();
+        if (f < 1) anim = requestAnimationFrame(stepA); else { anim = 0; add(PR8[i]); verdict(); draw(); } };
+      anim = requestAnimationFrame(stepA);
+    });
+    const many = m => { let i = 0; for (let k = 0; k < m; k++){ i = randInt(0, 7); add(PR8[i]); } ang = setAngleFor(i); verdict(); draw(); };
+    $('wh-10').addEventListener('click', () => many(10));
+    $('wh-100').addEventListener('click', () => many(100));
+    $('wh-reset').addEventListener('click', () => { n = 0; total = 0; path = []; last = null; V.hidden = true; draw(); });
+    $('wh-price').addEventListener('input', e => { price = +e.target.value; $('wh-price-v').textContent = int(price) + NBSP + '₽'; if (n) verdict(); draw(); });
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 5: облако 1000 гостей ----------
+  (function(){
+    const cv = $('ch-cloud'), V = $('cl-v'); let vals = null, pr = 100;
+    function range(){ const m = (87.5 - pr) * 100, s = 1340.5; const lo = Math.floor((m - 4 * s) / 500) * 500, hi = Math.ceil((m + 4 * s) / 500) * 500; return [lo, hi]; }
+    function draw(){
+      const [lo, hi] = range(), r = histo(cv, vals, lo, hi, 250, TXT.clX, null); if (!r) return;
+      if (!vals) invite(r.c, TXT.clInvite, r.L + r.pw / 2, r.T0 + 40);
+      else hoverBins(cv, r.X, lo, 250, r.b, {fmt: v => (v < 0 ? MINUS : '') + int(Math.abs(v)), words: {one: 'гость', few: 'гостя', many: 'гостей'}, total: vals.length});
+    }
+    $('cl-run').addEventListener('click', () => {
+      pr = price; vals = [];
+      for (let g = 0; g < 1000; g++){ let s = 0; for (let k = 0; k < 100; k++) s += spin(); vals.push(s - 100 * pr); }
+      const k = vals.filter(v => v > 0).length;
+      V.hidden = false; V.className = 'verdict good'; V.innerHTML = TXT.clV(k, Book.guess('plus'), pPlus(100, pr), pr, mean(vals)); draw();
+    });
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 7: два колеса ----------
+  (function(){
+    const cv = $('ch-two');
+    const wheels = [{name: TXT.twoBob, v: [0, 150, 400], p: [5 / 8, 2 / 8, 1 / 8], col: COL.ctrl}, {name: TXT.twoKot, v: [75, 100], p: [0.5, 0.5], col: COL.test}];
+    function draw(){
+      const g = canvas(cv, 0.32, 0.6); if (!g) return; const {c, w, h} = g;
+      const L = 14, R = 14, pw = w - L - R, X = v => L + (v + 100) / 600 * pw, rowH = (h - 40) / 2;
+      wheels.forEach((wh, k) => {
+        const yc = 14 + rowH * k + rowH * 0.58, m = wh.v.reduce((s, v, i) => s + v * wh.p[i], 0);
+        const sdv = Math.sqrt(wh.v.reduce((s, v, i) => s + (v - m) ** 2 * wh.p[i], 0));
+        c.fillStyle = k ? COL.fillT : COL.fillC; c.fillRect(X(m - sdv), yc - 18, X(m + sdv) - X(m - sdv), 36);
+        c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, yc); c.lineTo(w - R, yc); c.stroke();
+        wh.v.forEach((v, i) => { c.fillStyle = wh.col; c.beginPath(); c.arc(X(v), yc, 4 + 14 * Math.sqrt(wh.p[i]), 0, 2 * Math.PI); c.fill(); });
+        c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), yc - 22); c.lineTo(X(m), yc + 22); c.stroke();
+        label(c, wh.name + ' · SD ≈ ' + (sdv < 50 ? numT(sdv, 1) : int(sdv)) + NBSP + '₽', L, yc - 26, COL.ink);
+      });
+      axisX(c, X, [0, 100, 200, 300, 400], h - 18, v => int(v));
+      label(c, TXT.twoX, w - R, h - 3, COL.ink2, 'right');
+    }
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 8: сумма n вращений ----------
+  (function(){
+    const cv = $('ch-sum'), V = $('sum-v'); let n = 100, vals = [];
+    function sim(){ vals = []; for (let g = 0; g < 1000; g++){ let s = 0; for (let k = 0; k < n; k++) s += spin(); vals.push(s - 100 * n); } }
+    function draw(){
+      const m = -12.5 * n, s = 134.0476 * Math.sqrt(n), lo = Math.floor(Math.min(m - 4 * s, -400) / 100) * 100, hi = Math.ceil(Math.max(m + 4 * s, 400) / 100) * 100;
+      const bw = Math.max(50, Math.round((hi - lo) / 40 / 50) * 50);
+      const r = histo(cv, vals, lo, hi, bw, TXT.sumX(n), m); if (!r) return;
+      hoverBins(cv, r.X, lo, bw, r.b, {fmt: v => (v < 0 ? MINUS : '') + int(Math.abs(v)), words: {one: 'гость', few: 'гостя', many: 'гостей'}, total: vals.length});
+      V.className = 'verdict good'; V.innerHTML = TXT.sumV(n, pPlus(n, 100), m, s);
+    }
+    $('sum-n').addEventListener('input', e => { n = +e.target.value; $('sum-n-v').textContent = n; sim(); draw(); });
+    sim();
+    window.addEventListener('resize', draw);
+  })();
+
+  // ---------- карточка 9: альбом ----------
+  (function(){
+    const cv = $('ch-album'), V = $('al-v'), cells = [...$('album').children]; let got = new Set(), lunches = 0, many = null;
+    function paint(newK){
+      cells.forEach((s, i) => { s.classList.toggle('got', got.has(i)); s.classList.toggle('new', i === newK); });
+      $('album-n').textContent = TXT.alN(lunches, got.size);
+    }
+    function lunch(){ if (got.size === 6){ got = new Set(); lunches = 0; } const k = randInt(0, 5), isNew = !got.has(k); got.add(k); lunches++; paint(isNew ? k : -1); }
+    function draw(){
+      const g = canvas(cv, 0.34, 0.6); if (!g) return; const {c, w, h} = g;
+      const L = 40, R = 10, T0 = 14, B = 34, pw = w - L - R, ph = h - T0 - B, lo = 6, hi = 41, X = v => L + (v - lo) / (hi - lo) * pw;
+      if (!many){ axisY(c, L, R, T0, ph, w, 0, 0.1, 0.05, v => shareT(v, 0)); invite(c, '1000 альбомов — кнопка выше', L + pw / 2, T0 + 30); }
+      else {
+        const b = new Array(hi - lo).fill(0); many.forEach(v => b[Math.min(v, hi - 1) - lo]++);
+        const top = 0.15; axisY(c, L, R, T0, ph, w, 0, top, 0.05, v => shareT(v, 0));
+        b.forEach((k, i) => { const hh = ph * (k / many.length) / top; c.fillStyle = COL.ctrl; c.fillRect(X(lo + i) + 1, T0 + ph - hh, Math.max(1, X(lo + i + 1) - X(lo + i) - 2), hh); });
+        c.strokeStyle = COL.test; c.lineWidth = 2; c.beginPath(); c.moveTo(X(14.7 + 0.5), T0); c.lineTo(X(14.7 + 0.5), T0 + ph); c.stroke();
+        label(c, 'в среднем 14,7', X(15.2) + 4, T0 + 12, COL.testInk);
+        hoverBars(cv, b.map((k, i) => ({x0: X(lo + i), x1: X(lo + i + 1), html: TXT.alTip(lo + i, k, many.length)})));
+      }
+      axisX(c, v => X(v + 0.5), [6, 10, 15, 20, 25, 30, 35, 40].filter(v => w >= 520 || v % 10 === 0 || v === 15), T0 + ph + 15, v => (v === 40 ? '40+' : int(v)));
+      // подписи — по центру столбика
+      label(c, TXT.alX, L + pw / 2, h - 3, COL.ink2, 'center');
+    }
+    $('al-1').addEventListener('click', lunch);
+    $('al-full').addEventListener('click', () => { if (got.size === 6) lunch(); while (got.size < 6) lunch(); });
+    $('al-1000').addEventListener('click', () => {
+      many = [];
+      for (let a = 0; a < 1000; a++){ const s = new Set(); let k = 0; while (s.size < 6){ s.add(randInt(0, 5)); k++; } many.push(k); }
+      const srt = [...many].sort((x, y) => x - y), ch = Book.choice('stick');
+      V.hidden = false; V.className = 'verdict good'; V.innerHTML = TXT.alV(mean(many), srt[499], many.filter(v => v >= 20).length / 1000, ch ? TXT.stickLabels[ch] : null); draw();
+    });
+    paint(-1);
+    window.addEventListener('resize', draw);
+  })();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

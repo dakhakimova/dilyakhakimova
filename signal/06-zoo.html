@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Зоопарк распределений · Сигнал или шум</title>
+<meta name="description" content="Глава 6 бесплатного интерактивного курса «Сигнал или шум»: Бернулли, биномиальное, Пуассон, геометрическое, экспонента и логнормальное — какой процесс какое распределение даёт. Среднее, медиана и «киты», задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.xref > span{flex:1}
+.zoo-map{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:6px 0 10px}
+.zoo-map button{min-height:56px; padding:8px 10px; border-radius:12px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); font:500 15px/1.25 var(--body); cursor:pointer; text-align:left}
+.zoo-map button small{display:block; font-weight:400; font-size:13px; color:var(--muted); margin-top:2px}
+.zoo-map button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+.zoo-map button[aria-pressed="true"] small{color:rgba(255,255,255,.8)}
+.zoo-kin{font-size:15px; color:var(--muted); margin:4px 0 8px}
+.zoo-f{font:400 15px/1.5 "JetBrains Mono", monospace; background:#F3F1EC; border-radius:8px; padding:8px 12px; margin:10px 0 0; overflow-x:auto}
+.xtab.zoo-t td, .xtab.zoo-t th{text-align:left}
+.xtab-wrap{overflow-x:auto}
+:root{--viol:#8F6FC9; --ochre:#C9A43A}
+@media (max-width:620px){ .zoo-map{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body data-course="signal" data-chapter="ch06" data-next="07-clt.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 6 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 0: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним главу 4 и «Вероятность на пальцах», шаг 7</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В кафе 400 гостей в день, конверсия 10 %. Каков SD дневной доли заказавших?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="3 п. п. — это SD при 100 гостях. Разброс доли зависит от числа гостей: n стоит в знаменателе.">3 п. п., как и при 100 гостях</button><button type="button" data-v="b">1,5 п. п.: вчетверо больше гостей — вдвое уже</button><button type="button" data-v="c" data-why="Так было бы, если бы SD падал как 1/n. Он падает как 1/√n.">0,75 п. п.: вчетверо больше гостей — вчетверо уже</button></div>
+    <p class="why">SD доли = √(p(1 − p)/n) = √(0,1 · 0,9 / 400) = 0,015, то есть 1,5 п. п. Это было в главе 4.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Каждый гость берёт десерт с шансом 20 %. На каком по счёту госте чаще всего случается первый десерт за день?</p>
+    <div class="choice"><button type="button" data-v="a">На первом госте</button><button type="button" data-v="b" data-why="5 — это среднее число гостей до первого десерта (1/p). Но самый частый случай — другой: каждый следующий номер требует ещё одной неудачи.">На пятом: 1 / 0,2 = 5</button><button type="button" data-v="c" data-why="Шанс первого успеха убывает с номером: (1 − p)ᵏ⁻¹ · p. Каждый следующий гость — ещё одна неудача до него.">Все номера одинаково часто</button></div>
+    <p class="why">P(первый десерт на k-м госте) = 0,8ᵏ⁻¹ · 0,2: на первом — 20 %, на втором — 16 %, на третьем — 12,8 %… Самый частый — первый, хотя в среднем ждать 5 гостей. Это геометрическое распределение из шага 7 «Вероятности на пальцах».</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 1: обложка -->
+<section class="card" data-title="Кто врёт?" aria-label="Кто врёт?">
+  <p class="kicker">Часть I · глава 6</p>
+  <h1>Зоопарк распределений</h1>
+  <p class="core">После главы ты сможешь <b>подобрать распределение под процесс</b> и объяснить, почему средний чек не похож на типичный.</p>
+  <figure class="art"><img src="img/ch06-00-zoo.jpg" alt="Котейка-смотритель в зоопарке, где в вольерах стоят горки разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка-смотритель в зоопарке распределений</figcaption></figure>
+  <p class="lead">Боб докладывает: «Средний чек — 640 ₽». Алиса: «А типичный гость тратит 350». Кто из них врёт?</p>
+  <p>В прошлой главе был колокол. Но заказы в час, время до следующего гостя и сумма в чеке устроены иначе, и у каждого процесса своё распределение. Глава снова про второй шаг алгоритма: <b>как распределено</b>.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава продолжает второй">
+    <li>1. Что здесь случайно?</li>
+    <li class="on"><b>2.</b> Как распределено?</li>
+    <li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+</section>
+
+<!-- 2: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Средний чек и типичный гость</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Средний чек 640 ₽. Значит, обычный гость тратит около 640, кто-то чуть больше, кто-то чуть меньше.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Медиана — 350 ₽: половина гостей тратит меньше. Средний чек тянут вверх банкеты и корпоративные заказы.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А сколько гостей тратит больше среднего чека?</p></div></div>
+  </div>
+  <p>Если бы чеки были колоколом, больше среднего тратила бы ровно половина гостей. А здесь?</p>
+  <div class="guess" data-key="above" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Больше среднего чека тратят примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % гостей</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — в зоопарке на следующей карточке проверим на «сколько денег».</p>
+  </div>
+</section>
+
+<!-- 3: главная игрушка -->
+<section class="card" data-title="Зоопарк" aria-label="Зоопарк распределений">
+  <span class="step-tag">Поиграй</span>
+  <h2>Процесс → распределение</h2>
+  <p>Выбери вопрос, который задаёт кафе. Генератор выдаст смену: 500 гостей, компаний, отрезков времени или чеков. Столбики — что вышло, серые точки или линия — теория. Оранжевая черта — среднее, фиолетовая — медиана, жёлтая — мода (самое частое значение).</p>
+  <div class="sheet c-white">
+    <div class="zoo-map" role="group" aria-label="Процесс">
+      <button type="button" data-z="bern" aria-pressed="false">Заказал или нет?<small>Бернулли</small></button>
+      <button type="button" data-z="binom" aria-pressed="false">Сколько из 20?<small>биномиальное</small></button>
+      <button type="button" data-z="pois" aria-pressed="false">Сколько за 10 минут?<small>Пуассон</small></button>
+      <button type="button" data-z="geom" aria-pressed="false">Сколько гостей до?<small>геометрическое</small></button>
+      <button type="button" data-z="expo" aria-pressed="false">Сколько ждать?<small>экспонента</small></button>
+      <button type="button" data-z="logn" aria-pressed="true">Сколько денег?<small>логнормальное</small></button>
+    </div>
+    <p class="zoo-kin" id="z-kin"></p>
+    <label class="field" for="z-par"><span id="z-par-l">σ логарифма:</span> <b id="z-par-t" class="num">—</b></label>
+    <input type="range" id="z-par" min="0" max="1" step="0.01" value="0.5" style="width:100%" aria-describedby="z-par-t">
+    <div class="controls">
+      <button class="btn" type="button" id="z-run">Ещё смена (+500)</button>
+      <button class="btn ghost" type="button" id="z-reset">Сначала</button>
+    </div>
+    <canvas id="z-cv" role="img" aria-label="Гистограмма выбранного распределения, теория точками, среднее, медиана и мода"></canvas>
+    <div class="legend-row"><span><i style="background:var(--test)"></i>среднее</span><span><i style="background:var(--viol)"></i>медиана</span><span><i style="background:var(--ochre)"></i>мода</span><span><i style="background:var(--theory)"></i>теория</span></div>
+    <p class="zoo-f" id="z-f"></p>
+    <div class="verdict" id="z-v" hidden></div>
+  </div>
+  <p class="xref"><span>Биномиальное и геометрическое с нуля, без процессов кафе, — в «Вероятности на пальцах», <a href="/probability/07-distribution.html">шаг 7 «Случайная величина и распределение»</a>.</span></p>
+</section>
+
+<!-- 4: правило в трёх слоях -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>У каждого вопроса — своё распределение</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>«Сколько», «сколько до», «сколько ждать», «сколько денег» — разные вопросы. Сначала опиши процесс, который рождает число, потом выбирай распределение.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Если в среднем приходит 5 заказов за 10 минут, то из 1000 таких отрезков примерно в 7 не будет ни одного заказа, а ровно 5 заказов — примерно в 175.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">Poisson(λ): P(k) = e<sup>−λ</sup> · λ<sup>k</sup> / k!, &nbsp; E = Var = λ</p>
+      <p class="read">Словами: λ — сколько событий в среднем за отрезок; разброс у Пуассона равен среднему.</p>
+    </div>
+  </div>
+  <div class="xtab-wrap">
+  <table class="xtab zoo-t">
+    <tr><th>Вопрос кафе</th><th>Распределение</th><th>Среднее</th><th>Дисперсия</th></tr>
+    <tr><td>Заказал или нет?</td><td>Bernoulli(p)</td><td>p</td><td>p(1 − p)</td></tr>
+    <tr><td>Сколько из n?</td><td>Binomial(n, p)</td><td>np</td><td>np(1 − p)</td></tr>
+    <tr><td>Сколько за отрезок?</td><td>Poisson(λ)</td><td>λ</td><td>λ</td></tr>
+    <tr><td>Сколько гостей до первого?</td><td>Geometric(p): P(k) = (1 − p)<sup>k−1</sup>p</td><td>1 / p</td><td>(1 − p) / p²</td></tr>
+    <tr><td>Сколько ждать?</td><td>Exponential(λ): плотность λe<sup>−λt</sup></td><td>1 / λ</td><td>1 / λ²</td></tr>
+    <tr><td>Сколько денег?</td><td>Lognormal: ln X ~ N(μ, σ²)</td><td>e<sup>μ + σ²/2</sup></td><td>медиана e<sup>μ</sup></td></tr>
+  </table>
+  </div>
+  <p>Родство: биномиальное — это n монеток Бернулли; при большом n и маленьком p оно становится Пуассоном; время между событиями пуассоновского потока — экспонента, её дискретный двойник — геометрическое. Логнормальное получается, когда величина растёт процентами: чек, выручка, время сессии.</p>
+</section>
+
+<!-- 5: дождь на листе -->
+<section class="card" data-title="Дождь на листе" aria-label="Дождь на листе в клеточку">
+  <span class="step-tag">Малый график</span>
+  <h2>Откуда берётся Пуассон</h2>
+  <p>В районе живут тысячи людей, и каждый в этот час закажет с крошечным шансом. Это как дождь на листе в клеточку: режем 10 минут на n клеток, в каждую заказ попадает с шансом 5/n. Число заказов — биномиальное. Дроби клетки мельче.</p>
+  <div class="sheet c-white">
+    <label class="field" for="p-n">Клеток: <b id="p-n-t" class="num">10</b></label>
+    <input type="range" id="p-n" min="0" max="5" step="1" value="1" style="width:100%" aria-describedby="p-n-t">
+    <canvas id="p-cv" role="img" aria-label="Столбики биномиального распределения с np = 5 и серые точки Пуассона с λ = 5: чем больше клеток, тем ближе"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>Binomial(n, 5/n)</span><span><i style="background:var(--theory)"></i>Poisson(5)</span></div>
+    <p class="note" id="p-note"></p>
+  </div>
+  <p>Пуассону всё равно, сколько клеток: важна только сила дождя λ = np. Поэтому он подходит для заказов в час, жалоб за день и падений сервера за месяц — если события приходят по одному и независимо.</p>
+  <p class="src">Идея из лекций: Джо Блицштейн, Stat 110 (дождь на листе в клеточку)</p>
+</section>
+
+<!-- 6: отсутствие памяти -->
+<section class="card" data-title="Без памяти" aria-label="Отсутствие памяти">
+  <span class="step-tag">Малый график</span>
+  <h2>Курьер опаздывает. Сколько ещё ждать?</h2>
+  <p>К кафе приезжают курьеры, в среднем раз в 10 минут. Первый сервис ходит строго по графику: ровно каждые 10 минут. У второго интервалы случайные — экспонента со средним 10. С прошлого курьера прошло несколько минут. Сколько ещё ждать?</p>
+  <div class="sheet c-white">
+    <label class="field" for="m-s">Уже прошло: <b id="m-s-t" class="num">6 мин</b></label>
+    <input type="range" id="m-s" min="0" max="9" step="1" value="6" style="width:100%" aria-describedby="m-s-t">
+    <canvas id="m-cv" role="img" aria-label="Сколько осталось ждать: у строгого графика — одна черта, у экспоненты — та же убывающая горка, что и с нуля"></canvas>
+    <div class="legend-row"><span><i style="background:var(--test)"></i>строгий график</span><span><i style="background:var(--ctrl)"></i>случайные интервалы (симуляция)</span></div>
+    <div class="big2">
+      <div class="test"><b id="m-a">—</b><span>осталось ждать по графику</span></div>
+      <div class="ctrl"><b id="m-b">—</b><span>в среднем осталось у экспоненты</span></div>
+    </div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Свойство «сколько бы ни прождал, ждать столько же» называют <b class="term">отсутствием памяти</b>; на собеседовании — <b>memorylessness</b>: P(T &gt; s + t | T &gt; s) = P(T &gt; t).</p>
+    <p class="aside">Из непрерывных распределений так умеет только экспонента, из дискретных — геометрическое.</p>
+  </aside>
+  <p>А если прийти на остановку в случайный момент — ждать в среднем 5 минут? Только при строгом графике. Почему при случайных интервалах ждут дольше — в главе 8.</p>
+</section>
+
+<!-- 7: киты -->
+<section class="card" data-title="Киты" aria-label="Киты в чеках">
+  <span class="step-tag">Малый график</span>
+  <h2>Один банкет и сто завтраков</h2>
+  <figure class="art"><img src="img/ch06-01-whale.jpg" alt="Огромный банкетный заказ на одной чаше весов перевешивает гору маленьких чеков на другой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: один банкет перевешивает гору завтраков</figcaption></figure>
+  <p>Утром кафе продало 100 завтраков — точки на оси. Добавь банкет и смотри, куда поедут среднее и медиана.</p>
+  <div class="sheet c-white">
+    <label class="field" for="b-x">Банкет: <b id="b-x-t" class="num">нет</b></label>
+    <input type="range" id="b-x" min="0" max="60000" step="2000" value="0" style="width:100%" aria-describedby="b-x-t">
+    <canvas id="b-cv" role="img" aria-label="Сто чеков завтраков точками; среднее уезжает вправо вслед за банкетом, медиана стоит на месте"></canvas>
+    <div class="big2">
+      <div class="test"><b id="b-m">—</b><span>средний чек</span></div>
+      <div><b id="b-md">—</b><span>медиана</span></div>
+    </div>
+    <div class="legend-row"><span><i style="background:var(--test)"></i>среднее</span><span><i style="background:var(--viol)"></i>медиана</span></div>
+  </div>
+  <p>Без банкета средний чек утра — 394 ₽, медиана — 360 ₽. Банкет на 40 000 ₽ поднимает среднее почти вдвое, до 786 ₽, а медиана сдвигается меньше чем на два рубля. Средний чек 786 ₽ не похож ни на завтрак, ни на банкет, но выручку утра даёт именно он: 101 × 786 ₽.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Когда редкие огромные значения заметно сдвигают среднее, говорят о <b class="term">тяжёлом хвосте</b>; на собеседовании — <b>heavy tail</b>. Самих «китов» так и называют — whales.</p>
+    <p class="aside">У тяжёлого хвоста среднее шумит сильнее и успокаивается медленнее — это будет важно в главе 7.</p>
+  </aside>
+  <p class="src">Идея из книги: Аллен Дауни, «Probably Overthinking It» (рождаемся гауссовыми, вырастаем логнормальными)</p>
+</section>
+
+<!-- 8: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Среднее, медиана и киты</h2>
+  <p>Напиши две функции. <code>summary(xs)</code> возвращает пару (среднее, медиана). <code>share_above_mean(sigma)</code> генерирует 200 000 логнормальных чеков с медианой 350 ₽ и σ логарифма <code>sigma</code> и возвращает долю чеков дороже их среднего.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-whales">
+<textarea spellcheck="false" aria-label="Задание: функции summary и share_above_mean">import numpy as np
+
+def summary(xs):
+    # вернуть (среднее, медиана)
+    return ...
+
+def share_above_mean(sigma):
+    checks = 350 * np.exp(sigma * np.random.normal(size=200_000))
+    # доля чеков дороже их среднего
+    return ...
+
+print(summary([18, 19, 21, 22, 25, 27, 140]))   # время доставки, мин
+print(share_above_mean(1.1))                     # сравни со своей догадкой</textarea>
+  </div>
+<script type="text/x-python" id="check-whales">
+def _check():
+    from math import erf, sqrt
+    Phi = lambda z: 0.5 * (1 + erf(z / sqrt(2)))
+    try:
+        f, g = summary, share_above_mean
+    except NameError:
+        print("FAIL нужны обе функции, summary и share_above_mean — запусти ячейку с ними"); return
+    r = f([18, 19, 21, 22, 25, 27, 140])
+    if r is ... or r is None:
+        print("FAIL summary пока ничего не считает: замени ... на код"); return
+    try:
+        m, md = (float(v) for v in r)
+    except Exception:
+        print("FAIL summary должна вернуть пару чисел (среднее, медиана)"); return
+    if abs(m - 272 / 7) > 1e-6 or abs(md - 22) > 1e-6:
+        print(f"FAIL summary вернула ({m:.2f}, {md:.2f}), а ждали (38.86, 22)"); return
+    r2 = f([5, 1, 3, 100])
+    if abs(float(r2[1]) - 4) > 1e-6:
+        print("FAIL медиана чётного числа значений — среднее двух средних: для [5, 1, 3, 100] это 4"); return
+    for s in (1.1, 0.5):
+        v = g(s)
+        if v is ... or v is None:
+            print("FAIL share_above_mean пока ничего не считает: замени ... на код"); return
+        want = 1 - Phi(s / 2)
+        if abs(float(v) - want) > 0.01:
+            print(f"FAIL при sigma = {s} доля {float(v):.3f}, а теория {want:.3f}"); return
+    print(f"OK среднее доставки 38,9 мин, медиана 22. Дороже среднего чека при σ = 1,1 — около " + f"{100 * (1 - Phi(0.55)):.1f}".replace(".", ",") + " % гостей")
+_check()
+</script>
+</section>
+
+<!-- 9: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Котейка и пятничный Пуассон</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По пятницам вечером в среднем 5 гостей за 10 минут. Пуассон обещает SD = √5 ≈ 2,2. А у меня SD почти 4! Пуассон сломался.</p></div></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что, скорее всего, не так?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="У Пуассона дисперсия равна λ, значит, SD = √λ. Котейка посчитал SD правильно.">SD Пуассона равен λ = 5, а не √5</button><button type="button" data-v="b" data-why="λ = 5 — вполне нормальный Пуассон. Беда не в размере λ, а в том, как приходят гости.">Пуассон работает только при больших λ</button><button type="button" data-v="c">По пятницам гости приходят компаниями</button></div>
+    <p class="why">Пуассон описывает события, которые приходят по одному и независимо. Если гости приходят компаниями по 1–4 человека, а компании — по Пуассону, то при тех же 5 гостях в среднем SD будет около 3,9. Разброс больше среднего называют избыточной дисперсией (overdispersion): это знак, что события слипаются.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 10: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи про распределения</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="raisins">
+    <summary>Пекарь кладёт в тесто столько изюма, что в среднем на булочку приходится 5 изюмин. Каков шанс, что в булочке ровно 5? Ни одной?</summary>
+    <p><b>Переформулирую:</b> изюмин много, каждая попадает в эту булочку с маленьким шансом — это Пуассон с λ = 5.</p>
+    <p><b>В штуках:</b> из 1000 булочек ровно с 5 изюминами — около 175, без изюма — около 7.</p>
+    <p><b>Формула:</b> <span class="num">P(5) = e<sup>−5</sup> · 5⁵ / 5! ≈ 0,175</span>, <span class="num">P(0) = e<sup>−5</sup> ≈ 0,0067</span>.</p>
+    <p><b>Симуляция:</b> <code>x = np.random.poisson(5, 10**6); np.mean(x == 5), np.mean(x == 0)</code>.</p>
+    <p><b>Вывод:</b> ровно среднее число изюмин бывает лишь в каждой шестой булочке, а пустая — примерно одна из 150.</p>
+  </details>
+  <details class="ivw" data-key="delivery">
+    <summary>Последние семь доставок шли 18, 19, 21, 22, 25, 27 и 140 минут. Что писать гостю в приложении: «в среднем 39 минут»?</summary>
+    <p><b>Переформулирую:</b> распределение времени скошено вправо: одна доставка застряла. Что из среднего, медианы и моды описывает типичный заказ?</p>
+    <p><b>В штуках:</b> 6 доставок из 7 уложились в 27 минут. Среднее 272 / 7 ≈ 38,9 минуты, и под ним — 6 доставок из 7. Медиана — 22.</p>
+    <p><b>Формула:</b> у правого хвоста обычно мода &lt; медиана &lt; среднее; среднее чувствительно к одному значению, медиана — нет.</p>
+    <p><b>Симуляция:</b> функция <code>summary</code> с карточки «Код» — и посмотри, как среднее скачет, если 140 заменить на 40.</p>
+    <p><b>Вывод:</b> гостю честнее «обычно 20–25 минут, бывает дольше», а для планирования курьеров нужен ещё и хвост: например, 90-й процентиль.</p>
+  </details>
+  <details class="ivw" data-key="river">
+    <summary>Средняя глубина реки — 1 метр. Можно ли в ней утонуть?</summary>
+    <p><b>Переформулирую:</b> что среднее говорит о максимуме и о хвосте распределения?</p>
+    <p><b>В штуках:</b> река шириной 100 м: 90 м по колено (0,5 м) и 10 м омута по 5,5 м — в среднем ровно 1 м.</p>
+    <p><b>Формула:</b> <span class="num">0,9 · 0,5 + 0,1 · 5,5 = 1</span>. Среднее не ограничивает ни максимум, ни долю опасных мест.</p>
+    <p><b>Симуляция:</b> любой массив глубин с <code>np.mean(d) == 1</code> и <code>np.max(d) &gt; 2</code>.</p>
+    <p><b>Вывод:</b> можно; для риска нужен хвост распределения — максимум или верхний квантиль, а не среднее.</p>
+  </details>
+</section>
+
+<!-- 11: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про зоопарк</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Средний чек — 640 ₽, медиана — 350 ₽. Сколько обычно тратит гость?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Среднее тянут вверх редкие крупные заказы. Больше 640 ₽ тратит меньше трети гостей.">Около 640 ₽: на то оно и среднее</button><button type="button" data-v="b">Около 350 ₽, как медиана</button><button type="button" data-v="c" data-why="Середина между средним и медианой не имеет смысла: это ни типичный гость, ни выручка на гостя.">Около 495 ₽: посередине между ними</button></div>
+    <p class="why">Медиана делит гостей пополам, поэтому «обычный гость» — около 350 ₽. Среднее 640 ₽ нужно для выручки: выручка = число гостей × средний чек. Оба числа верны, они отвечают на разные вопросы.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Курьеры приезжают в случайные моменты, интервалы — экспонента со средним 10 минут. С прошлого курьера прошло 8 минут. Сколько ещё ждать в среднем?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так было бы при строгом графике. Экспонента не помнит, сколько уже прошло.">2 минуты: раз в 10, а 8 уже прошло</button><button type="button" data-v="b" data-why="Половина интервала — ответ для строгого графика и прихода в случайный момент. Здесь интервалы случайные, и экспонента не помнит прошлого.">5 минут: половина среднего интервала</button><button type="button" data-v="c">Ещё 10 минут, как и с нуля</button></div>
+    <p class="why">У экспоненты нет памяти: P(T &gt; 8 + t | T &gt; 8) = P(T &gt; t). Прошедшие 8 минут ничего не приближают — ждать в среднем ещё 10.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Алиса взяла среднее логарифмов чеков и вернула экспонентой: e<sup>среднее ln</sup> = 350 ₽. Что это за число?</p>
+    <div class="choice"><button type="button" data-v="a">Медиана чека, а не средний чек</button><button type="button" data-v="b" data-why="Логарифм сжимает крупные чеки, поэтому после возврата получается меньше среднего: e^(μ) вместо e^(μ + σ²/2).">Средний чек, только посчитан удобнее</button><button type="button" data-v="c" data-why="Логарифм брать можно и часто полезно. Важно понимать, что после возврата получится не среднее.">Ошибка: у чеков логарифм брать нельзя</button></div>
+    <p class="why">Если ln X ~ N(μ, σ²), то среднее логарифмов — μ, а e<sup>μ</sup> — медиана X. Средний чек больше: e<sup>μ + σ²/2</sup>. При σ = 1,1 это 350 · e<sup>0,605</sup> ≈ 641 ₽. Сравнивать группы по логарифмам — значит сравнивать медианы, а не выручку.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Гость делает в неделю в среднем 0,5 заказа (Пуассон). Сколько в среднем заказов у тех, кто заказал хотя бы раз?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="0,5 — среднее по всем гостям, включая тех, у кого ноль. Если убрать нули, среднее вырастет.">0,5: столько же, сколько на гостя</button><button type="button" data-v="b">Около 1,27: нули не в счёт</button><button type="button" data-v="c" data-why="Среди заказавших бывают и те, кто заказал 2–3 раза, поэтому среднее больше 1.">Ровно 1: заказавший заказал раз</button></div>
+    <p class="why">Доля заказавших 1 − e<sup>−0,5</sup> ≈ 0,39. Среднее на заказавшего = 0,5 / 0,39 ≈ 1,27. «На гостя» и «на заказавшего» — разные метрики, и при сравнении групп важно не перепутать знаменатель.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 6</span>
+  <h2 data-proverb="ch06">Сначала процесс, потом распределение</h2>
+  <ul class="cheat">
+    <li>Заказал или нет — Bernoulli(p): E = p, Var = p(1 − p). Сколько из n — Binomial(n, p): np, np(1 − p).</li>
+    <li>Сколько за отрезок — Poisson(λ): P(k) = e<sup>−λ</sup>λ<sup>k</sup>/k!, E = Var = λ. Работает, если события приходят по одному и независимо.</li>
+    <li>Сколько гостей до первого — Geometric(p): E = 1/p, чаще всего — первый. Сколько ждать — Exponential(λ): E = 1/λ, памяти нет.</li>
+    <li>Сколько денег — часто логнормальное: ln X ~ N(μ, σ²), медиана e<sup>μ</sup>, среднее e<sup>μ + σ²/2</sup>.</li>
+    <li>У правого хвоста мода &lt; медиана &lt; среднее. Больше среднего тратит меньше половины гостей.</li>
+    <li>Среднее — для выручки, медиана — для «типичного гостя», хвост — для риска.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Распределение Пуассона</dt><dd>число редких независимых событий за отрезок; Poisson distribution</dd>
+    <dt>Экспоненциальное распределение</dt><dd>время до следующего события пуассоновского потока; exponential distribution</dd>
+    <dt>Логнормальное распределение</dt><dd>логарифм величины нормален; lognormal distribution</dd>
+    <dt>Медиана и мода</dt><dd>середина отсортированных значений и самое частое значение; median, mode</dd>
+    <dt>Отсутствие памяти</dt><dd>P(T &gt; s + t | T &gt; s) = P(T &gt; t); memorylessness</dd>
+    <dt>Тяжёлый хвост</dt><dd>редкие огромные значения, которые сдвигают среднее; heavy tail, «киты» — whales</dd>
+    <dt>Избыточная дисперсия</dt><dd>разброс счёта больше, чем обещает Пуассон; overdispersion</dd>
+  </dl>
+  <figure class="art"><img src="img/ch06-02-next.jpg" alt="Алиса стоит у четырёх досок, на каждой из кривых горок вырастает колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из кривых распределений вырастают колокола средних</figcaption></figure>
+  <a class="next-step" href="07-clt.html"><b>Дальше, глава 7: «ЦПТ в деле»</b>Чеки — не колокол. А средний чек по сотне заказов? Посчитаем, насколько шумит среднее и почему «киты» мешают.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    kin: {
+      bern: 'Один гость: заказал (1) или нет (0). Кирпичик всего зоопарка.',
+      binom: 'Компания из 20 гостей, каждый заказывает десерт с шансом p. Сумма 20 монеток Бернулли.',
+      pois: 'Заказы за 10 минут: гостей в районе много, каждый заказывает редко. Предел биномиального при большом n и маленьком p.',
+      geom: 'Сколько гостей пройдёт до первого десерта, включая его. Дискретный родственник экспоненты.',
+      expo: 'Минуты до следующего заказа в пуассоновском потоке. Не помнит, сколько уже прошло.',
+      logn: 'Чек гостя: медиана 350 ₽, а рост идёт процентами, поэтому хвост длинный. Логарифм чека — колокол.',
+    },
+    par: {bern: 'Шанс заказа p', binom: 'Шанс десерта p', pois: 'Заказов в среднем за 10 минут, λ', geom: 'Шанс десерта p', expo: 'Среднее время между заказами, мин', logn: 'σ логарифма чека'},
+    x: {bern: 'заказал: 0 — нет, 1 — да', binom: 'десертов в компании из 20', pois: 'заказов за 10 минут', geom: 'номер гостя с первым десертом', expo: 'минут до следующего заказа', logn: 'чек, ₽'},
+    f: (z, P) => ({
+      bern: 'E = p = ' + num(P, 2) + ', Var = p(1 − p) = ' + num(P * (1 - P), 3),
+      binom: 'E = np = ' + num(20 * P, 1) + ', Var = np(1 − p) = ' + num(20 * P * (1 - P), 2),
+      pois: 'P(k) = e^(−λ)·λ^k / k!, E = Var = λ = ' + num(P, 1),
+      geom: 'P(k) = (1 − p)^(k−1)·p, E = 1/p = ' + num(1 / P, 1),
+      expo: 'плотность λe^(−λt), λ = 1/' + num(P, 0) + ', E = 1/λ = ' + num(P, 0) + ' мин',
+      logn: 'медиана e^μ = 350 ₽, среднее e^(μ + σ²/2) = ' + int(350 * Math.exp(P * P / 2)) + ' ₽',
+    })[z],
+    v: (n, m, md, s, mT, sT) => 'Смен: ' + int(n / 500) + ', значений: ' + int(n) + '. Среднее — <b>' + num(m, 2) + '</b> (теория ' + num(mT, 2) + '), медиана — <b>' + num(md, 2) + '</b>, SD — ' + num(s, 2) + ' (теория ' + num(sT, 2) + ').',
+    vLog: (n, m, md, above, th, g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'Дороже среднего чека (' + int(m) + NBSP + '₽) — <b>' + share(above, 1) + '</b> гостей; теория для этого σ — ' + share(th, 1) + '. Медиана — ' + int(md) + NBSP + '₽. Из ' + int(n) + ' чеков.',
+    over: k => k ? ' Дороже 2500 ₽ — ' + int(k) + ' ' + plural(k, 'чек', 'чека', 'чеков') + ', они правее графика.' : '',
+    pn: (n, d) => 'Наибольшая разница между столбиком и точкой — ' + num(100 * d, 2) + NBSP + 'п.' + NBSP + 'п.' + (n >= 200 ? ' Уже не отличить.' : ''),
+    pX: 'заказов за 10 минут',
+    mMin: x => numT(x, 1) + ' мин', mX: 'сколько ещё ждать, мин',
+    bNone: 'нет', bRub: x => int(x) + NBSP + '₽', bX: 'чек завтрака, ₽', bArrow: x => 'банкет ' + int(x) + NBSP + '₽ →', bMean: x => 'среднее ' + int(x) + NBSP + '₽ →',
+  },
+}[LANG] || {};
+
+// ---------- карточка 3: зоопарк ----------
+(function(){
+  const cv = document.getElementById('z-cv'), par = document.getElementById('z-par');
+  const Z = {
+    bern: {min: 0.02, max: 0.9, step: 0.01, val: 0.1, fmt: v => shareT(v, 0), disc: true, draw: p => rand() < p ? 1 : 0, pmf: (k, p) => k === 0 ? 1 - p : k === 1 ? p : 0, kmax: () => 1, kmin: () => 0, m: p => p, s: p => Math.sqrt(p * (1 - p))},
+    binom: {min: 0.02, max: 0.9, step: 0.01, val: 0.3, fmt: v => shareT(v, 0), disc: true, draw: p => { let k = 0; for (let i = 0; i < 20; i++) if (rand() < p) k++; return k; }, pmf: (k, p) => binomPmf(20, k, p), kmax: () => 20, kmin: () => 0, m: p => 20 * p, s: p => Math.sqrt(20 * p * (1 - p))},
+    pois: {min: 0.5, max: 20, step: 0.5, val: 5, fmt: v => num(v, 1), disc: true, draw: l => poisson(l), pmf: (k, l) => poissonPmf(l, k), kmax: l => Math.max(10, Math.ceil(l + 4 * Math.sqrt(l))), kmin: () => 0, m: l => l, s: l => Math.sqrt(l)},
+    geom: {min: 0.05, max: 0.9, step: 0.01, val: 0.2, fmt: v => shareT(v, 0), disc: true, draw: p => geom(p), pmf: (k, p) => k >= 1 ? Math.pow(1 - p, k - 1) * p : 0, kmax: p => Math.min(60, Math.max(8, Math.ceil(Math.log(0.01) / Math.log(1 - p)))), kmin: () => 1, m: p => 1 / p, s: p => Math.sqrt(1 - p) / p},
+    expo: {min: 1, max: 20, step: 1, val: 2, fmt: v => int(v) + ' мин', disc: false, draw: m => expo(1 / m), pdf: (x, m) => x < 0 ? 0 : Math.exp(-x / m) / m, xmax: m => 5 * m, bw: m => m / 5, m: m => m, s: m => m},
+    logn: {min: 0.2, max: 1.6, step: 0.05, val: 1.1, fmt: v => num(v, 2), disc: false, draw: s => 350 * Math.exp(s * gauss()), pdf: (x, s) => x <= 0 ? 0 : normPdf(Math.log(x / 350) / s) / (s * x), xmax: () => 2500, bw: () => 100, m: s => 350 * Math.exp(s * s / 2), s: s => 350 * Math.exp(s * s / 2) * Math.sqrt(Math.exp(s * s) - 1)},
+  };
+  let z = 'logn', data = [];
+  const P = () => +par.value;
+  function median(a){ const b = a.slice().sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; }
+  function setZ(k){
+    z = k; const d = Z[k];
+    document.querySelectorAll('.zoo-map button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.z === k)));
+    par.min = d.min; par.max = d.max; par.step = d.step; par.value = d.val;
+    document.getElementById('z-par-l').textContent = TXT.par[k] + ':';
+    document.getElementById('z-kin').textContent = TXT.kin[k];
+    data = []; run();
+  }
+  function run(){ const d = Z[z], p = P(); for (let i = 0; i < 500; i++) data.push(d.draw(p)); paint(); }
+  function paint(){
+    const d = Z[z], p = P();
+    document.getElementById('z-par-t').textContent = d.fmt(p);
+    document.getElementById('z-f').textContent = TXT.f(z, p);
+    const v = document.getElementById('z-v');
+    if (data.length){
+      v.hidden = false; v.className = 'verdict good';
+      const m = mean(data), md = median(data);
+      if (z === 'logn'){
+        const above = data.filter(x => x > m).length / data.length;
+        v.innerHTML = TXT.vLog(data.length, m, md, above, 1 - normCdf(p / 2), Book.guess('above')) + TXT.over(data.filter(x => x >= 2500).length);
+      } else v.innerHTML = TXT.v(data.length, m, md, sd(data), d.m(p), d.s(p));
+    } else v.hidden = true;
+    draw();
+  }
+  function draw(){
+    const g = canvas(cv, 0.45, 0.75); if (!g) return; const {c, w, h} = g;
+    const d = Z[z], p = P(), n = data.length;
+    const L = 48, R = 12, T = 14, B = 34, pw = w - L - R, ph = h - T - B;
+    let X, bars = [], theo = [], lo, hi, bwPx;
+    if (d.disc){
+      const k0 = d.kmin(p), k1 = d.kmax(p), K = k1 - k0 + 1;
+      lo = k0 - 0.5; hi = k1 + 0.5; X = v => L + (v - lo) / (hi - lo) * pw; bwPx = pw / K;
+      const cnt = new Array(K).fill(0); data.forEach(x => { if (x >= k0 && x <= k1) cnt[x - k0]++; });
+      for (let k = k0; k <= k1; k++){ bars.push({x: k, v: n ? cnt[k - k0] / n : 0}); theo.push({x: k, v: d.pmf(k, p)}); }
+    } else {
+      lo = 0; hi = d.xmax(p); const bw = d.bw(p); X = v => L + (v - lo) / (hi - lo) * pw; bwPx = X(bw) - X(0);
+      const b = bins(data, lo, hi, bw);
+      b.forEach((k, i) => bars.push({x: lo + (i + 0.5) * bw, v: n ? k / n : 0}));
+      for (let i = 0; i <= 120; i++){ const x = lo + (hi - lo) * i / 120; theo.push({x, v: d.pdf(x, p) * bw}); }
+    }
+    const vmax = Math.max(...bars.map(b => b.v), ...theo.map(t => t.v)) * 1.12 || 0.1;
+    const raw = vmax / 4, e = Math.pow(10, Math.floor(Math.log10(raw))), mm = raw / e, step = (mm < 1.5 ? 1 : mm < 3.5 ? 2 : mm < 7.5 ? 5 : 10) * e, top = Math.ceil(vmax / step) * step;
+    const Y = v => T + ph * (1 - v / top);
+    axisY(c, L, R, T, ph, w, 0, top, step, v => shareT(v, v < 0.1 && v > 0 ? 1 : 0));
+    c.fillStyle = COL.ctrl; bars.forEach(b => c.fillRect(X(b.x) - bwPx / 2 + 1, Y(b.v), Math.max(1, bwPx - 2), Y(0) - Y(b.v)));
+    c.fillStyle = COL.gray; c.strokeStyle = COL.gray; c.lineWidth = 2;
+    if (d.disc) theo.forEach(t => { c.beginPath(); c.arc(X(t.x), Y(t.v), bwPx > 14 ? 4 : 2.5, 0, 2 * Math.PI); c.fill(); });
+    else { c.beginPath(); theo.forEach((t, i) => i ? c.lineTo(X(t.x), Y(Math.min(t.v, top))) : c.moveTo(X(t.x), Y(Math.min(t.v, top)))); c.stroke(); }
+    if (n){
+      const m = mean(data), md = median(data);
+      let bi = 0; bars.forEach((b, i) => { if (b.v > bars[bi].v) bi = i; }); const mode = bars[bi].x;
+      [[mode, COL.ochre], [md, COL.viol], [m, COL.test]].forEach(([v, col]) => { if (v < lo || v > hi) return; c.strokeStyle = col; c.lineWidth = 3; c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), Y(0)); c.stroke(); });
+    }
+    let ticks;
+    if (d.disc){ const k0 = d.kmin(p), k1 = d.kmax(p), K = k1 - k0 + 1, st = K <= 12 ? 1 : K <= 25 ? (w < 520 ? 5 : 2) : 5; ticks = []; for (let k = k0; k <= k1; k++) if (k % st === 0 || (st > 1 && k === k0)) ticks.push(k); }
+    else { const hiV = hi, st = hiV > 1000 ? (w < 520 ? 1000 : 500) : hiV / 5; ticks = []; for (let x = 0; x < hiV - 1e-9; x += st) ticks.push(x); }
+    axisX(c, X, ticks, h - 18, v => int(v));
+    label(c, TXT.x[z], w - R, h - 2, COL.ink2, 'right');
+  }
+  document.querySelectorAll('.zoo-map button').forEach(b => b.addEventListener('click', () => setZ(b.dataset.z)));
+  par.addEventListener('input', () => { data = []; run(); });
+  document.getElementById('z-run').addEventListener('click', run);
+  document.getElementById('z-reset').addEventListener('click', () => { data = []; paint(); });
+  window.addEventListener('resize', draw);
+  setZ('logn');
+})();
+
+// ---------- карточка 5: дождь на листе ----------
+(function(){
+  const cv = document.getElementById('p-cv'), sl = document.getElementById('p-n'), NS = [6, 10, 20, 50, 200, 1000], LAM = 5, K = 15;
+  function draw(){
+    const g = canvas(cv, 0.4, 0.68); if (!g) return; const {c, w, h} = g;
+    const n = NS[+sl.value], L = 44, R = 10, T = 10, B = 32, pw = w - L - R, ph = h - T - B, top = 0.3;
+    const X = k => L + (k + 0.5) / (K + 1) * pw, Y = v => T + ph * (1 - v / top), bw = pw / (K + 1);
+    axisY(c, L, R, T, ph, w, 0, top, 0.1, v => shareT(v, 0));
+    let dmax = 0;
+    for (let k = 0; k <= K; k++){
+      const b = binomPmf(n, k, LAM / n), q = poissonPmf(LAM, k); dmax = Math.max(dmax, Math.abs(b - q));
+      c.fillStyle = COL.ctrl; c.fillRect(X(k) - bw / 2 + 2, Y(b), bw - 4, Y(0) - Y(b));
+      c.fillStyle = COL.gray; c.beginPath(); c.arc(X(k), Y(q), 4, 0, 2 * Math.PI); c.fill();
+    }
+    axisX(c, X, w < 520 ? [0, 5, 10, 15] : Array.from({length: K + 1}, (_, k) => k), h - 16, v => String(v));
+    label(c, TXT.pX, w - R, T + 12, COL.ink2, 'right');
+    document.getElementById('p-note').textContent = TXT.pn(n, dmax);
+  }
+  sl.addEventListener('input', () => { document.getElementById('p-n-t').textContent = int(NS[+sl.value]); draw(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 6: отсутствие памяти ----------
+(function(){
+  const cv = document.getElementById('m-cv'), sl = document.getElementById('m-s'), M = 10, N = 4000;
+  let rest = [];
+  function sim(){ const s = +sl.value; rest = []; while (rest.length < N){ const t = expo(1 / M); if (t > s) rest.push(t - s); } }
+  function draw(){
+    const g = canvas(cv, 0.4, 0.68); if (!g) return; const {c, w, h} = g;
+    const s = +sl.value, lo = 0, hi = 40, bw = 2, L = 44, R = 10, T = 10, B = 32, pw = w - L - R, ph = h - T - B, top = 0.25;
+    const X = v => L + (v - lo) / (hi - lo) * pw, Y = v => T + ph * (1 - Math.min(v, top) / top);
+    axisY(c, L, R, T, ph, w, 0, top, 0.05, v => shareT(v, 0));
+    const b = bins(rest, lo, hi, bw);
+    c.fillStyle = COL.ctrl; b.forEach((k, i) => { const v = k / rest.length; c.fillRect(X(lo + i * bw) + 1, Y(v), X(bw) - X(0) - 2, Y(0) - Y(v)); });
+    c.strokeStyle = COL.gray; c.lineWidth = 2; c.beginPath();
+    for (let x = 0; x <= hi; x += 0.5){ const y = Y((Math.exp(-x / M) - Math.exp(-(x + bw) / M))); x ? c.lineTo(X(x + bw / 2), y) : c.moveTo(X(x + bw / 2), y); } c.stroke();
+    c.strokeStyle = COL.test; c.lineWidth = 5; c.beginPath(); c.moveTo(X(M - s), Y(0)); c.lineTo(X(M - s), T + 4); c.stroke();
+    axisX(c, X, [0, 10, 20, 30, 40], h - 16, v => String(v));
+    label(c, TXT.mX, w - R, T + 12, COL.ink2, 'right');
+  }
+  function paint(){
+    sim(); const s = +sl.value;
+    document.getElementById('m-s-t').textContent = TXT.mMin(s);
+    document.getElementById('m-a').textContent = TXT.mMin(M - s);
+    document.getElementById('m-b').textContent = TXT.mMin(mean(rest));
+    draw();
+  }
+  sl.addEventListener('input', paint);
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 7: киты ----------
+(function(){
+  const cv = document.getElementById('b-cv'), sl = document.getElementById('b-x');
+  Book.seed(7); const bf = Array.from({length: 100}, () => 350 * Math.exp(0.45 * gauss())); Book.seed();
+  const med = a => { const b = a.slice().sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; };
+  function stats(){ const x = +sl.value, all = x ? bf.concat([x]) : bf; return {x, m: mean(all), md: med(all)}; }
+  function draw(){
+    const g = canvas(cv, 0.3, 0.55); if (!g) return; const {c, w, h} = g;
+    const {x, m, md} = stats(), lo = 0, hi = 1500, L = 12, R = 12, T = 30, B = 30, pw = w - L - R, ph = h - T - B;
+    const X = v => L + (v - lo) / (hi - lo) * pw;
+    Book.seed(11); bf.forEach(v => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(Math.min(v, hi)), T + ph * (0.2 + 0.7 * rand()), 4, 0, 2 * Math.PI); c.fill(); }); Book.seed();
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, T + ph); c.lineTo(w - R, T + ph); c.stroke();
+    c.strokeStyle = COL.viol; c.lineWidth = 3; c.beginPath(); c.moveTo(X(md), T); c.lineTo(X(md), T + ph); c.stroke();
+    if (m <= hi){ c.strokeStyle = COL.test; c.lineWidth = 3; c.beginPath(); c.moveTo(X(m), T); c.lineTo(X(m), T + ph); c.stroke(); }
+    else label(c, TXT.bMean(m), w - R, T + ph * 0.55, COL.testInk, 'right');
+    if (x) label(c, TXT.bArrow(x), w - R, T - 10, COL.trapInk, 'right');
+    axisX(c, X, w < 520 ? [0, 500, 1000] : [0, 250, 500, 750, 1000, 1250], h - 10, v => int(v));
+  }
+  function paint(){
+    const {x, m, md} = stats();
+    document.getElementById('b-x-t').textContent = x ? TXT.bRub(x) : TXT.bNone;
+    document.getElementById('b-m').textContent = TXT.bRub(m);
+    document.getElementById('b-md').textContent = TXT.bRub(md);
+    draw();
+  }
+  sl.addEventListener('input', paint);
+  window.addEventListener('resize', draw);
+  paint();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

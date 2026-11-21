@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шум · Сигнал или шум</title>
+<meta name="description" content="Глава 4 бесплатного интерактивного курса «Сигнал или шум»: насколько скачет доля на n наблюдениях, коридор ±2 SD, закон больших чисел, рейтинг маленьких кафе и задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.xref > span{flex:1}
+.sd-log{font-size:14px; color:var(--muted); margin:8px 0 0; line-height:1.5}
+.sd-log b{color:var(--ink); font-weight:600}
+.alarm-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch04" data-next="05-normal.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 4 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: обложка -->
+<section class="card" data-title="Тренд Котейки" aria-label="Тренд Котейки">
+  <p class="kicker">Часть I · глава 4</p>
+  <h1>Шум</h1>
+  <p class="core">После главы ты сможешь <b>прикинуть, насколько скачет доля на n гостях</b>, и не принимать скачки маленьких выборок за тренд.</p>
+  <figure class="art"><img src="img/ch04-00-window.jpg" alt="Котейка сидит у витрины кафе с блокнотом и считает гостей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у витрины считает гостей</figcaption></figure>
+  <p class="lead">Котейка неделю считал гостей у витрины и нашёл тренд: доля заказавших росла четыре дня подряд. Через месяц тренд куда-то делся. Был ли он вообще?</p>
+  <p>Кафе уже работает, данные копятся каждый день. Эта глава учит третьему шагу алгоритма: <b>центр и разброс</b>. Мы посчитаем, насколько доля скачет сама по себе, и впервые заглянем в четвёртый шаг — как шумит среднее.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет третий">
+    <li>1. Что здесь случайно?</li>
+    <li>2. Как распределено?</li>
+    <li class="on"><b>3.</b> Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+</section>
+
+<!-- 2: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Тренд или шум?</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Понедельник — 8 %, вторник — 11 %, среда — 12 %, четверг — 13 %. Мяу, тренд!</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">А я составил рейтинг 40 кафе сети по конверсии за неделю. В топе три маленьких кафе у вокзала. Переносим их меню во все!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сначала посчитаем, насколько доля скачет, когда не меняется ничего. С чем-то же надо сравнивать.</p></div></div>
+  </div>
+  <p>Пусть конверсия в заказ каждый день ровно 10 %, и ничего не меняется. В кафе приходит 100 гостей в день. Доля заказавших будет скакать вокруг 10 %. Как часто она выйдет за коридор от 7 до 13 %?</p>
+  <div class="guess" data-key="out" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Доля выйдет за 7–13 % примерно в <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % дней</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке прогоним сто дней кафе.</p>
+  </div>
+</section>
+
+<!-- 3: главная игрушка -->
+<section class="card" data-title="Сто дней кафе" aria-label="Сто дней кафе">
+  <span class="step-tag">Поиграй</span>
+  <h2>Сто дней, в которые ничего не менялось</h2>
+  <p>Каждая точка — один день: какая доля гостей заказала. Серая полоса — коридор 7–13 %, пунктир — коридор ±2 SD (о нём ниже). Красные точки вышли за серую полосу.</p>
+  <div class="sheet c-white">
+    <label class="field" for="d-n">Гостей в день: <b id="d-n-t" class="num">100</b></label>
+    <input type="range" id="d-n" min="0" max="7" step="1" value="2" style="width:100%" aria-describedby="d-n-t">
+    <label class="field" for="d-p">Настоящая конверсия: <b id="d-p-t" class="num">10 %</b></label>
+    <input type="range" id="d-p" min="2" max="30" step="1" value="10" style="width:100%" aria-describedby="d-p-t">
+    <div class="controls">
+      <button class="btn" type="button" id="d-100">+100 дней</button>
+      <button class="btn ghost" type="button" id="d-1">Ещё день</button>
+      <button class="btn ghost" type="button" id="d-reset">Сначала</button>
+    </div>
+    <canvas id="d-cv" role="img" aria-label="Дневные доли заказавших вокруг настоящей конверсии: при малом числе гостей точки разбросаны широко"></canvas>
+    <div class="legend-row"><span><i style="background:var(--theory)"></i>коридор настоящая ± 3 п. п.</span><span><i style="background:var(--ctrl)"></i>день внутри</span><span><i style="background:var(--trap)"></i>день снаружи</span></div>
+    <div class="stats">
+      <div><b id="d-days">0</b>дней</div>
+      <div><b id="d-out">—</b>дней за серой полосой</div>
+      <div><b id="d-sd">—</b>разброс дневной доли, SD</div>
+    </div>
+    <p class="sd-log" id="d-log">Твои замеры разброса появятся здесь: подвигай число гостей и прогони по сто дней.</p>
+    <div class="verdict" id="d-v" hidden></div>
+  </div>
+  <p class="xref"><span>Без формул и с другими игрушками — в «A/B на пальцах», <a href="/ab-basics/03-noise.html">шаг 3 «Шум есть всегда»</a>.</span></p>
+</section>
+
+<!-- 4: правило в трёх слоях -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>Насколько скачет доля</h2>
+  <p>Доля — это среднее нулей и единиц: гость заказал — 1, не заказал — 0. Поэтому всё, что сказано про долю, верно и для среднего чека, и для времени доставки.</p>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Маленькая выборка — маленькая порция. Она скачет: сегодня 8 %, завтра 13 %, хотя кафе не меняется. Большая порция скачет меньше, но тоже скачет.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>При конверсии 10 % и 100 гостях в день обычно заказывают от 4 до 16 человек (так в 97 днях из 100). При 10 000 гостях — от 940 до 1060, то есть от 9,4 до 10,6 %.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">x̄ = (x₁ + … + xₙ) / n &nbsp;&nbsp; s = √( Σ(xᵢ − x̄)² / (n − 1) )</p>
+      <p class="formula">SD доли = √( p(1 − p) / n ) &nbsp;&nbsp; SD среднего = σ / √n</p>
+      <p class="read">Словами: разброс доли — корень из p(1 − p), делённый на корень из n. Вчетверо больше гостей — вдвое уже коридор.</p>
+    </div>
+  </div>
+  <p>Подставим: при p = 0,1 и n = 100 получаем √(0,09 / 100) = 0,03, то есть 3 процентных пункта (п. п.). Коридор ±2 SD — от 4 до 16 %. При n = 10 000 SD = 0,3 п. п., коридор — от 9,4 до 10,6 %.</p>
+  <p>Выборочное SD <i>s</i> делят на n − 1, а не на n: так оценка не занижает разброс на маленьких выборках. Разброс самого среднего, σ/√n, называют стандартной ошибкой — подробно о ней в главе 7.</p>
+</section>
+
+<!-- 5: Керрих -->
+<section class="card" data-title="Доля и разность" aria-label="Доля и разность">
+  <span class="step-tag">Вторая игрушка</span>
+  <h2>Доля успокаивается, а разность — нет</h2>
+  <p>В 1940-х Джон Керрих сидел в лагере для интернированных и от скуки бросил монетку 10 000 раз. Доля орлов подползла к половине. А вот разность «орлы минус решки» к нулю не пришла. Повтори его опыт.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="k-run">Бросить 10 000 раз</button>
+      <button class="btn ghost" type="button" id="k-clear">Убрать старые серии</button>
+    </div>
+    <canvas id="k-cv" role="img" aria-label="Сверху доля орлов прижимается к половине, снизу разность орлов и решек уходит всё дальше от нуля"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>твоя серия</span><span><i style="background:var(--theory)"></i>коридор ±2 SD и прошлые серии</span></div>
+    <div class="verdict" id="k-v" hidden></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>То, что доля подползает к вероятности, называют <b class="term">законом больших чисел</b>; на собеседовании скажут <b>law of large numbers</b>, LLN.</p>
+    <p class="aside">Закон обещает только долю. Разность в штуках он не обещает: она обычно растёт как √n.</p>
+  </aside>
+</section>
+
+<!-- 6: рейтинг кафе -->
+<section class="card" data-title="Рейтинг кафе" aria-label="Рейтинг кафе">
+  <span class="step-tag">Малый график</span>
+  <h2>Рейтинг Боба: кто в топе?</h2>
+  <figure class="art"><img src="img/ch04-01-ranking.jpg" alt="Боб гордо показывает на верхнюю строчку рейтинга кафе, где стоит самое маленькое кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с рейтингом кафе</figcaption></figure>
+  <p>В сети 40 кафе. <b>У всех одинаковая конверсия — 10 %</b>, отличается только число гостей за неделю: от 50 до 5000. Каждая точка — кафе; по горизонтали — гости, по вертикали — конверсия за неделю. Оранжевые — топ-3 рейтинга, красные — три последних.</p>
+  <div class="sheet c-white">
+    <div class="controls"><button class="btn" type="button" id="r-week">Новая неделя</button></div>
+    <canvas id="r-cv" role="img" aria-label="Конверсия 40 кафе против числа гостей: маленькие кафе разбросаны широко и занимают и верх, и низ рейтинга"></canvas>
+    <div class="legend-row"><span><i style="background:var(--test)"></i>топ-3</span><span><i style="background:var(--trap)"></i>последние 3</span><span><i style="background:var(--theory)"></i>воронка ±2 SD</span></div>
+    <div class="verdict" id="r-v" hidden></div>
+  </div>
+  <p>Такая картинка называется <b>воронкой</b>: разрешённый шумом коридор сужается с ростом n. Маленькие кафе оказываются и на вершине, и на дне, хотя они ничем не лучше и не хуже. Чтобы сравнивать кафе честно, смотри, вышла ли точка за воронку, а не на её место в рейтинге.</p>
+  <p class="src">Идея из книги: Дэниел Канеман, «Thinking, Fast and Slow» (самая высокая и самая низкая заболеваемость — в самых малонаселённых округах)</p>
+</section>
+
+<!-- 7: тренажёр -->
+<section class="card" data-title="Сигнал или шум?" aria-label="Тренажёр «сигнал или шум?»">
+  <span class="step-tag">Тренажёр</span>
+  <h2>Нажми «Сигнал!», когда что-то изменилось</h2>
+  <p>Котейка показывает дневную конверсию кафе со 100 гостями в день. В начале она 10 %. Котейка бросил монетку: в половине рядов с какого-то дня конверсия становится 15 %, в остальных не меняется. Жми «Сигнал!», когда считаешь, что сдвиг уже случился. В конце Котейка покажет правду.</p>
+  <div class="sheet c-white">
+    <div class="controls alarm-row">
+      <button class="btn ghost" type="button" id="s-play">Пуск</button>
+      <button class="btn" type="button" id="s-alarm">Сигнал!</button>
+      <button class="btn ghost" type="button" id="s-step">Следующий день</button>
+      <button class="btn ghost" type="button" id="s-new">Новый ряд</button>
+    </div>
+    <canvas id="s-cv" role="img" aria-label="Ряд дневных долей за 30 дней и отметки твоих тревог"></canvas>
+    <div class="verdict" id="s-v" hidden></div>
+  </div>
+  <p>Сдвиг с 10 до 15 % — меньше двух SD дневной доли (SD при 100 гостях — 3 п. п.). Глазом его трудно отличить от обычного скачка: легко поднять ложную тревогу и поздно заметить настоящий сдвиг. Помогает не один день, а много дней вместе: вчетверо больше дней — вдвое уже коридор.</p>
+  <p class="src">Идея из книги: Сара Бослаф, «Статистика для всех» (контрольные карты Шухарта)</p>
+</section>
+
+<!-- 8: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Коридор для доли</h2>
+  <p>Напиши функцию, которая по конверсии <i>p</i> и числу гостей <i>n</i> возвращает коридор ±2 SD для дневной доли: пару (низ, верх). Проверка подставит несколько <i>p</i> и <i>n</i> и прогонит 100 000 дней симуляцией.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-corridor">
+<textarea spellcheck="false" aria-label="Задание: функция share_corridor">import numpy as np
+
+def share_corridor(p, n):
+    # коридор ±2 SD для доли: вернуть (низ, верх)
+    sd = ...
+    return ...
+
+print(share_corridor(0.1, 100))      # ждём около (0.04, 0.16)
+print(share_corridor(0.1, 10_000))   # ждём около (0.094, 0.106)</textarea>
+  </div>
+<script type="text/x-python" id="check-corridor">
+def _check():
+    import numpy as np
+    try:
+        f = share_corridor
+    except NameError:
+        print("FAIL функции share_corridor нет — запусти ячейку с ней"); return
+    for p, n in [(0.1, 100), (0.5, 10_000), (0.02, 400), (0.3, 25)]:
+        r = f(p, n)
+        if r is ... or r is None:
+            print("FAIL функция пока ничего не считает: замени ... на код"); return
+        try:
+            lo, hi = r
+            lo, hi = float(lo), float(hi)
+        except Exception:
+            print("FAIL функция должна вернуть пару чисел (низ, верх)"); return
+        sd = (p * (1 - p) / n) ** 0.5
+        if abs(lo - (p - 2 * sd)) > 1e-6 or abs(hi - (p + 2 * sd)) > 1e-6:
+            print(f"FAIL для p = {p}, n = {n} получилось ({lo:.4f}, {hi:.4f}), а ждали ({p - 2 * sd:.4f}, {p + 2 * sd:.4f})"); return
+    lo, hi = f(0.1, 100)
+    days = np.random.default_rng(4).binomial(100, 0.1, 100_000) / 100
+    inside = np.mean((days >= lo - 1e-9) & (days <= hi + 1e-9))
+    print(f"OK коридор верный. Из 100 000 дней по 100 гостей в него попали " + f"{100 * inside:.1f}".replace(".", ",") + " %")
+_check()
+</script>
+</section>
+
+<!-- 9: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Котейка и закон больших чисел</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По закону больших чисел наша конверсия навсегда 10 %. Новое меню бесполезно — закон не обманешь. Можно спать.</p></div></div>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Что не так в рассуждении Котейки?</p>
+    <div class="choice"><button type="button" data-v="a">Закон про неизменный процесс, а меню его меняет</button><button type="button" data-v="b" data-why="Закон не включается на каком-то пороге. Он говорит, к чему ползёт доля, пока процесс не меняется, на любом числе гостей.">Закон начинает работать только после миллиона гостей</button><button type="button" data-v="c" data-why="Это ошибка игрока. Монетка и гости не помнят прошлых дней, никакого «возврата долга» нет: шум просто разбавляется новыми днями.">После плохих дней придут хорошие и всё выровняют</button><button type="button" data-v="d" data-why="Закон верен для любых повторяющихся опытов с постоянной вероятностью — и для монетки, и для гостей кафе.">Закон больших чисел верен только для монеток</button></div>
+    <p class="why">Закон больших чисел говорит: пока вероятность заказа не меняется, доля ползёт к ней. Новое меню может изменить саму вероятность — тогда доля поползёт к новому числу. Проверить, изменилась ли она, и есть задача A/B-теста.</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <p class="src">Идея из лекций: Джо Блицштейн, Stat 110 (спортсмен, который возненавидел закон больших чисел)</p>
+</section>
+
+<!-- 10: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Две задачи про малые выборки</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="fifty">
+    <summary>Где вероятнее ровно половина орлов: при 10 бросках или при 100?</summary>
+    <p><b>Переформулирую:</b> сравниваю P(ровно 5 из 10) и P(ровно 50 из 100) у честной монетки.</p>
+    <p><b>В штуках:</b> из 1024 серий по 10 бросков ровно 5 орлов в 252 — это 24,6 %. Из серий по 100 бросков ровно 50 орлов — только в 8 из 100.</p>
+    <p><b>Формула:</b> <span class="num">C(10, 5) / 2¹⁰ ≈ 0,246</span>, <span class="num">C(100, 50) / 2¹⁰⁰ ≈ 0,080</span>. Для больших n это примерно <span class="num">√(2 / (πn))</span>: вчетверо больше бросков — вдвое реже «ровно половина».</p>
+    <p><b>Симуляция:</b> <code>np.mean(np.random.binomial(100, 0.5, 10**6) == 50)</code> даёт около 0,080.</p>
+    <p><b>Вывод:</b> при 10 бросках «ровно половина» втрое вероятнее. Доля на длинной серии ближе к ½, но возможных значений больше, и каждое отдельное реже.</p>
+  </details>
+  <details class="ivw" data-key="seven">
+    <summary>Новый десерт победил старый в 7 дегустациях вслепую из 10. Это значимо?</summary>
+    <p><b>Переформулирую:</b> если десерты одинаково хороши, каждая дегустация — честная монетка. Как часто монетка даёт 7 и больше из 10?</p>
+    <p><b>В штуках:</b> из 1024 серий «7 и больше» бывает в 176 (120 + 45 + 10 + 1), это 17,2 %. Если считать перекос в любую сторону (7+ у любого десерта) — 34,4 %.</p>
+    <p><b>Формула:</b> <span class="num">P(X ≥ 7) = Σ C(10, k) / 2¹⁰ при k = 7…10 ≈ 0,172</span>.</p>
+    <p><b>Симуляция:</b> <code>np.mean(np.random.binomial(10, 0.5, 10**6) >= 7)</code> ≈ 0,172.</p>
+    <p><b>Вывод:</b> так бывает примерно раз в шесть дегустаций даже у одинаковых десертов — это шум маленькой выборки. 70 побед из 100 у одинаковых десертов почти не бывают (около 4 случаев на 100 000), вот это уже был бы сигнал.</p>
+  </details>
+</section>
+
+<!-- 11: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про шум</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Что обычно происходит с разностью «орлы минус решки», если бросать честную монетку всё дольше?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="К половине ползёт доля. Разность в штуках закон не обещает: на 10 000 бросков она обычно порядка 80.">Стремится к нулю вместе с долей орлов</button><button type="button" data-v="b">Обычно растёт, примерно как √n</button><button type="button" data-v="c" data-why="Разность блуждает, и её типичный размах растёт: около 8 на 100 бросков, около 80 на 10 000.">Держится около одного и того же числа</button></div>
+    <p class="why">Разброс числа орлов на n бросках — √n / 2, поэтому разность «орлы − решки» обычно порядка √n. А доля — это разность, делённая на n: она уменьшается как 1/√n. Доля успокаивается, разность — нет.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">В топе рейтинга конверсии — три самых маленьких кафе сети. Что вероятнее всего?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Может быть и так, но сначала посмотри на хвост рейтинга: если там тоже маленькие кафе, сервис ни при чём.">В маленьких кафе сервис душевнее, надо масштабировать</button><button type="button" data-v="b" data-why="Постоянные гости могут быть где угодно. Крайности у маленьких кафе появляются и без них, просто от малого n.">Маленьким кафе везёт с постоянными гостями</button><button type="button" data-v="c">У маленьких сильнее шум: они и в топе, и в хвосте</button></div>
+    <p class="why">При 50 гостях SD недельной конверсии — около 4 п. п., при 5000 — 0,4 п. п. Поэтому маленькие кафе занимают и вершину, и дно рейтинга. Честнее сравнивать с воронкой ±2 SD.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">У маленького кафе 20 гостей в день. Котейка смотрит конверсию за месяц. Шум ещё важен?</p>
+    <div class="choice"><button type="button" data-v="a">Да: у 600 гостей SD около 1,2 п. п.</button><button type="button" data-v="b" data-why="Месяц сглаживает только то, что в нём есть. Шум зависит от числа гостей, а не от числа дней.">Нет: за 30 дней шум усредняется сам</button><button type="button" data-v="c" data-why="Магического числа точек нет: важно, сколько всего гостей. 30 дней по 20 гостей — всего 600 наблюдений.">Нет: после 30 точек данных шума уже нет</button></div>
+    <p class="why">За месяц наберётся 20 · 30 = 600 гостей. SD доли √(0,1 · 0,9 / 600) ≈ 0,012, то есть около 1,2 п. п.: коридор ±2 SD — примерно от 7,6 до 12,4 %. Сдвиг на 1 п. п. за месяц такого кафе не разглядеть.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Гостей в день стало вдвое больше. Во сколько раз сузится коридор ±2 SD дневной доли?</p>
+    <div class="choice"><button type="button" data-v="c" data-why="Вдвое уже коридор будет при вчетверо большем числе гостей: SD падает как корень из n.">Вдвое: гостей ведь вдвое больше</button><button type="button" data-v="b">В √2, то есть в 1,4 раза</button><button type="button" data-v="a" data-why="Коридор сужается, ведь SD доли — √(p(1 − p)/n), и n стоит в знаменателе.">Не изменится: конверсия та же</button><button type="button" data-v="d" data-why="В 4 раза уже коридор станет при 16-кратном росте гостей.">Вчетверо: квадрат от удвоения</button></div>
+    <p class="why">SD доли = √(p(1 − p)/n). Если n вырос вдвое, SD уменьшается в √2 ≈ 1,41 раза. При 100 гостях коридор ±6 п. п., при 200 — около ±4,2 п. п.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 4</span>
+  <h2 data-proverb="ch04">Доля успокаивается, разность — нет</h2>
+  <ul class="cheat">
+    <li>Доля и среднее скачут даже тогда, когда ничего не меняется. Прежде чем искать тренд, посчитай, насколько они скачут сами.</li>
+    <li>Выборочное среднее x̄ = Σxᵢ / n, выборочное SD s = √(Σ(xᵢ − x̄)² / (n − 1)).</li>
+    <li>SD доли = √(p(1 − p) / n), SD среднего = σ / √n. Вчетверо больше наблюдений — вдвое уже коридор.</li>
+    <li>Коридор ±2 SD ловит около 95 % дней. При 10 % и 100 гостях это 4–16 %, при 10 000 гостях — 9,4–10,6 %.</li>
+    <li>Закон больших чисел: доля ползёт к вероятности. Разность в штуках растёт как √n, а «долг» никто не возвращает.</li>
+    <li>Маленькие выборки дают крайности в обе стороны. Сравнивай с воронкой, а не по месту в рейтинге.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Выборочное среднее, x̄</dt><dd>сумма наблюдений, делённая на их число; sample mean</dd>
+    <dt>Выборочное SD, s</dt><dd>корень из среднего квадрата отклонений с делением на n − 1; sample standard deviation</dd>
+    <dt>Закон больших чисел</dt><dd>доля и среднее приближаются к вероятности и матожиданию при росте n; law of large numbers, LLN</dd>
+    <dt>Стандартная ошибка</dt><dd>разброс среднего или доли от выборки к выборке, σ / √n; standard error, SE — подробно в главе 7</dd>
+    <dt>Воронка</dt><dd>график «показатель против n» с коридором ±2 SD; funnel plot</dd>
+  </dl>
+  <figure class="art"><img src="img/ch04-02-next.jpg" alt="Котейка высыпает из мешка монетки, и они складываются в горку-колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из мешка Котейки сыплются монетки и складываются в колокол</figcaption></figure>
+  <a class="next-step" href="05-normal.html"><b>Дальше, глава 5: «Нормальное распределение»</b>У шума есть форма — колокол. Научимся мерить отклонения в сигмах и узнавать, насколько редко значение.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    pp: (x, d = 1) => num(100 * x, d) + NBSP + 'п.' + NBSP + 'п.',
+    guests: n => int(n),
+    invite: 'Нажми «+100 дней»',
+    dayAxis: 'дни',
+    dv: (k, n, g, th, isBase) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
+      'За серую полосу вышли <b>' + int(k) + '</b> ' + plural(k, 'день', 'дня', 'дней') + ' из ' + int(n) + ' — ' + share(k / n, 0) + '. ' +
+      'Теория для этих n и p: <b>' + share(th, 1) + '</b>.' + (isBase ? ' Почти каждый четвёртый день доля выходит за 7–13 % без всяких причин.' : ''),
+    sdLog: list => 'Твои замеры SD дневной доли: ' + list.map(r => '<b>' + int(r.n) + '</b> гостей — ' + num(100 * r.sd, 1) + ' (теория ' + num(100 * r.th, 1) + ')').join(' · ') + ' п.' + NBSP + 'п.',
+    kShare: 'доля орлов', kDiff: 'орлы − решки', kX: 'бросков (шкала логарифмическая)',
+    kv: (sh, diff, n) => 'После ' + int(n) + ' бросков доля орлов — <b>' + share(sh, 1) + '</b>, до половины ' + num(Math.abs(100 * sh - 50), 2) + NBSP + 'п.' + NBSP + 'п. А орлов ' + (diff >= 0 ? 'больше' : 'меньше') + ' решек на <b>' + int(Math.abs(diff)) + '</b>. Обычно на 10 000 бросках доля в пределах 49–51 %, а разность — порядка 80 и бывает до 200.',
+    rX: 'гостей за неделю (шкала логарифмическая)', rY: 'конверсия',
+    rv: (top, bot, med) => 'Топ-3: кафе с ' + top.map(int).join(', ') + ' гостями. Последние три: ' + bot.map(int).join(', ') + '. Типичное кафе сети — около ' + int(med) + ' гостей. У всех конверсия ровно 10 %.',
+    sX: 'день', sInvite: 'Нажми «Пуск» или «Следующий день»',
+    sv: (shift, ok, bad) => (shift ? 'Сдвиг был: с дня ' + shift + ' конверсия стала 15 %. ' : 'Сдвига не было: все 30 дней конверсия 10 %. ') +
+      'Твоих тревог: ' + (ok + bad ? (shift ? int(ok) + ' ' + plural(ok, 'верная', 'верные', 'верных') + ', ' : '') + int(bad) + ' ' + plural(bad, 'ложная', 'ложные', 'ложных') : 'ни одной') + '.',
+    play: 'Пуск', pause: 'Пауза',
+  },
+}[LANG] || {};
+
+// ---------- общие мелочи страницы ----------
+function ch04binomExact(n, p){ let k = 0; for (let i = 0; i < n; i++) if (rand() < p) k++; return k; }
+function ch04niceStep(range){ const raw = range / 5, e = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / e; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * e; }
+
+// ---------- карточка 3: сто дней кафе ----------
+(function(){
+  const NS = [25, 50, 100, 200, 400, 1000, 1600, 10000];
+  const cv = document.getElementById('d-cv'), nS = document.getElementById('d-n'), pS = document.getElementById('d-p');
+  let days = [];
+  const meas = {}, thCache = {};
+  const N = () => NS[+nS.value], P = () => +pS.value / 100;
+  const out = (k, n, p) => { const lo = n * (p - 0.03), hi = n * (p + 0.03); return k < lo - 1e-9 || k > hi + 1e-9; };
+  function theory(n, p){
+    const key = n + ':' + p; if (key in thCache) return thCache[key];
+    let s = 0; for (let k = 0; k <= n; k++) if (out(k, n, p)) s += binomPmf(n, k, p);
+    return (thCache[key] = s);
+  }
+  function draw(){
+    const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const n = N(), p = P(), sdT = Math.sqrt(p * (1 - p) / n);
+    const half = Math.max(0.06, 4.2 * sdT), lo = Math.max(0, p - half), hi = Math.min(1, p + half);
+    const L = 46, R = 10, T = 12, B = 30, pw = w - L - R, ph = h - T - B;
+    const Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    c.fillStyle = COL.fillGray; c.fillRect(L, Y(Math.min(hi, p + 0.03)), pw, Y(Math.max(lo, p - 0.03)) - Y(Math.min(hi, p + 0.03)));
+    axisY(c, L, R, T, ph, w, lo, hi, ch04niceStep(hi - lo), v => shareT(v, 1));
+    c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(p)); c.lineTo(w - R, Y(p)); c.stroke();
+    c.setLineDash([5, 4]); c.strokeStyle = COL.ctrl; c.lineWidth = 1.2;
+    [p - 2 * sdT, p + 2 * sdT].forEach(v => { if (v > lo && v < hi){ c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); } });
+    c.setLineDash([]);
+    const show = days.slice(-100), step = pw / 100;
+    show.forEach((d, i) => {
+      c.fillStyle = d.out ? COL.trap : COL.ctrl;
+      c.beginPath(); c.arc(L + (i + 0.5) * step, Y(Math.max(lo, Math.min(hi, d.s))), w < 520 ? 2.6 : 3.2, 0, 2 * Math.PI); c.fill();
+    });
+    if (!days.length) label(c, TXT.invite, L + pw / 2, T + ph * 0.25, COL.ink2, 'center');
+    label(c, TXT.dayAxis, L + pw / 2, h - 8, COL.ink2, 'center');
+  }
+  function paint(){
+    const n = N(), p = P();
+    document.getElementById('d-n-t').textContent = int(n);
+    document.getElementById('d-p-t').textContent = shareT(p, 0);
+    document.getElementById('d-days').textContent = int(days.length);
+    const k = days.filter(d => d.out).length;
+    document.getElementById('d-out').textContent = days.length ? share(k / days.length, 0) : '—';
+    document.getElementById('d-sd').textContent = days.length > 2 ? TXT.pp(sd(days.map(d => d.s))) : '—';
+    const v = document.getElementById('d-v');
+    if (days.length >= 20){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = TXT.dv(k, days.length, Book.guess('out'), theory(n, p), n === 100 && Math.abs(p - 0.1) < 1e-9); }
+    else v.hidden = true;
+    const rows = Object.values(meas).filter(r => Math.abs(r.p - p) < 1e-9 && r.k >= 30).sort((a, b) => a.n - b.n);
+    if (rows.length) document.getElementById('d-log').innerHTML = TXT.sdLog(rows.map(r => ({n: r.n, sd: Math.sqrt(Math.max(0, (r.s2 - r.s * r.s / r.k) / (r.k - 1))), th: Math.sqrt(r.p * (1 - r.p) / r.n)})));
+    draw();
+  }
+  function add(m){
+    const n = N(), p = P(), key = n + ':' + p;
+    const r = meas[key] || (meas[key] = {n, p, k: 0, s: 0, s2: 0});
+    for (let i = 0; i < m; i++){
+      const x = ch04binomExact(n, p), s = x / n;
+      days.push({s, out: out(x, n, p)});
+      r.k++; r.s += s; r.s2 += s * s;
+    }
+    paint();
+  }
+  const reset = () => { days = []; paint(); };
+  document.getElementById('d-100').addEventListener('click', () => add(100));
+  document.getElementById('d-1').addEventListener('click', () => add(1));
+  document.getElementById('d-reset').addEventListener('click', reset);
+  nS.addEventListener('input', reset); pS.addEventListener('input', reset);
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 5: Керрих ----------
+(function(){
+  const cv = document.getElementById('k-cv'), NMAX = 10000;
+  let old = [], cur = null, shown = 0, timer = null;
+  function series(){ const a = new Int32Array(NMAX + 1); for (let i = 1; i <= NMAX; i++) a[i] = a[i - 1] + (rand() < 0.5 ? 1 : 0); return a; }
+  function draw(){
+    const g = canvas(cv, 0.62, 1.05); if (!g) return; const {c, w, h} = g;
+    const L = 46, R = 10, T = 10, gap = 30, B = 34, pw = w - L - R, ph = (h - T - B - gap) / 2;
+    const X = n => L + Math.log10(n) / 4 * pw;
+    // верхняя панель: доля
+    const Y1 = v => T + (1 - (v - 0.2) / 0.6) * ph;
+    axisY(c, L, R, T, ph, w, 0.2, 0.8, 0.1, v => shareT(v, 0));
+    const Y2 = v => T + ph + gap + (1 - (v + 250) / 500) * ph;
+    axisY(c, L, R, T + ph + gap, ph, w, -250, 250, 100, v => (v > 0 ? '+' : v < 0 ? MINUS : '') + int(Math.abs(v)));
+    // коридоры
+    c.strokeStyle = COL.gray; c.lineWidth = 1.2; c.setLineDash([5, 4]);
+    [1, -1].forEach(sg => {
+      c.beginPath(); for (let n = 4; n <= NMAX; n = Math.ceil(n * 1.08)){ const y = Y1(0.5 + sg / Math.sqrt(n)); n === 4 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
+      c.beginPath(); for (let n = 1; n <= NMAX; n = Math.ceil(n * 1.08)){ const y = Y2(sg * 2 * Math.sqrt(n)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
+    });
+    c.setLineDash([]);
+    const clip = (v, a, b) => Math.max(a, Math.min(b, v));
+    function line(a, upto, col, lw){
+      c.strokeStyle = col; c.lineWidth = lw;
+      c.beginPath(); for (let n = 1; n <= upto; n = n < 50 ? n + 1 : Math.ceil(n * 1.01)){ const y = Y1(clip(a[n] / n, 0.2, 0.8)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
+      c.beginPath(); for (let n = 1; n <= upto; n = n < 50 ? n + 1 : Math.ceil(n * 1.01)){ const y = Y2(clip(2 * a[n] - n, -250, 250)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
+    }
+    old.forEach(a => line(a, NMAX, COL.gray, 1));
+    if (cur) line(cur, shown, COL.ctrl, 2);
+    label(c, TXT.kShare, L + 6, T + 14, COL.ink2);
+    label(c, TXT.kDiff, L + 6, T + ph + gap + 14, COL.ink2);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y2(0)); c.lineTo(w - R, Y2(0)); c.stroke();
+    axisX(c, X, [1, 10, 100, 1000], h - 18, v => int(v)); label(c, int(10000), w - R, h - 18, COL.ink2, 'right');
+    label(c, TXT.kX, L + pw / 2, h - 3, COL.ink2, 'center');
+  }
+  function finish(){
+    const v = document.getElementById('k-v'); v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = TXT.kv(cur[NMAX] / NMAX, 2 * cur[NMAX] - NMAX, NMAX);
+  }
+  function run(){
+    if (timer){ clearInterval(timer); timer = null; }
+    if (cur) old.push(cur); if (old.length > 6) old.shift();
+    cur = series();
+    if (REDUCED){ shown = NMAX; draw(); finish(); return; }
+    shown = 1; let t = 0;
+    timer = setInterval(() => { t++; shown = Math.min(NMAX, Math.round(Math.pow(10, t / 30))); draw(); if (shown >= NMAX){ clearInterval(timer); timer = null; finish(); } }, 30);
+  }
+  document.getElementById('k-run').addEventListener('click', run);
+  document.getElementById('k-clear').addEventListener('click', () => { old = []; draw(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 6: рейтинг 20 кафе ----------
+(function(){
+  const cv = document.getElementById('r-cv'), P = 0.1;
+  const NC = 40, sizes = Array.from({length: NC}, (_, i) => Math.round(50 * Math.pow(100, i / (NC - 1))));
+  let cafes = null;
+  function week(){
+    cafes = sizes.map(n => ({n, s: ch04binomExact(n, P) / n}));
+    const order = cafes.map((c, i) => i).sort((a, b) => cafes[b].s - cafes[a].s || cafes[a].n - cafes[b].n);
+    order.forEach((i, r) => { cafes[i].rank = r; });
+    const top = order.slice(0, 3).map(i => cafes[i].n), bot = order.slice(-3).map(i => cafes[i].n);
+    const v = document.getElementById('r-v'); v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = TXT.rv(top, bot, 10 * Math.round((sizes[NC / 2 - 1] + sizes[NC / 2]) / 20));
+    draw();
+  }
+  function draw(){
+    const g = canvas(cv, 0.5, 0.8); if (!g) return; const {c, w, h} = g;
+    const L = 46, R = 12, T = 12, B = 36, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.3;
+    const lx0 = Math.log10(40), lx1 = Math.log10(6500);
+    const X = n => L + (Math.log10(n) - lx0) / (lx1 - lx0) * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, R, T, ph, w, lo, hi, 0.05, v => shareT(v, 0));
+    c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(P)); c.lineTo(w - R, Y(P)); c.stroke();
+    c.setLineDash([5, 4]);
+    [1, -1].forEach(sg => { c.beginPath(); for (let n = 40; n <= 6500; n = Math.ceil(n * 1.05)){ const y = Y(Math.max(lo, P + sg * 2 * Math.sqrt(P * (1 - P) / n))); n === 40 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke(); });
+    c.setLineDash([]);
+    if (cafes) cafes.forEach(cf => {
+      c.fillStyle = cf.rank < 3 ? COL.test : cf.rank >= NC - 3 ? COL.trap : COL.ctrl;
+      c.beginPath(); c.arc(X(cf.n), Y(Math.min(hi, cf.s)), cf.rank < 3 || cf.rank >= NC - 3 ? 6 : 4, 0, 2 * Math.PI); c.fill();
+      if (cf.rank < 3 || cf.rank >= NC - 3) label(c, String(cf.rank + 1), X(cf.n) + 8, Y(Math.min(hi, cf.s)) + 4, cf.rank < 3 ? COL.testInk : COL.trapInk);
+    });
+    axisX(c, X, [50, 100, 500, 1000, 5000], h - 20, v => int(v));
+    label(c, TXT.rX, L + pw / 2, h - 4, COL.ink2, 'center');
+  }
+  document.getElementById('r-week').addEventListener('click', week);
+  window.addEventListener('resize', draw);
+  week();
+})();
+
+// ---------- карточка 7: тренажёр «сигнал или шум?» ----------
+(function(){
+  const cv = document.getElementById('s-cv'), D = 30, n = 100;
+  let row, shift, shown, alarms, timer = null, over;
+  const playB = document.getElementById('s-play');
+  function fresh(){
+    stop(); shift = rand() < 0.5 ? randInt(8, 26) : 0;
+    row = Array.from({length: D}, (_, i) => ch04binomExact(n, shift && i + 1 >= shift ? 0.15 : 0.1) / n);
+    shown = 0; alarms = new Set(); over = false; document.getElementById('s-v').hidden = true; draw();
+  }
+  function stop(){ if (timer){ clearInterval(timer); timer = null; } playB.textContent = TXT.play; }
+  function step(){
+    if (over) return;
+    shown = Math.min(D, shown + 1); draw();
+    if (shown >= D) end();
+  }
+  function end(){
+    stop(); over = true;
+    let ok = 0, bad = 0; alarms.forEach(d => { if (shift && d >= shift) ok++; else bad++; });
+    const v = document.getElementById('s-v'); v.hidden = false; v.className = 'verdict ' + (bad ? 'bad' : 'good');
+    v.innerHTML = TXT.sv(shift, ok, bad); draw();
+  }
+  function draw(){
+    const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+    const L = 46, R = 10, T = 12, B = 32, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.3;
+    const X = d => L + (d - 0.5) / D * pw, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
+    axisY(c, L, R, T, ph, w, lo, hi, 0.05, v => shareT(v, 0));
+    if (over && shift){ c.fillStyle = COL.fillO; c.fillRect(X(shift - 0.5), T, X(D + 0.5) - X(shift - 0.5), ph); }
+    c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(0.1)); c.lineTo(w - R, Y(0.1)); c.stroke();
+    if (over && shift){ c.strokeStyle = COL.ochre; c.beginPath(); c.moveTo(X(shift - 0.5), Y(0.15)); c.lineTo(w - R, Y(0.15)); c.stroke(); }
+    alarms.forEach(d => {
+      c.strokeStyle = over ? (shift && d >= shift ? COL.truth : COL.trap) : COL.test; c.lineWidth = 2;
+      c.beginPath(); c.moveTo(X(d), T); c.lineTo(X(d), T + ph); c.stroke();
+    });
+    c.strokeStyle = COL.ctrl; c.lineWidth = 1.5; c.beginPath();
+    for (let i = 0; i < shown; i++){ const x = X(i + 1), y = Y(Math.min(hi, row[i])); i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+    for (let i = 0; i < shown; i++){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(i + 1), Y(Math.min(hi, row[i])), 3.2, 0, 2 * Math.PI); c.fill(); }
+    if (!shown) label(c, TXT.sInvite, L + pw / 2, T + ph * 0.25, COL.ink2, 'center');
+    axisX(c, X, [1, 5, 10, 15, 20, 25, 30], h - 16, v => String(v));
+    label(c, TXT.sX, w - R, h - 2, COL.ink2, 'right');
+  }
+  playB.addEventListener('click', () => {
+    if (over) fresh();
+    if (timer){ stop(); return; }
+    playB.textContent = TXT.pause; timer = setInterval(step, REDUCED ? 900 : 650);
+  });
+  document.getElementById('s-step').addEventListener('click', () => { if (over) fresh(); stop(); step(); });
+  document.getElementById('s-alarm').addEventListener('click', () => { if (!over && shown){ alarms.add(shown); draw(); } });
+  document.getElementById('s-new').addEventListener('click', fresh);
+  Book.onShow((i, card) => { if (!card.contains(cv)) stop(); });
+  window.addEventListener('resize', draw);
+  fresh();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

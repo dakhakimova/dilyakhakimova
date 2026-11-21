@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Симпсон, Берксон, ошибка выжившего и автобус · Сигнал или шум</title>
+<meta name="description" content="Глава 8 бесплатного интерактивного курса «Сигнал или шум»: парадокс инспекции на автобусной остановке, парадокс Симпсона в доставке, Берксон и ошибка выжившего — как проверить данные до расчётов, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.nsel button{min-height:44px}
+.range-row{display:block; margin:10px 0 2px}
+.range-row input[type=range]{width:100%; height:44px; margin:0}
+.readout8{font-variant-numeric:tabular-nums}
+.simp td.down8{color:var(--truth)} .simp td.up8{color:var(--trap-ink)}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch08" data-next="09-aa.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 8 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним главу 6</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Курьеры подъезжают к кафе случайно, интервалы — экспонента со средним 10 минут. Котейка ждёт курьера уже 6 минут. Сколько ему ждать ещё в среднем?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так было бы при строгом расписании «раз в 10 минут». У экспоненты прошлое ожидание ничего не приближает.">4 минуты: 10 минус уже прошедшие 6</button><button type="button" data-v="b" data-why="Половина интервала — ответ для строгого расписания и прихода в случайный момент. Здесь интервалы случайные.">5 минут: в среднем полинтервала</button><button type="button" data-v="c">10 минут, как будто только пришёл</button></div>
+    <p class="why">У экспоненты нет памяти: P(T &gt; t + s | T &gt; s) = P(T &gt; t). Прождав 6 минут, Котейка в том же положении, что и в начале: в среднем ещё 10 минут.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Средний чек 640 ₽, медиана 350 ₽: у чеков длинный правый хвост. Какая доля гостей тратит больше среднего чека?</p>
+    <div class="choice"><button type="button" data-v="a">Меньше половины гостей</button><button type="button" data-v="b" data-why="Ровно половина выше медианы, а среднее при правом хвосте лежит правее медианы.">Ровно половина гостей</button><button type="button" data-v="c" data-why="Наоборот: банкеты тянут среднее вверх, и выше него оказывается меньшинство.">Больше половины гостей</button></div>
+    <p class="why">При правом хвосте среднее правее медианы, поэтому выше среднего — меньше половины гостей; у логнормальных чеков с такими параметрами примерно 29 из 100. Это было в главе 6.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Откуда данные" aria-label="Откуда данные">
+  <p class="kicker">Часть II · глава 8</p>
+  <h1>Симпсон, Берксон, ошибка выжившего и автобус</h1>
+  <p class="core">После главы ты сможешь <b>проверить данные на Симпсона, Берксона, выжившего и парадокс инспекции</b> до того, как считать.</p>
+  <figure class="art"><img src="img/ch08-00-bus-stop.jpg" alt="Котейка в мешке сидит на автобусной остановке, вдали автобусы едут пачкой по три" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на остановке, автобусы едут пачками</figcaption></figure>
+  <p class="lead">Формулы прошлых глав верны, если данные — честная случайная выборка. Но кто решил, какие заказы, гости и автобусы в них попали? В этой главе четыре ловушки, которые срабатывают до всякого расчёта.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава возвращается к первому">
+    <li class="on"><b>1.</b> Что здесь случайно?</li>
+    <li>2. Как распределено?</li>
+    <li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+  <p>Глава возвращает нас к первому шагу: какая единица у нас в данных и кто её туда положил.</p>
+</section>
+
+<!-- 3: автобус, история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Сколько ждать автобус?</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Езжу за молоком на автобусе. На табличке написано: «в среднем раз в 10 минут». Прихожу в случайный момент — значит, жду в среднем 5. А по ощущениям — вечность.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">5 минут — если автобусы ходят строго по расписанию. А они ходят как попало: то два подряд, то полчаса ни одного.</p></div></div>
+  </div>
+  <p>Пусть интервалы между автобусами случайные, как время между заказами из главы 6 (экспонента), со средним 10 минут. Сколько Котейка ждёт в среднем, если приходит на остановку в случайный момент?</p>
+  <div class="choice" data-key="wait" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="5" data-fb="Половина интервала — логично для расписания. Проверим на случайных интервалах." aria-pressed="false">5 минут</button>
+    <button type="button" data-v="7.5" data-fb="Где-то между — осторожная ставка. Проверим." aria-pressed="false">7,5 минуты</button>
+    <button type="button" data-v="10" data-fb="Смелая ставка: целый интервал. Проверим на следующей карточке." aria-pressed="false">10 минут</button>
+  </div>
+</section>
+
+<!-- 4: игрушка автобус -->
+<section class="card" data-title="Остановка" aria-label="Остановка">
+  <span class="step-tag">Поиграй</span>
+  <h2>Котейка ждёт автобус</h2>
+  <p>Средний интервал между автобусами всегда 10 минут. Ползунок меняет только неровность: от строгого расписания до автобусов, которые ездят пачками. Пусти Котейку на остановку 1000 раз в случайные моменты.</p>
+  <div class="sheet c-white">
+    <label class="range-row" for="k8">Интервалы: <b id="k8-t">случайные (экспонента)</b><input type="range" id="k8" min="0" max="5" step="1" value="3"></label>
+    <canvas id="cv-bus" role="img" aria-label="Лента интервалов между автобусами за 5 часов; точки — моменты, когда Котейка пришёл на остановку"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="bus1000">Прийти 1000 раз</button>
+      <button class="btn ghost" type="button" id="bus-new">Другой день</button>
+    </div>
+    <div class="big2">
+      <div class="ctrl"><b id="bus-gap">—</b><span>средний интервал между автобусами, мин</span></div>
+      <div class="test"><b id="bus-wait">—</b><span>среднее ожидание Котейки, мин</span></div>
+    </div>
+    <p class="note readout8" id="bus-stat"></p>
+    <div class="verdict" id="v-bus" hidden></div>
+  </div>
+</section>
+
+<!-- 5: правило автобуса -->
+<section class="card" data-title="Парадокс инспекции" aria-label="Парадокс инспекции">
+  <span class="step-tag">Правило</span>
+  <h2>Длинные интервалы ловят чаще</h2>
+  <figure class="art"><img src="img/ch08-01-long-gap.jpg" alt="Лента времени с короткими и длинными промежутками между автобусами; Котейка с завязанными глазами бросает дротик и попадает в самый длинный" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: дротик чаще попадает в длинный промежуток</figcaption></figure>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Котейка приходит в случайный момент, а случайный момент чаще лежит внутри длинного интервала: длинный занимает больше времени. Поэтому интервал, в который попадает Котейка, в среднем длиннее, чем средний интервал по расписанию.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>При экспоненте со средним 10 минут интервалов длиннее 10 минут всего 37 из 100. Но из 1000 приходов Котейка попадает в такие интервалы примерно в 736: они покрывают почти три четверти времени.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">E[увиденный интервал] = E[T²] / E[T]</p>
+      <p class="formula">E[ожидание] = E[T²] / (2·E[T])</p>
+      <p class="read">Словами: интервал попадается с весом, равный своей длине. Строгое расписание: T = 10, ожидание 100/20 = 5. Экспонента: E[T²] = 200, ожидание 10.</p>
+    </div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Когда объект попадает в выборку с весом своего размера, говорят <b class="term">парадокс инспекции</b>; на собеседовании — <b>inspection paradox</b> или length-biased sampling.</p>
+    <p class="aside">Тот же механизм в кафе: курьер, который считает «сколько заказов в пачке», видит большие пачки чаще, чем они бывают.</p>
+  </aside>
+  <p class="src">Идея из книги: Аллен Дауни, «Probably Overthinking It»</p>
+</section>
+
+<!-- 6: Симпсон, история и прогноз -->
+<section class="card" data-title="Отчёт Боба" aria-label="Отчёт Боба">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Лучше везде, а в целом хуже?</h2>
+  <figure class="art"><img src="img/ch08-02-simpson.jpg" alt="Две доски с подписями-значками района, на каждой стрелка вниз, и общая доска со стрелкой вверх; Боб в недоумении чешет затылок" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: в районах стрелки вниз, в сумме вверх, Боб в недоумении</figcaption></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В ноябре мы поменяли маршруты курьеров. Опозданий стало меньше в центре — с 10 % до 8 %, и на окраине — с 30 % до 25 %. В октябре в целом опаздывали 14 % заказов. Ноябрь будет рекордным!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А откуда в ноябре были заказы? Мы ведь открыли доставку в новый спальный район на окраине.</p></div></div>
+  </div>
+  <p>В октябре 80 % заказов шли в центр, 20 % — на окраину. В ноябре наоборот: в центр 40 %, на окраину 60 %. Заказов столько же, 1000.</p>
+  <div class="guess" data-key="simpson" data-min="0" data-max="100" data-unit="%">
+    <label class="field">В ноябре в целом опоздали примерно <input type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="?"> % заказов</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">В октябре было 14 %. Напиши своё число — на следующей карточке проверим.</p>
+  </div>
+</section>
+
+<!-- 7: игрушка Симпсон -->
+<section class="card" data-title="Симпсон в доставке" aria-label="Симпсон в доставке">
+  <span class="step-tag">Поиграй</span>
+  <h2>Двигай долю заказов с окраины</h2>
+  <p>Опоздания в каждом районе в ноябре фиксированы: в центре 8 %, на окраине 25 %. Меняется только то, куда шли заказы.</p>
+  <div class="sheet c-white">
+    <label class="range-row" for="far8">Доля заказов на окраину в ноябре: <b class="num" id="far8-t">60 %</b><input type="range" id="far8" min="5" max="95" step="5" value="60"></label>
+    <div class="simp" id="simp8"></div>
+    <p class="note">Серые столбики — октябрь, цветные — ноябрь.</p>
+    <canvas id="cv-simp" role="img" aria-label="Доли опозданий в октябре и ноябре: в каждом районе ниже, в целом — зависит от доли окраины"></canvas>
+    <div class="verdict" id="v-simp"></div>
+  </div>
+  <p class="xref"><span>Без формул и на предзаказе для постоянных и новичков — в «A/B на пальцах», <a href="/ab-basics/10-traps.html">шаг 10 «Когда зелёное врёт»</a>.</span></p>
+</section>
+
+<!-- 8: правило Симпсона -->
+<section class="card" data-title="Правило Симпсона" aria-label="Правило Симпсона">
+  <span class="step-tag">Правило</span>
+  <h2>Общая доля — это среднее с весами</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Маршруты стали лучше везде, но заказов стало больше там, где опаздывать проще: на окраине. Общая доля смешивает районы в той пропорции, в какой пришли заказы, а пропорция поменялась.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Октябрь: 80 опозданий из 800 в центре и 60 из 200 на окраине — 140 из 1000. Ноябрь: 32 из 400 и 150 из 600 — 182 из 1000. Обе дроби уменьшились, а сумма выросла. Как в первом классе: 1/3 + 2/5 при «сложении как в отчёте» даёт 3/8, а не 11/15.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">p<sub>всего</sub> = w<sub>центр</sub> · p<sub>центр</sub> + w<sub>окраина</sub> · p<sub>окраина</sub></p>
+      <p class="formula">Σ опозданий / Σ заказов ≠ среднее долей районов</p>
+      <p class="read">Словами: общая доля — среднее долей с весами по числу заказов. Меняются веса — общая доля может пойти против всех частей.</p>
+    </div>
+  </div>
+  <p>Что делать: сравнивать при одинаковой структуре. Например, пересчитать ноябрь с октябрьскими весами: 0,8 · 8 % + 0,2 · 25 % = 11,4 % против 14 % — маршруты действительно помогли. А спрашивать, на каком уровне отвечать на вопрос: «стали ли курьеры лучше» — по районам; «сколько заказов опоздало у кафе» — в целом.</p>
+  <p class="src">Идея из лекций: Джо Блицштейн, Stat 110 («Симпсон как сложение дробей в первом классе»)</p>
+</section>
+
+<!-- 9: Берксон -->
+<section class="card" data-title="Берксон" aria-label="Берксон">
+  <span class="step-tag">Поиграй</span>
+  <h2>Вкусно — значит, дорого?</h2>
+  <p>В сети 300 кафе. Вкус и выгодность цены у них никак не связаны. Но приложение показывает только кафе с хорошим рейтингом, а рейтинг растёт и от вкуса, и от выгодной цены. Двигай порог рейтинга.</p>
+  <div class="sheet c-white">
+    <label class="range-row" for="thr8">Порог рейтинга: <b class="num" id="thr8-t">1</b><input type="range" id="thr8" min="-2" max="2.5" step="0.25" value="1"></label>
+    <canvas id="cv-berk" role="img" aria-label="Облако 300 кафе: по горизонтали вкус, по вертикали выгодность цены; цветные — показаны в приложении"></canvas>
+    <div class="big2">
+      <div><b id="berk-all">—</b><span>связь вкуса и цены во всей сети (корреляция)</span></div>
+      <div class="ctrl"><b id="berk-shown">—</b><span>связь среди показанных в приложении</span></div>
+    </div>
+    <div class="controls"><button class="btn ghost" type="button" id="berk-new">Другая сеть</button></div>
+    <div class="verdict" id="v-berk"></div>
+  </div>
+  <p>Среди показанных вкусные кафе чаще невыгодные, а выгодные — невкусные: невкусное и дорогое просто не прошло порог. Связь создал отбор, а не мир. Почему связь в данных — ещё не причина, подробно — в <a href="/causal/">курсе по причинности</a>.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Когда правило попадания в данные искажает картину, это называют <b class="term">смещением отбора</b>; на собеседовании — <b>selection bias</b>. Случай с порогом — парадокс Берксона.</p>
+    <p class="aside">Большая выборка его не лечит: миллион отобранных кафе покажет ту же ложную связь, только увереннее.</p>
+  </aside>
+  <p class="src">Идея из книги: Аллен Дауни, «Probably Overthinking It» (Берксон с порогом как ручкой)</p>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Сколько ждать по журналу интервалов</h2>
+  <p>У тебя журнал интервалов между автобусами за день (в минутах). Напиши функцию, которая считает среднее ожидание пассажира, пришедшего в случайный момент. Подсказка: внутри интервала длиной t ждут в среднем t/2, а попадают в него с весом t.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-mean-wait">
+<textarea spellcheck="false" aria-label="Задание: функция mean_wait">import numpy as np
+
+def mean_wait(intervals):
+    # intervals — длины интервалов между автобусами, минуты
+    # верни среднее ожидание пассажира, пришедшего в случайный момент
+    return ...
+
+print(mean_wait([10] * 100))                                # строго раз в 10 минут
+print(mean_wait(np.random.exponential(10, 100_000)))        # как попало, в среднем 10</textarea>
+  </div>
+<script type="text/x-python" id="check-mean-wait">
+def _check():
+    import numpy as np
+    try:
+        f = mean_wait
+    except NameError:
+        print("FAIL функции mean_wait нет — запусти ячейку с ней"); return
+    try:
+        a = f([10] * 100)
+    except Exception as e:
+        print("FAIL функция упала:", e); return
+    if a is ... or a is None:
+        print("FAIL функция пока ничего не считает: замени ... на код"); return
+    if abs(float(a) - 5) > 0.01:
+        print(f"FAIL при строгом расписании получилось {a}, а должно быть 5"); return
+    b = float(f([5, 15] * 50))
+    if abs(b - 6.25) < 0.01:
+        pass
+    elif abs(b - 5) < 0.01:
+        print("FAIL для интервалов 5 и 15 получилось 5: это половина среднего интервала, а длинные интервалы ловят чаще"); return
+    else:
+        print(f"FAIL для интервалов 5 и 15 получилось {b}, а должно быть 6,25"); return
+    rng = np.random.default_rng(7)
+    c = float(f(rng.exponential(10, 200_000)))
+    if abs(c - 10) > 0.3:
+        print(f"FAIL на экспоненте со средним 10 получилось {str(round(c, 2)).replace('.', ',')}, а ждали около 10"); return
+    print(f"OK 5 минут по расписанию, 6,25 при интервалах 5 и 15, {str(round(c, 2)).replace('.', ',')} на экспоненте — парадокс инспекции пойман")
+_check()
+</script>
+</section>
+
+<!-- 11: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Чек постоянных гостей</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я посчитал: у гостей, которые с нами больше года, средний чек 820 ₽, а у новичков — 450 ₽. Значит, кафе приучает гостей тратить больше. Ещё год — и все будут брать по 820!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так в выводе Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Объём здесь не главное: даже на миллионе гостей вывод был бы тем же, потому что ошибка в том, кто попал в группу «больше года».">Мало данных, нужна выборка побольше</button><button type="button" data-v="c" data-why="Среднее или медиана — вопрос второй. Главное, что «постоянные» — не те же люди, что новички, а отобранные.">Нужно сравнивать медианы, а не средние</button><button type="button" data-v="b">Гости с маленьким чеком чаще уходят</button></div>
+    <p class="why">В группу «больше года» попали те, кто остался. Если гости с маленьким чеком уходят чаще, у оставшихся чек выше, даже если никто не начал тратить больше. Честная проверка — следить за одними и теми же гостями: как менялся чек каждого от первого месяца к двенадцатому.</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Когда в данных остались только «дожившие», это <b class="term">ошибка выжившего</b>; на собеседовании — <b>survivorship bias</b>.</p>
+    <p class="aside">Как отзывы в приложении: их пишут те, кто дошёл до конца заказа, а ушедшие с полпути молчат.</p>
+  </aside>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи про «те ли это данные»</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="buspass">
+    <summary>Мэрия говорит: «в среднем в автобусе 20 пассажиров». Пассажиры жалуются: «вечно битком». Кто прав?</summary>
+    <p><b>Переформулирую:</b> мэрия усредняет по автобусам, пассажир — по пассажирам. Пассажир видит автобус с весом, равным числу людей в нём.</p>
+    <p><b>В штуках:</b> пусть половина рейсов везёт 5 человек, половина — 35. По автобусам среднее (5 + 35)/2 = 20. На пару рейсов приходится 40 пассажиров: 35 из них едут в полном автобусе и только 5 — в пустом. Поэтому средний пассажир видит в своём автобусе (5·5 + 35·35)/40 ≈ 31 человека.</p>
+    <p><b>Формула:</b> <span class="num">E[по пассажирам] = E[X²] / E[X] = E[X] + Var(X)/E[X]</span>.</p>
+    <p><b>Симуляция:</b> раздай наполненность рейсам, выбери случайного пассажира (а не автобус) и посмотри на его автобус.</p>
+    <p><b>Вывод:</b> правы оба: средняя наполненность рейса 20, а средний пассажир едет в автобусе на 31 человека — тем сильнее, чем неравномернее рейсы.</p>
+  </details>
+  <details class="ivw" data-key="menutop">
+    <summary>Алиса строит «топ позиций меню по конверсии показа в заказ». Наверху — новый тарт: 3 показа, 2 заказа, 67 %. Что не так и как исправить?</summary>
+    <p><b>Переформулирую:</b> маленькие n дают крайние доли случайно, поэтому и верх, и низ рейтинга занимают позиции с малым числом показов (это шум из главы 4, а не вкус).</p>
+    <p><b>В штуках:</b> при честной конверсии 10 % у позиции с 3 показами 2–3 заказа выпадают в 2,8 % случаев; в меню из сотни новых позиций пара таких «звёзд» найдётся почти всегда. У позиции с 250 показами 30 заказов (12 %) шум ±4 п. п.</p>
+    <p><b>Формула:</b> сглаживание к средней по меню: <span class="num">(x + m·p̄) / (n + m)</span>, например m = 20, p̄ = 10 %: тарт (2 + 2)/(3 + 20) ≈ 17 %, позиция 30 из 250 → 11,9 %. Простейший вариант — правило Лапласа «+1 заказ, +1 отказ», (x + 1)/(n + 2), но при конверсиях около 10 % оно тянет к 50 % и почти не помогает.</p>
+    <p><b>Вывод:</b> ставить порог показов (например, от 100) или сглаживать к средней; тогда тарт падает в середину, пока не наберёт показов.</p>
+  </details>
+  <details class="ivw" data-key="speed">
+    <summary>Курьер едет к гостю со скоростью 60 км/ч, обратно — 40 км/ч. Какая средняя скорость за поездку?</summary>
+    <p><b>Переформулирую:</b> средняя скорость — весь путь, делённый на всё время, а не среднее двух скоростей.</p>
+    <p><b>В штуках:</b> пусть до гостя 12 км. Туда 12/60 = 0,2 часа, обратно 12/40 = 0,3 часа. 24 км за 0,5 часа — 48 км/ч.</p>
+    <p><b>Формула:</b> <span class="num">v = 2 / (1/60 + 1/40) = 48</span> — среднее гармоническое. Медленный участок длится дольше и весит больше.</p>
+    <p><b>Вывод:</b> 48 км/ч, а не 50: среднее отношений не равно отношению средних — тот же Симпсон с весами.</p>
+  </details>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Четыре вопроса про данные</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Доля отменённых заказов упала и у новичков, и у постоянных гостей. Что с общей долей отмен?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Это верно только при той же структуре. Если новичков, у которых отмен больше, стало заметно больше, общая доля может вырасти.">Упала: если везде лучше, то в целом тоже</button><button type="button" data-v="b" data-why="Вырасти она может, но не обязана: всё зависит от того, как поменялась доля новичков.">Выросла: так всегда бывает при Симпсоне</button><button type="button" data-v="c">Зависит от смены доли новичков</button></div>
+    <p class="why">Общая доля — среднее долей групп с весами по числу заказов. Веса поменялись — общая доля может пойти в любую сторону. Сначала смотри на структуру, потом на итог.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Опрос в приложении собрал 50 000 ответов «довольны ли доставкой». Случайный обзвон — 500. Чему верить больше?</p>
+    <div class="choice"><button type="button" data-v="a">Обзвону: в нём нет отбора по желанию</button><button type="button" data-v="b" data-why="Размер убирает шум, но не смещение: 50 000 ответов тех, кто сам захотел ответить, повторят то же искажение увереннее.">Опросу: 50 000 точнее, чем 500</button><button type="button" data-v="c" data-why="Среднее двух результатов унаследует смещение опроса, причём с огромным весом.">Среднему двух результатов с весами n</button></div>
+    <p class="why">В опросе отвечает тот, кто захотел, — обычно очень довольные и очень недовольные. Большая выборка сужает шум, но смещение не трогает. У 500 случайных гостей шум больше, зато он честный.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">После новой упаковки пришла 31 жалоба на пролитый суп. Это много?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="31 — только числитель. Без числа заказов с супом и прошлой нормы сравнить не с чем.">Много: раньше жалоб почти не было</button><button type="button" data-v="b">Нельзя сказать без числа заказов и нормы</button><button type="button" data-v="c" data-why="Жалоба — это не случайный гость: как часто недовольные пишут, тоже нужно знать. Но сначала — знаменатель.">Мало: недовольные всегда жалуются громче</button></div>
+    <p class="why">Нужен знаменатель: сколько было заказов с супом, и норма: сколько жалоб было со старой упаковкой на столько же заказов. Ещё важно, не появилась ли кнопка «пожаловаться» на видном месте: тогда жалоб больше без всякого ухудшения.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Котейка приходит на остановку в случайный момент. Автобусы ходят строго раз в 10 минут. Сколько он ждёт в среднем?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="10 минут ждут в среднем при экспоненциальных интервалах. При строгом расписании все интервалы одинаковые.">10 минут, как при случайных интервалах</button><button type="button" data-v="b" data-why="Ждать дольше полинтервала заставляют только неровные интервалы. Здесь их нет.">Больше 5: длинные интервалы ловят чаще</button><button type="button" data-v="c">5 минут, ровно полинтервала</button></div>
+    <p class="why">Все интервалы по 10 минут, длинных нет: E[T²]/(2E[T]) = 100/20 = 5. Парадокс инспекции начинается, когда интервалы разные.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 8</span>
+  <h2 data-proverb="ch08">Сначала спроси, откуда данные</h2>
+  <ul class="cheat">
+    <li>Четыре вопроса до расчёта: кто попал в данные? Кто или что решило, что он попал? Что в знаменателе? На каком уровне мы отвечаем на вопрос?</li>
+    <li>Парадокс инспекции: случайный момент чаще попадает в длинный интервал. <span class="num">E[ожидание] = E[T²]/(2E[T])</span>; при экспоненте — целый интервал, а не половина.</li>
+    <li>Симпсон: <span class="num">p<sub>всего</sub> = Σ wᵢ pᵢ</span>. Все части могут улучшиться, а итог ухудшиться, если сменились веса. Сравнивай при одной структуре.</li>
+    <li>Берксон: порог отбора создаёт связь, которой нет во всей совокупности. Смотри, кого не показали.</li>
+    <li>Ошибка выжившего: в «постоянных» остались те, кто не ушёл. Следи за одними и теми же людьми во времени.</li>
+    <li>Большая выборка уменьшает шум, но не смещение.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Парадокс инспекции</dt><dd>объект попадает в выборку с весом своего размера: длинные интервалы, полные автобусы; inspection paradox, length-biased sampling</dd>
+    <dt>Парадокс Симпсона</dt><dd>связь в каждой группе и в сумме направлена по-разному из-за смены весов групп; Simpson's paradox</dd>
+    <dt>Смещение отбора</dt><dd>правило попадания в данные искажает картину; частный случай с порогом — парадокс Берксона; selection bias</dd>
+    <dt>Ошибка выжившего</dt><dd>в данных только те, кто «дожил»; survivorship bias</dd>
+  </dl>
+  <figure class="art"><img src="img/ch08-03-next.jpg" alt="Две одинаковые двери кафе, Алиса с линейкой смотрит на два разных столбика над ними" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две одинаковые двери и два разных столбика</figcaption></figure>
+  <a class="next-step" href="09-aa.html"><b>Дальше, глава 9: «A/A-тест»</b>Данные честные, группы одинаковые — а цифры всё равно разные. Насколько, и как этим проверить, что эксперимент считается правильно?</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    kName: ['строго по расписанию', 'почти по расписанию', 'неровные', 'случайные (экспонента)', 'с пачками', 'сильными пачками'],
+    busStat: (n, wait, theo, longShare) => 'Приходов: ' + int(n) + '. По формуле E[T²]/(2E[T]) ждать ' + num(theo, 1) + ' мин. Котейка попадал в интервалы длиннее 10 минут в ' + share(longShare, 0) + ' приходов.',
+    busEmpty: 'Нажми «Прийти 1000 раз»',
+    min: 'мин',
+    busV: (ch, w) => (ch ? 'Ты выбрал ' + num(+ch, ch === '7.5' ? 1 : 0) + ' мин. ' : '') + 'При случайных интервалах Котейка ждёт в среднем <b>' + num(w, 1) + ' мин</b> — целый средний интервал, а не половину. Длинные интервалы занимают больше времени, и случайный приход чаще попадает именно в них. Подвигай ползунок: при строгом расписании — 5 минут, при пачках — 15 и больше.',
+    busV2: (k, w) => k === 0 ? 'Строгое расписание: все интервалы по 10 минут, ждать в среднем ' + num(w, 1) + ' мин — ровно полинтервала.' : 'Средний интервал тот же, 10 минут, а ждать уже ' + num(w, 1) + ' мин. Чем неровнее интервалы, тем дольше ожидание.',
+    oct: 'Октябрь', nov: 'Ноябрь', center: 'Центр', far: 'Окраина', all: 'Все вместе',
+    cell: (late, n) => '<b>' + share(late / n, 1) + '</b>' + int(late) + ' из ' + int(n),
+    simpV: (pN, g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + (pN > 0.14 + 1e-9 ? 'В ноябре опоздали <b>' + share(pN, 1) + '</b> заказов — больше, чем в октябре (14' + NBSP + '%), хотя в каждом районе опозданий меньше. Заказов стало больше там, где опаздывают чаще.' : 'В ноябре опоздали <b>' + share(pN, 1) + '</b> — меньше, чем в октябре: доля окраины выросла не так сильно.') + ' Граница — около 35' + NBSP + '% заказов на окраину: выше неё общий итог ухудшается при улучшении в каждом районе.',
+    lateAx: 'опоздания',
+    r: v => (v < 0 ? MINUS : v > 0 ? '+' : '') + num(Math.abs(v), 2),
+    berkV: (r, k) => 'Показано ' + int(k) + ' из 300 кафе. Во всей сети связи почти нет, а среди показанных корреляция ' + (r < 0 ? MINUS : '+') + num(Math.abs(r), 2) + '. ' + (r < -0.3 ? 'Кажется, что «вкусно — значит, невыгодно», но это работа порога.' : 'При низком пороге отбор слабый — и ложной связи почти нет.'),
+    taste: 'вкус →', value: 'выгодность цены →',
+  },
+}[LANG] || {};
+
+// ---------- карточка 4: автобус ----------
+(function(){
+  const sl = document.getElementById('k8'), cv = document.getElementById('cv-bus');
+  const KS = [Infinity, 4, 2, 1, 0.5, 0.25], SPAN = 300;  // 5 часов на ленте
+  const gamma1 = k => { const d = k - 1 / 3, c = 1 / Math.sqrt(9 * d); for (;;){ let x, v; do { x = gauss(); v = 1 + c * x; } while (v <= 0); v = v * v * v; if (Math.log(rand()) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v; } };
+  const gam = k => k >= 1 ? gamma1(k) : gamma1(k + 1) * Math.pow(rand(), 1 / k);
+  const gap = k => k === Infinity ? 10 : 10 * gam(k) / k;
+  let ki = 3, buses = [], arr = [];
+  function newDay(){ buses = [0]; let t = 0; const k = KS[ki]; while (t < 6000){ t += gap(k); buses.push(t); } arr = []; }
+  function come(m){
+    const T = buses[buses.length - 1];
+    for (let i = 0; i < m; i++){
+      const a = rand() * T; let lo = 0, hi = buses.length - 1;
+      while (hi - lo > 1){ const mid = (lo + hi) >> 1; if (buses[mid] <= a) lo = mid; else hi = mid; }
+      arr.push({a, w: buses[hi] - a, g: buses[hi] - buses[lo]});
+    }
+    update();
+  }
+  function draw(){
+    const g = canvas(cv, 0.26, 0.5); if (!g) return; const {c, w, h} = g;
+    const L = 8, R = 8, pw = w - L - R, X = t => L + t / SPAN * pw, y0 = h * 0.62, bh = h * 0.18;
+    // интервалы
+    for (let i = 0; i < buses.length - 1 && buses[i] < SPAN; i++){
+      const a = buses[i], b = Math.min(buses[i + 1], SPAN), long = buses[i + 1] - buses[i] > 10;
+      c.fillStyle = long ? COL.fillT : COL.fillC; c.fillRect(X(a), y0 - bh, X(b) - X(a), bh);
+      c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); c.moveTo(X(a), y0 - bh - 6); c.lineTo(X(a), y0 + 4); c.stroke();
+    }
+    // приходы Котейки на первых 5 часах
+    const shown = arr.filter(p => p.a < SPAN).slice(0, 400);
+    shown.forEach((p, i) => { c.fillStyle = COL.test; c.beginPath(); c.arc(X(p.a), y0 - bh - 14 - (i % 4) * 7, 2.6, 0, 2 * Math.PI); c.fill(); });
+    [0, 60, 120, 180, 240, 300].forEach(t => label(c, (t / 60) + ' ч', X(t), h - 6, COL.ink2, t === 0 ? 'left' : t === 300 ? 'right' : 'center'));
+    if (!arr.length) label(c, TXT.busEmpty, w / 2, 18, COL.ink2, 'center');
+  }
+  function update(){
+    ki = +sl.value; document.getElementById('k8-t').textContent = TXT.kName[ki];
+    const k = KS[ki], theo = 5 * (1 + (k === Infinity ? 0 : 1 / k));
+    const gaps = []; for (let i = 1; i < buses.length; i++) gaps.push(buses[i] - buses[i - 1]);
+    document.getElementById('bus-gap').textContent = num(mean(gaps), 1);
+    const v = document.getElementById('v-bus');
+    if (arr.length){
+      const wv = mean(arr.map(p => p.w)), lg = arr.filter(p => p.g > 10).length / arr.length;
+      document.getElementById('bus-wait').textContent = num(wv, 1);
+      document.getElementById('bus-stat').textContent = TXT.busStat(arr.length, wv, theo, lg);
+      v.hidden = false; v.className = 'verdict ' + (ki === 0 ? 'good' : 'bad');
+      v.innerHTML = ki === 3 ? TXT.busV(Book.choice('wait'), wv) : TXT.busV2(ki, wv);
+    } else { document.getElementById('bus-wait').textContent = '—'; document.getElementById('bus-stat').textContent = ''; v.hidden = true; }
+    draw();
+  }
+  sl.addEventListener('input', () => { ki = +sl.value; newDay(); update(); });
+  document.getElementById('bus1000').addEventListener('click', () => come(1000));
+  document.getElementById('bus-new').addEventListener('click', () => { newDay(); update(); });
+  window.addEventListener('resize', draw);
+  newDay(); update();
+})();
+
+// ---------- карточка 7: Симпсон ----------
+(function(){
+  const sl = document.getElementById('far8'), cv = document.getElementById('cv-simp');
+  const OCT = {c: [80, 800], f: [60, 200]};
+  function nov(){ const fN = Math.round(+sl.value * 10), cN = 1000 - fN; return {c: [Math.round(cN * 0.08), cN], f: [Math.round(fN * 0.25), fN]}; }
+  function draw(){
+    const N = nov(), pO = 140 / 1000, pN = (N.c[0] + N.f[0]) / 1000;
+    const g = canvas(cv, 0.3, 0.6); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 8, T = 10, B = 24, pw = w - L - R, ph = h - T - B, top = 0.35;
+    axisY(c, L, R, T, ph, w, 0, top, 0.1, v => shareT(v, 0));
+    const groups = [[TXT.center, OCT.c[0] / OCT.c[1], N.c[0] / N.c[1]], [TXT.far, OCT.f[0] / OCT.f[1], N.f[0] / N.f[1]], [TXT.all, pO, pN]];
+    const gw = pw / 3;
+    groups.forEach(([nm, a, b], i) => {
+      const x = L + i * gw, bw = gw * 0.28;
+      [[a, COL.gray], [b, i < 2 ? COL.truth : (b > a ? COL.trap : COL.truth)]].forEach(([v, col], j) => { const bh = ph * v / top; c.fillStyle = col; c.fillRect(x + gw * 0.18 + j * (bw + 4), T + ph - bh, bw, bh); label(c, shareT(v, 1), x + gw * 0.18 + j * (bw + 4) + bw / 2, T + ph - bh - 4, COL.ink2, 'center'); });
+      label(c, nm, x + gw / 2, h - 6, COL.ink, 'center');
+    });
+  }
+  function update(){
+    const N = nov(), pN = (N.c[0] + N.f[0]) / 1000;
+    document.getElementById('far8-t').textContent = shareT(+sl.value / 100, 0);
+    const row = (nm, o, n, tot) => '<tr' + (tot ? ' class="tot"' : '') + '><th>' + nm + '</th><td>' + TXT.cell(o[0], o[1]) + '</td><td class="' + (n[0] / n[1] < o[0] / o[1] ? 'down8' : 'up8') + '">' + TXT.cell(n[0], n[1]) + '</td></tr>';
+    document.getElementById('simp8').innerHTML = '<table><tr><th></th><th>' + TXT.oct + '</th><th>' + TXT.nov + '</th></tr>' + row(TXT.center, OCT.c, N.c) + row(TXT.far, OCT.f, N.f) + row(TXT.all, [140, 1000], [N.c[0] + N.f[0], 1000], true) + '</table>';
+    const v = document.getElementById('v-simp'); v.className = 'verdict ' + (pN > 0.14 ? 'bad' : 'good'); v.innerHTML = TXT.simpV(pN, Book.guess('simpson'));
+    draw();
+  }
+  sl.addEventListener('input', update);
+  window.addEventListener('resize', draw);
+  update();
+})();
+
+// ---------- карточка 9: Берксон ----------
+(function(){
+  const sl = document.getElementById('thr8'), cv = document.getElementById('cv-berk');
+  let pts = [];
+  const corr = a => { if (a.length < 3) return 0; const mx = mean(a.map(p => p[0])), my = mean(a.map(p => p[1])); let sxy = 0, sx = 0, sy = 0; a.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sx += (x - mx) ** 2; sy += (y - my) ** 2; }); return sxy / Math.sqrt(sx * sy); };
+  function gen(){ pts = []; for (let i = 0; i < 300; i++) pts.push([gauss(), gauss()]); update(); }
+  function draw(){
+    const t = +sl.value, g = canvas(cv, 0.5, 0.9); if (!g) return; const {c, w, h} = g;
+    const L = 22, R = 8, T = 8, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + (v + 3.2) / 6.4 * pw, Y = v => T + ph - (v + 3.2) / 6.4 * ph;
+    c.strokeStyle = COL.grid; c.strokeRect(L, T, pw, ph);
+    // порог: x + y = t
+    c.fillStyle = COL.fillGray; c.beginPath(); c.moveTo(X(-3.2), Y(-3.2)); c.lineTo(X(-3.2), Y(t + 3.2)); c.lineTo(X(t + 3.2), Y(-3.2)); c.closePath(); c.fill();
+    c.strokeStyle = COL.ink2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(X(-3.2), Y(t + 3.2)); c.lineTo(X(t + 3.2), Y(-3.2)); c.stroke(); c.setLineDash([]);
+    pts.forEach(([x, y]) => { const on = x + y > t; c.fillStyle = on ? COL.ctrl : COL.gray; c.globalAlpha = on ? 0.9 : 0.45; c.beginPath(); c.arc(X(x), Y(y), on ? 3.6 : 2.8, 0, 2 * Math.PI); c.fill(); });
+    c.globalAlpha = 1;
+    label(c, TXT.taste, L + pw, h - 6, COL.ink2, 'right');
+    c.save(); c.translate(14, T + ph); c.rotate(-Math.PI / 2); label(c, TXT.value, 0, 0, COL.ink2); c.restore();
+  }
+  function update(){
+    const t = +sl.value; document.getElementById('thr8-t').textContent = (t < 0 ? MINUS : '') + numT(Math.abs(t), 2);
+    const on = pts.filter(p => p[0] + p[1] > t), ra = corr(pts), rs = corr(on);
+    document.getElementById('berk-all').textContent = TXT.r(ra);
+    document.getElementById('berk-shown').textContent = TXT.r(rs);
+    const v = document.getElementById('v-berk'); v.className = 'verdict ' + (rs < -0.3 ? 'bad' : 'good'); v.innerHTML = TXT.berkV(rs, on.length);
+    draw();
+  }
+  sl.addEventListener('input', update);
+  document.getElementById('berk-new').addEventListener('click', gen);
+  window.addEventListener('resize', draw);
+  gen();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

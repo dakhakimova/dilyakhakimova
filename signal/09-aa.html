@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A/A-тест · Сигнал или шум</title>
+<meta name="description" content="Глава 9 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка разности двух групп, стенд A/A, ровные p-value без эффекта, тренд, которого нет, 20 метрик в A/A, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.nsel button{min-height:44px}
+.range-row{display:block; margin:10px 0 2px}
+.range-row input[type=range]{width:100%; height:44px; margin:0}
+.readout9{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch09" data-next="10-ab-test.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 9 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним главу 7</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">σ чека — 400 ₽. Берём 1600 заказов. Насколько шумит их средний чек (стандартная ошибка)?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Это σ / n: делить нужно на корень из n.">Примерно на четверть рубля</button><button type="button" data-v="b">Примерно на 10 ₽</button><button type="button" data-v="c" data-why="400 ₽ — разброс одного чека. Среднее 1600 чеков гуляет гораздо меньше.">На те же 400 ₽, что и чек</button></div>
+    <p class="why">SE = σ/√n = 400/√1600 = 400/40 = 10 ₽. Это было в главе 7.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Алиса хочет, чтобы средний чек шумел вдвое меньше. Во сколько раз больше заказов ей нужно?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Вдвое больше заказов уменьшат SE только в √2 ≈ 1,4 раза.">Вдвое больше</button><button type="button" data-v="b" data-why="√2 раза больше заказов уменьшат SE лишь в 2^¼ ≈ 1,19 раза.">В √2 раза больше</button><button type="button" data-v="c">Вчетверо больше</button></div>
+    <p class="why">SE падает как 1/√n: чтобы √n выросло вдвое, n должно вырасти вчетверо.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Линейка для шума" aria-label="Линейка для шума">
+  <p class="kicker">Часть III · глава 9</p>
+  <h1>A/A-тест</h1>
+  <p class="core">После главы ты сможешь <b>посчитать SE разности двух групп и предсказать разброс A/A</b> — и по нему проверить, что эксперимент считается правильно.</p>
+  <figure class="art"><img src="img/ch09-00-twins.jpg" alt="Две одинаковые двери кафе, над ними столбики разной высоты; Алиса приставила к ним линейку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две одинаковые двери, разные столбики, Алиса с линейкой</figcaption></figure>
+  <p class="lead">Разделим гостей на две группы и ничего не будем менять. Разница в конверсии всё равно будет. Какая она бывает — и почему это самое полезное число перед любым A/B?</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет четвёртый для двух групп">
+    <li>1. Что здесь случайно?</li>
+    <li>2. Как распределено?</li>
+    <li>3. Центр и разброс</li>
+    <li class="on"><b>4.</b> Насколько шумит среднее</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+  <p>В главе 7 мы считали шум одного среднего. Здесь — шум разности двух средних, когда эффекта нет совсем. Это и есть линейка, которой в главе 10 будем мерить настоящий A/B.</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Разница, которой нет</h2>
+  <div class="chat">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Я неделю делила гостей приложения на две группы. Обеим показывала одно и то же. В первой заказали 10,0 из 100, во второй — 10,6.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Это баг! Если группы одинаковые, разница должна быть ноль.</p></div></div>
+    <div class="msg kot world"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, это я раскладывал гостей монеткой. Кому-то просто захотелось кофе именно сегодня.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это не баг, это линейка. Сейчас покажу, какой бывает разница, когда разницы нет.</p></div></div>
+  </div>
+  <p>Конверсия 10 %, в каждой группе 10 000 гостей. Котейка 100 раз запускает такой A/A-тест.</p>
+  <div class="guess" data-key="aa83" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Разница больше 0,83 заказа на 100 гостей (в любую сторону) будет примерно в <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % A/A-тестов</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке запустим стенд.</p>
+  </div>
+</section>
+
+<!-- 4: стенд A/A -->
+<section class="card" data-title="Стенд A/A" aria-label="Стенд A/A">
+  <span class="step-tag">Поиграй</span>
+  <h2>Стенд A/A</h2>
+  <p>Каждый запуск — две группы одинаковых гостей. На гистограмме — разница «вторая минус первая» в заказах на 100 гостей. Серая кривая — колокол N(0, SE²), полоса — ±1,96·SE.</p>
+  <div class="sheet c-white">
+    <div class="nsel" id="p9" role="group" aria-label="Конверсия">
+      <button type="button" data-p="0.02" aria-pressed="false">p = 2 %</button>
+      <button type="button" data-p="0.1" aria-pressed="true">p = 10 %</button>
+      <button type="button" data-p="0.3" aria-pressed="false">p = 30 %</button>
+    </div>
+    <label class="range-row" for="n9">Гостей в каждой группе: <b class="num" id="n9-t">10 000</b><input type="range" id="n9" min="0" max="5" step="1" value="3"></label>
+    <div class="controls">
+      <button class="btn" type="button" id="aa1000">+1000 A/A</button>
+      <button class="btn ghost" type="button" id="aa1">1 A/A</button>
+      <button class="btn ghost" type="button" id="aa100">+100</button>
+      <button class="btn ghost" type="button" id="aa0">Сначала</button>
+    </div>
+    <canvas id="cv-aa" role="img" aria-label="Гистограмма разниц между одинаковыми группами, колокол N(0, SE²) и полоса ±1,96·SE"></canvas>
+    <div class="big2">
+      <div class="ctrl"><b id="aa-se">—</b><span>SE разности, заказов на 100 гостей</span></div>
+      <div class="trap"><b id="aa-out">—</b><span>A/A за полосой ±1,96·SE</span></div>
+    </div>
+    <p class="note readout9" id="aa-last"></p>
+    <div class="verdict" id="v-aa" hidden></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Тест, в котором группы получают одно и то же, называют <b class="term">A/A-тестом</b>; на собеседовании — <b>A/A test</b>.</p>
+    <p class="aside">Звучит как опечатка в «A/B», а это эталон шума: всё, что он показывает, — случайность.</p>
+  </aside>
+  <p class="src">Идея из видео: Джош Стармер (StatQuest), «Sampling from a Distribution» (сэмплировать, чтобы проверить сам тест)</p>
+</section>
+
+<!-- 5: правило -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>SE разности: шумят обе группы</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Две одинаковые группы дают разные цифры, потому что шумит каждая. Шум разности складывается из двух шумов, поэтому он больше шума одной группы — но не вдвое, а в √2 раз.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>При 10 % и 10 000 гостей в группе у одной группы SE = √(0,1 · 0,9 / 10 000) = 0,3 заказа на 100 гостей. У разности — 0,3 · √2 ≈ 0,42. В 95 A/A из 100 разница в пределах ±1,96 · 0,42 ≈ ±0,83 заказа на 100 гостей, то есть ±83 заказа на 10 000.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">Var(p̂<sub>B</sub> − p̂<sub>A</sub>) = p(1 − p) · (1/n<sub>A</sub> + 1/n<sub>B</sub>)</p>
+      <p class="formula">SE разности средних = √(s²<sub>A</sub>/n<sub>A</sub> + s²<sub>B</sub>/n<sub>B</sub>)</p>
+      <p class="formula">P(|разница| &gt; 1,96 · SE) ≈ 5 %</p>
+      <p class="read">Словами: дисперсии независимых групп складываются. Разница за 1,96·SE в A/A бывает в 5 тестах из 100 — это норма, а не баг.</p>
+    </div>
+  </div>
+  <p>Формула для средних — та же, что для долей: у доли s² = p(1 − p). Поэтому одну линейку можно приложить к любой метрике «на гостя»: конверсии, среднему чеку, числу заказов.</p>
+  <p class="xref"><span>Без формул и с сеткой из 100 гостей — в «A/B на пальцах», <a href="/ab-basics/03-noise.html">шаг 3 «Шум есть всегда»</a>.</span></p>
+</section>
+
+<!-- 6: фабрика p-value -->
+<section class="card" data-title="Ровные p-value" aria-label="Ровные p-value">
+  <span class="step-tag">Поиграй</span>
+  <h2>Фабрика p-value без эффекта</h2>
+  <p>Для каждого A/A посчитаем p-value — вероятность при отсутствии эффекта увидеть разницу не меньше нашей (подробно — в главе 10). Если тест честный, в A/A все значения p от 0 до 1 одинаково вероятны: гистограмма ровная, в каждом столбике шириной 0,05 — около 5 % тестов.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="pv1000">+1000 A/A</button>
+      <button class="btn ghost" type="button" id="pvbug" aria-pressed="false">Добавить баг: дубли событий</button>
+      <button class="btn ghost" type="button" id="pv0">Сначала</button>
+    </div>
+    <canvas id="cv-pv" role="img" aria-label="Гистограмма p-value в A/A-тестах: ровная без бага, с пиком у нуля при баге"></canvas>
+    <p class="note readout9" id="pv-stat"></p>
+    <div class="verdict" id="v-pv" hidden></div>
+  </div>
+  <p>Баг «дубли событий»: каждого второго гостя логгер записал дважды. Формула думает, что наблюдений больше и они независимы, — и недооценивает шум. Ложных тревог становится около 13 % вместо 5 %, а у нуля вырастает пик. Ровная гистограмма p в сотнях A/A — главная проверка, что платформа считает правильно.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Долю A/A, которые «прокрасились» при пороге 5 %, называют <b class="term">долей ложных тревог</b>; на собеседовании — <b>false positive rate</b>, FPR.</p>
+    <p class="aside">У честного теста она равна выбранному порогу α: 5 % — значит, 5 из 100.</p>
+  </aside>
+  <p class="src">Идея из книги: Даниэл Лакенс, «Improving Your Statistical Inferences» («фабрика p-value»)</p>
+</section>
+
+<!-- 7: тренд, которого нет -->
+<section class="card" data-title="Тренд, которого нет" aria-label="Тренд, которого нет">
+  <span class="step-tag">Поиграй</span>
+  <h2>Боб смотрит накопленную разницу каждый день</h2>
+  <figure class="art"><img src="img/ch09-01-trend.jpg" alt="Боб тычет пальцем в растущую линию на экране, а Котейка из мешка подкидывает монетку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб показывает на «тренд», Котейка подкидывает монетку</figcaption></figure>
+  <p>Тот же A/A, по 2000 новых гостей в группу каждый день, 14 дней. Линия — накопленная разница «вторая минус первая», серая труба — ±1,96·SE на накопленных гостях: она сужается как 1/√n.</p>
+  <div class="sheet c-white">
+    <canvas id="cv-tr" role="img" aria-label="20 путей накопленной разницы A/A за 14 дней и сужающаяся труба ±1,96·SE"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="tr-new">Другие 20 тестов</button>
+      <button class="btn ghost" type="button" id="tr-1000">Посчитать 1000 тестов</button>
+    </div>
+    <div class="verdict" id="v-tr"></div>
+  </div>
+  <p>В первые дни разница скачет сильнее всего, и путь легко «растёт» несколько дней подряд — это и есть тренд, которого нет. К 14-му дню за трубу выходит около 5 % путей, как и обещано. Но если смотреть каждый день и останавливаться при первом выходе за трубу, «прокрасится» уже примерно каждый пятый A/A. Как подглядывать честно — тема курса «A/B без мифов».</p>
+  <p class="src">Идея из подборки статей об онлайн-экспериментах (накопленный эффект A/A «растёт» несколько дней)</p>
+</section>
+
+<!-- 8: 20 метрик -->
+<section class="card" data-title="20 метрик" aria-label="20 метрик">
+  <span class="step-tag">Поиграй</span>
+  <h2>Двадцать метрик в одном A/A</h2>
+  <p>В отчёте A/A у Алисы 20 метрик. Красная — разница за полосой ±1,96·SE. Запускай A/A и считай красные. Потом сделай метрики связанными: заказы, выручка и чек ведь двигаются вместе.</p>
+  <div class="sheet c-white">
+    <div class="metrics20" id="m20"></div>
+    <div class="controls">
+      <button class="btn" type="button" id="m20-1">Запустить A/A</button>
+      <button class="btn ghost" type="button" id="m20-1000">+1000 A/A</button>
+      <button class="btn ghost" type="button" id="m20-corr" aria-pressed="false">Метрики связаны</button>
+    </div>
+    <p class="note readout9" id="m20-stat"></p>
+    <div class="verdict" id="v-m20" hidden></div>
+  </div>
+  <p>У независимых метрик в среднем красная одна, и хотя бы одна красная бывает в 64 % A/A: 1 − 0,95²⁰ ≈ 0,64. У связанных в среднем тоже одна, но они краснеют пачками: чаще все серые, зато если уж покраснели — сразу несколько.</p>
+</section>
+
+<!-- 9: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Свой стенд A/A</h2>
+  <p>Напиши функцию: runs раз запускает A/A с конверсией p и n гостями в каждой группе, считает z = разница / SE и возвращает долю тестов с |z| &gt; 1,96. Если всё верно, получится около 0,05 при любых p и n.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-aa-rate">
+<textarea spellcheck="false" aria-label="Задание: функция aa_false_rate">import numpy as np
+
+def aa_false_rate(p, n, runs):
+    # x_a, x_b — число заказов в двух одинаковых группах, runs запусков
+    x_a = np.random.binomial(n, p, runs)
+    x_b = np.random.binomial(n, p, runs)
+    # посчитай общую долю, SE разности, z и верни долю |z| > 1.96
+    return ...
+
+print(aa_false_rate(0.1, 10_000, 20_000))</textarea>
+  </div>
+<script type="text/x-python" id="check-aa-rate">
+def _check():
+    try:
+        f = aa_false_rate
+    except NameError:
+        print("FAIL функции aa_false_rate нет — запусти ячейку с ней"); return
+    try:
+        a = f(0.1, 10_000, 40_000)
+    except Exception as e:
+        print("FAIL функция упала:", e); return
+    if a is ... or a is None:
+        print("FAIL функция пока ничего не считает: замени ... на код"); return
+    a = float(a)
+    if a < 0.005:
+        print(f"FAIL получилось {str(round(a, 3)).replace('.', ',')}: почти ни одного выхода — похоже, SE завышена (например, взята σ без деления на √n)"); return
+    if 0.15 < a < 0.25:
+        print(f"FAIL получилось {str(round(a, 3)).replace('.', ',')}: похоже, взята SE одной группы вместо разности (нет множителя √2)"); return
+    if not 0.04 <= a <= 0.06:
+        print(f"FAIL получилось {str(round(a, 3)).replace('.', ',')}, а ждали около 0,05"); return
+    b = float(f(0.02, 2_000, 40_000))
+    if not 0.035 <= b <= 0.065:
+        print(f"FAIL при p = 2 % и n = 2000 получилось {str(round(b, 3)).replace('.', ',')}, а ждали около 0,05"); return
+    print("OK " + f"{a:.3f}".replace(".", ",") + " и " + f"{b:.3f}".replace(".", ",") + " — около 5 %, как и положено в A/A")
+_check()
+</script>
+</section>
+
+<!-- 10: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>«Один A/A прошёл — всё в порядке»</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я запустил A/A на новой платформе. Ни одна метрика не покраснела. Значит, платформа считает правильно, можно запускать A/B!</p></div></div>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Что не так в выводе Котейки?</p>
+    <div class="choice"><button type="button" data-v="a">Баг виден только на сотнях A/A</button><button type="button" data-v="b" data-why="Наоборот: серый A/A — самый частый исход и у сломанной платформы. С багом «дубли событий» серыми остаются 87 из 100.">Серый A/A бывает только без бага</button><button type="button" data-v="c" data-why="Красный A/A не доказывает баг: у честной платформы красных 5 из 100. Один тест не решает ни в ту, ни в другую сторону.">A/A должен был дать хоть одну красную</button></div>
+    <p class="why">Один A/A ничего не доказывает: и у честной, и у сломанной платформы он обычно серый. Проверяют сотни A/A (или симуляцию на исторических данных): доля красных около 5 % и ровная гистограмма p. Ещё одна проверка — доли групп: если при сплите 50/50 пришло 10 000 и 10 400 гостей, это подозрительно (z ≈ 2,8, p ≈ 0,005). Такой перекос называют SRM, sample ratio mismatch; подробно — в «A/B без мифов».</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 11: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Две задачи про A/A</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="pvuniform">
+    <summary>Как распределены p-value в A/A-тестах? Что значит, если у нуля пик?</summary>
+    <p><b>Переформулирую:</b> эффекта нет, тест честный; как часто p меньше любого порога t?</p>
+    <p><b>В штуках:</b> по определению теста при отсутствии эффекта p &lt; 0,05 бывает в 5 тестах из 100, p &lt; 0,1 — в 10, p &lt; 0,5 — в 50. Значит, в каждом столбике шириной 0,05 — по 5 %: гистограмма ровная.</p>
+    <p><b>Формула:</b> <span class="num">P(p ≤ t | эффекта нет) = t</span>, то есть p ~ U(0, 1). Для дискретных метрик и малых n — ступеньками, но в среднем ровно.</p>
+    <p><b>Симуляция:</b> 10 000 A/A на стенде этой главы: в каждом столбике около 500.</p>
+    <p><b>Вывод:</b> в A/A p-value равномерны. Пик у нуля значит, что шум недооценён: дубли событий, считаем по заказам вместо гостей, зависимые наблюдения, сломанный сплит.</p>
+  </details>
+  <details class="ivw" data-key="aareport">
+    <summary>Найди ошибку в отчёте Алисы: «В A/A 20 метрик, покраснели 2 — заказы и выручка. Шанс, что ни одна не покраснеет, 0,95²⁰ = 36 %, значит, 2 красных — норма».</summary>
+    <p><b>Переформулирую:</b> какое событие нас интересует и верна ли формула для этих метрик?</p>
+    <p><b>В штуках:</b> ошибок две. Первая — не то событие: 36 % — это «ни одной красной», а вопрос про «две и больше». Для независимых метрик это 1 − 0,95²⁰ − 20 · 0,05 · 0,95¹⁹ ≈ 26 %. Вторая — независимость: заказы и выручка двигаются вместе. При связи около 0,6 между всеми метриками «ни одной красной» уже 64 %, а не 36 %, зато красные приходят пачками: две красные из связанной пары — почти одно событие.</p>
+    <p><b>Формула:</b> <span class="num">P(ни одной) = (1 − α)ᵏ</span> — только для независимых метрик и с α, а не с p-value.</p>
+    <p><b>Симуляция:</b> на карточке «20 метрик» включи «метрики связаны» и запусти 1000 A/A; на своих данных — сотня A/A на исторических периодах.</p>
+    <p><b>Вывод:</b> две красные связанные метрики в A/A — не тревога, но аргумент Алисы неверный: считать нужно «две и больше» и с учётом связи метрик, проще всего — симуляцией.</p>
+  </details>
+</section>
+
+<!-- 12: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Четыре вопроса про A/A</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В A/A на 20 000 гостей конверсия групп 10,0 % и 10,3 %. Что это значит?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Группы одинаковые по построению, разница всё равно бывает: каждая группа шумит.">Сплит сломан: в A/A разница нулевая</button><button type="button" data-v="b">Обычный шум: SE разности около 0,42</button><button type="button" data-v="c" data-why="В A/A ничего не меняли, так что «эффекту» неоткуда взяться: это шум.">Одной группе повезло с эффектом</button></div>
+    <p class="why">При 10 % и 10 000 гостей в группе SE разности ≈ 0,42 заказа на 100 гостей. 0,3 — меньше одной SE, а разница меньше одной SE бывает примерно в двух A/A из трёх.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Из 100 A/A-тестов покраснели 5 при пороге 5 %. Что с платформой?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="В честном A/A красных в среднем 5 из 100 — это и есть порог 5 %.">Сломана: в A/A красных быть не должно</button><button type="button" data-v="b" data-why="Пять красных — ровно ожидаемое число, они не говорят ни о каком перекосе в группах.">Сломан сплит: пять групп получили больше</button><button type="button" data-v="c">Всё ожидаемо: 5 % и есть порог</button></div>
+    <p class="why">Доля ложных тревог честного теста равна α. 5 из 100 — норма; тревожно, если их стабильно 10–15 или p-value копятся у нуля.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">SE конверсии одной группы — 0,3 заказа на 100 гостей, группы равные. Какая SE у разности двух групп?</p>
+    <div class="choice"><button type="button" data-v="a">Около 0,42, в √2 раз больше</button><button type="button" data-v="b" data-why="Сигмы не складываются: складываются дисперсии, 0,09 + 0,09 = 0,18, а √0,18 ≈ 0,42.">0,6: два шума складываются</button><button type="button" data-v="c" data-why="Шумят обе группы, поэтому разность шумит сильнее одной группы.">0,3: группы одинаковые, шум тот же</button></div>
+    <p class="why">Var(разности) = 0,3² + 0,3² = 0,18, SE = √0,18 ≈ 0,42. Складываются дисперсии, а не сигмы, — как в главе 7.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Как выглядит гистограмма p-value тысячи честных A/A?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Пик у нуля — признак бага: шум недооценён, и маленькие p выпадают слишком часто.">Пик у нуля: маленькие p частые</button><button type="button" data-v="b">Ровная, без пиков и провалов</button><button type="button" data-v="c" data-why="Колокол у 0,5 был бы, если бы тест не умел выдавать крайние p. По определению p &lt; 0,05 бывает в 5 % A/A.">Колокол с вершиной около 0,5</button></div>
+    <p class="why">В A/A P(p ≤ t) = t для любого t, поэтому распределение p равномерное. Это главный тест платформы: ровно — считает правильно.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 13: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 9</span>
+  <h2 data-proverb="ch09">A/A — линейка для шума</h2>
+  <ul class="cheat">
+    <li>Две одинаковые группы почти всегда дают разные цифры: шумят обе.</li>
+    <li>SE разности долей: <span class="num">√(p(1 − p)(1/n<sub>A</sub> + 1/n<sub>B</sub>))</span>; средних: <span class="num">√(s²<sub>A</sub>/n<sub>A</sub> + s²<sub>B</sub>/n<sub>B</sub>)</span>. При равных группах — в √2 раз больше SE одной группы.</li>
+    <li>При 10 % и 10 000 гостей в группе 95 A/A из 100 укладываются в ±0,83 заказа на 100 гостей.</li>
+    <li>Красных A/A при пороге 5 % — 5 из 100. Это норма, а не баг.</li>
+    <li>p-value в A/A равномерны. Пик у нуля — шум недооценён: дубли, единица анализа, зависимости.</li>
+    <li>Один A/A ничего не доказывает: проверяют сотни A/A или симуляцию, плюс доли групп (SRM).</li>
+    <li>20 метрик: хотя бы одна красная — 64 % для независимых, у связанных красные приходят пачками.</li>
+    <li>Накопленная разница в первые дни скачет и рисует «тренды». Каждый день смотреть и останавливаться при первом выходе за трубу — ложных тревог около 20 % вместо 5.</li>
+  </ul>
+  <dl class="terms">
+    <dt>A/A-тест</dt><dd>эксперимент, где обе группы получают одно и то же; эталон шума и проверка платформы; A/A test</dd>
+    <dt>Доля ложных тревог</dt><dd>доля A/A, которые «прокрасились»; у честного теста равна α; false positive rate, FPR</dd>
+    <dt>SRM</dt><dd>sample ratio mismatch: доли гостей в группах заметно отличаются от задуманных; признак сломанного сплита</dd>
+  </dl>
+  <figure class="art"><img src="img/ch09-02-next.jpg" alt="Котейка разглядывает монетку, на столе в ряд лежат орлы; Алиса держит флажок у колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка с подозрительной монеткой, Алиса с флажком у колокола</figcaption></figure>
+  <a class="next-step" href="10-ab-test.html"><b>Дальше, глава 10: «A/B на простой метрике»</b>Линейка шума есть. Теперь эффект: сколько стандартных ошибок в нашей разнице и что такое p-value, посчитанный руками.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    out: (k, n) => int(k) + ' из ' + int(n) + ' (' + share(k / n, 1) + ')',
+    last: (a, b, d) => 'Последний A/A: ' + num(a, 2) + ' и ' + num(b, 2) + ' заказа на 100 гостей, разница ' + signed(d, 2) + '.',
+    empty: 'Нажми «+1000 A/A»',
+    xAx: 'разница, заказов на 100 гостей',
+    vAA: (g, sh, se) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'За полосой ±0,83 оказались <b>' + share(sh, 1) + '</b> A/A-тестов — около 5' + NBSP + '%, как и обещает колокол: 0,83 — это 1,96 · SE, а SE разности здесь ' + num(se, 2) + '. Группы одинаковые, но шумят обе.',
+    vAA2: (sh, se) => 'За полосой ±1,96·SE — ' + share(sh, 1) + ' A/A. SE разности ' + num(se, 2) + ' заказа на 100 гостей. Поменяй n: вчетверо больше гостей — полоса вдвое уже, а доля за полосой та же, около 5' + NBSP + '%.',
+    pvStat: (n, small) => 'A/A: ' + int(n) + '. p &lt; 0,05 у ' + share(small, 1) + ' тестов.',
+    pvOK: 'Гистограмма ровная: каждый столбик около 5' + NBSP + '%, и p < 0,05 тоже примерно у 5' + NBSP + '%. Так выглядит честный тест без эффекта.',
+    pvBug: 'С дублями у нуля вырос пик: p < 0,05 уже примерно у 13' + NBSP + '% тестов. Платформа считает каждого второго гостя дважды и думает, что данных больше, чем есть.',
+    pvEmpty: 'Нажми «+1000 A/A»',
+    tr: (out, n, fin) => n ? 'Из ' + int(n) + ' A/A хоть раз за 14 дней вышли за трубу <b>' + share(out / n, 0) + '</b>, а в последний день за ней — ' + share(fin / n, 0) + '. Каждый день смотреть и останавливаться при первом выходе — это ложная тревога примерно в каждом пятом A/A.' : 'Оранжевый путь — тот, на который смотрит Боб. Видишь «тренд»? Это A/A: эффекта нет. Нажми «Посчитать 1000 тестов», чтобы узнать, как часто пути выходят за трубу.',
+    day: d => d + ' дн.',
+    m20stat: (runs, avg, any, two) => 'A/A: ' + int(runs) + '. Красных в среднем ' + num(avg, 2) + '; хотя бы одна — в ' + share(any, 0) + ' тестов, две и больше — в ' + share(two, 0) + '.',
+    m20v: corr => corr ? 'Связанные метрики: «все серые» бывает чаще (около 64' + NBSP + '%), но красные приходят пачками — по три-пять сразу. Формула 1 − 0,95²⁰ здесь не работает.' : 'Независимые метрики: хотя бы одна красная — около 64' + NBSP + '% A/A, две и больше — около 26' + NBSP + '%. Одна-две красные метрики в A/A — норма.',
+    metrics: ['заказы', 'выручка', 'средний чек', 'конверсия в заказ', 'заказы с десертом', 'повторные заказы', 'время в приложении', 'отмены', 'доставка', 'самовывоз', 'чаевые', 'промокоды', 'оценки', 'отзывы', 'поиск', 'избранное', 'пуши открыты', 'корзины брошены', 'новые гости', 'подписка'],
+  },
+}[LANG] || {};
+
+// ---------- общий стенд A/A (карточки 4 и 6) ----------
+const AA9 = (function(){
+  // разница и p-value одного A/A; bug — каждого второго гостя логгер пишет дважды
+  function run(p, n, bug){
+    const grp = () => { const x = binom(n, p); if (!bug) return [x, n]; const dx = binom(x, 0.5), dn = binom(n - x, 0.5); return [x + dx, n + dx + dn]; };
+    const [xa, na] = grp(), [xb, nb] = grp();
+    const pa = xa / na, pb = xb / nb, ph = (xa + xb) / (na + nb), se = Math.sqrt(ph * (1 - ph) * (1 / na + 1 / nb));
+    return {pa, pb, d: pb - pa, z: se ? (pb - pa) / se : 0, pv: se ? pTwo((pb - pa) / se) : 1};
+  }
+  return {run};
+})();
+
+// ---------- карточка 4: стенд A/A ----------
+(function(){
+  const NS = [1000, 2000, 5000, 10000, 20000, 50000], sl = document.getElementById('n9'), cv = document.getElementById('cv-aa');
+  let p = 0.1, n = 10000, res = [];
+  const SE = () => 100 * Math.sqrt(2 * p * (1 - p) / n);
+  function add(k){ for (let i = 0; i < k; i++) res.push(AA9.run(p, n, false)); if (res.length > 20000) res.splice(0, res.length - 20000); update(); }
+  function draw(){
+    const g = canvas(cv, 0.42, 0.7); if (!g) return; const {c, w, h} = g;
+    const se = SE(), L = 10, R = 10, T = 14, B = 34, pw = w - L - R, ph = h - T - B, lo = -4.5 * se, hi = 4.5 * se, bw = se / 4, X = v => L + (v - lo) / (hi - lo) * pw;
+    c.fillStyle = COL.fillG; c.fillRect(X(-1.96 * se), T, X(1.96 * se) - X(-1.96 * se), ph);
+    if (!res.length){ label(c, TXT.empty, w / 2, T + ph / 2, COL.ink2, 'center'); }
+    const vals = res.map(r => 100 * r.d), b = bins(vals.map(v => Math.max(lo, Math.min(hi - 1e-9, v))), lo, hi, bw);
+    const curve = v => res.length * bw * normPdf(v / se) / se, top = Math.max(1, ...b, res.length ? curve(0) : 0) * 1.1;
+    b.forEach((k, i) => { const x0 = lo + i * bw, mid = x0 + bw / 2, out = Math.abs(mid) > 1.96 * se, bh = ph * k / top; c.fillStyle = out ? COL.trap : COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(x0) + 1, T + ph - bh, Math.max(1, X(x0 + bw) - X(x0) - 2), bh); });
+    c.globalAlpha = 1;
+    if (res.length){ c.strokeStyle = COL.gray; c.lineWidth = 2; c.beginPath(); for (let i = 0; i <= 200; i++){ const v = lo + (hi - lo) * i / 200, y = T + ph - ph * curve(v) / top; i ? c.lineTo(X(v), y) : c.moveTo(X(v), y); } c.stroke(); }
+    hoverBins(cv, X, lo, bw, b, {fmt: v => signed(v, 2), words: ['A/A', 'A/A', 'A/A'], total: res.length});
+    const t = [-1.96 * se, 0, 1.96 * se];
+    axisX(c, X, t, h - 20, v => signed(v, 2));
+    label(c, TXT.xAx, w / 2, h - 4, COL.ink2, 'center');
+  }
+  function update(){
+    document.querySelectorAll('#p9 button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.p === p)));
+    document.getElementById('n9-t').textContent = int(n);
+    const se = SE(); document.getElementById('aa-se').textContent = num(se, 2);
+    const out = res.filter(r => Math.abs(r.z) > 1.96).length;
+    document.getElementById('aa-out').textContent = res.length ? TXT.out(out, res.length) : '—';
+    const l = res[res.length - 1]; document.getElementById('aa-last').textContent = l ? TXT.last(100 * l.pa, 100 * l.pb, 100 * l.d) : '';
+    const v = document.getElementById('v-aa');
+    if (res.length >= 100){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = p === 0.1 && n === 10000 ? TXT.vAA(Book.guess('aa83'), res.filter(r => Math.abs(100 * r.d) > 0.83).length / res.length, se) : TXT.vAA2(out / res.length, se); } else v.hidden = true;
+    draw();
+  }
+  document.querySelectorAll('#p9 button').forEach(b => b.addEventListener('click', () => { p = +b.dataset.p; res = []; update(); }));
+  sl.addEventListener('input', () => { n = NS[+sl.value]; res = []; update(); });
+  document.getElementById('aa1').addEventListener('click', () => add(1));
+  document.getElementById('aa100').addEventListener('click', () => add(100));
+  document.getElementById('aa1000').addEventListener('click', () => add(1000));
+  document.getElementById('aa0').addEventListener('click', () => { res = []; update(); });
+  window.addEventListener('resize', draw);
+  update();
+})();
+
+// ---------- карточка 6: фабрика p-value ----------
+(function(){
+  const cv = document.getElementById('cv-pv'), btn = document.getElementById('pvbug');
+  let bug = false, pv = [];
+  function draw(){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 10, T = 12, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + v * pw;
+    const b = bins(pv.map(v => Math.min(v, 1 - 1e-9)), 0, 1, 0.05), n = pv.length, top = Math.max(0.15, ...b.map(k => n ? k / n : 0)) * 1.1;
+    axisY(c, L, R, T, ph, w, 0, top, 0.05, v => shareT(v, 0));
+    b.forEach((k, i) => { const s = n ? k / n : 0, bh = ph * s / top; c.fillStyle = i === 0 ? COL.trap : COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(i * 0.05) + 1, T + ph - bh, pw * 0.05 - 2, bh); });
+    c.globalAlpha = 1;
+    const y5 = T + ph - ph * 0.05 / top; c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, y5); c.lineTo(w - R, y5); c.stroke(); c.setLineDash([]);
+    if (n) hoverBins(cv, X, 0, 0.05, b, {fmt: v => num(v, 2), words: ['A/A', 'A/A', 'A/A'], total: n});
+    axisX(c, X, [0, 0.25, 0.5, 0.75, 1], h - 5, v => numT(v, 2));
+    if (!n) label(c, TXT.pvEmpty, L + pw / 2, T + ph / 2, COL.ink2, 'center');
+  }
+  function update(){
+    btn.setAttribute('aria-pressed', String(bug));
+    const n = pv.length, small = n ? pv.filter(v => v < 0.05).length / n : 0;
+    document.getElementById('pv-stat').innerHTML = n ? TXT.pvStat(n, small) : '';
+    const v = document.getElementById('v-pv');
+    if (n >= 1000){ v.hidden = false; v.className = 'verdict ' + (bug ? 'bad' : 'good'); v.innerHTML = bug ? TXT.pvBug : TXT.pvOK; } else v.hidden = true;
+    draw();
+  }
+  document.getElementById('pv1000').addEventListener('click', () => { for (let i = 0; i < 1000; i++) pv.push(AA9.run(0.1, 10000, bug).pv); if (pv.length > 20000) pv.splice(0, pv.length - 20000); update(); });
+  btn.addEventListener('click', () => { bug = !bug; btn.textContent = bug ? 'Убрать баг' : 'Добавить баг: дубли событий'; pv = []; update(); });
+  document.getElementById('pv0').addEventListener('click', () => { pv = []; update(); });
+  window.addEventListener('resize', draw);
+  update();
+})();
+
+// ---------- карточка 7: тренд, которого нет ----------
+(function(){
+  const cv = document.getElementById('cv-tr'), D = 14, M = 2000, P = 0.1;
+  let paths = [], stat = null;
+  function path(){ let xa = 0, xb = 0; const r = []; for (let d = 1; d <= D; d++){ xa += binom(M, P); xb += binom(M, P); const N = M * d, ph = (xa + xb) / (2 * N), se = Math.sqrt(2 * ph * (1 - ph) / N); r.push({d: 100 * (xb - xa) / N, z: (xb - xa) / N / se}); } return r; }
+  function gen(){ paths = []; for (let i = 0; i < 20; i++) paths.push(path()); draw(); verdict(); }
+  function many(){ let out = 0, fin = 0; for (let i = 0; i < 1000; i++){ const r = path(); if (r.some(q => Math.abs(q.z) > 1.96)) out++; if (Math.abs(r[D - 1].z) > 1.96) fin++; } stat = {out, fin, n: 1000}; verdict(); }
+  function verdict(){ const v = document.getElementById('v-tr'); v.className = 'verdict ' + (stat ? 'bad' : 'good'); v.innerHTML = stat ? TXT.tr(stat.out, stat.n, stat.fin) : TXT.tr(0, 0, 0); }
+  function draw(){
+    const g = canvas(cv, 0.45, 0.75); if (!g) return; const {c, w, h} = g;
+    const L = 44, R = 10, T = 10, B = 22, pw = w - L - R, ph = h - T - B, lim = 1.6, X = d => L + (d - 1) / (D - 1) * pw, Y = v => T + ph / 2 - v / lim * ph / 2;
+    axisY(c, L, R, T, ph, w, -lim, lim, 0.5, v => signed(v, 1));
+    const seAt = d => 100 * Math.sqrt(2 * P * (1 - P) / (M * d));
+    c.fillStyle = COL.fillGray; c.beginPath(); for (let d = 1; d <= D; d++) c.lineTo(X(d), Y(Math.min(lim, 1.96 * seAt(d)))); for (let d = D; d >= 1; d--) c.lineTo(X(d), Y(-Math.min(lim, 1.96 * seAt(d)))); c.closePath(); c.fill();
+    c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(w - R, Y(0)); c.stroke();
+    paths.forEach((r, i) => { const hl = i === 0; c.strokeStyle = hl ? COL.test : COL.ctrl; c.globalAlpha = hl ? 1 : 0.35; c.lineWidth = hl ? 3 : 1.3; c.beginPath(); r.forEach((q, k) => { const y = Y(Math.max(-lim, Math.min(lim, q.d))); k ? c.lineTo(X(k + 1), y) : c.moveTo(X(k + 1), y); }); c.stroke(); });
+    c.globalAlpha = 1;
+    (w < 520 ? [1, 7, 14] : [1, 4, 7, 10, 14]).forEach(d => label(c, TXT.day(d), X(d), h - 5, COL.ink2, d === 14 ? 'right' : 'center'));
+  }
+  document.getElementById('tr-new').addEventListener('click', gen);
+  document.getElementById('tr-1000').addEventListener('click', many);
+  window.addEventListener('resize', draw);
+  gen();
+})();
+
+// ---------- карточка 8: 20 метрик ----------
+(function(){
+  const box = document.getElementById('m20'), cb = document.getElementById('m20-corr'), RHO = 0.6;
+  let corr = false, runs = 0, reds = 0, any = 0, two = 0, last = null;
+  function one(){ const f = gauss(), z = TXT.metrics.map(() => corr ? Math.sqrt(RHO) * f + Math.sqrt(1 - RHO) * gauss() : gauss()); const k = z.filter(v => Math.abs(v) > 1.96).length; runs++; reds += k; if (k) any++; if (k >= 2) two++; return z; }
+  function paint(){
+    box.innerHTML = TXT.metrics.map((m, i) => { const z = last ? last[i] : null, red = z !== null && Math.abs(z) > 1.96; return '<span class="' + (red ? 'down' : '') + '">' + m + '<small>' + (z === null ? '—' : 'z = ' + signed(z, 2)) + '</small></span>'; }).join('');
+    cb.setAttribute('aria-pressed', String(corr));
+    document.getElementById('m20-stat').textContent = runs ? TXT.m20stat(runs, reds / runs, any / runs, two / runs) : '';
+    const v = document.getElementById('v-m20'); if (runs >= 1000){ v.hidden = false; v.className = 'verdict ' + (corr ? 'bad' : 'good'); v.innerHTML = TXT.m20v(corr); } else v.hidden = true;
+  }
+  const reset = () => { runs = reds = any = two = 0; last = null; };
+  document.getElementById('m20-1').addEventListener('click', () => { last = one(); paint(); });
+  document.getElementById('m20-1000').addEventListener('click', () => { for (let i = 0; i < 1000; i++) last = one(); paint(); });
+  cb.addEventListener('click', () => { corr = !corr; reset(); paint(); });
+  paint();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

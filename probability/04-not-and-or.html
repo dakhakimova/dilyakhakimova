@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Не, и, или · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
+.p4-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0}
+.p4-stats > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:13px; color:var(--muted); line-height:1.35}
+.p4-stats b{display:block; font:500 24px/1.2 var(--serif); color:var(--ink); font-variant-numeric:tabular-nums}
+.p4-stats .hot b{color:var(--test-ink)}
+.p4-range{display:grid; gap:4px; margin:8px 0; font-size:15px}
+.p4-range input[type=range]{width:100%; min-height:44px}
+.legend-row i.ochre{background:#C9A43A}
+@media (max-width:620px){ .p4-stats{grid-template-columns:1fr 1fr} .p4-stats > div:last-child{grid-column:1 / -1} }
+</style>
+</head>
+<body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 4 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка (шаги 1–2) -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним шаги 1 и 2</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">Котейка бросает два кубика. Сумма 7 — посуду моет Боб, сумма 12 — Алиса. Кому выпадает чаще?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Сумм действительно 11, но они не равновозможны: у одних много клеток в таблице 6 × 6, у других одна.">Поровну: сумм 11, у каждой шанс 1/11</button><button type="button" data-v="b">Бобу: у семёрки 6 клеток из 36</button><button type="button" data-v="c" data-why="Подпиши кубики: синий 3 и оранжевый 4 — это не то же, что синий 4 и оранжевый 3. Пар с суммой 7 шесть.">Поровну: обе суммы — одна пара чисел</button></div>
+    <p class="why">Исходов 36: синий кубик × оранжевый. Сумма 7 — шесть клеток (1 + 6, 2 + 5, … 6 + 1), сумма 12 — одна (6 + 6). Боб моет посуду в 6 вечерах из 36, Алиса — в одном.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">В понедельник десерт заказали 8 гостей из 10, во вторник — 2 из 10. Что скорее всего случилось?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Меню не менялось. По 10 гостей доля легко скачет от 2 до 8 из 10 и при одной и той же правде.">Во вторник повар испортил рецепт десерта</button><button type="button" data-v="b" data-why="10 гостей — короткая серия: по ней долю не узнать, она скачет.">Настоящая доля десерта в кафе — 80 %</button><button type="button" data-v="c">Обычный разброс маленьких порций по 10</button></div>
+    <p class="why">Короткая серия скачет, длинная успокаивается (шаг 2). По 10 гостей при честной половине «8 и больше» бывает примерно в 55 днях из 1000, «2 и меньше» — тоже в 55.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Вечеринка" aria-label="Вечеринка">
+  <p class="kicker">Шаг 4 из 9</p>
+  <h1>Не, и, или</h1>
+  <p class="core">После шага ты сможешь <b>посчитать «хотя бы один» через «ни одного»</b> и не складывать вероятности, когда так нельзя.</p>
+  <figure class="art"><img src="img/vp04-00-party.jpg" alt="Вечеринка в кафе: два гостя держат одинаковые тортики со свечками и удивлённо смотрят друг на друга" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: вечеринка в честь открытия, у двух гостей совпал день рождения</figcaption></figure>
+  <p class="lead">Кафе празднует открытие. Пришли 23 гостя — и у двоих день рождения в один день. Боб уверен, что это знак. Алиса уверена, что это арифметика. Кто прав?</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Совпадение — это редкость?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс совпадения — от силы 6 %. Это судьба!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты считаешь людей. А совпасть может любая пара гостей. Сколько пар из 23?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Давайте устроим тысячу вечеринок. Я раздам дни рождения из мешка.</p></div></div>
+  </div>
+  <p>Считаем, что все 365 дней равновозможны (29 февраля не берём) и гости не связаны друг с другом: не близнецы и не пришли отмечать общий праздник.</p>
+  <div class="guess" data-key="party23" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Совпадение будет примерно в <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % вечеринок на 23 гостя</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке проверим.</p>
+  </div>
+</section>
+
+<!-- 4: главная игрушка -->
+<section class="card" data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
+  <span class="step-tag">Поиграй</span>
+  <h2>Гости входят по одному</h2>
+  <p>Каждый гость приносит свой день рождения — точку в календаре. Если точка попадает в уже занятый день, обе вспыхивают оранжевым.</p>
+  <div class="sheet c-white">
+    <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — оранжевым"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>день рождения гостя</span><span><i style="background:var(--test)"></i>совпадение</span></div>
+    <div class="p4-stats">
+      <div><b id="pt-n">0</b>гостей в зале</div>
+      <div><b id="pt-pairs">0</b>пар гостей</div>
+      <div class="hot"><b id="pt-hit">нет</b>совпадение</div>
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" id="pt-1">Гость входит</button>
+      <button class="btn ghost" type="button" id="pt-10">+10 гостей</button>
+      <button class="btn ghost" type="button" id="pt-new">Новая вечеринка</button>
+    </div>
+    <span class="kot-says" id="pt-kot" hidden></span>
+    <div class="p4-range">
+      <label for="pt-size">Гостей на каждой вечеринке: <b id="pt-size-t" class="num">23</b></label>
+      <input type="range" id="pt-size" min="2" max="80" value="23">
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" id="pt-1000">Устроить 1000 вечеринок</button>
+    </div>
+    <div class="verdict" id="pt-v" hidden></div>
+  </div>
+</section>
+
+<!-- 5: разгадка — пары -->
+<section class="card" data-title="Считай пары" aria-label="Считай пары">
+  <span class="step-tag">Разгадка</span>
+  <h2>Гостей 23, а пар — 253</h2>
+  <p>Боб сравнивал каждого гостя с одним днём в году. Но совпасть может любая пара: первый со вторым, первый с третьим, второй с третьим… Каждый новый гость здоровается со всеми, кто уже в зале, поэтому пары растут быстрее гостей.</p>
+  <p>23 гостя — это 23 · 22 / 2 = <b>253 пары</b> (как рукопожатия из шага 3). У каждой пары шанс совпасть маленький, 1 из 365, но пар много.</p>
+  <div class="sheet c-white">
+    <p class="chart-title">Как часто есть совпадение, в зависимости от числа гостей</p>
+    <canvas id="curve" role="img" aria-label="Кривая вероятности совпадения: 23 гостя — 50,7 %, 30 — 70,6 %, 50 — 97,0 %, 70 — 99,9 %"></canvas>
+  </div>
+  <p>Половина вечеринок с совпадением — уже при 23 гостях, на 50 гостей совпадение есть в 97 вечеринках из 100. Обычно люди называют 150–180 гостей.</p>
+  <p class="xref"><span>Тот же расчёт нужен, когда гостей делят на группы хешем: два разных гостя могут получить один хеш. Про хеш — в «A/B на пальцах», <a href="/ab-basics/02-salt-hash.html">шаг 2 «Монетка, соль и хеш»</a>.</span></p>
+  <p class="src">Идея из лекций: Джо Блицштейн, Stat 110 «Probability», лекция про дни рождения</p>
+</section>
+
+<!-- 6: правило «не» в трёх слоях -->
+<section class="card" data-title="Правило «не»" aria-label="Правило «не»">
+  <span class="step-tag">Правило</span>
+  <h2>«Хотя бы одно совпадение» = не «все разные»</h2>
+  <p>Считать «хотя бы одна пара совпала» напрямую тяжело: совпасть могут одна пара, две, три… Противоположное событие одно и простое: у всех дни рождения разные.</p>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Гости входят по одному. Второму нужно не попасть в день первого, третьему — в дни двух первых, и так далее. Если все промахнулись — совпадений нет. Во всех остальных вечеринках оно есть.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеринок на 23 гостя примерно в 493 у всех дни разные. Значит, в остальных 507 (50,7 %) совпадение есть.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(все разные) = 365/365 · 364/365 · … · 343/365 ≈ 0,493</p>
+      <p class="formula">P(не A) = 1 − P(A), &nbsp;P(совпадение) ≈ 1 − 0,493 = 0,507</p>
+      <p class="read">Словами: вероятность «хоть раз» — это единица минус вероятность «ни разу».</p>
+    </div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Событие «не A» называют <b class="term">дополнением</b> события A; на собеседовании скажут <b>complement</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «все остальные вечеринки».</p>
+  </aside>
+</section>
+
+<!-- 7: правило «и» -->
+<section class="card" data-title="Правило «и»" aria-label="Правило «и»">
+  <span class="step-tag">Правило</span>
+  <h2>«И» для независимых: умножаем</h2>
+  <p>Над входом в кафе висит гирлянда. Каждая лампочка доживает до конца года с шансом 99 %. Лампочки не влияют друг на друга: перегоревшая соседка не греет и не бережёт остальных.</p>
+  <figure class="art"><img src="img/vp04-01-garland.jpg" alt="Котейка на стремянке вешает гирлянду над входом в кафе, одна лампочка погасла" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка вешает гирлянду над входом</figcaption></figure>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Чтобы обе лампочки над дверью горели в декабре, должна выжить первая <b>и</b> вторая.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 10 000 пар лампочек первая выживает в 9900. Среди этих 9900 вторая выживает тоже в 99 % — в 9801 паре. Обе целы в 9801 паре из 10 000.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(A и B) = P(A) · P(B) = 0,99 · 0,99 = 0,9801</p>
+      <p class="read">Словами: если события не влияют друг на друга, долю от доли берём умножением.</p>
+    </div>
+  </div>
+  <p>Здесь «не влияют» — по смыслу: лампочки физически не связаны. Как проверить независимость числами, разберём в шаге 5.</p>
+</section>
+
+<!-- 8: вторая игрушка — гирлянда -->
+<section class="card" data-title="Гирлянда" aria-label="Гирлянда">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Хотя бы одна из ста</h2>
+  <p>В гирлянде 100 лампочек, каждая перегорает за год с шансом 1 %. Как часто за год перегорит хотя бы одна?</p>
+  <div class="choice" data-key="lamps" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="all" data-fb="Логика понятна: 100 · 1 % = 100 %. Проверим на тысяче гирлянд." aria-pressed="false">Почти всегда: 100 раз по 1 %</button>
+    <button type="button" data-v="two3" data-fb="Ставка записана. Проверим на тысяче гирлянд." aria-pressed="false">Примерно в двух годах из трёх</button>
+    <button type="button" data-v="one" data-fb="Каждая лампочка надёжна — но их сотня. Проверим на тысяче гирлянд." aria-pressed="false">Редко: лампочки же надёжные</button>
+  </div>
+  <div class="sheet c-white">
+    <canvas id="lamps" role="img" aria-label="Гирлянда из лампочек: горящие — жёлтые, перегоревшие — красные"></canvas>
+    <div class="legend-row"><span><i class="ochre"></i>горит</span><span><i style="background:var(--trap)"></i>перегорела</span></div>
+    <div class="twoinputs">
+      <label class="field" for="lm-n">Лампочек: <b id="lm-n-t" class="num">100</b><input type="range" id="lm-n" min="1" max="300" value="100" style="width:100%"></label>
+      <label class="field" for="lm-p">Шанс перегореть: <b id="lm-p-t" class="num">1 %</b><input type="range" id="lm-p" min="1" max="100" value="10" style="width:100%"></label>
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" id="lm-1">Прожить год</button>
+      <button class="btn ghost" type="button" id="lm-1000">1000 гирлянд</button>
+    </div>
+    <div class="big2">
+      <div class="truth"><b id="lm-right">63,4 %</b><span>хотя бы одна перегорит: 1 − (1 − p)<sup>n</sup></span></div>
+      <div class="trap"><b id="lm-naive">100 %</b><span>«сложить шансы»: n · p</span></div>
+    </div>
+    <div class="verdict" id="lm-v" hidden></div>
+  </div>
+  <p class="formula">P(хотя бы одна из n) = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
+  <p>Подвигай ползунки: n · p быстро уходит за 100 %, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
+</section>
+
+<!-- 9: правило «или» -->
+<section class="card" data-title="Правило «или»" aria-label="Правило «или»">
+  <span class="step-tag">Правило</span>
+  <h2>«Или»: не считай общих дважды</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30 % гостей, десерт — 40 %. Значит, 70 % берут хоть что-то из двух!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А тех, кто берёт кофе с десертом, ты посчитал два раза.</p></div></div>
+  </div>
+  <div class="sheet c-white">
+    <canvas id="or1000" role="img" aria-label="1000 гостей: 300 взяли кофе, 400 — десерт, 150 — и то и другое; хотя бы одно взяли 550"></canvas>
+    <p class="k1000-cap" id="or-cap">1000 гостей кафе. Нажми кнопку, чтобы подсветить.</p>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>кофе</span><span><i style="background:var(--test)"></i>десерт</span><span><i style="background:var(--truth)"></i>кофе и десерт</span></div>
+    <div class="controls">
+      <button class="btn ghost" type="button" data-or="coffee">Кофе</button>
+      <button class="btn ghost" type="button" data-or="dessert">Десерт</button>
+      <button class="btn ghost" type="button" data-or="bob">Сложить, как Боб</button>
+      <button class="btn" type="button" data-or="or">Кофе или десерт</button>
+    </div>
+  </div>
+  <div class="layers">
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 гостей 300 взяли кофе, 400 — десерт, 150 — и то и другое. Хотя бы одно взяли 300 + 400 − 150 = 550 гостей, а не 700.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(A или B) = P(A) + P(B) − P(A и B)</p>
+      <p class="read">Словами: сложи обе доли и вычти тех, кого посчитал дважды. Если A и B вместе не бывают (несовместны), вычитать нечего — тогда просто сумма.</p>
+    </div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Правило «сложи и вычти пересечение» называют <b class="term">формулой включений и исключений</b>; на собеседовании скажут <b>inclusion–exclusion</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «не считай одного гостя дважды».</p>
+  </aside>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Напиши функцию для любой вечеринки</h2>
+  <p>Допиши функцию <code>p_shared(n)</code>: вероятность, что у n гостей хотя бы у двоих совпал день рождения. Подсказка — через «все разные».</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-p-shared">
+<textarea spellcheck="false" aria-label="Задание: функция p_shared">def p_shared(n):
+    # 1) вероятность, что у всех n гостей дни рождения разные
+    p_all_diff = 1.0
+    for i in range(n):
+        p_all_diff = ...   # i-й гость не попал в дни i предыдущих
+    # 2) «хотя бы одно совпадение» — через «не»
+    return ...
+
+print(p_shared(23))   # должно быть около 0.507
+print(p_shared(50))   # должно быть около 0.970</textarea>
+  </div>
+<script type="text/x-python" id="check-p-shared">
+def _check():
+    try:
+        f = p_shared
+    except NameError:
+        print("FAIL функции p_shared нет — запусти ячейку с ней"); return
+    try:
+        v23, v50, v1 = f(23), f(50), f(1)
+    except Exception as e:
+        print("FAIL функция падает с ошибкой:", e); return
+    if v23 is ... or v23 is None:
+        print("FAIL функция пока ничего не считает: замени ... на код"); return
+    v23 = float(v23)
+    if abs(v23 - 253 / 365) < 0.01:
+        print("FAIL получилось 0,693 — это сумма шансов всех 253 пар. Пары пересекаются, складывать нельзя: посчитай «все разные»"); return
+    if abs(v23 - 23 / 365) < 0.01:
+        print("FAIL получилось 23/365 — так считал Боб: сравнивал гостей с одним днём, а не друг с другом"); return
+    if abs(v23 - 0.493) < 0.005:
+        print("FAIL 0,493 — это «все разные». Осталось перейти к противоположному: 1 − …"); return
+    if abs(v23 - 0.5073) < 0.002 and abs(float(v50) - 0.9704) < 0.002 and abs(float(v1)) < 1e-9:
+        print("OK 23 гостя — 50,7 %, 50 гостей — 97,0 %, один гость — 0. Работает")
+    else:
+        print(f"FAIL для 23 гостей получилось {v23:.4f}, а ждали около 0,507")
+_check()
+</script>
+</section>
+
+<!-- 11: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Длинная цепочка надёжных шагов</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Чтобы заказ приехал вовремя, нужны 7 шагов: заказ, оплата, кухня, упаковка, курьер, дорога, домофон. Каждый срабатывает в 90 % случаев. Значит, вовремя приезжает 90 % заказов — почти все!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так у Котейки, если шаги не влияют друг на друга?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Складывать здесь нечего: 7 · 90 % = 630 %, так не бывает. И нужны все шаги сразу, а не хотя бы один.">Надо сложить шансы: выйдет больше 100 %</button><button type="button" data-v="b">Нужны все семь «и» — перемножаем: 48 %</button><button type="button" data-v="c" data-why="Средний шаг и правда надёжен на 90 %, но заказу нужны все семь шагов сразу — а это «и», произведение.">Всё верно: средний шаг надёжен на 90 %</button></div>
+    <p class="why">«Вовремя» — это шаг 1 <b>и</b> шаг 2 <b>и</b> … шаг 7. Для независимых шагов: 0,9<sup>7</sup> ≈ 0,478. Из 1000 заказов вовремя приедут около 478 — меньше половины. Длинная цепочка из вероятных шагов вероятной быть не обязана.</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <p class="src">Идея из книги: Дэниел Канеман, «Thinking, Fast and Slow» (опыт Майи Бар-Хиллел с цепочками событий)</p>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три классические задачи</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="birthdays">
+    <summary>В зале 23 человека. Какова вероятность, что хотя бы у двоих совпадает день рождения?</summary>
+    <p><b>Переформулирую:</b> «хотя бы одна пара совпала» — это не «у всех разные». Допущения: 365 равновозможных дней, люди не связаны друг с другом.</p>
+    <p><b>В штуках:</b> второй человек не совпадает с первым в 364 случаях из 365, третий не попадает в два занятых дня в 363 из 365… Из 1000 таких залов у всех разные дни примерно в 493.</p>
+    <p><b>Формула:</b> <span class="num">1 − (365 · 364 · … · 343) / 365<sup>23</sup> ≈ 0,507</span>.</p>
+    <p><b>Проверка:</b> 1000 вечеринок в игрушке или функция <code>p_shared(23)</code>.</p>
+    <p><b>Вывод:</b> чуть больше половины — потому что у 23 человек 253 пары, и совпасть может любая.</p>
+  </details>
+  <details class="ivw" data-key="dice6">
+    <summary>Кубик бросают шесть раз. Какова вероятность, что выпадут все шесть граней?</summary>
+    <p><b>Переформулирую:</b> это младший брат дней рождения: шесть «дней» и шесть «гостей», и нужно, чтобы никто не совпал.</p>
+    <p><b>В штуках:</b> всех цепочек из шести бросков 6<sup>6</sup> = 46 656. Цепочек без повторов 6 · 5 · 4 · 3 · 2 · 1 = 720 (правило умножения из шага 3). Это 720 из 46 656 — примерно 15 серий из 1000.</p>
+    <p><b>Формула:</b> <span class="num">6! / 6<sup>6</sup> = 720 / 46 656 ≈ 0,015</span>.</p>
+    <p><b>Вывод:</b> около 1,5 %: хотя бы одна грань повторится в 985 сериях из 1000.</p>
+  </details>
+  <details class="ivw" data-key="lamps100">
+    <summary>В гирлянде 100 лампочек, каждая перегорает за год с вероятностью 1 %, независимо. Какова вероятность, что перегорит хотя бы одна?</summary>
+    <p><b>Переформулирую:</b> «хотя бы одна перегорит» — это не «все целы».</p>
+    <p><b>В штуках:</b> из 1000 гирлянд все 100 лампочек доживают до конца года примерно в 366. В остальных 634 хотя бы одна перегорела.</p>
+    <p><b>Формула:</b> <span class="num">1 − 0,99<sup>100</sup> ≈ 0,634</span>. Ловушка: 100 · 1 % = 100 % — это среднее число перегоревших (одна), а не вероятность.</p>
+    <p><b>Вывод:</b> примерно в двух годах из трёх, а не «наверняка».</p>
+  </details>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про «не, и, или»</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">У каждого из 50 курьеров шанс опоздать сегодня 2 %, независимо от других. Как часто опоздает хотя бы один?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="2 % — шанс для одного курьера. Курьеров 50, и опоздать может любой.">Около 2 %, как у одного курьера</button><button type="button" data-v="b">Около 64 %: единица минус «никто»</button><button type="button" data-v="c" data-why="50 · 2 % = 1 — это среднее число опоздавших. Бывают дни, когда не опоздал никто, и дни, когда опоздали двое.">Ровно 100 %: пятьдесят раз по 2 %</button></div>
+    <p class="why">Все вовремя: 0,98<sup>50</sup> ≈ 0,364. Хотя бы один опоздает: 1 − 0,364 ≈ 0,636 — примерно в 64 днях из 100.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Гость оформляет либо доставку, либо самовывоз — одновременно нельзя. Эти два события независимы?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Не пересекаются — значит, наоборот, сильно связаны: одно исключает другое.">Да: они не пересекаются, значит, не влияют</button><button type="button" data-v="b" data-why="Даже если доли доставки и самовывоза равны, это не делает события независимыми.">Да, если доли доставки и самовывоза равны</button><button type="button" data-v="c">Нет: узнав одно, знаешь, что второго нет</button></div>
+    <p class="why">Независимость — когда одно ничего не говорит о другом. А здесь «доставка» сразу говорит «не самовывоз». Числами: P(оба) = 0, а P(доставка) · P(самовывоз) больше нуля. Несовместные события с ненулевыми вероятностями всегда зависимы.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">40 % гостей берут кофе, 30 % — круассан. Какая доля берёт хотя бы одно из двух?</p>
+    <div class="choice"><button type="button" data-v="a">От 40 до 70 %, смотря сколько берут оба</button><button type="button" data-v="b" data-why="Сумма верна, только если кофе с круассаном вместе не берёт никто.">Ровно 70 %: сорок плюс тридцать процентов</button><button type="button" data-v="c" data-why="Произведение — это «и» для независимых событий, причём «оба», а не «хотя бы одно».">Ровно 12 %: сорок умножить на тридцать</button></div>
+    <p class="why">P(кофе или круассан) = 40 % + 30 % − P(оба). Если все любители круассанов берут и кофе, выйдет 40 %, если вместе не берёт никто — 70 %. Без доли «оба» ответ не узнать.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Шевалье де Мере в XVII веке спорил: что вероятнее — хотя бы одна шестёрка за 4 броска кубика или хотя бы пара шестёрок за 24 броска двух кубиков?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так рассуждал сам де Мере: 4 · 1/6 = 24 · 1/36 = 2/3. Но «хотя бы раз» складывать нельзя.">Поровну: четыре шестых — то же, что 24/36</button><button type="button" data-v="b">Одна шестёрка: 51,8 % против 49,1 %</button><button type="button" data-v="c" data-why="Бросков больше, но и пару шестёрок выбросить в шесть раз труднее. Считай через «ни разу».">Пара шестёрок: ведь бросков в шесть раз больше</button></div>
+    <p class="why">Через «ни разу»: 1 − (5/6)<sup>4</sup> ≈ 0,518 и 1 − (35/36)<sup>24</sup> ≈ 0,491. Де Мере заметил на практике, что вторая ставка проигрывает, и написал Паскалю — с этой переписки началась теория вероятностей.</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <p class="src">Идея из книги: Сара Бослаф, «Статистика для всех» (ставки шевалье де Мере)</p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 4</span>
+  <h2 data-proverb="p04">«Хотя бы один» — через «ни одного»</h2>
+  <ul class="cheat">
+    <li><b>Не:</b> P(не A) = 1 − P(A). «Хотя бы один» трудно, «ни одного» легко.</li>
+    <li><b>И для независимых:</b> P(A и B) = P(A) · P(B). Цепочка из 7 шагов по 90 % — это 0,9<sup>7</sup> ≈ 48 %.</li>
+    <li><b>Хотя бы один из n:</b> 1 − (1 − p)<sup>n</sup>, а не n · p. 100 лампочек по 1 % — 63,4 %.</li>
+    <li><b>Или:</b> P(A или B) = P(A) + P(B) − P(A и B); для несовместных — просто сумма.</li>
+    <li><b>Дни рождения:</b> смотри на пары, а не на людей. 23 гостя — 253 пары и 50,7 %, 50 гостей — 97 %.</li>
+    <li>Несовместные события (с ненулевыми шансами) зависимы: одно исключает другое.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Дополнение</dt><dd>событие «не A», все исходы, где A не случилось; на собеседовании — complement</dd>
+    <dt>Независимые события</dt><dd>одно не меняет шансов другого, поэтому «и» — произведение; на собеседовании — independent events</dd>
+    <dt>Несовместные события</dt><dd>не случаются вместе, поэтому «или» — сумма; на собеседовании — mutually exclusive, disjoint</dd>
+    <dt>Включения и исключения</dt><dd>P(A или B) = P(A) + P(B) − P(A и B); на собеседовании — inclusion–exclusion</dd>
+  </dl>
+  <figure class="art"><img src="img/vp04-02-next.jpg" alt="Котейка на подоконнике смотрит, как гости с зонтиками спешат в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: начинается дождь, Котейка смотрит на гостей с зонтиками</figcaption></figure>
+  <a class="next-step" href="05-conditional.html"><b>Дальше, шаг 5: «Условная вероятность и независимость»</b>В дождь гости берут горячий шоколад чаще. А десерт? Сузим мир до дождливых дней и проверим, меняет ли погода хоть что-то.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    months: ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+    yes: 'есть', no: 'нет',
+    kotHit: (n, pairs) => 'Мяу, совпадение! Гостей ' + int(n) + ', а пар уже ' + int(pairs) + '.',
+    kotFull: 'Зал полон: 80 гостей. Начни новую вечеринку.',
+    party: (k, total, n, theory, g) => (g === null || n !== 23 ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
+      'Совпадение было в <b>' + int(k) + '</b> из ' + int(total) + ' ' + plural(total, 'вечеринки', 'вечеринок', 'вечеринок') + ' по ' + int(n) + ' ' + plural(n, 'гостю', 'гостя', 'гостей') +
+      ' (' + share(k / total, 1) + '). Теория: ' + share(theory, 1) + '.' + (n === 23 ? ' Боб ждал около 6 %.' : ''),
+    curveX: 'гостей', curveLab: (n, p) => int(n) + ' → ' + share(p, 1),
+    lampsNone: 'Нажми «Прожить год».',
+    lampsYear: (k, n) => k ? 'Перегоревших за год: ' + int(k) + ' из ' + int(n) + '. Хотя бы одна — есть.' : 'В этот год не перегорела ни одна из ' + int(n) + '.',
+    lamps1000: (k, total, th) => 'Хотя бы одна лампочка перегорела в <b>' + int(k) + '</b> из ' + int(total) + ' ' + plural(total, 'гирлянды', 'гирлянд', 'гирлянд') + ' (' + share(k / total, 1) + '). Формула: ' + share(th, 1) + '.',
+    orCap: {
+      none: '1000 гостей кафе. Нажми кнопку, чтобы подсветить.',
+      coffee: 'Кофе взяли 300 гостей из 1000 (30 %).',
+      dessert: 'Десерт взяли 400 гостей из 1000 (40 %).',
+      bob: 'Боб насчитал 300 + 400 = 700. Но 150 гостей с кофе и десертом (обведены красным) попали в сумму дважды.',
+      or: 'Хотя бы одно взяли 550 гостей: 300 + 400 − 150 = 550 (55 %).',
+    },
+  },
+}[LANG] || {};
+
+// ---------- карточка 4: вечеринка дней рождения ----------
+(function(){
+  const ML = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], START = [];
+  ML.reduce((s, m, i) => (START[i] = s, s + m), 0);
+  const cv = document.getElementById('cal'), size = document.getElementById('pt-size'), v = document.getElementById('pt-v'), kot = document.getElementById('pt-kot');
+  let days = [], hitShown = false, total = 0, hits = 0, batchN = 23;
+  const theory = n => { let q = 1; for (let i = 0; i < n; i++) q *= (365 - i) / 365; return 1 - q; };
+  function counts(){ const c = new Array(365).fill(0); days.forEach(d => c[d]++); return c; }
+  function draw(){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 34, R = 4, T = 4, B = 4, cw = (w - L - R) / 31, ch = (h - T - B) / 12, r = Math.max(2, Math.min(cw, ch) * 0.36), cnt = counts();
+    c.font = (w < 520 ? 10 : 12) + 'px Onest, system-ui, sans-serif';
+    for (let m = 0; m < 12; m++){
+      const y = T + m * ch + ch / 2;
+      label(c, TXT.months[m], 2, y + 4, COL.ink2);
+      for (let d = 0; d < ML[m]; d++){
+        const x = L + d * cw + cw / 2, k = cnt[START[m] + d];
+        c.fillStyle = k > 1 ? COL.test : k === 1 ? COL.ctrl : COL.grid;
+        c.beginPath(); c.arc(x, y, k ? r * 1.25 : r * 0.6, 0, 2 * Math.PI); c.fill();
+      }
+    }
+  }
+  function paint(){
+    const n = days.length, cnt = counts(), hit = cnt.some(k => k > 1);
+    document.getElementById('pt-n').textContent = int(n);
+    document.getElementById('pt-pairs').textContent = int(n * (n - 1) / 2);
+    document.getElementById('pt-hit').textContent = hit ? TXT.yes : TXT.no;
+    if (hit && !hitShown){ hitShown = true; kot.hidden = false; kot.textContent = TXT.kotHit(n, n * (n - 1) / 2); }
+    document.getElementById('pt-1').disabled = document.getElementById('pt-10').disabled = n >= 80;
+    if (n >= 80){ kot.hidden = false; kot.textContent = TXT.kotFull; }
+    draw();
+  }
+  function add(k){ for (let i = 0; i < k && days.length < 80; i++) days.push(randInt(0, 364)); paint(); }
+  document.getElementById('pt-1').addEventListener('click', () => add(1));
+  document.getElementById('pt-10').addEventListener('click', () => add(10));
+  document.getElementById('pt-new').addEventListener('click', () => { days = []; hitShown = false; kot.hidden = true; paint(); });
+  size.addEventListener('input', () => {
+    document.getElementById('pt-size-t').textContent = size.value;
+    if (+size.value !== batchN){ total = 0; hits = 0; v.hidden = true; }
+  });
+  document.getElementById('pt-1000').addEventListener('click', () => {
+    batchN = +size.value;
+    const seen = new Uint16Array(365);
+    let mark = 0;
+    for (let t = 0; t < 1000; t++){
+      mark++; if (mark > 60000){ seen.fill(0); mark = 1; }
+      let hit = false;
+      for (let i = 0; i < batchN; i++){ const d = randInt(0, 364); if (seen[d] === mark){ hit = true; break; } seen[d] = mark; }
+      total++; if (hit) hits++;
+    }
+    // последняя вечеринка — в календарь, чтобы было что разглядывать
+    days = []; for (let i = 0; i < batchN; i++) days.push(randInt(0, 364)); hitShown = true; kot.hidden = true; paint();
+    v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = TXT.party(hits, total, batchN, theory(batchN), Book.guess('party23'));
+  });
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 5: кривая совпадений ----------
+(function(){
+  const cv = document.getElementById('curve');
+  const P = []; let q = 1; for (let n = 0; n <= 80; n++){ P[n] = 1 - q; q *= (365 - n) / 365; }
+  function draw(){
+    const g = canvas(cv, 0.42, 0.7); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 14, T = 12, B = 30, pw = w - L - R, ph = h - T - B;
+    const X = n => L + n / 80 * pw, Y = p => T + (1 - p) * ph;
+    axisY(c, L, R, T, ph, w, 0, 1, 0.25, v => shareT(v, 0));
+    axisX(c, X, [0, 10, 20, 30, 40, 50, 60, 70, 80], h - 12, v => int(v));
+    label(c, TXT.curveX, w - R, h - 1, COL.ink2, 'right');
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath();
+    for (let n = 1; n <= 80; n++){ n === 1 ? c.moveTo(X(n), Y(P[n])) : c.lineTo(X(n), Y(P[n])); }
+    c.stroke();
+    [23, 30, 50, 70].forEach(n => {
+      c.fillStyle = n === 23 ? COL.test : COL.ctrl; c.beginPath(); c.arc(X(n), Y(P[n]), 5, 0, 2 * Math.PI); c.fill();
+      const t = TXT.curveLab(n, P[n]);
+      if (n === 23) label(c, t, X(n) + 9, Y(P[n]) + 4, COL.testInk, 'left');
+      else if (n === 30) label(c, t, X(n) + 9, Y(P[n]) + 12, COL.ink, 'left');
+      else if (n === 50) label(c, t, X(n) + 4, Y(P[n]) + 22, COL.ink, 'left');
+      else if (w >= 520) label(c, t, X(n) + 4, Y(P[n]) + 40, COL.ink, 'right');
+    });
+  }
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 8: гирлянда ----------
+(function(){
+  const cv = document.getElementById('lamps'), nIn = document.getElementById('lm-n'), pIn = document.getElementById('lm-p'), v = document.getElementById('lm-v');
+  let burnt = null, total = 0, hits = 0;
+  const n = () => +nIn.value, p = () => +pIn.value / 1000;
+  function draw(){
+    const N = n(), g = canvas(cv, 0.22, 0.42); if (!g) return; const {c, w, h} = g;
+    const cols = Math.max(10, Math.ceil(Math.sqrt(N * w / h))), rows = Math.ceil(N / cols), s = Math.min(w / cols, h / rows), r = Math.max(2, s * 0.34);
+    const ox = (w - cols * s) / 2, oy = (h - rows * s) / 2;
+    c.strokeStyle = COL.grid; c.lineWidth = 1;
+    for (let rr = 0; rr < rows; rr++){ const y = oy + rr * s + s / 2; c.beginPath(); c.moveTo(ox, y); c.lineTo(ox + cols * s, y); c.stroke(); }
+    for (let i = 0; i < N; i++){
+      const x = ox + (i % cols) * s + s / 2, y = oy + Math.floor(i / cols) * s + s / 2;
+      c.fillStyle = burnt && burnt[i] ? COL.trap : COL.ochre;
+      c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill();
+    }
+  }
+  function paint(reset){
+    const N = n(), pp = p();
+    document.getElementById('lm-n-t').textContent = int(N);
+    document.getElementById('lm-p-t').textContent = numT(pp * 100, 1) + NBSP + '%';
+    document.getElementById('lm-right').textContent = share(1 - Math.pow(1 - pp, N), 1);
+    document.getElementById('lm-naive').textContent = shareT(N * pp, 1);
+    if (reset){ burnt = null; total = 0; hits = 0; v.hidden = true; }
+    draw();
+  }
+  document.getElementById('lm-1').addEventListener('click', () => {
+    const N = n(), pp = p(); burnt = []; let k = 0;
+    for (let i = 0; i < N; i++){ burnt[i] = bern(pp); if (burnt[i]) k++; }
+    v.hidden = false; v.className = 'verdict good'; v.textContent = TXT.lampsYear(k, N); draw();
+  });
+  document.getElementById('lm-1000').addEventListener('click', () => {
+    const N = n(), pp = p();
+    for (let t = 0; t < 1000; t++){ let any = false; for (let i = 0; i < N; i++) if (bern(pp)){ any = true; break; } total++; if (any) hits++; }
+    burnt = []; for (let i = 0; i < N; i++) burnt[i] = bern(pp);
+    v.hidden = false; v.className = 'verdict good'; v.innerHTML = TXT.lamps1000(hits, total, 1 - Math.pow(1 - pp, N)); draw();
+  });
+  nIn.addEventListener('input', () => paint(true)); pIn.addEventListener('input', () => paint(true));
+  window.addEventListener('resize', draw);
+  paint(true);
+})();
+
+// ---------- карточка 9: кофе или десерт на 1000 гостей ----------
+(function(){
+  const cv = document.getElementById('or1000'), cap = document.getElementById('or-cap');
+  // 0 — оба, 1 — только кофе, 2 — только десерт, 3 — ничего; группы подряд, чтобы было видно размеры
+  const kind = []; [[0, 150], [1, 150], [2, 250], [3, 450]].forEach(([k, m]) => { for (let i = 0; i < m; i++) kind.push(k); });
+  let mode = 'none';
+  function draw(){
+    const g = canvas(cv, 0.4, 1.6); if (!g) return; const {c, w, h} = g;
+    const cols = w < 520 ? 25 : 50, rows = 1000 / cols, s = Math.min(w / cols, h / rows), r = s * 0.36, ox = (w - cols * s) / 2;
+    kind.forEach((k, i) => {
+      const x = ox + (i % cols) * s + s / 2, y = Math.floor(i / cols) * s + s / 2;
+      const cof = k === 0 || k === 1, des = k === 0 || k === 2;
+      let col = COL.fillGray;
+      if (mode === 'none') col = k === 0 ? COL.truth : k === 1 ? COL.ctrl : k === 2 ? COL.test : COL.fillGray;
+      if (mode === 'coffee' && cof) col = k === 0 ? COL.truth : COL.ctrl;
+      if (mode === 'dessert' && des) col = k === 0 ? COL.truth : COL.test;
+      if ((mode === 'bob' || mode === 'or') && (cof || des)) col = k === 0 ? COL.truth : k === 1 ? COL.ctrl : COL.test;
+      c.fillStyle = col === COL.fillGray ? COL.grid : col; c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill();
+      if (mode === 'bob' && k === 0){ c.strokeStyle = COL.trap; c.lineWidth = Math.max(1.5, s * 0.14); c.beginPath(); c.arc(x, y, r + s * 0.1, 0, 2 * Math.PI); c.stroke(); }
+    });
+  }
+  document.querySelectorAll('[data-or]').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.or; cap.textContent = TXT.orCap[mode];
+    document.querySelectorAll('[data-or]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    draw();
+  }));
+  window.addEventListener('resize', draw);
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

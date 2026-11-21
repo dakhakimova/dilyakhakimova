@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Байес · Вероятность на пальцах</title>
+<meta name="description" content="Шаг 6 бесплатного интерактивного курса «Вероятность на пальцах»: формула Байеса в штуках на 1000 купюр, база и ложные тревоги, Монти Холл, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
+.xref > span{flex:1}
+.legend-row i.ochre{background:#C9A43A}
+.p6-read{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0}
+.p6-read > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:13px; color:var(--muted); line-height:1.35}
+.p6-read b{display:block; font:500 24px/1.2 var(--serif); color:var(--ink); font-variant-numeric:tabular-nums}
+.p6-read .hot b{color:var(--truth)}
+.p6-tree{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px 10px; align-items:center; margin:12px 0; font-size:15px; line-height:1.35}
+.p6-tree > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 10px}
+.p6-tree b{font:500 20px/1.2 var(--serif); font-variant-numeric:tabular-nums}
+.p6-tree .root{grid-row:1 / span 4; align-self:stretch; display:flex; flex-direction:column; justify-content:center}
+.p6-tree .mid{grid-row:span 2; align-self:stretch; display:flex; flex-direction:column; justify-content:center}
+.p6-tree .tp{background:var(--truth-bg); border-color:var(--truth)}
+.p6-tree .fp{background:var(--trap-bg); border-color:var(--trap)}
+.p6-tree .off{color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(36,34,31,.35)}
+.p6-sum{background:#F3F1EC; border-radius:10px; padding:10px 14px; font-size:16px}
+.p6-doors{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0}
+.p6-doors button{font:600 16px/1.3 var(--body); min-height:120px; border-radius:12px 12px 4px 4px; border:2px solid var(--ink); background:var(--ctrl-bg); color:var(--ink); cursor:pointer; padding:10px 6px}
+.p6-doors button[aria-pressed="true"]{background:var(--test-bg); border-color:var(--test-ink)}
+.p6-doors button.open{background:#F3F1EC; border-style:dashed; color:var(--muted); cursor:default}
+.p6-doors button.cake{background:var(--truth-bg); border-color:var(--truth)}
+.p6-doors button small{display:block; font-weight:400; font-size:13px; color:var(--muted); margin-top:4px}
+.p6-doors button:disabled{cursor:default}
+.p6-proto{display:grid; gap:6px; margin:10px 0; font-size:15px}
+.p6-proto label{display:flex; gap:8px; align-items:flex-start; min-height:32px; cursor:pointer}
+.p6-proto input{margin-top:4px}
+@media (max-width:620px){
+  .p6-read{grid-template-columns:1fr 1fr}
+  .p6-tree{grid-template-columns:1fr; gap:6px}
+  .p6-tree .root, .p6-tree .mid{grid-row:auto}
+  .p6-tree .leaf{margin-left:18px}
+  .p6-doors button{min-height:96px; font-size:15px}
+}
+</style>
+</head>
+<body data-course="probability" data-chapter="p06" data-next="07-distribution.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Вероятность на пальцах</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки шага">
+    <h2>Шаг 6 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки шага</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка (шаги 3–4) -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним шаги 3 и 4</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">На утреннем собрании 6 бариста, каждый пожал руку каждому. Сколько было рукопожатий?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Каждый пожимает руку пятерым, а не двоим.">12: каждый пожал по две руки</button><button type="button" data-v="b">15: шесть на пять и пополам</button><button type="button" data-v="c" data-why="6 · 5 считает каждое рукопожатие дважды: «Алиса — Боб» и «Боб — Алиса» — одно и то же.">30: шесть умножить на пять</button><button type="button" data-v="d" data-why="Сам с собой никто не здоровается, и каждая пара здесь посчитана дважды.">36: шесть умножить на шесть</button></div>
+    <p class="why">Рукопожатие — пара бариста, порядок не важен: C(6, 2) = 6 · 5 / 2 = 15 (шаг 3).</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Гость оставляет отзыв с шансом 20 %. За вечер 5 заказов. Как часто будет хотя бы один отзыв?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="5 · 20 % = 1 — это среднее число отзывов за вечер, а не шанс получить хотя бы один.">100 %: пять отзывов по двадцать процентов</button><button type="button" data-v="b">Около 67 %: единица минус «ни одного»</button><button type="button" data-v="c" data-why="20 % — шанс одного гостя. Гостей пять, отзыв может оставить любой.">20 %: как у одного гостя</button></div>
+    <p class="why">«Хотя бы один» — через «ни одного» (шаг 4): все пятеро промолчат с шансом 0,8<sup>5</sup> ≈ 0,33, значит, хотя бы один отзыв будет примерно в 67 вечерах из 100.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Касса пищит" aria-label="Касса пищит">
+  <p class="kicker">Шаг 6 из 9</p>
+  <h1>Байес</h1>
+  <p class="core">После шага ты сможешь <b>посчитать в штуках из 1000, сколько сигналов настоящие</b>, и не путать P(сигнал | фальшивка) с P(фальшивка | сигнал).</p>
+  <figure class="art"><img src="img/vp06-00-cashbox.jpg" alt="Касса в кафе мигает и пищит, Боб хватается за голову, Алиса спокойно рассматривает купюру на свет" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: касса пищит, Боб паникует, Алиса держит купюру на свет</figcaption></figure>
+  <p class="lead">В кафе поставили кассу, которая ловит фальшивые купюры. Ловит она 99 % фальшивок, а на настоящие пищит зря лишь в 1 % случаев. Касса пискнула. Боб уже звонит в полицию. Насколько он прав?</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Касса пискнула. Это фальшивка?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Касса точна на 99 %. Раз пискнула — 99 %, что фальшивка!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А сколько вообще фальшивок нам приносят? По данным банка — примерно одну на 1000 купюр.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">У меня в мешке как раз 1000 купюр. Пропустим через кассу?</p></div></div>
+  </div>
+  <div class="guess" data-key="cash" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Из 100 писков настоящих фальшивок будет примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> %</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке пропустим купюры через кассу.</p>
+  </div>
+</section>
+
+<!-- 4: главная игрушка -->
+<section class="card" data-title="Касса и фальшивки" aria-label="Касса и фальшивки">
+  <span class="step-tag">Поиграй</span>
+  <h2>Пропусти 1000 купюр через кассу</h2>
+  <p>Каждая клетка — купюра. Нажми кнопку, а потом надень рамку «только писки»: что осталось внутри?</p>
+  <div class="sheet c-white">
+    <canvas id="bills" role="img" aria-label="1000 купюр: настоящие молчат — серые, ложные тревоги — красные, пойманные фальшивки — зелёные, пропущенные — жёлтые"></canvas>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>фальшивка, касса пискнула</span><span><i style="background:var(--trap)"></i>настоящая, касса пискнула зря</span><span><i class="ochre"></i>фальшивка, касса промолчала</span><span><i style="background:#E1E0D9"></i>настоящая, тишина</span></div>
+    <div class="controls">
+      <button class="btn" type="button" id="b-1">Пропустить 1000 купюр</button>
+      <button class="btn ghost" type="button" id="b-100">Ещё 100 пачек по 1000</button>
+      <button class="btn ghost" type="button" id="b-frame" aria-pressed="false">Только писки</button>
+    </div>
+    <div class="p6-read">
+      <div><b id="b-n">0</b>купюр прошло</div>
+      <div><b id="b-beep">0</b>писков</div>
+      <div><b id="b-fake">0</b>из них фальшивок</div>
+      <div class="hot"><b id="b-share">—</b>фальшивок среди писков</div>
+    </div>
+    <div class="verdict" id="b-v" hidden></div>
+    <details>
+      <summary>Подвигать кассу</summary>
+      <div class="twoinputs">
+        <label class="field" for="b-base"><span>Фальшивок среди купюр: <b id="b-base-t" class="num">0,1 %</b></span><input type="range" id="b-base" min="0" max="7" step="1" value="0" style="width:100%"></label>
+        <label class="field" for="b-sens"><span>Касса ловит фальшивок: <b id="b-sens-t" class="num">99 %</b></span><input type="range" id="b-sens" min="50" max="100" step="1" value="99" style="width:100%"></label>
+        <label class="field" for="b-fpr"><span>Пищит на настоящие: <b id="b-fpr-t" class="num">1 %</b></span><input type="range" id="b-fpr" min="0" max="40" step="1" value="2" style="width:100%"></label>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 5: дерево в штуках -->
+<section class="card" data-title="Дерево в штуках" aria-label="Дерево в штуках">
+  <span class="step-tag">Разгадка</span>
+  <h2>Где прячутся писки</h2>
+  <p>Возьмём сразу 100 000 купюр, чтобы фальшивок было не одна, а сотня. Обведи ветки, где касса пищит, вычеркни остальные.</p>
+  <div class="p6-tree" role="img" aria-label="Дерево: из 100 000 купюр 100 фальшивых, из них 99 с писком; 99 900 настоящих, из них 999 с писком">
+    <div class="root"><b>100 000</b> купюр</div>
+    <div class="mid"><b>100</b> фальшивых<br><span class="note">одна из тысячи</span></div>
+    <div class="leaf tp"><b>99</b> пищат<br><span class="note">касса ловит 99 %</span></div>
+    <div class="leaf off"><b>1</b> молчит</div>
+    <div class="mid"><b>99 900</b> настоящих</div>
+    <div class="leaf fp"><b>999</b> пищат<br><span class="note">ложная тревога, 1 %</span></div>
+    <div class="leaf off"><b>98 901</b> молчат</div>
+  </div>
+  <p class="p6-sum">Писков всего 99 + 999 = <b>1098</b>. Фальшивых среди них 99 — это <b>9 %</b>. Остальные 91 % писков — честные купюры.</p>
+  <p>Касса не плохая: она пищит на фальшивку в 99 раз чаще, чем на настоящую. Но настоящих купюр в 999 раз больше. Широкое поле честных купюр с маленькой долей ошибок даёт писков больше, чем узкая колонна фальшивок.</p>
+  <p class="src">Идея подачи частотами — из книги: Герд Гигеренцер, «Risk Savvy»</p>
+</section>
+
+<!-- 6: правило в трёх слоях -->
+<section class="card" data-title="Правило Байеса" aria-label="Правило Байеса">
+  <span class="step-tag">Правило</span>
+  <h2>Сначала база, потом сигнал</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Касса пищит — Боб уверен, что фальшивка. Алиса спрашивает: «А сколько вообще фальшивок?» Без этого числа писк ничего не говорит.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 100 000 купюр 100 фальшивых, касса ловит 99. Из 99 900 настоящих пищит на 999. Среди 1098 писков 99 фальшивых — около 9 %.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(H | E) = P(E | H) · P(H) / P(E)</p>
+      <p class="formula">P(E) = P(E | H) · P(H) + P(E | не H) · P(не H)</p>
+      <p class="formula">0,99 · 0,001 / (0,99 · 0,001 + 0,01 · 0,999) ≈ 0,09</p>
+      <p class="read">Словами: H — «фальшивка», E — «писк». Доля настоящих сигналов = пойманные фальшивки / все писки. Знаменатель — формула полной вероятности из шага 5.</p>
+    </div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Доля фальшивок до всякого писка, P(H) = 0,1 %, — это <b class="term">априорная вероятность</b>, или база; на собеседовании скажут <b>prior</b> или <b>base rate</b>. А P(H | E) после писка — апостериорная, <b>posterior</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «как часто бывает до проверки» и «как часто после».</p>
+  </aside>
+</section>
+
+<!-- 7: колонна и поле -->
+<section class="card" data-title="Колонна и поле" aria-label="Колонна и поле">
+  <span class="step-tag">Посмотри на площади</span>
+  <h2>Узкая колонна против широкого поля</h2>
+  <p>Квадрат — все купюры. Ширина левой колонны — база (доля фальшивок), высота закраски в ней — сколько фальшивок ловит касса. Справа — поле настоящих купюр и ложные тревоги. После писка остаются только закрашенные куски.</p>
+  <div class="sheet c-white">
+    <div class="controls" role="group" aria-label="Сколько фальшивок">
+      <button class="btn ghost" type="button" data-base="0.001" aria-pressed="true">База 0,1 %: касса</button>
+      <button class="btn ghost" type="button" data-base="0.02" aria-pressed="false">База 2 %</button>
+      <button class="btn ghost" type="button" data-base="0.1" aria-pressed="false">База 10 %</button>
+      <button class="btn ghost" type="button" data-base="0.3" aria-pressed="false">База 30 %</button>
+    </div>
+    <canvas id="square" role="img" aria-label="Единичный квадрат Байеса: узкая колонна фальшивок и широкое поле настоящих купюр; полоска справа — доля фальшивок среди писков"></canvas>
+    <p class="note" id="sq-cap"></p>
+  </div>
+  <p>Касса пищит на фальшивку в 99 % / 1 % = <b>99 раз</b> чаще, чем на настоящую. Это её сила, и она не зависит от базы. До писка шансы «фальшивка : настоящая» были 1 : 999, после писка — 99 : 999, примерно 1 : 10. Сигнал не говорит шанс, а умножает его.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Долю настоящих среди сигналов называют <b class="term">прогностической ценностью</b>; на собеседовании скажут <b>precision</b> или <b>PPV</b>. А «касса ловит 99 % фальшивок» — это <b>чувствительность</b>, recall.</p>
+    <p class="aside">Звучит солидно, а это просто «сколько писков кассы — правда».</p>
+  </aside>
+  <p class="src">Идея из роликов: 3Blue1Brown, «Bayes theorem, the geometry of changing beliefs» и «The medical test paradox»</p>
+</section>
+
+<!-- 8: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Перевёрнутое условие</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Касса ошибается на настоящих купюрах только в 1 % случаев. Значит, если она пискнула, купюра настоящая лишь с шансом 1 %.</p></div></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что не так у Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="1 % — это доля писков среди настоящих купюр, P(писк | настоящая). Котейка выдал её за P(настоящая | писк).">Всё верно: ошибка кассы на настоящих и есть 1 %</button><button type="button" data-v="b" data-why="100 % − 99 % = 1 % — это доля пропущенных фальшивок. К вопросу «настоящая ли пискнувшая купюра» она отношения не имеет.">Надо считать так: 100 % − 99 % = 1 %</button><button type="button" data-v="c">Перевёрнуто: среди писков 91 % настоящих</button></div>
+    <p class="why">P(писк | настоящая) = 1 %: среди 99 900 настоящих пищат 999. P(настоящая | писк) = 91 %: среди 1098 писков настоящих 999. Это доли в разных мирах — в рамке «настоящие» и в рамке «писки».</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <p>Та же путаница живёт в A/B-тестах. p-value — это «вероятность таких данных, <b>если эффекта нет</b>», то есть P(данные | эффекта нет). Её часто читают как «вероятность, что эффекта нет, при таких данных». Это перевёрнутое условие — как у Котейки.</p>
+  <p class="xref"><span>Без формул и с другими игрушками — в «A/B на пальцах», <a href="/ab-basics/07-p-value.html">шаг 7 «p-value на пальцах»</a> и <a href="/ab-basics/08-errors.html">шаг 8 «Два вида ошибок»</a>. С формулами — в «Сигнале или шуме», <a href="/signal/12-wins.html">глава 12 «„Прокрасилось“ — значит, работает?»</a>.</span></p>
+</section>
+
+<!-- 9: Монти Холл — игрушка -->
+<section class="card" data-title="Три двери" aria-label="Три двери">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Розыгрыш на празднике: три двери</h2>
+  <figure class="art"><img src="img/vp06-01-doors.jpg" alt="Праздник в кафе: три большие двери-коробки, Котейка-ведущий в бабочке, гость выбирает дверь" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: три двери и Котейка-ведущий в бабочке</figcaption></figure>
+  <p>За одной из трёх дверей торт, за двумя — пусто. Ты выбираешь дверь. Котейка знает, где торт, и открывает одну из двух других — пустую. Потом предлагает: поменять дверь или оставить?</p>
+  <div class="choice" data-key="monty" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="switch" data-fb="Ставка записана. Сыграй сам, а потом запусти автомат." aria-pressed="false">Менять выгоднее</button>
+    <button type="button" data-v="same" data-fb="Так думает большинство: осталось две двери. Проверим." aria-pressed="false">Всё равно: 50 на 50</button>
+    <button type="button" data-v="stay" data-fb="Ставка записана. Сыграй сам, а потом запусти автомат." aria-pressed="false">Лучше оставить свою</button>
+  </div>
+  <div class="sheet c-white">
+    <p class="chart-title" id="m-say">Выбери дверь.</p>
+    <div class="p6-doors" id="doors">
+      <button type="button" data-d="0">Дверь 1<small></small></button>
+      <button type="button" data-d="1">Дверь 2<small></small></button>
+      <button type="button" data-d="2">Дверь 3<small></small></button>
+    </div>
+    <div class="controls" id="m-decide" hidden>
+      <button class="btn" type="button" id="m-switch">Поменять</button>
+      <button class="btn ghost" type="button" id="m-stay">Оставить</button>
+    </div>
+    <div class="controls" id="m-again" hidden><button class="btn" type="button" id="m-new">Ещё раунд</button></div>
+    <div class="p6-read">
+      <div><b id="m-sw">0 из 0</b>меняли и выиграли</div>
+      <div><b id="m-st">0 из 0</b>оставили и выиграли</div>
+    </div>
+    <details>
+      <summary>Правила ведущего</summary>
+      <div class="p6-proto" role="radiogroup" aria-label="Как Котейка открывает дверь">
+        <label><input type="radio" name="proto" value="always" checked> Котейка знает, где торт, и всегда открывает пустую дверь</label>
+        <label><input type="radio" name="proto" value="onlyright"> Котейка открывает дверь, только если ты угадал торт</label>
+        <label><input type="radio" name="proto" value="random"> Котейка не знает, где торт, и открывает дверь наугад</label>
+      </div>
+    </details>
+    <div class="controls"><button class="btn ghost" type="button" id="m-auto">Сыграть 1000 раз автоматом</button></div>
+    <div class="verdict" id="m-v" hidden></div>
+  </div>
+</section>
+
+<!-- 10: почему менять -->
+<section class="card" data-title="Почему менять" aria-label="Почему менять">
+  <span class="step-tag">Правило</span>
+  <h2>Обведи, вычеркни, перенормируй</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Твоя дверь угадана с шансом 1/3, и открытая Котейкой дверь этого не меняет: какую бы ты ни выбрал, пустую ему открыть есть что. А вот если ты не угадал, Котейка вынужден открыть единственную пустую из двух — и тем самым показывает, где торт.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>300 игр, ты всегда берёшь дверь 1. Торт за дверью 1 — в 100 играх: смена проигрывает. За дверью 2 — в 100: Котейка открывает дверь 3, смена выигрывает. За дверью 3 — в 100: Котейка открывает дверь 2, смена выигрывает. Смена выигрывает в 200 играх из 300.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(торт за 2 | открыл 3) = (1/3 · 1) / (1/3 · 1/2 + 1/3 · 1) = 2/3</p>
+      <p class="read">Словами: обведи ветки, где Котейка открыл дверь 3; вычеркни остальные; доли оставшихся растяни, чтобы в сумме была единица. Условие — не «за дверью 3 пусто», а «Котейка открыл дверь 3».</p>
+    </div>
+  </div>
+  <p>Поэтому ответ зависит от правил ведущего. Переключи их в игрушке: если Котейка открывает дверь, только когда ты угадал, менять — проигрывать каждый раз. Если открывает наугад и там случайно пусто — выходит 50 на 50.</p>
+  <p class="src">Идея из лекций: Джо Блицштейн, Stat 110 «Probability», лекция про Монти Холла; правила ведущего — из книги: Герд Гигеренцер, «Risk Savvy»</p>
+</section>
+
+<!-- 11: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Функция Байеса на все случаи</h2>
+  <p>Допиши <code>posterior(base, sens, fpr)</code>: доля настоящих среди сигналов. <code>base</code> — база, <code>sens</code> — доля пойманных, <code>fpr</code> — доля ложных тревог.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-posterior">
+<textarea spellcheck="false" aria-label="Задание: функция posterior">def posterior(base, sens, fpr):
+    caught = ...        # доля всех купюр: фальшивая и пискнула
+    false_alarm = ...   # доля всех купюр: настоящая и пискнула
+    return ...          # фальшивых среди писков
+
+print(posterior(0.001, 0.99, 0.01))   # касса: около 0.09
+print(posterior(0.02, 0.90, 0.05))    # промокоды: около 0.27
+
+# бонус: второй независимый флаг — подставь ответ как новую базу
+print(posterior(posterior(0.02, 0.90, 0.05), 0.90, 0.05))</textarea>
+  </div>
+<script type="text/x-python" id="check-posterior">
+def _check():
+    try:
+        f = posterior
+    except NameError:
+        print("FAIL функции posterior нет — запусти ячейку с ней"); return
+    try:
+        v = f(0.001, 0.99, 0.01)
+    except Exception as e:
+        print("FAIL функция падает с ошибкой:", e); return
+    if v is ... or v is None:
+        print("FAIL функция пока ничего не считает: замени ... на код"); return
+    v = float(v)
+    if abs(v - 0.99) < 1e-6:
+        print("FAIL вернулось 0,99 — это P(писк | фальшивка). А нужно наоборот: P(фальшивка | писк)"); return
+    if abs(v - 0.00099) < 1e-6:
+        print("FAIL 0,00099 — это доля «фальшивая и пискнула» среди всех купюр. Раздели её на долю всех писков"); return
+    v2 = float(f(0.02, 0.90, 0.05))
+    if abs(v - 0.0902) < 0.001 and abs(v2 - 0.2687) < 0.001:
+        print("OK касса — 9,0 %, промокоды — 26,9 %. Второй флаг подними до 86,9 %")
+    else:
+        print(f"FAIL касса: получилось {v:.4f}, ждали около 0,090; промокоды: {v2:.4f}, ждали около 0,269")
+_check()
+</script>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи на Байеса</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="rare">
+    <summary>Редкое заболевание бывает у 1 человека из 1000. Тест ошибается в 1 % случаев в обе стороны. Тест положительный — какова вероятность, что человек болен?</summary>
+    <p><b>Переформулирую:</b> это касса из шага: база 0,1 %, чувствительность 99 %, ложные тревоги 1 %. Нужна доля больных среди положительных.</p>
+    <p><b>В штуках:</b> из 100 000 человек больны 100, тест находит 99. Из 99 900 здоровых положительный у 999. Положительных 1098, больных среди них 99.</p>
+    <p><b>Формула:</b> <span class="num">0,99 · 0,001 / (0,99 · 0,001 + 0,01 · 0,999) ≈ 0,09</span>.</p>
+    <p><b>Вывод:</b> около 9 %: тест поднял шанс в 90 раз, но большинство положительных — ложные, потому что здоровых намного больше.</p>
+  </details>
+  <details class="ivw" data-key="promoflags">
+    <summary>Промокодом злоупотребляют в 2 % заказов. Флаг антифрода ловит 90 % злоупотреблений и ошибочно срабатывает на 5 % честных заказов. Флаг сработал — какова вероятность злоупотребления? А если сработали два независимых флага с такими же параметрами?</summary>
+    <p><b>Переформулирую:</b> нужна доля злоупотреблений среди флагов, потом — среди заказов с двумя флагами. Допущение: флаги ошибаются независимо друг от друга.</p>
+    <p><b>В штуках:</b> из 100 000 заказов 2000 злоупотреблений, флаг ловит 1800. Из 98 000 честных флаг срабатывает на 4900. Среди 6700 флагов злоупотреблений 1800 — около 27 %.</p>
+    <p><b>Два флага:</b> оба ловят 0,9 · 0,9 = 81 % злоупотреблений — 1620 заказов. Оба ошибаются на 0,05 · 0,05 = 0,25 % честных — 245 заказов. Злоупотреблений среди них 1620 из 1865 — около 87 %.</p>
+    <p><b>Формула:</b> <span class="num">0,9 · 0,02 / (0,9 · 0,02 + 0,05 · 0,98) ≈ 0,27</span>; для двух флагов подставь 0,27 как новую базу.</p>
+    <p><b>Вывод:</b> один флаг — повод проверить заказ (27 %), два флага — повод блокировать (87 %): второй сигнал переводит ответ через 50 %.</p>
+  </details>
+  <details class="ivw" data-key="monty">
+    <summary>Три двери, за одной приз. Ты выбрал дверь, ведущий, который знает, где приз, открыл одну из двух других — пустую. Менять ли выбор?</summary>
+    <p><b>Переформулирую:</b> какова вероятность приза за оставшейся дверью при условии, что ведущий открыл именно эту пустую дверь. Допущения: ведущий всегда открывает пустую дверь и, если может открыть любую из двух, выбирает наугад.</p>
+    <p><b>В штуках:</b> из 300 игр твоя дверь угадана в 100 — тогда смена проигрывает. В остальных 200 ведущему остаётся одна пустая дверь, и смена выигрывает.</p>
+    <p><b>Формула:</b> <span class="num">P(приз за другой | ведущий открыл пустую) = 2/3</span>.</p>
+    <p><b>Проверка:</b> 1000 игр автоматом в игрушке.</p>
+    <p><b>Вывод:</b> менять — выигрыш в двух играх из трёх; но ответ держится на правилах ведущего, их стоит назвать вслух.</p>
+  </details>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про Байеса</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Один флаг антифрода даёт 27 % злоупотреблений среди флагов. На заказе сработали два независимых флага. Какова доля злоупотреблений теперь?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Второй флаг — новая улика. Каждая независимая улика снова умножает шансы.">27 %: второй флаг ничего не добавил</button><button type="button" data-v="b" data-why="Вероятности так не складываются. Второй флаг обновляет уже обновлённую базу 27 %.">54 %: два раза по двадцать семь</button><button type="button" data-v="c">Около 87 %: база обновилась дважды</button></div>
+    <p class="why">Из 100 000 заказов оба флага ловят 1620 злоупотреблений и ошибаются на 245 честных: 1620 / 1865 ≈ 87 %. То же — если подставить 27 % как новую базу в формулу Байеса.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Фальшивок 1 из 1000, а среди писков кассы — только 9 %. Есть ли от кассы толк?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="91 % ложных писков — неприятно, но после писка фальшивок в 90 раз больше, чем было. Писк сужает поиск.">Нет: писки почти всегда ложные, касса бесполезна</button><button type="button" data-v="b">Есть: после писка шанс вырос с 0,1 % до 9 %</button><button type="button" data-v="c" data-why="99 % — это P(писк | фальшивка). Доля фальшивок среди писков — 9 %.">Есть: после писка фальшивка с шансом 99 %</button></div>
+    <p class="why">Писк поднимает шанс фальшивки в 90 раз: из 1000 купюр проверить нужно не все, а около 11 пискнувших. Сигнал полезен, даже когда большинство тревог ложные.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Котейка не знает, где торт, и открывает одну из двух других дверей наугад. Там случайно пусто. Менять?</p>
+    <div class="choice"><button type="button" data-v="a">Без разницы: теперь шансы 50 на 50</button><button type="button" data-v="b" data-why="2/3 получается, только когда ведущий знает, где торт, и нарочно открывает пустую.">Менять: смена выигрывает в двух играх из трёх</button><button type="button" data-v="c" data-why="Своя дверь ничем не лучше: случайно открытая пустая дверь одинаково «подтверждает» обе оставшиеся.">Оставить: своя дверь теперь надёжнее</button></div>
+    <p class="why">Из 300 игр в 100 Котейка случайно открывает торт — такие игры не считаем. В оставшихся 200 торт за твоей дверью в 100 и за другой — в 100. Проверь в игрушке, переключив правила ведущего.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Боб: «Котейка открыл пустую дверь, осталось две — значит, 50 на 50». Котейка знает, где торт, и всегда открывает пустую. Что не так у Боба?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Две двери — не значит два равновозможных исхода, как «разные» и «одинаковые» монетки в шаге 1.">Всё верно: две двери — два равных исхода</button><button type="button" data-v="b">Котейка подсказал: смена выигрывает в 2/3</button><button type="button" data-v="c" data-why="Твоя дверь угадана с шансом 1/3, и открытая дверь этого не меняет.">Наоборот: теперь своя дверь выигрывает в 2/3</button></div>
+    <p class="why">Когда ты не угадал (2 игры из 3), Котейка вынужден открыть единственную пустую из двух — и торт оказывается за оставшейся дверью.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог шага" aria-label="Итог шага">
+  <span class="step-tag">Шпаргалка шага 6</span>
+  <h2 data-proverb="p06">Сначала база, потом сигнал</h2>
+  <ul class="cheat">
+    <li><b>Байес:</b> P(H | E) = P(E | H) · P(H) / P(E), где P(E) = P(E | H) · P(H) + P(E | не H) · P(не H).</li>
+    <li><b>В штуках:</b> пойманные / все сигналы. Касса: 99 / (99 + 999) ≈ 9 %.</li>
+    <li>P(сигнал | фальшивка) = 99 % и P(фальшивка | сигнал) = 9 % — разные числа. Не переворачивай условие.</li>
+    <li><b>Шансы:</b> после сигнала = до сигнала × (доля пойманных / доля ложных тревог). 1 : 999 × 99 ≈ 1 : 10.</li>
+    <li>Второй независимый сигнал — новый шаг Байеса: 27 % → 87 %.</li>
+    <li><b>Монти Холл:</b> если ведущий знает и всегда открывает пустую — менять, 2/3. Ответ зависит от правил ведущего.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Априорная вероятность</dt><dd>доля до сигнала, база; на собеседовании — prior, base rate</dd>
+    <dt>Апостериорная вероятность</dt><dd>доля после сигнала, P(H | E); на собеседовании — posterior</dd>
+    <dt>Чувствительность</dt><dd>доля пойманных среди настоящих, P(E | H); на собеседовании — sensitivity, recall</dd>
+    <dt>Ложная тревога</dt><dd>сигнал без причины, P(E | не H); на собеседовании — false positive rate</dd>
+    <dt>Прогностическая ценность</dt><dd>доля настоящих среди сигналов, P(H | E); на собеседовании — precision, PPV</dd>
+  </dl>
+  <figure class="art"><img src="img/vp06-02-next.jpg" alt="Котейка у входа в кафе ставит доску Гальтона, шарики падают в корзинки, гости спорят" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона</figcaption></figure>
+  <a class="next-step" href="07-distribution.html"><b>Дальше, шаг 7: «Случайная величина и распределение»</b>Котейка ставит у входа доску Гальтона: шарики падают в корзинки, гости спорят, где вырастет горка. Узнаем, сколько шариков попадёт в среднюю корзину, ещё до первого броска.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    v: (fake, beep, th, g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
+      'Среди ' + int(beep) + ' ' + plural(beep, 'писка', 'писков', 'писков') + ' фальшивок <b>' + int(fake) + '</b> — ' + share(beep ? fake / beep : 0, 1) + '. Формула Байеса: ' + share(th, 1) + '.',
+    vFew: 'Писков пока мало — пропусти ещё пачки, чтобы доля успокоилась.',
+    sqCap: (base, post) => 'База ' + shareT(base, 1) + ': после писка фальшивок ' + share(post, 1) + '.',
+    sqFake: 'фальшивые', sqReal: 'настоящие', sqAfter: 'после писка',
+    say: {
+      pick: 'Выбери дверь.',
+      decide: (p, o) => 'Ты выбрал дверь ' + (p + 1) + '. Котейка открыл дверь ' + (o + 1) + ': там пусто. Меняешь?',
+      noOpen: p => 'Ты выбрал дверь ' + (p + 1) + '. Котейка не стал открывать дверь — значит, ты не угадал.',
+      cakeOpen: (p, o) => 'Ты выбрал дверь ' + (p + 1) + '. Котейка наугад открыл дверь ' + (o + 1) + ' — а там торт! Раунд не считается.',
+      win: 'Торт твой!', lose: 'Пусто. Торт был за другой дверью.',
+    },
+    cake: 'торт', empty: 'пусто', yours: 'твой выбор',
+    ofN: (k, n) => int(k) + ' из ' + int(n),
+    auto: {
+      always: (sw, st) => 'Котейка знает и всегда открывает пустую. Смена выиграла в <b>' + share(sw, 1) + '</b> игр, своя дверь — в ' + share(st, 1) + '. Менять выгодно: две игры из трёх.',
+      onlyright: (n, sw) => 'Котейка открывает дверь, только если ты угадал. Когда дверь открыта, смена выиграла в <b>' + share(sw, 0) + '</b> игр из ' + int(n) + '. Открытая дверь здесь — знак «не меняй».',
+      random: (n, sw, st) => 'Котейка открывает наугад. В ' + int(n) + ' играх из 1000 он открыл пустую; смена выиграла в <b>' + share(sw, 1) + '</b> из них, своя дверь — в ' + share(st, 1) + '. Почти 50 на 50.',
+    },
+  },
+}[LANG] || {};
+
+// ---------- карточка 4: касса и 1000 купюр ----------
+(function(){
+  const BASES = [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2];
+  const cv = document.getElementById('bills'), v = document.getElementById('b-v');
+  const bIn = document.getElementById('b-base'), sIn = document.getElementById('b-sens'), fIn = document.getElementById('b-fpr'), frameB = document.getElementById('b-frame');
+  let batch = null, N = 0, beep = 0, fake = 0, frame = false;
+  const base = () => BASES[+bIn.value], sens = () => +sIn.value / 100, fpr = () => +fIn.value / 200;
+  const theory = () => sens() * base() / (sens() * base() + fpr() * (1 - base()));
+  function bill(){ const f = bern(base()), b = f ? bern(sens()) : bern(fpr()); return (f ? 2 : 0) + (b ? 1 : 0); } // 0 тишина, 1 ложная тревога, 2 пропуск, 3 поймана
+  function draw(){
+    const g = canvas(cv, 0.4, 1.6); if (!g) return; const {c, w, h} = g;
+    const cols = w < 520 ? 25 : 50, rows = 1000 / cols, s = Math.min(w / cols, h / rows), ox = (w - cols * s) / 2, pad = Math.max(1, s * 0.12);
+    for (let i = 0; i < 1000; i++){
+      const k = batch ? batch[i] : 0, x = ox + (i % cols) * s, y = Math.floor(i / cols) * s;
+      c.globalAlpha = frame && batch && !(k & 1) ? 0.12 : 1;
+      c.fillStyle = k === 3 ? COL.truth : k === 1 ? COL.trap : k === 2 ? COL.ochre : COL.grid;
+      c.fillRect(x + pad, y + pad, s - 2 * pad, s - 2 * pad);
+      if (k >= 2){ c.globalAlpha = 1; c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.strokeRect(x + pad / 2, y + pad / 2, s - pad, s - pad); }
+    }
+    c.globalAlpha = 1;
+  }
+  function paint(){
+    document.getElementById('b-n').textContent = int(N);
+    document.getElementById('b-beep').textContent = int(beep);
+    document.getElementById('b-fake').textContent = int(fake);
+    document.getElementById('b-share').textContent = beep ? share(fake / beep, 1) : '—';
+    if (N){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = TXT.v(fake, beep, theory(), Book.guess('cash')) + (beep < 300 ? ' ' + TXT.vFew : ''); }
+    draw();
+  }
+  function run(m){
+    for (let j = 0; j < m; j++){
+      const last = j === m - 1; if (last) batch = new Uint8Array(1000);
+      for (let i = 0; i < 1000; i++){ const k = bill(); if (last) batch[i] = k; if (k & 1){ beep++; if (k === 3) fake++; } }
+      N += 1000;
+    }
+    paint();
+  }
+  function sliders(){
+    document.getElementById('b-base-t').textContent = shareT(base(), 1);
+    document.getElementById('b-sens-t').textContent = sIn.value + NBSP + '%';
+    document.getElementById('b-fpr-t').textContent = numT(fpr() * 100, 1) + NBSP + '%';
+    N = beep = fake = 0; batch = null; v.hidden = true; paint(); v.hidden = true;
+  }
+  document.getElementById('b-1').addEventListener('click', () => run(1));
+  document.getElementById('b-100').addEventListener('click', () => run(100));
+  frameB.addEventListener('click', () => { frame = !frame; frameB.setAttribute('aria-pressed', String(frame)); draw(); });
+  [bIn, sIn, fIn].forEach(x => x.addEventListener('input', sliders));
+  window.addEventListener('resize', draw);
+  sliders();
+})();
+
+// ---------- карточка 7: колонна и поле ----------
+(function(){
+  const cv = document.getElementById('square'), cap = document.getElementById('sq-cap'), sens = 0.99, fpr = 0.01;
+  let base = 0.001;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const T = 22, B = 8, side = Math.min(h - T - B, w * 0.62), x0 = 4, y0 = T, wb = Math.max(3, side * base);
+    const post = sens * base / (sens * base + fpr * (1 - base));
+    label(c, TXT.sqFake, x0, 14, COL.truth); label(c, TXT.sqReal, x0 + side, 14, COL.ink2, 'right');
+    c.fillStyle = COL.fillGray; c.fillRect(x0, y0, side, side);
+    c.fillStyle = COL.fillG; c.fillRect(x0, y0, wb, side);
+    c.fillStyle = COL.truth; c.fillRect(x0, y0 + side * (1 - sens), wb, side * sens);
+    c.fillStyle = COL.trap; c.fillRect(x0 + wb, y0 + side * (1 - fpr), side - wb, Math.max(2, side * fpr));
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.strokeRect(x0, y0, side, side);
+    // полоска «после писка»
+    const bx = x0 + side + Math.max(24, w * 0.06), bw = Math.min(56, w - bx - 70), by = y0;
+    label(c, TXT.sqAfter, bx, 14, COL.ink2);
+    c.fillStyle = COL.trap; c.fillRect(bx, by, bw, side);
+    c.fillStyle = COL.truth; c.fillRect(bx, by + side * (1 - post), bw, side * post);
+    c.strokeStyle = COL.ink2; c.strokeRect(bx, by, bw, side);
+    label(c, share(post, 1), bx + bw + 6, by + side * (1 - post / 2) + 4, COL.truth);
+    cap.textContent = TXT.sqCap(base, post);
+  }
+  document.querySelectorAll('[data-base]').forEach(b => b.addEventListener('click', () => {
+    base = +b.dataset.base;
+    document.querySelectorAll('[data-base]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    draw();
+  }));
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 9: три двери ----------
+(function(){
+  const doors = [...document.querySelectorAll('#doors button')], say = document.getElementById('m-say');
+  const decide = document.getElementById('m-decide'), again = document.getElementById('m-again'), v = document.getElementById('m-v');
+  const st = {sw: 0, swN: 0, st: 0, stN: 0};
+  let cake, pick, opened, phase = 'pick';
+  const proto = () => document.querySelector('input[name=proto]:checked').value;
+  function reset(){
+    cake = randInt(0, 2); pick = null; opened = null; phase = 'pick';
+    doors.forEach(d => { d.className = ''; d.disabled = false; d.setAttribute('aria-pressed', 'false'); d.querySelector('small').textContent = ''; });
+    decide.hidden = true; again.hidden = true; say.textContent = TXT.say.pick;
+  }
+  function paintStats(){
+    document.getElementById('m-sw').textContent = TXT.ofN(st.sw, st.swN);
+    document.getElementById('m-st').textContent = TXT.ofN(st.st, st.stN);
+  }
+  function reveal(final, counted, switched){
+    doors.forEach((d, i) => { d.disabled = true; d.querySelector('small').textContent = i === cake ? TXT.cake : TXT.empty; if (i === cake) d.classList.add('cake'); });
+    if (final !== null) doors[final].setAttribute('aria-pressed', 'true');
+    if (counted){
+      const win = final === cake;
+      if (switched){ st.swN++; if (win) st.sw++; } else { st.stN++; if (win) st.st++; }
+      paintStats();
+    }
+    decide.hidden = true; again.hidden = false; phase = 'done';
+  }
+  doors.forEach((d, i) => d.addEventListener('click', () => {
+    if (phase !== 'pick') return;
+    pick = i; d.setAttribute('aria-pressed', 'true'); d.querySelector('small').textContent = TXT.yours;
+    const others = [0, 1, 2].filter(k => k !== pick), p = proto();
+    if (p === 'always'){ const empty = others.filter(k => k !== cake); opened = empty[randInt(0, empty.length - 1)]; }
+    else if (p === 'onlyright'){
+      if (pick !== cake){ say.textContent = TXT.say.noOpen(pick) + ' ' + TXT.say.lose; reveal(pick, true, false); return; }
+      opened = others[randInt(0, 1)];
+    } else {
+      opened = others[randInt(0, 1)];
+      if (opened === cake){ say.textContent = TXT.say.cakeOpen(pick, opened); reveal(null, false); return; }
+    }
+    doors[opened].classList.add('open'); doors[opened].disabled = true; doors[opened].querySelector('small').textContent = TXT.empty;
+    say.textContent = TXT.say.decide(pick, opened); decide.hidden = false; phase = 'decide';
+  }));
+  function finish(switched){
+    if (phase !== 'decide') return;
+    const final = switched ? [0, 1, 2].find(k => k !== pick && k !== opened) : pick;
+    say.textContent = final === cake ? TXT.say.win : TXT.say.lose;
+    doors[pick].setAttribute('aria-pressed', 'false'); reveal(final, true, switched);
+  }
+  document.getElementById('m-switch').addEventListener('click', () => finish(true));
+  document.getElementById('m-stay').addEventListener('click', () => finish(false));
+  document.getElementById('m-new').addEventListener('click', reset);
+  document.querySelectorAll('input[name=proto]').forEach(r => r.addEventListener('change', () => { st.sw = st.swN = st.st = st.stN = 0; paintStats(); v.hidden = true; reset(); }));
+  document.getElementById('m-auto').addEventListener('click', () => {
+    const p = proto(); let n = 0, sw = 0, stay = 0;
+    for (let t = 0; t < 1000; t++){
+      const c0 = randInt(0, 2), p0 = randInt(0, 2), others = [0, 1, 2].filter(k => k !== p0);
+      let o;
+      if (p === 'always'){ const e = others.filter(k => k !== c0); o = e[randInt(0, e.length - 1)]; }
+      else if (p === 'onlyright'){ if (p0 !== c0) continue; o = others[randInt(0, 1)]; }
+      else { o = others[randInt(0, 1)]; if (o === c0) continue; }
+      n++; const other = [0, 1, 2].find(k => k !== p0 && k !== o);
+      if (other === c0) sw++; if (p0 === c0) stay++;
+    }
+    v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = p === 'always' ? TXT.auto.always(sw / n, stay / n) : p === 'onlyright' ? TXT.auto.onlyright(n, n ? sw / n : 0) : TXT.auto.random(n, sw / n, stay / n);
+  });
+  reset(); paintStats();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

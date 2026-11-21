@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>«Прокрасилось» — значит, работает? · Сигнал или шум</title>
+<meta name="description" content="Глава 12 бесплатного интерактивного курса «Сигнал или шум»: год из 1000 экспериментов, доля ложных побед среди прокрасившихся тестов, проклятие победителя, множественные проверки и весь алгоритм на одной задаче.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* глава 12: сетка года, шаги алгоритма, две ссылки «куда дальше» */
+.counts.c5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:620px){ .counts.c5{grid-template-columns:1fr 1fr} }
+.counts .big{background:var(--trap-bg)}
+.field .num{min-width:3.5em; display:inline-block}
+ol.algo{padding-left:0; list-style:none; counter-reset:a; margin:12px 0}
+ol.algo li{counter-increment:a; position:relative; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:9px 12px 9px 44px; margin:6px 0; line-height:1.5}
+ol.algo li::before{content:counter(a); position:absolute; left:12px; top:9px; width:22px; height:22px; border-radius:50%; background:var(--ink); color:#fff; font:600 13px/22px var(--body); text-align:center}
+ol.algo li b.st{display:block; font:600 13px/1.3 var(--body); color:var(--muted)}
+.answer{background:var(--truth-bg); border-radius:12px; padding:12px 16px; margin:12px 0; font:500 17px/1.5 var(--serif)}
+.next-step + .next-step{margin-top:10px}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch12">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 12 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним главу 10 и «Вероятность на пальцах», шаг 6</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В тесте новой кнопки p = 0,03. Что это за число?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="p считали, предполагая, что эффекта нет, поэтому шанс «эффекта нет» оно дать не может.">Шанс, что эффекта нет, — ровно 3 %</button><button type="button" data-v="b">Шанс такой разницы без эффекта</button><button type="button" data-v="c" data-why="Это та же ошибка, только перевёрнутая: 1 − p — не вероятность эффекта.">Шанс, что эффект есть, — 97 %</button></div>
+    <p class="why">p-value = P(такая разница или больше | эффекта нет). Вероятность эффекта по нему одному не посчитать. Это глава 10.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Касса пищит на 9 фальшивых купюр из 10 и на 5 настоящих из 100. Фальшивая — 1 купюра из 100. Касса пискнула. Какова доля фальшивых среди писков?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="9 из 10 — это доля писков среди фальшивых. Нам нужна обратная доля: фальшивых среди писков.">Около 90 %: касса ловит 9 из 10</button><button type="button" data-v="b">Около 15 %: настоящих больше</button><button type="button" data-v="c" data-why="5 из 100 — доля писков среди настоящих, но настоящих купюр в 99 раз больше, и их писков много.">Около 95 %: ошибается в 5 из 100</button></div>
+    <p class="why">Из 10 000 купюр 100 фальшивых дают 90 писков, 9900 настоящих — 495. Среди 585 писков фальшивых 90, это 15 %. Это Байес из «Вероятности на пальцах», шаг 6 — и вся эта глава.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Стена зелёных" aria-label="Стена зелёных">
+  <p class="kicker">Часть III · глава 12</p>
+  <h1>«Прокрасилось» — значит, работает?</h1>
+  <p class="core">После главы ты сможешь <b>оценить, какая доля прокрасившихся тестов настоящие</b>, и ответить бизнесу одной фразой.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава учит шестому">
+    <li>1. Что здесь случайно?</li><li>2. Как распределено?</li><li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li><li>5. Сколько стандартных ошибок до порога</li><li class="on"><b>6.</b> Ответ бизнесу</li>
+  </ol>
+  <figure class="art"><img src="img/ch12-00-green-wall.jpg" alt="Стена из множества маленьких экранов, часть светится зелёным, Котейка кисточкой подкрашивает пустые экраны" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: стена тестов, Котейка подкрашивает пустые</figcaption></figure>
+  <p class="lead">Тест прокрасился — порог 5 % пройден. Но порог считали в мире без эффекта. Бобу нужен другой ответ: из всех зелёных тестов сколько настоящих?</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>1000 тестов за год</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За год провели 1000 тестов, около 125 прокрасились. Выкатываем все 125!</p></div></div>
+    <div class="msg kot world"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я раздаю «победы» пустым идеям: каждой двадцатой. Кому повезёт.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Обычно работает примерно каждая десятая идея, мощность наших тестов — 80 %, α — 5 %. Посчитаем, сколько среди зелёных подарков Котейки.</p></div></div>
+  </div>
+  <div class="guess" data-key="fdr" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Ложных среди прокрасившихся примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> %</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке проведём год.</p>
+  </div>
+</section>
+
+<!-- 4: главная игрушка -->
+<section class="card" data-title="Год экспериментов" aria-label="Год экспериментов">
+  <span class="step-tag">Главная игрушка</span>
+  <h2>Год экспериментов</h2>
+  <p>Каждая клетка — один тест. Нажми «Провести год», потом двигай ползунки: доля рабочих идей, мощность, α.</p>
+  <div class="sheet c-white">
+    <canvas id="year" role="img" aria-label="Сетка из 1000 тестов: зелёные — настоящие победы, красные — ложные, охра — пропуски, серые — верные «нет»"></canvas>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>настоящая победа</span><span><i style="background:var(--trap)"></i>ложная победа</span><span><i style="background:#C9A43A"></i>пропуск</span><span><i style="background:var(--theory)"></i>верное «нет»</span></div>
+    <div class="controls">
+      <button class="btn" type="button" id="y-run">Провести год</button>
+      <button class="btn ghost" type="button" id="y-green" aria-pressed="false">Смотреть только на прокрасившиеся</button>
+    </div>
+    <label class="field">Рабочих идей <input type="range" id="y-base" min="1" max="50" step="1" value="10"> <b id="y-bt" class="num"></b></label>
+    <label class="field">Мощность <input type="range" id="y-pow" min="10" max="95" step="5" value="80"> <b id="y-pt" class="num"></b></label>
+    <div class="controls" role="group" aria-label="Уровень значимости α">
+      <button class="btn ghost" type="button" data-a="0.01" aria-pressed="false">α = 1 %</button>
+      <button class="btn ghost" type="button" data-a="0.05" aria-pressed="true">α = 5 %</button>
+      <button class="btn ghost" type="button" data-a="0.1" aria-pressed="false">α = 10 %</button>
+      <button class="btn ghost" type="button" id="y-peek" aria-pressed="false">Подглядываем 5 раз</button>
+    </div>
+    <div class="counts c5">
+      <div><b id="y-tp">—</b><i style="background:var(--truth)"></i>настоящих побед</div>
+      <div><b id="y-fp">—</b><i style="background:var(--trap)"></i>ложных побед</div>
+      <div><b id="y-fn">—</b><i style="background:#C9A43A"></i>пропусков</div>
+      <div><b id="y-tn">—</b><i style="background:var(--theory)"></i>верных «нет»</div>
+      <div class="big"><b id="y-fdr">—</b>ложных среди прокрасившихся</div>
+    </div>
+    <div class="verdict" id="y-v" hidden></div>
+  </div>
+  <p class="note">Подглядывание здесь — только анонс: если смотреть на тест пять раз и останавливать при первом p &lt; 0,05, пустые тесты прокрашиваются уже в 14 % случаев вместо 5 %. Как подглядывать честно — в курсе <a href="/ab/">«A/B без мифов»</a>.</p>
+</section>
+
+<!-- 5: правило -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>Доля настоящих среди зелёных</h2>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Прокрас — это писк кассы из «Вероятности на пальцах». Касса пищит и на фальшивки, и иногда на настоящие купюры. Сколько фальшивок среди писков, зависит от того, сколько их вообще.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 тестов 100 рабочих → 80 побед. 900 пустых → 45 ложных побед. Среди 125 прокрасившихся 45 ложных — 36 %, больше трети. При мощности 30 % — 30 настоящих и те же 45 ложных: ложных 60 %.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">P(эффект | прокрас) = мощность·π / (мощность·π + α·(1 − π))</p>
+      <p class="formula">FDR = 1 − P(эффект | прокрас)</p>
+      <p class="read">Словами: π — доля рабочих идей. Доля настоящих среди прокрасившихся зависит от базы и мощности, а не только от α. Здесь 0,8·0,1 / (0,8·0,1 + 0,05·0,9) = 0,08 / 0,125 = 64 % настоящих.</p></div>
+  </div>
+  <p class="note">Строго говоря, двусторонний тест на 5 % красит пустую идею зелёным в 2,5 % случаев и красным — тоже в 2,5 %. Мы считаем все 5 %: на практике подглядывание, лишние метрики и срезы добавляют ложных побед, так что 5 % — не завышенная оценка.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Долю ложных среди прокрасившихся называют <b class="term">FDR</b> (false discovery rate) — долей ложных открытий.</p>
+    <p class="aside">Звучит солидно, а это просто «сколько фальшивок среди писков кассы».</p>
+  </aside>
+  <p class="xref">Без формул и с другими игрушками — в «A/B на пальцах», <a href="/ab-basics/07-p-value.html">шаг 7 про p-value</a> и <a href="/ab-basics/10-traps.html">шаг 10 «Когда зелёное врёт»</a>.</p>
+</section>
+
+<!-- 6: мощность решает -->
+<section class="card" data-title="Мощность решает" aria-label="Мощность решает">
+  <span class="step-tag">Малый график</span>
+  <h2>Слабые тесты — больше ложных побед</h2>
+  <p>Доля ложных среди прокрасившихся при α = 5 % для трёх команд: у одной работает 5 % идей, у другой 10 %, у третьей 30 %. Наведи на график, чтобы увидеть числа.</p>
+  <div class="sheet c-white">
+    <canvas id="fdr" role="img" aria-label="Доля ложных побед в зависимости от мощности для баз 5, 10 и 30 процентов: при базе 10 процентов и мощности 80 процентов — 36 процентов, при мощности 30 процентов — 60 процентов"></canvas>
+    <div class="legend-row"><span><i style="background:var(--trap)"></i>работает 5 % идей</span><span><i style="background:var(--test)"></i>10 %</span><span><i style="background:var(--ctrl)"></i>30 %</span></div>
+    <p class="note" id="fdr-tip">Наведи на график или коснись его.</p>
+  </div>
+  <p>Две вещи двигают долю настоящих побед: проверять идеи посильнее (выше база) и делать тесты мощнее. α тоже помогает, но ценой мощности (глава 11). Каждый недомощный тест — лотерея, где выигрыш часто фальшивый.</p>
+</section>
+
+<!-- 7: гуру из монеток -->
+<section class="card" data-title="Гуру из монеток" aria-label="Гуру из монеток">
+  <span class="step-tag">Победители по чистой удаче</span>
+  <h2>10 000 продактов-монеток</h2>
+  <p>Представь 10 000 продактов, которые угадывают исход теста подбрасыванием монетки. Каждый год выбывают те, кто ошибся. Сколько «гуру» продержатся 10 лет подряд?</p>
+  <div class="sheet c-white">
+    <canvas id="guru" role="img" aria-label="Сколько продактов-монеток угадывают год за годом: из 10 000 через 10 лет остаётся около 10"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="g-year">Ещё год</button>
+      <button class="btn ghost" type="button" id="g-reset">Заново</button>
+    </div>
+    <div class="verdict" id="g-v" hidden></div>
+  </div>
+  <p>По формуле 10 000 / 2¹⁰ ≈ 10 человек угадают 10 раз подряд без всякого умения. С тестами то же: «мы запускаем по вторникам, и у нас всё прокрашивается» — это ритуал, как у голубей Скиннера, которым корм сыпали по таймеру, а они решили, что дело в танце.</p>
+  <p class="src">Идея из книг: Герд Гигеренцер, «Risk Savvy»; Нассим Талеб, «Fooled by Randomness»</p>
+</section>
+
+<!-- 8: много проверок -->
+<section class="card" data-title="Много проверок" aria-label="Много проверок">
+  <span class="step-tag">Малый график</span>
+  <h2>20 метрик — и скорее всего одна «прокрасится»</h2>
+  <p>В одном тесте смотрят не одну метрику, а много. Если эффекта нет нигде, каждая независимая метрика прокрашивается с вероятностью α. Двигай число метрик.</p>
+  <div class="sheet c-white">
+    <canvas id="multi" role="img" aria-label="Вероятность хотя бы одного ложного прокраса в зависимости от числа метрик: при 20 метриках — 64 процента"></canvas>
+    <label class="field">Метрик в тесте <input type="range" id="m-k" min="1" max="50" step="1" value="20"> <b id="m-kt" class="num"></b></label>
+    <div class="verdict" id="m-v"></div>
+  </div>
+  <p class="formula">P(хотя бы одна ложная) = 1 − (1 − α)<sup>k</sup></p>
+  <p>Формула верна для независимых метрик. Связанные метрики (заказы, выручка, средний чек) красятся пачками, и шанс «хотя бы одной» у них меньше — но в среднем ложных прокрасов всё равно α·k. Поправки на множественные проверки разбирают в курсе <a href="/stats/">«Прикладная статистика для аналитика»</a> и в <a href="/ab/">«A/B без мифов»</a>.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Это проблема <b class="term">множественных проверок</b> (multiple comparisons, multiple testing).</p>
+    <p class="aside">Звучит солидно, а это просто «купи 20 лотерейных билетов — какой-нибудь выиграет».</p>
+  </aside>
+</section>
+
+<!-- 9: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Слишком много побед</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В этом квартале прокрасилась треть тестов! Мы гении, мяу.</p></div></div>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Что стоит проверить первым?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Хорошие идеи — возможное объяснение, но не первое: при обычной базе 10 % прокрашивается около 12 % тестов, а не треть.">Ничего: много побед — значит, хорошие идеи</button><button type="button" data-v="b" data-why="Если часть побед ложные, выкатка всех добавит в продукт пустые фичи, которые потом годами поддерживают.">Ничего: срочно выкатить все прокрасившиеся</button><button type="button" data-v="c">Подглядывание, число метрик и сплит</button></div>
+    <p class="why">При базе 10 %, мощности 80 % и α = 5 % прокрашивается 0,1·0,8 + 0,9·0,05 = 12,5 % тестов. Треть — это либо 38 % рабочих идей (бывает редко), либо ложных побед больше, чем 5 %: подглядывание, «хоть какая-то из 20 метрик», сломанный сплит. Слишком хорошо — повод проверить, а не праздновать.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Напиши долю ложных побед</h2>
+  <p>Функция получает долю рабочих идей base, мощность power и α. Вернуть — долю ложных среди прокрасившихся.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-false-share">
+<textarea spellcheck="false" aria-label="Задание: функция false_share">def false_share(base, power, alpha):
+    true_wins = ...    # из 1 теста: доля настоящих побед
+    false_wins = ...   # из 1 теста: доля ложных побед
+    return ...
+
+print(false_share(0.10, 0.80, 0.05))   # около 0.36
+print(false_share(0.10, 0.30, 0.05))   # около 0.60
+
+# Обратный вопрос: какая мощность нужна, чтобы ложных было не больше 20 %?
+for alpha in [0.05, 0.01]:
+    if false_share(0.10, 0.80, alpha) is ...: break   # сначала допиши функцию
+    ok = [pw / 100 for pw in range(1, 101) if false_share(0.10, pw / 100, alpha) &lt;= 0.20 + 1e-9]
+    print(alpha, ok[0] if ok else "недостижимо")</textarea>
+  </div>
+<script type="text/x-python" id="check-false-share">
+def _check():
+    try:
+        f = false_share
+    except NameError:
+        print("FAIL функции false_share нет — запусти ячейку с ней"); return
+    try:
+        a = float(f(0.10, 0.80, 0.05)); b = float(f(0.10, 0.30, 0.05)); c = float(f(0.10, 0.36, 0.01))
+    except Exception as e:
+        print("FAIL функция должна вернуть число; вместо ... впиши формулы. Ошибка:", e); return
+    if abs(a - 0.64) < 0.01:
+        print("FAIL вышло 0.64 — это доля настоящих. Нужна доля ложных: false_wins / (true_wins + false_wins)"); return
+    if abs(a - 0.36) > 0.01 or abs(b - 0.60) > 0.01:
+        print(f"FAIL вышло {a:.3f} и {b:.3f}, а ждали 0.36 и 0.60. Ложные победы — alpha * (1 - base)"); return
+    if abs(c - 0.20) > 0.01:
+        print(f"FAIL при α = 1 % и мощности 36 % ждали 0.20, а вышло {c:.3f}"); return
+    print("OK 36 % и 60 % ложных; при α = 1 % хватает мощности 36 %, при α = 5 % 20 % недостижимо")
+_check()
+</script>
+  <p class="note">Обратный вопрос — задача с собеседования ниже: при α = 5 % и базе 10 % ложных не меньше 36 % даже при мощности 100 %.</p>
+</section>
+
+<!-- 11: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи и как на них отвечать</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="nulls1000">
+    <summary>Проверили 1000 гипотез, и все они на самом деле верны (эффектов нет). Уровень значимости 1 %. Сколько гипотез отвергнем?</summary>
+    <p><b>Переформулирую:</b> каждая проверка — монетка с вероятностью «прокраса» 0,01. Сколько прокрасов из 1000?</p>
+    <p><b>В штуках:</b> в среднем 10. Но это среднее: в разные годы будет то 6, то 14.</p>
+    <p><b>Формула:</b> число отвергнутых ~ Bin(1000; 0,01), среднее 1000·0,01 = 10, SD = √(1000·0,01·0,99) ≈ 3,1; в 95 % случаев — примерно от 4 до 16.</p>
+    <p><b>Вывод:</b> около 10 ложных открытий, хотя ни одного настоящего нет.</p>
+  </details>
+  <details class="ivw" data-key="pvh0">
+    <summary>Чем p-value отличается от вероятности того, что эффекта нет?</summary>
+    <p><b>Переформулирую:</b> p = P(такие данные или крайнее | эффекта нет). Вопрос бизнеса — P(эффекта нет | такие данные). Условие и событие поменялись местами.</p>
+    <p><b>В штуках:</b> 1000 тестов, 10 % рабочих идей, мощность 80 %, α = 5 %. Прокрасилось 125, из них 45 пустых: P(эффекта нет | прокрас) = 36 %, хотя порог был 5 %.</p>
+    <p><b>Формула:</b> <span class="num">P(H₀ | прокрас) = α(1 − π) / (α(1 − π) + мощность·π)</span> — Байес; без доли рабочих идей π её не посчитать.</p>
+    <p><b>Вывод:</b> p-value — про данные в мире без эффекта; вероятность «эффекта нет» требует ещё базы и мощности.</p>
+  </details>
+  <details class="ivw" data-key="needpower">
+    <summary>В кафе работает примерно 1 идея из 10, α = 5 %. Какая мощность нужна, чтобы ложных среди прокрасившихся было не больше 20 %?</summary>
+    <p><b>Переформулирую:</b> настоящих побед должно быть хотя бы вчетверо больше ложных.</p>
+    <p><b>В штуках:</b> из 1000 тестов ложных побед 0,05·900 = 45. Настоящих нужно не меньше 4·45 = 180, а рабочих идей всего 100. Даже идеальный тест даст 100 побед — ложных останется 31 %.</p>
+    <p><b>Формула:</b> <span class="num">мощность·π ≥ 4·α(1 − π) → мощность ≥ 4·0,05·0,9 / 0,1 = 1,8</span> — больше 100 %, недостижимо. При α = 1 %: мощность ≥ 4·0,01·0,9/0,1 = 0,36.</p>
+    <p><b>Симуляция:</b> функция false_share в ячейке выше.</p>
+    <p><b>Вывод:</b> при такой базе одной мощностью не обойтись: нужен строже α (1 % и мощность от 36 %), идеи посильнее или повторный тест.</p>
+  </details>
+</section>
+
+<!-- 12: весь алгоритм -->
+<section class="card" data-title="Весь алгоритм" aria-label="Весь алгоритм">
+  <span class="step-tag">Весь курс на одной задаче</span>
+  <h2>Кнопка «Добавить десерт»: шесть шагов</h2>
+  <p>Боб тестировал кнопку «Добавить десерт к заказу». Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2160 на 20 000. Пройдём алгоритм от первой главы до последней.</p>
+  <figure class="art"><img src="img/ch12-01-algorithm.jpg" alt="Алиса у доски с шестью ступеньками, Боб слушает с чашкой кофе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса объясняет шесть ступенек</figcaption></figure>
+  <ol class="algo">
+    <li><b class="st">Что здесь случайно?</b>Единица — заход гостя в приложение. Случайная величина — заказал (1) или нет (0).</li>
+    <li><b class="st">Как распределено?</b>Бернулли с вероятностью p; число заказов в группе — биномиальное.</li>
+    <li><b class="st">Центр и разброс</b>p̂<sub>A</sub> = 10,0 %, p̂<sub>B</sub> = 10,8 %; SD одного гостя √(p(1 − p)) ≈ 0,30 и 0,31.</li>
+    <li><b class="st">Насколько шумит среднее</b>SE разности = √(p̂(1 − p̂)(1/n<sub>A</sub> + 1/n<sub>B</sub>)) ≈ 0,00305, то есть 0,305 заказа на 100 гостей.</li>
+    <li><b class="st">Сколько стандартных ошибок до порога</b>z = 0,8 / 0,305 ≈ 2,62 &gt; 1,96, p ≈ 0,009; интервал разницы — от +0,2 до +1,4 заказа на 100 гостей.</li>
+    <li><b class="st">Ответ бизнесу</b>Учитываем базу: среди наших побед при пороге 5 % примерно каждая третья ложная, а у победителей эффект обычно завышен.</li>
+  </ol>
+  <p class="answer">«Кнопка, скорее всего, работает: от +0,2 до +1,4 заказа на 100 гостей. Но среди таких побед у нас примерно каждая третья ложная — повторим тест на новой неделе и решим по двум».</p>
+  <p>Шаги 1–3 — главы 1 и 4–6, шаг 4 — главы 7 и 9, шаг 5 — главы 10 и 11, шаг 6 — эта глава. Не забывай и главу 8: прежде чем считать, спроси, откуда данные.</p>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про зелёные тесты</h2>
+  <div class="quiz" data-right="a">
+    <p class="q">Команда стала проверять более смелые идеи: рабочих теперь 30 % вместо 10 %. Мощность и α те же. Что с долей ложных побед?</p>
+    <div class="choice"><button type="button" data-v="a">Упадёт: настоящих побед больше</button><button type="button" data-v="b" data-why="α — доля прокрасов среди пустых тестов. Доля ложных среди прокрасов зависит ещё от того, сколько тестов не пустые.">Не изменится: её задаёт только α</button><button type="button" data-v="c" data-why="Смелость идеи не делает тест ошибочнее: ложные победы бывают только у пустых идей, а их стало меньше.">Вырастет: смелые идеи чаще ошибаются</button></div>
+    <p class="why">Из 1000 тестов: 300 рабочих → 240 побед, 700 пустых → 35 ложных. Ложных 35 из 275 — 13 % вместо 36 %.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Тест с мощностью 30 % прокрасился с эффектом +1,2 заказа на 100 гостей. Чего ждать после выкатки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Тест измерил эффект с шумом, а прокрашиваются как раз те, где шум раздул разницу.">Ровно +1,2: тест ведь его точно измерил</button><button type="button" data-v="b">Меньше: победы слабых тестов завышены</button><button type="button" data-v="c" data-why="Повода ждать роста нет; если что-то и меняется, то эффект новизны обычно выдыхается, а не растёт.">Больше: гости привыкнут к новинке</button></div>
+    <p class="why">Проклятие победителя: при мощности 30 % прокрасившиеся оценки в среднем почти вдвое больше правды (глава 11). Плюс часть таких побед вообще ложные.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Тест прокрасился с p = 0,01. Что можно сказать?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="1 − p — не вероятность эффекта: p посчитан в мире, где эффекта нет.">Эффект есть с вероятностью 99 %</button><button type="button" data-v="b" data-why="p = 0,01 не исключает ложную победу: из 1000 пустых тестов так прокрасятся около 10.">Эффект точно есть: p меньше 0,05</button><button type="button" data-v="c">Сильный сигнал, но не приговор</button></div>
+    <p class="why">Для мира без эффекта p = 0,01 — редкость, это сильный сигнал. Но насколько вероятен эффект, зависит ещё от доли рабочих идей и мощности. Повтор теста — самый дешёвый способ отсеять подарки Котейки.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Зачем повторять прокрасившийся тест на новой неделе?</p>
+    <div class="choice"><button type="button" data-v="a">Отсеять ложные и уточнить эффект</button><button type="button" data-v="b" data-why="Значимость — не доказательство: при обычной базе около трети побед ложные.">Незачем: значимость уже всё доказала</button><button type="button" data-v="c" data-why="Цель повтора — проверить, а не дожать p. Если повторять, пока не прокрасится, ложных побед станет только больше.">Чтобы p наверняка стал меньше 0,05</button></div>
+    <p class="why">Пустая идея прокрасится дважды подряд лишь в 1 случае из 400 (при α = 5 % в обоих тестах), а настоящая с мощностью 80 % — в 64 %. И оценка эффекта из повтора не завышена отбором.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог курса" aria-label="Итог курса">
+  <span class="step-tag">Шпаргалка главы 12</span>
+  <h2 data-proverb="ch12">Зелёный — ещё не настоящий</h2>
+  <ul class="cheat">
+    <li><b>P(эффект | прокрас)</b> = мощность·π / (мощность·π + α(1 − π)); FDR = 1 − это. π — доля рабочих идей.</li>
+    <li>База 10 %, мощность 80 %, α = 5 %: из 125 побед 45 ложных — 36 %. При мощности 30 % — 60 %.</li>
+    <li>Из m пустых проверок в среднем α·m ложных побед; хотя бы одна при k независимых — 1 − (1 − α)<sup>k</sup> (20 метрик → 64 %).</li>
+    <li>Победы слабых тестов завышены: проклятие победителя.</li>
+    <li>Слишком много побед — проверь подглядывание, метрики и сплит.</li>
+    <li>Ответ бизнесу — одной фразой: интервал эффекта в штуках + насколько верить победе + что делаем.</li>
+  </ul>
+  <dl class="terms">
+    <dt>FDR</dt><dd>доля ложных среди прокрасившихся; false discovery rate</dd>
+    <dt>Базовая доля</dt><dd>доля рабочих идей среди проверяемых; base rate, prior</dd>
+    <dt>Множественные проверки</dt><dd>много метрик или срезов — больше ложных прокрасов; multiple comparisons</dd>
+    <dt>Проклятие победителя</dt><dd>завышенный эффект у прокрасившихся; winner's curse</dd>
+  </dl>
+  <figure class="art"><img src="img/ch12-02-next.jpg" alt="Дорога от кафе ведёт к двум дверям разного цвета, Алиса, Боб и Котейка стоят на развилке" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: развилка к двум дверям</figcaption></figure>
+  <p>Это последняя глава «Сигнала или шума». Ты прошёл весь путь от «что здесь случайно» до ответа бизнесу. Куда дальше:</p>
+  <a class="next-step" href="/stats/"><b>«Прикладная статистика для аналитика»</b>t-тест, бутстрап, ratio-метрики, поправки на множественные проверки — когда z-теста уже мало.</a>
+  <a class="next-step" href="/ab/"><b>«A/B без мифов»</b>Подглядывание, SRM, снижение дисперсии и решения «катить или нет» — эксперименты в настоящем продукте.</a>
+  <p class="note">Вернуться к <a href="./">оглавлению «Сигнала или шума»</a>.</p>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    notRun: 'Тесты ещё не проведены — нажми «Провести год».',
+    yV: (fdrReal, fdrExp, g, exag) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
+      'В этом году ложных среди прокрасившихся — <b>' + share(fdrReal, 0) + '</b>, в среднем по многим годам — ' + share(fdrExp, 0) + '. ' +
+      'А эффект у настоящих победителей в среднем завышен в ' + num(exag, 2) + ' раза.',
+    yNone: 'В этом году ничего не прокрасилось.',
+    power: 'мощность', fdrAxis: 'ложных среди прокрасившихся',
+    tip: (b, pw, f) => 'Работает ' + shareT(b, 0) + ' идей, мощность ' + shareT(pw, 0) + ': ложных среди прокрасившихся ' + share(f, 0) + '.',
+    years: 'год', guruV: (y, k) => y ? 'Прошло лет: <b>' + y + '</b>. Угадывают до сих пор: <b>' + int(k) + '</b> из 10 000. По формуле — ' + numT(10000 / 2 ** y, 1) + '.' + (y >= 10 ? ' Вот они, «гуру»: везение, не умение.' : '') : '',
+    mV: (k, p) => 'При ' + k + ' ' + plural(k, 'метрике', 'метриках', 'метриках') + ' и α = 5 % хотя бы одна ложно прокрасится с вероятностью <b>' + share(p, 0) + '</b>; в среднем ложных прокрасов — ' + num(0.05 * k, 2) + '.',
+    k: 'метрик', pAny: 'хотя бы одна ложная',
+  },
+}[LANG] || {};
+const PEEK = {0.01: 0.033, 0.05: 0.141, 0.1: 0.259};   // доля ложных прокрасов при 5 просмотрах (симуляция, 400 000 путей)
+
+// ---------- карточка 4: год экспериментов ----------
+(function(){
+  const cv = document.getElementById('year'), N = 1000, rr = mulberry32(12);
+  const V = [], U = []; for (let i = 0; i < N; i++){ V.push(rr()); U.push(rr()); }
+  let run = false, onlyGreen = false, alpha = 0.05, peek = false;
+  const sb = document.getElementById('y-base'), sp = document.getElementById('y-pow'), abtn = [...document.querySelectorAll('[data-a]')];
+  function st(){
+    const base = +sb.value / 100, pw = +sp.value / 100, a = peek ? PEEK[alpha] : alpha;
+    const kind = V.map((v, i) => { const real = v < base, sig = U[i] < (real ? pw : a); return real ? (sig ? 'tp' : 'fn') : (sig ? 'fp' : 'tn'); });
+    const c = {tp: 0, fp: 0, fn: 0, tn: 0}; kind.forEach(k => c[k]++);
+    const zc = normInv(1 - alpha / 2), m = zc + normInv(pw), q = zc - m, exag = (m + normPdf(q) / (1 - normCdf(q))) / m;
+    return {base, pw, a, kind, c, fdrExp: a * (1 - base) / (a * (1 - base) + pw * base), exag};
+  }
+  function draw(){
+    const g = canvas(cv, 0.625, 1.6); if (!g) return; const {c, w, h} = g; const o = st();
+    const cols = w < 520 ? 25 : 40, rows = N / cols, cell = Math.min(w / cols, h / rows), r = cell * 0.36, x0 = (w - cols * cell) / 2;
+    const fill = {tp: COL.truth, fp: COL.trap, fn: COL.ochre, tn: COL.gray};
+    for (let i = 0; i < N; i++){
+      const k = o.kind[i], x = x0 + (i % cols + 0.5) * cell, y = (Math.floor(i / cols) + 0.5) * cell;
+      c.globalAlpha = !run ? 0.35 : onlyGreen && (k === 'fn' || k === 'tn') ? 0.12 : 1;
+      c.fillStyle = run ? fill[k] : COL.gray; c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill();
+    }
+    c.globalAlpha = 1;
+  }
+  function upd(){
+    const o = st();
+    document.getElementById('y-bt').textContent = shareT(o.base, 0);
+    document.getElementById('y-pt').textContent = shareT(o.pw, 0);
+    const v = document.getElementById('y-v');
+    if (run){
+      ['tp', 'fp', 'fn', 'tn'].forEach(k => document.getElementById('y-' + k).textContent = int(o.c[k]));
+      const s = o.c.tp + o.c.fp; document.getElementById('y-fdr').textContent = s ? share(o.c.fp / s, 0) : '—';
+      v.hidden = false; v.className = 'verdict ' + (o.fdrExp > 0.3 ? 'bad' : 'good');
+      v.innerHTML = s ? TXT.yV(o.c.fp / s, o.fdrExp, Book.guess('fdr'), o.exag) : TXT.yNone;
+    } else { v.hidden = false; v.className = 'verdict'; v.innerHTML = TXT.notRun; }
+    draw();
+  }
+  document.getElementById('y-run').addEventListener('click', () => { if (run) for (let i = 0; i < N; i++) U[i] = Math.random(); run = true; upd(); });
+  const gb = document.getElementById('y-green');
+  gb.addEventListener('click', () => { onlyGreen = !onlyGreen; gb.setAttribute('aria-pressed', String(onlyGreen)); upd(); });
+  const pb = document.getElementById('y-peek');
+  pb.addEventListener('click', () => { peek = !peek; pb.setAttribute('aria-pressed', String(peek)); upd(); });
+  abtn.forEach(b => b.addEventListener('click', () => { alpha = +b.dataset.a; abtn.forEach(x => x.setAttribute('aria-pressed', String(x === b))); upd(); }));
+  sb.addEventListener('input', upd); sp.addEventListener('input', upd);
+  window.addEventListener('resize', upd);
+})();
+
+// ---------- карточка 6: доля ложных от мощности ----------
+(function(){
+  const cv = document.getElementById('fdr'), BASES = [[0.05, COL.trap], [0.1, COL.test], [0.3, COL.ctrl]], A = 0.05;
+  const f = (b, pw) => A * (1 - b) / (A * (1 - b) + pw * b);
+  let geo = null;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g;
+    const L = 42, R = 12, T = 10, B = 36, pw = w - L - R, ph = h - T - B, X = p => L + (p - 0.1) / 0.9 * pw, Y = v => T + ph * (1 - v);
+    geo = {L, R, pw, X};
+    axisY(c, L, R, T, ph, w, 0, 1, 0.2, v => shareT(v, 0));
+    BASES.forEach(([b, col]) => { c.beginPath(); for (let i = 0; i <= 90; i++){ const p = 0.1 + i / 100; i ? c.lineTo(X(p), Y(f(b, p))) : c.moveTo(X(p), Y(f(b, p))); } c.strokeStyle = col; c.lineWidth = 2.5; c.stroke(); });
+    [[0.8, 0.36], [0.3, 0.6]].forEach(([p, v]) => { c.fillStyle = COL.ink; c.beginPath(); c.arc(X(p), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); label(c, share(v, 0), X(p) + 7, Y(v) - 7, COL.ink); });
+    axisX(c, X, [0.2, 0.4, 0.6, 0.8, 1], h - 18, v => shareT(v, 0));
+    label(c, TXT.power, L + pw / 2, h - 3, COL.ink2, 'center');
+  }
+  function tip(ev){
+    if (!geo) return; const r = cv.getBoundingClientRect(), x = ev.clientX - r.left;
+    const p = Math.max(0.1, Math.min(1, 0.1 + (x - geo.L) / geo.pw * 0.9)), pr = Math.round(p * 20) / 20;
+    document.getElementById('fdr-tip').innerHTML = BASES.map(([b]) => TXT.tip(b, pr, f(b, pr))).join('<br>');
+  }
+  cv.addEventListener('pointermove', tip); cv.addEventListener('pointerdown', tip);
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 7: гуру из монеток ----------
+(function(){
+  const cv = document.getElementById('guru'); let hist = [10000];
+  function draw(){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 12, R = 12, T = 18, B = 26, pw = w - L - R, ph = h - T - B, n = 11, bw = pw / n;
+    for (let y = 0; y < n; y++){
+      const x = L + y * bw, k = hist[y];
+      c.fillStyle = COL.gray; c.beginPath(); c.arc(x + bw / 2, T + ph * (1 - 10000 / 2 ** y / 10000), 3, 0, 2 * Math.PI); c.fill();
+      if (k != null){ const hh = Math.max(1, ph * k / 10000); c.fillStyle = y === 10 ? COL.test : COL.ctrl; c.fillRect(x + 3, T + ph - hh, bw - 6, hh); label(c, int(k), x + bw / 2, T + ph - hh - 4, COL.ink, 'center'); }
+      label(c, String(y), x + bw / 2, h - 8, COL.ink2, 'center');
+    }
+  }
+  function verdict(){ const v = document.getElementById('g-v'); const y = hist.length - 1; v.hidden = !y; v.className = 'verdict'; v.innerHTML = TXT.guruV(y, hist[y]); }
+  document.getElementById('g-year').addEventListener('click', () => { if (hist.length > 10) return; hist.push(binom(hist[hist.length - 1], 0.5)); verdict(); draw(); });
+  document.getElementById('g-reset').addEventListener('click', () => { hist = [10000]; verdict(); draw(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 8: много проверок ----------
+(function(){
+  const cv = document.getElementById('multi'), sk = document.getElementById('m-k'), A = 0.05;
+  function upd(){
+    const k = +sk.value, p = 1 - (1 - A) ** k;
+    document.getElementById('m-kt').textContent = k;
+    const v = document.getElementById('m-v'); v.className = 'verdict ' + (p > 0.5 ? 'bad' : ''); v.innerHTML = TXT.mV(k, p);
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 42, R = 12, T = 10, B = 36, pw = w - L - R, ph = h - T - B, X = x => L + (x - 1) / 49 * pw, Y = v => T + ph * (1 - v);
+    axisY(c, L, R, T, ph, w, 0, 1, 0.25, v => shareT(v, 0));
+    c.beginPath(); for (let x = 1; x <= 50; x++){ const y = Y(1 - (1 - A) ** x); x > 1 ? c.lineTo(X(x), y) : c.moveTo(X(x), y); }
+    c.strokeStyle = COL.trap; c.lineWidth = 2.5; c.stroke(); c.lineWidth = 1;
+    c.fillStyle = COL.ink; c.beginPath(); c.arc(X(k), Y(p), 6, 0, 2 * Math.PI); c.fill();
+    axisX(c, X, [1, 10, 20, 30, 40, 50], h - 18, v => String(v));
+    label(c, TXT.k, L + pw / 2, h - 3, COL.ink2, 'center');
+    label(c, TXT.pAny, L + 6, T + 14, COL.ink2);
+  }
+  sk.addEventListener('input', upd);
+  window.addEventListener('resize', upd);
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>
