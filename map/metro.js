@@ -1,7 +1,7 @@
 /* Схема метро на «Карте навыков» (/map/) — основной вид страницы. Подробный граф всех навыков рисует map/map.js ниже.
-   Линии = маршруты из map/skills.json (routes), станции = ключевые навыки (узлы nodes), зоны = курсы, пунктир = курсы «в планах».
+   Линии = маршруты-цели из map/skills.json (routes), станции = ключевые навыки (узлы nodes), зоны = курсы, пунктир = курсы «в планах».
    Здесь две части:
-   1) LAYOUT — данные схемы: координаты станций на сетке (viewBox 1200 × 720, отрезки только под 0/45/90°), пути линий,
+   1) LAYOUT — данные схемы: координаты станций на сетке (viewBox 1200 × 760, отрезки только под 0/45/90°), пути линий,
       цвета, зоны курсов. Остановка линии на станции = навык есть в маршруте; иначе линия идёт мимо (не останавливается).
       Проверка схемы (станции — настоящие узлы, порядок остановок = порядок маршрута, углы 0/45/90°, тексты metro.* есть):
       node tools/check-map.js.
@@ -12,38 +12,39 @@
 'use strict';
 
 const LAYOUT = {
-  w: 1200, h: 720,
+  w: 1200, h: 760,
   // линия: цвет, сдвиг от осевой (px, + — слева по ходу) на общих перегонах, путь — id станций и точки изгибов [x, y];
   // cont — продолжение «дальше» (курс «позже», вне маршрута): бледная линия того же цвета
   lines: {
-    product:   {color: '#E8644A', off: 0,  path: ['ap-random', 'ap-interval', 'ap-mde', 'ap-decide']},
-    analyst:   {color: '#23418A', off: -4, path: ['ss-share', [150, 170], 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180],
-                                                   'ss-clt', 'ss-aa', 'ss-errors', 'ss-main', [640, 560], [700, 620], 'ps-interval', 'ps-power', 'ps-regression', 'ps-sim']},
-    interview: {color: '#0E7E5F', off: 4,  path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main']},
-    abtester:  {color: '#C9A43A', off: 4,  path: ['ps-power', 'ps-regression', 'ps-sim', [1110, 620], [1150, 580], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main'],
-                cont: ['abm-main', [1150, 120], [1110, 80], 'ci-confound', 'ci-did', 'ci-main']}
+    decide:    {color: '#E8644A', off: 0,  path: ['ap-random', 'ap-interval', 'ap-mde', 'ap-decide']},
+    basics:    {color: '#23418A', off: -6, path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180],
+                                                   'ss-clt', 'ss-aa', 'ss-errors', 'ss-main', [640, 600], [700, 660], 'ps-interval', 'ps-power', 'ps-regression', 'ps-sim']},
+    interview: {color: '#0E7E5F', off: 0,  path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main']},
+    // охра темнее прежней #C9A43A: контраст линии с белым ≥ 3:1
+    abtest:    {color: '#A8862A', off: 6,  path: ['ss-aa', 'ss-errors', [750, 560], [1150, 560], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main']},
+    deep:      {color: '#6A4C9C', off: 0,  path: ['ps-regression', 'ps-sim', [1110, 660], [1150, 620], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main',
+                                                   [1150, 140], [1110, 100], 'ci-confound', 'ci-did', 'ci-main']}
   },
   // станция: [x, y, где подпись: a — над, b — под, l — слева, r — справа]
   stations: {
     'vp-outcomes': [90, 100, 'a'], 'vp-bayes': [220, 100, 'a'], 'vp-mean': [350, 100, 'a'], 'vp-interview': [480, 100, 'a'],
-    'ss-share': [150, 250, 'r'],
     'ss-clt': [640, 270, 'l'], 'ss-aa': [640, 360, 'l'], 'ss-errors': [640, 450, 'l'], 'ss-main': [640, 540, 'l'],
-    'ap-random': [90, 640, 'b'], 'ap-interval': [200, 640, 'b'], 'ap-mde': [310, 640, 'b'], 'ap-decide': [420, 640, 'b'],
-    'ps-interval': [770, 620, 'b'], 'ps-power': [880, 620, 'b'], 'ps-regression': [990, 620, 'b'], 'ps-sim': [1100, 620, 'b'],
+    'ap-random': [90, 680, 'b'], 'ap-interval': [200, 680, 'b'], 'ap-mde': [310, 680, 'b'], 'ap-decide': [420, 680, 'b'],
+    'ps-interval': [770, 660, 'b'], 'ps-power': [880, 660, 'b'], 'ps-regression': [990, 660, 'b'], 'ps-sim': [1100, 660, 'b'],
     'abm-design': [1150, 500, 'l'], 'abm-cuped': [1150, 410, 'l'], 'abm-srm': [1150, 320, 'l'], 'abm-main': [1150, 230, 'l'],
-    'ci-confound': [1000, 80, 'b'], 'ci-did': [890, 80, 'b'], 'ci-main': [780, 80, 'b']
+    'ci-confound': [1000, 100, 'b'], 'ci-did': [890, 100, 'b'], 'ci-main': [780, 100, 'b']
   },
   // строится: курсы «в планах» (status: planned). Станция ведёт к карточке #plan-<course>.
   planned: {
-    stations: {bet: [720, 260, 'r', 'luck'], luck: [720, 350, 'r', 'luck'], mkt: [850, 455, 'b', 'mkt'], talk: [540, 640, 'b', 'talk']},
+    stations: {bet: [720, 260, 'r', 'luck'], luck: [720, 350, 'r', 'luck'], mkt: [850, 455, 'b', 'mkt'], talk: [540, 680, 'b', 'talk']},
     paths: [[[640, 180], 'bet', 'luck', [720, 370], [805, 455], 'mkt', [1150, 455]], ['ap-decide', 'talk']]
   },
   // зоны курсов: прямоугольники [x, y, w, h]; подпись — в левом верхнем углу первого
   zones: {
     prob: [[30, 14, 520, 150]],
-    sig:  [[430, 212, 250, 360], [90, 212, 260, 78]],
-    ab:   [[30, 592, 470, 116]],
-    st:   [[700, 574, 488, 134]],
+    sig:  [[430, 212, 250, 360]],
+    ab:   [[30, 592, 470, 156]],
+    st:   [[700, 574, 488, 174]],
     abm:  [[935, 156, 253, 374]],
     cau:  [[700, 14, 488, 130]]
   }
@@ -53,7 +54,7 @@ if (typeof document === 'undefined') return;                 // node: нужен
 
 const NS = 'http://www.w3.org/2000/svg';
 const INK = '#24221F', PLAN = '#8A847A';
-const R = {main: 12, st: 7, single: 10};
+const R = {main: 13, st: 7, xfer: 11, single: 10};
 
 root.SkillMetro = {init};
 
@@ -140,7 +141,7 @@ function init(api){
     let cx = x, cy = y, mark, r;
     if (later){ r = big ? 9 : 6; const q = pos.get(id + '|' + lines[0]).p; cx = q[0]; cy = q[1];
       mark = `<circle class="mk cont-mk" cx="${cx}" cy="${cy}" r="${r}" style="--line:${L.lines[lines[0]].color}"/>`; }
-    else if (lines.length > 1){ r = big ? R.main : R.st + 2;
+    else if (lines.length > 1){ r = big ? R.main : R.xfer;
       mark = `<circle class="mk xfer${big ? ' big' : ''}" cx="${x}" cy="${y}" r="${r}"/>`; }
     else {
       const lid = lines[0], col = L.lines[lid].color, q = pos.get(id + '|' + lid);
@@ -175,7 +176,7 @@ function init(api){
     + `<ul class="ml-keys" role="list">`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="#fff" stroke="${INK}" stroke-width="3"/></svg>${t('metro.key.xfer')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#23418A"/><circle cx="12" cy="12" r="4" fill="#fff"/></svg>${t('metro.key.main')}</li>`
-    + `<li><svg width="40" height="24" aria-hidden="true"><path d="M2 12H38" stroke="#C9A43A" stroke-opacity=".45" stroke-width="4"/><circle cx="20" cy="12" r="6" fill="#fff" stroke="#C9A43A" stroke-width="2.5"/></svg>${t('metro.key.later')}</li>`
+    + (conts.size ? `<li><svg width="40" height="24" aria-hidden="true"><path d="M2 12H38" stroke="#A8862A" stroke-opacity=".45" stroke-width="4"/><circle cx="20" cy="12" r="6" fill="#fff" stroke="#A8862A" stroke-width="2.5"/></svg>${t('metro.key.later')}</li>` : '')
     + `<li><svg width="40" height="24" aria-hidden="true"><path d="M2 12H38" stroke="${PLAN}" stroke-width="4" stroke-dasharray="7 5"/><circle cx="20" cy="12" r="6" fill="#fff" stroke="${PLAN}" stroke-width="2" stroke-dasharray="3 2"/></svg>${t('metro.key.plan')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="var(--c-prob)" fill-opacity=".16"/></svg>${t('metro.key.free')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="6" fill="#fff" stroke="var(--c-abm)" stroke-width="1.5" stroke-dasharray="4 3"/></svg>${t('metro.key.soon')}</li>`

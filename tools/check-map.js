@@ -7,6 +7,8 @@
    node tools/check-map.js --street — показать иллюстрацию над схемой, если лежит map/img/street.jpg (снять hidden, вписать src)
    Схема метро (map/metro.js, LAYOUT): станции — настоящие узлы, у каждого курса 2–5 станций и есть главная, линии — маршруты,
    порядок остановок на линии = порядок маршрута, отрезки только под 0/45/90°, станции «строится» — курсы в планах, тексты metro.* есть.
+   Маршруты-цели: поля, вход, опора из бесплатных внутри маршрута, каждый курс задет, reaches (маршрут «Глубже» доходит до CI).
+   Тест уровня (map/quiz.js): на любых ответах итог — маршрут и навык в нём, тексты quiz.* есть.
    Ошибки — код выхода 1; предупреждения (лишнее ребро, которое и так следует из других) — только печать. */
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -98,6 +100,61 @@ for (const r of M.routes){
   }
 }
 
+// маршруты-цели: поля, вход = курс первого шага, у платных навыков маршрута — бесплатная опора внутри маршрута (в нём или в assumes),
+// каждый курс (кроме «в планах») задет хотя бы одним маршрутом, главный навык каждого курса — конечная хотя бы одного маршрута; reaches — дойти до главного навыка курса
+{
+  const touched = new Set(), mains = new Set();
+  for (const r of M.routes){
+    for (const k of ['label', 'button', 'for']) if (!r[k]) err('маршрут ' + r.id + ': пусто поле ' + k);
+    if (/продакт|аналитик|менеджер|разработчик/i.test(r.label || '')) err('маршрут ' + r.id + ': в названии ролевой ярлык — маршруты называем по цели');
+    const ok = r.nodes.filter(id => nodes.has(id));
+    if (ok.length && courses[r.entry] && nodes.get(ok[0]).course !== r.entry) err('маршрут ' + r.id + ': вход ' + r.entry + ', а первый шаг из ' + nodes.get(ok[0]).course);
+    const base = new Set(ok);
+    for (const a of r.assumes || []) if (nodes.has(a)){ base.add(a); ancestors(a).forEach(x => base.add(x)); }
+    for (const id of ok){
+      touched.add(nodes.get(id).course); mains.add(id);
+      if (!isFree(id) && ![...ancestors(id)].some(x => isFree(x) && base.has(x))) err('маршрут ' + r.id + ': у платного «' + id + '» нет опоры из бесплатных в маршруте или в assumes');
+    }
+    if (r.reaches){
+      const c = courses[r.reaches];
+      if (!c) err('маршрут ' + r.id + ': reaches — нет курса ' + r.reaches);
+      else if (r.nodes[r.nodes.length - 1] !== c.main) err('маршрут ' + r.id + ': должен дойти до «' + c.main + '» (' + c.short + '), а кончается на «' + r.nodes[r.nodes.length - 1] + '»');
+    }
+  }
+  for (const c of M.courses.filter(c => c.status !== 'planned')){
+    if (!touched.has(c.id)) err('курс ' + c.id + ': в него не идёт ни один маршрут');
+    if (!M.routes.some(r => r.nodes.includes(c.main))) err('курс ' + c.id + ': главный навык ' + c.main + ' не входит ни в один маршрут');
+  }
+}
+
+// тест уровня (map/quiz.js): 5–6 вопросов, у проверок правильный вариант есть среди вариантов; на любых ответах итог — маршрут и навык в нём; тексты quiz.* есть
+{
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  for (const f of ['i18n/site.js', 'i18n/map.js', 'map/quiz.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
+  const Q = ctx.SkillQuizData, RU = ctx.I18N.ru, need = k => { if (!(k in RU)) err('тест: нет строки ' + k + ' в i18n/map.js'); };
+  if (Q.questions.length < 5 || Q.questions.length > 6) err('тест: вопросов ' + Q.questions.length + ', нужно 5–6');
+  ['quiz.title', 'quiz.lead', 'quiz.go', 'quiz.of', 'quiz.next', 'quiz.back', 'quiz.finish', 'quiz.right', 'quiz.wrong', 'quiz.dunno',
+   'quiz.res.goal', 'quiz.res.start', 'quiz.res.note', 'quiz.show', 'quiz.again', 'quiz.open', 'quiz.wait'].forEach(need);
+  if (!/ориентир/.test(RU['quiz.res.note'] || '') || !/любого места/.test(RU['quiz.res.note'] || '')) err('тест: в итоге нет оговорки «это ориентир, а не экзамен; можно начать с любого места»');
+  for (const q of Q.questions){
+    need('quiz.' + q.id + '.q');
+    q.opts.filter(o => o !== 'dunno').forEach(o => need('quiz.' + q.id + '.' + o));
+    if (q.right){ if (!q.opts.includes(q.right)) err('тест: у ' + q.id + ' правильного варианта нет среди вариантов'); need('quiz.' + q.id + '.why'); }
+  }
+  const role = Q.questions.find(q => !q.right), checks = Q.questions.filter(q => q.right), goals = new Set();
+  if (!role) err('тест: нет вопроса «что ты делаешь с данными»');
+  else for (const ro of role.opts) for (let m = 0; m < 1 << checks.length; m++){
+    const ans = {[role.id]: ro};
+    checks.forEach((q, i) => { ans[q.id] = m >> i & 1 ? q.right : 'dunno'; });
+    const res = Q.result(ans), r = M.routes.find(x => x.id === res.goal);
+    if (!r) { err('тест: итог ' + JSON.stringify(ans) + ' — нет маршрута ' + res.goal); continue; }
+    if (!r.nodes.includes(res.start)) err('тест: итог ' + JSON.stringify(ans) + ' — навыка ' + res.start + ' нет в маршруте ' + r.id);
+    goals.add(res.goal);
+  }
+  goals.forEach(g => need('quiz.why.' + g));
+  M.routes.forEach(r => { if (!goals.has(r.id)) warn('тест: ни один набор ответов не ведёт к цели ' + r.id); });
+}
+
 // в планах: ни узлов, ни шагов; связи after/near/leads — курс, навык или ext:<ключ>; тексты plan.<id>.* есть в словаре; 3–5 навыков
 {
   const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
@@ -145,6 +202,15 @@ for (const r of M.routes){
     const want = r.nodes.filter(id => L.stations[id]);
     if (stopsSeq.join() !== want.join()) err('схема: линия ' + lid + ' останавливается ' + stopsSeq.join(' → ') + ', а по маршруту ' + want.join(' → '));
     stopsSeq.forEach(id => served.add(id)); (ln.cont || []).forEach(x => typeof x === 'string' && served.add(x));
+  }
+  // линия без петель: станция на пути — не больше одного раза; цвет линии на белом — контраст ≥ 3:1
+  const lum = hex => { const c = hex.match(/\w\w/g).map(x => parseInt(x, 16) / 255).map(v => v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; };
+  for (const [lid, ln] of Object.entries(L.lines)){
+    const st = ln.path.filter(x => typeof x === 'string');
+    if (new Set(st).size !== st.length) err('схема: линия ' + lid + ' проходит станцию дважды');
+    const k = 1.05 / (lum(ln.color) + .05);
+    if (k < 3) err('схема: линия ' + lid + ' ' + ln.color + ' — контраст с белым ' + k.toFixed(2) + ':1, нужно ≥ 3:1');
   }
   for (const id of Object.keys(L.stations)) if (!served.has(id)) err('схема: на станции ' + id + ' не останавливается ни одна линия');
   for (const [id, [, , , cid]] of Object.entries(L.planned.stations)) if (!isPlanned(cid)) err('схема: станция «строится» ' + id + ' — курс ' + cid + ' не в планах');

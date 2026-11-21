@@ -8,7 +8,8 @@
    — «В планах»: курсы со status: planned из skills.json — лёгкие карточки без навыков-узлов, кнопок и листа ожидания
      (у платных «скоро» лист ожидания — пока только заглушка без формы), тексты — plan.* в i18n/map.js.
    — схема метро (основной вид, над графом) — map/metro.js: сюда он получает маршрут, прогресс и панель навыка через api.
-   Строки интерфейса — ui.* в i18n/map.js. Адреса: ?route=product|analyst|interview|abtester, #<курс> (prob, sig, ab, st, abm, cau) или #<навык>. */
+   Строки интерфейса — ui.* в i18n/map.js. — тест уровня «Не знаешь, с чего начать?» — map/quiz.js: его итог (цель и стартовый навык) ставит маршрут и «ты здесь».
+   Адреса: ?route=decide|basics|interview|abtest|deep (старые product, analyst, abtester ведут на decide, basics, abtest), #<курс> (prob, sig, ab, st, abm, cau) или #<навык>. */
 (function () {
 'use strict';
 const LANG = (document.documentElement.lang || 'ru').slice(0, 2);
@@ -120,10 +121,13 @@ function init(M){
   let route = null;
   const rb = $('route-btns');
   const LINE = (window.SkillMetroLayout || {lines: {}}).lines;
-  rb.innerHTML = M.routes.map(r => `<button type="button" data-route="${r.id}" aria-pressed="false">${LINE[r.id] ? `<span class="sw" style="--line:${LINE[r.id].color}" aria-hidden="true"></span>` : ''}${tx(r.button)}</button>`).join('')
-    + `<button type="button" data-route="" aria-pressed="true">${t('routes.all')}</button>`;
+  rb.innerHTML = `<ul class="goals" role="list">` + M.routes.map(r => `<li><button type="button" class="goal" data-route="${r.id}" aria-pressed="false"${LINE[r.id] ? ` style="--line:${LINE[r.id].color}"` : ''}>`
+      + `<span class="g-t">${LINE[r.id] ? `<span class="sw" aria-hidden="true"></span>` : ''}${tx(r.label)}</span><span class="g-for">${tx(r.for)}</span></button></li>`).join('') + `</ul>`
+    + `<button type="button" class="all" data-route="" aria-pressed="true">${t('routes.all')}</button>`;
   rb.addEventListener('click', e => { const b = e.target.closest('button'); if (b) setRoute(b.dataset.route, true); });
+  const OLD = {product: 'decide', analyst: 'basics', abtester: 'abtest'};          // прежние ролевые адреса
   function setRoute(id, push){
+    id = OLD[id] || id;
     route = M.routes.find(r => r.id === id) || null;
     rb.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.route === (route ? route.id : ''))));
     if (push){ const u = new URL(location.href); if (route) u.searchParams.set('route', route.id); else u.searchParams.delete('route'); history.replaceState(null, '', u); }
@@ -134,7 +138,14 @@ function init(M){
   let sel = null;
   function paint(){
     readProgress();
-    const nx = nextNode(route);
+    // итог теста уровня: на маршруте-цели (или без маршрута) «ты здесь» — со стартовой станции теста, дальше — по прогрессу
+    const qz = window.SkillQuiz ? window.SkillQuiz.load() : null;
+    let nx = nextNode(route), byQuiz = false;
+    if (qz && (!route || route.id === qz.goal)){
+      const r = M.routes.find(x => x.id === qz.goal), i = r ? r.nodes.indexOf(qz.start) : -1;
+      const cand = i < 0 ? null : r.nodes.slice(i).find(id => !known(id));
+      if (cand){ nx = cand; byQuiz = true; }
+    }
     const inRoute = new Map(route ? route.nodes.map((id, i) => [id, i + 1]) : []);
     const assumed = new Set();
     if (route) (route.assumes || []).forEach(a => { assumed.add(a); ancestors(a).forEach(x => assumed.add(x)); });
@@ -150,7 +161,12 @@ function init(M){
     // «ты здесь»
     const freeIds = M.nodes.filter(n => free(n.id)).map(n => n.id), done = freeIds.filter(known).length;
     let h;
-    if (!anyProgress()) h = `<p>${t('ui.hereNone')}</p>`;
+    if (!anyProgress() && byQuiz){
+      const n = node.get(nx), c = course[n.course], st = M.steps[n.steps[0]], goal = M.routes.find(x => x.id === qz.goal);
+      h = `<p class="big">${t('ui.hereQuiz', {goal: esc(goal.label)})}</p><p>${t('ui.hereQuizStart', {step: esc(st.n.charAt(0).toLowerCase() + st.n.slice(1)), course: esc(c.title), label: esc(n.label)})}</p>`
+        + (free(nx) ? `<a class="btn" href="${stepUrl(nx)}">${t('ui.start')}</a>` : '');
+    }
+    else if (!anyProgress()) h = `<p>${t('ui.hereNone')}</p>`;
     else {
       const per = ['prob', 'sig', 'ab'].map(cid => { const ids = freeIds.filter(id => node.get(id).course === cid); return `<span>${esc(course[cid].short)}: ${ids.filter(known).length}/${ids.length}</span>`; }).join('');
       h = `<p class="big">${t('ui.hereDone', {done, total: freeIds.length})}</p><p class="bar">${per}</p>`;
@@ -161,13 +177,13 @@ function init(M){
     $('here-body').innerHTML = h + `<p class="note">${t('ui.hereNote')}</p>`;
     // описание маршрута
     if (route){
-      const first = route.nodes.find(id => !known(id)) || route.nodes[0];
+      const first = byQuiz ? nx : route.nodes.find(id => !known(id)) || route.nodes[0];
       const as = (route.assumes || []).map(a => esc(node.get(a).label).replace(/^./, ch => ch.toLowerCase())).join('; ');
-      $('route-info').innerHTML = `<b>${tx(route.label)}</b>${route.hero ? ' — ' + tx(route.hero) : ''}. ${tx(route.who)} ${t('ui.routeLen', {n: skills(route.nodes.length)})}. `
+      $('route-info').innerHTML = `<b>${tx(route.label)}</b>: ${t('ui.routeLen', {n: skills(route.nodes.length)})}. `
         + t('ui.routeStart', {label: esc(node.get(first).label)}) + (as ? ' ' + t('ui.routeAssumes', {list: as}) : '') + (route.then ? ' ' + tx(route.then) : '');
     } else $('route-info').textContent = '';
     drawEdges();
-    if (metro) metro.paint({route, nx, known, any: anyProgress()});
+    if (metro) metro.paint({route, nx, known, any: anyProgress() || byQuiz});
   }
   function stepUrl(id){
     const n = node.get(id), s = n.steps.find(x => stepState(x) < 2) || n.steps[0];
@@ -264,9 +280,13 @@ function init(M){
   const metro = window.SkillMetro ? window.SkillMetro.init({M, node, course, t, esc, typo, setRoute, route: () => route,
     openFrom(id, el){ if (sel === id && !panel.hidden) { close(); return; } fromMetro = true; opener = el; open(id); }}) : null;
 
+  // ---------- тест уровня ----------
+  if (window.SkillQuiz) window.SkillQuiz.init({M, node, course, t, esc, setRoute, repaint: () => paint()});
+
   // ---------- старт ----------
   const q = new URL(location.href).searchParams.get('route');
-  setRoute(q || '', false);
+  const qz0 = window.SkillQuiz ? window.SkillQuiz.load() : null;
+  setRoute(q || (qz0 ? qz0.goal : ''), false);
   const hash = decodeURIComponent(location.hash.slice(1));
   if (course[hash]) { const h = $(hash); requestAnimationFrame(() => { h.scrollIntoView({block: 'start'}); h.querySelector('h2 a').focus({preventScroll: true}); }); }
   else if (/^plan-/.test(hash) && $(hash)) requestAnimationFrame(() => $(hash).scrollIntoView({block: 'start'}));

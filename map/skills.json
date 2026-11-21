@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Карта навыков линейки курсов dilyakhakimova.com. Навык — действие, которое человек сможет сделать на работе или собеседовании. edges — обязательные предпосылки (from нужно до to), soft — «полезно, но не обязательно». covers — узел быстро повторяет перечисленные навыки, поэтому засчитывает их в маршруте. Курсы со status: planned — блок «В планах»: без навыков-узлов и вне маршрутов; after (любой из), near, leads — курсы, навыки или ext:<ключ>, тексты — plan.<id>.* в i18n/map.js. Проверка: node tools/check-map.js (циклы, пути из бесплатных курсов, маршруты, карточки); node tools/check-map.js --cards обновит число карточек в steps.",
+  "about": "Карта навыков линейки курсов dilyakhakimova.com. Навык — действие, которое человек сможет сделать на работе или собеседовании. edges — обязательные предпосылки (from нужно до to), soft — «полезно, но не обязательно». routes — маршруты-цели (for — строка «для кого», assumes — что считаем уже знакомым, reaches — курс, до главного навыка которого маршрут обязан дойти). covers — узел быстро повторяет перечисленные навыки, поэтому засчитывает их в маршруте. Курсы со status: planned — блок «В планах»: без навыков-узлов и вне маршрутов; after (любой из), near, leads — курсы, навыки или ext:<ключ>, тексты — plan.<id>.* в i18n/map.js. Проверка: node tools/check-map.js (циклы, пути из бесплатных курсов, маршруты, карточки); node tools/check-map.js --cards обновит число карточек в steps.",
   "levels": {
     "1": {"name": "Начальный", "about": "без формул на входе, с нуля", "color": "--l1"},
     "2": {"name": "Средний", "about": "немного формул и кода", "color": "--l2"},
@@ -420,29 +420,53 @@
     {"from": "ap-decide", "to": "ss-main", "why": "тот же вывод, только теперь посчитаешь сам"}
   ],
   "routes": [
-    {"id": "product", "label": "Продакт, менеджер, разработчик", "button": "Продакт", "hero": "как Боб",
-     "who": "Читаешь отчёты A/B и решаешь, катить ли фичу. Формулы не нужны.",
-     "entry": "ab",
-     "nodes": ["ap-random", "ap-hash", "ap-noise", "ap-crowd", "ap-width", "ap-interval", "ap-pvalue", "ap-errors", "ap-mde", "ap-traps", "ap-decide"],
-     "then": "Захочешь считать сам — «Сигнал или шум»."},
-    {"id": "analyst", "label": "Начинающий аналитик", "button": "Аналитик", "hero": "как Алиса",
-     "who": "Хочешь отличать эффект от шума и проверять это кодом, а потом — статистика для любых данных.",
-     "entry": "sig",
-     "nodes": ["ss-share", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main",
-               "ps-interval", "ps-bootstrap", "ps-test", "ps-power", "ps-regression", "ps-multiple", "ps-outliers", "ps-sim"],
-     "then": "Дальше — «A/B без мифов»."},
-    {"id": "interview", "label": "Готовлюсь к собеседованию", "button": "Готовлюсь к собеседованию", "hero": "",
-     "who": "Забыл теорвер после университета или ищешь работу аналитиком: задачи с собеседований в каждом шаге.",
-     "entry": "prob",
-     "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview",
-               "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main"],
-     "then": "Задачи на A/B с собеседований — в модуле 9 «A/B без мифов»."},
-    {"id": "abtester", "label": "Уже ставлю A/B-тесты", "button": "Уже ставлю A/B", "hero": "",
-     "who": "Тесты уже запускаешь; не уверен в базе — сначала «Сигнал или шум».",
-     "entry": "abm",
-     "assumes": ["vp-interview", "ss-main", "ps-interval", "ps-test"],
-     "nodes": ["ps-power", "ps-regression", "ps-multiple", "ps-sim",
-               "abm-design", "abm-ratio", "abm-buckets", "abm-cuped", "abm-srm", "abm-peeking", "abm-multiple", "abm-switchback", "abm-industries", "abm-main"],
-     "then": "Дальше — Causal inference: когда тест поставить нельзя."}
+    {
+      "id": "decide",
+      "label": "Понимать отчёты A/B и решать",
+      "button": "Понимать отчёты A/B и решать",
+      "for": "Для всех, кто решает по данным: продакт, менеджер, разработчик, руководитель. Без формул.",
+      "entry": "ab",
+      "nodes": ["ap-random", "ap-hash", "ap-noise", "ap-crowd", "ap-width", "ap-interval", "ap-pvalue", "ap-errors", "ap-mde", "ap-traps", "ap-decide"],
+      "then": "Дальше по желанию — «Сигнал или шум», главы 9 и 11: A/A-тест и ошибки I и II рода."
+    },
+    {
+      "id": "basics",
+      "label": "Разобраться в статистике с нуля",
+      "button": "Разобраться в статистике с нуля",
+      "for": "Начинаешь с нуля или забыл теорвер: от шансов в штуках до критериев и регрессии.",
+      "entry": "prob",
+      "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main", "ps-interval", "ps-bootstrap", "ps-test", "ps-power", "ps-regression", "ps-multiple", "ps-outliers", "ps-sim"],
+      "then": "Дальше — «A/B без мифов»."
+    },
+    {
+      "id": "interview",
+      "label": "Подготовиться к собеседованию",
+      "button": "Подготовиться к собеседованию",
+      "for": "Ищешь работу аналитиком: в каждом шаге — задачи, какие дают на собеседованиях.",
+      "entry": "prob",
+      "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main"],
+      "then": "Задачи на A/B с собеседований — в модуле 9 «A/B без мифов»."
+    },
+    {
+      "id": "abtest",
+      "label": "Ставить A/B без ошибок",
+      "button": "Ставить A/B без ошибок",
+      "for": "Уже работаешь аналитиком: быстрый повтор A/A, мощности и MDE — и ловушки настоящих тестов.",
+      "entry": "sig",
+      "assumes": ["ps-interval", "ps-regression", "ps-multiple", "ps-sim"],
+      "nodes": ["ss-aa", "ss-abtest", "ss-errors", "abm-design", "abm-ratio", "abm-buckets", "abm-cuped", "abm-srm", "abm-peeking", "abm-multiple", "abm-switchback", "abm-industries", "abm-main"],
+      "then": "Дальше — цель «Глубже»: эффект там, где тест не поставить."
+    },
+    {
+      "id": "deep",
+      "label": "Глубже: эффект там, где тест не поставить",
+      "button": "Глубже: эффект без теста",
+      "for": "Для продвинутых: регрессия и симуляции, нужное из «A/B без мифов» — и causal inference.",
+      "entry": "st",
+      "reaches": "cau",
+      "assumes": ["ss-main", "ps-interval", "ps-power", "ps-multiple", "abm-switchback", "abm-multiple"],
+      "nodes": ["ps-regression", "ps-sim", "abm-cuped", "abm-srm", "abm-peeking", "abm-industries", "abm-main", "ci-confound", "ci-dag", "ci-matching", "ci-did", "ci-synth", "ci-iv", "ci-rdd", "ci-main"],
+      "then": "Если тест поставить можно — ставь тест."
+    }
   ]
 }
