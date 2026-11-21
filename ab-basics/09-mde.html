@@ -64,7 +64,7 @@
   <figure class="art"><img src="img/ab09-01-bob-photos.jpg" alt="Боб фотографирует круассан, Котейка позирует рядом" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб фотографирует круассан, Котейка позирует</figcaption></figure>
   <div class="chat">
     <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новые фото красивее. Думаю, конверсия вырастет процента на два. Запустим тест на недельку?</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">+2 % — это 102 заказа вместо 100 на каждую тысячу гостей. За неделю мы такое не заметим.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">+2 % — это 102 заказа вместо 100 на каждую тысячу гостей. За неделю мы такое, скорее всего, не заметим.</p></div></div>
   </div>
   <p>Как Алиса это знает, разберём на колоколах. А пока вопрос: если хочешь заметить эффект <b>вдвое меньше</b>, во сколько раз больше людей понадобится?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -174,7 +174,7 @@
     <button type="button" aria-expanded="false"><b>Метрика поближе</b><span>Клики по фото меняются сильнее, чем выручка за месяц. Чем ближе метрика к изменению, тем крупнее эффект в процентах и тем легче его заметить.</span></button>
     <button type="button" aria-expanded="false"><b>Менее шумная метрика</b><span>Конверсия шумит меньше, чем выручка на человека, где один большой заказ двигает всё. Узкий колокол — меньше MDE.</span></button>
     <button type="button" aria-expanded="false"><b>Смелее изменение</b><span>Маленькая правка даёт маленький эффект. Иногда лучше проверить вариант посмелее и потом откатиться к середине.</span></button>
-    <button type="button" aria-expanded="false"><b>Честно признать</b><span>Если эффект меньше MDE, тест его, скорее всего, не покажет. Решение тогда принимают без теста, и это нормально, если так и сказать.</span></button>
+    <button type="button" aria-expanded="false"><b>Честно признать</b><span>Если эффект заметно меньше MDE (вдвое и больше), тест его, скорее всего, не покажет. Решение тогда принимают без теста, и это нормально, если так и сказать.</span></button>
   </div>
   <div class="def">MDE считают до запуска. Если посчитать после, «не заметили» легко превратить в «эффекта нет».</div>
 </section>
@@ -461,7 +461,7 @@ function readNI(){
   const v = $('v-ni'), mt = pct(-m, 0), rng = 'Вилка от ' + pct(lo, 1) + ' до ' + pct(hi, 1) + '. ';
   if (lo > -m){ v.className = 'verdict good'; v.innerHTML = rng + 'Вся она правее линии ' + mt + ': потеря больше допуска с данными почти не согласуется. <b>Переезжаем.</b>'; }
   else if (hi < -m){ v.className = 'verdict bad'; v.innerHTML = rng + 'Вся она левее линии ' + mt + ': заказов стало меньше, чем мы готовы отдать. <b>Откатываем.</b>'; }
-  else { v.className = 'verdict'; v.innerHTML = rng + 'Она пересекает линию ' + mt + ': потеря может быть и в пределах допуска, и больше. <b>Пока не знаем</b>: держим тест дольше или откатываем.'; }
+  else { v.className = 'verdict'; v.innerHTML = rng + 'Она пересекает линию ' + mt + ': потеря может быть и в пределах допуска, и больше. <b>Пока не знаем</b>: откатываем или запускаем новый тест, заранее рассчитанный на нужную ширину вилки.'; }
   drawNI(m, d, lo, hi);
 }
 function drawNI(m, d, a, b){
