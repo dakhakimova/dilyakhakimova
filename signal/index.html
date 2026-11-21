@@ -26,6 +26,52 @@
 .steps{counter-reset:s; list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
 .steps li{background:#fff; border:1px solid rgba(36,34,31,.10); padding:12px 14px; border-radius:8px; font-size:15px}
 .steps li b{display:block; font:500 20px/1 var(--serif); color:var(--pen); margin-bottom:4px}
+/* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
+.crumbs{font-size:15px; color:var(--muted); margin:0 0 4px}
+.crumbs a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); padding:10px 0; display:inline-block}
+.crumbs a:hover{color:var(--ink)}
+.crumbs .sep{margin:0 8px}
+.crumbs [aria-current]{color:var(--ink)}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px}
+.lchip, .tag{display:inline-flex; align-items:center; gap:6px; font:500 13px/1 var(--body); padding:6px 9px; border-radius:999px; background:#fff; border:1px solid rgba(36,34,31,.12); color:var(--ink); white-space:nowrap}
+.tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
+.tag.free{background:var(--mint); color:#0B5E47}
+.tag.soon{background:var(--butter); color:#6A5410}
+.lvl{display:inline-block; width:11px; height:11px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.18)}
+.l1{background:#0E7E5F} .l2{background:#D7A928} .l3{background:#C9413A}
+.cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0 0}
+a.btn{display:inline-flex; align-items:center; min-height:46px; font:500 15px/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
+a.btn:hover{background:#000; color:#fff}
+a.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,34,31,.3)}
+a.btn.ghost:hover{background:#fff}
+.sec-lead{color:var(--muted)}
+.mods{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.mods li{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:15px; line-height:1.5}
+.mods .n{font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.mods b{font:500 18px/1.3 var(--serif)}
+.mods p{margin:0}
+.mods .scene{padding:8px 10px; border-radius:8px; background:var(--butter); font-family:var(--serif)}
+.mods .x{font-size:13px; color:var(--muted)}
+.toys2{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.toys2 a, .toys2 .off{display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:#fff; border:1px solid rgba(36,34,31,.10); color:var(--ink); text-decoration:none; font-size:15px; line-height:1.5}
+.toys2 a:hover{border-color:var(--pen)}
+.toys2 b{font:500 18px/1.3 var(--serif)}
+.toys2 small{font-size:13px; color:var(--muted)}
+.toys2 .go{margin-top:auto; color:var(--pen); font-weight:500; text-decoration:underline; text-underline-offset:4px}
+.toys2 .off .tag{margin-top:auto}
+.res{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
+.res li{position:relative; padding:12px 16px 12px 46px; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; font-size:16px; line-height:1.5}
+.res li::before{content:"✓"; position:absolute; left:14px; top:12px; width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:600 14px/22px var(--body); text-align:center}
+.res b{font:500 17px/1.35 var(--serif)}
+.pair2{display:grid; grid-template-columns:1.2fr 1fr; gap:14px; margin-top:14px}
+.pair2 > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:16px 18px; font-size:16px; line-height:1.5}
+.pair2 h3{font:500 20px/1.3 var(--serif); margin:0 0 8px}
+.pair2 ul{margin:0 0 10px; padding-left:20px}
+.pair2 li{margin:0 0 .4em}
+.pair2 .need{background:#F7F5F0; border-radius:8px; padding:10px 12px; margin:0 0 8px}
+.pair2 .note{font-size:14px; color:var(--muted); margin:0}
+.pair2 .go{font:500 19px/1.3 var(--serif); margin:0 0 4px}
+@media (max-width:620px){ .mods, .toys2, .pair2{grid-template-columns:1fr} }
 @media (max-width:620px){ .steps{grid-template-columns:1fr} .toc li{grid-template-columns:44px 1fr} .toc .s{grid-column:2} }
 </style>
 </head>
@@ -36,9 +82,46 @@
 </nav>
 
 <main class="chapter">
+<!-- typo -->
+  <nav class="crumbs" aria-label="Где ты на сайте"><a href="/#courses">Курсы</a><span class="sep" aria-hidden="true">→</span><span aria-current="page">Сигнал или шум</span></nav>
+<!-- /typo -->
   <p class="kicker">бесплатный интерактивный курс</p>
   <h1>Сигнал или шум</h1>
+<!-- typo -->
+  <p class="chips"><span class="tag free">бесплатно</span><span class="tag soon">открыта глава 1, остальные скоро</span><span class="lchip"><span class="lvl l2" aria-hidden="true"></span>для практика</span><span class="tag">для упорных</span></p>
+  <figure class="art"><img src="/img/signal-cover.jpg" alt="Алиса, Боб и Котейка в кафе" onerror="if(!this.dataset.t){this.dataset.t='1';this.src='img/ch01-00-heroes.jpg'}else{this.parentNode.classList.add('missing')}"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
+<!-- /typo -->
   <p class="lead">Как отличить настоящий эффект от случайного колебания: вероятность, распределения, ловушки в данных и первые A/B-тесты. Каждую идею можно подвигать руками, запустить в коде прямо в браузере и проверить на задачах с собеседований.</p>
+
+<!-- typo -->
+  <p class="cta"><a class="btn" href="01-probability.html">Начать с главы 1</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
+
+  <h2 id="modules">Что будет в курсе</h2>
+  <p class="sec-lead">Двенадцать глав в четырёх частях. Открыта первая, остальные появляются по одной.</p>
+  <ol class="mods">
+    <li><span class="n">Главы 1–3</span><b>Вероятность за час</b><p>«И», «или», «хотя бы один», Байес и матожидание — быстрым повтором.</p><p class="scene">Боб уверен: конверсия 5 % — значит, из 20 посетителей купит ровно один. На деле так бывает только в 38 % групп.</p><p class="x">Подробно и с нуля — в курсе <a href="/probability/">«Вероятность на пальцах»</a>.</p></li>
+    <li><span class="n">Глава 4</span><b>Шум</b><p>Закон больших чисел: когда бегущая доля успокаивается.</p><p class="scene">Котейка каждый день считает гостей у витрины. Через неделю у него «тренд», через месяц тренд куда-то делся.</p></li>
+    <li><span class="n">Глава 5</span><b>Нормальное распределение</b><p>ЦПТ, правило 68–95–99,7, хвосты и два пересекающихся мира.</p><p class="scene">Алиса высыпает средние по сотне гостей, и из хаоса вырастает колокол.</p></li>
+    <li><span class="n">Глава 6</span><b>Зоопарк распределений</b><p>Бернулли, биномиальное, Пуассон, экспоненциальное, «киты» и Парето — у каждого свой процесс.</p><p class="scene">Заказы в час — Пуассон, время между гостями — экспонента, а выручка — «киты»: один банкет перевешивает сотню завтраков.</p></li>
+    <li><span class="n">Глава 7</span><b>ЦПТ в деле</b><p>Кто сходится к колоколу быстро, кто медленно, а кто никогда.</p><p class="scene">Боб строит колокол по выручке с 30 заказов и не понимает, почему он кривой.</p></li>
+    <li><span class="n">Глава 8</span><b>Ловушки в данных</b><p>Симпсон, Берксон, ошибка выжившего и автобус: те ли это данные, прежде чем считать.</p><p class="scene">Автобусы ходят как попало, в среднем раз в 10 минут. Котейка ждёт не 5 минут, как ему кажется, а в среднем все 10.</p></li>
+    <li><span class="n">Главы 9–10</span><b>A/A и A/B на простой метрике</b><p>Две одинаковые группы всё равно различаются; z-тест для конверсии и среднего.</p><p class="scene">Алиса запускает тест, где ничего не меняется, и показывает Бобу разницу, которой нет.</p></li>
+    <li><span class="n">Главы 11–12</span><b>Ошибки и «победы»</b><p>α, β и мощность на двух колоколах; сколько «прокрасившихся» тестов настоящие.</p><p class="scene">За год 1000 экспериментов. Котейка подкидывает пустым идеям «победы», а Алиса считает, сколько настоящих среди зелёных.</p></li>
+  </ol>
+
+  <h2 id="toys">Во что поиграем и что покрутим</h2>
+  <p class="sec-lead">Ссылки ведут на игрушки первой главы, остальные появятся вместе с главами.</p>
+  <ul class="toys2">
+    <li><a href="01-probability.html#card-3"><b>Ровно пять из десяти</b><span>Бросай монетку сериями по 10. Все знают, что орлов «половина», но ровно 5 выпадает только в 24,6 % серий.</span><small>глава 1, карточка 3</small><span class="go">Попробовать →</span></a></li>
+    <li><a href="01-probability.html#card-6"><b>Ровно один из двадцати</b><span>Конверсия 5 %. Сначала ставишь прогноз, как часто в группе из 20 будет ровно один покупатель, потом проверяешь. Правда — 38 %.</span><small>глава 1, карточка 6</small><span class="go">Попробовать →</span></a></li>
+    <li><a href="01-probability.html#card-7"><b>Магазин групп по 20</b><span>Запускаешь группы посетителей по одной или сразу по 1000 и смотришь, как гистограмма покупателей ложится на теорию.</span><small>глава 1, карточка 7</small><span class="go">Попробовать →</span></a></li>
+    <li><a href="01-probability.html#card-10"><b>Гирлянда</b><span>100 лампочек, каждая перегорает за год с шансом 1 %. Хотя бы одна перегорит в 63,4 % случаев, а не «наверняка». Двигай число лампочек.</span><small>глава 1, карточка 10</small><span class="go">Попробовать →</span></a></li>
+    <li><a href="01-probability.html#card-12"><b>Магазин в коде</b><span>100 000 групп по 20 посетителей — пара строк numpy прямо в браузере. Поменяй конверсию и смотри, что станет с долей «ровно один».</span><small>глава 1, карточка 12</small><span class="go">Попробовать →</span></a></li>
+    <li><div class="off"><b>Колокол из средних</b><span>Берёшь гостей по 1, по 10, по 100 и складываешь средние в гистограмму: колокол растёт на глазах, а у «китов» не спешит.</span><small>главы 5–7</small><span class="tag soon">скоро</span></div></li>
+    <li><div class="off"><b>Котейка ждёт автобус</b><span>Двигаешь, насколько неровно ходят автобусы, и смотришь, как растёт ожидание, хотя средний интервал тот же.</span><small>глава 8</small><span class="tag soon">скоро</span></div></li>
+    <li><div class="off"><b>Честна ли монетка?</b><span>9 орлов из 10. У честной монетки 9 и больше выпадает в 1,1 % серий, а перекос не меньше этого в любую сторону — в 2,1 %. Первый p-value руками.</span><small>главы 9–10</small><span class="tag soon">скоро</span></div></li>
+  </ul>
+<!-- /typo -->
 
   <h2>Один алгоритм на весь курс</h2>
   <p>Каждая глава добавляет в него шаг. К концу курса ты проходишь его целиком — и на работе, и на собеседовании.</p>
@@ -51,7 +134,7 @@
     <li><b>6</b>Ответ на языке бизнеса</li>
   </ol>
 
-  <h2>Оглавление</h2>
+  <h2 id="toc">Оглавление</h2>
   <p class="part">Часть 0. Вероятность за час</p>
   <ol class="toc">
     <li class="live"><span class="n">1</span><a href="01-probability.html"><span class="t">Вероятность — это доля в штуках<small>«И», «или», «хотя бы один». Магазин с группами по 20, лампочки, кубик.</small></span></a><span class="s">готово</span></li>
@@ -80,10 +163,38 @@
     <li><span class="n">12</span><span class="t">«Прокрасилось» — значит, работает?<small>1000 экспериментов и доля настоящих побед.</small></span><span class="s">скоро</span></li>
   </ol>
 
-  <div class="sheet c-rose ruled pin" style="--r:.3deg; margin-top:40px">
-    <p class="hand" style="margin:0 0 6px">А дальше — «A/B без мифов»</p>
-    <p style="margin:0">Метрики-отношения, бакеты, CUPED, подглядывание, множественные проверки: как ставить честные эксперименты в продукте. Курс в разработке.</p>
+<!-- typo -->
+  <h2 id="results">Что получишь на выходе</h2>
+  <ul class="res">
+    <li><b>Алгоритм из шести шагов.</b> От «что здесь случайно» до ответа на языке бизнеса — один и тот же на работе и на собеседовании.</li>
+    <li><b>Чувство шума.</b> Прикинуть на глаз, какая разница — обычное колебание, а какая уже повод разбираться.</li>
+    <li><b>Распределения под процессы.</b> Какое распределение у заказов, времени ожидания и выручки и почему у «китов» колокол собирается медленно.</li>
+    <li><b>Чек-лист ловушек в данных.</b> Симпсон, Берксон, выживший, автобус — до того, как считать.</li>
+    <li><b>Первые A/A и A/B кодом.</b> z-тест для конверсии и среднего, α, β и мощность — на Python прямо в браузере.</li>
+    <li><b>Задачи с собеседований в каждой главе.</b> Со схемой ответа: переформулируй, посчитай в штуках, запиши формулу, проверь симуляцией, скажи вывод одной фразой.</li>
+  </ul>
+
+  <h2 id="who">Для кого и куда дальше</h2>
+  <div class="pair2">
+    <div>
+      <h3>Для кого и что нужно знать заранее</h3>
+      <ul>
+        <li>начинающим аналитикам;</li>
+        <li>тем, кто готовится к собеседованию и хочет уверенно говорить про шум, распределения и тесты;</li>
+        <li>продактам и разработчикам, которым «A/B на пальцах» показалось мало.</li>
+      </ul>
+      <p class="need"><b>Заранее нужно:</b> вероятность на уровне «и, или, хотя бы один». Забылась — освежи в <a href="/probability/">«Вероятности на пальцах»</a>. Python не обязателен: код запускается в браузере, его можно читать и менять по образцу.</p>
+      <p class="note"><b>Уровень:</b> <span class="lvl l2" aria-hidden="true"></span> для практика — немного формул и кода. Характер курса: для упорных.</p>
+    </div>
+    <div>
+      <h3>Куда дальше</h3>
+      <p class="go"><a href="/stats/">Прикладная статистика для аналитика</a></p>
+      <p>Интервалы, выбор критерия, мощность, регрессия и симуляции для любых данных. Платно, скоро.</p>
+      <p class="go"><a href="/ab/">A/B без мифов</a></p>
+      <p>Метрики-отношения, бакеты, CUPED, подглядывание, множественные проверки: честные эксперименты в продукте. Платно, скоро.</p>
+    </div>
   </div>
+<!-- /typo -->
 </main>
 </body>
 </html>

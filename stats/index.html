@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/stats.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
+<title data-i18n="meta.title">«Прикладная статистика для аналитика» — платный курс, скоро · Диля Хакимова</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Статистика шире A/B для любых данных: интервалы, бутстреп, выбор критерия, мощность, регрессия, множественные проверки, выбросы и пропуски, симуляции. Интерактивная книга и рабочие ноутбуки. Скоро.">
+<link rel="canonical" href="https://dilyakhakimova.com/stats/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dilyakhakimova.com/stats/">
+<meta property="og:title" data-i18n-attr="content:c.title" content="Прикладная статистика для аналитика">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Статистика шире A/B для любых данных: интервалы, бутстреп, выбор критерия, мощность, регрессия, множественные проверки, выбросы и пропуски, симуляции. Интерактивная книга и рабочие ноутбуки. Скоро.">
+<meta property="og:image" content="https://dilyakhakimova.com/img/stats-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611212">
+<link rel="stylesheet" href="/course.css?v=202611212">
+<script>
+/* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
+function artFail(img){
+  if (img.dataset.fallback && !img.dataset.tried){ img.dataset.tried = '1'; img.src = img.dataset.fallback; return; }
+  img.closest('.art').classList.add('missing');
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">К содержанию</a>
+
+<header class="top wrap">
+  <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
+    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
+    <a href="/#play" data-i18n="nav.play">Игрушки</a>
+    <a href="/#read" data-i18n="nav.read">Статьи</a>
+    <a href="/about/" data-i18n="nav.about">Об авторе</a>
+    <a href="/account.html" class="login" data-i18n="nav.login">Войти</a>
+    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+  </nav>
+</header>
+<nav class="crumbs wrap" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
+    <li><span aria-current="page" data-i18n="c.title">Прикладная статистика для аналитика</span></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+<!-- 1. Первый экран -->
+<section class="c-hero wrap">
+  <div>
+    <p class="chips"><span class="tag paid" data-i18n="paid">платно</span><span class="tag soon" data-i18n="soon">скоро</span><span class="chip lvl-chip"><span class="lvl l2" aria-hidden="true"></span><span data-i18n="lvl.2">для практика</span></span><span class="tag" data-i18n="c.tag">рабочий инструмент</span></p>
+    <h1 data-i18n="c.title">Прикладная статистика для аналитика</h1>
+    <p class="sub" data-i18n="hero.sub">Интервал, критерий, мощность и регрессия для любых данных — и симуляция, которая проверяет, можно ли всему этому верить.</p>
+    <p class="ctas">
+      <a class="btn waitlist" href="#waitlist" data-i18n="cta1">Хочу пройти</a>
+      <a class="btn ghost" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
+    </p>
+    <p class="facts" data-i18n="hero.facts">8 модулей, у каждого — рабочий ноутбук и короткий ролик-разбор. Инструменты для опросов, логов и операционных метрик, а не только для экспериментов.</p>
+  </div>
+  <figure class="art"><img src="/img/stats-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Мастерская кафе в строительных лесах: мешок с шариками, линейка-интервал" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: мастерская в лесах</span></figcaption></figure>
+</section>
+
+<!-- 2. Что будет в курсе -->
+<section class="wrap block" id="modules" aria-labelledby="mod-h">
+  <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
+  <p class="lead-note" data-i18n="mod.lead">Всё A/B-специфичное (метрики-отношения, бакеты, CUPED, подглядывание) живёт в «A/B без мифов», а основы шума и распределений — в бесплатном «Сигнале или шуме». Здесь — то, что между ними: статистика для любых данных.</p>
+  <ol class="modules" role="list">
+    <li><span class="n" data-i18n="m1.n">Модуль 1</span><h3 data-i18n="m1.t">Оценки и интервалы</h3><p class="d" data-i18n="m1.d">Вилка для среднего, доли и разницы — и какая формула врёт на малых долях.</p><p class="scene" data-i18n="m1.s">Боб пишет: «конверсия 2,3 %». Алиса спрашивает: «плюс-минус сколько?» А пекарь нашёл 9 пересоленных круассанов из 120 — какой это брак во всей партии?</p><p class="x" data-i18n="m1.x"><b>Ноутбук:</b> калькулятор интервалов</p></li>
+    <li><span class="n" data-i18n="m2.n">Модуль 2</span><h3 data-i18n="m2.t">Бутстреп</h3><p class="d" data-i18n="m2.d">Вилка без формул: тянем выборку из выборки — и смотрим, где приём ломается.</p><p class="scene" data-i18n="m2.s">Котейка тянет чеки из мешка с возвращением и записывает. Алиса подкладывает в мешок один банкет, и вилка среднего раздувается.</p><p class="x" data-i18n="m2.x"><b>Ноутбук:</b> бутстреп для медианы, перцентилей и разности</p></li>
+    <li><span class="n" data-i18n="m3.n">Модуль 3</span><h3 data-i18n="m3.t">Как выбрать критерий</h3><p class="d" data-i18n="m3.d">t, χ², Манн — Уитни, точные и Колмогоров — Смирнов: что каждый проверяет на самом деле.</p><p class="scene" data-i18n="m3.s">На одних и тех же данных Стьюдент говорит «да», Манн — Уитни — «нет». Боб хочет взять тот, что «да». Алиса объясняет, почему критерий выбирают до данных.</p><p class="x" data-i18n="m3.x"><b>Ноутбук:</b> выбор критерия и проверка его на твоих данных</p></li>
+    <li><span class="n" data-i18n="m4.n">Модуль 4</span><h3 data-i18n="m4.t">Мощность и размер выборки</h3><p class="d" data-i18n="m4.d">Сколько данных нужно, чтобы заметить важное, — для любого критерия.</p><p class="scene" data-i18n="m4.s">Алиса находит ошибку в чужом расчёте: выборку подобрали так, что эффект заметят только в половине случаев.</p><p class="x" data-i18n="m4.x"><b>Ноутбук:</b> мощность формулой и симуляцией</p></li>
+    <li><span class="n" data-i18n="m5.n">Модуль 5</span><h3 data-i18n="m5.t">Корреляция и регрессия</h3><p class="d" data-i18n="m5.d">Что значит наклон, когда регрессия врёт и зачем ANCOVA.</p><p class="scene" data-i18n="m5.s">Гальтон и рост сыновей: откуда взялось слово «регрессия». А в кафе — связь погоды и доставки, где один шторм поворачивает всю линию.</p><p class="x" data-i18n="m5.x"><b>Ноутбук:</b> регрессия с диагностикой и ANCOVA</p></li>
+    <li><span class="n" data-i18n="m6.n">Модуль 6</span><h3 data-i18n="m6.t">Множественные проверки</h3><p class="d" data-i18n="m6.d">Бонферрони, Холм, Бенджамини — Хохберг: что выбрать и почему.</p><p class="scene" data-i18n="m6.s">Алиса проверяет 40 кафе на «аномальные» отмены. Пара тревог будет и без всяких аномалий: при пороге 5 % в среднем две из сорока. Какие из них настоящие?</p><p class="x" data-i18n="m6.x"><b>Ноутбук:</b> поправки на векторе p-value</p></li>
+    <li><span class="n" data-i18n="m7.n">Модуль 7</span><h3 data-i18n="m7.t">Выбросы и пропуски</h3><p class="d" data-i18n="m7.d">Обрезать, заполнять и сообщать честно — и не выкинуть эффект вместе с выбросом.</p><p class="scene" data-i18n="m7.s">Курьер не отметил доставку, а один заказ — на 50 000 ₽. Выкинуть, заполнить или считать отдельно?</p><p class="x" data-i18n="m7.x"><b>Ноутбук:</b> выбросы и пропуски: функции и чек-лист</p></li>
+    <li><span class="n" data-i18n="m8.n">Модуль 8</span><h3 data-i18n="m8.t">Симуляции под реальные процессы</h3><p class="d" data-i18n="m8.d">Синтетические данные, похожие на твои, — и проверка на них любого метода.</p><p class="scene" data-i18n="m8.s">Алиса строит «синтетическое кафе»: больше половины гостей за неделю без заказа, редкие киты с банкетами, заказы одного гостя похожи друг на друга. Держит ли критерий обещанные 5 %?</p><p class="x" data-i18n="m8.x"><b>Ноутбук:</b> генератор синтетических данных и стенд проверки критерия</p></li>
+  </ol>
+</section>
+
+<!-- 3. Игрушки -->
+<section class="wrap block" id="toys" aria-labelledby="toys-h">
+  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
+  <p class="lead-note" data-i18n="toys.lead">Каждый модуль начинается с игрушки: сначала прогноз, потом правда. Игрушки появятся вместе с курсом.</p>
+  <div class="toys-wrap">
+  <ul class="toys c-toys" role="list">
+    <li><div class="off"><b data-i18n="t1.t">Две вилки для круассанов</b><span data-i18n="t1.d">9 пересоленных из 120. Вилка Вальда — от 2,8 до 12,2 %, вилка Уилсона — от 4,0 до 13,6 %. Сдвинь до 1 из 30, и нижний край Вальда уйдёт в минус: брак «−3 %».</span><small data-i18n="t1.f">модуль 1</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t2.t">Мешок с возвращением</b><span data-i18n="t2.d">Котейка тянет 30 чеков тысячу раз подряд, и гистограмма средних складывается в вилку. Подложи один банкет: вилка среднего раздувается, а вилка медианы почти не шевелится.</span><small data-i18n="t2.f">модуль 2</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t3.t">Медиана одна, а критерий «видит» разницу</b><span data-i18n="t3.d">Две курьерские службы опаздывают одинаково в середине, но у одной разброс вдесятеро больше. При 100 заказах в каждой Манн — Уитни находит «разницу» примерно в 10 % тестов вместо обещанных 5 %.</span><small data-i18n="t3.f">модуль 3</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t4.t">Найди ошибку в расчёте</b><span data-i18n="t4.d">Выборка подобрана так, что эффект ровно на границе значимости. Запусти 1000 тестов: эффект заметят только в половине. Для мощности 80 % данных нужно примерно вдвое больше.</span><small data-i18n="t4.f">модуль 4</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t5.t">Шторм поворачивает линию</b><span data-i18n="t5.d">Тащишь одну точку в сторону — линия регрессии поворачивается. Добавляешь сотню обычных дней — линия почти не замечает.</span><small data-i18n="t5.f">модуль 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t6.t">Фабрика ложных открытий</b><span data-i18n="t6.d">20 независимых проверок там, где эффекта нет нигде: хотя бы одна «значимая» в 64 % случаев. Переключай Бонферрони, Холма и Бенджамини — Хохберга и смотри, что остаётся.</span><small data-i18n="t6.f">модуль 6</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t7.t">Синтетическое кафе</b><span data-i18n="t7.d">Ползунки: доля гостей без заказа, толщина хвоста, сколько заказов у одного гостя. Стенд прогоняет 1000 проверок и показывает, держит ли t-тест 5 % ложных тревог на таких данных.</span><small data-i18n="t7.f">модуль 8</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t8.t">Подбери распределение</b><span data-i18n="t8.d">Время между заказами: тянешь параметр экспоненты, а расстояние Колмогорова — Смирнова показывает, где модель разошлась с данными.</span><small data-i18n="t8.f">модули 3 и 8</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+  </ul>
+  <figure class="art"><img src="/img/stats-toys.jpg" width="900" height="1200" loading="lazy" data-i18n-attr="alt:toys.alt" alt="Котейка тянет чеки из мешка, Алиса записывает их на доске" onerror="artFail(this)"><figcaption class="ph" data-i18n="toys.ph">Котейка тянет чеки из мешка с возвращением</figcaption></figure>
+  </div>
+</section>
+
+<!-- 4. Что получишь -->
+<section class="wrap block" id="results" aria-labelledby="res-h">
+  <h2 id="res-h" data-i18n="res.title">Что получишь на выходе: рабочие ноутбуки</h2>
+  <ul class="results" role="list">
+    <li data-i18n="r1"><b>Калькулятор интервалов</b> Среднее, доля по Уилсону, разница, бутстреп для медианы и перцентилей.</li>
+    <li data-i18n="r2"><b>Выбор критерия</b> Шпаргалка «что на самом деле проверяет критерий» и стенд, который проверяет его на твоих данных: доля ложных тревог и мощность.</li>
+    <li data-i18n="r3"><b>Мощность и размер выборки</b> Формулой — для t-теста и долей, симуляцией — для всего остального.</li>
+    <li data-i18n="r4"><b>Регрессия и ANCOVA</b> Шаблон с диагностикой остатков и влиятельных точек.</li>
+    <li data-i18n="r5"><b>Поправки на множественность</b> Бонферрони, Холм и Бенджамини — Хохберг на векторе p-value — с подсказкой, что выбрать.</li>
+    <li data-i18n="r6"><b>Генератор синтетических данных</b> Нули, тяжёлые хвосты, зависимые наблюдения: проверь любой метод, прежде чем доверить ему настоящие данные.</li>
+  </ul>
+</section>
+
+<!-- 5. Как устроен курс -->
+<section class="wrap block" id="how" aria-labelledby="how-h">
+  <h2 id="how-h" data-i18n="sec.how">Как устроен курс</h2>
+  <p class="lead-note" data-i18n="how.lead">Основа — курс «Прикладная статистика для аналитика», который Диля читает вживую, пересобранный для самостоятельной работы.</p>
+  <ul class="how3" role="list">
+    <li><h3 data-i18n="how.book.t">Интерактивная книга</h3><p data-i18n="how.book.d">Короткие карточки: история с героями, игрушка «сначала угадай, потом проверь», правило формулой и задача. Работает и на телефоне.</p></li>
+    <li><h3 data-i18n="how.nb.t">Рабочие ноутбуки</h3><p data-i18n="how.nb.d">К каждому модулю — ноутбук, который можно запустить на своих данных. Задача → свой анализ → сверка с эталоном → разбор типичных ошибок.</p></li>
+    <li><h3 data-i18n="how.video.t">Короткие ролики-разборы</h3><p data-i18n="how.video.d">По 5–10 минут на ноутбук: запись экрана и голос — как запустить, что смотреть, где ломается. В ролике-знакомстве с курсом Диля в кадре.</p></li>
+  </ul>
+  <div class="points paid-note"><p data-i18n="points"><b>Платно · скоро.</b> Цена и дата старта — вместе с открытием записи. Баллы из бесплатных курсов уже дают скидку до 30 % на «A/B без мифов»; распространится ли она на этот курс, скажем при открытии записи.</p></div>
+</section>
+
+<!-- 6. Для кого и куда дальше -->
+<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
+  <div class="panel">
+    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
+    <ul>
+      <li data-i18n="who1">аналитикам, которым статистика нужна не только в A/B: опросы, логи, операционные метрики;</li>
+      <li data-i18n="who2">тем, кто прошёл «Сигнал или шум» и хочет инструменты для работы;</li>
+      <li data-i18n="who3">тем, кто считает по готовым формулам и хочет знать, когда они ломаются.</li>
+    </ul>
+    <p class="need" data-i18n="need"><b>Заранее нужно:</b> распределения, ЦПТ и стандартная ошибка — всё это есть в бесплатном <a href="/signal/">«Сигнале или шуме»</a>. Python на уровне pandas и numpy.</p>
+    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l2" aria-hidden="true"></span> для практика — немного формул и кода. Характер курса: рабочий инструмент.</p>
+  </div>
+  <div class="panel next-course">
+    <h2 data-i18n="sec.next">Куда дальше</h2>
+    <p class="go" data-i18n="next.t">A/B без мифов</p>
+    <p data-i18n="next.d">Всё A/B-специфичное: метрики-отношения, бакеты, CUPED, SRM, подглядывание. Регрессия и ANCOVA отсюда — мостик к CUPED.</p>
+    <p class="note" data-i18n="next.x">Позже — <a href="/causal/">курс по причинности</a>: эффект без эксперимента.</p>
+    <a class="btn ghost" href="/ab/" data-i18n="next.btn">О курсе →</a>
+  </div>
+</section>
+
+<!-- Почты и Telegram пока нет: «Хочу пройти» ведёт сюда. Когда появится канал или форма — поменять ссылки .waitlist (так же, как на главной) -->
+<section class="wrap block">
+  <div class="panel wait" id="waitlist" tabindex="-1">
+    <h3 data-i18n="wait.title">Лист ожидания</h3>
+    <p data-i18n="wait.text">Запись на платные курсы откроется вместе с Telegram-каналом, он появится скоро. А пока проходи бесплатные курсы: баллы сохранятся и превратятся в скидку.</p>
+    <p><a href="/account.html" data-i18n="wait.cta">Войти и копить баллы →</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2 data-i18n="foot.courses">Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах — скоро</a></li>
+        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика — скоро</a></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов — скоро</a></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Курс по причинности — позже</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 data-i18n="foot.more">Ещё</h2>
+      <ul role="list">
+        <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">Статья на Хабре</a></li>
+        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
+        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
+        <li><a href="/account.html" data-i18n="nav.login">Войти</a></li>
+      </ul>
+    </div>
+    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
+    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+  </div>
+</footer>
+
+<script src="/i18n/site.js?v=202611212"></script>
+<script src="/i18n/stats.js?v=202611212"></script>
+<script src="/landing.js?v=202611212"></script>
+</body>
+</html>

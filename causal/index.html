@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/causal.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
+<title data-i18n="meta.title">Курс по причинности — в планах · Диля Хакимова</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Как оценить эффект, когда эксперимента не было: наблюдательные данные, графы причин, разность разностей, синтетический контроль, инструментальные переменные и разрывной дизайн. Курс в планах.">
+<link rel="canonical" href="https://dilyakhakimova.com/causal/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dilyakhakimova.com/causal/">
+<meta property="og:title" data-i18n-attr="content:c.title" content="Курс по причинности">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Как оценить эффект, когда эксперимента не было: наблюдательные данные, графы причин, разность разностей, синтетический контроль, инструментальные переменные и разрывной дизайн. Курс в планах.">
+<meta property="og:image" content="https://dilyakhakimova.com/img/causal-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611212">
+<link rel="stylesheet" href="/course.css?v=202611212">
+<script>
+/* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
+function artFail(img){
+  if (img.dataset.fallback && !img.dataset.tried){ img.dataset.tried = '1'; img.src = img.dataset.fallback; return; }
+  img.closest('.art').classList.add('missing');
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">К содержанию</a>
+
+<header class="top wrap">
+  <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
+    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
+    <a href="/#play" data-i18n="nav.play">Игрушки</a>
+    <a href="/#read" data-i18n="nav.read">Статьи</a>
+    <a href="/about/" data-i18n="nav.about">Об авторе</a>
+    <a href="/account.html" class="login" data-i18n="nav.login">Войти</a>
+    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+  </nav>
+</header>
+<nav class="crumbs wrap" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
+    <li><span aria-current="page" data-i18n="c.title">Курс по причинности</span></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+<!-- 1. Первый экран -->
+<section class="c-hero wrap">
+  <div>
+    <p class="chips"><span class="tag paid" data-i18n="paid">платно</span><span class="tag later" data-i18n="later">позже</span><span class="chip lvl-chip"><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">под капотом</span></span><span class="tag" data-i18n="c.tag">для любознательных</span></p>
+    <h1 data-i18n="c.title">Курс по причинности</h1>
+    <p class="sub" data-i18n="hero.sub">Как оценить эффект, когда эксперимента не было: разность разностей, синтетический контроль, инструменты и разрывной дизайн.</p>
+    <p class="ctas">
+      <a class="btn waitlist" href="#waitlist" data-i18n="cta1">Сообщить о старте</a>
+      <a class="btn ghost" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
+    </p>
+    <p class="facts" data-i18n="hero.facts">Курс в планах, после «A/B без мифов». Формат тот же: интерактивная книга и рабочие ноутбуки.</p>
+  </div>
+  <figure class="art"><img src="/img/causal-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Развилка дорог у кафе, одна ветка полупрозрачная" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: развилка дорог</span></figcaption></figure>
+</section>
+
+<!-- 2. Что будет в курсе -->
+<section class="wrap block" id="modules" aria-labelledby="mod-h">
+  <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
+  <p class="lead-note" data-i18n="mod.lead">Набросок программы: пока курс в работе, состав может поменяться.</p>
+  <ol class="modules" role="list">
+    <li><span class="n" data-i18n="m1.n">Тема 1</span><h3 data-i18n="m1.t">Почему наблюдения обманывают</h3><p class="d" data-i18n="m1.d">Конфаундеры, самоотбор и обратная причинность.</p><p class="scene" data-i18n="m1.s">Подписчики заказывают больше остальных. Подписка работает — или подписываются те, кто и так много заказывает?</p></li>
+    <li><span class="n" data-i18n="m2.n">Тема 2</span><h3 data-i18n="m2.t">Графы причин</h3><p class="d" data-i18n="m2.d">Что учитывать, а что трогать нельзя: конфаундер, медиатор, коллайдер.</p><p class="scene" data-i18n="m2.s">Меню стало грузиться дольше, а удержание выросло. Алиса рисует стрелки и находит, кто на самом деле виноват.</p></li>
+    <li><span class="n" data-i18n="m3.n">Тема 3</span><h3 data-i18n="m3.t">Сравниваем похожих</h3><p class="d" data-i18n="m3.d">Сопоставление и взвешивание: из наблюдений — подобие эксперимента.</p><p class="scene" data-i18n="m3.s">Промокод получили самые активные гости. Алиса ищет им «двойников» среди тех, кто промокода не получил.</p></li>
+    <li><span class="n" data-i18n="m4.n">Тема 4</span><h3 data-i18n="m4.t">Разность разностей</h3><p class="d" data-i18n="m4.d">До и после — но вместе с теми, кого изменение не коснулось.</p><p class="scene" data-i18n="m4.s">Фичу выкатили на всех в одном городе, без теста. Алиса сравнивает его с соседним и проверяет, шли ли тренды параллельно до запуска.</p></li>
+    <li><span class="n" data-i18n="m5.n">Тема 5</span><h3 data-i18n="m5.t">Синтетический контроль</h3><p class="d" data-i18n="m5.d">Сравнить не с кем — собираем двойника из многих.</p><p class="scene" data-i18n="m5.s">Новое кафе у вокзала не похоже ни на одно другое. Алиса собирает ему «двойника» из пяти кафе с весами.</p></li>
+    <li><span class="n" data-i18n="m6.n">Тема 6</span><h3 data-i18n="m6.t">Инструментальные переменные</h3><p class="d" data-i18n="m6.d">Случайный толчок, которому подчиняются не все.</p><p class="scene" data-i18n="m6.s">Пуш с напоминанием приходит гостям по монетке, а открывают его не все. Как оценить эффект самого напоминания?</p></li>
+    <li><span class="n" data-i18n="m7.n">Тема 7</span><h3 data-i18n="m7.t">Разрывной дизайн</h3><p class="d" data-i18n="m7.d">Порог делит людей почти случайно — рядом с ним.</p><p class="scene" data-i18n="m7.s">Бесплатная доставка от 1000 ₽. Алиса сравнивает заказы на 990 и на 1010 ₽ и проверяет, не подгоняют ли гости корзину под порог.</p></li>
+  </ol>
+</section>
+
+<!-- 3. Игрушки -->
+<section class="wrap block" id="toys" aria-labelledby="toys-h">
+  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
+  <p class="lead-note" data-i18n="toys.lead">Игрушки задуманы так же, как в других курсах: сначала прогноз, потом правда.</p>
+  <div class="toys-wrap">
+  <ul class="toys c-toys" role="list">
+    <li><div class="off"><b data-i18n="t1.t">Параллельные тренды</b><span data-i18n="t1.d">Двигаешь тренд города без фичи. Пока линии шли параллельно, разность разностей ловит эффект; разошлись — и «эффект» появляется там, где его нет.</span><small data-i18n="t1.f">тема 4</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t2.t">Двойник кафе</b><span data-i18n="t2.d">Подбираешь веса пяти кафе, пока синтетическая линия не ляжет на настоящую до открытия. После открытия расстояние между ними — эффект.</span><small data-i18n="t2.f">тема 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t3.t">Стрелки причин</b><span data-i18n="t3.d">Включаешь и выключаешь учёт переменной: учёл конфаундер — эффект честный, учёл коллайдер — появилась связь, которой нет.</span><small data-i18n="t3.f">тема 2</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t4.t">Окно у порога</b><span data-i18n="t4.d">Сужаешь окно вокруг 1000 ₽: узкое честнее, но шумнее; широкое точнее, но с перекосом.</span><small data-i18n="t4.f">тема 7</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+  </ul>
+  <figure class="art"><img src="/img/causal-toys.jpg" width="900" height="1200" loading="lazy" data-i18n-attr="alt:toys.alt" alt="Алиса рисует на доске стрелки между карточками «погода», «заказы» и «промокод», Котейка держит мел" onerror="artFail(this)"><figcaption class="ph" data-i18n="toys.ph">Алиса рисует граф причин, Котейка держит мел</figcaption></figure>
+  </div>
+</section>
+
+<!-- 4. Что получишь -->
+<section class="wrap block" id="results" aria-labelledby="res-h">
+  <h2 id="res-h" data-i18n="res.title">Что получишь на выходе: рабочие ноутбуки</h2>
+  <ul class="results" role="list">
+    <li data-i18n="r1"><b>Граф причин как чек-лист</b> Что учитывать в анализе наблюдений, а что учитывать нельзя.</li>
+    <li data-i18n="r2"><b>Сопоставление и взвешивание</b> Propensity score с проверкой баланса групп.</li>
+    <li data-i18n="r3"><b>Разность разностей</b> С проверкой параллельных трендов и плацебо-датами.</li>
+    <li data-i18n="r4"><b>Синтетический контроль</b> Подбор весов и плацебо-проверка на других кафе.</li>
+    <li data-i18n="r5"><b>Инструменты и разрывной дизайн</b> Оценка и проверки устойчивости: сила инструмента, выбор окна, подгонка под порог.</li>
+  </ul>
+</section>
+
+<!-- 5. Как устроен курс -->
+<section class="wrap block" id="how" aria-labelledby="how-h">
+  <h2 id="how-h" data-i18n="sec.how">Как устроен курс</h2>
+  <p class="lead-note" data-i18n="how.lead">Формат — как у остальных платных курсов линейки.</p>
+  <ul class="how3" role="list">
+    <li><h3 data-i18n="how.book.t">Интерактивная книга</h3><p data-i18n="how.book.d">Короткие карточки: история с героями, игрушка «сначала угадай, потом проверь», правило формулой и задача. Работает и на телефоне.</p></li>
+    <li><h3 data-i18n="how.nb.t">Рабочие ноутбуки</h3><p data-i18n="how.nb.d">К каждому модулю — ноутбук, который можно запустить на своих данных. Задача → свой анализ → сверка с эталоном → разбор типичных ошибок.</p></li>
+    <li><h3 data-i18n="how.video.t">Короткие ролики-разборы</h3><p data-i18n="how.video.d">По 5–10 минут на ноутбук: запись экрана и голос — как запустить, что смотреть, где ломается. В ролике-знакомстве с курсом Диля в кадре.</p></li>
+  </ul>
+  <div class="points paid-note"><p data-i18n="points"><b>Позже.</b> Курс выйдет после «A/B без мифов». Чтобы узнать о старте, загляни в лист ожидания ниже.</p></div>
+</section>
+
+<!-- 6. Для кого и куда дальше -->
+<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
+  <div class="panel">
+    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
+    <ul>
+      <li data-i18n="who1">аналитикам после «A/B без мифов»;</li>
+      <li data-i18n="who2">тем, кому эффект нужен там, где тест невозможен: запуск на всех, офлайн, цены, регионы.</li>
+    </ul>
+    <p class="need" data-i18n="need"><b>Заранее нужно:</b> регрессия из <a href="/stats/">«Прикладной статистики для аналитика»</a> и честный A/B из <a href="/ab/">«A/B без мифов»</a>.</p>
+    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l3" aria-hidden="true"></span> под капотом — математика, статьи, симуляции. Характер курса: для любознательных.</p>
+  </div>
+  <div class="panel next-course">
+    <h2 data-i18n="sec.next">Куда дальше</h2>
+    <p class="go" data-i18n="next.t">Вся линейка</p>
+    <p data-i18n="next.d">Пока курс в планах, начни с бесплатных: «Вероятность на пальцах», «Сигнал или шум», «A/B на пальцах».</p>
+    <a class="btn ghost" href="/#courses" data-i18n="next.btn">К курсам →</a>
+  </div>
+</section>
+
+<!-- Почты и Telegram пока нет: «Хочу пройти» ведёт сюда. Когда появится канал или форма — поменять ссылки .waitlist (так же, как на главной) -->
+<section class="wrap block">
+  <div class="panel wait" id="waitlist" tabindex="-1">
+    <h3 data-i18n="wait.title">Лист ожидания</h3>
+    <p data-i18n="wait.text">Запись на платные курсы откроется вместе с Telegram-каналом, он появится скоро. А пока проходи бесплатные курсы: баллы сохранятся и превратятся в скидку.</p>
+    <p><a href="/account.html" data-i18n="wait.cta">Войти и копить баллы →</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2 data-i18n="foot.courses">Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах — скоро</a></li>
+        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика — скоро</a></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов — скоро</a></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Курс по причинности — позже</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 data-i18n="foot.more">Ещё</h2>
+      <ul role="list">
+        <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">Статья на Хабре</a></li>
+        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
+        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
+        <li><a href="/account.html" data-i18n="nav.login">Войти</a></li>
+      </ul>
+    </div>
+    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
+    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+  </div>
+</footer>
+
+<script src="/i18n/site.js?v=202611212"></script>
+<script src="/i18n/causal.js?v=202611212"></script>
+<script src="/landing.js?v=202611212"></script>
+</body>
+</html>
