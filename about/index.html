@@ -3,275 +3,259 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Об авторе · Диля Хакимова</title>
-<meta name="description" content="Диля Хакимова — математик, аналитик и преподаватель. A/B-тесты, статистика, теория игр.">
+<!-- Тексты страницы — в i18n/site.js (шапка, уровни, футер) и i18n/about.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
+<title data-i18n="meta.title">Об авторе · Диля Хакимова — вероятность, статистика и A/B</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Диля Хакимова — математик, аналитик и преподаватель. Делаю интерактивные курсы по вероятности, статистике и A/B-тестам. Преподаю с 2002 года, автор открытого интенсива A/B Week в Школе анализа данных — больше 10 000 участников.">
 <link rel="canonical" href="https://dilyakhakimova.com/about/">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dilyakhakimova.com/about/">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="Об авторе · Диля Хакимова — вероятность, статистика и A/B">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Диля Хакимова — математик, аналитик и преподаватель. Делаю интерактивные курсы по вероятности, статистике и A/B-тестам. Преподаю с 2002 года, автор открытого интенсива A/B Week в Школе анализа данных — больше 10 000 участников.">
+<meta property="og:image" content="https://dilyakhakimova.com/img/dilya.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* Идея: страницы тетради на столе в точку. Структура строгая (разделы, списки с датами на полях),
-   характер — в бумаге, засечках и рукописных датах. Пёстрые стикеры оставлены для будущей стены отзывов. */
-:root{
-  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6;
-  --ink:#24221F; --muted:#6B675F; --pen:#23418A; --margin:rgba(232,100,74,.5); --rule:rgba(61,125,196,.18);
-  --accent:#E8644A;
-  --serif:"Literata", Georgia, "Times New Roman", serif;
-  --script:"Marck Script", "Segoe Script", cursive;
-  --body:"Onest", "Segoe UI", system-ui, sans-serif;
-  color-scheme: light;
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/about.css?v=202611221">
+<script>
+/* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph (пустая подпись — блок схлопывается) */
+function artFail(img){
+  if (img.dataset.fallback && !img.dataset.tried){ img.dataset.tried = '1'; img.src = img.dataset.fallback; return; }
+  img.closest('.art').classList.add('missing');
 }
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background-color:var(--desk); background-image:radial-gradient(var(--dot) 1px, transparent 1.2px); background-size:18px 18px;
-  color:var(--ink); font:400 17px/1.55 var(--body)}
-a{color:var(--pen); text-underline-offset:3px}
-a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
-.wrap{max-width:1080px; margin:0 auto; padding:0 28px}
-
-header.top{display:flex; justify-content:flex-end; align-items:center; gap:16px; flex-wrap:wrap; padding:22px 0 0}
-.logo{font:500 18px/1 var(--serif); color:var(--ink); text-decoration:none}
-.logo i{font:400 22px/1 var(--script); color:var(--pen); font-style:normal}
-nav{display:flex; gap:22px; flex-wrap:wrap; font-size:15px}
-nav a{color:var(--muted); text-decoration:none}
-nav a:hover{color:var(--ink)}
-
-/* шапка */
-.hero{display:grid; grid-template-columns:1.35fr 1fr; gap:56px; align-items:center; padding:48px 0 40px}
-h1{font:400 clamp(42px,6vw,80px)/1.03 var(--serif); letter-spacing:-.02em; margin:0; text-wrap:balance}
-h1 .hand{font:400 1.12em/1 var(--script); color:var(--pen); position:relative; display:inline-block; white-space:nowrap}
-h1 .hand svg{position:absolute; left:0; bottom:-.1em; width:100%; height:.2em; overflow:visible}
-.sub{font:400 clamp(21px,2.4vw,28px)/1.35 var(--serif); margin:24px 0 16px; max-width:30em}
-.lead{color:var(--muted); font-size:18px; max-width:36em; margin:0}
-.polaroid{background:#fff; padding:14px 14px 16px; box-shadow:0 1px 1px rgba(0,0,0,.06), 0 14px 24px -14px rgba(60,40,10,.45); transform:rotate(1.6deg); position:relative; justify-self:center; max-width:400px}
-.polaroid img{display:block; width:100%; height:auto}
-.polaroid figcaption{font:400 24px/1.2 var(--script); color:var(--pen); margin-top:10px; text-align:center}
-.tape::before{content:""; position:absolute; top:-13px; left:50%; width:120px; height:28px; transform:translateX(-50%) rotate(-3deg);
-  background:rgba(250,246,226,.78); box-shadow:0 1px 2px rgba(0,0,0,.08);
-  background-image:repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 2px, transparent 2px 6px)}
-
-/* цифры */
-.facts{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(36,34,31,.15); border-bottom:1px solid rgba(36,34,31,.15); margin:8px 0 56px}
-.fact{padding:22px 22px 22px 0}
-.fact + .fact{padding-left:22px; border-left:1px solid rgba(36,34,31,.15)}
-.fact .n{font:400 44px/1 var(--script); color:var(--pen)}
-.fact .t{font-size:15px; color:var(--muted); margin-top:8px}
-
-/* лист тетради */
-.sheet{background-color:var(--paper); position:relative; margin:0 0 48px; padding:34px 40px 30px 108px;
-  background-image:linear-gradient(90deg, transparent 84px, var(--margin) 84px, var(--margin) 85px, transparent 85px);
-  box-shadow:0 1px 1px rgba(0,0,0,.05), 0 16px 28px -18px rgba(60,40,10,.4)}
-.sheet h2{font:400 clamp(28px,3.4vw,40px)/1.15 var(--serif); margin:0 0 22px; letter-spacing:-.01em}
-.sheet h2 small{display:block; font:400 16px/1.4 var(--body); color:var(--muted); margin-top:6px; letter-spacing:0}
-.list{list-style:none; margin:0; padding:0}
-.item{position:relative; padding:18px 0; border-top:1px solid var(--rule)}
-.item:last-child{border-bottom:1px solid var(--rule)}
-.item .when{position:absolute; left:-98px; top:18px; width:84px; text-align:right; padding-right:14px; font:400 21px/1.15 var(--script); color:var(--pen)}
-.item h3{font:500 21px/1.3 var(--serif); margin:0 0 4px}
-.item .kind{font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; display:block}
-.item p{margin:0; color:var(--muted); max-width:44em}
-.item .links{margin-top:10px; display:flex; gap:6px 18px; flex-wrap:wrap; font-size:15px}
-.item .links a::after{content:" ↗"; font-size:.85em}
-.item .num{font:400 26px/1 var(--script); color:var(--pen)}
-
-
-/* цвета и разлиновка листов */
-.sheet{--bg:var(--paper); background-color:var(--bg); transform:rotate(var(--r,0deg))}
-.c-butter{--bg:#FBF1C9} .c-mint{--bg:#E2F1E7} .c-sky{--bg:#E1EBF7} .c-rose{--bg:#FBE4E4} .c-lilac{--bg:#ECE5F6} .c-white{--bg:#FFFFFF}
-.ruled{background-image:linear-gradient(90deg, transparent 84px, var(--margin) 84px, var(--margin) 85px, transparent 85px),
-  linear-gradient(transparent 31px, rgba(61,125,196,.20) 31px) !important; background-size:100% 100%, 100% 32px !important}
-.squared{background-image:linear-gradient(90deg, transparent 84px, var(--margin) 84px, var(--margin) 85px, transparent 85px),
-  linear-gradient(rgba(61,125,196,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.14) 1px, transparent 1px) !important;
-  background-size:100% 100%, 18px 18px, 18px 18px !important}
-.sheet.plain.squared, .sheet.plain.ruled{background-size:100% 100%, 18px 18px, 18px 18px !important}
-.sheet.plain.ruled{background-image:linear-gradient(transparent 31px, rgba(61,125,196,.20) 31px) !important; background-size:100% 32px !important}
-.sheet.plain.squared{background-image:linear-gradient(rgba(61,125,196,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.14) 1px, transparent 1px) !important; background-size:18px 18px !important}
-.ruled .item, .squared .item{border-color:transparent}
-/* кнопка */
-.pin::after{content:""; position:absolute; top:-10px; left:calc(50% - 12px); width:24px; height:24px; border-radius:50%; z-index:2;
-  background:radial-gradient(circle at 35% 30%, #fff9 0 12%, var(--pc,#E07A6C) 32%, color-mix(in srgb, var(--pc,#E07A6C) 65%, #000) 100%);
-  box-shadow:0 4px 5px rgba(0,0,0,.25)}
-/* скрепка */
-.clip::after{content:""; position:absolute; top:-22px; left:var(--cx,46px); width:26px; height:70px; z-index:2;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 70'%3E%3Cpath d='M8 20 V54 a5 5 0 0 0 10 0 V12 a8 8 0 0 0 -16 0 V50' fill='none' stroke='%238A8F98' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;
-  filter:drop-shadow(0 2px 1px rgba(0,0,0,.18)); transform:rotate(-8deg)}
-
-/* что делаю */
-.cols{display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
-.cols h3{font:500 20px/1.3 var(--serif); margin:0 0 8px}
-.cols p{margin:0; color:var(--muted); font-size:16px}
-.cols .k{font:400 22px/1 var(--script); color:var(--accent); display:block; margin-bottom:10px}
-.sheet.plain{padding-left:40px; background-image:none}
-
-/* эксперимент */
-.lab{display:grid; grid-template-columns:1fr 1.4fr; gap:36px; align-items:center}
-.lab-paper{background-color:#fff; padding:16px; position:relative;
-  background-image:linear-gradient(rgba(61,125,196,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.13) 1px, transparent 1px);
-  background-size:16px 16px; box-shadow:0 1px 1px rgba(0,0,0,.05), 0 14px 24px -16px rgba(60,40,10,.4)}
-.lab h2{font:400 clamp(26px,3vw,36px)/1.2 var(--serif); margin:0 0 12px}
-.lab p{color:var(--muted); margin:0 0 16px}
-.lab-n{font-size:13px; color:var(--muted); margin-bottom:6px; display:flex; justify-content:space-between}
-canvas{width:100%; height:auto; display:block}
-.btn{font:500 15px/1 var(--body); padding:12px 18px; border-radius:999px; background:var(--ink); color:#fff; border:0; cursor:pointer}
-.hand-line{font:400 26px/1.3 var(--script); color:var(--pen); margin:26px 0 0}
-.soon{display:inline-block; font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 9px; border-radius:6px; background:#F8D5D8; color:var(--ink)}
-
-footer{padding:10px 0 44px; color:var(--muted); font-size:15px}
-footer .row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid rgba(36,34,31,.15); padding-top:20px}
-
-@media (max-width:860px){
-  .hero, .lab{grid-template-columns:1fr; gap:32px}
-  .facts{grid-template-columns:1fr 1fr}
-  .fact:nth-child(3){padding-left:0; border-left:0}
-  .fact:nth-child(n+3){border-top:1px solid rgba(36,34,31,.15)}
-  .cols{grid-template-columns:1fr}
-}
-@media (max-width:620px){
-  .wrap{padding:0 16px}
-  .sheet{padding:26px 20px 22px 20px; --r:0deg !important}
-  .ruled:not(.plain), .squared:not(.plain){background-size:0 0, 100% 32px !important}
-  .item .when{position:static; width:auto; text-align:left; padding:0; display:block; margin-bottom:4px}
-}
-</style>
+</script>
 </head>
 <body>
-<div class="wrap">
-  <header class="top" style="justify-content:space-between">
-    <a class="logo" href="/">← <i>курсы</i> на главной</a>
-    <nav aria-label="Разделы">
-      <a href="#teach">Курсы и лекции</a>
-      <a href="#writing">Статьи</a>
-      <a href="#science">Наука</a>
-      <a href="#next">Курсы</a>
-    </nav>
-  </header>
+<a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-  <section class="hero">
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
+    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
+    <a href="/#play" data-i18n="nav.play">Игрушки</a>
+    <a href="/#read" data-i18n="nav.read">Статьи</a>
+    <a href="/about/" aria-current="page" data-i18n="nav.about">Об авторе</a>
+    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- (а) Кто я: что делаю и для кого -->
+<section class="a-hero wrap">
+  <div>
+    <p class="kicker" data-i18n="hero.pre">Об авторе</p>
+    <h1 data-i18n="hero.title">Я Диля. <span class="hand">Учу видеть в данных сигнал.</span></h1>
+    <p class="sub" data-i18n="hero.sub">Делаю интерактивные курсы по вероятности, статистике и A/B-тестам — для аналитиков, продактов, разработчиков и всех, кому нужно решать по данным. Подход простой: сначала угадай, потом проверь.</p>
+    <p class="ctas">
+      <a class="btn" href="/#routes" data-i18n="hero.cta1">Выбрать курс</a>
+      <a class="btn ghost" href="#how" data-i18n="hero.cta2">Как я учу ↓</a>
+    </p>
+  </div>
+  <figure class="portrait">
+    <img src="/img/dilya.jpg" width="460" height="431" data-i18n-attr="alt:hero.alt" alt="Диля Хакимова на лекции A/B Week в Школе анализа данных">
+    <figcaption data-i18n="hero.cap">На лекции A/B Week в Школе анализа данных</figcaption>
+  </figure>
+</section>
+
+<!-- (б) Почему мне можно доверять: факты-числа -->
+<section class="wrap a-facts" aria-labelledby="facts-h">
+  <h2 id="facts-h" class="vh" data-i18n="facts.title">Коротко в цифрах</h2>
+  <ul class="facts5" role="list">
+    <li><span class="n" data-i18n="f1.n">с 2002</span><span class="t" data-i18n="f1.t">преподаю: от кружков Малого мехмата МГУ до Школы анализа данных и университета в Бремене</span></li>
+    <li><span class="n" data-i18n="f2.n">10 000+</span><span class="t" data-i18n="f2.t">участников моего открытого интенсива A/B Week в Школе анализа данных</span></li>
+    <li><span class="n" data-i18n="f3.n">1000+</span><span class="t" data-i18n="f3.t">студентов прошли мой курс теории игр в Школе анализа данных</span></li>
+    <li><span class="n" data-i18n="f4.n">15 лет</span><span class="t" data-i18n="f4.t">разбираюсь, где в цифрах правда, а где шум: A/B-эксперименты, метрики, платформы экспериментов</span></li>
+    <li><span class="n" data-i18n="f5.n">МГУ + РЭШ</span><span class="t" data-i18n="f5.t">математик по образованию: теория игр и аукционы, потом статистика и A/B-тесты</span></li>
+  </ul>
+</section>
+
+<!-- (в) Мой подход -->
+<section class="wrap block" id="how" aria-labelledby="how-h">
+  <div class="approach">
     <div>
-      <h1>Учу видеть в данных <span class="hand">сигнал<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 110 18, 196 6" fill="none" stroke="#7E8DB8" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
-      <p class="sub">Математик, аналитик и преподаватель. Пятнадцать лет разбираюсь, где в цифрах правда, а где шум.</p>
-      <p class="lead">Преподаю с 2002 года — от олимпиадной математики до Школы анализа данных, ставила A/B-эксперименты в рекламе Яндекса, создала образовательную платформу «Пеликан». Сейчас собираю свои курсы: бесплатный «Сигнал или шум» и «A/B без мифов».</p>
+      <h2 id="how-h" data-i18n="how.title">Как я учу</h2>
+      <ol class="principles" role="list">
+        <li><span data-i18n="how.p1"><b>Сначала угадай, потом проверь.</b> Ставишь прогноз ползунком, правду показывает симуляция. Сразу видно, где интуиция подводит.</span></li>
+        <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
+        <li><span data-i18n="how.p3"><b>Честно про ошибки.</b> Где метод ломается и какие мифы ходят по статьям.</span></li>
+      </ol>
+      <p class="after more" data-i18n="how.cta"><a href="/#toy">Попробовать игрушку с монеткой на главной →</a></p>
     </div>
-    <figure class="polaroid tape">
-      <img src="/img/dilya.jpg" alt="Диля Хакимова на лекции A/B Week в ШАДе" width="460" height="431">
-      <figcaption>Диля Хакимова</figcaption>
-    </figure>
-  </section>
+    <figure class="art r11 drawn"><img src="/img/home-about.jpg" width="1024" height="1024" loading="lazy" data-i18n-attr="alt:how.alt" alt="Рисованный портрет: Диля и Котейка" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+  </div>
+</section>
 
-  <div class="facts" aria-label="Цифры">
-    <div class="fact"><div class="n">10 000+</div><div class="t">участников открытого интенсива A/B Week</div></div>
-    <div class="fact"><div class="n">1000+</div><div class="t">студентов прошли мой курс теории игр в ШАДе</div></div>
-    <div class="fact"><div class="n">с 2002</div><div class="t">преподаю: от Малого мехмата МГУ до ШАДа</div></div>
-    <div class="fact"><div class="n">МГУ + РЭШ</div><div class="t">математик по образованию, специализация в теории игр и аукционах, статистике и A/B-тестах</div></div>
+<!-- (г) Где преподавала: таймлайн; рядом коротко о себе -->
+<section class="wrap block" id="teach" aria-labelledby="teach-h">
+  <h2 id="teach-h" data-i18n="teach.title">Где я преподаю и преподавала</h2>
+  <div class="teach-grid">
+    <div>
+      <ol class="timeline" role="list">
+        <li>
+          <span class="when">2025</span>
+          <div>
+            <span class="kind" data-i18n="teach.abw.kind">открытый интенсив</span>
+            <h3 data-i18n="teach.abw.h">A/B Week в Школе анализа данных</h3>
+            <p data-i18n="teach.abw.p">Мой интенсив, пять лекций: статистика и критерии, ошибки I и II рода, бакеты, бутстрап, линеаризация, CUPED, стратификация, подглядывание и байесовский подход. Больше 10 000 участников, записи и материалы в открытом доступе.</p>
+            <p class="links"><a href="https://shad.yandex.ru/abweek" data-i18n="teach.abw.l1">Лекции на сайте Школы анализа данных</a><a href="https://github.com/dakhakimova/YSDA_ABweek" data-i18n="teach.abw.l2">Ноутбуки на GitHub</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="when">2022</span>
+          <div>
+            <span class="kind" data-i18n="teach.jac.kind">университетский курс</span>
+            <h3 data-i18n="teach.jac.h">Теория игр в Jacobs University, Бремен</h3>
+            <p data-i18n="teach.jac.p">Курс для студентов Computer Science на английском. Сейчас университет называется Constructor University.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when" data-i18n="teach.gt.when">с 2011</span>
+          <div>
+            <span class="kind" data-i18n="teach.gt.kind">курс Школы анализа данных</span>
+            <h3 data-i18n="teach.gt.h">Теория игр</h3>
+            <p data-i18n="teach.gt.p">Некооперативные и кооперативные игры, теория контрактов, дизайн механизмов, теория аукционов. Больше 1000 студентов.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when">2009–2011</span>
+          <div>
+            <span class="kind" data-i18n="teach.nes.kind">семинары</span>
+            <h3 data-i18n="teach.nes.h">РЭШ</h3>
+            <p data-i18n="teach.nes.p">Семинары по теории игр и отраслевым рынкам.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when" data-i18n="teach.ol.when">с 2002</span>
+          <div>
+            <span class="kind" data-i18n="teach.ol.kind">кружки</span>
+            <h3 data-i18n="teach.ol.h">Олимпиадная математика</h3>
+            <p data-i18n="teach.ol.p">Малый мехмат МГУ, Вторая школа, летние олимпиадные математические лагеря.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="note teach-more" data-i18n="teach.more">Ещё — проекты студентов МФТИ.</p>
+    </div>
+    <aside class="panel bio" aria-labelledby="bio-h">
+      <h3 id="bio-h" data-i18n="bio.title">Коротко о себе</h3>
+      <p data-i18n="bio.p1">Математик по образованию: МГУ и РЭШ, специализация — теория игр и аукционы. Потом статистика и A/B-тесты стали работой.</p>
+      <p data-i18n="bio.p2">Ставила A/B-эксперименты в рекламе Яндекса, занималась прогнозом кликабельности — об этом две работы в разделе <a href="#science">«Наука»</a>. Дальше были метрики и платформы экспериментов в больших продуктовых командах.</p>
+      <p data-i18n="bio.p3">Живу в Белграде.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- (д) Проекты: курсы, «Пеликан», статьи, наука -->
+<section class="wrap block" id="projects" aria-labelledby="proj-h">
+  <h2 id="proj-h" data-i18n="proj.title">Проекты</h2>
+
+  <div id="next" class="sub-block">
+    <h3 class="h3" data-i18n="line.title">Курсы</h3>
+    <p class="muted" data-i18n="line.lead">Линейка от начального уровня до продвинутого. Бесплатные — без регистрации и без карты.</p>
+    <ul class="lineup" role="list">
+      <li style="--course:var(--c-prob)"><a href="/probability/"><b data-i18n="foot.c.prob">Вероятность на пальцах</b><span class="line" data-i18n="c.prob.line">шансы в штуках и задачи с собеседований</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag soon" data-i18n="soon">скоро</span></span></a></li>
+      <li style="--course:var(--c-sig)"><a href="/signal/"><b data-i18n="foot.c.sig">Сигнал или шум</b><span class="line" data-i18n="c.sig.line">как отличить эффект от случайности</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
+      <li style="--course:var(--c-ab)"><a href="/ab-basics/"><b data-i18n="foot.c.ab">A/B на пальцах</b><span class="line" data-i18n="c.ab.line">как читать отчёт A/B — для всей команды</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
+      <li style="--course:var(--c-st)"><a href="/stats/"><b data-i18n="foot.c.st">Прикладная статистика для аналитика</b><span class="line" data-i18n="c.st.line">интервалы, критерии, мощность и регрессия для любых данных</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span></span></a></li>
+      <li style="--course:var(--c-abm)"><a href="/ab/"><b data-i18n="foot.c.abm">A/B без мифов</b><span class="line" data-i18n="c.abm.line">для тех, кто уже запускает A/B-тесты</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span></span></a></li>
+      <li style="--course:var(--c-cau)"><a href="/causal/"><b data-i18n="foot.c.cau">Causal inference</b><span class="line" data-i18n="c.cau.line">причины по данным, когда эксперимент не провести</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag later" data-i18n="later">позже</span></span></a></li>
+    </ul>
+    <p class="hand-line" data-i18n="line.hand">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
+    <p><a class="more" href="/#routes" data-i18n="line.all">Все курсы и как выбрать — на главной →</a></p>
   </div>
 
-  <section class="sheet plain squared c-butter clip" style="--r:-.5deg" aria-labelledby="what-h">
-    <h2 id="what-h">Чем занимаюсь</h2>
-    <div class="cols">
-      <div><span class="k">аналитика</span><h3>Эксперименты и решения на данных</h3><p>A/B-тесты, метрики и платформы экспериментов: что на самом деле сдвинуло цифры, а что шум.</p></div>
-      <div><span class="k">преподавание</span><h3>Статистика и теория игр</h3><p>Малый мехмат МГУ, Вторая школа, летние математические лагеря, РЭШ, ШАД, Jacobs University в Бремене, проекты студентов МФТИ.</p></div>
-      <div><span class="k">продукты</span><h3>«Пеликан»</h3><p>Платформа олимпиадной математики для младших школьников: запустила, в 2016 году продала Яндексу, развиваю дальше. <a href="https://pelican.study">pelican.study</a></p></div>
+  <article class="panel pelican sub-block" id="pelican" aria-labelledby="pel-h">
+    <h3 id="pel-h" class="h3" data-i18n="pel.title">«Пеликан»</h3>
+    <p data-i18n="pel.p">Мой проект: онлайн-кружки олимпиадной математики для 1–⁠3 классов. Запустила его как платформу олимпиадной математики для младших школьников, в 2016 году продала Яндексу, развиваю дальше.</p>
+    <p class="links"><a href="https://pelican.study">pelican.study</a></p>
+  </article>
+
+  <div class="duo sub-block">
+    <div class="panel" id="writing" aria-labelledby="wr-h" role="region">
+      <h3 id="wr-h" class="h3" data-i18n="wr.title">Статьи и интервью</h3>
+      <ul class="entries" role="list">
+        <li>
+          <p class="meta-line"><span class="kind" data-i18n="wr.int.kind">интервью</span><time datetime="2025-07" data-i18n="wr.int.when">июль 2025</time></p>
+          <h4 data-i18n="wr.int.h">Зачем начинающим айтишникам ходить на конференции</h4>
+          <p data-i18n="wr.int.p">Журнал «Код» — о пути от зала к сцене: «это не рокет-сайенс, а хорошо выполненная аналитическая работа».</p>
+          <p class="links"><a href="https://thecode.media/zachem-nachinayuschim-razrabotchikam-hodit-na-konferentsii/">thecode.media</a></p>
+        </li>
+        <li>
+          <p class="meta-line"><span class="kind" data-i18n="wr.my.kind">статья</span><time datetime="2025-06-26" data-i18n="wr.my.when">26 июня 2025</time></p>
+          <h4 data-i18n="wr.my.h">10 мифов об A/B-тестировании</h4>
+          <p data-i18n="wr.my.p">Как избежать распространённых заблуждений в статистическом анализе — с симуляциями, которые можно запустить самому.</p>
+          <p class="links"><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="wr.my.l1">Хабр</a><a href="https://dev.go.yandex/blog/myths-about-testing-2025-06-26" data-i18n="wr.my.l2">Блог Яндекс Go</a><a href="https://github.com/dakhakimova/Fun-stats/blob/main/10myths.ipynb" data-i18n="wr.my.l3">Код на GitHub</a><a href="/ab-basics/08-errors.html#card-5" data-i18n="wr.my.l4">Игрушка к статье</a></p>
+        </li>
+      </ul>
     </div>
-  </section>
-
-  <section class="sheet ruled c-mint pin" style="--r:.45deg; --pc:#7FA7C9" id="teach" aria-labelledby="teach-h">
-    <h2 id="teach-h">Курсы и лекции</h2>
-    <ul class="list">
-      <li class="item">
-        <span class="when">2025</span>
-        <span class="kind">открытый интенсив</span>
-        <h3>A/B Week Школы анализа данных</h3>
-        <p>Пять лекций: статистика и критерии, ошибки I и II рода, бакеты, бутстрап, линеаризация, CUPED, стратификация, подглядывание и байесовский подход. Больше 10 000 участников, записи в открытом доступе.</p>
-        <div class="links"><a href="https://shad.yandex.ru/abweek">Лекции на сайте ШАДа</a><a href="https://github.com/dakhakimova/YSDA_ABweek">Ноутбуки на GitHub</a></div>
-      </li>
-      <li class="item">
-        <span class="when">с 2011</span>
-        <span class="kind">курс ШАДа</span>
-        <h3>Теория игр</h3>
-        <p>Некооперативные и кооперативные игры, теория контрактов, дизайн механизмов, теория аукционов. Больше 1000 студентов.</p>
-      </li>
-      <li class="item">
-        <span class="when">2022</span>
-        <span class="kind">университетский курс</span>
-        <h3>Теория игр в Jacobs University</h3>
-        <p>Курс для студентов Computer Science на английском. Сейчас университет называется Constructor University, Бремен.</p>
-      </li>
-      <li class="item">
-        <span class="when">с 2002</span>
-        <span class="kind">кружки</span>
-        <h3>Олимпиадная математика</h3>
-        <p>Малый мехмат МГУ, Вторая школа, летние лагеря по олимпиадной математике. Потом — семинары по теории игр и отраслевым рынкам в РЭШ (2009–2011).</p>
-      </li>
-    </ul>
-  </section>
-
-  <section class="sheet ruled c-sky tape" style="--r:-.4deg" id="writing" aria-labelledby="writing-h">
-    <h2 id="writing-h">Статьи и интервью</h2>
-    <ul class="list">
-      <li class="item">
-        <span class="when">июль<br>2025</span>
-        <span class="kind">интервью</span>
-        <h3>Зачем начинающим айтишникам ходить на конференции</h3>
-        <p>Журнал «Код» — о пути от зала к сцене: «это не рокет-сайенс, а хорошо выполненная аналитическая работа».</p>
-        <div class="links"><a href="https://thecode.media/zachem-nachinayuschim-razrabotchikam-hodit-na-konferentsii/">thecode.media</a></div>
-      </li>
-      <li class="item">
-        <span class="when">июнь<br>2025</span>
-        <span class="kind">статья</span>
-        <h3>10 мифов об A/B-тестировании</h3>
-        <p>Как избежать распространённых заблуждений в статистическом анализе — с симуляциями, которые можно запустить самому.</p>
-        <div class="links"><a href="https://habr.com/ru/companies/yandex/articles/919966/">Хабр</a><a href="https://dev.go.yandex/blog/myths-about-testing-2025-06-26">Блог Яндекс Go</a><a href="https://github.com/dakhakimova/Fun-stats/blob/main/10myths.ipynb">Код на GitHub</a></div>
-      </li>
-    </ul>
-  </section>
-
-  <section class="sheet squared c-white clip" style="--r:.35deg; --cx:calc(100% - 80px)" id="science" aria-labelledby="science-h">
-    <h2 id="science-h">Наука</h2>
-    <ul class="list">
-      <li class="item">
-        <span class="when">2013</span>
-        <span class="kind">статья</span>
-        <h3>Optimization of click-through rate prediction in the Yandex search engine</h3>
-        <p>K. Bauman, A. Kornetova, V. Topinskii, D. Khakimova. Automatic Documentation and Mathematical Linguistics, 47, 52–58.</p>
-        <div class="links"><a href="https://doi.org/10.3103/S0005105513020040">Статья на Springer</a></div>
-      </li>
-      <li class="item">
-        <span class="when">2010</span>
-        <span class="kind">доклад</span>
-        <h3>On the evaluation of click-through rates and conversion rates of different positions in sponsored search auctions</h3>
-        <p>D. Arkhangelsky, S. Izmalkov, D. Khakimova, S. Lyashenko.</p>
-      </li>
-    </ul>
-  </section>
-
-
-  <section class="sheet plain ruled c-rose pin" style="--r:.5deg; --pc:#E07A6C" id="next" aria-labelledby="next-h">
-    <h2 id="next-h">Скоро: два курса</h2>
-    <div class="cols" style="grid-template-columns:1fr 1fr">
-      <div>
-        <span class="soon">бесплатно</span>
-        <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«Сигнал или шум»</h3>
-        <p>Интерактивный курс: случайность, распределения, ловушки в данных и первые A/B-тесты. Всё можно двигать, запускать и проверять своим кодом прямо в браузере.</p>
-      </div>
-      <div>
-        <span class="soon" style="background:#C9DBF0">следом</span>
-        <h3 style="font:400 30px/1.15 var(--serif); margin:14px 0 8px">«A/B без мифов»</h3>
-        <p>Как ставить честные эксперименты в продукте: метрики-отношения, бакеты, CUPED, подглядывание, множественные проверки — и как отвечать на это на собеседовании.</p>
-      </div>
+    <div class="panel" id="science" aria-labelledby="sci-h" role="region">
+      <h3 id="sci-h" class="h3" data-i18n="sci.title">Наука</h3>
+      <ul class="entries" role="list">
+        <li>
+          <p class="meta-line"><span class="kind" data-i18n="sci.a.kind">статья</span><time datetime="2013">2013</time></p>
+          <h4 lang="en">Optimization of click-through rate prediction in the Yandex search engine</h4>
+          <p data-i18n="sci.a.p">K. Bauman, A. Kornetova, V. Topinskii, D. Khakimova. Automatic Documentation and Mathematical Linguistics, 47, 52–58.</p>
+          <p class="links"><a href="https://doi.org/10.3103/S0005105513020040" data-i18n="sci.a.l">Статья на Springer</a></p>
+        </li>
+        <li>
+          <p class="meta-line"><span class="kind" data-i18n="sci.b.kind">доклад</span><time datetime="2010">2010</time></p>
+          <h4 lang="en">On the evaluation of click-through rates and conversion rates of different positions in sponsored search auctions</h4>
+          <p data-i18n="sci.b.p">D. Arkhangelsky, S. Izmalkov, D. Khakimova, S. Lyashenko.</p>
+        </li>
+      </ul>
     </div>
-    <p class="hand-line">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <div class="row">
-      <div><a href="/">Курсы, игрушки и статьи — на главной</a></div>
-      <div>© 2026 Диля Хакимова · Белград</div>
+<!-- (е) Контакты. Почты на сайте нет — не добавлять. -->
+<section class="wrap block" id="contacts" aria-labelledby="ct-h">
+  <h2 id="ct-h" data-i18n="ct.title">Где меня найти</h2>
+  <ul class="contacts" role="list">
+    <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a><span data-i18n="ct.gh">ноутбуки A/B Week и симуляции к статьям</span></li>
+    <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="ct.habr">Хабр</a><span data-i18n="ct.habr.d">статья «10 мифов об A/B-тестировании»</span></li>
+    <li><b data-i18n="ct.tg">Telegram-канал</b><span class="tag soon" data-i18n="ct.tg.d">скоро, не чаще раза в неделю</span></li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2 data-i18n="foot.courses">Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a><span class="note" data-i18n="soon">скоро</span></li>
+        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+      </ul>
     </div>
-  </footer>
-</div>
+    <div>
+      <h2 data-i18n="foot.more">Ещё</h2>
+      <ul role="list">
+        <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
+        <li><a href="/about/" aria-current="page" data-i18n="nav.about">Об авторе</a></li>
+        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
+    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+  </div>
+</footer>
 
+<script src="/i18n/site.js?v=202611221"></script>
+<script src="/i18n/about.js?v=202611221"></script>
+<script src="/landing.js?v=202611221"></script>
 </body>
 </html>
