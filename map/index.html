@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/home.css?v=202611221">
 <link rel="stylesheet" href="/course.css?v=202611221">
-<link rel="stylesheet" href="/map/map.css?v=202611230">
+<link rel="stylesheet" href="/map/map.css?v=202611240">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
@@ -58,6 +58,7 @@
     <span><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">Продвинутый</span></span>
     <span><span class="tag free" data-i18n="free">бесплатно</span><span data-i18n="legend.free">бесплатно, можно начать сейчас</span></span>
     <span><span class="tag soon" data-i18n="soon">скоро</span><span data-i18n="legend.soon">платно, скоро — зима 2027</span></span>
+    <span><span class="tag planned" data-i18n="plan.tag">в планах</span><span data-i18n="legend.planned">курс в планах: без сроков и шагов</span></span>
     <span><span class="tag main-tag" data-i18n="ui.main">главное</span><span data-i18n="legend.main">главное действие курса</span></span>
     <span class="arrow-key"><svg width="40" height="12" aria-hidden="true"><path d="M2 6H30" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M30 2l7 4-7 4z" fill="currentColor"/></svg><span data-i18n="legend.arrow">нужно до</span></span>
   </div>
@@ -81,6 +82,13 @@
     <svg class="edges" id="edges" aria-hidden="true" focusable="false"></svg>
     <div class="cols" id="cols"></div>
   </div>
+</section>
+
+<section class="wrap wide block m-plan" id="planned" aria-labelledby="plan-h">
+  <h2 id="plan-h" data-i18n="plan.title">В планах</h2>
+  <p class="lead-note" data-i18n="plan.lead">Курсы, которых ещё нет. Названия рабочие, программы в работе: здесь только о чём курс, что сможешь и где он встанет на карте.</p>
+  <noscript><p class="plate" data-i18n="plan.noscript">В планах: «Удача или решение?», «Сказать числами», «Стимулы и рынки».</p></noscript>
+  <ol class="plans" id="plan-list" role="list"></ol>
 </section>
 
 <section class="wrap wide block" id="bounds" aria-labelledby="bounds-h">
@@ -125,8 +133,8 @@
 </footer>
 
 <script src="/i18n/site.js?v=202611230"></script>
-<script src="/i18n/map.js?v=202611230"></script>
+<script src="/i18n/map.js?v=202611240"></script>
 <script src="/landing.js?v=202611221"></script>
-<script src="/map/map.js?v=202611230"></script>
+<script src="/map/map.js?v=202611240"></script>
 </body>
 </html>

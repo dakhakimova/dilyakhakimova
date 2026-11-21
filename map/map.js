@@ -5,6 +5,8 @@
      free:<глава>:seen — signal/book.js для «Вероятности» и глав 4–12 «Сигнала», signal:ch01:seen — глава 1 «Сигнала»,
      ab:<шаг>:seen — ab-basics/course.js; значение — массив номеров просмотренных карточек с нуля);
    — уже 1024 px граф становится списком по курсам, стрелки не рисуются, панель навыка — снизу.
+   — «В планах»: курсы со status: planned из skills.json — лёгкие карточки без навыков-узлов, кнопок и листа ожидания
+     (у платных «скоро» лист ожидания — пока только заглушка без формы), тексты — plan.* в i18n/map.js.
    Строки интерфейса — ui.* в i18n/map.js. Адреса: ?route=product|analyst|interview|abtester, #<курс> (prob, sig, ab, st, abm, cau) или #<навык>. */
 (function () {
 'use strict';
@@ -87,6 +89,31 @@ function init(M){
   $('bounds-list').innerHTML = ['prob', 'sig', 'ab', 'st', 'abm', 'cau'].map(cid => { const c = course[cid];
     return `<li style="--course:var(${c.color})"><b>${tx(c.title)}</b><p>${tx(c.boundary)}</p></li>`; }).join('');
   const btn = id => $('n-' + id);
+
+  // ---------- в планах ----------
+  const has = k => k in DICT || k in RU;
+  const ref = r => {
+    if (r.startsWith('ext:')) return `<span class="ref ext">${t('plan.ext.' + r.slice(4))}</span>`;
+    if (node.has(r)){ const n = node.get(r), c = course[n.course];
+      return `<a class="ref" href="#${r}" data-go="${r}" style="--course:var(${c.color})">${esc(c.short)}: ${tx(n.label)}</a>`; }
+    const c = course[r];
+    return c.status === 'planned' ? `<a class="ref planref" href="#plan-${r}">«${t('plan.' + r + '.title')}»</a>`
+      : `<a class="ref" href="#${r}" style="--course:var(${c.color})">${tx(c.title)}</a>`;
+  };
+  const rel = (c, k) => !(c[k] || []).length ? '' : `<div><dt>${t('plan.' + k)}</dt><dd>${c[k].map(r => ref(r)
+    + (has(`plan.${c.id}.${k}.${r}`) ? ` <span class="why">— ${t(`plan.${c.id}.${k}.${r}`)}</span>` : '')).join(k === 'after' ? ` ${t('plan.or')} ` : ', ')}</dd></div>`;
+  $('plan-list').innerHTML = M.courses.filter(c => c.status === 'planned').map(c => { const k = x => `plan.${c.id}.${x}`;
+    const sk = [1, 2, 3, 4, 5].filter(i => has(k('s' + i))).map(i => `<li>${t(k('s' + i))}</li>`).join('');
+    return `<li class="plan" id="plan-${c.id}" aria-labelledby="ph-${c.id}">
+      <p class="chips"><span class="tag planned">${t('plan.tag')}</span></p>
+      <h3 id="ph-${c.id}">${t(k('title'))}</h3>${has(k('alt')) ? `<p class="alt">${t(k('alt'))}</p>` : ''}
+      <p class="pl-about">${t(k('lead'))}</p>
+      <h4>${t('plan.can')}</h4><ul class="sk">${sk}</ul>
+      ${has(k('entry')) ? `<p class="entry">${t(k('entry'))}</p>` : ''}
+      <dl class="rels">${rel(c, 'after')}${rel(c, 'near')}${rel(c, 'leads')}</dl>
+      <p class="when">${t('plan.when')}</p></li>`; }).join('');
+  $('plan-list').addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (!a) return;
+    e.preventDefault(); const id = a.dataset.go; btn(id).scrollIntoView({block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); opener = btn(id); open(id); });
 
   // ---------- маршруты ----------
   let route = null;
@@ -230,6 +257,7 @@ function init(M){
   setRoute(q || '', false);
   const hash = decodeURIComponent(location.hash.slice(1));
   if (course[hash]) { const h = $(hash); requestAnimationFrame(() => { h.scrollIntoView({block: 'start'}); h.querySelector('h2 a').focus({preventScroll: true}); }); }
+  else if (/^plan-/.test(hash) && $(hash)) requestAnimationFrame(() => $(hash).scrollIntoView({block: 'start'}));
   else if (node.has(hash)) { requestAnimationFrame(() => { btn(hash).scrollIntoView({block: 'center'}); open(hash, true); }); }
   const redraw = () => requestAnimationFrame(drawEdges);
   if (window.ResizeObserver) new ResizeObserver(redraw).observe(cols); else addEventListener('resize', redraw);

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* Проверка карты навыков map/skills.json.
    node tools/check-map.js          — проверить: id, ссылки, циклы, пути из бесплатных курсов, параллельные ветки,
-                                      маршруты (предпосылки идут раньше), лишние рёбра, адреса игрушек и карточек
+                                      маршруты (предпосылки идут раньше), лишние рёбра, адреса игрушек и карточек,
+                                      курсы «в планах» (status: planned): без узлов, вне маршрутов, связи и тексты plan.* в i18n/map.js
    node tools/check-map.js --cards  — ещё и вписать в steps настоящее число карточек из страниц шагов
    Ошибки — код выхода 1; предупреждения (лишнее ребро, которое и так следует из других) — только печать. */
 const fs = require('fs'), path = require('path');
@@ -12,6 +13,8 @@ const errors = [], warns = [];
 const err = s => errors.push(s), warn = s => warns.push(s);
 
 const courses = Object.fromEntries(M.courses.map(c => [c.id, c]));
+const planned = M.courses.filter(c => c.status === 'planned');
+const isPlanned = cid => courses[cid] && courses[cid].status === 'planned';
 const nodes = new Map();
 for (const n of M.nodes){
   if (nodes.has(n.id)) err('повтор id ' + n.id);
@@ -28,6 +31,7 @@ for (const n of M.nodes){
   for (const c of n.covers || []) if (!nodes.has(c) && !M.nodes.some(x => x.id === c)) err(n.id + ': covers — нет узла ' + c);
 }
 for (const c of M.courses){
+  if (c.status === 'planned') continue;                       // у курсов «в планах» нет навыков и главного действия
   if (!nodes.has(c.main)) err(c.id + ': главный навык ' + c.main + ' не найден');
   else if (!nodes.get(c.main).main) err(c.id + ': у ' + c.main + ' нет main: true');
 }
@@ -57,8 +61,9 @@ function ancestors(id){
 }
 const isFree = id => courses[nodes.get(id).course].status === 'free';
 
-// входы — только в бесплатных курсах; у каждого платного навыка есть путь из бесплатных
+// входы — только в бесплатных курсах; у каждого платного навыка есть путь из бесплатных (курсы «в планах» узлов не имеют — их не проверяем)
 for (const id of nodes.keys()){
+  if (isPlanned(nodes.get(id).course)) continue;
   if (!ins.get(id).length && !isFree(id)) err(id + ': платный навык без предпосылок — нет пути из бесплатных курсов');
   if (!isFree(id) && ![...ancestors(id)].some(isFree)) err(id + ': нет пути из бесплатных курсов');
 }
@@ -78,13 +83,35 @@ for (const r of M.routes){
   const add = id => { known.add(id); for (const c of nodes.get(id).covers || []){ known.add(c); for (const q of ancestors(c)) known.add(q); } };
   for (const a of r.assumes || []){ if (!nodes.has(a)) { err(r.id + ': assumes — нет ' + a); continue; } add(a); ancestors(a).forEach(add); }
   if (!courses[r.entry]) err(r.id + ': нет курса входа ' + r.entry);
+  else if (isPlanned(r.entry)) err(r.id + ': вход в курс «в планах» ' + r.entry);
   const seen = new Set();
   for (const id of r.nodes){
     if (!nodes.has(id)){ err(r.id + ': нет узла ' + id); continue; }
     if (seen.has(id)) err(r.id + ': повтор ' + id);
+    if (isPlanned(nodes.get(id).course)) err(r.id + ': ' + id + ' — из курса «в планах», в маршрут не входит');
     seen.add(id);
     for (const p of ins.get(id)) if (!known.has(p)) err('маршрут ' + r.id + ': «' + id + '» раньше своей предпосылки «' + p + '»');
     add(id);
+  }
+}
+
+// в планах: ни узлов, ни шагов; связи after/near/leads — курс, навык или ext:<ключ>; тексты plan.<id>.* есть в словаре; 3–5 навыков
+{
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  for (const f of ['i18n/site.js', 'i18n/map.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
+  const RU = ctx.I18N.ru, need = k => { if (!(k in RU)) err('нет строки ' + k + ' в i18n/map.js'); };
+  ['plan.title', 'plan.lead', 'plan.tag', 'plan.can', 'plan.after', 'plan.near', 'plan.leads', 'plan.or', 'plan.when'].forEach(need);
+  for (const c of planned){
+    if (M.nodes.some(n => n.course === c.id)) err(c.id + ': у курса «в планах» не должно быть навыков-узлов');
+    if (Object.values(M.steps).some(st => st.course === c.id)) err(c.id + ': у курса «в планах» не должно быть шагов');
+    ['title', 'lead'].forEach(k => need('plan.' + c.id + '.' + k));
+    const sk = [1, 2, 3, 4, 5, 6].filter(i => ('plan.' + c.id + '.s' + i) in RU).length;
+    if (sk < 3 || sk > 5) err(c.id + ': ключевых навыков ' + sk + ', нужно 3–5 (plan.' + c.id + '.s1…)');
+    for (const k of ['after', 'near', 'leads']) for (const r of c[k] || []){
+      if (r.startsWith('ext:')) need('plan.ext.' + r.slice(4));
+      else if (r === c.id) err(c.id + ': связь ' + k + ' на себя');
+      else if (!courses[r] && !nodes.has(r)) err(c.id + ': связь ' + k + ' — нет курса или навыка ' + r);
+    }
   }
 }
 
@@ -106,10 +133,11 @@ for (const n of nodes.values()){
 }
 if (write) fs.writeFileSync(FILE, JSON.stringify(M, null, 2) + '\n');
 
-const byCourse = M.courses.map(c => c.short + ' ' + M.nodes.filter(n => n.course === c.id).length).join(', ');
+const byCourse = M.courses.filter(c => c.status !== 'planned').map(c => c.short + ' ' + M.nodes.filter(n => n.course === c.id).length).join(', ');
 console.log('узлов: ' + nodes.size + ' (' + byCourse + '), рёбер: ' + M.edges.length + ', мягких: ' + (M.soft || []).length + ', маршрутов: ' + M.routes.length);
 console.log('входы (без предпосылок): ' + order.filter(k => !ins.get(k).length).join(', '));
 warns.forEach(w => console.warn('предупреждение: ' + w));
 errors.forEach(e => console.error('ОШИБКА: ' + e));
-console.log(errors.length ? errors.length + ' ошибок' : 'ок: циклов нет, у каждого платного навыка есть путь из бесплатных, маршруты согласованы');
+console.log(errors.length ? errors.length + ' ошибок' : 'ок: циклов нет, у каждого платного навыка есть путь из бесплатных, маршруты согласованы'
+  + (planned.length ? ', в планах: ' + planned.length + ' (вне графа и маршрутов)' : ''));
 process.exit(errors.length ? 1 : 0);

@@ -1,6 +1,7 @@
 /* Карта навыков (/map/). Подключается после /home.css и /course.css и берёт оттуда шкалу отступов, радиусы, тени,
    тёплые серые, кнопки, метки и светофор уровней. Здесь — только граф, переключатель маршрутов, «ты здесь» и панель навыка.
-   Граф: шесть колонок-курсов (≥ 1024 px), стрелки рисует map.js в SVG под карточками. Уже 1024 px — список по курсам. */
+   Граф: шесть колонок-курсов (≥ 1024 px), стрелки рисует map.js в SVG под карточками. Уже 1024 px — список по курсам.
+   Под графом — «В планах»: пунктирные карточки будущих курсов. */
 
 .wrap.wide{max-width:1280px}
 .m-hero{padding-top:var(--s-4)}
@@ -142,3 +143,28 @@
   .m-legend{gap:var(--s-2) var(--s-4)}
 }
 @media (prefers-reduced-motion: reduce){ .node{transition:none} .node:hover{transform:none} }
+
+/* в планах: курсов ещё нет — пунктир, без тени и кнопок */
+.tag.planned{background:transparent; color:var(--warm-600); border:1px dashed currentColor; padding:5px 7px}
+.plans{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
+.plan{display:flex; flex-direction:column; border:2px dashed rgba(36,34,31,.22); border-radius:var(--r-m); padding:var(--s-4); font-size:var(--fs-s); color:var(--warm-700); min-width:0}
+.plan .chips{margin:0}
+.plan h3{font:600 var(--fs-m)/1.3 var(--serif); color:var(--ink); margin:var(--s-2) 0 0}
+.plan .alt{font-size:var(--fs-xs); color:var(--warm-600); margin:var(--s-1) 0 0}
+.plan .pl-about{margin:var(--s-3) 0 0}
+.plan h4{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:var(--s-4) 0 var(--s-2)}
+.plan .sk{margin:0; padding:0 0 0 1.1em; display:flex; flex-direction:column; gap:var(--s-1)}
+.plan .sk li::marker{color:var(--warm-600)}
+.plan .entry{margin:var(--s-3) 0 0; padding:var(--s-2) var(--s-3); background:var(--sunk); border-radius:var(--r-s)}
+.plan .rels{margin:var(--s-3) 0 0; display:flex; flex-direction:column; gap:var(--s-1)}
+.plan .rels div{display:grid; grid-template-columns:5.5em minmax(0,1fr); gap:var(--s-2)}
+.plan dt{color:var(--warm-600); font-size:var(--fs-xs); padding-top:var(--s-1)}
+.plan dd{margin:0}
+.plan .ref{display:inline-block; padding:var(--s-1) 0; color:var(--ink); text-decoration:underline; text-decoration-color:var(--course, rgba(36,34,31,.35)); text-decoration-thickness:2px; text-underline-offset:3px}
+.plan .ref.planref{text-decoration-style:dashed}
+.plan .ref.ext{text-decoration:none; color:var(--warm-700)}
+.plan a.ref:hover{color:var(--pen)}
+.plan .why{color:var(--warm-600); font-size:12px}
+.plan .when{margin:auto 0 0; padding-top:var(--s-3); font-size:var(--fs-xs); color:var(--warm-600)}
+@media (max-width:1023px){ .plans{grid-template-columns:1fr 1fr} }
+@media (max-width:620px){ .plans{grid-template-columns:1fr} }
