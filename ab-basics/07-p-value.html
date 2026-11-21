@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>p-value на пальцах · A/B на пальцах</title>
 <meta name="description" content="Шаг 7 интерактивного курса «A/B на пальцах»: что такое p-value, как он связан с доверительным интервалом и шесть правил, как его не перепутать.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +53,7 @@
   <p class="kicker">Шаг 7 из 11</p>
   <h1>p-value на пальцах</h1>
   <p class="core">После шага ты сможешь <b>прочитать p-value в отчёте</b> и не приписать ему того, чего он не говорит.</p>
-  <figure class="art"><img src="img/ab07-00-flag-hill.jpg" alt="Котейка втыкает флажок далеко на склоне холма в форме колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: флажок на склоне холма-колокола</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab07-00-flag-hill.jpg" alt="Котейка втыкает флажок далеко на склоне холма в форме колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: флажок на склоне холма-колокола</figcaption></figure>
   <p class="lead">В тесте на 100 000 гостей в группе Боб получил на 310 заказов больше (+3,1 %). Удача или эффект? И как это вообще проверить, если удачу не видно?</p>
   <p>В шаге 3 мы видели: даже одинаковые группы расходятся. Трюк такой. Представим мир, где фича ничего не делает, и посмотрим, как часто в нём случается разница не меньше нашей. Если часто, наша разница ничем не примечательна. Если почти никогда, шумом её объяснить трудно, и есть повод думать, что эффект есть.</p>
 </section>
@@ -61,9 +62,9 @@
 <section class="card" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Угадай</span>
   <h2>Боб получил +3,1 %</h2>
-  <figure class="art"><img src="img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом, Алиса держит стопку одинаковых карточек" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с результатом, Алиса со стопкой A/A-тестов</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом, Алиса держит стопку одинаковых карточек" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с результатом, Алиса со стопкой A/A-тестов</figcaption></figure>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в контроле 10 000 заказов, в тесте 10 310. Это +3,1 %, по 100 000 человек в группе. Это же явно не случайность?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в контроле 10 000 заказов, в тесте 10 310. Это +3,1 %, по 100 000 человек в группе. Это же явно не случайность?</p></div></div>
   </div>
   <p>Алиса предлагает проверить. Запустим много A/A-тестов с теми же 100 000 людьми в группе: в них кнопки нет, группы одинаковые. Как думаешь, в скольких A/A из 100 разница будет такой же или ещё больше, в любую сторону?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -80,7 +81,7 @@
   <span class="step-tag">Игрушка</span>
   <h2>Мир, где эффекта нет</h2>
   <div class="chat">
-    <div class="msg kot world"><img class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Да всё одинаково! Кнопки нет, гостей я раздал монеткой. Посмотрим, как часто у меня самого выходит +3,1 %.</p></div></div>
+    <div class="msg kot world"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Да всё одинаково! Кнопки нет, гостей я раздал монеткой. Посмотрим, как часто у меня самого выходит +3,1 %.</p></div></div>
   </div>
   <p>Насыпь 1000 A/A-тестов: каждая точка — разница в одном из них. Флажок — разница Боба. Красным отмечены A/A, где разница не меньше, чем у Боба, в любую сторону. Флажок можно двигать.</p>
   <div class="sheet c-white">
@@ -202,7 +203,7 @@
 <section class="card" data-title="Шесть правил про p" aria-label="Шесть правил про p">
   <span class="step-tag">Осторожно</span>
   <h2>Шесть правил про p</h2>
-  <figure class="art"><img src="img/ab07-02-myths.jpg" alt="Котейка отбрасывает в сторону неправильные таблички с толкованиями p-value" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка выбрасывает ложные толкования</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab07-02-myths.jpg" alt="Котейка отбрасывает в сторону неправильные таблички с толкованиями p-value" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка выбрасывает ложные толкования</figcaption></figure>
   <p>В 2016 году Американская статистическая ассоциация выпустила заявление о p-value: слишком многие читали его неправильно. В заявлении шесть правил. Вот они, пересказанные на языке кафе.</p>
   <ul class="cheat">
     <li><b>1. p честен, только если честен тест.</b> Он меряет, насколько данные не вяжутся с миром без эффекта, при условии, что гостей делила монетка и метрика посчитана верно.</li>
@@ -221,37 +222,37 @@
   <h2>Какое правило нарушил Боб?</h2>
   <p>Боб за месяц написал в рабочий чат шесть сообщений про p. В каждом нарушено одно из шести правил. Найди какое.</p>
   <div class="quiz" data-right="r2">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,03. Значит, шанс, что кнопка пустая, всего 3 %.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,03. Значит, шанс, что кнопка пустая, всего 3 %.</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r1" data-why="С тестом тут всё в порядке. Ошибка в том, как Боб читает само число.">p честен при честном тесте</button><button type="button" data-v="r5" data-why="Про размер эффекта Боб ничего не говорит. Он говорит про вероятность того, что кнопка пустая.">Малый p — не большой эффект</button><button type="button" data-v="r2">p — не шанс, что фича пуста</button><button type="button" data-v="r6" data-why="Боб не спорит о силе доказательства, он неверно переводит число в вероятность.">Одно p — слабый довод</button></div>
     <p class="why">p = 0,03 считается в мире, где кнопка пустая по условию: «если бы она ничего не делала, такое бывало бы в 3 тестах из 100». Шанса, что она пустая, из него не получить. Та же ошибка звучит и так: «у сервиса тестов написано p = 0,10, значит, 10 % ошибки».</p>
   </div>
   <div class="quiz" data-right="r6">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,03 — это железно. Повторять тест незачем, победа.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,03 — это железно. Повторять тест незачем, победа.</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r3" data-why="Боб действительно опирается на порог, но главная ошибка в другом: он считает одно p окончательным ответом.">Не решаем по одному порогу</button><button type="button" data-v="r6">Одно p — слабый довод</button><button type="button" data-v="r2" data-why="Боб не переводит p в вероятность «кнопка пустая». Он считает, что одного теста достаточно.">p — не шанс, что фича пуста</button><button type="button" data-v="r1" data-why="С самим тестом тут всё в порядке. Ошибка в том, что одно p Боб считает окончательным ответом.">p честен при честном тесте</button></div>
     <p class="why">p = 0,03 — заметный, но не железный довод. Даже если эффект ровно такой, как в тесте, повтор того же размера окажется значимым примерно в 6 случаях из 10. Иногда ту же мысль формулируют так: «1 − p = 97 %, значит, повтор выиграет с вероятностью 97 %». Это неверно.</p>
   </div>
   <div class="quiz" data-right="r5">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,0001! Это самый большой эффект за год.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,0001! Это самый большой эффект за год.</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r4" data-why="Боб не выбирал метрику из многих. Он путает силу доказательства с размером эффекта.">Показываем всё, что видели</button><button type="button" data-v="r1" data-why="Честность теста тут не обсуждается. Ошибка в том, что по p судят о размере.">p честен при честном тесте</button><button type="button" data-v="r2" data-why="Боб не переводит p в вероятность того, что фича пустая. Он судит по p о размере эффекта.">p — не шанс, что фича пуста</button><button type="button" data-v="r5">Малый p — не большой эффект</button></div>
     <p class="why">Крошечный p бывает и у крошечного эффекта, если гостей миллионы: в игрушке «Крошечный эффект» +0,5 % при 10 млн гостей в группе дают p меньше 0,1 %. О размере эффекта говорит разница и вилка.</p>
   </div>
   <div class="quiz" data-right="r3">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,06 — не дотянули до 5 %. Эффекта нет, выключаем.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p = 0,06 — не дотянули до 5 %. Эффекта нет, выключаем.</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r3">Не решаем по одному порогу</button><button type="button" data-v="r2" data-why="Боб не говорит о вероятности, что фича пустая. Он хоронит её только потому, что p оказался по другую сторону порога.">p — не шанс, что фича пуста</button><button type="button" data-v="r4" data-why="Метрика одна, прятать нечего. Ошибка в решении по одному порогу.">Показываем всё, что видели</button><button type="button" data-v="r1" data-why="Про честность теста ничего не сказано. Беда в выводе «эффекта нет» из p = 0,06.">p честен при честном тесте</button></div>
     <p class="why">0,06 и 0,04 почти не отличаются по силе. Решение «выключаем» стоит принимать по вилке: если она широкая, эффект ещё может быть заметным, и тогда тест просто не дорос.</p>
   </div>
   <div class="quiz" data-right="r4">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мы смотрели 20 метрик. В отчёт поставлю ту, где p = 0,02.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мы смотрели 20 метрик. В отчёт поставлю ту, где p = 0,02.</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r5" data-why="О размере эффекта Боб молчит. Проблема в том, что он выбрал лучшую из двадцати.">Малый p — не большой эффект</button><button type="button" data-v="r4">Показываем всё, что видели</button><button type="button" data-v="r3" data-why="Порог тут ни при чём: из двадцати пустых метрик одна и так обычно окажется ниже 5 %.">Не решаем по одному порогу</button><button type="button" data-v="r2" data-why="Боб не переводит p в вероятность. Он прячет девятнадцать других метрик.">p — не шанс, что фича пуста</button></div>
     <p class="why">Если фича пустая, из 20 метрик в среднем одна всё равно покажет p меньше 5 %. Когда в отчёт попадает только она, p выглядит как находка, а на деле это ожидаемый шум. Подробнее — в шаге 10.</p>
   </div>
   <div class="quiz" data-right="r1">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ждали 50/50, а в группах 53 000 и 47 000 гостей. Зато p = 0,01, катим!</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ждали 50/50, а в группах 53 000 и 47 000 гостей. Зато p = 0,01, катим!</p></div></div></div>
     <p class="q">Какое правило нарушено?</p>
     <div class="choice"><button type="button" data-v="r6" data-why="Дело не в силе одного p. Когда деление сломано, p вообще не на чем считать.">Одно p — слабый довод</button><button type="button" data-v="r5" data-why="Про размер эффекта здесь речи нет. Подозрительны сами группы.">Малый p — не большой эффект</button><button type="button" data-v="r2" data-why="Боб не переводит p в вероятность. Он не замечает, что сломан сам тест.">p — не шанс, что фича пуста</button><button type="button" data-v="r1">p честен при честном тесте</button></div>
     <p class="why">При честной монетке на 100 000 гостей группы расходятся обычно на несколько сотен человек, а не на 6000. Значит, деление сломано, и p посчитан для теста, которого не было. Сначала ищем баг, и только потом смотрим на p.</p>
@@ -265,7 +266,7 @@
   <span class="step-tag">Проверь себя</span>
   <h2>Выбери верный заголовок</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест кнопки «Повторить заказ»: p = 0,03. Пишу новость в общий канал, помогите с заголовком!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест кнопки «Повторить заказ»: p = 0,03. Пишу новость в общий канал, помогите с заголовком!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Какой заголовок верно передаёт p = 0,03?</p>
@@ -295,7 +296,7 @@
   </div>
   <div class="quiz" data-right="c">
     <p class="q">p-value = 0,25.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Фича не работает, выключаем.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Фича не работает, выключаем.</p></div></div></div>
     <p class="q">Что не так?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Боб делает вывод, которого p-value не даёт: «не отличили от шума» не значит «эффекта нет».">Ничего: большой p значит, что эффекта нет</button><button type="button" data-v="b" data-why="Держать тест, пока p не опустится, — это подглядывание: так растут ложные тревоги. Об этом шаг 10.">Надо было держать тест, пока p не станет меньше 5 %</button><button type="button" data-v="c">«Не отличили от шума» ещё не «эффекта нет»</button></div>
     <p class="why">Большой p-value говорит только, что разница не удивительна для мира без эффекта. Возможно, эффекта и правда нет, а возможно, людей не хватило. Смотрим на вилку: насколько большой эффект она ещё допускает.</p>
@@ -320,7 +321,7 @@
     <dt>p-value</dt><dd>доля экспериментов без эффекта, где разница не меньше нашей</dd>
     <dt>Уровень значимости</dt><dd>порог для p-value, обычно 5 %; ниже порога разница «значима»</dd>
   </dl>
-  <figure class="art"><img src="img/ab07-03-next.jpg" alt="Алиса раскладывает сто карточек экспериментов на столе, Котейка подглядывает" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: сто карточек экспериментов</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab07-03-next.jpg" alt="Алиса раскладывает сто карточек экспериментов на столе, Котейка подглядывает" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: сто карточек экспериментов</figcaption></figure>
   <p class="lead">Дальше, шаг 8: порог в 5 % иногда ошибается. Как часто мы будем выкатывать пустые фичи и пропускать хорошие — на игре из ста экспериментов.</p>
 </section>
 
@@ -331,8 +332,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js"></script>
-<script src="course.js?v=202611212300"></script>
+<script src="/signal/progress.js?v=202611240"></script>
+<script src="course.js?v=202611240"></script>
 <script>
 const P0 = 0.10, Z = 1.96, N0 = 100000;
 const se0 = n => Math.sqrt(2 * P0 * (1 - P0) / n) / P0;      // ширина колокола разницы в мире без эффекта

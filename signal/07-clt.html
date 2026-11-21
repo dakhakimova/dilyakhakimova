@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЦПТ в деле · Сигнал или шум</title>
 <meta name="description" content="Глава 7 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка среднего σ/√n, центральная предельная теорема на четырёх панелях, когда «киты» мешают колоколу, первая вилка для среднего, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +22,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch07" data-next="08-traps.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -60,7 +61,7 @@
   <p class="kicker">Часть I · глава 7</p>
   <h1>ЦПТ в деле</h1>
   <p class="core">После главы ты сможешь <b>посчитать стандартную ошибку среднего σ/√n</b> и проверить симуляцией, хватает ли n для колокола.</p>
-  <figure class="art"><img src="img/ch07-00-four-panels.jpg" alt="Алиса стоит у четырёх досок, на каждой растёт колокол своей кривизны" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса у четырёх досок с колоколами разной кривизны</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch07-00-four-panels.jpg" alt="Алиса стоит у четырёх досок, на каждой растёт колокол своей кривизны" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса у четырёх досок с колоколами разной кривизны</figcaption></figure>
   <p class="lead">Один заказ непредсказуем. Среднее сотни заказов предсказуемо почти как расписание. Насколько точно — и почему с банкетами это «почти» растягивается на тысячи заказов?</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет четвёртый">
     <li>1. Что здесь случайно?</li>
@@ -77,10 +78,10 @@
 <section class="card" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Почему колокол Боба кривой?</h2>
-  <figure class="art"><img src="img/ch07-01-bob-crooked.jpg" alt="Боб показывает на кривой колокол на экране, за его спиной официанты несут огромный банкетный заказ" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у кривого «колокола», за спиной — банкет</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch07-01-bob-crooked.jpg" alt="Боб показывает на кривой колокол на экране, за его спиной официанты несут огромный банкетный заказ" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у кривого «колокола», за спиной — банкет</figcaption></figure>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я брал по 30 заказов, считал средний чек и складывал эти средние в гистограмму. Обещали колокол, а вышла горка с хвостом вправо. ЦПТ сломалась?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не сломалась, просто ещё не доехала. У нас в чеках есть банкеты. Давай возьмём по 1, 5, 30 и 100 заказов и посмотрим, как колокол собирается.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я брал по 30 заказов, считал средний чек и складывал эти средние в гистограмму. Обещали колокол, а вышла горка с хвостом вправо. ЦПТ сломалась?</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не сломалась, просто ещё не доехала. У нас в чеках есть банкеты. Давай возьмём по 1, 5, 30 и 100 заказов и посмотрим, как колокол собирается.</p></div></div>
   </div>
   <p>Чеки в кафе такие же, как в главе 6: типичный около 350 ₽, а из-за редких банкетов среднее — 641 ₽. Боб берёт 30 случайных заказов и считает их средний чек.</p>
   <div class="guess" data-key="whales30" data-min="0" data-max="100" data-unit="%">
@@ -305,7 +306,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>«Тридцати хватает»</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я читал: при n ≥ 30 среднее нормальное. Так что для выручки на гостя 30 гостей в группе хватит, можно считать σ/√n и не думать.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я читал: при n ≥ 30 среднее нормальное. Так что для выручки на гостя 30 гостей в группе хватит, можно считать σ/√n и не думать.</p></div></div>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -397,7 +398,7 @@ _check()
     <dt>Асимметрия</dt><dd>мера перекоса распределения, у симметричного 0; skewness</dd>
     <dt>Доверительный интервал</dt><dd>вилка x̄ ± z·SE, построенная так, что 95 % таких вилок накрывают правду; confidence interval, подробно — в главе 10</dd>
   </dl>
-  <figure class="art"><img src="img/ch07-02-next.jpg" alt="Алиса держит лупу над таблицей данных, Котейка выглядывает из мешка с подозрительной улыбкой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса проверяет таблицу данных лупой</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch07-02-next.jpg" alt="Алиса держит лупу над таблицей данных, Котейка выглядывает из мешка с подозрительной улыбкой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса проверяет таблицу данных лупой</figcaption></figure>
   <a class="next-step" href="08-traps.html"><b>Дальше, глава 8: «Симпсон, Берксон, ошибка выжившего и автобус»</b>Формула σ/√n честна, только если в данных правильные люди. Почему Котейка на остановке ждёт вдвое дольше, чем думает?</a>
 </section>
 
@@ -408,7 +409,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/10-traps.html?toy=peeking" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Остановишь тест в первый же «значимый» день? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Тридцать утр с отчётом: что будет, если смотреть на A/A-тест каждый день и выкатывать при первом «значимо».">
+<link rel="canonical" href="https://dilyakhakimova.com/play/peeking/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/peeking/">
+<meta property="og:title" content="Остановишь тест в первый же «значимый» день? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Тридцать утр с отчётом: что будет, если смотреть на A/A-тест каждый день и выкатывать при первом «значимо».">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/peeking.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Остановишь тест в первый же «значимый» день?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="peeking" data-frame="/ab-basics/10-traps.html?toy=peeking"
+  data-share-title="Остановишь тест в первый же «значимый» день?" data-share-text="Продакт открывает отчёт A/B каждое утро и готов выкатить фичу в первый же «значимый» день. Как часто так выкатывают пустышку? Сделай ставку и проверь на сотне A/A"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="peeking" data-show-from="0" hidden></span></p>
+  <h1>Остановишь тест в первый же «значимый» день?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Запустили A/B-тест на 30 дней. Я открываю отчёт каждое утро: как только станет «значимо», сразу выкатываю.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А если эффекта нет совсем? «Значимо» обещает не больше 5 % ложных побед — но при одном взгляде, в конце теста.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Так я же просто смотрю. От взгляда цифры не меняются.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я каждое утро добавляю в обе группы новых гостей — кого куда, решает монетка.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим на A/A, где разницы точно нет: как часто ты успеешь выкатить пустышку?</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>«Значимо» в отчёте — это обещание: если эффекта нет, тест ошибётся не чаще чем в 5 % случаев. Но обещание дано для одного взгляда, в заранее выбранный день.</p><p>Здесь A/A-тест: обе группы видят одно и то же, эффекта нет. Линия показывает, насколько разница между группами больше обычного шума, день за днём; серая полоса — граница «значимо». Боб останавливает тест в первый же день, когда линия вышла из полосы. Сделай ставку, как часто это случится, потом запусти сотню таких тестов.</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab10-01-peeking.jpg" alt="Боб с утренним кофе заглядывает в ноутбук через плечо Алисы" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/10-traps.html?toy=peeking" title="Игрушка: Остановишь тест в первый же «значимый» день?" style="height:1400px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/10-traps.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Сделай ставку и запусти один A/A на 30 дней. Вышла ли линия из полосы хоть раз?</li><li>Нажми «+100 A/A» и сравни две доли: «хоть раз значимо» и «значимо на 30-й день».</li><li>Начни сначала и повтори. Доля «хоть раз» снова далеко от 5 %?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Порог 5 % обещан для одного взгляда в конце. Если смотреть каждый из 30 дней и останавливаться на первом «значимо», A/A-тест «находит» эффект, которого нет, примерно в каждом четвёртом случае — в симуляции около 28 %. Каждый взгляд — ещё один шанс, что шум выйдет за полосу.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>5 % ложных побед — только если смотреть один раз, в конце.</li><li>30 взглядов с остановкой на первом «значимо» — около 28 %.</li><li>Длину теста решают заранее, по MDE.</li><li>Каждый день смотрим на поломки: не упало ли приложение, ровно ли делятся группы (SRM).</li><li>Хочешь смотреть на эффект по ходу — только по плану: заранее выбранные дни и строже порог.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Рона Кохави, Дианы Тан и Я Сюя «Trustworthy Online Controlled Experiments».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб пообещал больше не подглядывать — и тут же решил смотреть сразу на двадцать метрик. Что из этого вышло — шаг 10 курса, <a href="/ab-basics/10-traps.html">«Когда зелёное врёт»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/10-traps.html">Открыть шаг 10 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/galton/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько шариков долетит до средней корзины?</b><span>Доска Гальтона: тысяча шариков, десять рядов гвоздиков и горка, которая оказывается ниже, чем кажется.</span><small>из курса «Вероятность на пальцах», шаг 7</small><span class="play-count" data-count-for="galton" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/aa-stand/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Какой бывает разница, когда разницы нет?</b><span>Стенд A/A: тысяча тестов, где обе группы видят одно и то же, и колокол шума, который из них вырастает.</span><small>из курса «Сигнал или шум», глава 9</small><span class="play-count" data-count-for="aa-stand" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

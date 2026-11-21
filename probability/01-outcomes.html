@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Исходы и события · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 1 бесплатного интерактивного курса «Вероятность на пальцах»: исходы, события, вероятность как доля нужных исходов, две монетки и два кубика, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +59,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p01" data-next="02-frequency.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -80,7 +81,7 @@
   <p class="kicker">Шаг 1 из 9</p>
   <h1>Исходы и события</h1>
   <p class="core">После шага ты сможешь <b>перечислить все равновозможные исходы и посчитать вероятность</b> как долю нужных.</p>
-  <figure class="art"><img src="img/vp01-00-dishes.jpg" alt="Гора посуды в раковине кафе, Боб держит две монетки, Котейка довольно улыбается из мешка" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: гора посуды, Боб с двумя монетками, довольный Котейка</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp01-00-dishes.jpg" alt="Гора посуды в раковине кафе, Боб держит две монетки, Котейка довольно улыбается из мешка" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: гора посуды, Боб с двумя монетками, довольный Котейка</figcaption></figure>
   <p class="lead">Кафе Алисы, Боба и Котейки только открылось, и после первого вечера в раковине гора посуды. Боб предлагает решать жребием из двух монеток. Честное ли у него правило — и кто на самом деле будет мыть чаще?</p>
   <div class="heroes">
     <div><b>Алиса</b><span>Аналитик. На любое «очевидно» отвечает: «А сколько это в штуках?»</span></div>
@@ -94,9 +95,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Три исхода — по трети вечеров?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Бросаем две монетки. Два орла — моет Алиса, две решки — я, разные — Котейка. Исходов три, каждому по трети вечеров. Честно!</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мур. Я согласен. Очень согласен.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Что-то Котейка слишком доволен. Давай сначала прикинем, а потом бросим монетки сто раз.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Бросаем две монетки. Два орла — моет Алиса, две решки — я, разные — Котейка. Исходов три, каждому по трети вечеров. Честно!</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мур. Я согласен. Очень согласен.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Что-то Котейка слишком доволен. Давай сначала прикинем, а потом бросим монетки сто раз.</p></div></div>
   </div>
   <p>Как думаешь, в скольких вечерах из 100 посуду будет мыть Котейка? Боб уверен, что около 33.</p>
   <div class="guess" data-key="kot" data-min="0" data-max="100" data-unit="">
@@ -137,7 +138,7 @@
 <section class="card" data-title="Подпиши монетки" aria-label="Подпиши монетки">
   <span class="step-tag">Почему так</span>
   <h2>Одинаковые на вид монетки — всё равно две разные</h2>
-  <figure class="art"><img src="img/vp01-01-labels.jpg" alt="Алиса красит одну монетку в синий, другую в оранжевый, Котейка недовольно смотрит" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса подписывает монетки синей и оранжевой краской</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp01-01-labels.jpg" alt="Алиса красит одну монетку в синий, другую в оранжевый, Котейка недовольно смотрит" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса подписывает монетки синей и оранжевой краской</figcaption></figure>
   <p>Пока монетки одинаковые, кажется, что «орёл и решка» — один исход. Покрась одну монетку в синий, другую в оранжевый. «Разные» сразу распадаются на два случая: синяя — орёл, оранжевая — решка, и наоборот.</p>
   <p>Монеткам всё равно, покрасил ты их или нет: они и без краски две разные. Поэтому исходов четыре — ОО, ОР, РО, РР, — и все четыре одинаково вероятны. Котейке достаются два из четырёх, то есть половина вечеров.</p>
   <p>На этом спотыкались и знаменитые учёные. В XVIII веке Жан Д'Аламбер написал в Энциклопедии, что за два броска хотя бы один орёл выпадает с шансом 2 из 3: исходов, по его счёту, три — «орёл сразу», «решка, потом орёл», «две решки». Но «орёл сразу» — это два исхода, ОО и ОР. Верный ответ — 3 из 4.</p>
@@ -279,7 +280,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка придумал новое правило</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Ладно, бросаем три монетки. Все одинаковые — моет Боб, иначе — я. Событий два, «одинаковые» и «разные», значит, пятьдесят на пятьдесят. Честнее не бывает!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Ладно, бросаем три монетки. Все одинаковые — моет Боб, иначе — я. Событий два, «одинаковые» и «разные», значит, пятьдесят на пятьдесят. Честнее не бывает!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -366,7 +367,7 @@ _check()
     <dt>Вероятность, P(A)</dt><dd>доля опытов, где случилось A, на длинной серии; probability</dd>
     <dt>Равновозможные исходы</dt><dd>исходы с одинаковыми шансами; equally likely outcomes</dd>
   </dl>
-  <figure class="art"><img src="img/vp01-02-next.jpg" alt="Котейка вешает на стену кафе листок с семью отметками из десяти, Боб в недоумении" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка мыл посуду 7 вечеров из 10 и возмущён</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp01-02-next.jpg" alt="Котейка вешает на стену кафе листок с семью отметками из десяти, Боб в недоумении" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка мыл посуду 7 вечеров из 10 и возмущён</figcaption></figure>
   <a class="next-step" href="02-frequency.html"><b>Дальше, шаг 2: «Вероятность как частота»</b>За первые десять вечеров Котейка мыл посуду семь раз. Правило всё-таки нечестное — или десять вечеров просто мало?</a>
 </section>
 
@@ -377,7 +378,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

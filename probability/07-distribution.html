@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Случайная величина и распределение · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 7 бесплатного интерактивного курса «Вероятность на пальцах»: случайная величина, таблица «значение → вероятность», доска Гальтона, биномиальное и геометрическое распределения, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +32,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p07" data-next="08-mean-spread.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -70,7 +71,7 @@
   <p class="kicker">Шаг 7 из 9</p>
   <h1>Случайная величина и распределение</h1>
   <p class="core">После шага ты сможешь <b>описать случайную величину таблицей «значение → вероятность»</b> и посчитать биномиальное и геометрическое распределения.</p>
-  <figure class="art"><img src="img/vp07-00-galton.jpg" alt="Котейка ставит у входа в кафе доску с гвоздиками, гости спорят, куда упадут шарики" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона, гости спорят</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp07-00-galton.jpg" alt="Котейка ставит у входа в кафе доску с гвоздиками, гости спорят, куда упадут шарики" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона, гости спорят</figcaption></figure>
   <p class="lead">Котейка поставил у входа аттракцион: шарик падает сквозь ряды гвоздиков и попадает в одну из корзинок. Куда упадёт один шарик, не скажет никто. А вот где вырастет горка из тысячи шариков и какой она будет высоты, можно посчитать заранее. Для этого нужны два слова: <b>случайная величина</b> и <b>распределение</b>.</p>
 </section>
 
@@ -126,13 +127,13 @@
 </section>
 
 <!-- 5: история и прогноз -->
-<section class="card" data-title="Угадай" aria-label="Угадай">
+<section class="card" data-toy-pre="galton" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Сколько шариков в средней корзине?</h2>
   <div class="chat">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">На каждом гвоздике шарик прыгает влево или вправо — как монетка. Рядов десять, корзинок одиннадцать.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шарики стекаются к центру. Положу приз в среднюю корзину — туда будет попадать почти каждый!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">«Почти каждый» — это сколько в штуках? Давай сначала угадаем, потом бросим тысячу шариков.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">На каждом гвоздике шарик прыгает влево или вправо — как монетка. Рядов десять, корзинок одиннадцать.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шарики стекаются к центру. Положу приз в среднюю корзину — туда будет попадать почти каждый!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">«Почти каждый» — это сколько в штуках? Давай сначала угадаем, потом бросим тысячу шариков.</p></div></div>
   </div>
   <div class="guess" data-key="mid" data-min="0" data-max="100" data-unit="%">
     <label class="field">В среднюю корзину при 10 рядах попадёт примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % шариков</label>
@@ -142,7 +143,7 @@
 </section>
 
 <!-- 6: доска Гальтона -->
-<section class="card" data-title="Доска Гальтона" aria-label="Доска Гальтона">
+<section class="card" data-toy="galton" data-title="Доска Гальтона" aria-label="Доска Гальтона">
   <span class="step-tag">Поиграй</span>
   <h2>Бросай шарики</h2>
   <p>Каждый шарик — это 10 бросков монетки, а номер корзины — сколько раз он ушёл вправо. Серые точки — сколько должно быть по теории.</p>
@@ -167,7 +168,7 @@
 <section class="card" data-title="Правило" aria-label="Правило">
   <span class="step-tag">Правило</span>
   <h2>Число путей × шанс одного пути</h2>
-  <figure class="art"><img src="img/vp07-01-baskets.jpg" alt="Корзинки под доской с горкой шариков, средняя корзина подсвечена" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: корзинки с горкой шариков, одна подсвечена</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp07-01-baskets.jpg" alt="Корзинки под доской с горкой шариков, средняя корзина подсвечена" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: корзинки с горкой шариков, одна подсвечена</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Чтобы попасть в корзину 5, шарик должен 5 раз уйти вправо и 5 раз влево — в любом порядке. Каждый порядок — свой путь сквозь гвоздики. Все пути одинаково вероятны, поэтому корзина тем полнее, чем больше путей в неё ведёт.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Путей всего 2¹⁰ = 1024. В корзину 5 ведут 252 из них — это C(10, 5) из шага 3. Значит, из 1024 шариков в среднюю корзину попадёт около 252, то есть 24,6 %. В крайние корзины ведёт по одному пути: туда попадёт примерно 1 шарик из 1024.</p></div>
@@ -275,7 +276,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Наклонили доску</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Подложу под доску салфетку: теперь шарик уходит вправо только в 3 случаях из 10. Горка просто съедет к корзине 3 и останется такой же симметричной, как была.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Подложу под доску салфетку: теперь шарик уходит вправо только в 3 случаях из 10. Горка просто съедет к корзине 3 и останется такой же симметричной, как была.</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в словах Котейки?</p>
@@ -369,7 +370,7 @@ _check()
     <dt>Биномиальное</dt><dd>число успехов из n попыток; binomial, Bin(n, p)</dd>
     <dt>Геометрическое</dt><dd>номер первого успеха; geometric</dd>
   </dl>
-  <figure class="art"><img src="img/vp07-02-next.jpg" alt="Боб с восторгом показывает на колесо призов у стойки, Алиса скептически держит калькулятор" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у стойки появляется колесо призов</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp07-02-next.jpg" alt="Боб с восторгом показывает на колесо призов у стойки, Алиса скептически держит калькулятор" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у стойки появляется колесо призов</figcaption></figure>
   <a class="next-step" href="08-mean-spread.html"><b>Дальше, шаг 8: «Среднее и разброс»</b>Боб хочет поставить у стойки колесо призов. Окупится ли оно — и почему «в среднем окупится» не значит «каждый раз»?</a>
 </section>
 
@@ -380,7 +381,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A/B на простой метрике · Сигнал или шум</title>
 <meta name="description" content="Глава 10 бесплатного интерактивного курса «Сигнал или шум»: z-тест для двух конверсий и двух средних, p-value и 95-процентный интервал разницы — руками, на двух колоколах и в коде.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +25,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch10" data-next="11-errors.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -67,7 +68,7 @@
     <li>1. Что здесь случайно?</li><li>2. Как распределено?</li><li>3. Центр и разброс</li>
     <li>4. Насколько шумит среднее</li><li class="on"><b>5.</b> Сколько стандартных ошибок до порога</li><li>6. Ответ бизнесу</li>
   </ol>
-  <figure class="art"><img src="img/ch10-00-coin.jpg" alt="Котейка выкладывает на стол девять монет орлом вверх, Алиса смотрит с сомнением" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка и подозрительная монетка, девять орлов в ряд</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch10-00-coin.jpg" alt="Котейка выкладывает на стол девять монет орлом вверх, Алиса смотрит с сомнением" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка и подозрительная монетка, девять орлов в ряд</figcaption></figure>
   <p class="lead">Котейка выбросил 9 орлов из 10 и клянётся, что монетка честная. А новая кнопка в приложении дала +0,65 заказа на 100 гостей. В обоих случаях вопрос один: удивился бы мир, где ничего не происходит?</p>
   <p>В главе 9 ты измерил шум A/A-теста. Теперь научимся класть на эту линейку настоящую разницу и считать, сколько в ней стандартных ошибок.</p>
 </section>
@@ -77,9 +78,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>9 орлов из 10 — это много?</h2>
   <div class="chat">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Монетка честная! Просто сегодня выпало 9 орлов из 10. Бывает же.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">По-моему, жульничает. Но вдруг просто повезло?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посчитаем, как часто честная монетка даёт такой перекос. Если часто — Котейке можно верить.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Монетка честная! Просто сегодня выпало 9 орлов из 10. Бывает же.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">По-моему, жульничает. Но вдруг просто повезло?</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посчитаем, как часто честная монетка даёт такой перекос. Если часто — Котейке можно верить.</p></div></div>
   </div>
   <div class="guess" data-key="nine" data-min="0" data-max="100" data-unit="%">
     <label class="field">9 или 10 орлов из 10 у честной монетки выпадут примерно в <input type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="?"> % серий</label>
@@ -135,8 +136,8 @@
   <span class="step-tag">Главная игрушка</span>
   <h2>Кнопка «Повторить заказ»: сигнал или шум?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Два дня теста. Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2130 на 20 000. Плюс 0,65 заказа на 100 гостей! Катим?</p></div></div>
-    <div class="msg kot world"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В моём мире кнопка ничего не делает. Но разница у меня тоже бывает — я же шумлю.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Два дня теста. Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2130 на 20 000. Плюс 0,65 заказа на 100 гостей! Катим?</p></div></div>
+    <div class="msg kot world"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В моём мире кнопка ничего не делает. Но разница у меня тоже бывает — я же шумлю.</p></div></div>
   </div>
   <p><b>Сначала угадай:</b> как часто в мире Котейки разница получается не меньше 0,65 заказа на 100 гостей в любую сторону?</p>
   <div class="choice" data-key="g2" role="group" aria-label="Твой ответ">
@@ -170,7 +171,7 @@
 <section class="card" data-title="Правило" aria-label="Правило">
   <span class="step-tag">Правило</span>
   <h2>z — сколько стандартных ошибок в разнице</h2>
-  <figure class="art"><img src="img/ch10-01-two-bells.jpg" alt="Алиса прикалывает флажок на склон колокола за пунктирной линией, Боб с телефоном надеется" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса ставит флажок на склоне колокола</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch10-01-two-bells.jpg" alt="Алиса прикалывает флажок на склон колокола за пунктирной линией, Боб с телефоном надеется" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса ставит флажок на склоне колокола</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Разница между группами есть почти всегда, даже в A/A (глава 9). Вопрос не «есть ли разница», а «сколько в ней линеек шума». Если много — миру без эффекта трудно её объяснить.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 A/A-тестов по 20 000 заходов в группе разница не меньше 0,65 заказа на 100 гостей в любую сторону бывает примерно в 33. Это и есть p-value: 3,3 %.</p></div>
@@ -296,7 +297,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка переворачивает p-value</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">p = 0,033. Значит, кнопка работает с вероятностью 96,7 %. Мяу!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">p = 0,033. Значит, кнопка работает с вероятностью 96,7 %. Мяу!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в словах Котейки?</p>
@@ -390,7 +391,7 @@ _check()
     <dt>Двусторонний тест</dt><dd>необычными считаются перекосы в обе стороны; two-sided (one-sided — в одну)</dd>
     <dt>Доверительный интервал</dt><dd>эффекты, с которыми данные не спорят; 95 % таких интервалов накрывают правду; confidence interval, CI</dd>
   </dl>
-  <figure class="art"><img src="img/ch10-02-next.jpg" alt="Две кофейни через дорогу, у одной чуть больше довольных гостей, Алиса держит лупу над крошечной разницей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две кофейни и разница, которую не видно в лупу</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch10-02-next.jpg" alt="Две кофейни через дорогу, у одной чуть больше довольных гостей, Алиса держит лупу над крошечной разницей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две кофейни и разница, которую не видно в лупу</figcaption></figure>
   <a class="next-step" href="11-errors.html"><b>Дальше, глава 11: «Ошибки I и II рода»</b>Две кофейни разошлись на 9 заказов из 100, а тест промолчал. Эффект мог быть — мы его просто не увидели. Сколько таких пропусков и как посчитать их до теста?</a>
 </section>
 
@@ -401,7 +402,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

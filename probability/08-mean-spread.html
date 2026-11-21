@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Среднее и разброс · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 8 бесплатного интерактивного курса «Вероятность на пальцах»: матожидание и дисперсия на колесе призов, почему разброс суммы растёт как √n, задача о купонах и задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +29,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p08" data-next="09-interview.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -67,7 +68,7 @@
   <p class="kicker">Шаг 8 из 9</p>
   <h1>Среднее и разброс</h1>
   <p class="core">После шага ты сможешь <b>посчитать матожидание и дисперсию</b> и решить, выгодна ли игра в среднем и насколько этот средний результат шатается.</p>
-  <figure class="art"><img src="img/vp08-00-wheel.jpg" alt="Колесо призов у стойки кафе, Боб в восторге, Алиса с калькулятором" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: колесо призов у стойки, Боб в восторге, Алиса с калькулятором</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp08-00-wheel.jpg" alt="Колесо призов у стойки кафе, Боб в восторге, Алиса с калькулятором" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: колесо призов у стойки, Боб в восторге, Алиса с калькулятором</figcaption></figure>
   <p class="lead">Боб хочет поставить у стойки колесо призов: вращение за 100 ₽, можно выиграть кофе или торт. «Окупится!» — говорит Боб. Алиса задаёт два вопроса: сколько колесо отдаёт в среднем и насколько этот средний результат шатается от гостя к гостю. На первый вопрос отвечает <b>матожидание</b>, на второй — <b>дисперсия</b>.</p>
 </section>
 
@@ -76,9 +77,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Кто уйдёт в плюсе?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На колесе 8 секторов: 5 пустых, 2 — кофе за 150 ₽, 1 — торт за 400 ₽. Вращение стоит 100 ₽. Гости в восторге, кафе в плюсе!</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я куплю сразу 100 жетонов. Если кафе в плюсе, значит, я точно в минусе?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не обязательно. Давай угадаем: из 100 гостей с сотней жетонов сколько уйдут с призами дороже, чем заплатили?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На колесе 8 секторов: 5 пустых, 2 — кофе за 150 ₽, 1 — торт за 400 ₽. Вращение стоит 100 ₽. Гости в восторге, кафе в плюсе!</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я куплю сразу 100 жетонов. Если кафе в плюсе, значит, я точно в минусе?</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не обязательно. Давай угадаем: из 100 гостей с сотней жетонов сколько уйдут с призами дороже, чем заплатили?</p></div></div>
   </div>
   <div class="guess" data-key="plus" data-min="0" data-max="100" data-unit="%">
     <label class="field">После 100 вращений в плюсе будет примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % гостей</label>
@@ -190,7 +191,7 @@
 <section class="card" data-title="Альбом наклеек" aria-label="Альбом наклеек">
   <span class="step-tag">Вторая игрушка</span>
   <h2>Собери все шесть наклеек</h2>
-  <figure class="art"><img src="img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ищет последнюю наклейку среди повторов</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ищет последнюю наклейку среди повторов</figcaption></figure>
   <p>В детском меню к каждому обеду — случайная наклейка из шести. Котейка хочет собрать весь альбом. Сколько обедов понадобится в среднем?</p>
   <div class="choice" data-key="stick" role="group" aria-label="Твой прогноз">
     <button type="button" data-v="6" data-fb="Шесть наклеек — шесть обедов? Это если бы ни одна не повторялась. Проверим." aria-pressed="false">6–7 обедов</button>
@@ -272,7 +273,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>«Проигрывают все»</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В среднем гость теряет 12,5 ₽ за вращение. Значит, после 100 вращений каждый гость в минусе на 1250 ₽. Колесо разоряет всех до одного!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В среднем гость теряет 12,5 ₽ за вращение. Значит, после 100 вращений каждый гость в минусе на 1250 ₽. Колесо разоряет всех до одного!</p></div></div>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -359,7 +360,7 @@ _check()
     <dt>Линейность</dt><dd>E[X + Y] = EX + EY без всяких условий; linearity of expectation</dd>
     <dt>Задача о купонах</dt><dd>сколько ждать полный набор; coupon collector</dd>
   </dl>
-  <figure class="art"><img src="img/vp08-02-next.jpg" alt="Алиса в пиджаке выходит из кафе на собеседование, Боб и Котейка машут ей вслед" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса идёт на собеседование, Боб и Котейка машут вслед</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp08-02-next.jpg" alt="Алиса в пиджаке выходит из кафе на собеседование, Боб и Котейка машут ей вслед" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса идёт на собеседование, Боб и Котейка машут вслед</figcaption></figure>
   <a class="next-step" href="09-interview.html"><b>Дальше, шаг 9: «Пробное собеседование»</b>Алиса идёт на собеседование аналитиком. Десять задач на время, оценка уверенности перед каждым ответом — и честная калибровка в конце.</a>
 </section>
 
@@ -370,7 +371,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

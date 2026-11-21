@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Читаем отчёт и решаем · A/B на пальцах</title>
 <meta name="description" content="Шаг 11 интерактивного курса «A/B на пальцах»: подвохи в графиках и цифрах, дерево решений и тренажёр на восьми отчётах A/B-тестов, как рассказать результат.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,7 +85,7 @@ details.hint p{margin:6px 0 0}
     <p class="why">Вчетверо больше гостей — вдвое точнее. Чтобы вилка стала вдвое уже, нужно вчетверо больше гостей, то есть около 12 дней при том же трафике. Это было в шаге 5.</p>
   </div>
   <div class="quiz" data-right="b">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Давай запустим новое меню на недельку и посмотрим, что выйдет.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Давай запустим новое меню на недельку и посмотрим, что выйдет.</p></div></div></div>
     <p class="q">Что Алисе спросить первым?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Метрик можно добавить сколько угодно, но это не скажет, хватит ли недели. Сначала нужен размер эффекта, который мы хотим заметить.">Какие ещё метрики добавить в отчёт</button><button type="button" data-v="b">Какой эффект тест должен заметить</button><button type="button" data-v="c" data-why="Порог 5 % обычный, дело не в нём. Неделя может оказаться слишком короткой для того эффекта, который Бобу важен.">Не слишком ли мягкий порог 5 %</button></div>
     <p class="why">Сначала MDE, потом тест. За неделю при 20 000 гостей в день тест уверенно замечает только эффекты примерно от 4,5 %. Если Бобу важен +2 %, неделя ничего не скажет, и это лучше узнать до запуска. Это было в шаге 9.</p>
@@ -97,7 +98,7 @@ details.hint p{margin:6px 0 0}
   <p class="kicker">Шаг 11 из 11</p>
   <h1>Читаем отчёт и решаем</h1>
   <p class="core">После шага ты сможешь <b>выбрать по отчёту одно из четырёх решений</b> и рассказать его за три минуты.</p>
-  <figure class="art"><img src="img/ab11-00-report.jpg" alt="Алиса и Боб склонились над большим листом отчёта, Котейка держит четыре таблички-решения" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда читает большой отчёт, у Котейки четыре таблички</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab11-00-report.jpg" alt="Алиса и Боб склонились над большим листом отчёта, Котейка держит четыре таблички-решения" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда читает большой отчёт, у Котейки четыре таблички</figcaption></figure>
   <p class="lead">В отчёте зелёная клетка и p = 0,002. Катим? Не торопись: сначала прочитай то, что обычно пропускают, — срок теста, доли групп и вилку.</p>
   <p>В <a href="10-traps.html">шаге 10</a> мы собрали ловушки, которые лечатся правилами до запуска. Теперь отчёт уже готов. Сначала поищем подвохи в графиках и цифрах, потом пройдём по дереву из пяти развилок и решим восемь отчётов. В конце — как рассказать результат так, чтобы за три минуты стало ясно, что делать.</p>
 </section>
@@ -203,7 +204,7 @@ details.hint p{margin:6px 0 0}
     <canvas class="dash honest" id="dash8h" aria-label="Активные по старому и новому правилу"></canvas>
   </div>
   <div class="quiz" data-right="a">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый онбординг даёт +26 % к заказам!</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый онбординг даёт +26 % к заказам!</p></div></div></div>
     <p class="q">Что спросить первым?</p>
     <div class="choice"><button type="button" data-v="a">С чем сравнивали новый онбординг?</button><button type="button" data-v="b" data-why="Хороший вопрос, но второй. Сначала надо понять, с чем вообще сравнивали: от этого зависит всё остальное.">Значима ли разница по p-value?</button><button type="button" data-v="c" data-why="Деньги считают потом. Сначала надо понять, с чем сравнивали: от этого зависит и сама цифра.">Сколько выручки это принесёт за год?</button></div>
     <p class="why">Боб сравнил новый онбординг с прошлогодним, а не с тем, что работает сейчас. Нынешний онбординг уже даёт +24 % к прошлогоднему, так что новый лучше текущего всего на 1,6 %. Число без «по сравнению с чем» ничего не значит.</p>
@@ -298,7 +299,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Отмены · сторожевая</td><td>3,10 %</td><td>3,12 %</td><td>+0,5 %</td><td>[−7,1; +8,1]</td><td>0,90</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21 запланированного, 840 000 пользователей, доли 50,0 / 50,0. Порог пользы: фото окупаются от +0,5 %.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зелёное, p = 0,002. Катим?</p></div></div><div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай пройдём по развилкам. Нажимай.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зелёное, p = 0,002. Катим?</p></div></div><div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай пройдём по развилкам. Нажимай.</p></div></div></div>
     <ol class="walk" id="walk">
       <li><b>1. Доли групп</b>50,0 / 50,0 при плане 50 / 50. Деление в порядке, отчёту можно верить.</li>
       <li hidden><b>2. Срок</b>21 день из 21. Тест дошёл до конца, решать можно сегодня.</li>
@@ -387,7 +388,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Средний чек · сторожевая</td><td>608 ₽</td><td>609 ₽</td><td>+0,1 %</td><td>[−0,3; +0,5]</td><td>0,63</td></tr>
     </table></div>
     <p class="report-meta">42 дня из 42, MDE — 0,9 %, доли 50,0 / 50,0. Съёмка стоит дорого: окупается от +0,5 % к конверсии. Записано до запуска: катим, если вся вилка выше +0,5 %.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Значимо, и +0,85 % больше порога. Катим!</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Значимо, и +0,85 % больше порога. Катим!</p></div></div></div>
     <div class="choice"><button type="button" data-v="a" data-why="Эффект есть, но левый край вилки +0,2 % ниже порога: окупаемость не доказана, а правило требовало именно её.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Тест дошёл до конца. Продлевать его потому, что ответ не понравился, — то же подглядывание. Нужен новый тест, заранее рассчитанный на нужную ширину вилки.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные, эффект скромный и правдоподобный: повода подозревать данные нет.">Ищем баг</button></div>
     <p class="why">Эффект есть: ноль вне вилки, из 1000 гостей заказывают примерно на 1 больше. Но окупаемость не доказана: данные согласуются и с +1,5 %, и с +0,2 %, а это ниже порога. Значимо ещё не значит «окупится». По правилу, записанному заранее, не катим. Если бы правило было «лучшая оценка выше порога», ответ был бы другим. Поэтому его и пишут до цифр.</p>
     <div class="path"><p>Пройденные развилки</p><ol>
@@ -408,7 +409,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Выручка на пользователя</td><td>72,2 ₽</td><td>80,9 ₽</td><td class="up">+12,0 %</td><td class="up">[+9,1; +14,9]</td><td class="up">&lt; 0,001</td></tr>
     </table></div>
     <p class="report-meta">7 дней из 7 запланированных, 240 000 пользователей, доли 50,0 / 50,0.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Рекорд: +12 % выручки за неделю! Катим.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Рекорд: +12 % выручки за неделю! Катим.</p></div></div></div>
     <div class="choice"><button type="button" data-v="a" data-why="+12 % за неделю — это 8 ширин колокола. Такой скачок от экрана корзины слишком хорош, чтобы верить ему без проверки.">Катим</button><button type="button" data-v="b" data-why="Выключать тоже рано: рост может оказаться настоящим. Сначала нужно проверить данные.">Не катим</button><button type="button" data-v="c" data-why="Ждать бесполезно: если заказы считаются неправильно, через неделю отчёт покажет тот же «рекорд».">Ждём</button><button type="button" data-v="d">Ищем баг</button></div>
     <p class="why">Заказавших гостей столько же (конверсия +0,3 %), чек тот же, а заказов на гостя на 12 % больше, и всё за неделю. Похоже, часть заказов в тесте записывается дважды. Ищем баг: сверяем заказы в отчёте с кассой кафе и ищем дубли. Если рост подтвердится, это отличная новость, но сначала проверка.</p>
     <div class="path"><p>Пройденные развилки</p><ol>
@@ -427,7 +428,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Повторные заказы за неделю</td><td>2,31</td><td>2,45</td><td class="up">+6,1 %</td><td class="up">[+0,6; +11,6]</td><td class="up">0,03</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21, 820 000 пользователей, доли 50,0 / 50,0.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Повторные заказы выросли на 6 %! Катим.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Повторные заказы выросли на 6 %! Катим.</p></div></div></div>
     <div class="choice"><button type="button" data-v="a" data-why="Одна зелёная метрика из 15 легко может быть случайностью: при 15 метриках так бывает в половине A/A. А главная метрика не изменилась.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Тест закончился, ждать нечего.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные, а одна зелёная метрика из 15 — обычное дело, а не признак поломки.">Ищем баг</button></div>
     <p class="why">Главная метрика не изменилась. Из 15 метрик одна «прокрасилась» с p = 0,03, а при 15 метриках хотя бы одна такая в A/A бывает примерно в половине случаев. Это не повод катить. Если идея про повторные заказы интересна, её проверяют отдельным тестом, где это главная метрика.</p>
     <div class="path"><p>Пройденные развилки</p><ol>
@@ -447,7 +448,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Ошибки оплаты на 1000 оплат · сторожевая</td><td>3,1</td><td>4,0</td><td>+29 %</td><td>[−5; +63]</td><td>0,10</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21, 480 000 пользователей, по 24 000 оплат в группе, доли 50,0 / 50,0. Записано до запуска: переезжаем, если конверсия упала не больше чем на 2 % и ошибки оплаты не выросли.</p>
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё серое, значит, ничего не сломалось. Переезжаем!</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё серое, значит, ничего не сломалось. Переезжаем!</p></div></div></div>
     <div class="choice"><button type="button" data-v="a" data-why="Серая сторожевая не значит «ошибок не прибавилось». Вилка доходит до +63 %: рост ошибок почти на две трети данные не исключают.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Тест закончился по плану. Продлевать его теперь — подглядывание. Нужен новый тест, заранее рассчитанный на нужную ширину вилки.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные и эффект не «слишком хорош»: эксперимент честный. Вопрос к самому сервису, а не к данным.">Ищем баг</button></div>
     <p class="why">Главная в порядке: вилка −1,9…+1,5 % не заходит за допустимые −2 %. А у ошибок оплаты «не значимо» не значит «не выросли». В штуках: из 1000 оплат ошибались 3, стало 4. Вилка от −5 до +63 % согласуется и с отсутствием вреда, и с ростом ошибок почти на две трети. Вред не доказан — это ещё не «вреда нет». Не катим: сначала разбираемся, откуда лишние ошибки, потом новый тест с достаточным числом оплат.</p>
     <div class="path"><p>Пройденные развилки</p><ol>
@@ -542,7 +543,7 @@ details.hint p{margin:6px 0 0}
     <li><b>Отчёт → одно из четырёх решений:</b> катим, не катим, ждём или ищем баг.</li>
     <li><b>Рассказываем выводом:</b> заголовок — что получилось и что делаем, цифры — как доказательства.</li>
   </ul>
-  <figure class="art"><img src="img/ab10-03-final.jpg" alt="Алиса, Боб и Котейка празднуют в кафе, на стене два колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда празднует конец курса</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab10-03-final.jpg" alt="Алиса, Боб и Котейка празднуют в кафе, на стене два колокола" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда празднует конец курса</figcaption></figure>
   <p class="lead">Курс пройден. Теперь отчёт A/B-теста можно читать самому и задавать аналитику правильные вопросы: какой MDE, сколько дней по плану, какая главная метрика и ровно ли поделились группы.</p>
   <p><a href="cheatsheet.html"><b>Шпаргалка для печати →</b></a> Что решить до запуска, дерево отчёта, «если…, то я…» и пословицы всех шагов на двух листах. Распечатай и положи рядом, когда в следующий раз придёт отчёт.</p>
 </section>
@@ -554,8 +555,8 @@ details.hint p{margin:6px 0 0}
   </main>
 </div>
 
-<script src="/signal/progress.js"></script>
-<script src="course.js?v=202611212300"></script>
+<script src="/signal/progress.js?v=202611240"></script>
+<script src="course.js?v=202611240"></script>
 <script>
 // ---------- найди подвох ----------
 (function(){

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Считаем исходы · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 3 бесплатного интерактивного курса «Вероятность на пальцах»: дерево исходов, правило умножения, перестановки и C(n, k), треугольник Паскаля, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +49,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p03" data-next="04-not-and-or.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -87,7 +88,7 @@
   <p class="kicker">Шаг 3 из 9</p>
   <h1>Считаем исходы</h1>
   <p class="core">После шага ты сможешь <b>посчитать исходы деревом, правилом умножения и через C(n, k)</b>, не выписывая их все.</p>
-  <figure class="art"><img src="img/vp03-00-menu.jpg" alt="Алиса рисует на доске таблицу комбо, Боб соединяет чашки и пирожные нитками" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса рисует таблицу комбо, Боб соединяет чашки и пирожные нитками</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp03-00-menu.jpg" alt="Алиса рисует на доске таблицу комбо, Боб соединяет чашки и пирожные нитками" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса рисует таблицу комбо, Боб соединяет чашки и пирожные нитками</figcaption></figure>
   <p class="lead">Кафе составляет меню комбо: напиток плюс десерт. Боб собрался выписать все варианты на доску, Котейка хочет ещё и коробку «три десерта на выбор». Сколько там вариантов — и можно ли посчитать, ничего не выписывая?</p>
 </section>
 
@@ -96,8 +97,8 @@
   <span class="step-tag">Собери меню</span>
   <h2>Каждый напиток с каждым десертом</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Напитков четыре, десертов три. Сейчас соединю нитками все пары и пересчитаю.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нитки не нужны. Нарисуй таблицу: строки — напитки, столбцы — десерты.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Напитков четыре, десертов три. Сейчас соединю нитками все пары и пересчитаю.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нитки не нужны. Нарисуй таблицу: строки — напитки, столбцы — десерты.</p></div></div>
   </div>
   <p>Выбери напиток, потом десерт — клетка комбо загорится. Собери все.</p>
   <div class="sheet c-white">
@@ -141,10 +142,10 @@
 <section class="card" data-title="Угадай" aria-label="Угадай: сколько веток с пятью орлами">
   <span class="step-tag">Сначала угадай</span>
   <h2>Дерево из десяти бросков</h2>
-  <figure class="art"><img src="img/vp03-01-tree.jpg" alt="Котейка сидит на ветке огромного дерева-развилки, на концах веток — пирожные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на ветке огромного дерева-развилки</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp03-01-tree.jpg" alt="Котейка сидит на ветке огромного дерева-развилки, на концах веток — пирожные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на ветке огромного дерева-развилки</figcaption></figure>
   <div class="chat">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Помнишь, в шаге 2 ровно пять орлов из десяти выпадали только в четверти серий? Я так и не понял почему.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нарисуем дерево: каждый бросок раздваивает каждую ветку. После десяти бросков у дерева 1024 листа, и все равновозможны. Осталось посчитать листья ровно с пятью орлами.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Помнишь, в шаге 2 ровно пять орлов из десяти выпадали только в четверти серий? Я так и не понял почему.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нарисуем дерево: каждый бросок раздваивает каждую ветку. После десяти бросков у дерева 1024 листа, и все равновозможны. Осталось посчитать листья ровно с пятью орлами.</p></div></div>
   </div>
   <p>Прикинь: какая доля из 1024 листьев содержит ровно пять орлов?</p>
   <div class="guess" data-key="five" data-min="0" data-max="100" data-unit="%">
@@ -278,7 +279,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка считает коробки</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Коробка из трёх десертов, всего их восемь. Первый — 8 вариантов, второй — 7, третий — 6. Порядок в коробке не важен, значит, делю на два: 8 · 7 · 6 / 2 = 168 коробок!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Коробка из трёх десертов, всего их восемь. Первый — 8 вариантов, второй — 7, третий — 6. Порядок в коробке не важен, значит, делю на два: 8 · 7 · 6 / 2 = 168 коробок!</p></div></div>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что не так в подсчёте Котейки?</p>
@@ -365,7 +366,7 @@ _check()
     <dt>Сочетания, C(n, k)</dt><dd>выбор k из n без порядка; combinations, «n choose k», binomial coefficient</dd>
     <dt>Треугольник Паскаля</dt><dd>таблица всех C(n, k); Pascal's triangle</dd>
   </dl>
-  <figure class="art"><img src="img/vp03-02-next.jpg" alt="Котейка развешивает гирлянду над входом в кафе, на столе торт и свечки для вечеринки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка готовит вечеринку в честь открытия</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp03-02-next.jpg" alt="Котейка развешивает гирлянду над входом в кафе, на столе торт и свечки для вечеринки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка готовит вечеринку в честь открытия</figcaption></figure>
   <a class="next-step" href="04-not-and-or.html"><b>Дальше, шаг 4: «Не, и, или»</b>На вечеринку в честь открытия пришли 23 гостя, и у двоих совпал день рождения. Совпадение? Посчитаем через пары — их тут 253.</a>
 </section>
 
@@ -376,7 +377,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

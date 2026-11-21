@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Когда зелёное врёт · A/B на пальцах</title>
 <meta name="description" content="Шаг 10 интерактивного курса «A/B на пальцах»: подглядывание, много метрик и срезы, перекос групп, «слишком хорошо» и другие ловушки, которые лечатся правилами до запуска.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,15 +53,15 @@
   <p class="kicker">Шаг 10 из 11</p>
   <h1>Когда зелёное врёт</h1>
   <p class="core">После шага ты сможешь <b>записать правила теста до первых цифр</b> и заметить, когда зелёная клетка врёт.</p>
-  <figure class="art"><img src="img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб тянется к зелёной кнопке, под ковром ловушки</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб тянется к зелёной кнопке, под ковром ловушки</figcaption></figure>
   <p class="lead">Боб открыл отчёт на пятый день и увидел зелёную клетку. Деление честное, всё посчитано верно. Почему этой клетке ещё нельзя верить?</p>
   <p>Ловушек в этом шаге много, и встречаются они постоянно. Но почти все лечатся одним правилом: что считать успехом, решаем до того, как увидели цифры. Пойдём по порядку: когда смотрим на отчёт, на что смотрим, кого сравниваем и что принимаем за эффект. А читать готовый отчёт и решать будем в шаге 11.</p>
 </section>
 
-<section class="card" data-title="Подглядывание" aria-label="Подглядывание">
+<section class="card" data-toy-pre="peeking" data-title="Подглядывание" aria-label="Подглядывание">
   <span class="step-tag">Когда смотрим</span>
   <h2>Боб смотрит отчёт каждое утро</h2>
-  <figure class="art"><img src="img/ab10-01-peeking.jpg" alt="Боб с утренним кофе заглядывает в ноутбук через плечо Алисы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб каждое утро заглядывает в отчёт</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab10-01-peeking.jpg" alt="Боб с утренним кофе заглядывает в ноутбук через плечо Алисы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб каждое утро заглядывает в отчёт</figcaption></figure>
   <p>Тест запланирован на 30 дней. Но Боб открывает отчёт каждое утро и готов выкатить фичу в первый же день, когда разница станет значимой.</p>
   <p>Возьмём A/A-тест: обе группы видят одно и то же, эффекта нет. Если смотреть каждый день все 30 дней и остановиться при первом «значимо», как часто Боб найдёт эффект, которого нет?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -72,7 +73,7 @@
   <p class="note" id="g1-note">Выбери вариант.</p>
 </section>
 
-<section class="card" data-title="Подглядываем" aria-label="Подглядываем">
+<section class="card" data-toy="peeking" data-title="Подглядываем" aria-label="Подглядываем">
   <span class="step-tag">Игрушка</span>
   <h2>Тридцать утр с отчётом</h2>
   <p>Линия — насколько разница между группами больше обычного шума, день за днём. Серая полоса — обычный шум. Если линия вышла из полосы, отчёт в этот день показывает «значимо».</p>
@@ -90,7 +91,7 @@
     </div>
     <div class="verdict" id="v-peek" hidden></div>
   </div>
-  <div class="def">Как правильно: длину теста решают заранее (по MDE) и решение принимают в конце. Каждый день можно смотреть на поломки: не упало ли приложение, ровно ли делятся группы. Смотреть на эффект по ходу тоже можно, но только по плану, записанному до запуска: в заранее выбранные дни и с более строгим порогом.</div>
+  <div class="def" data-toy-reveal>Как правильно: длину теста решают заранее (по MDE) и решение принимают в конце. Каждый день можно смотреть на поломки: не упало ли приложение, ровно ли делятся группы. Смотреть на эффект по ходу тоже можно, но только по плану, записанному до запуска: в заранее выбранные дни и с более строгим порогом.</div>
 </section>
 
 <section class="card" data-title="Много метрик" aria-label="Много метрик">
@@ -121,7 +122,7 @@
   <span class="step-tag">На что смотрим</span>
   <h2>Главная метрика выросла, а что сломалось?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый экран оформления: конверсия в заказ +4 %, значимо. Катим!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый экран оформления: конверсия в заказ +4 %, значимо. Катим!</p></div></div>
   </div>
   <p>Изменение редко бывает точечным: ускорили оформление — нагрузка переехала на кухню и курьеров. Поэтому кроме главной метрики заранее выбирают несколько <b>сторожевых</b>: тех, что не должны ухудшиться.</p>
   <div class="sheet c-white">
@@ -146,8 +147,8 @@
   <span class="step-tag">На что смотрим</span>
   <h2>В среднем ноль, а внутри — нет</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Акция «второй кофе в подарок» за три недели дала 0 %. Выключаем.</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Давай посмотрим по кафе.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Акция «второй кофе в подарок» за три недели дала 0 %. Выключаем.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Давай посмотрим по кафе.</p></div></div>
   </div>
   <div class="sheet c-white">
     <p class="chart-title" id="seg-title">Эффект акции во всех кафе вместе — ноль</p>
@@ -200,7 +201,7 @@
   <span class="step-tag">Привычка</span>
   <h2>Если бы вышло наоборот — что бы ты сказал?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Конверсия выросла — значит, новое меню понятнее. А если бы упала — значит, гости внимательнее его изучают. В любом случае меню удачное!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Конверсия выросла — значит, новое меню понятнее. А если бы упала — значит, гости внимательнее его изучают. В любом случае меню удачное!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так с рассуждением Боба?</p>
@@ -239,7 +240,7 @@
 <section class="card" data-title="Перекос групп" aria-label="Перекос групп">
   <span class="step-tag">Кого сравниваем</span>
   <h2>Делили пополам, а получилось неровно</h2>
-  <figure class="art"><img src="img/ab10-02-uneven-doors.jpg" alt="У синей двери очередь длиннее, чем у оранжевой, Алиса хмурится" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у синей двери очередь заметно длиннее, чем у оранжевой</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab10-02-uneven-doors.jpg" alt="У синей двери очередь длиннее, чем у оранжевой, Алиса хмурится" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у синей двери очередь заметно длиннее, чем у оранжевой</figcaption></figure>
   <p>Тест на новый экран оплаты, сплит 50/50. В отчёте миллион пользователей: в контроле <b>508 000</b>, в тесте <b>492 000</b>, то есть 50,8 % против 49,2 %. Мелочь? Проверим, бывает ли такое случайно.</p>
   <div class="sheet c-white">
     <label class="field" for="srm-n">Пользователей в эксперименте: <b id="srm-n-t" class="num">1 000 000</b></label>
@@ -265,8 +266,8 @@
   <h2>Лучше в каждой группе, хуже в сумме</h2>
   <p>Функцию «Предзаказ» не тестировали, а просто дали включить желающим. Через месяц сравнили тех, кто включил, и тех, кто нет.</p>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У тех, кто включил предзаказ, заказывают 22 %, а у остальных 38 %. Функция вредит, выключаем!</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай разделим гостей на постоянных и новичков.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У тех, кто включил предзаказ, заказывают 22 %, а у остальных 38 %. Функция вредит, выключаем!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай разделим гостей на постоянных и новичков.</p></div></div>
   </div>
   <div class="sheet c-white">
     <div class="simp" id="simp"></div>
@@ -290,8 +291,8 @@
   <h2>Слишком хорошо — сначала ищем баг</h2>
   <p>Один и тот же отчёт, две реакции.</p>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Рекорд: новый экран корзины дал +12 % выручки за неделю!</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Аномалия: +12 % за неделю. Ищу баг.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Рекорд: новый экран корзины дал +12 % выручки за неделю!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Аномалия: +12 % за неделю. Ищу баг.</p></div></div>
   </div>
   <p>Почему Алиса не радуется? У больших компаний удачные изменения обычно сдвигают главные метрики на 0,1–1 %. В отчёте Боба ширина колокола разницы 1,5 %, и +12 % — это 8 ширин. Такие скачки чаще оказываются ошибкой в данных, чем гениальной фичей.</p>
   <div class="tiles tiles2">
@@ -301,7 +302,7 @@
     <div class="tile"><b>Зелёное всё сразу?</b><span>Если зелёными стали все 20 метрик, баг вероятнее гениальной фичи.</span></div>
   </div>
   <div class="quiz" data-right="a">
-    <div class="chat mini"><div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p меньше 0,001 — значит, это не случайность. Катим!</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">p меньше 0,001 — значит, это не случайность. Катим!</p></div></div></div>
     <p class="q">Что не так в рассуждении Боба?</p>
     <div class="choice"><button type="button" data-v="a">Малое p не исключает ошибку подсчёта</button><button type="button" data-v="b" data-why="Малое p говорит только, что шумом разницу не объяснить. Если заказы считаются дважды, разница настоящая, но она от бага, а не от фичи.">Ничего: при таком p ошибки быть не может</button><button type="button" data-v="c" data-why="Бывает, и не так уж редко: при большом трафике и заметном эффекте p легко падает ниже 0,001. Подозрителен размер эффекта, а не p.">Такое малое p в A/B-тестах не бывает</button></div>
     <p class="why">p-value отвечает на вопрос, удивительна ли разница в мире без эффекта. Шум оно отсекает, а ошибки в подсчёте — нет: если в тесте заказы записываются дважды, разница будет и огромной, и «значимой». Поэтому сначала проверяем данные, потом радуемся.</p>
@@ -350,7 +351,7 @@
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>После плохой недели всё растёт само</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлая неделя была провальной, и мы запустили тест акции. За неделю заказы в тесте выросли на 9 %!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Прошлая неделя была провальной, и мы запустили тест акции. За неделю заказы в тесте выросли на 9 %!</p></div></div>
   </div>
   <div class="sheet c-white">
     <p class="chart-title">После провала выросли обе группы, а не только тест</p>
@@ -402,7 +403,7 @@
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>В пилоте работало — почему на всех нет?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В пилоте на трёх кафе бесплатная доставка дала +15 % заказов. Запускаем на всю сеть из 40 кафе!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В пилоте на трёх кафе бесплатная доставка дала +15 % заказов. Запускаем на всю сеть из 40 кафе!</p></div></div>
   </div>
   <p>У сети общий пул курьеров. В пилоте лишние заказы трёх кафе курьеры легко развозили. Двигай ползунок: на сколько кафе включаем бесплатную доставку?</p>
   <div class="sheet c-white">
@@ -454,7 +455,7 @@
     <dt>SRM</dt><dd>sample ratio mismatch, перекос групп: доли расходятся с планом сильнее, чем бывает случайно, значит, где-то баг</dd>
     <dt>Закон Твимана</dt><dd>если цифра выглядит слишком интересно, сначала ищи в ней ошибку</dd>
   </dl>
-  <figure class="art"><img src="img/ab10-04-next.jpg" alt="Алиса раскладывает на столе большой отчёт, Котейка держит четыре таблички" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: на столе большой отчёт, рядом четыре таблички-решения</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab10-04-next.jpg" alt="Алиса раскладывает на столе большой отчёт, Котейка держит четыре таблички" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: на столе большой отчёт, рядом четыре таблички-решения</figcaption></figure>
   <p class="lead">Дальше, шаг 11: читаем готовый отчёт по пяти развилкам и выбираем одно из четырёх решений.</p>
 </section>
 
@@ -466,8 +467,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js"></script>
-<script src="course.js?v=202611212300"></script>
+<script src="/signal/progress.js?v=202611240"></script>
+<script src="course.js?v=202611240"></script>
 <script>
 const $ = id => document.getElementById(id);
 

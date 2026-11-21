@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Вероятность как частота · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 2 бесплатного интерактивного курса «Вероятность на пальцах»: бегущая доля, почему короткие серии скачут, закон больших чисел, ошибка игрока и задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p02" data-next="03-counting.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -47,7 +48,7 @@
   <p class="kicker">Шаг 2 из 9</p>
   <h1>Вероятность как частота</h1>
   <p class="core">После шага ты сможешь <b>отличить долю на длинной серии от скачков короткой</b> и прикинуть, сколько повторов нужно, чтобы доля успокоилась.</p>
-  <figure class="art"><img src="img/vp02-00-first-week.jpg" alt="Доска с днями недели и столбиками разной высоты, Боб зачёркивает меню, Алиса смотрит на доску" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: доска с днями недели, Боб переписывает меню</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp02-00-first-week.jpg" alt="Доска с днями недели и столбиками разной высоты, Боб зачёркивает меню, Алиса смотрит на доску" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: доска с днями недели, Боб переписывает меню</figcaption></figure>
   <p class="lead">Первая неделя кафе. В понедельник десерт к кофе взяли 7 гостей из 10, во вторник — только 3. Боб уже переписывает меню. А может, меню ни при чём, и так ведёт себя любая маленькая порция?</p>
 </section>
 
@@ -56,9 +57,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Ровно пять из десяти — как часто?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Во вторник всё сломалось: десерт взяли трое из десяти! В понедельник было семеро. Срочно меняю витрину.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Допустим, каждый гость берёт десерт с шансом ½, как монетка. Тогда десять гостей — это десять бросков. Как часто десять бросков дают ровно пять орлов?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Монетка честная — значит, почти всегда.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Во вторник всё сломалось: десерт взяли трое из десяти! В понедельник было семеро. Срочно меняю витрину.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Допустим, каждый гость берёт десерт с шансом ½, как монетка. Тогда десять гостей — это десять бросков. Как часто десять бросков дают ровно пять орлов?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Монетка честная — значит, почти всегда.</p></div></div>
   </div>
   <div class="guess" data-key="five" data-min="0" data-max="100" data-unit="%">
     <label class="field">Ровно 5 орлов из 10 будет примерно в <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % серий</label>
@@ -115,7 +116,7 @@
 <section class="card" data-title="Правило" aria-label="Правило: вероятность — то, к чему ползёт доля">
   <span class="step-tag">Правило</span>
   <h2>Вероятность — то, к чему ползёт доля</h2>
-  <figure class="art"><img src="img/vp02-01-fan.jpg" alt="Котейка держит веер из бумажных полосок с графиками: у ручки полоски разлетаются, к краю сходятся" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка с веером из бумажных полосок-графиков</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp02-01-fan.jpg" alt="Котейка держит веер из бумажных полосок с графиками: у ручки полоски разлетаются, к краю сходятся" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка с веером из бумажных полосок-графиков</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Понедельник — 7 из 10, вторник — 3 из 10. Меню ни при чём: десять гостей — маленькая порция, а маленькие порции скачут.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 дней по 10 гостей при честных 50 % «семь и больше» бывает примерно в 172 днях, «три и меньше» — тоже в 172. Каждый третий день выглядит «странным», хотя ничего не менялось.</p></div>
@@ -235,7 +236,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Пять орлов подряд</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Пять орлов подряд! Теперь ставлю на решку: доля должна вернуться к половине, значит, монетке пора отыграться.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Пять орлов подряд! Теперь ставлю на решку: доля должна вернуться к половине, значит, монетке пора отыграться.</p></div></div>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -313,7 +314,7 @@ _check()
     <dt>Ошибка игрока</dt><dd>«после пяти орлов пора решке»; gambler's fallacy</dd>
     <dt>Симуляция</dt><dd>повторить опыт тысячи раз на компьютере и посчитать доли; Monte Carlo simulation</dd>
   </dl>
-  <figure class="art"><img src="img/vp02-02-next.jpg" alt="Котейка сидит на ветке огромного дерева, ветки которого раздваиваются снова и снова" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка забрался на дерево, которое ветвится на каждом броске</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp02-02-next.jpg" alt="Котейка сидит на ветке огромного дерева, ветки которого раздваиваются снова и снова" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка забрался на дерево, которое ветвится на каждом броске</figcaption></figure>
   <a class="next-step" href="03-counting.html"><b>Дальше, шаг 3: «Считаем исходы»</b>Почему ровно пять из десяти — именно 24,6 %? Ответ прячется в дереве из 1024 веток, и выписывать их все не придётся.</a>
 </section>
 
@@ -324,7 +325,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

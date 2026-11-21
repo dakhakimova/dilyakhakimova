@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Монетка, соль и хеш · A/B на пальцах</title>
 <meta name="description" content="Шаг 2 интерактивного курса «A/B на пальцах»: как приложение делит пользователей на группы, чтобы каждый всегда попадал в одну и ту же.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +36,7 @@
   <p class="kicker">Шаг 2 из 11</p>
   <h1>Монетка, соль и хеш</h1>
   <p class="core">После шага ты сможешь <b>проверить, честно ли приложение делит гостей</b>: по номеру, с солью и без «как удобно».</p>
-  <figure class="art"><img src="img/ab02-00-hash-machine.jpg" alt="Котейка крутит ручку машины, которая превращает имена гостей в синие и оранжевые жетоны" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у машины, которая раздаёт гостям синие и оранжевые жетоны</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab02-00-hash-machine.jpg" alt="Котейка крутит ручку машины, которая превращает имена гостей в синие и оранжевые жетоны" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у машины, которая раздаёт гостям синие и оранжевые жетоны</figcaption></figure>
   <p class="lead">Как приложению бросить монетку, чтобы гость и завтра, и через месяц попал в ту же группу? В шаге 1 Котейка подбрасывал монетку у двери кафе. В приложении кота нет, а люди заходят каждый день, с телефона и с ноутбука. Разберёмся, как программа «бросает монетку» так, чтобы человек всегда оставался в своей группе.</p>
 </section>
 
@@ -44,8 +45,8 @@
   <span class="step-tag">История</span>
   <h2>Боб предлагает бросать монетку при каждом заходе</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: когда человек открывает приложение, берём случайное число от 0 до 1. Меньше 0,5 — старый экран, больше — новая кнопка.</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Такой номер у каждого свой и не меняется, поэтому гость всегда видит одну и ту же версию.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: когда человек открывает приложение, берём случайное число от 0 до 1. Меньше 0,5 — старый экран, больше — новая кнопка.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Такой номер у каждого свой и не меняется, поэтому гость всегда видит одну и ту же версию.</p></div></div>
   </div>
   <p>Представь гостя, который открывает приложение каждый день. Что с ним будет при таком способе?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
@@ -90,8 +91,8 @@
     <div class="verdict" id="ship-v" hidden></div>
   </div>
   <div class="chat">
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш.</p></div></div>
-    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где-то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где-то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Саманта Клейнберг, «Почему»</a> — там подробно разобран опыт Джеймса Линда с цингой.</p>
 </section>
@@ -171,7 +172,7 @@
 <section class="card" data-title="Зачем соль" aria-label="Зачем соль">
   <span class="step-tag">Почему так</span>
   <h2>Название эксперимента — это соль</h2>
-  <figure class="art"><img src="img/ab02-01-eternal-testers.jpg" alt="Одни и те же гости раз за разом попадают в оранжевую дверь и устало вздыхают" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: одни и те же гости раз за разом попадают в оранжевую дверь</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab02-01-eternal-testers.jpg" alt="Одни и те же гости раз за разом попадают в оранжевую дверь и устало вздыхают" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: одни и те же гости раз за разом попадают в оранжевую дверь</figcaption></figure>
   <p>Зачем приклеивать к id название эксперимента? Пусть в приложении идут два эксперимента сразу: новая кнопка и фото блюд в меню. Посмотрим, как 1000 гостей распределятся по четырём сочетаниям групп.</p>
   <div class="sheet c-white">
     <div class="controls">
@@ -239,7 +240,7 @@
     <dt>Слот</dt><dd>ячейка от 0 до 99, в которую попал гость по остатку от хеша</dd>
     <dt>Сплит</dt><dd>доли групп: какие слоты отданы контролю, а какие тесту, например 50/50 или 90/10</dd>
   </dl>
-  <figure class="art"><img src="img/ab02-02-next.jpg" alt="Боб смотрит на два одинаковых экрана, а столбики на них разной высоты" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: два одинаковых приложения, а цифры разные</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ab02-02-next.jpg" alt="Боб смотрит на два одинаковых экрана, а столбики на них разной высоты" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: два одинаковых приложения, а цифры разные</figcaption></figure>
   <p class="lead">Дальше, шаг 3: группы поделены честно, обе видят одно и то же приложение. Будет ли у них одинаковая конверсия?</p>
 </section>
 
@@ -250,8 +251,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js"></script>
-<script src="course.js?v=202611212300"></script>
+<script src="/signal/progress.js?v=202611240"></script>
+<script src="course.js?v=202611240"></script>
 <script>
 // FNV-1a, 32 бита: простой и честный хеш для учебных целей
 function fnv(str){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)){ h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }

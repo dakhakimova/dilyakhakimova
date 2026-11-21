@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Зоопарк распределений · Сигнал или шум</title>
 <meta name="description" content="Глава 6 бесплатного интерактивного курса «Сигнал или шум»: Бернулли, биномиальное, Пуассон, геометрическое, экспонента и логнормальное — какой процесс какое распределение даёт. Среднее, медиана и «киты», задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +30,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch06" data-next="07-clt.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -68,7 +69,7 @@
   <p class="kicker">Часть I · глава 6</p>
   <h1>Зоопарк распределений</h1>
   <p class="core">После главы ты сможешь <b>подобрать распределение под процесс</b> и объяснить, почему средний чек не похож на типичный.</p>
-  <figure class="art"><img src="img/ch06-00-zoo.jpg" alt="Котейка-смотритель в зоопарке, где в вольерах стоят горки разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка-смотритель в зоопарке распределений</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch06-00-zoo.jpg" alt="Котейка-смотритель в зоопарке, где в вольерах стоят горки разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка-смотритель в зоопарке распределений</figcaption></figure>
   <p class="lead">Боб докладывает: «Средний чек — 640 ₽». Алиса: «А типичный гость тратит 350». Кто из них врёт?</p>
   <p>В прошлой главе был колокол. Но заказы в час, время до следующего гостя и сумма в чеке устроены иначе, и у каждого процесса своё распределение. Глава снова про второй шаг алгоритма: <b>как распределено</b>.</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава продолжает второй">
@@ -86,9 +87,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Средний чек и типичный гость</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Средний чек 640 ₽. Значит, обычный гость тратит около 640, кто-то чуть больше, кто-то чуть меньше.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Медиана — 350 ₽: половина гостей тратит меньше. Средний чек тянут вверх банкеты и корпоративные заказы.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А сколько гостей тратит больше среднего чека?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Средний чек 640 ₽. Значит, обычный гость тратит около 640, кто-то чуть больше, кто-то чуть меньше.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Медиана — 350 ₽: половина гостей тратит меньше. Средний чек тянут вверх банкеты и корпоративные заказы.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А сколько гостей тратит больше среднего чека?</p></div></div>
   </div>
   <p>Если бы чеки были колоколом, больше среднего тратила бы ровно половина гостей. А здесь?</p>
   <div class="guess" data-key="above" data-min="0" data-max="100" data-unit="%">
@@ -196,7 +197,7 @@
 <section class="card" data-title="Киты" aria-label="Киты в чеках">
   <span class="step-tag">Малый график</span>
   <h2>Один банкет и сто завтраков</h2>
-  <figure class="art"><img src="img/ch06-01-whale.jpg" alt="Огромный банкетный заказ на одной чаше весов перевешивает гору маленьких чеков на другой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: один банкет перевешивает гору завтраков</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch06-01-whale.jpg" alt="Огромный банкетный заказ на одной чаше весов перевешивает гору маленьких чеков на другой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: один банкет перевешивает гору завтраков</figcaption></figure>
   <p>Утром кафе продало 100 завтраков — точки на оси. Добавь банкет и смотри, куда поедут среднее и медиана.</p>
   <div class="sheet c-white">
     <label class="field" for="b-x">Банкет: <b id="b-x-t" class="num">нет</b></label>
@@ -274,7 +275,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка и пятничный Пуассон</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По пятницам вечером в среднем 5 гостей за 10 минут. Пуассон обещает SD = √5 ≈ 2,2. А у меня SD почти 4! Пуассон сломался.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По пятницам вечером в среднем 5 гостей за 10 минут. Пуассон обещает SD = √5 ≈ 2,2. А у меня SD почти 4! Пуассон сломался.</p></div></div>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что, скорее всего, не так?</p>
@@ -363,7 +364,7 @@ _check()
     <dt>Тяжёлый хвост</dt><dd>редкие огромные значения, которые сдвигают среднее; heavy tail, «киты» — whales</dd>
     <dt>Избыточная дисперсия</dt><dd>разброс счёта больше, чем обещает Пуассон; overdispersion</dd>
   </dl>
-  <figure class="art"><img src="img/ch06-02-next.jpg" alt="Алиса стоит у четырёх досок, на каждой из кривых горок вырастает колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из кривых распределений вырастают колокола средних</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch06-02-next.jpg" alt="Алиса стоит у четырёх досок, на каждой из кривых горок вырастает колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из кривых распределений вырастают колокола средних</figcaption></figure>
   <a class="next-step" href="07-clt.html"><b>Дальше, глава 7: «ЦПТ в деле»</b>Чеки — не колокол. А средний чек по сотне заказов? Посчитаем, насколько шумит среднее и почему «киты» мешают.</a>
 </section>
 
@@ -374,7 +375,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

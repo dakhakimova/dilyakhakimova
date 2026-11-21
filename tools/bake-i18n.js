@@ -7,6 +7,8 @@
    (главная: i18n/home.js; лендинги курсов: i18n/site.js + i18n/<курс>.js; «Об авторе»: i18n/site.js + i18n/about.js).
    Правило разметки: у элемента с data-i18n всё содержимое берётся из словаря; data-i18n-attr="атрибут:ключ;…".
 
+   Игрушки /play/ собирает tools/build-play.js (вызывается в конце): тексты — i18n/play.js, список — play/toys-*.json.
+
    TYPO_ONLY — страницы без словаря (оглавления «Сигнала» и «A/B на пальцах»): там типограф (неразрывные пробелы,
    тире) прогоняется только по кускам между <!-- typo --> и <!-- /typo -->. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -105,4 +107,6 @@ if (process.argv[2] === '--typo') process.argv.slice(3).forEach(typoPage);
 else {
   PAGES.forEach(bake);
   if (!target) TYPO_ONLY.forEach(typoOnly);
+  // страницы игрушек /play/ (и /<lang>/play/) — из play/toys-*.json и i18n/play.js
+  require('./build-play.js')(target || 'ru');
 }

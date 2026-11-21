@@ -29,7 +29,10 @@ const fmtP = p => p < 0.001 ? 'меньше 0,001' : num(p, 3);
 // trap = «плохо» (ложная тревога, падение, вред). Раунд 4: краснее, чтобы не путать с оранжевым тестом. testInk — тёмно-оранжевый для подписей теста (контраст 5:1 на белом).
 // trapInk — тот же красный для текста на белом и на светлой заливке fillB (контраст ≥ 5:1).
 const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', testInk:'#A85A24', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0'};
-const store = {get(k){ try { return JSON.parse(localStorage.getItem('ab:' + k)); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem('ab:' + k, JSON.stringify(v)); } catch(e) {} }};
+// соло-режим /play/ (window.PLAY_SOLO, ставит /play/bridge.js): догадки, выборы и баллы живут только в памяти вкладки —
+// игрушка на /play/ не подставляет старых ответов из курса и не начисляет баллов
+const store = window.PLAY_SOLO ? (() => { const m = {}; return {get: k => k in m ? JSON.parse(m[k]) : null, set: (k, v) => { m[k] = JSON.stringify(v); }}; })()
+  : {get(k){ try { return JSON.parse(localStorage.getItem('ab:' + k)); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem('ab:' + k, JSON.stringify(v)); } catch(e) {} }};
 
 // Холст по ширине контейнера; ratio — высота к ширине (на телефоне выше).
 function canvas(cv, ratio = 0.4, mobileRatio = 0.62, fixedH){
@@ -134,7 +137,7 @@ for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Obj
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
-    seen.add(cur); store.set(key, [...seen]); AB.track('card', cur + 1);
+    if (!window.PLAY_SOLO){ seen.add(cur); store.set(key, [...seen]); AB.track('card', cur + 1); }  // соло-режим /play/: без прогресса
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
@@ -166,9 +169,11 @@ for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Obj
   });
   if (matchMedia('(max-width: 900px)').matches) toggle.setAttribute('aria-expanded', 'false');
   // первая отрисовка — после того как скрипт страницы подпишется на события
+  // соло-режим (/play/bridge.js, ?toy=<slug>): сразу карточка игрушки, остальные скрыты стилем моста
+  const solo = window.PLAY_SOLO ? cards.findIndex(c => (c.dataset.toy || '').split(/\s+/).includes(window.PLAY_SOLO)) : -1;
   setTimeout(() => {
     const m = location.hash.match(/^#card-(\d+)$/);
-    go(m ? +m[1] - 1 : 0, false);
+    go(solo >= 0 ? solo : m ? +m[1] - 1 : 0, false);
   }, 0);
   window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
 })();

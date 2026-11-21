@@ -40,3 +40,15 @@ CREATE TABLE IF NOT EXISTS promo_codes (
   used_at     TEXT,
   PRIMARY KEY (user_id, tier)
 );
+
+-- Анонимный счётчик игрушек: агрегаты по дням, без cookie, IP и пользователей (POST /api/hit).
+-- Для уже работающей базы — миграция migrations/002-toy-hits.sql (та же таблица).
+CREATE TABLE IF NOT EXISTS toy_hits (
+  day     TEXT NOT NULL,                        -- '2026-11-24', по UTC
+  slug    TEXT NOT NULL,                        -- игрушка
+  place   TEXT NOT NULL,                        -- 'course' | 'play' | 'embed'
+  kind    TEXT NOT NULL,                        -- 'play' | 'view' | 'share_click'
+  source  TEXT NOT NULL DEFAULT '',             -- utm_source; для embed — домен сайта; '' — нет
+  count   INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (day, slug, place, kind, source)
+) WITHOUT ROWID;

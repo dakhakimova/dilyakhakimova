@@ -1,0 +1,163 @@
+/* Мост между главами бесплатных курсов и страницами игрушек /play/<slug>/.
+   Подключается в <head> каждой главы (до progress.js и движка): <script src="/play/bridge.js?v=…"></script>
+
+   Разметка в главе (подробно — /home/claude/play-guide.md, §4):
+     <section class="card" data-toy="galton">       — карточка с игрушкой (slug латиницей);
+     <section class="card" data-toy-pre="galton">   — необязательно: карточка «сначала угадай» к ней (показывается выше игрушки);
+     data-toy-reveal  — у блока внутри этих карточек: на /play/ скрыт до первого касания игрушки (спойлер: «Как правильно…»);
+     data-toy-hide    — у блока внутри этих карточек: на /play/ не показывается вовсе (отсылки к курсу, «страшное слово» и т. п.).
+   В самом курсе обе пометки ничего не меняют.
+
+   1. Соло-режим: глава открыта как …/07-distribution.html?toy=galton — видны только эти карточки, без шапки,
+      оглавления и листалки; баллы, прогресс и догадки не пишутся (движки смотрят на PLAY_SOLO и держат всё в памяти).
+      Так страница /play/<slug>/ показывает игрушку в iframe: код игрушки один — тот, что в главе.
+      Под игрушкой — подпись «Игрушка из курса «…», шаг N — dilyakhakimova.com · <статус курса>» из /play/credits.json
+      (его собирает tools/build-play.js из play/courses.json — статус курса задаётся там). С &embed=1 ссылки открываются в новой вкладке.
+      Родителю уходят сообщения: {type:'toy:h', h} — высота; {type:'toy:interact'} — первое касание игрушки
+      (по нему раскрывается вывод); {type:'toy:guess'} — сделан прогноз.
+   2. В обычном режиме под каждой карточкой с data-toy, у которой уже есть страница на /play/ (есть в credits.json), —
+      кнопка «Поделиться игрушкой»: Web Share API на телефоне, копирование ссылки на десктопе.
+
+   3. Анонимный счётчик (POST /api/hit → таблица toy_hits): «сыграл» = первое взаимодействие с игрушкой за загрузку страницы,
+      в курсе (place 'course') и во встраивании (place 'embed', source — домен сайта); на /play/<slug>/ считает play/play.js.
+      Только на боевом домене, через navigator.sendBeacon, ошибки молча; не чаще одного события на игрушку и вид за загрузку.
+
+   Строки — в PLAY_STR (готово к /en/: язык из <html lang>). */
+(function(){
+  const PLAY_STR = {
+    ru: {
+      share: 'Поделиться игрушкой',
+      copied: 'Ссылка скопирована',
+      copyFail: 'Скопируй ссылку: ',
+      shareNote: 'Отдельная страница этой игрушки — для коллег и статей.',
+      guessNote: 'Сначала запиши догадку, потом проверь на игрушке ниже.',
+      preTag: 'Сначала угадай',
+    },
+  };
+  const lang = (document.documentElement.lang || 'ru').slice(0, 2);
+  const T = Object.assign({}, PLAY_STR.ru, PLAY_STR[lang] || {});
+  const q = new URLSearchParams(location.search);
+  const slug = (q.get('toy') || '').toLowerCase();
+  const ok = /^[a-z0-9-]{1,40}$/.test(slug);
+  const root = document.documentElement;
+  const base = location.origin + (lang !== 'ru' ? '/' + lang : '') + '/play/';
+  // список опубликованных игрушек и подписи к ним — /play/credits.json (собирает tools/build-play.js)
+  // (cache: 'no-cache' — браузер переспрашивает сервер по ETag, так новая игрушка видна без смены версий)
+  let credits = null;
+  const loadCredits = () => credits || (credits = fetch(base + 'credits.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}).catch(() => ({})));
+
+  // ---------- счётчик: одно событие на (игрушка, место, вид) за загрузку страницы; локально и на превью не шлём ----------
+  const sent = new Set();
+  const hit = (slug, place, kind, source) => {
+    const k = slug + '|' + place + '|' + kind;
+    if (sent.has(k) || !/^(www\.)?dilyakhakimova\.com$/.test(location.hostname) || !navigator.sendBeacon) return;
+    sent.add(k);
+    try { navigator.sendBeacon('/api/hit', JSON.stringify({slug, place, kind, source: source || ''})); } catch(e) {}
+  };
+  const utm = (q => (q.get('utm_source') || '').slice(0, 60))(new URLSearchParams(location.search));
+  // первое осмысленное касание карточки игрушки: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр)
+  const onFirstTouch = (card, fn) => {
+    const evs = ['click', 'input', 'change'];
+    const h = e => { if (!e.target.closest('button, input, select, canvas, [role=button]') || e.target.closest('.toy-share')) return; evs.forEach(ev => card.removeEventListener(ev, h)); fn(); };
+    evs.forEach(ev => card.addEventListener(ev, h));
+  };
+
+  // ---------- общий помощник «поделиться» ----------
+  window.PlayShare = async function(url, title, text, statusEl){
+    if (navigator.share && matchMedia('(pointer: coarse)').matches){
+      try { await navigator.share({title, text, url}); return 'shared'; } catch(e) { if (e && e.name === 'AbortError') return 'abort'; }
+    }
+    try { await navigator.clipboard.writeText(url); if (statusEl) statusEl.textContent = T.copied; return 'copied'; }
+    catch(e) { if (statusEl) statusEl.textContent = T.copyFail + url; return 'fail'; }
+  };
+
+  if (!ok){
+    // ---------- обычный режим: кнопка «Поделиться» в карточках опубликованных игрушек ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = [...document.querySelectorAll('.card[data-toy]')];
+      if (!cards.length) return;
+      cards.forEach(card => card.dataset.toy.split(/\s+/).forEach(s => onFirstTouch(card, () => hit(s, 'course', 'play', utm))));
+      loadCredits().then(pub => {
+        const st0 = document.createElement('style');
+        st0.textContent = '.toy-share{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:16px 0 0; padding-top:12px; border-top:1px dashed rgba(36,34,31,.18)} .toy-share .btn{min-height:44px} .toy-share .note{margin:0}';
+        document.head.appendChild(st0);
+        cards.forEach(card => {
+          const s = card.dataset.toy.split(/\s+/).find(x => pub[x]);
+          if (!s) return;
+          const box = document.createElement('div'); box.className = 'toy-share';
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = '↗ ' + T.share;
+          const st = document.createElement('span'); st.className = 'note'; st.setAttribute('role', 'status'); st.textContent = T.shareNote;
+          box.append(b, st); card.appendChild(box);
+          b.addEventListener('click', () => {
+            hit(s, 'course', 'share_click', utm);
+            const url = base + s + '/?utm_source=share&utm_medium=course&utm_content=' + s;
+            const h = card.querySelector('h2'); PlayShare(url, h ? h.textContent.trim() : document.title, '', st);
+          });
+        });
+      });
+    });
+    return;
+  }
+
+  // ---------- соло-режим ----------
+  window.PLAY_SOLO = slug;
+  root.classList.add('solo');
+  const embed = q.get('embed') === '1';
+  if (embed) root.classList.add('embed');
+  const mine = `.card[data-toy~="${slug}"], .card[data-toy-pre~="${slug}"]`;
+  const css = document.createElement('style');
+  css.textContent = `
+html.solo body{background:transparent; background-image:none}
+html.solo nav.top, html.solo .toc-side, html.solo .stage-head, html.solo .pager, html.solo #score{display:none !important}
+html.solo .reader{display:block; max-width:none; padding:0; margin:0}
+html.solo .stage{max-width:none}
+html.solo .card{display:none !important}
+html.solo ${mine.replace(/, /g, ', html.solo ')}{display:block !important}
+html.solo .card + .card{margin-top:16px}
+html.solo .card > .step-tag:not(.play-pre), html.solo .card[data-toy-pre] > h2, html.solo .card[data-toy-pre] .chat,
+html.solo .card .art, html.solo .card .src, html.solo .card .xref, html.solo .toy-share,
+html.solo [data-toy-hide], html.solo .plus{display:none !important}
+html.solo:not(.touched) [data-toy-reveal]{display:none !important}
+html.solo .card[data-toy-pre] .note{margin-bottom:0}
+html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{margin-bottom:4px}
+.play-credit{display:block; margin:10px 2px 0; font:400 13px/1.45 Onest, system-ui, sans-serif; color:#5E5A53}
+.play-credit a{color:#23418A}
+.play-credit .st{white-space:nowrap}
+`;
+  document.head.appendChild(css);
+
+  // сообщения без секретов, поэтому '*' (встраивают на любые сайты)
+  const post = m => { if (parent !== window) parent.postMessage(m, '*'); };
+  document.addEventListener('DOMContentLoaded', () => {
+    const toy = document.querySelector(`.card[data-toy~="${slug}"]`);
+    if (!toy) return;
+    const stage = document.querySelector('.stage') || toy.parentNode;
+    // подсказка «на следующей карточке проверим» в соло-режиме неверна: игрушка тут же, ниже
+    document.querySelectorAll(`.card[data-toy-pre~="${slug}"] .note, .card[data-toy-pre~="${slug}"] p`).forEach(n => {
+      if (!n.children.length && /(следующ|дальше|«Далее»)[^.]*карточк|карточк[^.]*(следующ|дальше)|Жми «Далее»/.test(n.textContent)) n.textContent = T.guessNote;
+    });
+    // единая метка «Сначала угадай» над прогнозом (свои метки карточек в соло-режиме скрыты)
+    document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`).forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
+    // подпись-источник под игрушкой (видна и в ?embed=1)
+    loadCredits().then(c => {
+      const x = c[slug]; if (!x) return;
+      const p = document.createElement('p'); p.className = 'play-credit';
+      p.innerHTML = x.html.replace(/\{target\}/g, embed ? '_blank' : '_top') + ' · <span class="st">' + x.badge + '</span>';
+      const cards = [...document.querySelectorAll(mine)], last = cards[cards.length - 1];
+      last.after(p); send();
+    });
+    // высота для родителя
+    let last = 0;
+    const send = () => { let b = 0; for (const el of stage.children){ if (!el.getClientRects().length) continue; const r = el.getBoundingClientRect(); if (r.height) b = Math.max(b, r.bottom + (parseFloat(getComputedStyle(el).marginBottom) || 0)); }
+      const h = Math.ceil(b + scrollY + 20); if (Math.abs(h - last) > 1){ last = h; post({type: 'toy:h', h, toy: slug}); } };
+    new ResizeObserver(send).observe(document.body);
+    addEventListener('resize', send); setTimeout(send, 50); setTimeout(send, 600);
+    // первое касание игрушки: раскрыть спойлеры (data-toy-reveal) и сообщить родителю
+    // на /play/<slug>/ «сыграл» считает родитель (play/play.js); во встраивании и при прямом заходе — здесь
+    const ref = (() => { try { const h = (q.get('ref') || (document.referrer ? new URL(document.referrer).hostname : '')).replace(/^www\./, '').toLowerCase(); return h === 'dilyakhakimova.com' ? '' : h; } catch(e) { return ''; } })();
+    const touch = () => { if (root.classList.contains('touched')) return; root.classList.add('touched'); post({type: 'toy:interact', toy: slug}); setTimeout(send, 30);
+      if (embed) hit(slug, 'embed', 'play', ref); else if (parent === window) hit(slug, 'play', 'play', utm); };
+    onFirstTouch(toy, touch);
+    document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`).forEach(c => ['guessed', 'chosen'].forEach(ev => c.addEventListener(ev, () => post({type: 'toy:guess', toy: slug}), true)));
+  });
+})();

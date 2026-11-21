@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Нормальное распределение · Сигнал или шум</title>
 <meta name="description" content="Глава 5 бесплатного интерактивного курса «Сигнал или шум»: колокол как модель, правило 68–95–99,7, z-оценка, плотность и площадь, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch05" data-next="06-zoo.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -59,7 +60,7 @@
   <p class="kicker">Часть I · глава 5</p>
   <h1>Нормальное распределение</h1>
   <p class="core">После главы ты сможешь <b>мерить отклонения в сигмах</b> и по правилу 68–95–99,7 прикидывать, насколько редко значение.</p>
-  <figure class="art"><img src="img/ch05-00-bell.jpg" alt="Алиса высыпает монетки в стеклянный сосуд, и они складываются в колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: монетки-средние складываются в колокол</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch05-00-bell.jpg" alt="Алиса высыпает монетки в стеклянный сосуд, и они складываются в колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: монетки-средние складываются в колокол</figcaption></figure>
   <p class="lead">Вчера средний чек в кафе был 740 ₽. Боб спрашивает: «Это много?» Алиса отвечает вопросом: «А сколько это в сигмах?»</p>
   <p>В прошлой главе мы увидели, что шум есть всегда. Теперь узнаем его форму. Глава учит второму шагу алгоритма: <b>как распределено</b>. Первая модель — колокол.</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет второй">
@@ -81,8 +82,8 @@
     <canvas id="h-cv" role="img" aria-label="Гистограмма средних чеков за 300 дней: колокол с центром около 640 рублей"></canvas>
   </div>
   <div class="chat">
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Центр — около 640 ₽, SD — около 50 ₽. Это и есть сигма, σ. Вчерашние 740 ₽ — на две сигмы выше центра.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Две сигмы — это много или мало?</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Центр — около 640 ₽, SD — около 50 ₽. Это и есть сигма, σ. Вчерашние 740 ₽ — на две сигмы выше центра.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Две сигмы — это много или мало?</p></div></div>
   </div>
   <p>Как думаешь, какая доля дней лежит дальше чем на 2σ от центра — выше 740 или ниже 540 ₽?</p>
   <div class="guess" data-key="beyond2" data-min="0" data-max="100" data-unit="%">
@@ -133,7 +134,7 @@
 <section class="card" data-title="Правило" aria-label="Правило">
   <span class="step-tag">Правило</span>
   <h2>68, 95, 99,7</h2>
-  <figure class="art"><img src="img/ch05-01-ruler.jpg" alt="Боб прикладывает к колоколу огромную линейку с делениями в сигмах" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с линейкой в сигмах у колокола</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch05-01-ruler.jpg" alt="Боб прикладывает к колоколу огромную линейку с делениями в сигмах" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с линейкой в сигмах у колокола</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>«Много или мало» не скажешь, глядя на одно число. Сравни его с обычным разбросом: сколько сигм до центра?</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 дней примерно 683 лежат в пределах ±1σ от центра, 954 — в ±2σ, 997 — в ±3σ. Дальше 2σ — около 46 дней из 1000, по 23 с каждой стороны.</p></div>
@@ -299,7 +300,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка и правило 68 %</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Проверил правило на чеках отдельных гостей: средний чек 640 ₽, σ = 980 ₽. В пределах ±1σ должно быть 68 % чеков, а у меня 92 %! И левая граница −340 ₽. Данные сломаны!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Проверил правило на чеках отдельных гостей: средний чек 640 ₽, σ = 980 ₽. В пределах ±1σ должно быть 68 % чеков, а у меня 92 %! И левая граница −340 ₽. Данные сломаны!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -386,7 +387,7 @@ _check()
     <dt>Функция распределения</dt><dd>доля значений левее x, Φ для нормального; cumulative distribution function, CDF</dd>
     <dt>Квантиль</dt><dd>значение, левее которого лежит заданная доля; quantile, percentile</dd>
   </dl>
-  <figure class="art"><img src="img/ch05-02-next.jpg" alt="Котейка открывает калитку зоопарка, за которой вольеры с фигурами разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у ворот зоопарка распределений</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch05-02-next.jpg" alt="Котейка открывает калитку зоопарка, за которой вольеры с фигурами разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у ворот зоопарка распределений</figcaption></figure>
   <a class="next-step" href="06-zoo.html"><b>Дальше, глава 6: «Зоопарк распределений»</b>Чеки гостей и время ожидания курьера — не колокол. Научимся подбирать распределение под процесс.</a>
 </section>
 
@@ -397,7 +398,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

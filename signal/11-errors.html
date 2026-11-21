@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ошибки I и II рода · Сигнал или шум</title>
 <meta name="description" content="Глава 11 бесплатного интерактивного курса «Сигнал или шум»: ложные тревоги и пропуски, α, β и мощность на двух колоколах, минимальный заметный эффект (MDE) и число гостей до теста.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +24,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch11" data-next="12-wins.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -66,7 +67,7 @@
     <li>1. Что здесь случайно?</li><li>2. Как распределено?</li><li>3. Центр и разброс</li>
     <li>4. Насколько шумит среднее</li><li class="on"><b>5.</b> Сколько стандартных ошибок до порога</li><li class="on"><b>6.</b> Ответ бизнесу</li>
   </ol>
-  <figure class="art"><img src="img/ch11-00-alarm.jpg" alt="Пожарная сигнализация в кафе пищит от тостера, Котейка спокойно сидит рядом" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: сигнализация пищит от тостера</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch11-00-alarm.jpg" alt="Пожарная сигнализация в кафе пищит от тостера, Котейка спокойно сидит рядом" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: сигнализация пищит от тостера</figcaption></figure>
   <p class="lead">Сигнализация в кафе пищит от тостера и молчит, когда на кухне правда дымит. Боб хочет, чтобы она не ошибалась вообще. A/B-тест ошибается так же — двумя способами, и одну ошибку нельзя убавить, не прибавив другую.</p>
 </section>
 
@@ -75,8 +76,8 @@
   <span class="step-tag">История</span>
   <h2>Тостер и дым</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Купим сигнализацию, которая не ошибается никогда.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделаем её глухой — не будет писка от тостера, но пропустим пожар. Сделаем чуткой — наоборот. Без датчика получше обе ошибки сразу не убрать.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Купим сигнализацию, которая не ошибается никогда.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделаем её глухой — не будет писка от тостера, но пропустим пожар. Сделаем чуткой — наоборот. Без датчика получше обе ошибки сразу не убрать.</p></div></div>
   </div>
   <p>С тестом то же самое. Правда бывает двух видов (кнопка работает или нет), решение тоже (прокрасилось или нет). Получается таблица 2 × 2:</p>
   <div class="report-wrap"><table class="xtab err2" aria-label="Четыре исхода теста">
@@ -96,8 +97,8 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Эффект ровно на пороге — заметим?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Жду от новых фото +0,83 заказа на 100 гостей. При 10 000 гостях в группе порог значимости как раз 0,83. Значит, тест эффект поймает!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поймает — в какой доле таких тестов? Наблюдаемая разница ведь тоже шумит.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Жду от новых фото +0,83 заказа на 100 гостей. При 10 000 гостях в группе порог значимости как раз 0,83. Значит, тест эффект поймает!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поймает — в какой доле таких тестов? Наблюдаемая разница ведь тоже шумит.</p></div></div>
   </div>
   <div class="guess" data-key="half" data-min="0" data-max="100" data-unit="%">
     <label class="field">Тест прокрасится примерно в <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> % таких экспериментов</label>
@@ -137,7 +138,7 @@
 <section class="card" data-title="Правило" aria-label="Правило">
   <span class="step-tag">Правило</span>
   <h2>Мощность — сколько оранжевого колокола за порогом</h2>
-  <figure class="art"><img src="img/ch11-01-two-bells.jpg" alt="Два колокола на доске, Алиса двигает между ними шлагбаум-порог" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса двигает порог между двумя колоколами</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch11-01-two-bells.jpg" alt="Два колокола на доске, Алиса двигает между ними шлагбаум-порог" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса двигает порог между двумя колоколами</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Сигнализация ошибается двумя способами. Чем она чувствительнее к дыму, тем чаще пищит от тостера. Сдвинуть порог — значит обменять одну ошибку на другую.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 пустых тестов при α = 5 % прокрасятся около 50. Из 1000 тестов с настоящим эффектом при мощности 80 % прокрасятся 800, а 200 мы пропустим.</p></div>
@@ -202,7 +203,7 @@
   <span class="step-tag">Ловушка</span>
   <h2>Не прокрасилось — значит, не работает?</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Тест кнопки «Чаевые курьеру» не прокрасился, p = 0,4. Значит, кнопка бесполезна. Выкидываем!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Тест кнопки «Чаевые курьеру» не прокрасился, p = 0,4. Значит, кнопка бесполезна. Выкидываем!</p></div></div>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -339,7 +340,7 @@ _check()
     <dt>MDE</dt><dd>минимальный эффект, который тест заметит с заданной мощностью; minimum detectable effect</dd>
     <dt>Проклятие победителя</dt><dd>завышенные оценки у прокрасившихся тестов; winner's curse, type M error</dd>
   </dl>
-  <figure class="art"><img src="img/ch11-02-next.jpg" alt="Стена из маленьких экранов с тестами, часть светится зелёным, Боб тянется к зелёным, Алиса его останавливает" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: стена тестов, Боб тянется к зелёным</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch11-02-next.jpg" alt="Стена из маленьких экранов с тестами, часть светится зелёным, Боб тянется к зелёным, Алиса его останавливает" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: стена тестов, Боб тянется к зелёным</figcaption></figure>
   <a class="next-step" href="12-wins.html"><b>Дальше, глава 12: «„Прокрасилось“ — значит, работает?»</b>За год 1000 тестов, 125 зелёных. Боб хочет выкатить все. Сколько из них — подарки Котейки пустым идеям?</a>
 </section>
 
@@ -350,7 +351,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

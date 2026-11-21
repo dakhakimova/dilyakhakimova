@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Симпсон, Берксон, ошибка выжившего и автобус · Сигнал или шум</title>
 <meta name="description" content="Глава 8 бесплатного интерактивного курса «Сигнал или шум»: парадокс инспекции на автобусной остановке, парадокс Симпсона в доставке, Берксон и ошибка выжившего — как проверить данные до расчётов, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +23,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch08" data-next="09-aa.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -61,7 +62,7 @@
   <p class="kicker">Часть II · глава 8</p>
   <h1>Симпсон, Берксон, ошибка выжившего и автобус</h1>
   <p class="core">После главы ты сможешь <b>проверить данные на Симпсона, Берксона, выжившего и парадокс инспекции</b> до того, как считать.</p>
-  <figure class="art"><img src="img/ch08-00-bus-stop.jpg" alt="Котейка в мешке сидит на автобусной остановке, вдали автобусы едут пачкой по три" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на остановке, автобусы едут пачками</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch08-00-bus-stop.jpg" alt="Котейка в мешке сидит на автобусной остановке, вдали автобусы едут пачкой по три" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка на остановке, автобусы едут пачками</figcaption></figure>
   <p class="lead">Формулы прошлых глав верны, если данные — честная случайная выборка. Но кто решил, какие заказы, гости и автобусы в них попали? В этой главе четыре ловушки, которые срабатывают до всякого расчёта.</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава возвращается к первому">
     <li class="on"><b>1.</b> Что здесь случайно?</li>
@@ -79,8 +80,8 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Сколько ждать автобус?</h2>
   <div class="chat">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Езжу за молоком на автобусе. На табличке написано: «в среднем раз в 10 минут». Прихожу в случайный момент — значит, жду в среднем 5. А по ощущениям — вечность.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">5 минут — если автобусы ходят строго по расписанию. А они ходят как попало: то два подряд, то полчаса ни одного.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Езжу за молоком на автобусе. На табличке написано: «в среднем раз в 10 минут». Прихожу в случайный момент — значит, жду в среднем 5. А по ощущениям — вечность.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">5 минут — если автобусы ходят строго по расписанию. А они ходят как попало: то два подряд, то полчаса ни одного.</p></div></div>
   </div>
   <p>Пусть интервалы между автобусами случайные, как время между заказами из главы 6 (экспонента), со средним 10 минут. Сколько Котейка ждёт в среднем, если приходит на остановку в случайный момент?</p>
   <div class="choice" data-key="wait" role="group" aria-label="Твой ответ">
@@ -115,7 +116,7 @@
 <section class="card" data-title="Парадокс инспекции" aria-label="Парадокс инспекции">
   <span class="step-tag">Правило</span>
   <h2>Длинные интервалы ловят чаще</h2>
-  <figure class="art"><img src="img/ch08-01-long-gap.jpg" alt="Лента времени с короткими и длинными промежутками между автобусами; Котейка с завязанными глазами бросает дротик и попадает в самый длинный" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: дротик чаще попадает в длинный промежуток</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch08-01-long-gap.jpg" alt="Лента времени с короткими и длинными промежутками между автобусами; Котейка с завязанными глазами бросает дротик и попадает в самый длинный" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: дротик чаще попадает в длинный промежуток</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Котейка приходит в случайный момент, а случайный момент чаще лежит внутри длинного интервала: длинный занимает больше времени. Поэтому интервал, в который попадает Котейка, в среднем длиннее, чем средний интервал по расписанию.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>При экспоненте со средним 10 минут интервалов длиннее 10 минут всего 37 из 100. Но из 1000 приходов Котейка попадает в такие интервалы примерно в 736: они покрывают почти три четверти времени.</p></div>
@@ -137,10 +138,10 @@
 <section class="card" data-title="Отчёт Боба" aria-label="Отчёт Боба">
   <span class="step-tag">Сначала угадай</span>
   <h2>Лучше везде, а в целом хуже?</h2>
-  <figure class="art"><img src="img/ch08-02-simpson.jpg" alt="Две доски с подписями-значками района, на каждой стрелка вниз, и общая доска со стрелкой вверх; Боб в недоумении чешет затылок" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: в районах стрелки вниз, в сумме вверх, Боб в недоумении</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch08-02-simpson.jpg" alt="Две доски с подписями-значками района, на каждой стрелка вниз, и общая доска со стрелкой вверх; Боб в недоумении чешет затылок" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: в районах стрелки вниз, в сумме вверх, Боб в недоумении</figcaption></figure>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В ноябре мы поменяли маршруты курьеров. Опозданий стало меньше в центре — с 10 % до 8 %, и на окраине — с 30 % до 25 %. В октябре в целом опаздывали 14 % заказов. Ноябрь будет рекордным!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А откуда в ноябре были заказы? Мы ведь открыли доставку в новый спальный район на окраине.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В ноябре мы поменяли маршруты курьеров. Опозданий стало меньше в центре — с 10 % до 8 %, и на окраине — с 30 % до 25 %. В октябре в целом опаздывали 14 % заказов. Ноябрь будет рекордным!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А откуда в ноябре были заказы? Мы ведь открыли доставку в новый спальный район на окраине.</p></div></div>
   </div>
   <p>В октябре 80 % заказов шли в центр, 20 % — на окраину. В ноябре наоборот: в центр 40 %, на окраину 60 %. Заказов столько же, 1000.</p>
   <div class="guess" data-key="simpson" data-min="0" data-max="100" data-unit="%">
@@ -258,7 +259,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Чек постоянных гостей</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я посчитал: у гостей, которые с нами больше года, средний чек 820 ₽, а у новичков — 450 ₽. Значит, кафе приучает гостей тратить больше. Ещё год — и все будут брать по 820!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, я посчитал: у гостей, которые с нами больше года, средний чек 820 ₽, а у новичков — 450 ₽. Значит, кафе приучает гостей тратить больше. Ещё год — и все будут брать по 820!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в выводе Котейки?</p>
@@ -347,7 +348,7 @@ _check()
     <dt>Смещение отбора</dt><dd>правило попадания в данные искажает картину; частный случай с порогом — парадокс Берксона; selection bias</dd>
     <dt>Ошибка выжившего</dt><dd>в данных только те, кто «дожил»; survivorship bias</dd>
   </dl>
-  <figure class="art"><img src="img/ch08-03-next.jpg" alt="Две одинаковые двери кафе, Алиса с линейкой смотрит на два разных столбика над ними" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две одинаковые двери и два разных столбика</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch08-03-next.jpg" alt="Две одинаковые двери кафе, Алиса с линейкой смотрит на два разных столбика над ними" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две одинаковые двери и два разных столбика</figcaption></figure>
   <a class="next-step" href="09-aa.html"><b>Дальше, глава 9: «A/A-тест»</b>Данные честные, группы одинаковые — а цифры всё равно разные. Насколько, и как этим проверить, что эксперимент считается правильно?</a>
 </section>
 
@@ -358,7 +359,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

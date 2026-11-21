@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Шум · Сигнал или шум</title>
 <meta name="description" content="Глава 4 бесплатного интерактивного курса «Сигнал или шум»: насколько скачет доля на n наблюдениях, коридор ±2 SD, закон больших чисел, рейтинг маленьких кафе и задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +22,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch04" data-next="05-normal.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Сигнал или шум</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -43,7 +44,7 @@
   <p class="kicker">Часть I · глава 4</p>
   <h1>Шум</h1>
   <p class="core">После главы ты сможешь <b>прикинуть, насколько скачет доля на n гостях</b>, и не принимать скачки маленьких выборок за тренд.</p>
-  <figure class="art"><img src="img/ch04-00-window.jpg" alt="Котейка сидит у витрины кафе с блокнотом и считает гостей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у витрины считает гостей</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch04-00-window.jpg" alt="Котейка сидит у витрины кафе с блокнотом и считает гостей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у витрины считает гостей</figcaption></figure>
   <p class="lead">Котейка неделю считал гостей у витрины и нашёл тренд: доля заказавших росла четыре дня подряд. Через месяц тренд куда-то делся. Был ли он вообще?</p>
   <p>Кафе уже работает, данные копятся каждый день. Эта глава учит третьему шагу алгоритма: <b>центр и разброс</b>. Мы посчитаем, насколько доля скачет сама по себе, и впервые заглянем в четвёртый шаг — как шумит среднее.</p>
   <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет третий">
@@ -61,9 +62,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Тренд или шум?</h2>
   <div class="chat">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Понедельник — 8 %, вторник — 11 %, среда — 12 %, четверг — 13 %. Мяу, тренд!</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">А я составил рейтинг 40 кафе сети по конверсии за неделю. В топе три маленьких кафе у вокзала. Переносим их меню во все!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сначала посчитаем, насколько доля скачет, когда не меняется ничего. С чем-то же надо сравнивать.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Понедельник — 8 %, вторник — 11 %, среда — 12 %, четверг — 13 %. Мяу, тренд!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">А я составил рейтинг 40 кафе сети по конверсии за неделю. В топе три маленьких кафе у вокзала. Переносим их меню во все!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сначала посчитаем, насколько доля скачет, когда не меняется ничего. С чем-то же надо сравнивать.</p></div></div>
   </div>
   <p>Пусть конверсия в заказ каждый день ровно 10 %, и ничего не меняется. В кафе приходит 100 гостей в день. Доля заказавших будет скакать вокруг 10 %. Как часто она выйдет за коридор от 7 до 13 %?</p>
   <div class="guess" data-key="out" data-min="0" data-max="100" data-unit="%">
@@ -144,7 +145,7 @@
 <section class="card" data-title="Рейтинг кафе" aria-label="Рейтинг кафе">
   <span class="step-tag">Малый график</span>
   <h2>Рейтинг Боба: кто в топе?</h2>
-  <figure class="art"><img src="img/ch04-01-ranking.jpg" alt="Боб гордо показывает на верхнюю строчку рейтинга кафе, где стоит самое маленькое кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с рейтингом кафе</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch04-01-ranking.jpg" alt="Боб гордо показывает на верхнюю строчку рейтинга кафе, где стоит самое маленькое кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с рейтингом кафе</figcaption></figure>
   <p>В сети 40 кафе. <b>У всех одинаковая конверсия — 10 %</b>, отличается только число гостей за неделю: от 50 до 5000. Каждая точка — кафе; по горизонтали — гости, по вертикали — конверсия за неделю. Оранжевые — топ-3 рейтинга, красные — три последних.</p>
   <div class="sheet c-white">
     <div class="controls"><button class="btn" type="button" id="r-week">Новая неделя</button></div>
@@ -223,7 +224,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Котейка и закон больших чисел</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По закону больших чисел наша конверсия навсегда 10 %. Новое меню бесполезно — закон не обманешь. Можно спать.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">По закону больших чисел наша конверсия навсегда 10 %. Новое меню бесполезно — закон не обманешь. Можно спать.</p></div></div>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Котейки?</p>
@@ -303,7 +304,7 @@ _check()
     <dt>Стандартная ошибка</dt><dd>разброс среднего или доли от выборки к выборке, σ / √n; standard error, SE — подробно в главе 7</dd>
     <dt>Воронка</dt><dd>график «показатель против n» с коридором ±2 SD; funnel plot</dd>
   </dl>
-  <figure class="art"><img src="img/ch04-02-next.jpg" alt="Котейка высыпает из мешка монетки, и они складываются в горку-колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из мешка Котейки сыплются монетки и складываются в колокол</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/ch04-02-next.jpg" alt="Котейка высыпает из мешка монетки, и они складываются в горку-колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: из мешка Котейки сыплются монетки и складываются в колокол</figcaption></figure>
   <a class="next-step" href="05-normal.html"><b>Дальше, глава 5: «Нормальное распределение»</b>У шума есть форма — колокол. Научимся мерить отклонения в сигмах и узнавать, насколько редко значение.</a>
 </section>
 
@@ -314,7 +315,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Байес · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 6 бесплатного интерактивного курса «Вероятность на пальцах»: формула Байеса в штуках на 1000 купюр, база и ложные тревоги, Монти Холл, задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +53,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p06" data-next="07-distribution.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -91,7 +92,7 @@
   <p class="kicker">Шаг 6 из 9</p>
   <h1>Байес</h1>
   <p class="core">После шага ты сможешь <b>посчитать в штуках из 1000, сколько сигналов настоящие</b>, и не путать P(сигнал | фальшивка) с P(фальшивка | сигнал).</p>
-  <figure class="art"><img src="img/vp06-00-cashbox.jpg" alt="Касса в кафе мигает и пищит, Боб хватается за голову, Алиса спокойно рассматривает купюру на свет" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: касса пищит, Боб паникует, Алиса держит купюру на свет</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp06-00-cashbox.jpg" alt="Касса в кафе мигает и пищит, Боб хватается за голову, Алиса спокойно рассматривает купюру на свет" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: касса пищит, Боб паникует, Алиса держит купюру на свет</figcaption></figure>
   <p class="lead">В кафе поставили кассу, которая ловит фальшивые купюры. Ловит она 99 % фальшивок, а на настоящие пищит зря лишь в 1 % случаев. Касса пискнула. Боб уже звонит в полицию. Насколько он прав?</p>
 </section>
 
@@ -100,9 +101,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Касса пискнула. Это фальшивка?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Касса точна на 99 %. Раз пискнула — 99 %, что фальшивка!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А сколько вообще фальшивок нам приносят? По данным банка — примерно одну на 1000 купюр.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">У меня в мешке как раз 1000 купюр. Пропустим через кассу?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Касса точна на 99 %. Раз пискнула — 99 %, что фальшивка!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А сколько вообще фальшивок нам приносят? По данным банка — примерно одну на 1000 купюр.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">У меня в мешке как раз 1000 купюр. Пропустим через кассу?</p></div></div>
   </div>
   <div class="guess" data-key="cash" data-min="0" data-max="100" data-unit="%">
     <label class="field">Из 100 писков настоящих фальшивок будет примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> %</label>
@@ -211,7 +212,7 @@
   <span class="step-tag">Ловушка</span>
   <h2>Перевёрнутое условие</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Касса ошибается на настоящих купюрах только в 1 % случаев. Значит, если она пискнула, купюра настоящая лишь с шансом 1 %.</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Касса ошибается на настоящих купюрах только в 1 % случаев. Значит, если она пискнула, купюра настоящая лишь с шансом 1 %.</p></div></div>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что не так у Котейки?</p>
@@ -227,7 +228,7 @@
 <section class="card" data-title="Три двери" aria-label="Три двери">
   <span class="step-tag">Сначала угадай</span>
   <h2>Розыгрыш на празднике: три двери</h2>
-  <figure class="art"><img src="img/vp06-01-doors.jpg" alt="Праздник в кафе: три большие двери-коробки, Котейка-ведущий в бабочке, гость выбирает дверь" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: три двери и Котейка-ведущий в бабочке</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp06-01-doors.jpg" alt="Праздник в кафе: три большие двери-коробки, Котейка-ведущий в бабочке, гость выбирает дверь" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: три двери и Котейка-ведущий в бабочке</figcaption></figure>
   <p>За одной из трёх дверей торт, за двумя — пусто. Ты выбираешь дверь. Котейка знает, где торт, и открывает одну из двух других — пустую. Потом предлагает: поменять дверь или оставить?</p>
   <div class="choice" data-key="monty" role="group" aria-label="Твой прогноз">
     <button type="button" data-v="switch" data-fb="Ставка записана. Сыграй сам, а потом запусти автомат." aria-pressed="false">Менять выгоднее</button>
@@ -411,7 +412,7 @@ _check()
     <dt>Ложная тревога</dt><dd>сигнал без причины, P(E | не H); на собеседовании — false positive rate</dd>
     <dt>Прогностическая ценность</dt><dd>доля настоящих среди сигналов, P(H | E); на собеседовании — precision, PPV</dd>
   </dl>
-  <figure class="art"><img src="img/vp06-02-next.jpg" alt="Котейка у входа в кафе ставит доску Гальтона, шарики падают в корзинки, гости спорят" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp06-02-next.jpg" alt="Котейка у входа в кафе ставит доску Гальтона, шарики падают в корзинки, гости спорят" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка ставит у входа доску Гальтона</figcaption></figure>
   <a class="next-step" href="07-distribution.html"><b>Дальше, шаг 7: «Случайная величина и распределение»</b>Котейка ставит у входа доску Гальтона: шарики падают в корзинки, гости спорят, где вырастет горка. Узнаем, сколько шариков попадёт в среднюю корзину, ещё до первого броска.</a>
 </section>
 
@@ -422,7 +423,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

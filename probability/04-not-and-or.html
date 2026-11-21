@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Не, и, или · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
+<script src="/play/bridge.js?v=202611240"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +27,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
-<script src="/signal/progress.js"></script>
+<script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="./">Вероятность на пальцах</a>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -65,7 +66,7 @@
   <p class="kicker">Шаг 4 из 9</p>
   <h1>Не, и, или</h1>
   <p class="core">После шага ты сможешь <b>посчитать «хотя бы один» через «ни одного»</b> и не складывать вероятности, когда так нельзя.</p>
-  <figure class="art"><img src="img/vp04-00-party.jpg" alt="Вечеринка в кафе: два гостя держат одинаковые тортики со свечками и удивлённо смотрят друг на друга" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: вечеринка в честь открытия, у двух гостей совпал день рождения</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp04-00-party.jpg" alt="Вечеринка в кафе: два гостя держат одинаковые тортики со свечками и удивлённо смотрят друг на друга" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: вечеринка в честь открытия, у двух гостей совпал день рождения</figcaption></figure>
   <p class="lead">Кафе празднует открытие. Пришли 23 гостя — и у двоих день рождения в один день. Боб уверен, что это знак. Алиса уверена, что это арифметика. Кто прав?</p>
 </section>
 
@@ -74,9 +75,9 @@
   <span class="step-tag">Сначала угадай</span>
   <h2>Совпадение — это редкость?</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс совпадения — от силы 6 %. Это судьба!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты считаешь людей. А совпасть может любая пара гостей. Сколько пар из 23?</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Давайте устроим тысячу вечеринок. Я раздам дни рождения из мешка.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс совпадения — от силы 6 %. Это судьба!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты считаешь людей. А совпасть может любая пара гостей. Сколько пар из 23?</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Давайте устроим тысячу вечеринок. Я раздам дни рождения из мешка.</p></div></div>
   </div>
   <p>Считаем, что все 365 дней равновозможны (29 февраля не берём) и гости не связаны друг с другом: не близнецы и не пришли отмечать общий праздник.</p>
   <div class="guess" data-key="party23" data-min="0" data-max="100" data-unit="%">
@@ -157,7 +158,7 @@
   <span class="step-tag">Правило</span>
   <h2>«И» для независимых: умножаем</h2>
   <p>Над входом в кафе висит гирлянда. Каждая лампочка доживает до конца года с шансом 99 %. Лампочки не влияют друг на друга: перегоревшая соседка не греет и не бережёт остальных.</p>
-  <figure class="art"><img src="img/vp04-01-garland.jpg" alt="Котейка на стремянке вешает гирлянду над входом в кафе, одна лампочка погасла" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка вешает гирлянду над входом</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp04-01-garland.jpg" alt="Котейка на стремянке вешает гирлянду над входом в кафе, одна лампочка погасла" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка вешает гирлянду над входом</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Чтобы обе лампочки над дверью горели в декабре, должна выжить первая <b>и</b> вторая.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 10 000 пар лампочек первая выживает в 9900. Среди этих 9900 вторая выживает тоже в 99 % — в 9801 паре. Обе целы в 9801 паре из 10 000.</p></div>
@@ -205,8 +206,8 @@
   <span class="step-tag">Правило</span>
   <h2>«Или»: не считай общих дважды</h2>
   <div class="chat">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30 % гостей, десерт — 40 %. Значит, 70 % берут хоть что-то из двух!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А тех, кто берёт кофе с десертом, ты посчитал два раза.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30 % гостей, десерт — 40 %. Значит, 70 % берут хоть что-то из двух!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А тех, кто берёт кофе с десертом, ты посчитал два раза.</p></div></div>
   </div>
   <div class="sheet c-white">
     <canvas id="or1000" role="img" aria-label="1000 гостей: 300 взяли кофе, 400 — десерт, 150 — и то и другое; хотя бы одно взяли 550"></canvas>
@@ -282,7 +283,7 @@ _check()
   <span class="step-tag">Ловушка</span>
   <h2>Длинная цепочка надёжных шагов</h2>
   <div class="chat">
-    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Чтобы заказ приехал вовремя, нужны 7 шагов: заказ, оплата, кухня, упаковка, курьер, дорога, домофон. Каждый срабатывает в 90 % случаев. Значит, вовремя приезжает 90 % заказов — почти все!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Чтобы заказ приехал вовремя, нужны 7 шагов: заказ, оплата, кухня, упаковка, курьер, дорога, домофон. Каждый срабатывает в 90 % случаев. Значит, вовремя приезжает 90 % заказов — почти все!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так у Котейки, если шаги не влияют друг на друга?</p>
@@ -368,7 +369,7 @@ _check()
     <dt>Несовместные события</dt><dd>не случаются вместе, поэтому «или» — сумма; на собеседовании — mutually exclusive, disjoint</dd>
     <dt>Включения и исключения</dt><dd>P(A или B) = P(A) + P(B) − P(A и B); на собеседовании — inclusion–exclusion</dd>
   </dl>
-  <figure class="art"><img src="img/vp04-02-next.jpg" alt="Котейка на подоконнике смотрит, как гости с зонтиками спешат в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: начинается дождь, Котейка смотрит на гостей с зонтиками</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp04-02-next.jpg" alt="Котейка на подоконнике смотрит, как гости с зонтиками спешат в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: начинается дождь, Котейка смотрит на гостей с зонтиками</figcaption></figure>
   <a class="next-step" href="05-conditional.html"><b>Дальше, шаг 5: «Условная вероятность и независимость»</b>В дождь гости берут горячий шоколад чаще. А десерт? Сузим мир до дождливых дней и проверим, меняет ли погода хоть что-то.</a>
 </section>
 
@@ -379,7 +380,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611220"></script>
+<script src="/signal/book.js?v=202611240"></script>
 <script>
 const TXT = {
   ru: {

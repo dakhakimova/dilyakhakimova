@@ -7,6 +7,43 @@
 
 Хостинг — Cloudflare Pages, подключён к ветке `main`: каждое изменение в `main` публикуется автоматически.
 
+## Игрушки /play/
+
+Отдельная страница игрушки — `/play/<slug>/`, каталог — `/play/`. Код игрушки не копируется: страница показывает карточку главы курса в iframe в **соло-режиме** (`<глава>?toy=<slug>`: только карточка прогноза и игрушка, без шапки и листалки, без баллов; мост — `play/bridge.js`, подключён во всех главах). Правка игрушки в курсе сразу видна на `/play/`.
+
+Данные разбиты по курсам, чтобы тексты можно было писать параллельно:
+- `play/courses.json` — курсы и их **статус** (`free` / `paid` / `soon`): от него зависят подпись под игрушкой и кнопка «Дальше в курсе»; формулировки статусов — `i18n/play.js`, ключи `play.status.*`; порог показа счётчика — `showCountsFrom` (0 — выключено);
+- `play/toys-vp.json`, `play/toys-ss.json`, `play/toys-ab.json` — записи игрушек;
+- `i18n/play-vp.js`, `i18n/play-ss.js`, `i18n/play-ab.js` — тексты игрушек; `i18n/play.js` — общие строки интерфейса.
+
+Разметка в главе: `data-toy="<slug>"` — карточка игрушки, `data-toy-pre="<slug>"` — карточка прогноза, `data-toy-reveal` — блок-спойлер (на /play/ скрыт до первого касания), `data-toy-hide` — блок, ненужный вне курса.
+
+Команды (из корня):
+- `node tools/check-play.js [vp|ss|ab|slug]` — проверка данных и текстов по стандарту;
+- `node tools/bake-i18n.js` — собирает и `/play/` (`tools/build-play.js`: страницы, каталог, `play/credits.json`);
+- `NODE_PATH=$(npm root -g) node tools/test-play.js [slug|курс|chapters] [--shots папка]` — headless-проверка (сервер поднимается сам);
+- `NODE_PATH=$(npm root -g) node tools/og-play.js [slug …]` — OG-картинки `play/og/<slug>.png`.
+
+Встраивание: `/play/<slug>/?embed=1` (переходит в соло-режим с подписью «Игрушка из курса …»); автоподгонка высоты на чужом сайте — `/play/embed.js`. На Хабре iframe не работает — там GIF и ссылка.
+
+### Счётчик игрушек
+
+Анонимно, без cookie, IP и входа: `POST /api/hit` (`functions/api/hit.js`) → таблица `toy_hits` (агрегаты по дням: `day, slug, place, kind, source, count`). `kind`: `play` — первое взаимодействие с игрушкой за загрузку страницы, `view` — открыли `/play/<slug>/`, `share_click` — «поделиться»; `place`: `course` / `play` / `embed` (для embed `source` — домен сайта, иначе `utm_source`). Шлётся только с боевого домена.
+
+Включить: применить к базе `migrations/002-toy-hits.sql` (D1 → Console или `npx wrangler d1 execute dilyakhakimova --remote --file=migrations/002-toy-hits.sql`). Посмотреть цифры — D1 → Console:
+
+```sql
+-- за 30 дней: игрушки по числу игр, с разбивкой по месту
+SELECT slug, SUM(count) AS total,
+       SUM(CASE WHEN place='course' THEN count END) AS course,
+       SUM(CASE WHEN place='play'   THEN count END) AS play,
+       SUM(CASE WHEN place='embed'  THEN count END) AS embed
+FROM toy_hits WHERE kind='play' AND day >= date('now','-30 day')
+GROUP BY slug ORDER BY total DESC;
+-- откуда приходят на /play/ и где встраивают
+SELECT place, source, kind, SUM(count) AS n FROM toy_hits WHERE source <> '' GROUP BY 1,2,3 ORDER BY n DESC;
+```
+
 ## Бэкенд: вход через Telegram, прогресс и баллы
 
 Серверная часть — Cloudflare Pages Functions в папке `functions/api/` и база D1 (`schema.sql`).

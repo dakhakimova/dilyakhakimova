@@ -1,0 +1,11 @@
+{
+  "_doc": "Курсы для страниц /play/ — единственное место, где задан статус курса. status: free | paid | soon. От статуса зависят подпись под игрушкой (в том числе в ?embed=1), значок и кнопка в блоке «Дальше в курсе»; формулировки для каждого статуса — в i18n/play.js, ключи play.status.<status>.*. Когда Диля решит про регистрацию и оплату, меняется только status здесь и тексты play.status.* там. name — ключ названия в i18n/site.js; unit — ключ слова «шаг»/«глава» в i18n/play.js; toys — файл со списком игрушек курса; texts — файл с текстами игрушек курса.",
+  "_counts": "Счётчик «сколько раз поиграли» (таблица toy_hits, POST /api/hit). showCountsFrom — с какого числа показывать его на страницах; 0 — не показывать (сейчас). Показ ещё не сделан: в разметке стоит пустое место <span class=\"play-count\" data-count-for=\"<slug>\" hidden>, куда число встанет потом.",
+  "showCountsFrom": 0,
+  "order": ["vp", "ss", "ab"],
+  "courses": {
+    "vp": {"name": "foot.c.prob", "href": "/probability/", "dir": "/probability/", "unit": "play.unit.step", "status": "free", "toys": "play/toys-vp.json", "texts": "i18n/play-vp.js"},
+    "ss": {"name": "foot.c.sig", "href": "/signal/", "dir": "/signal/", "unit": "play.unit.chapter", "status": "free", "toys": "play/toys-ss.json", "texts": "i18n/play-ss.js"},
+    "ab": {"name": "foot.c.ab", "href": "/ab-basics/", "dir": "/ab-basics/", "unit": "play.unit.step", "status": "free", "toys": "play/toys-ab.json", "texts": "i18n/play-ab.js"}
+  }
+}
