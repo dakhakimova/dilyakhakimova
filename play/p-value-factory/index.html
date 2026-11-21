@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/09-aa.html?toy=p-value-factory" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Как ложатся p-value, когда эффекта нет? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
+<link rel="canonical" href="https://dilyakhakimova.com/play/p-value-factory/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/p-value-factory/">
+<meta property="og:title" content="Как ложатся p-value, когда эффекта нет? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/p-value-factory.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Как ложатся p-value, когда эффекта нет?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="p-value-factory" data-frame="/signal/09-aa.html?toy=p-value-factory"
+  data-share-title="Как ложатся p-value, когда эффекта нет?" data-share-text="Аналитик прогнал тысячу A/A на платформе экспериментов и построил гистограмму p-value. Какой формы она должна быть, если всё считается правильно? Угадай и проверь — а потом добавь баг с дублями в логах"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="p-value-factory" data-show-from="0" hidden></span></p>
+  <h1>Как ложатся p-value, когда эффекта нет?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Перед большим запуском хочу проверить нашу платформу экспериментов. Прогоню тысячу A/A — тестов, где обе группы видят одно и то же.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем? Эффекта нет — значит, все p-value будут где-то около единицы. Скукота.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">p-value — это шанс увидеть такую же разницу или больше, если эффекта нет. Вопрос, как они лягут по тысяче тестов.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я в логах иногда записываю одного гостя дважды. Это же ничего?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот и проверим: сначала честные A/A, потом — с твоими дублями.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>A/A-тест — эксперимент, в котором обе группы видят одно и то же: эффекта нет по построению. Для каждого теста считаем p-value — вероятность увидеть разницу не меньше нашей, если эффекта нет. Если p меньше 0,05, отчёт пишет «значимо».</p><p>Гистограмма раскладывает p-value тысяч A/A по столбикам шириной 0,05; пунктир — уровень «5 % тестов». Подумай, какой она будет: горка у единицы, у нуля или что-то ещё. Потом включи баг — логгер записывает каждого второго гостя дважды — и посмотри, что изменится.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/09-aa.html?toy=p-value-factory" title="Игрушка: Как ложатся p-value, когда эффекта нет?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/09-aa.html#card-5">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Нажми «+1000 A/A» несколько раз. Какой формы гистограмма?</li><li>Какая доля тестов получила p < 0,05? Сравни с 5 %.</li><li>Нажми «Добавить баг: дубли событий» и снова «+1000 A/A». Что выросло у нуля?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Без эффекта p-value ложатся ровным ковром: любое значение от 0 до 1 одинаково вероятно, в каждом столбике около 5 % тестов. Поэтому p < 0,05 получают около 5 % A/A — ровно выбранный порог. С дублями платформа думает, что данных больше, чем есть, и недооценивает шум: у нуля вырастает пик, «значимых» A/A уже около 13 %.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>В честном A/A p-value распределены равномерно: гистограмма ровная.</li><li>Доля A/A с p < α — доля ложных тревог, false positive rate. У честного теста она равна α.</li><li>Пик у нуля в сотнях A/A — баг: дубли событий, неверная единица анализа, зависимые наблюдения.</li><li>Прогоняй A/A на платформе перед важными запусками и после изменений в логах.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Даниэла Лакенса «Improving Your Statistical Inferences» («фабрика p-value»).</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Платформа прошла проверку. Но Боб нашёл в A/A «тренд», который рос пять дней подряд. Это глава 9 курса — <a href="/signal/09-aa.html">«A/A-тест»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/09-aa.html">Открыть глава 9 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/berkson/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Вкусно — значит дорого?</b><span>300 кафе, где вкус и цена никак не связаны, и порог рейтинга в приложении. Двигай порог и смотри, откуда берётся связь.</span><small>из курса «Сигнал или шум», глава 8</small><span class="play-count" data-count-for="berkson" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/fake-trend/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Откуда «тренд» в A/A-тесте?</b><span>Двадцать A/A-тестов по 14 дней: накопленная разница растёт несколько дней подряд, хотя эффекта нет. Как часто такой путь выходит за границу «значимо»?</span><small>из курса «Сигнал или шум», глава 9</small><span class="play-count" data-count-for="fake-trend" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/simpson-delivery/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Опозданий меньше в каждом районе. А во всех заказах вместе?</b><span>Курьеры стали опаздывать реже и в центре, и на окраине. Двигай долю заказов с окраины и смотри, куда пойдёт общий процент опозданий.</span><small>из курса «Сигнал или шум», глава 8</small><span class="play-count" data-count-for="simpson-delivery" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

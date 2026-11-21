@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/10-ab-test.html?toy=z-test" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>+0,65 заказа на 100 гостей — сигнал или шум? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Настоящий A/B-тест кнопки «Повторить заказ»: колокол из тысячи A/A, флажок разницы Боба и p-value, которое видно глазами.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/z-test/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/z-test/">
+<meta property="og:title" content="+0,65 заказа на 100 гостей — сигнал или шум? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Настоящий A/B-тест кнопки «Повторить заказ»: колокол из тысячи A/A, флажок разницы Боба и p-value, которое видно глазами.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/z-test.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">+0,65 заказа на 100 гостей — сигнал или шум?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="z-test" data-frame="/signal/10-ab-test.html?toy=z-test"
+  data-share-title="+0,65 заказа на 100 гостей — сигнал или шум?" data-share-text="Продакт приносит A/B: 2000 заказов на 20 000 гостей в контроле и 2130 на 20 000 с новой кнопкой. Катим или это шум? Угадай, как часто такая разница бывает в A/A, и проверь"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="z-test" data-show-from="0" hidden></span></p>
+  <h1>+0,65 заказа на 100 гостей — сигнал или шум?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Два дня теста кнопки «Повторить заказ». Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2130 на 20 000. Плюс 0,65 заказа на 100 гостей! Катим?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Разница между группами бывает всегда, даже когда обе видят одно и то же. Вопрос, насколько наша больше обычного шума.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. В моём мире кнопка ничего не делает. Но разница у меня тоже бывает — я же шумлю.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И как часто у тебя выходит плюс 0,65?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Насыплем тысячу A/A с такими же группами и посчитаем.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Колокол — разницы, которые даёт мир без эффекта: A/A-тесты с такими же группами по 20 000 гостей. Флажок — наша разница. Пунктир — порог «значимо» при 5 %. Красным закрашены A/A, где разница не меньше нашей в любую сторону: их доля и есть p-value.</p><p>Снизу — 95 %-й интервал разницы: какие эффекты не спорят с данными. Сначала сделай ставку, потом насыпь A/A. Числа теста можно поменять, а кнопка «Две кофейни» покажет тот же расчёт на маленьких группах по 100 гостей.</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом теста, Алиса держит стопку одинаковых карточек" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/10-ab-test.html?toy=z-test" title="Игрушка: +0,65 заказа на 100 гостей — сигнал или шум?" style="height:1300px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/10-ab-test.html#card-5">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Сделай ставку и нажми «Насыпать 1000 A/A». Сколько точек покраснело?</li><li>Нажми «Две кофейни: 74 и 83 из 100» и снова насыпь A/A. Разница больше — а сигнал?</li><li>Поменяй заказы в тесте на 2060. Где теперь флажок и интервал?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>В мире без эффекта разница не меньше 0,65 заказа на 100 гостей бывает примерно в 33 A/A из 1000 — p-value около 3,3 %. Это 2,14 стандартной ошибки: флажок за порогом, интервал от +0,05 до +1,25 не задевает ноль. Сигнал, хотя и негромкий. У двух кофеен разница целых 9 гостей из 100, но групп по 100 мало: такое в A/A бывает примерно в 12 случаях из 100, интервал задевает ноль.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>z = разница / SE — сколько стандартных ошибок в разнице.</li><li>SE = √(p̂(1 − p̂) · (1/n<sub>A</sub> + 1/n<sub>B</sub>)), p̂ — общая конверсия обеих групп.</li><li>|z| > 1,96 ⇔ p < 0,05 при двустороннем тесте.</li><li>p-value — доля A/A с разницей не меньше нашей. Это не «вероятность, что эффекта нет».</li><li>Интервал не задевает ноль ⇔ p < 0,05: одна проверка, прочитанная двумя способами.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Классический z-тест для двух долей.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб выкатил кнопку. Алиса уточнила: «Плюс сколько?» — и показала, какие эффекты остались живы после теста. Это глава 10 курса — <a href="/signal/10-ab-test.html">«A/B на простой метрике»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/10-ab-test.html">Открыть глава 10 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/twenty-metrics-aa/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Сколько из 20 метрик покраснеют в A/A?</b><span>Отчёт A/A с двадцатью метриками кафе: сколько из них «прокрасится», когда эффекта нет, и что меняется, если метрики связаны.</span><small>из курса «Сигнал или шум», глава 9</small><span class="play-count" data-count-for="twenty-metrics-aa" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/coin-p-value/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>9 орлов из 10 — монетка нечестная?</b><span>Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.</span><small>из курса «Сигнал или шум», глава 10</small><span class="play-count" data-count-for="coin-p-value" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/fake-trend/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Откуда «тренд» в A/A-тесте?</b><span>Двадцать A/A-тестов по 14 дней: накопленная разница растёт несколько дней подряд, хотя эффекта нет. Как часто такой путь выходит за границу «значимо»?</span><small>из курса «Сигнал или шум», глава 9</small><span class="play-count" data-count-for="fake-trend" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

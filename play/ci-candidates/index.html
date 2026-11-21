@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/10-ab-test.html?toy=ci-candidates" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Какие эффекты остались живы после теста? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Тест показал +0,65 заказа на 100 гостей. Проверь кандидатов на правду по одному — и увидишь, откуда берётся доверительный интервал.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/ci-candidates/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/ci-candidates/">
+<meta property="og:title" content="Какие эффекты остались живы после теста? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Тест показал +0,65 заказа на 100 гостей. Проверь кандидатов на правду по одному — и увидишь, откуда берётся доверительный интервал.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/ci-candidates.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Какие эффекты остались живы после теста?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="ci-candidates" data-frame="/signal/10-ab-test.html?toy=ci-candidates"
+  data-share-title="Какие эффекты остались живы после теста?" data-share-text="A/B-тест прокрасился: +0,65 заказа на 100 гостей при 20 000 гостей в группе. Продакт пишет в план «+0,65». Какие ещё эффекты не спорят с данными? Угадай ширину ряда и проверь"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="ci-candidates" data-show-from="0" hidden></span></p>
+  <h1>Какие эффекты остались живы после теста?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест кнопки «Повторить заказ» прокрасился: +0,65 заказа на 100 гостей. Так и запишу в план: плюс 0,65.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Прокрасился — значит, мир без эффекта плохо объясняет данные. Но ноль — только один кандидат. А если кнопка на самом деле даёт +1? Или +0,1?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мы же намерили 0,65. Откуда другие?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Это я добавил шум. При другом раскладе гостей по группам вышло бы чуть больше или чуть меньше.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим кандидатов по одному: какие из них не спорят с нашими данными?</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Данные Боба: по 20 000 гостей в группе, 10 заказов на 100 гостей в контроле и 10,65 — с кнопкой. Разница +0,65. Кандидат — догадка о настоящем эффекте кнопки, например «ровно +1». Если правда такая, разницы в повторных тестах легли бы колоколом вокруг +1.</p><p>Смотрим, где на этом колоколе наша разница +0,65. Если в хвосте (красное, по 2,5 % с каждой стороны) — кандидат гаснет, если в теле — остаётся жив. Выбери, какой ряд кандидатов уцелеет, потом двигай ползунок или нажми «Проверить всех».</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab06-01-bob-pin.jpg" alt="Боб втыкает булавку в одну точку линейки, Алиса показывает широкую скобку" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/10-ab-test.html?toy=ci-candidates" title="Игрушка: Какие эффекты остались живы после теста?" style="height:1200px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/10-ab-test.html#card-7">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Сделай ставку и нажми «Проверить всех». От какого до какого кандидата живы?</li><li>Нажми «Кандидат «ноль»». Жив он или погас?</li><li>Двигай ползунок у краёв ряда: на каком кандидате кружок гаснет?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Живы кандидаты примерно от +0,05 до +1,25 заказа на 100 гостей — это и есть 95 %-й доверительный интервал. Ноль погас: наша разница отстоит от него на 2,14 стандартной ошибки, p = 0,033. Поэтому интервал и не задевает ноль — это та же проверка, прочитанная по-другому. Живые стоят подряд, так что получается отрезок, и его края считают одной формулой, без перебора.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>95 %-й доверительный интервал (CI) — все эффекты, которые двусторонний тест с порогом 5 % не отвергает.</li><li>Интервал разницы долей: d ± 1,96 · √(p̂<sub>A</sub>(1 − p̂<sub>A</sub>)/n<sub>A</sub> + p̂<sub>B</sub>(1 − p̂<sub>B</sub>)/n<sub>B</sub>).</li><li>Ноль вне интервала ⇔ p < 0,05.</li><li>В план пишут не «+0,65», а «от +0,05 до +1,25»: правда может оказаться почти нулём.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Интервал как ряд гипотез, которые тест не отвергает, — классическая связь теста и доверительного интервала.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб записал в план вилку вместо числа и спросил: а если метрика — средний чек, а не доля? Это глава 10 курса — <a href="/signal/10-ab-test.html">«A/B на простой метрике»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/10-ab-test.html">Открыть глава 10 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/coin-p-value/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>9 орлов из 10 — монетка нечестная?</b><span>Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.</span><small>из курса «Сигнал или шум», глава 10</small><span class="play-count" data-count-for="coin-p-value" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/winners-curse/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Тест еле прокрасился: эффект правда такой, как в отчёте?</b><span>Тысяча одинаковых слабых тестов кнопки с крошечным настоящим эффектом. Какую оценку эффекта покажут те, что прокрасились?</span><small>из курса «Сигнал или шум», глава 11</small><span class="play-count" data-count-for="winners-curse" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/z-test/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>+0,65 заказа на 100 гостей — сигнал или шум?</b><span>Настоящий A/B-тест кнопки «Повторить заказ»: колокол из тысячи A/A, флажок разницы Боба и p-value, которое видно глазами.</span><small>из курса «Сигнал или шум», глава 10</small><span class="play-count" data-count-for="z-test" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
