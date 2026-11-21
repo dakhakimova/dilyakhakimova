@@ -141,6 +141,43 @@
   <div class="def">Если вилка целиком по одну сторону от нуля, про эффект говорят «значимо». Если задевает ноль — «не значимо»: данные не отличают эффект от шума. Тогда смотри на края: широкая вилка — пока не знаем, узкая вокруг нуля — эффект если и есть, то не больше края.</div>
 </section>
 
+<section class="card" data-title="Ряд кандидатов" aria-label="Ряд кандидатов">
+  <span class="step-tag">Игрушка</span>
+  <h2>Вилка — правды, которые остались живы</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я раздал 30 промокодов, и 19 гостей сделали заказ! Значит, по промокоду заказывают 63 % гостей.</p></div></div>
+    <div class="msg alice"><img class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">19 из 30 — одна точка. Давай проверим, какие доли вообще уживаются с таким результатом.</p></div></div>
+  </div>
+  <p>Пусть на самом деле по промокоду заказывает половина гостей. Тогда, раздавая по 30 промокодов, Котейка получал бы то 12 заказов, то 17, то 15. Результаты легли бы горкой. Посмотрим, где на этой горке наши 19. Если в середине, такая правда с данными уживается. Если в редком краю горки, правда гаснет.</p>
+  <p>Если попробовать так каждую правду от 0 до 100 %, какие останутся гореть?</p>
+  <div class="choice" data-key="edges6" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="a" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">Только рядом с 63 %: от 60 до 67 %</button>
+    <button type="button" data-v="b" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 53 до 73 %</button>
+    <button type="button" data-v="c" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 44 до 80 %</button>
+    <button type="button" data-v="d" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">Почти любые: от 20 до 100 %</button>
+  </div>
+  <div class="sheet c-white">
+    <p class="chart-title">Столбики — сколько заказов из 30 бывает при этой правде; красные — редкие края горки; кружки — правды от 0 до 100 %</p>
+    <canvas id="ch-cand" aria-label="Горка результатов из 30 гостей при выбранной правде, отметка 19 из 30 и ряд кружков-правд; горят правды от 44 до 80 процентов"></canvas>
+    <label class="field" for="cand6">А если правда = <b id="cand6-t" class="num">50 %</b> гостей с промокодом закажут</label>
+    <input type="range" id="cand6" min="0" max="100" step="2" value="50" style="width:100%">
+    <div class="controls">
+      <button class="btn" type="button" id="cand-all">Проверить все</button>
+      <button class="btn ghost" type="button" id="cand-reset">Сначала</button>
+    </div>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>горит: 19 из 30 при ней обычное дело</span><span><i style="background:var(--theory)"></i>погасла: 19 из 30 при ней редкость</span></div>
+    <div class="verdict" id="cand-v"></div>
+  </div>
+  <p>Каждый кружок мы проверили одним и тем же вопросом: обычно ли выглядят 19 из 30 при такой правде? Горящие стоят подряд, это и есть вилка: от 44 до 80 %. Половина гостей тоже внутри. Значит, по 30 промокодам нельзя утверждать, что заказывает больше половины: такой результат мог выпасть и у промокода, на который откликается ровно каждый второй.</p>
+  <div class="quiz" data-right="b">
+    <p class="q">Котейка раздал уже 120 промокодов, заказали 76 гостей — снова около 63 %. Какой будет вилка?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Доля та же, но гостей вчетверо больше. Горка каждой правды стала уже, и с результатом уживается меньше правд.">Такая же: от 44 до 80 %</button><button type="button" data-v="b">Вдвое уже: примерно от 54 до 72 %</button><button type="button" data-v="c" data-why="Вилка сужается медленнее, чем растёт число гостей: вчетверо больше людей дают вдвое, а не вчетверо уже.">Вчетверо уже: примерно от 59 до 68 %</button></div>
+    <p class="why">Вчетверо больше гостей — вдвое уже вилка, как в шаге 5: теперь горят правды примерно от 54 до 72 %. И половина гостей за краем: при 120 промокодах 76 заказов у промокода «каждый второй» — редкость.</p>
+  </div>
+  <p class="note quiz-score"></p>
+  <p class="src">Идея из видеокурса: Академия аналитиков Авито, «Прикладная статистика»</p>
+</section>
+
 <section class="card" data-title="Порог пользы" aria-label="Порог пользы">
   <span class="step-tag">Как читать</span>
   <h2>Вилка и две линии: ноль и порог пользы</h2>
@@ -444,6 +481,70 @@ function drawRead(){
     c.fillStyle = COL.ink; c.beginPath(); c.arc(X((a + b) / 2), y, 4.5, 0, 2 * Math.PI); c.fill();
   });
 }
+
+// ---------- ряд кандидатов: какие правды уживаются с 19 из 30 ----------
+(function(){
+  const K = 19, NN = 30, cv = document.getElementById('ch-cand'), sl = document.getElementById('cand6');
+  const CAND = Array.from({length: 51}, (_, i) => i * 2), GUESS = {a: [60, 67], b: [53, 73], c: [44, 80], d: [20, 100]};
+  const choose = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
+  const pmf = q => Array.from({length: NN + 1}, (_, k) => choose(NN, k) * Math.pow(q, k) * Math.pow(1 - q, NN - k));
+  // край горки: столбики, левее (или правее) которых вместе с ними набирается меньше 2,5 %
+  function body(q){ const p = pmf(q); let a = 0, cum = 0; while (a < NN && cum + p[a] < 0.025){ cum += p[a]; a++; } let b = NN; cum = 0; while (b > 0 && cum + p[b] < 0.025){ cum += p[b]; b--; } return {p, a, b}; }
+  const alive = pc => { const r = body(pc / 100); return K >= r.a && K <= r.b; };
+  let state = CAND.map(() => 0), timer = null;
+  const idx = pc => Math.round(pc / 2), done = () => state.every(s => s !== 0);
+  function draw(){
+    const w0 = cv.clientWidth; if (!w0) return;
+    const bh = Math.max(100, Math.min(190, w0 * 0.24)), T = 26, H = Math.round(T + bh + 104);
+    const g = canvas(cv, 0, 0, H); if (!g) return; const {c, w, h} = g;
+    const L = 22, R = 22, pw = w - L - R, y0 = T + bh, X = v => L + v / 100 * pw;
+    const pc = +sl.value, r0 = body(pc / 100), top = Math.max(0.16, ...r0.p), bw = pw / (NN + 1) * 0.8;
+    r0.p.forEach((v, k) => { const x = X(100 * k / NN), hh = v / top * bh * 0.95; c.fillStyle = k < r0.a || k > r0.b ? COL.trap : COL.ctrl; c.fillRect(x - bw / 2, y0 - hh, bw, hh); if (k === K){ c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.strokeRect(x - bw / 2, y0 - hh, bw, hh); } });
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, y0); c.lineTo(w - R, y0); c.stroke();
+    axisX(c, X, w < 520 ? [0, 50, 100] : [0, 25, 50, 75, 100], y0 + 15, v => int(v) + ' %');
+    c.fillStyle = COL.ink; c.beginPath(); c.moveTo(X(pc), y0 - 1); c.lineTo(X(pc) - 6, y0 + 7); c.lineTo(X(pc) + 6, y0 + 7); c.closePath(); c.fill();
+    const fx = X(100 * K / NN), ok = K >= r0.a && K <= r0.b;
+    c.strokeStyle = COL.ink; c.lineWidth = 2; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(fx, y0); c.lineTo(fx, T - 10); c.stroke(); c.setLineDash([]);
+    const tx = 'у Котейки: 19 из 30', right = fx + 8 + c.measureText(tx).width < w - 2;
+    label(c, tx, right ? fx + 6 : fx - 6, T - 12, ok ? COL.ink : COL.trapInk, right ? 'left' : 'right');
+    const yC = h - 14, step = X(2) - X(0), r = Math.max(2.5, Math.min(6, step * 0.36)), cur = idx(pc);
+    CAND.forEach((x, i) => { const cx = X(x), s = state[i];
+      if (s === 1){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(cx, yC, r, 0, 2 * Math.PI); c.fill(); }
+      else if (s === -1){ c.strokeStyle = COL.gray; c.lineWidth = 1.3; c.beginPath(); c.arc(cx, yC, r - 0.6, 0, 2 * Math.PI); c.stroke(); }
+      else { c.fillStyle = COL.grid; c.beginPath(); c.arc(cx, yC, Math.max(1.5, r * 0.45), 0, 2 * Math.PI); c.fill(); }
+      if (i === cur){ c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.arc(cx, yC, r + 3, 0, 2 * Math.PI); c.stroke(); } });
+    if (done()){
+      const li = state.indexOf(1), ri = state.lastIndexOf(1), a = X(CAND[li]) - step / 2, b = X(CAND[ri]) + step / 2, yb = yC - r - 8;
+      c.strokeStyle = COL.ink; c.lineWidth = 1.6; c.beginPath(); c.moveTo(a, yb + 5); c.lineTo(a, yb); c.lineTo(b, yb); c.lineTo(b, yb + 5); c.stroke();
+      label(c, 'вилка: от 44 до 80 %', (a + b) / 2, yb - 5, COL.ink, 'center');
+      const gs = GUESS[AB.choice('edges6')];
+      if (gs){ const yg = yb - 26, t = 'твоя догадка'; c.strokeStyle = COL.test; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(X(gs[0]), yg); c.lineTo(X(gs[1]), yg); c.stroke(); c.setLineDash([]);
+        [gs[0], gs[1]].forEach(v => { c.beginPath(); c.moveTo(X(v), yg - 4); c.lineTo(X(v), yg + 4); c.stroke(); });
+        const rr = X(gs[1]) + 5 + c.measureText(t).width < w; label(c, t, rr ? X(gs[1]) + 5 : X(gs[0]) - 5, yg + 4, COL.testInk, rr ? 'left' : 'right'); }
+    }
+  }
+  function upd(){
+    const pc = +sl.value, r0 = body(pc / 100), ok = K >= r0.a && K <= r0.b;
+    state[idx(pc)] = ok ? 1 : -1;
+    document.getElementById('cand6-t').textContent = pc + ' %';
+    const v = document.getElementById('cand-v'); v.className = 'verdict ' + (ok ? 'good' : 'bad');
+    let t = 'Если по промокоду заказывают ' + pc + ' % гостей, ' + (r0.a === r0.b ? 'из 30 закажут ровно ' + r0.a : 'из 30 обычно заказывают от ' + r0.a + ' до ' + r0.b) + '. ' + (ok ? '19 — в середине горки: <b>правда горит</b>.' : '19 — в редком краю горки: <b>правда гаснет</b>.');
+    if (done()){ const g = AB.choice('edges6'), n = state.filter(s => s === 1).length;
+      t += ' Проверены все правды от 0 до 100 % с шагом 2: горят ' + n + ', от 44 до 80 %. Это и есть вилка. ' + (g === 'c' ? 'Ты угадал края.' : g === 'a' || g === 'b' ? 'Твоя догадка уже: 30 гостей — это мало, и с ними уживается много правд.' : g === 'd' ? 'Твоя догадка шире: даже 30 гостей отсекают и маленькие, и очень большие доли.' : ''); }
+    v.innerHTML = t; draw();
+  }
+  const stop = () => { if (timer){ clearTimeout(timer); timer = null; } };
+  document.getElementById('cand-all').addEventListener('click', () => {
+    stop();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches){ CAND.forEach((x, i) => { state[i] = alive(x) ? 1 : -1; }); upd(); return; }
+    let i = 0; (function tick(){ sl.value = CAND[i]; upd(); i++; if (i < CAND.length) timer = setTimeout(tick, 50); else timer = null; })();
+  });
+  document.getElementById('cand-reset').addEventListener('click', () => { stop(); state = CAND.map(() => 0); sl.value = 50; upd(); });
+  sl.addEventListener('input', () => { stop(); upd(); });
+  document.querySelector('.choice[data-key="edges6"]').addEventListener('chosen', upd);
+  window.addEventListener('resize', draw);
+  upd();
+})();
 
 // ---------- карточка 5: ширина вилки от числа людей ----------
 function drawWid(){

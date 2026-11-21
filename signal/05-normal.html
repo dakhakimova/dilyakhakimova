@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Нормальное распределение · Сигнал или шум</title>
+<meta name="description" content="Глава 5 бесплатного интерактивного курса «Сигнал или шум»: колокол как модель, правило 68–95–99,7, z-оценка, плотность и площадь, задачи с собеседований.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* стили только этой страницы */
+.xref > span{flex:1}
+#n-cv{touch-action:none; cursor:ew-resize}
+.live-f{font:400 15px/1.5 "JetBrains Mono", monospace; background:#F3F1EC; border-radius:8px; padding:8px 12px; margin:10px 0 0; overflow-x:auto; white-space:nowrap}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch05" data-next="06-zoo.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 5 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 0: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним «Вероятность на пальцах», шаги 7 и 8</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="b">
+    <p class="q">В компании из 20 гостей каждый заказывает десерт с шансом 5 %, независимо от других. Как часто в компании ровно один десерт?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="20 · 5 % = 1 — это среднее число десертов. Но в одних компаниях их 0, в других 2–3, и «ровно один» — лишь одна из возможностей.">Почти всегда: 20 · 5 % — ровно один</button><button type="button" data-v="b">Примерно в 38 компаниях из 100</button><button type="button" data-v="c" data-why="5 % — шанс одного гостя. Для «ровно одного из 20» нужно учесть, кто именно этот гость и что остальные 19 не заказали.">В 5 компаниях из 100, как шанс гостя</button></div>
+    <p class="why">Это биномиальное распределение: P(ровно 1) = 20 · 0,05 · 0,95¹⁹ ≈ 0,377. Ровно один десерт — примерно в 38 компаниях из 100, ни одного — почти в 36.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">SD чека одного гостя — 300 ₽. Гости независимы. Каков SD суммы чеков 100 гостей?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Так было бы, если бы все 100 чеков всегда отклонялись в одну сторону. У независимых гостей отклонения частично гасят друг друга.">30 000 ₽: SD растёт как n</button><button type="button" data-v="b" data-why="Разброс суммы больше разброса одного чека: складываются дисперсии, а их 100.">300 ₽: разброс не меняется</button><button type="button" data-v="c">3000 ₽: SD растёт как √n</button></div>
+    <p class="why">У независимых складываются дисперсии: Var(суммы) = 100 · 300². Значит, SD суммы = 300 · √100 = 3000 ₽.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 1: обложка -->
+<section class="card" data-title="Это много?" aria-label="Это много?">
+  <p class="kicker">Часть I · глава 5</p>
+  <h1>Нормальное распределение</h1>
+  <p class="core">После главы ты сможешь <b>мерить отклонения в сигмах</b> и по правилу 68–95–99,7 прикидывать, насколько редко значение.</p>
+  <figure class="art"><img src="img/ch05-00-bell.jpg" alt="Алиса высыпает монетки в стеклянный сосуд, и они складываются в колокол" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: монетки-средние складываются в колокол</figcaption></figure>
+  <p class="lead">Вчера средний чек в кафе был 740 ₽. Боб спрашивает: «Это много?» Алиса отвечает вопросом: «А сколько это в сигмах?»</p>
+  <p>В прошлой главе мы увидели, что шум есть всегда. Теперь узнаем его форму. Глава учит второму шагу алгоритма: <b>как распределено</b>. Первая модель — колокол.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет второй">
+    <li>1. Что здесь случайно?</li>
+    <li class="on"><b>2.</b> Как распределено?</li>
+    <li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li>
+    <li>5. Сколько стандартных ошибок до порога</li>
+    <li>6. Ответ бизнесу</li>
+  </ol>
+</section>
+
+<!-- 2: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Из хаоса вырастает колокол</h2>
+  <p>Алиса взяла 300 дней работы кафе и для каждого посчитала средний чек дня — в день около 400 заказов. Каждый столбик — сколько дней попало в эту корзину по 20 ₽. Оранжевые — дни со средним чеком 740 ₽ и выше.</p>
+  <div class="sheet c-white">
+    <canvas id="h-cv" role="img" aria-label="Гистограмма средних чеков за 300 дней: колокол с центром около 640 рублей"></canvas>
+  </div>
+  <div class="chat">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Центр — около 640 ₽, SD — около 50 ₽. Это и есть сигма, σ. Вчерашние 740 ₽ — на две сигмы выше центра.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Две сигмы — это много или мало?</p></div></div>
+  </div>
+  <p>Как думаешь, какая доля дней лежит дальше чем на 2σ от центра — выше 740 или ниже 540 ₽?</p>
+  <div class="guess" data-key="beyond2" data-min="0" data-max="100" data-unit="%">
+    <label class="field">Дальше 2σ от центра примерно <input type="number" inputmode="decimal" min="0" max="100" step="0.5" placeholder="?"> % дней</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке измерим линейкой.</p>
+  </div>
+</section>
+
+<!-- 3: главная игрушка -->
+<section class="card" data-title="Линейка колокола" aria-label="Линейка колокола">
+  <span class="step-tag">Поиграй</span>
+  <h2>Линейка колокола</h2>
+  <p>Синий колокол — модель среднего чека дня. Закрашенная площадь между границами окна — доля дней, которые туда попадают. Двигай границы ползунками или пальцем прямо по графику, меняй центр μ и ширину σ. Под осью — та же линейка в сигмах.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn ghost" type="button" data-win="1">±1σ</button>
+      <button class="btn" type="button" data-win="2">±2σ</button>
+      <button class="btn ghost" type="button" data-win="3">±3σ</button>
+      <button class="btn ghost" type="button" data-win="740">выше 740 ₽</button>
+      <button class="btn ghost" type="button" id="n-two" aria-pressed="false">Два мира: будни и выходные</button>
+    </div>
+    <canvas id="n-cv" role="img" aria-label="Колокол с закрашенной площадью между двумя границами; под осью линейка в сигмах"></canvas>
+    <div class="legend-row" id="n-leg2" hidden><span><i style="background:var(--ctrl)"></i>будни</span><span><i style="background:var(--test)"></i>выходные</span></div>
+    <label class="field" for="n-a">Левая граница: <b id="n-a-t" class="num">540 ₽</b></label>
+    <input type="range" id="n-a" min="300" max="1000" step="5" value="540" style="width:100%" aria-describedby="n-a-t">
+    <label class="field" for="n-b">Правая граница: <b id="n-b-t" class="num">740 ₽</b></label>
+    <input type="range" id="n-b" min="300" max="1000" step="5" value="740" style="width:100%" aria-describedby="n-b-t">
+    <label class="field" for="n-mu">Центр μ: <b id="n-mu-t" class="num">640 ₽</b></label>
+    <input type="range" id="n-mu" min="450" max="850" step="10" value="640" style="width:100%" aria-describedby="n-mu-t">
+    <label class="field" for="n-sg">Ширина σ: <b id="n-sg-t" class="num">50 ₽</b></label>
+    <input type="range" id="n-sg" min="20" max="150" step="5" value="50" style="width:100%" aria-describedby="n-sg-t">
+    <div class="big2">
+      <div class="ctrl"><b id="n-in">—</b><span>дней внутри окна</span></div>
+      <div class="trap"><b id="n-out">—</b><span>дней снаружи</span></div>
+    </div>
+    <p class="live-f" id="n-f"></p>
+    <div class="verdict" id="n-v" hidden></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Расстояние до центра в сигмах называют <b class="term">z-оценкой</b>: z = (x − μ) / σ. На собеседовании скажут <b>z-score</b>, а перевод в сигмы — <b>стандартизация</b>.</p>
+    <p class="aside">Звучит солидно, а это просто «на сколько сигм от центра».</p>
+  </aside>
+</section>
+
+<!-- 4: правило в трёх слоях -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>68, 95, 99,7</h2>
+  <figure class="art"><img src="img/ch05-01-ruler.jpg" alt="Боб прикладывает к колоколу огромную линейку с делениями в сигмах" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с линейкой в сигмах у колокола</figcaption></figure>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>«Много или мало» не скажешь, глядя на одно число. Сравни его с обычным разбросом: сколько сигм до центра?</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 дней примерно 683 лежат в пределах ±1σ от центра, 954 — в ±2σ, 997 — в ±3σ. Дальше 2σ — около 46 дней из 1000, по 23 с каждой стороны.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">φ(x) = 1 / (σ√(2π)) · e<sup>−(x − μ)² / (2σ²)</sup></p>
+      <p class="formula">z = (x − μ) / σ &nbsp;&nbsp; P(a &lt; X &lt; b) = Φ((b − μ)/σ) − Φ((a − μ)/σ)</p>
+      <p class="formula">Φ(1,645) = 0,95 &nbsp;&nbsp; Φ(1,96) = 0,975 &nbsp;&nbsp; Φ(2,576) = 0,995</p>
+      <p class="read">Словами: z — сколько сигм до среднего; Φ(z) — доля значений левее z.</p>
+    </div>
+  </div>
+  <p>Для вчерашнего чека: z = (740 − 640) / 50 = 2. Дней с чеком выше: 1 − Φ(2) ≈ 0,023 — примерно один день из 44. Редко, но для года работы — обычное дело.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Φ(z) называют <b class="term">функцией распределения</b>, на собеседовании — <b>CDF</b>. Обратная задача — найти z, левее которого лежит 97,5 % значений, — это <b>квантиль</b> (quantile, percentile): 1,96.</p>
+    <p class="aside">Квантиль 1,96 будет в каждом A/B-тесте этого курса.</p>
+  </aside>
+</section>
+
+<!-- 5а: линейка наоборот -->
+<section class="card" data-title="Линейка наоборот" aria-label="Линейка наоборот">
+  <span class="step-tag">Мост вперёд</span>
+  <h2>Какие μ не спорят с одним днём?</h2>
+  <p>Правило 95 работает и в обратную сторону. Сеть открыла новое кафе, и в первый день средний чек вышел 740 ₽. Разброс между днями у кафе сети известен: σ = 50 ₽. А обычный средний чек нового кафе μ пока не знает никто.</p>
+  <p>Двигай кандидата μ₀. Колокол встаёт на него, и видно, лежат ли 740 ₽ в средних 95 % его дней. Полоска под осью закрашивается там, где ты уже побывал.</p>
+  <div class="sheet c-white">
+    <canvas id="mu-cv" role="img" aria-label="Колокол дней вокруг кандидата μ₀, отметка 740 рублей и полоска кандидатов: зелёная там, где 740 рублей в средних 95 процентах, от 642 до 838 рублей"></canvas>
+    <label class="field" for="mu0">Кандидат μ₀: <b id="mu0-t" class="num">600 ₽</b></label>
+    <input type="range" id="mu0" min="500" max="980" step="2" value="600" style="width:100%" aria-describedby="mu0-t">
+    <div class="controls"><button class="btn ghost" type="button" id="mu-all">Закрасить всю полоску</button></div>
+    <div class="legend-row"><span><i style="background:var(--truth)"></i>не спорит с 740 ₽</span><span><i style="background:var(--trap)"></i>спорит: 740 ₽ в хвосте</span></div>
+    <div class="verdict" id="mu-v"></div>
+  </div>
+  <p>Не спорят все μ от 642 до 838 ₽, то есть 740 ± 1,96·50. Это та же линейка ±1,96σ, только приложенная не к центру колокола, а к нашему числу.</p>
+  <p class="xref">Такую полоску называют доверительным интервалом. В главе 7 её строят для среднего многих заказов, <a href="/signal/07-clt.html#card-8">карточка «Вилка для среднего»</a>. В главе 10 — для разницы двух групп, <a href="/signal/10-ab-test.html#card-8">карточка «Ряд кандидатов»</a>: там кандидатов проверяют по одному и видно, какие остаются живы.</p>
+</section>
+
+<!-- 5: младенцы и взрослые -->
+<section class="card" data-title="Одна минута" aria-label="Одна минута">
+  <span class="step-tag">Малый график</span>
+  <h2>Одна минута — много или мало?</h2>
+  <p>Самовывоз готов к обещанному времени с разбросом σ = 0,6 мин, доставка приезжает с разбросом σ = 4 мин. Оба колокола на одной оси. Окно — «отклонение не больше чем на столько-то минут».</p>
+  <div class="sheet c-white">
+    <label class="field" for="w-w">Окно: ± <b id="w-w-t" class="num">1,2 мин</b></label>
+    <input type="range" id="w-w" min="0.2" max="6" step="0.1" value="1.2" style="width:100%" aria-describedby="w-w-t">
+    <canvas id="w-cv" role="img" aria-label="Узкий высокий колокол самовывоза и широкий низкий колокол доставки; одно и то же окно накрывает почти весь узкий и малую часть широкого"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>самовывоз, σ = 0,6 мин</span><span><i style="background:var(--test)"></i>доставка, σ = 4 мин</span></div>
+    <div class="big2">
+      <div class="ctrl"><b id="w-a">—</b><span>самовывозов в окне</span></div>
+      <div class="test"><b id="w-b">—</b><span>доставок в окне</span></div>
+    </div>
+  </div>
+  <p>Окно ±1,2 минуты — это ±2σ для самовывоза и ±0,3σ для доставки. Поэтому одно и то же опоздание на минуту — ЧП для самовывоза и пустяк для доставки. И ещё: широкий колокол ниже узкого, потому что площадь у обоих одна — единица.</p>
+  <p class="src">Идея из видео: Джош Стармер, StatQuest (младенцы и взрослые на одной оси)</p>
+</section>
+
+<!-- 6: площадь, а не высота -->
+<section class="card" data-title="Площадь, а не высота" aria-label="Площадь, а не высота">
+  <span class="step-tag">Малый график</span>
+  <h2>Вероятность — это площадь</h2>
+  <p>20 000 дней по модели колокола (μ = 640, σ = 50). Делай корзины гистограммы всё уже. В режиме «доля» столбики оседают к нулю: ровно 640,000 ₽ не бывает ни разу. В режиме «доля на рубль» они сходятся к кривой.</p>
+  <div class="sheet c-white">
+    <label class="field" for="a-bw">Ширина корзины: <b id="a-bw-t" class="num">50 ₽</b></label>
+    <input type="range" id="a-bw" min="0" max="5" step="1" value="1" style="width:100%" aria-describedby="a-bw-t">
+    <div class="controls">
+      <button class="btn ghost" type="button" id="a-share" aria-pressed="true">Высота — доля</button>
+      <button class="btn ghost" type="button" id="a-dens" aria-pressed="false">Высота — доля на рубль</button>
+    </div>
+    <canvas id="a-cv" role="img" aria-label="Гистограмма с регулируемой шириной корзин и кривая плотности"></canvas>
+    <p class="note" id="a-note"></p>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Высоту кривой называют <b class="term">плотностью</b>, на собеседовании — <b>PDF</b>, probability density function. Плотность — доля на единицу оси, а вероятность — площадь под кривой.</p>
+    <p class="aside">Поэтому вероятность «ровно 640 ₽» равна нулю, хотя значение возможно.</p>
+  </aside>
+  <p class="src">Идея из видео: 3Blue1Brown («площадь, а не высота»)</p>
+</section>
+
+<!-- 7: сумма факторов -->
+<section class="card" data-title="Откуда колокол" aria-label="Откуда колокол">
+  <span class="step-tag">Малый график</span>
+  <h2>Откуда берётся колокол</h2>
+  <p>Рост человека — сумма многих мелких причин. Пусть их 20, и каждая добавляет или убавляет 3 см, как монетка. Насыпь людей и посмотри на форму.</p>
+  <div class="sheet c-white">
+    <div class="controls">
+      <button class="btn" type="button" id="f-1000">+1000 человек</button>
+      <button class="btn ghost" type="button" id="f-1">+1 человек</button>
+      <button class="btn ghost" type="button" id="f-reset">Сначала</button>
+    </div>
+    <canvas id="f-cv" role="img" aria-label="Гистограмма роста как суммы 20 случайных добавок по 3 см и нормальная кривая поверх"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>люди</span><span><i style="background:var(--theory)"></i>колокол с μ = 170, σ = 13,4</span></div>
+    <div class="verdict" id="f-v" hidden></div>
+  </div>
+  <p>Сумма многих независимых мелочей ложится в колокол, даже если каждая мелочь — монетка. Средний чек дня — тоже сумма сотен заказов, поэтому он похож на колокол. Почему так и когда это ломается — в главе 7.</p>
+  <p class="xref"><span>Без формул — в «A/B на пальцах», <a href="/ab-basics/05-bell-width.html">шаг 5 «Ширина колокола»</a>.</span></p>
+  <p class="src">Идея из книги: Аллен Дауни, «Probably Overthinking It» (рост как сумма двадцати факторов)</p>
+</section>
+
+<!-- 8: хвост -->
+<section class="card" data-title="Хвост" aria-label="Хвост">
+  <span class="step-tag">Малый график</span>
+  <h2>Чуть сдвинул центр — хвост вырос в разы</h2>
+  <p>Рекордный день — средний чек выше 790 ₽, это +3σ. При μ = 640 таких дней около 13 из 10 000. Сдвинь центр колокола вправо. Хвост за 790 ₽ такой тонкий, что на графике его почти не видно, — смотри на числа под ним.</p>
+  <div class="sheet c-white">
+    <label class="field" for="t-d">Средний чек вырос на <b id="t-d-t" class="num">0 ₽</b></label>
+    <input type="range" id="t-d" min="0" max="50" step="5" value="0" style="width:100%" aria-describedby="t-d-t">
+    <canvas id="t-cv" role="img" aria-label="Два колокола: старый серый и сдвинутый синий; хвост правее 790 рублей закрашен"></canvas>
+    <div class="big2">
+      <div class="trap"><b id="t-k">—</b><span>рекордных дней из 10 000</span></div>
+      <div><b id="t-r">—</b><span>во столько раз больше, чем было</span></div>
+    </div>
+  </div>
+  <p>Центр сдвинулся на 10 ₽ — на пятую часть сигмы, — а рекордов стало почти вдвое больше. Сдвиг на полсигмы — в 4,6 раза больше. Хвосты чувствительнее центра: «рекордов стало вдвое больше» не значит, что всё стало вдвое лучше.</p>
+  <p class="src">Идея из книги: Дэвид Шпигельхалтер, «The Art of Uncertainty» (сдвиг среднего раздувает хвост)</p>
+</section>
+
+<!-- 9: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Площадь под колоколом</h2>
+  <p>Напиши функцию <code>share_between(a, b, mu, sigma)</code>: долю значений нормального распределения между a и b. Используй Φ через <code>math.erf</code>. Границы могут быть бесконечными: <code>math.inf</code>.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-between">
+<textarea spellcheck="false" aria-label="Задание: функция share_between">from math import erf, sqrt, inf
+
+def Phi(z):
+    return 0.5 * (1 + erf(z / sqrt(2)))
+
+def share_between(a, b, mu, sigma):
+    # доля значений N(mu, sigma) между a и b
+    return ...
+
+print(share_between(80, 120, 100, 10))    # ждём около 0.954
+print(share_between(740, inf, 640, 50))   # ждём около 0.023</textarea>
+  </div>
+<script type="text/x-python" id="check-between">
+def _check():
+    from math import inf
+    import numpy as np
+    try:
+        f = share_between
+    except NameError:
+        print("FAIL функции share_between нет — запусти ячейку с ней"); return
+    cases = [((80, 120, 100, 10), 0.954500), ((-1, 1, 0, 1), 0.682689), ((740, inf, 640, 50), 0.022750), ((-inf, 600, 640, 50), 0.211855), ((100, 101, 100, 10), 0.039828)]
+    for args, want in cases:
+        v = f(*args)
+        if v is ... or v is None:
+            print("FAIL функция пока ничего не считает: замени ... на код"); return
+        try:
+            v = float(v)
+        except Exception:
+            print("FAIL функция должна вернуть число"); return
+        if abs(v - want) > 1e-4:
+            print(f"FAIL share_between{args} = {v:.4f}, а ждали {want:.4f}"); return
+    x = np.random.default_rng(5).normal(100, 10, 200_000)
+    sim = np.mean((x > 80) & (x < 120))
+    print(f"OK площадь верная. Симуляция 200 000 значений: в 80–120 попали " + f"{100 * sim:.1f}".replace(".", ",") + " %, формула — " + f"{100 * f(80, 120, 100, 10):.1f}".replace(".", ",") + " %")
+_check()
+</script>
+</section>
+
+<!-- 10: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Котейка и правило 68 %</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Проверил правило на чеках отдельных гостей: средний чек 640 ₽, σ = 980 ₽. В пределах ±1σ должно быть 68 % чеков, а у меня 92 %! И левая граница −340 ₽. Данные сломаны!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так в рассуждении Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Выбросы — часть данных: дорогие банкеты настоящие. Если их выкинуть, ты посчитаешь другой средний чек, а правило всё равно останется правилом для колокола.">Надо выкинуть выбросы, и станет 68 %</button><button type="button" data-v="b">Правило 68–95–99,7 верно только для колокола</button><button type="button" data-v="c" data-why="Сигма посчитана как обычно. Беда не в арифметике, а в форме: чеки гостей скошены вправо.">Сигму надо считать по-другому, и всё сойдётся</button></div>
+    <p class="why">Чеки отдельных гостей — не колокол: много маленьких и редкие огромные. Отрицательных чеков не бывает, а у колокола с такими μ и σ левая граница ушла бы в минус. Правило 68–95–99,7 — свойство нормального распределения, а не любых данных. Какие распределения бывают у чеков — в главе 6.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 11: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Три задачи про колокол</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="sigma2">
+    <summary>Что станет с графиком плотности нормального распределения, если σ вырастет вдвое?</summary>
+    <p><b>Переформулирую:</b> центр μ не меняется, меняется ширина. Что с формой и высотой?</p>
+    <p><b>В штуках:</b> при σ = 50 ₽ в окно 590–690 ₽ попадает 683 дня из 1000. При σ = 100 ₽ в то же окно — только 383, а 683 дня теперь в окне 540–740 ₽.</p>
+    <p><b>Формула:</b> высота пика <span class="num">φ(μ) = 1 / (σ√(2π))</span>: при σ = 50 — 0,0080 на рубль, при σ = 100 — 0,0040. Площадь всегда 1.</p>
+    <p><b>Симуляция:</b> <code>np.random.normal(640, 100, 10**6)</code> и гистограмма с тем же шагом — столбики вдвое ниже и вдвое шире.</p>
+    <p><b>Вывод:</b> кривая становится вдвое шире и вдвое ниже, центр на месте; в сигмах всё по-прежнему: 68 % в ±1σ.</p>
+  </details>
+  <details class="ivw" data-key="twosigma">
+    <summary>Время сборки заказа нормально распределено: μ = 100 с, σ = 10 с. В каком интервале 95 % заказов? Какая доля собирается дольше 120 с?</summary>
+    <p><b>Переформулирую:</b> нужен центральный интервал на 95 % и правый хвост за +2σ.</p>
+    <p><b>В штуках:</b> из 1000 заказов примерно 954 собираются за 80–120 с, около 23 — дольше 120 с.</p>
+    <p><b>Формула:</b> <span class="num">100 ± 1,96 · 10 = от 80,4 до 119,6 с</span>; <span class="num">P(X &gt; 120) = 1 − Φ(2) ≈ 0,023</span>.</p>
+    <p><b>Симуляция:</b> функция <code>share_between</code> с карточки «Код» и <code>np.mean(np.random.normal(100, 10, 10**6) &gt; 120)</code> ≈ 0,023.</p>
+    <p><b>Вывод:</b> «плюс-минус две сигмы» — это 95 % (точнее ±1,96σ), а дольше 120 с собирается примерно каждый 44-й заказ.</p>
+  </details>
+  <details class="ivw" data-key="where">
+    <summary>Где в жизни встречается нормальное распределение, а где нет?</summary>
+    <p><b>Переформулирую:</b> какой процесс даёт колокол?</p>
+    <p><b>В штуках:</b> рост взрослых, ошибка весов, средний чек дня по сотням заказов — колокол. Чек одного гостя (много маленьких, редкие банкеты), время ожидания курьера, число заказов на гостя (у большинства ноль) — нет.</p>
+    <p><b>Формула:</b> колокол получается, когда величина — сумма многих независимых мелких вкладов, ни один из которых не главный. Если вклады перемножаются или есть порог у нуля, получится другая форма.</p>
+    <p><b>Симуляция:</b> сумма 20 монеток по ±3 см — колокол (карточка «Откуда колокол»); произведение 20 множителей по ±10 % — скошенная вправо гора.</p>
+    <p><b>Вывод:</b> нормальны суммы и средние многих мелочей, а сырые бизнес-метрики обычно скошены — поэтому сначала смотри на процесс.</p>
+  </details>
+</section>
+
+<!-- 12: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про колокол</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">Плотность колокола среднего чека в точке 640 ₽ равна 0,008. Что это значит?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Ровно 640,000 ₽ не бывает ни в одном дне: у непрерывной величины вероятность точки — ноль. 0,008 — это высота, а не доля дней.">Ровно 640 ₽ бывает в 0,8 % дней</button><button type="button" data-v="b" data-why="0,008 — это не доля, а плотность на рубль. В корзину шириной 10 ₽ около 640 попадает примерно 8 % дней, а в точку — ни одного.">Средний чек ровно 640 ₽ бывает в 8 % дней</button><button type="button" data-v="c">0,8 % дней на рубль около 640 ₽</button></div>
+    <p class="why">Плотность — доля на единицу оси. Вероятность — площадь: в окно 635–645 ₽ попадает примерно 0,008 · 10 = 8 % дней. Вероятность ровно одного значения — ноль.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Средний чек дня вышел за +3σ. Что скажешь Бобу?</p>
+    <div class="choice"><button type="button" data-v="a">Редко: примерно один день из 740</button><button type="button" data-v="b" data-why="За 3σ значения бывают, просто редко: 13–14 из 10 000 с каждой стороны. За два года работы такой день вполне может случиться.">Невозможно: за 3σ значений нет</button><button type="button" data-v="c" data-why="Каждую неделю это было бы за 1σ: туда выходят 32 % дней. За +3σ — только 0,13 %.">Обычное дело: так бывает каждую неделю</button></div>
+    <p class="why">P(Z &gt; 3) ≈ 0,00135, то есть примерно один день из 740. Это повод проверить, что случилось (банкет, сбой в данных), но не чудо.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">σ среднего чека выросла с 50 до 100 ₽. Какая доля дней теперь лежит в пределах ±2σ?</p>
+    <div class="choice" data-order="fixed"><button type="button" data-v="a" data-why="Окно ±2σ выросло вместе с σ: было ±100 ₽, стало ±200 ₽. В сигмах ничего не изменилось.">Около 48 %, вдвое меньше</button><button type="button" data-v="b">Около 95 %, как и раньше</button><button type="button" data-v="c" data-why="Окно шире в рублях, но и колокол шире ровно во столько же. 99,7 % — это ±3σ.">Около 99,7 %, ведь окно шире</button></div>
+    <p class="why">Правило 68–95–99,7 записано в сигмах. Если σ выросла, выросло и окно ±2σ: в нём по-прежнему около 95 % дней.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">Колокола среднего чека будней и выходных сильно перекрываются. Что из этого следует?</p>
+    <div class="choice"><button type="button" data-v="a">Дни путаются, но средние могут различаться</button><button type="button" data-v="b" data-why="Перекрытие говорит об отдельных днях. Средние по сотне будней и сотне выходных почти не шумят и могут уверенно различаться.">Значит, будни и выходные по чеку не различаются</button><button type="button" data-v="c" data-why="Чтобы найти разницу средних, колоколам не нужно расходиться: разница средних шумит гораздо меньше отдельных дней.">Разница есть, только если колокола не касаются</button></div>
+    <p class="why">Перекрытие колоколов — про отдельные значения. Разница средних — про центры, и её шум в √n раз меньше. Как сравнивать центры двух групп — в главах 9–10.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 13: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 5</span>
+  <h2 data-proverb="ch05">Сигма — линейка колокола</h2>
+  <ul class="cheat">
+    <li>Нормальное распределение N(μ, σ²): плотность φ(x) = 1 / (σ√(2π)) · e<sup>−(x − μ)² / (2σ²)</sup>.</li>
+    <li>z = (x − μ) / σ — на сколько сигм значение от центра.</li>
+    <li>P(a &lt; X &lt; b) = Φ((b − μ)/σ) − Φ((a − μ)/σ). Вероятность — площадь, а не высота.</li>
+    <li>Из 1000 значений: 683 в ±1σ, 954 в ±2σ, 997 в ±3σ.</li>
+    <li>Квантили: 1,645 (90 % в середине), 1,96 (95 %), 2,576 (99 %).</li>
+    <li>Колокол — модель для сумм и средних многих мелочей. Сырые чеки и время ожидания им обычно не являются.</li>
+  </ul>
+  <dl class="terms">
+    <dt>Нормальное распределение</dt><dd>колокол с центром μ и шириной σ; normal, Gaussian distribution</dd>
+    <dt>z-оценка</dt><dd>расстояние до центра в сигмах; z-score, перевод в сигмы — standardization</dd>
+    <dt>Плотность</dt><dd>высота кривой, доля на единицу оси; probability density function, PDF</dd>
+    <dt>Функция распределения</dt><dd>доля значений левее x, Φ для нормального; cumulative distribution function, CDF</dd>
+    <dt>Квантиль</dt><dd>значение, левее которого лежит заданная доля; quantile, percentile</dd>
+  </dl>
+  <figure class="art"><img src="img/ch05-02-next.jpg" alt="Котейка открывает калитку зоопарка, за которой вольеры с фигурами разной формы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у ворот зоопарка распределений</figcaption></figure>
+  <a class="next-step" href="06-zoo.html"><b>Дальше, глава 6: «Зоопарк распределений»</b>Чеки гостей и время ожидания курьера — не колокол. Научимся подбирать распределение под процесс.</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    rub: x => int(x) + NBSP + '₽',
+    days: 'дней', hx: 'средний чек дня, ₽',
+    edge: (x, lo) => lo ? (x <= 300 ? MINUS + '∞' : int(x) + NBSP + '₽') : (x >= 1000 ? '+∞' : int(x) + NBSP + '₽'),
+    sig: k => (k === 0 ? 'μ' : (k > 0 ? '+' : MINUS) + Math.abs(k) + 'σ'),
+    f: (za, zb, p) => 'Φ(' + (zb === Infinity ? '+∞' : num(zb, 2)) + ') − Φ(' + (za === -Infinity ? MINUS + '∞' : num(za, 2)) + ') = ' + num(p, 4),
+    v: (p, g, two, p2, isTwo) => (isTwo ? (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'Дальше 2σ от центра — <b>' + share(1 - p, 1) + '</b> дней: примерно ' + int(1000 * (1 - p)) + ' из 1000, по ' + int(500 * (1 - p)) + ' с каждой стороны. ' : '') +
+      'Внутри окна — ' + share(p, 1) + ', то есть ' + int(1000 * p) + ' ' + plural(Math.round(1000 * p), 'день', 'дня', 'дней') + ' из 1000.' + (two ? ' У выходных в том же окне — ' + share(p2, 1) + '.' : ''),
+    muObs: 'первый день: 740' + NBSP + '₽',
+    muStrip: 'кандидаты μ₀',
+    muV: (m, z, p, good) => 'Если обычный чек кафе ' + int(m) + NBSP + '₽, то 740' + NBSP + '₽ — это ' + num(Math.abs(z), 2) + 'σ от центра. ' +
+      (good ? '<b>Не спорит:</b> ближе 1,96σ, такой день — среди обычных 95' + NBSP + '%.' : '<b>Спорит:</b> дальше 1,96σ, так далеко от центра бывает только ' + share(p, 1) + ' дней.'),
+    muEdges: 'Края полоски: 642 и 838' + NBSP + '₽, то есть 740 ± 98' + NBSP + '₽.',
+    wX: 'отклонение от обещанного времени, мин',
+    bw: [100, 50, 20, 10, 5, 2],
+    an: (bw, sh, dens) => 'Столбик у 640 ₽ шириной ' + int(bw) + NBSP + '₽: в нём ' + share(sh, 1) + ' дней, на рубль — ' + num(sh / bw, 4) + '. ' + (dens ? 'Высота почти не меняется — это плотность.' : 'Чем уже корзина, тем ниже столбик.'),
+    fX: 'рост, см', fInvite: 'Нажми «+1000 человек»',
+    fv: (n, m, s) => int(n) + ' ' + plural(n, 'человек', 'человека', 'человек') + ': средний рост ' + num(m, 1) + ' см, SD ' + num(s, 1) + ' см (теория — 13,4). Двадцать монеток по ±3 см дают колокол.',
+    tX: 'средний чек дня, ₽', rec: 'рекорд: выше 790 ₽',
+  },
+}[LANG] || {};
+
+// ---------- карточка 2: гистограмма 300 дней ----------
+(function(){
+  const cv = document.getElementById('h-cv');
+  Book.seed(197); const vals = Array.from({length: 300}, () => 640 + 50 * gauss()); Book.seed();
+  const lo = 460, hi = 820, bw = 20, b = bins(vals, lo, hi, bw);
+  function draw(){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const L = 34, R = 10, T = 10, B = 32, pw = w - L - R, ph = h - T - B, top = 60;
+    const X = v => L + (v - lo) / (hi - lo) * pw, Y = v => T + (1 - v / top) * ph;
+    axisY(c, L, R, T, ph, w, 0, top, 20, v => int(v));
+    b.forEach((k, i) => { c.fillStyle = lo + i * bw >= 740 ? COL.test : COL.ctrl; c.fillRect(X(lo + i * bw) + 1, Y(k), pw / b.length - 2, Y(0) - Y(k)); });
+    axisX(c, X, [500, 540, 590, 640, 690, 740, 790], h - 16, v => int(v));
+    label(c, TXT.hx, w - R, h - 2, COL.ink2, 'right');
+  }
+  hoverBins(cv, v => { const g = cv.clientWidth; return 34 + (v - lo) / (hi - lo) * (g - 44); }, lo, bw, b, {fmt: v => int(v) + NBSP + '₽', words: ['день', 'дня', 'дней']});
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 3: линейка колокола ----------
+(function(){
+  const cv = document.getElementById('n-cv');
+  const aS = document.getElementById('n-a'), bS = document.getElementById('n-b'), muS = document.getElementById('n-mu'), sgS = document.getElementById('n-sg');
+  const twoB = document.getElementById('n-two');
+  const XLO = 300, XHI = 1000, MU2 = 680;
+  let two = false, lastTwo = false;
+  const A = () => +aS.value <= XLO ? -Infinity : +aS.value, B = () => +bS.value >= XHI ? Infinity : +bS.value;
+  const area = (a, b, mu, s) => (b === Infinity ? 1 : normCdf((b - mu) / s)) - (a === -Infinity ? 0 : normCdf((a - mu) / s));
+  let geo = null;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.72); if (!g) return; const {c, w, h} = g;
+    const mu = +muS.value, s = +sgS.value, a = +aS.value, b = +bS.value;
+    const L = 12, R = 12, T = 12, B = 50, pw = w - L - R, ph = h - T - B;
+    const X = v => L + (v - XLO) / (XHI - XLO) * pw, peak = normPdf(0) / s, Y = d => T + ph * (1 - d / (peak * 1.08));
+    geo = {X, L, pw};
+    const curve = (m, col, fill, alpha = 1) => {
+      const pts = []; for (let px = 0; px <= pw; px += 2){ const v = XLO + px / pw * (XHI - XLO); pts.push([L + px, Y(normPdf((v - m) / s) / s), v]); }
+      c.globalAlpha = alpha; c.fillStyle = fill; c.beginPath(); c.moveTo(X(Math.max(a, XLO)), Y(0));
+      pts.filter(p => p[2] >= a && p[2] <= b).forEach(p => c.lineTo(p[0], p[1])); c.lineTo(X(Math.min(b, XHI)), Y(0)); c.closePath(); c.fill(); c.globalAlpha = 1;
+      c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); pts.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); c.stroke();
+    };
+    if (two) curve(MU2, COL.test, COL.fillT);
+    curve(mu, COL.ctrl, two ? COL.ctrl : COL.fillC, two ? 0.25 : 1);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(w - R, Y(0)); c.stroke();
+    [a, b].forEach(v => { if (v > XLO && v < XHI){ c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), Y(0)); c.stroke(); c.fillStyle = COL.ink; c.beginPath(); c.arc(X(v), T + 6, 6, 0, 2 * Math.PI); c.fill(); } });
+    const narrow = w < 520;
+    axisX(c, X, narrow ? [400, 600, 800] : [400, 500, 600, 700, 800, 900], Y(0) + 16, v => int(v));
+    const sp = X(XLO + s) - X(XLO);
+    for (let k = -3; k <= 3; k++){ const v = mu + k * s; if (v < XLO || v > XHI) continue; if (sp < 30 && k % 2) continue; if (sp < 15 && k) continue;
+      c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(X(v), Y(0)); c.lineTo(X(v), Y(0) + 4); c.stroke();
+      label(c, TXT.sig(k), X(v), Y(0) + 34, k ? COL.ink2 : COL.pen, 'center'); }
+  }
+  function paint(){
+    if (+aS.value > +bS.value){ const t = aS.value; aS.value = bS.value; bS.value = t; }
+    const mu = +muS.value, s = +sgS.value, a = A(), b = B(), p = area(a, b, mu, s);
+    document.getElementById('n-a-t').textContent = TXT.edge(+aS.value, true);
+    document.getElementById('n-b-t').textContent = TXT.edge(+bS.value, false);
+    document.getElementById('n-mu-t').textContent = TXT.rub(mu);
+    document.getElementById('n-sg-t').textContent = TXT.rub(s);
+    document.getElementById('n-in').textContent = share(p, 1);
+    document.getElementById('n-out').textContent = share(1 - p, 1);
+    document.getElementById('n-f').textContent = TXT.f((a - mu) / s, (b - mu) / s, p);
+    const isTwo = Math.abs(a - (mu - 2 * s)) < 1e-9 && Math.abs(b - (mu + 2 * s)) < 1e-9;
+    const v = document.getElementById('n-v'); v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = TXT.v(p, Book.guess('beyond2'), two, area(a, b, MU2, s), isTwo);
+    document.getElementById('n-leg2').hidden = !two;
+    draw();
+  }
+  [aS, bS, muS, sgS].forEach(el => el.addEventListener('input', paint));
+  document.querySelectorAll('[data-win]').forEach(bt => bt.addEventListener('click', () => {
+    const k = +bt.dataset.win, mu = +muS.value, s = +sgS.value;
+    if (k === 740){ aS.value = 740; bS.value = XHI; }
+    else { aS.value = Math.max(XLO, mu - k * s); bS.value = Math.min(XHI, mu + k * s); }
+    paint();
+  }));
+  twoB.addEventListener('click', () => { two = !two; twoB.setAttribute('aria-pressed', String(two)); paint(); });
+  // перетаскивание границ по графику
+  let drag = null;
+  const toV = ev => { const r = cv.getBoundingClientRect(); return XLO + (ev.clientX - r.left - geo.L) / geo.pw * (XHI - XLO); };
+  cv.addEventListener('pointerdown', ev => { if (!geo) return; const v = toV(ev); drag = Math.abs(v - +aS.value) <= Math.abs(v - +bS.value) ? aS : bS; drag.value = Math.round(v / 5) * 5; cv.setPointerCapture(ev.pointerId); paint(); });
+  cv.addEventListener('pointermove', ev => { if (drag){ drag.value = Math.round(toV(ev) / 5) * 5; paint(); } });
+  cv.addEventListener('pointerup', () => { drag = null; });
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка «линейка наоборот»: какие μ не спорят с 740 ₽ ----------
+(function(){
+  const cv = document.getElementById('mu-cv'), sl = document.getElementById('mu0'), OBS = 740, S = 50, HW = 1.96 * S, A = 480, Bx = 1000;
+  const LO = 500, HI = 980, seen = new Set();
+  const ok = m => Math.abs(OBS - m) <= HW;
+  function draw(){
+    const g = canvas(cv, 0.36, 0.66); if (!g) return; const {c, w, h} = g;
+    const L = 12, R = 12, T = 22, B = 70, pw = w - L - R, ph = h - T - B, y0 = T + ph, X = v => L + (v - A) / (Bx - A) * pw;
+    const m = +sl.value, top = normPdf(0) / S, Y = y => y0 - y / top * ph * 0.92;
+    const part = (a, b, fill) => { a = Math.max(A, a); b = Math.min(Bx, b); if (a >= b) return; c.fillStyle = fill; c.beginPath(); c.moveTo(X(a), y0); for (let i = 0; i <= 50; i++){ const v = a + (b - a) * i / 50; c.lineTo(X(v), Y(normPdf((v - m) / S) / S)); } c.lineTo(X(b), y0); c.closePath(); c.fill(); };
+    part(m - HW, m + HW, COL.fillC); part(A, m - HW, COL.fillB); part(m + HW, Bx, COL.fillB);
+    c.beginPath(); for (let i = 0; i <= 200; i++){ const v = A + (Bx - A) * i / 200, y = Y(normPdf((v - m) / S) / S); i ? c.lineTo(X(v), y) : c.moveTo(X(v), y); }
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.stroke();
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, y0); c.lineTo(w - R, y0); c.stroke();
+    axisX(c, X, w < 520 ? [500, 640, 740, 840, 980] : [500, 600, 640, 700, 740, 800, 840, 900, 980], y0 + 15, v => int(v));
+    c.fillStyle = COL.ctrl; c.beginPath(); c.moveTo(X(m), y0 - 1); c.lineTo(X(m) - 6, y0 + 7); c.lineTo(X(m) + 6, y0 + 7); c.closePath(); c.fill();
+    const fx = X(OBS); c.strokeStyle = COL.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, y0); c.lineTo(fx, T - 8); c.stroke();
+    label(c, TXT.muObs, fx + 6, T - 8, ok(m) ? COL.ink : COL.trapInk);
+    // полоска кандидатов
+    const ys = h - 12, sw = X(LO + 2) - X(LO);
+    c.fillStyle = COL.grid; c.fillRect(X(LO), ys - 5, X(HI) - X(LO), 10);
+    seen.forEach(v => { c.fillStyle = ok(v) ? COL.truth : COL.trap; c.fillRect(X(v) - sw / 2, ys - 5, sw + 0.5, 10); });
+    label(c, TXT.muStrip, X(LO), ys - 11, COL.ink2);
+  }
+  function paint(){
+    const m = +sl.value, z = (OBS - m) / S, good = ok(m); seen.add(m);
+    document.getElementById('mu0-t').textContent = TXT.rub(m);
+    const v = document.getElementById('mu-v'); v.className = 'verdict ' + (good ? 'good' : 'bad');
+    const all = [642, 640, 838, 840].every(x => seen.has(x));
+    v.innerHTML = TXT.muV(m, z, pTwo(z), good) + (all ? ' ' + TXT.muEdges : '');
+    draw();
+  }
+  sl.addEventListener('input', paint);
+  document.getElementById('mu-all').addEventListener('click', () => { for (let x = LO; x <= HI; x += 2) seen.add(x); paint(); });
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 5: одна минута ----------
+(function(){
+  const cv = document.getElementById('w-cv'), sl = document.getElementById('w-w'), S1 = 0.6, S2 = 4;
+  function draw(){
+    const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
+    const W = +sl.value, L = 12, R = 12, T = 10, B = 30, pw = w - L - R, ph = h - T - B, lo = -10, hi = 10;
+    const X = v => L + (v - lo) / (hi - lo) * pw, top = normPdf(0) / S1 * 1.05, Y = d => T + ph * (1 - d / top);
+    [[S2, COL.test, COL.fillT], [S1, COL.ctrl, COL.fillC]].forEach(([s, col, fill]) => {
+      c.fillStyle = fill; c.beginPath(); c.moveTo(X(-W), Y(0));
+      for (let v = -W; v <= W + 1e-9; v += W / 60) c.lineTo(X(v), Y(normPdf(v / s) / s));
+      c.lineTo(X(W), Y(0)); c.closePath(); c.fill();
+      c.strokeStyle = col; c.lineWidth = 2; c.beginPath();
+      for (let v = lo; v <= hi; v += 0.05) { const y = Y(normPdf(v / s) / s); v === lo ? c.moveTo(X(v), y) : c.lineTo(X(v), y); } c.stroke();
+    });
+    c.strokeStyle = COL.ink; c.lineWidth = 1.5; [-W, W].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), Y(0)); c.stroke(); });
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(w - R, Y(0)); c.stroke();
+    axisX(c, X, [-10, -5, 0, 5, 10], h - 14, v => (v > 0 ? '+' : v < 0 ? MINUS : '') + Math.abs(v));
+    label(c, TXT.wX, w - R, T + 12, COL.ink2, 'right');
+  }
+  function paint(){
+    const W = +sl.value;
+    document.getElementById('w-w-t').textContent = num(W, 1) + ' мин';
+    document.getElementById('w-a').textContent = share(2 * normCdf(W / S1) - 1, 1);
+    document.getElementById('w-b').textContent = share(2 * normCdf(W / S2) - 1, 1);
+    draw();
+  }
+  sl.addEventListener('input', paint);
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 6: площадь, а не высота ----------
+(function(){
+  const cv = document.getElementById('a-cv'), sl = document.getElementById('a-bw');
+  const sB = document.getElementById('a-share'), dB = document.getElementById('a-dens');
+  Book.seed(66); const vals = Array.from({length: 20000}, () => 640 + 50 * gauss()); Book.seed();
+  let dens = false;
+  function draw(){
+    const g = canvas(cv, 0.42, 0.72); if (!g) return; const {c, w, h} = g;
+    const bw = TXT.bw[+sl.value], lo = 440 - ((440 - 640 + bw / 2) % bw + bw) % bw, hi = 840;
+    const b = bins(vals, lo, lo + Math.ceil((hi - lo) / bw) * bw, bw), n = vals.length;
+    const L = 52, R = 10, T = 10, B = 30, pw = w - L - R, ph = h - T - B;
+    const X = v => L + (v - 440) / (hi - 440) * pw;
+    const top = dens ? 0.01 : 0.7, step = dens ? 0.002 : 0.1, Y = v => T + ph * (1 - Math.min(v, top) / top);
+    axisY(c, L, R, T, ph, w, 0, top, step, v => dens ? num(v, 3) : shareT(v, 0));
+    b.forEach((k, i) => {
+      const x0 = Math.max(440, lo + i * bw), x1 = Math.min(hi, lo + (i + 1) * bw); if (x1 <= x0) return;
+      const v = dens ? k / n / bw : k / n;
+      c.fillStyle = COL.ctrl; c.fillRect(X(x0) + (bw >= 10 ? 1 : 0), Y(v), Math.max(1, X(x1) - X(x0) - (bw >= 10 ? 2 : 0)), Y(0) - Y(v));
+    });
+    if (dens){ c.strokeStyle = COL.gray; c.lineWidth = 2; c.beginPath(); for (let v = 440; v <= hi; v += 2){ const y = Y(normPdf((v - 640) / 50) / 50); v === 440 ? c.moveTo(X(v), y) : c.lineTo(X(v), y); } c.stroke(); }
+    axisX(c, X, [490, 540, 590, 640, 690, 740, 790], h - 14, v => int(v));
+    const ci = Math.floor((640 - lo) / bw);
+    document.getElementById('a-note').textContent = TXT.an(bw, b[ci] / n, dens);
+  }
+  function paint(){
+    document.getElementById('a-bw-t').textContent = int(TXT.bw[+sl.value]) + NBSP + '₽';
+    sB.setAttribute('aria-pressed', String(!dens)); dB.setAttribute('aria-pressed', String(dens)); draw();
+  }
+  sl.addEventListener('input', paint);
+  sB.addEventListener('click', () => { dens = false; paint(); });
+  dB.addEventListener('click', () => { dens = true; paint(); });
+  window.addEventListener('resize', draw);
+  paint();
+})();
+
+// ---------- карточка 7: сумма 20 факторов ----------
+(function(){
+  const cv = document.getElementById('f-cv'), K = 20, STEP = 3;
+  let counts = new Array(K + 1).fill(0), hs = [];
+  function draw(){
+    const g = canvas(cv, 0.4, 0.66); if (!g) return; const {c, w, h} = g;
+    const lo = 170 - STEP * K - STEP, hi = 170 + STEP * K + STEP, n = hs.length;
+    const L = 46, R = 10, T = 10, B = 30, pw = w - L - R, ph = h - T - B, top = 0.2;
+    const X = v => L + (v - lo) / (hi - lo) * pw, Y = v => T + ph * (1 - Math.min(v, top) / top);
+    axisY(c, L, R, T, ph, w, 0, top, 0.05, v => shareT(v, 0));
+    const bwp = X(2 * STEP) - X(0);
+    counts.forEach((k, j) => { const v = 170 + STEP * (2 * j - K), sh = n ? k / n : 0; c.fillStyle = COL.ctrl; c.fillRect(X(v) - bwp / 2 + 1, Y(sh), bwp - 2, Y(0) - Y(sh)); });
+    const s = STEP * Math.sqrt(K);
+    c.strokeStyle = COL.gray; c.lineWidth = 2; c.beginPath();
+    for (let v = lo; v <= hi; v += 1){ const y = Y(normPdf((v - 170) / s) / s * 2 * STEP); v === lo ? c.moveTo(X(v), y) : c.lineTo(X(v), y); } c.stroke();
+    if (!n) label(c, TXT.fInvite, L + pw / 2, T + ph * 0.3, COL.ink2, 'center');
+    axisX(c, X, [130, 150, 170, 190, 210], h - 14, v => int(v));
+    label(c, TXT.fX, w - R, T + 12, COL.ink2, 'right');
+  }
+  function add(m){
+    for (let i = 0; i < m; i++){ let j = 0; for (let k = 0; k < K; k++) if (rand() < 0.5) j++; counts[j]++; hs.push(170 + STEP * (2 * j - K)); }
+    const v = document.getElementById('f-v'); v.hidden = false; v.className = 'verdict good';
+    v.innerHTML = TXT.fv(hs.length, mean(hs), hs.length > 1 ? sd(hs) : 0); draw();
+  }
+  document.getElementById('f-1000').addEventListener('click', () => add(1000));
+  document.getElementById('f-1').addEventListener('click', () => add(1));
+  document.getElementById('f-reset').addEventListener('click', () => { counts = new Array(K + 1).fill(0); hs = []; document.getElementById('f-v').hidden = true; draw(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 8: хвост ----------
+(function(){
+  const cv = document.getElementById('t-cv'), sl = document.getElementById('t-d'), S = 50, THR = 790, P0 = 1 - normCdf(3);
+  function draw(){
+    const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
+    const d = +sl.value, lo = 440, hi = 900, L = 12, R = 12, T = 10, B = 30, pw = w - L - R, ph = h - T - B;
+    const X = v => L + (v - lo) / (hi - lo) * pw, top = normPdf(0) / S * 1.08, Y = y => T + ph * (1 - y / top);
+    const curve = (m, col, lw) => { c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); for (let v = lo; v <= hi; v += 2){ const y = Y(normPdf((v - m) / S) / S); v === lo ? c.moveTo(X(v), y) : c.lineTo(X(v), y); } c.stroke(); };
+    c.fillStyle = COL.fillB; c.beginPath(); c.moveTo(X(THR), Y(0)); for (let v = THR; v <= hi; v += 2) c.lineTo(X(v), Y(normPdf((v - 640 - d) / S) / S)); c.lineTo(X(hi), Y(0)); c.closePath(); c.fill();
+    curve(640, COL.gray, 1.5); curve(640 + d, COL.ctrl, 2);
+    c.strokeStyle = COL.trap; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(THR), T); c.lineTo(X(THR), Y(0)); c.stroke();
+    label(c, TXT.rec, X(THR) + 6, T + 14, COL.trapInk);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(0)); c.lineTo(w - R, Y(0)); c.stroke();
+    axisX(c, X, [490, 590, 690, 790, 890], h - 14, v => int(v));
+  }
+  function paint(){
+    const d = +sl.value, p = 1 - normCdf((THR - 640 - d) / S);
+    document.getElementById('t-d-t').textContent = int(d) + NBSP + '₽';
+    document.getElementById('t-k').textContent = int(10000 * p);
+    document.getElementById('t-r').textContent = '× ' + num(p / P0, 1);
+    draw();
+  }
+  sl.addEventListener('input', paint);
+  window.addEventListener('resize', draw);
+  paint();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>

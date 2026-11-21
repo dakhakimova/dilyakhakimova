@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A/B на простой метрике · Сигнал или шум</title>
+<meta name="description" content="Глава 10 бесплатного интерактивного курса «Сигнал или шум»: z-тест для двух конверсий и двух средних, p-value и 95-процентный интервал разницы — руками, на двух колоколах и в коде.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css?v=202611220">
+<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<style>
+/* живая формула с подставленными числами (глава 10) */
+.live{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px 14px; margin:12px 0; font:400 15px/1.6 var(--body); font-variant-numeric:tabular-nums}
+.live p{margin:2px 0}
+.live .lt{display:block; font:600 12px/1.3 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+.twoinputs.four{grid-template-columns:repeat(4,1fr)}
+@media (max-width:620px){ .twoinputs.four{grid-template-columns:1fr 1fr} }
+.grp-h{font:600 13px/1.3 var(--body); color:var(--muted); margin:10px 0 2px}
+.xtab td.cold{color:var(--muted)}
+</style>
+</head>
+<body data-course="signal" data-chapter="ch10" data-next="11-errors.html">
+<script src="/signal/progress.js"></script>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">Сигнал или шум</a>
+  <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+    <h2>Глава 10 · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- 1: разминка -->
+<section class="card warmup" data-title="Разминка" aria-label="Разминка">
+  <span class="warm-tag">Разминка: вспомним главы 5 и 8</span>
+  <h2>Сначала вспомним</h2>
+  <div class="quiz" data-right="a">
+    <p class="q">Доставка в среднем едет 30 минут, стандартное отклонение — 5 минут, распределение похоже на колокол. Один заказ ехал 42 минуты. Насколько это необычно?</p>
+    <div class="choice"><button type="button" data-v="a">z = 2,4: так едет меньше 1 % заказов</button><button type="button" data-v="b" data-why="12 минут — это отклонение в минутах. z-оценка меряет его в сигмах: 12 минут нужно разделить на 5.">z = 12: заказ ехал на 12 минут дольше среднего</button><button type="button" data-v="c" data-why="z-оценка — не отношение к среднему. Она считает, сколько сигм между заказом и средним.">z = 1,4: заказ ехал в 1,4 раза дольше</button></div>
+    <p class="why">z = (42 − 30) / 5 = 2,4: заказ ехал на 2,4 сигмы дольше среднего. Дальше 2,4 сигмы вправо лежит меньше 1 % колокола, примерно 1 заказ из 120. Это глава 5: сигма — линейка колокола.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">После новой упаковки пришла 31 жалоба на пролитый суп. Что спросить первым?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Без знаменателя это сравнение тоже врёт: если супов стало вдвое больше, жалоб и так станет больше.">Сколько жалоб было на старую упаковку</button><button type="button" data-v="b">Сколько супов доставили за это время</button><button type="button" data-v="c" data-why="Курьеры могут быть важны, но сначала нужно понять, много ли это — 31 жалоба.">Какие курьеры возили пролитые супы</button></div>
+    <p class="why">31 жалоба — числитель без знаменателя. 31 из 300 супов и 31 из 30 000 — совсем разные истории. Это глава 8: сначала спроси, откуда данные и от чего доля.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 2: обложка -->
+<section class="card" data-title="Монетка Котейки" aria-label="Монетка Котейки">
+  <p class="kicker">Часть III · глава 10</p>
+  <h1>A/B на простой метрике</h1>
+  <p class="core">После главы ты сможешь <b>посчитать z-тест, p-value и 95 %-й интервал разницы</b> для конверсий и средних — руками и в коде.</p>
+  <ol class="ladder" aria-label="Шаги алгоритма, глава добавляет пятый">
+    <li>1. Что здесь случайно?</li><li>2. Как распределено?</li><li>3. Центр и разброс</li>
+    <li>4. Насколько шумит среднее</li><li class="on"><b>5.</b> Сколько стандартных ошибок до порога</li><li>6. Ответ бизнесу</li>
+  </ol>
+  <figure class="art"><img src="img/ch10-00-coin.jpg" alt="Котейка выкладывает на стол девять монет орлом вверх, Алиса смотрит с сомнением" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка и подозрительная монетка, девять орлов в ряд</figcaption></figure>
+  <p class="lead">Котейка выбросил 9 орлов из 10 и клянётся, что монетка честная. А новая кнопка в приложении дала +0,65 заказа на 100 гостей. В обоих случаях вопрос один: удивился бы мир, где ничего не происходит?</p>
+  <p>В главе 9 ты измерил шум A/A-теста. Теперь научимся класть на эту линейку настоящую разницу и считать, сколько в ней стандартных ошибок.</p>
+</section>
+
+<!-- 3: история и прогноз -->
+<section class="card" data-title="Угадай" aria-label="Угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>9 орлов из 10 — это много?</h2>
+  <div class="chat">
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Монетка честная! Просто сегодня выпало 9 орлов из 10. Бывает же.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">По-моему, жульничает. Но вдруг просто повезло?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посчитаем, как часто честная монетка даёт такой перекос. Если часто — Котейке можно верить.</p></div></div>
+  </div>
+  <div class="guess" data-key="nine" data-min="0" data-max="100" data-unit="%">
+    <label class="field">9 или 10 орлов из 10 у честной монетки выпадут примерно в <input type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="?"> % серий</label>
+    <div class="controls"><button class="btn" type="button">Запомнить</button></div>
+    <p class="note">Напиши число — на следующей карточке проверим.</p>
+  </div>
+</section>
+
+<!-- 4: игрушка-монетка -->
+<section class="card" data-title="Серии монетки" aria-label="Серии монетки">
+  <span class="step-tag">Поиграй</span>
+  <h2>Бросай серии по 10 честной монеткой</h2>
+  <p>Каждая серия — 10 бросков. Столбик показывает, в какой доле серий выпало столько орлов. Оранжевые столбики — результат Котейки и всё, что ещё необычнее. Серые точки — теория.</p>
+  <div class="sheet c-white">
+    <canvas id="coin" role="img" aria-label="Гистограмма числа орлов в сериях из 10 бросков; столбики 9 и 10 подсвечены, по теории это 11 серий из 1024"></canvas>
+    <div class="controls">
+      <button class="btn" type="button" id="coin-1">Ещё серия</button>
+      <button class="btn ghost" type="button" id="coin-1000">+1000 серий</button>
+      <button class="btn ghost" type="button" id="coin-two" aria-pressed="false">Считать в обе стороны</button>
+    </div>
+    <div class="verdict" id="coin-v" hidden></div>
+  </div>
+  <p class="note">«В обе стороны» — это когда необычным считается и сильный перекос к решкам: 0 или 1 орёл. Так спрашивают, если заранее не знаешь, в какую сторону может жульничать монетка.</p>
+</section>
+
+<!-- 5: p-value из трёх частей -->
+<section class="card" data-title="p-value из трёх частей" aria-label="p-value из трёх частей">
+  <span class="step-tag">Идея</span>
+  <h2>Считаем не «ровно так», а «так или ещё необычнее»</h2>
+  <p>Любая конкретная цепочка из 10 бросков, например ОРООРРОРОО, выпадает в 1 серии из 1024. Цепочка Котейки ничем не реже. Маловероятное — ещё не необычное: если считать вероятность ровно своего результата, удивительным окажется что угодно.</p>
+  <p>Поэтому p-value складывают из трёх частей. Вот все 1024 серии по числу орлов:</p>
+  <div class="report-wrap">
+  <table class="xtab" aria-label="Число серий из 1024 по числу орлов">
+    <tr><th>орлов</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+    <tr><th>серий</th><td class="hot">1</td><td class="hot">10</td><td class="cold">45</td><td class="cold">120</td><td class="cold">210</td><td class="cold">252</td><td class="cold">210</td><td class="cold">120</td><td class="cold">45</td><td class="hot">10</td><td class="hot">1</td></tr>
+  </table>
+  </div>
+  <ol>
+    <li><b>Наблюдённое:</b> 9 орлов — 10 серий.</li>
+    <li><b>Столь же редкое:</b> 1 орёл — тоже 10 серий (это перекос к решкам).</li>
+    <li><b>Ещё более редкое:</b> 10 орлов и 0 орлов — по 1 серии.</li>
+  </ol>
+  <p>Вместе 22 серии из 1024, это 2,1 %. Если смотреть только в сторону орлов — 11 из 1024, 1,1 %.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Эту долю называют <b class="term">p-value</b>: вероятность получить такой же или более сильный перекос в мире, где эффекта нет. Если считаем перекосы в обе стороны, тест <b>двусторонний</b> (two-sided), если в одну — <b>односторонний</b> (one-sided).</p>
+    <p class="aside">Звучит солидно, а это просто «сколько честных серий выглядят не хуже нашей».</p>
+  </aside>
+</section>
+
+<!-- 6: главная игрушка -->
+<section class="card" data-title="z-тест на колоколе" aria-label="z-тест на колоколе">
+  <span class="step-tag">Главная игрушка</span>
+  <h2>Кнопка «Повторить заказ»: сигнал или шум?</h2>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Два дня теста. Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2130 на 20 000. Плюс 0,65 заказа на 100 гостей! Катим?</p></div></div>
+    <div class="msg kot world"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В моём мире кнопка ничего не делает. Но разница у меня тоже бывает — я же шумлю.</p></div></div>
+  </div>
+  <p><b>Сначала угадай:</b> как часто в мире Котейки разница получается не меньше 0,65 заказа на 100 гостей в любую сторону?</p>
+  <div class="choice" data-key="g2" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="half" data-fb="Записали. Насыплем A/A-тесты и посчитаем." aria-pressed="false">Часто: в половине A/A</button>
+    <button type="button" data-v="fifth" data-fb="Записали. Насыплем A/A-тесты и посчитаем." aria-pressed="false">Иногда: в 1 из 5</button>
+    <button type="button" data-v="few" data-fb="Записали. Насыплем A/A-тесты и посчитаем." aria-pressed="false">Редко: в 3 из 100</button>
+    <button type="button" data-v="never" data-fb="Записали. Насыплем A/A-тесты и посчитаем." aria-pressed="false">Почти никогда: в 1 из 10 000</button>
+  </div>
+  <div class="sheet c-white">
+    <p class="chart-title">Колокол — разницы в мире без эффекта; флажок — наша разница; красное — p-value</p>
+    <canvas id="zt" role="img" aria-label="Колокол разниц в мире без эффекта, флажок наблюдаемой разницы и закрашенные хвосты p-value; снизу — 95-процентный интервал разницы"></canvas>
+    <div class="legend-row"><span><i style="background:var(--theory)"></i>A/A без эффекта</span><span><i style="background:var(--trap)"></i>A/A с разницей не меньше нашей</span><span><i style="background:var(--ink)"></i>наша разница</span></div>
+    <p class="grp-h">Данные теста (можно поменять)</p>
+    <div class="twoinputs four">
+      <label>Заказов, контроль<input type="number" id="xa" min="0" step="1" value="2000"></label>
+      <label>Заходов, контроль<input type="number" id="na" min="1" step="1" value="20000"></label>
+      <label>Заказов, тест<input type="number" id="xb" min="0" step="1" value="2130"></label>
+      <label>Заходов, тест<input type="number" id="nb" min="1" step="1" value="20000"></label>
+    </div>
+    <div class="controls">
+      <button class="btn" type="button" id="zt-aa">Насыпать 1000 A/A</button>
+      <button class="btn ghost" type="button" id="zt-bob">Числа Боба</button>
+      <button class="btn ghost" type="button" id="zt-cafe">Две кофейни: 74 и 83 из 100</button>
+    </div>
+    <div class="live" id="zt-live" aria-live="polite"></div>
+    <div class="verdict" id="zt-v" hidden></div>
+  </div>
+</section>
+
+<!-- 7: правило -->
+<section class="card" data-title="Правило" aria-label="Правило">
+  <span class="step-tag">Правило</span>
+  <h2>z — сколько стандартных ошибок в разнице</h2>
+  <figure class="art"><img src="img/ch10-01-two-bells.jpg" alt="Алиса прикалывает флажок на склон колокола за пунктирной линией, Боб с телефоном надеется" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса ставит флажок на склоне колокола</figcaption></figure>
+  <div class="layers">
+    <div class="story"><span class="lt">История</span><p>Разница между группами есть почти всегда, даже в A/A (глава 9). Вопрос не «есть ли разница», а «сколько в ней линеек шума». Если много — миру без эффекта трудно её объяснить.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 A/A-тестов по 20 000 заходов в группе разница не меньше 0,65 заказа на 100 гостей в любую сторону бывает примерно в 33. Это и есть p-value: 3,3 %.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">p̂ = (x<sub>A</sub> + x<sub>B</sub>) / (n<sub>A</sub> + n<sub>B</sub>)</p>
+      <p class="formula">SE = √(p̂(1 − p̂)·(1/n<sub>A</sub> + 1/n<sub>B</sub>))</p>
+      <p class="formula">z = (p̂<sub>B</sub> − p̂<sub>A</sub>) / SE,  p = 2·(1 − Φ(|z|))</p>
+      <p class="read">Словами: в мире без эффекта у групп одна общая конверсия p̂; по ней считаем ширину шума SE (как в A/A), делим на неё разницу и смотрим, какая доля колокола лежит дальше. У Боба: 0,65 / 0,304 = 2,14 стандартной ошибки, p = 0,033.</p></div>
+  </div>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Это <b class="term">z-тест для двух долей</b> (z-test for proportions): разницу делят на стандартную ошибку и сравнивают с нормальным колоколом. Порог 1,96 — это двусторонние 5 %.</p>
+    <p class="aside">Звучит солидно, а это просто «разница, измеренная линейкой A/A».</p>
+  </aside>
+  <p class="xref">Без формул и с другими игрушками — в «A/B на пальцах», <a href="/ab-basics/07-p-value.html">шаг 7 «p-value на пальцах»</a> и <a href="/ab-basics/06-interval.html">шаг 6 про вилку эффекта</a>.</p>
+</section>
+
+<!-- 8: интервал как ряд кандидатов -->
+<section class="card" data-title="Ряд кандидатов" aria-label="Ряд кандидатов">
+  <span class="step-tag">Вторая игрушка</span>
+  <h2>Интервал — кандидаты, которые остались живы</h2>
+  <p>Тест отверг мир без эффекта. Но ноль — только один кандидат на правду. Спросим данные Боба и про других: «а если кнопка даёт ровно +1 заказ на 100 гостей?» Тогда разницы в тестах легли бы колоколом вокруг +1. Смотрим, где на этом колоколе наша разница +0,65. Если в хвосте, кандидат гаснет, если в теле — остаётся жив.</p>
+  <p><b>Сначала угадай:</b> какие кандидаты останутся живы?</p>
+  <div class="choice" data-key="edges" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="n1" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Узко: от +0,55 до +0,75</button>
+    <button type="button" data-v="n3" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0,35 до +0,95</button>
+    <button type="button" data-v="n6" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0,05 до +1,25</button>
+    <button type="button" data-v="n12" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Широко: от −0,55 до +1,85</button>
+  </div>
+  <div class="sheet c-white">
+    <p class="chart-title">Колокол — разницы тестов, если правда равна кандидату; красное — хвосты по 2,5 %; кружки — кандидаты. Ось — разница, заказов на 100 гостей</p>
+    <canvas id="ci" role="img" aria-label="Колокол разниц вокруг кандидата, наша разница +0,65 и ряд из 47 кандидатов от −0,5 до +1,8; живы кандидаты от +0,10 до +1,20, интервал от +0,05 до +1,25"></canvas>
+    <label class="field">Кандидат: кнопка даёт <input type="range" id="ci-d" min="-50" max="180" step="1" value="100" aria-describedby="ci-dt"> <b id="ci-dt" class="num"></b> заказа на 100 гостей</label>
+    <div class="controls">
+      <button class="btn" type="button" id="ci-all">Проверить всех</button>
+      <button class="btn ghost" type="button" id="ci-zero">Кандидат «ноль»</button>
+      <button class="btn ghost" type="button" id="ci-reset">Сначала</button>
+    </div>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>жив: наша разница в теле колокола</span><span><i style="background:var(--theory)"></i>погас: в хвосте</span></div>
+    <div class="verdict" id="ci-v"></div>
+  </div>
+  <p>Каждый кружок получен тем же действием, что z-тест на карточке 6: разницу делим на SE и смотрим, дальше ли она 1,96. Только колокол стоит не на нуле, а на кандидате. Живые стоят подряд: если два соседа живы, то и всё между ними. Поэтому получается отрезок. Его края считают одной формулой, без перебора:</p>
+  <p class="formula">(p̂<sub>B</sub> − p̂<sub>A</sub>) ± 1,96·√(p̂<sub>A</sub>(1 − p̂<sub>A</sub>)/n<sub>A</sub> + p̂<sub>B</sub>(1 − p̂<sub>B</sub>)/n<sub>B</sub>)</p>
+  <p>У Боба: 0,65 ± 1,96·0,304, то есть от +0,05 до +1,25 заказа на 100 гостей. Кандидат «ноль» погас: для него z = 2,14 и p = 0,033, как на карточке 6. Поэтому интервал и не задевает ноль: это одна и та же проверка, прочитанная двумя способами. Здесь каждая группа шумит со своей долей, ведь мы больше не предполагаем, что эффекта нет. Но при 20 000 гостей в группе SE почти та же, что в z-тесте.</p>
+  <aside class="scary">
+    <span class="scary-tag">Страшное слово</span>
+    <p>Эта полоса — <b class="term">95 %-й доверительный интервал</b> (confidence interval, CI): все кандидаты, которых двусторонний тест с порогом 5 % не отвергает. 95 % значит: если повторять тест много раз, 95 % так построенных интервалов накроют истинный эффект. Почему именно 95, видно в главе 7, на карточке «Вилка для среднего».</p>
+    <p class="aside">Звучит солидно, а это просто «эффекты, которые не противоречат данным».</p>
+  </aside>
+  <p class="src">Идея из курса: «Прикладная статистика», Академия аналитиков Авито — интервал как ряд гипотез, которые тест не отвергает</p>
+</section>
+
+<!-- 9: средние -->
+<section class="card" data-title="Средний чек" aria-label="Средний чек">
+  <span class="step-tag">То же для средних</span>
+  <h2>Средний чек: те же шаги, другая SE</h2>
+  <p>Кнопка могла поменять не только число заказов, но и сумму. Алиса берёт по 5000 заказов в каждой группе.</p>
+  <div class="report-wrap"><table class="report" aria-label="Средний чек по группам">
+    <tr><th>группа</th><th>заказов</th><th>средний чек</th><th>стандартное отклонение</th></tr>
+    <tr><td>контроль</td><td>5000</td><td>850 ₽</td><td>600 ₽</td></tr>
+    <tr><td>с кнопкой</td><td>5000</td><td>875 ₽</td><td>620 ₽</td></tr>
+  </table></div>
+  <div class="layers">
+    <div class="things"><span class="lt">В штуках</span><p>Каждое среднее шумит на σ/√n (глава 7): 600/√5000 ≈ 8,5 ₽ и 620/√5000 ≈ 8,8 ₽. Шумы разности складываются как дисперсии: √(8,5² + 8,8²) ≈ 12,2 ₽. Разница 25 ₽ — это 2,05 таких линейки.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span>
+      <p class="formula">z = (x̄<sub>B</sub> − x̄<sub>A</sub>) / √(s<sub>A</sub>²/n<sub>A</sub> + s<sub>B</sub>²/n<sub>B</sub>)</p>
+      <p class="read">Словами: разница средних в стандартных ошибках разности. Здесь z = 25 / 12,2 = 2,05, p = 0,040, интервал 25 ± 1,96·12,2 — от +1 до +49 ₽.</p></div>
+  </div>
+  <p>Так можно считать при больших n: среднее тысяч заказов уже похоже на колокол, даже если сами чеки кривые (глава 7). При малых выборках берут t-тест, а с «китами» в выручке нужна осторожность — это темы курса <a href="/stats/">«Прикладная статистика для аналитика»</a>.</p>
+</section>
+
+<!-- 10: код -->
+<section class="card" data-title="Код" aria-label="Код">
+  <span class="step-tag">Попробуй в коде</span>
+  <h2>Напиши z-тест для двух долей</h2>
+  <p>Заполни функцию по формуле из правила. Она должна вернуть пару (z, p), где p — двусторонний p-value. Φ уже есть.</p>
+  <div class="cell" data-title="Напиши сам" data-check="check-ztest-props">
+<textarea spellcheck="false" aria-label="Задание: функция ztest_props">from math import erf, sqrt
+
+Phi = lambda z: 0.5 * (1 + erf(z / sqrt(2)))
+
+def ztest_props(x_a, n_a, x_b, n_b):
+    # z-тест для двух долей: вернуть (z, p), p — двусторонний
+    p_pool = ...          # общая доля в мире без эффекта
+    se = ...              # стандартная ошибка разности
+    z = ...
+    p = ...
+    return z, p
+
+print(ztest_props(2000, 20_000, 2130, 20_000))   # около (2.14, 0.033)
+print(ztest_props(74, 100, 83, 100))             # две кофейни: около (1.55, 0.12)</textarea>
+  </div>
+<script type="text/x-python" id="check-ztest-props">
+def _check():
+    try:
+        f = ztest_props
+    except NameError:
+        print("FAIL функции ztest_props нет — запусти ячейку с ней"); return
+    try:
+        r = f(2000, 20000, 2130, 20000); z, p = float(r[0]), float(r[1])
+    except Exception as e:
+        print("FAIL функция должна вернуть два числа (z, p); вместо ... впиши формулы. Ошибка:", e); return
+    if abs(z - 2.136) > 0.01:
+        print(f"FAIL z = {z:.3f}, а ждали около 2.14. Проверь p_pool = (x_a + x_b) / (n_a + n_b) и se"); return
+    if abs(p - 0.0163) < 0.002:
+        print("FAIL p = 0.016 — это односторонний p. Для двустороннего умножь на 2"); return
+    if abs(p - 0.0327) > 0.002:
+        print(f"FAIL p = {p:.4f}, а ждали около 0.033 = 2 * (1 - Phi(|z|))"); return
+    z2, p2 = [float(v) for v in f(74, 100, 83, 100)]
+    if abs(z2 - 1.549) > 0.01 or abs(p2 - 0.1214) > 0.003:
+        print(f"FAIL на двух кофейнях вышло ({z2:.3f}, {p2:.4f}), а ждали около (1.55, 0.12)"); return
+    z3 = float(f(2130, 20000, 2000, 20000)[0])
+    if z3 >= 0:
+        print("FAIL если тест хуже контроля, z должен быть отрицательным: разница B − A"); return
+    print("OK z = 2.14, p = 0.033 у Боба и z = 1.55, p = 0.12 у кофеен — z-тест работает")
+_check()
+</script>
+  <p class="note">Проверка подставит числа Боба, две кофейни и тест, который хуже контроля (там z должен быть отрицательным).</p>
+</section>
+
+<!-- 11: ловушка -->
+<section class="card" data-title="Ловушка" aria-label="Ловушка">
+  <span class="step-tag">Ловушка</span>
+  <h2>Котейка переворачивает p-value</h2>
+  <div class="chat">
+    <div class="msg kot oops"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">p = 0,033. Значит, кнопка работает с вероятностью 96,7 %. Мяу!</p></div></div>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Что не так в словах Котейки?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="1 − p — это доля миров без эффекта, где разница вышла меньше нашей. О шансе, что эффект есть, она ничего не говорит.">Ничего: 1 − p и есть шанс, что эффект есть</button><button type="button" data-v="b">p посчитан в мире, где эффекта нет</button><button type="button" data-v="c" data-why="Деление p пополам даёт односторонний p-value, но тоже не шанс эффекта.">Надо было взять 1 − p/2, то есть 98,4 %</button><button type="button" data-v="d" data-why="Так p тоже читать нельзя: шанс эффекта по одному p-value не посчитать ни так, ни наоборот.">Шанс эффекта 3,3 %, а не 96,7 %</button></div>
+    <p class="why">p-value — это P(такая разница или больше | эффекта нет). Котейка хочет P(эффект есть | такая разница) — это другая условная вероятность, и для неё нужно знать, как часто идеи вообще работают. Это Байес из «Вероятности на пальцах», <a href="/probability/06-bayes.html">шаг 6</a>, и тема главы 12.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 12: собеседование -->
+<section class="card" data-title="Собеседование" aria-label="Собеседование">
+  <span class="step-tag">🔥 Так спрашивают на собеседовании</span>
+  <h2>Четыре задачи и как на них отвечать</h2>
+  <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
+  <details class="ivw" data-key="nine">
+    <summary>Как проверить, честная ли монетка? Выпало 9 орлов из 10.</summary>
+    <p><b>Переформулирую:</b> если монетка честная, как часто бывает такой же перекос или сильнее?</p>
+    <p><b>В штуках:</b> из 1024 равновероятных серий 9 орлов дают 10 серий, 10 орлов — 1. Итого 11 серий, 1,1 %. Если жульничество возможно в обе стороны, добавляем 0 и 1 орёл: 22 серии, 2,1 %.</p>
+    <p><b>Формула:</b> <span class="num">P(X ≥ 9) = (C(10, 9) + C(10, 10)) / 2¹⁰ = 11/1024</span>; двусторонний p = 2·11/1024 ≈ 0,021.</p>
+    <p><b>Симуляция:</b> кнопка «+1000 серий» на карточке 4.</p>
+    <p><b>Вывод:</b> честная монетка так перекашивает примерно в 2 сериях из 100 — повод подозревать, но не приговор; чтобы проверять всерьёз, заранее выбери число бросков и порог.</p>
+  </details>
+  <details class="ivw" data-key="octopus">
+    <summary>Осьминог угадал исход 12 матчей из 14. Это доказывает, что он что-то понимает в футболе?</summary>
+    <p><b>Переформулирую:</b> если осьминог выбирает наугад (50 на 50), как часто он угадает 12 и больше из 14?</p>
+    <p><b>В штуках:</b> из 16 384 равновероятных цепочек 12 угадываний дают 91, 13 — 14, 14 — 1. Итого 106 цепочек, 0,65 %.</p>
+    <p><b>Формула:</b> <span class="num">P(X ≥ 12) = (C(14, 12) + C(14, 13) + C(14, 14)) / 2¹⁴ = 106/16 384 ≈ 0,0065</span>.</p>
+    <p><b>Поворот:</b> «предсказывали» сотни животных, а знаменитым стал тот, кому повезло. Из 200 угадывающих наугад в среднем 1,3 наберут 12 из 14. Маленький p у победителя отбора ничего не доказывает.</p>
+    <p><b>Вывод:</b> p ≈ 0,0065, но прежде чем удивляться, спроси, сколько было осьминогов.</p>
+  </details>
+  <details class="ivw" data-key="cafes">
+    <summary>В двух кофейнях сети проверили по 100 заказов: без замечаний 74 и 83. Вторая работает лучше? И сколько заказов нужно, чтобы такая разница стала заметной?</summary>
+    <p><b>Переформулирую:</b> разница 9 заказов на 100. Сколько в ней стандартных ошибок?</p>
+    <p><b>В штуках:</b> общая доля (74 + 83)/200 = 78,5 %. SE = √(0,785·0,215·(1/100 + 1/100)) ≈ 0,058, то есть 5,8 заказа на 100. Разница 9 — это 1,55 SE.</p>
+    <p><b>Формула:</b> <span class="num">z = 0,09 / 0,058 ≈ 1,55, p = 2·(1 − Φ(1,55)) ≈ 0,12</span>; интервал — от −2,3 до +20,3 заказа на 100, ноль внутри.</p>
+    <p><b>Обратный вопрос:</b> SE падает как 1/√n. Чтобы та же разница 9 из 100 дала z = 1,96, нужно около 160 заказов в каждой кофейне. Но тогда тест заметит такую разницу только в половине случаев. Чтобы замечать в 8 случаях из 10, нужно около 320 — это глава 11.</p>
+    <p><b>Вывод:</b> на 100 заказах разницу 9 из 100 не отличить от шума; это не значит, что кофейни одинаковы.</p>
+  </details>
+  <details class="ivw" data-key="late">
+    <summary>Доля опозданий доставки должна быть не выше 5 %. За неделю опоздали 62 заказа из 1000. Норма нарушена?</summary>
+    <p><b>Переформулирую:</b> одна группа и норма 5 %. Если на самом деле опаздывает ровно 5 %, как часто будет 62 и больше из 1000?</p>
+    <p><b>В штуках:</b> при 5 % ждём 50 опозданий из 1000, шум SE = √(0,05·0,95/1000) ≈ 0,0069, то есть 6,9 опоздания на 1000. 62 − 50 = 12 — это 1,74 SE.</p>
+    <p><b>Формула:</b> <span class="num">z = (0,062 − 0,05) / 0,0069 ≈ 1,74</span>; односторонний p = 1 − Φ(1,74) ≈ 0,041, двусторонний ≈ 0,082.</p>
+    <p><b>Поворот:</b> какой вопрос, такой и p. «Не превысили ли норму?» — вопрос в одну сторону, и он задан до данных, поэтому односторонний p здесь честен: 0,041. Но при доле 5 % и 1000 заказов колокол чуть врёт: точный биномиальный расчёт даёт P(X ≥ 62) ≈ 0,051. Когда результат у самого порога, решение по нему шаткое.</p>
+    <p><b>Вывод:</b> опозданий больше нормы на 1,2 на 100, и это на границе шума: стоит посмотреть ещё неделю, а не делать выводы по одной.</p>
+  </details>
+</section>
+
+<!-- 13: проверь себя -->
+<section class="card" data-title="Проверь себя" aria-label="Проверь себя">
+  <span class="step-tag">Проверь себя</span>
+  <h2>Вопросы про z-тест и p-value</h2>
+  <div class="quiz" data-right="c">
+    <p class="q">В тесте нового фото блюд p = 0,12. Что это говорит об эффекте?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="p-value не вероятность, что эффекта нет: его считали, предполагая, что эффекта нет.">Эффекта нет с вероятностью 88 %</button><button type="button" data-v="b" data-why="p больше порога не доказывает отсутствие эффекта: маленький эффект часто не виден на малых n.">Эффекта точно нет: p больше 0,05</button><button type="button" data-v="c">Его пока не отличить от шума</button><button type="button" data-v="d" data-why="p не вероятность эффекта ни в какую сторону. Это доля миров без эффекта с такой же разницей.">Эффект есть с вероятностью 12 %</button></div>
+    <p class="why">p = 0,12 значит: без эффекта такая или большая разница бывает в 12 тестах из 100. Это не редкость, поэтому шум объясняет данные. Но и эффект их объясняет — данных просто мало, чтобы выбрать. Посмотри на интервал: он широкий и задевает ноль.</p>
+  </div>
+  <div class="quiz" data-right="a">
+    <p class="q">За месяц в каждой группе по 4 млн гостей. Эффект +0,05 заказа на 100 гостей, p = 0,02. Что верно?</p>
+    <div class="choice"><button type="button" data-v="a">Эффект, скорее всего, есть, но крошечный</button><button type="button" data-v="b" data-why="Маленький p говорит, что разницу трудно списать на шум, а не что она большая. При 4 млн гостей заметна и мелочь.">Эффект большой: ведь p очень маленький</button><button type="button" data-v="c" data-why="Значимость ничего не говорит о пользе: выкатка может стоить дороже, чем принесёт +0,05 заказа на 100 гостей.">Значимо — значит, обязательно выкатываем</button></div>
+    <p class="why">SE здесь около 0,02 заказа на 100 гостей, поэтому даже +0,05 — это 2,4 SE. Интервал — примерно от +0,01 до +0,09: эффект есть, но это 1 лишний заказ на 2000 гостей. Значимо — не значит важно: решает, окупится ли выкатка.</p>
+  </div>
+  <div class="quiz" data-right="b">
+    <p class="q">Интервал разницы — от +0,05 до +1,25 заказа на 100 гостей (95 %). Как его честно прочитать?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Повторный тест тоже шумит, поэтому его разница попадает в первый интервал реже, чем в 95 % случаев, — в среднем примерно в 83 %.">В него попадёт разница 95 % повторных A/B-тестов</button><button type="button" data-v="b">95 % таких вилок накрывают истинный эффект</button><button type="button" data-v="c" data-why="Интервал — про средний эффект на группу, а не про каждого гостя. Кто-то из гостей вообще не заметил кнопку.">У 95 % гостей прирост от 0,05 до 1,25 заказа</button></div>
+    <p class="why">95 % — свойство способа строить интервалы: если повторять тест много раз, в 95 случаях из 100 вилка накроет истинный эффект. Практически это читают так: эффекты внутри не противоречат данным, снаружи — противоречат.</p>
+  </div>
+  <div class="quiz" data-right="c">
+    <p class="q">Двусторонний p = 0,08, односторонний — 0,04. Какой взять в отчёт?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Выбор по виду данных — подгонка: так ложных побед становится больше заявленных 5 %.">Односторонний: он меньше и чувствительнее</button><button type="button" data-v="b" data-why="Односторонний тест честен, если вопрос в одну сторону задан до теста, — например, «не превысили ли норму опозданий».">Двусторонний: односторонний — это нечестно</button><button type="button" data-v="c">Тот, о котором договорились до теста</button></div>
+    <p class="why">Двусторонний p вдвое больше одностороннего, потому что считает перекосы в обе стороны. Какой из них нужен, решает вопрос, а не данные. Если выбирать после того, как увидел p, порог 5 % перестаёт быть порогом 5 %.</p>
+  </div>
+  <p class="note quiz-score"></p>
+</section>
+
+<!-- 14: итог -->
+<section class="card" data-title="Итог главы" aria-label="Итог главы">
+  <span class="step-tag">Шпаргалка главы 10</span>
+  <h2 data-proverb="ch10">Меряй разницу в стандартных ошибках</h2>
+  <ul class="cheat">
+    <li><b>p-value</b> — доля миров без эффекта, где разница такая же или больше. Считается «так или ещё необычнее», а не «ровно так».</li>
+    <li><b>Доли:</b> p̂ = (x<sub>A</sub> + x<sub>B</sub>)/(n<sub>A</sub> + n<sub>B</sub>), SE = √(p̂(1 − p̂)(1/n<sub>A</sub> + 1/n<sub>B</sub>)), z = (p̂<sub>B</sub> − p̂<sub>A</sub>)/SE, p = 2·(1 − Φ(|z|)).</li>
+    <li><b>Средние (большие n):</b> z = (x̄<sub>B</sub> − x̄<sub>A</sub>) / √(s<sub>A</sub>²/n<sub>A</sub> + s<sub>B</sub>²/n<sub>B</sub>).</li>
+    <li><b>Интервал 95 %:</b> разница ± 1,96·SE, где SE считают по долям каждой группы. Не задевает ноль — значит, p &lt; 0,05.</li>
+    <li>|z| &gt; 1,96 ⇔ двусторонний p &lt; 0,05. Сторону теста выбирают до данных.</li>
+    <li>p ≠ вероятность, что эффекта нет. Значимо ≠ важно: смотри на интервал в штуках.</li>
+  </ul>
+  <dl class="terms">
+    <dt>z-тест</dt><dd>разница, делённая на стандартную ошибку, против нормального колокола; z-test</dd>
+    <dt>p-value</dt><dd>P(такая разница или больше | эффекта нет); p-value</dd>
+    <dt>Двусторонний тест</dt><dd>необычными считаются перекосы в обе стороны; two-sided (one-sided — в одну)</dd>
+    <dt>Доверительный интервал</dt><dd>эффекты, с которыми данные не спорят; 95 % таких интервалов накрывают правду; confidence interval, CI</dd>
+  </dl>
+  <figure class="art"><img src="img/ch10-02-next.jpg" alt="Две кофейни через дорогу, у одной чуть больше довольных гостей, Алиса держит лупу над крошечной разницей" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две кофейни и разница, которую не видно в лупу</figcaption></figure>
+  <a class="next-step" href="11-errors.html"><b>Дальше, глава 11: «Ошибки I и II рода»</b>Две кофейни разошлись на 9 заказов из 100, а тест промолчал. Эффект мог быть — мы его просто не увидели. Сколько таких пропусков и как посчитать их до теста?</a>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611220"></script>
+<script>
+const TXT = {
+  ru: {
+    heads: 'орлов в серии', axisD: 'разница, заказов на 100 гостей', ours: 'наша разница', thr: 'порог 5 %', ci: 'интервал 95 %',
+    coinV: (k, n, two, g) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
+      (two ? 'Не меньше 9 орлов или не больше 1 — в <b>' + int(k) + '</b> из ' + int(n) + ' серий (' + share(k / n, 1) + '). Теория: 22 из 1024, то есть ' + share(22 / 1024, 1) + '.'
+           : '9 или 10 орлов — в <b>' + int(k) + '</b> из ' + int(n) + ' серий (' + share(k / n, 1) + '). Теория: 11 из 1024, то есть ' + share(11 / 1024, 1) + '.'),
+    coinFew: n => 'Пока ' + int(n) + ' ' + plural(n, 'серия', 'серии', 'серий') + ' — накопи хотя бы тысячу, нажми «+1000 серий».',
+    live: o => '<span class="lt">Формула с твоими числами</span>' +
+      '<p>p̂ = (' + int(o.xa) + ' + ' + int(o.xb) + ') / (' + int(o.na) + ' + ' + int(o.nb) + ') = ' + share(o.pp, 2) + '</p>' +
+      '<p>SE = √(p̂(1 − p̂)·(1/n<sub>A</sub> + 1/n<sub>B</sub>)) = ' + num(100 * o.se, 3) + ' заказа на 100 гостей</p>' +
+      '<p>z = ' + signed(100 * o.d, 2) + ' / ' + num(100 * o.se, 3) + ' = ' + signed(o.z, 2) + '</p>' +
+      '<p>p = 2·(1 − Φ(' + num(Math.abs(o.z), 2) + ')) = ' + fmtP(o.p) + '</p>' +
+      '<p>интервал: ' + signed(100 * o.d, 2) + ' ± 1,96·' + num(100 * o.seu, 3) + ' — от ' + signed(100 * o.lo, 2) + ' до ' + signed(100 * o.hi, 2) + ' заказа на 100 гостей</p>',
+    bad: 'Проверь числа: заказов не может быть больше заходов, заходов — хотя бы 10 в группе.',
+    vNoAA: p => 'По колоколу разница не меньше нашей бывает в ' + share(p, 1) + ' A/A-тестов. Насыпь 1000 A/A и проверь штуками.',
+    vAA: (k, p, sig, bob, g) => (bob && g ? (g === 'few' ? 'Ты угадал. ' : 'Посмотри, что вышло. ') : '') +
+      'В 1000 A/A разница не меньше нашей в любую сторону вышла <b>' + int(k) + '</b> раз, по колоколу — ' + share(p, 1) + '. ' +
+      (sig ? 'Для мира без эффекта это редкость: |z| больше 1,96, интервал не задевает ноль. Шумом такую разницу объяснить трудно.'
+           : 'Для мира без эффекта это обычное дело: |z| меньше 1,96, интервал задевает ноль. Разницу не отличить от шума.'),
+    bracket: 'это интервал: от +0,05 до +1,25',
+    yours: 'твоя догадка',
+    ciV: (d, z, p, inside) => 'Кандидат ' + signed(d, 2) + ': наша разница отстоит от него на ' + num(Math.abs(z), 2) + ' SE, p = ' + fmtP(p) + '. ' +
+      (inside ? '<b>Жив:</b> +0,65 лежит в теле его колокола.' : '<b>Погас:</b> +0,65 попала в хвост его колокола.') +
+      (Math.abs(d) < 1e-9 ? ' Это z-тест с карточки 6: мир без эффекта, z = 2,14, p = 0,033.' : ''),
+    ciAll: (n, N, g) => 'Проверены все: живы <b>' + int(n) + ' из ' + int(N) + '</b> кандидатов, от +0,10 до +1,20. Кружки стоят через 0,05, а ползунок ходит шагом 0,01: найди, где гаснут края. Точно они там, где p = 0,05, — у +0,05 и +1,25. ' +
+      (g === 'n6' ? 'Ты угадал края.' : g === 'n1' || g === 'n3' ? 'Твоя догадка уже настоящего интервала: интуиция обычно недооценивает шум.' : g === 'n12' ? 'Твоя догадка шире настоящего интервала: 20 000 гостей в группе — это немало.' : ''),
+  },
+}[LANG] || {};
+
+// ---------- карточка 4: серии монетки ----------
+(function(){
+  const cv = document.getElementById('coin'), counts = new Array(11).fill(0); let n = 0, two = false;
+  const hot = k => k >= 9 || (two && k <= 1);
+  function draw(){
+    const g = canvas(cv, 0.42, 0.72); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 10, T0 = 14, B = 34, pw = w - L - R, ph = h - T0 - B, top = 0.3, bw = pw / 11;
+    axisY(c, L, R, T0, ph, w, 0, top, 0.1, v => shareT(v, 0));
+    for (let k = 0; k <= 10; k++){
+      const s = n ? counts[k] / n : 0, x = L + k * bw, hh = ph * Math.min(s, top) / top;
+      c.fillStyle = hot(k) ? COL.test : COL.ctrl; c.fillRect(x + 3, T0 + ph - hh, bw - 6, hh);
+      c.fillStyle = COL.gray; c.beginPath(); c.arc(x + bw / 2, T0 + ph * (1 - binomPmf(10, k, 0.5) / top), 3.5, 0, 2 * Math.PI); c.fill();
+      label(c, String(k), x + bw / 2, h - 18, hot(k) ? COL.testInk : COL.ink2, 'center');
+    }
+    label(c, TXT.heads, L + pw / 2, h - 3, COL.ink2, 'center');
+  }
+  function verdict(){
+    const v = document.getElementById('coin-v'); if (!n) return; v.hidden = false;
+    const k = counts.reduce((a, x, i) => a + (hot(i) ? x : 0), 0);
+    v.className = 'verdict' + (n >= 1000 ? ' good' : '');
+    v.innerHTML = n < 200 ? TXT.coinFew(n) : TXT.coinV(k, n, two, Book.guess('nine'));
+  }
+  function toss(m){ for (let i = 0; i < m; i++){ counts[binom(10, 0.5)]++; n++; } verdict(); draw(); }
+  document.getElementById('coin-1').addEventListener('click', () => toss(1));
+  document.getElementById('coin-1000').addEventListener('click', () => toss(1000));
+  const tb = document.getElementById('coin-two');
+  tb.addEventListener('click', () => { two = !two; tb.setAttribute('aria-pressed', String(two)); verdict(); draw(); });
+  window.addEventListener('resize', draw);
+})();
+
+// ---------- карточка 6: z-тест на колоколе ----------
+(function(){
+  const ids = ['xa', 'na', 'xb', 'nb'], el = {}; ids.forEach(k => el[k] = document.getElementById(k));
+  const cv = document.getElementById('zt'); let sims = [], simKey = '';
+  function read(){
+    const o = {}; ids.forEach(k => o[k] = Math.round(+el[k].value));
+    if (!(o.na >= 10 && o.nb >= 10 && o.xa >= 0 && o.xb >= 0 && o.xa <= o.na && o.xb <= o.nb)) return null;
+    o.pa = o.xa / o.na; o.pb = o.xb / o.nb; o.d = o.pb - o.pa; o.pp = (o.xa + o.xb) / (o.na + o.nb);
+    o.se = Math.sqrt(o.pp * (1 - o.pp) * (1 / o.na + 1 / o.nb)); o.seu = Math.sqrt(o.pa * (1 - o.pa) / o.na + o.pb * (1 - o.pb) / o.nb);
+    o.z = o.se > 0 ? o.d / o.se : 0; o.p = o.se > 0 ? pTwo(o.z) : 1; o.lo = o.d - 1.96 * o.seu; o.hi = o.d + 1.96 * o.seu;
+    o.key = ids.map(k => o[k]).join(','); o.bob = o.key === '2000,20000,2130,20000';
+    return o;
+  }
+  const tail = (c, X, Y, s, a, b) => { if (a >= b) return; Book.bell(c, X, Y, 0, s, a, b, {close: true, steps: 60}); c.fill(); };
+  function draw(){
+    const o = read(); const g = canvas(cv, 0.5, 0.95); if (!g) return; const {c, w, h} = g;
+    if (!o){ label(c, TXT.bad, 10, 30, COL.trapInk); return; }
+    const L = 12, R = 12, T = 26, B = 78, pw = w - L - R, ph = h - T - B, s = o.se;
+    const half = Math.max(4.2 * s, Math.abs(o.d) * 1.25, Math.abs(o.lo) * 1.1, Math.abs(o.hi) * 1.1), lo = -half, hi = half;
+    const X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+    const bw = (hi - lo) / 40, binW = pw / 40, f = Math.abs(o.d);
+    const cnt = {}; let mx = 0; sims.forEach(d => { const i = Math.floor((d - lo) / bw); cnt[i] = (cnt[i] || 0) + 1; mx = Math.max(mx, cnt[i]); });
+    const expMax = 1000 * bw * normPdf(0) / s, top = Math.max(expMax, mx, 1), step = Math.min(binW * 0.95, (ph - 4) / top), r = Math.max(1, Math.min(step, binW) / 2.1);
+    const Y = y => T + ph - 1000 * bw * y * step;
+    if (sims.length){
+      const k2 = {};
+      sims.forEach(d => { const i = Math.floor((d - lo) / bw); if (i < 0 || i >= 40) return; k2[i] = (k2[i] || 0) + 1;
+        c.fillStyle = Math.abs(d) >= f - 1e-12 ? COL.trap : COL.gray; c.beginPath(); c.arc(L + (i + 0.5) * binW, T + ph - r - (k2[i] - 1) * step, r, 0, 2 * Math.PI); c.fill(); });
+    }
+    c.fillStyle = COL.fillB; c.globalAlpha = sims.length ? 0.6 : 1; tail(c, X, Y, s, f, hi); tail(c, X, Y, s, lo, -f); c.globalAlpha = 1;
+    Book.bell(c, X, Y, 0, s, lo, hi, {steps: 160}); c.strokeStyle = COL.ink2; c.lineWidth = 2; c.stroke();
+    // пороги ±1,96 SE
+    c.strokeStyle = COL.ink2; c.setLineDash([4, 3]); c.lineWidth = 1;
+    [-1.96 * s, 1.96 * s].forEach(v => { c.beginPath(); c.moveTo(X(v), T + 4); c.lineTo(X(v), T + ph); c.stroke(); });
+    c.setLineDash([]); if (X(1.96 * s) + 70 < w) label(c, TXT.thr, X(1.96 * s) + 4, T + 14, COL.ink2);
+    // флажок
+    const fx = X(o.d); c.strokeStyle = COL.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, T + ph); c.lineTo(fx, T - 10); c.stroke();
+    c.fillStyle = COL.ink; c.beginPath(); c.moveTo(fx, T - 10); c.lineTo(fx + (o.d >= 0 ? 14 : -14), T - 5); c.lineTo(fx, T); c.fill();
+    const right = o.d >= 0 ? fx + 120 < w : fx - 120 < 0;
+    label(c, TXT.ours + ' ' + signed(100 * o.d, 2), fx + (right ? 18 : -18), T - 2, COL.ink, right ? 'left' : 'right');
+    // ось
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, T + ph); c.lineTo(w - R, T + ph); c.stroke();
+    const st = [0.1, 0.2, 0.25, 0.5, 1, 2, 2.5, 5, 10].find(x => x / 100 * 5 >= hi - lo) || 10;
+    const tk = []; for (let v = Math.ceil(lo * 100 / st) * st; v <= hi * 100 + 1e-9; v += st) tk.push(v / 100);
+    axisX(c, X, tk, T + ph + 15, v => signed(100 * v, st < 1 ? (st < 0.25 ? 1 : 2) : 0));
+    label(c, TXT.axisD, w / 2, T + ph + 30, COL.ink2, 'center');
+    // интервал
+    const yI = h - 16, col = o.lo > 0 ? COL.truth : o.hi < 0 ? COL.trap : COL.gray;
+    label(c, TXT.ci, L, yI - 14, COL.ink2);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), yI - 10); c.lineTo(X(0), yI + 10); c.stroke();
+    c.strokeStyle = col; c.lineWidth = 7; c.lineCap = 'round'; c.beginPath(); c.moveTo(X(o.lo), yI); c.lineTo(X(o.hi), yI); c.stroke(); c.lineCap = 'butt';
+    c.fillStyle = COL.ink; c.beginPath(); c.arc(X(o.d), yI, 5, 0, 2 * Math.PI); c.fill();
+  }
+  function stats(){
+    const o = read(), live = document.getElementById('zt-live'), v = document.getElementById('zt-v');
+    if (!o){ live.innerHTML = '<p>' + TXT.bad + '</p>'; v.hidden = true; return; }
+    live.innerHTML = TXT.live(o);
+    if (sims.length && simKey !== o.key) sims = [];
+    v.hidden = false; const sig = o.p < 0.05;
+    if (!sims.length){ v.className = 'verdict'; v.innerHTML = TXT.vNoAA(o.p); return; }
+    const k = sims.filter(d => Math.abs(d) >= Math.abs(o.d) - 1e-12).length;
+    v.className = 'verdict ' + (sig ? 'good' : '');
+    v.innerHTML = TXT.vAA(k, o.p, sig, o.bob, Book.choice('g2'));
+  }
+  function upd(){ stats(); draw(); }
+  function runAA(){
+    const o = read(); if (!o) return; sims = [];
+    for (let i = 0; i < 1000; i++) sims.push(binom(o.nb, o.pp) / o.nb - binom(o.na, o.pp) / o.na);
+    simKey = o.key; upd();
+  }
+  function set(a){ ids.forEach((k, i) => el[k].value = a[i]); sims = []; upd(); }
+  ids.forEach(k => el[k].addEventListener('input', upd));
+  document.getElementById('zt-aa').addEventListener('click', runAA);
+  document.getElementById('zt-bob').addEventListener('click', () => set([2000, 20000, 2130, 20000]));
+  document.getElementById('zt-cafe').addEventListener('click', () => set([74, 100, 83, 100]));
+  window.addEventListener('resize', upd);
+})();
+
+// ---------- карточка 8: ряд кандидатов ----------
+(function(){
+  const D = 0.65, SE = 0.30428, Zc = 1.96, A = -0.62, Bx = 1.92;
+  const cv = document.getElementById('ci'), sl = document.getElementById('ci-d');
+  const CAND = Array.from({length: 47}, (_, i) => Math.round((-0.5 + 0.05 * i) * 100) / 100);
+  const GUESS = {n1: [0.55, 0.75], n3: [0.35, 0.95], n6: [0.05, 1.25], n12: [-0.55, 1.85]};
+  const zOf = d => (D - d) / SE, pOf = d => pTwo(zOf(d)), alive = d => Math.abs(zOf(d)) <= Zc;
+  let state = CAND.map(() => 0), timer = null;
+  const nearest = d => { let k = 0; CAND.forEach((x, i) => { if (Math.abs(x - d) < Math.abs(CAND[k] - d)) k = i; }); return k; };
+  const done = () => state.every(s => s !== 0);
+  function draw(){
+    const w0 = cv.clientWidth; if (!w0) return;
+    const bh = Math.max(110, Math.min(210, w0 * 0.26)), T = 30, H = Math.round(T + bh + 108);
+    const g = canvas(cv, 0, 0, H); if (!g) return; const {c, w, h} = g;
+    const L = 12, R = 12, pw = w - L - R, y0 = T + bh, X = v => L + (v - A) / (Bx - A) * pw;
+    const d = +sl.value / 100, top = normPdf(0) / SE, Y = y => y0 - y / top * bh * 0.92;
+    // колокол кандидата: тело и хвосты
+    const part = (a, b, fill) => { if (a >= b) return; c.fillStyle = fill; c.beginPath(); c.moveTo(X(a), y0); for (let i = 0; i <= 50; i++){ const v = a + (b - a) * i / 50; c.lineTo(X(v), Y(normPdf((v - d) / SE) / SE)); } c.lineTo(X(b), y0); c.closePath(); c.fill(); };
+    const e1 = d - Zc * SE, e2 = d + Zc * SE;
+    part(Math.max(A, e1), Math.min(Bx, e2), COL.fillC); part(A, Math.min(Bx, e1), COL.fillB); part(Math.max(A, e2), Bx, COL.fillB);
+    c.beginPath(); for (let i = 0; i <= 200; i++){ const v = A + (Bx - A) * i / 200, y = Y(normPdf((v - d) / SE) / SE); i ? c.lineTo(X(v), y) : c.moveTo(X(v), y); }
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.stroke();
+    c.strokeStyle = COL.trap; c.setLineDash([4, 3]); c.lineWidth = 1;
+    [e1, e2].forEach(v => { if (v > A && v < Bx){ c.beginPath(); c.moveTo(X(v), Y(normPdf(Zc) / SE) - 6); c.lineTo(X(v), y0); c.stroke(); } }); c.setLineDash([]);
+    // ось
+    c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, y0); c.lineTo(w - R, y0); c.stroke();
+    axisX(c, X, w < 520 ? [0, 0.5, 1, 1.5] : [-0.5, 0, 0.5, 1, 1.5], y0 + 15, v => signed(v, 1));
+    // кандидат на оси
+    c.fillStyle = COL.ctrl; c.beginPath(); c.moveTo(X(d), y0 - 1); c.lineTo(X(d) - 6, y0 + 7); c.lineTo(X(d) + 6, y0 + 7); c.closePath(); c.fill();
+    // наша разница
+    const fx = X(D), ok = alive(d);
+    c.strokeStyle = COL.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, y0); c.lineTo(fx, T - 12); c.stroke();
+    const tx = TXT.ours + ' ' + signed(D, 2), right = fx + 8 + c.measureText(tx).width < w - 2;
+    label(c, tx, right ? fx + 6 : fx - 6, T - 14, ok ? COL.ink : COL.trapInk, right ? 'left' : 'right');
+    // ряд кандидатов
+    const yC = h - 14, step = X(CAND[1]) - X(CAND[0]), r = Math.max(2.5, Math.min(6, step * 0.36)), cur = nearest(d);
+    CAND.forEach((x, i) => {
+      const cx = X(x), s = state[i];
+      if (s === 1){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(cx, yC, r, 0, 2 * Math.PI); c.fill(); }
+      else if (s === -1){ c.strokeStyle = COL.gray; c.lineWidth = 1.3; c.beginPath(); c.arc(cx, yC, r - 0.6, 0, 2 * Math.PI); c.stroke(); }
+      else { c.fillStyle = COL.grid; c.beginPath(); c.arc(cx, yC, Math.max(1.5, r * 0.45), 0, 2 * Math.PI); c.fill(); }
+      if (i === cur){ c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.arc(cx, yC, r + 3, 0, 2 * Math.PI); c.stroke(); }
+    });
+    // скобка над живыми — когда проверены все
+    if (done()){
+      const li = state.indexOf(1), ri = state.lastIndexOf(1), a = X(CAND[li]) - step / 2, b = X(CAND[ri]) + step / 2, yb = yC - r - 8;
+      c.strokeStyle = COL.ink; c.lineWidth = 1.6; c.beginPath(); c.moveTo(a, yb + 5); c.quadraticCurveTo(a, yb, a + 6, yb); c.lineTo((a + b) / 2 - 6, yb); c.quadraticCurveTo((a + b) / 2, yb, (a + b) / 2, yb - 6);
+      c.quadraticCurveTo((a + b) / 2, yb, (a + b) / 2 + 6, yb); c.lineTo(b - 6, yb); c.quadraticCurveTo(b, yb, b, yb + 5); c.stroke();
+      label(c, TXT.bracket, (a + b) / 2, yb - 9, COL.ink, 'center');
+      const gs = GUESS[Book.choice('edges')];
+      if (gs){ const yg = yb - 30; c.strokeStyle = COL.test; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(X(gs[0]), yg); c.lineTo(X(gs[1]), yg); c.stroke(); c.setLineDash([]);
+        [gs[0], gs[1]].forEach(v => { c.beginPath(); c.moveTo(X(v), yg - 4); c.lineTo(X(v), yg + 4); c.stroke(); });
+        label(c, TXT.yours, X(gs[1]) + 5 + c.measureText(TXT.yours).width < w ? X(gs[1]) + 5 : X(gs[0]) - 5, yg + 4, COL.testInk, X(gs[1]) + 5 + c.measureText(TXT.yours).width < w ? 'left' : 'right'); }
+    }
+  }
+  function mark(i){ state[i] = alive(CAND[i]) ? 1 : -1; }
+  function upd(){
+    const d = +sl.value / 100, p = pOf(d), ins = alive(d);
+    mark(nearest(d));
+    document.getElementById('ci-dt').textContent = signed(d, 2);
+    const v = document.getElementById('ci-v'), n = state.filter(s => s === 1).length;
+    v.className = 'verdict ' + (ins ? 'good' : 'bad');
+    v.innerHTML = TXT.ciV(d, zOf(d), p, ins) + (done() ? ' ' + TXT.ciAll(n, CAND.length, Book.choice('edges')) : '');
+    draw();
+  }
+  function stop(){ if (timer){ clearTimeout(timer); timer = null; } }
+  document.getElementById('ci-all').addEventListener('click', () => {
+    stop();
+    if (REDUCED){ CAND.forEach((_, i) => mark(i)); upd(); return; }
+    let i = 0; (function tick(){ sl.value = Math.round(CAND[i] * 100); upd(); i++; if (i < CAND.length) timer = setTimeout(tick, 55); else timer = null; })();
+  });
+  document.getElementById('ci-zero').addEventListener('click', () => { stop(); sl.value = 0; upd(); });
+  document.getElementById('ci-reset').addEventListener('click', () => { stop(); state = CAND.map(() => 0); sl.value = 100; upd(); });
+  sl.addEventListener('input', () => { stop(); upd(); });
+  document.querySelector('.choice[data-key="edges"]').addEventListener('chosen', upd);
+  window.addEventListener('resize', draw);
+  upd();
+})();
+</script>
+<script src="/signal/py.js?v=202611220"></script>
+</body>
+</html>
