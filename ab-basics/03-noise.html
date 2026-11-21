@@ -295,7 +295,7 @@ const P = 0.10;
     v.hidden = false; v.className = 'verdict ' + (g1 === 'big' ? 'good' : 'bad');
     v.innerHTML = (shown === 1 ? (g1 === 'big' ? 'Похоже, ты прав. ' : g1 ? 'Смотри, что вышло. ' : '') : '') +
       (ka === kb ? 'В этот раз совпало: по ' + ka + '. Перемешай ещё раз — так бывает редко.' :
-       'Группы одинаковые, а заказали ' + hi + ' против ' + lo + (rel !== null ? ': одна группа «лучше» на <b>' + num(100 * rel, 0) + ' %</b>.' : '.') + ' Просто кому-то случайно достались гости, которые как раз хотели есть.');
+       'Группы одинаковые, а заказали ' + hi + ' против ' + lo + (rel !== null ? ': одна группа «лучше» на <b>' + num(100 * rel, 0) + '\u00a0%</b>.' : '.') + ' Просто кому-то случайно достались гости, которые как раз хотели есть.');
     draw();
   }
   shuffle(); shown = 0; document.getElementById('v-grid').hidden = true;
@@ -329,8 +329,8 @@ const P = 0.10;
   function update(){
     const last = runs[runs.length - 1];
     document.getElementById('n-aa-t').textContent = int(n());
-    document.getElementById('aa-c').textContent = last ? num(100 * last.c, 2) + ' %' : '—';
-    document.getElementById('aa-t').textContent = last ? num(100 * last.t, 2) + ' %' : '—';
+    document.getElementById('aa-c').textContent = last ? num(100 * last.c, 2) + '\u00a0%' : '—';
+    document.getElementById('aa-t').textContent = last ? num(100 * last.t, 2) + '\u00a0%' : '—';
     document.getElementById('aa-diff').textContent = last ? 'Заказали ' + int(last.c * n()) + ' и ' + int(last.t * n()) + ' из ' + int(n()) + ': вторая группа отличается от первой на ' + int(Math.abs(last.t - last.c) * n()) + ' ' + plural(Math.round(Math.abs(last.t - last.c) * n()), 'заказ', 'заказа', 'заказов') + ', то есть на ' + pct(last.d) + '.' : 'Запусти тест.';
     const k = runs.filter(r => Math.abs(r.d) >= 0.1).length;
     document.getElementById('aa-stat').textContent = runs.length ? 'Запусков: ' + runs.length + '. Разница 10 % и больше: ' + k + ' (' + share(k / runs.length, 0) + ').' : '';
@@ -371,14 +371,14 @@ function seriesLabels(c, items, xEnd, w, wide, yTop){
     A = Array.from({length: 14}, () => binom(N, P) / N); B = Array.from({length: 14}, () => binom(N, P) / N);
     let ch = 0; for (let i = 1; i < 14; i++) if ((A[i] > B[i]) !== (A[i - 1] > B[i - 1])) ch++;
     const winsB = B.filter((x, i) => x > A[i]).length, maxGap = Math.max(...A.map((x, i) => Math.abs(B[i] / x - 1)));
-    document.getElementById('v-days').innerHTML = 'За две недели лидер сменился <b>' + ch + '</b> ' + plural(ch, 'раз', 'раза', 'раз') + ': вторая группа впереди ' + winsB + ' ' + plural(winsB, 'день', 'дня', 'дней') + ' из 14. Самый большой разрыв за день — <b>' + num(100 * maxGap, 0) + ' %</b>. Если бы Боб смотрел только на этот день, он бы, скорее всего, «нашёл эффект».';
+    document.getElementById('v-days').innerHTML = 'За две недели лидер сменился <b>' + ch + '</b> ' + plural(ch, 'раз', 'раза', 'раз') + ': вторая группа впереди ' + winsB + ' ' + plural(winsB, 'день', 'дня', 'дней') + ' из 14. Самый большой разрыв за день — <b>' + num(100 * maxGap, 0) + '\u00a0%</b>. Если бы Боб смотрел только на этот день, он бы, скорее всего, «нашёл эффект».';
     draw();
   }
   function draw(){
     const g = canvas(cv, 0.4, 0.62); if (!g) return; const {c, w, h} = g;
     const wide = w >= 520, L = 40, R = wide ? 112 : 8, T = wide ? 10 : 24, Bm = 22, pw = w - L - R, ph = h - T - Bm, lo = 0.06, hi = 0.14;
     const X = i => L + i / 13 * pw, Y = v => T + (1 - (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ph;
-    axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => num(100 * v, 0) + ' %');
+    axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => num(100 * v, 0) + '\u00a0%');
     c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(P)); c.lineTo(w - R, Y(P)); c.stroke(); c.setLineDash([]);
     [[A, COL.ctrl], [B, COL.test]].forEach(([arr, col]) => {
       c.strokeStyle = col; c.lineWidth = 2.4; c.beginPath(); arr.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke();

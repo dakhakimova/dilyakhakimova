@@ -539,7 +539,7 @@ function init(D){
     (function frame(now){ const k = Math.min(1, (now - t0) / 1600); gather = from + (to - from) * k; drawWow(); if (k < 1) anim = requestAnimationFrame(frame); else if (to) { revealQuiz(); document.getElementById('wow-note').textContent = 'Точки съехали вправо и легли в стопки на той же высоте: так получилась гистограмма. Каждая стопка — дни года, при которых «эффект» вышел примерно одинаковым. Чем длиннее стопка, тем чаще такой «эффект» встречается. Наведи на стопку, чтобы увидеть числа; красная точка — твой выбранный день.'; } })(t0);
   });
 
-  const miss = x => num(100 * Math.abs(x), 1) + ' %'; // промах «на сколько процентов мимо правды»
+  const miss = x => num(100 * Math.abs(x), 1) + '\u00a0%'; // промах «на сколько процентов мимо правды»
   // карточка 6: один эксперимент по шагам → точки → сотня
   let runs = [], last = null, adding = 0;
   const effIn = document.getElementById('eff'), cvBA = document.getElementById('ch-ba'), cvA = document.getElementById('ch-ab'), cvS = document.getElementById('ch-strip');
@@ -611,7 +611,7 @@ function init(D){
   });
   const reset = () => { runs = []; last = null; adding = 0; document.getElementById('duo').hidden = true; document.getElementById('strip-box').hidden = true; document.getElementById('v-sim').hidden = true; document.getElementById('duo-days').textContent = ''; document.getElementById('sim-one').textContent = 'Запустить эксперимент в случайный день'; };
   document.getElementById('sim-reset').addEventListener('click', reset);
-  effIn.addEventListener('input', () => { document.getElementById('eff-t').textContent = (eff() > 0 ? '+' : eff() < 0 ? '−' : '') + Math.abs(+effIn.value) + ' %'; reset(); });
+  effIn.addEventListener('input', () => { document.getElementById('eff-t').textContent = (eff() > 0 ? '+' : eff() < 0 ? '−' : '') + Math.abs(+effIn.value) + '\u00a0%'; reset(); });
 
   const all = () => { drawYear(); drawMove(); redraw(); };
   window.addEventListener('resize', all);

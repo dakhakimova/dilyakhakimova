@@ -341,7 +341,7 @@
       <button type="button" data-v="b">Заметно меньше, чем +30 %</button>
       <button type="button" data-v="c" data-why="Победы не обязательно ложные: эффект может быть настоящим, просто меньше, чем показал тест.">Ноль: короткие тесты побеждают случайно</button>
     </div>
-    <p class="why">У победителей шум подыграл эффекту, поэтому их цифры завышены. Поэтому сумма приростов выкаченных фич в среднем больше реального роста. Важные победы стоит перепроверять повторным тестом.</p>
+    <p class="why">У победителей шум подыграл эффекту, поэтому их цифры завышены, а сумма приростов выкаченных фич в среднем больше реального роста. Важные победы стоит перепроверять повторным тестом.</p>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Майкл Херцог, Майкл Фрэнсис, Аарон Кларк, «Статистика и планирование эксперимента для непосвящённых»</a></p>
 </section>
@@ -509,7 +509,7 @@ function peekStats(){
   const v = $('v-peek');
   if (n < 50){ v.hidden = true; return; }
   const any = aa.filter(r => r.any).length / n, g1 = AB.choice('g1');
-  const head = g1 === '25' ? 'Ты угадал. ' : g1 ? 'Ты ставил на ' + (g1 === '50' ? 'больше половины' : g1 + ' %') + '. ' : '';
+  const head = g1 === '25' ? 'Ты угадал. ' : g1 ? 'Ты ставил на ' + (g1 === '50' ? 'больше половины' : g1 + '\u00a0%') + '. ' : '';
   v.hidden = false; v.className = 'verdict ' + (g1 === '25' ? 'good' : 'bad');
   v.innerHTML = head + 'Из ' + n + ' запусков A/A Боб нашёл несуществующий эффект в <b>' + share(any, 0) + '</b> случаев. Если смотреть только в последний день, выходит около <b>5 %</b>, как и обещает порог. Каждый лишний взгляд — ещё один шанс, что шум случайно выйдет за полосу.';
 }
@@ -545,7 +545,7 @@ function drawSrm(){
   const lo = 0.485, hi = 0.515, L = 10, R = 10, T = 18, B = 24, pw = w - L - R, ph = h - T - B, X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
   c.fillStyle = COL.fillC; c.fillRect(X(0.5 - 2 * sdv), T, X(0.5 + 2 * sdv) - X(0.5 - 2 * sdv), ph);
   c.strokeStyle = COL.grid; [0.49, 0.5, 0.51].forEach(v => { c.beginPath(); c.moveTo(X(v), T); c.lineTo(X(v), T + ph); c.stroke(); });
-  axisX(c, X, [0.49, 0.495, 0.5, 0.505, 0.51], h - 6, v => num(100 * v, 1) + ' %');
+  axisX(c, X, [0.49, 0.495, 0.5, 0.505, 0.51], h - 6, v => num(100 * v, 1) + '\u00a0%');
   srmDots.forEach((v, i) => { c.fillStyle = 'rgba(61,125,196,.55)'; c.beginPath(); c.arc(X(v), T + 8 + ((i * 7919) % (ph - 16)), 3, 0, 2 * Math.PI); c.fill(); });
   c.strokeStyle = COL.trap; c.lineWidth = 3; c.beginPath(); c.moveTo(X(OBS), T - 4); c.lineTo(X(OBS), T + ph); c.stroke();
   label(c, 'у нас 49,2 %', X(OBS) + 6, T + 6, COL.trapInk);

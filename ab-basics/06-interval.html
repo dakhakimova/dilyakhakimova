@@ -47,7 +47,7 @@
   </div>
   <div class="quiz" data-right="b">
     <p class="q">A/A-тест на 400 гостей в группе: в одной заказали 44 гостя (11 %), в другой 32 (8 %). Платформа сломана?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Одинаковые группы почти никогда не совпадают до заказа: монетка раздаёт гостей случайно, и разница появляется сама.">Да: в A/A-тесте доли заказов обязаны совпасть</button><button type="button" data-v="b">Нет: при 400 гостях так бывает нередко</button><button type="button" data-v="c" data-why="Много или мало, зависит от размера групп. При 400 гостях в группе такая разница выпадает примерно в одном A/A из семи.">Да: разница в три заказа из ста — много</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Одинаковые группы почти никогда не совпадают заказ в заказ: монетка раздаёт гостей случайно, и разница появляется сама.">Да: в A/A-тесте доли заказов обязаны совпасть</button><button type="button" data-v="b">Нет: при 400 гостях так бывает нередко</button><button type="button" data-v="c" data-why="Много или мало, зависит от размера групп. При 400 гостях в группе такая разница выпадает примерно в одном A/A из семи.">Да: разница в три заказа из ста — много</button></div>
     <p class="why">При маленьких группах разница в 3 заказа из 100 гостей или больше выпадает примерно в одном A/A из семи. Разница есть всегда — это было в шаге 3. Чем больше гостей, тем она меньше.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -337,7 +337,7 @@ const bell = (c, X, Y, m, s, col, fill) => {
   if (fill){ c.lineTo(X(m + 4 * s), Y(0)); c.lineTo(X(m - 4 * s), Y(0)); c.closePath(); c.fillStyle = fill; c.fill(); }
   c.strokeStyle = col; c.lineWidth = 2.2; c.stroke();
 };
-const pctAx = v => (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(100 * v), 0) + ' %';
+const pctAx = v => (v > 0 ? '+' : v < 0 ? '−' : '') + num(Math.abs(100 * v), 0) + '\u00a0%';
 
 // ---------- карточка 1: два колокола ----------
 const N1 = 100000, E1 = 0.03; let last1 = null, seen1 = [];
@@ -351,7 +351,7 @@ function drawTwo(){
   const nar = w < 520, tC = nar ? 'контроль' : 'контроль · 10\u00a0%', tT = nar ? 'тест с фото' : 'тест с фото · 10,3\u00a0%';
   label(c, tC, Math.max(c.measureText(tC).width + 2, X(P0) - 4), 14, COL.ctrl, 'right');
   label(c, tT, Math.min(X(p1) + 4, w - c.measureText(tT).width - 2), 14, COL.testInk, 'left');
-  axisX(c, X, [0.097, 0.099, 0.101, 0.103, 0.105], h - 6, v => num(100 * v, 1) + ' %');
+  axisX(c, X, [0.097, 0.099, 0.101, 0.103, 0.105], h - 6, v => num(100 * v, 1) + '\u00a0%');
   if (last1){
     [[last1.c, COL.ctrl], [last1.t, COL.test]].forEach(([v, col]) => { c.strokeStyle = col; c.lineWidth = 3; c.beginPath(); c.moveTo(X(v), T + 4); c.lineTo(X(v), T + ph); c.stroke(); c.fillStyle = col; c.beginPath(); c.arc(X(v), T + 4, 5, 0, 2 * Math.PI); c.fill(); });
   }
@@ -409,7 +409,7 @@ function drawLadder(){
 function stats6(){
   const n = runs.length, cov = runs.filter(r => r.lo <= r.e && r.e <= r.hi).length;
   document.getElementById('cov6').textContent = n ? cov + ' из ' + n : '—';
-  document.getElementById('wid6').textContent = '± ' + num(100 * Z * seRel(N(), E()), 1) + ' %';
+  document.getElementById('wid6').textContent = '± ' + num(100 * Z * seRel(N(), E()), 1) + '\u00a0%';
   const v = document.getElementById('v6');
   if (n < 20){ v.hidden = true; return; }
   const g1 = AB.choice('g1'), sig = runs.filter(r => r.lo > 0).length, zero = runs.filter(r => r.lo <= 0 && r.hi >= 0).length;
@@ -418,7 +418,7 @@ function stats6(){
     (E() !== 0 ? 'Целиком выше нуля оказались ' + sig + ' вилок, задели ноль ' + zero + '. Задевшие ноль не говорят «эффекта нет»: просто этот запуск его не разглядел.' : 'Эффекта нет, и почти все вилки задевают ноль. Те, что не задели, — ложные «значимые» результаты.');
 }
 function upd6(reset){
-  document.getElementById('eff6-t').textContent = (E() > 0 ? '+' : E() < 0 ? '−' : '') + num(Math.abs(100 * E()), 1).replace(',0', '') + ' %';
+  document.getElementById('eff6-t').textContent = (E() > 0 ? '+' : E() < 0 ? '−' : '') + num(Math.abs(100 * E()), 1).replace(',0', '') + '\u00a0%';
   document.getElementById('n6-t').textContent = int(N());
   if (reset) runs = [];
   drawLadder(); stats6();
@@ -450,15 +450,15 @@ function drawWid(){
   const g = canvas(document.getElementById('ch-wid'), 0.36, 0.62); if (!g) return; const {c, w, h} = g;
   const L = 48, R = 30, T = 14, B = 26, pw = w - L - R, ph = h - T - B, lo = 0, hi = 0.12;
   const a = Math.log10(5000), b = Math.log10(1000000), X = n => L + (Math.log10(n) - a) / (b - a) * pw, Y = v => T + (1 - v / hi) * ph;
-  axisY(c, L, R, T, ph, w, lo, hi, 0.04, v => '± ' + num(Math.abs(100 * v) < 1e-6 ? 0 : 100 * v, 0) + ' %');
+  axisY(c, L, R, T, ph, w, lo, hi, 0.04, v => '± ' + num(Math.abs(100 * v) < 1e-6 ? 0 : 100 * v, 0) + '\u00a0%');
   axisX(c, X, [10000, 100000, 1000000], h - 6, n => int(n));
   c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
   for (let i = 0; i <= 200; i++){ const n = 10 ** (a + (b - a) * i / 200), v = Z * seRel(n, 0); i ? c.lineTo(X(n), Y(v)) : c.moveTo(X(n), Y(v)); }
   c.stroke();
-  [25000, 100000, 400000].forEach(n => { const v = Z * seRel(n, 0); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); const t = (w < 520 ? '' : int(n) + ': ') + '± ' + num(100 * v, 1) + ' %', right = X(n) + 7 + c.measureText(t).width > w - 4; label(c, t, right ? X(n) - 7 : X(n) + 7, Y(v) - 7, COL.ink, right ? 'right' : 'left'); });
+  [25000, 100000, 400000].forEach(n => { const v = Z * seRel(n, 0); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(n), Y(v), 4.5, 0, 2 * Math.PI); c.fill(); const t = (w < 520 ? '' : int(n) + ': ') + '± ' + num(100 * v, 1) + '\u00a0%', right = X(n) + 7 + c.measureText(t).width > w - 4; label(c, t, right ? X(n) - 7 : X(n) + 7, Y(v) - 7, COL.ink, right ? 'right' : 'left'); });
   label(c, 'людей в каждой группе', w - R, T + ph - 6, COL.ink2, 'right');
 }
-document.getElementById('w-100k').textContent = '± ' + num(100 * Z * seRel(100000, 0.03), 1) + ' %';
+document.getElementById('w-100k').textContent = '± ' + num(100 * Z * seRel(100000, 0.03), 1) + '\u00a0%';
 
 // ---------- порог пользы: пять вилок ----------
 function drawThr(){
@@ -487,7 +487,7 @@ window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRea
   function upd(){
     const p = +pIn.value / 100, e = +eIn.value / 100, p2 = p * (1 + e);
     document.getElementById('sh-p-t').textContent = pIn.value + ' из 100 гостей';
-    document.getElementById('sh-e-t').textContent = '+' + eIn.value + ' %';
+    document.getElementById('sh-e-t').textContent = '+' + eIn.value + '\u00a0%';
     document.getElementById('sh-1000').textContent = '+' + num(1000 * (p2 - p), 1000 * (p2 - p) < 10 ? 1 : 0);
     document.getElementById('sh-nnt').textContent = int(1 / (p2 - p));
     const w0 = cv.clientWidth, per = w0 < 520 ? 20 : 50, sz = Math.min(13, (w0 - 4) / per - 3), rowsH = Math.ceil(100 / per) * (sz + 3), blockH = 22 + rowsH + 12;

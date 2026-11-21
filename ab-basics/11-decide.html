@@ -475,7 +475,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="c">
     <p class="q">Какой заголовок лучше для отчёта про новый экран оплаты?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Номер теста ничего не говорит: прочитав заголовок, руководитель всё ещё не знает, что случилось.">«Результаты теста нового экрана оплаты, №42»</button><button type="button" data-v="b" data-why="Это цифры, а не вывод. Хорошо это или плохо, значимо ли и что делать — непонятно.">«Конверсия в тесте 4,3 % против 4,1 % в контроле»</button><button type="button" data-v="c">«Экран оплаты: +5 % к конверсии, раскатываем»</button><button type="button" data-v="d" data-why="Успешно — это как? Тест может «пройти успешно» и показать, что фича вредит.">«Тест нового экрана оплаты прошёл успешно»</button></div>
-    <p class="why">Хороший заголовок — это вывод и решение: прочитав только его, человек уже знает главное. Было 41 заказ на 1000 гостей, стало 43. Цифры, вилка и подробности — ниже, как доказательства.</p>
+    <p class="why">Хороший заголовок — это вывод и решение: прочитав только его, человек уже знает главное. Был 41 заказ на 1000 гостей, стало 43. Цифры, вилка и подробности — ниже, как доказательства.</p>
   </div>
   <h3>Тест трёх минут</h3>
   <p>Собери отчёт из фраз: нажимай «В отчёт» в нужном порядке, а лишнее отправляй в приложение. Порядок в отчёте можно менять стрелками.</p>
@@ -561,8 +561,8 @@ details.hint p{margin:6px 0 0}
   function bars(cv, lo, hi, step){
     const g = canvas(cv, 0.32, 0.55); if (!g) return; const {c, w, h} = g;
     const L = 46, T = 10, B = 24, ph = h - T - B, Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
-    axisY(c, L, 10, T, ph, w, lo, hi, step, v => num(v, 1) + ' %');
-    [['контроль', 10.2, COL.ctrl], ['тест', 10.5, COL.test]].forEach(([n, v, col], i) => { const x = L + 30 + i * (w - L - 60) / 2, bw = (w - L - 60) / 2 - 30; c.fillStyle = col; c.fillRect(x, Y(v), bw, Y(lo) - Y(v)); label(c, n + ': ' + num(v, 1) + ' %', x + bw / 2, h - 6, COL.ink, 'center'); });
+    axisY(c, L, 10, T, ph, w, lo, hi, step, v => num(v, 1) + '\u00a0%');
+    [['контроль', 10.2, COL.ctrl], ['тест', 10.5, COL.test]].forEach(([n, v, col], i) => { const x = L + 30 + i * (w - L - 60) / 2, bw = (w - L - 60) / 2 - 30; c.fillStyle = col; c.fillRect(x, Y(v), bw, Y(lo) - Y(v)); label(c, n + ': ' + num(v, 1) + '\u00a0%', x + bw / 2, h - 6, COL.ink, 'center'); });
   }
   function big(cv){
     const g = canvas(cv, 0.25, 0.4); if (!g) return; const {c, w, h} = g;
@@ -623,7 +623,7 @@ details.hint p{margin:6px 0 0}
     const half = w / 2, L = 40, T = 22, B = 24, ph = h - T - B, mx = 7, Y = v => T + (1 - v / mx) * ph;
     [[0, [3, 6], 'левый'], [half, [3, 3.09], 'правый']].forEach(([x0, v, t]) => {
       label(c, t + ' график', x0 + half / 2, 14, COL.ink, 'center');
-      v.forEach((val, i) => { const bw = (half - L - 20) / 2, x = x0 + L + i * (bw + 10); c.fillStyle = i ? COL.test : COL.ctrl; c.fillRect(x, Y(val), bw, Y(0) - Y(val)); label(c, num(val, i && val < 4 ? 2 : 0) + ' %', x + bw / 2, Y(val) - 4, COL.ink, 'center'); label(c, i ? 'стало' : 'было', x + bw / 2, h - 6, COL.ink2, 'center'); });
+      v.forEach((val, i) => { const bw = (half - L - 20) / 2, x = x0 + L + i * (bw + 10); c.fillStyle = i ? COL.test : COL.ctrl; c.fillRect(x, Y(val), bw, Y(0) - Y(val)); label(c, num(val, i && val < 4 ? 2 : 0) + '\u00a0%', x + bw / 2, Y(val) - 4, COL.ink, 'center'); label(c, i ? 'стало' : 'было', x + bw / 2, h - 6, COL.ink2, 'center'); });
     });
   }
   const dau = Array.from({length: 28}, (_, d) => 10000 + 120 * Math.sin(d * 1.3) + (d % 7 > 4 ? 300 : 0));

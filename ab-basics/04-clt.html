@@ -276,12 +276,12 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
     const K = 16, L = 40, R = 8, T = 16, B = 22, pw = w - L - R, ph = h - T - B, hi = 0.6;
     const vals = PMF.slice(0, K).concat([PMF.slice(K).reduce((a, b) => a + b)]);
-    axisY(c, L, R, T, ph, w, 0, hi, 0.2, v => num(100 * v + 0, 0) + ' %');
+    axisY(c, L, R, T, ph, w, 0, hi, 0.2, v => num(100 * v + 0, 0) + '\u00a0%');
     const bw = pw / vals.length;
     vals.forEach((p, k) => {
       const bh = ph * p / hi, x = L + k * bw;
       c.fillStyle = k === 0 ? COL.gray : COL.ctrl; c.fillRect(x + 2, T + ph - bh, bw - 4, bh);
-      if (k < 4 || k === K) label(c, num(100 * p, p < 0.1 ? 1 : 0) + ' %', x + bw / 2, T + ph - bh - 4, COL.ink2, 'center');
+      if (k < 4 || k === K) label(c, num(100 * p, p < 0.1 ? 1 : 0) + '\u00a0%', x + bw / 2, T + ph - bh - 4, COL.ink2, 'center');
       if (k % 5 === 0 || k === K) label(c, k === K ? K + '+' : String(k), x + bw / 2, h - 6, COL.ink2, 'center');
     });
     hoverBars(cv, vals.map((p, k) => ({x0: L + k * bw, x1: L + (k + 1) * bw, html: '<b>' + (k === K ? K + ' и больше' : k) + '</b> ' + plural(k === K ? 5 : k, 'заказ', 'заказа', 'заказов') + ' за неделю<br>' + share(p, p < 0.01 ? 2 : 1) + ' гостей'})));
