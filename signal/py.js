@@ -1,4 +1,4 @@
-/* Ячейки с Python в браузере для глав «Сигнал или шум».
+/* Ячейки с Python в браузере для глав «Сигнал или шум» и «Вероятность на пальцах».
    Python (Pyodide) загружается при первом запуске ячейки. Все ячейки страницы делят одно пространство имён,
    как в Jupyter. Разметка ячейки:
    <div class="cell" data-title="..." [data-check="id-скрипта-с-проверкой"]>
@@ -18,7 +18,9 @@
       s.onload = async () => {
         try {
           const py = await loadPyodide({indexURL: PYODIDE});
-          await py.loadPackage(['numpy']);
+          // numpy есть всегда; ещё пакеты Pyodide — атрибутом data-packages="scipy" у любой ячейки страницы (грузятся долго, лучше без них)
+          const extra = [...document.querySelectorAll('.cell[data-packages]')].flatMap(c => c.dataset.packages.split(/[\s,]+/)).filter(Boolean);
+          await py.loadPackage([...new Set(['numpy', ...extra])]);
           resolve(py);
         } catch (e) { reject(e); }
       };

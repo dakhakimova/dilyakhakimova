@@ -57,8 +57,11 @@ export const RULES = {
     code: ['at-least-one'],
     interview: ['disjoint', 'lamps', 'dice'],
   },
+  // Главы «Вероятности на пальцах» (p01…p09) и «Сигнала или шума» (ch04…ch12) добавляются сюда после того,
+  // как авторы опишут ключи в /home/claude/free-courses/rules-<курс>-NN.json (формат — conventions.md, раздел «Баллы»):
+  // { title, predict: {ключ: правильный ответ в %}, code: [...], interview: [...], quiz: число квизов вне разминки }.
 };
-export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1 };
+export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1, quiz: 1 };
 export const HIT_TOLERANCE = 5;
 export const TIERS = [ [0.4, 10], [0.7, 20], [0.9, 30] ];   // доля от максимума → скидка, %
 // Пороги считаются от баллов всего запланированного курса (12 глав), а не только вышедших глав,
@@ -71,6 +74,7 @@ export function maxPoints() {
     m += Object.keys(ch.predict || {}).length * (PTS.predict + PTS.predictHit);
     m += (ch.code || []).length * PTS.codeFirst;
     m += (ch.interview || []).length * PTS.interview;
+    m += (ch.quiz || 0) * PTS.quiz;
   }
   return Math.max(m, PLANNED_MAX);
 }
@@ -81,16 +85,18 @@ export function scoreEvent(chapter, kind, key, value) {
   if (!ch) return null;
   if (kind === 'card') return Number.isInteger(+key) ? 0 : null;
   if (kind === 'predict') {
-    if (!(key in ch.predict)) return null;
+    if (!(key in (ch.predict || {}))) return null;
     const v = +value;
     if (!Number.isFinite(v) || v < 0 || v > 100) return null;
     return PTS.predict + (Math.abs(v - ch.predict[key]) <= HIT_TOLERANCE ? PTS.predictHit : 0);
   }
   if (kind === 'code') {
-    if (!ch.code.includes(key)) return null;
+    if (!(ch.code || []).includes(key)) return null;
     return (+value || 1) <= 1 ? PTS.codeFirst : PTS.codeLater;
   }
-  if (kind === 'interview') return ch.interview.includes(key) ? PTS.interview : null;
+  if (kind === 'interview') return (ch.interview || []).includes(key) ? PTS.interview : null;
+  // квиз: ключ q0, q1, … — номер квиза на странице без разминки; движок шлёт событие только за верный ответ с первой попытки
+  if (kind === 'quiz') { const m = /^q(\d+)$/.exec(key); return m && +m[1] < (ch.quiz || 0) ? PTS.quiz : null; }
   return null;
 }
 

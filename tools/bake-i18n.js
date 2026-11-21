@@ -13,7 +13,7 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
 const PAGES = ['index.html', 'probability/index.html', 'stats/index.html', 'ab/index.html', 'causal/index.html', 'about/index.html'];
 const TYPO_ONLY = ['signal/index.html', 'ab-basics/index.html'];
-const target = process.argv[2];
+const target = process.argv[2] === '--typo' ? undefined : process.argv[2];
 
 function loadDicts(files){
   const ctx = {}; ctx.globalThis = ctx;
@@ -85,5 +85,21 @@ function typoOnly(page){
   console.log('typo:', page, n, n === 1 ? 'кусок' : 'куска(ов)');
 }
 
-PAGES.forEach(bake);
-if (!target) TYPO_ONLY.forEach(typoOnly);
+// node tools/bake-i18n.js --typo probability/03-counting.html [ещё файлы] — типограф по странице главы целиком,
+// кроме <head>, <script>, <style>, <textarea>, <pre>, <code> и атрибутов тегов (код не трогаем: неразрывный пробел ломает Python).
+// Повторный запуск ничего не меняет. Остальные страницы не трогает — можно запускать параллельно с другими авторами.
+function typoPage(page){
+  const I18N = loadDicts(['i18n/site.js']);
+  const file = path.join(ROOT, page);
+  const html = fs.readFileSync(file, 'utf8');
+  const parts = html.split(/(<head[\s>][\s\S]*?<\/head>|<script[\s>][\s\S]*?<\/script>|<style[\s>][\s\S]*?<\/style>|<textarea[\s>][\s\S]*?<\/textarea>|<pre[\s>][\s\S]*?<\/pre>|<code[\s>][\s\S]*?<\/code>)/i);
+  const res = parts.map((x, i) => i % 2 ? x : I18N.typo('ru', x)).join('');
+  if (res !== html) fs.writeFileSync(file, res);
+  console.log('typo:', page, res === html ? 'без изменений' : 'обновлено');
+}
+
+if (process.argv[2] === '--typo') process.argv.slice(3).forEach(typoPage);
+else {
+  PAGES.forEach(bake);
+  if (!target) TYPO_ONLY.forEach(typoOnly);
+}
