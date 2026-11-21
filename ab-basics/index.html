@@ -14,80 +14,87 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
 <link rel="stylesheet" href="ab.css?v=202611211800">
 <style>
 .toc{list-style:none; margin:0; padding:0}
 .toc li{display:grid; grid-template-columns:48px 1fr auto; gap:12px; align-items:baseline; padding:12px 0; border-top:1px solid var(--rule)}
 .toc li:last-child{border-bottom:1px solid var(--rule)}
-.toc .n{font:500 18px/1.3 var(--serif); color:var(--pen)}
-.toc .t{font:500 18px/1.35 var(--serif)}
+.toc .n{font:600 18px/1.3 var(--serif); color:var(--pen)}
+.toc .t{font:600 18px/1.35 var(--serif)}
 .toc .t small{display:block; font:400 15px/1.45 var(--body); color:var(--muted); margin-top:2px}
 .toc .s{font-size:13px; color:var(--muted); white-space:nowrap}
 .toc a{text-decoration:none; color:var(--ink)}
 .toc a:hover .t{color:var(--pen)}
-.toc .live .s{color:var(--good); font-weight:500}
+.toc .live .s{color:var(--good); font-weight:600}
 @media (max-width:620px){ .toc li{grid-template-columns:36px 1fr} .toc .s{grid-column:2} }
 .books{list-style:none; margin:0; padding:0; display:grid; gap:12px}
-.books li{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 16px}
+.books li{background:#fff; border-radius:12px; padding:12px 16px}
 .books .ba{display:block; font-size:13px; color:var(--muted)}
-.books .bt{display:block; font:500 18px/1.35 var(--serif); margin:2px 0 4px}
+.books .bt{display:block; font:600 18px/1.35 var(--serif); margin:2px 0 4px}
 .books .bd{display:block; font-size:15px; line-height:1.5}
 .goals{margin:8px 0 0; padding-left:22px}
 .goals li{margin:4px 0}
 .roles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0 0}
-.roles > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.5}
-.roles b{display:block; font:500 18px/1.3 var(--serif); margin-bottom:4px}
+.roles > div{background:#fff; border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.5}
+.roles b{display:block; font:600 18px/1.3 var(--serif); margin-bottom:4px}
 .sheet-link{margin:18px 0 0; padding:14px 16px; border-radius:12px; background:var(--truth-bg); font-size:16px; line-height:1.5}
-.sheet-link b{display:block; font:500 19px/1.3 var(--serif); margin-bottom:2px}
+.sheet-link b{display:block; font:600 19px/1.3 var(--serif); margin-bottom:2px}
 /* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
 .crumbs{font-size:15px; color:var(--muted); margin:0 0 4px}
 .crumbs a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); padding:10px 0; display:inline-block}
 .crumbs a:hover{color:var(--ink)}
 .crumbs .sep{margin:0 8px}
 .crumbs [aria-current]{color:var(--ink)}
-.chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px}
-.lchip, .tag{display:inline-flex; align-items:center; gap:6px; font:500 13px/1 var(--body); padding:6px 9px; border-radius:999px; background:#fff; border:1px solid rgba(36,34,31,.12); color:var(--ink); white-space:nowrap}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px}
+.lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:600 13px/1 var(--body); padding:6px 9px; border-radius:999px; background:#fff; color:var(--ink); white-space:nowrap}
 .tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
 .tag.free{background:var(--mint); color:#0B5E47}
 .tag.soon{background:var(--butter); color:#6A5410}
 .lvl{display:inline-block; width:11px; height:11px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.18)}
 .l1{background:#0E7E5F} .l2{background:#D7A928} .l3{background:#C9413A}
 .cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0 0}
-a.btn{display:inline-flex; align-items:center; min-height:46px; font:500 15px/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
+a.btn{display:inline-flex; align-items:center; min-height:46px; font:600 15px/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
 a.btn:hover{background:#000; color:#fff}
 a.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,34,31,.3)}
 a.btn.ghost:hover{background:#fff}
 .sec-lead{color:var(--muted)}
 .mods{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.mods li{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:15px; line-height:1.5}
-.mods .n{font:500 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
-.mods b{font:500 18px/1.3 var(--serif)}
+.mods li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:15px; line-height:1.5}
+.mods .n{font:600 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.mods b{font:600 18px/1.3 var(--serif)}
 .mods p{margin:0}
 .mods .scene{padding:8px 10px; border-radius:8px; background:var(--butter); font-family:var(--serif)}
 .mods .x{font-size:13px; color:var(--muted)}
 .toys2{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.toys2 a, .toys2 .off{display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:#fff; border:1px solid rgba(36,34,31,.10); color:var(--ink); text-decoration:none; font-size:15px; line-height:1.5}
-.toys2 a:hover{border-color:var(--pen)}
-.toys2 b{font:500 18px/1.3 var(--serif)}
+.toys2 a, .toys2 .off{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:#fff; color:var(--ink); text-decoration:none; font-size:15px; line-height:1.5}
+.toys2 a:hover{box-shadow:0 2px 4px rgba(60,40,10,.06), 0 20px 34px -18px rgba(60,40,10,.48)}
+.toys2 b{font:600 18px/1.3 var(--serif)}
 .toys2 small{font-size:13px; color:var(--muted)}
-.toys2 .go{margin-top:auto; color:var(--pen); font-weight:500; text-decoration:underline; text-underline-offset:4px}
+.toys2 .go{margin-top:auto; color:var(--pen); font-weight:600; text-decoration:underline; text-underline-offset:4px}
 .toys2 .off .tag{margin-top:auto}
 .res{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
-.res li{position:relative; padding:12px 16px 12px 46px; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; font-size:16px; line-height:1.5}
+.res li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); position:relative; padding:12px 16px 12px 46px; background:#fff; border-radius:12px; font-size:16px; line-height:1.5}
 .res li::before{content:"✓"; position:absolute; left:14px; top:12px; width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:600 14px/22px var(--body); text-align:center}
-.res b{font:500 17px/1.35 var(--serif)}
+.res b{font:600 17px/1.35 var(--serif)}
 .pair2{display:grid; grid-template-columns:1.2fr 1fr; gap:14px; margin-top:14px}
-.pair2 > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:16px 18px; font-size:16px; line-height:1.5}
-.pair2 h3{font:500 20px/1.3 var(--serif); margin:0 0 8px}
+.pair2 > div{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:16px 18px; font-size:16px; line-height:1.5}
+.pair2 h3{font:600 20px/1.3 var(--serif); margin:0 0 8px}
 .pair2 ul{margin:0 0 10px; padding-left:20px}
 .pair2 li{margin:0 0 .4em}
 .pair2 .need{background:#F7F5F0; border-radius:8px; padding:10px 12px; margin:0 0 8px}
 .pair2 .note{font-size:14px; color:var(--muted); margin:0}
-.pair2 .go{font:500 19px/1.3 var(--serif); margin:0 0 4px}
+.pair2 .go{font:600 19px/1.3 var(--serif); margin:0 0 4px}
 @media (max-width:620px){ .mods, .toys2, .pair2{grid-template-columns:1fr} }
 @media (max-width:620px){ .roles{grid-template-columns:1fr} }
+/* правила Г1/Г2 для оглавления курса: главные кнопки синие, веса 400/600, метка и значение по базовой линии */
+a.btn{background:#23418A; border-color:#23418A; font-weight:600} a.btn:hover{background:#1A3270; border-color:#1A3270}
+a.btn.ghost{background:transparent; color:#23418A; border-color:#23418A} a.btn.ghost:hover{background:#E6EEF8; color:#23418A}
+h3, .kicker, .goals b, .roles b, .sheet-link b, .books .bt{font-weight:600}
+.lchip .lvl{align-self:center} .lchip, .tag{align-items:baseline}
+.kicker{color:#A63D28} .toc .live .s{color:#0B5E47}
+.vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 </style>
 </head>
 <body>
@@ -102,7 +109,7 @@ a.btn.ghost:hover{background:#fff}
   <p class="kicker">интерактивный курс</p>
   <h1>A/B на пальцах</h1>
 <!-- typo -->
-  <p class="chips"><span class="tag free">бесплатно, без регистрации</span><span class="lchip"><span class="lvl l1" aria-hidden="true"></span>на пальцах</span><span class="tag">для всей команды</span></p>
+  <p class="chips"><span class="tag free">бесплатно, без регистрации</span><span class="lchip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span>Начальный</span><span class="tag">для всей команды</span></p>
 <!-- /typo -->
   <figure class="art"><img src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
   <p class="lead">Для менеджеров, продактов, разработчиков — всех, кто пользуется результатами A/B-тестов и хочет понимать их чуть глубже, без лишних деталей. Как устроен A/B-тест и как читать его результаты: 11 шагов, без формул, всё можно подвигать руками.</p>
@@ -130,7 +137,7 @@ a.btn.ghost:hover{background:#fff}
 
   <h2 id="steps">Что будет в курсе: 11 шагов</h2>
   <ol class="toc">
-    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15 %, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15 %, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">2</span><a href="02-salt-hash.html"><span class="t">Монетка, соль и хеш<small>Как приложение делит пользователей на группы и почему человек не прыгает из группы в группу.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">3</span><a href="03-noise.html"><span class="t">Шум есть всегда<small>A/A-тест: два одинаковых варианта, а «победитель» каждый раз новый.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">4</span><a href="04-clt.html"><span class="t">Толпа предсказуема<small>Центральная предельная теорема и бакеты: откуда берётся колокол.</small></span></a><span class="s">открыть →</span></li>
@@ -138,7 +145,7 @@ a.btn.ghost:hover{background:#fff}
     <li class="live"><span class="n">6</span><a href="06-interval.html"><span class="t">Эффект — это вилка<small>Два колокола и доверительный интервал.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">7</span><a href="07-p-value.html"><span class="t">p-value на пальцах<small>Насколько удивительна такая разница, если эффекта нет.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">8</span><a href="08-errors.html"><span class="t">Два вида ошибок<small>Ложные тревоги и пропуски на 100 экспериментах.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2 %.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2 %.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">10</span><a href="10-traps.html"><span class="t">Когда зелёное врёт<small>Подглядывание, много метрик, срезы и перекос групп: правила, которые записывают до цифр.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">11</span><a href="11-decide.html"><span class="t">Читаем отчёт и решаем<small>Подвохи в графиках и цифрах, дерево из пяти развилок, тренажёр на восьми отчётах и как рассказать результат.</small></span></a><span class="s">открыть →</span></li>
   </ol>
@@ -173,14 +180,14 @@ a.btn.ghost:hover{background:#fff}
     <div>
       <h3>Что нужно знать заранее</h3>
       <p class="need"><b>Ничего:</b> ни формул, ни кода. Хватит процентов на уровне «10 заказов из 100 гостей». Кому какие шаги главные — в блоке «Зачем это тебе» выше.</p>
-      <p class="note"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> на пальцах — без формул, с нуля. Характер курса: для всей команды.</p>
+      <p class="note"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> Начальный — без формул, с нуля. Характер курса: для всей команды.</p>
     </div>
     <div>
       <h3>Куда дальше</h3>
       <p class="go"><a href="/signal/">Сигнал или шум</a></p>
       <p>Если хочется не только читать отчёты, но и считать их самому: распределения, ЦПТ, A/A и A/B с кодом в браузере. Бесплатно.</p>
       <p class="go"><a href="/ab/">A/B без мифов</a></p>
-      <p>Для аналитиков в твоей команде: метрики-отношения, бакеты, CUPED, SRM, подглядывание. Платно, скоро.</p>
+      <p>Для аналитиков в твоей команде: ratio-метрики, бакеты, CUPED, SRM, peeking (подглядывание). Платно, скоро — зима 2027.</p>
     </div>
   </div>
 <!-- /typo -->
@@ -200,7 +207,7 @@ a.btn.ghost:hover{background:#fff}
     <li><span class="ba">Даниэл Лакенс</span><span class="bt">«Improving Your Statistical Inferences»</span><span class="bd">Бесплатный онлайн-учебник на английском. Отсюда порог пользы рядом с нулём при чтении вилки и шесть способов обосновать размер выборки («Боб, почему две недели?»).</span></li>
     <li><span class="ba">Алекс Рейнхарт</span><span class="bt">«Statistics Done Wrong»</span><span class="bd">Короткий каталог типичных статистических ошибок. Отсюда «вред не доказан ещё не значит, что вреда нет» на примере поворота направо на красный.</span></li>
     <li><span class="ba">Лими Нассери</span><span class="bt">«Practical A/B Testing: Creating Experimentation-Driven Products»</span><span class="bd">Практичная книга о том, как встроить A/B-тесты в работу продуктовой команды. Отсюда тест «не хуже» с допустимой потерей: переезд оплаты и рефакторинг.</span></li>
-    <li><span class="ba">Рон Кохави, Диана Тан, Я Сюй</span><span class="bt">«Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing»</span><span class="bd">Главная книга про онлайн-эксперименты от людей, которые строили их в Microsoft и Bing. Отсюда правило «слишком хорошо — сначала ищем баг» и то, что удачные изменения обычно двигают метрики на 0,1–1 %.</span></li>
+    <li><span class="ba">Рон Кохави, Диана Тан, Я Сюй</span><span class="bt">«Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing»</span><span class="bd">Главная книга про онлайн-эксперименты от людей, которые строили их в Microsoft и Bing. Отсюда правило «слишком хорошо — сначала ищем баг» и то, что удачные изменения обычно двигают метрики на 0,1–1 %.</span></li>
   </ul>
 </main>
 </body>

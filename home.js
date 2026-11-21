@@ -76,7 +76,8 @@ function renderCoins(seq, animate){
     if (animate){ c.style.animationDelay = (i * 45) + 'ms'; c.classList.add('in'); }
     box.appendChild(c);
   });
-  $('last').textContent = t('toy.last', { k: NF.format(best) });
+  // число попытки говорит Котейка в пузыре (aria-live), строка «ещё не брошены» нужна только до первого броска
+  $('last').textContent = '';
 }
 
 function renderHist(){
@@ -84,8 +85,10 @@ function renderHist(){
   const pw = W - L - R, ph = H - T - B, bw = pw / (N + 1);
   const g = +slider.value;
   const shares = counts.map(c => tries ? c / tries : 0);
-  const top = Math.max(0.3, Math.ceil(Math.max(...shares) * 10) / 10);
-  const y = v => T + ph * (1 - v / top);
+  // Ось не прыгает: верх шкалы фиксирован (50 %). Двигаются только столбики; столбик выше шкалы
+  // упирается в верх и подписывается своим значением (так бывает только в первых попытках).
+  const top = 0.5;
+  const y = v => T + ph * (1 - Math.min(v, top) / top);
   let s = '';
   for (let v = 0; v <= top + 1e-9; v += 0.1){
     s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="grid"/>`;
@@ -94,6 +97,7 @@ function renderHist(){
   shares.forEach((v, k) => {
     const x = L + k * bw;
     if (v > 0) s += `<rect x="${x + 4}" y="${y(v)}" width="${bw - 8}" height="${T + ph - y(v)}" rx="3" class="bar${k >= g ? ' ge' : ''}"/>`;
+    if (v > top) s += `<text x="${x + bw / 2}" y="${T + 16}" text-anchor="middle" class="over">${PF.format(v)}</text>`;
     s += `<text x="${x + bw / 2}" y="${T + ph + 16}" text-anchor="middle" class="ax">${NF.format(k)}</text>`;
   });
   const gx = L + g * bw + bw / 2;
@@ -108,15 +112,21 @@ function renderHist(){
 }
 
 function renderFeedback(){
-  if (!tries){ $('fb').textContent = ''; return; }
+  const box = $('fb-box');
+  if (tries < 50){ $('fb').textContent = ''; box.hidden = true; return; }
   const g = +slider.value;
   let ge = 0; for (let k = g; k <= N; k++) ge += counts[k];
   const share = ge / tries;
   const key = share > 0.6 ? 'toy.fbLow' : share < 0.2 ? 'toy.fbHigh' : 'toy.fbMid';
-  $('fb').textContent = tries >= 50 ? t(key, { g: guessText(g), pct: PF.format(share) }) : '';
+  $('fb').textContent = t(key, { g: guessText(g), pct: PF.format(share) });
+  // вердикт: тёмный текст на светлой плашке своего цвета (зелёная — попал, жёлтая — промахнулся)
+  box.classList.toggle('good', key === 'toy.fbMid'); box.classList.toggle('off', key !== 'toy.fbMid');
+  box.hidden = false;
 }
 
-function reveal(){
+function reveal(k){
+  // Котейка говорит число из этой попытки — рядом с монетками и гистограммой
+  $('kot-say').innerHTML = t('toy.kotN', { k: NF.format(k), pct: PF.format(exactAtLeast(3)) });
   $('kot').hidden = false; $('outcome').hidden = false; $('reset').hidden = false;
   $('out-text').textContent = t('toy.out', { pct: PF.format(exactAtLeast(3)) });
 }
@@ -124,14 +134,14 @@ function reveal(){
 function record(seq){ const k = longestRun(seq); counts[k]++; tries++; return k; }
 
 $('toss').addEventListener('click', () => {
-  const seq = flip(); record(seq);
+  const seq = flip(); const k = record(seq);
   const anim = !reduce.matches;
-  renderCoins(seq, anim); renderHist(); renderFeedback(); reveal();
+  renderCoins(seq, anim); renderHist(); renderFeedback(); reveal(k);
   if (anim){ const c = document.querySelector('.coin-big'); c.classList.remove('spin'); void c.getBoundingClientRect(); c.classList.add('spin'); }
 });
 $('k1000').addEventListener('click', () => {
   let seq; for (let i = 0; i < BATCH; i++){ seq = flip(); record(seq); }
-  renderCoins(seq, false); renderHist(); renderFeedback(); reveal();
+  renderCoins(seq, false); renderHist(); renderFeedback(); reveal(longestRun(seq));
 });
 $('reset').addEventListener('click', () => {
   counts.fill(0); tries = 0;

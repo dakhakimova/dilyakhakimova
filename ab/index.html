@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/ab.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
-<title data-i18n="meta.title">«A/B без мифов» — продвинутый курс по A/B-тестам, скоро · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Продвинутый A/B на практике: MDE при неравных группах, метрики-отношения и дельта-метод, бакеты, CUPED, SRM, подглядывание, множественность, интерференция и switchback, A/B в разных отраслях. Модуль — рабочий ноутбук. Скоро.">
+<title data-i18n="meta.title">«A/B без мифов» — продвинутый курс по A/B-тестам, зима 2027 · Диля Хакимова</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Продвинутый A/B на практике: MDE при неравных группах, ratio-метрики и дельта-метод, бакеты, CUPED, SRM, peeking, множественные проверки, интерференция и switchback, A/B в разных отраслях. Модуль — рабочий ноутбук. Скоро — зима 2027.">
 <link rel="canonical" href="https://dilyakhakimova.com/ab/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/ab/">
 <meta property="og:title" data-i18n-attr="content:c.title" content="A/B без мифов">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Продвинутый A/B на практике: MDE при неравных группах, метрики-отношения и дельта-метод, бакеты, CUPED, SRM, подглядывание, множественность, интерференция и switchback, A/B в разных отраслях. Модуль — рабочий ноутбук. Скоро.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Продвинутый A/B на практике: MDE при неравных группах, ratio-метрики и дельта-метод, бакеты, CUPED, SRM, peeking, множественные проверки, интерференция и switchback, A/B в разных отраслях. Модуль — рабочий ноутбук. Скоро — зима 2027.">
 <meta property="og:image" content="https://dilyakhakimova.com/img/abm-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -19,9 +19,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611212">
-<link rel="stylesheet" href="/course.css?v=202611212">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/course.css?v=202611221">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -34,13 +34,15 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap">
-  <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+  <div class="brand">
+    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
   <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
     <a href="/#courses" data-i18n="nav.courses">Курсы</a>
     <a href="/#play" data-i18n="nav.play">Игрушки</a>
     <a href="/#read" data-i18n="nav.read">Статьи</a>
     <a href="/about/" data-i18n="nav.about">Об авторе</a>
-    <a href="/account.html" class="login" data-i18n="nav.login">Войти</a>
     <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
   </nav>
 </header>
@@ -56,12 +58,13 @@ function artFail(img){
 <!-- 1. Первый экран -->
 <section class="c-hero wrap">
   <div>
-    <p class="chips"><span class="tag paid" data-i18n="paid">платно</span><span class="tag soon" data-i18n="soon">скоро</span><span class="chip lvl-chip"><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">под капотом</span></span><span class="tag" data-i18n="c.tag">рабочий инструмент</span></p>
+    <p class="chips"><span class="tag paid" data-i18n="paid">платно</span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span><span class="chip lvl-chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag" data-i18n="c.tag">рабочий инструмент</span></p>
     <h1 data-i18n="c.title">A/B без мифов</h1>
     <p class="sub" data-i18n="hero.sub">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
     <p class="ctas">
-      <a class="btn waitlist" href="#waitlist" data-i18n="cta1">Хочу пройти</a>
+      <a class="btn waitlist" href="#waitlist" data-i18n="notify" data-i18n-attr="aria-label:cta1.aria" aria-label="Сообщить о старте курса «A/B без мифов»">Сообщить о старте</a>
       <a class="btn ghost" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
+      <span class="btn-note" data-i18n="notifyNote">Откроется лист ожидания. Форма записи и Telegram-канал появятся позже.</span>
     </p>
     <p class="facts" data-i18n="hero.facts">9 модулей. Теории ровно столько, чтобы понимать, что делает ноутбук и где он ломается. Основа — материалы интенсива A/B Week, исправленные и дополненные.</p>
   </div>
@@ -74,13 +77,13 @@ function artFail(img){
   <p class="lead-note" data-i18n="mod.lead">Модуль = рабочий ноутбук. В каждом: задача → свой анализ → сверка с эталоном → разбор типичных ошибок, в том числе из популярных статей и «эталонных» ответов.</p>
   <ol class="modules" role="list">
     <li><span class="n" data-i18n="m1.n">Модуль 1</span><h3 data-i18n="m1.t">Дизайн, MDE и срок</h3><p class="d" data-i18n="m1.d">MDE и длина теста — в том числе при неравных группах.</p><p class="scene" data-i18n="m1.s">Боб хочет отдать новинке 10 % гостей «для безопасности». Алиса показывает, во сколько раз от этого вырастет срок.</p><p class="x" data-i18n="m1.x"><b>Ноутбук:</b> калькулятор MDE и срока с неравными группами</p></li>
-    <li><span class="n" data-i18n="m2.n">Модуль 2</span><h3 data-i18n="m2.t">Метрики и агрегация</h3><p class="d" data-i18n="m2.d">Поюзерно или по событиям, метрики-отношения и дельта-метод.</p><p class="scene" data-i18n="m2.s">Средний чек «по заказам» вырос, а «по гостям» упал. Боб в растерянности: какой из двух отчётов врёт?</p><p class="x" data-i18n="m2.x"><b>Ноутбук:</b> метрики-отношения через дельта-метод</p></li>
-    <li><span class="n" data-i18n="m3.n">Модуль 3</span><h3 data-i18n="m3.t">Бакеты</h3><p class="d" data-i18n="m3.d">Зачем платформы считают по корзинам и чем за это платят.</p><p class="scene" data-i18n="m3.s">Платформа раскладывает гостей по 256 корзинам. Алиса проверяет, сколько при этом теряется мощности и почему в корзине берут среднее, а не сумму.</p><p class="x" data-i18n="m3.x"><b>Ноутбук:</b> бакетный расчёт рядом с поюзерным</p></li>
-    <li><span class="n" data-i18n="m4.n">Модуль 4</span><h3 data-i18n="m4.t">CUPED и стратификация</h3><p class="d" data-i18n="m4.d">Убираем предсказуемую часть шума прошлым поведением гостей.</p><p class="scene" data-i18n="m4.s">Заказы гостя на прошлой неделе многое говорят о нынешней. Алиса вычитает эту часть, и тест становится короче.</p><p class="x" data-i18n="m4.x"><b>Ноутбук:</b> CUPED с раздельным θ при неравных группах</p></li>
-    <li><span class="n" data-i18n="m5.n">Модуль 5</span><h3 data-i18n="m5.t">SRM и A/A-стенд</h3><p class="d" data-i18n="m5.d">Проверка долей групп — и проверка любого критерия на синтетических A/A.</p><p class="scene" data-i18n="m5.s">В контроле 508 000 гостей, в тесте 492 000. «Мелочь», — говорит Боб. Котейка считает, бывает ли так при честной монетке.</p><p class="x" data-i18n="m5.x"><b>Ноутбук:</b> проверка SRM и A/A-стенд</p></li>
-    <li><span class="n" data-i18n="m6.n">Модуль 6</span><h3 data-i18n="m6.t">Подглядывание</h3><p class="d" data-i18n="m6.d">Как смотреть на тест по ходу и не раздувать ложные тревоги.</p><p class="scene" data-i18n="m6.s">Боб открывает отчёт каждое утро тридцать дней подряд. Алиса предлагает договориться заранее: в какие дни смотрим и с каким порогом.</p><p class="x" data-i18n="m6.x"><b>Ноутбук:</b> последовательные границы О’Брайена — Флеминга</p></li>
-    <li><span class="n" data-i18n="m7.n">Модуль 7</span><h3 data-i18n="m7.t">Множественность в A/B</h3><p class="d" data-i18n="m7.d">Много метрик, срезов и вариантов: Холм, Бенджамини — Хохберг, иерархия метрик.</p><p class="scene" data-i18n="m7.s">Алиса разрезала тест на 29 срезов и нашла «победу» у вокзала. Котейка напоминает, как часто так бывает без всякого эффекта.</p><p class="x" data-i18n="m7.x"><b>Ноутбук:</b> поправки для метрик и срезов</p></li>
-    <li><span class="n" data-i18n="m8.n">Модуль 8</span><h3 data-i18n="m8.t">Интерференция и switchback</h3><p class="d" data-i18n="m8.d">Когда группы влияют друг на друга: общий пул курьеров, время доставки, маркетплейсы.</p><p class="scene" data-i18n="m8.s">Бесплатная доставка в тесте забирает курьеров у контроля. Алиса переключает всё кафе целиком по часам — это switchback.</p><p class="x" data-i18n="m8.x"><b>Ноутбук:</b> switchback: дизайн и анализ</p></li>
+    <li><span class="n" data-i18n="m2.n">Модуль 2</span><h3 data-i18n="m2.t">Метрики и агрегация</h3><p class="d" data-i18n="m2.d">Поюзерно или по событиям, ratio-метрики (метрики-отношения: средний чек, CTR) и дельта-метод.</p><p class="scene" data-i18n="m2.s">Средний чек «по заказам» вырос, а «по гостям» упал. Боб в растерянности: какой из двух отчётов врёт?</p><p class="x" data-i18n="m2.x"><b>Ноутбук:</b> ratio-метрики через дельта-метод</p></li>
+    <li><span class="n" data-i18n="m3.n">Модуль 3</span><h3 data-i18n="m3.t">Бакеты</h3><p class="d" data-i18n="m3.d">Зачем платформы считают по бакетам (корзинам пользователей) и чем за это платят.</p><p class="scene" data-i18n="m3.s">Платформа раскладывает гостей по 256 бакетам. Алиса проверяет, сколько при этом теряется мощности и почему в бакете берут среднее, а не сумму.</p><p class="x" data-i18n="m3.x"><b>Ноутбук:</b> бакетный расчёт рядом с поюзерным</p></li>
+    <li><span class="n" data-i18n="m4.n">Модуль 4</span><h3 data-i18n="m4.t">CUPED и стратификация</h3><p class="d" data-i18n="m4.d">Вычитаем из метрики ту часть, которую предсказывает прошлое поведение гостей: дисперсия меньше — тест короче.</p><p class="scene" data-i18n="m4.s">Заказы гостя на прошлой неделе многое говорят о нынешней. Алиса вычитает эту часть, и тест становится короче.</p><p class="x" data-i18n="m4.x"><b>Ноутбук:</b> CUPED с раздельным θ при неравных группах</p></li>
+    <li><span class="n" data-i18n="m5.n">Модуль 5</span><h3 data-i18n="m5.t">SRM и A/A-стенд</h3><p class="d" data-i18n="m5.d">SRM (sample ratio mismatch) — доли групп не те, что задумали. И A/A-стенд: проверка любого критерия на синтетических A/A.</p><p class="scene" data-i18n="m5.s">В контроле 508 000 гостей, в тесте 492 000. «Мелочь», — говорит Боб. Котейка считает, бывает ли так при честной монетке.</p><p class="x" data-i18n="m5.x"><b>Ноутбук:</b> проверка SRM и A/A-стенд</p></li>
+    <li><span class="n" data-i18n="m6.n">Модуль 6</span><h3 data-i18n="m6.t">Peeking (подглядывание)</h3><p class="d" data-i18n="m6.d">Как смотреть на тест по ходу и не раздувать долю ложноположительных: sequential testing.</p><p class="scene" data-i18n="m6.s">Боб открывает отчёт каждое утро тридцать дней подряд. Алиса предлагает договориться заранее: в какие дни смотрим и с каким порогом.</p><p class="x" data-i18n="m6.x"><b>Ноутбук:</b> sequential testing с границами О’Брайена — Флеминга</p></li>
+    <li><span class="n" data-i18n="m7.n">Модуль 7</span><h3 data-i18n="m7.t">Множественные проверки в A/B</h3><p class="d" data-i18n="m7.d">Много метрик, срезов и вариантов: Холм, Бенджамини — Хохберг, иерархия метрик.</p><p class="scene" data-i18n="m7.s">Алиса разрезала тест на 29 срезов и нашла «победу» у вокзала. Котейка напоминает, как часто так бывает без всякого эффекта.</p><p class="x" data-i18n="m7.x"><b>Ноутбук:</b> поправки для метрик и срезов</p></li>
+    <li><span class="n" data-i18n="m8.n">Модуль 8</span><h3 data-i18n="m8.t">Интерференция и switchback</h3><p class="d" data-i18n="m8.d">Когда группы влияют друг на друга (interference): общий пул курьеров, время доставки, маркетплейсы.</p><p class="scene" data-i18n="m8.s">Бесплатная доставка в тесте забирает курьеров у контроля. Алиса переключает всё кафе целиком по часам — это switchback.</p><p class="x" data-i18n="m8.x"><b>Ноутбук:</b> switchback: дизайн и анализ</p></li>
     <li><span class="n" data-i18n="m9.n">Модуль 9</span><h3 data-i18n="m9.t">Отрасли и собеседования</h3><p class="d" data-i18n="m9.d">Ритейл, медицина, бигтех, маркетплейсы и такси, соцсети: чем отличаются методы. И задачи с собеседований на A/B.</p><p class="scene" data-i18n="m9.s">Алиса сравнивает, как один и тот же вопрос решают в аптеке, в такси и в соцсети, а потом находит ошибку в «правильном» ответе на популярную задачу.</p><p class="x" data-i18n="m9.x"><b>Ноутбук:</b> таблица отраслей и разборы задач</p></li>
   </ol>
 </section>
@@ -93,9 +96,9 @@ function artFail(img){
   <ul class="toys c-toys" role="list">
     <li><div class="off"><b data-i18n="t1.t">Сплит 90/10</b><span data-i18n="t1.d">Тянешь ползунок доли новинки: при 80/20 тест идёт в 1,6 раза дольше, чем при 50/50, при 90/10 — в 2,8 раза, при 99/1 — в 25 раз.</span><small data-i18n="t1.f">модуль 1</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
     <li><div class="off"><b data-i18n="t2.t">Два средних чека</b><span data-i18n="t2.d">Два гостя, два отчёта: средний чек «по заказам» вырос на 20 %, а «по гостям» упал на 25 %. Двигай заказы постоянного гостя и смотри, когда знак переворачивается.</span><small data-i18n="t2.f">модуль 2</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t3.t">Ползунок CUPED</b><span data-i18n="t3.d">Связь с прошлой неделей 0,6 — шум метрики падает на 36 %, и гостей для того же MDE нужно на 36 % меньше. При связи 0,8 — на 64 %.</span><small data-i18n="t3.f">модуль 4</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t4.t">Детектор SRM</b><span data-i18n="t4.d">508 000 против 492 000 при сплите 50/50 — это 16 ширин от середины. Котейка бросает честную монетку миллион раз и так далеко не уходит практически никогда.</span><small data-i18n="t4.f">модуль 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t5.t">Тридцать утр</b><span data-i18n="t5.d">Боб смотрит A/A каждое утро и останавливается на первом «значимо»: ложных побед около 28 % вместо 5 %. Включи границы О’Брайена — Флеминга — и снова 5 %.</span><small data-i18n="t5.f">модуль 6</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t3.t">Ползунок CUPED</b><span data-i18n="t3.d">Корреляция с прошлой неделей 0,6 — дисперсия метрики падает на 36 %, и гостей для того же MDE нужно на 36 % меньше. При корреляции 0,8 — на 64 %.</span><small data-i18n="t3.f">модуль 4</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t4.t">Детектор SRM</b><span data-i18n="t4.d">508 000 против 492 000 при сплите 50/50 — это 16 стандартных отклонений от середины. Котейка бросает честную монетку миллион раз и так далеко не уходит практически никогда.</span><small data-i18n="t4.f">модуль 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><div class="off"><b data-i18n="t5.t">Тридцать утр</b><span data-i18n="t5.d">Боб смотрит A/A каждое утро и останавливается на первом «значимо»: ложноположительных около 28 % вместо 5 %. Включи границы О’Брайена — Флеминга — и снова 5 %.</span><small data-i18n="t5.f">модуль 6</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
     <li><div class="off"><b data-i18n="t6.t">29 срезов</b><span data-i18n="t6.d">Если срезы независимы, без всякого эффекта хотя бы один из 29 «прокрашивается» в 77 % тестов. Переключи Холма или Бенджамини — Хохберга и посмотри, что останется от «победы у вокзала».</span><small data-i18n="t6.f">модуль 7</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
     <li><div class="off"><b data-i18n="t7.t">Общий пул курьеров</b><span data-i18n="t7.d">Включаешь бесплатную доставку во всё большем числе кафе: в пилоте +15 % заказов, а на всей сети прирост тает — курьеры одни на всех. Делим по заказам — эффект завышен, переключаем по часам — честно.</span><small data-i18n="t7.f">модуль 8</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
     <li><div class="off"><b data-i18n="t8.t">A/A-стенд</b><span data-i18n="t8.d">Загружаешь свою метрику, стенд прогоняет 1000 синтетических A/A и показывает, держит ли твой критерий обещанные 5 % ложных тревог.</span><small data-i18n="t8.f">модуль 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
@@ -110,9 +113,9 @@ function artFail(img){
   <ul class="results" role="list">
     <li data-i18n="r1"><b>Калькулятор MDE и срока</b> С неравными группами и дисперсией твоей метрики.</li>
     <li data-i18n="r2"><b>Проверка SRM и A/A-стенд</b> Доли групп до чтения отчёта; любой критерий — на синтетических A/A и A/B: ложные тревоги и мощность.</li>
-    <li data-i18n="r3"><b>Метрики-отношения и бакеты</b> Средний чек, клики на показ, заказы на сессию через дельта-метод — и бакетный расчёт рядом для сравнения.</li>
+    <li data-i18n="r3"><b>Ratio-метрики и бакеты</b> Средний чек, CTR, заказы на сессию через дельта-метод — и бакетный расчёт рядом для сравнения.</li>
     <li data-i18n="r4"><b>CUPED и стратификация</b> С раздельным θ при неравных группах: тест короче без потери честности.</li>
-    <li data-i18n="r5"><b>Подглядывание и множественность</b> Последовательные границы для промежуточных взглядов, поправки для метрик и срезов.</li>
+    <li data-i18n="r5"><b>Peeking и множественные проверки</b> Sequential testing для промежуточных взглядов, поправки для метрик и срезов.</li>
     <li data-i18n="r6"><b>Задачи с собеседований на A/B</b> Условие, свой разбор, эталон — и типичные ошибки в «эталонных» ответах.</li>
   </ul>
   <p class="note" data-i18n="res.note">Бесплатный стартовый набор — калькулятор MDE при неравных группах, проверка SRM, A/A-стенд — скоро появится на GitHub.</p>
@@ -121,13 +124,16 @@ function artFail(img){
 <!-- 5. Как устроен курс -->
 <section class="wrap block" id="how" aria-labelledby="how-h">
   <h2 id="how-h" data-i18n="sec.how">Как устроен курс</h2>
-  <p class="lead-note" data-i18n="how.lead">Урок интенсива A/B Week: больше всего ценят готовые ноутбуки, которые остаются для работы. Поэтому здесь практики больше, чем лекций.</p>
+  <p class="lead-note" data-i18n="how.lead">Что показал интенсив A/B Week: больше всего ценят готовые ноутбуки, которые остаются для работы. Поэтому здесь практики больше, чем лекций.</p>
   <ul class="how3" role="list">
     <li><h3 data-i18n="how.book.t">Интерактивная книга</h3><p data-i18n="how.book.d">Короткие карточки: история с героями, игрушка «сначала угадай, потом проверь», правило формулой и задача. Работает и на телефоне.</p></li>
     <li><h3 data-i18n="how.nb.t">Рабочие ноутбуки</h3><p data-i18n="how.nb.d">К каждому модулю — ноутбук, который можно запустить на своих данных. Задача → свой анализ → сверка с эталоном → разбор типичных ошибок.</p></li>
     <li><h3 data-i18n="how.video.t">Короткие ролики-разборы</h3><p data-i18n="how.video.d">По 5–10 минут на ноутбук: запись экрана и голос — как запустить, что смотреть, где ломается. В ролике-знакомстве с курсом Диля в кадре.</p></li>
   </ul>
-  <div class="points paid-note"><p data-i18n="points"><b>Платно · скоро.</b> Баллы из бесплатных курсов дают скидку до 30 %: 10 %, 20 % или 30 % за 40 %, 70 % и 90 % от максимума. Баллы копятся и без входа, в этом браузере. <a href="/account.html">Мои баллы →</a></p></div>
+  <div class="plate points paid-note">
+    <p class="head" data-i18n="points.head">Пройдите бесплатный курс — получите скидку до 30 % на платный</p>
+    <p class="cond" data-i18n="points.cond">Скидка 10 %, 20 % или 30 % — за 40 %, 70 % и 90 % от максимума баллов. Баллы копятся в этом браузере, без входа. Условия и баллы: <a href="/account.html">Мой прогресс</a></p>
+  </div>
 </section>
 
 <!-- 6. Для кого и куда дальше -->
@@ -140,22 +146,22 @@ function artFail(img){
       <li data-i18n="who3">тем, кто готовится к собеседованию на продуктового аналитика.</li>
     </ul>
     <p class="need" data-i18n="need"><b>Заранее нужно:</b> интервалы, p-value, мощность и MDE в общем виде — это бесплатный <a href="/signal/">«Сигнал или шум»</a> и <a href="/stats/">«Прикладная статистика для аналитика»</a>. Python: pandas, numpy, scipy.</p>
-    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l3" aria-hidden="true"></span> под капотом — математика, статьи, симуляции. Характер курса: рабочий инструмент.</p>
+    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l3" aria-hidden="true"></span> Продвинутый — математика, статьи, симуляции. Характер курса: рабочий инструмент.</p>
   </div>
   <div class="panel next-course">
     <h2 data-i18n="sec.next">Куда дальше</h2>
-    <p class="go" data-i18n="next.t">Курс по причинности</p>
-    <p data-i18n="next.d">Когда эксперимента не было: разность разностей, синтетический контроль, инструменты, разрывной дизайн. CUPED и стратификация отсюда — первый шаг к ковариатам и взвешиванию.</p>
+    <p class="go" data-i18n="next.t">Causal inference</p>
+    <p data-i18n="next.d">Причины по данным, когда эксперимента не было: DiD, synthetic control, instrumental variables, regression discontinuity. CUPED и стратификация отсюда — первый шаг к ковариатам и взвешиванию.</p>
     <a class="btn ghost" href="/causal/" data-i18n="next.btn">О курсе →</a>
   </div>
 </section>
 
-<!-- Почты и Telegram пока нет: «Хочу пройти» ведёт сюда. Когда появится канал или форма — поменять ссылки .waitlist (так же, как на главной) -->
+<!-- Почты и Telegram пока нет: «Сообщить о старте» ведёт сюда. Когда появится канал или форма — поменять ссылки .waitlist (так же, как на главной) -->
 <section class="wrap block">
-  <div class="panel wait" id="waitlist" tabindex="-1">
+  <div class="plate wait" id="waitlist" tabindex="-1">
     <h3 data-i18n="wait.title">Лист ожидания</h3>
-    <p data-i18n="wait.text">Запись на платные курсы откроется вместе с Telegram-каналом, он появится скоро. А пока проходи бесплатные курсы: баллы сохранятся и превратятся в скидку.</p>
-    <p><a href="/account.html" data-i18n="wait.cta">Войти и копить баллы →</a></p>
+    <p data-i18n="wait.text">Записи на платные курсы пока нет: форма и Telegram-канал появятся позже, о старте сообщим там. А пока проходи бесплатные курсы — баллы сохранятся и превратятся в скидку.</p>
+    <p data-i18n="wait.cta">Баллы: <a href="/account.html">Мой прогресс</a></p>
   </div>
 </section>
 
@@ -166,22 +172,22 @@ function artFail(img){
     <div>
       <h2 data-i18n="foot.courses">Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах — скоро</a></li>
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a><span class="note" data-i18n="soon">скоро</span></li>
         <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
         <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика — скоро</a></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов — скоро</a></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Курс по причинности — позже</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
       </ul>
     </div>
     <div>
       <h2 data-i18n="foot.more">Ещё</h2>
       <ul role="list">
         <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">Статья на Хабре</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
         <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
         <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.login">Войти</a></li>
+        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
       </ul>
     </div>
     <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
@@ -189,8 +195,8 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611212"></script>
-<script src="/i18n/ab.js?v=202611212"></script>
-<script src="/landing.js?v=202611212"></script>
+<script src="/i18n/site.js?v=202611221"></script>
+<script src="/i18n/ab.js?v=202611221"></script>
+<script src="/landing.js?v=202611221"></script>
 </body>
 </html>

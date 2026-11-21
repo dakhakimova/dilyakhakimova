@@ -19,9 +19,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611212">
-<link rel="stylesheet" href="/course.css?v=202611212">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/course.css?v=202611221">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -34,13 +34,15 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap">
-  <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+  <div class="brand">
+    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
   <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
     <a href="/#courses" data-i18n="nav.courses">Курсы</a>
     <a href="/#play" data-i18n="nav.play">Игрушки</a>
     <a href="/#read" data-i18n="nav.read">Статьи</a>
     <a href="/about/" data-i18n="nav.about">Об авторе</a>
-    <a href="/account.html" class="login" data-i18n="nav.login">Войти</a>
     <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
   </nav>
 </header>
@@ -56,7 +58,7 @@ function artFail(img){
 <!-- 1. Первый экран -->
 <section class="c-hero wrap">
   <div>
-    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="tag soon" data-i18n="soon">скоро</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">на пальцах</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
+    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="tag soon" data-i18n="soon">скоро</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
     <h1 data-i18n="c.title">Вероятность на пальцах</h1>
     <p class="sub" data-i18n="hero.sub">Шансы в штуках: от двух монеток до матожидания — и задачи с собеседований в каждом шаге.</p>
     <p class="ctas">
@@ -113,7 +115,7 @@ function artFail(img){
     <li data-i18n="r3"><b>Пробное собеседование</b> Десять задач на время с Котейкой-интервьюером: баллы, калибровка прогнозов и список шагов, которые стоит повторить.</li>
     <li data-i18n="r4"><b>Шпаргалки шагов</b> Формулы, которые спрашивают на собеседовании и пишут в коде: P(не A), P(A | B), Байес, C(n, k), биномиальное, матожидание и дисперсия.</li>
     <li data-i18n="r5"><b>Проверка кодом</b> В каждом шаге задача с проверкой на Python прямо на странице: ничего не нужно устанавливать.</li>
-    <li data-i18n="r6"><b>Баллы</b> Копятся за шаги и превращаются в скидку на «A/B без мифов».</li>
+    <li data-i18n="r6"><b>Баллы</b> Копятся за шаги и превращаются в скидку до 30 % на платный курс.</li>
   </ul>
 </section>
 
@@ -127,7 +129,7 @@ function artFail(img){
       <li data-i18n="who3">кто собирается в «Сигнал или шум» и хочет крепкую базу.</li>
     </ul>
     <p class="need" data-i18n="need"><b>Заранее нужно:</b> дроби и проценты. Это первый курс линейки, до него ничего проходить не надо.</p>
-    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> на пальцах — без формул на входе, с нуля. Характер курса: к собеседованию.</p>
+    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> Начальный — без формул на входе, с нуля. Характер курса: к собеседованию.</p>
   </div>
   <div class="panel next-course">
     <h2 data-i18n="sec.next">Куда дальше</h2>
@@ -145,22 +147,22 @@ function artFail(img){
     <div>
       <h2 data-i18n="foot.courses">Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах — скоро</a></li>
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a><span class="note" data-i18n="soon">скоро</span></li>
         <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
         <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика — скоро</a></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов — скоро</a></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Курс по причинности — позже</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
       </ul>
     </div>
     <div>
       <h2 data-i18n="foot.more">Ещё</h2>
       <ul role="list">
         <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">Статья на Хабре</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
         <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
         <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.login">Войти</a></li>
+        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
       </ul>
     </div>
     <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
@@ -168,8 +170,8 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611212"></script>
-<script src="/i18n/probability.js?v=202611212"></script>
-<script src="/landing.js?v=202611212"></script>
+<script src="/i18n/site.js?v=202611221"></script>
+<script src="/i18n/probability.js?v=202611221"></script>
+<script src="/landing.js?v=202611221"></script>
 </body>
 </html>
