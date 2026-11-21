@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/10-traps.html?toy=slices" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Акция дала в среднем 0 %. А внутри — тоже ноль? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/slices/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/slices/">
+<meta property="og:title" content="Акция дала в среднем 0 %. А внутри — тоже ноль? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/slices.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Акция дала в среднем 0 %. А внутри — тоже ноль?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="slices" data-frame="/ab-basics/10-traps.html?toy=slices"
+  data-share-title="Акция дала в среднем 0 %. А внутри — тоже ноль?" data-share-text="Акция за три недели дала 0 %, продакт хочет её выключить. А аналитик предлагает разложить результат по точкам сети. Что может прятаться за нулём? Угадай — и разложи эффект по кафе"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="slices" data-show-from="0" hidden></span></p>
+  <h1>Акция дала в среднем 0 %. А внутри — тоже ноль?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Акция «второй кофе в подарок» за три недели дала 0 %. Выключаем.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Ноль — это в среднем по всей сети. Давай посмотрим по кафе.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Кафе у нас разные: у вокзала, в центре, у университета, в ТЦ. И гости там разные.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Разложим эффект по кафе — и посмотрим, что прячется за нулём.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Сначала на графике эффект акции во всех кафе вместе — ноль. Нажми «Разложить по кафе»: каждая полоска станет эффектом в одном типе кафе.</p><p>Под игрушкой — вопрос про подвох: что делать, если в одном из тридцати срезов нашёлся «значимый» эффект.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/10-traps.html?toy=slices" title="Игрушка: Акция дала в среднем 0 %. А внутри — тоже ноль?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/10-traps.html#card-6">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Нажми «Разложить по кафе». Где акция помогает, а где вредит?</li><li>Подумай, почему у университета и в ТЦ акция снижает заказы.</li><li>Ответь на вопрос под игрушкой: что делать с «значимым» срезом у вокзала?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>У вокзала и в центре акция поднимает заказы, а у университета и в ТЦ — снижает: там гости и так брали по два кофе, а теперь второй получают даром. В сумме плюсы и минусы съели друг друга. Но срез, найденный задним числом, — гипотеза, а не результат: при 30 срезах хотя бы один «значимый» находится примерно в 8 A/A из 10. Его проверяют новым тестом, где этот срез — главная цель с самого начала.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Ноль в среднем может быть суммой плюсов и минусов.</li><li>Срезы помогают понять, что произошло, но найденный задним числом срез — гипотеза.</li><li>Чем больше срезов, тем больше случайных «значимых»: при 30 — хотя бы один в 8 A/A из 10.</li><li>Важный срез проверяют новым тестом, где он — главная метрика с самого начала.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Владимира Савельева «Статистика и котики».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Алиса нашла у вокзала +15 % и сразу записала это как гипотезу для нового теста, а не как победу. Почему так — шаг 10 курса, <a href="/ab-basics/10-traps.html">«Когда зелёное врёт»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/10-traps.html">Открыть шаг 10 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/twenty-metrics/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»?</b><span>В отчёте не одна метрика, а двадцать: сто A/A-тестов показывают, как часто хотя бы одна из них «значимо» меняется без всякого эффекта.</span><small>из курса «A/B на пальцах», шаг 10</small><span class="play-count" data-count-for="twenty-metrics" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/simpson-preorder/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Лучше среди постоянных, лучше среди новичков — и хуже в сумме?</b><span>Парадокс Симпсона на предзаказе: кто сам включил функцию, кто нет, и как состав групп переворачивает вывод.</span><small>из курса «A/B на пальцах», шаг 10</small><span class="play-count" data-count-for="simpson-preorder" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/srm/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>50,8 % против 49,2 % при сплите 50/50 — это мелочь?</b><span>Перекос групп (SRM): миллион пользователей, сплит 50/50 и полтора процента разницы — бывает ли такое случайно.</span><small>из курса «A/B на пальцах», шаг 10</small><span class="play-count" data-count-for="srm" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

@@ -94,7 +94,7 @@
   <div class="def" data-toy-reveal>Как правильно: длину теста решают заранее (по MDE) и решение принимают в конце. Каждый день можно смотреть на поломки: не упало ли приложение, ровно ли делятся группы. Смотреть на эффект по ходу тоже можно, но только по плану, записанному до запуска: в заранее выбранные дни и с более строгим порогом.</div>
 </section>
 
-<section class="card" data-title="Много метрик" aria-label="Много метрик">
+<section class="card" data-toy="twenty-metrics" data-title="Много метрик" aria-label="Много метрик">
   <span class="step-tag">На что смотрим</span>
   <h2>Двадцать метрик — хоть одна да покраснеет</h2>
   <p>В отчёте обычно не одна метрика, а двадцать: заказы, выручка, средний чек, отмены… Снова A/A-тест, эффекта нет нигде. Цветом отмечены «значимые» разницы.</p>
@@ -110,12 +110,12 @@
     </div>
     <div class="verdict bad" id="v-mm" hidden></div>
   </div>
-  <aside class="scary">
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Когда метрик или срезов много и каждую проверяют на «значимо», это называют <b class="term">множественными сравнениями</b>.</p>
     <p class="aside">Длинное название для простой арифметики: двадцать лотерейных билетов выигрывают чаще, чем один.</p>
   </aside>
-  <div class="def">Как правильно: до запуска выбрать одну главную метрику, по которой принимаем решение, и пару «сторожевых», которые не должны ухудшиться. Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</div>
+  <div class="def" data-toy-reveal>Как правильно: до запуска выбрать одну главную метрику, по которой принимаем решение, и пару «сторожевых», которые не должны ухудшиться. Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</div>
 </section>
 
 <section class="card" data-title="Сторожевые метрики" aria-label="Сторожевые метрики">
@@ -143,10 +143,10 @@
   <p class="src">Идея из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
 </section>
 
-<section class="card" data-title="Срезы" aria-label="Срезы">
+<section class="card" data-toy="slices" data-title="Срезы" aria-label="Срезы">
   <span class="step-tag">На что смотрим</span>
   <h2>В среднем ноль, а внутри — нет</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Акция «второй кофе в подарок» за три недели дала 0 %. Выключаем.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Давай посмотрим по кафе.</p></div></div>
   </div>
@@ -237,7 +237,7 @@
   <p class="src">Идея из книги: <a href="./#books">Джозеф О’Коннор, Иан Макдермотт, «Искусство системного мышления»</a></p>
 </section>
 
-<section class="card" data-title="Перекос групп" aria-label="Перекос групп">
+<section class="card" data-toy="srm" data-title="Перекос групп" aria-label="Перекос групп">
   <span class="step-tag">Кого сравниваем</span>
   <h2>Делили пополам, а получилось неровно</h2>
   <figure class="art"><img loading="lazy" src="img/ab10-02-uneven-doors.jpg" alt="У синей двери очередь длиннее, чем у оранжевой, Алиса хмурится" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: у синей двери очередь заметно длиннее, чем у оранжевой</figcaption></figure>
@@ -252,20 +252,20 @@
       <div class="trap"><b id="srm-x">…</b><span>во столько ширин наш перекос больше нормы</span></div>
     </div>
   </div>
-  <p>При миллионе пользователей доля теста при честной монетке обычно держится в пределах 49,9–50,1 %, а наши 49,2 % отстоят от середины на 16 ширин. Случайно так не бывает, значит, где-то баг: например, новый экран падает у части людей и они не доезжают до логов. Тогда в тесте остались самые «живучие» пользователи, и сравнение нечестное.</p>
-  <div class="def">Если доли групп расходятся с планом сильнее, чем бывает случайно, результаты читать нельзя, даже зелёные. Сначала ищем баг в делении или логировании.</div>
-  <aside class="scary">
+  <p data-toy-reveal>При миллионе пользователей доля теста при честной монетке обычно держится в пределах 49,9–50,1 %, а наши 49,2 % отстоят от середины на 16 ширин. Случайно так не бывает, значит, где-то баг: например, новый экран падает у части людей и они не доезжают до логов. Тогда в тесте остались самые «живучие» пользователи, и сравнение нечестное.</p>
+  <div class="def" data-toy-reveal>Если доли групп расходятся с планом сильнее, чем бывает случайно, результаты читать нельзя, даже зелёные. Сначала ищем баг в делении или логировании.</div>
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Такой перекос групп называют <b class="term">SRM</b>, от английского sample ratio mismatch.</p>
     <p class="aside">Три солидные буквы значат всего лишь «гостей в группах не столько, сколько заказывали».</p>
   </aside>
 </section>
 
-<section class="card" data-title="Парадокс Симпсона" aria-label="Парадокс Симпсона">
+<section class="card" data-toy="simpson-preorder" data-title="Парадокс Симпсона" aria-label="Парадокс Симпсона">
   <span class="step-tag">Кого сравниваем</span>
   <h2>Лучше в каждой группе, хуже в сумме</h2>
   <p>Функцию «Предзаказ» не тестировали, а просто дали включить желающим. Через месяц сравнили тех, кто включил, и тех, кто нет.</p>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У тех, кто включил предзаказ, заказывают 22 %, а у остальных 38 %. Функция вредит, выключаем!</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай разделим гостей на постоянных и новичков.</p></div></div>
   </div>
@@ -316,7 +316,7 @@
   <p class="src">Идея из книги: <a href="./#books">Рон Кохави, Диана Тан, Я Сюй, «Trustworthy Online Controlled Experiments»</a></p>
 </section>
 
-<section class="card" data-title="Проклятие победителя" aria-label="Проклятие победителя">
+<section class="card" data-toy="test-graveyard" data-title="Проклятие победителя" aria-label="Проклятие победителя">
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>Кладбище тестов</h2>
   <p>Одну и ту же хорошую идею проверяют в 20 разных командах. Настоящий эффект <b>+3 %</b>, но тесты короткие: уверенно они замечают только эффекты от 6 %. Каждая команда выкатывает фичу, если её тест «победил», а остальные тесты отправляются на кладбище.</p>
@@ -368,7 +368,7 @@
   </div>
 </section>
 
-<section class="card" data-title="Эффект пришёл позже" aria-label="Эффект пришёл позже">
+<section class="card" data-toy="late-effect" data-title="Эффект пришёл позже" aria-label="Эффект пришёл позже">
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>Когда смотреть на результат</h2>
   <p>Эффект не всегда виден сразу и не всегда держится. Две истории:</p>
@@ -399,10 +399,10 @@
   <p class="src">Идея из книги: <a href="./#books">Саманта Клейнберг, «Почему»</a></p>
 </section>
 
-<section class="card" data-title="Пилот и раскатка" aria-label="Пилот и раскатка">
+<section class="card" data-toy="pilot-rollout" data-title="Пилот и раскатка" aria-label="Пилот и раскатка">
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>В пилоте работало — почему на всех нет?</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В пилоте на трёх кафе бесплатная доставка дала +15 % заказов. Запускаем на всю сеть из 40 кафе!</p></div></div>
   </div>
   <p>У сети общий пул курьеров. В пилоте лишние заказы трёх кафе курьеры легко развозили. Двигай ползунок: на сколько кафе включаем бесплатную доставку?</p>
