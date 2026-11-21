@@ -1,0 +1,254 @@
+/* Главная dilyakhakimova.com. Тот же мир, что в курсах: стол в точку, бумага, Literata + Onest + Marck Script.
+   Цвета графиков — как в ab-basics/ab.css (синий — данные, оранжевый/коралл — прогноз и акцент, красный #C9413A — «плохо»).
+   Светофор уровня: зелёный — на пальцах, жёлтый — для практика, красный — под капотом. */
+:root{
+  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6; --white:#fff;
+  --ink:#24221F; --muted:#5E5A53; --pen:#23418A; --accent:#E8644A; --rule:rgba(36,34,31,.12);
+  --ctrl:#3D7DC4; --ctrl-bg:#E6EEF8; --test:#E59157; --test-ink:#A85A24;
+  --l1:#0E7E5F; --l2:#D7A928; --l3:#C9413A;
+  --butter:#FBF1C9; --mint:#E2F1E7; --sky:#E1EBF7; --rose:#FBE4E4;
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --script:"Marck Script", "Segoe Script", cursive;
+  --body:"Onest", "Segoe UI", system-ui, sans-serif;
+  --r:16px;
+  --accent-ink:#A63D28;   /* акцент для мелкого текста: контраст ≥ 5:1 на столе и бумаге; --accent — только полосы и рамки */
+  /* шкала кеглей: 7 размеров на всю страницу */
+  --fs-xs:13px; --fs-s:15px; --fs-m:18px; --fs-l:21px; --fs-h3:clamp(22px,2.4vw,27px);
+  --fs-h2:clamp(28px,3.4vw,40px); --fs-h1:clamp(40px,5.6vw,72px);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background-color:var(--desk); background-image:radial-gradient(var(--dot) 1px, transparent 1.2px); background-size:18px 18px;
+  color:var(--ink); font:400 var(--fs-m)/1.5 var(--body); -webkit-text-size-adjust:100%}
+[hidden]{display:none !important}
+a{color:var(--pen); text-underline-offset:3px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--pen); outline-offset:3px; border-radius:6px}
+img{max-width:100%}
+h1,h2,h3,h4{text-wrap:balance}
+p{margin:0 0 .8em}
+.wrap{max-width:1120px; margin:0 auto; padding:0 28px}
+.muted{color:var(--muted)}
+.block > p, .toy-head p{max-width:38em}
+.note{font-size:var(--fs-xs); color:var(--muted)}
+.kicker{font:400 var(--fs-h3)/1.1 var(--script); color:var(--accent-ink); margin:0 0 6px}
+.skip{position:absolute; left:-9999px; top:8px; background:var(--white); padding:8px 12px; border-radius:8px; z-index:10}
+.skip:focus{left:8px}
+
+/* шапка */
+header.top{display:flex; justify-content:space-between; align-items:center; gap:10px 22px; flex-wrap:wrap; padding-top:20px; padding-bottom:4px}
+.logo{font:500 var(--fs-m)/1 var(--serif); color:var(--ink); text-decoration:none; white-space:nowrap}
+.logo i{font:400 var(--fs-h3)/1 var(--script); color:var(--pen); font-style:normal}
+header nav{display:flex; gap:6px 20px; flex-wrap:wrap; font-size:var(--fs-s)}
+header nav a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:4px; padding:12px 0; display:inline-block}
+header nav a:hover{color:var(--ink)}
+header nav .login{color:var(--pen); font-weight:500}
+
+/* кнопки */
+.ctas{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:20px 0 0}
+.btn{display:inline-flex; align-items:center; gap:8px; font:500 var(--fs-s)/1.2 var(--body); padding:12px 20px; min-height:46px; border-radius:999px;
+  background:var(--pen); color:#fff; border:2px solid var(--pen); cursor:pointer; text-decoration:none; text-align:center}
+.btn:hover{background:#1A3270; color:#fff}
+.btn.ghost{background:transparent; color:var(--pen)}
+.btn.ghost:hover{background:var(--ctrl-bg)}
+.btn.link{background:none; border-color:transparent; color:var(--muted); padding-left:8px; padding-right:8px; text-decoration:underline}
+.btn.disabled{border-style:dashed; color:var(--muted); border-color:rgba(36,34,31,.3); cursor:default}
+.btn.disabled:hover{background:transparent}
+.more{font-weight:500}
+
+/* светофор и метки */
+.lvl{display:inline-block; width:11px; height:11px; border-radius:50%; flex:none; vertical-align:baseline; border:1px solid rgba(0,0,0,.18)}
+.l1{background:var(--l1)} .l2{background:var(--l2)} .l3{background:var(--l3)}
+.btn .lvl{border-color:#fff}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px}
+.chip, .tag{display:inline-flex; align-items:center; gap:5px; font:500 var(--fs-xs)/1 var(--body); padding:5px 8px; border-radius:999px; background:var(--white); border:1px solid var(--rule); color:var(--ink); white-space:nowrap}
+.tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
+.tag.free{background:var(--mint); color:#0B5E47}
+.tag.soon{background:var(--butter); color:#6A5410}
+
+/* картинки и заглушки */
+.art{margin:0; border-radius:12px; overflow:hidden; background:#EFEBE4; aspect-ratio:16/9; position:relative}
+.art.r43{aspect-ratio:4/3} .art.r11{aspect-ratio:1/1}
+.art img{width:100%; height:100%; object-fit:cover; display:block}
+.art .ph{display:none}
+.art.missing{aspect-ratio:auto; border:1px dashed rgba(36,34,31,.2); background:transparent; box-shadow:none; border-radius:10px}
+.art.missing img{display:none}
+.art.missing .ph{display:block; padding:8px 12px; color:var(--muted); font-size:var(--fs-xs); line-height:1.4}
+.art.missing .ph::before{content:"▧ "}
+.art.missing:has(.ph:empty), .art.missing .ph:empty{display:none}
+
+/* 1. первый экран */
+.hero{display:grid; grid-template-columns:1fr 1.05fr; gap:48px; align-items:center; padding-top:40px; padding-bottom:36px}
+h1{font:400 var(--fs-h1)/1.04 var(--serif); letter-spacing:-.02em; margin:0}
+h1 .hand{display:block; font:400 1.08em/1.1 var(--script); color:var(--pen)}
+.sub{font:400 var(--fs-l)/1.45 var(--serif); margin:18px 0 0; max-width:30em}
+.trust{font-size:var(--fs-s); color:var(--muted); margin:18px 0 0}
+.hero-art{box-shadow:0 1px 1px rgba(0,0,0,.05), 0 18px 30px -20px rgba(60,40,10,.45)}
+
+/* общие блоки */
+.block{padding-top:56px}
+.block > h2, .lure h2, .toy h2, .about h2{font:400 var(--fs-h2)/1.15 var(--serif); letter-spacing:-.01em; margin:0 0 14px}
+.panel{background:var(--paper); border-radius:var(--r); padding:28px; box-shadow:0 1px 1px rgba(0,0,0,.05), 0 16px 28px -22px rgba(60,40,10,.45)}
+
+/* 2. игрушка */
+.toy{background:var(--white)}
+.toy-head{display:grid; grid-template-columns:64px 1fr; gap:18px; align-items:start; margin-bottom:10px}
+.toy h2{font-size:var(--fs-h3); margin-bottom:8px}
+.coin-big{width:64px; height:64px}
+.coin-big.spin{animation:spin .7s cubic-bezier(.3,.7,.4,1)}
+@keyframes spin{0%{transform:translateY(0) rotateY(0)} 45%{transform:translateY(-22px) rotateY(540deg)} 100%{transform:translateY(0) rotateY(1080deg)}}
+.toy-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:32px; align-items:start; margin-top:14px}
+.guess{display:block; font:500 var(--fs-m)/1.4 var(--body); margin-bottom:6px}
+.guess output{font:500 var(--fs-l)/1.3 var(--serif); color:var(--accent-ink)}
+input[type=range]{width:100%; accent-color:var(--accent); height:44px; margin:0; cursor:pointer}
+.ticks{display:flex; justify-content:space-between; font-size:var(--fs-xs); color:var(--muted); padding:0 4px; font-variant-numeric:tabular-nums}
+.coins{display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:5px; margin:20px 0 8px; min-height:30px; max-width:420px}
+.coins .c{aspect-ratio:1; border-radius:50%; display:grid; place-items:center; font:600 var(--fs-xs)/1 var(--body); border:2px solid transparent}
+.coins .h{background:#F2C46B; color:#5A3E0A; border-color:#C9963A}
+.coins .t{background:#ECE9E2; color:var(--muted); border-color:#D3CEC4}
+.coins .run{box-shadow:0 0 0 3px var(--pen)}
+.coins .in{animation:drop .32s ease-out both}
+@keyframes drop{from{opacity:0; transform:translateY(-10px) rotateY(180deg)} to{opacity:1; transform:none}}
+.last{font-size:var(--fs-s); color:var(--muted); min-height:1.5em}
+.hist-wrap{margin:0}
+.hist-title{font-size:var(--fs-xs); color:var(--muted); margin-bottom:4px}
+#hist{width:100%; height:auto; display:block}
+#hist .grid{stroke:rgba(36,34,31,.08)}
+#hist .base{stroke:rgba(36,34,31,.4)}
+#hist .ax{font:13px var(--body); fill:var(--muted)}
+#hist .bar{fill:#A9C4E6}
+#hist .bar.ge{fill:var(--ctrl)}
+#hist .guess-line{stroke:var(--accent); stroke-width:2.5; stroke-dasharray:5 4}
+#hist .guess-lab{font:600 13px var(--body); fill:var(--accent-ink)}
+.kot{display:flex; gap:12px; align-items:center; margin:14px 0 0}
+.kot img{width:56px; height:56px; border-radius:50%; flex:none; object-fit:cover}
+.bubble{background:var(--butter); border-radius:14px 14px 14px 4px; padding:10px 14px; margin:0; font:500 var(--fs-m)/1.4 var(--serif)}
+.outcome{margin-top:12px; padding:14px 16px; border-radius:12px; background:var(--ctrl-bg); font-size:var(--fs-s)}
+.outcome p:last-child{margin-bottom:0}
+.toy-cta{display:flex; flex-wrap:wrap; gap:6px 22px; align-items:baseline; margin:20px 0 0; padding-top:16px; border-top:1px solid var(--rule)}
+.toy-cta .note{flex-basis:100%; order:2; margin-top:-2px}
+.toy-cta a{font-weight:500}
+
+/* 3. принципы */
+.principles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.principles li{background:var(--paper); border-radius:var(--r); padding:14px 14px 18px; box-shadow:0 1px 1px rgba(0,0,0,.04)}
+.principles h3{font:500 var(--fs-l)/1.3 var(--serif); margin:14px 4px 6px}
+.after{margin-top:16px}
+.principles p{margin:0 4px; color:var(--muted); font-size:var(--fs-s)}
+
+/* 4. маршруты */
+.routes{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+.routes a{display:flex; flex-direction:column; gap:10px; height:100%; background:var(--white); border-radius:var(--r); padding:12px 12px 16px; text-decoration:none; color:var(--ink); border:1.5px solid transparent}
+.routes a:hover{border-color:var(--pen)}
+.routes .who{font:500 var(--fs-m)/1.3 var(--serif); padding:0 4px}
+.routes .go{display:block; margin-top:auto; padding:0 4px; color:var(--pen); font-weight:500; font-size:var(--fs-s); line-height:1.6}
+.routes .go .lvl{margin-right:4px}
+.routes .go .tag{padding:3px 7px; font-size:var(--fs-xs); vertical-align:1px}
+
+/* 5. линейка */
+.shelf{font:500 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:32px 0 10px}
+.cards{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.course{background:var(--paper); border-radius:var(--r); padding:14px 14px 18px; display:flex; flex-direction:column; box-shadow:0 1px 1px rgba(0,0,0,.04); scroll-margin-top:20px}
+.course .art{margin-bottom:12px}
+.course h4{font:500 var(--fs-h3)/1.25 var(--serif); margin:2px 4px 8px}
+.course dl{margin:0 4px 14px; font-size:var(--fs-s); line-height:1.45}
+.course dt{font-weight:600; font-size:var(--fs-xs); color:var(--muted); margin-top:8px}
+.course dd{margin:0}
+.course .btn{margin:auto 4px 0; align-self:flex-start}
+.course.later{opacity:.88}
+.points{margin:22px 0 0; padding:16px 20px; border-radius:var(--r); background:var(--butter); font-size:var(--fs-s)}
+.points p{margin:0; max-width:46em}
+.legend{display:flex; flex-wrap:wrap; gap:6px 20px; font-size:var(--fs-xs); color:var(--muted); margin:14px 0 0}
+.legend > span{display:inline-flex; align-items:center; gap:6px}
+.legend b{color:var(--ink); font-weight:600}
+.wait{margin-top:22px; background:var(--white); border:1.5px dashed rgba(35,65,138,.35); box-shadow:none; scroll-margin-top:20px}
+.wait:target{border-color:var(--pen); border-style:solid}
+.wait h3{font:500 var(--fs-h3)/1.3 var(--serif); margin:0 0 8px}
+.wait p{max-width:38em}
+.wait p:last-child{margin:0}
+
+/* 6. приманки */
+.lures{display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:stretch}
+.lure .art{margin-bottom:16px}
+.lure h2{font-size:var(--fs-h3); margin-bottom:10px}
+.task{background:var(--white); border-radius:12px; padding:14px 16px; margin:14px 0 16px; border:1px solid var(--rule)}
+.task .q{font:500 var(--fs-m)/1.45 var(--serif); margin-bottom:8px}
+.task summary{cursor:pointer; color:var(--pen); font-weight:500; padding:10px 0; min-height:44px; text-decoration:underline dotted; text-underline-offset:4px}
+.task details p{margin:8px 0 0}
+
+/* 7. игрушки */
+.toys{list-style:none; margin:16px 0 10px; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.toys a{display:flex; flex-direction:column; align-items:flex-start; gap:8px; height:100%; padding:18px; border-radius:var(--r); background:var(--white); color:var(--ink); text-decoration:none; border:1.5px solid transparent;
+  background-image:linear-gradient(rgba(61,125,196,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.08) 1px, transparent 1px); background-size:16px 16px}
+.toys a:hover{border-color:var(--pen)}
+.toys b{font:500 var(--fs-l)/1.3 var(--serif)}
+.toys span:not(.chip):not(.lvl):not(.go){font-size:var(--fs-s); color:var(--muted)}
+.toys small{font-size:var(--fs-xs); color:var(--muted)}
+.toys .go{margin-top:auto; color:var(--pen); font-weight:500}
+
+/* 8. статьи */
+.read{display:grid; grid-template-columns:1.6fr 1fr; gap:22px; align-items:center}
+.article h3{font:500 var(--fs-h3)/1.3 var(--serif); margin:6px 0 8px}
+.article h3 a{color:var(--ink)}
+.article p:last-child{margin:0}
+
+/* 10. автор */
+.about{display:grid; grid-template-columns:180px 1fr; gap:28px; align-items:center; max-width:820px}
+.about .ava{border-radius:50%}
+.about p{color:var(--ink); max-width:38em}
+
+/* 11. футер */
+.foot{margin-top:72px; padding:36px 0 40px; background:rgba(251,250,246,.75); border-top:1px solid var(--rule); font-size:var(--fs-s); position:relative; overflow:hidden}
+.foot-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; position:relative}
+.foot h2{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px}
+.foot ul{list-style:none; margin:0; padding:0}
+.foot li{margin:0}
+.foot li a{display:inline-block; padding:10px 0}
+.foot a{color:var(--ink)}
+.foot .copy{grid-column:1 / -1; color:var(--muted); margin:8px 0 0}
+.kot-sleep{position:absolute; right:28px; bottom:-8px; width:120px; aspect-ratio:1; background:none}
+.kot-sleep.missing{background:none; border:0}
+.kot-sleep.missing .ph{font:400 var(--fs-h3)/1 var(--script); color:var(--pen); opacity:.6}
+
+/* адаптив */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr; gap:28px; padding-top:28px}
+  .toy-grid{grid-template-columns:1fr; gap:20px}
+  .routes{grid-template-columns:1fr 1fr}
+  .cards, .toys{grid-template-columns:1fr 1fr}
+  .lures, .read{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  :root{--fs-m:17px}
+  .wrap{padding:0 16px}
+  .block{padding-top:44px}
+  .panel{padding:20px 16px}
+  .toy-head{grid-template-columns:44px 1fr; gap:12px}
+  .coin-big{width:44px; height:44px}
+  header nav{gap:4px 14px; font-size:var(--fs-xs)}
+  #hist .ax{font-size:19px} #hist .guess-lab{font-size:18px}
+  .toy-cta{flex-direction:column; gap:8px}
+  .toy-cta .note{order:0}
+  .coins{gap:3px}
+  .coins .c{font-size:var(--fs-xs); border-width:1.5px}
+  /* принципы — лентой */
+  .principles{grid-auto-flow:column; grid-template-columns:none; grid-auto-columns:82%; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px; margin:0 -16px; padding-left:16px; padding-right:16px; scroll-padding-left:16px}
+  .principles li{scroll-snap-align:start}
+  /* маршруты — стопкой кнопок */
+  .routes{grid-template-columns:1fr; gap:10px}
+  .routes .art{display:none}
+  .routes a{padding:14px 16px; gap:6px}
+  .cards, .toys{grid-template-columns:1fr}
+  .about{grid-template-columns:96px 1fr; gap:16px; align-items:start}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .kot-sleep{width:84px; right:12px}
+  .btn{padding:11px 16px}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *, *::before, *::after{animation:none !important; transition:none !important}
+}
+.routes .go, .toys .go{text-decoration:underline; text-underline-offset:4px}
+.kot-sleep.missing .ph::before{content:none}
