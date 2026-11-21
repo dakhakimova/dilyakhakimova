@@ -78,15 +78,28 @@ export const RULES = {
   ch10: { title: "A/B на простой метрике", predict: {nine: 1.1}, code: ['ztest-props'], interview: ['nine', 'octopus', 'cafes', 'late'], quiz: 5 },
   ch11: { title: "Ошибки I и II рода", predict: {half: 50}, code: ['power-props'], interview: ['errors', 'alpha', 'coin100', 'half'], quiz: 5 },
   ch12: { title: "«Прокрасилось» — значит, работает?", predict: {fdr: 36}, code: ['false-share'], interview: ['nulls1000', 'pvh0', 'needpower'], quiz: 5 },
+  // «A/B на пальцах» (ab-basics/, движок course.js): балл за квиз с первой попытки (квизы «Разминки» не считаются),
+  // quiz — число квизов на странице шага без разминки; task — прочие задания с баллом (ключ = id в AB.award).
+  ab01: { title: "До и после — не доказательство", quiz: 10 },
+  ab02: { title: "Монетка, соль и хеш", quiz: 3 },
+  ab03: { title: "Шум есть всегда", quiz: 3 },
+  ab04: { title: "Толпа предсказуема", quiz: 5 },
+  ab05: { title: "Ширина колокола", quiz: 4 },
+  ab06: { title: "Эффект — это вилка", quiz: 7 },
+  ab07: { title: "p-value на пальцах", quiz: 11 },
+  ab08: { title: "Два вида ошибок", quiz: 7 },
+  ab09: { title: "MDE: что мы способны заметить", quiz: 17 },
+  ab10: { title: "Когда зелёное врёт", quiz: 13 },
+  ab11: { title: "Читаем отчёт и решаем", quiz: 23, task: ['rep3min'] },
 };
-export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1, quiz: 1 };
+export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1, quiz: 1, task: 1 };
 export const HIT_TOLERANCE = 5;
 export const TIERS = [ [0.4, 10], [0.7, 20], [0.9, 30] ];   // доля от максимума → скидка, %: 40 % → 10 %, 70 % → 20 %, 90 % → 30 %
-// Пороги скидки считаются от максимума двух бесплатных курсов: «Вероятность на пальцах» (p01–p09, 143 балла)
-// и «Сигнал или шум» (ch01 и ch04–ch12, 14 + 145 баллов) — всего 302. Баллы «A/B на пальцах» сюда не входят (не решено).
+// Пороги скидки считаются от максимума трёх бесплатных курсов: «Вероятность на пальцах» (p01–p09, 143 балла),
+// «Сигнал или шум» (ch01 и ch04–ch12, 14 + 145 = 159 баллов) и «A/B на пальцах» (ab01–ab11, 103 квиза + 1 задание = 104 балла) — всего 406.
 // PLANNED_MAX — нижняя граница максимума: если главу временно уберут из RULES, пороги не упадут.
 // Новые главы или квизы поднимают максимум сами (maxPoints считает по RULES).
-export const PLANNED_MAX = 302;
+export const PLANNED_MAX = 406;
 
 export function maxPoints() {
   let m = 0;
@@ -95,6 +108,7 @@ export function maxPoints() {
     m += (ch.code || []).length * PTS.codeFirst;
     m += (ch.interview || []).length * PTS.interview;
     m += (ch.quiz || 0) * PTS.quiz;
+    m += (ch.task || []).length * PTS.task;
   }
   return Math.max(m, PLANNED_MAX);
 }
@@ -115,6 +129,7 @@ export function scoreEvent(chapter, kind, key, value) {
     return (+value || 1) <= 1 ? PTS.codeFirst : PTS.codeLater;
   }
   if (kind === 'interview') return (ch.interview || []).includes(key) ? PTS.interview : null;
+  if (kind === 'task') return (ch.task || []).includes(key) ? PTS.task : null;
   // квиз: ключ q0, q1, … — номер квиза на странице без разминки; движок шлёт событие только за верный ответ с первой попытки
   if (kind === 'quiz') { const m = /^q(\d+)$/.exec(key); return m && +m[1] < (ch.quiz || 0) ? PTS.quiz : null; }
   return null;

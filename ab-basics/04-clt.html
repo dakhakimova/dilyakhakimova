@@ -259,7 +259,8 @@
   </main>
 </div>
 
-<script src="course.js?v=202611211800"></script>
+<script src="/signal/progress.js"></script>
+<script src="course.js?v=202611212300"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();

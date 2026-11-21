@@ -29,7 +29,7 @@
 <body>
 <nav class="top" aria-label="Навигация">
   <a class="course" href="/">Диля Хакимова</a>
-  <span><a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a></span>
+  <span><a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></span>
 </nav>
 <main class="chapter">
   <p class="kicker">личный кабинет</p>
@@ -37,7 +37,7 @@
 
   <section id="guest" hidden>
     <p class="lead">Войди через Telegram, чтобы баллы и прогресс сохранялись на любом устройстве.</p>
-    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Telegram ещё спросит, можно ли нашему боту написать тебе: это нужно, чтобы прислать промокод. Баллы из «Вероятности на пальцах» и «Сигнала или шума» превращаются в скидку на курс «A/B без мифов»: 10 % за 40 % баллов, 20 % за 70 %, 30 % за 90 %.</p>
+    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Telegram ещё спросит, можно ли нашему боту написать тебе: это нужно, чтобы прислать промокод. Баллы из «Вероятности на пальцах», «Сигнала или шума» и «A/B на пальцах» превращаются в скидку на курс «A/B без мифов»: 10 % за 40 % баллов, 20 % за 70 %, 30 % за 90 %.</p>
     <div id="tg-login"></div>
     <p class="muted" id="queued"></p>
     <p class="err" id="login-err" role="alert"></p>
@@ -72,7 +72,7 @@
 </main>
 <script src="/signal/progress.js"></script>
 <script>
-// Главы двух бесплатных курсов: баллы из обоих идут в скидку на «A/B без мифов» (правила — functions/api/_lib.js, RULES).
+// Главы трёх бесплатных курсов: баллы из всех трёх идут в скидку на «A/B без мифов» (правила — functions/api/_lib.js, RULES).
 const COURSES = [
   {title: 'Вероятность на пальцах', url: '/probability/', chapters: {
     p01: {title: "Исходы и события", url: "/probability/01-outcomes.html", cards: 13},
@@ -96,6 +96,19 @@ const COURSES = [
     ch10: {title: "A/B на простой метрике", url: "/signal/10-ab-test.html", cards: 14},
     ch11: {title: "Ошибки I и II рода", url: "/signal/11-errors.html", cards: 13},
     ch12: {title: "«Прокрасилось» — значит, работает?", url: "/signal/12-wins.html", cards: 14},
+  }},
+  {title: 'A/B на пальцах', url: '/ab-basics/', chapters: {
+    ab01: {title: "До и после — не доказательство", url: "/ab-basics/01-before-after.html", cards: 13},
+    ab02: {title: "Монетка, соль и хеш", url: "/ab-basics/02-salt-hash.html", cards: 10},
+    ab03: {title: "Шум есть всегда", url: "/ab-basics/03-noise.html", cards: 10},
+    ab04: {title: "Толпа предсказуема", url: "/ab-basics/04-clt.html", cards: 11},
+    ab05: {title: "Ширина колокола", url: "/ab-basics/05-bell-width.html", cards: 11},
+    ab06: {title: "Эффект — это вилка", url: "/ab-basics/06-interval.html", cards: 13},
+    ab07: {title: "p-value на пальцах", url: "/ab-basics/07-p-value.html", cards: 14},
+    ab08: {title: "Два вида ошибок", url: "/ab-basics/08-errors.html", cards: 11},
+    ab09: {title: "MDE: что мы способны заметить", url: "/ab-basics/09-mde.html", cards: 13},
+    ab10: {title: "Когда зелёное врёт", url: "/ab-basics/10-traps.html", cards: 18},
+    ab11: {title: "Читаем отчёт и решаем", url: "/ab-basics/11-decide.html", cards: 14},
   }},
 ];
 const $ = id => document.getElementById(id);

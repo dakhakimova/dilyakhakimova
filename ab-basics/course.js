@@ -96,8 +96,12 @@ const AB = {
   award(id, pts = 1){
     const k = this.chapter + ':pts', m = store.get(k) || {};
     if (m[id] != null) return false;
-    m[id] = pts; store.set(k, m); this.paintScore(true); return true;
+    m[id] = pts; store.set(k, m); this.paintScore(true); this.send(id); return true;
   },
+  // На сервер (общий учёт баллов бесплатных курсов, /signal/progress.js): квиз q0, q1, … — kind 'quiz', прочие баллы шага — kind 'task'.
+  // Сервер сам считает баллы по правилам RULES в functions/api/_lib.js, поэтому ключи здесь и там должны совпадать.
+  track(kind, key, value, ch){ if (window.SignalProgress) SignalProgress.track(ch || this.chapter, kind, key, value); },
+  send(id, ch){ /^q\d+$/.test(id) ? this.track('quiz', id, 1, ch) : this.track('task', id, 1, ch); },
   points(ch){ return Object.values(store.get((ch || this.chapter) + ':pts') || {}).reduce((a, b) => a + b, 0); },
   total(){ let t = 0; for (let i = 1; i <= 12; i++) t += this.points('ab' + String(i).padStart(2, '0')); return t; },
   paintScore(bump){
@@ -109,6 +113,8 @@ const AB = {
   },
 };
 AB.paintScore(false);
+// Баллы, набранные до подключения учёта на сервере (или без входа), — в очередь отправки; повторы отсекает progress.js и база.
+for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Object.keys(store.get(ch + ':pts') || {}).forEach(id => AB.send(id, ch)); (store.get(ch + ':seen') || []).forEach(i => AB.track('card', i + 1, undefined, ch)); }
 
 // ---------- карточки ----------
 (function(){
@@ -128,7 +134,7 @@ AB.paintScore(false);
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
-    seen.add(cur); store.set(key, [...seen]);
+    seen.add(cur); store.set(key, [...seen]); AB.track('card', cur + 1);
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS events (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   chapter     TEXT NOT NULL,                    -- 'ch01'
-  kind        TEXT NOT NULL,                    -- 'card' | 'predict' | 'code' | 'interview'
+  kind        TEXT NOT NULL,                    -- 'card' | 'predict' | 'code' | 'interview' | 'quiz' | 'task'
   key         TEXT NOT NULL,                    -- 'coin', 'shop', 'at-least-one', ...
   value       REAL,                             -- прогноз в %, номер попытки и т. п.
   points      INTEGER NOT NULL DEFAULT 0,       -- начислено сервером
