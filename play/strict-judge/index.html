@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/08-errors.html?toy=strict-judge" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Порог «значимо» как строгость судьи: двигай его и смотри, сколько пустых идей «осудим» и сколько хороших «отпустим».">
+<link rel="canonical" href="https://dilyakhakimova.com/play/strict-judge/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/strict-judge/">
+<meta property="og:title" content="Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Порог «значимо» как строгость судьи: двигай его и смотри, сколько пустых идей «осудим» и сколько хороших «отпустим».">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/strict-judge.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="strict-judge" data-frame="/ab-basics/08-errors.html?toy=strict-judge"
+  data-share-title="Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?" data-share-text="Продакт предлагает поднять порог значимости с 5 % до 20 %, «чтобы не терять хорошие фичи». Сколько пустых фич тогда пройдёт как победы? Угадай — и подвигай строгость судьи"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="strict-judge" data-show-from="0" hidden></span></p>
+  <h1>Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Давай порог 20 % вместо 5 %, чтобы точно ничего хорошего не пропускать!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тест похож на суд. Пустая идея — невиновный, хорошая — виновный. Порог — строгость судьи.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Осудить невиновного — ложная тревога. Отпустить виновного — пропуск.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подвинь строгость и посмотри, сколько пустых идей мы тогда «осудим».</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Два колокола: левый — какие разницы бывают у пустых идей, правый — у хороших. Порог — линия: всё, что за ней, судья признаёт «эффект есть». Хвосты пустого колокола за порогом — ложные тревоги, часть хорошего колокола до порога — пропуски.</p><p>Двигай порог от очень строгого (1 %) до очень мягкого (20 %) и следи за двумя числами: сколько пустых идей из 100 «осудим» и сколько хороших из 100 «отпустим».</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab08-01-smoke-alarm.jpg" alt="Пожарная сигнализация пищит от подгоревшего тоста, Котейка машет полотенцем" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=strict-judge" title="Игрушка: Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/08-errors.html#card-6">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Поставь порог 20 %, как хочет Боб. Сколько пустых идей из 100 «осудим»?</li><li>Поставь 1 %. Сколько хороших идей теперь «отпустим»?</li><li>Есть ли положение порога, где обеих ошибок мало?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>При обычном пороге 5 % из 100 пустых идей «осудим» 5, а из 100 хороших «отпустим» 29. Порог 20 % снижает пропуски до 11, но ложных тревог становится 20: каждая пятая пустая идея выглядит «победой». Порог 1 % — наоборот: одна ложная тревога, но пропущено 53 хороших идеи. Ползунком одну ошибку можно только обменять на другую. Уменьшить обе сразу можно, если колокола разойдутся: больше людей и дней в тесте или менее шумная метрика.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Строже порог — меньше ложных тревог, больше пропусков. Мягче — наоборот.</li><li>Порог 5 % — привычный, но не священный: чем дороже ложная тревога, тем строже порог.</li><li>О пороге договариваются до теста, а не после того, как увидели p-value 8 %.</li><li>Обе ошибки сразу уменьшает только «датчик получше»: больше данных или менее шумная метрика.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Дэвида Шпигельхалтера «Искусство статистики».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб оставил порог в покое, а Алиса задала вопрос поинтереснее: сколько из всех «побед» за год настоящие? Это шаг 8 курса — <a href="/ab-basics/08-errors.html">«Два вида ошибок»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/08-errors.html">Открыть шаг 8 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/power-days/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Тест длиннее — что уменьшится: ложные тревоги или пропуски?</b><span>Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3 % и доля ложных тревог.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="power-days" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/true-wins/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Значимых «побед» за год — сотня. Сколько из них настоящие?</b><span>Тысяча идей, каждая десятая хорошая: раскладываем по исходам теста и считаем, какая доля значимых побед — правда.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="true-wins" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/hundred-tests/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сто экспериментов за год. Сколько «побед» окажутся пустышками?</b><span>Сто идей, из них 80 пустых: запускаем все тесты, а потом показываем правду — где настоящие победы, ложные тревоги и пропуски.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="hundred-tests" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
