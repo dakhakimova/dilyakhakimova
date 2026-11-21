@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/06-interval.html?toy=bootstrap" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Можно ли получить вилку для среднего чека без формул? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Бутстреп руками: тянем из 30 чеков новые выборки с возвращением и смотрим, где лежат их средние.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/bootstrap/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/bootstrap/">
+<meta property="og:title" content="Можно ли получить вилку для среднего чека без формул? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Бутстреп руками: тянем из 30 чеков новые выборки с возвращением и смотрим, где лежат их средние.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/bootstrap.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Можно ли получить вилку для среднего чека без формул?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="bootstrap" data-frame="/ab-basics/06-interval.html?toy=bootstrap"
+  data-share-title="Можно ли получить вилку для среднего чека без формул?" data-share-text="Аналитику нужна вилка для среднего чека нового кафе: всего 30 заказов, формулы под рукой нет. Можно ли обойтись без неё? Угадай — и вытяни пятьсот выборок из выборки"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="bootstrap" data-show-from="0" hidden></span></p>
+  <h1>Можно ли получить вилку для среднего чека без формул?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У меня всего 30 чеков из нового кафе. Для вилки же нужны формулы, ширины, колокола…</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Можно и без них. Представим, что нам попались другие гости — из тех же самых чеков.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я вытяну чек, запишу и положу обратно. И так тридцать раз. Какие-то попадут дважды, какие-то — ни разу.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Повторим пятьсот раз и посмотрим, где лежат средние. И сравним с вилкой по правилу двух ширин.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>У нас одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера с возвращением: вытянули чек, записали, положили обратно. Так мы имитируем «а что, если бы нам попались другие гости».</p><p>Под исходной выборкой появится вытянутая: оранжевые чеки с ×2, ×3 попали несколько раз, бледные не попали ни разу. Гистограмма собирает средние всех вытянутых выборок, а внизу — две вилки: по самим средним и по правилу двух ширин колокола.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/06-interval.html?toy=bootstrap" title="Игрушка: Можно ли получить вилку для среднего чека без формул?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/06-interval.html#card-10">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Нажми «Вытянуть выборку из выборки». Какие чеки попали дважды?</li><li>Нажми «Ещё 500 раз». Где лежат средние 95 % вытянутых выборок?</li><li>Сравни эту вилку с вилкой по правилу двух ширин.</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Средние 95 % вытянутых выборок лежат примерно от 373 ₽ до 537 ₽, а правило двух ширин даёт почти то же: от 373 ₽ до 534 ₽. Мы ни разу не считали ширину колокола, а получили ту же вилку. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют бутстрепом.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Бутстреп (bootstrap): тянем из выборки новые выборки того же размера с возвращением.</li><li>Вилка — где лежат средние 95 % таких выборок, от 2,5-го до 97,5-го процентиля.</li><li>Работает и для медианы, долей, отношений — там, где формулы неудобны.</li><li>Не спасает, если сама выборка маленькая или смещённая.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Дэвида Шпигельхалтера «Искусство статистики». Сам метод бутстрепа предложил Брэдли Эфрон в 1979 году.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Вилка готова и без формул. Боб спросил, как из неё получается «значимо», — а это уже p-value. История вилки целиком — шаг 6 курса, <a href="/ab-basics/06-interval.html">«Эффект — это вилка»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/06-interval.html">Открыть шаг 6 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/percent-of-percent/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>«+18 % к конверсии» — сколько это лишних заказов?</b><span>Сто гостей без фичи и с фичей: переводим «процент от процента» в живые заказы и в число гостей ради одного лишнего заказа.</span><small>из курса «A/B на пальцах», шаг 6</small><span class="play-count" data-count-for="percent-of-percent" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/null-world/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>+3,1 % на 100 000 гостей. Как часто так бывает без всякого эффекта?</b><span>Тысяча A/A-тестов и флажок с результатом Боба: p-value — это доля миров без эффекта, где разница не меньше нашей.</span><small>из курса «A/B на пальцах», шаг 7</small><span class="play-count" data-count-for="null-world" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/ci-alive/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>19 гостей из 30 заказали по промокоду. Значит, 63 %?</b><span>Вилка как ряд кандидатов: проверяем каждую «правду» от 0 до 100 % и оставляем те, при которых 19 из 30 — обычное дело.</span><small>из курса «A/B на пальцах», шаг 6</small><span class="play-count" data-count-for="ci-alive" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

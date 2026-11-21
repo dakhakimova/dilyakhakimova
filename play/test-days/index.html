@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/09-mde.html?toy=test-days" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Хочешь заметить +2 % к конверсии. Сколько дней держать тест? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Калькулятор длины теста: какой эффект важен, сколько гостей в день, какой сплит — и сколько дней на это уйдёт.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/test-days/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/test-days/">
+<meta property="og:title" content="Хочешь заметить +2 % к конверсии. Сколько дней держать тест? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Калькулятор длины теста: какой эффект важен, сколько гостей в день, какой сплит — и сколько дней на это уйдёт.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/test-days.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Хочешь заметить +2 % к конверсии. Сколько дней держать тест?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="test-days" data-frame="/ab-basics/09-mde.html?toy=test-days"
+  data-share-title="Хочешь заметить +2 % к конверсии. Сколько дней держать тест?" data-share-text="Продакт говорит: «Держим тест две недели, как всегда». Важный для него эффект — +2 % к конверсии, 20 000 пользователей в день. Хватит ли двух недель? Угадай — и посчитай в калькуляторе"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="test-days" data-show-from="0" hidden></span></p>
+  <h1>Хочешь заметить +2 % к конверсии. Сколько дней держать тест?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест держим две недели, как всегда. Две недели — нормальный срок.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Почему две? Длина зависит от того, какой эффект нам важен и сколько гостей приходит в день.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну пусть важен +2 % к конверсии. Гостей в эксперименте — 20 000 в день.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А если отдать новинке не половину гостей, а десятую часть — «на всякий случай»?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай, сколько дней нужно, — и посчитаем.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Обычно вопрос ставят так: какой эффект нам важен и сколько для него держать тест. Калькулятор считает при конверсии в контроле 10 % и мощности 80 % — то есть тест заметит такой эффект в 8 случаях из 10.</p><p>Три ползунка: эффект, который хочешь заметить, сколько людей в день попадает в эксперимент и сплит — какая доля гостей достаётся новинке. Под ними — сколько дней нужно и сколько понадобится для эффекта вдвое меньше.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/09-mde.html?toy=test-days" title="Игрушка: Хочешь заметить +2 % к конверсии. Сколько дней держать тест?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/09-mde.html#card-5">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Поставь +2 % и 20 000 гостей в день. Сколько дней нужно? Хватит двух недель?</li><li>Поставь +1 %. Во сколько раз вырос срок?</li><li>Поставь сплит 90/10. Во сколько раз дольше теперь тест?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Чтобы заметить +2 % при 20 000 гостей в день, тест нужно держать около 36 дней — двух недель не хватит. Для +1 % — уже 142 дня, вчетверо дольше. А для +5 % хватит 6 дней. Сплит тоже стоит времени: при 90/10 тест идёт примерно в 2,8 раза дольше, чем при 50/50, — шум маленькой группы почти весь уходит в разницу. Длину теста считают до запуска, от важного эффекта.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Длину теста считают от MDE: какой эффект важен, такой тест и должен замечать.</li><li>Вдвое меньший эффект — вчетверо дольше тест.</li><li>Неравный сплит удлиняет тест: 90/10 — примерно в 2,8 раза дольше, чем 50/50.</li><li>Длину округляют до полных недель: в будни и в выходные приходят разные гости.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из статьи Рона Кохави и соавторов — практического руководства по онлайн-экспериментам (2009).</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб пересчитал срок — 36 дней вместо двух недель — и спросил, откуда вообще взялись его «две недели». Шесть честных ответов — шаг 9 курса, <a href="/ab-basics/09-mde.html">«MDE: что мы способны заметить»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/09-mde.html">Открыть шаг 9 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/strict-judge/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?</b><span>Порог «значимо» как строгость судьи: двигай его и смотри, сколько пустых идей «осудим» и сколько хороших «отпустим».</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="strict-judge" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/power-bells/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Фото дают +2 %. Заметит ли это недельный тест?</b><span>Два колокола — мир без эффекта и мир с эффектом: как длина теста, трафик и конверсия решают, увидим ли мы эффект.</span><small>из курса «A/B на пальцах», шаг 9</small><span class="play-count" data-count-for="power-bells" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/power-days/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Тест длиннее — что уменьшится: ложные тревоги или пропуски?</b><span>Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3 % и доля ложных тревог.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="power-days" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

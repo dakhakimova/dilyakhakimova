@@ -48,7 +48,7 @@
 </section>
 
 <!-- 2 -->
-<section class="card" data-title="Новая кнопка" aria-label="Новая кнопка">
+<section class="card" data-toy-pre="keyhole" data-title="Новая кнопка" aria-label="Новая кнопка">
   <span class="step-tag">История</span>
   <h2>Боб выкатил кнопку «Повторить заказ»</h2>
   <figure class="art"><img loading="lazy" src="img/ab01-01-bob-chart.jpg" alt="Боб радостно показывает на растущий график" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб с растущим графиком, Алиса сомневается</figcaption></figure>
@@ -57,7 +57,7 @@
   </div>
   <p>Как думаешь, кнопка правда подняла заказы на столько?</p>
   <div class="choice" id="g1" data-key="g1" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="yes" data-fb="Цифры и правда выросли на 15 %. Осталось понять, только ли из-за кнопки. На следующей карточке посмотрим на график шире." aria-pressed="false">Да, цифры же</button>
+    <button type="button" data-v="yes" data-fb="Цифры и правда выросли на 15 %. Осталось понять, только ли из-за кнопки. Посмотрим на график шире." aria-pressed="false">Да, цифры же</button>
     <button type="button" data-v="no" data-fb="Смелая версия: кнопка могла и помочь. Посмотрим на график шире и разберёмся, что ещё случилось в начале декабря." aria-pressed="false">Нет, кнопка ни при чём</button>
     <button type="button" data-v="idk" data-fb="Осторожный ответ. Посмотрим на график шире: что ещё случилось в начале декабря?" aria-pressed="false">Пока нельзя сказать</button>
   </div>
@@ -65,7 +65,7 @@
 </section>
 
 <!-- 3 -->
-<section class="card" data-title="Весь график" aria-label="Весь график">
+<section class="card" data-toy="keyhole" data-title="Весь график" aria-label="Весь график">
   <span class="step-tag">Посмотри шире</span>
   <h2>Две недели — это замочная скважина</h2>
   <p>Вот заказы по дням с сентября по декабрь. Тонкая линия — каждый день, толстая — среднее за последние 7 дней. Выделены неделя до и неделя после релиза.</p>
@@ -82,7 +82,7 @@
 </section>
 
 <!-- 4 -->
-<section class="card" data-title="Подвинь релиз" aria-label="Подвинь релиз">
+<section class="card" data-toy="dummy-release" data-title="Подвинь релиз" aria-label="Подвинь релиз">
   <span class="step-tag">Игрушка</span>
   <h2>Кнопка, которая ничего не делает</h2>
   <p>Представим, что кнопка вообще не влияет на заказы. Её можно выпустить в любой день года, а потом сравнить неделю до и неделю после. Двигай день релиза и смотри, какой «эффект» получается.</p>
@@ -186,10 +186,10 @@
 </section>
 
 <!-- 5c -->
-<section class="card" data-title="Худшие кафе" aria-label="Худшие кафе">
+<section class="card" data-toy="worst-cafes" data-title="Худшие кафе" aria-label="Худшие кафе">
   <span class="step-tag">Игрушка</span>
   <h2>Промо для худших кафе</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На прошлой неделе пять наших кафе провалились по заказам. Запускаю там промо — посмотрим, вытянет ли.</p></div></div>
   </div>
   <p>Ниже 20 кафе сети. Точка — сколько заказов на 100 гостей сделали в кафе на прошлой неделе. Кафе выстроены от худшего к лучшему. Оранжевые — пять худших, туда Боб отправил промо. Зелёные — пять лучших, там ничего не меняли.</p>
@@ -217,7 +217,7 @@
   <div class="chat" id="rg-chat" hidden>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Худшие на прошлой неделе были худшими во многом случайно: им не повезло. Через неделю невезение откатывается, и они растут сами. Чтобы проверить промо, нужна контрольная группа из таких же провальных кафе: половине промо, половине нет — по монетке.</p></div></div>
   </div>
-  <aside class="scary" id="rg-scary" hidden>
+  <aside class="scary" id="rg-scary" data-toy-hide hidden>
     <span class="scary-tag">Страшное слово</span>
     <p>Возврат крайних значений к обычным называют <b class="term">регрессия к среднему</b>.</p>
     <p class="aside">Звучит как диагноз, а на деле это просто невезение, которое кончилось само.</p>
@@ -226,7 +226,7 @@
 </section>
 
 <!-- 6 -->
-<section class="card" data-title="Делим монеткой" aria-label="Делим монеткой">
+<section class="card" data-toy="coin-split" data-title="Делим монеткой" aria-label="Делим монеткой">
   <span class="step-tag">Как честно</span>
   <h2>Одновременно, а кому что — решает монетка</h2>
   <figure class="art"><img loading="lazy" src="img/ab01-02-coin-door.jpg" alt="Котейка у входа подбрасывает монетку для каждого гостя" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у двери кафе подбрасывает монетку каждому гостю</figcaption></figure>
@@ -306,7 +306,7 @@
 </section>
 
 <!-- 6c -->
-<section class="card" data-title="Кто не увидел" aria-label="Кто не увидел">
+<section class="card" data-toy="unseen-dilution" data-title="Кто не увидел" aria-label="Кто не увидел">
   <span class="step-tag">Игрушка</span>
   <h2>Эффект тает, если изменение видят не все</h2>
   <p>Теперь пусть кнопка правда работает: на каждые 100 гостей, которые её увидели, приходится на 1 заказ больше. Но увидят её не все. Двигай ползунок и смотри, что останется от эффекта в сравнении целых групп.</p>
@@ -321,7 +321,7 @@
     </div>
     <div class="verdict good" id="un-v"></div>
   </div>
-  <p>Поэтому, когда тест планируют (шаг 9), сначала спрашивают: сколько гостей вообще столкнётся с изменением? Если кнопку увидит каждый десятый, тесту придётся заметить эффект в десять раз меньше, чем у тех, кто её видел.</p>
+  <p data-toy-hide>Поэтому, когда тест планируют (шаг 9), сначала спрашивают: сколько гостей вообще столкнётся с изменением? Если кнопку увидит каждый десятый, тесту придётся заметить эффект в десять раз меньше, чем у тех, кто её видел.</p>
 </section>
 
 <!-- 7 -->

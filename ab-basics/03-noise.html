@@ -58,7 +58,7 @@
 </section>
 
 <!-- 2 -->
-<section class="card" data-title="Тест без разницы" aria-label="Тест без разницы">
+<section class="card" data-toy-pre="shuffle-100" data-title="Тест без разницы" aria-label="Тест без разницы">
   <span class="step-tag">История</span>
   <h2>Алиса запускает тест, где ничего не меняется</h2>
   <div class="chat">
@@ -74,7 +74,7 @@
 </section>
 
 <!-- 3 -->
-<section class="card" data-title="Сто гостей" aria-label="Сто гостей">
+<section class="card" data-toy="shuffle-100" data-title="Сто гостей" aria-label="Сто гостей">
   <span class="step-tag">Игрушка</span>
   <h2>По сто гостей в каждой группе</h2>
   <p>Каждый кружок — гость. Закрашен — сделал заказ. Шанс заказать у всех одинаковый, 10 %. Перемешивай гостей и смотри, что выходит.</p>
@@ -87,7 +87,7 @@
     <div class="controls"><button class="btn" type="button" id="btn-shuffle">Перемешать гостей</button></div>
     <div class="verdict" id="v-grid" hidden></div>
   </div>
-  <aside class="scary">
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Тест, где обе группы видят одно и то же, называют <b class="term">A/A-тест</b>.</p>
     <p class="aside">Две буквы A вместо A и B: приложение сравнивают с ним же самим.</p>
@@ -95,7 +95,7 @@
 </section>
 
 <!-- 4 -->
-<section class="card" data-title="A/A на тысячах" aria-label="A/A на тысячах">
+<section class="card" data-toy="aa-thousands" data-title="A/A на тысячах" aria-label="A/A на тысячах">
   <span class="step-tag">Угадай, потом проверь</span>
   <h2>А если гостей тысячи?</h2>
   <p>Тот же тест без изменений, но в каждой группе по 1000 гостей. Запустим его 100 раз. Как думаешь, в скольких запусках какая-нибудь из групп обгонит другую на 10 % и больше? Например, 100 заказов против 110.</p>
@@ -123,7 +123,7 @@
 </section>
 
 <!-- 5 -->
-<section class="card" data-title="Дашборд по дням" aria-label="Дашборд по дням">
+<section class="card" data-toy="daily-dashboard" data-title="Дашборд по дням" aria-label="Дашборд по дням">
   <span class="step-tag">Игрушка</span>
   <h2>Боб каждое утро смотрит дашборд</h2>
   <figure class="art"><img loading="lazy" src="img/ab03-01-dashboard.jpg" alt="Боб у доски с двумя переплетёнными линиями: в один день радуется, в другой хватается за голову" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у дашборда, то радуется, то хватается за голову</figcaption></figure>
@@ -138,18 +138,18 @@
   <div class="chat">
     <div class="msg kot world"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, да всё одинаково! Это я раздал гостей монеткой, а заказывают они, когда проголодаются.</p></div></div>
   </div>
-  <div class="def">Разница между группами есть всегда, даже когда группы ничем не отличаются. Поэтому главный вопрос A/B-теста такой: больше ли эта разница обычного разброса?</div>
-  <aside class="scary">
+  <div class="def" data-toy-hide>Разница между группами есть всегда, даже когда группы ничем не отличаются. Поэтому главный вопрос A/B-теста такой: больше ли эта разница обычного разброса?</div>
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Этот разброс без всякого эффекта называют <b class="term">шум</b>.</p>
     <p class="aside">Как шипение в радио: оно есть всегда, вопрос в том, слышна ли сквозь него музыка.</p>
   </aside>
 </section>
 
-<section class="card" data-title="Автомат Котейки" aria-label="Автомат Котейки">
+<section class="card" data-toy="cat-slot" data-title="Автомат Котейки" aria-label="Автомат Котейки">
   <span class="step-tag">Игрушка</span>
   <h2>Котейка нашёл систему</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg kot"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. У меня в кафе автомат с игрушками и три кнопки. Я нашёл систему: правая кнопка выигрывает чаще, а после двух проигрышей надо жать среднюю.</p></div></div>
   </div>
   <p>После нажатия автомат либо пищит — выигрыш, — либо молчит. Понажимай кнопки 20–30 раз и найди, какая из них выигрышная.</p>
@@ -183,10 +183,10 @@
 </section>
 
 <!-- 5b -->
-<section class="card" data-title="Перетасуй ярлыки" aria-label="Перетасуй ярлыки">
+<section class="card" data-toy="shuffle-labels" data-title="Перетасуй ярлыки" aria-label="Перетасуй ярлыки">
   <span class="step-tag">Игрушка</span>
   <h2>Перетасуй ярлыки</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Проверил новые фото блюд на 40 гостях. Без фото — <b>1,15</b> заказа на гостя за неделю, с фото — <b>1,55</b>. Это +35 %!</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А если бы фото ничего не делали — такая разница бывала бы? Давай проверим, перетасовав ярлыки.</p></div></div>
     <div class="msg kot world"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Если фото ничего не делают, то ярлыки раздал я, как попало. Вот и вся разница.</p></div></div>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/02-salt-hash.html?toy=coin-every-visit" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Монетка при каждом заходе в приложение: что увидит гость за неделю? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Один гость, семь дней и два способа делить на группы: монетка при каждом заходе или раз и навсегда по номеру гостя.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/coin-every-visit/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/coin-every-visit/">
+<meta property="og:title" content="Монетка при каждом заходе в приложение: что увидит гость за неделю? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Один гость, семь дней и два способа делить на группы: монетка при каждом заходе или раз и навсегда по номеру гостя.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/coin-every-visit.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Монетка при каждом заходе в приложение: что увидит гость за неделю?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="coin-every-visit" data-frame="/ab-basics/02-salt-hash.html?toy=coin-every-visit"
+  data-share-title="Монетка при каждом заходе в приложение: что увидит гость за неделю?" data-share-text="Разработчик предлагает в A/B-тесте выбирать версию случайно при каждом открытии приложения: «так же поровну». Что увидит за неделю постоянный пользователь? Угадай — и проживи с ним неделю"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="coin-every-visit" data-show-from="0" hidden></span></p>
+  <h1>Монетка при каждом заходе в приложение: что увидит гость за неделю?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: человек открывает приложение — бросаем монетку. Орёл — старый экран, решка — новая кнопка.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Номер не меняется, и гость всегда видит одну версию.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Да какая разница? Монетка есть монетка: и там, и там поровну.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Вот гость, он заходит каждый день. Могу бросать ему монетку хоть каждое утро.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проживём с ним неделю и посмотрим, что он увидит при каждом способе.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>В A/B-тесте приложение само решает, кто видит старую версию, а кто новую. Боб предлагает бросать монетку при каждом заходе, Алиса — решить один раз по постоянному номеру гостя в приложении (id).</p><p>Два ряда — семь дней одного гостя: верхний — монетка при каждом заходе, нижний — по номеру. Цвет клетки — что он видел в этот день: старый экран или новую кнопку. Ответь, что будет с гостем, и нажми «Прожить неделю».</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/02-salt-hash.html?toy=coin-every-visit" title="Игрушка: Монетка при каждом заходе в приложение: что увидит гость за неделю?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/02-salt-hash.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Ответь и нажми «Прожить неделю». Сколько раз гость сменил версию в верхнем ряду?</li><li>Нажми «Другой гость» и проживи неделю ещё раз. Меняется ли что-нибудь в нижнем ряду?</li><li>Подумай: какой версии приписать заказ гостя, который видел кнопку в понедельник, а в среду — нет?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>С монеткой на каждый заход гость за неделю несколько раз переключается между версиями: сегодня кнопка есть, завтра нет. Он путается, а его заказы не приписать ни одной версии — эффект размазывается по обеим группам. По номеру группа каждый день одна и та же: гость живёт в своей версии, и сравнение групп честное.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Монетку бросают один раз на гостя, а не на каждый заход.</li><li>Делят по постоянному номеру — id пользователя (или устройства, если гость заказывает без входа).</li><li>Гость, который прыгает между группами, смешивает эффект: обе группы видят понемногу обе версии.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Общий принцип A/B-платформ: группа закрепляется за пользователем, а не за заходом.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб согласился делить по номеру гостя — и спросил, как из номера получается монетка. Хеш, соль и тысяча гостей по ячейкам — шаг 2 курса, <a href="/ab-basics/02-salt-hash.html">«Монетка, соль и хеш»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/02-salt-hash.html">Открыть шаг 2 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/unseen-dilution/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Кнопку увидел каждый десятый. Что останется от эффекта?</b><span>Эффект у тех, кто увидел изменение, и эффект в целой группе: как он тает, если кнопку видят не все.</span><small>из курса «A/B на пальцах», шаг 1</small><span class="play-count" data-count-for="unseen-dilution" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/scurvy/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Почему решать должна монетка, а не врач?</b><span>Опыт с цингой на корабле: лимоны, которые ничего не делают, и врач Котейка, который раздаёт их «кому нужнее».</span><small>из курса «A/B на пальцах», шаг 2</small><span class="play-count" data-count-for="scurvy" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/coin-split/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>«До и после» или монетка: какой способ ближе к правде?</b><span>Сто экспериментов в случайные дни года: кнопка с известным эффектом и два способа его измерить.</span><small>из курса «A/B на пальцах», шаг 1</small><span class="play-count" data-count-for="coin-split" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

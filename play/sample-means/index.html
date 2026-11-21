@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/04-clt.html?toy=sample-means" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Тянем выборки по 1, 10, 100 и 1000 гостей и складываем их средние: как из кривой горки вырастает колокол.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/sample-means/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/sample-means/">
+<meta property="og:title" content="Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Тянем выборки по 1, 10, 100 и 1000 гостей и складываем их средние: как из кривой горки вырастает колокол.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/sample-means.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="sample-means" data-frame="/ab-basics/04-clt.html?toy=sample-means"
+  data-share-title="Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей?" data-share-text="Метрика A/B-теста — заказы на пользователя: у большинства ноль, у редких фанатов десятки. Аналитик всё равно считает интервал по колоколу. Почему это работает? Угадай форму средних — и собери их"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="sample-means" data-show-from="0" hidden></span></p>
+  <h1>Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Больше половины гостей за неделю не заказывают ничего, а редкие фанаты — по десять раз. Как тут вообще что-то предсказать?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Про одного гостя — никак. А если взять сто случайных гостей и посчитать их среднее?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Могу тянуть по сто гостей хоть пятьсот раз. Каждый раз — новых.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот и посмотрим, какой формы будет гистограмма этих средних.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Сверху — сколько заказов делает за неделю один гость: больше половины — ноль, многие — один-два, редкие фанаты — десять и больше. В среднем около одного заказа на человека. Ответь, какой формы будет гистограмма средних по 100 гостям.</p><p>Ниже выбери размер выборки и тяни выборки: каждая даёт одно число — среднее число заказов у этих гостей. Гистограмма собирает эти средние. «Наложить колокол» покажет теоретическую кривую для сравнения.</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab04-00-galton.jpg" alt="Котейка сыплет кофейные зёрна в доску с гвоздиками, внизу они складываются в горку" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/04-clt.html?toy=sample-means" title="Игрушка: Заказы гостя — горка у нуля. Какой формы будут средние по сотне гостей?" style="height:1600px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/04-clt.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Ответь, потом поставь «по 100» и добавь 500 выборок. Какой формы гистограмма?</li><li>Переключи на «по 1» и «по 10». Где колокола ещё нет?</li><li>Поставь «по 1000». Как изменилась ширина горки?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>По одному гостю гистограмма повторяет исходную горку у нуля — колокола нет. По 10 гостям уже похоже на колокол, но кривой, с хвостом вправо. А средние по 100 гостям собираются в аккуратный колокол вокруг 1,00 и почти совпадают с теоретической кривой. Чем больше гостей в выборке, тем уже колокол: средние по 100 разбросаны примерно на ±0,24, по 1000 — на ±0,08. Крайности гасят друг друга.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Один гость непредсказуем, а среднее по толпе ложится колоколом вокруг правды. Это центральная предельная теорема (ЦПТ).</li><li>Нужно, чтобы людей было много и они не зависели друг от друга.</li><li>Чем тяжелее хвост (выручка, банкеты), тем больше людей нужно для колокола.</li><li>В 10 раз больше гостей в выборке — колокол примерно в 3 раза уже.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Центральная предельная теорема — классический результат теории вероятностей. Заказы гостей в игрушке смоделированы.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Колокол собрался, и Боб спросил: как платформа видит этот колокол, если эксперимент у неё один? Ответ — корзины, шаг 4 курса, <a href="/ab-basics/04-clt.html">«Толпа предсказуема»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/04-clt.html">Открыть шаг 4 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/jelly-jar/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Сколько драже в банке? Толпа угадает лучше тебя?</b><span>Конкурс у кассы: твоя догадка, догадки двухсот гостей, их среднее и медиана — и правда.</span><small>из курса «A/B на пальцах», шаг 4</small><span class="play-count" data-count-for="jelly-jar" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/buckets/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Эксперимент один. Как платформа узнаёт, насколько шатается среднее?</b><span>Двадцать тысяч гостей по 256 корзинам: как из одной группы получить сотни «маленьких экспериментов» и увидеть шум.</span><small>из курса «A/B на пальцах», шаг 4</small><span class="play-count" data-count-for="buckets" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/big-order/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Один заказ на 50 000 ₽: что станет со средним чеком?</b><span>Двадцать обычных чеков и один корпоратив: как один выброс двигает среднее и почти не трогает медиану.</span><small>из курса «A/B на пальцах», шаг 4</small><span class="play-count" data-count-for="big-order" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

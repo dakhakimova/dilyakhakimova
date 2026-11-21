@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/01-before-after.html?toy=coin-split" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>«До и после» или монетка: какой способ ближе к правде? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сто экспериментов в случайные дни года: кнопка с известным эффектом и два способа его измерить.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/coin-split/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/coin-split/">
+<meta property="og:title" content="«До и после» или монетка: какой способ ближе к правде? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сто экспериментов в случайные дни года: кнопка с известным эффектом и два способа его измерить.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/coin-split.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">«До и после» или монетка: какой способ ближе к правде?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="coin-split" data-frame="/ab-basics/01-before-after.html?toy=coin-split"
+  data-share-title="«До и после» или монетка: какой способ ближе к правде?" data-share-text="Продакт предлагает не тратить время на A/B-тест: «сравним неделю до релиза и неделю после». Насколько такое сравнение промахивается мимо правды? Угадай — и проверь на сотне экспериментов"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="coin-split" data-show-from="0" hidden></span></p>
+  <h1>«До и после» или монетка: какой способ ближе к правде?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай по-другому: каждому гостю подбросим монетку. Орёл — видит новую кнопку, решка — старое приложение.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем так сложно? Сравню неделю до и неделю после — и всё видно.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Пусть кнопка на самом деле даёт +2 % заказов. Я выберу случайный день года и выпущу её.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А мы посчитаем эффект двумя способами и сравним с правдой. Какой окажется ближе?</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Здесь правда известна: кнопка поднимает заказы на столько, сколько стоит на ползунке. Каждый запуск — релиз в случайный день года. Способ 1, «до и после»: неделя до против недели после. Способ 2, по монетке: те же 14 дней, половина гостей видит старое приложение, половина — новую кнопку.</p><p>Ниже каждый эксперимент становится точкой — какой эффект он показал. Зелёная линия — правда. Чем плотнее точки у линии, тем честнее способ. Запусти один эксперимент, потом сотню.</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab01-02-coin-door.jpg" alt="Котейка у входа в кафе подбрасывает монетку для каждого гостя" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/01-before-after.html?toy=coin-split" title="Игрушка: «До и после» или монетка: какой способ ближе к правде?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/01-before-after.html#card-9">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Запусти один эксперимент. Какой способ оказался ближе к +2 %?</li><li>Нажми «Ещё 100 экспериментов». На сколько в среднем промахивается каждый способ?</li><li>Поставь настоящий эффект 0 % и начни сначала. Что теперь показывает «до и после»?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>На сотне экспериментов «до и после» в среднем промахивается мимо правды примерно на 3 %: при правде +2 % оно легко показывает +5 % или минус. Сравнение групп по монетке промахивается меньше чем на полпроцента. Сезон, праздники и погода у двух групп общие, поэтому в разнице их нет. Остаётся только случайность — небольшая, и её можно измерить.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>A/B-тест — две группы в одни и те же дни; кому что досталось, решает монетка.</li><li>Монетка не делает группы одинаковыми: она делает различия между ними случайными.</li><li>Случайность — это шум. Его можно измерить, а сезон в «до и после» — нет.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Принцип рандомизированного эксперимента: группы живут в одно время, а делит их случай. Заказы кафе в игрушке смоделированы.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Монетка победила. Но тут Боб решил считать в группе B только тех, кто кнопку увидел, — и эффект подскочил. Что с этим не так — шаг 1 курса, <a href="/ab-basics/01-before-after.html">«До и после — не доказательство»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/01-before-after.html">Открыть шаг 1 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/keyhole/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Неделя до и неделя после релиза: +15 %. Это кнопка?</b><span>Заказы кафе за четыре месяца и тот же декабрь год назад: что прячет сравнение «неделя до — неделя после».</span><small>из курса «A/B на пальцах», шаг 1</small><span class="play-count" data-count-for="keyhole" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/unseen-dilution/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Кнопку увидел каждый десятый. Что останется от эффекта?</b><span>Эффект у тех, кто увидел изменение, и эффект в целой группе: как он тает, если кнопку видят не все.</span><small>из курса «A/B на пальцах», шаг 1</small><span class="play-count" data-count-for="unseen-dilution" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/worst-cafes/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Промо в пяти худших кафе — и через неделю они выросли. Это промо?</b><span>Двадцать кафе, промо для пяти худших и одна прошедшая неделя: откуда берётся рост, если промо не делает ничего.</span><small>из курса «A/B на пальцах», шаг 1</small><span class="play-count" data-count-for="worst-cafes" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
