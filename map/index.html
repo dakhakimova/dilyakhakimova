@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Тексты страницы — в i18n/site.js и i18n/map.js, навыки и маршруты — в map/skills.json (проверка: node tools/check-map.js). Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
+<title data-i18n="meta.title">Карта навыков: что ты научишься делать и в каком порядке · Диля Хакимова</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
+<link rel="canonical" href="https://dilyakhakimova.com/map/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dilyakhakimova.com/map/">
+<meta property="og:title" data-i18n-attr="content:m.title" content="Карта навыков">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/course.css?v=202611221">
+<link rel="stylesheet" href="/map/map.css?v=202611230">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">К содержанию</a>
+
+<header class="top wrap wide">
+  <div class="brand">
+    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
+    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
+    <a href="/map/" aria-current="page" data-i18n="nav.map">Карта навыков</a>
+    <a href="/#play" data-i18n="nav.play">Игрушки</a>
+    <a href="/#read" data-i18n="nav.read">Статьи</a>
+    <a href="/about/" data-i18n="nav.about">Об авторе</a>
+    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+  </nav>
+</header>
+<nav class="crumbs wrap wide" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
+    <li><span aria-current="page" data-i18n="m.title">Карта навыков</span></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+<section class="wrap wide m-hero">
+  <h1 data-i18n="m.title">Карта навыков</h1>
+  <p class="sub" data-i18n="m.sub">Что ты научишься делать в каждом курсе и в каком порядке. Каждый навык — действие, которое можно сделать на работе или на собеседовании.</p>
+  <p class="m-how" data-i18n="m.how">Стрелка ведёт от навыка, который нужен заранее, к тому, что он открывает. Нажми на навык — увидишь, где он в курсе и что нужно до него.</p>
+  <div class="m-legend" role="group" data-i18n-attr="aria-label:legend.label" aria-label="Как читать карту">
+    <span><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">Начальный</span></span>
+    <span><span class="lvl l2" aria-hidden="true"></span><span data-i18n="lvl.2">Средний</span></span>
+    <span><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">Продвинутый</span></span>
+    <span><span class="tag free" data-i18n="free">бесплатно</span><span data-i18n="legend.free">бесплатно, можно начать сейчас</span></span>
+    <span><span class="tag soon" data-i18n="soon">скоро</span><span data-i18n="legend.soon">платно, скоро — зима 2027</span></span>
+    <span><span class="tag main-tag" data-i18n="ui.main">главное</span><span data-i18n="legend.main">главное действие курса</span></span>
+    <span class="arrow-key"><svg width="40" height="12" aria-hidden="true"><path d="M2 6H30" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M30 2l7 4-7 4z" fill="currentColor"/></svg><span data-i18n="legend.arrow">нужно до</span></span>
+  </div>
+</section>
+
+<section class="wrap wide m-controls">
+  <div class="plate here" id="here" aria-live="polite">
+    <h2 class="here-h" data-i18n="here.title">Ты здесь</h2>
+    <div id="here-body"></div>
+  </div>
+  <div class="route-pick" role="group" aria-labelledby="route-h">
+    <h2 id="route-h" class="route-h" data-i18n="routes.label">Показать путь для</h2>
+    <div class="route-btns" id="route-btns"></div>
+    <p class="route-info" id="route-info" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="wrap wide m-graph-wrap">
+  <noscript><p class="plate" data-i18n="noscript">Карта рисуется скриптом. Без него вот курсы по порядку: <a href="/probability/">«Вероятность на пальцах»</a>, <a href="/signal/">«Сигнал или шум»</a>, <a href="/ab-basics/">«A/B на пальцах»</a>, <a href="/stats/">«Прикладная статистика для аналитика»</a>, <a href="/ab/">«A/B без мифов»</a>, <a href="/causal/">Causal inference</a>.</p></noscript>
+  <div class="m-graph" id="graph" role="region" data-i18n-attr="aria-label:graph.label" aria-label="Карта навыков: шесть курсов слева направо, от входа к продвинутому">
+    <svg class="edges" id="edges" aria-hidden="true" focusable="false"></svg>
+    <div class="cols" id="cols"></div>
+  </div>
+</section>
+
+<section class="wrap wide block" id="bounds" aria-labelledby="bounds-h">
+  <h2 id="bounds-h" data-i18n="bounds.title">Честные границы: где метод ломается и что дальше</h2>
+  <p class="lead-note" data-i18n="bounds.lead">У каждого курса есть место, где его инструменты перестают работать. Это не недостаток, а повод для следующего курса.</p>
+  <ol class="bounds" id="bounds-list" role="list"></ol>
+</section>
+
+<aside class="panel-side" id="panel" role="dialog" aria-modal="false" aria-labelledby="p-title" hidden>
+  <button type="button" class="p-close" id="p-close" data-i18n-attr="aria-label:ui.close" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+  <div id="p-body"></div>
+</aside>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2 data-i18n="foot.courses">Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
+        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
+        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
+        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2 data-i18n="foot.more">Ещё</h2>
+      <ul role="list">
+        <li><a href="/map/" aria-current="page" data-i18n="nav.map">Карта навыков</a></li>
+        <li><a href="/#play" data-i18n="nav.play">Игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
+        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
+        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/i18n/site.js?v=202611230"></script>
+<script src="/i18n/map.js?v=202611230"></script>
+<script src="/landing.js?v=202611221"></script>
+<script src="/map/map.js?v=202611230"></script>
+</body>
+</html>

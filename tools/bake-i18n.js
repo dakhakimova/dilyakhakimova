@@ -4,14 +4,14 @@
    node tools/bake-i18n.js en    — собрать en/<страница> с английским словарём (когда будет перевод;
                                    не забыть hreflang на обеих версиях и показать переключатель в шапке)
    Словари страницы — те i18n/*.js, что подключены в ней тегами <script src="/i18n/…">, в том же порядке
-   (главная: i18n/home.js; лендинги курсов: i18n/site.js + i18n/<курс>.js; «Об авторе»: i18n/site.js + i18n/about.js).
+   (главная: i18n/home.js; лендинги курсов: i18n/site.js + i18n/<курс>.js; «Об авторе»: i18n/site.js + i18n/about.js; «Карта навыков»: i18n/site.js + i18n/map.js).
    Правило разметки: у элемента с data-i18n всё содержимое берётся из словаря; data-i18n-attr="атрибут:ключ;…".
 
    TYPO_ONLY — страницы без словаря (оглавления «Сигнала» и «A/B на пальцах»): там типограф (неразрывные пробелы,
    тире) прогоняется только по кускам между <!-- typo --> и <!-- /typo -->. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
-const PAGES = ['index.html', 'probability/index.html', 'stats/index.html', 'ab/index.html', 'causal/index.html', 'about/index.html'];
+const PAGES = ['index.html', 'probability/index.html', 'stats/index.html', 'ab/index.html', 'causal/index.html', 'about/index.html', 'map/index.html'];
 const TYPO_ONLY = ['signal/index.html', 'ab-basics/index.html'];
 const target = process.argv[2] === '--typo' ? undefined : process.argv[2];
 
