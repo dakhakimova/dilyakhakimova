@@ -41,10 +41,10 @@
 </section>
 
 <!-- 2 -->
-<section class="card" data-title="Монетка каждый раз" aria-label="Монетка каждый раз">
+<section class="card" data-toy="coin-every-visit" data-title="Монетка каждый раз" aria-label="Монетка каждый раз">
   <span class="step-tag">История</span>
   <h2>Боб предлагает бросать монетку при каждом заходе</h2>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: когда человек открывает приложение, берём случайное число от 0 до 1. Меньше 0,5 — старый экран, больше — новая кнопка.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Такой номер у каждого свой и не меняется, поэтому гость всегда видит одну и ту же версию.</p></div></div>
   </div>
@@ -64,7 +64,7 @@
 </section>
 
 <!-- 2b -->
-<section class="card" data-title="Цинга и монетка" aria-label="Цинга и монетка">
+<section class="card" data-toy="scurvy" data-title="Цинга и монетка" aria-label="Цинга и монетка">
   <span class="step-tag">Игрушка</span>
   <h2>Почему решать должна монетка, а не мы</h2>
   <p>Почти 300 лет назад корабельный врач проверял, помогают ли от цинги лимоны. Сыграем в его опыт. На корабле 40 больных моряков: 20 болеют легко, 20 тяжело. За неделю лёгкие обычно выздоравливают, тяжёлые — редко. А лимоны в нашей игре <b>не делают ничего</b>.</p>
@@ -90,7 +90,7 @@
     </div>
     <div class="verdict" id="ship-v" hidden></div>
   </div>
-  <div class="chat">
+  <div class="chat" data-toy-hide>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где-то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
   </div>
@@ -116,10 +116,10 @@
 </section>
 
 <!-- 3 -->
-<section class="card" data-title="Хеш-машина" aria-label="Хеш-машина">
+<section class="card" data-toy="hash-machine" data-title="Хеш-машина" aria-label="Хеш-машина">
   <span class="step-tag">Игрушка</span>
   <h2>Хеш: монетка, которая помнит</h2>
-  <p>Приложение берёт <b>id гостя</b>, приклеивает к нему <b>название эксперимента</b> (зачем — разберём через пару карточек) и пропускает через хеш-функцию. Хеш-функция — как мясорубка для текста: из одного и того же текста всегда выходит одно и то же число, а из чуть другого текста — совсем другое. Остаток от деления на 100 — номер ячейки от 0 до 99. Ячейки 0–49 — старый экран, 50–99 — новая кнопка.</p>
+  <p>Приложение берёт <b>id гостя</b>, приклеивает к нему <b>название эксперимента</b><span data-toy-hide> (зачем — разберём через пару карточек)</span> и пропускает через хеш-функцию. Хеш-функция — как мясорубка для текста: из одного и того же текста всегда выходит одно и то же число, а из чуть другого текста — совсем другое. Остаток от деления на 100 — номер ячейки от 0 до 99. Ячейки 0–49 — старый экран, 50–99 — новая кнопка.</p>
   <div class="sheet c-white">
     <div class="twoinputs">
       <label for="uid">id гостя<input id="uid" type="text" value="user_48213" autocomplete="off" spellcheck="false"></label>
@@ -136,13 +136,13 @@
       <button class="btn ghost" type="button" id="btn-rand-id">Случайный гость</button>
       <button class="btn ghost" type="button" id="btn-salt">Другой эксперимент</button>
     </div>
-    <table class="hist-log" aria-label="Последние проверки"><thead><tr><th>id</th><th>эксперимент</th><th>ячейка</th><th>группа</th></tr></thead><tbody id="h-log"></tbody></table>
+    <div style="overflow-x:auto"><table class="hist-log" aria-label="Последние проверки"><thead><tr><th>id</th><th>эксперимент</th><th>ячейка</th><th>группа</th></tr></thead><tbody id="h-log"></tbody></table></div>
     <p class="note">Нажми «Соседний id» несколько раз: id почти одинаковые, а ячейки разбросаны как попало. А если вернуть прежний id, ячейка будет прежней.</p>
   </div>
 </section>
 
 <!-- 4 -->
-<section class="card" data-title="1000 гостей" aria-label="1000 гостей">
+<section class="card" data-toy="hash-thousand" data-title="1000 гостей" aria-label="1000 гостей">
   <span class="step-tag">Угадай, потом проверь</span>
   <h2>Тысяча гостей по ячейкам</h2>
   <p>Пропустим через хеш 1000 гостей. Половина ячеек — тест. Сколько гостей окажется в тесте?</p>
@@ -169,7 +169,7 @@
 </section>
 
 <!-- 5 -->
-<section class="card" data-title="Зачем соль" aria-label="Зачем соль">
+<section class="card" data-toy="salt" data-title="Зачем соль" aria-label="Зачем соль">
   <span class="step-tag">Почему так</span>
   <h2>Название эксперимента — это соль</h2>
   <figure class="art"><img loading="lazy" src="img/ab02-01-eternal-testers.jpg" alt="Одни и те же гости раз за разом попадают в оранжевую дверь и устало вздыхают" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: одни и те же гости раз за разом попадают в оранжевую дверь</figcaption></figure>
