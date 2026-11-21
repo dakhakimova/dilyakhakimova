@@ -93,7 +93,7 @@
 </section>
 
 <!-- 4: прогноз -->
-<section class="card" data-title="Угадай" aria-label="Угадай">
+<section class="card" data-toy-pre="two-bells" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Эффект ровно на пороге — заметим?</h2>
   <div class="chat">
@@ -108,7 +108,7 @@
 </section>
 
 <!-- 5: главная игрушка -->
-<section class="card" data-title="Два колокола" aria-label="Два колокола">
+<section class="card" data-toy="two-bells" data-title="Два колокола" aria-label="Два колокола">
   <span class="step-tag">Главная игрушка</span>
   <h2>Два колокола: α, β и мощность</h2>
   <p>Серый колокол — где окажется разница, если эффекта нет. Оранжевый — если эффект равен δ. Пунктир — порог: правее него тест прокрашивается. Конверсия контроля 10 %.</p>
@@ -123,14 +123,14 @@
       <button class="btn ghost" type="button" data-a="0.1" aria-pressed="false">α = 10 %</button>
       <button class="btn ghost" type="button" id="b-one" aria-pressed="false">Односторонний</button>
     </div>
-    <div class="counts c5">
+    <div class="counts c5" data-toy-reveal>
       <div><b id="b-se">—</b>SE разности, на 100 гостей</div>
       <div><b id="b-thr">—</b>порог, на 100 гостей</div>
       <div><b id="b-a">—</b><i style="background:var(--trap)"></i>α</div>
       <div><b id="b-b">—</b><i style="background:#C9A43A"></i>β</div>
       <div><b id="b-p">—</b><i style="background:var(--test)"></i>мощность</div>
     </div>
-    <div class="verdict" id="b-v"></div>
+    <div class="verdict" id="b-v" data-toy-reveal></div>
   </div>
 </section>
 
@@ -157,7 +157,7 @@
 </section>
 
 <!-- 7: кривая мощности и MDE -->
-<section class="card" data-title="MDE" aria-label="MDE">
+<section class="card" data-toy="power-curve" data-title="MDE" aria-label="MDE">
   <span class="step-tag">Малый график</span>
   <h2>Какой эффект ты вообще заметишь</h2>
   <p>Кривая мощности: по горизонтали — истинный эффект, по вертикали — доля тестов, где он прокрасится. α = 5 %, двусторонний, конверсия 10 %. Двигай число гостей.</p>
@@ -166,12 +166,12 @@
     <label class="field">Гостей в группе <input type="range" id="pc-n" min="0" max="6" step="1" value="3"> <b id="pc-nt" class="num"></b></label>
     <div class="verdict" id="pc-v"></div>
   </div>
-  <p>Эффект, который тест замечает в 8 случаях из 10, считается заранее:</p>
-  <p class="formula">MDE = (z<sub>1−α/2</sub> + z<sub>1−β</sub>)·SE ≈ 2,8·√(2p(1 − p)/n)</p>
-  <p>При 10 % и 10 000 гостях в группе MDE ≈ 2,8·0,42 ≈ 1,19 заказа на 100 гостей. Отсюда и обратная формула — сколько гостей нужно, чтобы заметить эффект δ:</p>
-  <p class="formula">n ≈ 2·(z<sub>1−α/2</sub> + z<sub>1−β</sub>)²·p(1 − p) / δ²</p>
-  <p>Для +1 заказа на 100 гостей: 2·2,8²·0,09 / 0,01² ≈ 14 128 гостей в группе. Для +0,5 — вчетверо больше, около 56 500: MDE падает как 1/√n.</p>
-  <aside class="scary">
+  <p data-toy-reveal>Эффект, который тест замечает в 8 случаях из 10, считается заранее:</p>
+  <p class="formula" data-toy-reveal>MDE = (z<sub>1−α/2</sub> + z<sub>1−β</sub>)·SE ≈ 2,8·√(2p(1 − p)/n)</p>
+  <p data-toy-reveal>При 10 % и 10 000 гостях в группе MDE ≈ 2,8·0,42 ≈ 1,19 заказа на 100 гостей. Отсюда и обратная формула — сколько гостей нужно, чтобы заметить эффект δ:</p>
+  <p class="formula" data-toy-reveal>n ≈ 2·(z<sub>1−α/2</sub> + z<sub>1−β</sub>)²·p(1 − p) / δ²</p>
+  <p data-toy-reveal>Для +1 заказа на 100 гостей: 2·2,8²·0,09 / 0,01² ≈ 14 128 гостей в группе. Для +0,5 — вчетверо больше, около 56 500: MDE падает как 1/√n.</p>
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p><b class="term">MDE</b> (minimum detectable effect) — минимальный эффект, который тест заметит с заданной мощностью.</p>
     <p class="aside">Звучит солидно, а это просто «эффект, который мы поймаем в 8 случаях из 10».</p>
@@ -179,9 +179,9 @@
 </section>
 
 <!-- 8: проклятие победителя -->
-<section class="card" data-title="Проклятие победителя" aria-label="Проклятие победителя">
+<section class="card" data-toy="winners-curse" data-title="Проклятие победителя" aria-label="Проклятие победителя">
   <span class="step-tag">Чем опасна низкая мощность</span>
-  <h2>Слабый тест завышает победы</h2>
+  <h2 data-toy-hide>Слабый тест завышает победы</h2>
   <p>Кнопка правда даёт +0,1 заказа на 100 гостей. В группе по 60 000 гостей, SE разности — 0,17. Мощность такого теста — около 9 %. Запусти 1000 таких тестов и посмотри, какие из них прокрасились.</p>
   <div class="sheet c-white">
     <canvas id="wc" role="img" aria-label="Оценки эффекта в 1000 одинаковых тестах; прокрасившиеся подсвечены и лежат далеко от истинного эффекта"></canvas>
@@ -189,8 +189,8 @@
     <div class="controls"><button class="btn" type="button" id="wc-run">Провести 1000 тестов</button></div>
     <div class="verdict" id="wc-v" hidden></div>
   </div>
-  <p>Прокрашиваются только те тесты, где шум случайно раздул разницу. Поэтому у победителей оценка эффекта в среднем в 4 раза больше правды, а около 6 из 100 прокрасившихся показывают даже не тот знак. Чем выше мощность, тем меньше завышение: при 80 % — примерно на 12 %.</p>
-  <aside class="scary">
+  <p data-toy-reveal>Прокрашиваются только те тесты, где шум случайно раздул разницу. Поэтому у победителей оценка эффекта в среднем в 4 раза больше правды, а около 6 из 100 прокрасившихся показывают даже не тот знак. Чем выше мощность, тем меньше завышение: при 80 % — примерно на 12 %.</p>
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Это <b class="term">проклятие победителя</b> (winner's curse); завышение величины называют ошибкой типа M, неверный знак — ошибкой типа S.</p>
     <p class="aside">Звучит солидно, а это просто «кто выиграл лотерею шума, тот и выглядит героем».</p>

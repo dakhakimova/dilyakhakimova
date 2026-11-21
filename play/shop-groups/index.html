@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/01-probability.html?toy=shop-groups" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Конверсия 5 %. Из 20 гостей закажет ровно один? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Гости приходят группами по 20, каждый заказывает с шансом 5 %. В какой доле групп заказ ровно один?">
+<link rel="canonical" href="https://dilyakhakimova.com/play/shop-groups/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/shop-groups/">
+<meta property="og:title" content="Конверсия 5 %. Из 20 гостей закажет ровно один? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Гости приходят группами по 20, каждый заказывает с шансом 5 %. В какой доле групп заказ ровно один?">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/shop-groups.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Конверсия 5 %. Из 20 гостей закажет ровно один?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="shop-groups" data-frame="/signal/01-probability.html?toy=shop-groups"
+  data-share-title="Конверсия 5 %. Из 20 гостей закажет ровно один?" data-share-text="Продакт: «конверсия 5 %, значит, из каждых 20 гостей ровно один закажет» — и строит на этом план смены. Как часто в группе из 20 правда ровно один заказ? Угадай и проверь на тысяче групп"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="shop-groups" data-show-from="0" hidden></span></p>
+  <h1>Конверсия 5 %. Из 20 гостей закажет ровно один?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Конверсия в заказ у нас 5 %. Значит, из каждых 20 гостей приложения ровно один что-нибудь закажет.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">В среднем — один. А как часто ровно один?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Каждый гость у меня — кривая монетка: «заказал» выпадает в одном случае из двадцати.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Почти всегда, наверное. Ну, иногда двое.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запустим тысячу групп по 20 гостей и посчитаем.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Каждая точка — гость, красная — сделал заказ. Каждый заказывает с шансом 5 % независимо от других, как кривая монетка. Гости приходят группами по 20.</p><p>Столбики — какая доля групп оказалась с 0, 1, 2, 3, 4 и 5+ заказами. Запиши догадку, в какой доле групп заказ ровно один, и запускай группы.</p></div>
+    <figure class="art"><img src="/signal/img/ch01-01-bob-question.jpg" alt="Боб у доски с круговой диаграммой «5 %», перед ним очередь из двадцати гостей, Алиса сомневается" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/01-probability.html?toy=shop-groups" title="Игрушка: Конверсия 5 %. Из 20 гостей закажет ровно один?" style="height:1050px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/01-probability.html#card-6">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Запиши догадку и нажми «+1000 групп». В какой доле групп ровно один заказ?</li><li>А в какой доле групп нет ни одного заказа?</li><li>Сравни общую долю заказавших со столбиком «1». Почему 5 % — не «один из каждых двадцати»?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Общая доля заказавших быстро подходит к 5 % — это и есть вероятность. Но группы ведут себя совсем не «по среднему»: ровно один заказ только примерно в 38 % групп, ни одного — примерно в 36 %, а в каждой четвёртой группе заказов два и больше. «5 %» описывает долгую серию, а не каждую маленькую порцию.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>P(ровно 1 из 20) = 20 · 0,05 · 0,95¹⁹ ≈ 37,7 %.</li><li>P(ни одного из 20) = 0,95²⁰ ≈ 35,8 %.</li><li>Среднее число заказов в группе — 1, но «ровно 1» бывает реже, чем в половине групп.</li><li>Чем меньше порция, тем сильнее она скачет вокруг средней доли.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Классическая задача о биномиальном распределении.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб перестал делить гостей на двадцатки и спросил: если у каждой из ста лампочек 1 % перегореть, сломается ли хоть что-нибудь? Это глава 1 курса — <a href="/signal/01-probability.html">«Вероятность — это доля в штуках»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/01-probability.html">Открыть глава 1 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/coin-ten/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Монетку бросили 10 раз. Как часто выпадет ровно пять орлов?</b><span>Тысячи серий по 10 бросков монетки: доля орлов ползёт к половине, а ровно пять из десяти выпадает реже, чем кажется.</span><small>из курса «Сигнал или шум», глава 1</small><span class="play-count" data-count-for="coin-ten" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/at-least-one/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>100 лампочек, у каждой 1 % перегореть за год. Перегорит хоть одна?</b><span>«Хотя бы один» через противоположное: двигай число лампочек и шанс отказа и смотри, как быстро «почти ничего» превращается в «почти наверняка».</span><small>из курса «Сигнал или шум», глава 1</small><span class="play-count" data-count-for="at-least-one" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/winners-curse/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Тест еле прокрасился: эффект правда такой, как в отчёте?</b><span>Тысяча одинаковых слабых тестов кнопки с крошечным настоящим эффектом. Какую оценку эффекта покажут те, что прокрасились?</span><small>из курса «Сигнал или шум», глава 11</small><span class="play-count" data-count-for="winners-curse" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

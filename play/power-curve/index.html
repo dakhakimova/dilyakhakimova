@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/11-errors.html?toy=power-curve" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Какой эффект тест вообще заметит? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Кривая мощности: какую долю тестов прокрасит эффект каждого размера — и сколько гостей нужно, чтобы заметить маленький.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/power-curve/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/power-curve/">
+<meta property="og:title" content="Какой эффект тест вообще заметит? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Кривая мощности: какую долю тестов прокрасит эффект каждого размера — и сколько гостей нужно, чтобы заметить маленький.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/power-curve.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Какой эффект тест вообще заметит?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="power-curve" data-frame="/signal/11-errors.html?toy=power-curve"
+  data-share-title="Какой эффект тест вообще заметит?" data-share-text="Продакт ждёт от новой подписи на кнопке +0,5 заказа на 100 гостей и готов дать тесту по 10 000 гостей в группу. В какой доле таких тестов эффект прокрасится? Угадай и посмотри на кривую мощности"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="power-curve" data-show-from="0" hidden></span></p>
+  <h1>Какой эффект тест вообще заметит?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Хочу протестировать новую подпись на кнопке заказа. Жду +0,5 заказа на 100 гостей. Погоняем по 10 000 гостей в группе.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А какой эффект такой тест вообще способен заметить? Маленькие тонут в шуме.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Любой заметит, если он есть. Ну, p-value будет побольше.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Мой шум не зависит от того, насколько ты надеешься.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай нарисуем для каждого размера эффекта, в какой доле тестов он прокрасится.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>По горизонтали — настоящий эффект в заказах на 100 гостей, по вертикали — доля тестов, где он прокрасится, то есть мощность. Конверсия контроля 10 %, порог значимости 5 %, двусторонний тест.</p><p>На кривой отмечен эффект, который тест замечает в 8 случаях из 10, — MDE, minimum detectable effect. Подумай, какой он при 10 000 гостях в группе и заметит ли тест эффект Боба +0,5. Потом двигай число гостей.</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab09-00-telescope.jpg" alt="Алиса смотрит в телескоп на кофейные зёрна: крупные видны, самые мелкие расплываются" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/11-errors.html?toy=power-curve" title="Игрушка: Какой эффект тест вообще заметит?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/11-errors.html#card-6">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Найди на кривой MDE при 10 000 гостях. Он больше или меньше +0,5?</li><li>Поставь 40 000 гостей. Во сколько раз уменьшился MDE?</li><li>Какое число гостей нужно, чтобы +0,5 замечался хотя бы в 8 тестах из 10?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>При 10 000 гостях в группе MDE около 1,19 заказа на 100 гостей: такой эффект тест заметит в 8 случаях из 10. Эффект Боба +0,5 он поймает лишь примерно в каждом пятом тесте. MDE падает как 1/√n: вчетверо больше гостей — вдвое меньше MDE. Чтобы замечать +0,5, нужно около 56 500 гостей в группе.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>MDE ≈ 2,8 · SE = 2,8 · √(2p(1 − p)/n) при α = 5 % и мощности 80 %.</li><li>Сколько гостей нужно: n ≈ 2 · 2,8² · p(1 − p) / δ².</li><li>p = 10 %, n = 10 000 в группе: MDE ≈ 1,19 заказа на 100 гостей.</li><li>Вдвое меньший эффект — вчетверо больше гостей.</li><li>MDE считают до запуска. Ждёшь эффект меньше MDE — тест почти наверняка промолчит.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Классический расчёт мощности и размера выборки для теста двух долей.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб согласился ждать больше гостей. А Алиса показала, что бывает, если запускать слабые тесты и верить победителям. Это глава 11 курса — <a href="/signal/11-errors.html">«Ошибки I и II рода»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/11-errors.html">Открыть глава 11 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/two-bells/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Эффект ровно на пороге значимости — тест его поймает?</b><span>Два колокола — мир без эффекта и мир с эффектом. Двигай эффект, число гостей и порог: какую долю настоящих эффектов тест пропускает?</span><small>из курса «Сигнал или шум», глава 11</small><span class="play-count" data-count-for="two-bells" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/year-of-tests/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>За год прокрасилось 125 тестов из 1000. Сколько побед настоящие?</b><span>Тысяча A/B-тестов за год: доля рабочих идей, мощность и α решают, сколько зелёного в отчёте — подарки шума.</span><small>из курса «Сигнал или шум», глава 12</small><span class="play-count" data-count-for="year-of-tests" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/ci-candidates/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Какие эффекты остались живы после теста?</b><span>Тест показал +0,65 заказа на 100 гостей. Проверь кандидатов на правду по одному — и увидишь, откуда берётся доверительный интервал.</span><small>из курса «Сигнал или шум», глава 10</small><span class="play-count" data-count-for="ci-candidates" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

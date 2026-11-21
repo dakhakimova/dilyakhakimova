@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/06-zoo.html?toy=mean-median" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Один банкет — куда поедут среднее и медиана? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сто чеков завтраков и один банкет: двигай размер банкета и смотри, что происходит со средним чеком и медианой.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/mean-median/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/mean-median/">
+<meta property="og:title" content="Один банкет — куда поедут среднее и медиана? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сто чеков завтраков и один банкет: двигай размер банкета и смотри, что происходит со средним чеком и медианой.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/mean-median.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Один банкет — куда поедут среднее и медиана?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="mean-median" data-frame="/signal/06-zoo.html?toy=mean-median"
+  data-share-title="Один банкет — куда поедут среднее и медиана?" data-share-text="Средний чек за утро в отчёте вырос вдвое, и продакт празднует. За утро был один банкет на 40 000 ₽ и сто завтраков. Что стало с медианой? Угадай и проверь"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="mean-median" data-show-from="0" hidden></span></p>
+  <h1>Один банкет — куда поедут среднее и медиана?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Утром продали 100 завтраков, а потом пришёл заказ на банкет. Средний чек утра — рекорд!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А типичный гость утром тратил больше обычного?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Раз средний чек вырос, значит, все стали тратить больше.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я просто положил на весы один большой заказ.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим, куда поедут среднее и медиана, если добавить банкет.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Точки на оси — чеки ста завтраков. Среднее — сумма чеков, делённая на их число. Медиана — чек посередине: половина гостей потратила меньше, половина больше.</p><p>Ползунок добавляет один банкет — от 2 000 до 60 000 ₽. Подумай, какая черта поедет за ним, а какая останется на месте, и двигай.</p></div>
+    <figure class="art"><img src="/signal/img/ch06-01-whale.jpg" alt="Огромный банкетный заказ на одной чаше весов перевешивает гору маленьких чеков на другой" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/06-zoo.html?toy=mean-median" title="Игрушка: Один банкет — куда поедут среднее и медиана?" style="height:850px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/06-zoo.html#card-7">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Добавь банкет на 40 000 ₽. Каким стал средний чек и какой медиана?</li><li>Двигай банкет до 60 000 ₽. Медиана сдвинулась хоть на рубль?</li><li>Умножь средний чек на число чеков. Это выручка утра?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Без банкета средний чек утра — 394 ₽, медиана — 360 ₽. Банкет на 40 000 ₽ поднимает среднее почти вдвое, до 786 ₽, а медиана сдвигается меньше чем на два рубля. Средний чек 786 ₽ не похож ни на завтрак, ни на банкет, но выручку утра даёт именно он: 101 × 786 ₽. Медиана отвечает на вопрос «сколько тратит типичный гость», среднее — «сколько денег всего».</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Среднее тянется за редкими огромными значениями, медиана — нет.</li><li>Выручка = среднее × число гостей. Медиана для этого не годится.</li><li>Тяжёлый хвост (heavy tail): несколько «китов» (whales) сдвигают среднее.</li><li>Рост среднего чека — повод проверить, не один ли кит его сделал.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из книги Аллена Дауни «Probably Overthinking It».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб перестал праздновать один банкет. А Алиса спросила: если киты так дёргают среднее, можно ли ему вообще верить? Это глава 6 курса — <a href="/signal/06-zoo.html">«Зоопарк распределений»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/06-zoo.html">Открыть глава 6 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/no-memory/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Курьера нет уже 6 минут. Сколько ещё ждать?</b><span>Курьеры по строгому графику и курьеры со случайными интервалами: сколько ещё ждать, если с прошлого прошло несколько минут.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="no-memory" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/clt-four/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Берём по 30 заказов. Сложатся ли их средние чеки в колокол?</b><span>Центральная предельная теорема на четырёх панелях: средние по 1, 5, 30 и 100 значений из кубика, ожидания курьера и чеков с банкетами.</span><small>из курса «Сигнал или шум», глава 7</small><span class="play-count" data-count-for="clt-four" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/poisson-rain/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Откуда берётся распределение Пуассона?</b><span>Режем 10 минут на клетки, в каждую заказ попадает с крошечным шансом. Дроби клетки мельче и смотри, во что превращается картинка.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="poisson-rain" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>

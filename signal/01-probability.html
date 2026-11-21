@@ -58,7 +58,7 @@
 
   <p class="lead">Главная мысль главы: перестань думать о «шансах» и представь, что ситуация повторилась тысячу раз. Тогда вероятность — это просто доля случаев.</p>
 </section>
-<section class="card" data-title="Монетка" aria-label="Монетка">
+<section class="card" data-toy="coin-ten" data-title="Монетка" aria-label="Монетка">
   <span class="step-tag">Начнём с монетки</span>
   <h2>Бросаем монетку 10 раз. Сколько выпадет орлов?</h2>
   <p>Все знают ответ «половина». Но в скольких сериях из 10 бросков орлов будет <b>ровно пять</b>? Прикинь, а потом бросай.</p>
@@ -87,7 +87,7 @@
     <p class="muted" style="font-size:14px; margin:6px 0 0">столбик — доля серий с таким числом орлов · точка — сколько должно быть по теории</p>
     <div class="verdict" id="coin-verdict" hidden></div>
   </div>
-  <p>Доля орлов на длинной серии упрямо ползёт к ½ — <b>это и есть вероятность</b>. А короткая серия из 10 бросков ровно на «половину» попадает только в четверти случаев.</p>
+  <p data-toy-reveal>Доля орлов на длинной серии упрямо ползёт к ½ — <b>это и есть вероятность</b>. А короткая серия из 10 бросков ровно на «половину» попадает только в четверти случаев.</p>
 </section>
 <section class="card" data-title="От монетки к посетителю" aria-label="От монетки к посетителю">
   <span class="step-tag">От игры к продукту</span>
@@ -119,10 +119,10 @@
   <p style="margin-top:16px">Гистограмма на карточке с монеткой — как раз картина случайной величины «число орлов из 10»: какие реализации она принимает и как часто. Такая картина называется <b>распределением</b> — о нём будет отдельная глава.</p>
   <p>Дальше в этой главе — три правила для событий, которые удобно проверять «в штуках»: представь 1000 повторов и посчитай, сколько раз случилось нужное.</p>
 </section>
-<section class="card" data-title="Вопрос Боба" aria-label="Вопрос Боба и прогноз">
+<section class="card" data-toy-pre="shop-groups" data-title="Вопрос Боба" aria-label="Вопрос Боба и прогноз">
   <figure class="art"><img loading="lazy" src="img/ch01-01-bob-question.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с «5%», очередь из 20 покупателей</figcaption></figure>
   <span class="step-tag">Вопрос</span>
-  <div class="sheet c-sky tape" style="--r:-.4deg">
+  <div class="sheet c-sky tape" style="--r:-.4deg" data-toy-hide>
     <div class="bob">
       <div class="ava" aria-hidden="true">Б</div>
       <div>
@@ -144,9 +144,9 @@
     <p class="muted" id="guess-note" style="margin:0">Напиши число — на следующей карточке запустим магазин и сравним.</p>
   </div>
 </section>
-<section class="card" data-title="Магазин" aria-label="Магазин">
+<section class="card" data-toy="shop-groups" data-title="Магазин" aria-label="Магазин">
   <span class="step-tag">Поиграй</span>
-  <h2>Магазин, в который приходят группами по 20</h2>
+  <h2 data-toy-hide>Магазин, в который приходят группами по 20</h2>
   <figure class="art"><img loading="lazy" src="img/ch01-02-shop.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: магазин, куда приходят группы по 20</figcaption></figure>
   <p>Каждая точка — посетитель, красная — купил. Запускай группы и смотри, сколько покупателей в них оказывается.</p>
   <div class="sheet c-white" style="--r:-.2deg">
@@ -188,7 +188,7 @@
   <h3>«Или» для несовместных событий: складываем</h3>
   <p>Несовместные — значит, не могут случиться одновременно: «в группе 0 покупателей» и «в группе ровно 1». Тогда <span class="num">P(0 или 1) = P(0) + P(1) ≈ 0,36 + 0,38 = 0,74</span>. Если события могут совпасть, сумма посчитает общие случаи дважды: <span class="num">P(A или B) = P(A) + P(B) − P(A и B)</span>.</p>
 </section>
-<section class="card" data-title="Хотя бы один" aria-label="Хотя бы один">
+<section class="card" data-toy="at-least-one" data-title="Хотя бы один" aria-label="Хотя бы один">
   <figure class="art"><img loading="lazy" src="img/ch01-03-lamps.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: гирлянда лампочек, пара перегорела</figcaption></figure>
   <span class="step-tag">Правила</span>
   <h2>«Хотя бы один»: через противоположное</h2>
@@ -201,14 +201,14 @@
       <label class="field" for="l-n">лампочек <input type="range" id="l-n" min="1" max="300" value="100"></label>
       <label class="field" for="l-p">вероятность отказа <input type="range" id="l-p" min="1" max="50" value="10"></label>
     </div>
-    <div class="stats">
+    <div class="stats" data-toy-reveal>
       <div><b id="l-none">36,6%</b>ни одна не перегорит</div>
       <div><b id="l-some">63,4%</b>перегорит хотя бы одна</div>
     </div>
-    <p class="muted" id="l-count" style="margin-top:10px"></p>
+    <p class="muted" id="l-count" style="margin-top:10px" data-toy-reveal></p>
     <canvas id="l-chart" width="640" height="220" role="img" aria-label="Вероятность, что перегорит хотя бы одна лампочка, в зависимости от размера партии"></canvas>
   </div>
-  <p>Интуиция подсказывает «1% на лампочку — значит, почти ничего не сломается». Но при сотне лампочек хотя бы одна перегорит почти в двух случаях из трёх. Тот же эффект в продукте: если у каждого из 100 сервисов 1% риска упасть сегодня, хотя бы один упадёт почти наверняка.</p>
+  <p data-toy-reveal>Интуиция подсказывает «1% на лампочку — значит, почти ничего не сломается». Но при сотне лампочек хотя бы одна перегорит почти в двух случаях из трёх. Тот же эффект в продукте: если у каждого из 100 сервисов 1% риска упасть сегодня, хотя бы один упадёт почти наверняка.</p>
 </section>
 <section class="card" data-title="Рецепт решения" aria-label="Рецепт решения">
   <span class="step-tag">Как решать</span>

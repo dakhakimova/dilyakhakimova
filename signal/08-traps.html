@@ -76,14 +76,14 @@
 </section>
 
 <!-- 3: автобус, история и прогноз -->
-<section class="card" data-title="Угадай" aria-label="Угадай">
+<section class="card" data-toy-pre="bus-paradox" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Сначала угадай</span>
   <h2>Сколько ждать автобус?</h2>
   <div class="chat">
     <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Езжу за молоком на автобусе. На табличке написано: «в среднем раз в 10 минут». Прихожу в случайный момент — значит, жду в среднем 5. А по ощущениям — вечность.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">5 минут — если автобусы ходят строго по расписанию. А они ходят как попало: то два подряд, то полчаса ни одного.</p></div></div>
   </div>
-  <p>Пусть интервалы между автобусами случайные, как время между заказами из главы 6 (экспонента), со средним 10 минут. Сколько Котейка ждёт в среднем, если приходит на остановку в случайный момент?</p>
+  <p>Пусть интервалы между автобусами случайные, <span data-toy-hide>как время между заказами из главы 6 </span>(экспонента), со средним 10 минут. Сколько Котейка ждёт в среднем, если приходит на остановку в случайный момент?</p>
   <div class="choice" data-key="wait" role="group" aria-label="Твой ответ">
     <button type="button" data-v="5" data-fb="Половина интервала — логично для расписания. Проверим на случайных интервалах." aria-pressed="false">5 минут</button>
     <button type="button" data-v="7.5" data-fb="Где-то между — осторожная ставка. Проверим." aria-pressed="false">7,5 минуты</button>
@@ -92,7 +92,7 @@
 </section>
 
 <!-- 4: игрушка автобус -->
-<section class="card" data-title="Остановка" aria-label="Остановка">
+<section class="card" data-toy="bus-paradox" data-title="Остановка" aria-label="Остановка">
   <span class="step-tag">Поиграй</span>
   <h2>Котейка ждёт автобус</h2>
   <p>Средний интервал между автобусами всегда 10 минут. Ползунок меняет только неровность: от строгого расписания до автобусов, которые ездят пачками. Пусти Котейку на остановку 1000 раз в случайные моменты.</p>
@@ -135,7 +135,7 @@
 </section>
 
 <!-- 6: Симпсон, история и прогноз -->
-<section class="card" data-title="Отчёт Боба" aria-label="Отчёт Боба">
+<section class="card" data-toy-pre="simpson-delivery" data-title="Отчёт Боба" aria-label="Отчёт Боба">
   <span class="step-tag">Сначала угадай</span>
   <h2>Лучше везде, а в целом хуже?</h2>
   <figure class="art"><img loading="lazy" src="img/ch08-02-simpson.jpg" alt="Две доски с подписями-значками района, на каждой стрелка вниз, и общая доска со стрелкой вверх; Боб в недоумении чешет затылок" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: в районах стрелки вниз, в сумме вверх, Боб в недоумении</figcaption></figure>
@@ -152,7 +152,7 @@
 </section>
 
 <!-- 7: игрушка Симпсон -->
-<section class="card" data-title="Симпсон в доставке" aria-label="Симпсон в доставке">
+<section class="card" data-toy="simpson-delivery" data-title="Симпсон в доставке" aria-label="Симпсон в доставке">
   <span class="step-tag">Поиграй</span>
   <h2>Двигай долю заказов с окраины</h2>
   <p>Опоздания в каждом районе в ноябре фиксированы: в центре 8 %, на окраине 25 %. Меняется только то, куда шли заказы.</p>
@@ -161,7 +161,7 @@
     <div class="simp" id="simp8"></div>
     <p class="note">Серые столбики — октябрь, цветные — ноябрь.</p>
     <canvas id="cv-simp" role="img" aria-label="Доли опозданий в октябре и ноябре: в каждом районе ниже, в целом — зависит от доли окраины"></canvas>
-    <div class="verdict" id="v-simp"></div>
+    <div class="verdict" id="v-simp" data-toy-reveal></div>
   </div>
   <p class="xref"><span>Без формул и на предзаказе для постоянных и новичков — в «A/B на пальцах», <a href="/ab-basics/10-traps.html">шаг 10 «Когда зелёное врёт»</a>.</span></p>
 </section>
@@ -184,7 +184,7 @@
 </section>
 
 <!-- 9: Берксон -->
-<section class="card" data-title="Берксон" aria-label="Берксон">
+<section class="card" data-toy="berkson" data-title="Берксон" aria-label="Берксон">
   <span class="step-tag">Поиграй</span>
   <h2>Вкусно — значит, дорого?</h2>
   <p>В сети 300 кафе. Вкус и выгодность цены у них никак не связаны. Но приложение показывает только кафе с хорошим рейтингом, а рейтинг растёт и от вкуса, и от выгодной цены. Двигай порог рейтинга.</p>
@@ -196,10 +196,10 @@
       <div class="ctrl"><b id="berk-shown">—</b><span>связь среди показанных в приложении</span></div>
     </div>
     <div class="controls"><button class="btn ghost" type="button" id="berk-new">Другая сеть</button></div>
-    <div class="verdict" id="v-berk"></div>
+    <div class="verdict" id="v-berk" data-toy-reveal></div>
   </div>
-  <p>Среди показанных вкусные кафе чаще невыгодные, а выгодные — невкусные: невкусное и дорогое просто не прошло порог. Связь создал отбор, а не мир. Почему связь в данных — ещё не причина, подробно — в <a href="/causal/">курсе по причинности</a>.</p>
-  <aside class="scary">
+  <p data-toy-reveal>Среди показанных вкусные кафе чаще невыгодные, а выгодные — невкусные: невкусное и дорогое просто не прошло порог. Связь создал отбор, а не мир. Почему связь в данных — ещё не причина, подробно — в <a href="/causal/">курсе по причинности</a>.</p>
+  <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
     <p>Когда правило попадания в данные искажает картину, это называют <b class="term">смещением отбора</b>; на собеседовании — <b>selection bias</b>. Случай с порогом — парадокс Берксона.</p>
     <p class="aside">Большая выборка его не лечит: миллион отобранных кафе покажет ту же ложную связь, только увереннее.</p>

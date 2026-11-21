@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/07-clt.html?toy=clt-four" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Берём по 30 заказов. Сложатся ли их средние чеки в колокол? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Центральная предельная теорема на четырёх панелях: средние по 1, 5, 30 и 100 значений из кубика, ожидания курьера и чеков с банкетами.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/clt-four/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/clt-four/">
+<meta property="og:title" content="Берём по 30 заказов. Сложатся ли их средние чеки в колокол? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Центральная предельная теорема на четырёх панелях: средние по 1, 5, 30 и 100 значений из кубика, ожидания курьера и чеков с банкетами.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/clt-four.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Берём по 30 заказов. Сложатся ли их средние чеки в колокол?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="clt-four" data-frame="/signal/07-clt.html?toy=clt-four"
+  data-share-title="Берём по 30 заказов. Сложатся ли их средние чеки в колокол?" data-share-text="В A/B-тесте среднего чека по 30 заказов в группе аналитик считает t-тест, «потому что ЦПТ». В чеках есть банкеты. Сложатся ли средние в колокол? Угадай и проверь на четырёх панелях"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="clt-four" data-show-from="0" hidden></span></p>
+  <h1>Берём по 30 заказов. Сложатся ли их средние чеки в колокол?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я брал по 30 заказов, считал средний чек и складывал эти средние в гистограмму. Обещали колокол, а вышла горка с хвостом вправо. Теорема сломалась?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Какая теорема?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Центральная предельная: средние любых данных ложатся колоколом. Все так говорят.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не любых и не сразу. У нас в чеках есть банкеты. Давай возьмём по 1, 5, 30 и 100 заказов и посмотрим, как колокол собирается.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Банкеты я подкидываю редко, но метко.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Сверху — откуда берём значения: честный и кривой кубик, ожидание курьера, чеки с банкетами, банкеты без потолка. Снизу — четыре гистограммы средних: в каждой выборке n значений, одна выборка даёт одну точку. Серая кривая — колокол, который обещает центральная предельная теорема (ЦПТ).</p><p>Запиши догадку и насыпь 1000 выборок из чеков с банкетами. Потом переключай источники и размеры выборок; «Выровнять и сжать» кладёт все панели на один стандартный колокол.</p></div>
+    <figure class="art"><img src="/signal/img/ch07-01-bob-crooked.jpg" alt="Боб показывает на кривой колокол на экране, за его спиной официанты несут огромный банкетный заказ" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/07-clt.html?toy=clt-four" title="Игрушка: Берём по 30 заказов. Сложатся ли их средние чеки в колокол?" style="height:1750px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/07-clt.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Запиши догадку и нажми «+1000 выборок». В какой доле выборок по 30 средний чек ниже 641 ₽?</li><li>Переключи размеры на «n = 30, 300, 1000, 3000». С какого n средние легли на колокол?</li><li>Выбери «Кубик», потом «Банкеты без потолка». Где колокол собирается сразу, а где — никогда?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Средний чек 30 заказов оказывается ниже настоящего среднего примерно в 57 % выборок, а не в 50 %: банкеты попадают в выборку редко, но тянут среднее сильно. Колокол собирается, но медленно: чем сильнее перекос исходных значений, тем больше нужно n. Кубику хватает пяти, ожиданию курьера — около сотни, чекам с банкетами — тысяч заказов. А у банкетов без потолка σ бесконечна, и колокол не наступает никогда.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>ЦПТ: (x̄ − μ) / (σ/√n) → N(0, 1) — если σ конечна.</li><li>Нормальным становится среднее, а не сами данные.</li><li>Сколько нужно: n ≳ 100 · s², где s — асимметрия исходных значений.</li><li>Чеки с банкетами, s ≈ 8,2: около 6700 заказов, а не 30.</li><li>Нет конечной σ — нет колокола: обрезай хвост или меряй медиану.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Правило n ≳ 100·s² — из статьи Алекса Денга и соавторов «Applying the Delta Method in Metric Analytics».</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб понял, что тридцати заказов мало, и спросил, откуда колокол берётся вообще. Алиса достала два кубика. Это глава 7 курса — <a href="/signal/07-clt.html">«ЦПТ в деле»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/07-clt.html">Открыть глава 7 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/mean-median/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Один банкет — куда поедут среднее и медиана?</b><span>Сто чеков завтраков и один банкет: двигай размер банкета и смотри, что происходит со средним чеком и медианой.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="mean-median" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/dice-diagonals/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Почему сумма 7 у двух кубиков выпадает чаще всего?</b><span>Таблица 6 × 6 пар двух кубиков: диагонали одинаковой суммы, гистограмма сумм и кривые кубики, у которых горка всё равно ровнее.</span><small>из курса «Сигнал или шум», глава 7</small><span class="play-count" data-count-for="dice-diagonals" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/no-memory/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Курьера нет уже 6 минут. Сколько ещё ждать?</b><span>Курьеры по строгому графику и курьеры со случайными интервалами: сколько ещё ждать, если с прошлого прошло несколько минут.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="no-memory" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
