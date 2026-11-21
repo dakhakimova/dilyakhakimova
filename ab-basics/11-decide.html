@@ -11,8 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/signal/book.css?v=202611222">
-<link rel="stylesheet" href="ab.css?v=202611222">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 <style>
 /* шаг 11: дерево решений, пройденные развилки, разметка отчёта */
 .tree{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px; counter-reset:f}
@@ -29,7 +30,7 @@
 .path > p{margin:0 0 6px; font:600 13px/1.3 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
 .path ol{list-style:none; margin:0; padding:0; display:grid; gap:4px}
 .path li{position:relative; padding:4px 8px 4px 30px; border-radius:8px; font-size:15px; line-height:1.4}
-.path li::before{position:absolute; left:8px; top:4px; font-weight:700}
+.path li::before{position:absolute; left:8px; top:4px; font-weight:600}
 .path li.ok::before{content:"✓"; color:var(--truth)}
 .path li.stop{background:var(--trap-bg)}
 .path li.stop::before{content:"→"; color:var(--trap-ink)}
@@ -537,7 +538,7 @@ details.hint p{margin:6px 0 0}
     <li><b>MDE считают до запуска.</b> Вдвое меньший эффект стоит вчетверо больше людей.</li>
     <li><b>Правила — до цифр.</b> Не подглядываем, главную и сторожевые метрики выбираем заранее, доли групп проверяем.</li>
     <li><b>Средний ноль может прятать плюсы и минусы,</b> но срез, найденный задним числом, — только гипотеза для нового теста.</li>
-    <li><b>Победители завышены,</b> а сравнение «кто включил / кто нет» может перевернуть вывод из-за состава групп. Перепроверяем и делим монеткой.</li>
+    <li><b>Победители завышены,</b> а сравнение «кто включил · кто нет» может перевернуть вывод из-за состава групп. Перепроверяем и делим монеткой.</li>
     <li><b>Не верим картинке на слово:</b> шкала от нуля? сколько это в штуках? какой период показан?</li>
     <li><b>Слишком хорошо — сначала ищем баг.</b> Рост главной метрики не повод катить, если сломались сторожевые.</li>
     <li><b>Отчёт → одно из четырёх решений:</b> катим, не катим, ждём или ищем баг.</li>

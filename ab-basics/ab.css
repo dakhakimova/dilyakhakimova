@@ -244,7 +244,7 @@ button.mini:focus-visible{outline:2px solid var(--accent)}
 /* ===== раунд 4: общие компоненты (образцы разметки — /home/claude/conv-round4.md) ===== */
 /* Ядро шага: строка под h1 первой карточки */
 .core{position:relative; margin:-4px 0 18px; padding:10px 14px 10px 36px; border-radius:10px; background:var(--truth-bg); font:500 16px/1.45 var(--body); color:var(--ink)}
-.core::before{content:"→"; position:absolute; left:14px; top:10px; font-weight:700; color:var(--truth)}
+.core::before{content:"→"; position:absolute; left:14px; top:10px; font-weight:600; color:var(--truth)}
 .core b{font-weight:600}
 
 /* Разминка: отдельная карточка .card.warmup (первая в шаге) или блок div.warmup внутри карточки */
@@ -340,3 +340,7 @@ div.warmup .quiz{background:transparent; padding:0; margin:16px 0 0}
 }
 /* журнал раздачи на телефоне: не шире экрана (раньше вылезал на 41 px) */
 @media (max-width:620px){ .hist-log{display:block; overflow-x:auto; font-size:13px} .hist-log td, .hist-log th{padding:6px 4px} .hist-log .grp-pill{padding:2px 8px; font-size:13px} }
+/* ===== дизайн-система (design-system.md): все метки капслоком — одна спецификация 13 px / 600 / трекинг .08em; цвет — по смыслу плашки ===== */
+.warmup .warm-tag, .scary .scary-tag, h2[data-proverb]::before, .layers > div > .lt, details.ivw .lvl-tag{font-size:var(--fs-xs); font-weight:var(--fw-strong); letter-spacing:var(--tr-label)}
+h2[data-proverb]::before{color:var(--label-ink)}
+.chart-title{font-weight:var(--fw-medium)}

@@ -243,7 +243,7 @@ button.mini:focus-visible{outline:2px solid var(--accent)}
 /* ===== раунд 4: общие компоненты (образцы разметки — /home/claude/conv-round4.md) ===== */
 /* Ядро шага: строка под h1 первой карточки */
 .core{position:relative; margin:-4px 0 18px; padding:10px 14px 10px 36px; border-radius:10px; background:var(--truth-bg); font:500 16px/1.45 var(--body); color:var(--ink)}
-.core::before{content:"→"; position:absolute; left:14px; top:10px; font-weight:700; color:var(--truth)}
+.core::before{content:"→"; position:absolute; left:14px; top:10px; font-weight:600; color:var(--truth)}
 .core b{font-weight:600}
 
 /* Разминка: отдельная карточка .card.warmup (первая в шаге) или блок div.warmup внутри карточки */
@@ -293,7 +293,7 @@ body[data-course="signal"] h2[data-proverb]::before{content:"Пословица 
 .guess.saved{background:#F3F1EC}
 /* Ссылка в соседний курс: «подробнее — в «A/B на пальцах», шаг 7» */
 .xref{display:flex; gap:10px; align-items:baseline; margin:14px 0; padding:10px 14px; border-radius:10px; background:#F3F1EC; font-size:15px; line-height:1.5}
-.xref::before{content:"↗"; font-weight:700; color:var(--pen)}
+.xref::before{content:"↗"; font-weight:600; color:var(--pen)}
 /* Задача с собеседования: details[data-key] с решением по схеме */
 details.ivw summary{font:500 17px/1.45 var(--serif)}
 details.ivw .lvl-tag{display:inline-block; margin-left:6px; font:600 11px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:4px 7px; border-radius:6px; background:#F3F1EC; color:var(--muted); vertical-align:2px}
@@ -387,3 +387,7 @@ div.warmup .quiz{background:transparent; padding:0; margin:16px 0 0}
   div.warmup{padding:20px 16px; margin:24px -4px}
   .qfb{padding:12px 16px}
 }
+/* ===== дизайн-система (design-system.md): все метки капслоком — одна спецификация 13 px / 600 / трекинг .08em; цвет — по смыслу плашки ===== */
+.warmup .warm-tag, .scary .scary-tag, h2[data-proverb]::before, .layers > div > .lt, details.ivw .lvl-tag{font-size:var(--fs-xs); font-weight:var(--fw-strong); letter-spacing:var(--tr-label)}
+h2[data-proverb]::before{color:var(--label-ink)}
+.chart-title{font-weight:var(--fw-medium)}

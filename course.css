@@ -13,32 +13,32 @@
 
 /* первый экран курса */
 .c-hero{display:grid; grid-template-columns:1fr 1fr; gap:var(--s-7); align-items:center; padding-top:var(--s-4); padding-bottom:var(--s-2)}
-.c-hero h1{font-size:clamp(38px,4.6vw,60px); line-height:1.06}
-.c-hero .sub{margin-top:var(--s-3)}
-.c-hero .chips{margin:0 0 var(--s-3)}
+.c-hero h1{font-size:var(--fs-h1); line-height:1.06}
+.c-hero .sub{margin-top:var(--s-4)}
+.c-hero .chips{margin:0 0 var(--s-5)}
 .c-hero .facts{font-size:var(--fs-s); color:var(--muted); margin:var(--s-4) 0 0; max-width:34em}
 .c-hero .art{box-shadow:var(--sh-3)}
 .c-hero .h1-sub{font:400 var(--fs-l)/1.35 var(--serif); color:var(--warm-700); margin:var(--s-2) 0 0}
 .c-hero .btn-note{margin-top:0}
-.chip.lvl-chip{font-size:var(--fs-s); padding:var(--s-2) var(--s-3); gap:var(--s-2)}
+.chip.lvl-chip{font-size:var(--fs-xs); padding:6px var(--s-2); gap:6px}
 .tag.paid{background:var(--sky); color:var(--paid-ink)}
 
 /* «Что будет»: модули карточками */
-.lead-note{color:var(--muted); max-width:38em}
-.modules{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); counter-reset:m}
-.modules > li{background:var(--paper); border-radius:var(--r); padding:var(--s-4) var(--s-4) var(--s-4); box-shadow:var(--sh-2); display:flex; flex-direction:column; gap:var(--s-2)}
-.modules .n{font:600 var(--fs-xs)/1 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
-.modules h3{font:600 var(--fs-l)/1.3 var(--serif); margin:0}
-.modules .d{margin:0; font-size:var(--fs-s)}
+.lead-note{color:var(--text-2); max-width:var(--measure)}
+.modules{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); counter-reset:m}
+.modules > li{background:var(--paper); border-radius:var(--r); padding:var(--s-5) var(--s-4) var(--s-4); box-shadow:var(--sh-2); display:flex; flex-direction:column; gap:var(--s-2)}
+.modules .n{font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:var(--tr-label); color:var(--label-ink)}
+.modules h3{font:500 var(--fs-l)/1.3 var(--serif); margin:0}
+.modules .d{margin:0; font-size:var(--fs-s); color:var(--text-2)}
 .modules .scene{margin:var(--s-1) 0 0; padding:var(--s-2) var(--s-3); border-radius:var(--r-s); background:var(--butter); font:400 var(--fs-s)/1.45 var(--serif)}
 .modules .x{margin:auto 0 0; padding:var(--s-2) var(--s-3); background:var(--white); box-shadow:var(--sh-1); border-radius:var(--r-s); font-size:var(--fs-xs); color:var(--muted); line-height:1.45}
-.modules .x b{color:var(--ink); font-weight:600}
+.modules .x b{color:var(--ink); font-weight:var(--fw-medium)}
 
 /* «Во что поиграем»: карточки игрушек — как .toys на главной; .toys .off — игрушка, которой ещё нет */
 .toys.c-toys{grid-template-columns:repeat(2,minmax(0,1fr))}
 .toys .off{display:flex; flex-direction:column; align-items:flex-start; gap:var(--s-2); height:100%; padding:var(--s-4); border-radius:var(--r); background:var(--white);
   background-image:linear-gradient(rgba(61,125,196,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.08) 1px, transparent 1px); background-size:16px 16px}
-.toys .off b{font:600 var(--fs-l)/1.3 var(--serif)}
+.toys .off b{font:500 var(--fs-l)/1.3 var(--serif)}
 .toys .off > span:not(.chip):not(.tag){font-size:var(--fs-s); color:var(--muted)}
 .toys .off small{font-size:var(--fs-xs); color:var(--muted)}
 .toys .tag{margin-top:auto}
@@ -50,27 +50,27 @@
 /* «Что получишь на выходе» */
 .results{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--s-3) var(--s-5); max-width:960px}
 .results li{position:relative; padding:var(--s-3) var(--s-4) var(--s-3) var(--s-7); background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); font-size:var(--fs-s)}
-.results li::before{content:"✓"; position:absolute; left:var(--s-4); top:var(--s-3); width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:600 14px/22px var(--body); text-align:center}
-.results b{display:block; font:600 var(--fs-m)/1.35 var(--serif); margin-bottom:2px}
+.results li::before{content:"✓"; position:absolute; left:var(--s-4); top:var(--s-3); width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:500 14px/22px var(--body); text-align:center}
+.results b{display:block; font:500 var(--fs-m)/1.35 var(--serif); margin-bottom:var(--s-1)}
 .results .nb{font-family:var(--body)}
 
 /* «Как устроен курс» (платные) */
 .how3{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
 .how3 li{background:var(--paper); border-radius:var(--r); padding:var(--s-4); box-shadow:var(--sh-2)}
-.how3 h3{font:600 var(--fs-l)/1.3 var(--serif); margin:0 0 var(--s-1)}
-.how3 p{margin:0; font-size:var(--fs-s); color:var(--muted)}
+.how3 h3{font:500 var(--fs-l)/1.3 var(--serif); margin:0 0 var(--s-2)}
+.how3 p{margin:0; font-size:var(--fs-s); color:var(--text-2)}
 .how-art{margin-top:var(--s-4); max-width:640px}
 
 /* «Для кого» и «Куда дальше» */
 .pair{display:grid; grid-template-columns:1.25fr 1fr; gap:var(--s-5); align-items:stretch}
-.pair .panel h2{font:400 var(--fs-h3)/1.2 var(--serif); margin:0 0 var(--s-3)}
+.pair .panel h2{font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:0 0 var(--s-4)}
 .pair ul{margin:0 0 var(--s-3); padding-left:var(--s-5)}
 .pair li{margin:0 0 .45em}
 .pair li::marker{color:var(--muted)}
 .pair .need{background:var(--white); border-radius:var(--r-m); padding:var(--s-3) var(--s-4); box-shadow:var(--sh-1); font-size:var(--fs-s); margin:0}
-.pair .need b{font-weight:600}
+.pair .need b{font-weight:var(--fw-strong)}
 .next-course{display:flex; flex-direction:column; gap:var(--s-2)}
-.next-course .go{font:600 var(--fs-l)/1.3 var(--serif)}
+.next-course .go{font:500 var(--fs-l)/1.3 var(--serif)}
 .next-course p{margin:0}
 .next-course .btn{align-self:flex-start; margin-top:auto}
 

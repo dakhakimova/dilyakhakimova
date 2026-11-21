@@ -11,7 +11,7 @@
 const fs = require('fs'), path = require('path');
 const {load} = require('./play-data.js');
 const SITE = 'https://dilyakhakimova.com';
-const V = '202611240';
+const V = '202611250';
 
 function build(lang = 'ru'){
   const {ROOT, I18N, cfg, toys, texts} = load(lang);
@@ -58,8 +58,9 @@ ${extra}<title>${plain(title)}</title>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611221">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611250">
 <link rel="stylesheet" href="/play/play.css?v=${V}">
 </head>
 <body>

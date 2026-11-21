@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Стайлгайд курсов — объекты глав</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="/signal/free.css?v=202611250">
+<style>
+/* только для страницы-образца */
+.sg-h{font:400 var(--fs-xs)/1.5 ui-monospace, Menlo, monospace; color:var(--muted); margin:64px 0 8px; padding-top:16px; border-top:1px dashed var(--line-strong)}
+.sg-rule{font-size:15px; color:var(--text-2); max-width:var(--measure); margin:0 0 16px}
+</style>
+</head>
+<body data-course="signal">
+<!-- Шапка курса: название курса (Marck Script) слева, оглавление и вход справа, 15 px -->
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="/styleguide/">Стайлгайд</a>
+  <span><a href="/styleguide/">Объекты сайта</a> · <a href="/account.html">Войти</a></span>
+</nav>
+<main class="chapter">
+  <p class="kicker">Объекты глав курсов</p>
+  <h1>Карточка шага и всё, что в ней бывает</h1>
+  <p class="lead">Классы — из /signal/book.css и /signal/free.css (в «A/B на пальцах» — те же в ab-basics/ab.css). Правила — design-system.md.</p>
+
+  <p class="sg-h">.core — ядро шага (одна строка под h1 первой карточки)</p>
+  <p class="core">После шага ты сможешь <b>прикинуть, какую разницу даёт один шум</b>, когда в группах ничего не меняется.</p>
+
+  <p class="sg-h">section.card — карточка шага: метка → h2 → текст → объект → вывод</p>
+  <section class="card on" aria-label="Пример карточки">
+    <span class="step-tag">Угадай, потом проверь</span>
+    <h2>А если гостей тысячи?</h2>
+    <p>Тот же тест без изменений, но в каждой группе по 1000 гостей. Запустим его 100 раз. В скольких запусках одна из групп обгонит другую на 10 % и больше?</p>
+    <p class="note">Здесь и дальше «на 10 %» значит «на десятую часть».</p>
+    <div class="def">Разница между группами есть всегда, даже когда группы ничем не отличаются.</div>
+    <h3>Подзаголовок внутри карточки</h3>
+    <p>Перед h3 — 32 px, после — 8 px.</p>
+  </section>
+
+  <p class="sg-h">.sheet.c-white — карточка с игрушкой: подпись-поле → график → крупные числа → кнопки → вывод</p>
+  <p class="sg-rule">Одна основная кнопка (синяя) — главное действие игрушки; остальные — контурные. Числа — Literata 500, цвет серии.</p>
+  <div class="sheet c-white">
+    <label class="field" for="sg-n">Гостей в каждой группе: <b class="num">1 000</b></label>
+    <input type="range" id="sg-n" min="0" max="6" value="2" style="width:100%">
+    <p class="chart-title">Разница конверсий в 100 запусках</p>
+    <div class="big2"><div class="ctrl"><b>10,2 %</b><span>конверсия первой группы</span></div><div class="test"><b>9,7 %</b><span>конверсия второй группы</span></div></div>
+    <p class="legend-row"><span><i class="ctrl"></i>контроль</span><span><i class="test"></i>тест</span></p>
+    <p class="note">Под графиком — как читать (14 px, серый).</p>
+    <div class="controls"><button class="btn" type="button">Один запуск</button><button class="btn ghost" type="button">+100 запусков</button><button class="btn ghost" type="button">Сбросить</button></div>
+    <div class="verdict good">Разница в 5 % и больше случилась в 31 запуске из 100 — без всякого эффекта.</div>
+  </div>
+
+  <p class="sg-h">.quiz — квиз: вопрос (Literata 22) → варианты в колонку → отклик .qfb</p>
+  <div class="quiz">
+    <p class="qnum">Вопрос 1 из 2</p>
+    <p class="q">В октябре заказов на 7 % больше, чем в сентябре. Можно ли сказать, что тёмная тема подняла заказы?</p>
+    <div class="choice"><button type="button">Да, заказов стало на 7 % больше</button><button type="button" class="picked">Да, если в октябре не было акций</button><button type="button">Нет, за месяц изменилась не только тема</button></div>
+  </div>
+  <div class="quiz">
+    <p class="qnum">Состояния: неверно и верно</p>
+    <p class="q">Можно ли сказать, что тёмная тема подняла заказы?</p>
+    <div class="choice"><button type="button" class="wrong">Да, заказов стало на 7 % больше</button><button type="button" class="right">Нет, за месяц изменилась не только тема</button></div>
+    <div class="qfb ok"><p class="vd">Верно!<span class="plus">+1 балл</span></p><p>Октябрь отличается от сентября погодой и сезоном, а «до и после» приписывает теме всё это сразу.</p></div>
+    <div class="qfb no"><p class="vd">Не совсем.</p><p>Рост и правда есть. Но сравнение «до и после» приписывает теме всё, что изменилось за месяц.</p><p class="again">Попробуй ещё раз.</p></div>
+  </div>
+
+  <p class="sg-h">div.warmup — разминка (тёплая подложка, синяя метка)</p>
+  <div class="warmup"><span class="warm-tag">Разминка: вспомним шаг 1</span>
+    <div class="quiz"><p class="q">Что сравнивает A/A-тест?</p><div class="choice"><button type="button">Две версии приложения</button><button type="button">Приложение с ним же самим</button></div></div>
+  </div>
+
+  <p class="sg-h">Плашки-выноски: .scary (термин), .xref (ссылка в соседний курс), .fb (короткий отклик)</p>
+  <aside class="scary"><span class="scary-tag">Страшное слово</span><p>Этот разброс без всякого эффекта называют <b class="term">шум</b>.</p><p class="aside">Как шипение в радио: оно есть всегда.</p></aside>
+  <p class="xref">Подробнее — в «A/B на пальцах», <a href="/ab-basics/03-noise.html">шаг 3 «Шум есть всегда»</a>.</p>
+  <p class="fb">Здесь путаются почти все: «на 10 %» — это не «с 10 % до 20 %».</p>
+
+  <p class="sg-h">.chat — диалог героев: Боб и Котейка слева, Алиса справа; имя 12 px 600, реплика 17 px</p>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Алиса, зачем тебе эксперимент, в котором обе группы видят старое приложение?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">Чтобы увидеть, какую разницу даёт один шум.</p></div></div>
+    <div class="msg kot world"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Тут ничего не менялось, а цифры разные.</p></div></div>
+  </div>
+
+  <p class="sg-h">.cell — ячейка кода (заголовок, поле, кнопки «Запустить» и «Проверить», вывод)</p>
+  <div class="cell">
+    <div class="cell-head"><span class="t">Напиши сам</span><span>Python в браузере</span></div>
+    <textarea spellcheck="false" aria-label="Пример кода">import numpy as np
+print(np.mean([1, 2, 3]))</textarea>
+    <div class="cell-bar"><button class="run" type="button">▶ Запустить</button><button class="check" type="button">Проверить</button><span class="hint">Ctrl+Enter</span></div>
+    <pre><span class="ok">2.0</span></pre>
+  </div>
+
+  <p class="sg-h">details — раскрывашка (задача с собеседования, решение)</p>
+  <details class="ivw"><summary>Задача с собеседования: сколько нужно бросков?<span class="lvl-tag">средняя</span></summary><p>Решение по схеме: история → в штуках → формула.</p></details>
+
+  <p class="sg-h">.cmp — таблица сравнения</p>
+  <div class="cmp" role="table"><div class="cmp-row head" role="row"><span role="columnheader"></span><span role="columnheader">Контроль</span><span role="columnheader">Тест</span><span role="columnheader">Вывод</span></div>
+  <div class="cmp-row" role="row"><span role="rowheader">Конверсия</span><span>10,0 %</span><span>10,6 %</span><span>в пределах шума</span></div></div>
+
+  <p class="sg-h">.next-step — переход к следующему шагу; .pager — навигация по карточкам</p>
+  <a class="next-step" href="/ab-basics/04-clt.html"><b>Шаг 4. Толпа предсказуема →</b>Центральная предельная теорема и бакеты.</a>
+  <div class="stage-head" style="margin-top:32px"><div class="progress"><span style="width:40%"></span></div><span class="count">4 / 10</span></div>
+  <div class="pager"><button class="btn ghost" type="button">← Назад</button><button class="btn" type="button">Далее →</button></div>
+</main>
+</body>
+</html>
