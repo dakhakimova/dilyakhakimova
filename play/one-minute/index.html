@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/05-normal.html?toy=one-minute" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Опоздание на минуту — много или мало? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Самовывоз и доставка на одной оси: двигай окно в минутах и смотри, какая доля заказов в него попадает.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/one-minute/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/one-minute/">
+<meta property="og:title" content="Опоздание на минуту — много или мало? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Самовывоз и доставка на одной оси: двигай окно в минутах и смотри, какая доля заказов в него попадает.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/one-minute.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Опоздание на минуту — много или мало?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="one-minute" data-frame="/signal/05-normal.html?toy=one-minute"
+  data-share-title="Опоздание на минуту — много или мало?" data-share-text="В дашборде у доставки и самовывоза один порог тревоги: «опоздание больше минуты». Какая доля заказов каждого вида его перейдёт? Угадай и проверь на двух колоколах"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="one-minute" data-show-from="0" hidden></span></p>
+  <h1>Опоздание на минуту — много или мало?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Гость самовывоза пожаловался: заказ был готов на минуту позже обещанного. А доставка опаздывает на пять минут — и никто не жалуется. Странные гости.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Минута — это много или мало? Смотря с чем сравнивать.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Кофе на вынос у нас готов почти секунда в секунду, а курьер то в пробке, то на зелёной волне.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Положим оба разброса на одну ось и посмотрим, какая доля заказов укладывается в одно и то же окно.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Узкий колокол — самовывоз: заказ готов к обещанному времени с разбросом σ = 0,6 минуты. Широкий — доставка, σ = 4 минуты. По горизонтали — отклонение от обещанного времени.</p><p>Окно — «отклонение не больше чем на столько-то минут». Числа под графиком показывают, какая доля самовывозов и доставок в него попадает. Двигай окно.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/05-normal.html?toy=one-minute" title="Игрушка: Опоздание на минуту — много или мало?" style="height:900px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/05-normal.html#card-6">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Оставь окно ±1,2 минуты. Какая доля самовывозов и доставок в нём?</li><li>Расширь окно до 6 минут. Доставки догнали самовывоз?</li><li>Посмотри на высоту колоколов. Почему широкий ниже узкого?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>Окно ±1,2 минуты — это ±2σ для самовывоза и всего ±0,3σ для доставки: в него попадает около 95 % самовывозов и лишь около 24 % доставок. Поэтому одно и то же опоздание на минуту — ЧП для самовывоза и пустяк для доставки. Широкий колокол ниже узкого, потому что площадь у обоих одна — единица.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Отклонение меряют в сигмах своего процесса, а не в минутах.</li><li>z = отклонение / σ: минута — это 1,7σ для самовывоза и 0,25σ для доставки.</li><li>Площадь под любым колоколом — 1: шире — значит ниже.</li><li>Один порог тревоги на два процесса с разным разбросом — ловушка.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> Идея из видео Джоша Стармера (StatQuest): младенцы и взрослые на одной оси.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб развёл пороги для самовывоза и доставки и спросил, почему высота колокола — не вероятность. Это глава 5 курса — <a href="/signal/05-normal.html">«Нормальное распределение»</a>.</p>
+    <p class="ctas"><a class="btn" href="/signal/05-normal.html">Открыть глава 5 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/mu-range/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Новое кафе, первый день — 740 ₽. Какой у него обычный средний чек?</b><span>Обратная линейка: двигай кандидата на настоящий средний чек и смотри, какие кандидаты не спорят с одним днём в 740 ₽.</span><small>из курса «Сигнал или шум», глава 5</small><span class="play-count" data-count-for="mu-range" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/prob-area/"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><b>Какова вероятность, что средний чек будет ровно 640 ₽?</b><span>20 000 дней по модели колокола и гистограмма с корзинами всё уже: что станет со столбиком в центре и что останется от кривой.</span><small>из курса «Сигнал или шум», глава 5</small><span class="play-count" data-count-for="prob-area" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/bell-ruler/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Вчера средний чек был на две сигмы выше обычного. Это редкость?</b><span>Линейка колокола: окна ±1, 2 и 3 сигмы на среднем чеке кафе — и какая доля дней в них попадает.</span><small>из курса «Сигнал или шум», глава 5</small><span class="play-count" data-count-for="bell-ruler" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
