@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab03" data-next="04-clt.html">
 <nav class="top" aria-label="Навигация">
@@ -231,7 +231,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 const P = 0.10;
 
@@ -290,7 +290,7 @@ const P = 0.10;
     const step = lim > 0.6 ? 0.5 : lim > 0.3 ? 0.2 : 0.1;
     const ticks = []; for (let v = -Math.floor(lim / step) * step; v <= lim + 1e-9; v += step) ticks.push(+v.toFixed(2));
     axisX(c, X, ticks, h - 6, v => pct(v, 0));
-    label(c, 'разница 10 % и больше', w - R, 12, '#B5473B', 'right');
+    label(c, 'разница 10 % и больше', w - R, 12, '#A8352F', 'right');
     if (!runs.length) label(c, 'Здесь появится гистограмма разниц', w / 2, T + 24, COL.ink2, 'center');
   }
   function update(){
@@ -393,7 +393,7 @@ function seriesLabels(c, items, xEnd, w, wide, yTop){
     if (n < 100){ v.hidden = true; return; }
     const ch = AB.choice('perm'), frac = k / n;
     v.hidden = false; v.className = 'verdict ' + (ch === 'half' ? 'good' : 'bad');
-    v.innerHTML = 'Разница не меньше, чем у Боба (0,4 заказа на гостя в любую сторону), получилась в <b>' + int(k) + '</b> из ' + int(n) + ' перетасовок — это <b>' + share(frac, 0).replace(' ', '\u00a0') + '</b>. Коралловые столбики — как раз такие случаи. Значит, его «+35 %» вполне могли получиться случайно, просто от того, кому какой ярлык достался. На 40 гостях фото от шума не отличить.';
+    v.innerHTML = 'Разница не меньше, чем у Боба (0,4 заказа на гостя в любую сторону), получилась в <b>' + int(k) + '</b> из ' + int(n) + ' перетасовок — это <b>' + share(frac, 0).replace(' ', '\u00a0') + '</b>. Красные столбики — как раз такие случаи. Значит, его «+35 %» вполне могли получиться случайно, просто от того, кому какой ярлык достался. На 40 гостях фото от шума не отличить.';
   }
   const redraw = () => { drawT(); drawP(); stats(); };
   document.getElementById('perm-one').addEventListener('click', () => { labels = shuffle(); diffs.push(avg('B') - avg('A')); redraw(); });

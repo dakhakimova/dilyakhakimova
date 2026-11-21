@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab05" data-next="06-interval.html">
 <nav class="top" aria-label="Навигация">
@@ -206,7 +206,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 // Заказы одного гостя за неделю — то же распределение, что в шаге 4: 60 % ноль, остальные 1…40 с длинным хвостом.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
@@ -308,7 +308,7 @@ function bandStats(){
   document.getElementById('in1').textContent = share(in1 / band.length, 1);
   const g2 = AB.choice('g2'), v = document.getElementById('v-band');
   v.hidden = false; v.className = 'verdict ' + (g2 === '95' ? 'good' : 'bad');
-  v.innerHTML = (g2 === '95' ? 'Так и есть. ' : g2 ? 'Посмотри, что вышло. ' : '') + 'В полосу ± 2 ширины попало <b>' + in2 + ' из 1000</b> средних. Так бывает всегда: около 95 % внутри, около 5 % снаружи, и коралловые столбики по краям — эти редкие 5 %. В полосу в одну ширину попадает около двух третей, сейчас ' + in1 + '.';
+  v.innerHTML = (g2 === '95' ? 'Так и есть. ' : g2 ? 'Посмотри, что вышло. ' : '') + 'В полосу ± 2 ширины попало <b>' + in2 + ' из 1000</b> средних. Так бывает всегда: около 95 % внутри, около 5 % снаружи, и красные столбики по краям — эти редкие 5 %. В полосу в одну ширину попадает около двух третей, сейчас ' + in1 + '.';
 }
 document.getElementById('b-band').addEventListener('click', () => { band = []; for (let i = 0; i < 1000; i++) band.push(sampleMean(N_BAND)); drawBand(); bandStats(); });
 document.getElementById('b-band1').addEventListener('click', e => { show1 = !show1; e.target.setAttribute('aria-pressed', String(show1)); e.target.textContent = show1 ? 'Убрать полосу в одну ширину' : 'Показать полосу в одну ширину'; drawBand(); });

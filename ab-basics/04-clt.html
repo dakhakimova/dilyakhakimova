@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -99,7 +99,7 @@
     </div>
     <div id="jar-res" hidden>
       <div class="tipwrap"><canvas id="ch-crowd" aria-label="Гистограмма догадок гостей"></canvas></div>
-      <div class="legend-row"><span><i style="background:var(--truth)"></i>правда</span><span><i style="background:var(--ink)"></i>медиана догадок</span><span><i style="background:#B5473B"></i>среднее догадок</span><span id="jar-me-lg" hidden><i style="background:#8F6FC9"></i>твоя догадка</span></div>
+      <div class="legend-row"><span><i style="background:var(--truth)"></i>правда</span><span><i style="background:var(--ink)"></i>медиана догадок</span><span><i style="background:#A8352F"></i>среднее догадок</span><span id="jar-me-lg" hidden><i style="background:#8F6FC9"></i>твоя догадка</span></div>
       <div class="big2">
         <div><b id="jar-med">…</b><span>медиана догадок</span></div>
         <div class="trap"><b id="jar-mean">…</b><span>среднее догадок</span></div>
@@ -229,7 +229,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
@@ -357,7 +357,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     const cnt = {}; base.forEach(v => { const k = Math.round(v / 40); cnt[k] = (cnt[k] || 0) + 1; c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(v), y0 - 8 - (cnt[k] - 1) * 12, 5, 0, 2 * Math.PI); c.fill(); });
     if (big){ c.fillStyle = COL.trap; c.beginPath(); c.arc(w - 40, y0 - 8, 9, 0, 2 * Math.PI); c.fill(); label(c, '50 000 ₽ →', w - 40, y0 - 24, COL.ink, 'center'); c.setLineDash([3, 3]); c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(L + pw + 4, y0); c.lineTo(w - 52, y0); c.stroke(); c.setLineDash([]); }
     const mk = (v, col, t, up) => { const x = v > hi ? L + pw : X(v); c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); c.moveTo(x, 6); c.lineTo(x, y0); c.stroke(); c.lineWidth = 1; label(c, t, x > w - 200 ? x - 6 : x + 4, up ? 16 : 30, col, x > w - 200 ? 'right' : 'left'); };
-    mk(m, '#B5473B', m > hi ? 'среднее ' + rub(m) + ' — за краем шкалы' : 'среднее', true); mk(md, COL.ink, 'медиана', false);
+    mk(m, '#A8352F', m > hi ? 'среднее ' + rub(m) + ' — за краем шкалы' : 'среднее', true); mk(md, COL.ink, 'медиана', false);
   }
   document.getElementById('cq-add').addEventListener('click', e => {
     big = !big; e.target.textContent = big ? 'Убрать корпоративный заказ' : 'Добавить корпоративный заказ на 50 000 ₽';
@@ -403,7 +403,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     bars.push({x0: L + pw + 8, x1: w, html: '<b>6000 и больше</b><br>' + over + ' ' + plural(over, 'гость', 'гостя', 'гостей') + ' (в том числе ' + guesses.filter(v => v === 10000).length + ' сказали ровно 10 000)'});
     hoverBars(cvC, bars);
     const mark = (v, col, t, row, dash) => { const x = X(v); c.strokeStyle = col; c.lineWidth = 2; c.setLineDash(dash ? [4, 3] : []); c.beginPath(); c.moveTo(x, T - 2 - row * 0); c.lineTo(x, T + ph); c.stroke(); c.setLineDash([]); };
-    mark(TRUTH, COL.truth, 'правда ' + int(TRUTH), 0); mark(med, COL.ink, 'медиана ' + int(med), 1); mark(avg, '#B5473B', 'среднее ' + int(avg), 0);
+    mark(TRUTH, COL.truth, 'правда ' + int(TRUTH), 0); mark(med, COL.ink, 'медиана ' + int(med), 1); mark(avg, '#A8352F', 'среднее ' + int(avg), 0);
     const me = parseFloat(inp.value); if (me > 0) mark(me, COL.viol, 'ты', 1, true);
   }
   function show(){

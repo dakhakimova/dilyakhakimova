@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab10">
 <nav class="top" aria-label="Навигация">
@@ -527,7 +527,7 @@
   <div class="def"><b>Пять вопросов к любой цифре.</b> Кто это говорит и зачем? Откуда он это знает? Чего не хватает (по сравнению с чем, сколько людей, какой период)? Не подменили ли предмет разговора? Есть ли в этом смысл?</div>
   <p>Главная метрика в каждом тесте — конверсия в заказ. Зелёным и красным отмечены значимые изменения.</p>
 
-  <div class="quiz" data-right="a">
+  <div class="quiz" data-right="a" data-order="fixed">
     <p class="q">1. Фото блюд крупнее</p>
     <div class="report-wrap"><table class="report">
       <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
@@ -540,7 +540,7 @@
     <p class="why">Тест дошёл до конца, доли ровные, главная метрика выросла, и интервал целиком выше нуля. Средний чек и отмены не ухудшились. Катим.</p>
   </div>
 
-  <div class="quiz" data-right="c">
+  <div class="quiz" data-right="c" data-order="fixed">
     <p class="q">2. Кнопка «Добавить соус»</p>
     <div class="report-wrap"><table class="report">
       <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
@@ -552,7 +552,7 @@
     <p class="why">Прошла только треть теста. Интервал широкий и задевает ноль, но решение по плану принимают через 21 день. Останавливаться сейчас — то самое подглядывание. Ждём.</p>
   </div>
 
-  <div class="quiz" data-right="d">
+  <div class="quiz" data-right="d" data-order="fixed">
     <p class="q">3. Новый экран оплаты</p>
     <div class="report-wrap"><table class="report">
       <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
@@ -564,7 +564,7 @@
     <p class="why">Всё зелёное, но в тесте на 5 000 человек меньше, чем должно быть при 50 / 50. При 400 000 пользователей такой перекос случайно не бывает. Похоже, часть людей в тесте потерялась (например, экран у них падает), и остались самые активные. Ищем баг.</p>
   </div>
 
-  <div class="quiz" data-right="b">
+  <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">4. Рекомендации «Вам понравится»</p>
     <div class="report-wrap"><table class="report">
       <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
@@ -576,7 +576,7 @@
     <p class="why">Тест длинный и чувствительный: эффект от 1,5 % он бы заметил. Интервал узкий вокруг нуля, так что большого эффекта точно нет, а поддержка стоит денег. Не катим. Ждать дальше бессмысленно: тест уже закончился.</p>
   </div>
 
-  <div class="quiz" data-right="b">
+  <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">5. Новая иконка приложения</p>
     <div class="report-wrap"><table class="report">
       <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Δ %</th><th>95 % ДИ Δ %</th><th>p-value</th></tr>
@@ -660,7 +660,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 const $ = id => document.getElementById(id);
 
@@ -692,7 +692,7 @@ function drawPeek(){
     const lastOne = k === recent.length - 1;
     c.strokeStyle = lastOne ? COL.ctrl : 'rgba(61,125,196,.18)'; c.lineWidth = lastOne ? 2.4 : 1.2;
     c.beginPath(); r.z.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
-    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут Боб выкатил бы', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, '#B5473B', xr ? 'right' : 'left'); }
+    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут Боб выкатил бы', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, '#A8352F', xr ? 'right' : 'left'); }
   });
   if (!aa.length) label(c, 'Запусти A/A-тест — здесь появится его линия.', L + 10, Y(0) - 10, COL.ink2);
 }
@@ -742,7 +742,7 @@ function drawSrm(){
   axisX(c, X, [0.49, 0.495, 0.5, 0.505, 0.51], h - 6, v => num(100 * v, 1) + ' %');
   srmDots.forEach((v, i) => { c.fillStyle = 'rgba(61,125,196,.55)'; c.beginPath(); c.arc(X(v), T + 8 + ((i * 7919) % (ph - 16)), 3, 0, 2 * Math.PI); c.fill(); });
   c.strokeStyle = COL.trap; c.lineWidth = 3; c.beginPath(); c.moveTo(X(OBS), T - 4); c.lineTo(X(OBS), T + ph); c.stroke();
-  label(c, 'у нас 49,2 %', X(OBS) + 6, T + 6, '#B5473B');
+  label(c, 'у нас 49,2 %', X(OBS) + 6, T + 6, '#A8352F');
   label(c, 'честные деления', X(0.5), T - 2, COL.ctrl, 'center');
 }
 $('srm-n').addEventListener('input', () => { srmRun(); drawSrm(); });
@@ -858,7 +858,7 @@ srmRun(); paintMM(); peekStats();
     label(c, 'правда +3 %', X(TRUE) - 4, 10, COL.ink, 'right');
     label(c, 'на кладбище', X(lo) + 4, 28, COL.ink2);
     const wins = tests.filter(t => t.win);
-    if (wins.length){ const m = mean(wins.map(t => t.e)); c.strokeStyle = COL.trap; c.setLineDash([5, 4]); c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), 14); c.lineTo(X(m), 122); c.stroke(); c.setLineDash([]); c.lineWidth = 1; label(c, 'среднее выкаченных', X(m) > w - 140 ? X(m) - 4 : X(m) + 4, 116, '#B5473B', X(m) > w - 140 ? 'right' : 'left'); }
+    if (wins.length){ const m = mean(wins.map(t => t.e)); c.strokeStyle = COL.trap; c.setLineDash([5, 4]); c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), 14); c.lineTo(X(m), 122); c.stroke(); c.setLineDash([]); c.lineWidth = 1; label(c, 'среднее выкаченных', X(m) > w - 140 ? X(m) - 4 : X(m) + 4, 116, '#A8352F', X(m) > w - 140 ? 'right' : 'left'); }
   }
   document.getElementById('wc-one').addEventListener('click', () => {
     const t = one(); tests.push(t);
@@ -879,7 +879,7 @@ srmRun(); paintMM(); peekStats();
   function draw(){
     const g = canvas(cv, 0.36, 0.6); if (!g) return; const {c, w, h} = g;
     const L = 52, R = w < 520 ? 96 : 130, T = 14, B = 24, ph = h - T - B, lo = 8500, hi = 10500, X = i => L + i / 5 * (w - L - R), Y = v => T + (1 - (v - lo) / (hi - lo)) * ph;
-    c.fillStyle = COL.fillB; c.fillRect(X(3.5), T, X(4.5) - X(3.5), ph); label(c, w < 520 ? '' : 'провал', X(4), T + 12, '#B5473B', 'center');
+    c.fillStyle = COL.fillB; c.fillRect(X(3.5), T, X(4.5) - X(3.5), ph); label(c, w < 520 ? '' : 'провал', X(4), T + 12, '#A8352F', 'center');
     c.fillStyle = COL.fillG; c.fillRect(X(4.5), T, X(5) - X(4.5) + 12, ph); label(c, w < 520 ? '' : 'тест идёт', X(5) + 8, T + 12, COL.truth);
     axisY(c, L, R, T, ph, w, lo, hi, 500, v => int(v));
     [ctrl, test].forEach((a, k) => { c.strokeStyle = k ? COL.test : COL.ctrl; c.lineWidth = 2.4; c.beginPath(); a.forEach((v, i) => i ? c.lineTo(X(i), Y(v)) : c.moveTo(X(i), Y(v))); c.stroke(); });
@@ -1022,7 +1022,7 @@ srmRun(); paintMM(); peekStats();
 (function(){
   const P = ' %';
   const NAMES = ['конверсия', 'средний чек', 'отмены', 'время до заказа', 'повторные', 'оценки'];
-  const COLS6 = ['#3D7DC4', '#E59157', '#0E7E5F', '#EB8D82', '#8F6FC9', '#C9A43A'];
+  const COLS6 = ['#3D7DC4', '#E59157', '#0E7E5F', '#C9413A', '#8F6FC9', '#C9A43A'];
   const series = NAMES.map((n, k) => Array.from({length: 21}, (_, d) => k === 0 ? 2 + 0.5 * Math.sin(d * 1.7) + 0.3 * Math.cos(d * 0.9) : 1.4 * Math.sin(d * (0.6 + k * 0.37) + k) + 0.5 * Math.cos(d * (1.3 + k * 0.21))));
   function spaghetti(cv, honest){
     const g = canvas(cv, 0.4, 0.7); if (!g) return; const {c, w, h} = g;
@@ -1079,7 +1079,7 @@ srmRun(); paintMM(); peekStats();
   function cookHist(cv){
     const g = canvas(cv, 0.38, 0.65); if (!g) return; const {c, w, h} = g;
     const L = 10, R = 10, T = 14, B = 22, pw = w - L - R, ph = h - T - B, n = binsC.length, bw = pw / n, mx = 420;
-    c.fillStyle = COL.fillB; c.fillRect(L, T, 5 * bw, ph); label(c, 'выброшено фильтром', L + 4, T + 10, '#B5473B');
+    c.fillStyle = COL.fillB; c.fillRect(L, T, 5 * bw, ph); label(c, 'выброшено фильтром', L + 4, T + 10, '#A8352F');
     binsC.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(61,125,196,.55)'; c.fillRect(L + i * bw + 1, T + ph - bh, bw / 2 - 1, bh); });
     binsT.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(229,145,87,.85)'; c.fillRect(L + i * bw + bw / 2, T + ph - bh, bw / 2 - 1, bh); });
     [0, 5, 10, 15, 20, 25].forEach(m => label(c, m + ' мин', L + m * bw, h - 6, COL.ink2, m === 0 ? 'left' : m === 25 ? 'right' : 'center'));

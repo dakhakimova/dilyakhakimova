@@ -26,7 +26,9 @@ function normCdf(x){ const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 
 const pTwo = z => 2 * (1 - normCdf(Math.abs(z)));
 const fmtP = p => p < 0.001 ? 'меньше 0,001' : num(p, 3);
 
-const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#EB8D82', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#FBE8E5', fillGray:'#F4F3F0'};
+// trap = «плохо» (ложная тревога, падение, вред). Раунд 4: краснее, чтобы не путать с оранжевым тестом (было #EB8D82).
+// trapInk — тот же красный для текста на белом и на светлой заливке fillB (контраст ≥ 5:1).
+const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0'};
 const store = {get(k){ try { return JSON.parse(localStorage.getItem('ab:' + k)); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem('ab:' + k, JSON.stringify(v)); } catch(e) {} }};
 
 // Холст по ширине контейнера; ratio — высота к ширине (на телефоне выше).
@@ -97,7 +99,7 @@ const AB = {
     m[id] = pts; store.set(k, m); this.paintScore(true); return true;
   },
   points(ch){ return Object.values(store.get((ch || this.chapter) + ':pts') || {}).reduce((a, b) => a + b, 0); },
-  total(){ let t = 0; for (let i = 1; i <= 10; i++) t += this.points('ab' + String(i).padStart(2, '0')); return t; },
+  total(){ let t = 0; for (let i = 1; i <= 12; i++) t += this.points('ab' + String(i).padStart(2, '0')); return t; },
   paintScore(bump){
     let el = document.getElementById('score');
     if (!el){ el = document.createElement('span'); el.id = 'score'; el.className = 'score'; el.title = 'Баллы за верные ответы с первой попытки'; document.querySelector('.stage-head').appendChild(el); }
@@ -184,11 +186,49 @@ document.querySelectorAll('.choice[data-key]').forEach(box => {
 // ---------- плитки: .tiles button ----------
 document.querySelectorAll('.tiles button').forEach(b => b.addEventListener('click', () => b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'))));
 
+// ---------- перемешивание вариантов квиза ----------
+// Верный ответ определяется по data-v === .quiz[data-right], поэтому порядок кнопок можно менять свободно.
+// Порядок свой у каждого браузера, но постоянный между перезагрузками (зерно — соль из localStorage + текст вопроса).
+// Не перемешиваются: .quiz[data-order="fixed"] или .choice[data-order="fixed"]; варианты, где у всех кнопок есть число
+// и числа идут по порядку (+3 / +8 / +16 %, 4 / 8 / 16 недель). Кнопка [data-fixed] остаётся на своём месте;
+// так же сами закрепляются варианты «Все …», «Оба …», «Обе …», «Ни один …», «Сравнить нельзя».
+(function(){
+  let salt = store.get('salt');
+  if (!salt){ salt = Math.random().toString(36).slice(2, 10); store.set('salt', salt); }
+  const hash = t => { let h = 2166136261; for (let i = 0; i < t.length; i++){ h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const rng = a => () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const PIN = /^\s*(все\s|всё\s|оба\b|обе\b|ни один|ни одна|ни одно|сравнить нельзя)/i;
+  const firstNum = t => { const m = t.replace(/\u2212/g, '-').match(/-?\d+(?:[.,]\d+)?/); return m ? parseFloat(m[0].replace(',', '.')) : null; };
+  const ordered = btns => {
+    const v = btns.map(b => firstNum(b.textContent));
+    if (v.some(x => x === null)) return false;
+    const up = v.every((x, i) => !i || x > v[i - 1]), down = v.every((x, i) => !i || x < v[i - 1]);
+    return up || down;
+  };
+  AB.shuffleQuiz = function(q){
+    const box = q.querySelector('.choice'); if (!box || q.dataset.order === 'fixed' || box.dataset.order === 'fixed') return;
+    const btns = [...box.querySelectorAll(':scope > button')]; if (btns.length < 2 || ordered(btns)) return;
+    const pinned = btns.map(b => b.hasAttribute('data-fixed') || PIN.test(b.textContent));
+    const free = btns.filter((b, i) => !pinned[i]);
+    const r = rng(hash(salt + '|' + AB.chapter + '|' + (q.querySelector('.q') || q).textContent.trim()));
+    for (let i = free.length - 1; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [free[i], free[j]] = [free[j], free[i]]; }
+    let k = 0; btns.map((b, i) => pinned[i] ? b : free[k++]).forEach(b => box.appendChild(b));
+  };
+  document.querySelectorAll('.quiz').forEach(AB.shuffleQuiz);
+})();
+
 // ---------- квизы: .quiz[data-right] ----------
 // Вопросы в карточке открываются по одному. На каждый выбор — вердикт и объяснение:
 // верный — «Отлично!» + .why, неверный — «Не совсем» + data-why кнопки + «попробуй ещё раз».
 // После верного ответа остальные варианты можно открыть и прочитать. Балл — за верный ответ с первой попытки.
+// Квизы внутри .warmup («Разминка») дают отдельный счёт «вспомнил» и не входят в ★-баллы и нумерацию q0, q1…
 const RIGHT = ['Отлично!', 'Всё правильно!', 'Точно!', 'Верно!', 'Так и есть!'];
+const RIGHT2 = ['Разобрался!', 'Теперь верно.', 'Вот теперь точно.'];
+AB.warm = function(id){
+  const k = this.chapter + ':warm', m = store.get(k) || {};
+  if (m[id] != null) return false;
+  m[id] = 1; store.set(k, m); return true;
+};
 document.querySelectorAll('.card').forEach(card => {
   const qs = [...card.querySelectorAll('.quiz')]; if (!qs.length) return;
   const out = card.querySelector('.quiz-score');
@@ -196,7 +236,7 @@ document.querySelectorAll('.card').forEach(card => {
     if (qs.length > 1){ const n = document.createElement('p'); n.className = 'qnum'; n.textContent = 'Вопрос ' + (qi + 1) + ' из ' + qs.length; q.prepend(n); }
     if (qi > 0) q.classList.add('later');
     const box = q.querySelector('.choice'), fb = document.createElement('div'); fb.className = 'qfb'; fb.hidden = true; box.after(fb);
-    const why = q.querySelector('.why'), whyHtml = why ? why.innerHTML : '';
+    const why = q.querySelector('.why'), whyHtml = why ? why.innerHTML : '', warm = !!q.closest('.warmup');
     box.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
       const ok = b.dataset.v === q.dataset.right, done = q.classList.contains('done');
@@ -208,17 +248,22 @@ document.querySelectorAll('.card').forEach(card => {
         let plus = '';
         if (!done){
           q.classList.add('done');
-          const gi = [...document.querySelectorAll('.quiz')].indexOf(q);
-          if (q.dataset.first === '1' && AB.award('q' + gi)) plus = ' <span class="plus">+1 балл</span>';
+          if (warm){
+            const wi = [...document.querySelectorAll('.warmup .quiz')].indexOf(q);
+            if (q.dataset.first === '1' && AB.warm('w' + wi)) plus = ' <span class="plus warm">вспомнил</span>';
+          } else {
+            const gi = [...document.querySelectorAll('.quiz')].filter(x => !x.closest('.warmup')).indexOf(q);
+            if (q.dataset.first === '1' && AB.award('q' + gi)) plus = ' <span class="plus">+1 балл</span>';
+          }
         }
-        html = '<p class="vd">' + RIGHT[(qi + (q.dataset.first === '1' ? 0 : 3)) % RIGHT.length] + plus + '</p><p>' + whyHtml + '</p>';
+        html = '<p class="vd">' + (q.dataset.first === '1' ? RIGHT[qi % RIGHT.length] : RIGHT2[qi % RIGHT2.length]) + plus + '</p><p>' + whyHtml + '</p>';
         const next = qs[qi + 1];
         if (!done && next){
           const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = 'Следующий вопрос →';
           nb.addEventListener('click', () => { next.classList.remove('later'); nb.remove(); window.dispatchEvent(new Event('resize')); next.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); });
           q.appendChild(nb);
         }
-        if (!next && out) out.textContent = 'С первого раза верно: ' + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
+        if (!next && out) out.textContent = (warm ? 'Вспомнил с первого раза: ' : 'С первого раза верно: ') + qs.filter(x => x.dataset.first === '1').length + ' из ' + qs.length + '.';
         fb.className = 'qfb ok';
       } else {
         html = '<p class="vd">' + (done ? 'Этот вариант неверный.' : 'Не совсем.') + '</p><p>' + (b.dataset.why || 'Этот вариант не подходит.') + '</p>' + (done ? '' : '<p class="again">Попробуй ещё раз.</p>');

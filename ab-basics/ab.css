@@ -1,8 +1,13 @@
 /* Дополнения курса «A/B на пальцах» к общим стилям /signal/book.css.
-   Цвета графиков — палитра курсов: контроль синий, тест оранжевый, правда зелёная, ловушка коралловая. */
+   Цвета графиков: один цвет — один смысл. Синий — контроль, оранжевый — тест, зелёный — правда / хорошо,
+   красный — плохо (ложная тревога, падение, вред), серый — теория. Те же значения — в COL в course.js.
+   Раунд 4: «плохо» стал красным #C9413A (был коралловый #EB8D82, путался с оранжевым тестом);
+   проверено валидатором палитр: CVD ΔE ≥ 8 со всеми тремя соседями, контраст с фоном 4,7:1.
+   --trap-ink — красный для текста (контраст ≥ 5:1 на белом и на --trap-bg). */
 :root{
-  --ctrl:#3D7DC4; --test:#E59157; --truth:#0E7E5F; --trap:#EB8D82; --theory:#A3A19A;
-  --ctrl-bg:#E6EEF8; --test-bg:#FBEDE3; --truth-bg:#E2F0EB; --trap-bg:#FBE8E5;
+  --ctrl:#3D7DC4; --test:#E59157; --truth:#0E7E5F; --trap:#C9413A; --theory:#A3A19A;
+  --ctrl-bg:#E6EEF8; --test-bg:#FBEDE3; --truth-bg:#E2F0EB; --trap-bg:#F8DCD8;
+  --trap-ink:#A8352F;
 }
 .choice{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
 .choice button{font:500 15px/1.3 var(--body); padding:10px 14px; border-radius:10px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); cursor:pointer; text-align:left}
@@ -17,7 +22,7 @@
 .big2 > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 14px}
 .big2 b{display:block; font:500 30px/1.15 var(--serif); font-variant-numeric:tabular-nums}
 .big2 span{font-size:14px; color:var(--muted)}
-.big2 .ctrl b{color:var(--ctrl)} .big2 .test b{color:#B8642A} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:#B5473B}
+.big2 .ctrl b{color:var(--ctrl)} .big2 .test b{color:#B8642A} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:var(--trap-ink)}
 .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0}
 .tiles button{all:unset; box-sizing:border-box; cursor:pointer; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.4; min-height:88px}
 .tiles button:hover{border-color:var(--ink)}
@@ -151,7 +156,7 @@
 .qfb p{margin:0 0 6px} .qfb p:last-child{margin-bottom:0}
 .qfb .vd{font:600 17px/1.3 var(--body)}
 .qfb.ok{background:var(--truth-bg)} .qfb.ok .vd{color:var(--truth)}
-.qfb.no{background:var(--trap-bg)} .qfb.no .vd{color:#B5473B}
+.qfb.no{background:var(--trap-bg)} .qfb.no .vd{color:var(--trap-ink)}
 .qfb .again{font-weight:600}
 .qfb .plus{display:inline-block; margin-left:6px; font-size:13px; color:#8A6A10; background:#F8F0D9; border-radius:999px; padding:2px 8px; vertical-align:2px}
 .qfb .qnext{margin-top:6px}
@@ -234,3 +239,36 @@ button.mini{border:1px solid rgba(36,34,31,.25); background:#fff; border-radius:
 button.mini:focus-visible{outline:2px solid var(--accent)}
 @media (max-width:620px){ .rep-cols{grid-template-columns:1fr} .rep-item{flex-direction:column; align-items:flex-start} }
 @media (max-width:620px){ .rep-list li{flex-wrap:wrap} .rep-list li > span:first-child{flex:1 1 100%} .rep-list li .rep-btns{margin-left:auto} }
+
+/* ===== раунд 4: общие компоненты (образцы разметки — /home/claude/conv-round4.md) ===== */
+/* Ядро шага: строка под h1 первой карточки */
+.core{position:relative; margin:-4px 0 18px; padding:10px 14px 10px 36px; border-radius:10px; background:var(--truth-bg); font:500 16px/1.45 var(--body); color:var(--ink)}
+.core::before{content:"→"; position:absolute; left:14px; top:10px; font-weight:700; color:var(--truth)}
+.core b{font-weight:600}
+
+/* Разминка: отдельная карточка .card.warmup (первая в шаге) или блок div.warmup внутри карточки */
+.warmup .warm-tag{display:inline-block; font:600 12px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; border-radius:6px; background:var(--ctrl-bg); color:#2C5F99; margin-top:44px}
+div.warmup .warm-tag{margin-top:0}
+.warmup .warm-tag + h2{margin-top:10px}
+div.warmup{border:2px dashed rgba(61,125,196,.45); border-radius:14px; padding:14px 16px; margin:18px 0; background:#F7FAFD}
+.warmup .quiz{border-color:rgba(61,125,196,.35); background:#F7FAFD}
+section.warmup .quiz{border-style:dashed; border-width:2px}
+.qfb .plus.warm{color:#2C5F99; background:var(--ctrl-bg)}
+
+/* Страшное слово: термин после идеи */
+.scary{position:relative; margin:18px 0; padding:12px 16px 12px 16px; border-radius:12px; background:#F8F0D9; border-left:4px solid #C9A43A}
+.scary .scary-tag{display:block; font:600 12px/1.3 var(--body); letter-spacing:.06em; text-transform:uppercase; color:#8A6A10; margin-bottom:4px}
+.scary p{margin:0 0 6px} .scary p:last-child{margin-bottom:0}
+.scary .term{font:500 19px/1.3 var(--serif); color:var(--ink)}
+.scary .aside{color:var(--muted); font-size:15px}
+
+/* Пословица шага: h2 шпаргалки с data-proverb="N" (номер шага). Общая шпаргалка собирает их по [data-proverb]. */
+h2[data-proverb]{position:relative}
+h2[data-proverb]::before{content:"Пословица шага"; display:block; font:600 12px/1.3 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+
+/* Голос Котейки — реплика мира без эффекта: обычная .msg.kot в .chat + модификатор .world */
+.msg.kot.world .bubble{background:#F8F0D9; border:2px dashed #C9A43A}
+.msg.kot.world .who::after{content:" · мир без эффекта"; font-weight:500}
+/* Котейка ошибся, ученик поправляет: .msg.kot.oops */
+.msg.kot.oops .bubble{background:#fff; border:2px solid var(--trap)}
+.msg.kot.oops .who::after{content:" · тут ошибка"; color:var(--trap-ink); font-weight:600}

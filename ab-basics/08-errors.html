@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab08" data-next="09-mde.html">
 <nav class="top" aria-label="Навигация">
@@ -97,7 +97,7 @@
 <section class="card" data-title="Мощность" aria-label="Мощность">
   <span class="step-tag">Что от чего зависит</span>
   <h2>Ложные тревоги не зависят от трафика, пропуски зависят</h2>
-  <p>Подвигай длину эксперимента. Коралловая линия — как часто тест показывает значимую разницу у пустой идеи. Зелёная — как часто он замечает настоящие +3 %.</p>
+  <p>Подвигай длину эксперимента. Красная линия — как часто тест показывает значимую разницу у пустой идеи. Зелёная — как часто он замечает настоящие +3 %.</p>
   <div class="sheet c-white">
     <label class="field" for="days2">Длина эксперимента: <b id="days2-t" class="num">7 дней</b></label>
     <input type="range" id="days2" min="0" max="5" value="2" style="width:100%">
@@ -134,7 +134,7 @@
   <div class="quiz" data-right="b">
     <p class="q">Что будет, если поднять порог с 5 % до 20 %?</p>
     <div class="choice">
-      <button type="button" data-v="a" data-why="Пропусков правда станет меньше, но бесплатно это не даётся: посмотри на коралловые хвосты пустого колокола.">Пропусков станет меньше, и всё</button>
+      <button type="button" data-v="a" data-why="Пропусков правда станет меньше, но бесплатно это не даётся: посмотри на красные хвосты пустого колокола.">Пропусков станет меньше, и всё</button>
       <button type="button" data-v="b">Пропусков станет меньше, а ложных тревог — вчетверо больше</button>
       <button type="button" data-v="c" data-why="Наоборот: мягкий судья чаще выносит приговор «эффект есть», в том числе пустым идеям.">Ложных тревог станет меньше</button>
     </div>
@@ -260,7 +260,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 const DAYS = [1, 3, 7, 14, 21, 28], P0 = 0.10, LIFT = 0.03, PER_DAY = 10000, REAL = 20;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -322,7 +322,7 @@ function drawPower(){
   c.fillStyle = COL.trap; c.beginPath(); c.arc(X(d), Y(0.05), 5, 0, 2 * Math.PI); c.fill();
   // подписи прямо у линий вместо легенды
   label(c, 'замечаем настоящие +3\u00a0%', X(28), Y(power(28)) + 16, COL.truth, 'right');
-  label(c, 'ложные тревоги у пустых идей', X(28), Y(0.05) - 7, '#B5473B', 'right');
+  label(c, 'ложные тревоги у пустых идей', X(28), Y(0.05) - 7, '#A8352F', 'right');
 }
 window.addEventListener('resize', drawPower);
 setDays(2); paint();
@@ -346,7 +346,7 @@ setDays(2); paint();
     label(x, 'порог', X(c) + 4, T + 12, COL.ink);
     // подписи закрашенных зон прямо на графике
     const nar0 = w < 520;
-    if (nar0) label(x, 'ложные тревоги', 2, Y(0) - 30, '#B5473B', 'left'); else label(x, 'ложные тревоги', X(-c) - 6, Y(0) - 8, '#B5473B', 'right');
+    if (nar0) label(x, 'ложные тревоги', 2, Y(0) - 30, '#A8352F', 'left'); else label(x, 'ложные тревоги', X(-c) - 6, Y(0) - 8, '#A8352F', 'right');
     const zm = Math.max(-c, c - 1.2); label(x, 'пропуски', X(zm), Y(normPdf(zm - D) * 0.35) + 4, '#8A6A10', 'center');
     const nar = w < 520; label(x, nar ? 'пустые' : 'пустые идеи', X(0), h - 6, COL.ink2, 'center'); label(x, nar ? 'хорошие' : 'хорошие идеи', X(D) + (nar ? 10 : 0), h - 6, COL.truth, 'center');
   }

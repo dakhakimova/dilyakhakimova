@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/signal/book.css">
-<link rel="stylesheet" href="ab.css?v=202611201603">
+<link rel="stylesheet" href="ab.css?v=202611211200">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -106,7 +106,7 @@
       <div class="choice"><button type="button" data-v="a" data-why="Маловато. Подвигай ползунок к концу декабря: перед Новым годом точки уходят намного выше.">Около +3 %</button><button type="button" data-v="b" data-why="Бывает и больше. Посмотри на самую высокую точку графика — она в конце декабря.">Около +8 %</button><button type="button" data-v="c">Около +16 %</button><button type="button" data-v="d" data-why="Столько не набирается даже в самый удачный день: выше всего точки поднимаются примерно до +16 %.">Около +40 %</button></div>
       <p class="why">Самая высокая точка — релиз 20 декабря: +15,8 % перед Новым годом. Самая низкая — релиз 6 июня: −6,9 %. Кнопка ни при чём, это сезон и праздники.</p>
     </div>
-    <div class="quiz" data-right="b">
+    <div class="quiz" data-right="b" data-order="fixed">
       <p class="q">В скольких днях года «эффект» получается больше 5 % в ту или другую сторону?</p>
       <div class="choice"><button type="button" data-v="a" data-why="Посмотри на гистограмму: за границами ±5 % лежит немало точек, хвосты толстые.">Почти ни в одном</button><button type="button" data-v="b">Примерно в каждом четвёртом</button><button type="button" data-v="c" data-why="Не так плохо: большая часть точек всё же лежит между −5 % и +5 %.">Почти во всех</button></div>
       <p class="why">В 28 % дней года, то есть примерно в каждом четвёртом. Посмотри на гистограмму: хвосты за ±5 % толстые. Если выпустить пустую кнопку в случайный день, шанс увидеть «эффект» больше 5 % — как выбросить на кубике шестёрку или пятёрку.</p>
@@ -318,7 +318,7 @@
   </main>
 </div>
 
-<script src="course.js?v=202611201603"></script>
+<script src="course.js?v=202611211200"></script>
 <script>
 
 // Подписи серий: на широком экране — справа от концов линий (разводим, чтобы не слипались),
@@ -466,7 +466,7 @@ function init(D){
     const to = gather < 1 ? 1 : 0; e.target.textContent = to ? 'Вернуть на график' : 'Собрать в гистограмму';
     if (reduce){ gather = to; drawWow(); revealQuiz(); return; }
     const from = gather, t0 = performance.now(); cancelAnimationFrame(anim);
-    (function frame(now){ const k = Math.min(1, (now - t0) / 1600); gather = from + (to - from) * k; drawWow(); if (k < 1) anim = requestAnimationFrame(frame); else if (to) { revealQuiz(); document.getElementById('wow-note').textContent = 'Точки съехали вправо и легли в стопки на той же высоте: так получилась гистограмма. Каждая стопка — дни года, при которых «эффект» вышел примерно одинаковым. Чем длиннее стопка, тем чаще такой «эффект» встречается. Наведи на стопку, чтобы увидеть числа; коралловая точка — твой выбранный день.'; } })(t0);
+    (function frame(now){ const k = Math.min(1, (now - t0) / 1600); gather = from + (to - from) * k; drawWow(); if (k < 1) anim = requestAnimationFrame(frame); else if (to) { revealQuiz(); document.getElementById('wow-note').textContent = 'Точки съехали вправо и легли в стопки на той же высоте: так получилась гистограмма. Каждая стопка — дни года, при которых «эффект» вышел примерно одинаковым. Чем длиннее стопка, тем чаще такой «эффект» встречается. Наведи на стопку, чтобы увидеть числа; красная точка — твой выбранный день.'; } })(t0);
   });
 
   const miss = x => num(100 * Math.abs(x), 1) + ' %'; // промах «на сколько процентов мимо правды»
