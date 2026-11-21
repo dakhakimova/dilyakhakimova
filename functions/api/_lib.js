@@ -51,22 +51,42 @@ export async function currentUser(request, env) {
 // Баллы считает только сервер. Для прогнозов он сам сравнивает догадку с правильным ответом,
 // поэтому «попал» нельзя подделать, отправив готовый флаг.
 export const RULES = {
+  // «Сигнал или шум», глава 1 (свой встроенный скрипт, без квизов)
   ch01: {
     title: 'Вероятность — это доля в штуках',
     predict: { coin: 24.6, shop: 37.7 },          // правильный ответ, % — для «попал ±5 п.п.»
     code: ['at-least-one'],
     interview: ['disjoint', 'lamps', 'dice'],
   },
-  // Главы «Вероятности на пальцах» (p01…p09) и «Сигнала или шума» (ch04…ch12) добавляются сюда после того,
-  // как авторы опишут ключи в /home/claude/free-courses/rules-<курс>-NN.json (формат — conventions.md, раздел «Баллы»):
-  // { title, predict: {ключ: правильный ответ в %}, code: [...], interview: [...], quiz: число квизов вне разминки }.
+  // «Вероятность на пальцах»
+  p01: { title: "Исходы и события", predict: {kot: 50}, code: ['p-sum'], interview: ['dice7', 'coins3', 'leibniz'], quiz: 5 },
+  p02: { title: "Вероятность как частота", predict: {five: 24.6}, code: ['share-at-least'], interview: ['six-or-sixty', 'streak'], quiz: 5 },
+  p03: { title: "Считаем исходы", predict: {five: 24.6}, code: ['n-choose-k'], interview: ['aces', 'handshakes', 'committee'], quiz: 5 },
+  p04: { title: "Не, и, или", predict: {party23: 50.7}, code: ['p-shared'], interview: ['birthdays', 'dice6', 'lamps100'], quiz: 5 },
+  p05: { title: "Условная вероятность и независимость", predict: {rainchoc: 40}, code: ['independent'], interview: ['twokids', 'threecards', 'diceindep'], quiz: 5 },
+  p06: { title: "Байес", predict: {cash: 9}, code: ['posterior'], interview: ['rare', 'promoflags', 'monty'], quiz: 5 },
+  p07: { title: "Случайная величина и распределение", predict: {mid: 24.6}, code: ['binom-pmf'], interview: ['first-heads', 'first-six', 'three-coins', 'ht-hh'], quiz: 5 },
+  p08: { title: "Среднее и разброс", predict: {plus: 17}, code: ['coupons'], interview: ['all-faces', 'reroll', 'lottery'], quiz: 5 },
+  p09: { title: "Пробное собеседование", predict: {}, code: ['seats'], interview: [], quiz: 10 },
+  // «Сигнал или шум», главы 4–12 (главы 2–3 — в «Вероятности на пальцах», шаги 5–8)
+  ch04: { title: "Шум", predict: {out: 24.1}, code: ['corridor'], interview: ['fifty', 'seven'], quiz: 5 },
+  ch05: { title: "Нормальное распределение", predict: {beyond2: 4.6}, code: ['between'], interview: ['sigma2', 'twosigma', 'where'], quiz: 5 },
+  ch06: { title: "Зоопарк распределений", predict: {above: 29.1}, code: ['whales'], interview: ['raisins', 'delivery', 'river'], quiz: 5 },
+  ch07: { title: "ЦПТ в деле", predict: {whales30: 56.8}, code: ['shelves'], interview: ['dice10', 'rand12', 'shelves', 'jug'], quiz: 5 },
+  ch08: { title: "Симпсон, Берксон, ошибка выжившего и автобус", predict: {simpson: 18.2}, code: ['mean-wait'], interview: ['buspass', 'menutop', 'speed'], quiz: 5 },
+  ch09: { title: "A/A-тест", predict: {aa83: 5}, code: ['aa-rate'], interview: ['pvuniform', 'aareport'], quiz: 5 },
+  ch10: { title: "A/B на простой метрике", predict: {nine: 1.1}, code: ['ztest-props'], interview: ['nine', 'octopus', 'cafes', 'late'], quiz: 5 },
+  ch11: { title: "Ошибки I и II рода", predict: {half: 50}, code: ['power-props'], interview: ['errors', 'alpha', 'coin100', 'half'], quiz: 5 },
+  ch12: { title: "«Прокрасилось» — значит, работает?", predict: {fdr: 36}, code: ['false-share'], interview: ['nulls1000', 'pvh0', 'needpower'], quiz: 5 },
 };
 export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1, quiz: 1 };
 export const HIT_TOLERANCE = 5;
-export const TIERS = [ [0.4, 10], [0.7, 20], [0.9, 30] ];   // доля от максимума → скидка, %
-// Пороги считаются от баллов всего запланированного курса (12 глав), а не только вышедших глав,
-// иначе после первой главы скидку получали бы сразу. Когда выйдут все главы, реальный максимум станет больше — он и будет использоваться.
-export const PLANNED_MAX = 160;
+export const TIERS = [ [0.4, 10], [0.7, 20], [0.9, 30] ];   // доля от максимума → скидка, %: 40 % → 10 %, 70 % → 20 %, 90 % → 30 %
+// Пороги скидки считаются от максимума двух бесплатных курсов: «Вероятность на пальцах» (p01–p09, 143 балла)
+// и «Сигнал или шум» (ch01 и ch04–ch12, 14 + 145 баллов) — всего 302. Баллы «A/B на пальцах» сюда не входят (не решено).
+// PLANNED_MAX — нижняя граница максимума: если главу временно уберут из RULES, пороги не упадут.
+// Новые главы или квизы поднимают максимум сами (maxPoints считает по RULES).
+export const PLANNED_MAX = 302;
 
 export function maxPoints() {
   let m = 0;

@@ -86,14 +86,17 @@ function typoOnly(page){
 }
 
 // node tools/bake-i18n.js --typo probability/03-counting.html [ещё файлы] — типограф по странице главы целиком,
-// кроме <head>, <script>, <style>, <textarea>, <pre>, <code> и атрибутов тегов (код не трогаем: неразрывный пробел ломает Python).
+// кроме <head>, <script>, <style>, <textarea>, <pre>, <code> (код не трогаем: неразрывный пробел ломает Python). Из атрибутов —
+// только текстовые: data-why, data-fb, data-title, alt, aria-label, title. Разряды «10 000» — неразрывным пробелом.
 // Повторный запуск ничего не меняет. Остальные страницы не трогает — можно запускать параллельно с другими авторами.
 function typoPage(page){
   const I18N = loadDicts(['i18n/site.js']);
   const file = path.join(ROOT, page);
   const html = fs.readFileSync(file, 'utf8');
   const parts = html.split(/(<head[\s>][\s\S]*?<\/head>|<script[\s>][\s\S]*?<\/script>|<style[\s>][\s\S]*?<\/style>|<textarea[\s>][\s\S]*?<\/textarea>|<pre[\s>][\s\S]*?<\/pre>|<code[\s>][\s\S]*?<\/code>)/i);
-  const res = parts.map((x, i) => i % 2 ? x : I18N.typo('ru', x)).join('');
+  // текстовые атрибуты (пояснения квизов, подписи, alt, aria-label, названия карточек) — тем же типографом
+  const ATTR = /(\s(?:data-why|data-fb|data-title|alt|aria-label|title)=")([^"]*)(")/g;
+  const res = parts.map((x, i) => i % 2 ? x : I18N.typo('ru', x.replace(ATTR, (_, a, v, b) => a + I18N.typo('ru', v) + b))).join('');
   if (res !== html) fs.writeFileSync(file, res);
   console.log('typo:', page, res === html ? 'без изменений' : 'обновлено');
 }

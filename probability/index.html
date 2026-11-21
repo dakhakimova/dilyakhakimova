@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/probability.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
 <title data-i18n="meta.title">«Вероятность на пальцах» — бесплатный интерактивный курс · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно, курс скоро откроется.">
+<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <link rel="canonical" href="https://dilyakhakimova.com/probability/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/probability/">
 <meta property="og:title" data-i18n-attr="content:c.title" content="Вероятность на пальцах">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно, курс скоро откроется.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <meta property="og:image" content="https://dilyakhakimova.com/img/probability-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -63,14 +63,14 @@ function artFail(img){
 <!-- 1. Первый экран -->
 <section class="c-hero wrap">
   <div>
-    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="tag soon" data-i18n="soon">скоро</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
+    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
     <h1 data-i18n="c.title">Вероятность на пальцах</h1>
     <p class="sub" data-i18n="hero.sub">Шансы в штуках: от двух монеток до матожидания — и задачи с собеседований в каждом шаге.</p>
     <p class="ctas">
-      <a class="btn" href="/signal/01-probability.html" data-i18n="cta1">Пока — первая глава</a>
+      <a class="btn" href="01-outcomes.html" data-i18n="cta1">Начать с шага 1</a>
       <a class="btn ghost" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
     </p>
-    <p class="facts" data-i18n="hero.facts">9 шагов. В каждом — история, игрушка, правило формулой и задачи с собеседований, в конце — пробное собеседование на время. Курс собирается из первой главы «Сигнала или шума», шаги будут открываться по одному.</p>
+    <p class="facts" data-i18n="hero.facts">9 шагов. В каждом — история, игрушка, правило формулой и задачи с собеседований, в конце — пробное собеседование на время. Все шаги открыты, начинать можно с любого.</p>
   </div>
   <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: две монетки и дерево исходов</span></figcaption></figure>
 </section>
@@ -81,7 +81,7 @@ function artFail(img){
   <p class="lead-note" data-i18n="mod.lead">Девять шагов, каждый — эпизод из жизни кафе Алисы, Боба и Котейки. Правило появляется трижды: историей, в штуках из 1000 и формулой.</p>
   <ol class="modules" role="list">
     <li><span class="n" data-i18n="m1.n">Шаг 1</span><h3><a href="01-outcomes.html" data-i18n="m1.t">Исходы и события</a></h3><p class="d" data-i18n="m1.d">Вероятность — благоприятные исходы, делённые на все.</p><p class="scene" data-i18n="m1.s">Боб решает двумя монетками, кто моет посуду: два орла — Алиса, две решки — Боб, разные — Котейка. Котейка подозрительно доволен.</p><p class="x" data-i18n="m1.x"><b>Задача с собеседования:</b> два кубика — какова вероятность, что сумма равна 7?</p></li>
-    <li><span class="n" data-i18n="m2.n">Шаг 2</span><h3><a href="02-frequency.html" data-i18n="m2.t">Вероятность как частота</a></h3><p class="d" data-i18n="m2.d">На длинной серии доля успокаивается, на короткой — скачет.</p><p class="scene" data-i18n="m2.s">Первая неделя кафе: в понедельник заказ сделали 7 гостей из 10, во вторник — 3. Боб уже переписывает меню.</p><p class="x" data-i18n="m2.x"><b>Задача с собеседования:</b> что вероятнее — 6 орлов из 10 или 60 из 100?</p></li>
+    <li><span class="n" data-i18n="m2.n">Шаг 2</span><h3><a href="02-frequency.html" data-i18n="m2.t">Вероятность как частота</a></h3><p class="d" data-i18n="m2.d">На длинной серии доля успокаивается, на короткой — скачет.</p><p class="scene" data-i18n="m2.s">Первая неделя кафе: в понедельник десерт к кофе взяли 7 гостей из 10, во вторник — 3. Боб уже переписывает меню.</p><p class="x" data-i18n="m2.x"><b>Задача с собеседования:</b> что вероятнее — 6 орлов из 10 или 60 из 100?</p></li>
     <li><span class="n" data-i18n="m3.n">Шаг 3</span><h3><a href="03-counting.html" data-i18n="m3.t">Считаем исходы</a></h3><p class="d" data-i18n="m3.d">Дерево, правило умножения и C(n, k).</p><p class="scene" data-i18n="m3.s">Алиса составляет меню комбо: каждый напиток сочетается с каждым десертом. Сколько всего комбо — и сколько из них без кофе?</p><p class="x" data-i18n="m3.x"><b>Задача с собеседования:</b> сколько рукопожатий, если здороваются n человек?</p></li>
     <li><span class="n" data-i18n="m4.n">Шаг 4</span><h3><a href="04-not-and-or.html" data-i18n="m4.t">Не, и, или</a></h3><p class="d" data-i18n="m4.d">«Хотя бы один» считаем через противоположное.</p><p class="scene" data-i18n="m4.s">Вечеринка в честь открытия: гостей 23, и у двоих совпал день рождения. Совпадение?</p><p class="x" data-i18n="m4.x"><b>Задача с собеседования:</b> кубик бросили 6 раз — какова вероятность, что все грани разные?</p></li>
     <li><span class="n" data-i18n="m5.n">Шаг 5</span><h3><a href="05-conditional.html" data-i18n="m5.t">Условная вероятность и независимость</a></h3><p class="d" data-i18n="m5.d">Сужаем мир: смотрим только на тех, кто пришёл в дождь.</p><p class="scene" data-i18n="m5.s">В дождь горячий шоколад берут чаще. А десерт? Алиса проверяет, меняет ли дождь хоть что-то.</p><p class="x" data-i18n="m5.x"><b>Задача с собеседования:</b> в семье двое детей, хотя бы один мальчик — какова вероятность, что оба мальчики?</p></li>
@@ -95,17 +95,17 @@ function artFail(img){
 <!-- 3. Игрушки -->
 <section class="wrap block" id="toys" aria-labelledby="toys-h">
   <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
-  <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Игрушки появятся вместе с шагами, одна уже работает в главе, из которой собирается курс.</p>
+  <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Каждая игрушка открывается прямо на своей карточке шага.</p>
   <div class="toys-wrap">
   <ul class="toys c-toys" role="list">
-    <li><div class="off"><b data-i18n="t1.t">Две монетки моют посуду</b><span data-i18n="t1.d">Бросай пары: плитки ОО, ОР, РО и РР загораются по очереди. Через сотню бросков видно, что «разные» выпадают вдвое чаще, чем «два орла», — правило Боба нечестное.</span><small data-i18n="t1.f">шаг 1</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t2.t">Бегущая доля</b><span data-i18n="t2.d">Один, десять, сто, десять тысяч бросков. На десяти доля орлов обычно гуляет от 20 до 80 %, на десяти тысячах в 19 сериях из 20 держится в пределах 49–51 %.</span><small data-i18n="t2.f">шаг 2</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><a href="/signal/01-probability.html#card-3"><b data-i18n="t3.t">Ровно пять из десяти</b><span data-i18n="t3.d">Все знают, что орлов «половина». Но ровно 5 из 10 выпадает только в 24,6 % серий. Бросай по одной серии или сразу по тысяче.</span><small data-i18n="t3.f">уже работает: «Сигнал или шум», глава 1</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><div class="off"><b data-i18n="t4.t">Конструктор дерева</b><span data-i18n="t4.d">Каждый клик удваивает ветки: после десяти бросков их 1024. Треугольник Паскаля подсвечивает 252 ветки ровно с пятью орлами.</span><small data-i18n="t4.f">шаг 3</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t5.t">Вечеринка дней рождения</b><span data-i18n="t5.d">Гости входят по одному, совпадения вспыхивают. Тянешь ползунок: при 23 гостях совпадение бывает в 50,7 % вечеринок, при 50 — в 97 %.</span><small data-i18n="t5.f">шаг 4</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t6.t">Сортировочная на 1000 гостей</b><span data-i18n="t6.d">Тысяча гостей разбегается по таблице «дождь или солнце × шоколад или кофе». Рамка «смотрим только на…» сужает мир, и доля меняется на глазах.</span><small data-i18n="t6.f">шаг 5</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t7.t">Касса и фальшивые купюры</b><span data-i18n="t7.d">Ползунки: как часто попадаются фальшивки и насколько точна касса. Если фальшивая одна купюра из 1000, а касса ловит 99 % фальшивок и ошибается на 1 % настоящих, настоящих тревог среди писков — около 9 %.</span><small data-i18n="t7.f">шаг 6</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
-    <li><div class="off"><b data-i18n="t8.t">Монти Холл на празднике</b><span data-i18n="t8.d">Сыграй 20 раз сам, потом запусти автомат на 1000 игр: кто меняет дверь, выигрывает примерно в двух играх из трёх.</span><small data-i18n="t8.f">шаг 6</small><span class="tag soon" data-i18n="soon">скоро</span></div></li>
+    <li><a href="01-outcomes.html#card-3"><b data-i18n="t1.t">Две монетки моют посуду</b><span data-i18n="t1.d">Бросай пары: плитки ОО, ОР, РО и РР загораются по очереди. Через сотню бросков видно, что «разные» выпадают вдвое чаще, чем «два орла», — правило Боба нечестное.</span><small data-i18n="t1.f">шаг 1, карточка 3</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="02-frequency.html#card-4"><b data-i18n="t2.t">Бегущая доля</b><span data-i18n="t2.d">Один, десять, сто, десять тысяч бросков. На десяти доля орлов обычно гуляет от 20 до 80 %, на десяти тысячах в 19 сериях из 20 держится в пределах 49–51 %.</span><small data-i18n="t2.f">шаг 2, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="02-frequency.html#card-3"><b data-i18n="t3.t">Ровно пять из десяти</b><span data-i18n="t3.d">Все знают, что орлов «половина». Но ровно 5 из 10 выпадает только в 24,6 % серий. Бросай по одной серии или сразу по тысяче.</span><small data-i18n="t3.f">шаг 2, карточка 3</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="03-counting.html#card-6"><b data-i18n="t4.t">Конструктор дерева</b><span data-i18n="t4.d">Каждый клик удваивает ветки: после десяти бросков их 1024. Треугольник Паскаля подсвечивает 252 ветки ровно с пятью орлами.</span><small data-i18n="t4.f">шаг 3, карточка 6</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="04-not-and-or.html#card-4"><b data-i18n="t5.t">Вечеринка дней рождения</b><span data-i18n="t5.d">Гости входят по одному, совпадения вспыхивают. Тянешь ползунок: при 23 гостях совпадение бывает в 50,7 % вечеринок, при 50 — в 97 %.</span><small data-i18n="t5.f">шаг 4, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="05-conditional.html#card-4"><b data-i18n="t6.t">Сортировочная на 1000 гостей</b><span data-i18n="t6.d">Тысяча гостей разбегается по таблице «дождь или солнце × взял шоколад или нет». Рамка «смотрим только на…» сужает мир, и доля меняется на глазах.</span><small data-i18n="t6.f">шаг 5, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="06-bayes.html#card-4"><b data-i18n="t7.t">Касса и фальшивые купюры</b><span data-i18n="t7.d">Ползунки: как часто попадаются фальшивки и насколько точна касса. Если фальшивая одна купюра из 1000, а касса ловит 99 % фальшивок и ошибается на 1 % настоящих, настоящих тревог среди писков — около 9 %.</span><small data-i18n="t7.f">шаг 6, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
+    <li><a href="06-bayes.html#card-9"><b data-i18n="t8.t">Монти Холл на празднике</b><span data-i18n="t8.d">Сыграй несколько раз сам, потом запусти автомат на 1000 игр: кто меняет дверь, выигрывает примерно в двух играх из трёх.</span><small data-i18n="t8.f">шаг 6, карточка 9</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
   </ul>
   <figure class="art"><img src="/img/prob-toys.jpg" width="900" height="1200" loading="lazy" data-i18n-attr="alt:toys.alt" alt="Котейка у доски Гальтона, гости кафе спорят, где вырастет горка шариков" onerror="artFail(this)"><figcaption class="ph" data-i18n="toys.ph">Котейка у доски Гальтона, гости спорят о горке</figcaption></figure>
   </div>
@@ -152,7 +152,7 @@ function artFail(img){
     <div>
       <h2 data-i18n="foot.courses">Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a><span class="note" data-i18n="soon">скоро</span></li>
+        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
         <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
         <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
         <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>

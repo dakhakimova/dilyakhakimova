@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Мой прогресс · Сигнал или шум</title>
+<title>Мой прогресс · бесплатные курсы</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,13 +21,15 @@
 .who{display:flex; align-items:center; gap:12px}
 .who img{width:44px; height:44px; border-radius:50%}
 #tg-login{min-height:48px; margin:16px 0}
+#m-chapters h3{margin:18px 0 2px; font-size:19px} #m-chapters h3:first-child{margin-top:4px}
+#m-chapters .chs{padding-left:20px; margin:6px 0 0} #m-chapters .chs li{margin:3px 0} #m-chapters li.todo{color:var(--muted)}
 .err{color:var(--bad)}
 </style>
 </head>
 <body>
 <nav class="top" aria-label="Навигация">
-  <a class="course" href="/signal/">Сигнал или шум</a>
-  <span><a href="/signal/">Оглавление курса</a> · <a href="/">Диля Хакимова</a></span>
+  <a class="course" href="/">Диля Хакимова</a>
+  <span><a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a></span>
 </nav>
 <main class="chapter">
   <p class="kicker">личный кабинет</p>
@@ -35,7 +37,7 @@
 
   <section id="guest" hidden>
     <p class="lead">Войди через Telegram, чтобы баллы и прогресс сохранялись на любом устройстве.</p>
-    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Баллы превращаются в скидку на курс «A/B без мифов».</p>
+    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Баллы из «Вероятности на пальцах» и «Сигнала или шума» превращаются в скидку на курс «A/B без мифов»: 10 % за 40 % баллов, 20 % за 70 %, 30 % за 90 %.</p>
     <div id="tg-login"></div>
     <p class="muted" id="queued"></p>
     <p class="err" id="login-err" role="alert"></p>
@@ -48,7 +50,7 @@
     <div class="panel">
       <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:20px">из <span id="m-max">0</span> баллов</span></div>
       <div class="bar"><span id="m-bar"></span></div>
-      <div class="ticks" aria-hidden="true"><i style="left:40%">−10%</i><i style="left:70%">−20%</i><i style="left:90%">−30%</i></div>
+      <div class="ticks" aria-hidden="true"><i style="left:40%">−10 %</i><i style="left:70%">−20 %</i><i style="left:90%">−30 %</i></div>
       <p id="m-next" style="margin-top:10px"></p>
       <p class="muted" id="m-calib"></p>
     </div>
@@ -58,8 +60,8 @@
       <span class="code" id="p-code"></span>
     </div>
     <div class="panel">
-      <h2 style="margin-top:0">Главы</h2>
-      <ul id="m-chapters" style="padding-left:20px; margin:0"></ul>
+      <h2 style="margin-top:0">Главы курсов</h2>
+      <div id="m-chapters"></div>
     </div>
     <button class="btn ghost" id="logout" type="button">Выйти</button>
   </section>
@@ -70,7 +72,32 @@
 </main>
 <script src="/signal/progress.js"></script>
 <script>
-const CHAPTERS = { ch01: { title: 'Вероятность — это доля в штуках', url: '/signal/01-probability.html', cards: 16 } };
+// Главы двух бесплатных курсов: баллы из обоих идут в скидку на «A/B без мифов» (правила — functions/api/_lib.js, RULES).
+const COURSES = [
+  {title: 'Вероятность на пальцах', url: '/probability/', chapters: {
+    p01: {title: "Исходы и события", url: "/probability/01-outcomes.html", cards: 13},
+    p02: {title: "Вероятность как частота", url: "/probability/02-frequency.html", cards: 13},
+    p03: {title: "Считаем исходы", url: "/probability/03-counting.html", cards: 13},
+    p04: {title: "Не, и, или", url: "/probability/04-not-and-or.html", cards: 14},
+    p05: {title: "Условная вероятность и независимость", url: "/probability/05-conditional.html", cards: 13},
+    p06: {title: "Байес", url: "/probability/06-bayes.html", cards: 14},
+    p07: {title: "Случайная величина и распределение", url: "/probability/07-distribution.html", cards: 14},
+    p08: {title: "Среднее и разброс", url: "/probability/08-mean-spread.html", cards: 14},
+    p09: {title: "Пробное собеседование", url: "/probability/09-interview.html", cards: 14},
+  }},
+  {title: 'Сигнал или шум', url: '/signal/', chapters: {
+    ch01: {title: 'Вероятность — это доля в штуках', url: '/signal/01-probability.html', cards: 16},
+    ch04: {title: "Шум", url: "/signal/04-noise.html", cards: 12},
+    ch05: {title: "Нормальное распределение", url: "/signal/05-normal.html", cards: 15},
+    ch06: {title: "Зоопарк распределений", url: "/signal/06-zoo.html", cards: 13},
+    ch07: {title: "ЦПТ в деле", url: "/signal/07-clt.html", cards: 14},
+    ch08: {title: "Симпсон, Берксон, ошибка выжившего и автобус", url: "/signal/08-traps.html", cards: 14},
+    ch09: {title: "A/A-тест", url: "/signal/09-aa.html", cards: 13},
+    ch10: {title: "A/B на простой метрике", url: "/signal/10-ab-test.html", cards: 14},
+    ch11: {title: "Ошибки I и II рода", url: "/signal/11-errors.html", cards: 13},
+    ch12: {title: "«Прокрасилось» — значит, работает?", url: "/signal/12-wins.html", cards: 14},
+  }},
+];
 const $ = id => document.getElementById(id);
 
 function showMember(me){
@@ -81,17 +108,27 @@ function showMember(me){
   $('m-points').textContent = me.points; $('m-max').textContent = me.max;
   $('m-bar').style.width = Math.min(100, me.share) + '%';
   $('m-next').textContent = me.next_tier
-    ? 'До скидки ' + me.next_tier.discount + '% осталось ' + me.next_tier.need_points + ' б.'
+    ? 'До скидки ' + me.next_tier.discount + ' % осталось ' + me.next_tier.need_points + ' б.'
     : 'Максимальная скидка открыта!';
   $('m-calib').textContent = me.calibration_error === null ? 'Калибровка появится после первых прогнозов.'
     : 'Калибровка: твои прогнозы в среднем ошибаются на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
-  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + '%'; $('p-code').textContent = me.promos[0].code; }
-  const ul = $('m-chapters'); ul.innerHTML = '';
-  for (const [id, c] of Object.entries(CHAPTERS)){
-    const st = me.chapters[id] || {points: 0, cards: []};
-    const li = document.createElement('li');
-    li.innerHTML = '<a href="' + c.url + '">' + c.title + '</a> — пройдено карточек ' + new Set(st.cards).size + ' из ' + c.cards + ', баллов ' + st.points;
-    ul.appendChild(li);
+  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + ' %'; $('p-code').textContent = me.promos[0].code; }
+  const box = $('m-chapters'); box.innerHTML = '';
+  for (const course of COURSES){
+    let pts = 0, done = 0;
+    const ul = document.createElement('ul'); ul.className = 'chs';
+    for (const [id, c] of Object.entries(course.chapters)){
+      const st = me.chapters[id] || {points: 0, cards: []}, seen = new Set(st.cards).size;
+      pts += st.points; if (seen >= c.cards) done++;
+      const li = document.createElement('li'); if (!seen) li.className = 'todo';
+      const a = document.createElement('a'); a.href = c.url; a.textContent = c.title;
+      li.append(a, ' — карточек ' + seen + ' из ' + c.cards + ', баллов ' + st.points);
+      ul.appendChild(li);
+    }
+    const h = document.createElement('h3'), a = document.createElement('a'); a.href = course.url; a.textContent = course.title;
+    h.append(a); const sub = document.createElement('p'); sub.className = 'muted';
+    sub.textContent = 'Пройдено глав: ' + done + ' из ' + Object.keys(course.chapters).length + ' · баллов: ' + pts;
+    box.append(h, sub, ul);
   }
 }
 

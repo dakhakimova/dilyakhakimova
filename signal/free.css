@@ -306,3 +306,19 @@ details.ivw .lvl-tag{display:inline-block; margin-left:6px; font:600 11px/1 var(
 /* Котейка реагирует: короткая подпись к игрушке */
 .kot-says{display:inline-block; margin:8px 0 0; padding:6px 12px; border-radius:999px; background:#F8F0D9; font:500 15px/1.35 var(--body)}
 .kot-says.oops{background:var(--trap-bg)}
+
+/* ===== после авторов (21.11.2026): общие правки, которые авторы делали у себя в страницах ===== */
+/* Атрибут hidden прячет всегда — даже блоки со своим display (.controls, .kot-says, .verdict, .counts …) */
+[hidden]{display:none !important}
+/* Цвета «осторожно» и пятой серии: те же, что COL.ochre и COL.viol в book.js */
+:root{--ochre:#C9A43A; --viol:#8F6FC9; --ochre-bg:#F8F0D9}
+.legend-row i.ochre{background:var(--ochre)} .legend-row i.viol{background:var(--viol)}
+.legend-row i.ctrl{background:var(--ctrl)} .legend-row i.test{background:var(--test)} .legend-row i.truth{background:var(--truth)} .legend-row i.trap{background:var(--trap)} .legend-row i.gray{background:var(--theory)}
+/* Ссылка в соседний курс: текст и ссылки в одном потоке (раньше flex раскладывал их в колонки). Обёртка <span> не нужна, но не мешает. */
+.xref{display:block; position:relative; padding-left:36px}
+.xref::before{position:absolute; left:14px; top:10px}
+/* Цели для пальца ≥ 44 px: кнопки выбора, переключатели, ползунки, поля ввода */
+.nsel button{min-height:44px}
+.choice button{min-height:44px}
+.card input[type=range]{height:44px; margin-top:0; margin-bottom:0}
+.twoinputs input, .guess input[type=number]{min-height:44px}

@@ -31,7 +31,9 @@ const tpl = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => k in o ? o[k] : '');
 
 // ---------- числа и тексты ----------
 const NF = {};
-const nf = (d, min = d) => NF[d + ':' + min] || (NF[d + ':' + min] = new Intl.NumberFormat(LANG, {maximumFractionDigits: d, minimumFractionDigits: min}));
+// useGrouping 'min2': «1024», но «10 000» (как в текстах курса). Браузеры без Intl.NumberFormat v3 (до Chrome 106,
+// Firefox 116, Safari 15.4) читают строку как true и группируют и четырёхзначные («1 024») — ничего не ломается.
+const nf = (d, min = d) => NF[d + ':' + min] || (NF[d + ':' + min] = new Intl.NumberFormat(LANG, {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: 'min2'}));
 const num = (x, d = 1) => nf(d).format(x);                       // 10,4
 const numT = (x, d = 1) => nf(d, 0).format(x);                   // без хвостовых нулей: 10 / 10,4
 const int = x => nf(0).format(Math.round(x));                    // 10 000
@@ -56,8 +58,22 @@ const mulberry32 = a => () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ 
 const gauss = () => Math.sqrt(-2 * Math.log(1 - rand())) * Math.cos(2 * Math.PI * rand());
 const randInt = (a, b) => a + Math.floor(rand() * (b - a + 1));   // целое от a до b включительно
 const bern = p => rand() < p;
-// Биномиальное число успехов: точно для малых n, нормальным приближением для больших.
-const binom = (n, p) => { if (n < 60){ let k = 0; for (let i = 0; i < n; i++) if (rand() < p) k++; return k; } return Math.max(0, Math.min(n, Math.round(n * p + Math.sqrt(n * p * (1 - p)) * gauss()))); };
+// Биномиальное число успехов, точно при любом n: до 60 — честные броски, дальше — обратная функция распределения
+// от моды в обе стороны (одно rand() на число, шагов порядка нескольких SD). Нормальное приближение — только при n > 10^7.
+const binom = (n, p) => {
+  if (p <= 0 || n <= 0) return 0; if (p >= 1) return n;
+  if (n < 60){ let k = 0; for (let i = 0; i < n; i++) if (rand() < p) k++; return k; }
+  if (n > 1e7) return Math.max(0, Math.min(n, Math.round(n * p + Math.sqrt(n * p * (1 - p)) * gauss())));
+  const m = Math.min(n, Math.floor((n + 1) * p)), r = p / (1 - p), pm = binomPmf(n, m, p);
+  let u = rand() - pm; if (u < 0) return m;
+  let lo = m, hi = m, plo = pm, phi = pm;
+  while (lo > 0 || hi < n){
+    if (hi < n){ phi *= (n - hi) / (hi + 1) * r; hi++; u -= phi; if (u < 0) return hi; }
+    if (lo > 0){ plo *= lo / ((n - lo + 1) * r); lo--; u -= plo; if (u < 0) return lo; }
+    if (phi < 1e-300 && plo < 1e-300) break;
+  }
+  return m;
+};
 const poisson = lam => { if (lam > 50) return Math.max(0, Math.round(lam + Math.sqrt(lam) * gauss())); const L = Math.exp(-lam); let k = 0, p = 1; do { k++; p *= rand(); } while (p > L); return k - 1; };
 const expo = rate => -Math.log(1 - rand()) / rate;
 const geom = p => { let k = 1; while (rand() >= p) k++; return k; };  // номер первого успеха (1, 2, …)
@@ -109,9 +125,16 @@ function axisY(c, L, R, T, ph, w, lo, hi, step, fmtY){
     c.fillText(fmtY(Math.abs(v) < 1e-9 ? 0 : v), 2, y + 4);
   }
 }
+// Крайние подписи не обрезаются: если подпись по центру вылезает за край холста, она прижимается к краю.
 function axisX(c, X, ticks, y, fmtX){
-  c.fillStyle = COL.ink2; c.textAlign = 'center';
-  ticks.forEach(v => c.fillText(fmtX(v), X(v), y));
+  c.fillStyle = COL.ink2;
+  const W = c.canvas.clientWidth || c.canvas.width / (window.devicePixelRatio || 1);
+  ticks.forEach(v => {
+    const t = fmtX(v), x = X(v), tw = c.measureText(t).width;
+    if (x - tw / 2 < 1){ c.textAlign = 'left'; c.fillText(t, Math.max(1, x - tw / 2), y); }
+    else if (x + tw / 2 > W - 1){ c.textAlign = 'right'; c.fillText(t, Math.min(W - 1, x + tw / 2), y); }
+    else { c.textAlign = 'center'; c.fillText(t, x, y); }
+  });
   c.textAlign = 'left';
 }
 // Гистограмма значений vals на отрезке [lo, hi] с шагом bw. Возвращает счётчики.
@@ -179,6 +202,71 @@ const Book = {
   },
 };
 Book.paintScore(false);
+
+// ---------- общие помощники игрушек (вынесены из страниц авторов, 21.11.2026) ----------
+// Все — в пространстве Book, чтобы не спорить с именами в скриптах страниц. Страницы могут держать свои локальные копии.
+Object.assign(Book, {
+  // «Красивый» шаг оси: 1, 2, 5 × 10^k, около n делений на диапазон range.
+  niceStep(range, n = 5){ const raw = range / n; if (!(raw > 0)) return 1; const e = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / e; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * e; },
+  // Гамма-распределение (Марсалья — Цанг): форма k > 0, масштаб theta; для k < 1 — gamma(k + 1) · U^(1/k).
+  gamma(k, theta = 1){
+    if (k < 1) return Book.gamma(k + 1, theta) * Math.pow(1 - rand(), 1 / k);
+    const d = k - 1 / 3, cc = 1 / Math.sqrt(9 * d);
+    for (;;){ let x, v; do { x = gauss(); v = 1 + cc * x; } while (v <= 0); v = v * v * v; const u = rand(); if (Math.log(u) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v * theta; }
+  },
+  // Корреляция Пирсона: corr([[x, y], …]) или corr(xs, ys).
+  corr(a, b){
+    const xs = b ? a : a.map(p => p[0]), ys = b || a.map(p => p[1]), n = xs.length; if (n < 3) return 0;
+    const mx = mean(xs), my = mean(ys); let sxy = 0, sx = 0, sy = 0;
+    for (let i = 0; i < n; i++){ const dx = xs[i] - mx, dy = ys[i] - my; sxy += dx * dy; sx += dx * dx; sy += dy * dy; }
+    return sx && sy ? sxy / Math.sqrt(sx * sy) : 0;
+  },
+  // Выборочная асимметрия (моментная): m3 / m2^1.5.
+  skew(a){ const m = mean(a); let m2 = 0, m3 = 0; for (const x of a){ const d = x - m; m2 += d * d; m3 += d * d * d; } m2 /= a.length; m3 /= a.length; return m2 ? m3 / Math.pow(m2, 1.5) : 0; },
+  // Контур колокола N(m, s) на отрезке [a, b]: X — значение → px, Y — плотность → px.
+  // opt.close — замкнуть по оси (для заливки площади: хвоста, окна); opt.unit — высота без деления на s (пик = normPdf(0)).
+  bell(c, X, Y, m, s, a, b, opt = {}){
+    const N = opt.steps || 120, f = v => opt.unit ? normPdf((v - m) / s) : normPdf((v - m) / s) / s;
+    c.beginPath(); if (opt.close) c.moveTo(X(a), Y(0));
+    for (let i = 0; i <= N; i++){ const v = a + (b - a) * i / N; (i || opt.close) ? c.lineTo(X(v), Y(f(v))) : c.moveTo(X(v), Y(f(v))); }
+    if (opt.close){ c.lineTo(X(b), Y(0)); c.closePath(); }
+  },
+  // Колокол с закрашенными хвостами за порогами: левый хвост [lo, cutLo], правый [cutHi, hi] (null — без хвоста).
+  bellTails(c, X, Y, m, s, lo, hi, cutLo, cutHi, opt = {}){
+    c.fillStyle = opt.fill || COL.fillB;
+    if (cutHi != null && cutHi < hi){ Book.bell(c, X, Y, m, s, cutHi, hi, {...opt, close: true}); c.fill(); }
+    if (cutLo != null && cutLo > lo){ Book.bell(c, X, Y, m, s, lo, cutLo, {...opt, close: true}); c.fill(); }
+    c.strokeStyle = opt.stroke || COL.gray; c.lineWidth = opt.lw || 2; Book.bell(c, X, Y, m, s, lo, hi, opt); c.stroke();
+  },
+  // Приглашение на пустом графике: текст на светлой подложке, чтобы не пересекать линии.
+  invite(c, t, x, y){ const tw = c.measureText(t).width; c.fillStyle = COL.fillGray; c.fillRect(x - tw / 2 - 8, y - 14, tw + 16, 22); label(c, t, x, y, COL.ink2, 'center'); },
+  // Столбики долей + серые точки теории + подписи k + подсветка столбика hl. Возвращает [{x0, x1, i}] для hoverBars.
+  barsPanel(c, x0, x1, y0, y1, w, k0, vals, theory, hl, top, step, fmtX, fmtY, L){
+    axisY(c, L, w - x1, y0, y1 - y0, w, 0, top, step, fmtY);
+    const n = theory.length, bw = (x1 - x0) / n, bars = [];
+    for (let i = 0; i < n; i++){
+      const x = x0 + i * bw, v = vals ? vals[i] : 0, hh = (y1 - y0) * Math.min(v, top) / top;
+      c.fillStyle = i === hl ? COL.test : COL.ctrl;
+      if (v > 0) c.fillRect(x + Math.max(1, bw * 0.12), y1 - hh, bw - 2 * Math.max(1, bw * 0.12), hh);
+      c.fillStyle = COL.gray; c.beginPath(); c.arc(x + bw / 2, y1 - (y1 - y0) * Math.min(theory[i], top) / top, Math.min(4, bw / 5), 0, 2 * Math.PI); c.fill();
+      if (fmtX) label(c, fmtX(i + k0), x + bw / 2, y1 + 15, COL.ink2, 'center');
+      bars.push({x0: x, x1: x + bw, i});
+    }
+    return bars;
+  },
+  // Сетка «1000 человечков» на холсте: colorOf(i) → цвет точки i (null — пустая клетка), opt.ring(i) → цвет обводки или null.
+  // opt.cols / opt.mobileCols — колонок (50 / 25), opt.ratio / opt.mobileRatio — высота холста к ширине. Возвращает геометрию.
+  grid1000(cv, colorOf, opt = {}){
+    const total = opt.n || 1000, g = canvas(cv, opt.ratio || 0.4, opt.mobileRatio || 1.6); if (!g) return null; const {c, w, h} = g;
+    const cols = w < 520 ? (opt.mobileCols || 25) : (opt.cols || 50), rows = Math.ceil(total / cols), s = Math.min(w / cols, h / rows), r = s * 0.36, ox = (w - cols * s) / 2;
+    for (let i = 0; i < total; i++){
+      const x = ox + (i % cols) * s + s / 2, y = Math.floor(i / cols) * s + s / 2, col = colorOf(i);
+      c.fillStyle = col || COL.grid; c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); c.fill();
+      const ring = opt.ring && opt.ring(i); if (ring){ c.strokeStyle = ring; c.lineWidth = Math.max(1.5, s * 0.14); c.beginPath(); c.arc(x, y, r + s * 0.1, 0, 2 * Math.PI); c.stroke(); }
+    }
+    return {c, w, h, cols, rows, s, ox};
+  },
+});
 
 // ---------- карточки ----------
 (function(){
