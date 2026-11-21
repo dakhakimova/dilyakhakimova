@@ -7,6 +7,7 @@
    — уже 1024 px граф становится списком по курсам, стрелки не рисуются, панель навыка — снизу.
    — «В планах»: курсы со status: planned из skills.json — лёгкие карточки без навыков-узлов, кнопок и листа ожидания
      (у платных «скоро» лист ожидания — пока только заглушка без формы), тексты — plan.* в i18n/map.js.
+   — схема метро (основной вид, над графом) — map/metro.js: сюда он получает маршрут, прогресс и панель навыка через api.
    Строки интерфейса — ui.* в i18n/map.js. Адреса: ?route=product|analyst|interview|abtester, #<курс> (prob, sig, ab, st, abm, cau) или #<навык>. */
 (function () {
 'use strict';
@@ -118,7 +119,8 @@ function init(M){
   // ---------- маршруты ----------
   let route = null;
   const rb = $('route-btns');
-  rb.innerHTML = M.routes.map(r => `<button type="button" data-route="${r.id}" aria-pressed="false">${tx(r.button)}</button>`).join('')
+  const LINE = (window.SkillMetroLayout || {lines: {}}).lines;
+  rb.innerHTML = M.routes.map(r => `<button type="button" data-route="${r.id}" aria-pressed="false">${LINE[r.id] ? `<span class="sw" style="--line:${LINE[r.id].color}" aria-hidden="true"></span>` : ''}${tx(r.button)}</button>`).join('')
     + `<button type="button" data-route="" aria-pressed="true">${t('routes.all')}</button>`;
   rb.addEventListener('click', e => { const b = e.target.closest('button'); if (b) setRoute(b.dataset.route, true); });
   function setRoute(id, push){
@@ -165,6 +167,7 @@ function init(M){
         + t('ui.routeStart', {label: esc(node.get(first).label)}) + (as ? ' ' + t('ui.routeAssumes', {list: as}) : '') + (route.then ? ' ' + tx(route.then) : '');
     } else $('route-info').textContent = '';
     drawEdges();
+    if (metro) metro.paint({route, nx, known, any: anyProgress()});
   }
   function stepUrl(id){
     const n = node.get(id), s = n.steps.find(x => stepState(x) < 2) || n.steps[0];
@@ -235,22 +238,31 @@ function init(M){
       + (helps.length ? `<h3>${t('ui.helps')}</h3><ul>${helps.map(h => relBtn(h.from, h.why)).join('')}</ul>` : '')
       + (opens.length ? `<h3>${t('ui.opens')}</h3><ul>${opens.map(x => relBtn(x)).join('')}</ul>` : '')
       + `<p class="acts">${act}</p>`;
-    if (panel.hidden) opener = btn(id);
+    if (panel.hidden && !opener) opener = btn(id);
     panel.hidden = false;
     drawEdges();
+    if (metro) metro.select(id);
     if (focusPanel) $('p-title').focus({preventScroll: false});
   }
   function close(){
     if (!sel) return;
     const b = btn(sel); b.classList.remove('sel'); b.setAttribute('aria-expanded', 'false');
     panel.hidden = true; sel = null; drawEdges();
-    (opener || b).focus(); opener = null;
+    if (metro) metro.select(null);
+    (opener && opener.isConnected ? opener : b).focus(); opener = null; fromMetro = false;
   }
-  cols.addEventListener('click', e => { const b = e.target.closest('.node'); if (!b) return; if (sel === b.dataset.id && !panel.hidden) close(); else { opener = b; open(b.dataset.id); } });
+  cols.addEventListener('click', e => { const b = e.target.closest('.node'); if (!b) return; if (sel === b.dataset.id && !panel.hidden) close(); else { fromMetro = false; opener = b; open(b.dataset.id); } });
   pbody.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (!b) return;
-    const id = b.dataset.go; btn(id).scrollIntoView({block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); opener = btn(id); open(id); });
+    const id = b.dataset.go;
+    if (fromMetro){ opener = metro.has(id) && !NARROW.matches ? metro.el(id) : opener; open(id); return; }   // со схемы — не уводим к графу
+    btn(id).scrollIntoView({block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); opener = btn(id); open(id); });
   $('p-close').addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) close(); });
+
+  // ---------- схема метро ----------
+  let fromMetro = false;
+  const metro = window.SkillMetro ? window.SkillMetro.init({M, node, course, t, esc, typo, setRoute, route: () => route,
+    openFrom(id, el){ if (sel === id && !panel.hidden) { close(); return; } fromMetro = true; opener = el; open(id); }}) : null;
 
   // ---------- старт ----------
   const q = new URL(location.href).searchParams.get('route');

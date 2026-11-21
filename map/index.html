@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js и i18n/map.js, навыки и маршруты — в map/skills.json (проверка: node tools/check-map.js). Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
 <title data-i18n="meta.title">Карта навыков: что ты научишься делать и в каком порядке · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
+<meta name="description" data-i18n-attr="content:meta.desc" content="Схема-метро и граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
 <link rel="canonical" href="https://dilyakhakimova.com/map/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/map/">
 <meta property="og:title" data-i18n-attr="content:m.title" content="Карта навыков">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Схема-метро и граф навыков всей линейки курсов — от «посчитать шанс деревом» до CUPED и causal inference. Маршруты для продакта, аналитика и тех, кто готовится к собеседованию.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/home.css?v=202611221">
 <link rel="stylesheet" href="/course.css?v=202611221">
-<link rel="stylesheet" href="/map/map.css?v=202611240">
+<link rel="stylesheet" href="/map/map.css?v=202611250">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
@@ -51,18 +51,13 @@
 <section class="wrap wide m-hero">
   <h1 data-i18n="m.title">Карта навыков</h1>
   <p class="sub" data-i18n="m.sub">Что ты научишься делать в каждом курсе и в каком порядке. Каждый навык — действие, которое можно сделать на работе или на собеседовании.</p>
-  <p class="m-how" data-i18n="m.how">Стрелка ведёт от навыка, который нужен заранее, к тому, что он открывает. Нажми на навык — увидишь, где он в курсе и что нужно до него.</p>
-  <div class="m-legend" role="group" data-i18n-attr="aria-label:legend.label" aria-label="Как читать карту">
-    <span><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">Начальный</span></span>
-    <span><span class="lvl l2" aria-hidden="true"></span><span data-i18n="lvl.2">Средний</span></span>
-    <span><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">Продвинутый</span></span>
-    <span><span class="tag free" data-i18n="free">бесплатно</span><span data-i18n="legend.free">бесплатно, можно начать сейчас</span></span>
-    <span><span class="tag soon" data-i18n="soon">скоро</span><span data-i18n="legend.soon">платно, скоро — зима 2027</span></span>
-    <span><span class="tag planned" data-i18n="plan.tag">в планах</span><span data-i18n="legend.planned">курс в планах: без сроков и шагов</span></span>
-    <span><span class="tag main-tag" data-i18n="ui.main">главное</span><span data-i18n="legend.main">главное действие курса</span></span>
-    <span class="arrow-key"><svg width="40" height="12" aria-hidden="true"><path d="M2 6H30" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M30 2l7 4-7 4z" fill="currentColor"/></svg><span data-i18n="legend.arrow">нужно до</span></span>
-  </div>
 </section>
+
+<!-- Иллюстрация над схемой: map/img/street.jpg, 16:9. Пока файла нет, блок скрыт (hidden, у картинки нет src).
+     Положили файл — запустите node tools/check-map.js --street: он снимет hidden и впишет src. -->
+<figure class="wrap wide m-street" id="street" hidden>
+  <img data-src="/map/img/street.jpg" width="1600" height="900" decoding="async" data-i18n-attr="alt:street.alt" alt="Рисунок: улица города, у тротуара — вход в метро, над ним схема линий. Отсюда начинается путь по курсам.">
+</figure>
 
 <section class="wrap wide m-controls">
   <div class="plate here" id="here" aria-live="polite">
@@ -73,6 +68,35 @@
     <h2 id="route-h" class="route-h" data-i18n="routes.label">Показать путь для</h2>
     <div class="route-btns" id="route-btns"></div>
     <p class="route-info" id="route-info" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="wrap wide m-metro" aria-labelledby="metro-h">
+  <h2 id="metro-h" data-i18n="metro.title">Схема: четыре линии через шесть курсов</h2>
+  <p class="lead-note" data-i18n="metro.lead">Линия — маршрут, станция — ключевой навык, крупная станция — главное действие курса. Белый кружок — пересадка: здесь маршруты сходятся. Нажми на линию — она подсветится. Нажми на станцию — увидишь, что сможешь и где это в курсе.</p>
+  <div class="metro-card" id="metro-card">
+    <div class="metro-legend" id="metro-legend" role="group" data-i18n-attr="aria-label:metro.legend" aria-label="Линии и условные знаки"></div>
+    <div class="metro-scroll" id="metro-scroll">
+      <svg class="metro" id="metro" role="group" data-i18n-attr="aria-label:metro.label" aria-label="Схема метро: четыре маршрута через шесть курсов. Станции — ключевые навыки, по ним можно перейти клавишей Tab." focusable="false"></svg>
+    </div>
+    <p class="metro-pick"><span data-i18n="metro.pick">На узком экране схема мелкая. Выбери маршрут выше — покажем линию сверху вниз. Или приблизь схему.</span> <button type="button" class="btn ghost metro-zoom" id="metro-zoom" aria-pressed="false" aria-controls="metro-scroll" data-i18n="metro.zoom">Приблизить</button></p>
+    <ol class="metro-linear" id="metro-linear" role="list" data-i18n-attr="aria-label:metro.linear" aria-label="Выбранный маршрут по порядку"></ol>
+  </div>
+  <p class="metro-more"><a href="#detail" data-i18n="metro.more">Все 57 навыков со стрелками — в подробной карте ниже ↓</a></p>
+</section>
+
+<section class="wrap wide m-detail" id="detail" aria-labelledby="detail-h">
+  <h2 id="detail-h" data-i18n="detail.title">Подробная карта: все 57 навыков</h2>
+  <p class="m-how" data-i18n="m.how">Стрелка ведёт от навыка, который нужен заранее, к тому, что он открывает. Нажми на навык — увидишь, где он в курсе и что нужно до него.</p>
+  <div class="m-legend" role="group" data-i18n-attr="aria-label:legend.label" aria-label="Как читать карту">
+    <span><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">Начальный</span></span>
+    <span><span class="lvl l2" aria-hidden="true"></span><span data-i18n="lvl.2">Средний</span></span>
+    <span><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">Продвинутый</span></span>
+    <span><span class="tag free" data-i18n="free">бесплатно</span><span data-i18n="legend.free">бесплатно, можно начать сейчас</span></span>
+    <span><span class="tag soon" data-i18n="soon">скоро</span><span data-i18n="legend.soon">платно, скоро — зима 2027</span></span>
+    <span><span class="tag planned" data-i18n="plan.tag">в планах</span><span data-i18n="legend.planned">курс в планах: без сроков и шагов</span></span>
+    <span><span class="tag main-tag" data-i18n="ui.main">главное</span><span data-i18n="legend.main">главное действие курса</span></span>
+    <span class="arrow-key"><svg width="40" height="12" aria-hidden="true"><path d="M2 6H30" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M30 2l7 4-7 4z" fill="currentColor"/></svg><span data-i18n="legend.arrow">нужно до</span></span>
   </div>
 </section>
 
@@ -133,8 +157,9 @@
 </footer>
 
 <script src="/i18n/site.js?v=202611230"></script>
-<script src="/i18n/map.js?v=202611240"></script>
+<script src="/i18n/map.js?v=202611250"></script>
 <script src="/landing.js?v=202611221"></script>
-<script src="/map/map.js?v=202611240"></script>
+<script src="/map/metro.js?v=202611250"></script>
+<script src="/map/map.js?v=202611250"></script>
 </body>
 </html>

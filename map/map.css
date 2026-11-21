@@ -1,7 +1,8 @@
 /* Карта навыков (/map/). Подключается после /home.css и /course.css и берёт оттуда шкалу отступов, радиусы, тени,
    тёплые серые, кнопки, метки и светофор уровней. Здесь — только граф, переключатель маршрутов, «ты здесь» и панель навыка.
    Граф: шесть колонок-курсов (≥ 1024 px), стрелки рисует map.js в SVG под карточками. Уже 1024 px — список по курсам.
-   Под графом — «В планах»: пунктирные карточки будущих курсов. */
+   Под графом — «В планах»: пунктирные карточки будущих курсов.
+   Над графом — схема метро (map/metro.js): основной вид. Уже 1024 px — линейный вид выбранного маршрута, без маршрута — схема целиком с кнопкой «Приблизить». */
 
 .wrap.wide{max-width:1280px}
 .m-hero{padding-top:var(--s-4)}
@@ -168,3 +169,112 @@
 .plan .when{margin:auto 0 0; padding-top:var(--s-3); font-size:var(--fs-xs); color:var(--warm-600)}
 @media (max-width:1023px){ .plans{grid-template-columns:1fr 1fr} }
 @media (max-width:620px){ .plans{grid-template-columns:1fr} }
+
+/* ---------- иллюстрация над схемой (map/img/street.jpg, 16:9) ---------- */
+.m-street{margin-top:var(--s-6)}
+.m-street img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:var(--r-l); box-shadow:var(--sh-1); background:var(--sunk)}
+
+/* ---------- схема метро ---------- */
+.m-metro{padding-top:var(--s-7)}
+.m-metro h2, .m-detail h2{font:600 var(--fs-h3)/1.2 var(--serif); margin:0}
+.m-metro .lead-note{max-width:46em; margin:var(--s-2) 0 0}
+.metro-card{margin-top:var(--s-4); background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5)}
+.metro-legend{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); align-items:center; justify-content:space-between}
+.ml-lines, .ml-keys{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-2)}
+.ml-keys{gap:var(--s-1) var(--s-4); font-size:var(--fs-xs); color:var(--warm-600)}
+.ml-keys li{display:inline-flex; align-items:center; gap:6px}
+.ml-line{display:inline-flex; align-items:center; gap:var(--s-2); min-height:44px; padding:var(--s-2) var(--s-3); border-radius:var(--r-pill); border:2px solid transparent;
+  background:var(--sunk); color:var(--ink); font:600 var(--fs-s)/1.2 var(--body); cursor:pointer}
+.ml-line:hover{background:#ECE7DE}
+.ml-line[aria-pressed="true"]{background:var(--white); border-color:var(--line); box-shadow:var(--sh-1)}
+.sw{display:inline-block; flex:none; width:22px; height:6px; border-radius:var(--r-pill); background:var(--line)}
+.route-btns .sw{margin-right:var(--s-2); vertical-align:middle; box-shadow:0 0 0 1.5px #fff}
+.metro-scroll{margin-top:var(--s-4)}
+.metro{display:block; width:100%; height:auto; overflow:visible; font-family:var(--body)}
+.metro .zone rect{fill:var(--zc); fill-opacity:.13; stroke:none}
+.metro .zone.z-soon rect{fill:var(--paper); fill-opacity:1; stroke:var(--zc); stroke-width:1.5; stroke-dasharray:6 4}
+.metro .zone.z-later rect{fill:none; stroke:var(--warm-600); stroke-opacity:.45; stroke-width:1.5; stroke-dasharray:2 4}
+.metro .zt{font:600 15px/1 var(--serif); fill:var(--ink)}
+.metro .zs{font:400 12px/1 var(--body); fill:var(--warm-600)}
+.metro .ln path{fill:none; stroke-linejoin:round; stroke-linecap:round}
+.metro .ln .stroke{stroke:var(--line); stroke-width:6}
+.metro .ln .cont{stroke:var(--line); stroke-opacity:.45; stroke-width:4}
+.metro .ln .hit{stroke:transparent; stroke-width:22; cursor:pointer; pointer-events:stroke}
+.metro .ln:hover .stroke{stroke-width:8}
+.metro .plan-ln path{fill:none; stroke:#8A847A; stroke-width:4; stroke-dasharray:7 5; stroke-linecap:butt}
+.metro .st{cursor:pointer; outline:none}
+.metro .st .hitc{fill:transparent}
+.metro .mk.xfer{fill:#fff; stroke:var(--ink); stroke-width:3}
+.metro .mk.one{stroke:#fff; stroke-width:2}
+.metro .mk-in{fill:#fff}
+.metro .mk.cont-mk{fill:#fff; stroke:var(--line); stroke-width:2.5}
+.metro .mk.pl-mk{fill:#fff; stroke:#8A847A; stroke-width:2; stroke-dasharray:3 2}
+.metro .sl{font:400 13px/1 var(--body); fill:var(--ink)}
+.metro .sl.big{font-weight:700}
+.metro .st.later .sl{fill:var(--warm-700)}
+.metro .st.plan .sl{fill:var(--warm-700)}
+.metro .bld{font-style:italic; font-size:12px; fill:var(--warm-600)}
+.metro .st .ring{fill:none; stroke:var(--pen); stroke-width:3; opacity:0}
+.metro .st:hover .sl{text-decoration:underline}
+.metro .st:focus-visible .ring{opacity:1; stroke-dasharray:4 3}
+.metro .st.sel .ring{opacity:1; stroke-dasharray:none}
+.metro .here-pin circle{fill:none; stroke:var(--coral); stroke-width:3}
+.metro .here-pin rect{fill:var(--coral-600)}
+.metro .here-pin text{font:700 12px/1 var(--body); fill:#fff; letter-spacing:.02em}
+/* выбран маршрут: остальное бледнеет */
+.metro.routing .ln:not(.on), .metro.routing .st.off, .metro.routing .plan-ln, .metro.routing .st.plan{opacity:.16}
+.metro.routing .ln.on .stroke{stroke-width:8}
+.metro .ln, .metro .st{transition:opacity .2s}
+.metro-pick, .metro-linear{display:none}
+.metro-more{margin:var(--s-3) 0 0; font-size:var(--fs-s)}
+.metro-more a{display:inline-block; padding:var(--s-2) 0}
+.m-detail{padding-top:var(--s-8)}
+.m-detail .m-legend{margin-top:var(--s-4)}
+
+/* линейный вид маршрута (узкий экран) */
+.metro-linear{list-style:none; margin:var(--s-3) 0 0; padding:0; position:relative}
+.metro-linear li{position:relative; padding-left:44px}
+.metro-linear li::before{content:""; position:absolute; left:17px; top:0; bottom:0; width:6px; background:var(--line)}
+.metro-linear li:first-child::before{top:22px}
+.metro-linear li.ls:last-child::before{bottom:calc(100% - 22px)}
+.metro-linear li.later::before{opacity:.45; width:4px; left:18px}
+.metro-linear .lz{padding-top:var(--s-4); padding-bottom:var(--s-2)}
+.metro-linear .lz::after{content:""; position:absolute; left:40px; right:0; top:var(--s-2); bottom:0; border-radius:var(--r-m); background:var(--zc); opacity:.13; z-index:0}
+.metro-linear .lz.z-soon::after{background:transparent; opacity:1; border:1.5px dashed var(--zc)}
+.metro-linear .lz.z-later::after{background:transparent; opacity:.5; border:1.5px dotted var(--warm-600)}
+.metro-linear .lz > span{position:relative; z-index:1}
+.metro-linear .lz{padding-left:56px}
+.metro-linear .lz-t{font:600 var(--fs-s)/1.3 var(--serif); color:var(--ink)}
+.metro-linear .lz-s{font-size:var(--fs-xs); color:var(--warm-600); white-space:nowrap}
+.metro-linear .ls-b{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px var(--s-2); width:100%; min-height:44px; padding:var(--s-2) var(--s-2) var(--s-2) 0;
+  border:0; background:none; text-align:left; font:400 var(--fs-s)/1.35 var(--body); color:var(--ink); cursor:pointer; position:static}
+.metro-linear .ls-b:hover .ls-n{text-decoration:underline}
+.metro-linear .ls-b[aria-expanded="true"] .ls-n{text-decoration:underline; text-decoration-thickness:2px}
+.metro-linear .dot{position:absolute; left:12px; top:14px; width:16px; height:16px; border-radius:50%; background:var(--line); box-shadow:0 0 0 2px #fff}
+.metro-linear .main .dot{left:8px; top:10px; width:24px; height:24px; background:#fff; box-shadow:inset 0 0 0 7px var(--line), 0 0 0 2px #fff}
+.metro-linear .later .dot{background:#fff; box-shadow:inset 0 0 0 2.5px var(--line)}
+.metro-linear .main .ls-n{font-weight:700}
+.metro-linear .ls-m{font-size:12px; font-weight:600; background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px}
+.metro-linear .ls-h{font-size:12px; font-weight:700; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
+.metro-linear .here .dot{box-shadow:0 0 0 2px #fff, 0 0 0 5px var(--coral)}
+.metro-linear .ls-d{font-size:12px; color:var(--good-ink); font-weight:600}
+.metro-linear .ls-x{flex-basis:100%; font-size:var(--fs-xs); color:var(--warm-600)}
+.metro-linear .ls-x .sw{width:14px; height:5px; margin:0 4px 1px 2px; vertical-align:middle}
+.metro-linear li:focus-within{z-index:1}
+
+@media (max-width:1023px){
+  .metro-card{padding:var(--s-4)}
+  .metro-legend{display:block}
+  .ml-keys{margin-top:var(--s-3)}
+  .metro-pick{display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-3); align-items:center; font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-3) 0 0}
+  .metro-pick .btn{min-height:44px}
+  .metro-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
+  .metro-card.zoomed .metro{width:1100px; max-width:none}
+  .metro-card.has-route .metro-scroll, .metro-card.has-route .metro-pick{display:none}
+  .metro-card.has-route .metro-linear{display:block}
+}
+@media (max-width:620px){
+  .metro-card{padding:var(--s-3); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}
+  .ml-line{font-size:var(--fs-xs); padding:var(--s-2) var(--s-3)}
+}
+@media (prefers-reduced-motion: reduce){ .metro .ln, .metro .st{transition:none} }

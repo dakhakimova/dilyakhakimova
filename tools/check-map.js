@@ -4,6 +4,9 @@
                                       маршруты (предпосылки идут раньше), лишние рёбра, адреса игрушек и карточек,
                                       курсы «в планах» (status: planned): без узлов, вне маршрутов, связи и тексты plan.* в i18n/map.js
    node tools/check-map.js --cards  — ещё и вписать в steps настоящее число карточек из страниц шагов
+   node tools/check-map.js --street — показать иллюстрацию над схемой, если лежит map/img/street.jpg (снять hidden, вписать src)
+   Схема метро (map/metro.js, LAYOUT): станции — настоящие узлы, у каждого курса 2–5 станций и есть главная, линии — маршруты,
+   порядок остановок на линии = порядок маршрута, отрезки только под 0/45/90°, станции «строится» — курсы в планах, тексты metro.* есть.
    Ошибки — код выхода 1; предупреждения (лишнее ребро, которое и так следует из других) — только печать. */
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -113,6 +116,50 @@ for (const r of M.routes){
       else if (!courses[r] && !nodes.has(r)) err(c.id + ': связь ' + k + ' — нет курса или навыка ' + r);
     }
   }
+}
+
+// схема метро
+{
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  for (const f of ['i18n/site.js', 'i18n/map.js', 'map/metro.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
+  const L = ctx.SkillMetroLayout, RU = ctx.I18N.ru, routes = Object.fromEntries(M.routes.map(r => [r.id, r]));
+  const need = k => { if (!(k in RU)) err('схема: нет строки ' + k + ' в i18n/map.js'); };
+  ['metro.title', 'metro.lead', 'metro.label', 'metro.here', 'metro.start', 'metro.building', 'metro.zoom', 'metro.unzoom', 'metro.pick', 'street.alt'].forEach(need);
+  const pt = x => typeof x === 'string' ? (L.stations[x] || L.planned.stations[x]) : x;
+  for (const id of Object.keys(L.stations)){ if (!nodes.has(id)) err('схема: станция ' + id + ' — нет такого навыка'); need('metro.st.' + id); }
+  for (const c of M.courses.filter(c => c.status !== 'planned')){
+    const st = Object.keys(L.stations).filter(id => nodes.has(id) && nodes.get(id).course === c.id);
+    if (st.length < 2 || st.length > 5) err('схема: у курса ' + c.id + ' станций ' + st.length + ', нужно 2–5');
+    if (!st.includes(c.main)) err('схема: главного навыка ' + c.main + ' нет среди станций');
+    if (!L.zones[c.id]) err('схема: нет зоны курса ' + c.id);
+  }
+  const angle = (a, b, where) => { const A = pt(a), B = pt(b); if (!A || !B) { err('схема: ' + where + ' — нет точки ' + (A ? b : a)); return; }
+    const dx = Math.abs(B[0] - A[0]), dy = Math.abs(B[1] - A[1]); if (dx && dy && dx !== dy) err('схема: ' + where + ' — отрезок не под 0/45/90° (' + A + ' → ' + B + ')'); };
+  const served = new Set();
+  for (const [lid, ln] of Object.entries(L.lines)){
+    const r = routes[lid]; if (!r) { err('схема: линия ' + lid + ' — нет маршрута'); continue; }
+    need('line.' + lid);
+    [ln.path, ln.cont || []].forEach(p => p.forEach((x, i) => i && angle(p[i - 1], x, 'линия ' + lid)));
+    const onPath = ln.path.filter(x => typeof x === 'string');
+    const stopsSeq = onPath.filter(id => r.nodes.includes(id));
+    const want = r.nodes.filter(id => L.stations[id]);
+    if (stopsSeq.join() !== want.join()) err('схема: линия ' + lid + ' останавливается ' + stopsSeq.join(' → ') + ', а по маршруту ' + want.join(' → '));
+    stopsSeq.forEach(id => served.add(id)); (ln.cont || []).forEach(x => typeof x === 'string' && served.add(x));
+  }
+  for (const id of Object.keys(L.stations)) if (!served.has(id)) err('схема: на станции ' + id + ' не останавливается ни одна линия');
+  for (const [id, [, , , cid]] of Object.entries(L.planned.stations)) if (!isPlanned(cid)) err('схема: станция «строится» ' + id + ' — курс ' + cid + ' не в планах');
+  L.planned.paths.forEach(p => p.forEach((x, i) => i && angle(p[i - 1], x, 'строится')));
+  // иллюстрация над схемой
+  const page = path.join(ROOT, 'map/index.html'), img = fs.existsSync(path.join(ROOT, 'map/img/street.jpg'));
+  let html = fs.readFileSync(page, 'utf8');
+  const hidden = /<figure[^>]*id="street"[^>]*\shidden/.test(html);
+  if (img && hidden){
+    if (process.argv.includes('--street')){
+      html = html.replace(/(<figure[^>]*id="street"[^>]*?)\s+hidden/, '$1').replace(/(<img )data-src="\/map\/img\/street\.jpg"/, '$1src="/map/img/street.jpg"');
+      fs.writeFileSync(page, html); console.log('иллюстрация street.jpg: показана');
+    } else warn('map/img/street.jpg есть, но блок скрыт: node tools/check-map.js --street');
+  }
+  if (!img && !hidden) err('иллюстрация: блок #street виден, а файла map/img/street.jpg нет');
 }
 
 // адреса: шаги существуют, якоря карточек не больше числа карточек
