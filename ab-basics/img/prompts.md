@@ -264,3 +264,27 @@ The same café entrance with two identical doors, one framed in soft blue and on
 Карточка «Итог курса».
 
 A small celebration in the café in the evening. Garlands with warm lights, a cake on the table decorated with two gentle overlapping bell-curve shapes in soft blue and soft orange icing (no text). Alice raises a cup of coffee in a toast, Bob raises a croissant, and Kotejka in its burlap sack wears a tiny party hat and holds a plain coin with a simple star on it like a medal. On the wall behind them hangs a framed chalk drawing of two bell curves. Friendly customers at the tables clap. Warm, joyful, final-chapter mood.
+
+---
+
+## Раунд 4
+
+### ab06-04-two-lines.jpg
+Карточка «Порог пользы» (шаг 6).
+
+The café's dining room, floor seen at a slight angle. Two strips of floor tape run vertically through the middle of the room: a thin plain grey strip (the "zero" line) and, a little to the right, a dashed soft-orange strip (the "worth it" line). A long wooden bracket shaped like a wide horizontal staple lies across both strips like a ruler-fork; its left end reaches just past the dashed strip toward the grey one. Alice crouches by the dashed strip, pointing calmly at the spot where the left end of the bracket crosses it, focused. Bob stands nearby holding a menu with photos of dishes, looking at the bracket with doubt, one eyebrow raised. Kotejka in its burlap sack sits on the right end of the bracket, relaxed. Calm, thoughtful mood. No numbers, no percent signs, no price tags or money.
+
+### ab09-04-not-worse.jpg
+Карточка «Тест „не хуже“» (шаг 9).
+
+The café after closing, chairs on tables. Bob carries a card payment terminal from an old, bulky wooden counter on the left to a new, simpler white counter on the right, walking briskly and a bit hastily. Across the floor in front of the new counter runs a bright red line of masking tape. Alice walks next to Bob with a tape measure in her hand, watching carefully that the terminal stays above the red line and does not "drop" past it. Kotejka sits in its burlap sack by the new counter, watching with interest. The terminal is in the center of the frame, right above the red line. Gentle, slightly suspenseful mood. No logos of payment systems, no text on the terminal screen.
+
+### ab10-04-next.jpg
+Карточка «Итог шага» (шаг 10, тизер шага 11).
+
+The same café in the evening after closing. The trap-patterned rug from the start of the step is neatly rolled up against the wall, and the comic traps (banana peel, rake, mousetrap) are packed into a cardboard box. On a large table lies an unrolled long sheet of paper that looks like a table: rows of empty cells, a few cells softly shaded green, one shaded soft red, the rest blank. Alice smooths the sheet with both palms and studies it with interest. Bob stands beside her holding a marker, calm and patient this time. Kotejka in its burlap sack sits on the corner of the table holding four blank cards fanned out in its paws: a green check mark, a red cross, an hourglass and a magnifying glass. Calm, inviting mood. No digits or letters on the sheet or cards.
+
+### ab11-00-report.jpg
+Карточка «Знакомство» (обложка шага 11).
+
+A corner of the café turned into a "decision point". A big paper sheet hangs on the wall like a report: a grid of cells, some softly shaded green, no numbers. Below it a simple branching tree is drawn in chalk on the wall: five round nodes in a chain, ending in four arrows that point to four small wooden doors, each marked only by a symbol: a green check mark, a red cross, an hourglass, a magnifying glass. Alice on the left traces the chalk branches with a pointer, confident and calm. Bob on the right, phone in one hand and an open notebook in the other, follows attentively and for once is in no hurry. Kotejka in its burlap sack sits at the bottom right by the door with the magnifying glass, peering through a real magnifying glass at the lower edge of the paper sheet as if hunting for a bug. Medium shot, sheet and chalk tree in the center. No text, no letters, no numbers, no formulas.

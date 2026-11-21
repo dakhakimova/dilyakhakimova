@@ -26,9 +26,9 @@ function normCdf(x){ const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 
 const pTwo = z => 2 * (1 - normCdf(Math.abs(z)));
 const fmtP = p => p < 0.001 ? 'меньше 0,001' : num(p, 3);
 
-// trap = «плохо» (ложная тревога, падение, вред). Раунд 4: краснее, чтобы не путать с оранжевым тестом (было #EB8D82).
+// trap = «плохо» (ложная тревога, падение, вред). Раунд 4: краснее, чтобы не путать с оранжевым тестом. testInk — тёмно-оранжевый для подписей теста (контраст 5:1 на белом).
 // trapInk — тот же красный для текста на белом и на светлой заливке fillB (контраст ≥ 5:1).
-const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0'};
+const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', testInk:'#A85A24', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0'};
 const store = {get(k){ try { return JSON.parse(localStorage.getItem('ab:' + k)); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem('ab:' + k, JSON.stringify(v)); } catch(e) {} }};
 
 // Холст по ширине контейнера; ratio — высота к ширине (на телефоне выше).

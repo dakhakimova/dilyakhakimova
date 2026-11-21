@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шпаргалка для печати · A/B на пальцах</title>
+<meta name="description" content="Шпаргалка курса «A/B на пальцах» на один-два листа: что решить до запуска A/B-теста, как читать отчёт по пяти развилкам, «если…, то я…» и пословицы одиннадцати шагов.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/signal/book.css">
+<link rel="stylesheet" href="ab.css?v=202611211800">
+<style>
+.sheet{background:var(--paper); border-radius:16px; box-shadow:0 1px 3px rgba(36,34,31,.08); padding:28px 32px}
+.sheet h1{font:500 32px/1.2 var(--serif); margin:4px 0 8px}
+.idea{margin:0 0 18px; padding:10px 14px; border-radius:10px; background:var(--truth-bg); font:500 17px/1.45 var(--body)}
+.idea span{display:block; font-weight:400; color:var(--muted); font-size:15px}
+.sheet h2{font:500 21px/1.3 var(--serif); margin:22px 0 8px; padding-top:10px; border-top:1px solid var(--rule)}
+.sheet h2 small{font:400 14px/1.3 var(--body); color:var(--muted); margin-left:6px}
+.todo{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+.todo li{position:relative; padding:0 0 0 28px; font-size:15px; line-height:1.45}
+.todo li::before{content:""; position:absolute; left:2px; top:3px; width:14px; height:14px; border:1.5px solid var(--ink); border-radius:3px}
+.todo li b{font-weight:600}
+.todo .line{display:block; height:20px; border-bottom:1px dotted rgba(36,34,31,.35); margin:0 0 2px}
+.tree{list-style:none; margin:8px 0; padding:0; display:grid; gap:6px; counter-reset:f}
+.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 12px 8px 42px; font-size:15px; line-height:1.4}
+.tree > li::before{content:counter(f); position:absolute; left:10px; top:8px; width:22px; height:22px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 12px/22px var(--body); text-align:center}
+.tree > li b{display:block; font:500 16px/1.35 var(--serif)}
+.tree .out{display:inline-block; margin:3px 6px 0 0; padding:1px 8px; border-radius:999px; font:600 12px/1.5 var(--body); background:#F3F1EC}
+.dec{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:8px 0}
+.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 10px; font-size:13px; line-height:1.35; color:var(--muted)}
+.dec > div b{display:block; font:600 15px/1.3 var(--body); color:var(--ink); margin-bottom:2px}
+.ifthen{list-style:none; margin:8px 0; padding:0; display:grid; gap:6px}
+.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:7px 12px; font-size:15px; line-height:1.4}
+.ifthen li span:first-child{color:var(--muted)}
+.ifthen li span:first-child::before{content:"Если "; font-weight:600; color:var(--ink)}
+.ifthen li span:last-child::before{content:"то я "; font-weight:600}
+.proverbs{margin:8px 0 0; padding:0; list-style:none; columns:2; column-gap:24px}
+.proverbs li{break-inside:avoid; display:grid; grid-template-columns:28px 1fr; font-size:15px; line-height:1.4; padding:3px 0}
+.proverbs .n{font:500 15px/1.4 var(--serif); color:var(--pen)}
+.proverbs a{color:var(--ink); text-decoration:none}
+.proverbs a:hover{color:var(--pen)}
+.actions{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 0}
+.actions a.btn{font:500 15px/1 var(--body); padding:11px 16px; border-radius:999px; border:1px solid rgba(36,34,31,.3); color:var(--ink); text-decoration:none}
+@media (max-width:620px){
+  .sheet{padding:20px 16px}
+  .dec{grid-template-columns:1fr 1fr}
+  .ifthen li{grid-template-columns:1fr; gap:2px}
+  .proverbs{columns:1}
+}
+@media print{
+  @page{size:A4; margin:12mm 13mm}
+  body{background:#fff; font-size:12px; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .top, .actions, .noprint{display:none !important}
+  .chapter{max-width:none; padding:0}
+  .sheet{box-shadow:none; padding:0; background:#fff; border-radius:0}
+  .sheet h1{font-size:22px; margin:0 0 4px}
+  .kicker{margin:0}
+  .idea{font-size:13px; padding:6px 10px; margin:0 0 8px}
+  .idea span{font-size:12px}
+  .sheet h2{font-size:15px; margin:10px 0 4px; padding-top:6px; break-after:avoid}
+  .sheet h2 small{font-size:11px}
+  .todo{gap:3px} .todo li{font-size:12px; padding-left:22px} .todo li::before{width:11px; height:11px; top:2px}
+  .todo .line{height:14px}
+  .tree{gap:3px; margin:4px 0} .tree > li{font-size:12px; padding:4px 10px 4px 34px; break-inside:avoid} .tree > li b{font-size:13px}
+  .tree > li::before{width:18px; height:18px; font-size:10px; line-height:18px; top:5px; left:8px}
+  .tree .out{font-size:10.5px; margin-top:1px}
+  .dec{gap:4px; margin:4px 0} .dec > div{font-size:11px; padding:4px 8px} .dec > div b{font-size:12px}
+  .ifthen{gap:3px} .ifthen li{font-size:12px; padding:4px 10px}
+  .proverbs li{font-size:12px; padding:1px 0}
+  .proverbs .n{font-size:12px}
+  .page2{break-before:page}
+  a{color:inherit; text-decoration:none}
+}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Навигация">
+  <a class="course" href="./">A/B на пальцах</a>
+  <span><a href="11-decide.html">← Шаг 11</a> · <a href="./">Оглавление курса</a></span>
+</nav>
+<main class="chapter">
+<article class="sheet">
+  <p class="kicker">шпаргалка курса «A/B на пальцах»</p>
+  <h1>Тест: до запуска и после</h1>
+  <p class="idea">Разница есть всегда — вопрос, больше ли она шума.<span>Поэтому правила записывают до запуска, а отчёт читают по одному и тому же дереву и заканчивают одним из четырёх решений.</span></p>
+
+  <h2>До запуска <small>заполни вместе с аналитиком</small></h2>
+  <ul class="todo">
+    <li><b>Главная метрика — одна.</b> Что именно должно вырасти?<span class="line"></span></li>
+    <li><b>Сторожевые — 2–3.</b> Что не должно ухудшиться: ошибки оплаты, отмены, время доставки…<span class="line"></span></li>
+    <li><b>MDE и срок.</b> Какой самый маленький эффект нам важен и сколько дней нужно, чтобы его заметить (<a href="09-mde.html#card-6">калькулятор шага 9</a>). Сплит 50/50 или другой: 80/20 растягивает тест примерно в 1,6 раза.<span class="line"></span></li>
+    <li><b>Порог пользы и провал.</b> С какого эффекта изменение окупается и что считаем провалом.<span class="line"></span></li>
+    <li><b>Правило решения записано заранее.</b> Например: «катим, если главная значимо больше нуля и ни одна сторожевая не хуже». День решения — тоже.<span class="line"></span></li>
+    <li><b>Премортем.</b> Представь: через 3 недели тест нечитаем. Почему? Мало гостей, доли разъехались, метрика не пишется в логи, остановили на 5-й день… Закрой эти дыры сейчас.<span class="line"></span></li>
+  </ul>
+
+  <h2>Читаю отчёт <small>пять развилок, на каждой можно остановиться</small></h2>
+  <ol class="tree">
+    <li><b>Доли групп совпадают с планом?</b>Если расходятся сильнее, чем бывает случайно, дальше не читаем. <span class="out">Нет → ищем баг</span></li>
+    <li><b>Тест дошёл до запланированного конца?</b>Решение принимают в день, записанный до запуска. <span class="out">Нет → ждём</span></li>
+    <li><b>Эффект не слишком хорош?</b>+12 % за неделю или зелёные все метрики сразу — сначала проверяем данные. <span class="out">Слишком хорош → ищем баг</span></li>
+    <li><b>Где вилка главной метрики?</b>Целиком выше нуля и порога пользы — идём дальше. Задевает ноль или порог — эффект не доказан, называем края вилки. <span class="out">Не выше → не катим</span></li>
+    <li><b>Сторожевые не хуже?</b>Мало, чтобы они были серыми: край вилки не должен заходить в опасную зону. <span class="out">Вред не исключён → не катим</span> <span class="out">Всё в порядке → катим</span></li>
+  </ol>
+  <div class="dec">
+    <div><b>Катим</b>раскатываем на всех</div>
+    <div><b>Не катим</b>оставляем как было, идею переделываем или закрываем</div>
+    <div><b>Ждём</b>тест ещё идёт, решаем в день по плану</div>
+    <div><b>Ищем баг</b>отчёту нельзя верить, пока не найдём ошибку в делении, логах или подсчёте</div>
+  </div>
+  <p class="note">«Ищем баг» — про сам эксперимент и данные. Если сломалась фича, а данные честные, это «не катим».</p>
+
+  <h2 class="page2">Если…, то я…</h2>
+  <ul class="ifthen">
+    <li><span>Боб говорит «запустим на недельку»,</span><span>спрошу, какой эффект тест должен заметить (шаг 9).</span></li>
+    <li><span>хочется остановить тест на 5-й день,</span><span>посмотрю, какой срок записан в плане (шаг 10).</span></li>
+    <li><span>из 20 метрик зелёная одна,</span><span>спрошу, что с главной (шаг 10).</span></li>
+    <li><span>отчёт показывает +12 % за неделю,</span><span>сначала поищу баг (шаг 10).</span></li>
+    <li><span>тест вышел серым,</span><span>назову края вилки: какой эффект данные исключают (шаг 6).</span></li>
+  </ul>
+
+  <h2>Пословицы шагов</h2>
+  <!-- Тексты совпадают с h2[data-proverb] на страницах шагов дословно. Меняешь пословицу в шаге — поменяй и здесь. -->
+  <ol class="proverbs">
+    <li><span class="n">1</span><a href="01-before-after.html">Сравниваем одновременно, делим случайно</a></li>
+    <li><span class="n">2</span><a href="02-salt-hash.html">Монетка, которая помнит</a></li>
+    <li><span class="n">3</span><a href="03-noise.html">Разница есть всегда</a></li>
+    <li><span class="n">4</span><a href="04-clt.html">Один непредсказуем, толпа предсказуема</a></li>
+    <li><span class="n">5</span><a href="05-bell-width.html">Вчетверо больше гостей — вдвое точнее</a></li>
+    <li><span class="n">6</span><a href="06-interval.html">Результат — это вилка</a></li>
+    <li><span class="n">7</span><a href="07-p-value.html">Один пустой тест из двадцати побеждает</a></li>
+    <li><span class="n">8</span><a href="08-errors.html">Сигнализация ошибается двумя способами</a></li>
+    <li><span class="n">9</span><a href="09-mde.html">Сначала MDE, потом тест</a></li>
+    <li><span class="n">10</span><a href="10-traps.html">Правила — до цифр</a></li>
+    <li><span class="n">11</span><a href="11-decide.html">Отчёт → одно из четырёх решений</a></li>
+  </ol>
+
+  <div class="actions">
+    <button class="btn" type="button" onclick="window.print()">Распечатать</button>
+    <a class="btn ghost" href="./">К оглавлению курса</a>
+  </div>
+</article>
+</main>
+</body>
+</html>

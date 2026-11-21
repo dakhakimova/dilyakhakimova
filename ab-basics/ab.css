@@ -1,13 +1,14 @@
 /* Дополнения курса «A/B на пальцах» к общим стилям /signal/book.css.
    Цвета графиков: один цвет — один смысл. Синий — контроль, оранжевый — тест, зелёный — правда / хорошо,
    красный — плохо (ложная тревога, падение, вред), серый — теория. Те же значения — в COL в course.js.
-   Раунд 4: «плохо» стал красным #C9413A (был коралловый #EB8D82, путался с оранжевым тестом);
+   Раунд 4: «плохо» стал красным #C9413A (прежний розоватый путался с оранжевым тестом);
    проверено валидатором палитр: CVD ΔE ≥ 8 со всеми тремя соседями, контраст с фоном 4,7:1.
-   --trap-ink — красный для текста (контраст ≥ 5:1 на белом и на --trap-bg). */
+   --trap-ink — красный для текста (контраст ≥ 5:1 на белом и на --trap-bg).
+   --test-ink — тёмно-оранжевый для текста теста (контраст 5:1 на белом, 4,8:1 на бумаге). */
 :root{
   --ctrl:#3D7DC4; --test:#E59157; --truth:#0E7E5F; --trap:#C9413A; --theory:#A3A19A;
   --ctrl-bg:#E6EEF8; --test-bg:#FBEDE3; --truth-bg:#E2F0EB; --trap-bg:#F8DCD8;
-  --trap-ink:#A8352F;
+  --trap-ink:#A8352F; --test-ink:#A85A24;
 }
 .choice{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
 .choice button{font:500 15px/1.3 var(--body); padding:10px 14px; border-radius:10px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); cursor:pointer; text-align:left}
@@ -22,7 +23,7 @@
 .big2 > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 14px}
 .big2 b{display:block; font:500 30px/1.15 var(--serif); font-variant-numeric:tabular-nums}
 .big2 span{font-size:14px; color:var(--muted)}
-.big2 .ctrl b{color:var(--ctrl)} .big2 .test b{color:#B8642A} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:var(--trap-ink)}
+.big2 .ctrl b{color:var(--ctrl)} .big2 .test b{color:var(--test-ink)} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:var(--trap-ink)}
 .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0}
 .tiles button{all:unset; box-sizing:border-box; cursor:pointer; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.4; min-height:88px}
 .tiles button:hover{border-color:var(--ink)}
@@ -184,7 +185,7 @@
 .chip{position:relative; display:inline-flex; align-items:center; justify-content:center; min-width:46px; padding:5px 7px; border-radius:7px; background:#E6EEF8; font:500 13px/1 var(--body); font-variant-numeric:tabular-nums; color:var(--ink); transition:opacity .25s}
 .chip.miss{opacity:.3}
 .chip.dup{background:#FBEDE3}
-.chip i{font-style:normal; font-size:11px; font-weight:600; color:#B8642A; margin-left:4px}
+.chip i{font-style:normal; font-size:11px; font-weight:600; color:var(--test-ink); margin-left:4px}
 @media (prefers-reduced-motion: reduce){ .chip{transition:none} }
 .rep2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0}
 .rep2 h3{margin:0 0 4px; font-size:17px}
