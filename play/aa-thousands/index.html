@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/03-noise.html?toy=aa-thousands" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<title>Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сто A/A-тестов по 1000 гостей в группе: как часто одинаковые группы расходятся на десятую часть и что меняет число гостей.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/aa-thousands/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/aa-thousands/">
+<meta property="og:title" content="Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сто A/A-тестов по 1000 гостей в группе: как часто одинаковые группы расходятся на десятую часть и что меняет число гостей.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/aa-thousands.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/play/play.css?v=202611240">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/" aria-current="page">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игрушки</a></li>
+    <li><span aria-current="page">Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="aa-thousands" data-frame="/ab-basics/03-noise.html?toy=aa-thousands"
+  data-share-title="Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %?" data-share-text="В A/B-тесте по 1000 пользователей в группе, конверсия около 10 %, и B обогнала A на 10 %. Продакт уверен, что это эффект. Как часто такую разницу даёт A/A? Угадай — и запусти сотню A/A"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="aa-thousands" data-show-from="0" hidden></span></p>
+  <h1>Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На сотне гостей шумно, согласен. Но на тысяче-то одинаковые группы почти совпадут.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим. Запустим тот же тест без изменений сто раз, по 1000 гостей в каждой группе.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Каждый раз я заново раздаю гостей монеткой. Заказывают они по-прежнему с шансом 10 %.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши догадку: в скольких запусках из ста одна группа обгонит другую на 10 % и больше? Например, 110 заказов против 100.</p></div></div>
+  </div>
+
+  <section class="play-what" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Это A/A-тест: обе группы видят одно и то же приложение, у каждого гостя шанс заказать 10 %. «На 10 %» значит на десятую часть: 11 заказов на 100 гостей вместо 10, а не «с 10 % до 20 %».</p><p>Каждый запуск ставит на гистограмму, насколько одна группа обогнала другую. Запиши догадку, запусти сотню тестов и посчитай, сколько из них дали разницу 10 % и больше. Ползунок меняет число гостей в группе — от 100 до 100 000.</p></div>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/03-noise.html?toy=aa-thousands" title="Игрушка: Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/03-noise.html#card-4">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-try" aria-labelledby="try-h">
+    <h2 id="try-h">Попробуй</h2>
+    <ol><li>Запиши догадку и нажми «+100 запусков». В скольких разница вышла 10 % и больше?</li><li>Поставь 100 гостей в группе и повтори. Что стало с горкой?</li><li>Сдвинь ползунок до 100 000. Какую разницу теперь даёт один шум?</li></ol>
+  </section>
+
+  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Что получилось</h2>
+    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <div class="reveal" hidden>
+      <p>При 1000 гостей в группе одинаковые группы расходятся на 10 % и больше почти в половине запусков — в симуляции около 45 %. При 100 гостях — в 84 %. Чем больше гостей, тем уже горка: при 100 000 в группе случайная разница обычно меньше 2,7 % (так выходит в 95 запусках из 100). Тысяча гостей — ещё мало, чтобы заметить эффект в 10 %.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Конверсия 10 % и 1000 гостей в группе: шум даёт разницу 10 % и больше почти в каждом втором A/A.</li><li>Шум уменьшается медленно: в 100 раз больше гостей — горка в 10 раз уже.</li><li>Прежде чем радоваться разнице, узнай, какую разницу даёт один шум при твоём числе гостей.</li></ul>
+    </div>
+  </section>
+
+  <section class="play-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+    <details class="embed">
+      <summary>Вставить в статью или на сайт</summary>
+      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
+    </details>
+  </section>
+
+  <p class="play-src"><b>Откуда идея.</b> A/A-тест — стандартная проверка A/B-платформ. Заказы в игрушке смоделированы.</p>
+
+  <section class="play-next" aria-labelledby="next-h">
+    <h2 id="next-h">Дальше в курсе</h2>
+    <p>Боб посмотрел на горку и решил следить не за итогом, а за каждым днём — на дашборде. Что он там увидел — шаг 3 курса, <a href="/ab-basics/03-noise.html">«Шум есть всегда»</a>.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/03-noise.html">Открыть шаг 3 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
+  </section>
+
+  <section class="play-more" aria-labelledby="more-h">
+    <h2 id="more-h">Ещё игрушки</h2>
+    <ul class="toys" role="list">
+      <li><a href="/play/shuffle-100/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Две одинаковые группы по сто гостей: насколько они разойдутся?</b><span>A/A-тест на двух сотнях гостей: приложение одно и то же, шанс заказать одинаковый, а цифры — разные.</span><small>из курса «A/B на пальцах», шаг 3</small><span class="play-count" data-count-for="shuffle-100" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/daily-dashboard/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Две одинаковые группы на дашборде. Сколько раз сменится лидер?</b><span>Конверсия двух одинаковых групп день за днём: лидер меняется, разрывы бывают по 20 % — без всякого эффекта.</span><small>из курса «A/B на пальцах», шаг 3</small><span class="play-count" data-count-for="daily-dashboard" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/shuffle-labels/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>+35 % на 40 гостях: фото работают или повезло?</b><span>Перестановочный тест руками: перетасуй ярлыки A и B у сорока гостей и посмотри, какие разницы получаются сами по себе.</span><small>из курса «A/B на пальцах», шаг 3</small><span class="play-count" data-count-for="shuffle-labels" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611240"></script>
+</body>
+</html>
