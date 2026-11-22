@@ -26,16 +26,24 @@
 .chip.lvl-chip{font-size:var(--fs-xs); padding:6px var(--s-2); gap:6px}
 .tag.paid{background:var(--sky); color:var(--paid-ink)}
 
-/* «Что будет»: модули карточками */
+/* «Что будет в курсе»: оглавление (решение Дили, 22.11.2026; было сеткой карточек). Блок — одна колонка .col по центру
+   (гайд, 109a): заголовок, подзаголовок и список. Номер — крупная приглушённая цифра слева по верху названия;
+   под названием строка описания, ниже мелко «Задача с собеседования: …» обычным текстом. Пункты разделены тонкой линией,
+   без фона и теней. Эпизоды кафе (ключи mN.s) в оглавлении не выводятся — это сюжет главы. */
+#modules .col, #steps .col{--col:40em}
 .lead-note{color:var(--text-2); max-width:var(--measure)}
-.modules{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); counter-reset:m}
-.modules > li{background:var(--surface); border-radius:var(--r); padding:var(--s-5) var(--s-4) var(--s-4); box-shadow:var(--sh-2); display:flex; flex-direction:column; gap:var(--s-2)}
-.modules .n{font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:var(--tr-label); color:var(--label-ink)}
-.modules h3{font:500 var(--fs-l)/1.3 var(--serif); margin:0}
-.modules .d{margin:0; font-size:var(--fs-s); color:var(--text-2)}
-.modules .scene{margin:var(--s-1) 0 0; padding:var(--s-2) var(--s-3); border-radius:var(--r-s); background:var(--butter); font:400 var(--fs-s)/1.45 var(--serif)}
-.modules .x{margin:auto 0 0; padding:var(--s-2) var(--s-3); background:var(--surface); box-shadow:var(--sh-1); border-radius:var(--r-s); font-size:var(--fs-xs); color:var(--muted); line-height:1.45}
-.modules .x b{color:var(--ink); font-weight:var(--fw-medium)}
+.modules{list-style:none; margin:var(--s-5) 0 0; padding:0; --n:2.75rem}
+.modules > li{display:grid; grid-template-columns:var(--n) minmax(0,1fr); column-gap:var(--s-4); align-items:start; padding:var(--s-4) 0; border-top:1px solid var(--line)}
+.modules > li:last-child{border-bottom:1px solid var(--line)}
+.modules > li > *{grid-column:2; margin:0}
+.modules.wide-n{--n:4.25rem}   /* «Сигнал или шум»: номера-диапазоны глав «11–12» */
+.modules .n{grid-column:1; grid-row:1 / span 3; font:400 var(--fs-h3)/1 var(--serif); font-variant-numeric:lining-nums tabular-nums; color:var(--text-3); padding-top:.1em; white-space:nowrap}
+.modules h3{font:500 var(--fs-l)/1.3 var(--serif)}
+.modules h3 a{color:inherit; text-decoration:none}
+.modules h3 a:hover{color:var(--pen); text-decoration:underline; text-underline-offset:3px}
+.modules .d{margin-top:var(--s-1); font-size:var(--fs-s); color:var(--text-2)}
+.modules .x{margin-top:var(--s-1); font-size:var(--fs-xs); line-height:1.45; color:var(--text-3)}
+.modules .x b{font-weight:inherit; color:inherit}
 
 /* «Во что поиграем»: карточки игр — как .toys на главной; .toys .off — игра, которой ещё нет */
 .toys.c-toys{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -83,13 +91,14 @@
 @media (max-width:960px){
   .c-hero{grid-template-columns:1fr; gap:var(--s-5)}
   /* картинка первого экрана на телефоне — под текстом, как на главной */
-  .modules, .how3{grid-template-columns:1fr 1fr}
+  .how3{grid-template-columns:1fr 1fr}
   .toys-wrap{grid-template-columns:1fr}
   .toys-wrap .art{display:none}
   .pair{grid-template-columns:1fr}
 }
 @media (max-width:620px){
-  .modules, .how3, .results, .toys.c-toys{grid-template-columns:1fr}
+  .how3, .results, .toys.c-toys{grid-template-columns:1fr}
+  .modules{--n:2rem} .modules.wide-n{--n:3.5rem}
   .crumbs{font-size:var(--fs-xs)}
   .c-hero{padding-top:var(--s-2)}
 }
@@ -103,15 +112,6 @@
 .c-steps li{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-3) var(--s-4); font-size:var(--fs-s)}
 .c-steps li b{display:block; font:500 var(--fs-l)/1 var(--serif); color:var(--pen); margin-bottom:var(--s-1)}
 .c-part{font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:var(--s-6) 0 var(--s-2)}
-.c-toc{list-style:none; margin:0; padding:0; max-width:46em}
-.c-toc li{display:grid; grid-template-columns:56px 1fr auto; gap:var(--s-3); align-items:baseline; padding:var(--s-3) 0; border-top:1px solid var(--line)}
-.c-toc li:last-child{border-bottom:1px solid var(--line)}
-.c-toc .n{font:500 var(--fs-m)/1.3 var(--serif); color:var(--pen)}
-.c-toc .t{font:500 var(--fs-m)/1.35 var(--serif)}
-.c-toc .t small{display:block; font:400 var(--fs-s)/1.45 var(--body); color:var(--text-2); margin-top:2px}
-.c-toc .s{font-size:var(--fs-xs); color:var(--text-3); white-space:nowrap}
-.c-toc a{text-decoration:none; color:var(--ink)}
-.c-toc a:hover .t{color:var(--pen)}
 .c-goals{margin:var(--s-3) 0 0; padding-left:var(--s-5); max-width:var(--measure)}
 .c-goals li{margin:0 0 .45em}
 .c-goals b{font-weight:var(--fw-medium)}
@@ -126,4 +126,4 @@
 .c-books .bt{display:block; font:500 var(--fs-m)/1.35 var(--serif); margin:2px 0 var(--s-1)}
 .c-books .bd{display:block; font-size:var(--fs-s); line-height:1.5}
 @media (max-width:960px){ .c-steps, .c-roles{grid-template-columns:1fr 1fr} .c-books{grid-template-columns:1fr} }
-@media (max-width:620px){ .c-steps, .c-roles{grid-template-columns:1fr} .c-toc li{grid-template-columns:36px 1fr} .c-toc .s{grid-column:2} }
+@media (max-width:620px){ .c-steps, .c-roles{grid-template-columns:1fr} 

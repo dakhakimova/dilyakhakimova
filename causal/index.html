@@ -19,10 +19,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611228">
-<link rel="stylesheet" href="/tokens.css?v=202611228">
-<link rel="stylesheet" href="/home.css?v=202611228">
-<link rel="stylesheet" href="/course.css?v=202611228">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611229">
+<link rel="stylesheet" href="/tokens.css?v=202611229">
+<link rel="stylesheet" href="/home.css?v=202611229">
+<link rel="stylesheet" href="/course.css?v=202611229">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -68,17 +68,19 @@ function artFail(img){
 
 <!-- 2. Что будет в курсе -->
 <section class="wrap block" id="modules" aria-labelledby="mod-h">
-  <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
-  <p class="lead-note" data-i18n="mod.lead">Набросок программы: пока курс в работе, состав может поменяться.</p>
-  <ol class="modules" role="list">
-    <li><span class="n" data-i18n="m1.n">Тема 1</span><h3 data-i18n="m1.t">Почему наблюдения обманывают</h3><p class="d" data-i18n="m1.d">Конфаундеры (общие причины), самоотбор и обратная причинность.</p><p class="scene" data-i18n="m1.s">Подписчики заказывают больше остальных. Подписка работает — или подписываются те, кто и так много заказывает?</p></li>
-    <li><span class="n" data-i18n="m2.n">Тема 2</span><h3 data-i18n="m2.t">DAG: графы причин</h3><p class="d" data-i18n="m2.d">Что учитывать, а что трогать нельзя: конфаундер, медиатор, коллайдер.</p><p class="scene" data-i18n="m2.s">Меню стало грузиться дольше, а удержание выросло. Алиса рисует стрелки и находит, кто на самом деле виноват.</p></li>
-    <li><span class="n" data-i18n="m3.n">Тема 3</span><h3 data-i18n="m3.t">Matching и взвешивание</h3><p class="d" data-i18n="m3.d">Propensity score: подбираем похожих и взвешиваем — из наблюдений получается подобие эксперимента.</p><p class="scene" data-i18n="m3.s">Промокод получили самые активные гости. Алиса ищет им «двойников» среди тех, кто промокода не получил.</p></li>
-    <li><span class="n" data-i18n="m4.n">Тема 4</span><h3 data-i18n="m4.t">DiD (difference-in-differences)</h3><p class="d" data-i18n="m4.d">Разность разностей: до и после — вместе с теми, кого изменение не коснулось. Главное допущение — параллельные тренды.</p><p class="scene" data-i18n="m4.s">Фичу выкатили на всех в одном городе, без теста. Алиса сравнивает его с соседним и проверяет, шли ли тренды параллельно до запуска.</p></li>
-    <li><span class="n" data-i18n="m5.n">Тема 5</span><h3 data-i18n="m5.t">Synthetic control</h3><p class="d" data-i18n="m5.d">Синтетический контроль: сравнить не с кем — собираем «двойника» из взвешенной смеси похожих объектов.</p><p class="scene" data-i18n="m5.s">Новое кафе у вокзала не похоже ни на одно другое. Алиса собирает ему «двойника» из пяти кафе с весами.</p></li>
-    <li><span class="n" data-i18n="m6.n">Тема 6</span><h3 data-i18n="m6.t">Instrumental variables (IV)</h3><p class="d" data-i18n="m6.d">Когда есть случайное приглашение, но приходят не все, — как честно оценить эффект.</p><p class="scene" data-i18n="m6.s">Пуш с напоминанием приходит гостям по монетке, а открывают его не все. Как оценить эффект самого напоминания?</p></li>
-    <li><span class="n" data-i18n="m7.n">Тема 7</span><h3 data-i18n="m7.t">Regression discontinuity (RDD)</h3><p class="d" data-i18n="m7.d">Разрывной дизайн: порог делит людей почти случайно, поэтому сравниваем тех, кто чуть ниже и чуть выше него.</p><p class="scene" data-i18n="m7.s">Бесплатная доставка от 1000 ₽. Алиса сравнивает заказы на 990 и на 1010 ₽ и проверяет, не подгоняют ли гости корзину под порог.</p></li>
-  </ol>
+  <div class="col">
+    <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
+    <p class="lead-note" data-i18n="mod.lead">Набросок программы: пока курс в работе, состав может поменяться.</p>
+    <ol class="modules" role="list">
+      <li><span class="n">1</span><h3 data-i18n="m1.t">Почему наблюдения обманывают</h3><p class="d" data-i18n="m1.d">Конфаундеры (общие причины), самоотбор и обратная причинность.</p></li>
+      <li><span class="n">2</span><h3 data-i18n="m2.t">DAG: графы причин</h3><p class="d" data-i18n="m2.d">Что учитывать, а что трогать нельзя: конфаундер, медиатор, коллайдер.</p></li>
+      <li><span class="n">3</span><h3 data-i18n="m3.t">Matching и взвешивание</h3><p class="d" data-i18n="m3.d">Propensity score: подбираем похожих и взвешиваем — из наблюдений получается подобие эксперимента.</p></li>
+      <li><span class="n">4</span><h3 data-i18n="m4.t">DiD (difference-in-differences)</h3><p class="d" data-i18n="m4.d">Разность разностей: до и после — вместе с теми, кого изменение не коснулось. Главное допущение — параллельные тренды.</p></li>
+      <li><span class="n">5</span><h3 data-i18n="m5.t">Synthetic control</h3><p class="d" data-i18n="m5.d">Синтетический контроль: сравнить не с кем — собираем «двойника» из взвешенной смеси похожих объектов.</p></li>
+      <li><span class="n">6</span><h3 data-i18n="m6.t">Instrumental variables (IV)</h3><p class="d" data-i18n="m6.d">Когда есть случайное приглашение, но приходят не все, — как честно оценить эффект.</p></li>
+      <li><span class="n">7</span><h3 data-i18n="m7.t">Regression discontinuity (RDD)</h3><p class="d" data-i18n="m7.d">Разрывной дизайн: порог делит людей почти случайно, поэтому сравниваем тех, кто чуть ниже и чуть выше него.</p></li>
+    </ol>
+  </div>
 </section>
 
 <!-- 3. Игры -->
@@ -157,8 +159,8 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611228"></script>
-<script src="/i18n/causal.js?v=202611228"></script>
-<script src="/landing.js?v=202611228"></script>
+<script src="/i18n/site.js?v=202611229"></script>
+<script src="/i18n/causal.js?v=202611229"></script>
+<script src="/landing.js?v=202611229"></script>
 </body>
 </html>

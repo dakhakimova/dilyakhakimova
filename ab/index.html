@@ -18,10 +18,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611228">
-<link rel="stylesheet" href="/tokens.css?v=202611228">
-<link rel="stylesheet" href="/home.css?v=202611228">
-<link rel="stylesheet" href="/course.css?v=202611228">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611229">
+<link rel="stylesheet" href="/tokens.css?v=202611229">
+<link rel="stylesheet" href="/home.css?v=202611229">
+<link rel="stylesheet" href="/course.css?v=202611229">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -68,19 +68,21 @@ function artFail(img){
 
 <!-- 2. Что будет в курсе -->
 <section class="wrap block" id="modules" aria-labelledby="mod-h">
-  <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
-  <p class="lead-note" data-i18n="mod.lead">Модуль = рабочий ноутбук. В каждом: задача → свой анализ → сверка с эталоном → разбор типичных ошибок, в том числе из популярных статей и «эталонных» ответов.</p>
-  <ol class="modules" role="list">
-    <li><span class="n" data-i18n="m1.n">Модуль 1</span><h3 data-i18n="m1.t">Дизайн, MDE и срок</h3><p class="d" data-i18n="m1.d">MDE и длина теста — в том числе при неравных группах.</p><p class="scene" data-i18n="m1.s">Боб хочет отдать новинке 10% гостей «для безопасности». Алиса показывает, во сколько раз от этого вырастет срок.</p><p class="x" data-i18n="m1.x"><b>Ноутбук:</b> калькулятор MDE и срока с неравными группами</p></li>
-    <li><span class="n" data-i18n="m2.n">Модуль 2</span><h3 data-i18n="m2.t">Метрики и агрегация</h3><p class="d" data-i18n="m2.d">Поюзерно или по событиям, ratio-метрики (метрики-отношения: средний чек, CTR) и дельта-метод.</p><p class="scene" data-i18n="m2.s">Средний чек «по заказам» вырос, а «по гостям» упал. Боб в растерянности: какой из двух отчётов врёт?</p><p class="x" data-i18n="m2.x"><b>Ноутбук:</b> ratio-метрики через дельта-метод</p></li>
-    <li><span class="n" data-i18n="m3.n">Модуль 3</span><h3 data-i18n="m3.t">Бакеты</h3><p class="d" data-i18n="m3.d">Зачем платформы считают по бакетам (корзинам пользователей) и чем за это платят.</p><p class="scene" data-i18n="m3.s">Платформа раскладывает гостей по 256 бакетам. Алиса проверяет, сколько при этом теряется мощности и почему в бакете берут среднее, а не сумму.</p><p class="x" data-i18n="m3.x"><b>Ноутбук:</b> бакетный расчёт рядом с поюзерным</p></li>
-    <li><span class="n" data-i18n="m4.n">Модуль 4</span><h3 data-i18n="m4.t">CUPED и стратификация</h3><p class="d" data-i18n="m4.d">Вычитаем из метрики ту часть, которую предсказывает прошлое поведение гостей: дисперсия меньше — тест короче.</p><p class="scene" data-i18n="m4.s">Заказы гостя на прошлой неделе многое говорят о нынешней. Алиса вычитает эту часть, и тест становится короче.</p><p class="x" data-i18n="m4.x"><b>Ноутбук:</b> CUPED с раздельным θ при неравных группах</p></li>
-    <li><span class="n" data-i18n="m5.n">Модуль 5</span><h3 data-i18n="m5.t">SRM и A/A-стенд</h3><p class="d" data-i18n="m5.d">SRM (sample ratio mismatch) — доли групп не те, что задумали. И A/A-стенд: проверка любого критерия на синтетических A/A.</p><p class="scene" data-i18n="m5.s">В контроле 508 000 гостей, в тесте 492 000. «Мелочь», — говорит Боб. Котейка считает, бывает ли так при честной монетке.</p><p class="x" data-i18n="m5.x"><b>Ноутбук:</b> проверка SRM и A/A-стенд</p></li>
-    <li><span class="n" data-i18n="m6.n">Модуль 6</span><h3 data-i18n="m6.t">Peeking (подглядывание)</h3><p class="d" data-i18n="m6.d">Как смотреть на тест по ходу и не раздувать долю ложноположительных: sequential testing.</p><p class="scene" data-i18n="m6.s">Боб открывает отчёт каждое утро тридцать дней подряд. Алиса предлагает договориться заранее: в какие дни смотрим и с каким порогом.</p><p class="x" data-i18n="m6.x"><b>Ноутбук:</b> sequential testing с границами О’Брайена–Флеминга</p></li>
-    <li><span class="n" data-i18n="m7.n">Модуль 7</span><h3 data-i18n="m7.t">Множественные проверки в A/B</h3><p class="d" data-i18n="m7.d">Много метрик, срезов и вариантов: Холм, Бенджамини–Хохберг, иерархия метрик.</p><p class="scene" data-i18n="m7.s">Алиса разрезала тест на 29 срезов и нашла «победу» у вокзала. Котейка напоминает, как часто так бывает без всякого эффекта.</p><p class="x" data-i18n="m7.x"><b>Ноутбук:</b> поправки для метрик и срезов</p></li>
-    <li><span class="n" data-i18n="m8.n">Модуль 8</span><h3 data-i18n="m8.t">Интерференция и switchback</h3><p class="d" data-i18n="m8.d">Когда группы влияют друг на друга (interference): общий пул курьеров, время доставки, маркетплейсы.</p><p class="scene" data-i18n="m8.s">Бесплатная доставка в тесте забирает курьеров у контроля. Алиса переключает всё кафе целиком по часам — это switchback.</p><p class="x" data-i18n="m8.x"><b>Ноутбук:</b> switchback: дизайн и анализ</p></li>
-    <li><span class="n" data-i18n="m9.n">Модуль 9</span><h3 data-i18n="m9.t">Отрасли и собеседования</h3><p class="d" data-i18n="m9.d">Ритейл, медицина, бигтех, маркетплейсы и такси, соцсети: чем отличаются методы. И задачи с собеседований на A/B.</p><p class="scene" data-i18n="m9.s">Алиса сравнивает, как один и тот же вопрос решают в аптеке, в такси и в соцсети, а потом находит ошибку в «правильном» ответе на популярную задачу.</p><p class="x" data-i18n="m9.x"><b>Ноутбук:</b> таблица отраслей и разборы задач</p></li>
-  </ol>
+  <div class="col">
+    <h2 id="mod-h" data-i18n="sec.modules">Что будет в курсе</h2>
+    <p class="lead-note" data-i18n="mod.lead">Модуль = рабочий ноутбук. В каждом: задача → свой анализ → сверка с эталоном → разбор типичных ошибок, в том числе из популярных статей и «эталонных» ответов.</p>
+    <ol class="modules" role="list">
+      <li><span class="n">1</span><h3 data-i18n="m1.t">Дизайн, MDE и срок</h3><p class="d" data-i18n="m1.d">MDE и длина теста — в том числе при неравных группах.</p><p class="x" data-i18n="m1.x"><b>Ноутбук:</b> калькулятор MDE и срока с неравными группами</p></li>
+      <li><span class="n">2</span><h3 data-i18n="m2.t">Метрики и агрегация</h3><p class="d" data-i18n="m2.d">Поюзерно или по событиям, ratio-метрики (метрики-отношения: средний чек, CTR) и дельта-метод.</p><p class="x" data-i18n="m2.x"><b>Ноутбук:</b> ratio-метрики через дельта-метод</p></li>
+      <li><span class="n">3</span><h3 data-i18n="m3.t">Бакеты</h3><p class="d" data-i18n="m3.d">Зачем платформы считают по бакетам (корзинам пользователей) и чем за это платят.</p><p class="x" data-i18n="m3.x"><b>Ноутбук:</b> бакетный расчёт рядом с поюзерным</p></li>
+      <li><span class="n">4</span><h3 data-i18n="m4.t">CUPED и стратификация</h3><p class="d" data-i18n="m4.d">Вычитаем из метрики ту часть, которую предсказывает прошлое поведение гостей: дисперсия меньше — тест короче.</p><p class="x" data-i18n="m4.x"><b>Ноутбук:</b> CUPED с раздельным θ при неравных группах</p></li>
+      <li><span class="n">5</span><h3 data-i18n="m5.t">SRM и A/A-стенд</h3><p class="d" data-i18n="m5.d">SRM (sample ratio mismatch) — доли групп не те, что задумали. И A/A-стенд: проверка любого критерия на синтетических A/A.</p><p class="x" data-i18n="m5.x"><b>Ноутбук:</b> проверка SRM и A/A-стенд</p></li>
+      <li><span class="n">6</span><h3 data-i18n="m6.t">Peeking (подглядывание)</h3><p class="d" data-i18n="m6.d">Как смотреть на тест по ходу и не раздувать долю ложноположительных: sequential testing.</p><p class="x" data-i18n="m6.x"><b>Ноутбук:</b> sequential testing с границами О’Брайена–Флеминга</p></li>
+      <li><span class="n">7</span><h3 data-i18n="m7.t">Множественные проверки в A/B</h3><p class="d" data-i18n="m7.d">Много метрик, срезов и вариантов: Холм, Бенджамини–Хохберг, иерархия метрик.</p><p class="x" data-i18n="m7.x"><b>Ноутбук:</b> поправки для метрик и срезов</p></li>
+      <li><span class="n">8</span><h3 data-i18n="m8.t">Интерференция и switchback</h3><p class="d" data-i18n="m8.d">Когда группы влияют друг на друга (interference): общий пул курьеров, время доставки, маркетплейсы.</p><p class="x" data-i18n="m8.x"><b>Ноутбук:</b> switchback: дизайн и анализ</p></li>
+      <li><span class="n">9</span><h3 data-i18n="m9.t">Отрасли и собеседования</h3><p class="d" data-i18n="m9.d">Ритейл, медицина, бигтех, маркетплейсы и такси, соцсети: чем отличаются методы. И задачи с собеседований на A/B.</p><p class="x" data-i18n="m9.x"><b>Ноутбук:</b> таблица отраслей и разборы задач</p></li>
+    </ol>
+  </div>
 </section>
 
 <!-- 3. Игры -->
@@ -173,8 +175,8 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611228"></script>
-<script src="/i18n/ab.js?v=202611228"></script>
-<script src="/landing.js?v=202611228"></script>
+<script src="/i18n/site.js?v=202611229"></script>
+<script src="/i18n/ab.js?v=202611229"></script>
+<script src="/landing.js?v=202611229"></script>
 </body>
 </html>
