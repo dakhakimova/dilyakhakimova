@@ -368,10 +368,11 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     const preCards = [...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
     const inCard = !preCards.some(c => c.querySelector('.guess[data-key], .choice[data-key]'));
     const preBox = preCards.map(c => c.querySelector('.guess[data-key], .choice[data-key]')).find(Boolean)
-      || [...toy.querySelectorAll('.guess[data-key], .choice[data-key]')].find(x => !x.closest('.quiz'));
+      || [...toy.querySelectorAll('.guess[data-key], .choice[data-key], .lab-guess')].find(x => !x.closest('.quiz'));
     const PS = {your: 'Твой ответ: ', was: 'Твой ответ был ', change: 'Хочешь изменить?', keep: 'Оставить', edit: 'Изменить',
       changed: ' → изменил на ', truth: 'На самом деле: ', skip: 'Проверить без прогноза', noTruth: 'Сравни с результатом игры выше.'};
-    const answer = () => { if (!preBox) return ''; if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
+    const answer = () => { if (!preBox) return '';
+      if (preBox.classList.contains('lab-guess')){ const i = preBox.querySelector('input'); if (i) return i.value.trim(); const b = preBox.querySelector('[aria-pressed="true"]'); return b ? b.textContent.trim() : ''; } if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
         const u = preBox.dataset.unit ?? '%'; return i.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
       const b = preBox.querySelector('button[aria-pressed="true"], button.picked'); return b ? b.textContent.trim() : ''; };
     const flow = document.createElement('div'); flow.className = 'pf'; flow.setAttribute('role', 'status'); toy.appendChild(flow);
@@ -409,11 +410,11 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       const keep = document.createElement('button'); keep.type = 'button'; keep.className = 'btn'; keep.textContent = PS.keep; keep.dataset.ui = 'keep';
       const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'btn ghost'; edit.textContent = PS.edit; edit.dataset.ui = 'edit';
       let inp = null;
-      if (preBox.classList.contains('guess')){ inp = document.createElement('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.className = 'guess-in'; inp.value = preBox.querySelector('input').value; inp.setAttribute('aria-label', PS.change); row.append(inp); }
+      if (preBox.querySelector('input')){ inp = document.createElement('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.className = 'guess-in'; inp.value = preBox.querySelector('input').value; inp.setAttribute('aria-label', PS.change); row.append(inp); }
       row.append(keep, edit); box.append(q, row); flow.appendChild(box); pfMine.hidden = true; send();
       keep.addEventListener('click', () => reveal(''));
       edit.addEventListener('click', () => {
-        if (inp){ const i = preBox.querySelector('input'); const old = a; i.value = inp.value; const sv = preBox.querySelector('button'); if (sv) sv.click(); else i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', bubbles: true})); reveal(old); }
+        if (inp){ const i = preBox.querySelector('input'); const old = a; i.value = inp.value; const sv = preBox.classList.contains('guess') && preBox.querySelector('button'); if (sv) sv.click(); else if (!preBox.classList.contains('lab-guess')) i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', bubbles: true})); reveal(old); }
         else { const old = a; preBox.scrollIntoView({block: 'center'}); asked = false; box.remove(); preBox.addEventListener('chosen', () => reveal(old), {once: true}); }
       });
     };

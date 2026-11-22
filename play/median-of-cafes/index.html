@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/006-lab.html?toy=median-of-cafes" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Медиана доставки по сети — 29 минут. У скольких кафе дольше?","item":"https://dilyakhakimova.com/play/median-of-cafes/"}]}</script>
+<meta name="robots" content="noindex, follow">
+<title>Медиана доставки по сети — 29 минут. У скольких кафе дольше? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Десять кафе, три из них большие и быстрые. Медиана сети считается по заказам, а не по кафе — и большинство кафе оказываются медленнее неё.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/median-of-cafes/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/median-of-cafes/">
+<meta property="og:title" content="Медиана доставки по сети — 29 минут. У скольких кафе дольше? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Десять кафе, три из них большие и быстрые. Медиана сети считается по заказам, а не по кафе — и большинство кафе оказываются медленнее неё.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/median-of-cafes.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/play/play.css?v=202611302">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<main id="main" class="wrap play" data-toy="median-of-cafes" data-frame="/signal/006-lab.html?toy=median-of-cafes"
+  data-share-title="Медиана доставки по сети — 29 минут. У скольких кафе дольше?" data-share-text="В отчёте: «медиана доставки по сети 29 минут, значит, половина кафе возит быстрее». Три больших кафе делают 60% заказов. У скольких из десяти кафе медиана дольше 29 минут? Угадай и проверь"
+  data-s-copied="Ссылка скопирована">
+  <h1>Медиана доставки по сети — 29 минут. У скольких кафе дольше?</h1>
+  <p class="play-meta">Из курса <a href="/signal/">«Сигнал или шум»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="median-of-cafes" data-show-from="0" hidden></span></p>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Медиана доставки по сети — 29 минут. Значит, типичное наше кафе возит за полчаса, и у половины кафе даже быстрее.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это медиана заказов. А три больших кафе у вокзала, у парка и в центре делают 60% всех заказов.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И что? Медиана есть медиана: половина выше, половина ниже.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Половина чего — заказов или кафе? Давай посчитаем медиану каждого кафе отдельно.</p></div></div>
+  </div>
+
+  
+    <figure class="art play-art"><img src="/play/img/median-of-cafes.jpg" alt="Боб показывает на большую цифру на доске, а Алиса раскладывает по столу десять карточек кафе разного размера" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/signal/006-lab.html?toy=median-of-cafes" title="Игра: Медиана доставки по сети — 29 минут. У скольких кафе дольше?" style="height:950px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/signal/006-lab.html#card-1">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="locked">Откроется после проверки.</p>
+    <div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Медиану всех заказов он прочитал как медиану кафе.</li>
+        <li><b class="st-h">Кто весит больше.</b> Три быстрых кафе дают 60% заказов, поэтому середина всех заказов попадает к ним: 29 минут.</li>
+        <li><b class="st-h">Типичное кафе.</b> <p class="formula">медиана десяти медиан кафе = <b>32.5 мин</b></p> Дольше 29 минут возят 7 кафе из 10.</li>
+        <li><b class="st-h">Правило.</b> В отчёте пиши, по чему медиана: «по заказам» или «по кафе».</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из книги Альберто Каиро «How Charts Lie» (2019): медиана дохода штата — медиана людей, поэтому большинство округов ниже неё. Парадокс размера класса — классическая задача.</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611302"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/010-lab.html?toy=per-orders" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Больше всего жалоб — в Вокзальном районе. А на тысячу заказов?","item":"https://dilyakhakimova.com/play/per-orders/"}]}</script>
+<meta name="robots" content="noindex, follow">
+<title>Больше всего жалоб — в Вокзальном районе. А на тысячу заказов? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Двенадцать районов, жалобы и опоздания: связь в штуках, которая исчезает, если поделить на число заказов.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/per-orders/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/per-orders/">
+<meta property="og:title" content="Больше всего жалоб — в Вокзальном районе. А на тысячу заказов? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Двенадцать районов, жалобы и опоздания: связь в штуках, которая исчезает, если поделить на число заказов.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/per-orders.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/play/play.css?v=202611302">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<main id="main" class="wrap play" data-toy="per-orders" data-frame="/ab-basics/010-lab.html?toy=per-orders"
+  data-share-title="Больше всего жалоб — в Вокзальном районе. А на тысячу заказов?" data-share-text="В отчёте по районам больше всего жалоб в самом большом районе, и продакт хочет менять там курьеров. На каком месте этот район окажется по жалобам на 1000 заказов? Угадай и проверь"
+  data-s-copied="Ссылка скопирована">
+  <h1>Больше всего жалоб — в Вокзальном районе. А на тысячу заказов?</h1>
+  <p class="play-meta">Из курса <a href="/ab-basics/">«A/B на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="per-orders" data-show-from="0" hidden></span></p>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Где больше опозданий, там больше жалоб — корреляция 0.85. А больше всего жалоб в Вокзальном, 124. Меняем там курьеров!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вокзальный — один из самых больших районов: больше 5000 заказов в месяц. Там всего больше: и заказов, и опозданий, и жалоб.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Жалобы есть жалобы.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай поделим на число заказов и посмотрим, кто окажется впереди и что станет со связью.</p></div></div>
+  </div>
+
+  
+    <figure class="art play-art"><img src="/play/img/per-orders.jpg" alt="Боб показывает на самую толстую стопку жалоб, Алиса ставит рядом стопки заказов разной высоты" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/010-lab.html?toy=per-orders" title="Игра: Больше всего жалоб — в Вокзальном районе. А на тысячу заказов?" style="height:950px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/010-lab.html#card-3">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="locked">Откроется после проверки.</p>
+    <div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Сравнил жалобы в штуках — они повторяют размер района.</li>
+        <li><b class="st-h">На 1000 заказов.</b> <p class="formula">жалоб на 1000 = жалобы / заказы · 1000: Вокзальный — <b>24</b>, лидер — 34</p> Вокзальный — девятый из двенадцати.</li>
+        <li><b class="st-h">Связь пропала.</b> <p class="formula">в штуках r = 0.85, на 1000 заказов r ≈ <b>0</b></p> Оба числа держались на размере района.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из книги Альберто Каиро «How Charts Lie» (2019), гл. 4: карты по числу людей с разными бедами совпадают, потому что повторяют карту населения. Пример с пожарными — классический.</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611302"></script>
+</body>
+</html>

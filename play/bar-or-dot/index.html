@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/006-lab.html?toy=bar-or-dot" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Столбик до 4.6% и усы. Правда скорее внутри столбика?","item":"https://dilyakhakimova.com/play/bar-or-dot/"}]}</script>
+<meta name="robots" content="noindex, follow">
+<title>Столбик до 4.6% и усы. Правда скорее внутри столбика? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Один результат теста столбиком и точкой с интервалом, и сто повторов: почему столбик с усами обманывает глаз.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/bar-or-dot/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/bar-or-dot/">
+<meta property="og:title" content="Столбик до 4.6% и усы. Правда скорее внутри столбика? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Один результат теста столбиком и точкой с интервалом, и сто повторов: почему столбик с усами обманывает глаз.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/bar-or-dot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/play/play.css?v=202611302">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<main id="main" class="wrap play" data-toy="bar-or-dot" data-frame="/ab-basics/006-lab.html?toy=bar-or-dot"
+  data-share-title="Столбик до 4.6% и усы. Правда скорее внутри столбика?" data-share-text="В отчёте A/B конверсия теста нарисована столбиком до 4.6% с усами от 4.1% до 5.1%. Продакт читает: «правда скорее ниже 4.6%». В скольких повторах из 100 правда окажется ниже верха столбика? Угадай и проверь"
+  data-s-copied="Ссылка скопирована">
+  <h1>Столбик до 4.6% и усы. Правда скорее внутри столбика?</h1>
+  <p class="play-meta">Из курса <a href="/ab-basics/">«A/B на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="bar-or-dot" data-show-from="0" hidden></span></p>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В отчёте конверсия нового меню — 4.6%, усы от 4.1% до 5.1%. Столбик высокий, значит, правда где-то внутри, ниже 4.6%.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Почему ниже? Усы же торчат и вверх, и вниз.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну столбик залит до 4.6%, а выше только тонкий ус.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я знаю настоящую конверсию. Могу повторить такой тест сто раз — каждый раз с новыми гостями.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай. Посчитаем, в скольких тестах правда окажется ниже верха столбика.</p></div></div>
+  </div>
+
+  
+    <figure class="art play-art"><img src="/play/img/bar-or-dot.jpg" alt="Боб показывает на высокий залитый столбик на доске, Алиса рядом рисует маркером точку с вертикальным отрезком" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/006-lab.html?toy=bar-or-dot" title="Игра: Столбик до 4.6% и усы. Правда скорее внутри столбика?" style="height:1450px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/006-lab.html#card-1">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="locked">Откроется после проверки.</p>
+    <div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Залитый столбик подсказал «правда внутри, ниже 4.6%».</li>
+        <li><b class="st-h">Куда промахивается оценка.</b>  Интервал промахивается в 5 случаях из 100 — это и есть «95%».
+          <table class="table sol-table"><thead><tr><th>Правда</th><th class="num">Тестов из 100</th></tr></thead><tbody><tr><td>ниже точки</td><td class="num">≈ 50</td></tr><tr><td>выше точки</td><td class="num">≈ 50</td></tr><tr><td>выше уса</td><td class="num">≈ 3</td></tr><tr><td>ниже уса</td><td class="num">≈ 2</td></tr></tbody></table></li>
+        <li><b class="st-h">Правило.</b> Оценку с интервалом рисуют точкой с отрезком; столбик — для количеств от нуля.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из блога Datawrapper (Лиза Шарлотта Мут, «Confidence intervals in bar charts») и опыта Корелла и Глейхера (2014): внутри столбика значения кажутся вероятнее.</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611302"></script>
+</body>
+</html>

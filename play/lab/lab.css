@@ -1,0 +1,42 @@
+/* Новые игры /play/ (ветка new-games): общие стили карточек .card with .lab-guess.
+   Страницы-«лаборатории» глав — <курс>/0NN-lab.html; там только карточки этих игр, открываются в соло-режиме (?toy=<slug>).
+   Остальное (кнопки, поле прогноза, метки, подписи) — из signal/book.css и курса: здесь только своё. */
+.lab-guess{background:var(--butter); border-radius:var(--r-m); padding:12px 16px; margin:12px 0 0}
+.lab-phrase{display:block; font-size:17px; line-height:1.9}
+.lab-phrase input.guess-in{display:inline-block; vertical-align:baseline; margin:0 4px; width:88px}
+.lab-guess.locked{background:#F3F1EC}
+.lab-go{margin:16px 0 0}
+.lab-status{margin:10px 0 0; font-size:16px; line-height:1.45; color:var(--text-1); min-height:1.45em}
+.lab-status:empty{min-height:0; margin:0}
+.lab-status b{font-weight:var(--fw-strong)}
+.lab-stage{margin-top:var(--s-5)}
+.lab-stage > .step-tag{margin-top:0}
+.lab-stage canvas{display:block; width:100%; touch-action:manipulation}
+.lab-stage .chart-title{margin-top:12px}
+.lab-data{font-size:14px; color:var(--text-3); margin:8px 0 0}
+.lab-after{margin:16px 0 0; gap:12px 20px}
+.lab-again{background:none; border:0; padding:8px 0; min-height:44px; font:500 15px/1.2 var(--body); color:var(--pen); text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:4px; cursor:pointer}
+.lab-again:hover, .lab-again:focus-visible{text-decoration-color:currentColor}
+.lab-key{display:flex; flex-wrap:wrap; gap:4px 16px; margin:8px 0 0; font-size:14px; color:var(--text-2)}
+.lab-key i{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:0}
+.lab-detail{margin:10px 0 0; padding:10px 14px; background:var(--sunk, #F3F0EA); border-radius:var(--r-s); font-size:15px; line-height:1.45}
+.lab-detail:empty{display:none}
+/* выбор вместо числа: плитки-варианты (aria-pressed) */
+.lab-pick .opts{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:8px; margin:8px 0 2px}
+.lab-pick .opts button{font:400 15px/1.3 var(--body); text-align:left; padding:10px 12px; min-height:44px; border-radius:var(--r-s); border:1px solid var(--line-strong); background:#fff; color:var(--text-1); cursor:pointer}
+.lab-pick .opts button:hover:not(:disabled){border-color:var(--pen)}
+.lab-pick .opts button[aria-pressed="true"]{border:1.5px solid var(--pen); background:var(--pen-soft, #E6ECF7); color:var(--pen)}
+.lab-pick .opts button[aria-pressed="true"]::before{content:"✓ "}
+.lab-pick .opts button:disabled{cursor:default}
+.lab-pick .opts svg{display:block; width:100%; height:auto; margin:0 0 6px}
+.lab-pick .opts.cols1{grid-template-columns:1fr}
+.lab-pick .opts button.ok{border-color:#0E7E5F; background:#E2F1E7; color:var(--text-1)}
+.lab-pick .opts button.miss{border-color:#C9413A}
+.lab-pick .lab-phrase{line-height:1.5}
+@media (max-width:520px){
+  .lab-phrase{font-size:16px}
+  .lab-pick .opts{grid-template-columns:1fr 1fr}
+  .lab-pick .opts.cols1{grid-template-columns:1fr}
+}
+/* атрибут hidden прячет всегда, даже у кнопок и рядов со своим display (в главах «A/B на пальцах» нет такого правила) */
+.card [hidden]{display:none !important}
