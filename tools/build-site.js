@@ -153,7 +153,9 @@ function shelf(){
       <span class="soon">скоро</span>
     </div></li>`;
   };
-  const mine = (S.mine || []).filter(m => m.url).concat((S.mine || []).filter(m => !m.url));
+  // Блок «Статьи и видео от автора» пока скрыт (решение Дили 22.11): данные в shelf.json сохранены, место для блока ещё ищем.
+  const SHOW_MINE = false;
+  const mine = SHOW_MINE ? (S.mine || []).filter(m => m.url).concat((S.mine || []).filter(m => !m.url)) : [];
   const html = head({title: 'Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова',
     desc: 'Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
     url: '/shelf/', css: ['/site/site.css'], og: '/shelf/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
