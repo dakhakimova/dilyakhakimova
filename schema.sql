@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS events (
   UNIQUE (user_id, chapter, kind, key)
 );
 
--- Персональные промокоды на «A/B без мифов».
+-- Старые промокоды по баллам (больше не выдаются; оставлены для истории).
 CREATE TABLE IF NOT EXISTS promo_codes (
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   tier        INTEGER NOT NULL,                 -- 10 | 20 | 30 (процент скидки)
@@ -39,6 +39,18 @@ CREATE TABLE IF NOT EXISTS promo_codes (
   created_at  TEXT NOT NULL DEFAULT (datetime('now')),
   used_at     TEXT,
   PRIMARY KEY (user_id, tier)
+);
+
+CREATE TABLE IF NOT EXISTS course_promos (
+  code         TEXT PRIMARY KEY,
+  user_id      INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  course       TEXT NOT NULL,                   -- 'vp' | 'ss' | 'ab'
+  discount     INTEGER NOT NULL DEFAULT 20,     -- %
+  created_at   TEXT NOT NULL DEFAULT (datetime('now')),
+  expires_at   TEXT NOT NULL,                   -- created_at + 1 год
+  redeemed_at  TEXT,                            -- когда использован (одноразовый)
+  order_ref    TEXT,                            -- номер заказа при погашении
+  UNIQUE (user_id, course)
 );
 
 -- Анонимный счётчик игрушек: агрегаты по дням, без cookie, IP и пользователей (POST /api/hit).

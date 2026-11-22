@@ -36,8 +36,8 @@
   <h1>Мой прогресс</h1>
 
   <section id="guest" hidden>
-    <p class="lead">Войди через Telegram, чтобы баллы и прогресс сохранялись на любом устройстве.</p>
-    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Telegram ещё спросит, можно ли нашему боту написать тебе: это нужно, чтобы прислать промокод. Баллы из «Вероятности на пальцах», «Сигнала или шума» и «A/B на пальцах» превращаются в скидку на курс «A/B без мифов»: 10% за 40% баллов, 20% за 70%, 30% за 90%.</p>
+    <p class="lead">Войди через Telegram, чтобы прогресс сохранялся на любом устройстве и пройденные курсы засчитывались.</p>
+    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки.</p>
     <div id="tg-login"></div>
     <p class="muted" id="queued"></p>
     <p class="err" id="login-err" role="alert"></p>
@@ -48,16 +48,13 @@
       <div class="who"><img id="m-photo" alt="" hidden><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
     </div>
     <div class="panel">
-      <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:1.25rem">из <span id="m-max">0</span> баллов</span></div>
-      <div class="bar"><span id="m-bar"></span></div>
-      <div class="ticks" aria-hidden="true"><i style="left:40%">−10%</i><i style="left:70%">−20%</i><i style="left:90%">−30%</i></div>
-      <p id="m-next" style="margin-top:10px"></p>
+      <p id="m-courses" style="margin:0"></p>
+      <p class="muted" id="m-pointsline"><span id="m-points">0</span> баллов из <span id="m-max">0</span> — это прогресс, на скидку они не влияют.</p>
       <p class="muted" id="m-calib"></p>
     </div>
     <div class="panel" id="promo-box" hidden>
-      <h2 style="margin-top:0">Твой промокод</h2>
-      <p>Скидка <b id="p-tier"></b> на курс «A/B без мифов». Код личный и одноразовый.</p>
-      <span class="code" id="p-code"></span>
+      <h2 style="margin-top:0">Мои промокоды</h2>
+      <ul class="promos" id="p-list"></ul>
     </div>
     <div class="panel">
       <h2 style="margin-top:0">Главы курсов</h2>
@@ -66,13 +63,25 @@
     <button class="btn ghost" id="logout" type="button">Выйти</button>
   </section>
 
+  <!-- Условия скидки (решение Дили, 22.11.2026) — /account.html#terms, на них ведут «Условия →» с главной и страниц курсов -->
+  <section class="panel" id="terms">
+    <h2 style="margin-top:0">Промокод на 20% за пройденный курс</h2>
+    <p>Пройди любой бесплатный курс до конца — «Вероятность на пальцах», «Сигнал или шум» или «A/B на пальцах» — и получи промокод на 20% на платный. Ответы могут быть любыми, важно дойти: в каждом шаге открыть последнюю карточку и ответить на каждый вопрос. Игры не обязательны.</p>
+    <ol>
+      <li>За каждый пройденный курс — свой промокод.</li>
+      <li>Одна покупка — один промокод.</li>
+      <li>Промокод можно подарить: он действует год и только один раз.</li>
+      <li>Чтобы прогресс засчитывался, нужен вход через Telegram.</li>
+    </ol>
+  </section>
+
   <section id="down" hidden>
     <p>Личный кабинет пока не подключён. Прогресс сохраняется в этом браузере.</p>
   </section>
 </main>
 <script src="/signal/progress.js"></script>
 <script>
-// Главы трёх бесплатных курсов: баллы из всех трёх идут в скидку на «A/B без мифов» (правила — functions/api/_lib.js, RULES).
+// Главы трёх бесплатных курсов: прогресс по шагам; промокод 20% — за любой пройденный курс (правила — functions/api/_lib.js, RULES).
 const COURSES = [
   {title: 'Вероятность на пальцах', url: '/probability/', chapters: {
     p01: {title: "Исходы и события", url: "/probability/01-outcomes.html", cards: 13},
@@ -121,13 +130,24 @@ function showMember(me){
   $('m-user').textContent = me.user.username ? '@' + me.user.username : '';
   if (me.user.photo_url){ $('m-photo').src = me.user.photo_url; $('m-photo').hidden = false; }
   $('m-points').textContent = me.points; $('m-max').textContent = me.max;
-  $('m-bar').style.width = Math.min(100, me.share) + '%';
-  $('m-next').textContent = me.next_tier
-    ? 'До скидки ' + me.next_tier.discount + '% осталось ' + me.next_tier.need_points + ' б.'
-    : 'Максимальная скидка открыта!';
+  const cp = me.courses_progress || {}, NAMES = {vp: 'Вероятность на пальцах', ss: 'Сигнал или шум', ab: 'A/B на пальцах'};
+  $('m-courses').textContent = (me.courses_done && me.courses_done.length)
+    ? 'Пройдено курсов: ' + me.courses_done.length + '. За каждый — свой промокод на 20%.'
+    : 'До промокода: пройди любой бесплатный курс до конца. ' + Object.entries(cp).map(([k, v]) => '«' + NAMES[k] + '» — шагов ' + v.done + ' из ' + v.total).join(' · ');
   $('m-calib').textContent = me.calibration_error === null ? 'Калибровка появится после первых прогнозов.'
     : 'Калибровка: твои прогнозы в среднем ошибаются на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
-  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + '%'; $('p-code').textContent = me.promos[0].code; }
+  if (me.promos && me.promos.length){
+    $('promo-box').hidden = false; const ul = $('p-list'); ul.innerHTML = '';
+    me.promos.forEach(p => {
+      const li = document.createElement('li'), code = document.createElement('span'); code.className = 'code'; code.textContent = p.code;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = 'Скопировать';
+      const st = document.createElement('span'); st.className = 'muted'; st.setAttribute('role', 'status');
+      b.addEventListener('click', async () => { try { await navigator.clipboard.writeText(p.code); st.textContent = 'Скопировано'; } catch(e) { st.textContent = p.code; } setTimeout(() => { st.textContent = ''; }, 2000); });
+      const meta = document.createElement('p'); meta.className = 'muted';
+      meta.textContent = p.redeemed_at ? 'использован' : '20% за «' + p.course_title + '» · до ' + new Date(p.expires_at).toLocaleDateString('ru-RU') + ' · можно подарить коллеге';
+      li.append(code, ' ', b, ' ', st, meta); ul.appendChild(li);
+    });
+  }
   const box = $('m-chapters'); box.innerHTML = '';
   for (const course of COURSES){
     let pts = 0, done = 0;
@@ -156,7 +176,7 @@ async function start(){
   $('guest').hidden = false;
   let q = []; try { q = JSON.parse(localStorage.getItem('signal:queue') || '[]'); } catch(e) {}
   const pts = q.filter(e => e.kind !== 'card').length;
-  if (pts) $('queued').textContent = 'В этом браузере уже сохранено действий с баллами: ' + pts + '. Они перенесутся после входа.';
+  if (pts) $('queued').textContent = 'В этом браузере уже сохранён прогресс: ' + pts + ' действий. Он перенесётся после входа.';
   window.onTelegramAuth = async user => {
     $('login-err').textContent = '';
     const r = await fetch('/api/auth/telegram', {method: 'POST', headers: {'content-type': 'application/json'}, credentials: 'same-origin', body: JSON.stringify(user)});

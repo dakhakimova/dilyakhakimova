@@ -145,7 +145,7 @@ for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Obj
     cur = Math.max(0, Math.min(cards.length - 1, i));
     if (!window.PLAY_SOLO) store.set('pos:' + location.pathname, cur);   // Купер: возврат в шаг — на то же место, а не с начала
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
-    if (!window.PLAY_SOLO){ seen.add(cur); store.set(key, [...seen]); AB.track('card', cur + 1); }  // соло-режим /play/: без прогресса
+    if (!window.PLAY_SOLO){ seen.add(cur); store.set(key, [...seen]); AB.track('card', cur + 1); } if (window.CourseDone) CourseDone();  // соло-режим /play/: без прогресса
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
@@ -260,6 +260,8 @@ document.querySelectorAll('.card').forEach(card => {
     box.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
       const ok = b.dataset.v === q.dataset.right, done = q.classList.contains('done');
+      // «курс пройден» (решение Дили, 22.11.2026): считается любой ответ, верный или нет
+      { const allQ = [...document.querySelectorAll('.quiz')], ak = AB.chapter + ':ans', ans = new Set(store.get(ak) || []); ans.add(allQ.indexOf(q)); store.set(ak, [...ans]); if (window.CourseDone) CourseDone(); }
       box.querySelectorAll('button').forEach(x => x.classList.remove('picked')); b.classList.add('picked');
       b.classList.add(ok ? 'right' : 'wrong');
       if (!q.dataset.first) q.dataset.first = ok ? '1' : '0';
@@ -294,3 +296,18 @@ document.querySelectorAll('.card').forEach(card => {
     });
   });
 });
+
+// Шаг пройден (решение Дили, 22.11.2026): открыта последняя карточка и на каждый вопрос (квиз, прогноз числом, выбор) дан
+// хоть какой-то ответ; игры не обязательны. Тогда один раз уходит событие done — сервер считает курс пройденным,
+// когда done есть во всех шагах курса (functions/api/_lib.js, COURSES). Скидка 20% — за любой пройденный бесплатный курс.
+window.CourseDone = function(){
+  if (window.PLAY_SOLO) return;
+  const ch = document.body.dataset.chapter; if (!ch || store.get(ch + ':done')) return;
+  const cards = document.querySelectorAll('.card'), seen = store.get(ch + ':seen') || [];
+  if (!cards.length || !seen.includes(cards.length - 1)) return;
+  const qn = document.querySelectorAll('.quiz').length, ans = store.get(ch + ':ans') || [];
+  if (ans.length < qn) return;
+  for (const g of document.querySelectorAll('.guess[data-key]')) if (store.get(ch + ':guess:' + g.dataset.key) == null) return;
+  for (const c of document.querySelectorAll('.choice[data-key]')) if (!c.closest('.quiz') && store.get(ch + ':' + c.dataset.key) == null) return;
+  store.set(ch + ':done', 1); AB.track('done', '1');
+};

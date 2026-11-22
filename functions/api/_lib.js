@@ -94,7 +94,15 @@ export const RULES = {
 };
 export const PTS = { predict: 1, predictHit: 2, codeFirst: 5, codeLater: 3, interview: 1, quiz: 1, task: 1 };
 export const HIT_TOLERANCE = 5;
-export const TIERS = [ [0.4, 10], [0.7, 20], [0.9, 30] ];   // доля от максимума → скидка, %: 40 % → 10 %, 70 % → 20 %, 90 % → 30 %
+// Скидка (решение Дили, 22.11.2026): 20% на платный курс за любой пройденный бесплатный курс. Баллы остаются прогрессом,
+// скидку от них не считаем. «Пройден» — во всех шагах курса есть событие done (клиент шлёт его, когда открыта последняя
+// карточка шага и на каждый вопрос дан любой ответ; игры не обязательны). Складываются ли скидки за несколько курсов — не решено.
+export const DISCOUNT = 20;
+export const COURSES = {
+  vp: { title: 'Вероятность на пальцах', chapters: ['p01', 'p02', 'p03', 'p04', 'p05', 'p06', 'p07', 'p08', 'p09'] },
+  ss: { title: 'Сигнал или шум', chapters: ['ch01', 'ch04', 'ch05', 'ch06', 'ch07', 'ch08', 'ch09', 'ch10', 'ch11', 'ch12'] },
+  ab: { title: 'A/B на пальцах', chapters: ['ab01', 'ab02', 'ab03', 'ab04', 'ab05', 'ab06', 'ab07', 'ab08', 'ab09', 'ab10', 'ab11'] },
+};
 // Пороги скидки считаются от максимума трёх бесплатных курсов: «Вероятность на пальцах» (p01–p09, 143 балла),
 // «Сигнал или шум» (ch01 и ch04–ch12, 14 + 145 = 159 баллов) и «A/B на пальцах» (ab01–ab11, 103 квиза + 1 задание = 104 балла) — всего 406.
 // PLANNED_MAX — нижняя граница максимума: если главу временно уберут из RULES, пороги не упадут.
@@ -118,6 +126,7 @@ export function scoreEvent(chapter, kind, key, value) {
   const ch = RULES[chapter];
   if (!ch) return null;
   if (kind === 'card') return Number.isInteger(+key) ? 0 : null;
+  if (kind === 'done') return key === '1' ? 0 : null;
   if (kind === 'predict') {
     if (!(key in (ch.predict || {}))) return null;
     const v = +value;
@@ -135,11 +144,6 @@ export function scoreEvent(chapter, kind, key, value) {
   return null;
 }
 
-function promoCode(tier) {
-  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  const r = crypto.getRandomValues(new Uint8Array(6));
-  return 'SIGNAL' + tier + '-' + [...r].map(b => alphabet[b % alphabet.length]).join('');
-}
 
 // Сводка по пользователю: баллы, прогресс по главам, калибровка, промокоды (выдаёт недостающие).
 export async function summary(env, user) {
@@ -161,22 +165,53 @@ export async function summary(env, user) {
     .map(e => Math.abs(e.value - RULES[e.chapter].predict[e.key]));
   const calibration = errs.length ? Math.round(10 * errs.reduce((a, b) => a + b, 0) / errs.length) / 10 : null;
 
-  for (const [need, tier] of TIERS) {
-    if (share >= need) {
-      await env.DB.prepare('INSERT OR IGNORE INTO promo_codes (user_id, tier, code) VALUES (?, ?, ?)')
-        .bind(user.id, tier, promoCode(tier)).run();
-    }
-  }
+  // пройденные курсы: done во всех шагах
+  const doneCh = new Set(ev.filter(e => e.kind === 'done').map(e => e.chapter));
+  const courses_done = Object.entries(COURSES).filter(([, c]) => c.chapters.every(ch => doneCh.has(ch))).map(([id, c]) => ({id, title: c.title}));
+  const courses_progress = Object.fromEntries(Object.entries(COURSES).map(([id, c]) => [id, {done: c.chapters.filter(ch => doneCh.has(ch)).length, total: c.chapters.length}]));
+  for (const c of courses_done) await issueCoursePromo(env, user.id, c.id);
   const { results: promos } = await env.DB.prepare(
-    'SELECT tier, code, created_at, used_at FROM promo_codes WHERE user_id = ? ORDER BY tier DESC'
+    'SELECT code, course, discount, created_at, expires_at, redeemed_at FROM course_promos WHERE user_id = ? ORDER BY created_at'
   ).bind(user.id).all();
+  promos.forEach(p => { p.course_title = (COURSES[p.course] || {}).title || p.course; });
 
-  const next = TIERS.find(([need]) => share < need);
   return {
     user: { first_name: user.first_name, username: user.username, photo_url: user.photo_url },
     points: total, max, share: Math.round(share * 1000) / 10,
-    next_tier: next ? { discount: next[1], need_points: Math.ceil(next[0] * max) - total } : null,
+    discount: courses_done.length ? DISCOUNT : 0, courses_done, courses_progress,
     calibration_error: calibration,
     chapters, promos,
   };
+}
+
+// ---------- промокоды за пройденные курсы: выдача, проверка, погашение ----------
+// Один код на (пользователь, курс); одноразовый; год с выдачи; на одну покупку — один код.
+export function newPromoCode(course){
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const r = crypto.getRandomValues(new Uint8Array(8));
+  return course.toUpperCase() + '20-' + [...r].map(b => alphabet[b % alphabet.length]).join('');
+}
+export async function issueCoursePromo(env, userId, course, now = new Date()){
+  if (!COURSES[course]) throw new Error('unknown course');
+  const exp = new Date(now); exp.setUTCFullYear(exp.getUTCFullYear() + 1);
+  await env.DB.prepare('INSERT OR IGNORE INTO course_promos (code, user_id, course, discount, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(newPromoCode(course), userId, course, DISCOUNT, now.toISOString(), exp.toISOString()).run();
+  return env.DB.prepare('SELECT * FROM course_promos WHERE user_id = ? AND course = ?').bind(userId, course).first();
+}
+// {valid, reason?, discount?, expires_at?}; reason: 'not_found' | 'redeemed' | 'expired'
+export async function validatePromo(env, code, now = new Date()){
+  const c = String(code || '').trim().toUpperCase();
+  const row = c ? await env.DB.prepare('SELECT * FROM course_promos WHERE code = ?').bind(c).first() : null;
+  if (!row) return {valid: false, reason: 'not_found'};
+  if (row.redeemed_at) return {valid: false, reason: 'redeemed'};
+  if (new Date(row.expires_at) <= now) return {valid: false, reason: 'expired'};
+  return {valid: true, code: c, discount: row.discount, expires_at: row.expires_at};
+}
+// Погашение атомарно: UPDATE … WHERE redeemed_at IS NULL — второй раз код не пройдёт.
+export async function redeemPromo(env, code, orderRef = '', now = new Date()){
+  const v = await validatePromo(env, code, now);
+  if (!v.valid) return v;
+  const r = await env.DB.prepare('UPDATE course_promos SET redeemed_at = ?, order_ref = ? WHERE code = ? AND redeemed_at IS NULL')
+    .bind(now.toISOString(), String(orderRef).slice(0, 80), v.code).run();
+  return (r.meta && r.meta.changes) ? {valid: true, redeemed: true, code: v.code, discount: v.discount} : {valid: false, reason: 'redeemed'};
 }
