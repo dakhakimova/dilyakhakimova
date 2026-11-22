@@ -38,81 +38,97 @@
 <!-- peeking-two-panels: вся траектория p по дням, две панели (Виктор, Datawrapper; переделка peeking) -->
 <section class="card" data-toy="peeking-two-panels" data-title="Тридцать утр в двух панелях" aria-label="Тридцать утр в двух панелях">
   <h2>Тридцать утр в двух панелях</h2>
-  <p>A/A-тест на 30 дней: обе группы видят одно и то же, по 1000 гостей в день в каждую, заказывают 10%. Каждое утро Боб открывает отчёт: сверху разница B − A, снизу p-value. Как только p опустится ниже 0.05, он выкатывает.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="ptp-guess">Хоть раз за 30 дней p опустится ниже 0.05 в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ptp-guess"> тестах из 100</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>A/A-тест на 30 дней: обе группы видят одно и то же, по 1000 гостей в день в каждую, заказывают 10%. Каждое утро Боб открывает отчёт: сверху разница B − A, снизу p-value. Как только p опустится ниже 0.05, он выкатывает.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="ptp-guess">Хоть раз за 30 дней p опустится ниже 0.05 в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ptp-guess"> тестах из 100</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить 100 A/A по 30 дней</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить 100 A/A по 30 дней</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="ptp-t0">Сверху — разница B − A, п. п., снизу — p-value; по дням теста, 100 A/A-тестов</p>
-    <canvas id="ptp-cv" role="img" aria-label="Две панели: разница и p-value по дням для ста A/A-тестов"></canvas>
-    <p class="note lab-data">Данные: симуляция, двусторонний z-тест для долей каждый день по накопленным данным.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="ptp-t0">Сверху — разница B − A, п. п., снизу — p-value; по дням теста, 100 A/A-тестов</p>
+      <canvas id="ptp-cv" role="img" aria-label="Две панели: разница и p-value по дням для ста A/A-тестов"></canvas>
+      <p class="note lab-data">Данные: симуляция, двусторонний z-тест для долей каждый день по накопленным данным.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- default-city: город по умолчанию (Каиро, гл. 3) -->
 <section class="card" data-toy="default-city" data-title="Центр заказывает больше всех?" aria-label="Центр заказывает больше всех?">
   <h2>Центр заказывает больше всех?</h2>
-  <p>1000 заказов за неделю по восьми районам. В отчёте Боба лидер — Центр, 215 заказов. Алиса знает одну особенность приложения: если адрес не распознан, заказ записывается в район по умолчанию — Центр.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="dc-guess">Без заказов с нераспознанным адресом Центр окажется на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="dc-guess"> месте из 8</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>1000 заказов за неделю по восьми районам. В отчёте Боба лидер — Центр, 215 заказов. Алиса знает одну особенность приложения: если адрес не распознан, заказ записывается в район по умолчанию — Центр.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="dc-guess">Без заказов с нераспознанным адресом Центр окажется на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="dc-guess"> месте из 8</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Проверить адреса</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Проверить адреса</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="dc-t0">Заказы за неделю по районам; справа — место в рейтинге</p>
-    <canvas id="dc-cv" role="img" aria-label="Заказы по восьми районам"></canvas>
-    <p class="lab-key"><span><i style="background:#23418A"></i>адрес распознан</span><span><i style="background:#A3A19A"></i>адрес не распознан — записан в Центр</span></p>
-    <p class="note lab-data">Данные: учебный пример, 1000 заказов, из них 120 с нераспознанным адресом.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="dc-t0">Заказы за неделю по районам; справа — место в рейтинге</p>
+      <canvas id="dc-cv" role="img" aria-label="Заказы по восьми районам"></canvas>
+      <p class="lab-key"><span><i style="background:#23418A"></i>адрес распознан</span><span><i style="background:#A3A19A"></i>адрес не распознан — записан в Центр</span></p>
+      <p class="note lab-data">Данные: учебный пример, 1000 заказов, из них 120 с нераспознанным адресом.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- per-orders: где больше людей, там больше всего (Каиро, гл. 4) -->
 <section class="card" data-toy="per-orders" data-title="Жалобы и опоздания по районам" aria-label="Жалобы и опоздания по районам">
   <h2>Жалобы и опоздания по районам</h2>
-  <p>12 районов доставки. Где больше опозданий, там больше жалоб: корреляция по районам 0.85. Больше всего жалоб — 124 — в Вокзальном, и Боб хочет менять там курьеров. Но районы очень разные: от 700 до 5500 заказов в месяц.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="po-guess">На 1000 заказов Вокзальный окажется по жалобам на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="po-guess"> месте из 12</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>12 районов доставки. Где больше опозданий, там больше жалоб: корреляция по районам 0.85. Больше всего жалоб — 124 — в Вокзальном, и Боб хочет менять там курьеров. Но районы очень разные: от 700 до 5500 заказов в месяц.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="po-guess">На 1000 заказов Вокзальный окажется по жалобам на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="po-guess"> месте из 12</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разделить на число заказов</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разделить на число заказов</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="po-t0">12 районов: опоздания и жалобы за месяц</p>
-    <canvas id="po-cv" role="img" aria-label="Двенадцать районов: опоздания и жалобы"></canvas>
-    <p class="note lab-data">Данные: учебный пример, 12 районов за месяц.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="po-t0">12 районов: опоздания и жалобы за месяц</p>
+      <canvas id="po-cv" role="img" aria-label="Двенадцать районов: опоздания и жалобы"></canvas>
+      <p class="note lab-data">Данные: учебный пример, 12 районов за месяц.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- bob-strategies: турнир стратегий решения (Кейс, «The Evolution of Trust») -->
 <section class="card" data-toy="bob-strategies" data-title="Турнир стратегий" aria-label="Турнир стратегий">
   <h2>Турнир стратегий</h2>
-  <p>За год у команды 100 идей: 80 пустых и 20 хороших, которые дают +0.5 заказа на 100 гостей при конверсии 10%. Каждую проверяют тестом на 28 дней, по 2000 гостей в день в группу. За выкаченную хорошую идею — очко, за выкаченную пустышку — минус очко. Все четыре стратегии смотрят на одни и те же тесты.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess lab-pick">
-    <p class="lab-phrase" id="bst-ph">Больше всех очков за год наберёт стратегия:</p>
-    <div class="opts cols1" role="group" aria-labelledby="bst-ph">
-      <button type="button" data-v="bob">Боб: смотрю каждый день, выкатываю при первом «значимо»</button>
-      <button type="button" data-v="alice">Алиса: один взгляд на 28-й день, порог 0.05</button>
-      <button type="button" data-v="week">Нетерпеливый: один взгляд на 7-й день, порог 0.05</button>
-      <button type="button" data-v="soft">Мягкий судья: на 28-й день, порог 0.20</button>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>За год у команды 100 идей: 80 пустых и 20 хороших, которые дают +0.5 заказа на 100 гостей при конверсии 10%. Каждую проверяют тестом на 28 дней, по 2000 гостей в день в группу. За выкаченную хорошую идею — очко, за выкаченную пустышку — минус очко. Все четыре стратегии смотрят на одни и те же тесты.</p>
+    <div class="guess lab-guess lab-pick">
+      <p class="lab-phrase" id="bst-ph">Больше всех очков за год наберёт стратегия:</p>
+      <div class="opts cols1" role="group" aria-labelledby="bst-ph">
+        <button type="button" data-v="bob">Боб: смотрю каждый день, выкатываю при первом «значимо»</button>
+        <button type="button" data-v="alice">Алиса: один взгляд на 28-й день, порог 0.05</button>
+        <button type="button" data-v="week">Нетерпеливый: один взгляд на 7-й день, порог 0.05</button>
+        <button type="button" data-v="soft">Мягкий судья: на 28-й день, порог 0.20</button>
+      </div>
     </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Провести турнир</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Провести турнир</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="bst-t0">Итог года: очки каждой стратегии</p>
-    <canvas id="bst-cv" role="img" aria-label="Очки четырёх стратегий за год"></canvas>
-    <p class="note lab-data">Данные: симуляция; выкатывают, только если B лучше A.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="bst-t0">Итог года: очки каждой стратегии</p>
+      <canvas id="bst-cv" role="img" aria-label="Очки четырёх стратегий за год"></canvas>
+      <p class="note lab-data">Данные: симуляция; выкатывают, только если B лучше A.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 лет</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 лет</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

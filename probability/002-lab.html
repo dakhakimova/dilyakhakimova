@@ -38,20 +38,24 @@
 <!-- running-share-fan: веер неопределённости над 50 сериями (FT, Виктор; переделка running-share) -->
 <section class="card" data-toy="running-share-fan" data-title="Веер из 50 серий" aria-label="Веер из 50 серий">
   <h2>Веер из 50 серий</h2>
-  <p>Пятьдесят серий бросков монетки, в каждой следим за долей орлов. На 100 бросках почти все серии лежат в веере от 40% до 60%: ±10% вокруг половины.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="rsf-guess">На 400 бросках веер будет ± <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rsf-guess"> %</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Пятьдесят серий бросков монетки, в каждой следим за долей орлов. На 100 бросках почти все серии лежат в веере от 40% до 60%: ±10% вокруг половины.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="rsf-guess">На 400 бросках веер будет ± <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rsf-guess"> %</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Бросить 50 серий по 1000 раз</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Бросить 50 серий по 1000 раз</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="rsf-t0">Доля орлов в 50 сериях по мере бросков; серая полоса — веер, куда попадают 95% серий</p>
-    <canvas id="rsf-cv" role="img" aria-label="Пятьдесят линий доли орлов и веер вокруг половины"></canvas>
-    <p class="note lab-data">Данные: симуляция, ось бросков — логарифмическая, от 10 бросков.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="rsf-t0">Доля орлов в 50 сериях по мере бросков; серая полоса — веер, куда попадают 95% серий</p>
+      <canvas id="rsf-cv" role="img" aria-label="Пятьдесят линий доли орлов и веер вокруг половины"></canvas>
+      <p class="note lab-data">Данные: симуляция, ось бросков — логарифмическая, от 10 бросков.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

@@ -5,7 +5,9 @@
   const C = Lab.C;
   const CAFES = [["спальные",45.1,63.8],["спальные",49.9,60.0],["спальные",43.8,60.1],["спальные",47.3,60.9],["спальные",48.0,57.3],["спальные",51.3,60.8],["спальные",47.7,60.8],["спальные",43.5,62.1],["спальные",48.3,60.6],["спальные",44.4,62.5],["центр",26.5,41.4],["центр",31.6,43.0],["центр",22.3,42.9],["центр",28.1,42.1],["центр",24.0,44.6],["центр",33.6,43.9],["центр",27.0,45.2],["центр",32.9,43.7],["центр",32.2,46.4],["центр",29.2,42.8],["деловые",16.4,30.2],["деловые",19.4,27.0],["деловые",12.4,28.1],["деловые",8.1,30.1],["деловые",17.1,28.2],["деловые",20.5,31.2],["деловые",17.5,30.5],["деловые",18.8,27.0],["деловые",17.5,30.9],["деловые",7.9,30.5]];
   const GUESTS = [["спальные",59.8,61.9],["центр",42.2,44.2],["деловые",27.6,29.7]];
-  const DIST = ['спальные', 'центр', 'деловые'], COLS = [C.ctrl, C.test, C.viol || '#8F6FC9'], INK = [C.pen, C.testInk, '#6A4FA3'];
+  // цвета (Д14): коралл — только событие «с десертом» на графике гостей; районы различаются нейтральными тонами и подписями,
+  // линии внутри районов — синие (норма), третьего цвета нет
+  const DIST = ['спальные', 'центр', 'деловые'], TONES = [C.ink, '#6B6A65', '#8C8A83'];
   const cv = document.getElementById('eco-cv'), gv = document.getElementById('eco-g');
   let stage = 0, k = 0;
   const xs = CAFES.map(c => c[1]), ys = CAFES.map(c => c[2]);
@@ -18,12 +20,14 @@
     Lab.ticksX(c, X, h - 8, [10, 20, 30, 40, 50, 60], v => v + '%');
     Lab.text(c, 'вернулись', L, 12, C.ink2); Lab.text(c, 'чеков с десертом', w - R, B - 6, C.ink2, 'right');
     if (stage >= 1){ c.globalAlpha = stage === 1 ? 1 : 1 - 0.7 * k; Lab.line(c, [[X(8), Y(ALL.a + ALL.b * 8)], [X(55), Y(ALL.a + ALL.b * 55)]], C.ink, 2, [6, 4]); c.globalAlpha = 1;
-      if (stage === 1) Lab.tag(c, 'все кафе: ' + sg(ALL.b) + ' п. п. возвратов на 1 п. п. десертов', L + 6, T + 10, C.ink); }
-    CAFES.forEach(([d, x, y]) => { const i = DIST.indexOf(d); Lab.dot(c, X(x), Y(y), 4.5, stage >= 2 ? COLS[i] : C.gray, '#fff', 1); });
+      if (stage === 1){ const t = 'все кафе: ' + sg(ALL.b) + ' п. п. возвратов на 1 п. п. десертов';   // на телефоне — в две строки
+        if (g.small){ Lab.tag(c, t.replace(/ на 1 .*$/, ''), L + 6, T + 10, C.ink); Lab.tag(c, t.replace(/^.* (на 1 )/, '$1'), L + 6, T + 28, C.ink); }
+        else Lab.tag(c, t, L + 6, T + 10, C.ink); } }
+    CAFES.forEach(([d, x, y]) => { const i = DIST.indexOf(d); Lab.dot(c, X(x), Y(y), 4.5, stage >= 2 ? TONES[i] : C.gray, '#fff', 1); });
     if (stage >= 2) DIST.forEach((d, i) => {
       const p = CAFES.filter(q => q[0] === d), px = p.map(q => q[1]), py = p.map(q => q[2]), b = Lab.slope(px, py), a = Lab.mean(py) - b * Lab.mean(px);
-      const x0 = Math.min(...px) - 2, x1 = Math.max(...px) + 2; c.globalAlpha = k; Lab.line(c, [[X(x0), Y(a + b * x0)], [X(x1), Y(a + b * x1)]], COLS[i], 2.5);
-      Lab.tag(c, d + ': ' + sg(b), X(x1), Y(a + b * x1) + 22, INK[i], 'right'); c.globalAlpha = 1; });
+      const x0 = Math.min(...px) - 2, x1 = Math.max(...px) + 2; c.globalAlpha = k; Lab.line(c, [[X(x0), Y(a + b * x0)], [X(x1), Y(a + b * x1)]], C.pen, 2.5);
+      Lab.tag(c, d + ': ' + sg(b), X(x1), Y(a + b * x1) + 22, C.ink, 'right'); c.globalAlpha = 1; });
     cv.setAttribute('aria-label', stage >= 2 ? 'Внутри районов связь десерта и возвратов почти нулевая, общий наклон даёт разница районов' : 'Все 30 кафе: чем больше десертов, тем больше возвратов');
   }
   function drawG(){
@@ -33,7 +37,7 @@
     c.strokeStyle = Lab.C.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B + 0.5); c.lineTo(w, B + 0.5); c.stroke();
     GUESTS.forEach(([d, wD, w0], i) => {
       const x = L + i * gw + gw * 0.12, bw = gw * 0.34;
-      [[w0, C.gray, 'без'], [wD, COLS[i], 'с десертом']].forEach(([v, col, lab], j) => {
+      [[w0, C.gray, 'без'], [wD, C.test, 'с десертом']].forEach(([v, col, lab], j) => {
         const vv = v * Math.min(1, k * 1.2); c.fillStyle = col; c.fillRect(x + j * (bw + 4), Y(vv), bw, B - Y(vv));
         Lab.text(c, Lab.num(v, 1) + (bw > 46 ? '%' : ''), x + j * (bw + 4) + bw / 2, Y(vv) - 4, C.ink, 'center'); });
       Lab.text(c, d, x + bw + 2, h - 2, C.ink, 'center', Lab.FONT14);

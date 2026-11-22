@@ -38,21 +38,25 @@
 <!-- median-of-cafes: медиана сети ≠ медиана кафе (Каиро) -->
 <section class="card" data-toy="median-of-cafes" data-title="Медиана сети и медиана кафе" aria-label="Медиана сети и медиана кафе">
   <h2>Медиана сети и медиана кафе</h2>
-  <p>В сети десять кафе. Три больших и быстрых делают 60% всех заказов, семь маленьких — остальные 40%. Медиана доставки по всем заказам сети — 29 минут: половина заказов приезжает быстрее, половина дольше.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="mc-guess">Медиана доставки дольше 29 минут у <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="mc-guess"> кафе из 10</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>В сети десять кафе. Три больших и быстрых делают 60% всех заказов, семь маленьких — остальные 40%. Медиана доставки по всем заказам сети — 29 минут: половина заказов приезжает быстрее, половина дольше.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="mc-guess">Медиана доставки дольше 29 минут у <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="mc-guess"> кафе из 10</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Посчитать медиану каждого кафе</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Посчитать медиану каждого кафе</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="mc-t0">Время доставки по кафе: точка — медиана кафе, полоса — средняя половина заказов</p>
-    <canvas id="mc-cv" role="img" aria-label="Медианы доставки десяти кафе и медиана сети"></canvas>
-    <p class="lab-key"><span><i style="background:#23418A"></i>быстрее медианы сети</span><span><i style="background:#E8644A"></i>дольше медианы сети</span></p>
-    <p class="note lab-data">Данные: учебный пример, 6660 заказов за месяц. Размер точки — сколько заказов у кафе.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="mc-t0">Время доставки по кафе: точка — медиана кафе, полоса — средняя половина заказов</p>
+      <canvas id="mc-cv" role="img" aria-label="Медианы доставки десяти кафе и медиана сети"></canvas>
+      <p class="lab-key"><span><i style="background:#23418A"></i>быстрее медианы сети</span><span><i style="background:#E8644A"></i>дольше медианы сети</span></p>
+      <p class="note lab-data">Данные: учебный пример, 6660 заказов за месяц. Размер точки — сколько заказов у кафе.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

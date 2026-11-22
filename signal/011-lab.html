@@ -38,22 +38,26 @@
 <!-- power-half: мощность при вдвое меньшем числе гостей -->
 <section class="card" data-toy="power-half" data-title="Вдвое меньше гостей — вдвое ниже мощность?" aria-label="Вдвое меньше гостей — вдвое ниже мощность?">
   <h2>Вдвое меньше гостей — вдвое ниже мощность?</h2>
-  <p>Конверсия в заказ — 10%. Тест с 10&nbsp;000 гостей в группе замечает эффект Боба (+1.2 заказа на 100 гостей) в 80% случаев: это его мощность. Боб хочет сэкономить трафик и взять по 5000 гостей.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="ph-guess">С 5000 гостей в группе тест заметит эффект в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ph-guess"> % случаев</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Конверсия в заказ — 10%. Тест с 10&nbsp;000 гостей в группе замечает эффект Боба (+1.2 заказа на 100 гостей) в 80% случаев: это его мощность. Боб хочет сэкономить трафик и взять по 5000 гостей.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="ph-guess">С 5000 гостей в группе тест заметит эффект в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ph-guess"> % случаев</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 100 тестов по 5000 гостей</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 100 тестов по 5000 гостей</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="ph-t0">100 тестов по 5000 гостей в группе: зелёная точка — тест заметил эффект, серая — нет</p>
-    <canvas id="ph-grid" role="img" aria-label="100 тестов: заметил или нет"></canvas>
-    <p class="chart-title" id="ph-t1">Мощность и число гостей в группе</p>
-    <canvas id="ph-cv" role="img" aria-label="Кривая мощности от числа гостей"></canvas>
-    <p class="note lab-data">Данные: симуляция; порог значимости 0.05, двусторонний тест.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="ph-t0">100 тестов по 5000 гостей в группе: зелёная точка — тест заметил эффект, серая — нет</p>
+      <canvas id="ph-grid" role="img" aria-label="100 тестов: заметил или нет"></canvas>
+      <p class="chart-title" id="ph-t1">Мощность и число гостей в группе</p>
+      <canvas id="ph-cv" role="img" aria-label="Кривая мощности от числа гостей"></canvas>
+      <p class="note lab-data">Данные: симуляция; порог значимости 0.05, двусторонний тест.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

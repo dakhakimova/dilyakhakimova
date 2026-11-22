@@ -6,10 +6,11 @@
    которая сразу проводит весь опыт из вопроса. После запуска — итог рядом с прогнозом, одно тихое «Ещё раз»
    и, если нужен масштаб, одна контурная «×1000». Ни «+1», ни «Сбросить», ни «Новая …».
 
-   Разметка карточки (см. любую 0NN-lab.html):
-     <section class="card lab" data-toy="<slug>">
-       … .lab-guess (поле input.guess-in или выбор .lab-pick) → .lab-status[role=status] → .lab-go [data-lab=run]
-       → .lab-stage[hidden] (график) → .lab-after[hidden] ([data-lab=x1000], [data-lab=again])
+   Разметка карточки (см. любую 0NN-lab.html): шаги «Сначала угадай» и «Потом проверь» — две одинаковые карточки
+   .lab-c, как у эталона (пара 34e); вторая открывается первым запуском, туда же переезжает «Твой ответ был…» моста.
+     <section class="card" data-toy="<slug>"> <h2> (на /play/ скрыт)
+       <div class="lab-c lab-c1"> метка · абзац · .lab-guess (поле input.guess-in или выбор .lab-pick) → .lab-status[role=status] → .lab-go [data-lab=run]
+       <div class="lab-c lab-c2" hidden> .lab-stage[hidden] (метка, график) → .lab-after[hidden] ([data-lab=x1000], [data-lab=again])
    Без прогноза кнопка не запускает игру и не считается касанием (на /play/ решение не раскрывается).
 
    Lab.game(slug, {min, max, unit, fmt, run(api), again(api), x1000(api), draw(api)}) — api: {card, q, guess, status, stage, runs}. */
@@ -107,7 +108,9 @@
     if (!card) return null;
     const q = s => card.querySelector(s);
     const inp = q('input.guess-in'), box = q('.lab-guess'), run = q('[data-lab=run]'), stage = q('.lab-stage'),
-      status = q('.lab-status'), after = q('.lab-after'), again = q('[data-lab=again]'), big = q('[data-lab=x1000]');
+      status = q('.lab-status'), after = q('.lab-after'), again = q('[data-lab=again]'), big = q('[data-lab=x1000]'), c2 = q('.lab-c2');
+    // строка моста «Твой ответ был… Хочешь изменить?» — во второй карточке, под игрой
+    if (c2) document.addEventListener('DOMContentLoaded', () => { const pf = card.querySelector(':scope > .pf'); if (pf) c2.appendChild(pf); });
     const api = {card, q, guess: null, runs: 0, stage,
       status(html){ status.innerHTML = html; },
       // «Твой прогноз: 10 · вышло: 36 из 100»
@@ -137,7 +140,7 @@
       box.classList.add('locked');
       card.querySelectorAll('.lab-pick .opts button').forEach(b => { b.disabled = true; });
       const gs = o.fmt ? o.fmt(g.v) : Lab.numT(g.v, 2); status.textContent = 'Запомнили: ' + gs + (/\.$/.test(gs) ? ' ' : '. ') + 'Проверяем…';
-      run.hidden = true; stage.hidden = false; fire();
+      run.hidden = true; stage.hidden = false; if (c2) c2.hidden = false; fire();
       requestAnimationFrame(() => go(o.run));
     });
     if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); if (!run.hidden) run.click(); } });

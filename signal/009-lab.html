@@ -38,40 +38,48 @@
 <!-- p-value-drill: гистограмма p-value с шагом вниз к одному тесту (Виктор, переделка p-value-factory) -->
 <section class="card" data-toy="p-value-drill" data-title="Тысяча A/A и один столбик" aria-label="Тысяча A/A и один столбик">
   <h2>Тысяча A/A и один столбик</h2>
-  <p>Тысяча A/A-тестов: в обеих группах по 20&nbsp;000 гостей, меню одно и то же, заказывают 10%. Эффекта нет по построению, но у каждого теста своё p-value — и своё место на гистограмме из 20 столбиков шириной 0.05.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="pvd-guess">В столбик «p от 0.90 до 0.95» попадёт примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="pvd-guess"> тестов из 1000</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Тысяча A/A-тестов: в обеих группах по 20&nbsp;000 гостей, меню одно и то же, заказывают 10%. Эффекта нет по построению, но у каждого теста своё p-value — и своё место на гистограмме из 20 столбиков шириной 0.05.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="pvd-guess">В столбик «p от 0.90 до 0.95» попадёт примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="pvd-guess"> тестов из 1000</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 1000 A/A-тестов</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 1000 A/A-тестов</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="pvd-t0">p-value тысячи A/A-тестов, столбики по 0.05; пунктир — 50 тестов на столбик</p>
-    <canvas id="pvd-cv" role="img" aria-label="Гистограмма p-value тысячи A/A-тестов"></canvas>
-    <p class="note">Нажми на любой столбик — под графиком откроется один тест из него.</p>
-    <p class="lab-detail" id="pvd-d" role="status"></p>
-    <p class="note lab-data">Данные: симуляция, двусторонний z-тест для долей.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="pvd-t0">p-value тысячи A/A-тестов, столбики по 0.05; пунктир — 50 тестов на столбик</p>
+      <canvas id="pvd-cv" role="img" aria-label="Гистограмма p-value тысячи A/A-тестов"></canvas>
+      <p class="note">Нажми на любой столбик — под графиком откроется один тест из него.</p>
+      <p class="lab-detail" id="pvd-d" role="status"></p>
+      <p class="note lab-data">Данные: симуляция, двусторонний z-тест для долей.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- aa-early-gap: разница B − A по мере прихода гостей (Кейс, переделка aa-stand) -->
 <section class="card" data-toy="aa-early-gap" data-title="Первые двадцать гостей" aria-label="Первые двадцать гостей">
   <h2>Первые двадцать гостей</h2>
-  <p>A/A-тест: в обеих группах одно и то же меню, заказывают 10% гостей. Гости приходят по одному и попадают в A или B по очереди, а линия показывает разницу долей B − A после каждой пары гостей.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="aeg-guess">Когда в группах будет по 20 гостей, разница на 10 п. п. и больше будет в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="aeg-guess"> тестах из 100</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>A/A-тест: в обеих группах одно и то же меню, заказывают 10% гостей. Гости приходят по одному и попадают в A или B по очереди, а линия показывает разницу долей B − A после каждой пары гостей.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="aeg-guess">Когда в группах будет по 20 гостей, разница на 10 п. п. и больше будет в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="aeg-guess"> тестах из 100</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 100 A/A до 500 гостей</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 100 A/A до 500 гостей</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="aeg-t0">Разница B − A, п. п., по мере прихода гостей; 100 A/A-тестов</p>
-    <canvas id="aeg-cv" role="img" aria-label="Сто линий разницы B минус A по мере прихода гостей"></canvas>
-    <p class="note lab-data">Данные: симуляция; каждая линия — один A/A-тест, ось гостей — логарифмическая, от 5 гостей.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="aeg-t0">Разница B − A, п. п., по мере прихода гостей; 100 A/A-тестов</p>
+      <canvas id="aeg-cv" role="img" aria-label="Сто линий разницы B минус A по мере прихода гостей"></canvas>
+      <p class="note lab-data">Данные: симуляция; каждая линия — один A/A-тест, ось гостей — логарифмическая, от 5 гостей.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

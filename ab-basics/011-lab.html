@@ -38,52 +38,60 @@
 <!-- ratings-fives: доля пятёрок против средней оценки (Хили) -->
 <section class="card" data-toy="ratings-fives" data-title="Пятёрок меньше — гостям хуже?" aria-label="Пятёрок меньше — гостям хуже?">
   <h2>Пятёрок меньше — гостям хуже?</h2>
-  <p>В A/B-тесте нового меню гости ставят оценки от 1 до 5, по 1000 оценок в каждой группе. Пятёрок в тесте 40% против 50% в контроле. Боб: «Гостям хуже, откатываем».</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="rf-guess">Средняя оценка в тесте изменилась на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rf-guess"> % (минус — упала)</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>В A/B-тесте нового меню гости ставят оценки от 1 до 5, по 1000 оценок в каждой группе. Пятёрок в тесте 40% против 50% в контроле. Боб: «Гостям хуже, откатываем».</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="rf-guess">Средняя оценка в тесте изменилась на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rf-guess"> % (минус — упала)</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разложить 2000 оценок</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разложить 2000 оценок</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="rf-t0">Оценки гостей: контроль A и тест B, по 1000 оценок</p>
-    <canvas id="rf-cv" role="img" aria-label="Распределение оценок в контроле и тесте"></canvas>
-    <p class="note lab-data">Данные: учебный пример, по 1000 оценок в группе.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="rf-t0">Оценки гостей: контроль A и тест B, по 1000 оценок</p>
+      <canvas id="rf-cv" role="img" aria-label="Распределение оценок в контроле и тесте"></canvas>
+      <p class="note lab-data">Данные: учебный пример, по 1000 оценок в группе.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- two-pearls: сто устриц и две жемчужины (Нафлик, гл. 1) -->
 <section class="card" data-toy="two-pearls" data-title="Два графика для Боба" aria-label="Два графика для Боба">
   <h2>Два графика для Боба</h2>
-  <p>Тест нового меню закончился. У Алисы двенадцать графиков, а Бобу нужно решить одно: катим новое меню на всю сеть или нет. В отчёт помещаются два графика.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess lab-pick">
-    <p class="lab-phrase" id="tp-ph">Выбери два графика, которые нужны Бобу для решения:</p>
-    <div class="opts" role="group" aria-labelledby="tp-ph">
-      <button type="button" data-v="diff">Разница заказов B − A с 95% интервалом</button>
-      <button type="button" data-v="hours">Конверсия по часам дня</button>
-      <button type="button" data-v="cancel">Отмены заказов в A и B</button>
-      <button type="button" data-v="slices">Эффект по 30 районам</button>
-      <button type="button" data-v="pdays">p-value по дням теста</button>
-      <button type="button" data-v="checks">Гистограмма чеков</button>
-      <button type="button" data-v="funnel">Воронка приложения</button>
-      <button type="button" data-v="os">Доля iOS и Android</button>
-      <button type="button" data-v="split">Гости по дням в A и B</button>
-      <button type="button" data-v="weather">Погода за месяц</button>
-      <button type="button" data-v="matrix">Корреляции 20 метрик</button>
-      <button type="button" data-v="weeks">Средний чек по неделям</button>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Тест нового меню закончился. У Алисы двенадцать графиков, а Бобу нужно решить одно: катим новое меню на всю сеть или нет. В отчёт помещаются два графика.</p>
+    <div class="guess lab-guess lab-pick">
+      <p class="lab-phrase" id="tp-ph">Выбери два графика, которые нужны Бобу для решения:</p>
+      <div class="opts" role="group" aria-labelledby="tp-ph">
+        <button type="button" data-v="diff">Разница заказов B − A с 95% интервалом</button>
+        <button type="button" data-v="hours">Конверсия по часам дня</button>
+        <button type="button" data-v="cancel">Отмены заказов в A и B</button>
+        <button type="button" data-v="slices">Эффект по 30 районам</button>
+        <button type="button" data-v="pdays">p-value по дням теста</button>
+        <button type="button" data-v="checks">Гистограмма чеков</button>
+        <button type="button" data-v="funnel">Воронка приложения</button>
+        <button type="button" data-v="os">Доля iOS и Android</button>
+        <button type="button" data-v="split">Гости по дням в A и B</button>
+        <button type="button" data-v="weather">Погода за месяц</button>
+        <button type="button" data-v="matrix">Корреляции 20 метрик</button>
+        <button type="button" data-v="weeks">Средний чек по неделям</button>
+      </div>
     </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Отдать Бобу</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Отдать Бобу</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
 
-    <div class="lab-detail" id="tp-d"></div>
-    <p class="note lab-data">Пример учебный: двенадцать графиков отчёта по одному тесту.</p>
+      <div class="lab-detail" id="tp-d"></div>
+      <p class="note lab-data">Пример учебный: двенадцать графиков отчёта по одному тесту.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

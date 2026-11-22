@@ -10,6 +10,14 @@
 .lab-status:empty{min-height:0; margin:0}
 .lab-status b{font-weight:var(--fw-strong)}
 .lab-stage{margin-top:var(--s-5)}
+/* «Сначала угадай» и «Потом проверь» — две одинаковые карточки с зазором 24 (пара 34e, как у эталона «Дни рождения») */
+.card[data-toy]:has(> .lab-c), html.solo .card[data-toy]:has(> .lab-c){background:none; box-shadow:none; padding:0; border:0}
+.lab-c{background:var(--surface, #FBF9F4); border-radius:12px; padding:16px 24px 20px; box-shadow:var(--sh-1, 0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04))}
+.lab-c + .lab-c{margin-top:24px}
+.lab-c > .step-tag:first-child, .lab-c2 > .lab-stage > .step-tag:first-child{margin-top:0}
+.lab-c2 > .lab-stage{margin-top:0}
+.lab-c1 > .lab-go{margin-bottom:0}
+@media (max-width:620px){ .lab-c{padding:16px} }
 .lab-stage > .step-tag{margin-top:0}
 .lab-stage canvas{display:block; width:100%; touch-action:manipulation}
 .lab-stage .chart-title{margin-top:12px}

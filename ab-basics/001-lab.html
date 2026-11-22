@@ -38,21 +38,25 @@
 <!-- worst-cafes-slope: наклонный график «неделя 1 → неделя 2» (FT slope; переделка worst-cafes) -->
 <section class="card" data-toy="worst-cafes-slope" data-title="Неделя 1 → неделя 2" aria-label="Неделя 1 → неделя 2">
   <h2>Неделя 1 → неделя 2</h2>
-  <p>В сети 20 кафе. По первой неделе выбрали пять худших и отправили им промо. Промо пустое: оно ничего не меняет. У каждого кафе свой обычный уровень заказов, а неделя добавляет случай: около 800 гостей, и каждый решает сам.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="wcs-guess">Во второй неделе пять худших кафе в среднем поднимутся в рейтинге на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="wcs-guess"> мест из 20</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>В сети 20 кафе. По первой неделе выбрали пять худших и отправили им промо. Промо пустое: оно ничего не меняет. У каждого кафе свой обычный уровень заказов, а неделя добавляет случай: около 800 гостей, и каждый решает сам.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="wcs-guess">Во второй неделе пять худших кафе в среднем поднимутся в рейтинге на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="wcs-guess"> мест из 20</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить вторую неделю</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить вторую неделю</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="wcs-t0">Заказы на 100 гостей: неделя 1 и неделя 2, линия — одно кафе</p>
-    <canvas id="wcs-cv" role="img" aria-label="Наклонный график двадцати кафе: неделя 1 и неделя 2"></canvas>
-    <p class="lab-key"><span><i style="background:#E8644A"></i>пять худших (с промо)</span><span><i style="background:#23418A"></i>пять лучших</span><span><i style="background:#A3A19A"></i>остальные</span></p>
-    <p class="note lab-data">Данные: симуляция; обычный уровень кафе — от 8 до 12 заказов на 100 гостей.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="wcs-t0">Заказы на 100 гостей: неделя 1 и неделя 2, линия — одно кафе</p>
+      <canvas id="wcs-cv" role="img" aria-label="Наклонный график двадцати кафе: неделя 1 и неделя 2"></canvas>
+      <p class="lab-key"><span><i style="background:#E8644A"></i>пять худших (с промо)</span><span><i style="background:#23418A"></i>пять лучших</span><span><i style="background:#A3A19A"></i>остальные</span></p>
+      <p class="note lab-data">Данные: симуляция; обычный уровень кафе — от 8 до 12 заказов на 100 гостей.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 сетей</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 сетей</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">

@@ -38,96 +38,116 @@
 <!-- one-r-six-clouds: одна корреляция — шесть картинок (Хили, Анскомб) -->
 <section class="card" data-toy="one-r-six-clouds" data-title="Одна корреляция — шесть картинок" aria-label="Одна корреляция — шесть картинок">
   <h2>Одна корреляция — шесть картинок</h2>
-  <p>Боб посчитал по 20 кафе связь листовок и заказов: корреляция r&nbsp;=&nbsp;0.6. Одно кафе у вокзала раздаёт листовок втрое больше остальных, и заказов у него тоже больше всех.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="orc-guess">Чтобы связь пропала (r около нуля), из 20 кафе убрать надо <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="orc-guess"> кафе</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Боб посчитал по 20 кафе связь листовок и заказов: корреляция r&nbsp;=&nbsp;0.6. Одно кафе у вокзала раздаёт листовок втрое больше остальных, и заказов у него тоже больше всех.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="orc-guess">Чтобы связь пропала (r около нуля), из 20 кафе убрать надо <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="orc-guess"> кафе</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Посмотреть на облако</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Посмотреть на облако</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="orc-t0">20 кафе: листовки и заказы за неделю</p>
-    <canvas id="orc-cv" role="img" aria-label="Облако 20 кафе: листовки и заказы"></canvas>
-    <p class="chart-title" id="orc-t1">Шесть облаков по 20 точек, у всех r = 0.6</p>
-    <canvas id="orc-six" role="img" aria-label="Шесть облаков с одной и той же корреляцией 0.6"></canvas>
-    <p class="note lab-data">Данные: учебный пример, 20 точек в каждом облаке.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="orc-t0">20 кафе: листовки и заказы за неделю</p>
+      <canvas id="orc-cv" role="img" aria-label="Облако 20 кафе: листовки и заказы"></canvas>
+      <p class="chart-title" id="orc-t1">Шесть облаков по 20 точек, у всех r = 0.6</p>
+      <canvas id="orc-six" role="img" aria-label="Шесть облаков с одной и той же корреляцией 0.6"></canvas>
+      <p class="note lab-data">Данные: учебный пример, 20 точек в каждом облаке.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- eco-fallacy: экологическая ошибка: кафе · районы · гости (Каиро) -->
 <section class="card" data-toy="eco-fallacy" data-title="Десерт и возвраты: кафе, районы, гости" aria-label="Десерт и возвраты: кафе, районы, гости">
   <h2>Десерт и возвраты: кафе, районы, гости</h2>
-  <p>В 30 кафе сети видно: чем чаще в чеке десерт, тем чаще гости возвращаются через месяц. Разница между кафе огромная, и Боб хочет дарить десерт каждому гостю.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="eco-guess">Гость с десертом возвращается чаще гостя без десерта на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="eco-guess"> п. п. (минус — реже)</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>В 30 кафе сети видно: чем чаще в чеке десерт, тем чаще гости возвращаются через месяц. Разница между кафе огромная, и Боб хочет дарить десерт каждому гостю.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="eco-guess">Гость с десертом возвращается чаще гостя без десерта на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="eco-guess"> п. п. (минус — реже)</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пройти от кафе к гостям</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пройти от кафе к гостям</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="eco-t0">30 кафе: доля чеков с десертом и доля вернувшихся гостей</p>
-    <canvas id="eco-cv" role="img" aria-label="30 кафе: десерт и возвраты"></canvas>
-    <p class="chart-title" id="eco-t1">Гости внутри районов: вернулись через месяц (серый — без десерта, цветной — с десертом)</p>
-    <canvas id="eco-g" role="img" aria-label="Гости внутри районов: возвраты с десертом и без"></canvas>
-    <p class="note lab-data">Данные: учебный пример, 30 кафе по 1000 гостей.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="eco-t0">30 кафе: доля чеков с десертом и доля вернувшихся гостей</p>
+      <canvas id="eco-cv" role="img" aria-label="30 кафе: десерт и возвраты"></canvas>
+      <p class="chart-title" id="eco-t1">Гости внутри районов: вернулись через месяц (серый — без десерта, цветной — с десертом)</p>
+      <canvas id="eco-g" role="img" aria-label="Гости внутри районов: возвраты с десертом и без"></canvas>
+      <p class="note lab-data">Данные: учебный пример, 30 кафе по 1000 гостей.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- real-check: деньги в постоянных ценах (Тафти, ловушка 2) -->
 <section class="card" data-toy="real-check" data-title="Чек за пять лет: 420 → 610 ₽" aria-label="Чек за пять лет: 420 → 610 ₽">
   <h2>Чек за пять лет: 420 → 610 ₽</h2>
-  <p>Средний чек в сети вырос с 420 ₽ в 2019 году до 610 ₽ в 2024-м — на 45%. За те же пять лет цены в меню сети выросли на 41%: что стоило 100 ₽, стало стоить 141 ₽.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="rch-guess">В ценах 2019 года средний чек вырос на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rch-guess"> %</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Средний чек в сети вырос с 420 ₽ в 2019 году до 610 ₽ в 2024-м — на 45%. За те же пять лет цены в меню сети выросли на 41%: что стоило 100 ₽, стало стоить 141 ₽.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="rch-guess">В ценах 2019 года средний чек вырос на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rch-guess"> %</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пересчитать в ценах 2019 года</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пересчитать в ценах 2019 года</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="rch-t0">Средний чек по годам, ₽</p>
-    <canvas id="rch-cv" role="img" aria-label="Средний чек по годам в рублях того года и в ценах 2019 года"></canvas>
-    <p class="note lab-data">Данные: учебный пример; цены — индекс цен меню сети, 2019 год = 100.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="rch-t0">Средний чек по годам, ₽</p>
+      <canvas id="rch-cv" role="img" aria-label="Средний чек по годам в рублях того года и в ценах 2019 года"></canvas>
+      <p class="note lab-data">Данные: учебный пример; цены — индекс цен меню сети, 2019 год = 100.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- half-month: неполный последний месяц (Тафти, ловушка 3) -->
 <section class="card" data-toy="half-month" data-title="Ноябрь провалился?" aria-label="Ноябрь провалился?">
   <h2>Ноябрь провалился?</h2>
-  <p>Заказы по месяцам: с июня по октябрь от 8900 до 9300, в ноябре — 5800. Боб уже пишет в чат: «Ноябрь упал на 38%». Отчёт выгружен 18 ноября.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="hm-guess">Весь ноябрь к октябрю, если темп не изменится: <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="hm-guess"> % (минус — меньше)</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Заказы по месяцам: с июня по октябрь от 8900 до 9300, в ноябре — 5800. Боб уже пишет в чат: «Ноябрь упал на 38%». Отчёт выгружен 18 ноября.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="hm-guess">Весь ноябрь к октябрю, если темп не изменится: <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="hm-guess"> % (минус — меньше)</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Досчитать ноябрь</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Досчитать ноябрь</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="hm-t0">Заказы по месяцам</p>
-    <canvas id="hm-cv" role="img" aria-label="Заказы по месяцам с июня по ноябрь"></canvas>
-    <p class="note lab-data">Данные: учебный пример. Остаток ноября — прогноз по темпу первых 18 дней, пунктиром.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="hm-t0">Заказы по месяцам</p>
+      <canvas id="hm-cv" role="img" aria-label="Заказы по месяцам с июня по ноябрь"></canvas>
+      <p class="note lab-data">Данные: учебный пример. Остаток ноября — прогноз по темпу первых 18 дней, пунктиром.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 <!-- axis-step: смена шага оси посередине (Тафти, ловушка 4) -->
 <section class="card" data-toy="axis-step" data-title="Программа лояльности разогналась?" aria-label="Программа лояльности разогналась?">
   <h2>Программа лояльности разогналась?</h2>
-  <p>Первые 12 недель Алиса считала участников программы лояльности каждую неделю, потом — раз в месяц. Боб поставил все 22 замера на график подряд, через равные промежутки, и увидел взлёт.</p>
-  <span class="step-tag play-pre">Сначала угадай</span>
-  <div class="guess lab-guess">
-    <label class="field lab-phrase" for="ax-guess">На самом деле после смены шага участников прибавлялось в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ax-guess"> раз быстрее, чем до неё</label>
+  <div class="lab-c lab-c1">
+    <span class="step-tag play-pre">Сначала угадай</span>
+    <p>Первые 12 недель Алиса считала участников программы лояльности каждую неделю, потом — раз в месяц. Боб поставил все 22 замера на график подряд, через равные промежутки, и увидел взлёт.</p>
+    <div class="guess lab-guess">
+      <label class="field lab-phrase" for="ax-guess">На самом деле после смены шага участников прибавлялось в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ax-guess"> раз быстрее, чем до неё</label>
+    </div>
+    <p class="lab-status" role="status"></p>
+    <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Расставить замеры по датам</button></div>
   </div>
-  <p class="lab-status" role="status"></p>
-  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Расставить замеры по датам</button></div>
-  <div class="lab-stage" hidden>
-    <span class="step-tag play-pre play-check">Потом проверь</span>
-    <p class="chart-title" id="ax-t0">Участники программы лояльности, тысячи</p>
-    <canvas id="ax-cv" role="img" aria-label="Участники программы лояльности по замерам"></canvas>
-    <p class="note lab-data">Данные: учебный пример, 22 замера: 12 недельных и 10 месячных.</p>
+  <div class="lab-c lab-c2" hidden>
+    <div class="lab-stage" hidden>
+      <span class="step-tag play-pre play-check">Потом проверь</span>
+      <p class="chart-title" id="ax-t0">Участники программы лояльности, тысячи</p>
+      <canvas id="ax-cv" role="img" aria-label="Участники программы лояльности по замерам"></canvas>
+      <p class="note lab-data">Данные: учебный пример, 22 замера: 12 недельных и 10 месячных.</p>
+    </div>
+    <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
   </div>
-  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
 
     <div class="pager">
