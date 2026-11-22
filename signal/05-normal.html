@@ -519,11 +519,13 @@ const TXT = {
 (function(){
   const cv = document.getElementById('mu-cv'), sl = document.getElementById('mu0'), OBS = 740, S = 50, HW = 1.96 * S, A = 480, Bx = 1000;
   const LO = 500, HI = 980, seen = new Set();
+  window.dragObject && dragObject(cv, sl);
   const ok = m => Math.abs(OBS - m) <= HW;
   function draw(){
     const g = canvas(cv, 0.36, 0.66); if (!g) return; const {c, w, h} = g;
     const L = 12, R = 12, T = 22, B = 70, pw = w - L - R, ph = h - T - B, y0 = T + ph, X = v => L + (v - A) / (Bx - A) * pw;
     const m = +sl.value, top = normPdf(0) / S, Y = y => y0 - y / top * ph * 0.92;
+    cv._inv = px => A + (px - L) / pw * (Bx - A);   // тянем центр колокола-кандидата
     const part = (a, b, fill) => { a = Math.max(A, a); b = Math.min(Bx, b); if (a >= b) return; c.fillStyle = fill; c.beginPath(); c.moveTo(X(a), y0); for (let i = 0; i <= 50; i++){ const v = a + (b - a) * i / 50; c.lineTo(X(v), Y(normPdf((v - m) / S) / S)); } c.lineTo(X(b), y0); c.closePath(); c.fill(); };
     part(m - HW, m + HW, COL.fillC); part(A, m - HW, COL.fillB); part(m + HW, Bx, COL.fillB);
     c.beginPath(); for (let i = 0; i <= 200; i++){ const v = A + (Bx - A) * i / 200, y = Y(normPdf((v - m) / S) / S); i ? c.lineTo(X(v), y) : c.moveTo(X(v), y); }
@@ -652,10 +654,12 @@ const TXT = {
 // ---------- карточка 8: хвост ----------
 (function(){
   const cv = document.getElementById('t-cv'), sl = document.getElementById('t-d'), S = 50, THR = 790, P0 = 1 - normCdf(3);
+  window.dragObject && dragObject(cv, sl);
   function draw(){
     const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
     const d = +sl.value, lo = 440, hi = 900, L = 12, R = 12, T = 10, B = 30, pw = w - L - R, ph = h - T - B;
     const X = v => L + (v - lo) / (hi - lo) * pw, top = normPdf(0) / S * 1.08, Y = y => T + ph * (1 - y / top);
+    cv._inv = px => lo + (px - L) / pw * (hi - lo) - 640;   // тянем сам колокол: куда палец — туда его центр
     const curve = (m, col, lw) => { c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); for (let v = lo; v <= hi; v += 2){ const y = Y(normPdf((v - m) / S) / S); v === lo ? c.moveTo(X(v), y) : c.lineTo(X(v), y); } c.stroke(); };
     c.fillStyle = COL.fillB; c.beginPath(); c.moveTo(X(THR), Y(0)); for (let v = THR; v <= hi; v += 2) c.lineTo(X(v), Y(normPdf((v - 640 - d) / S) / S)); c.lineTo(X(hi), Y(0)); c.closePath(); c.fill();
     curve(640, COL.gray, 1.5); curve(640 + d, COL.ctrl, 2);

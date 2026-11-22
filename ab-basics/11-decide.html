@@ -302,14 +302,15 @@ details.hint p{margin:6px 0 0}
     <p class="report-meta">21 день из 21 запланированного, 840 000 пользователей, доли 50.0 / 50.0. Порог пользы: фото окупаются от +0.5%.</p>
     <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зелёное, p = 0.002. Катим?</p></div></div><div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай пройдём по развилкам. Нажимай.</p></div></div></div>
     <ol class="walk" id="walk">
-      <li><b>1. Доли групп</b>50.0 / 50.0 при плане 50 / 50. Деление в порядке, отчёту можно верить.</li>
+      <li hidden><b>1. Доли групп</b>50.0 / 50.0 при плане 50 / 50. Деление в порядке, отчёту можно верить.</li>
       <li hidden><b>2. Срок</b>21 день из 21. Тест дошёл до конца, решать можно сегодня.</li>
       <li hidden><b>3. Не слишком ли хорошо?</b>+2.1% — правдоподобный размер для фото. Скачка на десятки процентов нет.</li>
       <li hidden><b>4. Вилка главной</b>От +0.8 до +3.4%: целиком выше нуля и выше порога пользы +0.5%. В штуках: из 1000 гостей заказывают 102 вместо 100.</li>
       <li hidden><b>5. Сторожевые</b>Чек: худший край −1.1%, это меньше, чем мы готовы потерять. Отмены шумные, вилка широкая: её края стоит назвать в отчёте, но ни ухудшения, ни улучшения не видно.</li>
     </ol>
-    <div class="controls"><button class="btn ghost" type="button" id="walk-btn">Следующая развилка</button></div>
-    <div class="choice"><button type="button" data-v="a">Катим</button><button type="button" data-v="b" data-why="Не катить нет причин: все пять развилок пройдены, вилка выше порога пользы, сторожевые не ухудшились.">Не катим</button><button type="button" data-v="c" data-why="Ждать нечего: тест уже дошёл до запланированного 21-го дня.">Ждём</button><button type="button" data-v="d" data-why="Доли 50.0 / 50.0, а эффект правдоподобного размера: повода подозревать данные нет.">Ищем баг</button></div>
+    <div class="controls"><button class="btn ghost" type="button" id="walk-btn" data-first="Открыть первую развилку: доли групп (SRM)">Открыть первую развилку: доли групп (SRM)</button></div>
+    <p class="note" id="walk-gate">«Катим» станет доступно, когда откроешь доли групп: при SRM остальной отчёт читать нельзя.</p>
+    <div class="choice"><button type="button" data-v="a" id="walk-roll" aria-disabled="true">Катим</button><button type="button" data-v="b" data-why="Не катить нет причин: все пять развилок пройдены, вилка выше порога пользы, сторожевые не ухудшились.">Не катим</button><button type="button" data-v="c" data-why="Ждать нечего: тест уже дошёл до запланированного 21-го дня.">Ждём</button><button type="button" data-v="d" data-why="Доли 50.0 / 50.0, а эффект правдоподобного размера: повода подозревать данные нет.">Ищем баг</button></div>
     <p class="why">Все пять развилок пройдены. Доли ровные, тест дошёл до конца, эффект правдоподобный, вилка целиком выше порога пользы, сторожевые не ухудшились. Катим.</p>
   </div>
 </section>
@@ -783,8 +784,14 @@ details.hint p{margin:6px 0 0}
   b.addEventListener('click', () => {
     const next = items.find(li => li.hidden);
     if (next) next.hidden = false;
+    b.textContent = 'Следующая развилка';
     if (!items.some(li => li.hidden)){ b.hidden = true; }
+    // interlock (Норман): «Катим» доступно, только когда открыт блок SRM — доли групп
+    if (!items[0].hidden){ roll.removeAttribute('aria-disabled'); gate.hidden = true; }
   });
+  const roll = document.getElementById('walk-roll'), gate = document.getElementById('walk-gate');
+  // пока SRM не открыт, нажатие «Катим» не засчитывается как ответ: показываем, что сделать
+  roll.addEventListener('click', e => { if (roll.getAttribute('aria-disabled') === 'true'){ e.stopImmediatePropagation(); e.preventDefault(); gate.classList.add('warn'); b.focus(); } }, true);
 })();
 </script>
 </body>

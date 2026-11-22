@@ -106,6 +106,27 @@
     });
   });
 
+  // ---------- тянуть сам объект, а не ползунок рядом (Норман, соответствие) ----------
+  // Игра в своём draw() кладёт на холст обратное отображение: cv._inv = (x, y) => значение ползунка (x, y — css-пиксели холста).
+  // Вызов window.dragObject(cv, range) один раз: касание или протяжка по холсту ставят ползунок (input + change), как будто тянули его.
+  // Ползунок остаётся для клавиатуры и точного значения; курсор над холстом — «тянуть».
+  window.dragObject = function(cv, range){
+    if (!cv || !range || cv._dragOn) return; cv._dragOn = true;
+    cv.style.cursor = 'ew-resize'; cv.style.touchAction = 'pan-y';
+    let down = false;
+    const set = ev => {
+      if (!cv._inv) return; const r = cv.getBoundingClientRect(); let v = cv._inv(ev.clientX - r.left, ev.clientY - r.top);
+      if (v == null || !Number.isFinite(+v)) return;
+      const lo = +range.min, hi = +range.max, st = +range.step || 1; v = Math.min(hi, Math.max(lo, Math.round((v - lo) / st) * st + lo));
+      const nv = String(+v.toFixed(6)); if (range.value === nv) return;
+      range.value = nv; range.dispatchEvent(new Event('input', {bubbles: true}));
+    };
+    cv.addEventListener('pointerdown', ev => { down = true; cv.closest('.card') && cv.closest('.card').classList.add('dragging'); try { cv.setPointerCapture(ev.pointerId); } catch(e) {} set(ev); });
+    cv.addEventListener('pointermove', ev => { if (down) set(ev); });
+    const up = () => { if (!down) return; down = false; range.dispatchEvent(new Event('change', {bubbles: true})); };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  };
+
   // ---------- одна кнопка на игру (решение Дили, 22.11.2026; правила — play/ui.json → _doc, гайд, «Страница игры») ----------
   // До первого запуска: вопрос, прогноз и ОДНА главная кнопка, она проводит весь опыт из вопроса.
   // После: «Ещё раз» (контурная; сброс + тот же опыт) и, если нужен масштаб, одна контурная кнопка второй ступени (×1000).

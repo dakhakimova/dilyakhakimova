@@ -80,8 +80,13 @@ function hoverBars(cv, bars){
     tip.style.left = Math.max(0, Math.min(x + 12, r.width - tip.offsetWidth - 4)) + 'px';
     tip.style.top = Math.max(0, y - tip.offsetHeight - 10) + 'px';
   };
-  cv.addEventListener('pointermove', show); cv.addEventListener('pointerdown', show);
-  cv.addEventListener('pointerleave', () => { tip.hidden = true; });
+  // точное число — по касанию или клику (datatip, решение Дили 22.11.2026): касание закрепляет подсказку у столбца,
+  // касание мимо столбца или вне графика скрывает; мышью — ещё и при наведении
+  let pinned = false;
+  cv.addEventListener('pointermove', ev => { if (ev.pointerType === 'mouse' && !pinned) show(ev); });
+  cv.addEventListener('pointerdown', ev => { show(ev); pinned = !tip.hidden; });
+  cv.addEventListener('pointerleave', ev => { if (ev.pointerType === 'mouse' && !pinned) tip.hidden = true; });
+  document.addEventListener('pointerdown', ev => { if (!cv.contains(ev.target) && ev.target !== cv){ pinned = false; tip.hidden = true; } });
 }
 // То же для обычной гистограммы из bins(): от lo с шагом bw, X — перевод значения в пиксели.
 // opt: fmt — подпись границ, words — [один, два, пять] («запуск», «запуска», «запусков»), total — всего наблюдений.

@@ -547,6 +547,7 @@ const TXT = {
 // ---------- карточка 7: киты ----------
 (function(){
   const cv = document.getElementById('b-cv'), sl = document.getElementById('b-x');
+  window.dragObject && dragObject(cv, sl);
   Book.seed(7); const bf = Array.from({length: 100}, () => 350 * Math.exp(0.45 * gauss())); Book.seed();
   const med = a => { const b = a.slice().sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; };
   function stats(){ const x = +sl.value, all = x ? bf.concat([x]) : bf; return {x, m: mean(all), md: med(all)}; }
@@ -554,6 +555,7 @@ const TXT = {
     const g = canvas(cv, 0.3, 0.55); if (!g) return; const {c, w, h} = g;
     const {x, m, md} = stats(), lo = 0, hi = 1500, L = 12, R = 12, T = 30, B = 30, pw = w - L - R, ph = h - T - B;
     const X = v => L + (v - lo) / (hi - lo) * pw;
+    cv._inv = px => lo + (px - L) / pw * (hi - lo);   // тянем сам чек-выброс по оси
     Book.seed(11); bf.forEach(v => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(Math.min(v, hi)), T + ph * (0.2 + 0.7 * rand()), 4, 0, 2 * Math.PI); c.fill(); }); Book.seed();
     c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, T + ph); c.lineTo(w - R, T + ph); c.stroke();
     c.strokeStyle = COL.viol; c.lineWidth = 3; c.beginPath(); c.moveTo(X(md), T); c.lineTo(X(md), T + ph); c.stroke();

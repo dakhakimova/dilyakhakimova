@@ -471,12 +471,14 @@ const TXT = {
 // ---------- карточка 9: Берксон ----------
 (function(){
   const sl = document.getElementById('thr8'), cv = document.getElementById('cv-berk');
+  window.dragObject && dragObject(cv, sl);
   let pts = [];
   const corr = a => { if (a.length < 3) return 0; const mx = mean(a.map(p => p[0])), my = mean(a.map(p => p[1])); let sxy = 0, sx = 0, sy = 0; a.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sx += (x - mx) ** 2; sy += (y - my) ** 2; }); return sxy / Math.sqrt(sx * sy); };
   function gen(){ pts = []; for (let i = 0; i < 300; i++) pts.push([gauss(), gauss()]); update(); }
   function draw(){
     const t = +sl.value, g = canvas(cv, 0.5, 0.9); if (!g) return; const {c, w, h} = g;
     const L = 22, R = 8, T = 8, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + (v + 3.2) / 6.4 * pw, Y = v => T + ph - (v + 3.2) / 6.4 * ph;
+    cv._inv = (px, py) => ((px - L) / pw * 6.4 - 3.2) + ((T + ph - py) / ph * 6.4 - 3.2);   // тянем саму линию порога через точку касания
     c.strokeStyle = COL.grid; c.strokeRect(L, T, pw, ph);
     // порог: x + y = t
     c.fillStyle = COL.fillGray; c.beginPath(); c.moveTo(X(-3.2), Y(-3.2)); c.lineTo(X(-3.2), Y(t + 3.2)); c.lineTo(X(t + 3.2), Y(-3.2)); c.closePath(); c.fill();

@@ -114,6 +114,8 @@ else {
   if (!target) TYPO_ONLY.forEach(typoOnly);
   // страницы игр /play/ (и /<lang>/play/) — из play/toys-*.json и i18n/play.js
   require('./build-play.js')(target || 'ru');
+  // игра-калькулятор /play/sample-size/ (не опубликована) — tools/build-sample-size.js
+  if (!target) require('./build-sample-size.js')();
   // мини-лаборатории /terms/ и /sitemap.xml — из terms/terms.json и i18n/terms.js (пока только русская версия)
   if (!target) require('./build-terms.js')();
   // /courses/, /shelf/, общая шапка и футер (tools/chrome.js) на статических страницах, noindex неопубликованных курсов

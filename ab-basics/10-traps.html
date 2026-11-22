@@ -685,6 +685,7 @@ srmRun(); paintMM(); peekStats();
   const daily = Array.from({length: 28}, (_, d) => d);
   const noise = Array.from({length: 28}, (_, d) => 0.006 * Math.sin(d * 2.1) + 0.004 * Math.cos(d * 1.3));
   const look = document.getElementById('look'), cv = document.getElementById('ch-late');
+  window.dragObject && dragObject(cv, look);
   function draw(){
     const n = +look.value;
     document.getElementById('look-t').textContent = n + ' ' + plural(n, 'день', 'дня', 'дней');
@@ -694,6 +695,7 @@ srmRun(); paintMM(); peekStats();
     document.getElementById('late-true').textContent = pct(story === 'novel' ? 0.01 : 0.03, 0);
     const g = canvas(cv, 0.34, 0.6); if (!g) return; const {c, w, h} = g;
     const L = 46, T0 = 10, B = 24, pw = w - L - 10, ph = h - T0 - B, lo = -0.02, hi = 0.1, X = d => L + d / 27 * pw, Y = v => T0 + (1 - (v - lo) / (hi - lo)) * ph;
+    cv._inv = px => Math.round((px - L) / pw * 27) + 1;   // тянем саму границу «смотрим до дня N»
     c.fillStyle = COL.fillC; c.fillRect(L, T0, X(n - 1) - L, ph);
     axisY(c, L, 10, T0, ph, w, lo, hi, 0.02, v => pct(v, 0));
     c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath(); daily.forEach(d => { const v = eff(d) + noise[d]; d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v)); }); c.stroke();

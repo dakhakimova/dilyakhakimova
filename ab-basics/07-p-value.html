@@ -390,10 +390,12 @@ document.getElementById('b-aa').addEventListener('click', () => { sims = []; for
 
 // ---------- карточка 5: p и вилка ----------
 const d5 = document.getElementById('d5'); const D5 = () => +d5.value / 100;
+window.dragObject && dragObject(document.getElementById('ch-both'), d5);
 function drawBoth(){
   const g = canvas(document.getElementById('ch-both'), 0.46, 0.8); if (!g) return; const {c, w, h} = g;
   const L = 10, R = 10, T = 16, B = 24, pw = w - L - R, lo = -0.065, hi = 0.065, s = se0(N0), d = D5();
   const X = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * pw;
+  g.cv = document.getElementById('ch-both'); g.cv._inv = px => 100 * (lo + (px - L) / pw * (hi - lo));   // тянем саму точку разницы
   const top = h - B - 64, Y = y => T + (top - T) * (1 - y / 0.42);
   // верх: мир без эффекта
   label(c, 'мир без эффекта: где окажется разница', L, T - 2, COL.ink2);

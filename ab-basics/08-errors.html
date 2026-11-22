@@ -364,12 +364,15 @@ setDays(2); paint();
   const ALPHAS = [0.01, 0.02, 0.05, 0.10, 0.20], WORDS = ['очень строгий судья', 'строгий судья', 'обычная строгость', 'мягкий судья', 'очень мягкий судья'], D = 2.5;
   const inv = p => { let lo = -8, hi = 8; for (let i = 0; i < 60; i++){ const m = (lo + hi) / 2; normCdf(m) < p ? lo = m : hi = m; } return (lo + hi) / 2; };
   const el = document.getElementById('judge'), cv = document.getElementById('ch-judge');
+  window.dragObject && dragObject(cv, el);
   function draw(){
     const a = ALPHAS[+el.value], c = inv(1 - a / 2), pw = 1 - normCdf(c - D) + normCdf(-c - D);
     document.getElementById('judge-t').textContent = share(a, 0); document.getElementById('judge-word').textContent = WORDS[+el.value];
     document.getElementById('j-fa').textContent = int(100 * a); document.getElementById('j-miss').textContent = int(100 * (1 - pw));
     const g = canvas(cv, 0.38, 0.6); if (!g) return; const {c: x, w, h} = g;
     const lo = -4, hi = 6.5, T = 10, B = 22, ph = h - T - B, X = z => (z - lo) / (hi - lo) * w, top = normPdf(0), Y = v => T + ph - v / top * ph * 0.95;
+    // тянем сам порог: ближайшая к пальцу строгость судьи
+    cv._inv = px => { const a = 2 * (1 - normCdf(Math.abs(lo + px / w * (hi - lo)))); let bi = 0; ALPHAS.forEach((v, i) => { if (Math.abs(Math.log(v / a)) < Math.abs(Math.log(ALPHAS[bi] / a))) bi = i; }); return bi; };
     const area = (mu, from, to, col) => { x.fillStyle = col; x.beginPath(); x.moveTo(X(from), Y(0)); for (let z = from; z <= to; z += 0.02) x.lineTo(X(z), Y(normPdf(z - mu))); x.lineTo(X(to), Y(0)); x.closePath(); x.fill(); };
     area(0, lo, -c, COL.fillB); area(0, c, hi, COL.fillB); area(D, lo, c, '#F8F0D9');
     x.globalAlpha = 0.6; area(0, c, hi, COL.trap); area(0, lo, -c, COL.trap); x.globalAlpha = 0.55; area(D, -c, c, COL.ochre); x.globalAlpha = 1;
