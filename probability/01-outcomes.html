@@ -82,6 +82,10 @@
 .die{width:52px; height:52px; border-radius:12px; display:grid; place-items:center; font:600 1.375rem/1 var(--body); color:#fff; box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
 .die.c1{background:var(--ctrl)} .die.c2{background:var(--test)} .die.blank{background:#D6D2C9}
 .die.flip{animation:flip .45s ease}
+.die:not(.blank){background:none; box-shadow:none}
+.die .dsvg{width:52px; height:52px; display:block}
+.dice span.h .dsvg{width:30px; height:30px; display:block}
+@media (max-width:620px){ .dice span.h .dsvg{width:22px; height:22px} }
 @media (prefers-reduced-motion: reduce){ .die.flip{animation:none} }
 .tpair .who-says{font:500 1rem/1.35 var(--body); color:var(--muted)}
 .sub-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:28px 0 8px}
@@ -90,10 +94,10 @@
 .dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
 .dice span{aspect-ratio:1; display:grid; place-items:center; border-radius:7px; font:500 .875rem/1 var(--body); font-variant-numeric:tabular-nums; background:#F4F3F0; color:var(--ink); cursor:pointer; transition:background .2s}
 .dice span.h{background:transparent; cursor:default; font-weight:600}
-.dice span.hb{color:var(--ctrl)}
+.dice span.hb{color:var(--ctrl)} .dice span.h{border:0}
 .dice span.ho{color:var(--test-ink)}
 .dice span.corner{background:transparent; cursor:default}
-.dice span.hot{background:var(--test); color:#fff; font-weight:600}
+.dice span.hot{background:var(--l1); color:#fff; font-weight:600}   /* выделение — зелёным, как благоприятные исходы: красный занят красным кубиком (решение Дили, 23.11.2026) */
 @media (prefers-reduced-motion: reduce){ .dice span{transition:none} }
 .dice-read{font:400 1.125rem/1.5 var(--body); margin:0 0 8px}
 @media (max-width:620px){ .dice-wrap{grid-template-columns:1fr} }
@@ -284,7 +288,7 @@
       </div>
     </div>
   </div>
-  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Но если различать кубики, у суммы 11 две клетки: синий 5 с красным 6 и синий 6 с красным 5. А у суммы 12 клетка одна.</p>
+  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Но если различать кубики, у суммы 11 две клетки: синий 5 с красным 6 и синий 6 с красным 5. А у суммы 12 клетка одна.</p>
   <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
 </section>
 
@@ -604,6 +608,9 @@ const TXT = {
 })();
 
 
+// грань кубика с точками (решение Дили, 23.11.2026: в шапке таблицы — кубики, а не цифры)
+const PIPS = {1: [[2, 2]], 2: [[1, 1], [3, 3]], 3: [[1, 1], [2, 2], [3, 3]], 4: [[1, 1], [3, 1], [1, 3], [3, 3]], 5: [[1, 1], [3, 1], [2, 2], [1, 3], [3, 3]], 6: [[1, 1], [3, 1], [1, 2], [3, 2], [1, 3], [3, 3]]};
+const dieSVG = (k, fill) => '<svg class="dsvg" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="8" fill="' + fill + '"/>' + PIPS[k].map(([x, y]) => '<circle cx="' + (x * 10) + '" cy="' + (y * 10) + '" r="3.6" fill="#fff"/>').join('') + '</svg>';
 // ---------- карточка 7: подкинь кубики (решение Дили, 23.11.2026) ----------
 // Поле «Бросков всего» растёт от «+1 бросок»; любое число и «Бросить»: больше — добавятся броски, меньше — опыт заново.
 // Гистограмма — доля бросков с каждой суммой; 11 (пирожное) и 12 (торт) выделены красным.
@@ -620,9 +627,9 @@ const TXT = {
     axisY(c, L, R, T0, ph, w, 0, top, 0.05, v => shareT(v, 0));
     for (let s = 2; s <= 12; s++){
       const x = L + (s - 2) * bw, v = n ? cnt[s] / n : 0, y = T0 + ph * (1 - v / top), hot = s >= 11;
-      if (n){ c.fillStyle = hot ? COL.test : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y); }
-      if (n && hot) label(c, shareT(v, 1), x + bw / 2, y - 5, COL.testInk, 'center');
-      label(c, String(s), x + bw / 2, h - 18, hot ? COL.testInk : COL.ink2, 'center');
+      if (n){ c.fillStyle = hot ? COL.truth : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y); }
+      if (n && hot) label(c, shareT(v, 1), x + bw / 2, y - 5, COL.truth, 'center');
+      label(c, String(s), x + bw / 2, h - 18, hot ? COL.truth : COL.ink2, 'center');
     }
     label(c, TXT.sumX, L + pw / 2, h - 2, COL.ink2, 'center');
     if (!n) label(c, 'Подкинь кубики', L + pw / 2, T0 + ph * 0.3, COL.ink2, 'center');
@@ -635,7 +642,7 @@ const TXT = {
       (b ? ': пирожных уходит примерно в ' + numT(a / b, 1) + ' раза больше, чем тортов.' : '.') + ' Почему так — в таблице ниже.';
   }
   function show(x, y, anim){
-    d1.textContent = x; d2.textContent = y;
+    d1.innerHTML = dieSVG(x, COL.ctrl); d2.innerHTML = dieSVG(y, COL.test); d1.setAttribute('aria-label', 'синий ' + x); d2.setAttribute('aria-label', 'красный ' + y);
     [d1, d2].forEach(e => { e.classList.remove('blank', 'flip'); if (anim && !REDUCED){ void e.offsetWidth; e.classList.add('flip'); } });
     const s = x + y; says.textContent = 'Сумма ' + s + (s === 12 ? ' — торт!' : s === 11 ? ' — пирожное!' : '');
   }
@@ -683,9 +690,10 @@ const TXT = {
   let cur = 7;
   const cell = (txt, cls) => { const e = document.createElement('span'); e.textContent = txt; if (cls) e.className = cls; return e; };
   grid.appendChild(cell('', 'corner'));
-  for (let o = 1; o <= 6; o++) grid.appendChild(cell(o, 'h ho'));
+  const head = (k, cls, fill, who) => { const e = cell('', cls); e.innerHTML = dieSVG(k, fill); e.setAttribute('aria-label', who + ' кубик: ' + k); return e; };
+  for (let o = 1; o <= 6; o++) grid.appendChild(head(o, 'h ho', COL.test, 'красный'));
   for (let b = 1; b <= 6; b++){
-    grid.appendChild(cell(b, 'h hb'));
+    grid.appendChild(head(b, 'h hb', COL.ctrl, 'синий'));
     for (let o = 1; o <= 6; o++){ const e = cell(b + o); e.dataset.s = b + o; e.addEventListener('click', () => pick(b + o)); grid.appendChild(e); }
   }
   for (let s = 2; s <= 12; s++){
@@ -698,8 +706,8 @@ const TXT = {
     axisY(c, L, R, T0, ph, w, 0, 6, 2, v => String(v));
     for (let s = 2; s <= 12; s++){
       const k = ways(s), x = L + (s - 2) * bw, y = T0 + ph * (1 - k / 6);
-      c.fillStyle = s === cur ? COL.test : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y);
-      label(c, String(s), x + bw / 2, h - 20, s === cur ? COL.testInk : COL.ink2, 'center');
+      c.fillStyle = s === cur ? COL.truth : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y);
+      label(c, String(s), x + bw / 2, h - 20, s === cur ? COL.truth : COL.ink2, 'center');
     }
     label(c, TXT.sumX, L + pw / 2, h - 4, COL.ink2, 'center');
   }
