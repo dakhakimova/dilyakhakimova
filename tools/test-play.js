@@ -122,7 +122,8 @@ function watch(p, tag, apiOk = false){
       await p.goto(H + '/play/'); await p.waitForTimeout(300);
       const n = await p.$$eval('.toys li', x => x.length), over = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       console.log(`каталог ${width}: карточек ${n}, прокрутка ${over}`); if (over > 2) errs.push('каталог: горизонтальная прокрутка');
-      if (n !== D.toys.length) errs.push(`каталог: ${n} карточек, а игр ${D.toys.length} — пересобери (node tools/bake-i18n.js)`);
+      const npub = D.toys.filter(x => x.published).length; // в каталоге — только опубликованные (published: true в play/toys-*.json)
+      if (n !== npub) errs.push(`каталог: ${n} карточек, а опубликованных игр ${npub} — пересобери (node tools/bake-i18n.js)`);
       if (shots) await p.screenshot({path: path.join(shots, `catalog-${width}.png`), fullPage: true});
       await p.close();
     }
