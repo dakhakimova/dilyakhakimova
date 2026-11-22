@@ -86,3 +86,11 @@ b, strong{font-weight:var(--fw-strong)}
 @media (prefers-reduced-motion:reduce){
   *, *::before, *::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important}
 }
+/* Набор (гайд, «Набор текста»): браузер не рисует жирный и курсив сам; в Onest курсива нет — акцент весом 500;
+   переносы строк — заботой браузера; капс-метки — с заглавными формами знаков */
+html{font-synthesis:none}
+em, i{font-style:normal; font-weight:500}
+p, li{text-wrap:pretty}
+h1, h2, h3{text-wrap:balance}
+.eyebrow, .kicker, .step-tag, .verdict, .warm-tag, .scary-tag{font-feature-settings:"case"}
+@media (max-width:30em){ p{hyphens:auto; -webkit-hyphens:auto} }

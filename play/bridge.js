@@ -81,6 +81,8 @@
   // «Сначала условия вопроса, ползунок — потом») ----------
   // [data-sandbox] — ползунок, который меняет условие из вопроса прогноза: скрыт, пока человек не сыграл на условии вопроса.
   // У каждого видимого ползунка — шаги «−» и «+» (stepDown/stepUp + события input и change, как при перетаскивании).
+  // холсты рисуются до загрузки шрифта: после загрузки Onest просим графики перерисоваться
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => window.dispatchEvent(new Event('resize')));
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.card [data-sandbox][hidden]').forEach(box => {
       const card = box.closest('.card');
