@@ -412,3 +412,5 @@ dl.terms{gap:0; border-bottom:1px solid var(--line, #E3DED4)}
 dl.terms dt, dl.terms dd{border-top:1px solid var(--line, #E3DED4); padding:12px 0; margin:0}
 dl.terms dd{padding-left:20px; font-size:.9375rem; line-height:1.5; color:var(--text-2, #4A463F)}
 @media (max-width:620px){ dl.terms dt{padding-bottom:2px} dl.terms dd{border-top:0; padding-top:0; padding-left:0} }
+/* шпаргалка: одна метка «Шпаргалка шага N» над пословицей, без второй «Пословица шага» (решение Дили, 23.11.2026) */
+h2[data-proverb]::before{content:none}

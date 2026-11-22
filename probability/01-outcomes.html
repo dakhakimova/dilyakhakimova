@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/01-outcomes.html">
 <title>Исходы и события · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 1 бесплатного интерактивного курса «Вероятность на пальцах»: исходы, события, вероятность как доля нужных исходов, две монетки и два кубика, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611248"></script>
+<script src="/play/bridge.js?v=202611249"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611248">
-<link rel="stylesheet" href="/tokens.css?v=202611248">
-<link rel="stylesheet" href="/signal/book.css?v=202611248">
-<link rel="stylesheet" href="/signal/free.css?v=202611248">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
+<link rel="stylesheet" href="/tokens.css?v=202611249">
+<link rel="stylesheet" href="/signal/book.css?v=202611249">
+<link rel="stylesheet" href="/signal/free.css?v=202611249">
 <style>
 /* монетки пары: первая монетка синяя, вторая красная — исходы ОР и РО видны сразу, без кнопки «подписать» (решение Дили, 22.11.2026) */
 .sheet.coins2{position:relative}
@@ -104,6 +104,11 @@
 .viz-cap{font-size:.875rem; color:var(--muted); margin:8px 0 0}
 .viz-cap i{display:inline-block; width:10px; height:10px; border-radius:3px; margin:0 5px 0 0; vertical-align:0}
 .viz-cap i.k1{background:var(--l1)} .viz-cap i.k2{background:#C29A48}
+/* шпаргалка шага: блоки «Главное · Запомни числа · Ловушка · Слова» (решение Дили, 23.11.2026) */
+.cs-h{font:600 .75rem/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink, #5E5A53); margin:20px 0 8px; font-feature-settings:"case"}
+.cs-main{margin:0; padding-left:1.4em} .cs-main li{margin:0 0 8px}
+.cs-nums{margin:0; padding-left:1.2em} .cs-nums li{margin:0 0 6px}
+.cs-trap{margin:0; padding:10px 14px; border-left:3px solid var(--test, #E8644A); background:var(--rose, #FBE4E4); border-radius:8px; max-width:var(--measure)}
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; max-width:320px; width:100%}
@@ -123,7 +128,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p01" data-next="02-frequency.html">
-<script src="/signal/progress.js?v=202611248"></script>
+<script src="/signal/progress.js?v=202611249"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -200,7 +205,7 @@
   <span class="step-tag">Почему так</span>
   <h2>Одинаковые на вид монетки — всё равно две разные</h2>
   <figure class="art"><img loading="lazy" src="img/vp01-01-labels.jpg" alt="Алиса красит одну монетку в синий, другую в оранжевый, Котейка недовольно смотрит" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса подписывает монетки синей и оранжевой краской</figcaption></figure>
-  <p>Боб насчитал три исхода: два орла, две решки, разные. Но «разные» выпадают двумя способами: ОР — первая монетка орёл, вторая решка, и РО — наоборот. В игре это видно сразу: у Боба две плитки, и в каждую прилетает примерно поровну с Алисой и Котейкой.</p>
+  <p>Боб насчитал три исхода: два орла, две решки, разные. Но «разные» выпадают двумя способами: ОР — первая монетка орёл, вторая решка, и РО — наоборот. В игре это видно сразу: у Боба две плитки, и в каждую прилетает примерно поровну с Алисой и Котейкой.</p>
   <p>Когда монетки на вид одинаковые, эти два случая легко слить в один. Помогает простой приём: бросай монетки по очереди — сначала первую, потом вторую. Тогда «орёл, потом решка» и «решка, потом орёл» — явно два разных исхода. Монеткам всё равно, бросают их по очереди или вместе: их две, и у каждой своя сторона. В игре первая монетка нарисована синей, вторая — красной, только чтобы не путать, где какая. Исходов четыре — ОО, ОР, РО, РР, — и все одинаково вероятны. Бобу достаются два из четырёх, то есть половина вечеров.</p>
   <div class="out4" role="img" aria-label="Четыре исхода и три события: событие «моет Алиса» — исход ОО; «моет Боб» — два исхода, ОР и РО; «моет Котейка» — исход РР"><p class="out4-h">4 исхода → 3 события</p><div class="evs"><div class="ev"><div class="ev-o"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">О</span></span></div><span class="ev-n">моет Алиса</span></div><div class="ev bob"><div class="ev-o"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">Р</span></span><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">О</span></span></div><span class="ev-n">моет Боб — 2 исхода</span></div><div class="ev"><div class="ev-o"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">Р</span></span></div><span class="ev-n">моет Котейка</span></div></div></div>
   <p>На этом спотыкались и знаменитые учёные. В XVIII веке Жан Д'Аламбер написал в Энциклопедии, что за два броска хотя бы один орёл выпадает с шансом 2 из 3. Возможные исходы он описал так: «орёл сразу», «решка, потом орёл», «две решки» — орёл есть в двух из трёх. Но «орёл сразу» — это два исхода, ОО и ОР. Верный ответ — 3 из 4.</p>
@@ -230,10 +235,10 @@
   <p style="margin-top:14px">У гостя два исхода, но они не равновероятны: заказывает примерно каждый десятый. Поэтому его вероятность не посчитать делением «1 из 2» — её узнают по частоте, на длинной серии гостей. Об этом шаг 2.</p>
   <aside class="scary">
     <span class="scary-tag">Страшное слово</span>
-    <p>Множество всех исходов опыта называют <b class="term">пространством элементарных событий</b>, или пространством исходов; на собеседовании скажут sample space.</p>
+    <p>Множество всех исходов опыта называют <b class="term">пространством элементарных событий</b>, или пространством исходов; на собеседовании скажут sample space.</p>
     <p class="aside">Для двух монеток это {ОО, ОР, РО, РР} — все четыре пары, которые могут выпасть.</p>
   </aside>
-  <p class="note">Число орлов в паре — 0, 1 или 2 — уже не исход, а число, которое выдаёт опыт. Такие числа называют случайными величинами — подробно в шаге 7.</p>
+  <p class="note">Число орлов в паре — 0, 1 или 2 — уже не исход, а число, которое выдаёт опыт. Такие числа называют случайными величинами — подробно в шаге 7.</p>
 </section>
 
 <!-- 6: правило в трёх слоях -->
@@ -432,7 +437,7 @@ _check()
   <details class="ivw" data-key="leibniz">
     <summary>Бросают два кубика и смотрят на сумму. Всего бывает 11 сумм, от 2 до 12. Кандидат говорит: «Значит, у каждой суммы шанс 1/11». Прав ли он? Сравните шансы сумм 2 и 7.</summary>
     <p><b>Переформулирую:</b> равновероятны ли суммы? Нет. Равновероятны клетки таблицы 6 × 6, а суммы собираются из разного числа клеток, поэтому 1/11 — неверно.</p>
-    <p><b>В штуках:</b> сумму 2 даёт одна клетка — синий 1 и красный 1, сумму 7 — шесть. Из 3600 бросков двойка выпадет около 100 раз, семёрка — около 600.</p>
+    <p><b>В штуках:</b> сумму 2 даёт одна клетка — синий 1 и красный 1, сумму 7 — шесть. Из 3600 бросков двойка выпадет около 100 раз, семёрка — около 600.</p>
     <div class="ivw-viz" data-viz="sum:2,7"></div>
     <p><b>Формула:</b> <span class="num">P(«сумма 2») = 1/36 ≈ 2.8%</span> против <span class="num">P(«сумма 7») = 6/36 ≈ 16.7%</span>.</p>
     <p><b>Вывод:</b> считать надо пары «синий, красный», а не суммы. Так ошибался даже Лейбниц: он считал 11 и 12 равновероятными, а у 11 две клетки, у 12 одна.</p>
@@ -461,7 +466,7 @@ _check()
   <div class="quiz" data-right="c">
     <p class="q">Что вероятнее на двух кубиках: сумма 2 или сумма 7?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Сумм 11, но они не равновероятны: каждая собирается из своего числа клеток таблицы.">Одинаково: каждая — одна сумма из 11</button><button type="button" data-v="b" data-why="Маленькие суммы, наоборот, редкие: двойку даёт только пара 1 и 1.">Два: маленькие суммы выпадают чаще</button><button type="button" data-v="c">Семь: шесть клеток против одной</button></div>
-    <p class="why">Сумму 7 дают шесть клеток из 36, это 16.7%, а сумму 2 — одна клетка, 2.8%. Семёрка выпадает в шесть раз чаще.</p>
+    <p class="why">Сумму 7 дают шесть клеток из 36, это 16.7%, а сумму 2 — одна клетка, 2.8%. Семёрка выпадает в шесть раз чаще.</p>
   </div>
   <p class="note quiz-score"></p>
 </section>
@@ -470,23 +475,30 @@ _check()
 <section class="card" data-title="Итог шага" aria-label="Итог шага">
   <span class="step-tag">Шпаргалка шага 1</span>
   <h2 data-proverb="p01">Считай исходы, а не события</h2>
-  <ul class="cheat">
-    <li>Сначала перечисли все исходы: у двух монеток их четыре — ОО, ОР, РО, РР, а не три. «Разные» — это два исхода, ОР и РО.</li>
-    <li>Событие — набор исходов. «Разные» на двух монетках = {ОР, РО}.</li>
-    <li><span class="num">P(A) = благоприятные / все</span>, если все исходы равновероятны.</li>
-    <li>Вероятность — от 0 до 1: 0 — невозможно, 1 — обязательно.</li>
-    <li>Две монетки: 4 исхода, «разные» — ½, «два орла» — ¼. Два кубика: 36 клеток, сумма 7 — <span class="num">6/36</span>, сумма 2 — <span class="num">1/36</span>.</li>
-    <li>Вероятность ½ не значит «через раз». Это доля на длинной серии.</li>
+  <p class="cs-h">Главное</p>
+  <ol class="cs-main">
+    <li>Перечисли все исходы. У двух монеток их четыре: ОО, ОР, РО, РР.</li>
+    <li>Событие — набор исходов: «разные» = {ОР, РО}.</li>
+    <li>Если исходы равновероятны, вероятность события — доля его исходов: P(«разные») = 2 / 4 = ½.</li>
+    <li>Вероятность — число от 0 до 1: 0 — невозможное событие, 1 — достоверное.</li>
+  </ol>
+  <p class="cs-h">Запомни числа</p>
+  <ul class="cs-nums">
+    <li>Две монетки: «два орла» — ¼, «разные» — ½.</li>
+    <li>Два кубика: 36 клеток, сумма 7 — 6 / 36, сумма 2 — 1 / 36.</li>
   </ul>
+  <p class="cs-h">Ловушка</p>
+  <p class="cs-trap">Вероятность ½ не значит «через раз». Это доля на длинной серии: на десяти бросках бывает и 7 из 10.</p>
+  <p class="cs-h">Слова</p>
   <dl class="terms">
     <dt>Опыт</dt><dd>то, что можно повторить: бросок, визит гостя; на собеседовании — experiment, trial</dd>
-    <dt>Исход, или элементарное событие</dt><dd>один из вариантов, чем закончился опыт: ОР, «выпала четвёрка»; outcome</dd>
+    <dt>Исход, или элементарное событие</dt><dd>один из вариантов, чем закончился опыт: ОР, «выпала четвёрка»; outcome</dd>
     <dt>Пространство элементарных событий</dt><dd>множество всех исходов опыта; sample space</dd>
-    <dt>Событие</dt><dd>набор исходов: элементарное — из одного, составное — из нескольких: «разные», «чётное»; event</dd>
+    <dt>Событие</dt><dd>набор исходов: элементарное — из одного, составное — из нескольких: «разные», «чётное»; event</dd>
     <dt>Вероятность, P(A)</dt><dd>доля опытов, где случилось A, на длинной серии; probability</dd>
     <dt>Равновероятные исходы</dt><dd>исходы с одинаковыми шансами; equally likely outcomes</dd>
   </dl>
-  <figure class="art"><img loading="lazy" src="img/vp01-02-next.jpg" alt="Котейка вешает на стену кафе листок с семью отметками из десяти, Боб в недоумении" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб мыл посуду 7 вечеров из 10 и возмущён</figcaption></figure>
+  <figure class="art"><img loading="lazy" src="img/vp01-02-next.jpg" alt="Котейка у раковины моет тарелку, рядом листок с семью отметками из десяти" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб мыл посуду 7 вечеров из 10 и возмущён</figcaption></figure>
   <a class="next-step" href="02-frequency.html"><b>Дальше: 2. Вероятность как частота</b>За первые десять вечеров Боб мыл посуду семь раз. Правило всё-таки нечестное — или десять вечеров просто мало?</a>
 </section>
 
@@ -497,7 +509,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611248"></script>
+<script src="/signal/book.js?v=202611249"></script>
 <script>
 const TXT = {
   ru: {
@@ -788,6 +800,6 @@ const dieSVG = (k, fill) => '<svg class="dsvg" viewBox="0 0 40 40" aria-hidden="
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611248"></script>
+<script src="/signal/py.js?v=202611249"></script>
 </body>
 </html>
