@@ -91,3 +91,15 @@
 .play .play-meta{font:400 var(--fs-s)/1.45 var(--body); color:var(--text-3); margin:calc(-1 * var(--s-2)) 0 var(--s-5)}
 .play .play-meta a{color:var(--text-3); text-decoration-color:rgba(36,34,31,.35); text-underline-offset:3px}
 .play .play-meta a:hover{color:var(--pen)}
+/* «Почему так» — одно решение шагами: заголовок шага 500, формула отдельной строкой без переноса (прокручивается сама, не страница),
+   результат — 500, таблица значений — табличные цифры по правому краю (решение Дили, 22.11.2026) */
+.play-out .solution{margin:0; padding-left:1.4em; max-width:40em}
+.play-out .solution > li{margin:0 0 var(--s-4)}
+.play-out .solution .st-h{font-weight:500}
+.play-out .formula{white-space:nowrap; overflow-x:auto; margin:var(--s-2) 0; padding:var(--s-2) var(--s-4); background:var(--sunk); border-radius:var(--r-s); font-variant-numeric:tabular-nums}
+.play-out .formula b, .play-out .solution b:not(.st-h){font-weight:500}
+.play-out .sol-table{border-collapse:collapse; margin:var(--s-2) 0 0; font-variant-numeric:tabular-nums}
+.play-out .sol-table th, .play-out .sol-table td{padding:6px 16px 6px 0; border-bottom:1px solid var(--line); font-size:var(--fs-s); text-align:left}
+.play-out .sol-table th{font-weight:500; color:var(--text-3)}
+.play-out .sol-table .num{text-align:right; padding-right:0}
+.play-out .sol-table{width:auto; min-width:16em}

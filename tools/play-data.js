@@ -78,7 +78,8 @@ function load(lang = 'ru', {strict = true} = {}){
     if (!Array.isArray(x.chat) || x.chat.length < 3 || x.chat.length > 6) fail(`${s}: chat — от 3 до 6 реплик`);
     else x.chat.forEach((r, i) => { if (!Array.isArray(r) || !HEROES.includes(r[0]) || typeof r[1] !== 'string' || !r[1].trim()) fail(`${s}: chat[${i}] — ['alice' | 'bob' | 'kot', 'реплика']`); });
     if (!Array.isArray(x.what) || x.what.length < 1 || x.what.length > 2) fail(`${s}: what — 1–2 абзаца`);
-    if (!Array.isArray(x.try) || x.try.length < 2 || x.try.length > 3) fail(`${s}: try — 2–3 задания`);
+    // try («Попробуй ответить сам») больше не показывается (решение Дили, 22.11.2026): поле можно не заполнять
+    if (x.solution && (!Array.isArray(x.solution) || x.solution.some(st => !st.h))) fail(`${s}: solution — шаги {h, p, f, table}`);
     if (!Array.isArray(x.cheat) || x.cheat.length > 5) fail(`${s}: cheat — до 5 пунктов (можно [])`);
     if (typeof x.next === 'string' && !x.next.includes('{href}')) fail(`${s}: next — со ссылкой <a href="{href}">…</a> на шаг`);
   }

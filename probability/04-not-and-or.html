@@ -94,7 +94,7 @@
   <div class="sheet c-white">
     <p class="chart-title" id="pt-title">Календарь на 365 дней: дни рождения гостей</p>
     <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — коралловым кружком с числом гостей"></canvas>
-    <div class="legend-row"><span><i style="background:var(--text-2)"></i>день рождения гостя</span><span><i style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
+    <div class="legend-row"><span><i style="background:var(--pen)"></i>день рождения гостя</span><span><i style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
     <div class="p4-stats" id="pt-stats" hidden>
       <div><b id="pt-n">0</b>гостей в зале</div>
       <div><b id="pt-pairs">0</b>пар гостей</div>
@@ -419,11 +419,11 @@ const TXT = {
       label(c, TXT.months[m], 2, y + 4, COL.ink2);
       for (let d = 0; d < ML[m]; d++){
         const x = L + d * cw + cw / 2, k = cnt[START[m] + d];
-        // гости — нейтральный тёмный, совпадение — коралл крупнее, с обводкой и числом гостей внутри (цвета групп A/B тут ни при чём)
+        // гости — спокойный синий (норма), совпадение — коралл (событие) крупнее, с обводкой и числом гостей внутри (цвета групп A/B тут ни при чём)
         if (k > 1){ c.fillStyle = COL.accent; c.beginPath(); c.arc(x, y, r * 2, 0, 2 * Math.PI); c.fill(); c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.stroke();
           c.save(); c.fillStyle = '#fff'; c.font = '600 ' + Math.round(r * 2.2) + 'px Onest, system-ui, sans-serif'; c.textAlign = 'center'; c.fillText(String(k), x, y + r * 0.8); c.restore();
           if (!lab) lab = {x, y, k, m, d}; }
-        else { c.fillStyle = k === 1 ? COL.ink2 : COL.grid; c.beginPath(); c.arc(x, y, k ? r * 1.15 : r * 0.6, 0, 2 * Math.PI); c.fill(); }
+        else { c.fillStyle = k === 1 ? COL.pen : COL.grid; c.beginPath(); c.arc(x, y, k ? r * 1.15 : r * 0.6, 0, 2 * Math.PI); c.fill(); }
       }
     }
     // подпись у первого совпадения: «2 гостя · 10 мар»

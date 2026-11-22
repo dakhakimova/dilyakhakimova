@@ -98,6 +98,25 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   const RI = REL.index();
   const relCard = o => `
       <li><a href="${o.href}"><span class="kind">${REL.KIND[o.kind]}</span><b>${typo(o.title)}</b><span>${typo(o.line)}</span><span class="go">${REL.GO[o.kind]}</span></a></li>`;
+  // «Почему так» — одно решение пронумерованными шагами (решение Дили, 22.11.2026): у шага заголовок 500 и 1–2 фразы,
+  // формула отдельной строкой без переноса (общий вид → подстановка → результат), таблица значений — компактная.
+  // Если в тексте игры нет поля solution, шаги собираются из out, intuition/right и cheat — без отдельных блоков.
+  const formula = f => `<p class="formula">${typo(f).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')}</p>`;
+  const stepHtml = st => `
+        <li><b class="st-h">${typo(st.h)}.</b> ${st.p ? typo(st.p).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') : ''}${st.list ? `<ul>${st.list.map(li => `<li>${typo(li)}</li>`).join('')}</ul>` : ''}${(st.f || []).map(formula).join('')}${st.after ? ' ' + typo(st.after) : ''}${st.table ? `
+          <table class="table sol-table"><thead><tr>${st.table[0].map((c, i) => `<th${i ? ' class="num"' : ''}>${typo(c)}</th>`).join('')}</tr></thead><tbody>${st.table.slice(1).map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="num"' : ''}>${typo(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : ''}</li>`;
+  const solutionHtml = (s, x) => {
+    let steps = x.solution;
+    if (!steps){
+      steps = [{h: t('play.sol.result'), p: texts[s].out}];
+      if (x.intuition && x.intuition.length) steps.push({h: t('play.sol.trap'), list: x.intuition});
+      if (x.right) steps.push({h: t('play.sol.right'), p: x.right.replace(/^Правильно:\s*/, '')});
+      if (x.cheat && x.cheat.length) steps.push({h: t('play.sol.rule'), p: x.cheat.join(' ')});
+    }
+    return `
+      <ol class="solution">${steps.map(stepHtml).join('')}
+      </ol>`;
+  };
   const credits = {};
   for (const toy of toys){
     const s = toy.slug, url = `${pre}/play/${s}/`, frame = `${toy.src}?toy=${s}`;
@@ -134,17 +153,9 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   </div>
 
   <section class="play-out" aria-labelledby="out-h">
-    <p class="kicker" id="out-h">${t('play.out')}</p>${x.try && x.try.length ? `
-    <p class="tries-h">${t('play.tryQ')}</p>
-    <ol class="tries">${x.try.map(li => `<li>${typo(li)}</li>`).join('')}</ol>` : ''}
+    <p class="kicker" id="out-h">${t('play.out')}</p>
     <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">${t('play.showOut')} <span aria-hidden="true">▾</span></button></p>
-    <div class="reveal" hidden>
-      <p>${X(s, 'out')}</p>${x.intuition && x.intuition.length ? `
-      <h3>${t('play.intuition')}</h3>
-      <ul class="cheat intuition">${x.intuition.map(li => `<li>${typo(li)}</li>`).join('')}</ul>${x.right ? `
-      <p>${typo(x.right)}</p>` : ''}` : ''}${x.cheat.length ? `
-      <h3>${t('play.cheat')}</h3>
-      <ul class="cheat">${x.cheat.map(li => `<li>${typo(li)}</li>`).join('')}</ul>` : ''}
+    <div class="reveal" hidden>${solutionHtml(s, x)}
     </div>
   </section>
 
