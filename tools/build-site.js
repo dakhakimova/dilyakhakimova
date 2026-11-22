@@ -95,7 +95,9 @@ function shelf(){
   const spine = (b, i) => {
     h = (h * 37 + 11) % 100; // разные высота и толщина — стабильно от сборки к сборке
     const height = 232 + (h % 5) * 12, width = 52 + (h % 4) * 6;
-    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"><b>«${esc(b.title)}»</b><span>${esc(b.author)}, ${b.year}</span><span>${esc(nb(b.about))}</span><span class="b-topic">${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
+    // одна подсказка на корешок: текст в HTML, обложка — у читателя из Open Library при первом наведении (site/shelf.js)
+    const isbn = (b.isbn || []).filter(x => /^\d{9}[\dX]$|^\d{13}$/.test(x));
+    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(b.title)}"` : ''}><b>«${esc(b.title)}»</b><span>${esc(b.author)}, ${b.year}</span>${b.about ? `<span>${esc(nb(b.about))}</span>` : ''}<span class="b-topic">${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
     const inner = `<span class="b-t">${esc(b.title)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
     const st = `style="--h:${height}px; --w:${width}px; --c:${SPINE[b.topic]}"`;
     return b.review
