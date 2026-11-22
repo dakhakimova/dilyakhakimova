@@ -94,7 +94,6 @@ const spineColor = slug => { let x = 0x811c9dc5; for (const ch of slug) { x ^= c
 // названия книги: основное — оригинал (title_en; у русской книги — title_ru), под ним — русское издание или «перевода нет»
 const bookTitle = b => b.title_en || b.title_ru;
 const bookLang = b => b.title_en ? ' lang="en"' : '';
-const bookRu = b => !b.title_en ? '' : b.title_ru ? `На русском: «${b.title_ru}»` : 'Перевода на русском нет';
 const SHELF_FILTER_MIN = 6;  // фильтр по темам — только если на полке хотя бы столько позиций
 function shelf(){
   const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'shelf/shelf.json'), 'utf8'));
@@ -106,10 +105,19 @@ function shelf(){
   const spine = (b, i) => {
     h = (h * 37 + 11) % 100; // разные высота и толщина — стабильно от сборки к сборке
     const height = 232 + (h % 5) * 12, width = 52 + (h % 4) * 6;
-    const t = bookTitle(b), lg = bookLang(b), ru = bookRu(b);
+    const t = bookTitle(b), lg = bookLang(b);
     // одна подсказка на корешок: текст в HTML, обложка — у читателя из Open Library при первом наведении (site/shelf.js)
     const isbn = (b.isbn || []).filter(x => /^\d{9}[\dX]$|^\d{13}$/.test(x));
-    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><b${lg}>${esc(t)}</b>${ru ? `<span class="b-ru">${esc(nb(ru))}</span>` : ''}<span>${esc(b.author)}, ${b.year}</span>${b.about ? `<span>${esc(nb(b.about))}</span>` : ''}<span class="b-topic">книга · ${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
+    // подсказка только для чтения (без ссылок, pointer-events:none): слева обложка, если загрузилась (site/shelf.js), справа текст;
+    // «Нажми ещё раз…» видна только после нажатия пальцем (первое нажатие показывает карточку, второе открывает разбор)
+    // правая колонка: метки → оригинал (название, авторы по-английски · год) → перевод (название · год издания, без авторов;
+    // нет перевода — «Перевода на русском нет»; у русской книги — только русский блок с авторами) → about
+    const by = (a, y) => `${esc(a)}${y ? `&nbsp;· ${y}` : ''}`;  // «· 2020» не уезжает на отдельную строку
+    const orig = b.title_en
+      ? `<span class="b-orig" lang="en"><b>${esc(b.title_en)}</b>${b.author_en ? `<span class="b-by">${by(b.author_en, b.year)}</span>` : ''}</span>`
+        + `<span class="b-tr">${b.title_ru ? by(nb(b.title_ru), b.year_ru) : 'Перевода на русском нет'}</span>`
+      : `<span class="b-orig"><b>${esc(b.title_ru)}</b><span class="b-by">${by(b.author, b.year)}</span></span>`;
+    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><span class="b-txt"><span class="b-topic">книга · ${b.topic}</span>${orig}${b.about ? `<span class="b-about">${esc(nb(b.about))}</span>` : ''}${b.review ? '<span class="b-tap" aria-hidden="true">Нажми ещё раз, чтобы открыть разбор</span>' : ''}</span></span>`;
     // на узком корешке — короткое название (title_short), полное — в подсказке
     const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
     const st = `style="--h:${height}px; --w:${width}px; --c:${spineColor(b.slug)}"`;
