@@ -2,9 +2,12 @@
    Фокус: минимальная шапка (логотип + «Закрыть»), один вопрос на экран, крупно, много воздуха; один столбец.
    Правила — design-system.md: Literata 400/500, Onest 400–600, без 700; один жирный элемент на экран; одна залитая кнопка. */
 body.start{background:var(--desk); min-height:100vh}
-.s-top{display:flex; justify-content:space-between; align-items:center; max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) 0}
-.s-close{display:inline-flex; align-items:center; gap:6px; min-height:44px; color:var(--text-2); font-size:var(--fs-s); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:3px}
-.s-close span[aria-hidden]{font-size:1.375rem; line-height:1; text-decoration:none}
+.s-top{display:flex; justify-content:flex-end; align-items:center; max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) 0}
+/* «Закрыть ×» — одна ссылка; подчёркнуто только слово, крестик без подчёркивания */
+.s-close{display:inline-flex; align-items:center; gap:6px; min-height:44px; color:var(--text-2); font-size:var(--fs-s); text-decoration:none}
+.s-close-t{text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:3px}
+.s-close:hover .s-close-t{text-decoration-color:currentColor}
+.s-close span[aria-hidden]{font-size:1.375rem; line-height:1}
 .s-main{max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) var(--s-9)}
 .s-app{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-6) var(--s-7) var(--s-7); position:relative; overflow:hidden}
 
@@ -42,15 +45,17 @@ body.start{background:var(--desk); min-height:100vh}
 .fb p{margin:0}
 .acts{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin:var(--s-6) 0 0}
 .acts .btn.link{padding-left:0; padding-right:0; min-height:44px; font-weight:500}
-.acts .btn + .btn:not(.link){margin-left:auto}
+.acts:not(.r-acts) .btn + .btn:not(.link){margin-left:auto}
+/* итог: одна залитая, одна контурная, «Пройти заново» — тихой текстовой ссылкой */
+.text-link{border:0; background:none; padding:0; min-height:44px; font:500 var(--fs-s)/1.4 var(--body); color:var(--pen); text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:3px; cursor:pointer}
+.text-link:hover{text-decoration-color:currentColor}
 .btn-note{margin:var(--s-2) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
 
 /* итог */
-.r-title{font:400 1.875rem/1.2 var(--serif); letter-spacing:-.01em; margin:0; outline:none}
-.r-goal{margin:var(--s-3) 0 0; font:600 1.25rem/1.35 var(--body); color:var(--text-1)}
+.r-title{font:400 var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); margin:0; outline:none}
+.r-goal{margin:var(--s-4) 0 0; font:400 var(--fs-l)/1.5 var(--serif); color:var(--warm-700)}   /* лид, как подзаголовок первого экрана главной (.sub) */
 .r-start{margin:var(--s-2) 0 0; font-size:var(--fs-m); line-height:1.5}
 .r-why{margin:var(--s-2) 0 0; font-size:var(--fs-s); color:var(--text-2)}
-.s-app .acts .btn.ghost{margin-left:0}
 .r-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:var(--s-7) 0 var(--s-3)}
 .r-list{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:var(--s-2); font-size:var(--fs-s)}
 .r-note{margin:var(--s-5) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
@@ -105,8 +110,8 @@ body.start{background:var(--desk); min-height:100vh}
   .acts{flex-direction:column; align-items:stretch}
   .acts .btn{width:100%; justify-content:center}
   .acts .btn + .btn:not(.link){margin-left:0}
+  .acts .text-link{align-self:center}
   .acts .btn.link{order:3; align-self:center; width:auto}
-  .r-title{font-size:1.625rem}
 }
 @media (prefers-reduced-motion: reduce){ .s-app .bar span, .opt{transition:none} }
 .s-top .logo{font-weight:500}

@@ -136,8 +136,8 @@ function mount(T, M){
   }
   function frame(body, focus){
     const p = progress();
-    app.innerHTML = `<div class="bar" role="progressbar" aria-label="${esc(t('st.title'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p}"><span style="width:${p}%"></span></div>`
-      + `<p class="time">${t('st.time')}</p>` + body;
+    app.innerHTML = (st.stage === 'done' ? '' : `<div class="bar" role="progressbar" aria-label="${esc(t('st.title'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p}"><span style="width:${p}%"></span></div>`)
+      + (st.stage === 'intro' ? `<p class="time">${t('st.time')}</p>` : '') + body;
     const h = app.querySelector('[data-focus]');
     if (focus && h) { h.focus({preventScroll: true}); window.scrollTo({top: 0, behavior: reduce ? 'auto' : 'smooth'}); }
   }
@@ -194,8 +194,8 @@ function mount(T, M){
     const free = c.status === 'free';
     const url = free ? step.url : c.url + '#waitlist';
     const go = R.plan.filter(p => !p.skip && !p.extra);
-    const sum = t('st.res.sum', {n: go.length + ' ' + PLURAL[PR.select(go.length)], list: and(go.map(p => '«' + esc(course[p.course].title) + '»'))});
-    const main = free ? `<a class="btn" href="${step.url}">${t('st.res.open', {course: esc(c.title), step: lower(step.n)})}</a>`
+    const sum = t(go.length === 1 ? 'st.res.sum1' : 'st.res.sum', {n: go.length + ' ' + PLURAL[PR.select(go.length)], list: and(go.map(p => '«' + esc(course[p.course].title) + '»'))});
+    const main = free ? `<a class="btn" href="${step.url}">${t('st.res.open', {step: lower(step.n).replace(/^шаг /, 'шага ').replace(/^глава /, 'главы ')})}</a>`
       : `<a class="btn" href="${url}">${t('st.res.wait')}</a>`;
     const role = R.goal === 'decide' && R.role && R.role !== 'other' ? ' ' + t(`qz.role.${R.role}Note`) : '';
     const say = R.note === 'unsure' ? 'st.say.unsure' : R.note === 'failed' ? 'ck.failed' : null;
@@ -204,7 +204,7 @@ function mount(T, M){
       + `<p class="r-goal">${sum}</p>`
       + `<p class="r-start">${R.all ? t('st.res.all') : t('st.res.start', {url, course: esc(c.title), step: esc(lower(step.n)), label: esc(lower(n.label))})}</p>`
       + `<p class="r-why">${t('st.why.' + R.goal, {goal: esc(r.label)})}${role}</p>`
-      + `<p class="acts">${main}<a class="btn ghost" href="/map/?route=mine">${t('st.res.map')}</a><button type="button" class="btn link" data-act="again">${t('st.res.again')}</button></p>`
+      + `<p class="acts r-acts">${main}<a class="btn ghost" href="/map/?route=mine">${t('st.res.map')}</a><button type="button" class="text-link" data-act="again">${t('st.res.again')}</button></p>`
       + (free ? `<p class="btn-note">${t('st.res.openNote')}</p>` : '')
       + `<h2 class="r-h">${t('st.res.line')}</h2>` + lineHtml(R)
       + `<h2 class="r-h">${t('st.res.can')}</h2><ul class="r-list" role="list">${r.nodes.slice(-3).map(id => `<li>${tx(node.get(id).title)}</li>`).join('')}</ul>`
