@@ -204,7 +204,7 @@ function mount(T, M){
       + `<p class="r-goal">${sum}</p>`
       + `<p class="r-start">${R.all ? t('st.res.all') : t('st.res.start', {url, course: esc(c.title), step: esc(lower(step.n)), label: esc(lower(n.label))})}</p>`
       + `<p class="r-why">${t('st.why.' + R.goal, {goal: esc(r.label)})}${role}</p>`
-      + `<p class="acts r-acts">${main}<a class="btn ghost" href="/map/?route=mine">${t('st.res.map')}</a><button type="button" class="text-link" data-act="again">${t('st.res.again')}</button></p>`
+      + `<p class="acts r-acts">${main}<a class="btn ghost" href="/map/#mine">${t('st.res.map')}</a><button type="button" class="text-link" data-act="again">${t('st.res.again')}</button></p>`
       + (free ? `<p class="btn-note">${t('st.res.openNote')}</p>` : '')
       + `<h2 class="r-h">${t('st.res.line')}</h2>` + lineHtml(R)
       + `<h2 class="r-h">${t('st.res.can')}</h2><ul class="r-list" role="list">${r.nodes.slice(-3).map(id => `<li>${tx(node.get(id).title)}</li>`).join('')}</ul>`

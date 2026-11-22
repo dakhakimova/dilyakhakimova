@@ -7,7 +7,7 @@
    Личный маршрут из «Подобрать маршрут» (/start/, localStorage start:plan) — цель «Твой маршрут» (id mine): «ты здесь» на стартовой станции,
    знакомые навыки отмечены «знаешь» (состояние quiz). Без него вид по умолчанию — цель «Весь путь» (full).
    Строки интерфейса — ui.* в i18n/map.js.
-   Адреса: ?route=full|mine|decide|basics|interview|abtest|deep (старые product, analyst, abtester ведут на decide, basics, abtest),
+   Адреса: #full|mine|decide|basics|interview|abtest|deep — выбранная цель (прежние ?route=… и product, analyst, abtester переводятся в хэш),
    #<курс> (prob, sig, ab, st, abm, cau) — панель главного навыка курса, #<навык> — панель навыка. */
 (function () {
 'use strict';
@@ -96,16 +96,21 @@ function init(M){
   let route = null;
   const rb = $('route-btns');
   const LINE = (window.SkillMetroLayout || {lines: {}}).lines;
-  rb.innerHTML = `<ul class="goals" role="list">` + M.routes.map(r => `<li><button type="button" class="goal" data-route="${r.id}" aria-pressed="false"${LINE[r.id] ? ` style="--line:${LINE[r.id].color}"` : ''}>`
+  rb.innerHTML = `<ul class="goals" role="list">` + M.routes.map(r => `<li><button type="button" class="goal${r.id === 'full' || r.id === 'mine' ? ' neutral' : ''}" data-route="${r.id}" aria-pressed="false"${LINE[r.id] ? ` style="--line:${LINE[r.id].color}"` : ''}>`
       + `<span class="g-t">${LINE[r.id] ? `<span class="sw" aria-hidden="true"></span>` : ''}${tx(r.label)}</span><span class="g-for">${tx(r.for)}</span></button></li>`).join('') + `</ul>`
-    + `<button type="button" class="all" data-route="" aria-pressed="true">${t('routes.all')}</button>`;
-  rb.addEventListener('click', e => { const b = e.target.closest('button'); if (b) setRoute(b.dataset.route, true); });
+    + `<p class="route-clear" hidden><button type="button" class="text-link" data-clear>${t('routes.clear')}</button></p>`;
+  // карточки — переключатели: нажатие выбирает цель, повторное снимает выбор; «Показать все курсы» — тоже снимает (есть, только пока цель выбрана)
+  rb.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-clear')) { setRoute('', true); return; }
+    setRoute(route && route.id === b.dataset.route ? '' : b.dataset.route, true); });
   const OLD = {product: 'decide', analyst: 'basics', abtester: 'abtest'};          // прежние ролевые адреса
   function setRoute(id, push){
     id = OLD[id] || id;
     route = M.routes.find(r => r.id === id) || null;
-    rb.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.route === (route ? route.id : ''))));
-    if (push){ const u = new URL(location.href); if (route) u.searchParams.set('route', route.id); else u.searchParams.delete('route'); history.replaceState(null, '', u); }
+    rb.querySelectorAll('.goal').forEach(b => b.setAttribute('aria-pressed', String(!!route && b.dataset.route === route.id)));
+    rb.querySelector('.route-clear').hidden = !route;
+    // адрес: выбранная цель — в хэше (#basics), без выбора хэш очищается; старый ?route= убираем
+    if (push){ const u = new URL(location.href); u.searchParams.delete('route'); u.hash = route ? route.id : ''; history.replaceState(null, '', u.pathname + u.search + (route ? '#' + route.id : '')); }
     paint();
   }
 
@@ -187,9 +192,12 @@ function init(M){
 
 
   // ---------- старт ----------
-  const q = new URL(location.href).searchParams.get('route');
-  setRoute(q || (PLAN ? 'mine' : 'full'), false);
-  const hash = decodeURIComponent(location.hash.slice(1));
+  // выбор цели: #<цель> (или прежний ?route=<цель>); без него — общий вид, ничего не выбрано
+  const hash = decodeURIComponent(location.hash.slice(1)), q = new URL(location.href).searchParams.get('route');
+  const OLDQ = q && (OLD[q] || q);
+  if (M.routes.some(r => r.id === hash)) setRoute(hash, false);
+  else if (OLDQ && M.routes.some(r => r.id === OLDQ)) setRoute(OLDQ, true);
+  else setRoute('', false);
   // #<курс> (ссылки «Где этот курс на карте навыков» со страниц курсов): зона курса на схеме (id = курс) и панель главного навыка курса
   if (course[hash] && course[hash].main && node.has(course[hash].main)) requestAnimationFrame(() => open(course[hash].main, true));
   else if (node.has(hash)) requestAnimationFrame(() => open(hash, true));

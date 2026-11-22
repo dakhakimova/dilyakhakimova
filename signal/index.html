@@ -28,11 +28,6 @@
 .steps li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:var(--surface); padding:12px 14px; border-radius:8px; font-size:.9375rem}
 .steps li b{display:block; font:500 1.25rem/1 var(--serif); color:var(--pen); margin-bottom:4px}
 /* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
-.crumbs{font-size:.9375rem; color:var(--muted); margin:0 0 4px}
-.crumbs a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); padding:10px 0; display:inline-block}
-.crumbs a:hover{color:var(--ink)}
-.crumbs .sep{margin:0 8px}
-.crumbs [aria-current]{color:var(--ink)}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px}
 .lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:500 .8125rem/1 var(--body); padding:6px 9px; border-radius:999px; background:var(--surface); color:var(--ink); white-space:nowrap}
 .tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
@@ -85,21 +80,20 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
 </head>
 <body>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <span class="course" aria-current="page">Сигнал или шум</span></span>
   <span><a href="/courses/">Все курсы</a></span>
 </nav>
 
 <main class="chapter">
 <!-- typo -->
-  <nav class="crumbs" aria-label="Где ты на сайте"><a href="/#courses">Курсы</a><span class="sep" aria-hidden="true">→</span><span aria-current="page">Сигнал или шум</span></nav>
 <!-- /typo -->
   <p class="kicker">бесплатный интерактивный курс</p>
-  <h1>Сигнал или шум</h1>
+  <h1>Сигнал или шум</h1>
 <!-- typo -->
-  <p class="chips"><span class="tag free">бесплатно</span><span class="lchip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span>Практик</span><span class="tag" data-hours="ss">≈&nbsp;6&nbsp;часов</span><span class="tag">для упорных</span></p>
-  <figure class="art"><img src="/img/signal-cover.jpg" alt="Алиса, Боб и Котейка в кафе" onerror="if(!this.dataset.t){this.dataset.t='1';this.src='img/ch01-00-heroes.jpg'}else{this.parentNode.classList.add('missing')}"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
+  <p class="chips"><span class="tag free">бесплатно</span><span class="lchip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span>Средний</span><span class="tag" data-hours="ss">≈&nbsp;6&nbsp;часов</span><span class="tag">для упорных</span></p>
+  <figure class="art"><img src="/img/signal-cover.jpg" alt="Алиса, Боб и Котейка в кафе" onerror="if(!this.dataset.t){this.dataset.t='1';this.src='img/ch01-00-heroes.jpg'}else{this.parentNode.classList.add('missing')}"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
 <!-- /typo -->
-  <p class="lead">Как отличить настоящий эффект от случайного колебания: вероятность, распределения, ловушки в данных и первые A/B-тесты. Каждую идею можно подвигать руками, запустить в коде прямо в браузере и проверить на задачах с собеседований.</p>
+  <p class="lead">Как отличить настоящий эффект от случайного колебания: вероятность, распределения, ловушки в данных и первые A/B-тесты. Каждую идею можно подвигать руками, запустить в коде прямо в браузере и проверить на задачах с собеседований.</p>
 
 <!-- typo -->
   <p class="cta"><a class="btn" href="01-probability.html">Начать с главы 1</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
@@ -131,44 +125,44 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
   </ul>
 <!-- /typo -->
 
-  <h2>Один алгоритм на весь курс</h2>
-  <p>Каждая глава добавляет в него шаг. К концу курса ты проходишь его целиком — и на работе, и на собеседовании.</p>
+  <h2>Один алгоритм на весь курс</h2>
+  <p>Каждая глава добавляет в него шаг. К концу курса ты проходишь его целиком — и на работе, и на собеседовании.</p>
   <ol class="steps">
-    <li><b>1</b>Что здесь случайно? Какая единица и какая случайная величина</li>
-    <li><b>2</b>Как она распределена? Какой процесс её порождает</li>
-    <li><b>3</b>Центр и разброс: среднее и стандартное отклонение</li>
+    <li><b>1</b>Что здесь случайно? Какая единица и какая случайная величина</li>
+    <li><b>2</b>Как она распределена? Какой процесс её порождает</li>
+    <li><b>3</b>Центр и разброс: среднее и стандартное отклонение</li>
     <li><b>4</b>Насколько шумит среднее: стандартная ошибка</li>
-    <li><b>5</b>Сколько стандартных ошибок до порога — это редкость или шум?</li>
-    <li><b>6</b>Ответ на языке бизнеса</li>
+    <li><b>5</b>Сколько стандартных ошибок до порога — это редкость или шум?</li>
+    <li><b>6</b>Ответ на языке бизнеса</li>
   </ol>
 
   <h2 id="toc">Оглавление</h2>
-  <p class="part">Часть 0. Вероятность за час</p>
+  <p class="part">Часть 0. Вероятность за час</p>
   <ol class="toc">
-    <li class="live"><span class="n">1</span><a href="01-probability.html"><span class="t">Вероятность — это доля в штуках<small>«И», «или», «хотя бы один». Магазин на 40 посетителей в день, кофемашины, кубик.</small></span></a><span class="s">готово</span></li>
-    <li><span class="n">2</span><a href="/probability/05-conditional.html"><span class="t">Условная вероятность и Байес<small>Подробно — в «Вероятности на пальцах», шаги 5–6: сужаем мир, редкий сигнал, Монти Холл.</small></span></a><span class="s">в курсе 1</span></li>
-    <li><span class="n">3</span><a href="/probability/07-distribution.html"><span class="t">Случайная величина, среднее и разброс<small>Подробно — в «Вероятности на пальцах», шаги 7–8: биномиальное, матожидание и дисперсия.</small></span></a><span class="s">в курсе 1</span></li>
+    <li class="live"><span class="n">1</span><a href="01-probability.html"><span class="t">Вероятность — это доля в штуках<small>«И», «или», «хотя бы один». Магазин на 40 посетителей в день, кофемашины, кубик.</small></span></a><span class="s">готово</span></li>
+    <li><span class="n">2</span><a href="/probability/05-conditional.html"><span class="t">Условная вероятность и Байес<small>Подробно — в «Вероятности на пальцах», шаги 5–6: сужаем мир, редкий сигнал, Монти Холл.</small></span></a><span class="s">в курсе 1</span></li>
+    <li><span class="n">3</span><a href="/probability/07-distribution.html"><span class="t">Случайная величина, среднее и разброс<small>Подробно — в «Вероятности на пальцах», шаги 7–8: биномиальное, матожидание и дисперсия.</small></span></a><span class="s">в курсе 1</span></li>
   </ol>
 
   <p class="part">Часть I. Случайность</p>
   <ol class="toc">
     <li class="live"><span class="n">4</span><a href="04-noise.html"><span class="t">Шум<small>Закон больших чисел: когда бегущая доля успокаивается.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">5</span><a href="05-normal.html"><span class="t">Нормальное распределение<small>z-оценка, правило 68–95–99.7, хвосты и площадь под колоколом.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">6</span><a href="06-zoo.html"><span class="t">Зоопарк распределений<small>Бернулли, биномиальное, Пуассон, геометрическое, экспоненциальное и «киты» с логнормальным хвостом.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">7</span><a href="07-clt.html"><span class="t">ЦПТ в деле<small>Кто сходится к колоколу быстро, кто медленно, а кто никогда.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">5</span><a href="05-normal.html"><span class="t">Нормальное распределение<small>z-оценка, правило 68–95–99.7, хвосты и площадь под колоколом.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">6</span><a href="06-zoo.html"><span class="t">Зоопарк распределений<small>Бернулли, биномиальное, Пуассон, геометрическое, экспоненциальное и «киты» с логнормальным хвостом.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">7</span><a href="07-clt.html"><span class="t">ЦПТ в деле<small>Кто сходится к колоколу быстро, кто медленно, а кто никогда.</small></span></a><span class="s">готово</span></li>
   </ol>
 
-  <p class="part">Часть II. Ловушки в данных</p>
+  <p class="part">Часть II. Ловушки в данных</p>
   <ol class="toc">
-    <li class="live"><span class="n">8</span><a href="08-traps.html"><span class="t">Симпсон, Берксон, ошибка выжившего и автобус<small>Те ли это данные, прежде чем считать.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">8</span><a href="08-traps.html"><span class="t">Симпсон, Берксон, ошибка выжившего и автобус<small>Те ли это данные, прежде чем считать.</small></span></a><span class="s">готово</span></li>
   </ol>
 
   <p class="part">Часть III. Сравнение</p>
   <ol class="toc">
-    <li class="live"><span class="n">9</span><a href="09-aa.html"><span class="t">A/A-тест<small>Две одинаковые группы всё равно различаются — и насколько.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">10</span><a href="10-ab-test.html"><span class="t">A/B на простой метрике<small>z-тест для конверсии и среднего.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">11</span><a href="11-errors.html"><span class="t">Ошибки I и II рода<small>α, β и мощность на двух колоколах.</small></span></a><span class="s">готово</span></li>
-    <li class="live"><span class="n">12</span><a href="12-wins.html"><span class="t">«Прокрасилось» — значит, работает?<small>1000 экспериментов и доля настоящих побед.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">9</span><a href="09-aa.html"><span class="t">A/A-тест<small>Две одинаковые группы всё равно различаются — и насколько.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">10</span><a href="10-ab-test.html"><span class="t">A/B на простой метрике<small>z-тест для конверсии и среднего.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">11</span><a href="11-errors.html"><span class="t">Ошибки I и II рода<small>α, β и мощность на двух колоколах.</small></span></a><span class="s">готово</span></li>
+    <li class="live"><span class="n">12</span><a href="12-wins.html"><span class="t">«Прокрасилось» — значит, работает?<small>1000 экспериментов и доля настоящих побед.</small></span></a><span class="s">готово</span></li>
   </ol>
 
 <!-- typo -->

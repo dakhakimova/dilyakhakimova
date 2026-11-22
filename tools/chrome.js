@@ -52,23 +52,23 @@ function announce(cls = ''){
 </aside>`;
 }
 
-function footer(){
+function footer(here = ''){   // here — адрес текущей страницы («/about/»): ссылка на саму себя становится текстом (гайд, пара 125)
   // футер служебный (решение Дили, 22.11.2026): бесплатные курсы, об авторе, копирайт. Не продаём, не анонсируем, не дублируем шапку.
-  const c = COURSES.filter(x => x.published && x.tag === 'free').map(x => `<a href="${x.href}">${x.name}</a>`).join(' · ');
+  const c = COURSES.filter(x => x.published && x.tag === 'free').map(x => x.href === here ? `<span aria-current="page">${x.name}</span>` : `<a href="${x.href}">${x.name}</a>`).join(' · ');
   return `<footer class="foot" data-chrome>
   <div class="wrap">
     <p class="foot-line">Бесплатные курсы: ${c}</p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">${here === '/about/' ? '<span aria-current="page">Об авторе</span>' : '<a href="/about/">Об авторе</a>'} · © 2026 Диля Хакимова</p>
   </div>
 </footer>`;
 }
 
 // заменить шапку и футер на странице; current — ключ рубрики
-function stamp(html, current, self = false){
+function stamp(html, current, self = false, here = ''){
   const cls = (html.match(/<header class="(top[^"]*)"/) || [])[1] || 'top wrap';
   html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?(\s*<script>\(function\(\)\{var a=document\.currentScript[\s\S]*?<\/script>)?/, () => header(current, self).replace('<header class="top wrap"', `<header class="${cls}"`));
-  if (/<footer class="foot"/.test(html)) html = html.replace(/<footer class="foot"[^>]*>[\s\S]*?<\/footer>/, footer());
-  else html = html.replace(/<\/main>/, '</main>\n' + footer());
+  if (/<footer class="foot"/.test(html)) html = html.replace(/<footer class="foot"[^>]*>[\s\S]*?<\/footer>/, () => footer(here));
+  else html = html.replace(/<\/main>/, () => '</main>\n' + footer(here));
   return html;
 }
 

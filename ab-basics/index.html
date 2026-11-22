@@ -43,11 +43,6 @@
 .sheet-link{margin:18px 0 0; padding:14px 16px; border-radius:12px; background:var(--truth-bg); font-size:1rem; line-height:1.5}
 .sheet-link b{display:block; font:500 1.1875rem/1.3 var(--serif); margin-bottom:2px}
 /* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
-.crumbs{font-size:.9375rem; color:var(--muted); margin:0 0 4px}
-.crumbs a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); padding:10px 0; display:inline-block}
-.crumbs a:hover{color:var(--ink)}
-.crumbs .sep{margin:0 8px}
-.crumbs [aria-current]{color:var(--ink)}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px}
 .lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:500 .8125rem/1 var(--body); padding:6px 9px; border-radius:999px; background:var(--surface); color:var(--ink); white-space:nowrap}
 .tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
@@ -100,58 +95,57 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
 </head>
 <body>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <span class="course" aria-current="page">A/B на пальцах</span></span>
   <span><a href="/courses/">Все курсы</a></span>
 </nav>
 <main class="chapter">
 <!-- typo -->
-  <nav class="crumbs" aria-label="Где ты на сайте"><a href="/#courses">Курсы</a><span class="sep" aria-hidden="true">→</span><span aria-current="page">A/B на пальцах</span></nav>
 <!-- /typo -->
   <p class="kicker">интерактивный курс</p>
-  <h1>A/B на пальцах</h1>
+  <h1>A/B на пальцах</h1>
 <!-- typo -->
   <p class="chips"><span class="tag free">бесплатно, без регистрации</span><span class="lchip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span>Начальный</span><span class="tag" data-hours="ab">≈&nbsp;7&nbsp;часов</span><span class="tag">для всей команды</span></p>
 <!-- /typo -->
-  <figure class="art"><img src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
-  <p class="lead">Для менеджеров, продактов, разработчиков — всех, кто пользуется результатами A/B-тестов и хочет понимать их чуть глубже, без лишних деталей. Как устроен A/B-тест и как читать его результаты: 11 шагов, без формул, всё можно подвигать руками.</p>
+  <figure class="art"><img src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
+  <p class="lead">Для менеджеров, продактов, разработчиков — всех, кто пользуется результатами A/B-тестов и хочет понимать их чуть глубже, без лишних деталей. Как устроен A/B-тест и как читать его результаты: 11 шагов, без формул, всё можно подвигать руками.</p>
 <!-- typo -->
   <p class="cta"><a class="btn" href="01-before-after.html">Начать с шага 1</a><a class="btn ghost" href="cheatsheet.html">Шпаргалка для печати</a></p>
 <!-- /typo -->
 
   <h2>После курса ты сможешь</h2>
   <ul class="goals">
-    <li><b>спросить MDE и срок</b> до запуска и понять, хватит ли «недельки»;</li>
-    <li><b>проверить доли групп</b> и «день N из M», прежде чем смотреть на эффект;</li>
-    <li><b>прочитать вилку</b>: где она относительно нуля и порога пользы;</li>
-    <li><b>не остановиться на первом зелёном</b> и не поверить одной зелёной метрике из двадцати;</li>
-    <li><b>выбрать одно из четырёх решений</b>: катим, не катим, ждём или ищем баг;</li>
-    <li><b>рассказать результат</b> за три минуты: что получилось и что делаем.</li>
+    <li><b>спросить MDE и срок</b> до запуска и понять, хватит ли «недельки»;</li>
+    <li><b>проверить доли групп</b> и «день N из M», прежде чем смотреть на эффект;</li>
+    <li><b>прочитать вилку</b>: где она относительно нуля и порога пользы;</li>
+    <li><b>не остановиться на первом зелёном</b> и не поверить одной зелёной метрике из двадцати;</li>
+    <li><b>выбрать одно из четырёх решений</b>: катим, не катим, ждём или ищем баг;</li>
+    <li><b>рассказать результат</b> за три минуты: что получилось и что делаем.</li>
   </ul>
 
   <h2>Зачем это тебе</h2>
-  <p>Пройти стоит все шаги по порядку, но у каждой роли есть свои главные.</p>
+  <p>Пройти стоит все шаги по порядку, но у каждой роли есть свои главные.</p>
   <div class="roles">
-    <div><b>Менеджеру</b>Как читать вилку, p-value и две ошибки (<a href="06-interval.html">шаги 6</a>–<a href="08-errors.html">8</a>) и как по отчёту выбрать решение (<a href="11-decide.html">шаг 11</a>).</div>
-    <div><b>Продакту</b>Как до запуска выбрать MDE и посчитать срок теста (<a href="09-mde.html">шаг 9</a>) и какие правила записать заранее (<a href="10-traps.html">шаг 10</a>).</div>
-    <div><b>Разработчику</b>Как работает деление по хешу (<a href="02-salt-hash.html">шаг 2</a>), что такое бакеты (<a href="04-clt.html">шаг 4</a>) и тест «не хуже» для переездов и рефакторинга (<a href="09-mde.html">шаг 9</a>).</div>
+    <div><b>Менеджеру</b>Как читать вилку, p-value и две ошибки (<a href="06-interval.html">шаги 6</a>–<a href="08-errors.html">8</a>) и как по отчёту выбрать решение (<a href="11-decide.html">шаг 11</a>).</div>
+    <div><b>Продакту</b>Как до запуска выбрать MDE и посчитать срок теста (<a href="09-mde.html">шаг 9</a>) и какие правила записать заранее (<a href="10-traps.html">шаг 10</a>).</div>
+    <div><b>Разработчику</b>Как работает деление по хешу (<a href="02-salt-hash.html">шаг 2</a>), что такое бакеты (<a href="04-clt.html">шаг 4</a>) и тест «не хуже» для переездов и рефакторинга (<a href="09-mde.html">шаг 9</a>).</div>
   </div>
 
-  <h2 id="steps">Что будет в курсе: 11 шагов</h2>
+  <h2 id="steps">Что будет в курсе: 11 шагов</h2>
   <ol class="toc">
-    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15%, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">2</span><a href="02-salt-hash.html"><span class="t">Монетка, соль и хеш<small>Как приложение делит пользователей на группы и почему человек не прыгает из группы в группу.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">3</span><a href="03-noise.html"><span class="t">Шум есть всегда<small>A/A-тест: два одинаковых варианта, а «победитель» каждый раз новый.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">4</span><a href="04-clt.html"><span class="t">Толпа предсказуема<small>Центральная предельная теорема и бакеты: откуда берётся колокол.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">5</span><a href="05-bell-width.html"><span class="t">Ширина колокола<small>Почему в 4 раза больше людей дают только вдвое точнее.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">6</span><a href="06-interval.html"><span class="t">Эффект — это вилка<small>Два колокола и доверительный интервал.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">7</span><a href="07-p-value.html"><span class="t">p-value на пальцах<small>Насколько удивительна такая разница, если эффекта нет.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">8</span><a href="08-errors.html"><span class="t">Два вида ошибок<small>Ложные тревоги и пропуски на 100 экспериментах.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2%.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">10</span><a href="10-traps.html"><span class="t">Когда зелёное врёт<small>Подглядывание, много метрик, срезы и перекос групп: правила, которые записывают до цифр.</small></span></a><span class="s">открыть →</span></li>
-    <li class="live"><span class="n">11</span><a href="11-decide.html"><span class="t">Читаем отчёт и решаем<small>Подвохи в графиках и цифрах, дерево из пяти развилок, тренажёр на восьми отчётах и как рассказать результат.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15%, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">2</span><a href="02-salt-hash.html"><span class="t">Монетка, соль и хеш<small>Как приложение делит пользователей на группы и почему человек не прыгает из группы в группу.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">3</span><a href="03-noise.html"><span class="t">Шум есть всегда<small>A/A-тест: два одинаковых варианта, а «победитель» каждый раз новый.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">4</span><a href="04-clt.html"><span class="t">Толпа предсказуема<small>Центральная предельная теорема и бакеты: откуда берётся колокол.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">5</span><a href="05-bell-width.html"><span class="t">Ширина колокола<small>Почему в 4 раза больше людей дают только вдвое точнее.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">6</span><a href="06-interval.html"><span class="t">Эффект — это вилка<small>Два колокола и доверительный интервал.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">7</span><a href="07-p-value.html"><span class="t">p-value на пальцах<small>Насколько удивительна такая разница, если эффекта нет.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">8</span><a href="08-errors.html"><span class="t">Два вида ошибок<small>Ложные тревоги и пропуски на 100 экспериментах.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">9</span><a href="09-mde.html"><span class="t">MDE: что мы способны заметить<small>Сколько людей и дней нужно, чтобы увидеть +2%.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">10</span><a href="10-traps.html"><span class="t">Когда зелёное врёт<small>Подглядывание, много метрик, срезы и перекос групп: правила, которые записывают до цифр.</small></span></a><span class="s">открыть →</span></li>
+    <li class="live"><span class="n">11</span><a href="11-decide.html"><span class="t">Читаем отчёт и решаем<small>Подвохи в графиках и цифрах, дерево из пяти развилок, тренажёр на восьми отчётах и как рассказать результат.</small></span></a><span class="s">открыть →</span></li>
   </ol>
 
-  <div class="sheet-link"><b>Шпаргалка для печати</b>Что решить до запуска, как читать отчёт по пяти развилкам, пять «если…, то я…» и пословицы всех шагов — на двух листах. <a href="cheatsheet.html">Открыть шпаргалку →</a></div>
+  <div class="sheet-link"><b>Шпаргалка для печати</b>Что решить до запуска, как читать отчёт по пяти развилкам, пять «если…, то я…» и пословицы всех шагов — на двух листах. <a href="cheatsheet.html">Открыть шпаргалку →</a></div>
 
 <!-- typo -->
   <h2 id="toys">Во что поиграем и что покрутим</h2>
@@ -198,22 +192,22 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
   </div>
 <!-- /typo -->
 
-  <h2 id="books">Что почитать</h2>
-  <p>Книги, из которых в курс пришли некоторые истории и идеи. Все — для неспециалистов.</p>
+  <h2 id="books">Что почитать</h2>
+  <p>Книги, из которых в курс пришли некоторые истории и идеи. Все — для неспециалистов.</p>
   <ul class="books">
-    <li><span class="ba">Владимир Савельев</span><span class="bt">«Статистика и котики»</span><span class="bd">Самое мягкое введение: среднее, разброс, графики и проверка гипотез на примерах с котиками — без страха перед формулами.</span></li>
-    <li><span class="ba">Дэвид Шпигельхалтер</span><span class="bt">«Искусство статистики. Как находить ответы в данных»</span><span class="bd">Как думать о данных: откуда берутся интервалы, что на самом деле значит p-value, почему «в штуках из 1000» понятнее процентов.</span></li>
-    <li><span class="ba">Дарелл Хафф</span><span class="bt">«Как лгать при помощи статистики»</span><span class="bd">Короткая классика про то, как цифрами и графиками вводят в заблуждение. После неё сложно не заметить шкалу не от нуля.</span></li>
-    <li><span class="ba">Майкл Херцог, Майкл Фрэнсис, Аарон Кларк</span><span class="bt">«Статистика и планирование эксперимента для непосвящённых»</span><span class="bd">Про ложные тревоги, пропуски и мощность через одну сквозную картинку двух колоколов; хорошо о том, почему «значимо» ещё не «важно».</span></li>
-    <li><span class="ba">Саманта Клейнберг</span><span class="bt">«Почему. Руководство по поиску причин и принятию решений»</span><span class="bd">Как отличить причину от совпадения, зачем нужна случайность в эксперименте и почему результат пилота не всегда повторяется на всех.</span></li>
-    <li><span class="ba">Коул Нассбаумер Нафлик</span><span class="bt">«Данные: визуализируй, расскажи, используй»</span><span class="bd">Как показать результат так, чтобы его поняли: какой график выбрать, что убрать и куда направить взгляд читателя.</span></li>
-    <li><span class="ba">Джозеф О’Коннор, Иан Макдермотт</span><span class="bt">«Искусство системного мышления»</span><span class="bd">Почему изменение редко бывает точечным: эффекты приходят с задержкой, улучшение в одном месте ломает другое, а мы охотнее ищем подтверждения, чем опровержения.</span></li>
-    <li><span class="ba">Дэниел Канеман, Оливье Сибони, Касс Санстейн</span><span class="bt">«Шум. Несовершенство человеческих суждений»</span><span class="bd">Чем смещение отличается от шума: больше выстрелов сжимают облако попаданий, но не сдвигают его к центру мишени. Отсюда «тир» в шаге 5.</span></li>
-    <li><span class="ba">Чарльз Уилан</span><span class="bt">«Голая статистика. Самая интересная книга о самой скучной науке»</span><span class="bd">Весёлое введение в статистику без формул. Из неё пришла мысль «значимо ещё не значит выгодно»: подарок может значимо поднять чек и стоить дороже прибавки.</span></li>
-    <li><span class="ba">Даниэл Лакенс</span><span class="bt">«Improving Your Statistical Inferences»</span><span class="bd">Бесплатный онлайн-учебник на английском. Отсюда порог пользы рядом с нулём при чтении вилки и шесть способов обосновать размер выборки («Боб, почему две недели?»).</span></li>
-    <li><span class="ba">Алекс Рейнхарт</span><span class="bt">«Statistics Done Wrong»</span><span class="bd">Короткий каталог типичных статистических ошибок. Отсюда «вред не доказан ещё не значит, что вреда нет» на примере поворота направо на красный.</span></li>
-    <li><span class="ba">Лими Нассери</span><span class="bt">«Practical A/B Testing: Creating Experimentation-Driven Products»</span><span class="bd">Практичная книга о том, как встроить A/B-тесты в работу продуктовой команды. Отсюда тест «не хуже» с допустимой потерей: переезд оплаты и рефакторинг.</span></li>
-    <li><span class="ba">Рон Кохави, Диана Тан, Я Сюй</span><span class="bt">«Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing»</span><span class="bd">Главная книга про онлайн-эксперименты от людей, которые строили их в Microsoft и Bing. Отсюда правило «слишком хорошо — сначала ищем баг» и то, что удачные изменения обычно двигают метрики на 0.1–1%.</span></li>
+    <li><span class="ba">Владимир Савельев</span><span class="bt">«Статистика и котики»</span><span class="bd">Самое мягкое введение: среднее, разброс, графики и проверка гипотез на примерах с котиками — без страха перед формулами.</span></li>
+    <li><span class="ba">Дэвид Шпигельхалтер</span><span class="bt">«Искусство статистики. Как находить ответы в данных»</span><span class="bd">Как думать о данных: откуда берутся интервалы, что на самом деле значит p-value, почему «в штуках из 1000» понятнее процентов.</span></li>
+    <li><span class="ba">Дарелл Хафф</span><span class="bt">«Как лгать при помощи статистики»</span><span class="bd">Короткая классика про то, как цифрами и графиками вводят в заблуждение. После неё сложно не заметить шкалу не от нуля.</span></li>
+    <li><span class="ba">Майкл Херцог, Майкл Фрэнсис, Аарон Кларк</span><span class="bt">«Статистика и планирование эксперимента для непосвящённых»</span><span class="bd">Про ложные тревоги, пропуски и мощность через одну сквозную картинку двух колоколов; хорошо о том, почему «значимо» ещё не «важно».</span></li>
+    <li><span class="ba">Саманта Клейнберг</span><span class="bt">«Почему. Руководство по поиску причин и принятию решений»</span><span class="bd">Как отличить причину от совпадения, зачем нужна случайность в эксперименте и почему результат пилота не всегда повторяется на всех.</span></li>
+    <li><span class="ba">Коул Нассбаумер Нафлик</span><span class="bt">«Данные: визуализируй, расскажи, используй»</span><span class="bd">Как показать результат так, чтобы его поняли: какой график выбрать, что убрать и куда направить взгляд читателя.</span></li>
+    <li><span class="ba">Джозеф О’Коннор, Иан Макдермотт</span><span class="bt">«Искусство системного мышления»</span><span class="bd">Почему изменение редко бывает точечным: эффекты приходят с задержкой, улучшение в одном месте ломает другое, а мы охотнее ищем подтверждения, чем опровержения.</span></li>
+    <li><span class="ba">Дэниел Канеман, Оливье Сибони, Касс Санстейн</span><span class="bt">«Шум. Несовершенство человеческих суждений»</span><span class="bd">Чем смещение отличается от шума: больше выстрелов сжимают облако попаданий, но не сдвигают его к центру мишени. Отсюда «тир» в шаге 5.</span></li>
+    <li><span class="ba">Чарльз Уилан</span><span class="bt">«Голая статистика. Самая интересная книга о самой скучной науке»</span><span class="bd">Весёлое введение в статистику без формул. Из неё пришла мысль «значимо ещё не значит выгодно»: подарок может значимо поднять чек и стоить дороже прибавки.</span></li>
+    <li><span class="ba">Даниэл Лакенс</span><span class="bt">«Improving Your Statistical Inferences»</span><span class="bd">Бесплатный онлайн-учебник на английском. Отсюда порог пользы рядом с нулём при чтении вилки и шесть способов обосновать размер выборки («Боб, почему две недели?»).</span></li>
+    <li><span class="ba">Алекс Рейнхарт</span><span class="bt">«Statistics Done Wrong»</span><span class="bd">Короткий каталог типичных статистических ошибок. Отсюда «вред не доказан ещё не значит, что вреда нет» на примере поворота направо на красный.</span></li>
+    <li><span class="ba">Лими Нассери</span><span class="bt">«Practical A/B Testing: Creating Experimentation-Driven Products»</span><span class="bd">Практичная книга о том, как встроить A/B-тесты в работу продуктовой команды. Отсюда тест «не хуже» с допустимой потерей: переезд оплаты и рефакторинг.</span></li>
+    <li><span class="ba">Рон Кохави, Диана Тан, Я Сюй</span><span class="bt">«Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing»</span><span class="bd">Главная книга про онлайн-эксперименты от людей, которые строили их в Microsoft и Bing. Отсюда правило «слишком хорошо — сначала ищем баг» и то, что удачные изменения обычно двигают метрики на 0.1–1%.</span></li>
   </ul>
 </main>
 </body>

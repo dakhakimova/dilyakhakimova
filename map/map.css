@@ -18,12 +18,15 @@
 .goal .g-t{display:flex; align-items:baseline; gap:var(--s-2); font:500 var(--fs-l)/1.3 var(--serif)}
 .goal .sw{display:none}
 .goal .g-for{color:var(--text-2)}
-.goal[aria-pressed="true"]{box-shadow:var(--sh-2), inset 0 0 0 2px var(--line, var(--pen))}
-.route-btns .all{margin-top:var(--s-5); font:600 var(--fs-s)/1.2 var(--body); min-height:44px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:2px solid var(--pen);
-  background:transparent; color:var(--pen); cursor:pointer}
-.route-btns .all:hover{background:var(--pen-hover-bg)}
-.route-btns .all[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
-.route-btns .all[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
+/* выбранная цель: фон целиком — светлая заливка цветом линии (16% поверх --surface), контур 1.5 px цветом линии, «✓» перед заголовком;
+   у «Весь путь» и «Твой маршрут» линия нейтральная — фон --pen-soft, контур --pen. Невыбранные — на --surface */
+.goal[aria-pressed="true"]{background:color-mix(in srgb, var(--line, var(--pen)) 16%, var(--surface)); box-shadow:var(--sh-2), inset 0 0 0 1.5px var(--line, var(--pen))}
+.goal.neutral[aria-pressed="true"]{background:var(--pen-soft); box-shadow:var(--sh-2), inset 0 0 0 1.5px var(--pen)}
+.goal[aria-pressed="true"] .g-t::before{content:"✓"; flex:none}
+.goal:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
+.route-clear{margin:var(--s-4) 0 0}
+.text-link{border:0; background:none; padding:0; min-height:44px; font:500 var(--fs-s)/1.4 var(--body); color:var(--pen); text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:3px; cursor:pointer}
+.text-link:hover{text-decoration-color:currentColor}
 @media (max-width:1023px){ .goals li{flex-basis:calc((100% - var(--gap)) / 2)} }
 @media (max-width:620px){ .goals{--gap:var(--s-3)} .goals li{flex-basis:100%} }
 

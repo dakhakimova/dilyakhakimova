@@ -129,4 +129,8 @@ else {
   if (!target) require('./build-terms.js')();
   // /courses/, /shelf/, общая шапка и футер (tools/chrome.js) на статических страницах, noindex неопубликованных курсов
   if (!target) require('./build-site.js')();
+  // входные страницы целиком — тем же типографом, что главы (неразрывные пробелы, тире): статичный текст вне data-i18n
+  // и страницы, которые собирают build-site.js и build-extras.js. Повторный прогон ничего не меняет.
+  if (!target) ['index.html', 'courses/index.html', 'probability/index.html', 'signal/index.html', 'ab-basics/index.html', 'stats/index.html', 'ab/index.html',
+    'causal/index.html', 'map/index.html', 'start/index.html', 'about/index.html', 'play/index.html', 'extras/index.html', 'account.html', '404.html'].forEach(typoPage);
 }

@@ -62,7 +62,7 @@ function courses(){
       <p class="chips">${c.tag === 'free' ? `<span class="tag free">${nb(c.status)}</span>` : `<span class="price"><b>${nb(c.price || '')}</b></span>`}${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}${c.tag === 'free' ? '' : `<span class="tag muted">${nb(c.status)}</span>`}</p>
       <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
       <p class="line">${nb(c.line)}</p>
-      <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd>${c.price ? `<dt>Цена</dt><dd>${nb(c.price)}</dd>` : ''}</dl>
+      <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd></dl>
       <p class="course-act">${c.faded ? `<a class="more" href="${c.href}">О чём будет курс →</a>` : c.tag === 'free'
         ? `<a class="btn${c === firstFree ? '' : ' ghost'}" href="${c.start}">Начать</a><a class="more" href="${c.href}">О курсе →</a>`
         : `<a class="btn ghost" href="${c.href}#waitlist">Сообщить о старте</a><a class="more" href="${c.href}">О курсе →</a>`}</p>
@@ -152,7 +152,7 @@ function stampAll(){
     const file = path.join(ROOT, f);
     if (!fs.existsSync(file)) continue;
     let html = fs.readFileSync(file, 'utf8');
-    html = chrome.stamp(html, cur, cur === 'home');
+    html = chrome.stamp(html, cur, cur === 'home', '/' + f.replace(/index\.html$/, ''));
     // картинки, которых ещё нет: есть запасная — ставим её; нет — убираем рисунок целиком (на входных страницах без заглушек)
     html = html.replace(/<figure class="art[^"]*"><img src="(\/[^"]+)"([^>]*)>[\s\S]*?<\/figure>/g, (all, src, rest) => {
       if (fs.existsSync(path.join(ROOT, src))) return all;
