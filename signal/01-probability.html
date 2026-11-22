@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/tokens.css?v=202611302">
 <link rel="stylesheet" href="book.css?v=202611302">
 </head>
-<body data-chapter="ch01">
+<body data-chapter="ch01" data-next="04-noise.html">
 <script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
@@ -331,8 +331,8 @@ _check()
   </div>
 
   <figure class="art"><img loading="lazy" src="img/ch01-07-next.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка открывает дверь в следующую главу</figcaption></figure>
-  <p>Дальше — <a href="04-noise.html">глава 4 «Шум»</a>: почему маленькие порции скачут и насколько. Условную вероятность, Байес и матожидание (главы 2–3) можно освежить в «Вероятности на пальцах», <a href="/probability/05-conditional.html">шаги 5–8</a>.</p>
-  <p><a href="./">← К оглавлению курса</a></p>
+  <p>Условную вероятность, Байес и матожидание (главы 2–3) можно освежить в «Вероятности на пальцах», <a href="/probability/05-conditional.html">шаги 5–8</a>.</p>
+  <a class="next-step" href="04-noise.html"><b>Дальше: 4. Шум</b>Почему маленькие порции скачут и насколько.</a>
 </section>
     <div class="pager">
       <button class="btn ghost" id="prev" type="button">← Назад</button>
@@ -528,13 +528,13 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
     prev.disabled = cur === 0;
-    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее';
+    next.textContent = cur === cards.length - 1 ? 'Дальше: 4. Шум' : 'Далее';
     if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
     window.scrollTo({top: 0, behavior: 'auto'});
     window.dispatchEvent(new Event('resize'));
   }
   prev.addEventListener('click', () => go(cur - 1));
-  next.addEventListener('click', () => cur === cards.length - 1 ? (location.href = './') : go(cur + 1));
+  next.addEventListener('click', () => cur === cards.length - 1 ? (location.href = document.body.dataset.next || './') : go(cur + 1));
   document.addEventListener('keydown', e => {
     if (e.target.closest('textarea, input')) return;
     if (e.key === 'ArrowRight') go(cur + 1);
