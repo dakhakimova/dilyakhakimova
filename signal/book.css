@@ -336,3 +336,6 @@ label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:w
 @media (min-width:621px){ dl.terms{grid-template-columns:minmax(140px, auto) minmax(0,1fr)} }
 /* листалка — по колонке текста, как карточка */
 .pager, .stage-head{max-width:var(--measure)}
+/* заголовок карточки не шире колонки текста и картинки (решение Дили, 22.11.2026: «заголовок надо перенести»):
+   36em у заголовка считались от его кегля и выходили шире картинки; 40.5rem = 36 × 18 px — та же колонка, что у текста */
+.card > h1, .card > h2{max-width:min(100%, 40.5rem); text-wrap:balance}
