@@ -130,7 +130,7 @@
 <section class="card" data-toy="two-coins" data-title="Две монетки" aria-label="Две монетки моют посуду">
   <span class="step-tag">Поиграй</span>
   <h2>Две монетки моют посуду</h2>
-  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Впиши, сколько вечеров бросать, и нажми «Бросить»: начни с десяти, потом сотня, тысяча, сто тысяч. Каждый раз опыт начинается с нуля. На сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
+  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Начни с одного вечера и понажимай «+1 вечер»: плитка исхода появляется у героя, только когда этот исход выпал впервые. Потом впиши 100, 1000, 100 000 и нажми «Бросить» — каждый раз опыт начинается с нуля. На сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
   <div class="sheet c-white coins2" id="c-sheet">
     <div class="pair" id="pair" aria-live="polite"><span class="coin c1 blank">?</span><span class="coin c2 blank">?</span><span class="who-says" id="pair-who">Брось пару монеток</span></div>
     <div class="bins" id="bins">
@@ -139,11 +139,11 @@
       <div class="hb hb-kot"><b>Котейка</b><div class="outs"><span class="out-empty">пока пусто</span><span class="out" hidden data-o="RR"><b><i class="c1">Р</i><i class="c2">Р</i></b><em>0</em></span></div><span class="tot" data-t="K"></span></div>
     </div>
     <div class="controls addrow">
-      <label for="c-n" class="c-nl">Вечеров</label><input id="c-n" type="text" inputmode="numeric" value="10" autocomplete="off">
+      <label for="c-n" class="c-nl">Вечеров</label><input id="c-n" type="text" inputmode="numeric" value="1" autocomplete="off">
       <button class="btn" type="button" id="c-go">Бросить</button>
       <button class="btn ghost" type="button" id="c-1">+1 вечер</button>
     </div>
-    <p class="c-log" id="c-log" aria-live="polite"></p>
+    <p class="c-log" id="c-log" aria-live="polite">Плитка исхода появится у героя, когда исход выпадет впервые.</p>
     <p class="chart-title">Доля вечеров у каждого героя</p>
     <canvas id="c-chart" role="img" aria-label="Доли вечеров: Алиса — два орла, Боб — разные, Котейка — две решки. Красная пунктирная линия — «по трети», как обещал Боб"></canvas>
     <p class="note">Столбик — доля вечеров · красный пунктир — «по трети», как обещал Боб</p>
