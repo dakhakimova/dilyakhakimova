@@ -180,60 +180,79 @@ for (let k = 0; k <= N; k++){ const s = document.createElement('span'); s.textCo
 renderGuess();
 })();
 
-// ---------- главная: анимация двух колоколов без управления (решение Дили, 22.11.2026) ----------
-// Вариант ?anim=a — колокола A (синий) и B (коралл) сужаются при n = 100 → 1 000 → 10 000, разница проступает из шума;
-// ?anim=b — плюс порог: «ложная тревога» (хвост A за порогом) и «пропуск» (часть B до порога) тают. Цикл ~7.5 с с паузой.
-// prefers-reduced-motion — статичный последний кадр.
+// ---------- главная: анимация двух колоколов без управления (v3 по комментарию Дили, 22.11.2026) ----------
+// n плавно растёт 200 → 1 800 (~6 с), пауза 1.5 с на конечном кадре, кроссфейд к началу.
+// Высота колоколов постоянная (нормировка по пику), ширина падает в 3 раза. Порог неподвижен.
+// Заливки: хвост A за порогом — «ложная тревога», часть B до порога — «пропуск»; тают с ростом n.
+// prefers-reduced-motion — средний кадр.
 (function(){
   const svg = document.getElementById('bells'); if (!svg) return;
-  const V = (new URLSearchParams(location.search).get('anim') || 'a').toLowerCase() === 'b' ? 'b' : 'a';
-  const cap = document.getElementById('bells-cap');
-  if (V === 'b' && cap) cap.textContent = 'Больше людей — меньше и ложных тревог, и пропусков';
-  const W = 640, H = 250, L = 20, R = 20, T = 34, B = 44, D = 0.5, lo = -2.6, hi = 3.1;
-  const X = v => L + (v - lo) / (hi - lo) * (W - L - R), base = H - B, top = T;
-  const pdf = (v, m, s) => Math.exp(-0.5 * ((v - m) / s) ** 2);   // нормированная высота: пик одинаковый, меняется ширина
-  const path = (m, s, from = lo, to = hi, close = false) => {
-    let d = '', n = 160; for (let i = 0; i <= n; i++){ const v = from + (to - from) * i / n, y = base - pdf(v, m, s) * (base - top); d += (i ? 'L' : 'M') + X(v).toFixed(1) + ' ' + y.toFixed(1); }
+  const W = 640, H = 250, L = 20, R = 20, T = 36, B = 40;
+  const D = 1.5, lo = -2.5, hi = D + 2.5, thr = D / 2, N0 = 200, N1 = 1800;   // единицы — σ при n = 200
+  const X = v => L + (v - lo) / (hi - lo) * (W - L - R), base = H - B;
+  const pdf = (v, m, s) => Math.exp(-0.5 * ((v - m) / s) ** 2);
+  const Y = (v, m, s) => base - pdf(v, m, s) * (base - T);
+  const path = (m, s, from, to, close) => {
+    let d = ''; const k = 180;
+    for (let i = 0; i <= k; i++){ const v = from + (to - from) * i / k; d += (i ? 'L' : 'M') + X(v).toFixed(1) + ' ' + Y(v, m, s).toFixed(1); }
     return close ? d + 'L' + X(to).toFixed(1) + ' ' + base + 'L' + X(from).toFixed(1) + ' ' + base + 'Z' : d;
   };
-  const fmtN = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  function frame(n){
-    const s = 1 / Math.sqrt(n / 100), thr = D / 2;
+  const normCdf = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; };
+  const fmtN = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const clamp = v => Math.max(0, Math.min(1, v));
+  function scene(n){
+    const s = Math.sqrt(N0 / n), err = 1 - normCdf(thr / s);   // доля ложных тревог = доля пропусков (симметрично)
+    const vis = clamp((err - 0.013) / 0.03);                    // подписи уходят, когда заливка почти исчезла
     let h = '';
-    if (V === 'b'){
-      h += `<path d="${path(0, s, thr, hi, true)}" fill="rgba(35,65,138,.16)"/>`;
-      h += `<path d="${path(D, s, lo, thr, true)}" fill="rgba(232,100,74,.20)"/>`;
-    }
+    h += `<path d="${path(0, s, thr, hi, true)}" fill="rgba(35,65,138,.35)"/>`;
+    h += `<path d="${path(D, s, lo, thr, true)}" fill="rgba(232,100,74,.35)"/>`;
     h += `<line x1="${L}" x2="${W - R}" y1="${base}" y2="${base}" stroke="rgba(36,34,31,.35)"/>`;
-    h += `<path d="${path(0, s)}" fill="none" stroke="#23418A" stroke-width="2.5"/>`;
-    h += `<path d="${path(D, s)}" fill="none" stroke="#E8644A" stroke-width="2.5"/>`;
-    h += `<text class="lab" x="${X(0) - 6}" y="${top - 10}" text-anchor="end" fill="#23418A">A</text><text class="lab" x="${X(D) + 6}" y="${top - 10}" fill="#B8432B">B</text>`;
-    if (V === 'b'){
-      h += `<line x1="${X(thr)}" x2="${X(thr)}" y1="${top - 6}" y2="${base}" stroke="#24221F" stroke-dasharray="4 3"/>`;
-      const fa = 1 - normCdf((thr - 0) / s), ms = normCdf((thr - D) / s);
-      if (fa > 0.02) h += `<text class="zone" x="${X(thr) + 8}" y="${base + 22}">ложная тревога →</text>`;
-      if (ms > 0.02) h += `<text class="zone" x="${X(thr) - 8}" y="${base + 22}" text-anchor="end">← пропуск</text>`;
+    h += `<path d="${path(0, s, lo, hi)}" fill="none" stroke="#23418A" stroke-width="2.5"/>`;
+    h += `<path d="${path(D, s, lo, hi)}" fill="none" stroke="#E8644A" stroke-width="2.5"/>`;
+    h += `<line x1="${X(thr)}" x2="${X(thr)}" y1="${T - 10}" y2="${base}" stroke="#24221F" stroke-width="1.25" stroke-dasharray="5 4"/>`;
+    h += `<text class="thr" x="${X(thr)}" y="${T - 16}" text-anchor="middle">порог</text>`;
+    h += `<text class="lab" x="${X(0) - 16}" y="${T - 3}" text-anchor="end" fill="#23418A">A</text>`;
+    h += `<text class="lab" x="${X(D) + 16}" y="${T - 3}" fill="#B8432B">B</text>`;
+    if (vis > 0){
+      // точка внутри заливки, куда смотрит подпись: у основания, чуть в сторону от порога
+      const fx = X(thr + 0.45 * s), mx = X(thr - 0.45 * s), fy = base - 0.35 * (base - Y(thr + 0.45 * s, 0, s));
+      const my = base - 0.35 * (base - Y(thr - 0.45 * s, D, s));
+      h += `<g opacity="${vis.toFixed(3)}">`;
+      h += `<line x1="${fx}" y1="${fy}" x2="${fx}" y2="${base + 8}" stroke="#23418A" stroke-width="1"/><circle cx="${fx}" cy="${fy}" r="2.5" fill="#23418A"/>`;
+      h += `<text class="zone" x="${fx - 4}" y="${base + 22}" fill="#23418A">ложная тревога</text>`;
+      h += `<line x1="${mx}" y1="${my}" x2="${mx}" y2="${base + 8}" stroke="#B8432B" stroke-width="1"/><circle cx="${mx}" cy="${my}" r="2.5" fill="#B8432B"/>`;
+      h += `<text class="zone" x="${mx + 4}" y="${base + 22}" text-anchor="end" fill="#B8432B">пропуск</text>`;
+      h += `</g>`;
     }
-    h += `<text class="n" x="${W - R}" y="${top - 12}" text-anchor="end">n = ${fmtN(n)}</text>`;
-    svg.innerHTML = h;
+    return h;
   }
-  function normCdf(x){ const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; }
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches){ frame(10000); return; }
-  // расписание цикла (мс): держим 100 → едем к 1 000 → держим → едем к 10 000 → пауза в конце
-  const K = [[0, 2], [1000, 2], [2400, 3], [3400, 3], [4800, 4], [7500, 4]];   // [время, log10 n]
-  const CYCLE = 7500, ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+  // расписание (мс): пауза на старте → рост → пауза на конце → кроссфейд к началу
+  const T0 = 400, GROW = 6000, HOLD = 1500, FADE = 800, CYCLE = T0 + GROW + HOLD + FADE;
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  const nAt = k => N0 * Math.pow(N1 / N0, k);   // по логарифму n — ширина сужается равномерно
+  // бегущий счётчик — HTML над картинкой (крупный на любой ширине), табличные цифры
+  const cnt = document.getElementById('bells-n'), cntBox = cnt && cnt.parentNode;
+  function count(n, op){ if (!cnt) return; const v = fmtN(Math.round(n / 10) * 10); if (cnt.textContent !== v) cnt.textContent = v; cntBox.style.opacity = op; }
+  function draw(t){
+    t = ((t % CYCLE) + CYCLE) % CYCLE;
+    if (t < T0){ svg.innerHTML = scene(N0); return count(N0, 1); }
+    if (t < T0 + GROW){ const n = nAt(ease((t - T0) / GROW)); svg.innerHTML = scene(n); return count(n, 1); }
+    if (t < T0 + GROW + HOLD){ svg.innerHTML = scene(N1); return count(N1, 1); }
+    const c = ease((t - T0 - GROW - HOLD) / FADE);   // кроссфейд конец → начало
+    svg.innerHTML = `<g opacity="${(1 - c).toFixed(3)}">${scene(N1)}</g><g opacity="${c.toFixed(3)}">${scene(N0)}</g>`;
+    count(c < .5 ? N1 : N0, Math.abs(1 - 2 * c).toFixed(3));
+  }
+  svg._bellsAt = draw;   // для скриншотов и проверки
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){ const n = nAt(0.5); svg.innerHTML = scene(n); count(n, 1); return; }
   let t0 = 0, vis = true;
   new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(svg);
   function tick(ts){
+    if (svg._stop) return;
     if (!t0) t0 = ts;
-    if (vis){
-      const t = (ts - t0) % CYCLE; let i = 0; while (i < K.length - 2 && t >= K[i + 1][0]) i++;
-      const [a, la] = K[i], [b, lb] = K[i + 1], k = b > a ? ease(Math.min(1, (t - a) / (b - a))) : 1;
-      frame(Math.pow(10, la + (lb - la) * k));
-    }
+    if (vis) draw(ts - t0);
     requestAnimationFrame(tick);
   }
-  frame(100); requestAnimationFrame(tick);
+  draw(0); requestAnimationFrame(tick);
 })();
 
 // ---------- главная: змейка-маршрут — пунктир через центры станций; после последней готовой — бледнее; ?route=before ----------

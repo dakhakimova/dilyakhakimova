@@ -69,12 +69,13 @@ function artFail(img){
 </section>
 
 <!-- 2. Анимация без управления (главная — знакомство: без задач и прогнозов, решение Дили 22.11.2026).
-     Вариант: ?anim=a (по умолчанию) — два колокола сужаются; ?anim=b — плюс порог, «ложная тревога» и «пропуск» тают. Код — home.js -->
+     Один вариант (v3, 22.11.2026): n плавно растёт 200 → 1 800, колокола сужаются, заливки «ложная тревога» и «пропуск» тают. Код — home.js -->
 <section class="wrap block bells-block" aria-labelledby="bells-h">
   <h2 id="bells-h" class="vh">Почему в тесте нужно много людей</h2>
   <figure class="bells-fig">
-    <svg id="bells" viewBox="0 0 640 250" role="img" aria-label="Два колокола, синий A и коралловый B: при 100, 1 000 и 10 000 людях они сужаются, и разница между ними становится видна"></svg>
-    <figcaption class="bells-cap" id="bells-cap">Чем больше людей в тесте, тем уже колокол — и тем меньший эффект можно заметить</figcaption>
+    <p class="bells-cnt" aria-hidden="true">В тесте: <b id="bells-n">200</b> человек</p>
+    <svg id="bells" viewBox="0 0 640 250" role="img" aria-label="Два колокола, синий A и коралловый B. Людей в тесте становится больше: от 200 до 1 800. Колокола сужаются, и заливки ошибок тают: синяя — ложная тревога, коралловая — пропуск"></svg>
+    <figcaption class="bells-cap" id="bells-cap">Чем больше людей в тесте, тем реже ложные тревоги и пропуски</figcaption>
   </figure>
   <p class="after"><a class="more" href="/play/bell-width/">Поиграть с этим →</a></p>
 </section>
