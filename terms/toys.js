@@ -6,10 +6,11 @@
   const NS = 'http://www.w3.org/2000/svg';
   const C = {a: '#3D7DC4', b: '#E59157', red: '#C9413A', pen: '#23418A', ink: '#24221F', t3: '#5E5A53', line: '#CFC8BB', soft: '#ECE9E2', mint: '#0E7E5F'};
   const RIGHT = {tt: 2, mw: 1, chi: 1, ss: 1};
-  const nf = (x, d = 0) => x.toLocaleString('ru-RU', {minimumFractionDigits: d, maximumFractionDigits: d});
-  const pct = x => nf(x * 100, x < .1 && x > 0 ? 1 : 0) + ' %';
-  const pf = p => p < .001 ? '< 0,001' : nf(p, p < .1 ? 3 : 2);
-  const pv = p => p < .001 ? '< 0,001' : '= ' + pf(p);
+  // числа: десятичная точка, тысячи через неразрывный пробел, % вплотную
+  const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{4,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+  const pct = x => nf(x * 100, x < .1 && x > 0 ? 1 : 0) + '%';
+  const pf = p => p < .001 ? '< 0.001' : nf(p, p < .1 ? 3 : 2);
+  const pv = p => p < .001 ? '< 0.001' : '= ' + pf(p);
   const fill = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => k in o ? o[k] : '');
   const el = (tag, a = {}, kids = []) => { const e = document.createElement(tag); for (const k in a){ if (k === 'text') e.textContent = a[k]; else if (k === 'html') e.innerHTML = a[k]; else e.setAttribute(k, a[k]); } kids.forEach(k => e.appendChild(k)); return e; };
   const sv = (tag, a = {}) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); return e; };
@@ -68,7 +69,7 @@
         L(dots, X(r.ma), 20, X(r.ma), 62, '#2B5E96', 3); L(dots, X(r.mb), 80, X(r.mb), 122, '#A85A24', 3); }
       R(ruler, TX(-1.96), 14, TX(1.96) - TX(-1.96), 40, C.soft, {rx: 4}); L(ruler, 30, 54, 430, 54, C.t3);
       [-4, -2, 0, 2, 4].forEach(z => T(ruler, TX(z), 74, (z > 0 ? '+' : z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14}));
-      T(ruler, TX(1.96), 92, '1,96', {a: 'middle', size: 14}); T(ruler, TX(-1.96), 92, '−1,96', {a: 'middle', size: 14});
+      T(ruler, TX(1.96), 92, '1.96', {a: 'middle', size: 14}); T(ruler, TX(-1.96), 92, '−1.96', {a: 'middle', size: 14});
       hist.slice(-100).forEach(z => L(ruler, TX(z), 22, TX(z), 46, Math.abs(z) > 1.96 ? C.pen : '#9AA4B5', 1.2));
       if (r) Ci(ruler, TX(r.t), 34, 8, Math.abs(r.t) > 1.96 ? C.pen : C.t3, {stroke: '#fff', 'stroke-width': 2});
       cnt.textContent = hist.length ? fill(S.caught, {k: nf(caught), n: nf(hist.length), pct: pct(caught / hist.length)}) : '';
@@ -146,7 +147,7 @@
       L(bars, 30, Y(10), 440, Y(10), C.ink, 1.5, '6 4'); T(bars, 440, Y(10) - 6, '10', {a: 'end', size: 14, fill: C.ink});
       const X = v => 30 + Math.min(v, 30) / 30 * 410, bins = new Array(31).fill(0); chis.forEach(v => bins[Math.min(30, Math.floor(v))]++);
       const mx = Math.max(1, ...bins); bins.forEach((b, i) => R(hist, X(i) + 1, 130 - b / mx * 110, 410 / 30 - 2, b / mx * 110, i >= 11 ? C.red : C.a, {opacity: .8}));
-      L(hist, 30, 130, 440, 130, C.t3); L(hist, X(11.07), 14, X(11.07), 130, C.ink, 1.5, '5 4'); T(hist, X(11.07) + 4, 24, '11,07', {size: 14, fill: C.ink});
+      L(hist, 30, 130, 440, 130, C.t3); L(hist, X(11.07), 14, X(11.07), 130, C.ink, 1.5, '5 4'); T(hist, X(11.07) + 4, 24, '11.07', {size: 14, fill: C.ink});
       [0, 10, 20, 30].forEach(v => T(hist, X(v), 150, v, {a: 'middle', size: 14}));
       cnt.textContent = chis.length ? fill(S.over, {k: nf(over), n: nf(chis.length), pct: pct(over / chis.length)}) : '';
       const g = i => body.querySelector('#' + i), x = c ? stat(c) : null;
@@ -173,8 +174,8 @@
       el('div', {class: 't-sheet'}, [el('p', {class: 't-lbl', text: S.chart}), chart, cnt]), el('div', {class: 't-ctl'}, [run, half]), verdict);
     const X = z => 30 + (Math.max(-2, Math.min(8, z)) + 2) / 10 * 410;
     function axis(){ chart.replaceChildren(); R(chart, X(-2), 10, X(1.96) - X(-2), 60, C.soft, {rx: 4}); L(chart, 30, 70, 440, 70, C.t3);
-      [-2, 0, 2, 4, 6, 8].forEach(z => T(chart, X(z), 90, (z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14})); T(chart, X(1.96) + 4, 108, '1,96', {size: 14, fill: C.ink}); }
-    function upd(){ p = +pIn.value; d = Math.min(+dIn.value, 99 - p); pOut.textContent = nf(p) + ' %'; dOut.textContent = '+' + nf(d, 1) + ' п. п.';
+      [-2, 0, 2, 4, 6, 8].forEach(z => T(chart, X(z), 90, (z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14})); T(chart, X(1.96) + 4, 108, '1.96', {size: 14, fill: C.ink}); }
+    function upd(){ p = +pIn.value; d = Math.min(+dIn.value, 99 - p); pOut.textContent = nf(p) + '%'; dOut.textContent = '+' + nf(d, 1) + ' п. п.';
       nBig.textContent = nf(nOf(p, d)); axis(); cnt.textContent = ''; verdict.hidden = true; }
     pIn.oninput = upd; dIn.oninput = upd;
     half.onclick = () => { dIn.value = Math.max(.2, Math.round(+dIn.value / 2 * 10) / 10); upd(); };

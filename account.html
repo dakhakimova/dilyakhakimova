@@ -38,7 +38,7 @@
 
   <section id="guest" hidden>
     <p class="lead">Войди через Telegram, чтобы баллы и прогресс сохранялись на любом устройстве.</p>
-    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Telegram ещё спросит, можно ли нашему боту написать тебе: это нужно, чтобы прислать промокод. Баллы из «Вероятности на пальцах», «Сигнала или шума» и «A/B на пальцах» превращаются в скидку на курс «A/B без мифов»: 10 % за 40 % баллов, 20 % за 70 %, 30 % за 90 %.</p>
+    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки. Telegram ещё спросит, можно ли нашему боту написать тебе: это нужно, чтобы прислать промокод. Баллы из «Вероятности на пальцах», «Сигнала или шума» и «A/B на пальцах» превращаются в скидку на курс «A/B без мифов»: 10% за 40% баллов, 20% за 70%, 30% за 90%.</p>
     <div id="tg-login"></div>
     <p class="muted" id="queued"></p>
     <p class="err" id="login-err" role="alert"></p>
@@ -51,7 +51,7 @@
     <div class="panel">
       <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:20px">из <span id="m-max">0</span> баллов</span></div>
       <div class="bar"><span id="m-bar"></span></div>
-      <div class="ticks" aria-hidden="true"><i style="left:40%">−10 %</i><i style="left:70%">−20 %</i><i style="left:90%">−30 %</i></div>
+      <div class="ticks" aria-hidden="true"><i style="left:40%">−10%</i><i style="left:70%">−20%</i><i style="left:90%">−30%</i></div>
       <p id="m-next" style="margin-top:10px"></p>
       <p class="muted" id="m-calib"></p>
     </div>
@@ -122,11 +122,11 @@ function showMember(me){
   $('m-points').textContent = me.points; $('m-max').textContent = me.max;
   $('m-bar').style.width = Math.min(100, me.share) + '%';
   $('m-next').textContent = me.next_tier
-    ? 'До скидки ' + me.next_tier.discount + ' % осталось ' + me.next_tier.need_points + ' б.'
+    ? 'До скидки ' + me.next_tier.discount + '% осталось ' + me.next_tier.need_points + ' б.'
     : 'Максимальная скидка открыта!';
   $('m-calib').textContent = me.calibration_error === null ? 'Калибровка появится после первых прогнозов.'
     : 'Калибровка: твои прогнозы в среднем ошибаются на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
-  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + ' %'; $('p-code').textContent = me.promos[0].code; }
+  if (me.promos && me.promos.length){ $('promo-box').hidden = false; $('p-tier').textContent = me.promos[0].tier + '%'; $('p-code').textContent = me.promos[0].code; }
   const box = $('m-chapters'); box.innerHTML = '';
   for (const course of COURSES){
     let pts = 0, done = 0;

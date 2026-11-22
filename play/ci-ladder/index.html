@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/06-interval.html?toy=ci-ladder" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Лесенка доверительных интервалов: эффект +3 % есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
+<meta name="description" content="Лесенка доверительных интервалов: эффект +3% есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/ci-ladder/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/ci-ladder/">
 <meta property="og:title" content="Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Лесенка доверительных интервалов: эффект +3 % есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
+<meta property="og:description" content="Лесенка доверительных интервалов: эффект +3% есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/ci-ladder.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -54,7 +54,7 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="ci-ladder" data-frame="/ab-basics/06-interval.html?toy=ci-ladder"
-  data-share-title="Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?" data-share-text="Продакт выкатывает фичу, только если вилка в отчёте целиком выше нуля. Эффект настоящий, +3 %, гостей по 100 000 в группе. Как часто его правило сработает? Угадай — и построй лесенку из двадцати вилок"
+  data-share-title="Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?" data-share-text="Продакт выкатывает фичу, только если вилка в отчёте целиком выше нуля. Эффект настоящий, +3%, гостей по 100 000 в группе. Как часто его правило сработает? Угадай — и построй лесенку из двадцати вилок"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="ci-ladder" data-show-from="0" hidden></span></p>
   <h1>Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?</h1>
@@ -63,7 +63,7 @@
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Договорились: пишу в отчёт вилку и выкатываю, только если она целиком выше нуля.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Хорошее правило. А если эффект правда есть — как часто вилка его подтвердит?</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Если эффект есть, то всегда. Иначе зачем вилка.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу двадцать одинаковых экспериментов по 100 000 гостей в группе. Правду знаю только я: +3 %.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу двадцать одинаковых экспериментов по 100 000 гостей в группе. Правду знаю только я: +3%.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши догадку: в скольких из двадцати Боб сможет выкатить?</p></div></div>
   </div>
 
@@ -87,9 +87,9 @@
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игру.</p>
     <div class="reveal" hidden>
-      <p>При +3 % и 100 000 гостей в группе вилка целиком выше нуля примерно в 12 запусках из 20 — около 60 %. В остальных она задевает ноль: вилка в ± 2,6 % почти такая же, как сам эффект. Правду при этом накрывают около 19 вилок из 20. Значит, «задела ноль» не значит «эффекта нет» — этот запуск его просто не разглядел. При 400 000 в группе выкатить можно почти всегда, при 25 000 — лишь в 4 запусках из 20.</p>
+      <p>При +3% и 100 000 гостей в группе вилка целиком выше нуля примерно в 12 запусках из 20 — около 60%. В остальных она задевает ноль: вилка в ± 2.6% почти такая же, как сам эффект. Правду при этом накрывают около 19 вилок из 20. Значит, «задела ноль» не значит «эффекта нет» — этот запуск его просто не разглядел. При 400 000 в группе выкатить можно почти всегда, при 25 000 — лишь в 4 запусках из 20.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Вилка «разница ± 2 ширины» — доверительный интервал (confidence interval), 95 %.</li><li>Вилка накрывает правду в 95 случаях из 100 — но выше нуля бывает гораздо реже, если эффект сравним с её шириной.</li><li>Доля «выкатываем» при настоящем эффекте — это мощность теста.</li><li>Вилка задела ноль — смотри на её края, а не закрывай идею.</li></ul>
+      <ul class="cheat"><li>Вилка «разница ± 2 ширины» — доверительный интервал (confidence interval), 95%.</li><li>Вилка накрывает правду в 95 случаях из 100 — но выше нуля бывает гораздо реже, если эффект сравним с её шириной.</li><li>Доля «выкатываем» при настоящем эффекте — это мощность теста.</li><li>Вилка задела ноль — смотри на её края, а не закрывай идею.</li></ul>
     </div>
   </section>
 

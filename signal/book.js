@@ -33,19 +33,23 @@ const tpl = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => k in o ? o[k] : '');
 const NF = {};
 // useGrouping 'min2': «1024», но «10 000» (как в текстах курса). Браузеры без Intl.NumberFormat v3 (до Chrome 106,
 // Firefox 116, Safari 15.4) читают строку как true и группируют и четырёхзначные («1 024») — ничего не ломается.
-const nf = (d, min = d) => NF[d + ':' + min] || (NF[d + ':' + min] = new Intl.NumberFormat(LANG, {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: 'min2'}));
-const num = (x, d = 1) => nf(d).format(x);                       // 10,4
-const numT = (x, d = 1) => nf(d, 0).format(x);                   // без хвостовых нулей: 10 / 10,4
+// Для ru по правилам сайта: десятичная точка («10.4»), тысячи — неразрывный пробел с пяти знаков («1024», «10 000»), % вплотную.
+const grp5 = s => s.replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+const nf = (d, min = d) => NF[d + ':' + min] || (NF[d + ':' + min] = LANG === 'ru'
+  ? (f => ({format: x => grp5(f.format(x))}))(new Intl.NumberFormat('en-US', {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: false}))
+  : new Intl.NumberFormat(LANG, {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: 'min2'}));
+const num = (x, d = 1) => nf(d).format(x);                       // 10.4
+const numT = (x, d = 1) => nf(d, 0).format(x);                   // без хвостовых нулей: 10 / 10.4
 const int = x => nf(0).format(Math.round(x));                    // 10 000
 const NBSP = ' ', MINUS = '−';
-const share = (x, d = 1) => num(100 * x, d) + NBSP + '%';        // 0.104 → «10,4 %»
-const shareT = (x, d = 1) => numT(100 * x, d) + NBSP + '%';      // 0.1 → «10 %»
-const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? MINUS : '') + num(Math.abs(100 * x), d) + NBSP + '%'; // эффект со знаком
+const share = (x, d = 1) => num(100 * x, d) + '%';        // 0.104 → «10.4%»
+const shareT = (x, d = 1) => numT(100 * x, d) + '%';      // 0.1 → «10%»
+const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? MINUS : '') + num(Math.abs(100 * x), d) + '%'; // эффект со знаком
 const signed = (x, d = 1) => (x > 0 ? '+' : x < 0 ? MINUS : '') + num(Math.abs(x), d);
 const PR = new Intl.PluralRules(LANG);
 // plural(5, 'балл', 'балла', 'баллов') или plural(5, {one, few, many, other})
 const plural = (n, one, few, many) => { const f = typeof one === 'object' ? one : {one, few, many, other: few}; return f[PR.select(Math.abs(n))] || f.other || f.many; };
-const fmtP = p => p < 0.001 ? (LANG === 'ru' ? 'меньше 0,001' : '< 0.001') : num(p, 3);
+const fmtP = p => p < 0.001 ? (LANG === 'ru' ? 'меньше 0.001' : '< 0.001') : num(p, 3);
 
 // ---------- арифметика и случайность ----------
 const sum = (a, i = 0, j = a.length) => { let s = 0; for (let k = i; k < j; k++) s += a[k]; return s; };
@@ -357,7 +361,7 @@ document.querySelectorAll('.choice[data-key]').forEach(box => {
 document.querySelectorAll('.guess[data-key]').forEach(box => {
   const key = box.dataset.key, inp = box.querySelector('input'), btn = box.querySelector('button'), note = box.querySelector('.note');
   const min = +(box.dataset.min ?? 0), max = +(box.dataset.max ?? 100), unit = box.dataset.unit ?? '%';
-  const show = v => { box.classList.add('saved'); if (note) note.textContent = tpl(S.guessSaved, {v: numT(v, 2) + (unit ? (unit === '%' ? NBSP : ' ') + unit : '')}); };
+  const show = v => { box.classList.add('saved'); if (note) note.textContent = tpl(S.guessSaved, {v: numT(v, 2) + (unit ? (unit === '%' ? '' : ' ') + unit : '')}); };
   const old = Book.guess(key); if (old !== null){ inp.value = numT(old, 2); show(old); }
   const save = () => {
     const v = parseFloat(String(inp.value).replace(/\s|%/g, '').replace(',', '.'));

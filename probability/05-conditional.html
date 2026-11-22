@@ -50,8 +50,8 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">У пекарни напротив 10 отзывов, все — пятёрки. У кафе Алисы 96 пятёрок из 100. Что можно сказать?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="100 % по 10 отзывам — короткая серия. Она скачет сильнее, чем 96 % по сотне.">Пекарня лучше: 100 % больше, чем 96 %</button><button type="button" data-v="b">Не спеши: 10 из 10 бывает и у неидеальной</button><button type="button" data-v="c" data-why="Числа похожи, но надёжность разная: доля по 10 отзывам гуляет куда сильнее, чем по 100.">Поровну: обе доли выше девяноста процентов</button></div>
-    <p class="why">Короткая серия скачет (шаг 2). Если по-настоящему довольны 95 % гостей, то среди блоков по 10 отзывов идеальные 10 из 10 будут примерно в 60 блоках из 100: 0,95<sup>10</sup> ≈ 0,60.</p>
+    <div class="choice"><button type="button" data-v="a" data-why="100% по 10 отзывам — короткая серия. Она скачет сильнее, чем 96% по сотне.">Пекарня лучше: 100% больше, чем 96%</button><button type="button" data-v="b">Не спеши: 10 из 10 бывает и у неидеальной</button><button type="button" data-v="c" data-why="Числа похожи, но надёжность разная: доля по 10 отзывам гуляет куда сильнее, чем по 100.">Поровну: обе доли выше девяноста процентов</button></div>
+    <p class="why">Короткая серия скачет (шаг 2). Если по-настоящему довольны 95% гостей, то среди блоков по 10 отзывов идеальные 10 из 10 будут примерно в 60 блоках из 100: 0.95<sup>10</sup> ≈ 0.60.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">В меню 4 напитка и 3 десерта. Комбо — напиток плюс десерт или напиток без десерта. Сколько разных комбо?</p>
@@ -76,11 +76,11 @@
   <h2>Сколько дождевых гостей берут шоколад?</h2>
   <p>За месяц в кафе пришли 1000 гостей. 300 из них — в дождливые дни, 700 — в солнечные. Горячий шоколад взяли 190 гостей.</p>
   <div class="chat">
-    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шоколад берут 19 %. Погода тут ни при чём, это просто вкус.</p></div></div>
-    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">19 % — среди всех. А если смотреть только на тех, кто пришёл в дождь?</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шоколад берут 19%. Погода тут ни при чём, это просто вкус.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">19% — среди всех. А если смотреть только на тех, кто пришёл в дождь?</p></div></div>
   </div>
   <div class="guess" data-key="rainchoc" data-min="0" data-max="100" data-unit="%">
-    <label class="field">Среди гостей, пришедших в дождь, шоколад взяли примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?"> %</label>
+    <label class="field">Среди гостей, пришедших в дождь, шоколад взяли примерно <input type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="?">%</label>
     <div class="controls"><button class="btn" type="button">Запомнить</button></div>
     <p class="note">Напиши число — на следующей карточке рассортируем гостей.</p>
   </div>
@@ -108,15 +108,15 @@
     <div class="p5-read">
       <div><b id="r-n">1000</b><span id="r-n-s">гостей в мире</span></div>
       <div><b id="r-k">190</b><span id="r-k-s">из них с шоколадом</span></div>
-      <div class="hot"><b id="r-p">19 %</b><span id="r-p-s">доля в этом мире</span></div>
+      <div class="hot"><b id="r-p">19%</b><span id="r-p-s">доля в этом мире</span></div>
     </div>
     <div class="verdict" id="sort-v" hidden></div>
     <details>
       <summary>Подвигать доли</summary>
       <div class="twoinputs">
-        <label class="field" for="s-rain"><span>Гостей в дождь: <b id="s-rain-t" class="num">30 %</b></span><input type="range" id="s-rain" min="10" max="90" step="5" value="30" style="width:100%"></label>
-        <label class="field" for="s-ar"><span><span id="s-ar-l">Шоколад в дождь</span>: <b id="s-ar-t" class="num">40 %</b></span><input type="range" id="s-ar" min="0" max="100" step="5" value="40" style="width:100%"></label>
-        <label class="field" for="s-as"><span><span id="s-as-l">Шоколад в солнце</span>: <b id="s-as-t" class="num">10 %</b></span><input type="range" id="s-as" min="0" max="100" step="5" value="10" style="width:100%"></label>
+        <label class="field" for="s-rain"><span>Гостей в дождь: <b id="s-rain-t" class="num">30%</b></span><input type="range" id="s-rain" min="10" max="90" step="5" value="30" style="width:100%"></label>
+        <label class="field" for="s-ar"><span><span id="s-ar-l">Шоколад в дождь</span>: <b id="s-ar-t" class="num">40%</b></span><input type="range" id="s-ar" min="0" max="100" step="5" value="40" style="width:100%"></label>
+        <label class="field" for="s-as"><span><span id="s-as-l">Шоколад в солнце</span>: <b id="s-as-t" class="num">10%</b></span><input type="range" id="s-as" min="0" max="100" step="5" value="10" style="width:100%"></label>
       </div>
     </details>
   </div>
@@ -129,9 +129,9 @@
   <figure class="art"><img loading="lazy" src="img/vp05-01-frame.jpg" alt="Алиса держит большую деревянную рамку, внутри рамки только гости с зонтиками, остальные бледные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса держит рамку, в ней только гости с зонтиками</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Алиса надевает рамку «пришёл в дождь». Гости в солнце больше не существуют — мир стал меньше. В новом мире считаем долю шоколада заново.</p></div>
-    <div class="things"><span class="lt">В штуках</span><p>В рамке 300 дождевых гостей, из них 120 с шоколадом: 120 / 300 = 40 %. Среди всех гостей было 190 из 1000 — 19 %.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>В рамке 300 дождевых гостей, из них 120 с шоколадом: 120 / 300 = 40%. Среди всех гостей было 190 из 1000 — 19%.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">P(A | B) = P(A и B) / P(B) = 0,12 / 0,3 = 0,4</p>
+      <p class="formula">P(A | B) = P(A и B) / P(B) = 0.12 / 0.3 = 0.4</p>
       <p class="read">Словами: доля A в мире, где случилось B. Вертикальная черта читается «при условии».</p>
     </div>
   </div>
@@ -151,7 +151,7 @@
     <canvas id="squares" role="img" aria-label="Два квадрата 1000 гостей: слева нарезка по погоде, потом по шоколаду; справа нарезка по шоколаду, потом по погоде; закрашенная площадь одна и та же — 120 гостей"></canvas>
   </div>
   <div class="layers">
-    <div class="things"><span class="lt">В штуках</span><p>Слева: 300 дождевых, из них 40 % с шоколадом → 120. Справа: 190 с шоколадом, из них 120 / 190 ≈ 63 % пришли в дождь → те же 120.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Слева: 300 дождевых, из них 40% с шоколадом → 120. Справа: 190 с шоколадом, из них 120 / 190 ≈ 63% пришли в дождь → те же 120.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
       <p class="formula">P(A и B) = P(B) · P(A | B) = P(A) · P(B | A)</p>
       <p class="read">Словами: долю «и» получают, умножая долю первого на долю второго внутри первого. В шаге 4 мы умножали просто P(A) · P(B) — так можно, только когда условие ничего не меняет.</p>
@@ -164,17 +164,17 @@
 <section class="card" data-title="Независимость" aria-label="Независимость">
   <span class="step-tag">Правило</span>
   <h2>А десерт от погоды зависит?</h2>
-  <p>Нажми в сортировочной «Десерт» и надень рамку «Только дождь». Десерт берут 75 гостей из 300 в дождь и 175 из 700 в солнце — по 25 %. Рамка доли не меняет.</p>
+  <p>Нажми в сортировочной «Десерт» и надень рамку «Только дождь». Десерт берут 75 гостей из 300 в дождь и 175 из 700 в солнце — по 25%. Рамка доли не меняет.</p>
   <div class="sheet c-white">
     <p class="chart-title">Доля среди всех и среди дождевых гостей</p>
-    <canvas id="indep" role="img" aria-label="Шоколад: среди всех 19 %, среди дождевых 40 %. Десерт: среди всех 25 %, среди дождевых 25 %"></canvas>
+    <canvas id="indep" role="img" aria-label="Шоколад: среди всех 19%, среди дождевых 40%. Десерт: среди всех 25%, среди дождевых 25%"></canvas>
     <div class="legend-row"><span><i style="background:var(--theory)"></i>среди всех гостей</span><span><i style="background:var(--test)"></i>среди дождевых</span></div>
   </div>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Узнав, что на улице дождь, Алиса может уверенно сказать «шоколада будет больше». А про десерт — ничего нового: его берут так же, как всегда.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
       <p class="formula">A и B независимы ⇔ P(A | B) = P(A) ⇔ P(A и B) = P(A) · P(B)</p>
-      <p class="read">Словами: условие не сдвигает долю. Проверка для десерта: 0,25 · 0,3 = 0,075 — ровно 75 гостей из 1000.</p>
+      <p class="read">Словами: условие не сдвигает долю. Проверка для десерта: 0.25 · 0.3 = 0.075 — ровно 75 гостей из 1000.</p>
     </div>
   </div>
   <p>Независимость — свойство чисел, а не «смысла». События могут выглядеть связанными и при этом быть независимыми; пример — в задачах с собеседования.</p>
@@ -189,9 +189,9 @@
     <table class="report">
       <thead><tr><th>Погода</th><th>Доля дней</th><th>Шоколад в такую погоду</th><th>Вклад</th></tr></thead>
       <tbody>
-        <tr><td>Дождь</td><td>0,3</td><td>0,4</td><td>0,3 · 0,4 = 0,12</td></tr>
-        <tr><td>Солнце</td><td>0,7</td><td>0,1</td><td>0,7 · 0,1 = 0,07</td></tr>
-        <tr><td><b>Всего</b></td><td>1</td><td></td><td><b>0,19</b></td></tr>
+        <tr><td>Дождь</td><td>0.3</td><td>0.4</td><td>0.3 · 0.4 = 0.12</td></tr>
+        <tr><td>Солнце</td><td>0.7</td><td>0.1</td><td>0.7 · 0.1 = 0.07</td></tr>
+        <tr><td><b>Всего</b></td><td>1</td><td></td><td><b>0.19</b></td></tr>
       </tbody>
     </table>
   </div>
@@ -216,12 +216,12 @@
   <span class="step-tag">Ловушка</span>
   <h2>Условие нельзя переставить</h2>
   <div class="chat">
-    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В дождь шоколад берут 40 % гостей. Значит, 40 % любителей шоколада пришли в дождь!</p></div></div>
+    <div class="msg kot oops"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">В дождь шоколад берут 40% гостей. Значит, 40% любителей шоколада пришли в дождь!</p></div></div>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так у Котейки?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Переставлять нельзя: «шоколад среди дождевых» и «дождевые среди шоколада» — доли в разных мирах.">Всё верно: условие можно поменять местами</button><button type="button" data-v="b">Другой мир: 120 дождевых из 190 — 63 %</button><button type="button" data-v="c" data-why="Даже для независимых событий доли разные: P(A | B) = P(A), а P(B | A) = P(B).">Всё верно, если шоколад и дождь независимы</button></div>
-    <p class="why">P(шоколад | дождь) — доля в рамке «дождь»: 120 из 300 = 40 %. P(дождь | шоколад) — доля в рамке «шоколад»: 120 из 190 ≈ 63 %. Проверь в сортировочной кнопкой «Только с шоколадом». В шаге 6 эта путаница обойдётся Бобу дорого.</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Переставлять нельзя: «шоколад среди дождевых» и «дождевые среди шоколада» — доли в разных мирах.">Всё верно: условие можно поменять местами</button><button type="button" data-v="b">Другой мир: 120 дождевых из 190 — 63%</button><button type="button" data-v="c" data-why="Даже для независимых событий доли разные: P(A | B) = P(A), а P(B | A) = P(B).">Всё верно, если шоколад и дождь независимы</button></div>
+    <p class="why">P(шоколад | дождь) — доля в рамке «дождь»: 120 из 300 = 40%. P(дождь | шоколад) — доля в рамке «шоколад»: 120 из 190 ≈ 63%. Проверь в сортировочной кнопкой «Только с шоколадом». В шаге 6 эта путаница обойдётся Бобу дорого.</p>
   </div>
   <p class="note quiz-score"></p>
 </section>
@@ -288,7 +288,7 @@ _check()
     <p><b>Переформулирую:</b> сужаю мир до семей, где не две девочки. Допущения: каждый ребёнок — мальчик или девочка с шансом ½, независимо; фраза значит только «не две девочки».</p>
     <p><b>В штуках:</b> из 1000 семей с двумя детьми примерно по 250 вариантов ММ, МД, ДМ, ДД (подпиши детей: старший и младший). Условие убирает 250 семей ДД, остаётся 750, из них ММ — 250.</p>
     <p><b>Формула:</b> <span class="num">P(ММ | хотя бы один М) = (1/4) / (3/4) = 1/3</span>.</p>
-    <p><b>Поворот:</b> «хотя бы один — мальчик, родившийся зимой» (времён года четыре, все равновозможны). Подпишем каждого ребёнка полом и сезоном: 8 вариантов, пар 64. Хотя бы один зимний мальчик есть в 64 − 49 = 15 парах, оба мальчика — в 7 из них. Ответ 7/15 ≈ 47 %: чем конкретнее примета, тем ближе к ½.</p>
+    <p><b>Поворот:</b> «хотя бы один — мальчик, родившийся зимой» (времён года четыре, все равновозможны). Подпишем каждого ребёнка полом и сезоном: 8 вариантов, пар 64. Хотя бы один зимний мальчик есть в 64 − 49 = 15 парах, оба мальчика — в 7 из них. Ответ 7/15 ≈ 47%: чем конкретнее примета, тем ближе к ½.</p>
     <p><b>Вывод:</b> 1/3 — потому что «хотя бы один» оставляет три равновозможных варианта из четырёх, и два мальчика — лишь один из них.</p>
   </details>
   <details class="ivw" data-key="threecards">
@@ -315,8 +315,8 @@ _check()
   <h2>Вопросы про условие и независимость</h2>
   <div class="quiz" data-right="a">
     <p class="q">Алиса сузила мир до гостей, пришедших в солнце. Что стало с долей шоколада?</p>
-    <div class="choice"><button type="button" data-v="a">Упала до 10 %: условие может и понизить</button><button type="button" data-v="b" data-why="Условие сужает мир, а доля в новом мире может оказаться и больше, и меньше, и такой же.">Выросла: новое знание всегда повышает шанс</button><button type="button" data-v="c" data-why="Доля осталась бы прежней, только если шоколад не зависит от погоды. Здесь зависит.">Осталась 19 %: доля от рамки не зависит</button></div>
-    <p class="why">В рамке «солнце» 700 гостей, шоколад взяли 70 — 10 %, меньше общих 19 %. Условие сдвигает долю в любую сторону или не сдвигает вовсе — если события независимы.</p>
+    <div class="choice"><button type="button" data-v="a">Упала до 10%: условие может и понизить</button><button type="button" data-v="b" data-why="Условие сужает мир, а доля в новом мире может оказаться и больше, и меньше, и такой же.">Выросла: новое знание всегда повышает шанс</button><button type="button" data-v="c" data-why="Доля осталась бы прежней, только если шоколад не зависит от погоды. Здесь зависит.">Осталась 19%: доля от рамки не зависит</button></div>
+    <p class="why">В рамке «солнце» 700 гостей, шоколад взяли 70 — 10%, меньше общих 19%. Условие сдвигает долю в любую сторону или не сдвигает вовсе — если события независимы.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Кубик. A — «выпало 1 или 2», B — «выпало нечётное». У них общая грань 1. Они независимы?</p>
@@ -341,11 +341,11 @@ _check()
   <span class="step-tag">Шпаргалка шага 5</span>
   <h2 data-proverb="p05">Условие сужает мир</h2>
   <ul class="cheat">
-    <li><b>Условная вероятность:</b> P(A | B) = P(A и B) / P(B) — доля A внутри рамки B. 120 из 300 дождевых = 40 %.</li>
+    <li><b>Условная вероятность:</b> P(A | B) = P(A и B) / P(B) — доля A внутри рамки B. 120 из 300 дождевых = 40%.</li>
     <li><b>Правило умножения:</b> P(A и B) = P(B) · P(A | B) = P(A) · P(B | A).</li>
     <li><b>Независимость:</b> P(A | B) = P(A), то же самое — P(A и B) = P(A) · P(B). Проверяй числами, а не на глаз.</li>
-    <li><b>Полная вероятность:</b> P(A) = P(A | B) · P(B) + P(A | не B) · P(не B). 0,4 · 0,3 + 0,1 · 0,7 = 0,19.</li>
-    <li>P(A | B) и P(B | A) — разные числа: 40 % против 63 %.</li>
+    <li><b>Полная вероятность:</b> P(A) = P(A | B) · P(B) + P(A | не B) · P(не B). 0.4 · 0.3 + 0.1 · 0.7 = 0.19.</li>
+    <li>P(A | B) и P(B | A) — разные числа: 40% против 63%.</li>
     <li>«A и B» не вероятнее, чем B: 120 гостей против 300.</li>
   </ul>
   <dl class="terms">
@@ -354,7 +354,7 @@ _check()
     <dt>Полная вероятность</dt><dd>общая доля как взвешенное среднее долей по частям; на собеседовании — law of total probability</dd>
   </dl>
   <figure class="art"><img loading="lazy" src="img/vp05-02-next.jpg" alt="Котейка с лупой рассматривает купюру у новой кассы" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка с лупой изучает купюру у новой кассы</figcaption></figure>
-  <a class="next-step" href="06-bayes.html"><b>Дальше, шаг 6: «Байес»</b>Касса ловит 99 % фальшивых купюр и пищит. Боб уверен: раз пищит — значит, фальшивка. Сколько писков на самом деле настоящие? Перевернём условие.</a>
+  <a class="next-step" href="06-bayes.html"><b>Дальше, шаг 6: «Байес»</b>Касса ловит 99% фальшивых купюр и пищит. Боб уверен: раз пищит — значит, фальшивка. Сколько писков на самом деле настоящие? Перевернём условие.</a>
 </section>
 
     <div class="pager">
@@ -479,9 +479,9 @@ const TXT = {
   }
   document.querySelectorAll('[data-metric]').forEach(b => b.addEventListener('click', () => setMetric(b.dataset.metric)));
   function sliders(){
-    document.getElementById('s-rain-t').textContent = rIn.value + NBSP + '%';
-    document.getElementById('s-ar-t').textContent = arIn.value + NBSP + '%';
-    document.getElementById('s-as-t').textContent = asIn.value + NBSP + '%';
+    document.getElementById('s-rain-t').textContent = rIn.value + '%';
+    document.getElementById('s-ar-t').textContent = arIn.value + '%';
+    document.getElementById('s-as-t').textContent = asIn.value + '%';
     readout(); draw();
   }
   [rIn, arIn, asIn].forEach(x => x.addEventListener('input', sliders));

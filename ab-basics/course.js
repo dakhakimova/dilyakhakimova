@@ -7,12 +7,14 @@ const MON = ['янв','фев','мар','апр','мая','июн','июл','а�
 const MLEN = [31,28,31,30,31,30,31,31,30,31,30,31];
 const MSTART = MLEN.reduce((a, d, i) => (a.push(i ? a[i - 1] + MLEN[i - 1] : 0), a), []);
 const dayLabel = d => { let m = 11; while (MSTART[m] > d) m--; return (d - MSTART[m] + 1) + ' ' + MON[m]; };
-const num = (x, d = 1) => x.toLocaleString('ru-RU', {maximumFractionDigits: d, minimumFractionDigits: d});
-const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(100 * x), d) + '\u00a0%';
-const share = (x, d = 1) => num(100 * x, d) + '\u00a0%';
+// Числа: десятичная точка, тысячи через неразрывный пробел («10 000»), % вплотную («10.4%»).
+const grp = s => s.replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{4,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+const num = (x, d = 1) => grp(x.toLocaleString('en-US', {maximumFractionDigits: d, minimumFractionDigits: d, useGrouping: false}));
+const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(100 * x), d) + '%';
+const share = (x, d = 1) => num(100 * x, d) + '%';
 const pp = x => num(100 * x, 1) + ' п.п.';
 const plural = (n, one, few, many) => { n = Math.abs(n) % 100; const d = n % 10; return n > 10 && n < 20 ? many : d === 1 ? one : d >= 2 && d <= 4 ? few : many; };
-const int = x => Math.round(x).toLocaleString('ru-RU');
+const int = x => num(Math.round(x), 0);
 const sum = (a, i = 0, j = a.length) => { let s = 0; for (let k = i; k < j; k++) s += a[k]; return s; };
 const mean = a => sum(a) / a.length;
 const sd = a => { const m = mean(a); return Math.sqrt(a.reduce((s, x) => s + (x - m) ** 2, 0) / (a.length - 1)); };
@@ -24,7 +26,7 @@ const binom = (n, p) => { if (n < 60){ let k = 0; for (let i = 0; i < n; i++) if
 const normPdf = z => Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);
 function normCdf(x){ const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; }
 const pTwo = z => 2 * (1 - normCdf(Math.abs(z)));
-const fmtP = p => p < 0.001 ? 'меньше 0,001' : num(p, 3);
+const fmtP = p => p < 0.001 ? 'меньше 0.001' : num(p, 3);
 
 // trap = «плохо» (ложная тревога, падение, вред). Раунд 4: краснее, чтобы не путать с оранжевым тестом. testInk — тёмно-оранжевый для подписей теста (контраст 5:1 на белом).
 // trapInk — тот же красный для текста на белом и на светлой заливке fillB (контраст ≥ 5:1).

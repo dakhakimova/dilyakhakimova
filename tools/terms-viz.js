@@ -89,7 +89,7 @@ viz['confidence-interval'] = L => {
     out.push(ln(X(m - 1.96), y, X(m + 1.96), y, col, miss ? 3 : 2.5), circ(X(m), y, 3.5, col));
     if (miss) out.push(tx(m > 3 ? X(m - 1.96) - 8 : X(m + 1.96) + 8, y + 5, L.miss, {a: m > 3 ? 'end' : 'start', size: 15, fill: C.red, bg: true})); });
   out.push(ln(X(-1), top + 20 * step + 4, X(7.4), top + 20 * step + 4, C.t3));
-  [0, 2, 4, 6].forEach(v => out.push(tx(X(v), top + 20 * step + 26, (v > 0 ? '+' : '') + v + ' %', {a: 'middle', size: 15, fill: C.t3})));
+  [0, 2, 4, 6].forEach(v => out.push(tx(X(v), top + 20 * step + 26, (v > 0 ? '+' : '') + v + '%', {a: 'middle', size: 15, fill: C.t3})));
   out.push(tx(W - 10, top + 20 * step + 50, L.hit, {a: 'end', size: 16, fill: C.ink, w: 500}));
   return svg(top + 20 * step + 62, out.join(''), L.hit);
 };
@@ -166,7 +166,7 @@ viz['chi-square'] = L => {
     out.push(rect(x, Y(o), bw, o * 10, i === 5 ? C.b : C.a, 'opacity=".85" rx="3"'),
       tx(x + bw / 2, Y(o) - 8, o, {a: 'middle', size: 16, fill: C.ink, w: 500, bg: true}),
       tx(x + bw / 2, base + 22, i + 1, {a: 'middle', size: 15, fill: C.t3}),
-      tx(x + bw / 2, base + 46, '+' + String(f1(k)).replace('.', ','), {a: 'middle', size: 15, fill: i === 5 ? '#A85A24' : C.t3})); });
+      tx(x + bw / 2, base + 46, '+' + String(f1(k)), {a: 'middle', size: 15, fill: i === 5 ? '#A85A24' : C.t3})); });
   out.push(ln(x0 - 10, Y(10), x0 + 6 * st, Y(10), C.ink, 1.5, '6 4'), tx(x0 - 16, Y(10) + 5, L.e, {a: 'end', size: 15, fill: C.ink}),
     tx(x0 - 14, base + 22, L.face, {a: 'end', size: 15, fill: C.t3}), tx(x0 - 14, base + 46, '(O−E)²/E', {a: 'end', size: 13, fill: C.t3}),
     tx(W / 2, base + 80, L.sum, {a: 'middle', size: 15, fill: C.ink, w: 500}));
@@ -183,7 +183,7 @@ viz['law-of-large-numbers'] = L => {
     ln(X(1), Y(.5), X(N), Y(.5), C.ink, 1.5, '5 4'), path(pts, C.a, 2),
     ln(X(1), Y(0), X(N), Y(0), C.t3), ln(X(1), Y(0), X(1), Y(1), C.t3),
     ...[1, 10, 100, 1000, 10000].map(n => tx(X(n), Y(0) + 22, nf(n), {a: n === 10000 ? 'end' : 'middle', size: 15, fill: C.t3})),
-    ...[0, .5, 1].map(p => tx(X(1) - 8, Y(p) + 5, Math.round(p * 100) + ' %', {a: 'end', size: 15, fill: C.t3})),
+    ...[0, .5, 1].map(p => tx(X(1) - 8, Y(p) + 5, Math.round(p * 100) + '%', {a: 'end', size: 15, fill: C.t3})),
     tx(X(N), Y(0) + 46, L.x, {a: 'end', size: 15, fill: C.t3}), tx(X(30), Y(.93), L.band, {size: 15, fill: C.t3, bg: '#FBFAF6'}),
   ].join(''), L.y + ' — ' + L.x);
 };
@@ -222,7 +222,7 @@ viz['sample-size'] = L => {
   return svg(310, [
     ln(X(.3), 250, X(3), 250, C.t3), ln(X(.3), 30, X(.3), 250, C.t3),
     ...[1e3, 1e4, 1e5].map(v => tx(X(.3) - 8, Y(v) + 5, nf(v), {a: 'end', size: 15, fill: C.t3}) + ln(X(.3), Y(v), X(3), Y(v), '#ECE9E2', 1)),
-    ...[.5, 1, 1.5, 2, 2.5, 3].map(m => tx(X(m), 272, String(m).replace('.', ','), {a: 'middle', size: 15, fill: C.t3})),
+    ...[.5, 1, 1.5, 2, 2.5, 3].map(m => tx(X(m), 272, String(m), {a: 'middle', size: 15, fill: C.t3})),
     path(pts, C.a, 2.5), mk(.5, L.p05, 'start'), mk(1, L.p1, 'start'), mk(2, L.p2, 'start'),
     tx(X(3), 296, L.x, {a: 'end', size: 15, fill: C.t3}), tx(X(.3) + 6, 24, L.y, {size: 15, fill: C.t3}),
   ].join(''), `${L.p05} · ${L.p1} · ${L.p2}`);
@@ -262,8 +262,8 @@ viz['simpson-paradox'] = L => {
   const X = s => 70 + s * 360, Y = v => 40 + (100 - v) / 50 * 200;
   return svg(320, [
     ln(X(0), Y(50), X(1), Y(50), C.t3), ln(X(0), Y(50), X(0), Y(100), C.t3),
-    ...[50, 75, 100].map(v => tx(X(0) - 8, Y(v) + 5, v + ' %', {a: 'end', size: 15, fill: C.t3})),
-    ...[0, .5, 1].map(s => tx(X(s), Y(50) + 22, Math.round(s * 100) + ' %', {a: 'middle', size: 15, fill: C.t3})),
+    ...[50, 75, 100].map(v => tx(X(0) - 8, Y(v) + 5, v + '%', {a: 'end', size: 15, fill: C.t3})),
+    ...[0, .5, 1].map(s => tx(X(s), Y(50) + 22, Math.round(s * 100) + '%', {a: 'middle', size: 15, fill: C.t3})),
     tx(X(0), Y(50) + 46, L.m, {a: 'start', size: 15, fill: C.t3}), tx(X(1), Y(50) + 46, L.e, {a: 'end', size: 15, fill: C.t3}),
     path([[X(0), Y(95)], [X(1), Y(70)]], C.a, 3), path([[X(0), Y(90)], [X(1), Y(60)]], C.b, 3),
     tx(X(1) - 4, Y(70) - 10, L.bob, {a: 'end', size: 16, fill: '#2B5E96', w: 500}), tx(X(1) - 4, Y(60) + 22, L.kot, {a: 'end', size: 16, fill: '#A85A24', w: 500}),
@@ -308,22 +308,22 @@ const lineChart = (L, xs, series, {ymax, yfmt, ref, refLabel, refLeft, xfmt}) =>
 
 lim['confidence-interval'] = L => svg(280, lineChart(L, [10, 30, 100, 1000, 10000],
   [{v: [67.3, 78.0, 85.0, 92.4, 93.9], c: C.a, label: L.cov, at: 1, dy: 26, ink: '#2B5E96'}],
-  {ymax: 100, yfmt: v => v + ' %', ref: 95, refLabel: L.ref, xfmt: nf}), L.cov);
+  {ymax: 100, yfmt: v => v + '%', ref: 95, refLabel: L.ref, xfmt: nf}), L.cov);
 
 lim['t-test'] = L => svg(280, lineChart(L, [10, 30, 100, 1000],
   [{v: [17.2, 13.9, 10.3, 6.8], c: C.red, label: L.une, at: 0, dx: 10, dy: -12}, {v: [1.7, 2.4, 3.7, 4.8], c: C.a, label: L.eq, at: 2, dy: 24, a: 'middle', ink: '#2B5E96'}],
-  {ymax: 20, yfmt: v => v + ' %', ref: 5, refLabel: L.ref, refLeft: true, xfmt: nf}), L.une + ' · ' + L.eq);
+  {ymax: 20, yfmt: v => v + '%', ref: 5, refLabel: L.ref, refLeft: true, xfmt: nf}), L.une + ' · ' + L.eq);
 
 lim['chi-square'] = L => svg(280, lineChart(L, [6, 12, 18, 30, 60, 300],
   [{v: [5.8, 3.3, 4.7, 4.8, 4.9, 5.1], c: C.a, label: L.fpr, at: 1, dy: 28, ink: '#2B5E96'}],
-  {ymax: 10, yfmt: v => v + ' %', ref: 5, refLabel: L.ref, xfmt: nf}), L.fpr);
+  {ymax: 10, yfmt: v => v + '%', ref: 5, refLabel: L.ref, xfmt: nf}), L.fpr);
 
 lim['bayes-theorem'] = L => {
   const X = p => 60 + (Math.log10(p) + 3) / Math.log10(500) * 370, Y = v => 220 - v * 190, post = p => .95 * p / (.95 * p + .05 * (1 - p));
   const pts = []; for (let e = -3; e <= Math.log10(.5) + 1e-9; e += .02) pts.push([X(10 ** e), Y(post(10 ** e))]);
   return svg(280, [ln(X(.001), Y(0), X(.5), Y(0), C.t3), ln(X(.001), Y(0), X(.001), Y(1), C.t3),
-    ...[0, .5, 1].map(v => tx(X(.001) - 8, Y(v) + 5, v * 100 + ' %', {a: 'end', size: 15, fill: C.t3})),
-    ...[[.001, '0,1 %'], [.01, '1 %'], [.1, '10 %'], [.5, '50 %']].map(([p, s]) => tx(X(p), Y(0) + 22, s, {a: 'middle', size: 15, fill: C.t3})),
+    ...[0, .5, 1].map(v => tx(X(.001) - 8, Y(v) + 5, v * 100 + '%', {a: 'end', size: 15, fill: C.t3})),
+    ...[[.001, '0.1%'], [.01, '1%'], [.1, '10%'], [.5, '50%']].map(([p, s]) => tx(X(p), Y(0) + 22, s, {a: 'middle', size: 15, fill: C.t3})),
     path(pts, C.a, 2.5), circ(X(.02), Y(post(.02)), 6, C.b), tx(X(.02) + 10, Y(post(.02)) + 22, L.pt, {size: 15, fill: C.ink, bg: true}),
     tx(X(.5), Y(0) + 46, L.x, {a: 'end', size: 15, fill: C.t3}), tx(X(.001) + 6, 22, L.y, {size: 15, fill: C.t3})].join(''), L.y + ' — ' + L.x);
 };

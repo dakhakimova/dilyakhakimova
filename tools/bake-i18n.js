@@ -23,6 +23,10 @@ function loadDicts(files){
   for (const f of files) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
   return ctx.I18N;
 }
+// Числа: для ru — десятичная точка, тысячи через неразрывный пробел, % вплотную («0.05», «10 000», «90%»).
+const numFormat = (lang, o = {}, from = 4) => { if (lang !== 'ru') return new Intl.NumberFormat(lang, o);
+  const f = new Intl.NumberFormat('en-US', Object.assign({}, o, {useGrouping: false}));
+  return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d+)/, (_, a, d) => a + (d.length >= from ? d.replace(/\B(?=(\d{3})+$)/g, '\u00a0') : d))}; };
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function bake(page){
@@ -33,7 +37,7 @@ function bake(page){
   const lang = target || (html.match(/<html lang="(\w+)"/) || [, 'ru'])[1];
   if (target) html = html.replace(/<html lang="\w+"/, `<html lang="${lang}"`);
   const DICT = I18N[lang] || {}, RU = I18N.ru;
-  const NF = new Intl.NumberFormat(lang), PF = new Intl.NumberFormat(lang, { style: 'percent', maximumFractionDigits: 0 });
+  const NF = numFormat(lang), PF = numFormat(lang, { style: 'percent', maximumFractionDigits: 0 });
   const missing = new Set();
   function t(key){
     if (!(key in RU)) missing.add(key);

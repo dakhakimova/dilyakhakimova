@@ -5,8 +5,10 @@
 (function(){
   const I = window.I18N || {}, RU = I.ru || {};
   const tr = (k, o = {}) => (I.typo ? I.typo('ru', RU[k] || k) : (RU[k] || k)).replace(/\{(\w+)\}/g, (_, x) => x in o ? o[x] : '');
-  const NF = new Intl.NumberFormat('ru-RU');
-  const pct = (x, d = 0) => new Intl.NumberFormat('ru-RU', {style: 'percent', minimumFractionDigits: d, maximumFractionDigits: d}).format(x);
+  // числа: десятичная точка, тысячи через неразрывный пробел, % вплотную
+  const ruF = o => { const f = new Intl.NumberFormat('en-US', Object.assign({useGrouping: false}, o)); return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{4,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'))}; };
+  const NF = ruF({});
+  const pct = (x, d = 0) => ruF({style: 'percent', minimumFractionDigits: d, maximumFractionDigits: d}).format(x);
   const SVG = 'http://www.w3.org/2000/svg';
   const el = (name, attrs = {}, parent) => { const e = document.createElementNS(SVG, name); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
   const C = {win: '#0E7E5F', zero: '#CFC8BB', loss: '#C9413A', ctrl: '#3D7DC4', test: '#E59157', coral: '#E8644A', ink: '#24221F', mute: '#5E5A53', line: '#E3DED4'};
@@ -20,10 +22,10 @@
   }
   const SUP = {'-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'};
   function fmtP(p){
-    if (p >= 0.001) return new Intl.NumberFormat('ru-RU', {maximumFractionDigits: 3}).format(p);
+    if (p >= 0.001) return ruF({maximumFractionDigits: 3}).format(p);
     if (p < 1e-300) return '≈ 0';
     const k = Math.floor(Math.log10(p)), m = p / Math.pow(10, k);
-    return m.toFixed(1).replace('.', ',') + '·10' + String(k).split('').map(c => SUP[c]).join('');
+    return m.toFixed(1) + '·10' + String(k).split('').map(c => SUP[c]).join('');
   }
 
   // ---------- 1. Десять идей кафе ----------
@@ -84,14 +86,14 @@
       // наблюдаемый эффект
       el('line', {x1: sx(eff), y1: T - 6, x2: sx(eff), y2: B, stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '4 3'}, svg);
       const lab = el('text', {x: Math.min(R, Math.max(L, sx(eff) + (eff > 11 ? -6 : 6))), y: T - 12, 'text-anchor': eff > 11 ? 'end' : 'start', class: 'lb halo'}, svg);
-      lab.textContent = '+' + eff.toFixed(1).replace('.', ',') + ' %';
+      lab.textContent = '+' + eff.toFixed(1) + '%';
     }
     function upd(){
       const eff = +inp('eff').value, prior = +inp('bug').value / 100;
       const a = prior * pdf(eff, BUG), b = (1 - prior) * pdf(eff, OK), post = a / (a + b);
-      o('eff').textContent = '+' + eff.toFixed(1).replace('.', ',') + ' %';
-      o('bug').textContent = inp('bug').value + ' %';
-      o('post').textContent = post > 0.995 ? '> 99 %' : post < 0.005 ? '< 1 %' : pct(post);
+      o('eff').textContent = '+' + eff.toFixed(1) + '%';
+      o('bug').textContent = inp('bug').value + '%';
+      o('post').textContent = post > 0.995 ? '> 99%' : post < 0.005 ? '< 1%' : pct(post);
       verdict.className = 'verdict ' + (post < 0.2 ? 'good' : post < 0.7 ? 'warn' : 'bad');
       verdict.textContent = tr(post < 0.2 ? 'bx.i2.lo' : post < 0.7 ? 'bx.i2.mid' : 'bx.i2.hi');
       draw(eff, prior);
@@ -110,7 +112,7 @@
       const a = Math.round(n / 2), b = Math.round(n / 2 * (1 - loss)), e = (a + b) / 2;
       const chi2 = ((a - e) ** 2 + (b - e) ** 2) / e, p = erfc(Math.sqrt(chi2 / 2));
       o('n').textContent = NF.format(n);
-      o('loss').textContent = inp('loss').value.replace('.', ',') + ' %';
+      o('loss').textContent = inp('loss').value + '%';
       o('p').textContent = fmtP(p);
       const bad = p < 0.0005, mid = !bad && p < 0.05;
       verdict.className = 'verdict ' + (bad ? 'bad' : mid ? 'warn' : 'good');
