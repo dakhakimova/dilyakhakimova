@@ -151,7 +151,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 
     // «Ещё наугад»: термин не из связанных или игрушка /play/
     const pool = terms.filter(o => o.slug !== s && !term.related.includes(o.slug));
-    const rnd = Math.random() < .5 ? (o => ({href: `/terms/${o.slug}/`, title: h1Of(o.slug), line: TX[o.slug].card}))(pick(pool))
+    const rnd = Math.random() < .5 ? (o => ({href: `/terms/${o.slug}/`, title: TX[o.slug].name, line: TX[o.slug].card}))(pick(pool))
       : (o => ({href: `/play/${o.slug}/`, title: P.texts[o.slug].q, line: P.texts[o.slug].lead}))(pick(P.toys.filter(o => !ptoy || o.slug !== ptoy.slug)));
 
     const toyBlock = isNew ? ownToy(term.toy.slice(4), x) + `
@@ -269,7 +269,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 
   <section class="t-sec" aria-labelledby="rel-h">
     <h2 id="rel-h">${t('terms.rel.h')}</h2>
-    <ul class="toys t-rel" role="list">${term.related.map(r => card(`/terms/${r}/`, h1Of(r), TX[r].card)).join('')}${card(rnd.href, rnd.title, rnd.line, t('terms.random'))}
+    <ul class="toys t-rel" role="list">${term.related.map(r => card(`/terms/${r}/`, TX[r].name, TX[r].card)).join('')}${card(rnd.href, rnd.title, rnd.line, t('terms.random'))}
     </ul>
   </section>
 
@@ -309,7 +309,7 @@ ${cfg.groups.map(g => `
   <section class="hub-group" aria-labelledby="g-${g}">
     <h2 id="g-${g}">${t('terms.g.' + g)}</h2>
     <p class="sec-lead">${t('terms.g.' + g + '.d')}</p>
-    <ul class="toys" role="list">${terms.filter(o => o.group === g).map(o => card(`/terms/${o.slug}/`, h1Of(o.slug), TX[o.slug].card)).join('')}
+    <ul class="toys" role="list">${terms.filter(o => o.group === g).map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card)).join('')}
     </ul>
   </section>`).join('')}
   <p class="t-author">${t('terms.author')}</p>

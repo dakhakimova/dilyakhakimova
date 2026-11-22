@@ -61,9 +61,10 @@
 .credit{margin:0 0 var(--s-2)}
 
 /* схема */
-.viz{margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5)}
+.viz{overflow-x:auto; margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5)}
 .viz.small{box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5)}
-.viz-svg{display:block; width:100%; max-width:520px; height:auto; margin:0 auto; font-family:var(--body); font-variant-numeric:tabular-nums}
+.nw{white-space:nowrap}
+.viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0 auto; font-family:var(--body); font-variant-numeric:tabular-nums}
 .chart-head{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
 .figcap{font-size:var(--fs-xs); line-height:1.5; color:var(--text-3); margin:var(--s-3) 0 0; max-width:46em}
 
@@ -121,7 +122,7 @@
 .choice button[aria-pressed="true"]{border-color:var(--pen); box-shadow:0 0 0 2px var(--pen) inset}
 .choice.done button[data-right]{background:var(--mint); border-color:var(--l1)}
 .gnote{margin:var(--s-3) 0 0}
-.t-sheet{background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4)}
+.t-sheet{overflow-x:auto; background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4)}
 .t-sheet + .t-sheet{margin-top:var(--s-3)}
 .t-ctl{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin:var(--s-4) 0 0}
 .t-ctl .btn{font-size:var(--fs-s)}
@@ -132,7 +133,7 @@
 .t-field output{font:500 var(--t-18)/1 var(--serif); color:var(--text-1)}
 .t-field input[type=range]{width:100%; min-height:32px; accent-color:var(--pen)}
 .t-lbl{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-2)}
-.t-svg{display:block; width:100%; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
+.t-svg{display:block; width:100%; max-width:600px; min-width:400px; margin:0 auto; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
 .big2{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); margin:var(--s-4) 0 0}
 .big2 > div{display:flex; flex-direction:column; gap:2px; min-width:96px}
 .big2 b{font:500 var(--t-30)/1.1 var(--serif); color:var(--text-1); font-variant-numeric:tabular-nums}
@@ -158,3 +159,4 @@
   .t-share .btn{flex:1 1 auto; justify-content:center}
   .crumbs li:last-child span{display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden}
 }
+.toys b .nw{font:inherit; color:inherit}

@@ -44,6 +44,18 @@ GROUP BY slug ORDER BY total DESC;
 SELECT place, source, kind, SUM(count) AS n FROM toy_hits WHERE source <> '' GROUP BY 1,2,3 ORDER BY n DESC;
 ```
 
+## Словарь аналитика /terms/ (мини-лаборатории терминов)
+
+Страница термина — `/terms/<slug>/`, хаб — `/terms/`. Собирает `tools/build-terms.js` (вызывается из `node tools/bake-i18n.js`, заодно пишет `/sitemap.xml`).
+- `terms/terms.json` — список: тема (`prob` · `stat` · `ab`), игрушка (`slug` с /play/ — встраивается `/play/<slug>/?embed=1`, или `new:tt|mw|chi|ss` — своя игрушка из `terms/toys.js`), главный призыв по стадии (`cta`), лист ожидания (`waitlist`), сравнение (`cmp` / `cmpHref`), связанные термины;
+- `i18n/terms.js` — все тексты (определение, строгое определение и формула, пример из кафе, ошибки, «Когда метод врёт», сравнение, задачи, подзаголовки-вопросы);
+- `tools/terms-viz.js` — схемы SVG (главная и кадр «Когда метод врёт»), `terms/terms.css`, `terms/terms.js` (высота iframe, «Скинуть коллеге»).
+- `NODE_PATH=$(npm root -g) node tools/og-terms.js [slug …]` — OG-картинки `terms/og/<slug>.png`;
+- `NODE_PATH=$(npm root -g) node tools/test-terms.js [slug …] [--base URL] [--shots папка --only hub,slug]` — проверка на 1200 и 375 (консоль, прокрутка, игрушки, canonical, доля общего текста ≤ 1/3).
+Страница без своей игрушки, примера, схемы и двух задач собирается с `noindex`. «Ещё наугад» выбирается заново при каждой сборке.
+
+Поиск: `robots.txt` (sitemap, закрыты `/api/`, `/styleguide/`, `?embed=1`; для Яндекса `Clean-param` для `toy`, `embed`, `ref`, utm), canonical у всех глав курсов, соло-режим игрушки (`?toy=`) ставит себе `noindex` (`play/bridge.js`).
+
 ## Бэкенд: вход через Telegram, прогресс и баллы
 
 Серверная часть — Cloudflare Pages Functions в папке `functions/api/` и база D1 (`schema.sql`).

@@ -8,7 +8,8 @@
   const RIGHT = {tt: 2, mw: 1, chi: 1, ss: 1};
   const nf = (x, d = 0) => x.toLocaleString('ru-RU', {minimumFractionDigits: d, maximumFractionDigits: d});
   const pct = x => nf(x * 100, x < .1 && x > 0 ? 1 : 0) + ' %';
-  const pf = p => p < .001 ? '< 0,001' : nf(p, p < .01 ? 3 : 2);
+  const pf = p => p < .001 ? '< 0,001' : nf(p, p < .1 ? 3 : 2);
+  const pv = p => p < .001 ? '< 0,001' : '= ' + pf(p);
   const fill = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => k in o ? o[k] : '');
   const el = (tag, a = {}, kids = []) => { const e = document.createElement(tag); for (const k in a){ if (k === 'text') e.textContent = a[k]; else if (k === 'html') e.innerHTML = a[k]; else e.setAttribute(k, a[k]); } kids.forEach(k => e.appendChild(k)); return e; };
   const sv = (tag, a = {}) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); return e; };
@@ -67,7 +68,7 @@
         L(dots, X(r.ma), 20, X(r.ma), 62, '#2B5E96', 3); L(dots, X(r.mb), 80, X(r.mb), 122, '#A85A24', 3); }
       R(ruler, TX(-1.96), 14, TX(1.96) - TX(-1.96), 40, C.soft, {rx: 4}); L(ruler, 30, 54, 430, 54, C.t3);
       [-4, -2, 0, 2, 4].forEach(z => T(ruler, TX(z), 74, (z > 0 ? '+' : z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14}));
-      T(ruler, TX(1.96), 92, '1,96', {a: 'middle', size: 13}); T(ruler, TX(-1.96), 92, '−1,96', {a: 'middle', size: 13});
+      T(ruler, TX(1.96), 92, '1,96', {a: 'middle', size: 14}); T(ruler, TX(-1.96), 92, '−1,96', {a: 'middle', size: 14});
       hist.slice(-100).forEach(z => L(ruler, TX(z), 22, TX(z), 46, Math.abs(z) > 1.96 ? C.pen : '#9AA4B5', 1.2));
       if (r) Ci(ruler, TX(r.t), 34, 8, Math.abs(r.t) > 1.96 ? C.pen : C.t3, {stroke: '#fff', 'stroke-width': 2});
       cnt.textContent = hist.length ? fill(S.caught, {k: nf(caught), n: nf(hist.length), pct: pct(caught / hist.length)}) : '';
@@ -78,7 +79,7 @@
     const push = r => { hist.push(r.t); if (Math.abs(r.t) > 1.96) caught++; };
     run.onclick = () => { const r = one(); push(r); draw(r); reveal(); verdict.hidden = false;
       verdict.className = 'verdict ' + (Math.abs(r.t) > 1.96 ? 'good' : '');
-      verdict.textContent = (eff === 0 ? S.vZero + ' ' : '') + fill(Math.abs(r.t) > 1.96 ? S.vYes : S.vNo, {t: nf(r.t, 2), p: pf(r.p)}); };
+      verdict.textContent = (eff === 0 ? S.vZero + ' ' : '') + fill(Math.abs(r.t) > 1.96 ? S.vYes : S.vNo, {t: nf(r.t, 2), pv: pv(r.p)}); };
     many.onclick = () => { let r; for (let i = 0; i < 100; i++){ r = one(); push(r); } draw(r); reveal(); };
     draw(null);
   }
@@ -104,13 +105,13 @@
       const tie = Object.values(cnt).reduce((s, t) => s + t * t * t - t, 0), mu = n1 * n2 / 2, sd = Math.sqrt(n1 * n2 / 12 * ((N + 1) - tie / (N * (N - 1))));
       return {u, share: u / (n1 * n2), p: Math.min(1, 2 * (1 - Phi(Math.max(0, Math.abs(u - mu) - .5) / sd)))}; }
     function drawLine(){ const [A, B] = SETS[k], X = v => 20 + Math.min(v, 1400) / 1400 * 410; line.replaceChildren();
-      L(line, 20, 104, 430, 104, C.t3); [0, 500, 1000].forEach(v => T(line, X(v), 100, nf(v), {a: 'middle', size: 13}));
-      const put = (arr, y, col) => { const seen = {}; arr.forEach(v => { seen[v] = (seen[v] || 0) + 1; Ci(line, X(v), y - (seen[v] - 1) * 8, 4.5, col, {opacity: .9}); if (v > 1400) T(line, X(v) - 8, y + 4, nf(v) + ' ₽ →', {a: 'end', size: 13, fill: C.red}); }); };
+      L(line, 20, 104, 430, 104, C.t3); [0, 500, 1000].forEach(v => T(line, X(v), 100, nf(v), {a: 'middle', size: 14}));
+      const put = (arr, y, col) => { const seen = {}; arr.forEach(v => { seen[v] = (seen[v] || 0) + 1; Ci(line, X(v), y - (seen[v] - 1) * 8, 4.5, col, {opacity: .9}); if (v > 1400) T(line, X(v) - 8, y + 4, nf(v) + ' ₽ →', {a: 'end', size: 14, fill: C.red}); }); };
       T(line, 4, 34, 'A', {fill: '#2B5E96', w: 500, size: 15}); T(line, 4, 76, 'B', {fill: '#A85A24', w: 500, size: 15});
       put(A, 34, C.a); put(B, 76, C.b); }
     function drawGrid(upto){ const [A, B] = SETS[k], c = 20, x0 = 80, y0 = 30; grid.replaceChildren();
       const sa = A.slice().sort((x, y) => x - y), sb = B.slice().sort((x, y) => x - y);
-      sb.forEach((b, j) => { if (j % 2 === 0) T(grid, x0 + j * c + c / 2, y0 - 8, b > 9999 ? '30к' : nf(b), {a: 'middle', size: 11, fill: '#A85A24'}); });
+      sb.forEach((b, j) => { if (j % 2 === 0) T(grid, x0 + j * c + c / 2, y0 - 8, b > 9999 ? '30к' : nf(b), {a: 'middle', size: 12, fill: '#A85A24'}); });
       sa.forEach((a, i) => { T(grid, x0 - 6, y0 + i * c + 14, nf(a), {a: 'end', size: 12, fill: '#2B5E96'});
         sb.forEach((b, j) => { const done = i <= upto, w = b > a, tie = b === a;
           R(grid, x0 + j * c + 1, y0 + i * c + 1, c - 2, c - 2, !done ? '#F7F5F0' : w ? C.a : tie ? '#B9CBE3' : C.soft, {rx: 3, opacity: done && w ? .85 : 1}); }); }); }
@@ -142,17 +143,17 @@
       const Y = v => 170 - v * 5.5; L(bars, 30, 170, 440, 170, C.t3);
       for (let i = 0; i < 6; i++){ const x = 45 + i * 66; if (c){ R(bars, x, Y(c[i]), 46, c[i] * 5.5, i === 5 && mode ? C.b : C.a, {rx: 3, opacity: .85}); T(bars, x + 23, Y(c[i]) - 6, c[i], {a: 'middle', size: 15, fill: C.ink, w: 500}); }
         T(bars, x + 23, 190, i + 1, {a: 'middle', size: 14}); }
-      L(bars, 30, Y(10), 440, Y(10), C.ink, 1.5, '6 4'); T(bars, 440, Y(10) - 6, '10', {a: 'end', size: 13, fill: C.ink});
+      L(bars, 30, Y(10), 440, Y(10), C.ink, 1.5, '6 4'); T(bars, 440, Y(10) - 6, '10', {a: 'end', size: 14, fill: C.ink});
       const X = v => 30 + Math.min(v, 30) / 30 * 410, bins = new Array(31).fill(0); chis.forEach(v => bins[Math.min(30, Math.floor(v))]++);
       const mx = Math.max(1, ...bins); bins.forEach((b, i) => R(hist, X(i) + 1, 130 - b / mx * 110, 410 / 30 - 2, b / mx * 110, i >= 11 ? C.red : C.a, {opacity: .8}));
-      L(hist, 30, 130, 440, 130, C.t3); L(hist, X(11.07), 14, X(11.07), 130, C.ink, 1.5, '5 4'); T(hist, X(11.07) + 4, 24, '11,07', {size: 13, fill: C.ink});
-      [0, 10, 20, 30].forEach(v => T(hist, X(v), 150, v, {a: 'middle', size: 13}));
+      L(hist, 30, 130, 440, 130, C.t3); L(hist, X(11.07), 14, X(11.07), 130, C.ink, 1.5, '5 4'); T(hist, X(11.07) + 4, 24, '11,07', {size: 14, fill: C.ink});
+      [0, 10, 20, 30].forEach(v => T(hist, X(v), 150, v, {a: 'middle', size: 14}));
       cnt.textContent = chis.length ? fill(S.over, {k: nf(over), n: nf(chis.length), pct: pct(over / chis.length)}) : '';
       const g = i => body.querySelector('#' + i), x = c ? stat(c) : null;
       g('chi-c').textContent = c ? nf(x, 1) : '—'; g('chi-p').textContent = c ? pf(Q5(x)) : '—'; }
     const push = c => { const x = stat(c); chis.push(x); if (x > 11.07) over++; return x; };
     run.onclick = () => { const c = roll(), x = push(c); draw(c); reveal(); verdict.hidden = false; verdict.className = 'verdict' + (x > 11.07 ? ' bad' : '');
-      verdict.textContent = fill(x > 11.07 ? S.vBad : S.vFair, {c: nf(x, 1), p: pf(Q5(x))}); };
+      verdict.textContent = fill(x > 11.07 ? S.vBad : S.vFair, {c: nf(x, 1), pv: pv(Q5(x))}); };
     many.onclick = () => { let c; for (let i = 0; i < 1000; i++){ c = roll(); push(c); } draw(c); reveal(); };
     draw(null);
   }
@@ -172,7 +173,7 @@
       el('div', {class: 't-sheet'}, [el('p', {class: 't-lbl', text: S.chart}), chart, cnt]), el('div', {class: 't-ctl'}, [run, half]), verdict);
     const X = z => 30 + (Math.max(-2, Math.min(8, z)) + 2) / 10 * 410;
     function axis(){ chart.replaceChildren(); R(chart, X(-2), 10, X(1.96) - X(-2), 60, C.soft, {rx: 4}); L(chart, 30, 70, 440, 70, C.t3);
-      [-2, 0, 2, 4, 6, 8].forEach(z => T(chart, X(z), 90, (z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 13})); T(chart, X(1.96) + 4, 108, '1,96', {size: 13, fill: C.ink}); }
+      [-2, 0, 2, 4, 6, 8].forEach(z => T(chart, X(z), 90, (z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14})); T(chart, X(1.96) + 4, 108, '1,96', {size: 14, fill: C.ink}); }
     function upd(){ p = +pIn.value; d = Math.min(+dIn.value, 99 - p); pOut.textContent = nf(p) + ' %'; dOut.textContent = '+' + nf(d, 1) + ' п. п.';
       nBig.textContent = nf(nOf(p, d)); axis(); cnt.textContent = ''; verdict.hidden = true; }
     pIn.oninput = upd; dIn.oninput = upd;
