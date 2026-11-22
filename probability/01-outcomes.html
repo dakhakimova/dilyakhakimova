@@ -512,8 +512,8 @@ const TXT = {
   }
   function draw(){
     const g = canvas(cv, 0.36, 0.7); if (!g) return; const {c, w, h} = g;
-    const L = 40, R = 10, T0 = 16, B = 42, pw = w - L - R, ph = h - T0 - B, top = 0.7, bw = pw / 3;
-    axisY(c, L, R, T0, ph, w, 0, top, 0.1, v => shareT(v, 0));
+    const L = 40, R = 10, T0 = 16, B = 42, pw = w - L - R, ph = h - T0 - B, top = 0.75, bw = pw / 3;
+    axisY(c, L, R, T0, ph, w, 0, top, 0.25, v => shareT(v, 0));   // деления 0 · 25% · 50% · 75% (гайд, пара 73)
     const vals = [cnt.OO, cnt.OR + cnt.RO, cnt.RR].map(k => n ? k / n : 0);
     const Y = v => T0 + ph * (1 - Math.min(v, top) / top);
     for (let i = 0; i < 3; i++){
@@ -622,13 +622,15 @@ const dieSVG = (k, fill) => '<svg class="dsvg" viewBox="0 0 40 40" aria-hidden="
   const roll = () => 1 + Math.floor(Math.random() * 6);
   function draw(){
     const g = canvas(cv, 0.42, 0.7); if (!g) return; const {c, w, h} = g;
-    const L = 40, R = 8, T0 = 16, B = 34, pw = w - L - R, ph = h - T0 - B, bw = pw / 11;
-    let top = 0.2; for (let s = 2; s <= 12; s++) if (n && cnt[s] / n > top) top = Math.ceil(cnt[s] / n * 20) / 20;
+    const L = 40, R = 8, T0 = 22, B = 34, pw = w - L - R, ph = h - T0 - B, bw = pw / 11;
+    // ось закреплена 0–25%, шесть делений (гайд: деления «0 · 5% · 10%…», «меняются данные, а не шкала»); столбец выше — обрезан, над ним число
+    const top = 0.25;
     axisY(c, L, R, T0, ph, w, 0, top, 0.05, v => shareT(v, 0));
     for (let s = 2; s <= 12; s++){
-      const x = L + (s - 2) * bw, v = n ? cnt[s] / n : 0, y = T0 + ph * (1 - v / top), hot = s >= 11;
-      if (n){ c.fillStyle = hot ? COL.truth : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y); }
-      if (n && hot) label(c, shareT(v, 1), x + bw / 2, y - 5, COL.truth, 'center');
+      const x = L + (s - 2) * bw, v = n ? cnt[s] / n : 0, cut = v > top, y = T0 + ph * (1 - Math.min(v, top) / top), hot = s >= 11;
+      if (n){ c.fillStyle = hot ? COL.truth : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y);
+        if (cut){ c.fillStyle = '#fff'; c.fillRect(x + 2, y + 8, bw - 4, 3); label(c, shareT(v, 0), x + bw / 2, y - 5, COL.ink, 'center'); } }
+      if (n && hot && !cut && v > 0) label(c, shareT(v, 1), x + bw / 2, y - 5, COL.truth, 'center');
       label(c, String(s), x + bw / 2, h - 18, hot ? COL.truth : COL.ink2, 'center');
     }
     label(c, TXT.sumX, L + pw / 2, h - 2, COL.ink2, 'center');
