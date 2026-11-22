@@ -165,24 +165,42 @@ ${foot()}
   }
   console.log('play:', toys.length, 'игр →', path.relative(ROOT, outDir) + '/<slug>/index.html');
 
-  // ---------- каталог: только опубликованные, фильтр по теме (темы без опубликованных игр не показываем) ----------
+  // ---------- каталог (решение Дили, 22.11.2026): сверху три игры «начни с этих», дальше группы по темам
+  // (по PER_TOPIC в группе), под ними «Ещё игры» раскрывает остальные опубликованные. Только published: true.
+  // Какие три — play/courses.json → catalog.start (неопубликованные пропускаются, недостающие добираются уровнем 1).
   const pub = toys.filter(x => x.published);
-  const topics = REL.TOPICS.filter(tp => pub.some(x => x.topic === tp));
-  const catCard = o => card(o).replace('<li>', `<li data-topic="${o.topic}">`);
+  const PER_TOPIC = (cfg.catalog && cfg.catalog.perTopic) || 2;
+  let start = ((cfg.catalog && cfg.catalog.start) || []).map(sl => pub.find(x => x.slug === sl)).filter(Boolean);
+  for (const x of pub) if (start.length < 3 && x.level === 1 && !start.includes(x)) start.push(x);
+  start = start.slice(0, 3);
+  const rest = pub.filter(x => !start.includes(x));
+  const topics = REL.TOPICS.filter(tp => rest.some(x => x.topic === tp));
+  let hiddenN = 0;
+  const groups = topics.map(tp => {
+    const list = rest.filter(x => x.topic === tp);
+    return `
+  <section class="cat-group" aria-labelledby="t-${attr(tp).replace(/[^\wа-яё]/gi, '')}">
+    <h2 id="t-${attr(tp).replace(/[^\wа-яё]/gi, '')}">${tp}</h2>
+    <ul class="toys cat-list" role="list">${list.map((o, i) => { if (i >= PER_TOPIC) hiddenN++; return card(o).replace('<li>', i >= PER_TOPIC ? '<li data-more hidden>' : '<li>'); }).join('')}
+    </ul>
+  </section>`;
+  }).join('');
   const cat = head(t('play.meta.title'), t('play.meta.desc'), `${pre}/play/`, '/play/og/index.png') + `
+<!-- основная персона: П1 «Лена перед собесом» (design-system.md, «Персоны»); дополнительная — П3 «Марина, продакт без аналитика» -->
 <main id="main" class="wrap play-cat">
   <h1>${t('play.title')}</h1>
   <p class="lead">${t('play.lead')}</p>
-  <div class="topic-filter" role="group" aria-label="${attr(t('play.filter'))}">
-    <button type="button" aria-pressed="true" data-topic="">${t('play.filter.all')}</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
-  </div>
-  <ul class="toys cat-list" role="list">${pub.map(catCard).join('')}
-  </ul>
+  <section class="cat-start" aria-labelledby="start-h">
+    <h2 id="start-h">${t('play.start')}</h2>
+    <ul class="toys cat-list" role="list">${start.map(card).join('')}
+    </ul>
+  </section>${groups}${hiddenN ? `
+  <p class="cat-more"><button class="btn ghost" type="button" id="cat-more" aria-expanded="false">${t('play.moreGames')}</button></p>` : ''}
   <p class="legend"><span>${t('play.legend')}</span>${[1, 2, 3].map(chip).join('')}</p>
 </main>
 ${foot()}
 <script>
-(function(){var f=document.querySelector('.topic-filter');f.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.topic;f.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});document.querySelectorAll('.cat-list > li').forEach(function(li){li.hidden=!!v&&li.dataset.topic!==v})})})();
+(function(){var b=document.getElementById('cat-more');if(!b)return;b.addEventListener('click',function(){var f=null;document.querySelectorAll('.cat-list > li[data-more]').forEach(function(li){if(li.hidden&&!f)f=li;li.hidden=false});b.parentNode.hidden=true;b.setAttribute('aria-expanded','true');if(f){var a=f.querySelector('a');if(a)a.focus()}})})();
 </script>
 </body>
 </html>

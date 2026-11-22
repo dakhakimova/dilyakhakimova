@@ -388,6 +388,8 @@ function seriesLabels(c, items, xEnd, w, wide, yTop){
     const g = canvas(cv, 0.4, 0.62); if (!g) return; const {c, w, h} = g;
     const wide = w >= 520, L = 40, R = wide ? 112 : 8, T = wide ? 10 : 24, Bm = 22, pw = w - L - R, ph = h - T - Bm, lo = 0.06, hi = 0.14;
     const X = i => L + i / 13 * pw, Y = v => T + (1 - (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ph;
+    // коридор нормы (Тафти, «погода Нью-Йорка»): где лежит дневная конверсия одной группы в 95% дней, если ничего не менялось
+    const se = Math.sqrt(P * (1 - P) / N); c.fillStyle = COL.fillGray; c.fillRect(L, Y(P + 2 * se), pw, Y(P - 2 * se) - Y(P + 2 * se));
     axisY(c, L, R, T, ph, w, lo, hi, 0.02, v => num(100 * v, 0) + '%');
     c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(P)); c.lineTo(w - R, Y(P)); c.stroke(); c.setLineDash([]);
     [[A, COL.ctrl], [B, COL.test]].forEach(([arr, col]) => {
