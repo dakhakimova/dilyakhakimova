@@ -43,6 +43,7 @@
     try {
       const r = await fetch('/api/me', {credentials: 'same-origin'});
       me = r.ok ? await r.json() : null;
+      try { if (me && me.user) localStorage.setItem('dk:me', JSON.stringify({name: me.user.first_name || '', photo: me.user.photo_url || ''})); else if (r.status === 401) localStorage.removeItem('dk:me'); } catch(e) {}
     } catch(e) { me = null; }
     badge();
     if (me) flush();

@@ -26,12 +26,12 @@
 (function(){
   const PLAY_STR = {
     ru: {
-      share: 'Поделиться игрой',
+      share: 'Поделиться',
       copied: 'Ссылка скопирована',
       copyFail: 'Скопируй ссылку: ',
-      shareNote: 'Отдельная страница этой игры — для коллег и статей.',
       guessNote: 'Сначала запиши догадку, потом проверь на игре ниже.',
       preTag: 'Сначала угадай',
+      checkTag: 'Потом проверь',
     },
   };
   const lang = (document.documentElement.lang || 'ru').slice(0, 2);
@@ -66,12 +66,15 @@
   };
 
   // ---------- общий помощник «поделиться» ----------
+  // одна кнопка «Поделиться»: системное меню (navigator.share — телефон, Safari), иначе ссылка в буфер
+  // и на 2 секунды «Ссылка скопирована» рядом с кнопкой
   window.PlayShare = async function(url, title, text, statusEl){
-    if (navigator.share && matchMedia('(pointer: coarse)').matches){
+    if (navigator.share){
       try { await navigator.share({title, text, url}); return 'shared'; } catch(e) { if (e && e.name === 'AbortError') return 'abort'; }
     }
-    try { await navigator.clipboard.writeText(url); if (statusEl) statusEl.textContent = T.copied; return 'copied'; }
-    catch(e) { if (statusEl) statusEl.textContent = T.copyFail + url; return 'fail'; }
+    const say = (m, ms) => { if (!statusEl) return; statusEl.textContent = m; clearTimeout(statusEl._t); if (ms) statusEl._t = setTimeout(() => { statusEl.textContent = ''; }, ms); };
+    try { await navigator.clipboard.writeText(url); say(T.copied, 2000); return 'copied'; }
+    catch(e) { say(T.copyFail + url); return 'fail'; }
   };
 
   if (!ok){
@@ -82,14 +85,14 @@
       cards.forEach(card => card.dataset.toy.split(/\s+/).forEach(s => onFirstTouch(card, () => hit(s, 'course', 'play', utm))));
       loadCredits().then(pub => {
         const st0 = document.createElement('style');
-        st0.textContent = '.toy-share{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:16px 0 0; padding-top:12px; border-top:1px dashed rgba(36,34,31,.18)} .toy-share .btn{min-height:44px} .toy-share .note{margin:0}';
+        st0.textContent = '.toy-share{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; margin:12px 0 0} .toy-share .share-t{background:none; border:0; padding:8px 0; min-height:44px; font:500 15px/1.2 Onest, system-ui, sans-serif; color:#23418A; text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:4px; cursor:pointer} .toy-share .share-t:hover, .toy-share .share-t:focus-visible{text-decoration-color:currentColor} .toy-share .note{margin:0}';
         document.head.appendChild(st0);
         cards.forEach(card => {
           const s = card.dataset.toy.split(/\s+/).find(x => pub[x]);
           if (!s) return;
           const box = document.createElement('div'); box.className = 'toy-share';
-          const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = '↗ ' + T.share;
-          const st = document.createElement('span'); st.className = 'note'; st.setAttribute('role', 'status'); st.textContent = T.shareNote;
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'share-t'; b.textContent = T.share + ' ↗';
+          const st = document.createElement('span'); st.className = 'note'; st.setAttribute('role', 'status');
           box.append(b, st); card.appendChild(box);
           b.addEventListener('click', () => {
             hit(s, 'course', 'share_click', utm);
@@ -119,6 +122,10 @@ html.solo .stage{max-width:none}
 html.solo .card{display:none !important}
 html.solo ${mine.replace(/, /g, ', html.solo ')}{display:block !important}
 html.solo .card + .card{margin-top:16px}
+/* «Сначала угадай» и «Потом проверь» — два отдельных листа с явным зазором */
+html.solo .card[data-toy-pre] + .card{margin-top:48px; padding-top:32px; border-top:1px solid rgba(36,34,31,.14)}
+html.solo .card[data-toy] > h2.scene-h{display:none}
+html.solo .card .scene{font-size:inherit; margin-top:8px}
 html.solo .card > .step-tag:not(.play-pre), html.solo .card[data-toy-pre] > h2, html.solo .card[data-toy-pre] .chat,
 html.solo .card .art, html.solo .card .src, html.solo .card .xref, html.solo .toy-share,
 html.solo [data-toy-hide], html.solo .plus{display:none !important}
@@ -142,12 +149,29 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       if (!n.children.length && /(следующ|дальше|«Далее»)[^.]*карточк|карточк[^.]*(следующ|дальше)|Жми «Далее»/.test(n.textContent)) n.textContent = T.guessNote;
     });
     // единая метка «Сначала угадай» над прогнозом (свои метки карточек в соло-режиме скрыты)
-    document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`).forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
+    const pres = document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`);
+    pres.forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
+    // пара к ней — «Потом проверь» над игрой (только если есть прогноз). Заголовок-сцена игры — не заголовок, а описание:
+    // h2 «Гости входят по одному» + абзац «Каждый гость приносит…» → один абзац «Гости входят по одному: каждый гость приносит…»
+    if (pres.length){
+      const t = document.createElement('span'); t.className = 'step-tag play-pre play-check'; t.textContent = T.checkTag;
+      const h = toy.querySelector(':scope > h2');
+      if (h){
+        const nx = h.nextElementSibling, head = h.textContent.trim().replace(/[.:]$/, '');
+        if (nx && nx.tagName === 'P' && !nx.className && !nx.hasAttribute('data-toy-hide') && !nx.hasAttribute('data-toy-reveal') && /^[А-ЯЁ][а-яё]/.test(nx.textContent.trim())){
+          const fc = nx.firstChild;
+          if (fc && fc.nodeType === 3){ fc.textContent = fc.textContent.replace(/^\s*([А-ЯЁ])/, (_, c) => head + ': ' + c.toLowerCase()); nx.classList.add('scene'); }
+          else nx.insertAdjacentText('afterbegin', head + '. ');
+        } else { const p = document.createElement('p'); p.className = 'scene'; p.textContent = head + '.'; h.after(p); }
+        h.classList.add('scene-h');
+      }
+      toy.prepend(t);
+    }
     // подпись-источник под игрой (видна и в ?embed=1)
     loadCredits().then(c => {
       const x = c[slug]; if (!x) return;
       const p = document.createElement('p'); p.className = 'play-credit';
-      p.innerHTML = x.html.replace(/\{target\}/g, embed ? '_blank' : '_top') + ' · <span class="st">' + x.badge + '</span>';
+      p.innerHTML = x.html.replace(/\{target\}/g, embed ? '_blank' : '_top');  // без статуса курса: в игре не продаём
       const cards = [...document.querySelectorAll(mine)], last = cards[cards.length - 1];
       last.after(p); send();
     });

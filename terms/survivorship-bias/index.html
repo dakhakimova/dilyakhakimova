@@ -24,27 +24,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/home.css?v=202611300">
-<link rel="stylesheet" href="/terms/terms.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/terms/terms.css?v=202611301">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Ошибка выжившего","item":"https://dilyakhakimova.com/terms/survivorship-bias/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/survivorship-bias/#term","name":"Ошибка выжившего","description":"Ошибка выжившего — это вывод по тем, кто «дожил» до наблюдения, когда отсеянные молча выпали из данных. Картина получается слишком красивой, потому что неудачники в неё просто не попали.","url":"https://dilyakhakimova.com/terms/survivorship-bias/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Ошибка выжившего простыми словами","description":"Ошибка выжившего: почему выводы по тем, кто «дожил» до наблюдения, слишком красивы. Самолёты Вальда, опрос постоянных гостей и монетки-гуру.","url":"https://dilyakhakimova.com/terms/survivorship-bias/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/survivorship-bias/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Вернувшиеся с заданий самолёты чаще всего пробиты в крыльях и фюзеляже, а не в двигателях. Где усилить броню?","acceptedAnswer":{"@type":"Answer","text":"На двигателях. Самолёты с пробоинами в двигателях не возвращались, поэтому в выборке вернувшихся таких дыр почти нет. Пробоины на крыльях самолёт, наоборот, переживает."}},{"@type":"Question","name":"Средняя доходность существующих фондов за 10 лет — 9% в год. Хорошая ли это оценка для нового фонда?","acceptedAnswer":{"@type":"Answer","text":"Нет, завышенная: фонды, которые за эти годы закрылись из-за плохих результатов, выпали из выборки. Честная оценка включает и закрытые фонды."}}]}]}</script>
 </head>
 <body class="t-page">
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
-  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
-    <a href="/terms/" aria-current="page">Словарь</a>
     <a href="/shelf/">Полка</a>
-    <a class="login" href="/account.html">Войти</a>
-    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
+    <a href="/terms/" aria-current="page">Словарь</a>
   </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -55,7 +54,7 @@
 
 <main id="main" class="wrap term" data-slug="survivorship-bias"
   data-share-title="Ошибка выжившего простыми словами" data-share-text="Ошибка выжившего простыми словами — с игрой и задачей с собеседования:"
-  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  data-s-copied="Ссылка скопирована">
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
     <h1>Ошибка выжившего простыми словами</h1>
@@ -143,26 +142,10 @@
 
   <section class="t-sec t-cta" aria-labelledby="course-h">
     <h2 id="course-h">Где это в курсе</h2>
-    <p>Бесплатный курс «Сигнал или шум», глава 8 — «Симпсон, Берксон, ошибка выжившего и автобус». Без регистрации, начни прямо сейчас.</p>
-    <p class="ctas"><a class="btn" href="/signal/08-traps.html">Открыть глава 8 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+    <p>Это глава 8 курса «Сигнал или шум» — <a href="/signal/08-traps.html">«Симпсон, Берксон, ошибка выжившего и автобус» →</a></p>
   </section>
 
-  <section class="t-sec" aria-labelledby="rel-h">
-    <h2 id="rel-h">Связанные термины</h2>
-    <ul class="toys t-rel rel" role="list">
-      <li><a href="/play/worst-cafes/"><span class="kind">Игра</span><b>Промо в пяти худших кафе — и через неделю они выросли. Это промо?</b><span>Двадцать кафе, промо для пяти худших и одна прошедшая неделя: откуда берётся рост, если промо не делает ничего.</span><span class="go">Сыграть →</span></a></li>
-      <li><a href="/signal/08-traps.html"><span class="kind">Глава курса</span><b>Симпсон, Берксон, ошибка выжившего и автобус</b><span>«Сигнал или шум», глава 8</span><span class="go">Открыть главу →</span></a></li>
-      <li><a href="/play/coin-split/"><b>«До и после» или монетка: какой способ ближе к правде?</b><span>Сто экспериментов в случайные дни года: кнопка с известным эффектом и два способа его измерить.</span><span class="go">Ещё игры наугад →</span></a></li>
-    </ul>
-  </section>
-
-  <section class="t-share" aria-label="Скинуть коллеге">
-    <div class="row">
-      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
-      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
-      <span class="note" role="status"></span>
-    </div>
-  </section>
+  <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
 
   <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
 </main>
@@ -172,42 +155,32 @@
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
       </ul>
     </div>
     <div>
-      <h2>Разделы</h2>
+      <h2>Рубрики</h2>
       <ul role="list">
         <li><a href="/play/">Игры</a></li>
-        <li><a href="/terms/">Словарь аналитика</a></li>
         <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/map/">Карта навыков</a></li>
-        <li><a href="/start/">С чего начать</a></li>
-        <li><a href="/account.html">Мой прогресс</a></li>
+        <li><a href="/terms/">Словарь</a></li>
       </ul>
     </div>
     <div>
       <h2>Автор</h2>
       <ul role="list">
         <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
-        <li hidden><a href="#">Telegram</a></li>
       </ul>
     </div>
-    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
-  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
-  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
-</aside>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова</p>
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611300"></script>
+<script src="/terms/terms.js?v=202611301"></script>
 </body>
 </html>

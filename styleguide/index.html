@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/home.css?v=202611300">
-<link rel="stylesheet" href="/course.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/course.css?v=202611301">
 <style>
 /* только для самой страницы-образца: сетка «образец / подпись», не для продакшна */
 .sg-nav{display:flex; flex-wrap:wrap; gap:var(--s-1) var(--s-4); font-size:var(--fs-s); margin:var(--s-5) 0 0}
@@ -44,19 +44,18 @@
 
 <!-- Шапка: логотип (Literata 500 + рукописное имя), строка о сайте 13 px, меню 15 px, подчёркнутые ссылки -->
 <header class="top wrap" data-chrome>
-  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
-  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
-    <a href="/terms/">Словарь</a>
     <a href="/shelf/">Полка</a>
-    <a class="login" href="/account.html">Войти</a>
-    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
+    <a href="/terms/">Словарь</a>
   </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main" class="wrap">
 
@@ -270,39 +269,29 @@
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
       </ul>
     </div>
     <div>
-      <h2>Разделы</h2>
+      <h2>Рубрики</h2>
       <ul role="list">
         <li><a href="/play/">Игры</a></li>
-        <li><a href="/terms/">Словарь аналитика</a></li>
         <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/map/">Карта навыков</a></li>
-        <li><a href="/start/">С чего начать</a></li>
-        <li><a href="/account.html">Мой прогресс</a></li>
+        <li><a href="/terms/">Словарь</a></li>
       </ul>
     </div>
     <div>
       <h2>Автор</h2>
       <ul role="list">
         <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
-        <li hidden><a href="#">Telegram</a></li>
       </ul>
     </div>
-    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
-  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
-  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
-</aside>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова</p>
   </div>
 </footer>
 </body>

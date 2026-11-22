@@ -25,26 +25,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/home.css?v=202611300">
-<link rel="stylesheet" href="/play/play.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/play/play.css?v=202611301">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
-  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/" aria-current="page">Игры</a>
-    <a href="/terms/">Словарь</a>
     <a href="/shelf/">Полка</a>
-    <a class="login" href="/account.html">Войти</a>
-    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
+    <a href="/terms/">Словарь</a>
   </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -55,7 +54,7 @@
 
 <main id="main" class="wrap play" data-toy="one-minute" data-frame="/signal/05-normal.html?toy=one-minute"
   data-share-title="Опоздание на минуту — много или мало?" data-share-text="В дашборде у доставки и самовывоза один порог тревоги: «опоздание больше минуты». Какая доля заказов каждого вида его перейдёт? Угадай и проверь на двух колоколах"
-  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="one-minute" data-show-from="0" hidden></span></p>
   <h1>Опоздание на минуту — много или мало?</h1>
 
@@ -77,14 +76,9 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/05-normal.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-try" aria-labelledby="try-h">
-    <h2 id="try-h">Попробуй</h2>
-    <ol><li>Оставь окно ±1.2 минуты. Какая доля самовывозов и доставок в нём?</li><li>Расширь окно до 6 минут. Доставки догнали самовывоз?</li><li>Посмотри на высоту колоколов. Почему широкий ниже узкого?</li></ol>
-  </section>
-
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
-    <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="locked">Разбор откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal">Показать разбор</button></p>
     <div class="reveal" hidden>
       <p>Окно ±1.2 минуты — это ±2σ для самовывоза и всего ±0.3σ для доставки: в него попадает около 95% самовывозов и лишь около 24% доставок. Поэтому одно и то же опоздание на минуту — ЧП для самовывоза и пустяк для доставки. Широкий колокол ниже узкого, потому что площадь у обоих одна — единица.</p>
       <h3>Шпаргалка</h3>
@@ -92,36 +86,10 @@
     </div>
   </section>
 
-
-  <section class="play-share" aria-label="Скинуть коллеге">
-    <div class="row">
-      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
-      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
-      <span class="note" role="status"></span>
-    </div>
-    <details class="embed">
-      <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
-      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
-    </details>
-  </section>
-
-  <p class="play-src"><b>Откуда идея.</b> Идея из видео Джоша Стармера (StatQuest): младенцы и взрослые на одной оси.</p>
-
-  <section class="play-next" aria-labelledby="next-h">
-    <h2 id="next-h">Дальше в курсе</h2>
-    <p>Боб развёл пороги для самовывоза и доставки и спросил, почему высота колокола — не вероятность. Это глава 5 курса — <a href="/signal/05-normal.html">«Нормальное распределение»</a>.</p>
-    <p class="ctas"><a class="btn" href="/signal/05-normal.html">Открыть глава 5 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
-    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
-  </section>
-
-  <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё по теме</h2>
-    <ul class="toys rel" role="list">
-      <li><a href="/play/bell-ruler/"><span class="kind">Игра</span><b>Вчера средний чек был на две сигмы выше обычного. Это редкость?</b><span>Линейка колокола: окна ±1, 2 и 3 сигмы на среднем чеке кафе — и какая доля дней в них попадает.</span><span class="go">Сыграть →</span></a></li>
-      <li><a href="/terms/confidence-interval/"><span class="kind">Термин</span><b>Доверительный интервал</b><span>Вилка правдоподобных значений и что значит «95%».</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/signal/05-normal.html"><span class="kind">Глава курса</span><b>Нормальное распределение</b><span>«Сигнал или шум», глава 5</span><span class="go">Открыть главу →</span></a></li></ul>
-  </section>
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из видео Джоша Стармера (StatQuest): младенцы и взрослые на одной оси.</p>
+  </div>
 </main>
 
 <footer class="foot" data-chrome>
@@ -129,42 +97,32 @@
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
       </ul>
     </div>
     <div>
-      <h2>Разделы</h2>
+      <h2>Рубрики</h2>
       <ul role="list">
         <li><a href="/play/">Игры</a></li>
-        <li><a href="/terms/">Словарь аналитика</a></li>
         <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/map/">Карта навыков</a></li>
-        <li><a href="/start/">С чего начать</a></li>
-        <li><a href="/account.html">Мой прогресс</a></li>
+        <li><a href="/terms/">Словарь</a></li>
       </ul>
     </div>
     <div>
       <h2>Автор</h2>
       <ul role="list">
         <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
-        <li hidden><a href="#">Telegram</a></li>
       </ul>
     </div>
-    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
-  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
-  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
-</aside>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611300"></script>
+<script src="/play/play.js?v=202611301"></script>
 </body>
 </html>

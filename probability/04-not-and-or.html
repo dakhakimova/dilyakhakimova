@@ -6,15 +6,15 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/04-not-and-or.html">
 <title>Не, и, или · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
-<script src="/play/bridge.js?v=202611300"></script>
+<script src="/play/bridge.js?v=202611301"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/signal/book.css?v=202611300">
-<link rel="stylesheet" href="/signal/free.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/signal/free.css?v=202611301">
 <style>
 /* стили только этой страницы */
 .controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
@@ -29,9 +29,9 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
-<script src="/signal/progress.js?v=202611300"></script>
+<script src="/signal/progress.js?v=202611301"></script>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="28" height="28" alt=""></a> <a class="course" href="./">Вероятность на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -103,17 +103,13 @@
       <div class="hot"><b id="pt-hit">нет</b>совпадение</div>
     </div>
     <div class="controls">
-      <button class="btn" type="button" id="pt-1">Гость входит</button>
+      <button class="btn ghost" type="button" id="pt-1">+1 гость</button>
       <button class="btn ghost" type="button" id="pt-10">+10 гостей</button>
       <button class="btn ghost" type="button" id="pt-new">Новая вечеринка</button>
     </div>
     <span class="kot-says" id="pt-kot" hidden></span>
-    <div class="p4-range">
-      <label for="pt-size">Гостей на каждой вечеринке: <b id="pt-size-t" class="num">23</b></label>
-      <input type="range" id="pt-size" min="2" max="80" value="23">
-    </div>
     <div class="controls">
-      <button class="btn" type="button" id="pt-1000">Устроить 1000 вечеринок</button>
+      <button class="btn" type="button" id="pt-1000">Провести 1000 вечеринок</button>
     </div>
     <div class="verdict" id="pt-v" hidden></div>
   </div>
@@ -382,7 +378,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611300"></script>
+<script src="/signal/book.js?v=202611301"></script>
 <script>
 const TXT = {
   ru: {
@@ -411,8 +407,9 @@ const TXT = {
 (function(){
   const ML = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], START = [];
   ML.reduce((s, m, i) => (START[i] = s, s + m), 0);
-  const cv = document.getElementById('cal'), size = document.getElementById('pt-size'), v = document.getElementById('pt-v'), kot = document.getElementById('pt-kot');
-  let days = [], hitShown = false, total = 0, hits = 0, batchN = 23;
+  const cv = document.getElementById('cal'), v = document.getElementById('pt-v'), kot = document.getElementById('pt-kot');
+  let days = [], hitShown = false, total = 0, hits = 0;
+  const batchN = 23;  // столько гостей, сколько в вопросе прогноза
   const theory = n => { let q = 1; for (let i = 0; i < n; i++) q *= (365 - i) / 365; return 1 - q; };
   function counts(){ const c = new Array(365).fill(0); days.forEach(d => c[d]++); return c; }
   function draw(){
@@ -443,12 +440,7 @@ const TXT = {
   document.getElementById('pt-1').addEventListener('click', () => add(1));
   document.getElementById('pt-10').addEventListener('click', () => add(10));
   document.getElementById('pt-new').addEventListener('click', () => { days = []; hitShown = false; kot.hidden = true; paint(); });
-  size.addEventListener('input', () => {
-    document.getElementById('pt-size-t').textContent = size.value;
-    if (+size.value !== batchN){ total = 0; hits = 0; v.hidden = true; }
-  });
   document.getElementById('pt-1000').addEventListener('click', () => {
-    batchN = +size.value;
     const seen = new Uint16Array(365);
     let mark = 0;
     for (let t = 0; t < 1000; t++){
@@ -563,6 +555,6 @@ const TXT = {
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611300"></script>
+<script src="/signal/py.js?v=202611301"></script>
 </body>
 </html>

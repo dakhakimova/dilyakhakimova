@@ -24,27 +24,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/home.css?v=202611300">
-<link rel="stylesheet" href="/terms/terms.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/terms/terms.css?v=202611301">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Формула Байеса","item":"https://dilyakhakimova.com/terms/bayes-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term","name":"Формула Байеса","description":"Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Формула Байеса простыми словами","description":"Формула Байеса на примере датчика орехов в десертах: почему тревога точного датчика чаще ложная, чем настоящая, и как это посчитать в штуках.","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Болезнью болеет 1% людей. Тест находит 90% больных, но у 9% здоровых тоже показывает «болен». Тест положительный. Какова вероятность, что человек болен?","acceptedAnswer":{"@type":"Answer","text":"Из 1000 человек больны 10, тест найдёт 9. Из 990 здоровых ложно положительны около 89. Положительных 9 + 89 = 98, больных среди них 9 — примерно 9%. По формуле: 0.9 · 0.01 / (0.9 · 0.01 + 0.09 · 0.99) ≈ 0.092."}},{"@type":"Question","name":"В мешке две монеты: честная и с орлами с обеих сторон. Достали одну наугад, бросили — выпал орёл. Какова вероятность, что монета двусторонняя?","acceptedAnswer":{"@type":"Answer","text":"P(орёл | двусторонняя) = 1, P(орёл | честная) = 1/2, априорно обе по 1/2. Ответ: (1 · 1/2) / (1 · 1/2 + 1/2 · 1/2) = 2/3."}}]}]}</script>
 </head>
 <body class="t-page">
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
-  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
-    <a href="/terms/" aria-current="page">Словарь</a>
     <a href="/shelf/">Полка</a>
-    <a class="login" href="/account.html">Войти</a>
-    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
+    <a href="/terms/" aria-current="page">Словарь</a>
   </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -55,7 +54,7 @@
 
 <main id="main" class="wrap term" data-slug="bayes-theorem"
   data-share-title="Формула Байеса простыми словами" data-share-text="Формула Байеса простыми словами — с игрой и задачей с собеседования:"
-  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  data-s-copied="Ссылка скопирована">
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
     <h1>Формула Байеса простыми словами</h1>
@@ -145,27 +144,18 @@
 
   <section class="t-sec t-cta" aria-labelledby="course-h">
     <h2 id="course-h">Где это в курсе</h2>
-    <p>Бесплатный курс «Вероятность на пальцах», шаг 6 — «Байес». Без регистрации, начни прямо сейчас.</p>
-    <p class="ctas"><a class="btn" href="/probability/06-bayes.html">Открыть шаг 6 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+    <p>Это шаг 6 курса «Вероятность на пальцах» — <a href="/probability/06-bayes.html">«Байес» →</a></p>
   </section>
 
   <section class="t-sec" aria-labelledby="rel-h">
     <h2 id="rel-h">Связанные термины</h2>
     <ul class="toys t-rel rel" role="list">
-      <li><a href="/play/sorter/"><span class="kind">Игра</span><b>Дождь меняет шанс, что гость закажет горячий шоколад?</b><span>Сортировочная на 1000 гостей: надень рамку «только дождь» и посмотри, как меняется доля шоколада — и доля десерта.</span><span class="go">Сыграть →</span></a></li>
-      <li><a href="/terms/normal-distribution/"><span class="kind">Термин</span><b>Нормальное распределение</b><span>Колокол, сигмы и правило 68–95–99.7.</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/probability/05-conditional.html"><span class="kind">Глава курса</span><b>Условная вероятность и независимость</b><span>«Вероятность на пальцах», шаг 5</span><span class="go">Открыть главу →</span></a></li>
-      <li><a href="/play/twenty-metrics-aa/"><b>Сколько из 20 метрик покраснеют в A/A?</b><span>Отчёт A/A с двадцатью метриками кафе: сколько из них «прокрасится», когда эффекта нет, и что меняется, если метрики связаны.</span><span class="go">Ещё игры наугад →</span></a></li>
+      <li><a href="/terms/conditional-probability/"><b>Условная вероятность простыми словами</b><span>Как известное событие меняет шансы другого.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/p-value/"><b>p-value простыми словами</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
     </ul>
   </section>
 
-  <section class="t-share" aria-label="Скинуть коллеге">
-    <div class="row">
-      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
-      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
-      <span class="note" role="status"></span>
-    </div>
-  </section>
+  <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
 
   <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
 </main>
@@ -175,42 +165,32 @@
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
       </ul>
     </div>
     <div>
-      <h2>Разделы</h2>
+      <h2>Рубрики</h2>
       <ul role="list">
         <li><a href="/play/">Игры</a></li>
-        <li><a href="/terms/">Словарь аналитика</a></li>
         <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/map/">Карта навыков</a></li>
-        <li><a href="/start/">С чего начать</a></li>
-        <li><a href="/account.html">Мой прогресс</a></li>
+        <li><a href="/terms/">Словарь</a></li>
       </ul>
     </div>
     <div>
       <h2>Автор</h2>
       <ul role="list">
         <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
-        <li hidden><a href="#">Telegram</a></li>
       </ul>
     </div>
-    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
-  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
-  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
-</aside>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова</p>
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611300"></script>
+<script src="/terms/terms.js?v=202611301"></script>
 </body>
 </html>

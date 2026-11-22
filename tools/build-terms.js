@@ -5,7 +5,7 @@
    Запускается из tools/bake-i18n.js (одна команда на весь сайт) или сам: node tools/build-terms.js
    Проверки при сборке (ошибка — сборка не проходит): title ≤ 65 знаков, description 50–220 знаков и не равен title,
    у термина есть пример, игра, схема и две задачи (иначе страница выходит с noindex), сравнение ссылается на существующий термин.
-   «Ещё наугад» — случайный термин или игра /play/, выбирается заново при каждой сборке. */
+   Внизу — связанные термины (terms.json → related, только опубликованные) и одна кнопка «Поделиться». */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim} = require('./terms-viz.js');
@@ -111,11 +111,9 @@ ${chrome.header('terms')}
     if (term.cmp && !bySlug[term.cmp]) throw new Error(`build-terms: ${s} — cmp ${term.cmp} не термин`);
     for (const r of term.related) if (!bySlug[r]) throw new Error(`build-terms: ${s} — связанный ${r} не термин`);
     const hq = x.hq;
+    const relTerms = term.related.filter(r => bySlug[r].published);
 
-    // «Ещё наугад»: термин не из связанных или игра /play/
-    const RI = REL.index(), near = REL.sameTopic(RI, term.topic, `/terms/${s}/`);
-    const gpool = RI.toys.filter(o => o.published && (!ptoy || o.href !== `/play/${ptoy.slug}/`) && !near.some(n => n.href === o.href));
-    const rg = gpool.length ? pick(gpool) : null, rnd = rg && {href: rg.href, title: rg.title, line: rg.line};
+    const RI = REL.index();
     const pubToy = slug => RI.toys.some(o => o.slug === slug && o.published);
 
     const toyBlock = isNew ? ownToy(term.toy.slice(4), x) + `
@@ -157,7 +155,7 @@ ${chrome.header('terms')}
 
 <main id="main" class="wrap term" data-slug="${s}"
   data-share-title="${attr(h1Of(s))}" data-share-text="${attr(t('terms.shareText', {name: x.name}))}"
-  data-s-copied="${attr(t('terms.copied'))}" data-s-copied-msg="${attr(t('terms.copiedMsg'))}">
+  data-s-copied="${attr(t('terms.copied'))}">
   <header class="t-hero">
     <p class="eyebrow">${t('terms.kicker')}</p>
     <h1>${typo(h1Of(s))}</h1>
@@ -229,25 +227,16 @@ ${chrome.header('terms')}
 
   <section class="t-sec t-cta" aria-labelledby="course-h">
     <h2 id="course-h">${t('terms.course.h')}</h2>
-    <p>${t('terms.cta.text', {course: courseName[c.course], unit: unit[c.course], n: c.n, title: c.title})}</p>
-    <p class="ctas"><a class="btn" href="${c.href}">${t('terms.cta.open', {unit: unit[c.course], n: c.n})}</a><a class="btn link" href="${{vp: '/probability/', ss: '/signal/', ab: '/ab-basics/'}[c.course]}">${t('terms.cta.all', {course: courseName[c.course]})}</a></p>${term.waitlist ? `
-    <p class="t-wait">${t('terms.cta.wait')}</p>` : ''}
+    <p>${t('terms.cta.text', {course: courseName[c.course], unit: unit[c.course], n: c.n, title: c.title, href: c.href})}</p>
   </section>
-
+${relTerms.length ? `
   <section class="t-sec" aria-labelledby="rel-h">
     <h2 id="rel-h">${t('terms.rel.h')}</h2>
-    <ul class="toys t-rel rel" role="list">${near.map(o => `
-      <li><a href="${o.href}"><span class="kind">${REL.KIND[o.kind]}</span><b>${typo(o.title)}</b><span>${typo(o.line)}</span><span class="go">${REL.GO[o.kind]}</span></a></li>`).join('')}${rnd ? card(rnd.href, rnd.title, rnd.line, t('terms.random')) : ''}
+    <ul class="toys t-rel rel" role="list">${relTerms.map(r => card(`/terms/${r}/`, h1Of(r), TX[r].card)).join('')}
     </ul>
   </section>
-
-  <section class="t-share" aria-label="${attr(t('terms.share'))}">
-    <div class="row">
-      <button class="btn ghost" type="button" data-act="share">${t('terms.share')}</button>
-      <button class="btn ghost" type="button" data-act="copy">${t('terms.copy')}</button>
-      <span class="note" role="status"></span>
-    </div>
-  </section>
+` : ''}
+  <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
 
   <p class="t-author">${t('terms.author')}</p>
 </main>

@@ -1,5 +1,5 @@
 /* Страница игры /play/<slug>/: высота iframe по сообщениям из соло-режима главы (/play/bridge.js),
-   раскрытие вывода после первого касания игры, анонимный счётчик, «Скинуть коллеге» / «Скопировать ссылку», код встраивания.
+   раскрытие вывода после первого касания игры, анонимный счётчик, одна кнопка «Поделиться». Код встраивания на странице не показываем (режим ?embed=1 работает).
    Строки приходят из разметки (data-*), их печёт tools/build-play.js из i18n/play.js. Счётчиков и баллов здесь нет. */
 (function(){
   const main = document.querySelector('main.play'); if (!main) return;
@@ -27,28 +27,23 @@
   // iframe молчит 10 секунд — показываем ссылку «открой в курсе»
   setTimeout(() => { if (!alive) frame.parentNode.classList.add('broken'); }, 10000);
 
-  // ---------- поделиться ----------
-  const st = main.querySelector('.play-share [role=status]');
+  // «Показать разбор» без игры
+  const rb = main.querySelector('[data-act=reveal]');
+  if (rb) rb.addEventListener('click', () => { reveal.hidden = false; out.classList.add('open'); });
+
+  // ---------- поделиться: одна текстовая кнопка ----------
+  // есть navigator.share (телефон, Safari) — системное меню; иначе ссылка в буфер и «Ссылка скопирована» на 2 секунды
+  const st = main.querySelector('.share-row [role=status]');
   const title = main.dataset.shareTitle, text = main.dataset.shareText;
-  async function copy(s, msg){
-    try { await navigator.clipboard.writeText(s); st.textContent = msg; }
-    catch(e) { st.textContent = s; }
-  }
+  let tm = 0;
+  const say = (m, ms) => { st.textContent = m; clearTimeout(tm); if (ms) tm = setTimeout(() => { st.textContent = ''; }, ms); };
   main.querySelector('[data-act=share]').addEventListener('click', async () => {
     hit('share_click');
     const url = link('play');
-    if (navigator.share && matchMedia('(pointer: coarse)').matches){
+    if (navigator.share){
       try { await navigator.share({title, text, url}); return; } catch(e) { if (e && e.name === 'AbortError') return; }
     }
-    copy(text + ' ' + url, main.dataset.sCopiedMsg);
+    try { await navigator.clipboard.writeText(url); say(main.dataset.sCopied, 2000); }
+    catch(e) { say(url); }
   });
-  main.querySelector('[data-act=copy]').addEventListener('click', () => (hit('share_click'), copy(link('play'), main.dataset.sCopied)));
-
-  // ---------- код встраивания ----------
-  const ta = main.querySelector('.embed textarea');
-  if (ta){
-    ta.value = '<iframe src="' + page + '?embed=1" title="' + title.replace(/"/g, '&quot;') + '" width="100%" height="' + parseInt(frame.style.height, 10) + '" style="border:0; max-width:820px" loading="lazy"></iframe>\n'
-      + '<script src="' + location.origin + '/play/embed.js" async></' + 'script>';
-    ta.addEventListener('focus', () => ta.select());
-  }
 })();

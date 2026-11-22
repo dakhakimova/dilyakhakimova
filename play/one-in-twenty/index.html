@@ -25,26 +25,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611300">
-<link rel="stylesheet" href="/home.css?v=202611300">
-<link rel="stylesheet" href="/play/play.css?v=202611300">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/play/play.css?v=202611301">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
-  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/" aria-current="page">Игры</a>
-    <a href="/terms/">Словарь</a>
     <a href="/shelf/">Полка</a>
-    <a class="login" href="/account.html">Войти</a>
-    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
+    <a href="/terms/">Словарь</a>
   </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -55,7 +54,7 @@
 
 <main id="main" class="wrap play" data-toy="one-in-twenty" data-frame="/probability/02-frequency.html?toy=one-in-twenty"
   data-share-title="Каждый двадцатый — значит, ровно один из двадцати?" data-share-text="Подписку в приложении оформляют 5% гостей, и продакт ставит план: один подписчик на каждые 20 гостей смены. Угадай, в какой доле смен план выполнят ровно, — и проверь на тысяче групп"
-  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="one-in-twenty" data-show-from="0" hidden></span></p>
   <h1>Каждый двадцатый — значит, ровно один из двадцати?</h1>
 
@@ -78,14 +77,9 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/02-frequency.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-try" aria-labelledby="try-h">
-    <h2 id="try-h">Попробуй</h2>
-    <ol><li>Нажми «Ещё группа» десять раз. Сколько групп из десяти дали ровно одного подписчика?</li><li>Нажми «+1000 групп». Какой столбик выше — «1» или «0»?</li><li>Посмотри на общую долю подписчиков по всем гостям. Она близка к 5%?</li></ol>
-  </section>
-
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
-    <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="locked">Разбор откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal">Показать разбор</button></p>
     <div class="reveal" hidden>
       <p>Общая доля подписчиков быстро встаёт к 5%, а отдельные группы — нет. Ровно один подписчик только в 37.7% групп, ни одного — почти так же часто, в 35.8%. Остальные группы, около 26%, дают двоих и больше. «Каждый двадцатый» — это среднее по многим группам, а не обещание для каждой. План «один подписчик на 20 гостей» не выполнится примерно в двух сменах из трёх, хотя никто не виноват.</p>
       <h3>Шпаргалка</h3>
@@ -93,36 +87,10 @@
     </div>
   </section>
 
-
-  <section class="play-share" aria-label="Скинуть коллеге">
-    <div class="row">
-      <button class="btn" type="button" data-act="share">Скинуть коллеге</button>
-      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
-      <span class="note" role="status"></span>
-    </div>
-    <details class="embed">
-      <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
-      <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
-    </details>
-  </section>
-
-  <p class="play-src"><b>Откуда идея.</b> Классическая биномиальная задача; пример с подпиской придуман для курса.</p>
-
-  <section class="play-next" aria-labelledby="next-h">
-    <h2 id="next-h">Дальше в курсе</h2>
-    <p>Боб снял план с баристы и спросил, откуда берутся 37.7%. Формула — позже, в шаге 7, а начинается всё с коротких и длинных серий: шаг 2 курса, <a href="/probability/02-frequency.html">«Вероятность как частота»</a>.</p>
-    <p class="ctas"><a class="btn" href="/probability/02-frequency.html">Открыть шаг 2 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
-    <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
-  </section>
-
-  <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё по теме</h2>
-    <ul class="toys rel" role="list">
-      <li><a href="/play/sorter/"><span class="kind">Игра</span><b>Дождь меняет шанс, что гость закажет горячий шоколад?</b><span>Сортировочная на 1000 гостей: надень рамку «только дождь» и посмотри, как меняется доля шоколада — и доля десерта.</span><span class="go">Сыграть →</span></a></li>
-      <li><a href="/terms/normal-distribution/"><span class="kind">Термин</span><b>Нормальное распределение</b><span>Колокол, сигмы и правило 68–95–99.7.</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/probability/06-bayes.html"><span class="kind">Глава курса</span><b>Байес</b><span>«Вероятность на пальцах», шаг 6</span><span class="go">Открыть главу →</span></a></li></ul>
-  </section>
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Классическая биномиальная задача; пример с подпиской придуман для курса.</p>
+  </div>
 </main>
 
 <footer class="foot" data-chrome>
@@ -130,42 +98,32 @@
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
       </ul>
     </div>
     <div>
-      <h2>Разделы</h2>
+      <h2>Рубрики</h2>
       <ul role="list">
         <li><a href="/play/">Игры</a></li>
-        <li><a href="/terms/">Словарь аналитика</a></li>
         <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/map/">Карта навыков</a></li>
-        <li><a href="/start/">С чего начать</a></li>
-        <li><a href="/account.html">Мой прогресс</a></li>
+        <li><a href="/terms/">Словарь</a></li>
       </ul>
     </div>
     <div>
       <h2>Автор</h2>
       <ul role="list">
         <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
-        <li hidden><a href="#">Telegram</a></li>
       </ul>
     </div>
-    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
-  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
-  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
-</aside>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611300"></script>
+<script src="/play/play.js?v=202611301"></script>
 </body>
 </html>

@@ -102,7 +102,7 @@ ${chrome.header('play')}
   const credits = {};
   for (const toy of toys){
     const s = toy.slug, url = `${pre}/play/${s}/`, frame = `${toy.src}?toy=${s}`;
-    const q = X(s, 'q'), x = texts[s], others = REL.sameTopic(RI, toy.topic, `/play/${s}/`);
+    const q = X(s, 'q'), x = texts[s];
     credits[s] = {
       html: t('play.credit', Object.assign({course: cname(toy.course), href: stepHref(toy) + '?utm_source=play&utm_medium=credit&utm_content=' + s, target: '{target}'}, unitN(toy))),
       badge: st(toy.course, 'badge'), status: C(toy.course).status, published: !!toy.published,
@@ -122,7 +122,7 @@ ${chrome.header('play')}
 
 <main id="main" class="wrap play" data-toy="${s}" data-frame="${frame}"
   data-share-title="${attr(q)}" data-share-text="${attr(X(s, 'challenge'))}"
-  data-s-copied="${attr(t('play.copied'))}" data-s-copied-msg="${attr(t('play.copiedMsg'))}">
+  data-s-copied="${attr(t('play.copied'))}">
   <p class="chips">${chip(toy.level)}<a class="tag" href="${C(toy.course).href}">${t('play.from')} «${cname(toy.course)}»</a>${countSlot(s)}</p>
   <h1>${q}</h1>
 
@@ -139,14 +139,9 @@ ${chrome.header('play')}
     <p class="note noframe">${t('play.noframe', {href: toy.src + '#card-' + (toy.pre[0] || toy.card)})}</p>
   </div>
 
-  <section class="play-try" aria-labelledby="try-h">
-    <h2 id="try-h">${t('play.try')}</h2>
-    <ol>${x.try.map(li => `<li>${typo(li)}</li>`).join('')}</ol>
-  </section>
-
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
-    <h2 id="out-h">${t('play.out')}</h2>
-    <p class="locked">${t('play.locked')}</p>
+    <p class="kicker" id="out-h">${t('play.out')}</p>
+    <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal">${t('play.showOut')}</button></p>
     <div class="reveal" hidden>
       <p>${X(s, 'out')}</p>${x.cheat.length ? `
       <h3>${t('play.cheat')}</h3>
@@ -154,34 +149,10 @@ ${chrome.header('play')}
     </div>
   </section>
 
-${termOf[s] ? `  <p class="play-term"><a href="${pre}/terms/${termOf[s].slug}/">${termOf[s].text}</a></p>
-` : ''}
-  <section class="play-share" aria-label="${attr(t('play.share'))}">
-    <div class="row">
-      <button class="btn" type="button" data-act="share">${t('play.share')}</button>
-      <button class="btn ghost" type="button" data-act="copy">${t('play.copy')}</button>
-      <span class="note" role="status"></span>
-    </div>
-    <details class="embed">
-      <summary>${t('play.embed')}</summary>
-      <p class="note">${t('play.embedNote')}</p>
-      <textarea readonly rows="4" spellcheck="false" aria-label="${attr(t('play.embed'))}"></textarea>
-    </details>
-  </section>
-
-  <p class="play-src"><b>${t('play.src')}.</b> ${X(s, 'src')}</p>
-
-  <section class="play-next" aria-labelledby="next-h">
-    <h2 id="next-h">${t('play.next')}</h2>
-    <p>${X(s, 'next', {href: stepHref(toy)})}</p>
-    <p class="ctas"><a class="btn" href="${stepHref(toy)}">${st(toy.course, 'cta', unitN(toy))}</a><a class="btn link" href="${C(toy.course).href}">${t('play.course')} «${cname(toy.course)}»</a></p>
-    <p class="status">${statusTag(toy.course)}</p>
-  </section>
-${others.length ? `
-  <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">${t('play.more')}</h2>
-    <ul class="toys rel" role="list">${others.map(relCard).join('')}</ul>
-  </section>` : ''}
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">${t('play.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>${t('play.src')}.</b> ${X(s, 'src')}</p>
+  </div>
 </main>
 ${foot()}
 <script src="/play/play.js?v=${V}"></script>
