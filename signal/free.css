@@ -406,3 +406,9 @@ details.ivw > summary{font:400 1.375rem/1.35 var(--serif); letter-spacing:-.005e
 @media (max-width:620px){ details.ivw > summary{font-size:1.1875rem; line-height:1.4} }
 details.ivw > summary::after{content:"Показать разбор ▾"; display:block; flex-basis:100%; width:100%; margin-top:8px; font:500 .875rem/1.2 var(--body); color:var(--pen); letter-spacing:0}
 details.ivw[open] > summary::after{content:"Скрыть разбор ▴"}
+/* словарик в итоге шага — как таблица (дизайн-система 2.16, решение Дили 23.11.2026): тонкие разделители 1 px --line между строками,
+   отступы строки 12 px, термин и определение по верхнему краю; на телефоне линия над термином */
+dl.terms{gap:0; border-bottom:1px solid var(--line, #E3DED4)}
+dl.terms dt, dl.terms dd{border-top:1px solid var(--line, #E3DED4); padding:12px 0; margin:0}
+dl.terms dd{padding-left:20px; font-size:.9375rem; line-height:1.5; color:var(--text-2, #4A463F)}
+@media (max-width:620px){ dl.terms dt{padding-bottom:2px} dl.terms dd{border-top:0; padding-top:0; padding-left:0} }

@@ -357,3 +357,9 @@ details.ivw{counter-increment:ivw}
 details.ivw > summary{flex-wrap:wrap}
 details.ivw > summary::before{content:"Задача " counter(ivw); display:block; flex-basis:100%; width:100%; margin:0 0 6px; font:600 .75rem/1.2 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink, #5E5A53); font-feature-settings:"case"}
 details.ivw + details.ivw{margin-top:16px}
+/* словарик в итоге шага — как таблица (дизайн-система 2.16, решение Дили 23.11.2026): тонкие разделители 1 px --line между строками,
+   отступы строки 12 px, термин и определение по верхнему краю; на телефоне линия над термином */
+dl.terms{gap:0; border-bottom:1px solid var(--line, #E3DED4)}
+dl.terms dt, dl.terms dd{border-top:1px solid var(--line, #E3DED4); padding:12px 0; margin:0}
+dl.terms dd{padding-left:20px; font-size:.9375rem; line-height:1.5; color:var(--text-2, #4A463F)}
+@media (max-width:620px){ dl.terms dt{padding-bottom:2px} dl.terms dd{border-top:0; padding-top:0; padding-left:0} }
