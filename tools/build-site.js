@@ -176,6 +176,21 @@ function stampAll(){
   }
 }
 
-function build(){ courses(); shelf(); stampAll(); console.log('site: /courses/, /shelf/, шапка и футер на', Object.keys(STAMP).length, 'страницах'); }
+// «Весь путь» на главной — компактный список из map/skills.json (tools/path-list.js);
+// подписи — из i18n/home.js, время — hours из courses/courses.json
+function homePath(){
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/home.js'), 'utf8'), ctx);
+  const RU = ctx.I18N.ru, typo = s => ctx.I18N.typo('ru', s);
+  const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
+  const H = Object.fromEntries(chrome.COURSES.filter(c => c.hours).map(c => [c.href, c.hours]));
+  M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; });
+  const html = require('./path-list.js').render(M, {esc, tx: s => typo(esc(s)),
+    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}}});
+  const file = path.join(ROOT, 'index.html'), page = fs.readFileSync(file, 'utf8');
+  if (!page.includes('<!-- path -->')) throw new Error('index.html: нет места для «Весь путь» (<!-- path --><!-- /path -->)');
+  fs.writeFileSync(file, page.replace(/<!-- path -->[\s\S]*?<!-- \/path -->/, () => '<!-- path -->' + html + '<!-- /path -->'));
+}
+function build(){ courses(); homePath(); shelf(); stampAll(); console.log('site: /courses/, /shelf/, шапка и футер на', Object.keys(STAMP).length, 'страницах'); }
 module.exports = build;
 if (require.main === module) build();

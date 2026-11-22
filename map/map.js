@@ -1,5 +1,4 @@
 /* Карта навыков (/map/): по данным map/skills.json рисует
-   — «Весь путь» текстом: шесть курсов по порядку с номерами, необязательные отмечены;
    — переключатель целей (маршрутов) и схему метро (map/metro.js, основной вид): линия цели, станции — ключевые навыки, панель станции;
    — «Что в каждом курсе»: компактные карточки курсов в порядке «Весь путь», внутри — свёрнутый список навыков-действий,
      «что нужно заранее» (prereq) и термины;
@@ -27,9 +26,7 @@ const skills = n => n + ' ' + ((SKILLS[LANG] || SKILLS.ru)[PR.select(n)] || (SKI
 const $ = id => document.getElementById(id);
 
 const src = new URL('skills.json', document.currentScript.src);
-// время прохождения бесплатных курсов (hours) — из courses/courses.json, одно место на сайт; курс — по адресу (url = href)
-const HOURS = fetch('/courses/courses.json').then(r => r.json()).then(d => Object.fromEntries(d.courses.filter(c => c.hours).map(c => [c.href, c.hours]))).catch(() => ({}));
-Promise.all([fetch(src).then(r => r.json()), HOURS]).then(([M, H]) => { M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; }); init(M); }).catch(e => { console.error('map: не загрузилась карта', e); });
+fetch(src).then(r => r.json()).then(init).catch(e => { console.error('map: не загрузилась карта', e); });
 
 // личный маршрут из «Подобрать маршрут» (/start/, start/start.js): цель, старт, знакомые навыки, личная линия по курсам
 const PLAN = (() => { try { const v = JSON.parse(localStorage.getItem('start:plan') || 'null'); return v && v.v === 1 && v.res ? v.res : null; } catch (e) { return null; } })();
@@ -138,18 +135,6 @@ function init(M){
   $('plan-list').addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (!a) return;
     e.preventDefault(); opener = a; open(a.dataset.go); });
 
-  // ---------- «Весь путь» текстом: шесть курсов по порядку ----------
-  const pl = $('path-list');
-  // Одна колонка: станции 1–6 сверху вниз на линии-маршруте; после последнего бесплатного курса линия бледнее (li.dim).
-  // Метки статуса — общие для сайта (бесплатно · скоро · позже), у платных рядом цена price.paid, как на главной.
-  const lastFree = FULL ? FULL.path.reduce((a, p, i) => course[p.course].status === 'free' ? i : a, -1) : -1;
-  const pathTag = s => s === 'free' ? M.status.free : t(s === 'soon' ? 'ui.soon' : 'ui.later');
-  if (pl && FULL) pl.innerHTML = FULL.path.map((p, i) => { const c = course[p.course];
-    const pre = c.prereq ? (c.prereq.none ? tx(c.prereq.none) : t('ui.pre.short', {list: tx(c.prereq.know.join('; '))})) : '';
-    return `<li${lastFree >= 0 && i >= lastFree ? ' class="dim"' : ''}><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a></p>`
-      + `<p class="chips">${c.status !== 'free' ? `<span class="price"><b>${t('price.paid')}</b></span>` : ''}<span class="tag ${c.status}">${tx(pathTag(c.status))}</span>${c.status === 'free' && c.hours ? `<span class="tag">${esc(c.hours).replace(/ /g, '&nbsp;')}</span>` : ''}${p.optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
-      + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why && !p.quiet ?' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
-      + (pre ? `<p class="pp">${pre}</p>` : '') + `</div></li>`; }).join('');
   const mb = $('mine-btn');
   if (mb){ mb.hidden = !PLAN; mb.addEventListener('click', () => { setRoute('mine', true); $('metro-h').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }); }
 

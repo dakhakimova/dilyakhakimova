@@ -259,25 +259,3 @@ renderGuess();
   }
   draw(0); requestAnimationFrame(tick);
 })();
-
-// ---------- главная: змейка-маршрут — пунктир через центры станций; после последней готовой — бледнее; ?route=before ----------
-(function(){
-  const sec = document.getElementById('route'); if (!sec) return;
-  if ((new URLSearchParams(location.search).get('route') || '') === 'before'){ const c = document.getElementById('courses'); if (c) c.before(sec); }
-  const svg = sec.querySelector('.snake-line'), wrap = sec.querySelector('.snake-wrap');
-  function draw(){
-    const r0 = wrap.getBoundingClientRect(), sts = [...sec.querySelectorAll('.st')];
-    const pts = sts.map(li => { const r = li.querySelector('.st-pic').getBoundingClientRect(); return [r.left - r0.left + r.width / 2, r.top - r0.top + r.height / 2]; });
-    const lastReady = sts.reduce((k, li, i) => li.classList.contains('later') ? k : i, 0);
-    let h = '';
-    for (let i = 0; i < pts.length - 1; i++){
-      const [x1, y1] = pts[i], [x2, y2] = pts[i + 1], pale = i >= lastReady;
-      // поворот змейки (3 → 4): дуга справа
-      const d = Math.abs(y2 - y1) > 20 && Math.abs(x2 - x1) < 20 && innerWidth > 820
-        ? `M${x1} ${y1} C${x1 + 90} ${y1}, ${x2 + 90} ${y2}, ${x2} ${y2}` : `M${x1} ${y1} L${x2} ${y2}`;
-      h += `<path d="${d}" fill="none" stroke="${pale ? 'rgba(36,34,31,.2)' : 'rgba(35,65,138,.55)'}" stroke-width="2" stroke-dasharray="6 6"/>`;
-    }
-    svg.innerHTML = h;
-  }
-  addEventListener('resize', draw); addEventListener('load', draw); draw();
-})();
