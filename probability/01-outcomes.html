@@ -219,7 +219,7 @@
   </div>
   <div class="fav" id="fav">
     <p class="fav-h">Выбери событие — подсветятся благоприятные исходы</p>
-    <div class="fav-ev" role="group" aria-label="Событие"><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="true">Котейка не моет</button><button type="button" class="btn ghost" data-in="ОР РО" aria-pressed="false">моет Боб</button><button type="button" class="btn ghost" data-in="ОО" aria-pressed="false">моет Алиса</button><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="false">хотя бы один орёл</button><button type="button" class="btn ghost" data-in="" aria-pressed="false">три орла</button></div>
+    <div class="fav-ev" role="group" aria-label="Событие"><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="true">Котейка не моет</button><button type="button" class="btn ghost" data-in="ОР РО" aria-pressed="false">моет Боб</button><button type="button" class="btn ghost" data-in="ОО" aria-pressed="false">моет Алиса</button><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="false">хотя бы один орёл</button><button type="button" class="btn ghost" data-in="" aria-pressed="false">три орла</button><button type="button" class="btn ghost" data-in="ОО ОР РО РР" aria-pressed="false">выпал орёл или решка</button></div>
     <div class="fav-tiles"><div class="ft" data-o="ОО"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">О</span></span></div><div class="ft" data-o="ОР"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">Р</span></span></div><div class="ft" data-o="РО"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">О</span></span></div><div class="ft" data-o="РР"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">Р</span></span></div></div>
     <p class="fav-p" aria-live="polite"></p>
   </div>
@@ -228,7 +228,7 @@
   b.querySelectorAll('.ft').forEach(t=>t.classList.toggle('on',on.includes(t.dataset.o)));const k=on.length;
   p.innerHTML='P(«'+btn.textContent+'») = '+k+' / 4 = '+String(k/4)+(k===0?' — невозможное событие':k===4?' — достоверное событие':'');}
   b.querySelectorAll('.fav-ev button').forEach(x=>x.addEventListener('click',()=>pick(x)));pick(b.querySelector('.fav-ev button'));})();</script>
-  <p>Отсюда два края шкалы. Невозможное событие, например «три орла на двух монетках», — это 0 исходов из 4, его вероятность 0. Достоверное событие, например «выпала хоть какая-то сторона», — 4 исхода из 4, его вероятность 1. Вероятность любого другого события лежит между ними.</p>
+  <p>Отсюда два края шкалы. Невозможное событие, например «три орла на двух монетках», — это 0 исходов из 4, его вероятность 0. Достоверное событие, например «выпал орёл или решка», — 4 исхода из 4, его вероятность 1. Вероятность любого другого события лежит между ними.</p>
 </section>
 
 <!-- 7: два кубика -->
