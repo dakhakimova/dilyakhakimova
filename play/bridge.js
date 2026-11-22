@@ -325,7 +325,9 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     if (pres.length){
       const t = document.createElement('span'); t.className = 'step-tag play-pre play-check'; t.textContent = T.checkTag;
       const h = toy.querySelector(':scope > h2');
-      if (h){
+      // data-no-scene: под «Потом проверь» сразу визуализация, без описания (решение Дили, 22.11.2026)
+      if (h && toy.hasAttribute('data-no-scene')){ h.classList.add('scene-h'); const nx = h.nextElementSibling; if (nx && nx.tagName === 'P') nx.setAttribute('data-toy-hide', ''); }
+      else if (h){
         const nx = h.nextElementSibling, head = h.textContent.trim().replace(/[.:]$/, '');
         if (nx && nx.tagName === 'P' && !nx.className && !nx.hasAttribute('data-toy-hide') && !nx.hasAttribute('data-toy-reveal') && /^[А-ЯЁ][а-яё]/.test(nx.textContent.trim())){
           const fc = nx.firstChild;

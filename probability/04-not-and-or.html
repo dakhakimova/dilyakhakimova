@@ -87,7 +87,7 @@
 </section>
 
 <!-- 4: главная игра -->
-<section class="card" data-toy="birthday" data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
+<section class="card" data-toy="birthday" data-no-scene data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
   <span class="step-tag">Поиграй</span>
   <h2>Гости входят по одному</h2>
   <p>Календарь — 365 дней. Каждый гость — точка в свой день рождения; если день уже занят, обе точки вспыхивают.</p>
@@ -454,7 +454,7 @@ const TXT = {
     document.getElementById('pt-title').textContent = 'Календарь на 365 дней: дни рождения гостей';
     if (RM.matches){ for (let i = 0; i < n; i++) days.push(randInt(0, 364)); paint(); }
     else for (let i = 0; i < n; i++){ days.push(randInt(0, 364)); paint(); await new Promise(r => setTimeout(r, 70)); }
-    go.hidden = true; again.hidden = false; k1000.hidden = false; busy = false;
+    go.hidden = true; again.hidden = false; k1000.hidden = false; busy = false; kot.hidden = true;   // «Мяу, совпадение!» — только пока гости входят
     cv.dispatchEvent(new CustomEvent('toy:ran', {bubbles: true}));
     const hit = counts().some(k => k > 1);
     guessLine(' · в этой вечеринке совпадение <b>' + (hit ? TXT.yes : TXT.no) + '</b>');
