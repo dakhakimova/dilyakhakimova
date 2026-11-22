@@ -91,7 +91,8 @@
 .sub-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:28px 0 8px}
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
-.dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
+.dice{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; max-width:320px; width:100%}
+.dice span{min-width:0; overflow:hidden}   /* грань-картинка не раздувает клетку (Safari) */
 .dice span{aspect-ratio:1; display:grid; place-items:center; border-radius:7px; font:500 .875rem/1 var(--body); font-variant-numeric:tabular-nums; background:#F4F3F0; color:var(--ink); cursor:pointer; transition:background .2s}
 .dice span.h{background:transparent; cursor:default; font-weight:600}
 .dice span.hb{color:var(--ctrl)} .dice span.h{border:0}
