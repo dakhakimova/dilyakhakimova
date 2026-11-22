@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Лаборатория новых игр к шагу 6 курса «A/B на пальцах» (ветка new-games). Здесь только карточки игр /play/<slug>/:
-     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
-<script>if (!/[?&]toy=/.test(location.search)) location.replace('/ab-basics/06-interval.html' + location.search);</script>
+     страница работает в соло-режиме (?toy=<slug>); без него и без #card-N уводит в саму главу. Карточки в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search) && !/^#card-\d+$/.test(location.hash)) location.replace('/ab-basics/06-interval.html' + location.search);</script>
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/06-interval.html">
 <title>Новые игры · Шаг 6 · A/B на пальцах</title>

@@ -29,7 +29,7 @@
   function drawHist(){
     const g = Lab.canvas(cv, 0.42, 0.8); if (!g) return; const {c, w, h} = g;
     const L = 34, B = h - 28, T = 24, lo = 20, hi = 56, bw = (w - L - 6) / (hi - lo), X = v => L + (v - lo) * bw;
-    const top = Math.max(...hist) || 1, ymax = Math.ceil(top / 20) * 20, Y = v => B - (B - T) * v / ymax;
+    const ymax = 120, Y = v => B - (B - T) * Math.min(v, ymax) / ymax;
     Lab.gridY(c, Y, L, w, [0, ymax / 2, ymax], v => Lab.num(v));
     for (let v = lo; v < hi; v++){ const k = hist[v] || 0; if (!k) continue; c.fillStyle = Math.abs(v - 37) < 0.5 ? C.test : C.ctrl; c.fillRect(X(v) + 1, Y(k), bw - 2, B - Y(k)); }
     Lab.ticksX(c, v => X(v) + bw / 2, h - 8, [20, 25, 30, 35, 40, 45, 50, 55], v => String(v));

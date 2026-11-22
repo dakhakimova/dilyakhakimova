@@ -83,7 +83,7 @@
     if (bg){ c.fillStyle = bg; c.fillRect(x0 - 3, y - 12, tw + 6, 16); }
     c.fillStyle = color; c.textAlign = 'left'; c.fillText(t, x0, y); c.font = Lab.FONT;
   };
-  Lab.text = (c, t, x, y, color = Lab.C.ink2, align = 'left', font = Lab.FONT) => { c.font = font; c.fillStyle = color; c.textAlign = align; c.fillText(t, x, y); c.textAlign = 'left'; c.font = Lab.FONT; };
+  Lab.text = (c, t, x, y, color = Lab.C.ink2, align = 'left', font = Lab.FONT14) => { c.font = font; c.fillStyle = color; c.textAlign = align; c.fillText(t, x, y); c.textAlign = 'left'; c.font = Lab.FONT; };
   // горизонтальная сетка и подписи Y слева; ticks — значения, fmt — подпись
   Lab.gridY = (c, Y, x0, x1, ticks, fmt, labelX = 0) => {
     c.lineWidth = 1; c.font = Lab.FONT;

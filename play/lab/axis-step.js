@@ -6,7 +6,7 @@
   const V = T.map(t => 2000 + 500 * t);
   const cv = document.getElementById('ax-cv'); let k = 0;
   function draw(){
-    const g = Lab.canvas(cv, 0.42, 0.72); if (!g) return; const {c, w, h} = g;
+    const g = Lab.canvas(cv, 0.42, 0.5); if (!g) return; const {c, w, h} = g;
     const L = 34, R = 10, TT = 18, B = h - 26, tmax = T[T.length - 1];
     const XB = i => L + i / (T.length - 1) * (w - L - R), XT = i => L + (T[i] - 1) / (tmax - 1) * (w - L - R), X = i => Lab.lerp(XB(i), XT(i), k);
     const Y = v => B - v / 32000 * (B - TT);

@@ -7,7 +7,7 @@
   const one = () => { const d = new Float32Array(NMAX); let a = 0, b = 0; for (let n = 1; n <= NMAX; n++){ if (Lab.rand() < P) a++; if (Lab.rand() < P) b++; d[n - 1] = (b - a) / n * 100; } return d; };
   const wide = (d, n) => Math.abs(d[n - 1]) >= 10 - 1e-9;
   function draw(){
-    const g = Lab.canvas(cv, 0.46, 0.85); if (!g) return; const {c, w, h} = g;
+    const g = Lab.canvas(cv, 0.46, 0.5); if (!g) return; const {c, w, h} = g;
     const N0 = 5, L = 40, R = 8, T = 12, B = h - 26, X = n => L + Math.log(n / N0) / Math.log(NMAX / N0) * (w - L - R), Y = v => (T + B) / 2 - v / 80 * (B - T);
     c.fillStyle = C.fillGray; c.fillRect(L, Y(10), w - L - R, Y(-10) - Y(10));
     Lab.gridY(c, Y, L, w - R, [-40, -20, 0, 20, 40], v => (v > 0 ? '+' : '') + Lab.num(v));

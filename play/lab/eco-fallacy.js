@@ -30,7 +30,7 @@
     const gt = document.getElementById('eco-t1'); if (stage < 3){ gv.hidden = true; gt.hidden = true; return; } gv.hidden = false; gt.hidden = false;
     const g = Lab.canvas(gv, 0.32, 0.7); if (!g) return; const {c, w, h} = g;
     const L = 40, B = h - 24, T = 18, Y = v => B - v / 70 * (B - T), gw = (w - L) / 3;
-    Lab.gridY(c, Y, L, w, [0, 35, 70], v => v + '%');
+    c.strokeStyle = Lab.C.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B + 0.5); c.lineTo(w, B + 0.5); c.stroke();
     GUESTS.forEach(([d, wD, w0], i) => {
       const x = L + i * gw + gw * 0.12, bw = gw * 0.34;
       [[w0, C.gray, 'без'], [wD, COLS[i], 'с десертом']].forEach(([v, col, lab], j) => {

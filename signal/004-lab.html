@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Лаборатория новых игр к главау 4 курса «Сигнал или шум» (ветка new-games). Здесь только карточки игр /play/<slug>/:
-     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
-<script>if (!/[?&]toy=/.test(location.search)) location.replace('/signal/04-noise.html' + location.search);</script>
+<!-- Лаборатория новых игр к главе 4 курса «Сигнал или шум» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>); без него и без #card-N уводит в саму главу. Карточки в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search) && !/^#card-\d+$/.test(location.hash)) location.replace('/signal/04-noise.html' + location.search);</script>
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dilyakhakimova.com/signal/04-noise.html">
 <title>Новые игры · Глава 4 · Сигнал или шум</title>

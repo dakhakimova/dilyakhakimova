@@ -7,7 +7,7 @@
   let runs = [], upto = 0;
   const one = () => { const d = new Float32Array(N); let k = 0; for (let n = 1; n <= N; n++){ if (Lab.rand() < 0.5) k++; d[n - 1] = k / n * 100; } return d; };
   function draw(){
-    const g = Lab.canvas(cv, 0.46, 0.85); if (!g) return; const {c, w, h} = g;
+    const g = Lab.canvas(cv, 0.46, 0.5); if (!g) return; const {c, w, h} = g;
     const L = 40, R = 8, T = 12, B = h - 26, X = n => L + Math.log(n / 10) / Math.log(N / 10) * (w - L - R), Y = v => B - v / 100 * (B - T);
     const m = Math.min(upto, N);
     c.fillStyle = C.fillGray; c.beginPath();

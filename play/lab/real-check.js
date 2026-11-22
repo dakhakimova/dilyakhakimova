@@ -4,7 +4,7 @@
   const REAL = NOM.map((v, i) => v / IDX[i] * 100);
   const cv = document.getElementById('rch-cv'); let k = 0;
   function draw(){
-    const g = Lab.canvas(cv, 0.45, 0.8); if (!g) return; const {c, w, h, small} = g;
+    const g = Lab.canvas(cv, 0.45, 0.5); if (!g) return; const {c, w, h, small} = g;
     const L = 44, R = small ? 74 : 150, T = 16, B = h - 26, X = i => L + i / 5 * (w - L - R), Y = v => B - v / 700 * (B - T);
     Lab.gridY(c, Y, L, w - R + 10, [0, 200, 400, 600], v => Lab.num(v) + ' ₽');
     Lab.ticksX(c, X, h - 6, [0, 1, 2, 3, 4, 5], i => String(YEARS[i]));
