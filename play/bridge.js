@@ -296,7 +296,6 @@ html.solo .pf-skip{display:inline-block; margin:8px 0 0; background:none; border
 html.solo .card .sheet.c-white{box-shadow:none; border:1px solid rgba(36,34,31,.10)}
 @media (max-width:620px){ html.solo .card[data-toy-pre], html.solo .card[data-toy]{padding:16px} }
 html.solo .card[data-toy] > h2.scene-h{display:none}
-html.solo .card .scene{font-size:inherit; margin-top:8px}
 html.solo .card > .step-tag:not(.play-pre), html.solo .card[data-toy-pre] > h2, html.solo .card[data-toy-pre] .chat,
 html.solo .card .art, html.solo .card .src, html.solo .card .xref, html.solo .toy-share,
 html.solo [data-toy-hide], html.solo .plus{display:none !important}
@@ -322,22 +321,23 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     // единая метка «Сначала угадай» над прогнозом (свои метки карточек в соло-режиме скрыты)
     const pres = document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`);
     pres.forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
-    // пара к ней — «Потом проверь» над игрой (только если есть прогноз). Заголовок-сцена игры — не заголовок, а описание:
-    // h2 «Гости входят по одному» + абзац «Каждый гость приносит…» → один абзац «Гости входят по одному: каждый гость приносит…»
+    // Под меткой «Потом проверь» — сразу визуализация, как у эталона (дни рождения, data-no-scene): заголовок-сцена h2
+    // и абзацы главы под ним на /play/<slug>/ не показываются ни у какой игры — вопрос уже в h1 страницы, а это текст главы;
+    // в курсе он остаётся (Д4, решение Дили, 22.11.2026)
+    const h = toy.querySelector(':scope > h2');
+    if (h){
+      h.classList.add('scene-h');
+      // первый видимый абзац под h2 — описание сцены; абзац-вопрос прямо над полем прогноза или ставкой остаётся
+      const shown = el => { while (el && getComputedStyle(el).display === 'none') el = el.nextElementSibling; return el; };
+      const nx = shown(h.nextElementSibling);
+      if (nx && nx.tagName === 'P' && !nx.className && !nx.hasAttribute('data-toy-reveal') && !nx.querySelector('input, button, select, canvas, svg')){
+        const after = shown(nx.nextElementSibling);
+        if (!(after && after.matches('.choice, .guess, [data-key], .lab-guess'))) nx.setAttribute('data-toy-hide', '');
+      }
+    }
+    // пара к «Сначала угадай» — «Потом проверь» над игрой (только если есть прогноз)
     if (pres.length){
       const t = document.createElement('span'); t.className = 'step-tag play-pre play-check'; t.textContent = T.checkTag;
-      const h = toy.querySelector(':scope > h2');
-      // data-no-scene: под «Потом проверь» сразу визуализация, без описания (решение Дили, 22.11.2026)
-      if (h && toy.hasAttribute('data-no-scene')){ h.classList.add('scene-h'); const nx = h.nextElementSibling; if (nx && nx.tagName === 'P') nx.setAttribute('data-toy-hide', ''); }
-      else if (h){
-        const nx = h.nextElementSibling, head = h.textContent.trim().replace(/[.:]$/, '');
-        if (nx && nx.tagName === 'P' && !nx.className && !nx.hasAttribute('data-toy-hide') && !nx.hasAttribute('data-toy-reveal') && /^[А-ЯЁ][а-яё]/.test(nx.textContent.trim())){
-          const fc = nx.firstChild;
-          if (fc && fc.nodeType === 3){ fc.textContent = fc.textContent.replace(/^\s*([А-ЯЁ])/, (_, c) => head + ': ' + c.toLowerCase()); nx.classList.add('scene'); }
-          else nx.insertAdjacentText('afterbegin', head + '. ');
-        } else { const p = document.createElement('p'); p.className = 'scene'; p.textContent = head + '.'; h.after(p); }
-        h.classList.add('scene-h');
-      }
       toy.prepend(t);
     }
     // подпись-источник под игрой (видна и в ?embed=1)
