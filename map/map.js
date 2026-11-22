@@ -27,7 +27,7 @@ const src = new URL('skills.json', document.currentScript.src);
 fetch(src).then(r => r.json()).then(init).catch(e => { console.error('map: не загрузилась карта', e); });
 
 // личный маршрут из «Подобрать маршрут» (/start/, start/start.js): цель, старт, знакомые навыки, личная линия по курсам
-const PLAN = (() => { try { const v = JSON.parse(localStorage.getItem('start:plan') || 'null'); return v && v.v === 1 && v.res ? v.res : null; } catch (e) { return null; } })();
+const PLAN = (() => { try { const v = JSON.parse(localStorage.getItem('start:plan') || 'null'); return v && v.v === 1 && v.stage === 'done' && v.res && Array.isArray(v.res.nodes) && v.res.nodes.length ? v.res : null; } catch (e) { return null; } })();
 
 function init(M){
   const course = Object.fromEntries(M.courses.map(c => [c.id, c]));

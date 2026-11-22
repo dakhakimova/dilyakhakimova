@@ -44,7 +44,7 @@ const LAYOUT = {
     'abm-design': [170, 670, 'b'], 'abm-cuped': [300, 670, 'b'], 'abm-srm': [430, 670, 'b'], 'abm-main': [560, 670, 'b'],
     'ci-confound': [760, 670, 'b'], 'ci-did': [900, 670, 'b'], 'ci-main': [1050, 670, 'b']
   },
-  // строится: курсы «в планах» (status: planned) — пунктирные ответвления от зон курсов. Станция — без ссылки (блока «В планах» на странице нет).
+  // строится: курсы «в планах» (status: planned) — пунктирные ответвления от зон курсов. Сейчас не рисуются (на сайте шесть курсов); данные для check-map и на будущее.
   planned: {
     stations: {bet: [300, 240, 'b', 'luck'], luck: [480, 240, 'b', 'luck'], mkt: [760, 240, 'b', 'mkt'], talk: [880, 550, 'r', 'talk']},
     paths: [[[160, 170], [230, 240], 'bet', 'luck', 'mkt'], [[880, 500], 'talk']]
@@ -63,7 +63,7 @@ root.SkillMetroLayout = LAYOUT;
 if (typeof document === 'undefined') return;                 // node: нужен только LAYOUT (tools/check-map.js)
 
 const NS = 'http://www.w3.org/2000/svg';
-const INK = '#24221F', PLAN = '#8A847A';
+const INK = '#24221F';
 const R = {main: 14, st: 7, xfer: 12, single: 10};
 
 root.SkillMetro = {init};
@@ -127,7 +127,7 @@ function init(api){
       + `${esc(typo((c.when || M.status[c.status])))} · ${esc(lv(c))}${NUM[cid] && NUM[cid].optional ? ' · ' + esc(t('ui.optional')) : ''}</tspan></text></g>`;
   });
   // строится
-  html += `<g class="plan-ln" aria-hidden="true">` + L.planned.paths.map(p => `<path d="${dstr(p.map(pt))}"/>`).join('') + `</g>`;
+  // будущие курсы («строится», L.planned) пока не рисуем: на сайте шесть курсов (решение Дили, 22.11.2026); данные остаются
   // линии
   // необязательные участки (dashed) — пунктиром, рядом — сплошной обход (bypass)
   const pieces = (P, ranges) => { const solid = [], dash = [];
@@ -178,12 +178,6 @@ function init(api){
       + `<circle class="hitc" cx="${cx}" cy="${cy}" r="22"/><circle class="ring" cx="${cx}" cy="${cy}" r="${r + 6}"/>` + mark
       + labelSvg(wrap(nm, max), cx, cy, side, r, big ? 'sl big' : 'sl') + `</g>`;
   });
-  Object.entries(L.planned.stations).forEach(([id, [x, y, side, cid]]) => {
-    const nm = id === 'bet' ? t('metro.st.bet') : t('plan.' + cid + '.title');
-    html += `<g class="st plan" role="img" aria-label="${esc(t('metro.ariaPlan', {name: nm}))}">`
-      + `<circle class="hitc" cx="${x}" cy="${y}" r="22"/><circle class="ring" cx="${x}" cy="${y}" r="14"/><circle class="mk pl-mk" cx="${x}" cy="${y}" r="7"/>`
-      + labelSvg(wrap(nm, side === 'r' ? 22 : 15).concat([{t: t('metro.building'), cls: 'bld'}]), x, y, side, 7, 'sl') + `</g>`;
-  });
   // маркер «Ты здесь»: тонкое кольцо вплотную к кружку станции и плашка с ножкой — с той стороны, где нет подписи (подпись не перекрываем)
   html += `<g class="here-pin" id="here-pin" aria-hidden="true" style="display:none"><circle class="hp-ring"/><path class="hp-leg"/><rect height="22" rx="11"/><text text-anchor="middle"></text></g>`;
   svg.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`);
@@ -196,7 +190,6 @@ function init(api){
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="#fff" stroke="${INK}" stroke-width="3"/></svg>${t('metro.key.xfer')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#23418A"/><circle cx="12" cy="12" r="4" fill="#fff"/></svg>${t('metro.key.main')}</li>`
     + (conts.size ? `<li><svg width="40" height="24" aria-hidden="true"><path d="M2 12H38" stroke="#A8862A" stroke-opacity=".45" stroke-width="4"/><circle cx="20" cy="12" r="6" fill="#fff" stroke="#A8862A" stroke-width="2.5"/></svg>${t('metro.key.later')}</li>` : '')
-    + `<li><svg width="40" height="24" aria-hidden="true"><path d="M2 12H38" stroke="${PLAN}" stroke-width="4" stroke-dasharray="7 5"/><circle cx="20" cy="12" r="6" fill="#fff" stroke="${PLAN}" stroke-width="2" stroke-dasharray="3 2"/></svg>${t('metro.key.plan')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="var(--c-prob)" fill-opacity=".16"/></svg>${t('metro.key.free')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="6" fill="#fff" stroke="var(--c-abm)" stroke-width="1.5" stroke-dasharray="4 3"/></svg>${t('metro.key.soon')}</li>`
     + `</ul>`;

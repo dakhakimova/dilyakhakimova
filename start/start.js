@@ -67,7 +67,7 @@ const Engine = {
     const full = M.routes.find(x => x.id === 'full'), also = end.also && end.also !== end.goal ? M.routes.find(x => x.id === end.also) : null;
     const nc = id => M.nodes.find(x => x.id === id).course;
     const mine = r.nodes.concat(also ? also.nodes.filter(id => !r.nodes.includes(id)) : []);
-    const marks = {};                                                    // курс → что человек отметил «нет» или «слышал(а)»
+    const marks = {};                                                    // курс → что человек отметил «нет» или «знакомо, но не уверенно»
     ans.forEach(h => { if (Engine.isYes(T, h)) return; const c = nc(T.items[h.item].skills[0]);     // пункт — к курсу его первого навыка
       (marks[c] = marks[c] || []).push({item: h.item, a: h.a === 'no' || h.a === 'check' ? 'no' : 'heard'}); });
     let k = 0;
@@ -231,7 +231,7 @@ function mount(T, M){
         + `<p class="dz-w">${why}</p>` + (skip ? `<p class="dz-k">${skip}</p>` : '') + sts + `</li>`;
     }).join('') + `</ol>`;
   }
-  // блок-схема: какие развилки пройдены (✓ знаю · ~ слышал · ✗ пока нет) и где остановились
+  // блок-схема: какие развилки пройдены (✓ знаю · ~ знакомо · ✗ пока нет) и где остановились
   function flowHtml(R, n){
     const mark = a => a === 'yes' ? ['✓', 'yes'] : a === 'no' ? ['✗', 'no'] : a === 'check-no' ? ['✗', 'check'] : ['~', 'heard'];
     return `<ol class="flow" role="list">` + R.path.map(p => { const [m, k] = mark(p.a);
