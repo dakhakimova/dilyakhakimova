@@ -77,6 +77,33 @@
     catch(e) { say(T.copyFail + url); return 'fail'; }
   };
 
+  // ---------- ползунки (гайд: «Ползунок не дублирует параметр из вопроса», «У ползунка есть способ без перетаскивания»,
+  // «Сначала условия вопроса, ползунок — потом») ----------
+  // [data-sandbox] — ползунок, который меняет условие из вопроса прогноза: скрыт, пока человек не сыграл на условии вопроса.
+  // У каждого видимого ползунка — шаги «−» и «+» (stepDown/stepUp + события input и change, как при перетаскивании).
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.card [data-sandbox][hidden]').forEach(box => {
+      const card = box.closest('.card');
+      onFirstTouch(card, () => { box.hidden = false; window.dispatchEvent(new Event('resize')); });
+    });
+    document.querySelectorAll('.card input[type=range]').forEach(r => {
+      if (r.closest('.range-steps')) return;
+      const lab = (r.getAttribute('aria-label') || (r.labels && r.labels[0] ? r.labels[0].textContent : '') || '').replace(/\s+/g, ' ').trim().replace(/:.*$/, '');
+      const wrap = document.createElement('span'); wrap.className = 'range-steps';
+      const mk = (txt, dir) => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost step'; b.textContent = txt;
+        b.setAttribute('aria-label', (dir < 0 ? 'Меньше' : 'Больше') + (lab ? ': ' + lab.toLowerCase() : ''));
+        b.addEventListener('click', () => {
+          const v0 = r.value; dir < 0 ? r.stepDown() : r.stepUp();
+          if (r.value !== v0){ r.dispatchEvent(new Event('input', {bubbles: true})); r.dispatchEvent(new Event('change', {bubbles: true})); }
+        });
+        return b;
+      };
+      r.parentNode.insertBefore(wrap, r);
+      wrap.append(mk('−', -1), r, mk('+', 1));
+    });
+  });
+
   if (!ok){
     // ---------- обычный режим: кнопка «Поделиться» в карточках опубликованных игр ----------
     document.addEventListener('DOMContentLoaded', () => {

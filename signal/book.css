@@ -302,3 +302,9 @@ input.guess-in{font:500 18px/1 var(--body); width:96px; min-height:44px; padding
 /* Графики (гайд, пары 42–58): подпись над каждым холстом, до кнопок не меньше 16 px */
 .chart-title:not(:first-child){margin-top:var(--s-4)}
 canvas + .controls, .tipwrap + .controls, canvas + .legend-row, .tipwrap + .legend-row, .legend-row + .controls, canvas + .rowbtns{margin-top:var(--s-4)}
+/* шаги у ползунка (play/bridge.js) и «песочница» — ползунок условия после первой проверки */
+.range-steps{display:flex; align-items:center; gap:8px; width:100%; max-width:100%}
+.range-steps input[type=range]{flex:1 1 auto; min-width:0; width:auto !important}
+button.btn.step{flex:none; min-width:44px; min-height:44px; padding:0 12px; justify-content:center; font-size:18px; line-height:1}
+.sandbox{margin:var(--s-4) 0 0; padding:var(--s-3) 0 0; border-top:1px dashed var(--line-strong)}
+.sandbox-t{margin:0 0 var(--s-2); font:500 14px/1.3 var(--body); color:var(--text-2)}
