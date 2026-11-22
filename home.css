@@ -262,7 +262,7 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 
 /* 11. футер */
 /* футер — две тихие строки: бесплатные курсы; об авторе и копирайт (решение Дили, 22.11.2026) */
-.foot{margin-top:var(--s-7); padding:var(--s-4) 0 var(--s-6); border-top:1px solid var(--line); font-size:var(--fs-xs); color:var(--text-3)}
+.foot{margin-top:var(--s-7); padding:var(--s-5) 0; border-top:1px solid var(--line); background:#E1DCD3; font-size:var(--fs-xs); color:var(--text-3)}   /* однотонная полоса на ступень темнее стола, без сетки; --text-3 на ней 5.0 : 1 */
 .foot-line{margin:0; line-height:1.9}
 .foot a{color:var(--text-3); display:inline-block; padding:4px 0; min-height:24px; text-decoration-color:rgba(36,34,31,.3); text-underline-offset:3px}
 .foot a:hover{color:var(--pen)}
@@ -374,3 +374,19 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .lvl-legend b{font-weight:500; color:var(--text-2)}
 @media (max-width:620px){ .lvl-legend{flex-direction:column; align-items:flex-start} }
 #courses .lvl-legend{max-width:none}
+/* рубрики — четыре равноценные карточки, строки выровнены (subgrid), одна контурная «Открыть →» */
+.cards-rub{grid-template-columns:repeat(4, 1fr)}
+@media (min-width:821px){ .cards-rub .course{display:grid; grid-row:span 4; grid-template-rows:subgrid; row-gap:0} .cards-rub .course-act{align-self:end} }
+@media (max-width:820px){ .cards-rub{grid-template-columns:1fr} }
+.cards-rub .course h4{margin-top:0}
+/* анимация на главной — смотреть, без управления */
+.bells-fig{margin:0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5)}
+.bells-fig svg{display:block; width:100%; height:auto}
+.bells-cap{font:400 var(--fs-m)/1.45 var(--serif); color:var(--text-2); margin:var(--s-2) 0 0; text-align:left}
+#bells .n{font:500 15px var(--body); fill:var(--text-2)}
+#bells .lab{font:500 14px var(--body)}
+#bells .zone{font:400 13px var(--body); fill:var(--text-2)}
+.extras h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:var(--s-6) 0 var(--s-6)}
+.cards-ex{grid-template-columns:repeat(2, 1fr)}
+@media (min-width:821px){ .cards-ex .course{display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0} .cards-ex .course-act{align-self:end; margin-top:var(--s-4)} }
+@media (max-width:820px){ .cards-ex{grid-template-columns:1fr} }

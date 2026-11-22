@@ -179,3 +179,59 @@ const ticks = $('guess-ticks');
 for (let k = 0; k <= N; k++){ const s = document.createElement('span'); s.textContent = NF.format(k); ticks.appendChild(s); }
 renderGuess();
 })();
+
+// ---------- главная: анимация двух колоколов без управления (решение Дили, 22.11.2026) ----------
+// Вариант ?anim=a — колокола A (синий) и B (коралл) сужаются при n = 100 → 1 000 → 10 000, разница проступает из шума;
+// ?anim=b — плюс порог: «ложная тревога» (хвост A за порогом) и «пропуск» (часть B до порога) тают. Цикл ~7.5 с с паузой.
+// prefers-reduced-motion — статичный последний кадр.
+(function(){
+  const svg = document.getElementById('bells'); if (!svg) return;
+  const V = (new URLSearchParams(location.search).get('anim') || 'a').toLowerCase() === 'b' ? 'b' : 'a';
+  const cap = document.getElementById('bells-cap');
+  if (V === 'b' && cap) cap.textContent = 'Больше людей — меньше и ложных тревог, и пропусков';
+  const W = 640, H = 250, L = 20, R = 20, T = 34, B = 44, D = 0.5, lo = -2.6, hi = 3.1;
+  const X = v => L + (v - lo) / (hi - lo) * (W - L - R), base = H - B, top = T;
+  const pdf = (v, m, s) => Math.exp(-0.5 * ((v - m) / s) ** 2);   // нормированная высота: пик одинаковый, меняется ширина
+  const path = (m, s, from = lo, to = hi, close = false) => {
+    let d = '', n = 160; for (let i = 0; i <= n; i++){ const v = from + (to - from) * i / n, y = base - pdf(v, m, s) * (base - top); d += (i ? 'L' : 'M') + X(v).toFixed(1) + ' ' + y.toFixed(1); }
+    return close ? d + 'L' + X(to).toFixed(1) + ' ' + base + 'L' + X(from).toFixed(1) + ' ' + base + 'Z' : d;
+  };
+  const fmtN = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  function frame(n){
+    const s = 1 / Math.sqrt(n / 100), thr = D / 2;
+    let h = '';
+    if (V === 'b'){
+      h += `<path d="${path(0, s, thr, hi, true)}" fill="rgba(35,65,138,.16)"/>`;
+      h += `<path d="${path(D, s, lo, thr, true)}" fill="rgba(232,100,74,.20)"/>`;
+    }
+    h += `<line x1="${L}" x2="${W - R}" y1="${base}" y2="${base}" stroke="rgba(36,34,31,.35)"/>`;
+    h += `<path d="${path(0, s)}" fill="none" stroke="#23418A" stroke-width="2.5"/>`;
+    h += `<path d="${path(D, s)}" fill="none" stroke="#E8644A" stroke-width="2.5"/>`;
+    h += `<text class="lab" x="${X(0) - 6}" y="${top - 10}" text-anchor="end" fill="#23418A">A</text><text class="lab" x="${X(D) + 6}" y="${top - 10}" fill="#B8432B">B</text>`;
+    if (V === 'b'){
+      h += `<line x1="${X(thr)}" x2="${X(thr)}" y1="${top - 6}" y2="${base}" stroke="#24221F" stroke-dasharray="4 3"/>`;
+      const fa = 1 - normCdf((thr - 0) / s), ms = normCdf((thr - D) / s);
+      if (fa > 0.02) h += `<text class="zone" x="${X(thr) + 8}" y="${base + 22}">ложная тревога →</text>`;
+      if (ms > 0.02) h += `<text class="zone" x="${X(thr) - 8}" y="${base + 22}" text-anchor="end">← пропуск</text>`;
+    }
+    h += `<text class="n" x="${W - R}" y="${top - 12}" text-anchor="end">n = ${fmtN(n)}</text>`;
+    svg.innerHTML = h;
+  }
+  function normCdf(x){ const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){ frame(10000); return; }
+  // расписание цикла (мс): держим 100 → едем к 1 000 → держим → едем к 10 000 → пауза в конце
+  const K = [[0, 2], [1000, 2], [2400, 3], [3400, 3], [4800, 4], [7500, 4]];   // [время, log10 n]
+  const CYCLE = 7500, ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+  let t0 = 0, vis = true;
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(svg);
+  function tick(ts){
+    if (!t0) t0 = ts;
+    if (vis){
+      const t = (ts - t0) % CYCLE; let i = 0; while (i < K.length - 2 && t >= K[i + 1][0]) i++;
+      const [a, la] = K[i], [b, lb] = K[i + 1], k = b > a ? ease(Math.min(1, (t - a) / (b - a))) : 1;
+      frame(Math.pow(10, la + (lb - la) * k));
+    }
+    requestAnimationFrame(tick);
+  }
+  frame(100); requestAnimationFrame(tick);
+})();

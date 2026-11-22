@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Собрано командой node tools/build-extras.js: правьте его. -->
+<meta name="robots" content="noindex, follow">
+<title>Плюшки: тренажёр к собеседованию и калькулятор MDE · Диля Хакимова</title>
+<meta name="description" content="Классические задачи по вероятности к собеседованию и калькулятор MDE при неравных группах.">
+<link rel="canonical" href="https://dilyakhakimova.com/extras/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<main id="main" class="wrap block extras">
+  <h1>Плюшки</h1>
+  <ul class="cards cards-ex" role="list">
+    <li class="course" id="x-interview">
+      <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/probability/09-interview.html">Тренажёр к собеседованию</a></h4>
+      <p class="line">классические задачи из «Вероятности на пальцах» и пробное собеседование на время</p>
+      <div class="task-box">
+        <p class="q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
+        <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
+      </div>
+      <p class="course-act"><a class="btn ghost" href="/probability/09-interview.html">Открыть →</a></p>
+    </li>
+    <li class="course" id="x-mde">
+      <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/play/sample-size/">Калькулятор MDE</a></h4>
+      <p class="line">размер выборки, MDE и мощность: зафиксируй два — третье посчитается; срок теста в днях</p>
+      <div></div>
+      <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть →</a></p>
+    </li>
+  </ul>
+</main>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
+<script>function artFail(i){ i.parentNode.classList.add('missing'); }</script>
+</body>
+</html>

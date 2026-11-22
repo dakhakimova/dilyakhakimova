@@ -116,6 +116,8 @@ else {
   require('./build-play.js')(target || 'ru');
   // игра-калькулятор /play/sample-size/ (не опубликована) — tools/build-sample-size.js
   if (!target) require('./build-sample-size.js')();
+  // рубрика «Плюшки» /extras/ (не опубликована) — tools/build-extras.js
+  if (!target) require('./build-extras.js')();
   // мини-лаборатории /terms/ и /sitemap.xml — из terms/terms.json и i18n/terms.js (пока только русская версия)
   if (!target) require('./build-terms.js')();
   // /courses/, /shelf/, общая шапка и футер (tools/chrome.js) на статических страницах, noindex неопубликованных курсов
