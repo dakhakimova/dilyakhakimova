@@ -97,6 +97,7 @@ ${extra}<title>${plain(title)}</title>
       <ul role="list">
         <li><a href="${pre}/play/">${t('play.all')}</a></li>
         <li><a href="${pre}/terms/">${t('foot.terms')}</a></li>
+        <li><a href="${pre}/books/">${t('foot.books')}</a></li>
         <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">${t('foot.habr')}</a></li>
         <li><a href="/about/">${t('nav.about')}</a></li>
         <li><a href="/account.html">${t('nav.progress')}</a></li>

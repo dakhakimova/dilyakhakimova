@@ -14,7 +14,7 @@
    тире) прогоняется только по кускам между <!-- typo --> и <!-- /typo -->. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
-const PAGES = ['index.html', 'probability/index.html', 'stats/index.html', 'ab/index.html', 'causal/index.html', 'about/index.html', 'map/index.html', 'start/index.html'];
+const PAGES = ['index.html', 'probability/index.html', 'stats/index.html', 'ab/index.html', 'causal/index.html', 'about/index.html', 'map/index.html', 'start/index.html', 'books/index.html', 'books/kohavi-trustworthy/index.html'];
 const TYPO_ONLY = ['signal/index.html', 'ab-basics/index.html'];
 const target = process.argv[2] === '--typo' ? undefined : process.argv[2];
 
