@@ -329,7 +329,8 @@
 
 print(p_sum(7))   # должно быть около 0.167
 print(p_sum(2))   # около 0.028</textarea>
-<template data-hint>Внутри двух циклов перебираются все 36 пар. Нужна одна строка: если сумма пары равна <code>s</code>, прибавь к <code>good</code> единицу — <code>if blue + red == s: good += 1</code>.</template>
+<template data-hint>Внутри двух циклов перебираются все 36 пар. Нужна одна строка: если сумма пары равна <code>s</code>, прибавь к <code>good</code> единицу:<pre>if blue + red == s:
+    good += 1</pre></template>
 <template data-hint>Вероятность — доля нужных клеток среди всех: верни <code>good / 36</code>.</template>
 <template data-solution>def p_sum(s):
     # вероятность, что сумма двух честных кубиков равна s
