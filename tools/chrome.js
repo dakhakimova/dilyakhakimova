@@ -27,8 +27,9 @@ const ME_JS = `<script>(function(){var a=document.currentScript.previousElementS
 function header(current = '', self = false){
   // текущая рубрика: на её главной странице — не ссылка (<span aria-current="page">), внутри рубрики — ссылка с aria-current="true";
   // на главной сайта строка-«логотип» тоже не ссылка (гайд, пара «Страница не ссылается на саму себя»)
-  const a = ([k, href, label]) => k === current && self ? `<span class="cur" aria-current="page">${label}</span>`
-    : `<a href="${href}"${k === current ? ' aria-current="true"' : ''}>${label}</a>`;
+  // data-rub — цвет рубрики для подчёркивания текущего пункта (tokens.css: --rub-*-line; у «Курсов» — нейтральный)
+  const a = ([k, href, label]) => k === current && self ? `<span class="cur" data-rub="${k}" aria-current="page">${label}</span>`
+    : `<a href="${href}" data-rub="${k}"${k === current ? ' aria-current="true"' : ''}>${label}</a>`;
   const hl = `<span class="hl-full">${TAGLINE}</span><span class="hl-short" aria-hidden="true">${TAGLINE_S}</span>`;
   return `<header class="top wrap" data-chrome>
   ${current === 'home' ? `<span class="home-line" aria-current="page">${hl}</span>` : `<a class="home-line" href="/" aria-label="${TAGLINE}">${hl}</a>`}

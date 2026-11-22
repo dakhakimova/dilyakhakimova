@@ -37,11 +37,11 @@ function artFail(img){
 <header class="top wrap" data-chrome>
   <span class="home-line" aria-current="page"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></span>
   <nav id="site-nav" aria-label="Разделы сайта">
-    <a href="/courses/">Курсы</a>
-    <a href="/play/">Игры</a>
-    <a href="/shelf/">Полка</a>
-    <a href="/terms/">Словарь</a>
-    <a href="/extras/">Плюшки</a>
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
@@ -196,18 +196,19 @@ function artFail(img){
 <!-- 6. Рубрики: четыре равноценные карточки, одна структура, одно действие -->
 <section class="wrap block" id="rubrics" aria-labelledby="rubrics-h">
   <h2 id="rubrics-h">Рубрики</h2>
+  <!-- рубрики: без картинок, цветное поле рубрики (решение Дили, 22.11.2026); картинка с Котейкой на полке — только на /books/ -->
   <ul class="cards cards-rub" role="list">
-    <li class="course rub"><figure class="art"><img src="/img/home-p-hands.jpg" width="1200" height="900" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/play/">Игры</a></h4><p class="line">Игры из всех курсов: угадай, потом проверь</p>
+    <li class="course rub" data-rub="play">
+      <div class="rub-field"><h4><a href="/play/">Игры</a></h4><p class="line">Игры из всех курсов: угадай, потом проверь</p></div>
       <p class="course-act"><a class="btn ghost" href="/play/" aria-label="Открыть рубрику «Игры»">Открыть →</a></p></li>
-    <li class="course rub"><figure class="art"><img src="/img/home-p-story.jpg" width="1200" height="900" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/books/">Полка</a></h4><p class="line">разборы книг и статей: что пригодится в понедельник</p>
+    <li class="course rub" data-rub="shelf">
+      <div class="rub-field"><h4><a href="/books/">Полка</a></h4><p class="line">Разборы книг и статей: что пригодится в понедельник</p></div>
       <p class="course-act"><a class="btn ghost" href="/books/" aria-label="Открыть рубрику «Полка»">Открыть →</a></p></li>
-    <li class="course rub"><figure class="art"><img src="/img/home-p-thousand.jpg" width="1200" height="900" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/terms/">Словарь</a></h4><p class="line">термины простыми словами, с игрой и примером</p>
+    <li class="course rub" data-rub="terms">
+      <div class="rub-field"><h4><a href="/terms/">Словарь</a></h4><p class="line">Термины простыми словами, с игрой и примером</p></div>
       <p class="course-act"><a class="btn ghost" href="/terms/" aria-label="Открыть рубрику «Словарь»">Открыть →</a></p></li>
-    <li class="course rub"><figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/extras/">Плюшки</a></h4><p class="line">Калькуляторы, шпаргалки и тренажёры</p>
+    <li class="course rub" data-rub="extras">
+      <div class="rub-field"><h4><a href="/extras/">Плюшки</a></h4><p class="line">Калькуляторы, шпаргалки и тренажёры</p></div>
       <p class="course-act"><a class="btn ghost" href="/extras/" aria-label="Открыть рубрику «Плюшки»">Открыть →</a></p></li>
   </ul>
 </section>

@@ -117,3 +117,12 @@ code, kbd, samp{font-family:var(--mono); font-size:1em; font-size-adjust:.5}
 [data-fixed][hidden], [data-ui-hidden]{display:none !important}
 /* поля ввода без своего фона — тёплая бумага, а не белый браузера */
 :where(input:is([type=text], [type=number], [type=email], [type=search], [type=tel], [type=url], :not([type])), select, textarea){background-color:var(--surface)}
+/* цвета рубрик — только навигация: подчёркивание в шапке, поле карточки рубрики на главной, полоса карточек внутри рубрики.
+   В данных, графиках и играх не используются (решение Дили, 22.11.2026). base — для заливок, line — для линий (≥ 3 : 1 к столу) */
+:root{
+  --rub-play:#C29A48;   --rub-play-line:#9A7634;
+  --rub-shelf:#8C9A5B;  --rub-shelf-line:#6E7A43;
+  --rub-terms:#8A5A7A;  --rub-terms-line:#8A5A7A;
+  --rub-extras:#4F8F8A; --rub-extras-line:#447F7A;
+  --rub-courses-line:var(--warm-700);
+}
