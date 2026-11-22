@@ -1,5 +1,5 @@
-/* Рубрика «Котейка читает»: хаб /books/ и разборы /books/<книга>/.
-   Порядок подключения: /tokens.css → /home.css → /books/books.css. Правила — design-system.md:
+/* Рубрика «Котейка читает»: разборы /shelf/<книга>/ (входная страница /shelf/ — site/site.css).
+   Порядок подключения: /tokens.css → /home.css → /shelf/books.css. Правила — design-system.md:
    Literata 400/500, Onest 400–600 (без 700); одна метка на блок; одна залитая кнопка на блок; над заголовком отступ больше, чем под ним.
    home.css в этой ветке ещё со старым :root и весами 600/700 — здесь они возвращаются к токенам (только на страницах рубрики). */
 :root{
@@ -31,6 +31,8 @@
 .bk-hero:not(.hub) h1{font-size:clamp(2.125rem,4.4vw,3.125rem)}
 .bk-pass{font:var(--fw-regular) var(--fs-l)/1.45 var(--serif); color:var(--text-2); margin:0 0 var(--s-2)}
 .bk-pass cite{font-style:normal; color:var(--text-1)}
+/* русское издание под оригинальным названием: мелко, серым (паспорт разбора, карточка на хабе) */
+.bk-ru{font-size:var(--fs-s); color:var(--text-3); margin:0 0 var(--s-2)}
 .bk-pass2{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2) var(--s-3); font-size:var(--fs-s); color:var(--text-2); margin:0 0 var(--s-5)}
 .bk .sub{margin:0 0 var(--s-4)}
 .bk-how{font-size:var(--fs-s); color:var(--text-2)}

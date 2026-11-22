@@ -4,32 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Рубрика «Котейка читает». Тексты — в i18n/site.js (шапка, футер) и i18n/books.js. Русский текст вписан командой node tools/bake-i18n.js: правьте словари, а не разметку.
-     Код ячеек Python — прямо здесь (textarea): из них же собирается ноутбук books/notebooks/kohavi-trustworthy.ipynb (python3 tools/build-book-notebook.py). -->
+     Код ячеек Python — прямо здесь (textarea): из них же собирается ноутбук shelf/notebooks/kohavi-trustworthy.ipynb (python3 tools/build-book-notebook.py). -->
 <title data-i18n="bk.meta.title">Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам · Котейка читает</title>
 <meta name="description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком. С какой главы начать.">
-<link rel="canonical" href="https://dilyakhakimova.com/books/kohavi-trustworthy/">
+<link rel="canonical" href="https://dilyakhakimova.com/shelf/kohavi-trustworthy/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
-<meta property="og:url" content="https://dilyakhakimova.com/books/kohavi-trustworthy/">
+<meta property="og:url" content="https://dilyakhakimova.com/shelf/kohavi-trustworthy/">
 <meta property="og:title" data-i18n-attr="content:bk.meta.title" content="Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам · Котейка читает">
 <meta property="og:description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком. С какой главы начать.">
-<meta property="og:image" content="https://dilyakhakimova.com/books/og/kohavi-trustworthy.png">
+<meta property="og:image" content="https://dilyakhakimova.com/shelf/og/kohavi-trustworthy.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/tokens.css?v=202611224">
+<link rel="stylesheet" href="/tokens.css?v=202611225">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611224">
-<link rel="stylesheet" href="/home.css?v=202611224">
-<link rel="stylesheet" href="/books/books.css?v=202611224">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611225">
+<link rel="stylesheet" href="/home.css?v=202611225">
+<link rel="stylesheet" href="/shelf/books.css?v=202611225">
 <script>
 function artFail(img){ img.closest('.art').classList.add('missing'); }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Полка","item":"https://dilyakhakimova.com/shelf/"},{"@type":"ListItem","position":2,"name":"Котейка читает","item":"https://dilyakhakimova.com/books/"},{"@type":"ListItem","position":3,"name":"Trustworthy Online Controlled Experiments","item":"https://dilyakhakimova.com/books/kohavi-trustworthy/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Полка","item":"https://dilyakhakimova.com/shelf/"},{"@type":"ListItem","position":2,"name":"Trustworthy Online Controlled Experiments","item":"https://dilyakhakimova.com/shelf/kohavi-trustworthy/"}]}</script>
 </head>
 <body class="bk-page">
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
@@ -58,10 +58,11 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="eyebrow bk-label"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="32" height="32"><span data-i18n="bk.rubric">Котейка читает</span></p>
     <h1 data-i18n="bk.h1">Как не выкатить баг, который притворился победой</h1>
     <p class="bk-pass" data-i18n="bk.pass.book"><cite lang="en">Trustworthy Online Controlled Experiments</cite> · Рон Кохави, Диана Тан, Я Сюй · 2020</p>
+    <p class="bk-ru" data-i18n="bk.pass.ru">На русском: «Доверительное A/B-тестирование»</p>
     <p class="bk-pass2"><span data-i18n="bk.pass.who">Для аналитиков и продактов, которые запускают A/B-тесты</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span data-i18n="bk.pass.read">около 290 страниц, на английском · разбор — 10 минут</span></p>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who" data-i18n="bk.kot.who">Котейка</div><p class="say" data-i18n="bk.kot.say">Прочитал за тебя почти 300 страниц. Вот пять мыслей, которые пригодятся в понедельник, когда откроешь отчёт.</p></div></div>
   </div>
-  <figure class="art r43 drawn"><img src="/books/img/kohavi-main.jpg" width="1600" height="1200" data-i18n-attr="alt:bk.art.alt" alt="Котейка за столиком кафе разглядывает зелёный отчёт через лупу, рядом Алиса и Боб" onerror="artFail(this)"><figcaption class="ph" data-i18n="bk.art.ph">Здесь будет иллюстрация: Котейка с лупой проверяет зелёный отчёт</figcaption></figure>
+  <figure class="art r43 drawn"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" data-i18n-attr="alt:bk.art.alt" alt="Котейка за столиком кафе разглядывает зелёный отчёт через лупу, рядом Алиса и Боб" onerror="artFail(this)"><figcaption class="ph" data-i18n="bk.art.ph">Здесь будет иллюстрация: Котейка с лупой проверяет зелёный отчёт</figcaption></figure>
 </section>
 
 <!-- главная мысль + своя схема -->
@@ -231,8 +232,8 @@ for i, h in enumerate(hist):
   <h2 id="nb-h" data-i18n="bk.nb.h">Весь код — одним ноутбуком</h2>
   <p data-i18n="bk.nb.p">Три ячейки с этой страницы — проверка SRM, подглядывание и A/A-стенд — с пояснениями. Нужны только Python и numpy: подставь свои числа и запусти.</p>
   <p class="ctas">
-    <a class="btn" href="/books/notebooks/kohavi-trustworthy.ipynb" download data-i18n="bk.nb.dl">Скачать ноутбук</a>
-    <a class="btn ghost" href="https://colab.research.google.com/github/dakhakimova/dilyakhakimova/blob/main/books/notebooks/kohavi-trustworthy.ipynb" rel="noopener" data-i18n="bk.nb.colab">Открыть в Colab ↗</a>
+    <a class="btn" href="/shelf/notebooks/kohavi-trustworthy.ipynb" download data-i18n="bk.nb.dl">Скачать ноутбук</a>
+    <a class="btn ghost" href="https://colab.research.google.com/github/dakhakimova/dilyakhakimova/blob/main/shelf/notebooks/kohavi-trustworthy.ipynb" rel="noopener" data-i18n="bk.nb.colab">Открыть в Colab ↗</a>
   </p>
   <p class="btn-note" data-i18n="bk.nb.note">Ячейки на странице запускаются прямо в браузере: Python загрузится по первой кнопке «Запустить», это 5–15 секунд.</p>
 </section>
@@ -260,7 +261,7 @@ for i, h in enumerate(hist):
   </ul>
 </section>
 
-<p class="more bk-more"><a href="/books/" data-i18n="bk.more.all">Все выпуски «Котейка читает» →</a></p>
+<p class="more bk-more"><a href="/shelf/" data-i18n="bk.more.all">Вся полка →</a></p>
 
 <section class="bk-sec bk-share" aria-labelledby="share-h">
   <h2 id="share-h" data-i18n="bk.share.title">Понравился разбор?</h2>
@@ -277,9 +278,9 @@ for i, h in enumerate(hist):
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611224"></script>
-<script src="/i18n/books.js?v=202611224"></script>
-<script src="/signal/py.js?v=202611224"></script>
-<script src="/books/books.js?v=202611224"></script>
+<script src="/i18n/site.js?v=202611225"></script>
+<script src="/i18n/books.js?v=202611225"></script>
+<script src="/signal/py.js?v=202611225"></script>
+<script src="/shelf/books.js?v=202611225"></script>
 </body>
 </html>

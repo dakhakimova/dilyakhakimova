@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* OG-картинки рубрики «Котейка читает»: books/og/index.png (хаб) и books/og/<выпуск>.png (1200×630).
+/* OG-картинки рубрики «Котейка читает»: shelf/og/<выпуск>.png (1200×630).
    Своя вёрстка: метка, заголовок, строка о книге и своя схема — без обложки и рисунков из книги.
      NODE_PATH=$(npm root -g) node tools/og-books.js
    Шрифты — локальные @fontsource-variable/literata и /onest (как в tools/og-play.js), иначе Google Fonts. */
@@ -25,19 +25,18 @@ h1{font:400 64px/1.08 Literata, serif; letter-spacing:-.02em; margin:28px 0 20px
 p{font:400 28px/1.35 Literata, serif; color:#4A463F; margin:0}
 .site{position:absolute; right:64px; bottom:44px; font:400 22px/1 Onest; color:#5E5A53}
 .bar{position:absolute; left:64px; bottom:40px}
-</style></head><body><div class="card"><div class="lab"><img src="${ava}">Котейка читает</div><h1>${title}</h1><p>${line}</p>${extra || ''}<div class="site">dilyakhakimova.com/books</div></div></body></html>`;
+</style></head><body><div class="card"><div class="lab"><img src="${ava}">Котейка читает</div><h1>${title}</h1><p>${line}</p>${extra || ''}<div class="site">dilyakhakimova.com/shelf</div></div></body></html>`;
 
 (async () => {
   const b = await chromium.launch(), p = await b.newPage({viewport: {width: 1200, height: 630}});
-  fs.mkdirSync(path.join(ROOT, 'books/og'), {recursive: true});
+  fs.mkdirSync(path.join(ROOT, 'shelf/og'), {recursive: true});
   const shots = {
     'kohavi-trustworthy': page('Как не выкатить баг, который притворился победой', 'Trustworthy Online Controlled Experiments · Кохави, Тан, Сюй', `<div class="bar">${bar}</div>`),
-    index: page('Книги по статистике и A/B — пять мыслей и игры', 'Разборы книг и научных статей: главная мысль, живые визуализации, код'),
   };
   for (const [k, html] of Object.entries(shots)){
     await p.setContent(html); await p.evaluate(() => document.fonts.ready);
-    await p.screenshot({path: path.join(ROOT, 'books/og', k + '.png')});
-    console.log('og: books/og/' + k + '.png');
+    await p.screenshot({path: path.join(ROOT, 'shelf/og', k + '.png')});
+    console.log('og: shelf/og/' + k + '.png');
   }
   await b.close();
 })();

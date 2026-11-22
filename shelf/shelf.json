@@ -1,11 +1,13 @@
 {
- "_doc": "Книжная полка /shelf/ и блок «Ещё по теме». published:true — корешок на полке. review — адрес разбора «Котейка читает» (есть разбор → яркий кликабельный корешок; нет → просто книга на полке, карточка при наведении, без ссылки). topic: Вероятность · Статистика · A/B · Причинность · Решения. isbn — массив ISBN в порядке попыток: обложка грузится у читателя из Open Library при первом наведении, на сайте не хранится.",
+ "_doc": "Книжная полка /shelf/ и блок «Ещё по теме». На полке только то, у чего есть опубликованный разбор: published:true и review — адрес разбора «Котейка читает». Остальное лежит с published:false до своего выпуска (разборы выходят раз в неделю). title_en — оригинальное название (null, если книга русская), title_ru — название русского издания (null — перевода нет; у русской книги — само название). title_short — необязательное короткое название для узкого корешка, полное — в подсказке. topic: Вероятность · Статистика · A/B · Причинность · Решения. isbn — массив ISBN в порядке попыток: сначала оригинальное издание, потом русское; обложка грузится у читателя из Open Library при первом наведении, на сайте не хранится. articles — чужие статьи: на полке, как и книги, только с published:true и review. mine — материалы автора (блок «Статьи и видео от автора»): kind article|video|channel, where — площадка (Хабр, Medium, YouTube, Telegram), url — адрес или null (тогда карточка-заглушка «скоро», после готовых), about — одна строка, year. Работодателя на карточках не упоминаем.",
  "books": [
   {
    "slug": "kohavi-trustworthy",
    "published": true,
-   "review": "/books/kohavi-trustworthy/",
-   "title": "Доверительное A/B-тестирование",
+   "review": "/shelf/kohavi-trustworthy/",
+   "title_en": "Trustworthy Online Controlled Experiments",
+   "title_ru": "Доверительное A/B-тестирование",
+   "title_short": "Trustworthy",
    "author": "Рон Кохави, Диана Тан, Я Сюй",
    "year": 2020,
    "isbn": [
@@ -16,8 +18,9 @@
   },
   {
    "slug": "huff",
-   "published": true,
-   "title": "Как лгать при помощи статистики",
+   "published": false,
+   "title_en": "How to Lie with Statistics",
+   "title_ru": "Как лгать при помощи статистики",
    "author": "Дарелл Хафф",
    "year": 1954,
    "isbn": [
@@ -28,8 +31,9 @@
   },
   {
    "slug": "kahneman",
-   "published": true,
-   "title": "Думай медленно… решай быстро",
+   "published": false,
+   "title_en": "Thinking, Fast and Slow",
+   "title_ru": "Думай медленно… решай быстро",
    "author": "Даниэль Канеман",
    "year": 2011,
    "isbn": [
@@ -41,8 +45,9 @@
   },
   {
    "slug": "taleb",
-   "published": true,
-   "title": "Одураченные случайностью",
+   "published": false,
+   "title_en": "Fooled by Randomness",
+   "title_ru": "Одураченные случайностью",
    "author": "Нассим Николас Талеб",
    "year": 2001,
    "isbn": [
@@ -53,8 +58,9 @@
   },
   {
    "slug": "gigerenzer",
-   "published": true,
-   "title": "Понимать риски",
+   "published": false,
+   "title_en": "Risk Savvy",
+   "title_ru": "Понимать риски",
    "author": "Герд Гигеренцер",
    "year": 2014,
    "isbn": [
@@ -66,8 +72,9 @@
   },
   {
    "slug": "savelyev",
-   "published": true,
-   "title": "Статистика и котики",
+   "published": false,
+   "title_en": null,
+   "title_ru": "Статистика и котики",
    "author": "Владимир Савельев",
    "year": 2018,
    "isbn": [
@@ -78,32 +85,58 @@
   },
   {
    "slug": "wheelan",
-   "published": true,
-   "title": "Голая статистика",
+   "published": false,
+   "title_en": "Naked Statistics",
+   "title_ru": "Голая статистика",
    "author": "Чарльз Уилан",
    "year": 2013,
    "isbn": [
-    "9785000579534",
-    "9780393347777"
+    "9780393347777",
+    "9785000579534"
    ],
    "topic": "Статистика",
    "about": "Научпоп почти без формул: ЦПТ, регрессия к среднему, связь и причина."
   }
  ],
- "articles": [
+ "articles": [],
+ "mine": [
   {
-   "published": true,
-   "href": "https://habr.com/ru/companies/yandex/articles/919966/",
-   "where": "Хабр",
-   "date": "2025-06-26",
-   "dateText": "26 июня 2025",
+   "kind": "article",
    "title": "10 мифов об A/B-тестировании: как избежать распространённых заблуждений в статистическом анализе",
+   "where": "Хабр",
+   "url": "https://habr.com/ru/companies/yandex/articles/919966/",
    "about": "С симуляциями, которые можно запустить самому. Основной текст — для всех, сложные места — врезками для продвинутых.",
+   "year": 2025,
+   "date": "2025-06-26",
    "topic": "A/B",
    "toy": {
     "href": "/ab-basics/08-errors.html#card-5",
     "text": "Игра к статье: сто экспериментов"
    }
+  },
+  {
+   "kind": "article",
+   "title": "10 мифов об A/B-тестировании — английская версия",
+   "where": "Medium",
+   "url": null,
+   "about": "Та же статья с симуляциями — для коллег, которые читают по-английски.",
+   "year": 2025
+  },
+  {
+   "kind": "video",
+   "title": "Разборы на YouTube",
+   "where": "YouTube",
+   "url": null,
+   "about": "Видеоразборы A/B-тестов и статистики: задача, ловушка, как считать.",
+   "year": 2026
+  },
+  {
+   "kind": "channel",
+   "title": "Telegram-канал",
+   "where": "Telegram",
+   "url": null,
+   "about": "Короткие заметки об A/B-тестах, статистике и графиках.",
+   "year": 2026
   }
  ]
 }

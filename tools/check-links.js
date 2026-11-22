@@ -3,7 +3,7 @@
 const {chromium} = require('playwright');
 const serve = require('./play-serve.js');
 // без аргументов: все входные страницы, первый шаг каждого бесплатного курса и три случайные игры
-const ENTRY = ['/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/map/', '/start/', '/about/', '/play/', '/books/', '/terms/', '/extras/', '/account.html', '/404.html',
+const ENTRY = ['/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/map/', '/start/', '/about/', '/play/', '/shelf/', '/terms/', '/extras/', '/account.html', '/404.html',
   '/probability/01-outcomes.html', '/signal/01-probability.html', '/ab-basics/01-before-after.html'];
 const randomGames = k => { const fs = require('fs'), path = require('path'), dir = path.join(__dirname, '..', 'play');
   const all = fs.readdirSync(dir).filter(d => fs.existsSync(path.join(dir, d, 'index.html')));

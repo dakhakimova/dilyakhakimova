@@ -102,7 +102,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'foot.c.st': 'Прикладная статистика для аналитика',
   'foot.c.abm': 'A/B без мифов',
   'foot.c.cau': 'Causal inference',
-  'foot.books': 'Котейка читает',
+  'foot.books': 'Полка',
   'foot.habr': '10 мифов об A/B-тестировании (Хабр)',
   'foot.gh': 'GitHub',
   'foot.copy': '© 2026 Диля Хакимова · Белград',

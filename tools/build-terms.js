@@ -280,7 +280,7 @@ q.addEventListener('input',go);em.querySelector('button').addEventListener('clic
   console.log('terms:', terms.length, 'терминов + хаб → terms/');
 
   // ---------- sitemap.xml: только канонические публичные адреса ----------
-  const list = ['/', '/courses/', '/about/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/play/', '/terms/', '/shelf/', '/books/', '/map/', '/start/'];
+  const list = ['/', '/courses/', '/about/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/play/', '/terms/', '/shelf/', '/map/', '/start/'];
   for (const b of JSON.parse(fs.readFileSync(path.join(ROOT, 'shelf/shelf.json'), 'utf8')).books) if (b.published && b.review) list.push(b.review);
   for (const d of ['probability', 'signal', 'ab-basics']) for (const f of fs.readdirSync(path.join(ROOT, d)).filter(f => /^\d\d-.*\.html$/.test(f)).sort()) list.push(`/${d}/${f}`);
   if (fs.existsSync(path.join(ROOT, 'ab-basics/cheatsheet.html'))) list.push('/ab-basics/cheatsheet.html');

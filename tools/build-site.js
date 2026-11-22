@@ -15,7 +15,7 @@ const nb = s => String(s).replace(/ (₽)/g, ' $1').replace(/(\d) (\d{3})/g, '$
 const STAMP = {
   'index.html': 'home', 'about/index.html': '', 'probability/index.html': 'courses', 'signal/index.html': 'courses', 'ab-basics/index.html': 'courses', 'stats/index.html': 'courses',
   'ab/index.html': 'courses', 'causal/index.html': 'courses', 'map/index.html': 'courses',
-  'account.html': 'account', 'books/index.html': 'shelf', 'books/kohavi-trustworthy/index.html': 'shelf', '404.html': '', 'styleguide/index.html': '',
+  'account.html': 'account', 'shelf/kohavi-trustworthy/index.html': 'shelf', '404.html': '', 'styleguide/index.html': '',
 };
 
 function head({title, desc, url, css = [], og = '/img/og.png', noindex = false}){
@@ -87,40 +87,72 @@ function courses(){
 
 // цвет корешка по теме — палитра сайта (tokens.css)
 const SPINE = {'Вероятность': '#23418A', 'Статистика': '#0E7E5F', 'A/B': '#A63D28', 'Причинность': '#6B4E8C', 'Решения': '#A85A24'};
+// названия книги: основное — оригинал (title_en; у русской книги — title_ru), под ним — русское издание или «перевода нет»
+const bookTitle = b => b.title_en || b.title_ru;
+const bookLang = b => b.title_en ? ' lang="en"' : '';
+const bookRu = b => !b.title_en ? '' : b.title_ru ? `На русском: «${b.title_ru}»` : 'Перевода на русском нет';
+const SHELF_FILTER_MIN = 6;  // фильтр по темам — только если на полке хотя бы столько позиций
 function shelf(){
   const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'shelf/shelf.json'), 'utf8'));
-  const books = S.books.filter(b => b.published), arts = S.articles.filter(a => a.published);
+  // на полке — только то, у чего уже вышел разбор; остальное ждёт с published:false
+  const books = S.books.filter(b => b.published && b.review), arts = S.articles.filter(a => a.published && a.review);
   const topics = REL.TOPICS.filter(tp => books.some(b => b.topic === tp));
+  const showFilter = books.length + arts.length >= SHELF_FILTER_MIN && topics.length > 1;
   let h = 7;
   const spine = (b, i) => {
     h = (h * 37 + 11) % 100; // разные высота и толщина — стабильно от сборки к сборке
     const height = 232 + (h % 5) * 12, width = 52 + (h % 4) * 6;
+    const t = bookTitle(b), lg = bookLang(b), ru = bookRu(b);
     // одна подсказка на корешок: текст в HTML, обложка — у читателя из Open Library при первом наведении (site/shelf.js)
     const isbn = (b.isbn || []).filter(x => /^\d{9}[\dX]$|^\d{13}$/.test(x));
-    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(b.title)}"` : ''}><b>«${esc(b.title)}»</b><span>${esc(b.author)}, ${b.year}</span>${b.about ? `<span>${esc(nb(b.about))}</span>` : ''}<span class="b-topic">${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
-    const inner = `<span class="b-t">${esc(b.title)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
+    const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><b${lg}>${esc(t)}</b>${ru ? `<span class="b-ru">${esc(nb(ru))}</span>` : ''}<span>${esc(b.author)}, ${b.year}</span>${b.about ? `<span>${esc(nb(b.about))}</span>` : ''}<span class="b-topic">книга · ${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
+    // на узком корешке — короткое название (title_short), полное — в подсказке
+    const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
     const st = `style="--h:${height}px; --w:${width}px; --c:${SPINE[b.topic]}"`;
+    const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc(b.author)}`;
     return b.review
-      ? `<li class="book live" data-topic="${b.topic}"><a class="spine" href="${b.review}" ${st} aria-label="«${esc(b.title)}», ${esc(b.author)} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
-      : `<li class="book" data-topic="${b.topic}"><button class="spine" type="button" ${st} aria-label="«${esc(b.title)}», ${esc(b.author)}" aria-describedby="bc-${b.slug}" aria-expanded="false">${inner}</button>${card}</li>`;
+      ? `<li class="book live" data-topic="${b.topic}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
+      : `<li class="book" data-topic="${b.topic}"><button class="spine" type="button" ${st} aria-label="${label}" aria-describedby="bc-${b.slug}" aria-expanded="false">${inner}</button>${card}</li>`;
   };
+  // чужая статья с разбором: вся карточка — ссылка на разбор
   const art = a => `
-    <article class="panel article">
-      <p class="chips"><span class="tag"><time datetime="${a.date}">${a.where} · ${a.dateText}</time></span><span class="tag">${a.topic}</span></p>
-      <h3><a href="${a.href}">${esc(a.title)}</a></h3>
-      <p>${esc(nb(a.about))}</p>${a.toy ? `
-      <p><a class="more" href="${a.toy.href}">${a.toy.text} →</a></p>` : ''}
-    </article>`;
+    <li><a class="panel article shelf-card" href="${a.review}">
+      <p class="chips"><span class="tag">статья</span><span class="tag">${esc(a.where)}</span>${a.topic ? `<span class="tag">${a.topic}</span>` : ''}</p>
+      <h3>${esc(a.title)}</h3>
+      <p>${esc(nb(a.about))}</p>
+      <span class="go">Читать разбор →</span>
+    </a></li>`;
+  // свои материалы: есть url — вся карточка ссылка в той же вкладке, площадка названа словами (гайд, п. 126); url:null — заглушка «скоро», после готовых
+  const WHERE = {'Хабр': 'на Хабре', 'Medium': 'на Medium', 'YouTube': 'на YouTube', 'Telegram': 'в Telegram'};
+  const GO = {article: 'Читать', video: 'Смотреть', channel: 'Открыть канал'};
+  const KIND = {article: 'статья', video: 'видео', channel: 'канал'};  // метка типа — первой в строке меток
+  const mineCard = m => {
+    const body = `
+      <p class="chips"><span class="tag">${KIND[m.kind] || 'статья'}</span><span class="tag">${esc(m.where)}</span>${m.topic ? `<span class="tag">${m.topic}</span>` : ''}</p>
+      <h3>${esc(nb(m.title))}</h3>
+      <p>${esc(nb(m.about))}</p>`;
+    return m.url
+      ? `
+    <li><a class="panel article shelf-card" href="${esc(m.url)}">${body}
+      <span class="go">${GO[m.kind] || 'Открыть'} ${WHERE[m.where] || ''} →</span>
+    </a></li>`
+      : `
+    <li><div class="panel article shelf-card stub">${body}
+      <span class="soon">скоро</span>
+    </div></li>`;
+  };
+  const mine = (S.mine || []).filter(m => m.url).concat((S.mine || []).filter(m => !m.url));
   const html = head({title: 'Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова',
     desc: 'Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
-    url: '/shelf/', css: ['/site/site.css'], og: '/books/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
+    url: '/shelf/', css: ['/site/site.css'], og: '/shelf/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
 
 <main id="main" class="wrap shelf-page">
   <section class="c-hero">
     <h1>Полка</h1>
     <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
+    <p class="shelf-how">Разборы «Котейка читает»: главная мысль, 3–5 идей с играми, кому читать и что вошло в курсы.</p>
   </section>
-${topics.length > 1 ? `  <div class="topic-filter" role="group" aria-label="Тема">
+${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <button type="button" aria-pressed="true" data-topic="">Все темы</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
   </div>
 ` : ''}  <div class="bookshelf" role="region" aria-label="Книжная полка" tabindex="0">
@@ -129,14 +161,20 @@ ${topics.length > 1 ? `  <div class="topic-filter" role="group" aria-label="Те
     </ul>
     <div class="board" aria-hidden="true"></div>
   </div>
-  <p class="figcap">Котейка читает по одной книге за раз. Разборы — с играми и кодом: <a href="/books/">все разборы</a>.</p>
-
+  <p class="figcap">Нажми на корешок — откроется разбор.</p>
+${arts.length ? `
   <section class="block shelf-read" aria-labelledby="read-h">
     <h2 id="read-h">Статьи</h2>
-    <div class="read">${arts.map(art).join('')}
-    </div>
+    <ul class="shelf-cards" role="list">${arts.map(art).join('')}
+    </ul>
   </section>
-</main>
+` : ''}${mine.length ? `
+  <section class="block shelf-read" aria-labelledby="mine-h">
+    <h2 id="mine-h">Статьи и видео от автора</h2>
+    <ul class="shelf-cards" role="list">${mine.map(mineCard).join('')}
+    </ul>
+  </section>
+` : ''}</main>
 ` + chrome.footer() + `
 <script src="/site/shelf.js?v=${V}"></script>
 </body>
