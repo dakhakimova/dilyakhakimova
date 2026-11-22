@@ -62,7 +62,7 @@ function courses(){
       <p class="chips"><span class="tag ${c.tag}">${nb(c.status)}</span>${chip(c.level)}</p>
       <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
       <p class="line">${nb(c.line)}</p>
-      <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd>${c.price ? `<dt>Цена раннего доступа</dt><dd>${nb(c.price)}</dd>` : ''}</dl>
+      <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd>${c.price ? `<dt>Цена</dt><dd>${nb(c.price)}</dd>` : ''}</dl>
       <p class="course-act">${c.faded ? `<a class="more" href="${c.href}">О чём будет курс →</a>` : c.tag === 'free'
         ? `<a class="btn${c === firstFree ? '' : ' ghost'}" href="${c.start}">Начать</a><a class="more" href="${c.href}">О курсе →</a>`
         : `<a class="btn ghost" href="${c.href}#waitlist">Сообщить о старте</a><a class="more" href="${c.href}">О курсе →</a>`}</p>
