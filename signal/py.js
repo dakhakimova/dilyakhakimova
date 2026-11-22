@@ -4,7 +4,9 @@
    <div class="cell" data-title="..." [data-check="id-скрипта-с-проверкой"]>
      <textarea spellcheck="false">код</textarea>
    </div>
-   Проверка — <script type="text/x-python" id="..."> с функцией, которая печатает OK/FAIL. */
+   Проверка — <script type="text/x-python" id="..."> с функцией, которая печатает OK/FAIL.
+   «Не получается?» (решение Дили, 23.11.2026): внутри ячейки <template data-hint>текст</template> (сколько угодно, по одной за нажатие)
+   и <template data-solution>код</template> — после подсказок кнопка «Показать решение», из него — «Вставить в ячейку». */
 (function(){
   const PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
   let pyReady = null;
@@ -59,6 +61,30 @@
     bar.append(hint);
     const out = document.createElement('pre');
     cell.append(bar, out);
+
+    // «Не получается?» — подсказки по одной, потом решение
+    const hints = [...cell.querySelectorAll('template[data-hint]')].map(t => t.innerHTML.trim());
+    const solT = cell.querySelector('template[data-solution]'), sol = solT ? solT.innerHTML.replace(/^\n/, '').replace(/\s+$/, '') : null;
+    if (hints.length || sol){
+      const help = document.createElement('div'); help.className = 'cell-help';
+      const list = document.createElement('ol'); list.className = 'cell-hints';
+      const btn = Object.assign(document.createElement('button'), {type:'button', className:'cell-more'});
+      const solBox = document.createElement('div'); solBox.className = 'cell-sol'; solBox.hidden = true;
+      let shown = 0;
+      const label = () => { btn.textContent = shown < hints.length ? (shown ? 'Ещё подсказка' : 'Не получается? Подсказка') : 'Показать решение'; btn.hidden = shown > hints.length || (shown === hints.length && !sol); };
+      btn.addEventListener('click', () => {
+        if (shown < hints.length){ const li = document.createElement('li'); li.innerHTML = hints[shown]; list.append(li); }
+        else if (sol){
+          solBox.hidden = false;
+          solBox.innerHTML = '<pre class="cell-sol-code">' + sol + '</pre>';
+          const put = Object.assign(document.createElement('button'), {type:'button', className:'cell-more', textContent:'Вставить решение в ячейку'});
+          put.addEventListener('click', () => { const t = document.createElement('textarea'); t.innerHTML = sol; ta.value = t.value; ta.rows = Math.max(5, ta.value.split('\n').length + 1); try { localStorage.setItem(storeKey, ta.value); } catch(e) {} ta.focus(); });
+          solBox.append(put);
+        }
+        shown++; label();
+      });
+      label(); help.append(list, btn, solBox); cell.after(help);
+    }
 
     const status = (msg, cls) => { out.innerHTML = '<span class="' + cls + '">' + esc(msg) + '</span>'; };
 

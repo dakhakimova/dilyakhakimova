@@ -339,3 +339,9 @@ label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:w
 /* заголовок карточки не шире колонки текста и картинки (решение Дили, 22.11.2026: «заголовок надо перенести»):
    36em у заголовка считались от его кегля и выходили шире картинки; 40.5rem = 36 × 18 px — та же колонка, что у текста */
 .card > h1, .card > h2{max-width:min(100%, 40.5rem); text-wrap:balance}
+/* «Не получается?» под ячейкой кода: подсказки по одной, потом решение (решение Дили, 23.11.2026) */
+.cell-help{margin:10px 0 0}
+.cell-hints{margin:0 0 8px; padding-left:1.3em} .cell-hints li{margin:0 0 6px}
+.cell-more{background:none; border:0; padding:6px 0; min-height:40px; font:var(--fw-medium) var(--fs-s)/1.2 var(--body); color:var(--pen); text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:4px; cursor:pointer}
+.cell-more[hidden]{display:none}
+.cell-sol-code{background:#1F2430; color:#E6E9EF; border-radius:10px; padding:12px 14px; font:400 .9375rem/1.5 var(--mono); overflow-x:auto; margin:4px 0}

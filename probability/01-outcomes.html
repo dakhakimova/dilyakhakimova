@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/01-outcomes.html">
 <title>Исходы и события · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 1 бесплатного интерактивного курса «Вероятность на пальцах»: исходы, события, вероятность как доля нужных исходов, две монетки и два кубика, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611242"></script>
+<script src="/play/bridge.js?v=202611243"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611242">
-<link rel="stylesheet" href="/tokens.css?v=202611242">
-<link rel="stylesheet" href="/signal/book.css?v=202611242">
-<link rel="stylesheet" href="/signal/free.css?v=202611242">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611243">
+<link rel="stylesheet" href="/tokens.css?v=202611243">
+<link rel="stylesheet" href="/signal/book.css?v=202611243">
+<link rel="stylesheet" href="/signal/free.css?v=202611243">
 <style>
 /* монетки пары: первая монетка синяя, вторая красная — исходы ОР и РО видны сразу, без кнопки «подписать» (решение Дили, 22.11.2026) */
 .sheet.coins2{position:relative}
@@ -108,7 +108,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p01" data-next="02-frequency.html">
-<script src="/signal/progress.js?v=202611242"></script>
+<script src="/signal/progress.js?v=202611243"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -323,12 +323,25 @@
     # вероятность, что сумма двух честных кубиков равна s
     good = 0
     for blue in range(1, 7):
-        for orange in range(1, 7):
-            ...   # если blue + orange == s, увеличь good
+        for red in range(1, 7):
+            ...   # если blue + red == s, увеличь good
     return ...
 
 print(p_sum(7))   # должно быть около 0.167
 print(p_sum(2))   # около 0.028</textarea>
+<template data-hint>Внутри двух циклов перебираются все 36 пар. Нужна одна строка: если сумма пары равна <code>s</code>, прибавь к <code>good</code> единицу — <code>if blue + red == s: good += 1</code>.</template>
+<template data-hint>Вероятность — доля нужных клеток среди всех: верни <code>good / 36</code>.</template>
+<template data-solution>def p_sum(s):
+    # вероятность, что сумма двух честных кубиков равна s
+    good = 0
+    for blue in range(1, 7):
+        for red in range(1, 7):
+            if blue + red == s:
+                good += 1
+    return good / 36
+
+print(p_sum(7))   # 0.1666… — 6 клеток из 36
+print(p_sum(2))   # 0.0277… — одна клетка</template>
   </div>
 <script type="text/x-python" id="check-p-sum">
 def _check():
@@ -470,7 +483,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611242"></script>
+<script src="/signal/book.js?v=202611243"></script>
 <script>
 const TXT = {
   ru: {
@@ -731,6 +744,6 @@ const dieSVG = (k, fill) => '<svg class="dsvg" viewBox="0 0 40 40" aria-hidden="
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611242"></script>
+<script src="/signal/py.js?v=202611243"></script>
 </body>
 </html>
