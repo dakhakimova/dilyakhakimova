@@ -122,6 +122,10 @@ header.top.open .burger-i{background:transparent} header.top.open .burger-i::bef
 h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0}
 h1 .hand{display:block; font:400 1.08em/1.1 var(--script); color:var(--pen)}
 .sub{font:400 var(--fs-l)/1.5 var(--serif); margin:var(--s-5) 0 0; max-width:30em; color:var(--warm-700)}
+/* первый экран: три принципа коротким нумерованным списком (решение Дили, 22.11.2026; заменил подзаголовок и блок «Как здесь учат») */
+.hero-list{list-style:none; padding:0; counter-reset:h; display:grid; gap:var(--s-1)}
+.hero-list li{display:grid; grid-template-columns:1.4em 1fr; align-items:baseline}
+.hero-list li::before{counter-increment:h; content:counter(h); color:var(--text-3); font-variant-numeric:tabular-nums}
 .trust{font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-5) 0 0; display:flex; gap:var(--s-2); align-items:baseline}
 .trust::before{content:""; flex:none; width:var(--s-5); height:2px; background:var(--coral); transform:translateY(-5px)}
 .hero-art{box-shadow:var(--sh-3)}
