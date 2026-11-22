@@ -137,8 +137,7 @@
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">«Почти каждый» — это сколько в штуках? Давай сначала угадаем, потом бросим тысячу шариков.</p></div></div>
   </div>
   <div class="guess" data-key="mid" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g07-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g07-1-guess-ctx">В среднюю корзину при 10 рядах попадёт примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g07-1-guess" aria-describedby="g07-1-guess-ctx">% шариков</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g07-1-guess" id="g07-1-guess-ctx">В среднюю корзину при 10 рядах попадёт примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g07-1-guess" aria-describedby="g07-1-guess-ctx">% шариков</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке проверим.</p>
   </div>
 </section>
@@ -158,12 +157,12 @@
       <button class="btn ghost" type="button" id="gal-reset">Сначала</button>
     </div>
     <div class="rng-row">
-      <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label><span>Рядов гвоздиков: <b id="gal-n-v">10</b></span><input type="range" id="gal-n" min="1" max="12" step="1" value="10" aria-label="Число рядов гвоздиков"></label></div>
-      <label><span>Шанс уйти вправо: <b id="gal-p-v">0.5</b></span><input type="range" id="gal-p" min="0.1" max="0.9" step="0.05" value="0.5" aria-label="Шанс уйти вправо на каждом гвоздике"></label>
+      <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label hidden data-fixed><span>Рядов гвоздиков: <b id="gal-n-v">10</b></span><input type="hidden" data-fixed id="gal-n" min="1" max="12" step="1" value="10" aria-label="Число рядов гвоздиков"></label></div>
+      <label hidden data-fixed><span>Шанс уйти вправо: <b id="gal-p-v">0.5</b></span><input type="hidden" data-fixed id="gal-p" min="0.1" max="0.9" step="0.05" value="0.5" aria-label="Шанс уйти вправо на каждом гвоздике"></label>
     </div>
     <div class="verdict" id="gal-v" hidden></div>
   </div>
-  <p class="note">Наклони доску ползунком «шанс уйти вправо» — горка поедет в сторону. Поменяй число рядов — изменится число корзин.</p>
+  <p class="note"> Поменяй число рядов — изменится число корзин.</p>
 </section>
 
 <!-- 7: правило в трёх слоях -->

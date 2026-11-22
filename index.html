@@ -76,17 +76,17 @@ function artFail(img){
       <div>
         <p class="kicker" data-i18n="toy.kicker">игра на минуту</p>
         <h2 id="toy-h" data-i18n="toy.title">Котейка бросает монетку 10 раз. Какая самая длинная серия орлов подряд?</h2>
-        <p class="muted" data-i18n="toy.lead">Сначала поставь прогноз, потом бросай. Можно бросить по одному разу, а можно сразу тысячу.</p>
+        <p class="muted" data-i18n="toy.lead">Сначала поставь прогноз на шкале, потом бросай. После первого броска можно бросить сразу тысячу раз.</p>
       </div>
     </div>
     <div class="toy-grid">
       <div class="toy-ctrl">
         <label class="guess" for="guess"><span data-i18n="toy.guess">Мой прогноз</span>: <output id="guess-out" for="guess" aria-live="polite"></output></label>
-        <input type="range" id="guess" min="0" max="10" step="1" value="2">
+        <input type="range" id="guess" class="unset" min="0" max="10" step="1" value="5">
         <div class="ticks" aria-hidden="true" id="guess-ticks"></div>
         <p class="ctas">
-          <button type="button" class="btn" id="toss" data-i18n="toy.toss">Бросить 10 раз</button>
-          <button type="button" class="btn ghost" id="k1000" data-i18n="toy.k" data-i18n-attr="aria-label:toy.kAria" aria-label="Бросить 10 раз тысячу раз подряд">×1000</button>
+          <button type="button" class="btn" id="toss" data-i18n="toy.toss" title="Пробел">Бросить 10 раз</button>
+          <button type="button" class="btn ghost" id="k1000" hidden title="Shift + Пробел" data-i18n="toy.k" data-i18n-attr="aria-label:toy.kAria" aria-label="Бросить 10 раз тысячу раз подряд">×1000</button>
           <button type="button" class="btn link" id="reset" data-i18n="toy.reset" hidden>Заново</button>
         </p>
         <div class="coins" id="coins" role="group" data-i18n-attr="aria-label:toy.coinsLabel" aria-label="Десять бросков: О — орёл, Р — решка"></div>

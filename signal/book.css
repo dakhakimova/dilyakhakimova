@@ -310,3 +310,8 @@ canvas + .controls, .tipwrap + .controls, canvas + .legend-row, .tipwrap + .lege
 button.btn.step{flex:none; min-width:44px; min-height:44px; padding:0 12px; justify-content:center; font-size:1.125rem; line-height:1}
 .sandbox{margin:var(--s-4) 0 0; padding:var(--s-3) 0 0; border-top:1px dashed var(--line-strong)}
 .sandbox-t{margin:0 0 var(--s-2); font:500 .875rem/1.3 var(--body); color:var(--text-2)}
+/* прогноз — пропуск во фразе: <label class="field phrase"> оборачивает всю фразу с полем (решение Дили, 22.11.2026);
+   отдельной подписи «Твой прогноз» над такой фразой нет */
+label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:1rem; cursor:text}
+/* вердикт — по отпусканию ползунка: пока тянешь, двигается график, вердикт и крупные числа ждут (play/bridge.js ставит .dragging) */
+.card.dragging .verdict, .card.dragging .big2, .card.dragging [role="status"]{visibility:hidden}

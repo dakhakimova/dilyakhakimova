@@ -87,8 +87,7 @@
   </div>
   <p>Конверсия 10%, в каждой группе 10 000 гостей. Котейка 100 раз запускает такой A/A-тест.</p>
   <div class="guess" data-key="aa83" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g09-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g09-1-guess-ctx">Разница больше 0.83 заказа на 100 гостей (в любую сторону) будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g09-1-guess" aria-describedby="g09-1-guess-ctx">% A/A-тестов</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g09-1-guess" id="g09-1-guess-ctx">Разница больше 0.83 заказа на 100 гостей (в любую сторону) будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g09-1-guess" aria-describedby="g09-1-guess-ctx">% A/A-тестов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке запустим стенд.</p>
   </div>
 </section>
@@ -99,12 +98,12 @@
   <h2>Стенд A/A</h2>
   <p>Каждый запуск — две группы одинаковых гостей. На гистограмме — разница «вторая минус первая» в заказах на 100 гостей. Серая кривая — колокол N(0, SE²), полоса — ±1.96·SE.</p>
   <div class="sheet c-white">
-    <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><div class="nsel" id="p9" role="group" aria-label="Конверсия">
+    <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><div class="nsel" id="p9" role="group" aria-label="Конверсия">
       <button type="button" data-p="0.02" aria-pressed="false">p = 2%</button>
       <button type="button" data-p="0.1" aria-pressed="true">p = 10%</button>
       <button type="button" data-p="0.3" aria-pressed="false">p = 30%</button>
     </div>
-    <label class="range-row" for="n9">Гостей в каждой группе: <b class="num" id="n9-t">10 000</b><input type="range" id="n9" min="0" max="5" step="1" value="3"></label></div>
+    <label class="range-row" for="n9" hidden data-fixed>Гостей в каждой группе: <b class="num" id="n9-t">10 000</b><input type="hidden" data-fixed id="n9" min="0" max="5" step="1" value="3"></label></div>
     <div class="controls">
       <button class="btn" type="button" id="aa1000">+1000 A/A</button>
       <button class="btn ghost" type="button" id="aa1">1 A/A</button>

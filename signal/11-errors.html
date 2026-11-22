@@ -102,8 +102,7 @@
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поймает — в какой доле таких тестов? Наблюдаемая разница ведь тоже шумит.</p></div></div>
   </div>
   <div class="guess" data-key="half" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g11-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g11-1-guess-ctx">Тест прокрасится примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g11-1-guess" aria-describedby="g11-1-guess-ctx">% таких экспериментов</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g11-1-guess" id="g11-1-guess-ctx">Тест прокрасится примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g11-1-guess" aria-describedby="g11-1-guess-ctx">% таких экспериментов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Это и есть мощность теста. Напиши число — на следующей карточке проверим.</p>
   </div>
 </section>
@@ -117,8 +116,8 @@
     <p class="chart-title">Два колокола: без эффекта и с эффектом</p>
     <canvas id="bells" role="img" aria-label="Два колокола: без эффекта и с эффектом; красным закрашена доля ложных тревог альфа, охрой — доля пропусков бета"></canvas>
     <div class="legend-row"><span><i style="background:var(--trap)"></i>α — ложная тревога</span><span><i style="background:#C9A43A"></i>β — пропуск</span><span><i style="background:var(--test)"></i>мощность</span></div>
-    <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field">Эффект δ <input type="range" id="b-d" min="0" max="250" step="1" value="83"> <b id="b-dt" class="num"></b></label></div>
-    <label class="field">Гостей в группе <input type="range" id="b-n" min="0" max="6" step="1" value="3"> <b id="b-nt" class="num"></b></label>
+    <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" hidden data-fixed>Эффект δ <input type="hidden" data-fixed id="b-d" min="0" max="250" step="1" value="83"> <b id="b-dt" class="num"></b></label></div>
+    <label class="field" hidden data-fixed>Гостей в группе <input type="hidden" data-fixed id="b-n" min="0" max="6" step="1" value="3"> <b id="b-nt" class="num"></b></label>
     <div class="controls" role="group" aria-label="Уровень значимости α">
       <button class="btn ghost" type="button" data-a="0.01" aria-pressed="false">α = 1%</button>
       <button class="btn ghost" type="button" data-a="0.05" aria-pressed="true">α = 5%</button>

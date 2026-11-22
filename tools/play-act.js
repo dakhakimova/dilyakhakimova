@@ -4,7 +4,12 @@
      {"sel": "#ch-fun", "at": [0.5, 0.3]}    — нажать в точку по долям ширины и высоты элемента.
    target — Page или Frame (Playwright). */
 async function doAct(target, a){
-  if (typeof a === 'string') return target.click(a);
+  // кнопки, которые мост спрятал за «одной кнопкой» (play/ui.json), нажимаем из страницы — как это делает сам мост
+  if (typeof a === 'string'){
+    const el = await target.$(a);
+    if (el && !(await el.isVisible())) return el.evaluate(e => e.click());
+    return target.click(a);
+  }
   const el = await target.$(a.sel);
   if (!el) throw new Error('act: нет элемента ' + a.sel);
   await el.scrollIntoViewIfNeeded();

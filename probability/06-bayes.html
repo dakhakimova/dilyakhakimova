@@ -107,8 +107,7 @@
     <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">У меня в мешке как раз 1000 купюр. Пропустим через кассу?</p></div></div>
   </div>
   <div class="guess" data-key="cash" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g06-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g06-1-guess-ctx">Из 100 писков настоящих фальшивок будет примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g06-1-guess" aria-describedby="g06-1-guess-ctx">%</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g06-1-guess" id="g06-1-guess-ctx">Из 100 писков настоящих фальшивок будет примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g06-1-guess" aria-describedby="g06-1-guess-ctx">%</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке пропустим купюры через кассу.</p>
   </div>
 </section>
@@ -137,9 +136,9 @@
     <details>
       <summary>Подвигать кассу</summary>
       <div class="twoinputs">
-        <label class="field" for="b-base"><span>Фальшивок среди купюр: <b id="b-base-t" class="num">0.1%</b></span><input type="range" id="b-base" min="0" max="7" step="1" value="0" style="width:100%"></label>
-        <label class="field" for="b-sens"><span>Касса ловит фальшивок: <b id="b-sens-t" class="num">99%</b></span><input type="range" id="b-sens" min="50" max="100" step="1" value="99" style="width:100%"></label>
-        <label class="field" for="b-fpr"><span>Пищит на настоящие: <b id="b-fpr-t" class="num">1%</b></span><input type="range" id="b-fpr" min="0" max="40" step="1" value="2" style="width:100%"></label>
+        <label class="field" for="b-base" hidden data-fixed><span>Фальшивок среди купюр: <b id="b-base-t" class="num">0.1%</b></span><input type="hidden" data-fixed id="b-base" min="0" max="7" step="1" value="0" style="width:100%"></label>
+        <label class="field" for="b-sens" hidden data-fixed><span>Касса ловит фальшивок: <b id="b-sens-t" class="num">99%</b></span><input type="hidden" data-fixed id="b-sens" min="50" max="100" step="1" value="99" style="width:100%"></label>
+        <label class="field" for="b-fpr" hidden data-fixed><span>Пищит на настоящие: <b id="b-fpr-t" class="num">1%</b></span><input type="hidden" data-fixed id="b-fpr" min="0" max="40" step="1" value="2" style="width:100%"></label>
       </div>
     </details>
   </div>

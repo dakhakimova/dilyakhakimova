@@ -89,8 +89,7 @@
   </div>
   <p>Как думаешь, какая доля дней лежит дальше чем на 2σ от центра — выше 740 или ниже 540 ₽?</p>
   <div class="guess" data-key="beyond2" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g05-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g05-1-guess-ctx">Дальше 2σ от центра примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g05-1-guess" aria-describedby="g05-1-guess-ctx">% дней</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g05-1-guess" id="g05-1-guess-ctx">Дальше 2σ от центра примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g05-1-guess" aria-describedby="g05-1-guess-ctx">% дней</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке измерим линейкой.</p>
   </div>
 </section>
@@ -99,7 +98,7 @@
 <section class="card" data-toy="bell-ruler" data-title="Линейка колокола" aria-label="Линейка колокола">
   <span class="step-tag">Поиграй</span>
   <h2>Линейка колокола</h2>
-  <p>Коралловый колокол — модель среднего чека дня. Закрашенная площадь между границами окна — доля дней, которые туда попадают. Двигай границы ползунками или пальцем прямо по графику, меняй центр μ и ширину σ. Под осью — та же линейка в сигмах.</p>
+  <p>Коралловый колокол — модель среднего чека дня. Закрашенная площадь между границами окна — доля дней, которые туда попадают. Двигай границы ползунками или пальцем прямо по графику. Под осью — та же линейка в сигмах.</p>
   <div class="sheet c-white">
     <div class="controls">
       <button class="btn ghost" type="button" data-win="1">±1σ</button>
@@ -115,10 +114,10 @@
     <input type="range" id="n-a" min="300" max="1000" step="5" value="540" style="width:100%" aria-describedby="n-a-t">
     <label class="field" for="n-b">Правая граница: <b id="n-b-t" class="num">740 ₽</b></label>
     <input type="range" id="n-b" min="300" max="1000" step="5" value="740" style="width:100%" aria-describedby="n-b-t">
-    <label class="field" for="n-mu">Центр μ: <b id="n-mu-t" class="num">640 ₽</b></label>
-    <input type="range" id="n-mu" min="450" max="850" step="10" value="640" style="width:100%" aria-describedby="n-mu-t">
-    <label class="field" for="n-sg">Ширина σ: <b id="n-sg-t" class="num">50 ₽</b></label>
-    <input type="range" id="n-sg" min="20" max="150" step="5" value="50" style="width:100%" aria-describedby="n-sg-t">
+    <label class="field" for="n-mu" hidden data-fixed>Центр μ: <b id="n-mu-t" class="num">640 ₽</b></label>
+    <input type="hidden" data-fixed id="n-mu" min="450" max="850" step="10" value="640" style="width:100%" aria-describedby="n-mu-t">
+    <label class="field" for="n-sg" hidden data-fixed>Ширина σ: <b id="n-sg-t" class="num">50 ₽</b></label>
+    <input type="hidden" data-fixed id="n-sg" min="20" max="150" step="5" value="50" style="width:100%" aria-describedby="n-sg-t">
     <div class="big2" data-toy-reveal>
       <div class="ctrl"><b id="n-in">—</b><span>дней внутри окна</span></div>
       <div class="trap"><b id="n-out">—</b><span>дней снаружи</span></div>

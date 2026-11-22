@@ -98,7 +98,7 @@
   <h2>Котейка ждёт автобус</h2>
   <p>Средний интервал между автобусами всегда 10 минут. Ползунок меняет только неровность: от строгого расписания до автобусов, которые ездят пачками. Пусти Котейку на остановку 1000 раз в случайные моменты.</p>
   <div class="sheet c-white">
-    <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="range-row" for="k8">Интервалы: <b id="k8-t">случайные (экспонента)</b><input type="range" id="k8" min="0" max="5" step="1" value="3"></label></div>
+    <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="range-row" for="k8" hidden data-fixed>Интервалы: <b id="k8-t">случайные (экспонента)</b><input type="hidden" data-fixed id="k8" min="0" max="5" step="1" value="3"></label></div>
     <p class="chart-title">Интервалы между автобусами за 5 часов; точки — приходы Котейки</p>
     <canvas id="cv-bus" role="img" aria-label="Лента интервалов между автобусами за 5 часов; точки — моменты, когда Котейка пришёл на остановку"></canvas>
     <div class="controls">
@@ -147,8 +147,7 @@
   </div>
   <p>В октябре 80% заказов шли в центр, 20% — на окраину. В ноябре наоборот: в центр 40%, на окраину 60%. Заказов столько же, 1000.</p>
   <div class="guess" data-key="simpson" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g08-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g08-1-guess-ctx">В ноябре в целом опоздали примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g08-1-guess" aria-describedby="g08-1-guess-ctx">% заказов</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g08-1-guess" id="g08-1-guess-ctx">В ноябре в целом опоздали примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g08-1-guess" aria-describedby="g08-1-guess-ctx">% заказов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">В октябре было 14%. Напиши своё число — на следующей карточке проверим.</p>
   </div>
 </section>

@@ -82,6 +82,14 @@ function watch(p, tag, apiOk = false){
           if (!betOk) errs.push(`${s} ${width}: вывод раскрылся сразу после прогноза, до игры`);
         }
         const before = await snap();
+        // «одна кнопка» (play/ui.json): сначала нажимаем её, как человек; потом шаги act
+        const uiMain = await fr.$(`.card[data-toy~="${s}"] [data-ui="main"]`);
+        if (uiMain){
+          if (!(await uiMain.isVisible())) errs.push(`${s} ${width}: главная кнопка не видна`);
+          else { await uiMain.click();
+            const ag = await fr.waitForSelector(`.card[data-toy~="${s}"] [data-ui="again"]`, {state: 'visible', timeout: 6000}).catch(() => null);
+            if (!ag) errs.push(`${s} ${width}: после запуска нет «Ещё раз»`); }
+        }
         for (const a of toy.act){ await doAct(fr, a); await p.waitForTimeout(500); }
         await p.waitForTimeout(1200);
         const after = await snap();

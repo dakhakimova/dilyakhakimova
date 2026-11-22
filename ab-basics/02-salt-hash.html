@@ -153,8 +153,8 @@
     <span class="field" id="g2-ctx">Думаю, в тесте будет <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g2" aria-describedby="g2-ctx"> человек из 1000</span>
   </div>
   <div class="sheet c-white">
-    <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="split">Сплит, контроль / тест: <b id="split-t" class="num">50 / 50</b></label>
-    <input type="range" id="split" min="10" max="90" step="10" value="50" style="width:100%"></div>
+    <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="split" hidden data-fixed>Сплит, контроль / тест: <b id="split-t" class="num">50 / 50</b></label>
+    <input type="hidden" data-fixed id="split" min="10" max="90" step="10" value="50" style="width:100%"></div>
     <p class="chart-title">1000 гостей, раскрашенных по группам</p>
     <canvas id="ch-people" aria-label="1000 гостей, раскрашенных по группам"></canvas>
     <div class="legend-row"><span><i style="background:var(--ctrl)"></i>контроль: старый экран</span><span><i style="background:var(--test)"></i>тест: новая кнопка</span><span><i style="background:transparent; border:2px solid var(--ink); height:8px; width:8px; border-radius:50%"></i>новые гости</span></div>

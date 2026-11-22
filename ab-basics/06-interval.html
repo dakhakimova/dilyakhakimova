@@ -103,10 +103,10 @@
   <figure class="art"><img loading="lazy" src="img/ab06-02-ring-toss.jpg" alt="Котейка бросает кольца на шест, почти все кольца надеваются" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: почти все кольца Котейки надеваются на шест</figcaption></figure>
   <p>Каждая строка — один эксперимент: точка — его разница, отрезок — вилка ± 2 ширины. Зелёная линия — настоящий эффект. Подвигай эффект и число людей.</p>
   <div class="sheet c-white">
-    <label class="field" for="eff6">Настоящий эффект: <b id="eff6-t" class="num">+3%</b></label>
-    <input type="range" id="eff6" min="-4" max="8" step="0.5" value="3" style="width:100%">
-    <label class="field" for="n6">Людей в каждой группе: <b id="n6-t" class="num">100 000</b></label>
-    <input type="range" id="n6" min="0" max="5" step="1" value="3" style="width:100%">
+    <label class="field" for="eff6" hidden data-fixed>Настоящий эффект: <b id="eff6-t" class="num">+3%</b></label>
+    <input type="hidden" data-fixed id="eff6" min="-4" max="8" step="0.5" value="3" style="width:100%">
+    <label class="field" for="n6" hidden data-fixed>Людей в каждой группе: <b id="n6-t" class="num">100 000</b></label>
+    <input type="hidden" data-fixed id="n6" min="0" max="5" step="1" value="3" style="width:100%">
     <div class="controls">
       <button class="btn" type="button" id="b6-1">Один эксперимент</button>
       <button class="btn ghost" type="button" id="b6-20">+20 экспериментов</button>

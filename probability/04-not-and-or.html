@@ -82,8 +82,7 @@
   </div>
   <p>Считаем, что все 365 дней равновозможны (29 февраля не берём) и гости не связаны друг с другом: не близнецы и не пришли отмечать общий праздник.</p>
   <div class="guess" data-key="party23" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g04-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g04-1-guess-ctx">Совпадение будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g04-1-guess" aria-describedby="g04-1-guess-ctx">% вечеринок на 23 гостя</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g04-1-guess" id="g04-1-guess-ctx">Совпадение будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g04-1-guess" aria-describedby="g04-1-guess-ctx">% вечеринок на 23 гостя</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке проверим.</p>
   </div>
 </section>
@@ -183,8 +182,8 @@
     <canvas id="lamps" role="img" aria-label="Гирлянда из лампочек: горящие — жёлтые, перегоревшие — красные"></canvas>
     <div class="legend-row"><span><i class="ochre"></i>горит</span><span><i style="background:var(--trap)"></i>перегорела</span></div>
     <div class="twoinputs">
-      <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="lm-n">Лампочек: <b id="lm-n-t" class="num">100</b><input type="range" id="lm-n" min="1" max="300" value="100" style="width:100%"></label></div>
-      <label class="field" for="lm-p">Шанс перегореть: <b id="lm-p-t" class="num">1%</b><input type="range" id="lm-p" min="1" max="100" value="10" style="width:100%"></label>
+      <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="lm-n" hidden data-fixed>Лампочек: <b id="lm-n-t" class="num">100</b><input type="hidden" data-fixed id="lm-n" min="1" max="300" value="100" style="width:100%"></label></div>
+      <label class="field" for="lm-p" hidden data-fixed>Шанс перегореть: <b id="lm-p-t" class="num">1%</b><input type="hidden" data-fixed id="lm-p" min="1" max="100" value="10" style="width:100%"></label>
     </div>
     <div class="controls">
       <button class="btn" type="button" id="lm-1">Прожить год</button>
@@ -197,7 +196,7 @@
     <div class="verdict" id="lm-v" hidden></div>
   </div>
   <p class="formula" data-toy-reveal>P(хотя бы одна из n) = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
-  <p data-toy-reveal>Подвигай ползунки: n · p быстро уходит за 100%, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
+  <p data-toy-reveal>При 100 лампочках n · p уже 100%, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
 </section>
 
 <!-- 9: правило «или» -->

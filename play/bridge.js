@@ -106,6 +106,95 @@
     });
   });
 
+  // ---------- одна кнопка на игру (решение Дили, 22.11.2026; правила — play/ui.json → _doc, гайд, «Страница игры») ----------
+  // До первого запуска: вопрос, прогноз и ОДНА главная кнопка, она проводит весь опыт из вопроса.
+  // После: «Ещё раз» (контурная; сброс + тот же опыт) и, если нужен масштаб, одна контурная кнопка второй ступени (×1000).
+  // Исходные кнопки игры остаются в разметке скрытыми — их нажимает мост, движок игры не меняется.
+  // Горячие клавиши: Пробел — главная кнопка, Shift+Пробел — ×1000 (не перехватываем, когда фокус в поле или на кнопке).
+  const UI_STR = {again: 'Ещё раз', yourGuess: 'Твой прогноз: ', keySpace: 'Пробел', keyShift: 'Shift + Пробел'};
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)');
+  const sleep = ms => new Promise(r => setTimeout(r, REDUCED.matches ? 0 : ms));
+  root.classList.add('ui-pending');
+  { const st = document.createElement('style');
+    st.textContent = 'html.ui-pending .card[data-toy] .controls{visibility:hidden} [data-ui-hidden]{display:none !important} .ui-guess{font:400 .875rem/1.3 var(--body, Onest, sans-serif); color:#5E5A53; align-self:center} .ui-guess b{font-weight:500; color:#24221F}';
+    document.head.appendChild(st); }
+  const guessOf = (card, slug) => {
+    const cards = [card, ...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
+    for (const c of cards){
+      const box = c.querySelector('.guess.saved'), inp = box && box.querySelector('input');
+      if (inp && inp.value.trim()){ const u = box.dataset.unit ?? '%'; return inp.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
+      const ch = c.querySelector('.choice[data-key] button[aria-pressed="true"], .choice[data-key] button.picked');
+      if (ch && !ch.closest('.quiz')) return ch.textContent.trim();
+    }
+    return '';
+  };
+  const applyUi = (card, slug, cfg) => {
+    const q = sel => card.querySelector(sel) || null;
+    const steps = (cfg.run || []).map(x => typeof x === 'string' ? {sel: x, n: 1, ms: 0} : x);
+    const first = steps.map(x => q(x.sel)).find(Boolean);
+    if (!first) return;
+    const row = first.closest('.controls') || first.parentNode;
+    const keep = new Set((cfg.keep || []).map(q).filter(Boolean));
+    const toHide = [...steps.map(x => x.sel), ...(cfg.reset || []), ...(cfg.hide || []), cfg.big].filter(Boolean).map(q).filter(Boolean);
+    toHide.forEach(b => { if (!keep.has(b)) b.setAttribute('data-ui-hidden', ''); });
+    const big0 = cfg.big ? q(cfg.big) : null;
+    const mk = (txt, cls, key) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls; b.textContent = txt; b.title = key; b.dataset.ui = cls === 'btn' ? 'main' : 'more'; return b; };
+    const main = mk(cfg.label, 'btn', UI_STR.keySpace), again = mk(UI_STR.again, 'btn ghost', UI_STR.keySpace);
+    main.dataset.ui = 'main'; again.dataset.ui = 'again'; again.hidden = true;
+    const big = big0 ? mk(big0.textContent.trim(), 'btn ghost', UI_STR.keyShift) : null;
+    if (big){ big.dataset.ui = 'big'; big.hidden = true; }
+    const note = document.createElement('span'); note.className = 'ui-guess'; note.hidden = true;
+    row.prepend(...[main, again, big, note].filter(Boolean));
+    let busy = false, runs = 0;
+    const click = el => { if (el && !el.disabled) el.click(); };
+    const after = () => {
+      main.hidden = true; again.hidden = false; if (big) big.hidden = false;
+      const g = guessOf(card, slug); note.hidden = !g; if (g) note.innerHTML = UI_STR.yourGuess + '<b></b>', note.querySelector('b').textContent = g;
+      window.dispatchEvent(new Event('resize'));
+    };
+    const run = async () => {
+      if (busy) return; busy = true; main.setAttribute('aria-busy', 'true'); again.setAttribute('aria-busy', 'true');
+      try {
+        if (runs) (cfg.reset || []).forEach(s => click(q(s)));
+        for (const st of steps){ const el = q(st.sel); for (let i = 0; i < (st.n || 1); i++){ click(el); if (st.ms) await sleep(st.ms); } }
+        runs++; after();
+      } finally { busy = false; main.removeAttribute('aria-busy'); again.removeAttribute('aria-busy'); }
+    };
+    main.addEventListener('click', () => { run(); });
+    again.addEventListener('click', () => { run(); });
+    if (big) big.addEventListener('click', () => { click(big0); runs++; after(); });
+    card.uiKeys = {main: () => (again.hidden ? main : again).click(), big: big ? () => !big.hidden && big.click() : null};
+  };
+  const uiReady = fetch('/play/ui.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}).catch(() => ({}));
+  document.addEventListener('DOMContentLoaded', () => {
+    const done = () => root.classList.remove('ui-pending');
+    setTimeout(done, 1500);
+    uiReady.then(U => {
+      const toys = (U && U.toys) || {};
+      document.querySelectorAll('.card[data-toy]').forEach(card => card.dataset.toy.split(/\s+/).forEach(s => {
+        const c = toys[s]; if (c && c.run && !card.dataset.uiDone){ card.dataset.uiDone = s; try { applyUi(card, s, c); } catch(e) { console.warn('ui', s, e); } }
+      }));
+      done(); window.dispatchEvent(new Event('resize'));
+    });
+    // вердикт — по отпусканию ползунка: пока тянешь, у карточки класс .dragging (book.css прячет вердикт и крупные числа)
+    document.addEventListener('pointerdown', e => { const r = e.target.closest && e.target.closest('.card input[type=range]'); if (r) r.closest('.card').classList.add('dragging'); });
+    const drop = () => document.querySelectorAll('.card.dragging').forEach(c => c.classList.remove('dragging'));
+    addEventListener('pointerup', drop); addEventListener('pointercancel', drop);
+    // горячие клавиши: игра — та карточка, что видна (в соло-режиме — единственная)
+    document.addEventListener('keydown', e => {
+      if (e.key !== ' ' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target;
+      if (t && t.closest && t.closest('input, textarea, select, button, a, [contenteditable], [role=button], summary')) return;
+      const cards = [...document.querySelectorAll('.card[data-toy]')].filter(c => { const r = c.getBoundingClientRect(); return r.height && r.bottom > 0 && r.top < innerHeight; });
+      const card = cards[0]; if (!card) return;
+      let act = null;
+      if (card.uiKeys) act = e.shiftKey ? card.uiKeys.big : card.uiKeys.main;
+      else if (!e.shiftKey){ const b = [...card.querySelectorAll('.controls button.btn:not(.ghost)')].find(b => b.offsetParent && !b.disabled); if (b) act = () => b.click(); }
+      if (!act) return;
+      e.preventDefault(); act();
+    });
+  });
+
   if (!ok){
     // ---------- обычный режим: кнопка «Поделиться» в карточках опубликованных игр ----------
     document.addEventListener('DOMContentLoaded', () => {

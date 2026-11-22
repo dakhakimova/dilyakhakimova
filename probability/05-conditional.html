@@ -79,8 +79,7 @@
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">19% — среди всех. А если смотреть только на тех, кто пришёл в дождь?</p></div></div>
   </div>
   <div class="guess" data-key="rainchoc" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g05-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g05-1-guess-ctx">Среди гостей, пришедших в дождь, шоколад взяли примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g05-1-guess" aria-describedby="g05-1-guess-ctx">%</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g05-1-guess" id="g05-1-guess-ctx">Среди гостей, пришедших в дождь, шоколад взяли примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g05-1-guess" aria-describedby="g05-1-guess-ctx">%</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке рассортируем гостей.</p>
   </div>
 </section>
@@ -114,9 +113,9 @@
     <details>
       <summary>Подвигать доли</summary>
       <div class="twoinputs">
-        <label class="field" for="s-rain"><span>Гостей в дождь: <b id="s-rain-t" class="num">30%</b></span><input type="range" id="s-rain" min="10" max="90" step="5" value="30" style="width:100%"></label>
-        <label class="field" for="s-ar"><span><span id="s-ar-l">Шоколад в дождь</span>: <b id="s-ar-t" class="num">40%</b></span><input type="range" id="s-ar" min="0" max="100" step="5" value="40" style="width:100%"></label>
-        <label class="field" for="s-as"><span><span id="s-as-l">Шоколад в солнце</span>: <b id="s-as-t" class="num">10%</b></span><input type="range" id="s-as" min="0" max="100" step="5" value="10" style="width:100%"></label>
+        <label class="field" for="s-rain" hidden data-fixed><span>Гостей в дождь: <b id="s-rain-t" class="num">30%</b></span><input type="hidden" data-fixed id="s-rain" min="10" max="90" step="5" value="30" style="width:100%"></label>
+        <label class="field" for="s-ar" hidden data-fixed><span><span id="s-ar-l">Шоколад в дождь</span>: <b id="s-ar-t" class="num">40%</b></span><input type="hidden" data-fixed id="s-ar" min="0" max="100" step="5" value="40" style="width:100%"></label>
+        <label class="field" for="s-as" hidden data-fixed><span><span id="s-as-l">Шоколад в солнце</span>: <b id="s-as-t" class="num">10%</b></span><input type="hidden" data-fixed id="s-as" min="0" max="100" step="5" value="10" style="width:100%"></label>
       </div>
     </details>
   </div>

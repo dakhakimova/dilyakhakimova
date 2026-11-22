@@ -69,8 +69,7 @@
   </div>
   <p>Пусть конверсия в заказ каждый день ровно 10%, и ничего не меняется. В кафе приходит 100 гостей в день. Доля заказавших будет скакать вокруг 10%. Как часто она выйдет за коридор от 7 до 13%?</p>
   <div class="guess" data-key="out" data-min="0" data-max="100" data-unit="%">
-    <label class="guess-l" for="g04-1-guess">Твой прогноз</label>
-    <div class="guess-row"><span class="field" id="g04-1-guess-ctx">Доля выйдет за 7–13% примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g04-1-guess" aria-describedby="g04-1-guess-ctx">% дней</span><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g04-1-guess" id="g04-1-guess-ctx">Доля выйдет за 7–13% примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g04-1-guess" aria-describedby="g04-1-guess-ctx">% дней</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке прогоним сто дней кафе.</p>
   </div>
 </section>
@@ -81,10 +80,10 @@
   <h2>Сто дней, в которые ничего не менялось</h2>
   <p>Каждая точка — один день: какая доля гостей заказала. Серая полоса — коридор 7–13%, пунктир — коридор ±2 SD (о нём ниже). Красные точки вышли за серую полосу.</p>
   <div class="sheet c-white">
-    <div class="sandbox" data-sandbox hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="d-n">Гостей в день: <b id="d-n-t" class="num">100</b></label>
-    <input type="range" id="d-n" min="0" max="7" step="1" value="2" style="width:100%" aria-describedby="d-n-t">
-    <label class="field" for="d-p">Настоящая конверсия: <b id="d-p-t" class="num">10%</b></label></div>
-    <input type="range" id="d-p" min="2" max="30" step="1" value="10" style="width:100%" aria-describedby="d-p-t">
+    <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><label class="field" for="d-n" hidden data-fixed>Гостей в день: <b id="d-n-t" class="num">100</b></label>
+    <input type="hidden" data-fixed id="d-n" min="0" max="7" step="1" value="2" style="width:100%" aria-describedby="d-n-t">
+    <label class="field" for="d-p" hidden data-fixed>Настоящая конверсия: <b id="d-p-t" class="num">10%</b></label></div>
+    <input type="hidden" data-fixed id="d-p" min="2" max="30" step="1" value="10" style="width:100%" aria-describedby="d-p-t">
     <div class="controls">
       <button class="btn" type="button" id="d-100">+100 дней</button>
       <button class="btn ghost" type="button" id="d-1">Ещё день</button>
@@ -326,7 +325,7 @@ const TXT = {
   ru: {
     pp: (x, d = 1) => num(100 * x, d) + NBSP + 'п.' + NBSP + 'п.',
     guests: n => int(n),
-    invite: 'Нажми «+100 дней»',
+    invite: 'Нажми «Прожить 100 дней»',
     dayAxis: 'дни',
     dv: (k, n, g, th, isBase) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') +
       'За серую полосу вышли <b>' + int(k) + '</b> ' + plural(k, 'день', 'дня', 'дней') + ' из ' + int(n) + ' — ' + share(k / n, 0) + '. ' +

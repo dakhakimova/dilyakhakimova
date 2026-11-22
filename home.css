@@ -159,7 +159,13 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 #hist .base{stroke:rgba(36,34,31,.4)}
 #hist .ax{font:.8125rem var(--body); fill:var(--warm-600)}
 #hist .bar{fill:#A9C4E6}
-#hist .bar.ge{fill:var(--ctrl)}
+#hist .bar.ge{fill:var(--pen)}
+#hist .bar{cursor:pointer}
+#hist .tip{font:600 .875rem var(--body); fill:var(--text-1); paint-order:stroke; stroke:#fff; stroke-width:4px}
+#hist .past{fill:var(--warm-600); opacity:.55}
+/* прогноз за человека не ставим: ручки нет, пока не нажали на шкалу (решение Дили, 22.11.2026) */
+#guess.unset::-webkit-slider-thumb{opacity:0}
+#guess.unset::-moz-range-thumb{opacity:0}
 #hist .over{font:600 .75rem var(--body); fill:var(--warm-700)}
 #hist .guess-line{stroke:var(--coral); stroke-width:2.5; stroke-dasharray:5 4}
 #hist .guess-lab{font:600 .8125rem var(--body); fill:var(--coral-600)}

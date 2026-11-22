@@ -40,7 +40,8 @@ const slider = $('guess');
 if (!slider) return;
 
 const counts = new Array(N + 1).fill(0);
-let tries = 0;
+let tries = 0, guessSet = false, tip = -1;
+const past = [];   // 5 последних попыток — серые точки у оси (сравнение без памяти)
 
 function longestRun(seq){ let best = 0, cur = 0; for (const h of seq){ cur = h ? cur + 1 : 0; if (cur > best) best = cur; } return best; }
 function flip(){ const s = []; for (let i = 0; i < N; i++) s.push(Math.random() < 0.5); return s; }
@@ -61,8 +62,8 @@ function guessText(g){ return t('toy.guessOut', { n: NF.format(g), word: plural(
 
 function renderGuess(){
   const g = +slider.value;
-  $('guess-out').textContent = guessText(g);
-  slider.setAttribute('aria-valuetext', guessText(g));
+  $('guess-out').textContent = guessSet ? guessText(g) : t('toy.guessNone');
+  slider.setAttribute('aria-valuetext', guessSet ? guessText(g) : t('toy.guessNone'));
   renderHist(); renderFeedback();
 }
 
@@ -100,13 +101,16 @@ function renderHist(){
   }
   shares.forEach((v, k) => {
     const x = L + k * bw;
-    if (v > 0) s += `<rect x="${x + 4}" y="${y(v)}" width="${bw - 8}" height="${T + ph - y(v)}" rx="3" class="bar${k >= g ? ' ge' : ''}"/>`;
+    if (v > 0) s += `<rect x="${x + 4}" y="${y(v)}" width="${bw - 8}" height="${T + ph - y(v)}" rx="3" class="bar${guessSet && k >= g ? ' ge' : ''}" data-k="${k}"/>`;
+    // точное число — по касанию столбца (datatip), касание мимо скрывает
+    if (k === tip && counts[k]) s += `<text x="${x + bw / 2}" y="${Math.max(T + 14, y(v) - 8)}" text-anchor="middle" class="tip">${t('toy.tip', {n: NF.format(counts[k]), all: NF.format(tries)})}</text>`;
     if (v > top) s += `<text x="${x + bw / 2}" y="${T + 16}" text-anchor="middle" class="over">${PF.format(v)}</text>`;
     s += `<text x="${x + bw / 2}" y="${T + ph + 16}" text-anchor="middle" class="ax">${NF.format(k)}</text>`;
   });
+  past.forEach((k, i) => { s += `<circle cx="${L + k * bw + bw / 2 + (i - 2) * 5}" cy="${T + ph + 5}" r="2.6" class="past"/>`; });
   const gx = L + g * bw + bw / 2;
-  s += `<line x1="${gx}" x2="${gx}" y1="${T - 6}" y2="${T + ph}" class="guess-line"/>`;
-  s += `<text x="${Math.min(Math.max(gx, L + 40), W - R - 40)}" y="${T - 12}" text-anchor="middle" class="guess-lab">${t('toy.histGuess')}</text>`;
+  if (guessSet) s += `<line x1="${gx}" x2="${gx}" y1="${T - 6}" y2="${T + ph}" class="guess-line"/>`;
+  if (guessSet) s += `<text x="${Math.min(Math.max(gx, L + 40), W - R - 40)}" y="${T - 12}" text-anchor="middle" class="guess-lab">${t('toy.histGuess')}</text>`;
   s += `<text x="${L + pw / 2}" y="${H - 6}" text-anchor="middle" class="ax">${t('toy.histX')}</text>`;
   s += `<line x1="${L}" x2="${W - R}" y1="${T + ph}" y2="${T + ph}" class="base"/>`;
   svg.innerHTML = s;
@@ -117,7 +121,7 @@ function renderHist(){
 
 function renderFeedback(){
   const box = $('fb-box');
-  if (tries < 50){ $('fb').textContent = ''; box.hidden = true; return; }
+  if (tries < 50 || !guessSet){ $('fb').textContent = ''; box.hidden = true; return; }
   const g = +slider.value;
   let ge = 0; for (let k = g; k <= N; k++) ge += counts[k];
   const share = ge / tries;
@@ -131,20 +135,24 @@ function renderFeedback(){
 function reveal(k){
   // Котейка говорит число из этой попытки — рядом с монетками и гистограммой
   $('kot-say').innerHTML = t('toy.kotN', { k: NF.format(k), pct: PF.format(exactAtLeast(3)) });
-  $('kot').hidden = false; $('outcome').hidden = false; $('reset').hidden = false;
+  $('kot').hidden = false; $('outcome').hidden = false;
+  // одна кнопка: после первого броска главная становится контурной «Ещё раз», появляется ×1000 (решение Дили, 22.11.2026)
+  const tb = $('toss'); if (!tb.classList.contains('ghost')){ tb.classList.add('ghost'); tb.textContent = t('toy.again'); $('k1000').hidden = false; }
   $('out-text').textContent = t('toy.out', { pct: PF.format(exactAtLeast(3)) });
 }
 
 function record(seq){ const k = longestRun(seq); counts[k]++; tries++; return k; }
+function remember(k){ past.push(k); if (past.length > 5) past.shift(); }
 
 $('toss').addEventListener('click', () => {
-  const seq = flip(); const k = record(seq);
+  const seq = flip(); const k = record(seq); remember(k);
   const anim = !reduce.matches;
   renderCoins(seq, anim); renderHist(); renderFeedback(); reveal(k);
   if (anim){ const c = document.querySelector('.coin-big'); c.classList.remove('spin'); void c.getBoundingClientRect(); c.classList.add('spin'); }
 });
 $('k1000').addEventListener('click', () => {
   let seq; for (let i = 0; i < BATCH; i++){ seq = flip(); record(seq); }
+  remember(longestRun(seq));
   renderCoins(seq, false); renderHist(); renderFeedback(); reveal(longestRun(seq));
 });
 $('reset').addEventListener('click', () => {
@@ -153,7 +161,18 @@ $('reset').addEventListener('click', () => {
   $('kot').hidden = true; $('outcome').hidden = true; $('reset').hidden = true;
   renderHist(); renderFeedback(); $('toss').focus();
 });
-slider.addEventListener('input', renderGuess);
+const setGuess = () => { if (!guessSet){ guessSet = true; slider.classList.remove('unset'); } };
+['pointerdown', 'keydown'].forEach(ev => slider.addEventListener(ev, setGuess));
+slider.addEventListener('input', () => { setGuess(); renderGuess(); });
+$('hist').addEventListener('click', e => { const r = e.target.closest('.bar'); tip = r ? +r.dataset.k : -1; renderHist(); e.stopPropagation(); });
+document.addEventListener('click', e => { if (tip >= 0 && !e.target.closest('#hist')){ tip = -1; renderHist(); } });
+// горячие клавиши: Пробел — бросить, Shift+Пробел — ×1000 (не перехватываем в полях и на кнопках)
+document.addEventListener('keydown', e => {
+  if (e.key !== ' ' || e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input, textarea, select, button, a, [contenteditable]'))) return;
+  const r = $('toy').getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+  const b = e.shiftKey ? $('k1000') : $('toss'); if (b.hidden) return;
+  e.preventDefault(); b.click();
+});
 
 // подписи под ползунком
 const ticks = $('guess-ticks');
