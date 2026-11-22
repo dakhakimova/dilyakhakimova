@@ -377,6 +377,8 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       if (preBox.classList.contains('lab-guess')){ const i = preBox.querySelector('input'); if (i) return normAns(i.value); const b = preBox.querySelector('[aria-pressed="true"]'); return b ? b.textContent.trim() : ''; } if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
         const u = preBox.dataset.unit ?? '%'; return normAns(i.value).replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
       const b = preBox.querySelector('button[aria-pressed="true"], button.picked'); return b ? b.textContent.trim() : ''; };
+    const quiet = b => b.classList.add('ghost');
+    const filledIn = el => [...el.querySelectorAll('.btn:not(.ghost)')].filter(b => !b.closest('.pf') && !b.hasAttribute('data-ui-hidden') && !b.closest('[data-toy-hide]'));
     const flow = document.createElement('div'); flow.className = 'pf'; flow.setAttribute('role', 'status'); toy.appendChild(flow);
     const pfMine = document.createElement('p'); pfMine.className = 'pf-mine'; pfMine.hidden = true; flow.appendChild(pfMine);
     const showMine = () => { const a = answer(); pfMine.hidden = !a; pfMine.textContent = a ? PS.your + a : ''; send(); };
@@ -413,6 +415,7 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'btn ghost'; edit.textContent = PS.edit; edit.dataset.ui = 'edit';
       let inp = null;
       if (preBox.querySelector('input')){ inp = document.createElement('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.className = 'guess-in'; inp.value = preBox.querySelector('input').value; inp.setAttribute('aria-label', PS.change); row.append(inp); }
+      filledIn(toy).forEach(quiet);   // главная сейчас — «Оставить», кнопки игры становятся контурными (пара 13)
       row.append(keep, edit); box.append(q, row); flow.appendChild(box); pfMine.hidden = true; send();
       keep.addEventListener('click', () => reveal(''));
       edit.addEventListener('click', () => {
@@ -420,6 +423,19 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
         else { const old = a; preBox.scrollIntoView({block: 'center'}); asked = false; box.remove(); preBox.addEventListener('chosen', () => reveal(old), {once: true}); }
       });
     };
+    // одна залитая кнопка на экране (пара 13). Если в «Сначала угадай» своя залитая кнопка прогноза (не поле .guess
+    // из шаблона, которое прячет игру до «Запомнить»), игра видна сразу: пока прогноз не записан, её кнопки контурные;
+    // записан или игру уже тронули — кнопка прогноза контурная, главная кнопка игры снова залита
+    uiReady.then(() => {
+      const preBtns = preCards.flatMap(filledIn).filter(b => !b.closest('.guess, .choice, .lab-guess'));
+      if (!preBtns.length) return;
+      const toyMain = filledIn(toy); toyMain.forEach(quiet);
+      let done = false;
+      const swap = () => { if (done) return; done = true; preBtns.forEach(quiet); toyMain.forEach(b => b.classList.remove('ghost')); };
+      preBtns.forEach(b => b.addEventListener('click', () => setTimeout(() => {
+        const i = b.closest('.card').querySelector('input'); if (!i || i.value.trim()) swap(); }, 0)));
+      onFirstTouch(toy, swap);
+    });
     // «первый прогон»: событие toy:ran (одна кнопка, свои игры) или первое касание игры + 1.5 с
     let ranT = 0;
     toy.addEventListener('toy:ran', () => { clearTimeout(ranT); ranT = setTimeout(ask, 300); });

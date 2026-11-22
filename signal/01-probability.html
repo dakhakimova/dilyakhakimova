@@ -157,8 +157,8 @@
     </div>
     <div class="bars" id="bars" aria-hidden="true"></div>
     <div class="bar-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5+</span></div>
-    <p class="muted" style="font-size:.875rem; text-align:center; max-width:520px; margin:4px 0 0">покупателей за день · высота — доля дней</p>
-    <div class="stats">
+    <p class="muted" style="font-size:.875rem; text-align:center; max-width:520px; margin:4px 0 0">покупателей за день, высота — доля дней</p>
+    <div class="stats" hidden>
       <div><b id="s-groups">0</b>дней</div>
       <div><b id="s-share">—</b>купили, от всех посетителей</div>
       <div><b id="s-one">—</b>дней, где ровно двое</div>
@@ -445,6 +445,7 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
       b.querySelector('i').textContent = groups ? fmt(counts[i] / groups) : '';
     });
     document.getElementById('s-groups').textContent = nfr(groups);
+    document.getElementById('s-groups').closest('.stats').hidden = !groups;   // счётчики — вместе с первым днём (Д7)
     document.getElementById('s-share').textContent = groups ? fmt(buyers / (groups * G)) : '—';
     document.getElementById('s-one').textContent = groups ? fmt(counts[K] / groups) : '—';
     const v = document.getElementById('shop-verdict');
