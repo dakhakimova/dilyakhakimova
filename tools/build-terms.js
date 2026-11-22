@@ -100,7 +100,7 @@ ${chrome.header('terms', o.url === '/terms/')}
   for (const term of terms){
     const s = term.slug, x = TX[s];
     if (!x) throw new Error('build-terms: нет текстов для ' + s);
-    for (const k of ['name', 'title', 'desc', 'sub', 'def', 'strict', 'read', 'toyLead', 'toyOut', 'vizT', 'vizCap', 'card', 'wiki']) if (!x[k]) throw new Error(`build-terms: ${s} — нет поля ${k}`);
+    for (const k of ['name', 'title', 'desc', 'def', 'strict', 'read', 'toyLead', 'toyOut', 'vizT', 'vizCap', 'card', 'wiki']) if (!x[k]) throw new Error(`build-terms: ${s} — нет поля ${k}`);
     if (!viz[s]) throw new Error('build-terms: нет схемы tools/terms-viz.js → viz[' + s + ']');
     const url = `/terms/${s}/`, title = x.title + RU['terms.brand'];
     if (title.length > 65) throw new Error(`build-terms: ${s} — title ${title.length} знаков (> 65): ${title}`);
@@ -164,7 +164,7 @@ ${chrome.header('terms', o.url === '/terms/')}
   <header class="t-hero">
     <p class="eyebrow">${t('terms.kicker')}</p>
     <h1>${typo(h1Of(s))}</h1>
-    <p class="t-sub">${typo(x.sub)}</p>
+${x.sub ? `    <p class="t-sub">${typo(x.sub)}</p>` : ''}
   </header>
   <p class="t-def">${typo(x.def)}</p>
   <p class="t-not">${t('terms.not', {href: wiki, wiki: x.wiki})}</p>
