@@ -39,37 +39,27 @@
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
-<nav class="crumbs wrap wide" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
-    <li><span aria-current="page" data-i18n="m.title">Карта навыков</span></li>
-  </ol>
-</nav>
 
 <main id="main">
 
-<section class="wrap wide m-hero">
-  <h1 data-i18n="m.title">Карта навыков</h1>
-  <p class="sub" data-i18n="m.sub">Пройди тест за 2 минуты — и мы построим тебе индивидуальный маршрут.</p>
-  <p class="m-acts"><a class="btn" href="/start/" data-i18n="start.btn">Пройти тест</a> <button type="button" class="btn ghost" id="mine-btn" hidden data-i18n="start.mine">Показать мой маршрут</button></p>
+<section class="wrap m-hero">
+  <div class="col">
+    <h1 data-i18n="m.title">Карта навыков</h1>
+    <p class="sub" data-i18n="m.sub">Пройди тест за 2 минуты — и мы построим тебе индивидуальный маршрут.</p>
+    <p class="m-acts"><a class="btn" href="/start/" data-i18n="start.btn">Пройти тест</a> <button type="button" class="btn ghost" id="mine-btn" hidden data-i18n="start.mine">Показать мой маршрут</button></p>
+  </div>
 </section>
 
-<!-- Иллюстрация над схемой: map/img/street.jpg, 16:9. Пока файла нет, блок скрыт (hidden, у картинки нет src).
-     Положили файл — запустите node tools/check-map.js --street: он снимет hidden и впишет src. -->
-<figure class="wrap wide m-street" id="street">
-  <img src="/map/img/street.jpg" width="1600" height="900" decoding="async" data-i18n-attr="alt:street.alt" alt="Рисунок: улица города, у тротуара — вход в метро, над ним схема линий. Отсюда начинается путь по курсам.">
-</figure>
-
-<section class="wrap wide m-controls">
+<section class="wrap block m-controls">
   <div class="route-pick" role="group" aria-labelledby="route-h">
-    <h2 id="route-h" class="route-h" data-i18n="routes.label">Выбери цель</h2>
+    <h2 id="route-h" data-i18n="routes.label">Выбери цель</h2>
     <p class="route-lead" data-i18n="routes.lead">Маршрут — по цели, а не по должности. Нажми — на схеме подсветится линия.</p>
     <div class="route-btns" id="route-btns"></div>
     <p class="route-info" id="route-info" aria-live="polite"></p>
   </div>
 </section>
 
-<section class="wrap wide m-metro" aria-labelledby="metro-h">
+<section class="wrap block m-metro" aria-labelledby="metro-h">
   <h2 id="metro-h" data-i18n="metro.title">Схема: шесть курсов и линии-цели</h2>
   <p class="metro-full" data-i18n="metro.fullKey">Весь путь: 1 → 2 → 3 → 4 → 5 → 6, необязательные шаги — пунктиром.</p>
   <p class="lead-note" data-i18n="metro.lead">Линия — маршрут к цели, станция — ключевой навык, крупная станция — главное действие курса. Белый кружок — пересадка: здесь маршруты сходятся. Нажми на линию — она подсветится. Нажми на станцию — увидишь, что сможешь и где это в курсе.</p>
@@ -81,25 +71,6 @@
     <p class="metro-pick"><span data-i18n="metro.pick">На узком экране схема мелкая. Выбери цель выше — покажем линию сверху вниз. Или приблизь схему.</span> <button type="button" class="btn ghost metro-zoom" id="metro-zoom" aria-pressed="false" aria-controls="metro-scroll" data-i18n="metro.zoom">Приблизить</button></p>
     <ol class="metro-linear" id="metro-linear" role="list" data-i18n-attr="aria-label:metro.linear" aria-label="Выбранный маршрут по порядку"></ol>
   </div>
-</section>
-
-<section class="wrap wide block m-courses" aria-labelledby="cc-h">
-  <h2 id="cc-h" data-i18n="cc.title">Что в каждом курсе</h2>
-  <noscript><p class="plate" data-i18n="noscript">Карта рисуется скриптом. Без него вот курсы по порядку: <a href="/probability/">«Вероятность на пальцах»</a>, <a href="/signal/">«Сигнал или шум»</a>, <a href="/ab-basics/">«A/B на пальцах»</a>, <a href="/stats/">«Прикладная статистика для аналитика»</a>, <a href="/ab/">«A/B без мифов»</a>, <a href="/causal/">Causal inference</a>.</p></noscript>
-  <ol class="ccs" id="course-cards" role="list"></ol>
-</section>
-
-<section class="wrap wide block m-plan" id="planned" aria-labelledby="plan-h">
-  <h2 id="plan-h" data-i18n="plan.title">В планах</h2>
-  <p class="lead-note" data-i18n="plan.lead">Курсы, которых ещё нет. Названия рабочие, программы в работе: здесь только о чём курс, что сможешь и где он встанет на карте.</p>
-  <noscript><p class="plate" data-i18n="plan.noscript">В планах: «Удача или решение?», «Сказать числами», «Стимулы и рынки».</p></noscript>
-  <ol class="plans" id="plan-list" role="list"></ol>
-</section>
-
-<section class="wrap wide block" id="bounds" aria-labelledby="bounds-h">
-  <h2 id="bounds-h" data-i18n="bounds.title">Честные границы: где метод ломается и что дальше</h2>
-  <p class="lead-note" data-i18n="bounds.lead">У каждого курса есть место, где его инструменты перестают работать. Это не недостаток, а повод для следующего курса.</p>
-  <ol class="bounds" id="bounds-list" role="list"></ol>
 </section>
 
 <aside class="panel-side" id="panel" role="dialog" aria-modal="false" aria-labelledby="p-title" hidden>

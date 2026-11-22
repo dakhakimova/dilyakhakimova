@@ -336,13 +336,13 @@ for (const r of M.routes){
   const page = path.join(ROOT, 'map/index.html'), img = fs.existsSync(path.join(ROOT, 'map/img/street.jpg'));
   let html = fs.readFileSync(page, 'utf8');
   const hidden = /<figure[^>]*id="street"[^>]*\shidden/.test(html);
-  if (img && hidden){
+  if (img && hidden && /id="street"/.test(html)){
     if (process.argv.includes('--street')){
       html = html.replace(/(<figure[^>]*id="street"[^>]*?)\s+hidden/, '$1').replace(/(<img )data-src="\/map\/img\/street\.jpg"/, '$1src="/map/img/street.jpg"');
       fs.writeFileSync(page, html); console.log('иллюстрация street.jpg: показана');
     } else warn('map/img/street.jpg есть, но блок скрыт: node tools/check-map.js --street');
   }
-  if (!img && !hidden) err('иллюстрация: блок #street виден, а файла map/img/street.jpg нет');
+  if (!img && !hidden && /id="street"/.test(html)) err('иллюстрация: блок #street виден, а файла map/img/street.jpg нет');
 }
 
 // адреса: шаги существуют, якоря карточек не больше числа карточек

@@ -1,5 +1,5 @@
 {
- "_doc": "Мини-лаборатории /terms/<slug>/. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игры с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игра (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js. limToy — игра /play/ для блока «Когда метод врёт», если у термина нет своего кадра в tools/terms-viz.js (lim).",
+ "_doc": "Мини-лаборатории /terms/<slug>/. aka — другие написания термина (как в terms курсов в map/skills.json): по name и aka термин становится ссылкой в «Весь путь» на главной, если published. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игры с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игра (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js. limToy — игра /play/ для блока «Когда метод врёт», если у термина нет своего кадра в tools/terms-viz.js (lim).",
  "groups": [
   "prob",
   "stat",
@@ -23,7 +23,7 @@
    ],
    "limToy": "many-metrics"
   },
-  {"slug": "bayes-theorem", "published": false, "topic": "Вероятность", "group": "prob",
+  {"slug": "bayes-theorem", "aka": ["Байес"], "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 6169,
    "toy": "bayes-cashbox",
    "cta": {
@@ -39,7 +39,7 @@
     "monty-hall"
    ]
   },
-  {"slug": "monty-hall", "published": false, "topic": "Вероятность", "group": "prob",
+  {"slug": "monty-hall", "aka": ["задача Монти Холла"], "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 1386,
    "toy": "monty-hall",
    "cta": {
@@ -86,7 +86,7 @@
     "t-test"
    ]
   },
-  {"slug": "central-limit-theorem", "published": false, "topic": "Вероятность", "group": "prob",
+  {"slug": "central-limit-theorem", "aka": ["ЦПТ"], "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 1071,
    "toy": "sample-means",
    "cta": {
@@ -153,7 +153,7 @@
     "normal-distribution"
    ]
   },
-  {"slug": "mann-whitney", "published": false, "topic": "Статистика", "group": "stat",
+  {"slug": "mann-whitney", "aka": ["Манн — Уитни"], "published": false, "topic": "Статистика", "group": "stat",
    "demand": 7267,
    "toy": "new:mw",
    "cta": {

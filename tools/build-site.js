@@ -59,7 +59,7 @@ function courses(){
   const card = (c, i) => `
     <li class="course${c.faded ? ' faded' : ''}" id="c-${c.id}">
       <figure class="art"><img src="${c.img}" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" alt="${esc(c.alt)}" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-      <p class="chips"><span class="tag ${c.tag}">${nb(c.status)}</span>${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}</p>
+      <p class="chips">${c.tag === 'free' ? `<span class="tag free">${nb(c.status)}</span>` : `<span class="price"><b>${nb(c.price || '')}</b></span>`}${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}${c.tag === 'free' ? '' : `<span class="tag muted">${nb(c.status)}</span>`}</p>
       <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
       <p class="line">${nb(c.line)}</p>
       <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd>${c.price ? `<dt>Цена</dt><dd>${nb(c.price)}</dd>` : ''}</dl>
@@ -186,13 +186,35 @@ function homePath(){
   const MAP = mctx.I18N.ru;   // «Проверь себя: ты уже {list}.» — та же строка, что на /map/
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
   const H = Object.fromEntries(chrome.COURSES.filter(c => c.hours).map(c => [c.href, c.hours]));
+  // термины курса — ссылка на /terms/<slug>/, если страница опубликована; совпадение по name (i18n/terms.js) или aka (terms/terms.json), без учёта регистра
+  const tctx = {}; tctx.globalThis = tctx; vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/terms.js'), 'utf8'), tctx);
+  const TERMS = JSON.parse(fs.readFileSync(path.join(ROOT, 'terms/terms.json'), 'utf8')).terms, TERM = new Map();
+  TERMS.filter(x => x.published).forEach(x => [tctx.TERMS_TEXT.ru[x.slug].name, ...(x.aka || [])].forEach(n => TERM.set(n.toLowerCase(), '/terms/' + x.slug + '/')));
   M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; });
   const html = require('./path-list.js').render(M, {esc, tx: s => typo(esc(s)).replace(/p-value/g, '<span class="nw">p-value</span>'),
-    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}, pre: list => typo(MAP['ui.pre.short'].replace('{list}', list))}});
+    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}, pre: list => typo(MAP['ui.pre.short'].replace('{list}', list)), terms: RU['path.terms']}, termHref: n => TERM.get(n.toLowerCase())});
   const file = path.join(ROOT, 'index.html'), page = fs.readFileSync(file, 'utf8');
   if (!page.includes('<!-- path -->')) throw new Error('index.html: нет места для «Весь путь» (<!-- path --><!-- /path -->)');
   fs.writeFileSync(file, page.replace(/<!-- path -->[\s\S]*?<!-- \/path -->/, () => '<!-- path -->' + html + '<!-- /path -->'));
 }
-function build(){ courses(); homePath(); shelf(); stampAll(); console.log('site: /courses/, /shelf/, шапка и футер на', Object.keys(STAMP).length, 'страницах'); }
+// «Где метод ломается и что дальше» на страницах курсов: заголовок — bnd.title (i18n/site.js), абзац — boundary курса из map/skills.json.
+// Место — между <!-- boundary --> и <!-- /boundary -->: на лендингах перед «Для кого / Куда дальше», в «Сигнале» и «A/B на пальцах» — перед «Для кого и куда дальше»
+function boundaries(){
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/site.js'), 'utf8'), ctx);
+  const RU = ctx.I18N.ru, typo = s => ctx.I18N.typo('ru', s);
+  const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
+  const BOOK = ['/signal/', '/ab-basics/'];
+  M.courses.filter(c => c.url && c.boundary).forEach(c => {
+    const file = path.join(ROOT, c.url.slice(1), 'index.html'); if (!fs.existsSync(file)) return;
+    const page = fs.readFileSync(file, 'utf8');
+    if (!page.includes('<!-- boundary -->')) throw new Error(c.url + ': нет места для «Где метод ломается» (<!-- boundary --><!-- /boundary -->)');
+    const h = typo(esc(RU['bnd.title'])), p = typo(esc(c.boundary)).replace(/p-value/g, '<span class="nw">p-value</span>');
+    const html = BOOK.includes(c.url) ? `<h2 id="bounds">${h}</h2>\n  <p class="bound">${p}</p>`
+      : `<section class="wrap block" id="bounds" aria-labelledby="bnd-h">\n  <div class="col">\n    <h2 id="bnd-h">${h}</h2>\n    <p>${p}</p>\n  </div>\n</section>`;
+    fs.writeFileSync(file, page.replace(/<!-- boundary -->[\s\S]*?<!-- \/boundary -->/, () => '<!-- boundary -->' + html + '<!-- /boundary -->'));
+  });
+}
+function build(){ courses(); homePath(); boundaries(); shelf(); stampAll(); console.log('site: /courses/, /shelf/, шапка и футер на', Object.keys(STAMP).length, 'страницах'); }
 module.exports = build;
 if (require.main === module) build();

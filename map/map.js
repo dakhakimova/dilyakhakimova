@@ -1,8 +1,6 @@
 /* Карта навыков (/map/): по данным map/skills.json рисует
    — переключатель целей (маршрутов) и схему метро (map/metro.js, основной вид): линия цели, станции — ключевые навыки, панель станции;
-   — «Что в каждом курсе»: компактные карточки курсов в порядке «Весь путь», внутри — свёрнутый список навыков-действий,
-     «что нужно заранее» (prereq) и термины;
-   — «В планах» и «Честные границы».
+   («Что в каждом курсе», «В планах» и «Честные границы» со страницы убраны 22.11.2026; границы — на страницах курсов, поле boundary).
    Прогресс бесплатных курсов — из localStorage (те же ключи, что пишут движки глав: free:<глава>:seen — signal/book.js,
    signal:ch01:seen — глава 1 «Сигнала», ab:<шаг>:seen — ab-basics/course.js; значение — массив номеров просмотренных карточек).
    Пройденное подсвечивается на схеме, «ты здесь» — маркер на схеме; кнопка перехода — в панели станции.
@@ -10,7 +8,7 @@
    знакомые навыки отмечены «знаешь» (состояние quiz). Без него вид по умолчанию — цель «Весь путь» (full).
    Строки интерфейса — ui.* в i18n/map.js.
    Адреса: ?route=full|mine|decide|basics|interview|abtest|deep (старые product, analyst, abtester ведут на decide, basics, abtest),
-   #<курс> (prob, sig, ab, st, abm, cau) — карточка курса, #<навык> — панель навыка. */
+   #<курс> (prob, sig, ab, st, abm, cau) — панель главного навыка курса, #<навык> — панель навыка. */
 (function () {
 'use strict';
 const LANG = (document.documentElement.lang || 'ru').slice(0, 2);
@@ -78,21 +76,6 @@ function init(M){
     return cand.length ? cand[0].id : null;
   }
 
-  // ---------- «Что в каждом курсе»: карточки в порядке «Весь путь» ----------
-  const order = FULL ? FULL.path.map(p => p.course) : M.courses.filter(c => c.status !== 'planned').map(c => c.id);
-  $('course-cards').innerHTML = order.map(cid => {
-    const c = course[cid], list = M.nodes.filter(n => n.course === cid), lv = M.levels[c.level];
-    return `<li class="cc" id="${cid}" style="--course:var(${c.color})">
-      <p class="cc-h">${NUM[cid] ? `<span class="cnum" aria-hidden="true">${NUM[cid].n}</span>` : ''}<a href="${c.url}">${NUM[cid] ? `<span class="vh">${NUM[cid].n}. </span>` : ''}${tx(c.title)}</a></p>
-      <p class="chips"><span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span><span class="chip"><span class="lvl l${c.level}" aria-hidden="true"></span>${tx(lv.name)}</span>${NUM[cid] && NUM[cid].optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>
-      ${has('cc.' + cid) ? `<p class="cc-for">${t('cc.' + cid)}</p>` : ''}
-      <details class="cc-more"><summary>${t('ui.ccCan', {n: skills(list.length)})}</summary>
-        <ul class="cc-sk">${list.map(n => `<li><a href="#${n.id}" data-go="${n.id}">${tx(n.label)}</a></li>`).join('')}</ul>
-        ${prereqHtml(c, false)}${termsHtml(c.terms, c.status === 'free' ? 'ui.termsFree' : 'ui.terms')}
-        <p class="cc-open"><a href="${c.url}">${t('ui.ccOpen')} →</a></p>
-      </details></li>`;
-  }).join('');
-  $('course-cards').addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (!a) return; e.preventDefault(); opener = a; open(a.dataset.go); });
   // что нужно заранее: «Ты уже …» + где это взять + «проверь себя» → /start/
   function prereqHtml(c){
     const p = c.prereq; if (!p) return '';
@@ -107,33 +90,6 @@ function init(M){
   function termsHtml(list, key){
     return list && list.length ? `<p class="terms"><span class="terms-h">${t(key)}:</span> ${list.map(x => `<span class="term">${tx(x)}</span>`).join(' ')}</p>` : '';
   }
-  $('bounds-list').innerHTML = ['prob', 'sig', 'ab', 'st', 'abm', 'cau'].map(cid => { const c = course[cid];
-    return `<li style="--course:var(${c.color})"><b>${tx(c.title)}</b><p>${tx(c.boundary)}</p></li>`; }).join('');
-
-  // ---------- в планах ----------
-  const ref = r => {
-    if (r.startsWith('ext:')) return `<span class="ref ext">${t('plan.ext.' + r.slice(4))}</span>`;
-    if (node.has(r)){ const n = node.get(r), c = course[n.course];
-      return `<a class="ref" href="#${r}" data-go="${r}" style="--course:var(${c.color})">«${tx(c.title)}»: ${tx(n.label)}</a>`; }
-    const c = course[r];
-    return c.status === 'planned' ? `<a class="ref planref" href="#plan-${r}">«${t('plan.' + r + '.title')}»</a>`
-      : `<a class="ref" href="#${r}" style="--course:var(${c.color})">${tx(c.title)}</a>`;
-  };
-  const rel = (c, k) => !(c[k] || []).length ? '' : `<div><dt>${t('plan.' + k)}</dt><dd>${c[k].map(r => ref(r)
-    + (has(`plan.${c.id}.${k}.${r}`) ? ` <span class="why">— ${t(`plan.${c.id}.${k}.${r}`)}</span>` : '')).join(k === 'after' ? ` ${t('plan.or')} ` : ', ')}</dd></div>`;
-  $('plan-list').innerHTML = M.courses.filter(c => c.status === 'planned').map(c => { const k = x => `plan.${c.id}.${x}`;
-    const sk = [1, 2, 3, 4, 5].filter(i => has(k('s' + i))).map(i => `<li>${t(k('s' + i))}</li>`).join('');
-    return `<li class="plan" id="plan-${c.id}" aria-labelledby="ph-${c.id}">
-      <p class="chips"><span class="tag planned">${t('plan.tag')}</span></p>
-      <h3 id="ph-${c.id}">${t(k('title'))}</h3>${has(k('alt')) ? `<p class="alt">${t(k('alt'))}</p>` : ''}
-      <p class="pl-about">${t(k('lead'))}</p>
-      <h4>${t('plan.can')}</h4><ul class="sk">${sk}</ul>
-      ${has(k('terms')) ? termsHtml(t(k('terms')).split(', '), 'plan.terms') : ''}
-      ${has(k('entry')) ? `<p class="entry">${t(k('entry'))}</p>` : ''}
-      <dl class="rels">${rel(c, 'after')}${rel(c, 'near')}${rel(c, 'leads')}</dl>
-      <p class="when">${t('plan.when')}</p></li>`; }).join('');
-  $('plan-list').addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (!a) return;
-    e.preventDefault(); opener = a; open(a.dataset.go); });
 
   const mb = $('mine-btn');
   if (mb){ mb.hidden = !PLAN; mb.addEventListener('click', () => { setRoute('mine', true); $('metro-h').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }); }
@@ -236,8 +192,8 @@ function init(M){
   const q = new URL(location.href).searchParams.get('route');
   setRoute(q || (PLAN ? 'mine' : 'full'), false);
   const hash = decodeURIComponent(location.hash.slice(1));
-  if (course[hash] && $(hash)) requestAnimationFrame(() => { const h = $(hash); h.scrollIntoView({block: 'start'}); h.querySelector('details').open = true; h.querySelector('.cc-h a').focus({preventScroll: true}); });
-  else if (/^plan-/.test(hash) && $(hash)) requestAnimationFrame(() => $(hash).scrollIntoView({block: 'start'}));
+  // #<курс> (ссылки «Где этот курс на карте навыков» со страниц курсов): зона курса на схеме (id = курс) и панель главного навыка курса
+  if (course[hash] && course[hash].main && node.has(course[hash].main)) requestAnimationFrame(() => open(course[hash].main, true));
   else if (node.has(hash)) requestAnimationFrame(() => open(hash, true));
   addEventListener('storage', paint);                       // прогресс из другой вкладки
   window.SkillMap = {paint, setRoute, open, close, metro};

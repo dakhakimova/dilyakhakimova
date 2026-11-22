@@ -44,7 +44,7 @@ const LAYOUT = {
     'abm-design': [170, 670, 'b'], 'abm-cuped': [300, 670, 'b'], 'abm-srm': [430, 670, 'b'], 'abm-main': [560, 670, 'b'],
     'ci-confound': [760, 670, 'b'], 'ci-did': [900, 670, 'b'], 'ci-main': [1050, 670, 'b']
   },
-  // строится: курсы «в планах» (status: planned) — пунктирные ответвления от зон курсов. Станция ведёт к карточке #plan-<course>.
+  // строится: курсы «в планах» (status: planned) — пунктирные ответвления от зон курсов. Станция — без ссылки (блока «В планах» на странице нет).
   planned: {
     stations: {bet: [300, 240, 'b', 'luck'], luck: [480, 240, 'b', 'luck'], mkt: [760, 240, 'b', 'mkt'], talk: [880, 550, 'r', 'talk']},
     paths: [[[160, 170], [230, 240], 'bet', 'luck', 'mkt'], [[880, 500], 'talk']]
@@ -120,7 +120,7 @@ function init(api){
   let html = `<title>${esc(t('metro.label'))}</title>`;
   // зоны
   Object.entries(L.zones).forEach(([cid, rects]) => { const c = course[cid];
-    html += `<g class="zone z-${c.status}" style="--zc:var(${c.color})">` + rects.map(r => `<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="16"/>`).join('')
+    html += `<g class="zone z-${c.status}" id="${cid}" style="--zc:var(${c.color})">` + rects.map(r => `<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="16"/>`).join('')
       + (NUM[cid] ? `<circle class="zn-c" cx="${rects[0][0] + 26}" cy="${rects[0][1] + 26}" r="15"/><text class="zn" x="${rects[0][0] + 26}" y="${rects[0][1] + 32}" text-anchor="middle">${NUM[cid].n}</text>` : '')
       + `<text class="zt" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" y="${rects[0][1] + 24}">${esc(has('metro.zone.' + cid) ? t('metro.zone.' + cid) : typo(c.title))}`
       + `<tspan class="zs" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" dy="16">`
@@ -180,18 +180,18 @@ function init(api){
   });
   Object.entries(L.planned.stations).forEach(([id, [x, y, side, cid]]) => {
     const nm = id === 'bet' ? t('metro.st.bet') : t('plan.' + cid + '.title');
-    html += `<a class="st plan" href="#plan-${cid}" aria-label="${esc(t('metro.ariaPlan', {name: nm}))}">`
+    html += `<g class="st plan" role="img" aria-label="${esc(t('metro.ariaPlan', {name: nm}))}">`
       + `<circle class="hitc" cx="${x}" cy="${y}" r="22"/><circle class="ring" cx="${x}" cy="${y}" r="14"/><circle class="mk pl-mk" cx="${x}" cy="${y}" r="7"/>`
-      + labelSvg(wrap(nm, side === 'r' ? 22 : 15).concat([{t: t('metro.building'), cls: 'bld'}]), x, y, side, 7, 'sl') + `</a>`;
+      + labelSvg(wrap(nm, side === 'r' ? 22 : 15).concat([{t: t('metro.building'), cls: 'bld'}]), x, y, side, 7, 'sl') + `</g>`;
   });
   // маркер «Ты здесь»: тонкое кольцо вплотную к кружку станции и плашка с ножкой — с той стороны, где нет подписи (подпись не перекрываем)
   html += `<g class="here-pin" id="here-pin" aria-hidden="true" style="display:none"><circle class="hp-ring"/><path class="hp-leg"/><rect height="22" rx="11"/><text text-anchor="middle"></text></g>`;
   svg.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`);
   svg.innerHTML = html;
 
-  // ---------- легенда: линии — переключатель маршрута ----------
-  legend.innerHTML = `<ul class="ml-lines" role="list">` + (routes.mine ? `<li><button type="button" class="ml-line mine" data-route="mine" aria-pressed="false" style="--line:${L.lines.full.color}"><span class="sw" aria-hidden="true"></span>${t('line.mine')}</button></li>` : '') + ids.map(lid => `<li><button type="button" class="ml-line" data-route="${lid}" aria-pressed="false" style="--line:${L.lines[lid].color}">`
-      + `<span class="sw" aria-hidden="true"></span>${t('line.' + lid)}</button></li>`).join('') + `</ul>`
+  // ---------- легенда: условные знаки ----------
+  // ряд линий-переключателей над схемой убран (22.11.2026): цель выбирают карточками «Выбери цель», здесь — только условные знаки
+  legend.innerHTML = ''
     + `<ul class="ml-keys" role="list">`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="#fff" stroke="${INK}" stroke-width="3"/></svg>${t('metro.key.xfer')}</li>`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#23418A"/><circle cx="12" cy="12" r="4" fill="#fff"/></svg>${t('metro.key.main')}</li>`
@@ -201,7 +201,6 @@ function init(api){
     + `<li><svg width="24" height="24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="6" fill="#fff" stroke="var(--c-abm)" stroke-width="1.5" stroke-dasharray="4 3"/></svg>${t('metro.key.soon')}</li>`
     + `</ul>`;
   const pick = lid => api.setRoute(api.route() && api.route().id === lid ? '' : lid, true);
-  legend.addEventListener('click', e => { const b = e.target.closest('[data-route]'); if (b) pick(b.dataset.route); });
   svg.addEventListener('click', e => {
     const s = e.target.closest('.st:not(.plan)'); if (s) { api.openFrom(s.dataset.id, s); return; }
     const l = e.target.closest('.ln'); if (l) pick(l.dataset.route);
@@ -231,7 +230,6 @@ function init(api){
       const id = g.dataset.id, on = !r || (mine ? r.nodes.includes(id) : stops.get(id).includes(rid));
       g.classList.toggle('off', !on); g.classList.toggle('done', s.known(id));
     });
-    legend.querySelectorAll('[data-route]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.route === rid)));
     // маркер
     const here = stationFor(s.nx), pin = document.getElementById('here-pin');
     if (here && (s.any || r)){

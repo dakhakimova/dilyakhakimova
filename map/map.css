@@ -1,31 +1,34 @@
 /* Карта навыков (/map/). Подключается после /tokens.css, /home.css и /course.css и берёт оттуда шкалу отступов, радиусы, тени,
-   тёплые серые, кнопки, метки и светофор уровней. Здесь — «Весь путь» списком, переключатель целей, схема метро (map/metro.js),
-   «Что в каждом курсе» (карточки курсов со свёрнутым списком навыков), панель станции, «В планах», «Честные границы».
+   тёплые серые, кнопки, метки, светофор уровней, ритм секций (.block) и размер h2. Здесь — первый экран (колонка по центру),
+   карточки целей «Выбери цель», схема метро (map/metro.js) и панель станции.
    Уже 1024 px схема — линейный вид выбранной цели сверху вниз (или схема целиком с кнопкой «Приблизить»). */
 
-.wrap.wide{max-width:1280px}
-.m-hero{padding-top:var(--s-4)}
+/* первый экран — колонка текста по центру страницы, текст в ней по левому краю */
+.m-hero{padding-top:var(--s-7)}
 .m-hero h1{font-size:clamp(2.375rem,4.6vw,3.75rem); line-height:1.06}
-.m-hero .sub{margin-top:var(--s-3); max-width:36em}
+.m-hero .sub{margin-top:var(--s-3)}
 
-/* цели (маршруты) */
-.m-controls{padding-top:var(--s-6)}
-.route-h{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:0 0 var(--s-2)}
-.route-lead{font-size:var(--fs-xs); color:var(--warm-600); margin:0 0 var(--s-3); max-width:46em}
-.goals{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--s-2)}
-.goals li{display:flex}
-.goal{display:flex; flex-direction:column; gap:4px; width:100%; text-align:left; cursor:pointer; min-height:44px; padding:var(--s-2) var(--s-3) var(--s-3);
-  border-radius:var(--r-m); border:2px solid rgba(36,34,31,.14); background:var(--surface); color:var(--ink); font:400 var(--fs-xs)/1.35 var(--body)}
-.goal:hover{border-color:var(--line, var(--pen)); background:var(--surface)}
-.goal .g-t{display:flex; align-items:baseline; gap:var(--s-2); font:600 var(--fs-s)/1.25 var(--body)}
-.goal .sw{flex:none; transform:translateY(-2px)}
-.goal .g-for{color:var(--warm-700)}
-.goal[aria-pressed="true"]{border-color:var(--line, var(--pen)); box-shadow:var(--sh-2), inset 0 0 0 1px var(--line, var(--pen)); background:var(--surface)}
-.route-btns .all{margin-top:var(--s-2); font:600 var(--fs-s)/1.2 var(--body); min-height:44px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:2px solid var(--pen);
+/* «Выбери цель»: карточки целей в стиле карточек главной — один шаблон и одна высота; ряды полные (6 целей — 3 × 2),
+   если целей 7 (есть «Твой маршрут»), неполный последний ряд стоит по центру. «Все навыки» и строка-итог — под сеткой */
+.route-pick h2{font:400 var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); color:var(--ink); margin:0 0 var(--s-5)}
+.route-lead{margin:calc(-1 * var(--s-3)) 0 var(--s-5); max-width:var(--measure); color:var(--text-2)}
+.goals{--gap:var(--s-5); list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:var(--gap)}
+.goals li{display:flex; flex:0 0 calc((100% - 2 * var(--gap)) / 3); min-width:0}
+.goal{position:relative; overflow:hidden; display:flex; flex-direction:column; gap:var(--s-2); width:100%; text-align:left; cursor:pointer; min-height:44px;
+  padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); border-radius:var(--r-l); border:0; background:var(--surface); box-shadow:var(--sh-2); color:var(--ink); font:400 var(--fs-s)/1.45 var(--body)}
+.goal::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--line, var(--warm-600))}
+.goal:hover{box-shadow:var(--sh-3)}
+.goal .g-t{display:flex; align-items:baseline; gap:var(--s-2); font:500 var(--fs-l)/1.3 var(--serif)}
+.goal .sw{display:none}
+.goal .g-for{color:var(--text-2)}
+.goal[aria-pressed="true"]{box-shadow:var(--sh-2), inset 0 0 0 2px var(--line, var(--pen))}
+.route-btns .all{margin-top:var(--s-5); font:600 var(--fs-s)/1.2 var(--body); min-height:44px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:2px solid var(--pen);
   background:transparent; color:var(--pen); cursor:pointer}
 .route-btns .all:hover{background:var(--pen-hover-bg)}
 .route-btns .all[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
 .route-btns .all[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
+@media (max-width:1023px){ .goals li{flex-basis:calc((100% - var(--gap)) / 2)} }
+@media (max-width:620px){ .goals{--gap:var(--s-3)} .goals li{flex-basis:100%} }
 
 .route-info{font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-3) 0 0; max-width:46em; min-height:1.5em}
 .route-info b{color:var(--ink)}
@@ -60,61 +63,18 @@
 .panel-side .acts{display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-5)}
 .panel-side .dim{color:var(--warm-600)}
 
-/* честные границы */
-.bounds{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
-.bounds li{position:relative; background:var(--surface); border-radius:var(--r-m); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); box-shadow:var(--sh-1); overflow:hidden; font-size:var(--fs-s)}
-.bounds li::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
-.bounds b{display:block; font:500 var(--fs-m)/1.3 var(--serif); margin-bottom:var(--s-1)}
-.bounds p{margin:0; color:var(--warm-700)}
-
-@media (max-width:1023px){ .bounds{grid-template-columns:1fr 1fr} }
 @media (max-width:620px){
-  .bounds{grid-template-columns:1fr}
   .panel-side{top:auto; left:0; right:0; bottom:0; width:100%; max-height:80vh; border-radius:var(--r-l) var(--r-l) 0 0; padding:var(--s-5) var(--s-4) var(--s-6)}
 }
 
-/* в планах: курсов ещё нет — пунктир, без тени и кнопок */
-.tag.planned{background:transparent; color:var(--warm-600); border:1px dashed currentColor; padding:5px 7px}
-.plans{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
-.plan{display:flex; flex-direction:column; border:2px dashed rgba(36,34,31,.22); border-radius:var(--r-m); padding:var(--s-4); font-size:var(--fs-s); color:var(--warm-700); min-width:0}
-.plan .chips{margin:0}
-.plan h3{font:500 var(--fs-m)/1.3 var(--serif); color:var(--ink); margin:var(--s-2) 0 0}
-.plan .alt{font-size:var(--fs-xs); color:var(--warm-600); margin:var(--s-1) 0 0}
-.plan .pl-about{margin:var(--s-3) 0 0}
-.plan h4{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:var(--s-4) 0 var(--s-2)}
-.plan .sk{margin:0; padding:0 0 0 1.1em; display:flex; flex-direction:column; gap:var(--s-1)}
-.plan .sk li::marker{color:var(--warm-600)}
-.plan .entry{margin:var(--s-3) 0 0; padding:var(--s-2) var(--s-3); background:var(--sunk); border-radius:var(--r-s)}
-.plan .rels{margin:var(--s-3) 0 0; display:flex; flex-direction:column; gap:var(--s-1)}
-.plan .rels div{display:grid; grid-template-columns:5.5em minmax(0,1fr); gap:var(--s-2)}
-.plan dt{color:var(--warm-600); font-size:var(--fs-xs); padding-top:var(--s-1)}
-.plan dd{margin:0}
-.plan .ref{display:inline-block; padding:var(--s-1) 0; color:var(--ink); text-decoration:underline; text-decoration-color:var(--course, rgba(36,34,31,.35)); text-decoration-thickness:2px; text-underline-offset:3px}
-.plan .ref.planref{text-decoration-style:dashed}
-.plan .ref.ext{text-decoration:none; color:var(--warm-700)}
-.plan a.ref:hover{color:var(--pen)}
-.plan .why{color:var(--warm-600); font-size:.75rem}
-.plan .when{margin:auto 0 0; padding-top:var(--s-3); font-size:var(--fs-xs); color:var(--warm-600)}
-@media (max-width:1023px){ .plans{grid-template-columns:1fr 1fr} }
-@media (max-width:620px){ .plans{grid-template-columns:1fr} }
-
-/* ---------- иллюстрация над схемой (map/img/street.jpg, 16:9): шириной в текстовую колонку (--measure-media), по левому краю вровень с заголовком ---------- */
-.m-street{margin-top:var(--s-6)}
-.m-street img{display:block; width:100%; max-width:var(--measure-media, 36em); height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:var(--r-l); box-shadow:var(--sh-1); background:var(--sunk)}
-
 /* ---------- схема метро ---------- */
-.m-metro{padding-top:var(--s-7)}
-.m-metro h2, .m-detail h2{font:500 var(--fs-h3)/1.2 var(--serif); margin:0}
-.m-metro .lead-note{max-width:46em; margin:var(--s-2) 0 0}
+.m-metro h2{margin-bottom:var(--s-3)}
+.m-metro .lead-note{max-width:var(--measure); margin:var(--s-2) 0 0}
 .metro-card{margin-top:var(--s-4); background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5)}
-.metro-legend{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); align-items:center; justify-content:space-between}
-.ml-lines, .ml-keys{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-2)}
+.metro-legend{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); align-items:center}
+.ml-keys{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-2)}
 .ml-keys{gap:var(--s-1) var(--s-4); font-size:var(--fs-xs); color:var(--warm-600)}
 .ml-keys li{display:inline-flex; align-items:center; gap:6px}
-.ml-line{display:inline-flex; align-items:center; gap:var(--s-2); min-height:44px; padding:var(--s-2) var(--s-3); border-radius:var(--r-pill); border:2px solid transparent;
-  background:var(--sunk); color:var(--ink); font:600 var(--fs-s)/1.2 var(--body); cursor:pointer}
-.ml-line:hover{background:#ECE7DE}
-.ml-line[aria-pressed="true"]{background:var(--surface); border-color:var(--line); box-shadow:var(--sh-1)}
 .sw{display:inline-block; flex:none; width:22px; height:6px; border-radius:var(--r-pill); background:var(--line)}
 .route-btns .sw{box-shadow:0 0 0 1.5px var(--surface)}
 .metro-scroll{margin-top:var(--s-4)}
@@ -143,7 +103,8 @@
 .metro .st.plan .sl{fill:var(--warm-700)}
 .metro .bld{font-style:italic; font-size:.75rem; fill:var(--warm-600)}
 .metro .st .ring{fill:none; stroke:var(--pen); stroke-width:3; opacity:0}
-.metro .st:hover .sl{text-decoration:underline}
+.metro .st:not(.plan):hover .sl{text-decoration:underline}
+.metro .st.plan{cursor:default}
 .metro .st:focus-visible .ring{opacity:1; stroke-dasharray:4 3}
 .metro .st.sel .ring{opacity:1; stroke-dasharray:none}
 .metro .here-pin .hp-ring{fill:none; stroke:var(--coral-600); stroke-width:2.5}
@@ -192,7 +153,6 @@
 @media (max-width:1023px){
   .metro-card{padding:var(--s-4)}
   .metro-legend{display:block}
-  .ml-keys{margin-top:var(--s-3)}
   .metro-pick{display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-3); align-items:center; font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-3) 0 0}
   .metro-pick .btn{min-height:44px}
   .metro-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
@@ -202,16 +162,15 @@
 }
 @media (max-width:620px){
   .metro-card{padding:var(--s-3); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}
-  .ml-line{font-size:var(--fs-xs); padding:var(--s-2) var(--s-3)}
 }
 @media (prefers-reduced-motion: reduce){ .metro .ln, .metro .st{transition:none} }
-/* термины: строка-облако в шапке курса, в панели навыка и в карточках «В планах» */
+/* термины: строка-облако в панели навыка */
 .terms{display:flex; flex-wrap:wrap; gap:4px; align-items:baseline; margin:var(--s-2) 0 0; font-size:.75rem; line-height:1.3}
 .terms-h{color:var(--warm-600); margin-right:2px}
 .term{background:var(--sunk); color:var(--warm-900); border-radius:var(--r-pill); padding:2px 8px}
-.panel-side .terms, .plan .terms{font-size:var(--fs-xs); margin-top:var(--s-3)}
+.panel-side .terms{font-size:var(--fs-xs); margin-top:var(--s-3)}
 
-/* «Подобрать маршрут» и «Показать мой маршрут» в шапке страницы */
+/* «Пройти тест» и «Показать мой маршрут» на первом экране */
 .m-acts{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin-top:var(--s-5)}
 .metro-full{font:500 var(--fs-s)/1.4 var(--body); color:var(--ink); margin:0 0 var(--s-2)}
 /* номер курса в шапке колонки графа и «что нужно заранее» */
@@ -220,26 +179,7 @@
 .pre p{margin:var(--s-1) 0 0}
 .panel-side .pre{font-size:var(--fs-s); margin-top:var(--s-4)}
 
-/* «Что в каждом курсе»: компактные карточки в порядке «Весь путь», список навыков свёрнут */
-.ccs{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); align-items:start}
-.cc{position:relative; background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); overflow:hidden; min-width:0}
-.cc::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
-.cc-h{display:flex; gap:var(--s-3); align-items:center; margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
-.cc-h a{color:var(--ink)}
-.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 1.125rem/1 var(--serif); background:var(--surface);
-  box-shadow:inset 0 0 0 2px var(--course); font-variant-numeric:tabular-nums}
-.cc .chips{margin:var(--s-3) 0 0}
-.cc .tag.opt{background:var(--sunk); color:var(--warm-700)}
-.cc-for{margin:var(--s-2) 0 0; font-size:var(--fs-s); color:var(--warm-700)}
-.cc-more{margin-top:var(--s-3); font-size:var(--fs-s)}
-.cc-more summary{cursor:pointer; color:var(--pen); min-height:44px; display:flex; align-items:center}
-.cc-sk{margin:var(--s-1) 0 0; padding-left:1.1em; display:flex; flex-direction:column; gap:var(--s-1)}
-.cc-sk a{color:var(--ink); text-decoration-color:rgba(36,34,31,.25)}
-.cc .pre{font-size:var(--fs-s); margin-top:var(--s-4)}
 .pre .pre-h{font-weight:500; color:var(--ink); margin:0}
-.cc-open{margin:var(--s-4) 0 0; font-weight:500}
-@media (max-width:1023px){ .ccs{grid-template-columns:1fr 1fr} }
-@media (max-width:620px){ .ccs{grid-template-columns:1fr} }
 /* схема: номера зон по «Весь путь», пунктир необязательных участков */
 .metro .zn-c{fill:#fff; stroke:var(--zc); stroke-width:2.5}
 .metro .zn{font:500 1.0625rem/1 var(--serif); fill:var(--ink)}
@@ -247,4 +187,3 @@
 .metro-linear .lz-n{display:inline-grid; place-items:center; width:26px; height:26px; margin-right:var(--s-2); border-radius:50%; background:var(--surface); box-shadow:inset 0 0 0 2px var(--zc);
   font:500 .9375rem/1 var(--serif); color:var(--ink); vertical-align:middle}
 .metro-linear .lz.opt::after{background:transparent; opacity:1; border:1.5px dashed var(--zc)}
-.ml-line.mine{font-weight:500}
