@@ -12,7 +12,7 @@ function build(){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-extras.js: правьте его. -->
-${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Плюшки: тренажёр к собеседованию и калькулятор MDE · Диля Хакимова</title>
+${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Плюшки: калькуляторы, шпаргалки и тренажёры · Диля Хакимова</title>
 <meta name="description" content="Классические задачи по вероятности к собеседованию и калькулятор MDE при неравных группах.">
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,14 +23,15 @@ ${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>П�
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
-${chrome.header('', false)}
+${chrome.header('extras', true)}
 <main id="main" class="wrap block extras">
   <h1>Плюшки</h1>
+  <p class="lead">Калькуляторы, шпаргалки и тренажёры</p>
   <ul class="cards cards-ex" role="list">
     <li class="course" id="x-interview">
       <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/probability/09-interview.html">Тренажёр к собеседованию</a></h4>
-      <p class="line">классические задачи из «Вероятности на пальцах» и пробное собеседование на время</p>
+      <p class="line">задачи из «Вероятности на пальцах» и пробное собеседование на время — шаг 9</p>
       <div class="task-box">
         <p class="q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
         <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
@@ -39,10 +40,17 @@ ${chrome.header('', false)}
     </li>
     <li class="course" id="x-mde">
       <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/play/sample-size/">Калькулятор MDE</a></h4>
+      <h4><a href="/play/sample-size/">Калькулятор MDE и размера выборки</a></h4>
       <p class="line">размер выборки, MDE и мощность: зафиксируй два — третье посчитается; срок теста в днях</p>
       <div></div>
       <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть →</a></p>
+    </li>
+    <li class="course" id="x-cheat">
+      <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/ab-basics/cheatsheet.html">Шпаргалка «Как читать отчёт A/B»</a></h4>
+      <p class="line">два листа для печати из «A/B на пальцах»: пять развилок отчёта и вопросы до запуска</p>
+      <div></div>
+      <p class="course-act"><a class="btn ghost" href="/ab-basics/cheatsheet.html">Открыть →</a></p>
     </li>
   </ul>
 </main>

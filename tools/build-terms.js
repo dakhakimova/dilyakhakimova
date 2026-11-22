@@ -284,6 +284,7 @@ ${foot()}
   for (const d of ['probability', 'signal', 'ab-basics']) for (const f of fs.readdirSync(path.join(ROOT, d)).filter(f => /^\d\d-.*\.html$/.test(f)).sort()) list.push(`/${d}/${f}`);
   if (fs.existsSync(path.join(ROOT, 'ab-basics/cheatsheet.html'))) list.push('/ab-basics/cheatsheet.html');
   for (const o of P.toys) if (o.published) list.push(`/play/${o.slug}/`);
+  { const ss = path.join(ROOT, 'play/sample-size.json'); if (fs.existsSync(ss) && JSON.parse(fs.readFileSync(ss, 'utf8')).published) list.push('/play/sample-size/'); }
   list.push(...urls);
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Собирает tools/build-terms.js (node tools/bake-i18n.js). Только канонические адреса; без lastmod — его ставим только при правках по существу. -->

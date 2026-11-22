@@ -13,6 +13,7 @@ const NAV = [
   ['play', '/play/', 'Игры'],
   ['shelf', '/shelf/', 'Полка'],
   ['terms', '/terms/', 'Словарь'],
+  ['extras', '/extras/', 'Плюшки'],
 ];
 // курсы в футере и на /courses/: порядок «Весь путь»; published:false — не показываем
 const COURSES = JSON.parse(fs.readFileSync(path.join(ROOT, 'courses/courses.json'), 'utf8')).courses;
