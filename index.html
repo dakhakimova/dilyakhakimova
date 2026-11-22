@@ -161,17 +161,38 @@ function artFail(img){
   <p class="points-line" data-i18n="points.line">Пройдёшь бесплатный курс — скидка до 30% на платный. <a href="/account.html">Условия →</a></p>
 </section>
 
-<!-- 4. С чего начать -->
-<section class="wrap block" id="routes" aria-labelledby="routes-h">
-  <h2 id="routes-h" data-i18n="routes.title">С чего начать?</h2>
-  <ul class="routes" role="list">
-    <li><a href="/probability/"><figure class="art r11"><img src="/img/home-route-1.jpg" width="1024" height="1024" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure><span class="task" data-i18n="routes.r1.task">Вспомнить теорвер и решать задачи с собеседований</span><span class="who" data-i18n="routes.r1.who">если теорвер забылся или ищешь работу аналитиком</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">Начальный</span></span></span><span class="go"><span data-i18n="c.prob.t">Вероятность на пальцах</span> →</span></a></li>
-    <li><a href="/signal/"><figure class="art r11"><img src="/img/home-route-2.jpg" width="1024" height="1024" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure><span class="task" data-i18n="routes.r2.task">Отличать настоящий эффект от шума и проверять это кодом</span><span class="who" data-i18n="routes.r2.who">начинающим аналитикам</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span data-i18n="lvl.2">Средний</span></span></span><span class="go"><span data-i18n="c.sig.t">Сигнал или шум</span> →</span></a></li>
-    <li><a href="/ab-basics/"><figure class="art r11"><img src="/img/home-route-3.jpg" width="1024" height="1024" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure><span class="task" data-i18n="routes.r3.task">Читать отчёт A/B-теста и принимать решение</span><span class="who" data-i18n="routes.r3.who">менеджерам, продактам, разработчикам</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span data-i18n="lvl.1">Начальный</span></span></span><span class="go"><span data-i18n="c.ab.t">A/B на пальцах</span> →</span></a></li>
-    <li><a href="/ab/"><figure class="art r11"><img src="/img/home-route-4.jpg" width="1024" height="1024" loading="lazy" alt="" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure><span class="task" data-i18n="routes.r4.task">Ставить A/B-тесты без ошибок: MDE, SRM, CUPED, peeking</span><span class="who" data-i18n="routes.r4.who">тем, кто уже запускает A/B-тесты</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span></span><span class="go"><span data-i18n="c.abm.t">A/B без мифов</span> →</span></a></li>
-  </ul>
-  <p class="after"><a class="more" href="/start/" data-i18n="routes.start">Не знаешь, что выбрать? Подобрать маршрут за 2 минуты →</a></p>
-  <p class="after"><a class="more" href="/map/" data-i18n="routes.map">Все навыки и маршруты по порядку — на карте навыков →</a></p>
+<!-- 4. Маршрут: змейка станций (решение Дили, 22.11.2026). ?route=before — над карточками курсов, по умолчанию — после. Линию рисует home.js -->
+<section class="wrap block" id="route" aria-labelledby="route-h">
+  <h2 id="route-h">Маршрут: от теорвера до причинности</h2>
+  <div class="snake-wrap"><svg class="snake-line" aria-hidden="true"></svg>
+  <ol class="snake" role="list">
+    <li class="st" style="--i:1"><span class="st-pic"><img src="/img/probability-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Вспомнить теорвер и решать задачи с собеседований</span>
+      <a class="st-name" href="/probability/">Вероятность на пальцах</a>
+      <span class="st-meta"><span class="lvl l1" aria-hidden="true"></span>Начальный</span></span></li>
+    <li class="st" style="--i:2"><span class="st-pic"><img src="/img/signal-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Отличать настоящий эффект от шума и проверять это кодом</span>
+      <a class="st-name" href="/signal/">Сигнал или шум</a>
+      <span class="st-meta"><span class="lvl l2" aria-hidden="true"></span>Средний</span></span></li>
+    <li class="st" style="--i:3"><span class="st-pic"><img src="/ab-basics/img/ab-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Читать отчёт A/B-теста и принимать решение</span>
+      <a class="st-name" href="/ab-basics/">A/B на пальцах</a>
+      <span class="st-meta"><span class="lvl l1" aria-hidden="true"></span>Начальный</span><span class="st-note">можно пройти отдельно — для всей команды</span></span></li>
+    <li class="st later" style="--i:4"><span class="st-pic"><img src="/img/stats-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Выбирать критерий и строить интервал для любых данных</span>
+      <a class="st-name" href="/stats/">Прикладная статистика для аналитика</a>
+      <span class="st-meta"><span class="lvl l2" aria-hidden="true"></span>Средний · скоро</span></span></li>
+    <li class="st later" style="--i:5"><span class="st-pic"><img src="/img/abm-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Ставить A/B-тесты без ошибок: MDE, SRM, CUPED, peeking</span>
+      <a class="st-name" href="/ab/">A/B без мифов</a>
+      <span class="st-meta"><span class="lvl l3" aria-hidden="true"></span>Продвинутый · скоро</span></span></li>
+    <li class="st later" style="--i:6"><span class="st-pic"><img src="/img/causal-cover.jpg" width="160" height="160" loading="lazy" alt=""></span>
+      <span class="st-body"><span class="st-task">Оценивать эффект без эксперимента</span>
+      <a class="st-name" href="/causal/">Causal inference</a>
+      <span class="st-meta"><span class="lvl l3" aria-hidden="true"></span>Продвинутый · скоро</span></span></li>
+  </ol></div>
+  <p class="after"><a class="more" href="/start/">Не знаешь, с чего начать? Подобрать маршрут за 2 минуты →</a></p>
+  <p class="after"><a class="more" href="/map/">Все навыки и маршруты по порядку — на карте навыков →</a></p>
 </section>
 
 <!-- 6. Рубрики: четыре равноценные карточки, одна структура, одно действие -->

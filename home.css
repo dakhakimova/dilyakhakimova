@@ -390,3 +390,25 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .cards-ex{grid-template-columns:repeat(2, 1fr)}
 @media (min-width:821px){ .cards-ex .course{display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0} .cards-ex .course-act{align-self:end; margin-top:var(--s-4)} }
 @media (max-width:820px){ .cards-ex{grid-template-columns:1fr} }
+/* маршрут — змейка станций: 1→2→3 слева направо, поворот, 4→5→6 справа налево; неготовые выцветшие; линию рисует home.js */
+.snake-wrap{position:relative}
+.snake-line{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible}
+.snake{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--s-7) var(--s-5); position:relative}
+.snake .st{display:flex; flex-direction:column; align-items:center; text-align:center; gap:var(--s-2)}
+.snake .st:nth-child(4){grid-column:3; grid-row:2} .snake .st:nth-child(5){grid-column:2; grid-row:2} .snake .st:nth-child(6){grid-column:1; grid-row:2}
+.st-pic{width:120px; height:120px; border-radius:50%; overflow:hidden; box-shadow:var(--sh-2); background:var(--paper); flex:none; position:relative; z-index:1}
+.st-pic img{width:100%; height:100%; object-fit:cover; display:block}
+.st.later .st-pic img{filter:grayscale(.9); opacity:.6}
+.st-body{display:flex; flex-direction:column; align-items:center; gap:4px; max-width:18em}
+.st-task{font:500 var(--fs-l)/1.3 var(--serif); color:var(--text-1)}
+.st.later .st-task{color:var(--text-3)}
+.st-name{font-size:var(--fs-s)}
+.st-meta{display:inline-flex; align-items:center; gap:6px; font-size:var(--fs-xs); color:var(--text-3)}
+.st-note{font-size:var(--fs-xs); color:var(--text-3)}
+@media (max-width:820px){
+  .snake{grid-template-columns:1fr; gap:var(--s-5)}
+  .snake .st:nth-child(n){grid-column:1; grid-row:auto; flex-direction:row; align-items:flex-start; text-align:left; gap:var(--s-4)}
+  .st-pic{width:72px; height:72px}
+  .st-body{align-items:flex-start}
+}
+.snake{z-index:1} .st-pic{background:#fff}
