@@ -34,16 +34,50 @@
 
   function esc(t){ return t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
+  // ---------- подсветка Python (решение Дили, 23.11.2026): ячейка — прозрачная textarea поверх подсвеченного <pre> ----------
+  const KW = new Set('False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield'.split(' '));
+  const BI = new Set('print range len sum abs float int str min max sorted list dict set tuple round enumerate zip map filter any all isinstance'.split(' '));
+  function pyHL(code){
+    const re = /(#[^\n]*)|("""[\s\S]*?"""|'''[\s\S]*?'''|f?"(?:[^"\\\n]|\\.)*"|f?'(?:[^'\\\n]|\\.)*')|(\b\d+(?:\.\d+)?(?:e[+-]?\d+)?\b)|(\b[A-Za-z_]\w*\b)|(\.\.\.)/g;
+    let out = '', last = 0, m, prevDef = false;
+    while ((m = re.exec(code))){
+      out += esc(code.slice(last, m.index)); last = re.lastIndex;
+      const t = esc(m[0]);
+      if (m[1]) out += '<span class="py-c">' + t + '</span>';
+      else if (m[2]) out += '<span class="py-s">' + t + '</span>';
+      else if (m[3]) out += '<span class="py-n">' + t + '</span>';
+      else if (m[4]){
+        if (prevDef){ out += '<span class="py-f">' + t + '</span>'; prevDef = false; continue; }
+        if (KW.has(m[4])){ out += '<span class="py-k">' + t + '</span>'; prevDef = m[4] === 'def' || m[4] === 'class'; continue; }
+        out += BI.has(m[4]) ? '<span class="py-b">' + t + '</span>' : t;
+      }
+      else if (m[5]) out += '<span class="py-e">' + t + '</span>';
+    }
+    return out + esc(code.slice(last)) + '\n';
+  }
+  window.pyHL = pyHL;
+
+
   document.querySelectorAll('.cell').forEach((cell, idx) => {
     const ta = cell.querySelector('textarea');
     const original = ta.value;
     const storeKey = 'signal:' + location.pathname + ':' + idx;
     try { const saved = localStorage.getItem(storeKey); if (saved !== null) ta.value = saved; } catch(e) {}
     ta.rows = Math.max(5, ta.value.split('\n').length + 1);
+    // подсветка: <pre class="hl"> под прозрачной textarea, прокрутка синхронна
+    const ed = document.createElement('div'); ed.className = 'ed';
+    const hlPre = document.createElement('pre'); hlPre.className = 'hl'; hlPre.setAttribute('aria-hidden', 'true');
+    const hlCode = document.createElement('code'); hlPre.append(hlCode);
+    ta.parentNode.insertBefore(ed, ta); ed.append(hlPre, ta);
+    const paintHL = () => { hlCode.innerHTML = pyHL(ta.value); hlCode.style.transform = 'translate(' + (-ta.scrollLeft) + 'px,' + (-ta.scrollTop) + 'px)'; };
+    ta.addEventListener('input', paintHL); ta.addEventListener('scroll', paintHL);
+    const fitHL = () => { const cs = getComputedStyle(ta); hlPre.style.padding = cs.padding; hlPre.style.font = cs.font; };
+    fitHL(); addEventListener('resize', fitHL);
+    paintHL();
 
     const head = document.createElement('div');
     head.className = 'cell-head';
-    head.innerHTML = '<span class="t">' + esc(cell.dataset.title || 'Python') + '</span><span>можно править</span>';
+    head.innerHTML = '<span class="t">' + esc(cell.dataset.title || 'Python') + '</span>';
     cell.prepend(head);
 
     const bar = document.createElement('div');
@@ -57,8 +91,7 @@
       bar.append(check);
     }
     bar.append(reset);
-    const hint = Object.assign(document.createElement('span'), {className:'hint', textContent:'Ctrl/⌘ + Enter — запустить'});
-    bar.append(hint);
+    run.title = 'Ctrl/⌘ + Enter';   // подсказка про клавиши — только во всплывающей подсказке (решение Дили, 23.11.2026)
     const out = document.createElement('pre');
     cell.append(bar, out);
 
@@ -73,12 +106,12 @@
       let shown = 0;
       const label = () => { btn.textContent = shown < hints.length ? (shown ? 'Ещё подсказка' : 'Не получается? Подсказка') : 'Показать решение'; btn.hidden = shown > hints.length || (shown === hints.length && !sol); };
       btn.addEventListener('click', () => {
-        if (shown < hints.length){ const li = document.createElement('li'); li.innerHTML = hints[shown]; list.append(li); }
+        if (shown < hints.length){ const li = document.createElement('li'); li.innerHTML = hints[shown]; li.querySelectorAll('pre').forEach(x => { x.innerHTML = pyHL(x.textContent); }); list.append(li); }
         else if (sol){
           solBox.hidden = false;
-          solBox.innerHTML = '<pre class="cell-sol-code">' + sol + '</pre>';
+          { const t = document.createElement('textarea'); t.innerHTML = sol; solBox.innerHTML = '<pre class="cell-sol-code">' + pyHL(t.value) + '</pre>'; }
           const put = Object.assign(document.createElement('button'), {type:'button', className:'cell-more', textContent:'Вставить решение в ячейку'});
-          put.addEventListener('click', () => { const t = document.createElement('textarea'); t.innerHTML = sol; ta.value = t.value; ta.rows = Math.max(5, ta.value.split('\n').length + 1); try { localStorage.setItem(storeKey, ta.value); } catch(e) {} ta.focus(); });
+          put.addEventListener('click', () => { const t = document.createElement('textarea'); t.innerHTML = sol; ta.value = t.value; paintHL(); ta.rows = Math.max(5, ta.value.split('\n').length + 1); try { localStorage.setItem(storeKey, ta.value); } catch(e) {} ta.focus(); });
           solBox.append(put);
         }
         shown++; label();
@@ -122,7 +155,7 @@
 
     run.addEventListener('click', () => exec(false));
     if (check) check.addEventListener('click', () => exec(true));
-    reset.addEventListener('click', () => { ta.value = original; try { localStorage.removeItem(storeKey); } catch(e) {} out.textContent = ''; });
+    reset.addEventListener('click', () => { ta.value = original; paintHL(); try { localStorage.removeItem(storeKey); } catch(e) {} out.textContent = ''; });
     ta.addEventListener('input', () => { try { localStorage.setItem(storeKey, ta.value); } catch(e) {} });
     ta.addEventListener('keydown', e => {
       if (e.key === 'Tab'){

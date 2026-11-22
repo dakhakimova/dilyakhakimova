@@ -347,3 +347,10 @@ label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:w
 .cell-sol-code{background:#1F2430; color:#E6E9EF; border-radius:10px; padding:12px 14px; font:400 .9375rem/1.5 var(--mono); overflow-x:auto; margin:4px 0}
 .cell-hints code{font:400 .9375em/1.4 var(--mono); background:#ECEAE4; border-radius:6px; padding:1px 6px; white-space:nowrap}
 .cell-hints pre{background:#1F2430; color:#E6E9EF; border-radius:10px; padding:8px 12px; font:400 .9375rem/1.5 var(--mono); overflow-x:auto; margin:6px 0 0}
+/* подсветка Python (решение Дили, 23.11.2026): прозрачная textarea поверх подсвеченного <pre class="hl"> — шрифт и отступы одинаковые */
+.cell .ed{position:relative; background:#1F2430}
+.cell .ed pre.hl{position:absolute; inset:0; margin:0; padding:14px 16px; background:transparent; color:#E6E9EF; font:400 .875rem/1.55 var(--mono); tab-size:4; white-space:pre; overflow:hidden; pointer-events:none; min-height:0}
+.cell .ed pre.hl code{display:block; font:inherit; white-space:pre}
+.cell .ed textarea{position:relative; background:transparent; color:transparent; caret-color:#E6E9EF; -webkit-text-fill-color:transparent}
+.cell .ed textarea::selection{background:rgba(120,160,255,.35)}
+.py-k{color:#C3A6FF} .py-s{color:#A6D98C} .py-c{color:#8D96A8; font-style:italic} .py-n{color:#F2C46B} .py-b{color:#7FD1C8} .py-f{color:#F0A17A} .py-e{color:#F2C46B}
