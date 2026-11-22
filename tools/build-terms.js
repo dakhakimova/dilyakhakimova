@@ -5,7 +5,8 @@
    Запускается из tools/bake-i18n.js (одна команда на весь сайт) или сам: node tools/build-terms.js
    Проверки при сборке (ошибка — сборка не проходит): title ≤ 65 знаков, description 50–220 знаков и не равен title,
    у термина есть пример, игра, схема и две задачи (иначе страница выходит с noindex), сравнение ссылается на существующий термин.
-   Внизу — связанные термины (terms.json → related, только опубликованные) и одна кнопка «Поделиться». */
+   Внизу — две тонкие строки (где это в курсе; связанные термины из terms.json → related, только опубликованные) и одна кнопка «Поделиться».
+   Хаб: поиск, указатель букв и термины по алфавиту (пары 7, 8 гайда). */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim} = require('./terms-viz.js');
@@ -217,17 +218,11 @@ ${chrome.header('terms', o.url === '/terms/')}
     </details>`).join('')}
   </section>
 
-  <section class="t-sec t-cta" aria-labelledby="course-h">
-    <h2 id="course-h">${t('terms.course.h')}</h2>
-    <p>${t('terms.cta.text', {course: courseName[c.course], unit: unit[c.course], n: c.n, title: c.title, href: c.href})}</p>
+  <section class="t-sec t-next" aria-label="${attr(t('terms.next.label'))}">
+    <p>${t('terms.cta.text', {course: courseName[c.course], unit: unit[c.course], n: c.n, title: c.title, href: c.href})}</p>${relTerms.length ? `
+    <p>${t('terms.rel.h')}: ${relTerms.map(r => `<a href="/terms/${r}/">${typo(TX[r].name)}</a>`).join(', ')}</p>` : ''}
   </section>
-${relTerms.length ? `
-  <section class="t-sec" aria-labelledby="rel-h">
-    <h2 id="rel-h">${t('terms.rel.h')}</h2>
-    <ul class="toys t-rel rel" role="list">${relTerms.map(r => card(`/terms/${r}/`, h1Of(r), TX[r].card)).join('')}
-    </ul>
-  </section>
-` : ''}
+
   <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
 
   <p class="t-author">${t('terms.author')}</p>
@@ -257,20 +252,26 @@ ${foot()}
       {'@type': 'ListItem', position: 2, name: plain(t('terms.hub.crumb')), item: SITE + '/terms/'}]},
     Object.assign({}, termSet, {'@context': undefined, author: person, hasDefinedTerm: terms.filter(o => o.published).map(o => ({'@type': 'DefinedTerm', name: plain(TX[o.slug].name), url: `${SITE}/terms/${o.slug}/`}))}),
   ]};
+  // хаб: термины по алфавиту (кириллица, затем латиница — как сортирует ru), указатель — только буквы, на которые есть термины
+  const hubList = terms.filter(o => o.published).sort((a, b) => TX[a.slug].name.localeCompare(TX[b.slug].name, 'ru')).map(o => Object.assign({}, o));
+  const letters = [];
+  hubList.forEach(o => { const L = TX[o.slug].name[0].toUpperCase(); if (!letters.length || letters[letters.length - 1][0] !== L){ o.first = letters.length + 1; letters.push([L, o.first]); } });
   const hub = head({title: t('terms.hub.title'), desc: t('terms.hub.desc'), url: '/terms/', og: '/terms/og/index.png', ld: hubLd}) + `
 <main id="main" class="wrap term-hub">
   <h1>${t('terms.hub.h1')}</h1>
   <p class="lead">${t('terms.hub.lead')}</p>
-  <div class="topic-filter" role="group" aria-label="Тема">
-    <button type="button" aria-pressed="true" data-topic="">Все темы</button>${REL.TOPICS.filter(tp => terms.some(o => o.published && o.topic === tp)).map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
-  </div>
-  <ul class="toys cat-list" role="list">${terms.filter(o => o.published).map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li data-topic="${o.topic}">`)).join('')}
+  <p class="t-search"><label for="t-q">${t('terms.hub.search')}</label><input id="t-q" type="search" autocomplete="off" spellcheck="false"></p>
+  <nav class="t-abc" aria-label="${attr(t('terms.hub.abc'))}">${letters.map(([L, i]) => `<a href="#abc-${i}">${L}</a>`).join('')}</nav>
+  <ul class="toys cat-list" role="list">${hubList.map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li${o.first !== undefined ? ` id="abc-${o.first}"` : ''} data-q="${attr([TX[o.slug].name, ...(o.aka || [])].join(' ').toLowerCase())}">`)).join('')}
   </ul>
+  <p class="t-empty" role="status" hidden><span></span> <button class="btn-text" type="button">${t('terms.hub.reset')}</button></p>
   <p class="t-author">${t('terms.author')}</p>
 </main>
 ${foot()}
 <script>
-(function(){var f=document.querySelector('.topic-filter');f.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.topic;f.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});document.querySelectorAll('.cat-list > li').forEach(function(li){li.hidden=!!v&&li.dataset.topic!==v})})})();
+(function(){var q=document.getElementById('t-q'),li=[].slice.call(document.querySelectorAll('.cat-list > li')),abc=document.querySelector('.t-abc'),em=document.querySelector('.t-empty'),msg=${json(RU['terms.hub.none'])};
+function go(){var v=q.value.trim().toLowerCase(),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
+q.addEventListener('input',go);em.querySelector('button').addEventListener('click',function(){q.value='';go();q.focus()})})();
 </script>
 </body>
 </html>
