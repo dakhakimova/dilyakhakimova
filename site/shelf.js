@@ -1,7 +1,8 @@
 /* /shelf/: подсказка у корешка — при наведении мышью, по фокусу с клавиатуры и по нажатию на телефоне.
    Одна подсказка на книгу (.b-card, role=tooltip, aria-describedby у корешка). Без JS подсказки нет (корешок — ссылка на разбор).
    Подсказка не занимает места на странице: position:fixed поверх, сначала над корешком, не влезла — под ним, и там тесно — сбоку; всегда внутри экрана и ниже заголовка.
-   Обложка: при первом показе пробуем ISBN из data-isbn по очереди на covers.openlibrary.org (?default=false → 404, если нет);
+   Обложка: сначала своя копия /shelf/covers/<slug>.jpg (обложки собрала Диля, 22.11.2026 — без запросов на чужой сайт),
+   если её нет — ISBN из data-isbn по очереди на covers.openlibrary.org (?default=false → 404, если нет);
    картинка попадает в карточку только после загрузки — нет обложки, нет и места под неё.
    Карточка только для чтения: без ссылок, pointer-events:none; закрывается, когда мышь уходит с корешка, по Esc, по нажатию мимо и при уходе фокуса.
    Телефон: первое нажатие на корешок показывает карточку (со строкой «Нажми ещё раз…»), второе открывает разбор; если карточке не хватает места под корешком, страница прокручивается.
@@ -17,7 +18,8 @@
   function cover(card){
     if (card.dataset.coverTried) return;
     card.dataset.coverTried = '1';
-    const list = (card.dataset.isbn || '').split(' ').filter(Boolean);
+    const slug = card.closest('.book') && card.closest('.book').dataset.slug;
+    const list = (slug ? ['/shelf/covers/' + slug + '.jpg'] : []).concat((card.dataset.isbn || '').split(' ').filter(Boolean));
     const next = i => {
       if (i >= list.length) return;
       const img = document.createElement('img');
@@ -33,7 +35,7 @@
         if (cur && cur.querySelector('.b-card') === card) place();
       };
       img.onerror = () => next(i + 1);
-      img.src = 'https://covers.openlibrary.org/b/isbn/' + encodeURIComponent(list[i]) + '-M.jpg?default=false';
+      img.src = list[i].startsWith('/') ? list[i] : 'https://covers.openlibrary.org/b/isbn/' + encodeURIComponent(list[i]) + '-M.jpg?default=false';
     };
     next(0);
   }
