@@ -132,11 +132,11 @@ body{background:#FAF8F4; background-image:none}
 .c-white{background-color:var(--surface)}
 .tape::before, .pin::after{display:none}
 .ruled, .squared{background-image:none !important}
-.kicker{font:500 .8125rem/1 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:18px 0 10px}
+.kicker{font:500 .8125rem/1 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink); margin:18px 0 10px}
 .hand{font:500 1.05em/1.4 var(--serif); color:var(--ink)}
 .readout, .stats b{font:500 1.625rem/1.1 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
 .bob .ava{font:500 1.375rem/1 var(--serif)}
-.step-tag{background:transparent; border:0; padding:0; color:var(--accent); font-size:.75rem}
+.step-tag{background:transparent; border:0; padding:0; color:var(--label-ink); font-size:.75rem}
 .ladder li{background:var(--surface)}
 
 /* ---- глава-карточки: меню слева, одна карточка на экране ---- */
@@ -212,8 +212,8 @@ body{background:#FAF8F4; background-image:none}
    Шкала отступов 4/8/12/16/24/32/48/64; радиусы 4/8/12/16/9999; основной текст 18/1.55 (телефон 17), строка ≤ 36em (--measure);
    заголовки 1.1–1.25 с лёгким отрицательным трекингом; жирный — только 600 (у Onest подключены 400/500/600,
    у Literata 400/500: <b> по умолчанию 700 рисовался «фальшивым жирным»). Кнопки — синие (--pen), как на /play/. */
-/* общие токены — /tokens.css; здесь только то, что у курсов своё: фон страницы светлее стола, поэтому метки #B8432B */
-:root{--warm-50:#F6F3ED; --warm-100:#EFEBE3; --accent-ink:#B8432B; --label-ink:#B8432B; --pen-hover:#1B3370}
+/* общие токены — /tokens.css; здесь только то, что у курсов своё. --label-ink не переопределяем: метки серые, как на сайте (коралл — только событие и группа B) */
+:root{--warm-50:#F6F3ED; --warm-100:#EFEBE3; --accent-ink:#B8432B; --pen-hover:#1B3370}
 body{line-height:var(--lh-body)}
 h1 b, h2 b, h3 b, .lead b, .q b, .term b, .say b{font-weight:500}
 p{margin:0 0 16px}
