@@ -104,6 +104,8 @@
 
   // ---------- соло-режим ----------
   window.PLAY_SOLO = slug;
+  // соло-режим и встраивание — не отдельные страницы для поиска: noindex (canonical главы указывает на её основной адрес)
+  { const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, follow'; document.head.appendChild(m); }
   root.classList.add('solo');
   const embed = q.get('embed') === '1';
   if (embed) root.classList.add('embed');

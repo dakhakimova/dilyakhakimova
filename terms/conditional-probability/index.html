@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Условная вероятность простыми словами · Диля Хакимова</title>
+<meta name="description" content="Что такое условная вероятность P(A | B): объясняем на гостях кафе, формулу читаем словами, проверяем на игрушке-сортировочной.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/conditional-probability/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/conditional-probability/">
+<meta property="og:title" content="Условная вероятность простыми словами · Диля Хакимова">
+<meta property="og:description" content="Что такое условная вероятность P(A | B): объясняем на гостях кафе, формулу читаем словами, проверяем на игрушке-сортировочной.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/conditional-probability.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Условная вероятность","item":"https://dilyakhakimova.com/terms/conditional-probability/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/conditional-probability/#term","name":"Условная вероятность","description":"Условная вероятность — это шанс события, когда уже известно, что случилось другое событие. Мы выбрасываем все случаи, где условие не выполнено, и считаем долю среди оставшихся.","url":"https://dilyakhakimova.com/terms/conditional-probability/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Условная вероятность простыми словами","description":"Что такое условная вероятность P(A | B): объясняем на гостях кафе, формулу читаем словами, проверяем на игрушке-сортировочной.","url":"https://dilyakhakimova.com/terms/conditional-probability/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/conditional-probability/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"В семье двое детей, и известно, что хотя бы один из них — мальчик. Какова вероятность, что оба мальчики?","acceptedAnswer":{"@type":"Answer","text":"Равновероятные варианты: ММ, МД, ДМ, ДД. Условие «хотя бы один мальчик» убирает ДД, остаётся три варианта, и только в одном оба мальчики. Ответ — 1/3, а не 1/2."}},{"@type":"Question","name":"Бросили два кубика, сумма вышла 8. Какова вероятность, что на первом кубике шестёрка?","acceptedAnswer":{"@type":"Answer","text":"Сумму 8 дают пять равновероятных пар: (2, 6), (3, 5), (4, 4), (5, 3), (6, 2). Шестёрка на первом — только в одной. Ответ — 1/5, хотя без условия было бы 1/6."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Условная вероятность</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="conditional-probability"
+  data-share-title="Условная вероятность простыми словами" data-share-text="Условная вероятность простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Условная вероятность простыми словами</h1>
+    <p class="t-sub">Как одно известное событие меняет шансы другого — и почему P(A | B) и P(B | A) почти никогда не равны.</p>
+  </header>
+  <p class="t-def">Условная вероятность — это шанс события, когда уже известно, что случилось другое событие. Мы выбрасываем все случаи, где условие не выполнено, и считаем долю среди оставшихся.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B2%D0%B5%D1%80%D0%BE%D1%8F%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C" rel="noopener">статье «Условная вероятность» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Как это записать формулой?</h2>
+    <p>Условная вероятность события A при условии B определена, когда P(B) > 0, и равна доле совместного наступления A и B внутри B.</p>
+    <div class="formula" role="math" aria-label="«Вероятность A при условии B равна вероятности того, что случились и A, и B, делённой на вероятность B». Палочка «|» читается «при условии»: всё, что справа от неё, уже известно."><i>P</i>(<i>A</i> | <i>B</i>) = <span class="fr"><span><i>P</i>(<i>A</i> и <i>B</i>)</span><span><i>P</i>(<i>B</i>)</span></span></div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Вероятность A при условии B равна вероятности того, что случились и A, и B, делённой на вероятность B». Палочка «|» читается «при условии»: всё, что справа от неё, уже известно.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Где это встретится в кафе?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мороженое берут 20 % гостей. Мелочь, уберу его из меню.</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А среди гостей с детьми? Из 1000 гостей с детьми пришли 250, и 150 из них взяли мороженое. Это 60 %.</p></div></div>
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">То есть если за столиком ребёнок, мороженое почти наверняка. Условие меняет всё.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Как увидеть условие своими глазами?</h2>
+    <p>В сортировочной 1000 гостей кафе. Надень рамку «только дождь» и посмотри, как меняется доля горячего шоколада внутри рамки. Потом сделай то же с десертом: у одного заказа доля в рамке поменяется, у другого — нет.</p>
+    <div class="stage-frame">
+      <iframe id="toy-frame" src="/play/sorter/?embed=1" data-toy="sorter" title="Игрушка: Дождь меняет шанс, что гость закажет горячий шоколад?" style="height:1350px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игрушка не загрузилась? <a href="/probability/05-conditional.html#card-2">Открой её в курсе</a>.</p>
+    </div>
+    <p class="note credit">Игрушка из курса «Вероятность на пальцах», шаг 5. <a href="/play/sorter/">Отдельная страница игрушки</a>.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>Рамка — это и есть условие: она сужает мир до гостей, пришедших в дождь, и доля считается заново внутри него. Если доля внутри рамки такая же, как среди всех, события независимы: P(A | B) = P(A).</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Как нарисовать условную вероятность?</h2>
+    <figure class="viz">
+      <p class="chart-head">1000 гостей кафе: кто пришёл с детьми и кто взял мороженое</p>
+      <svg class="viz-svg" viewBox="0 0 460 320" role="img" aria-label="с детьми: 250; 150 из 250 = 60 %" xmlns="http://www.w3.org/2000/svg"><title>с детьми: 250; 150 из 250 = 60 %</title><text x="20" y="36" text-anchor="start" font-size="17" font-weight="500" fill="#23418A" >с детьми: 250</text><text x="137" y="36" text-anchor="start" font-size="17" font-weight="400" fill="#4A463F" >без детей: 750</text><rect x="20" y="50" width="420" height="190" fill="#F3F0EA" stroke="#CFC8BB"/><rect x="20" y="126" width="105" height="114" fill="#E59157" opacity=".85"/><rect x="125" y="227.3" width="315" height="12.7" fill="#E59157" opacity=".85"/><rect x="20" y="50" width="105" height="190" fill="none" stroke="#23418A" stroke-width="3"/><line x1="72.5" y1="244" x2="72.5" y2="262" stroke="#5E5A53" stroke-width="1.5"/><text x="20" y="282" text-anchor="start" font-size="17" font-weight="500" fill="#24221F" >150 из 250 = 60 %</text><line x1="275" y1="244" x2="275" y2="262" stroke="#5E5A53" stroke-width="1.5"/><text x="195" y="282" text-anchor="start" font-size="17" font-weight="400" fill="#4A463F" >50 из 750 ≈ 6,7 %</text><rect x="20" y="302" width="14" height="14" fill="#E59157" opacity=".85"/><text x="42" y="314" text-anchor="start" font-size="15" font-weight="400" fill="#4A463F" >взяли мороженое</text></svg>
+      <figcaption class="figcap">Условие B вырезает колонку «с детьми» (250 гостей). P(мороженое | с детьми) — доля закрашенного внутри колонки: 150 из 250 = 60 %. Среди всех гостей мороженое у 200 из 1000 = 20 %.</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">В чём путаются чаще всего?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">Путать P(A | B) и P(B | A).</span> «Почти все фальшивки вызывают писк кассы» и «почти все писки — фальшивки» — разные утверждения. Первое про долю внутри фальшивок, второе — внутри писков. В суде эту ошибку называют ошибкой прокурора.</li>
+      <li><span class="lead">Читать условие как причину.</span> P(зонт | горячий шоколад) высокая, но шоколад не заставляет брать зонт: оба связаны с дождём. Условная вероятность говорит о связи, а не о том, что чем вызвано.</li>
+      <li><span class="lead">Считать несовместные события независимыми.</span> Если события не могут случиться вместе (гость пришёл и в дождь, и в ясный день), то знание одного полностью меняет шанс другого: это сильная зависимость. Независимость — это P(A | B) = P(A).</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда условная вероятность подводит?</h2>
+    <p>Сама формула не врёт, врут условия, которые в неё подставили. Доля, посчитанная на маленькой подгруппе, шумит: «60 % среди 5 гостей с детьми» — это три гостя, и завтра будет 20 % или 80 %. Чем уже условие, тем меньше в нём наблюдений и тем шире разброс.</p>
+    <p>Вторая ловушка — условие, выбранное после того, как увидел данные. Если перебрать сто срезов, в каком-нибудь доля обязательно окажется необычной.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Чем условная вероятность отличается от формулы Байеса?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Условная вероятность</th><th scope="col">Формула Байеса</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Что делает</th><td>Считает долю A внутри B</td><td>Переворачивает условие: из P(D | H) получает P(H | D)</td></tr>
+        <tr><th scope="row">Что нужно знать</th><td>Совместную долю и долю условия</td><td>Правдоподобия и априорную вероятность гипотезы</td></tr>
+        <tr><th scope="row">Типичный вопрос</th><td>«Сколько гостей с детьми берут мороженое?»</td><td>«Датчик пищит — насколько верить, что там орехи?»</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Бери условную вероятность, когда таблица в штуках уже есть. Бери формулу Байеса, когда известно «как часто следствие бывает при причине», а спрашивают наоборот.</p>
+    <p class="more-link"><a href="/terms/bayes-theorem/">Формула Байеса простыми словами →</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Какие задачи на условную вероятность дают на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">В семье двое детей, и известно, что хотя бы один из них — мальчик. Какова вероятность, что оба мальчики?</span><span class="show">Показать ответ</span></summary>
+      <p>Равновероятные варианты: ММ, МД, ДМ, ДД. Условие «хотя бы один мальчик» убирает ДД, остаётся три варианта, и только в одном оба мальчики. Ответ — 1/3, а не 1/2.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Бросили два кубика, сумма вышла 8. Какова вероятность, что на первом кубике шестёрка?</span><span class="show">Показать ответ</span></summary>
+      <p>Сумму 8 дают пять равновероятных пар: (2, 6), (3, 5), (4, 4), (5, 3), (6, 2). Шестёрка на первом — только в одной. Ответ — 1/5, хотя без условия было бы 1/6.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «Вероятность на пальцах», шаг 5 — «Условная вероятность и независимость». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/probability/05-conditional.html">Открыть шаг 5 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/bayes-theorem/"><b>Формула Байеса простыми словами</b><span>Пересчёт веры в причину после новых данных.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/monty-hall/"><b>Парадокс Монти Холла простыми словами</b><span>Почему после открытой двери выгодно сменить выбор.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/simpson-paradox/"><b>Парадокс Симпсона простыми словами</b><span>Лучше в каждой подгруппе, хуже в сумме.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/play/worst-cafes/"><b>Промо в пяти худших кафе — и через неделю они выросли. Это промо?</b><span>Двадцать кафе, промо для пяти худших и одна прошедшая неделя: откуда берётся рост, если промо не делает ничего.</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+</body>
+</html>

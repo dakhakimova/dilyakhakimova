@@ -241,6 +241,7 @@ I18N.ru = {
 
   'foot.courses': 'Курсы',
   'foot.more': 'Ещё',
+  'foot.terms': 'Словарь аналитика',
   'foot.gh': 'GitHub',
   'foot.habr': '10 мифов об A/B-тестировании (Хабр)',
   'foot.copy': '© 2026 Диля Хакимова · Белград',

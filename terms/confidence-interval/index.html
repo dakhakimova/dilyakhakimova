@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Доверительный интервал простыми словами · Диля Хакимова</title>
+<meta name="description" content="Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95 %» и игрушка, где вилки ловят правду.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/confidence-interval/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/confidence-interval/">
+<meta property="og:title" content="Доверительный интервал простыми словами · Диля Хакимова">
+<meta property="og:description" content="Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95 %» и игрушка, где вилки ловят правду.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/confidence-interval.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Доверительный интервал","item":"https://dilyakhakimova.com/terms/confidence-interval/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/confidence-interval/#term","name":"Доверительный интервал","description":"Доверительный интервал — это вилка значений, которые не спорят с данными: всё, что внутри, правдоподобно, а ширина вилки показывает, насколько точно мы измерили. У 95-процентного интервала способ построения такой, что вилка накрывает правду в 95 случаях из 100.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Доверительный интервал простыми словами","description":"Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95 %» и игрушка, где вилки ловят правду.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/confidence-interval/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Среднее время на сайте — 120 секунд, стандартное отклонение — 60 секунд, пользователей 400. Каков 95-процентный доверительный интервал для среднего?","acceptedAnswer":{"@type":"Answer","text":"Стандартная ошибка 60/√400 = 3 секунды. Интервал: 120 ± 1,96 · 3 = 120 ± 5,9, то есть примерно от 114,1 до 125,9 секунды."}},{"@type":"Question","name":"Во сколько раз нужно увеличить выборку, чтобы доверительный интервал стал вдвое уже?","acceptedAnswer":{"@type":"Answer","text":"В четыре раза: ширина пропорциональна 1/√n."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Доверительный интервал</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="confidence-interval"
+  data-share-title="Доверительный интервал простыми словами" data-share-text="Доверительный интервал простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Доверительный интервал простыми словами</h1>
+    <p class="t-sub">Что значит «вилка 95 %», почему её ширина важнее точки и как её не надо читать.</p>
+  </header>
+  <p class="t-def">Доверительный интервал — это вилка значений, которые не спорят с данными: всё, что внутри, правдоподобно, а ширина вилки показывает, насколько точно мы измерили. У 95-процентного интервала способ построения такой, что вилка накрывает правду в 95 случаях из 100.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%94%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB" rel="noopener">статье «Доверительный интервал» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Как посчитать доверительный интервал для среднего?</h2>
+    <p>95-процентный доверительный интервал — это правило, которое по выборке строит интервал так, что при многократном повторении эксперимента интервалы накрывают истинное значение параметра в 95 % повторений. Для среднего при большом n:</p>
+    <div class="formula" role="math" aria-label="«Выборочное среднее плюс-минус почти две стандартные ошибки». Стандартная ошибка s/√n — это разброс отдельных значений s, делённый на корень из числа наблюдений: насколько шатается само среднее."><span class="ov"><i>x</i></span> ± 1,96 · <span class="fr"><span><i>s</i></span><span>√<i>n</i></span></span></div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Выборочное среднее плюс-минус почти две стандартные ошибки». Стандартная ошибка s/√n — это разброс отдельных значений s, делённый на корень из числа наблюдений: насколько шатается само среднее.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Как сказать продакту, что значит вилка эффекта?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Фото блюд дают +3 % к заказам, вилка от +1 % до +5 %.</p></div></div>
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">То есть с вероятностью 95 % эффект между одним и пятью процентами?</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Почти. Точнее так: если повторять тест много раз, 95 вилок из 100 накроют правду. А про эту вилку честно сказать: эффекты от +1 до +5 % с данными не спорят, ноль — спорит.</p></div></div>
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Ноль за бортом вилки. Значит, фото оставляем, а мне — рыбу за хорошую новость.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Как часто вилка «95 %» ловит правду?</h2>
+    <p>Набирай выборки заказов, и у каждой строй свою вилку «95 %». Считай, сколько вилок накрыли настоящий средний чек, и поменяй размер выборки.</p>
+    <div class="stage-frame">
+      <iframe id="toy-frame" src="/play/catch-mu/?embed=1" data-toy="catch-mu" title="Игрушка: Вилка «95 %» из одной выборки. Как часто она накрывает правду?" style="height:2050px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игрушка не загрузилась? <a href="/signal/07-clt.html#card-7">Открой её в курсе</a>.</p>
+    </div>
+    <p class="note credit">Игрушка из курса «Сигнал или шум», глава 7. <a href="/play/catch-mu/">Отдельная страница игрушки</a>.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>Примерно 95 вилок из 100 накрывают правду, а 5 — промахиваются: это свойство способа, а не одной вилки. С ростом выборки вилки сужаются, но доля накрывших остаётся около 95 %.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Что значат 95 % на картинке?</h2>
+    <figure class="viz">
+      <p class="chart-head">20 повторов одного и того же теста</p>
+      <svg class="viz-svg" viewBox="0 0 460 362" role="img" aria-label="накрыла: 19 из 20" xmlns="http://www.w3.org/2000/svg"><title>накрыла: 19 из 20</title><line x1="240" y1="14" x2="240" y2="304" stroke="#24221F" stroke-width="1.5" stroke-dasharray="5 4"/><text x="240" y="326" text-anchor="middle" font-size="15" font-weight="400" fill="#24221F" >правда</text><line x1="190.3" y1="20" x2="386.3" y2="20" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="288.3" cy="20" r="3.5" fill="#3D7DC4" /><line x1="198.2" y1="34" x2="394.2" y2="34" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="296.2" cy="34" r="3.5" fill="#3D7DC4" /><line x1="139.5" y1="48" x2="335.5" y2="48" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="237.5" cy="48" r="3.5" fill="#3D7DC4" /><line x1="133" y1="62" x2="329" y2="62" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="231" cy="62" r="3.5" fill="#3D7DC4" /><line x1="207.3" y1="76" x2="403.3" y2="76" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="305.3" cy="76" r="3.5" fill="#3D7DC4" /><line x1="79.4" y1="90" x2="275.4" y2="90" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="177.4" cy="90" r="3.5" fill="#3D7DC4" /><line x1="60.3" y1="104" x2="256.3" y2="104" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="158.3" cy="104" r="3.5" fill="#3D7DC4" /><line x1="189.2" y1="118" x2="385.2" y2="118" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="287.2" cy="118" r="3.5" fill="#3D7DC4" /><line x1="196.5" y1="132" x2="392.5" y2="132" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="294.5" cy="132" r="3.5" fill="#3D7DC4" /><line x1="149.3" y1="146" x2="345.3" y2="146" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="247.3" cy="146" r="3.5" fill="#3D7DC4" /><line x1="170.7" y1="160" x2="366.7" y2="160" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="268.7" cy="160" r="3.5" fill="#3D7DC4" /><line x1="29.3" y1="174" x2="225.3" y2="174" stroke="#C9413A" stroke-width="3"/><circle cx="127.3" cy="174" r="3.5" fill="#C9413A" /><text x="233.3" y="179" text-anchor="start" font-size="15" font-weight="400" fill="#C9413A" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">промах</text><line x1="157.5" y1="188" x2="353.5" y2="188" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="255.5" cy="188" r="3.5" fill="#3D7DC4" /><line x1="163.6" y1="202" x2="359.6" y2="202" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="261.6" cy="202" r="3.5" fill="#3D7DC4" /><line x1="98.2" y1="216" x2="294.2" y2="216" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="196.2" cy="216" r="3.5" fill="#3D7DC4" /><line x1="155.1" y1="230" x2="351.1" y2="230" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="253.1" cy="230" r="3.5" fill="#3D7DC4" /><line x1="103.2" y1="244" x2="299.2" y2="244" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="201.2" cy="244" r="3.5" fill="#3D7DC4" /><line x1="178.1" y1="258" x2="374.1" y2="258" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="276.1" cy="258" r="3.5" fill="#3D7DC4" /><line x1="145.7" y1="272" x2="341.7" y2="272" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="243.7" cy="272" r="3.5" fill="#3D7DC4" /><line x1="98.9" y1="286" x2="294.9" y2="286" stroke="#3D7DC4" stroke-width="2.5"/><circle cx="196.9" cy="286" r="3.5" fill="#3D7DC4" /><line x1="40" y1="304" x2="460" y2="304" stroke="#5E5A53" stroke-width="1.5"/><text x="90" y="326" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >0 %</text><text x="190" y="326" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+2 %</text><text x="290" y="326" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+4 %</text><text x="390" y="326" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+6 %</text><text x="450" y="350" text-anchor="end" font-size="16" font-weight="500" fill="#24221F" >накрыла: 19 из 20</text></svg>
+      <figcaption class="figcap">Пунктир — настоящий эффект. Каждая черта — вилка одного повтора с точкой-оценкой посередине. 19 вилок накрыли правду, одна (красная) промахнулась. Схема смоделирована с фиксированным зерном.</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">Как доверительный интервал читают неправильно?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">«С вероятностью 95 % правда внутри этой вилки».</span> В обычной (частотной) статистике правда — не случайная величина: она либо внутри, либо нет. 95 % — надёжность способа на многих повторах. Фраза про «вероятность для этой вилки» — уже байесовский интервал, и считать его надо иначе.</li>
+      <li><span class="lead">«Вилки двух групп перекрываются — значит, разницы нет».</span> Сравнивать надо интервал разницы. При одинаковых стандартных ошибках разница значима, если она больше 2,77 стандартной ошибки, а сами 95-процентные вилки перекрываются, пока разница меньше 3,92. В зазоре между этими числами вилки перекрываются, а разница значима.</li>
+      <li><span class="lead">Ждать, что вчетверо больше данных сузит вилку вчетверо.</span> Ширина пропорциональна 1/√n: вчетверо больше данных — вдвое уже вилка.</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда фраза «95 % вероятности, что истина внутри» неверна?</h2>
+    <p>Фраза «с вероятностью 95 % правда внутри этой вилки» в частотной статистике неверна: правда фиксирована, а случайна вилка. 95 % — это доля вилок, накрывающих правду, если повторять тест много раз. Про одну вилку честно сказать только «эффекты внутри с данными не спорят».</p>
+    <p>А сами 95 % держатся на допущениях: независимость наблюдений, достаточно большая выборка, нет подглядывания. При тяжёлых хвостах или подсмотренном сроке теста реальная доля накрытий бывает заметно ниже обещанной.</p>
+    <figure class="viz small"><svg class="viz-svg" viewBox="0 0 460 280" role="img" aria-label="накрыли правду" xmlns="http://www.w3.org/2000/svg"><title>накрыли правду</title><line x1="70" y1="220" x2="430" y2="220" stroke="#5E5A53" stroke-width="1.5"/><line x1="70" y1="220" x2="70" y2="30" stroke="#5E5A53" stroke-width="1.5"/><text x="62" y="225" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >0 %</text><text x="62" y="130" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >50 %</text><text x="62" y="35" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >100 %</text><text x="70" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >10</text><text x="160" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >30</text><text x="250" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >100</text><text x="340" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >1 000</text><text x="430" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >10 000</text><line x1="70" y1="39.5" x2="430" y2="39.5" stroke="#24221F" stroke-width="1.5" stroke-dasharray="6 4"/><text x="430" y="31.5" text-anchor="end" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">обещано 95 %</text><path d="M70 92.1L160 71.8L250 58.5L340 44.4L430 41.6" fill="none" stroke="#3D7DC4" stroke-width="2.5" stroke-linejoin="round" /><circle cx="70" cy="92.1" r="4.5" fill="#3D7DC4" /><circle cx="160" cy="71.8" r="4.5" fill="#3D7DC4" /><circle cx="250" cy="58.5" r="4.5" fill="#3D7DC4" /><circle cx="340" cy="44.4" r="4.5" fill="#3D7DC4" /><circle cx="430" cy="41.6" r="4.5" fill="#3D7DC4" /><text x="160" y="97.8" text-anchor="start" font-size="15" font-weight="500" fill="#2B5E96" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">накрыли правду</text><text x="430" y="266" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >наблюдений в выборке</text></svg><figcaption class="figcap">Доля вилок «95 %», накрывших настоящее среднее, для чеков с тяжёлым хвостом (логнормальное распределение, σ = 1,5): при n = 10 — около 67 %, при 100 — 85 %, при 10 000 — 94 %. Обещание выполняется только на больших выборках (симуляция).</figcaption></figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Что выбрать: доверительный интервал или p-value?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Доверительный интервал</th><th scope="col">p-value</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Что показывает</th><td>Какие эффекты правдоподобны и насколько точно измерено</td><td>Насколько результат удивителен без эффекта</td></tr>
+        <tr><th scope="row">Есть ли размер эффекта</th><td>Да, в единицах метрики</td><td>Нет</td></tr>
+        <tr><th scope="row">Связь</th><td>Ноль вне 95-% вилки</td><td>⇔ p < 0,05 (для того же критерия)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Для решения бери интервал: он показывает и значимость, и размер эффекта. p-value — короткая сводка «шум или нет», когда размер не важен.</p>
+    <p class="more-link"><a href="/terms/p-value/">p-value простыми словами →</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Какие задачи на доверительный интервал дают на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Среднее время на сайте — 120 секунд, стандартное отклонение — 60 секунд, пользователей 400. Каков 95-процентный доверительный интервал для среднего?</span><span class="show">Показать ответ</span></summary>
+      <p>Стандартная ошибка 60/√400 = 3 секунды. Интервал: 120 ± 1,96 · 3 = 120 ± 5,9, то есть примерно от 114,1 до 125,9 секунды.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Во сколько раз нужно увеличить выборку, чтобы доверительный интервал стал вдвое уже?</span><span class="show">Показать ответ</span></summary>
+      <p>В четыре раза: ширина пропорциональна 1/√n.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «Сигнал или шум», глава 7 — «ЦПТ в деле». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/signal/07-clt.html">Открыть глава 7 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/p-value/"><b>p-value простыми словами</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/sample-size/"><b>Размер выборки простыми словами</b><span>Сколько наблюдений нужно, чтобы заметить эффект.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/normal-distribution/"><b>Нормальное распределение простыми словами</b><span>Колокол, сигмы и правило 68–95–99,7.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/central-limit-theorem/"><b>Центральная предельная теорема простыми словами</b><span>Почему средние складываются в колокол.</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+</body>
+</html>

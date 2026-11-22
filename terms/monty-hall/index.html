@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Парадокс Монти Холла простыми словами · Диля Хакимова</title>
+<meta name="description" content="Почему в задаче Монти Холла выгодно сменить дверь: разбираем три сценария, формулу Байеса и правила ведущего, а потом играем тысячу раз.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/monty-hall/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/monty-hall/">
+<meta property="og:title" content="Парадокс Монти Холла простыми словами · Диля Хакимова">
+<meta property="og:description" content="Почему в задаче Монти Холла выгодно сменить дверь: разбираем три сценария, формулу Байеса и правила ведущего, а потом играем тысячу раз.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/monty-hall.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Парадокс Монти Холла","item":"https://dilyakhakimova.com/terms/monty-hall/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/monty-hall/#term","name":"Парадокс Монти Холла","description":"Парадокс Монти Холла — задача про игру с тремя дверями: после того как ведущий открыл одну пустую дверь, выгоднее сменить свой выбор. Сменив дверь, выигрываешь в двух случаях из трёх, а оставшись — только в одном.","url":"https://dilyakhakimova.com/terms/monty-hall/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Парадокс Монти Холла простыми словами","description":"Почему в задаче Монти Холла выгодно сменить дверь: разбираем три сценария, формулу Байеса и правила ведущего, а потом играем тысячу раз.","url":"https://dilyakhakimova.com/terms/monty-hall/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/monty-hall/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Та же игра, но дверей 100. Ты выбрал одну, ведущий, зная, где приз, открыл 98 пустых. Менять?","acceptedAnswer":{"@type":"Answer","text":"Менять. Твоя дверь угадана с шансом 1/100, а всё остальное — 99/100 — собрано в единственной закрытой двери, которую ведущий обошёл. Смена выигрывает в 99 случаях из 100."}},{"@type":"Question","name":"Ведущий не знает, где приз. Он открыл одну из двух оставшихся дверей наугад, и она оказалась пустой. Выгодно ли менять?","acceptedAnswer":{"@type":"Answer","text":"Нет разницы. Из шести равновероятных пар «где приз · какую дверь открыл ведущий» игр, где открытая дверь пустая, четыре: в двух выигрывает смена, в двух — отказ от неё. Шанс 1/2."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Парадокс Монти Холла</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="monty-hall"
+  data-share-title="Парадокс Монти Холла простыми словами" data-share-text="Парадокс Монти Холла простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Парадокс Монти Холла простыми словами</h1>
+    <p class="t-sub">Три двери, одна открыта — и почему «осталось две, значит 50 на 50» здесь неверно.</p>
+  </header>
+  <p class="t-def">Парадокс Монти Холла — задача про игру с тремя дверями: после того как ведущий открыл одну пустую дверь, выгоднее сменить свой выбор. Сменив дверь, выигрываешь в двух случаях из трёх, а оставшись — только в одном.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%9F%D0%B0%D1%80%D0%B0%D0%B4%D0%BE%D0%BA%D1%81%20%D0%9C%D0%BE%D0%BD%D1%82%D0%B8%20%D0%A5%D0%BE%D0%BB%D0%BB%D0%B0" rel="noopener">статье «Парадокс Монти Холла» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Откуда берутся 2/3 строго?</h2>
+    <p>Ответ 2/3 верен при трёх правилах: ведущий знает, где приз; он всегда открывает пустую дверь из двух, которые ты не выбрал; он всегда предлагает сменить выбор. Если ты выбрал дверь 1, а ведущий открыл дверь 3, по формуле Байеса шанс приза за дверью 2 такой:</p>
+    <div class="formula" role="math" aria-label="«Если приз за дверью 2, ведущий обязан открыть дверь 3 — вероятность 1. Приз за дверью 2 заранее с шансом 1/3. А дверь 3 ведущий откроет в половине всех игр». Делим одно на другое и получаем 2/3."><i>P</i>(приз за 2 | открыта 3) = <span class="fr"><span>1 · ⅓</span><span>½</span></span> = ⅔</div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Если приз за дверью 2, ведущий обязан открыть дверь 3 — вероятность 1. Приз за дверью 2 заранее с шансом 1/3. А дверь 3 ведущий откроет в половине всех игр». Делим одно на другое и получаем 2/3.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Как сыграть в Монти Холла за столиком кафе?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Под одним из трёх стаканчиков печенье. Выбирай.</p></div></div>
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Первый. А ты подняла третий — там пусто. Осталось два, значит, 50 на 50.</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Я знаю, где печенье, и никогда не поднимаю его стаканчик. Твой первый угадан с шансом 1/3, и мой ход этого не изменил. Оставшиеся 2/3 теперь во втором.</p></div></div>
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Меняй, Боб. А если я буду поднимать стаканчики наугад, тогда и правда 50 на 50.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Как убедиться, что менять выгодно?</h2>
+    <p>Котейка прячет торт за одной из трёх дверей и открывает пустую. Сыграй несколько раз сам, затем запусти тысячу игр с разными стратегиями и переключи правила ведущего.</p>
+    <div class="stage-frame">
+      <iframe id="toy-frame" src="/play/monty-hall/?embed=1" data-toy="monty-hall" title="Игрушка: Котейка открыл пустую дверь. Менять свою или оставить?" style="height:800px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игрушка не загрузилась? <a href="/probability/06-bayes.html#card-8">Открой её в курсе</a>.</p>
+    </div>
+    <p class="note credit">Игрушка из курса «Вероятность на пальцах», шаг 6. <a href="/play/monty-hall/">Отдельная страница игрушки</a>.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>На тысяче игр стратегия «менять» выигрывает примерно в 667 играх, «оставить» — примерно в 333. Если ведущий открывает двери наугад, а пустая попалась случайно, преимущество смены исчезает: остаётся 50 на 50. Всё решают правила ведущего.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Почему «сменить» выигрывает в двух раскладах из трёх?</h2>
+    <figure class="viz">
+      <p class="chart-head">Три равновероятных расклада, ты выбрал дверь 1</p>
+      <svg class="viz-svg" viewBox="0 0 460 320" role="img" aria-label="остаться: 1 из 3 · сменить: 2 из 3" xmlns="http://www.w3.org/2000/svg"><title>остаться: 1 из 3 · сменить: 2 из 3</title><text x="296" y="24" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >остаться</text><text x="392" y="24" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >сменить</text><text x="8" y="74" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" >приз за дверью 1</text><rect x="128" y="46" width="32" height="46" fill="#fff" rx="4" stroke="#23418A" stroke-width="3"/><circle cx="144" cy="69" r="8" fill="#E59157" /><rect x="168" y="46" width="32" height="46" fill="#ECE9E2" rx="4" stroke="#CFC8BB" stroke-width="1.5" stroke-dasharray="4 3"/><rect x="208" y="46" width="32" height="46" fill="#fff" rx="4" stroke="#CFC8BB" stroke-width="1.5"/><text x="296" y="76" text-anchor="middle" font-size="22" font-weight="500" fill="#0E7E5F" >✓</text><text x="392" y="76" text-anchor="middle" font-size="22" font-weight="500" fill="#C9413A" >✕</text><text x="8" y="144" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" >приз за дверью 2</text><rect x="128" y="116" width="32" height="46" fill="#fff" rx="4" stroke="#23418A" stroke-width="3"/><rect x="168" y="116" width="32" height="46" fill="#fff" rx="4" stroke="#CFC8BB" stroke-width="1.5"/><circle cx="184" cy="139" r="8" fill="#E59157" /><rect x="208" y="116" width="32" height="46" fill="#ECE9E2" rx="4" stroke="#CFC8BB" stroke-width="1.5" stroke-dasharray="4 3"/><text x="296" y="146" text-anchor="middle" font-size="22" font-weight="500" fill="#C9413A" >✕</text><text x="392" y="146" text-anchor="middle" font-size="22" font-weight="500" fill="#0E7E5F" >✓</text><text x="8" y="214" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" >приз за дверью 3</text><rect x="128" y="186" width="32" height="46" fill="#fff" rx="4" stroke="#23418A" stroke-width="3"/><rect x="168" y="186" width="32" height="46" fill="#ECE9E2" rx="4" stroke="#CFC8BB" stroke-width="1.5" stroke-dasharray="4 3"/><rect x="208" y="186" width="32" height="46" fill="#fff" rx="4" stroke="#CFC8BB" stroke-width="1.5"/><circle cx="224" cy="209" r="8" fill="#E59157" /><text x="296" y="216" text-anchor="middle" font-size="22" font-weight="500" fill="#C9413A" >✕</text><text x="392" y="216" text-anchor="middle" font-size="22" font-weight="500" fill="#0E7E5F" >✓</text><line x1="8" y1="256" x2="452" y2="256" stroke="#CFC8BB" stroke-width="1.5"/><text x="8" y="282" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" >итог:</text><text x="296" y="282" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >1 из 3</text><text x="392" y="282" text-anchor="middle" font-size="16" font-weight="500" fill="#0E7E5F" >2 из 3</text><rect x="128" y="296" width="14" height="14" fill="#fff" stroke="#23418A" stroke-width="3"/><text x="148" y="308" text-anchor="start" font-size="13" font-weight="400" fill="#5E5A53" >твой выбор</text><rect x="250" y="296" width="14" height="14" fill="#ECE9E2" stroke="#CFC8BB" stroke-dasharray="3 2"/><text x="270" y="308" text-anchor="start" font-size="13" font-weight="400" fill="#5E5A53" >открыта</text></svg>
+      <figcaption class="figcap">В каждом раскладе ведущий открывает пустую дверь из двух оставшихся. «Остаться» выигрывает в одном раскладе из трёх, «сменить» — в двух.</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">Почему почти все сначала отвечают «50 на 50»?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">«Осталось две двери — значит, 50 на 50».</span> Равные шансы не следуют из числа вариантов. Двери неравноправны: свою ты выбрал наугад, а оставшуюся закрытую ведущий выбрал, зная, где приз.</li>
+      <li><span class="lead">Забывать про правила ведущего.</span> Если ведущий не знает, где приз, и открыл дверь наугад, а она случайно оказалась пустой, шанс выиграть при смене — 1/2. Ответ 2/3 держится на том, что ведущий никогда не открывает приз.</li>
+      <li><span class="lead">Думать, что смена выигрывает всегда.</span> Она выигрывает в 2/3 игр, а в 1/3 проигрывает: когда ты сразу угадал. Это преимущество на длинной серии, а не гарантия в одной игре.</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда менять дверь бесполезно?</h2>
+    <p>Ответ «менять выгодно» держится на правилах ведущего. Ведущий, который открывает двери наугад, ничего не сообщает — и шанс становится 1/2. Ведущий, который предлагает смену только тем, кто угадал, превращает смену в гарантированный проигрыш.</p>
+    <p>В жизни правила ведущего обычно неизвестны, и это главный урок задачи: прежде чем считать, выясни, как появились данные.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Что меняется, если ведущий не знает, где приз?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Ведущий знает, где приз</th><th scope="col">Ведущий открывает наугад</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Шанс при смене</th><td>2/3</td><td>1/2 (если дверь случайно пустая)</td></tr>
+        <tr><th scope="row">Несёт ли открытая дверь информацию</th><td>Да: ведущий обходит приз</td><td>Нет, кроме «здесь пусто»</td></tr>
+        <tr><th scope="row">Бывает ли, что открыт приз</th><td>Никогда</td><td>В трети игр</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Меняй, если ведущий знает и всегда открывает пустую. Если он открывает наугад — всё равно.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Как задачу Монти Холла усложняют на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Та же игра, но дверей 100. Ты выбрал одну, ведущий, зная, где приз, открыл 98 пустых. Менять?</span><span class="show">Показать ответ</span></summary>
+      <p>Менять. Твоя дверь угадана с шансом 1/100, а всё остальное — 99/100 — собрано в единственной закрытой двери, которую ведущий обошёл. Смена выигрывает в 99 случаях из 100.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Ведущий не знает, где приз. Он открыл одну из двух оставшихся дверей наугад, и она оказалась пустой. Выгодно ли менять?</span><span class="show">Показать ответ</span></summary>
+      <p>Нет разницы. Из шести равновероятных пар «где приз · какую дверь открыл ведущий» игр, где открытая дверь пустая, четыре: в двух выигрывает смена, в двух — отказ от неё. Шанс 1/2.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «Вероятность на пальцах», шаг 6 — «Байес». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/probability/06-bayes.html">Открыть шаг 6 →</a><a class="btn link" href="/probability/">Весь курс «Вероятность на пальцах»</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/bayes-theorem/"><b>Формула Байеса простыми словами</b><span>Пересчёт веры в причину после новых данных.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/conditional-probability/"><b>Условная вероятность простыми словами</b><span>Как известное событие меняет шансы другого.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/play/scurvy/"><b>Почему решать должна монетка, а не врач?</b><span>Опыт с цингой на корабле: лимоны, которые ничего не делают, и врач Котейка, который раздаёт их «кому нужнее».</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+</body>
+</html>

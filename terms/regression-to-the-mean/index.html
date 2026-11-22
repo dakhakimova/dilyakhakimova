@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Регрессия к среднему простыми словами · Диля Хакимова</title>
+<meta name="description" content="Регрессия к среднему: почему после рекордной недели приходит обычная, а худшие кафе «исправляются» без всякого промо. Формула, точечная схема и игрушка.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/regression-to-the-mean/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/regression-to-the-mean/">
+<meta property="og:title" content="Регрессия к среднему простыми словами · Диля Хакимова">
+<meta property="og:description" content="Регрессия к среднему: почему после рекордной недели приходит обычная, а худшие кафе «исправляются» без всякого промо. Формула, точечная схема и игрушка.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/regression-to-the-mean.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Регрессия к среднему","item":"https://dilyakhakimova.com/terms/regression-to-the-mean/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/regression-to-the-mean/#term","name":"Регрессия к среднему","description":"Регрессия к среднему — это когда после необычно хорошего или плохого результата следующий оказывается ближе к обычному, без всякой причины. Так бывает всегда, когда в результат подмешана случайность.","url":"https://dilyakhakimova.com/terms/regression-to-the-mean/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Регрессия к среднему простыми словами","description":"Регрессия к среднему: почему после рекордной недели приходит обычная, а худшие кафе «исправляются» без всякого промо. Формула, точечная схема и игрушка.","url":"https://dilyakhakimova.com/terms/regression-to-the-mean/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/regression-to-the-mean/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Корреляция результатов двух контрольных — 0,6. Ученик написал первую на 2σ выше среднего. Какого результата ждать на второй?","acceptedAnswer":{"@type":"Answer","text":"Примерно на 0,6 · 2 = 1,2σ выше среднего: заметно лучше среднего, но хуже, чем в первый раз. Это не значит, что ученик расслабился."}},{"@type":"Question","name":"У очень высоких отцов сыновья в среднем ниже отцов. Значит ли это, что через несколько поколений все станут одного роста?","acceptedAnswer":{"@type":"Answer","text":"Нет. У очень высоких сыновей отцы тоже в среднем ниже сыновей: регрессия работает в обе стороны. Разброс роста в популяции при этом остаётся прежним."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Регрессия к среднему</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="regression-to-the-mean"
+  data-share-title="Регрессия к среднему простыми словами" data-share-text="Регрессия к среднему простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Регрессия к среднему простыми словами</h1>
+    <p class="t-sub">Почему худшие исправляются, а лучшие портятся сами по себе — и как не принять это за эффект своего решения.</p>
+  </header>
+  <p class="t-def">Регрессия к среднему — это когда после необычно хорошего или плохого результата следующий оказывается ближе к обычному, без всякой причины. Так бывает всегда, когда в результат подмешана случайность.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A0%D0%B5%D0%B3%D1%80%D0%B5%D1%81%D1%81%D0%B8%D1%8F%20%D0%BA%20%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B5%D0%BC%D1%83" rel="noopener">статье «Регрессия к среднему» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Как регрессию к среднему записать формулой?</h2>
+    <p>Если X₁ и X₂ — два замера одного показателя со средним μ, одинаковым разбросом и корреляцией ρ < 1, то ожидаемое второе значение при известном первом ближе к μ, чем первое.</p>
+    <div class="formula" role="math" aria-label="«Ожидаемое отклонение во втором замере — это первое отклонение, умноженное на корреляцию». При ρ = 0,5 в среднем уходит половина «рекорда», при ρ = 1 (без случайности) не уходит ничего."><i>E</i>[<i>X</i><sub>2</sub> − <i>μ</i> | <i>X</i><sub>1</sub>] = <i>ρ</i> · (<i>X</i><sub>1</sub> − <i>μ</i>)</div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Ожидаемое отклонение во втором замере — это первое отклонение, умноженное на корреляцию». При ρ = 0,5 в среднем уходит половина «рекорда», при ρ = 1 (без случайности) не уходит ничего.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Выговор курьерам сработал или нет?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Пятеро самых медленных курьеров прошлой недели получили выговор — и на этой неделе стали быстрее! Выговоры работают.</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Самые медленные за неделю — это отчасти самые невезучие за неделю: пробки, дальние адреса. Они бы ускорились и без выговора. А пятеро самых быстрых, которых ты похвалил, наверняка замедлились.</p></div></div>
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Проверь честно: из десяти медленных выговор получают пятеро, выбранные монеткой. Сравни их с остальными пятью.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Почему худшие кафе выросли без промо?</h2>
+    <p>Двадцать кафе, промо для пяти худших за неделю — и промо, которое ничего не делает. Отметь прогноз, как изменятся худшие кафе, и посмотри следующую неделю.</p>
+    <div class="stage-frame">
+      <iframe id="toy-frame" src="/play/worst-cafes/?embed=1" data-toy="worst-cafes" title="Игрушка: Промо в пяти худших кафе — и через неделю они выросли. Это промо?" style="height:1200px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/01-before-after.html#card-8">Открой её в курсе</a>.</p>
+    </div>
+    <p class="note credit">Игрушка из курса «A/B на пальцах», шаг 1. <a href="/play/worst-cafes/">Отдельная страница игрушки</a>.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>Пять худших кафе через неделю выросли, хотя промо пустое, а пять лучших без всякого промо просели. Худшими они оказались во многом из-за невезения, и на следующей неделе везение стало обычным. Отличить эффект промо от регрессии к среднему может только контрольная группа.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Как регрессия выглядит на точечной схеме?</h2>
+    <figure class="viz">
+      <p class="chart-head">Две недели работы 40 курьеров</p>
+      <svg class="viz-svg" viewBox="0 0 460 330" role="img" aria-label="медленные на неделе 1" xmlns="http://www.w3.org/2000/svg"><title>медленные на неделе 1</title><line x1="60" y1="260" x2="430" y2="260" stroke="#5E5A53" stroke-width="1.5"/><line x1="60" y1="260" x2="60" y2="30" stroke="#5E5A53" stroke-width="1.5"/><text x="60" y="282" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >20</text><text x="52" y="265" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >20</text><text x="245" y="282" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >30</text><text x="52" y="150" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >30</text><text x="430" y="282" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >40</text><text x="52" y="35" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >40</text><line x1="60" y1="260" x2="430" y2="30" stroke="#5E5A53" stroke-width="1.5" stroke-dasharray="5 4"/><line x1="60" y1="202.5" x2="430" y2="87.5" stroke="#23418A" stroke-width="2.5"/><circle cx="345.9" cy="120.1" r="5" fill="#C9413A" opacity=".85"/><circle cx="248.7" cy="122" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="311.6" cy="117.8" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="264.7" cy="109.7" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="313.8" cy="216.6" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="291.4" cy="57.2" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="209.5" cy="125.1" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="247.4" cy="115.3" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="171" cy="154.3" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="182" cy="125.5" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="300.7" cy="150.3" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="250.3" cy="167.4" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="248.9" cy="150.7" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="255" cy="220.5" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="208.5" cy="144.8" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="285.3" cy="133.6" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="184" cy="150.1" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="349" cy="69.2" r="5" fill="#C9413A" opacity=".85"/><circle cx="318" cy="84.1" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="336.4" cy="96.1" r="5" fill="#C9413A" opacity=".85"/><circle cx="289.3" cy="155.1" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="180.8" cy="153.5" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="235.6" cy="71.6" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="292.1" cy="114.9" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="189.1" cy="231.5" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="157.7" cy="128.5" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="227.6" cy="194.4" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="202.7" cy="78.7" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="351.2" cy="95.7" r="5" fill="#C9413A" opacity=".85"/><circle cx="281.6" cy="110.8" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="315.2" cy="132.2" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="223.9" cy="203.8" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="255.8" cy="206.4" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="180" cy="220.1" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="266.9" cy="137.6" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="182.3" cy="90" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="353.5" cy="116.8" r="5" fill="#C9413A" opacity=".85"/><circle cx="291.6" cy="85.7" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="214.1" cy="123.7" r="5" fill="#3D7DC4" opacity=".85"/><circle cx="171.5" cy="167.5" r="5" fill="#3D7DC4" opacity=".85"/><line x1="353.5" y1="77.6" x2="353.5" y2="116.8" stroke="#C9413A" stroke-width="1.2" stroke-dasharray="2 3"/><line x1="351.2" y1="79" x2="351.2" y2="95.7" stroke="#C9413A" stroke-width="1.2" stroke-dasharray="2 3"/><line x1="349" y1="80.3" x2="349" y2="69.2" stroke="#C9413A" stroke-width="1.2" stroke-dasharray="2 3"/><line x1="345.9" y1="82.3" x2="345.9" y2="120.1" stroke="#C9413A" stroke-width="1.2" stroke-dasharray="2 3"/><line x1="336.4" y1="88.2" x2="336.4" y2="96.1" stroke="#C9413A" stroke-width="1.2" stroke-dasharray="2 3"/><text x="426" y="48" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">как на неделе 1</text><text x="426" y="109.5" text-anchor="end" font-size="15" font-weight="400" fill="#23418A" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">ожидание</text><text x="430" y="306" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >неделя 1, минут</text><text x="66" y="18" text-anchor="start" font-size="15" font-weight="400" fill="#5E5A53" >неделя 2, минут</text><circle cx="78.5" cy="46.1" r="5" fill="#C9413A" /><text x="88.5" y="51.1" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">медленные на неделе 1</text></svg>
+      <figcaption class="figcap">Каждая точка — курьер: по горизонтали время доставки на первой неделе, по вертикали — на второй. Пунктир — «ничего не изменилось». Сплошная линия — ожидание при ρ = 0,5. Пятеро самых медленных (красные) на второй неделе в среднем ближе к середине. Данные смоделированы.</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">Где регрессию к среднему принимают за эффект?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">Приписывать эффект вмешательству, назначенному по крайнему значению.</span> Выговоры худшим, премии лучшим, промо для просевших кафе, лечение в момент пика симптомов — после всех них показатели «сами» идут к середине. Без контрольной группы эффект не отличить от регрессии.</li>
+      <li><span class="lead">Думать, что разброс со временем сжимается.</span> Нет: на следующей неделе будут новые рекордсмены и новые аутсайдеры. Регрессия касается конкретных людей, выбранных за крайний результат, а не всего распределения.</li>
+      <li><span class="lead">Верить, что победитель из многих тестов так же хорош.</span> Из многих вариантов выигрывает тот, кому ещё и повезло. В повторном тесте его эффект обычно меньше — это проклятие победителя, родственник регрессии к среднему.</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда регрессии к среднему нет?</h2>
+    <p>Регрессии нет, если в результате нет случайности: при ρ = 1 крайние так и остаются крайними. И она касается только тех, кого выбрали за крайний результат. Если курьер медленный всегда, потому что ездит на окраины, он медленным и останется.</p>
+    <p>Поэтому формула с ρ — ориентир, а не закон: ρ надо оценить по истории, а для решения о вмешательстве нужна контрольная группа.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Чем регрессия к среднему отличается от ошибки выжившего?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Регрессия к среднему</th><th scope="col">Ошибка выжившего</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Что искажает</th><td>Сравнение «до и после» для отобранных</td><td>Состав данных: часть объектов исчезла</td></tr>
+        <tr><th scope="row">Механизм</th><td>Отбор по крайнему значению с долей случайности</td><td>Отбор по факту «дожил до наблюдения»</td></tr>
+        <tr><th scope="row">Чем лечить</th><td>Случайная контрольная группа</td><td>Данные о выбывших, когорты</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Если ты выбрал людей за крайний результат и смотришь, что с ними стало, думай о регрессии. Если часть людей пропала из данных, думай об ошибке выжившего.</p>
+    <p class="more-link"><a href="/terms/survivorship-bias/">Ошибка выжившего простыми словами →</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Что про регрессию к среднему спросят на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Корреляция результатов двух контрольных — 0,6. Ученик написал первую на 2σ выше среднего. Какого результата ждать на второй?</span><span class="show">Показать ответ</span></summary>
+      <p>Примерно на 0,6 · 2 = 1,2σ выше среднего: заметно лучше среднего, но хуже, чем в первый раз. Это не значит, что ученик расслабился.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">У очень высоких отцов сыновья в среднем ниже отцов. Значит ли это, что через несколько поколений все станут одного роста?</span><span class="show">Показать ответ</span></summary>
+      <p>Нет. У очень высоких сыновей отцы тоже в среднем ниже сыновей: регрессия работает в обе стороны. Разброс роста в популяции при этом остаётся прежним.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «A/B на пальцах», шаг 1 — «До и после — не доказательство». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/01-before-after.html">Открыть шаг 1 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/survivorship-bias/"><b>Ошибка выжившего простыми словами</b><span>Выводы по «выжившим», когда отсеянные молчат.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/law-of-large-numbers/"><b>Закон больших чисел простыми словами</b><span>Почему длинные серии успокаиваются, а короткие скачут.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/ab-testing/"><b>A/B-тестирование простыми словами</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/play/one-in-twenty/"><b>Каждый двадцатый — значит, ровно один из двадцати?</b><span>Группы по 20 гостей при подписке 5 %: общая доля встаёт ровно, а отдельные группы ведут себя совсем не «по среднему».</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+</body>
+</html>

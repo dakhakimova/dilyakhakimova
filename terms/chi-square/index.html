@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Критерий хи-квадрат простыми словами · Диля Хакимова</title>
+<meta name="description" content="Хи-квадрат (χ², критерий Пирсона) на примере кубика Котейки: как сравнить наблюдаемые количества с ожидаемыми и при чём тут проверка сплита в A/B.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/chi-square/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/chi-square/">
+<meta property="og:title" content="Критерий хи-квадрат простыми словами · Диля Хакимова">
+<meta property="og:description" content="Хи-квадрат (χ², критерий Пирсона) на примере кубика Котейки: как сравнить наблюдаемые количества с ожидаемыми и при чём тут проверка сплита в A/B.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/chi-square.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Критерий хи-квадрат","item":"https://dilyakhakimova.com/terms/chi-square/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/chi-square/#term","name":"Критерий хи-квадрат","description":"Критерий хи-квадрат (χ², критерий Пирсона) проверяет, насколько количества по категориям расходятся с ожидаемыми, и бывает ли такое расхождение просто из-за случайности. Им проверяют честность кубика, ровность сплита в A/B и связь двух категориальных признаков.","url":"https://dilyakhakimova.com/terms/chi-square/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Критерий хи-квадрат простыми словами","description":"Хи-квадрат (χ², критерий Пирсона) на примере кубика Котейки: как сравнить наблюдаемые количества с ожидаемыми и при чём тут проверка сплита в A/B.","url":"https://dilyakhakimova.com/terms/chi-square/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/chi-square/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?","acceptedAnswer":{"@type":"Answer","text":"Ожидали по 50 000. χ² = 600²/50 000 + 600²/50 000 = 14,4 при одной степени свободы, p ≈ 0,00015. Такой перекос (SRM) почти наверняка значит баг в сплитовании или логировании: результаты теста нельзя читать, пока не найдёшь причину."}},{"@type":"Question","name":"Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?","acceptedAnswer":{"@type":"Answer","text":"Это один и тот же тест: без поправки Йейтса χ² для таблицы 2 × 2 равен квадрату z-статистики, и p-value совпадают."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Критерий хи-квадрат</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="chi-square"
+  data-share-title="Критерий хи-квадрат простыми словами" data-share-text="Критерий хи-квадрат простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Критерий хи-квадрат простыми словами</h1>
+    <p class="t-sub">Одна сумма квадратов расхождений — и ответ, честный ли кубик, ровно ли делится трафик и связаны ли две категории.</p>
+  </header>
+  <p class="t-def">Критерий хи-квадрат (χ², критерий Пирсона) проверяет, насколько количества по категориям расходятся с ожидаемыми, и бывает ли такое расхождение просто из-за случайности. Им проверяют честность кубика, ровность сплита в A/B и связь двух категориальных признаков.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%9A%D1%80%D0%B8%D1%82%D0%B5%D1%80%D0%B8%D0%B9%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%9F%D0%B8%D1%80%D1%81%D0%BE%D0%BD%D0%B0" rel="noopener">статье «Критерий согласия Пирсона» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Как считается хи-квадрат?</h2>
+    <p>Статистика χ² — сумма по категориям квадратов разностей наблюдаемых O и ожидаемых E количеств, делённых на ожидаемые. При верной H₀ и ожидаемых количествах от 5 и выше она приблизительно распределена по χ² с k − 1 степенями свободы (для таблицы r × c — с (r − 1)(c − 1)).</p>
+    <div class="formula" role="math" aria-label="«Для каждой категории возьми расхождение „наблюдали минус ожидали“, возведи в квадрат, раздели на ожидаемое и сложи». Деление на E делает расхождения сравнимыми: лишние 10 при ожидаемых 10 — много, при ожидаемых 1000 — мелочь."><i>χ</i>² = Σ <span class="fr"><span>(<i>O</i> − <i>E</i>)²</span><span><i>E</i></span></span></div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Для каждой категории возьми расхождение „наблюдали минус ожидали“, возведи в квадрат, раздели на ожидаемое и сложи». Деление на E делает расхождения сравнимыми: лишние 10 при ожидаемых 10 — много, при ожидаемых 1000 — мелочь.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Честный ли кубик у Котейки?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Шестёрка — это «десерт Котейке». За 60 бросков она выпала 20 раз. Кубик честный, клянусь усами.</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ждали по 10 на каждую грань, вышло 5, 8, 9, 7, 11 и 20. Хи-квадрат — 14 при пороге 11,07 для пяти степеней свободы, p ≈ 0,016.</p></div></div>
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">То есть у честного кубика такой перекос бывает реже чем в двух сериях из ста. Кубик конфискован.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Насколько неровно ложатся грани честного кубика?</h2>
+    <p>Новая игрушка: бросай честный кубик сериями по 60 бросков и смотри, насколько неровно ложатся грани. Потом запусти 1000 серий, чтобы увидеть, каким бывает χ² у честного кубика, и подмени кубик на кубик Котейки.</p>
+    <div class="t-toy" data-ttoy="chi" data-s="{&quot;q&quot;:&quot;Честный кубик бросили 60 раз. Как обычно ложатся грани?&quot;,&quot;opts&quot;:[&quot;Почти поровну: каждая от 8 до 12 раз&quot;,&quot;Заметно вразнобой: от 5 до 15 раз — норма&quot;,&quot;Как угодно: по 60 броскам ничего не понять&quot;],&quot;modes&quot;:[&quot;Честный кубик&quot;,&quot;Кубик Котейки&quot;],&quot;run&quot;:&quot;Бросить 60 раз&quot;,&quot;many&quot;:&quot;1000 серий&quot;,&quot;bars&quot;:&quot;Сколько раз выпала каждая грань&quot;,&quot;hist&quot;:&quot;χ² в сериях: правее 11,07 — «кубик нечестный»&quot;,&quot;chi&quot;:&quot;χ²&quot;,&quot;p&quot;:&quot;p-value&quot;,&quot;over&quot;:&quot;Выше порога 11,07: {k} из {n} серий ({pct})&quot;,&quot;vFair&quot;:&quot;χ² = {c}: такой разброс у честного кубика — обычное дело (p = {p}).&quot;,&quot;vBad&quot;:&quot;χ² = {c}: выше порога 11,07 — у честного кубика так бывает реже чем в 5 % серий (p = {p}).&quot;}">
+      <div class="guess">
+        <p class="eyebrow">Твой прогноз</p>
+        <p class="q">Честный кубик бросили 60 раз. Как обычно ложатся грани?</p>
+        <div class="choice" role="group" aria-label="Твой прогноз"><button type="button" data-v="0" aria-pressed="false">Почти поровну: каждая от 8 до 12 раз</button><button type="button" data-v="1" aria-pressed="false">Заметно вразнобой: от 5 до 15 раз — норма</button><button type="button" data-v="2" aria-pressed="false">Как угодно: по 60 броскам ничего не понять</button></div>
+        <p class="note gnote" data-saved="Прогноз записан. Теперь проверь.">Выбери вариант — потом проверь на игрушке.</p>
+      </div>
+      <div class="t-body"></div>
+    </div>
+    <p class="note credit">Игрушка сделана для этой страницы.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>У честного кубика за 60 бросков грани ложатся неровно: все шесть от 8 до 12 раз выпадают лишь примерно в 8 % серий, а от 5 до 15 — в 73 %. Значение χ² выше 11,07 у честного кубика бывает в 5 % серий. Кубик Котейки, где шестёрка выпадает в трети бросков, тест ловит примерно в 70 % серий по 60 бросков.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Какая грань даёт больше всего в χ²?</h2>
+    <figure class="viz">
+      <p class="chart-head">Кубик Котейки: наблюдали против ожидали</p>
+      <svg class="viz-svg" viewBox="0 0 460 342" role="img" aria-label="χ² = 2,5 + 0,4 + 0,1 + 0,9 + 0,1 + 10 = 14,0" xmlns="http://www.w3.org/2000/svg"><title>χ² = 2,5 + 0,4 + 0,1 + 0,9 + 0,1 + 10 = 14,0</title><line x1="40" y1="250" x2="434" y2="250" stroke="#5E5A53" stroke-width="1.5"/><rect x="50" y="200" width="50" height="50" fill="#3D7DC4" opacity=".85" rx="3"/><text x="75" y="192" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >5</text><text x="75" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >1</text><text x="75" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+2,5</text><rect x="114" y="170" width="50" height="80" fill="#3D7DC4" opacity=".85" rx="3"/><text x="139" y="162" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >8</text><text x="139" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >2</text><text x="139" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+0,4</text><rect x="178" y="160" width="50" height="90" fill="#3D7DC4" opacity=".85" rx="3"/><text x="203" y="152" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >9</text><text x="203" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >3</text><text x="203" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+0,1</text><rect x="242" y="180" width="50" height="70" fill="#3D7DC4" opacity=".85" rx="3"/><text x="267" y="172" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >7</text><text x="267" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >4</text><text x="267" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+0,9</text><rect x="306" y="140" width="50" height="110" fill="#3D7DC4" opacity=".85" rx="3"/><text x="331" y="132" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >11</text><text x="331" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >5</text><text x="331" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+0,1</text><rect x="370" y="50" width="50" height="200" fill="#E59157" opacity=".85" rx="3"/><text x="395" y="42" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >20</text><text x="395" y="272" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >6</text><text x="395" y="296" text-anchor="middle" font-size="15" font-weight="400" fill="#A85A24" >+10</text><line x1="40" y1="150" x2="434" y2="150" stroke="#24221F" stroke-width="1.5" stroke-dasharray="6 4"/><text x="434" y="144" text-anchor="end" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">ждали 10</text><text x="36" y="272" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >грань</text><text x="36" y="296" text-anchor="end" font-size="13" font-weight="400" fill="#5E5A53" >(O−E)²/E</text><text x="230" y="330" text-anchor="middle" font-size="15" font-weight="500" fill="#24221F" >χ² = 2,5 + 0,4 + 0,1 + 0,9 + 0,1 + 10 = 14,0</text></svg>
+      <figcaption class="figcap">Столбики — сколько раз выпала каждая грань за 60 бросков, пунктир — ожидаемые 10. Над столбиком — вклад грани в χ². Из 14 очков 10 даёт шестёрка.</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">Где ошибаются с хи-квадратом?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">Подставлять проценты вместо количеств.</span> χ² зависит от числа наблюдений: одни и те же доли на 60 и на 6000 бросках дают разные выводы. В формулу идут штуки, а не проценты.</li>
+      <li><span class="lead">Считать при маленьких ожидаемых количествах.</span> Если в категориях ожидается меньше 5 наблюдений, приближение распределением χ² врёт. Объединяй редкие категории или бери точный тест Фишера.</li>
+      <li><span class="lead">Искать в значимом χ² ответ «где именно».</span> Тест говорит, что расхождение есть, но не где. Смотри на вклады (O − E)²/E или остатки (O − E)/√E по категориям.</li>
+      <li><span class="lead">Забывать о независимости наблюдений.</span> Пятьдесят заказов одного гостя — не пятьдесят независимых наблюдений. Считай в единицах рандомизации, иначе χ² раздувается.</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда хи-квадрату нельзя верить?</h2>
+    <p>Хи-квадрат — приближение, и оно ломается при малых ожидаемых частотах. Если в категории ожидается 1–2 наблюдения, одно лишнее даёт огромный вклад, и p-value выходит слишком маленьким. Правило «ожидаемых не меньше 5» — про это.</p>
+    <p>При огромных выборках проблема обратная: значимым становится любое крошечное расхождение. На миллионе событий χ² почти всегда «найдёт» разницу, поэтому смотри ещё и на размер расхождений.</p>
+    <figure class="viz small"><svg class="viz-svg" viewBox="0 0 460 280" role="img" aria-label="ложные тревоги" xmlns="http://www.w3.org/2000/svg"><title>ложные тревоги</title><line x1="70" y1="220" x2="430" y2="220" stroke="#5E5A53" stroke-width="1.5"/><line x1="70" y1="220" x2="70" y2="30" stroke="#5E5A53" stroke-width="1.5"/><text x="62" y="225" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >0 %</text><text x="62" y="130" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >5 %</text><text x="62" y="35" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >10 %</text><text x="70" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >6</text><text x="142" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >12</text><text x="214" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >18</text><text x="286" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >30</text><text x="358" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >60</text><text x="430" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >300</text><line x1="70" y1="125" x2="430" y2="125" stroke="#24221F" stroke-width="1.5" stroke-dasharray="6 4"/><text x="430" y="117" text-anchor="end" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">обещано 5 %</text><path d="M70 109.8L142 157.3L214 130.7L286 128.8L358 126.9L430 123.1" fill="none" stroke="#3D7DC4" stroke-width="2.5" stroke-linejoin="round" /><circle cx="70" cy="109.8" r="4.5" fill="#3D7DC4" /><circle cx="142" cy="157.3" r="4.5" fill="#3D7DC4" /><circle cx="214" cy="130.7" r="4.5" fill="#3D7DC4" /><circle cx="286" cy="128.8" r="4.5" fill="#3D7DC4" /><circle cx="358" cy="126.9" r="4.5" fill="#3D7DC4" /><circle cx="430" cy="123.1" r="4.5" fill="#3D7DC4" /><text x="142" y="185.3" text-anchor="start" font-size="15" font-weight="500" fill="#2B5E96" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">ложные тревоги</text><text x="430" y="266" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >бросков кубика</text></svg><figcaption class="figcap">Доля ложных тревог хи-квадрата (порог 5 %) у честного кубика при разном числе бросков: при ожидаемых 1–3 на грань она скачет от 3 до 6 %, с ожидаемых 5 и выше держится у 5 % (симуляция).</figcaption></figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Чем хи-квадрат отличается от z-теста для долей?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Хи-квадрат</th><th scope="col">z-тест для двух долей</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Сколько категорий</th><td>Любое, и таблицы r × c</td><td>Ровно две группы и два исхода</td></tr>
+        <tr><th scope="row">Направление эффекта</th><td>Не показывает</td><td>Показывает знак и интервал разницы</td></tr>
+        <tr><th scope="row">Таблица 2 × 2</th><td>χ² = z²</td><td>z = ±√χ²</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Для двух групп и доли бери z-тест: он даёт и знак, и интервал. Хи-квадрат — когда категорий больше двух или проверяешь согласие с ожидаемыми частотами, как при SRM.</p>
+    <p class="more-link"><a href="/play/z-test/">Покрутить игрушку про это: z-тест для долей →</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Какие задачи на хи-квадрат дают на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?</span><span class="show">Показать ответ</span></summary>
+      <p>Ожидали по 50 000. χ² = 600²/50 000 + 600²/50 000 = 14,4 при одной степени свободы, p ≈ 0,00015. Такой перекос (SRM) почти наверняка значит баг в сплитовании или логировании: результаты теста нельзя читать, пока не найдёшь причину.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?</span><span class="show">Показать ответ</span></summary>
+      <p>Это один и тот же тест: без поправки Йейтса χ² для таблицы 2 × 2 равен квадрату z-статистики, и p-value совпадают.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «Сигнал или шум», глава 10 — «A/B на простой метрике». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/signal/10-ab-test.html">Открыть глава 10 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/p-value/"><b>p-value простыми словами</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/ab-testing/"><b>A/B-тестирование простыми словами</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/statistical-significance/"><b>Статистическая значимость простыми словами</b><span>Договорённость о пороге, а не печать «важно».</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/play/signal-game/"><b>Заметишь, когда конверсия правда поменялась?</b><span>Тренажёр: 30 дней конверсии кафе со 100 гостями в день. Где-то она, может быть, выросла с 10 до 15 %. Жми «Сигнал!», когда уверен.</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+<script src="/terms/toys.js?v=202611250"></script>
+</body>
+</html>

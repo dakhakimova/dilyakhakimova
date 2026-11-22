@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
+<title>Парадокс Симпсона простыми словами · Диля Хакимова</title>
+<meta name="description" content="Парадокс Симпсона: лучше в каждой подгруппе и хуже в сумме. Разбираем на двух бариста кафе, рисуем взвешенные средние и объясняем, какому сравнению верить.">
+<link rel="canonical" href="https://dilyakhakimova.com/terms/simpson-paradox/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/terms/simpson-paradox/">
+<meta property="og:title" content="Парадокс Симпсона простыми словами · Диля Хакимова">
+<meta property="og:description" content="Парадокс Симпсона: лучше в каждой подгруппе и хуже в сумме. Разбираем на двух бариста кафе, рисуем взвешенные средние и объясняем, какому сравнению верить.">
+<meta property="og:image" content="https://dilyakhakimova.com/terms/og/simpson-paradox.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/terms/terms.css?v=202611250">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Парадокс Симпсона","item":"https://dilyakhakimova.com/terms/simpson-paradox/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term","name":"Парадокс Симпсона","description":"Парадокс Симпсона — это когда в каждой подгруппе один вариант лучше, а в сумме по всем данным выигрывает другой. Виноваты разные пропорции подгрупп: общая доля — это взвешенное среднее, и веса у вариантов разные.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Парадокс Симпсона простыми словами","description":"Парадокс Симпсона: лучше в каждой подгруппе и хуже в сумме. Разбираем на двух бариста кафе, рисуем взвешенные средние и объясняем, какому сравнению верить.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Лечение A лучше лечения B и для мелких, и для крупных камней в почках, но в целом его успешность ниже. Как такое возможно и какому сравнению верить?","acceptedAnswer":{"@type":"Answer","text":"Так было в известном исследовании: у A 93 % успеха на мелких камнях и 73 % на крупных, у B — 87 % и 69 %, а в сумме A — 78 %, B — 83 %. Лечение A чаще назначали тяжёлым случаям с крупными камнями. Размер камня влияет и на выбор лечения, и на исход, поэтому верить надо сравнению внутри групп."}},{"@type":"Question","name":"В A/B-тесте сплит в первую неделю был 90/10, во вторую — 50/50. Можно сложить данные двух недель и сравнить конверсии?","acceptedAnswer":{"@type":"Answer","text":"Нельзя: если конверсия во вторую неделю другая (сезон, акция), группа B в сумме окажется почти целиком из второй недели, а A — из первой. Сравнивай внутри каждой недели или взвешивай недели одинаково для обеих групп."}}]}]}</script>
+</head>
+<body class="t-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <div class="brand">
+    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
+    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
+  </div>
+  <nav aria-label="Разделы сайта">
+    <a href="/#courses">Курсы</a>
+    <a href="/play/">Игрушки</a>
+    <a href="/#read">Статьи</a>
+    <a href="/about/">Об авторе</a>
+  </nav>
+</header>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/terms/">Словарь аналитика</a></li>
+    <li><span aria-current="page">Парадокс Симпсона</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap term" data-slug="simpson-paradox"
+  data-share-title="Парадокс Симпсона простыми словами" data-share-text="Парадокс Симпсона простыми словами — с игрушкой и задачей с собеседования:"
+  data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  <header class="t-hero">
+    <p class="eyebrow">Мини-лаборатория</p>
+    <h1>Парадокс Симпсона простыми словами</h1>
+    <p class="t-sub">Как вариант может выигрывать в каждой подгруппе и проигрывать в сумме — и что с этим делать в A/B.</p>
+  </header>
+  <p class="t-def">Парадокс Симпсона — это когда в каждой подгруппе один вариант лучше, а в сумме по всем данным выигрывает другой. Виноваты разные пропорции подгрупп: общая доля — это взвешенное среднее, и веса у вариантов разные.</p>
+  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%9F%D0%B0%D1%80%D0%B0%D0%B4%D0%BE%D0%BA%D1%81%20%D0%A1%D0%B8%D0%BC%D0%BF%D1%81%D0%BE%D0%BD%D0%B0" rel="noopener">статье «Парадокс Симпсона» в Википедии ↗</a>.</p>
+
+  <section class="t-sec" aria-labelledby="strict-h">
+    <h2 id="strict-h">Как парадокс Симпсона объясняет формула?</h2>
+    <p>Возможно одновременно P(Y | A, z) > P(Y | B, z) для каждого значения z третьей переменной и P(Y | A) < P(Y | B) в целом. Причина — в формуле полной вероятности: общая доля усредняет доли по подгруппам с весами P(z | A), а эти веса у A и B разные.</p>
+    <div class="formula" role="math" aria-label="«Общая доля успеха у A — это сумма долей успеха в каждой подгруппе, умноженных на долю этой подгруппы среди A». Если у A и B разный состав подгрупп, общие доли сравнивают несравнимое."><i>P</i>(<i>Y</i> | <i>A</i>) = Σ<sub><i>z</i></sub> <i>P</i>(<i>Y</i> | <i>A</i>, <i>z</i>) · <i>P</i>(<i>z</i> | <i>A</i>)</div>
+    <p class="t-read"><span class="lbl">Как читать формулу.</span> «Общая доля успеха у A — это сумма долей успеха в каждой подгруппе, умноженных на долю этой подгруппы среди A». Если у A и B разный состав подгрупп, общие доли сравнивают несравнимое.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cafe-h">
+    <h2 id="cafe-h">Кто из бариста работает лучше?</h2>
+    <div class="chat" role="group" aria-label="Пример из кафе">
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У Котейки довольны 87 % гостей, у меня — только 75 %. Меня уволят?</p></div></div>
+      <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Утром у тебя довольны 95 % против его 90 %, вечером — 70 % против 60 %. Ты лучше в обе смены. Просто 80 твоих гостей из 100 — вечерние, в час пик, а у Котейки таких только 10.</p></div></div>
+      <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Я выбираю спокойные смены. Это тоже талант.</p></div></div>
+    </div>
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Как предзаказ может быть лучше везде и хуже в сумме?</h2>
+    <p>Новая функция предзаказа в приложении: среди постоянных гостей и среди новичков включившие заказывают чаще. Угадай, что покажет общая цифра, и посмотри, кто именно включил функцию.</p>
+    <div class="stage-frame">
+      <iframe id="toy-frame" src="/play/simpson-preorder/?embed=1" data-toy="simpson-preorder" title="Игрушка: Лучше среди постоянных, лучше среди новичков — и хуже в сумме?" style="height:800px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/10-traps.html#card-11">Открой её в курсе</a>.</p>
+    </div>
+    <p class="note credit">Игрушка из курса «A/B на пальцах», шаг 10. <a href="/play/simpson-preorder/">Отдельная страница игрушки</a>.</p>
+    <h3>Что показывает игрушка</h3>
+    <p>Включившие предзаказ лучше и среди постоянных, и среди новичков, но хуже в сумме: среди них гораздо больше новичков, а новички заказывают в разы реже. Общая доля смешала эффект функции с составом групп.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">Почему общая доля — точка на линии?</h2>
+    <figure class="viz">
+      <p class="chart-head">Общая доля — точка на линии между сменами</p>
+      <svg class="viz-svg" viewBox="0 0 460 320" role="img" aria-label="Боб: 75 % · Котейка: 87 %" xmlns="http://www.w3.org/2000/svg"><title>Боб: 75 % · Котейка: 87 %</title><line x1="70" y1="240" x2="430" y2="240" stroke="#5E5A53" stroke-width="1.5"/><line x1="70" y1="240" x2="70" y2="40" stroke="#5E5A53" stroke-width="1.5"/><text x="62" y="245" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >50 %</text><text x="62" y="145" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >75 %</text><text x="62" y="45" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >100 %</text><text x="70" y="262" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >0 %</text><text x="250" y="262" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >50 %</text><text x="430" y="262" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >100 %</text><text x="70" y="286" text-anchor="start" font-size="15" font-weight="400" fill="#5E5A53" >утро</text><text x="430" y="286" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >вечер</text><path d="M70 60L430 160" fill="none" stroke="#3D7DC4" stroke-width="3" stroke-linejoin="round" /><path d="M70 80L430 200" fill="none" stroke="#E59157" stroke-width="3" stroke-linejoin="round" /><text x="426" y="150" text-anchor="end" font-size="16" font-weight="500" fill="#2B5E96" >Боб</text><text x="426" y="222" text-anchor="end" font-size="16" font-weight="500" fill="#A85A24" >Котейка</text><circle cx="358" cy="140" r="8" fill="#3D7DC4" stroke="#fff" stroke-width="2"/><circle cx="106" cy="92" r="8" fill="#E59157" stroke="#fff" stroke-width="2"/><text x="346" y="166" text-anchor="middle" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">Боб: 75 %</text><text x="118" y="78" text-anchor="start" font-size="15" font-weight="400" fill="#24221F" paint-order="stroke" stroke="#fff" stroke-width="5" stroke-linejoin="round">Котейка: 87 %</text><text x="250" y="310" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >доля вечерних гостей у бариста</text></svg>
+      <figcaption class="figcap">Линия каждого бариста идёт от доли довольных утром (слева) к доле вечером (справа). Общая доля лежит на линии там, какая у бариста доля вечерних гостей. Линия Боба выше везде, но его точка (80 % вечерних) ниже точки Котейки (10 % вечерних).</figcaption>
+    </figure>
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">Какому сравнению верить: общему или по подгруппам?</h2>
+    <ul class="list t-err">
+      <li><span class="lead">Всегда верить разбивке по подгруппам.</span> Если подгруппа — следствие самого воздействия (например, «досмотрел до конца» после нового плеера), разбивка по ней искажает эффект, и честнее общая цифра. Какому сравнению верить, решает причинная схема, а не арифметика.</li>
+      <li><span class="lead">Склеивать периоды с разным сплитом.</span> В A/B с рандомизацией состав групп одинаков, и парадокс в итоговой метрике не возникает. Но если первую неделю сплит был 90/10, а вторую — 50/50, сумма недель смешает разные веса. Сравнивай по периодам или взвешивай.</li>
+      <li><span class="lead">Резать данные, пока что-нибудь не перевернётся.</span> Чем больше срезов, тем выше шанс найти «перевёрнутую» подгруппу случайно. Подгруппы выбирают до анализа.</li>
+    </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда разбивка по подгруппам сама врёт?</h2>
+    <p>Разбивка по подгруппам не всегда честнее общей цифры. Если подгруппа появляется из-за самого воздействия (новый плеер → больше людей досматривают до конца), сравнение внутри «досмотревших» сравнивает разных людей.</p>
+    <p>Решает причинная схема: делить нужно по тому, что влияет и на выбор варианта, и на исход, но само от варианта не зависит.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Чем парадокс Симпсона отличается от парадокса Берксона?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Парадокс Симпсона</th><th scope="col">Парадокс Берксона</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Что происходит</th><td>Связь меняет знак при объединении подгрупп</td><td>Связь появляется из-за отбора</td></tr>
+        <tr><th scope="row">Механизм</th><td>Разные пропорции подгрупп</td><td>В данных только прошедшие порог</td></tr>
+        <tr><th scope="row">Пример</th><td>Бариста: лучше в каждую смену, хуже в сумме</td><td>В приложении «вкусные кафе дешевле»</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Если цифры по подгруппам и в сумме спорят — ищи Симпсона. Если связь появилась только в отобранных данных — Берксона.</p>
+    <p class="more-link"><a href="/play/berkson/">Покрутить игрушку про это: парадокс Берксона →</a></p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Какие задачи на парадокс Симпсона спросят на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Лечение A лучше лечения B и для мелких, и для крупных камней в почках, но в целом его успешность ниже. Как такое возможно и какому сравнению верить?</span><span class="show">Показать ответ</span></summary>
+      <p>Так было в известном исследовании: у A 93 % успеха на мелких камнях и 73 % на крупных, у B — 87 % и 69 %, а в сумме A — 78 %, B — 83 %. Лечение A чаще назначали тяжёлым случаям с крупными камнями. Размер камня влияет и на выбор лечения, и на исход, поэтому верить надо сравнению внутри групп.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">В A/B-тесте сплит в первую неделю был 90/10, во вторую — 50/50. Можно сложить данные двух недель и сравнить конверсии?</span><span class="show">Показать ответ</span></summary>
+      <p>Нельзя: если конверсия во вторую неделю другая (сезон, акция), группа B в сумме окажется почти целиком из второй недели, а A — из первой. Сравнивай внутри каждой недели или взвешивай недели одинаково для обеих групп.</p>
+    </details>
+  </section>
+
+  <section class="t-sec t-cta" aria-labelledby="course-h">
+    <h2 id="course-h">Где это в курсе</h2>
+    <p>Бесплатный курс «A/B на пальцах», шаг 10 — «Когда зелёное врёт». Без регистрации, начни прямо сейчас.</p>
+    <p class="ctas"><a class="btn" href="/ab-basics/10-traps.html">Открыть шаг 10 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
+    <p class="t-wait">Готовим продвинутый курс «A/B без мифов» — <a href="/ab/#waitlist">лист ожидания</a>.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="rel-h">
+    <h2 id="rel-h">Связанные термины</h2>
+    <ul class="toys t-rel" role="list">
+      <li><a href="/terms/conditional-probability/"><b>Условная вероятность простыми словами</b><span>Как известное событие меняет шансы другого.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/survivorship-bias/"><b>Ошибка выжившего простыми словами</b><span>Выводы по «выжившим», когда отсеянные молчат.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/terms/ab-testing/"><b>A/B-тестирование простыми словами</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/play/prize-wheel/"><b>Сколько в среднем приносит гостю одно вращение колеса призов?</b><span>Колесо призов у стойки: крути и смотри, к чему прижимается средний приз — и кому на самом деле выгодна игра.</span><span class="go">Ещё наугад →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="t-share" aria-label="Скинуть коллеге">
+    <div class="row">
+      <button class="btn ghost" type="button" data-act="share">Скинуть коллеге</button>
+      <button class="btn ghost" type="button" data-act="copy">Скопировать ссылку</button>
+      <span class="note" role="status"></span>
+    </div>
+  </section>
+
+  <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ещё</h2>
+      <ul role="list">
+        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
+        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+  </div>
+</footer>
+
+<script src="/terms/terms.js?v=202611250"></script>
+</body>
+</html>
