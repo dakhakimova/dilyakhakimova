@@ -475,3 +475,12 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .course.rub .course-act .btn.ghost{background:transparent; border-color:rgba(36,34,31,.32)}   /* на цветном поле рубрики — контур без заливки */
 /* первый экран: рукописная часть «угадай, потом проверь» — одной строкой (заголовок ≤ 3 строк и на 375) */
 .hero h1 .hand{font-size:.8em; white-space:nowrap}
+/* анимация на странице курса (site/course-anim.js) — та же рамка, что у колоколов на главной */
+.anim-block h2{margin-bottom:var(--s-4)}
+.anim-svg{display:block; width:100%; height:auto}
+.anim-svg .lab{font:600 16px var(--body)}
+.anim-svg .zone{font:500 14px var(--body)}
+.anim-svg .thr{font:500 14px var(--body)}
+.anim-svg .tick{font:400 13px var(--body); font-variant-numeric:tabular-nums}
+/* на телефоне своя сетка 400 единиц (site/course-anim.js): 16 единиц ≈ 14 px */
+.anim-svg.nw .lab{font-size:20px} .anim-svg.nw .zone, .anim-svg.nw .thr{font-size:18px} .anim-svg.nw .tick{font-size:16px}

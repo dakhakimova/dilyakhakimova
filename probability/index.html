@@ -18,10 +18,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
-<link rel="stylesheet" href="/tokens.css?v=202611237">
-<link rel="stylesheet" href="/home.css?v=202611237">
-<link rel="stylesheet" href="/course.css?v=202611237">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611238">
+<link rel="stylesheet" href="/tokens.css?v=202611238">
+<link rel="stylesheet" href="/home.css?v=202611238">
+<link rel="stylesheet" href="/course.css?v=202611238">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -65,6 +65,16 @@ function artFail(img){
   <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: две монетки и дерево исходов</span></figcaption></figure>
 </section>
 
+<!-- анимация курса (решение Дили, 22.11.2026: одна «гифка» вместо блока игр) — site/course-anim.js -->
+<section class="wrap block bells-block anim-block" aria-labelledby="anim-h">
+  <h2 id="anim-h">Почему 7 — самая частая сумма</h2>
+  <figure class="bells-fig">
+    <p class="bells-cnt" aria-hidden="true">Бросков двух кубиков: <b data-anim-n>0</b></p>
+    <svg data-anim="dice" class="anim-svg" role="img" aria-label="Почему 7 — самая частая сумма"></svg>
+    <figcaption class="bells-cap"><span class="bells-sum"><!-- typo -->Столбики — сколько раз выпала каждая сумма, линия — точные доли из 36. Сумма 7 складывается шестью способами, 2 и 12 — одним. Чем больше бросков, тем точнее столбики ложатся на линию.<!-- /typo --></span></figcaption>
+  </figure>
+</section>
+
 <!-- 2. Что будет в курсе -->
 <section class="wrap block" id="modules" aria-labelledby="mod-h">
   <div class="col">
@@ -84,24 +94,6 @@ function artFail(img){
   </div>
 </section>
 
-<!-- 3. Игры -->
-<section class="wrap block" id="toys" aria-labelledby="toys-h">
-  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
-  <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Каждая игра открывается прямо на своей карточке шага.</p>
-  <div class="toys-wrap">
-  <ul class="toys c-toys" role="list">
-    <li><a href="01-outcomes.html#card-3"><b data-i18n="t1.t">Две монетки моют посуду</b><span data-i18n="t1.d">Бросай пары: плитки ОО, ОР, РО и РР загораются по очереди. Через сотню бросков видно, что «разные» выпадают вдвое чаще, чем «два орла», — правило Боба нечестное.</span><small data-i18n="t1.f">шаг 1, карточка 3</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="02-frequency.html#card-4"><b data-i18n="t2.t">Бегущая доля</b><span data-i18n="t2.d">Один, десять, сто, десять тысяч бросков. На десяти доля орлов обычно гуляет от 20 до 80%, на десяти тысячах в 19 сериях из 20 держится в пределах 49–51%.</span><small data-i18n="t2.f">шаг 2, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="02-frequency.html#card-3"><b data-i18n="t3.t">Ровно пять из десяти</b><span data-i18n="t3.d">Все знают, что орлов «половина». Но ровно 5 из 10 выпадает только в 24.6% серий. Бросай по одной серии или сразу по тысяче.</span><small data-i18n="t3.f">шаг 2, карточка 3</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="03-counting.html#card-6"><b data-i18n="t4.t">Конструктор дерева</b><span data-i18n="t4.d">Каждый клик удваивает ветки: после десяти бросков их 1024. Треугольник Паскаля подсвечивает 252 ветки ровно с пятью орлами.</span><small data-i18n="t4.f">шаг 3, карточка 6</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="04-not-and-or.html#card-4"><b data-i18n="t5.t">Вечеринка дней рождения</b><span data-i18n="t5.d">Гости входят по одному, совпадения вспыхивают. Тянешь ползунок: при 23 гостях совпадение бывает в 50.7% вечеринок, при 50 — в 97%.</span><small data-i18n="t5.f">шаг 4, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="05-conditional.html#card-4"><b data-i18n="t6.t">Сортировочная на 1000 гостей</b><span data-i18n="t6.d">Тысяча гостей разбегается по таблице «дождь или солнце × взял шоколад или нет». Рамка «смотрим только на…» сужает мир, и доля меняется на глазах.</span><small data-i18n="t6.f">шаг 5, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="06-bayes.html#card-4"><b data-i18n="t7.t">Касса и фальшивые купюры</b><span data-i18n="t7.d">Ползунки: как часто попадаются фальшивки и насколько точна касса. Если фальшивая одна купюра из 1000, а касса ловит 99% фальшивок и ошибается на 1% настоящих, настоящих тревог среди писков — около 9%.</span><small data-i18n="t7.f">шаг 6, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-    <li><a href="06-bayes.html#card-9"><b data-i18n="t8.t">Монти Холл на празднике</b><span data-i18n="t8.d">Сыграй несколько раз сам, потом запусти автомат на 1000 игр: кто меняет дверь, выигрывает примерно в двух играх из трёх.</span><small data-i18n="t8.f">шаг 6, карточка 9</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
-  </ul>
-  <!--missing-art /img/prob-toys.jpg PGZpZ3VyZSBjbGFzcz0iYXJ0Ij48aW1nIHNyYz0iL2ltZy9wcm9iLXRveXMuanBnIiB3aWR0aD0iOTAwIiBoZWlnaHQ9IjEyMDAiIGxvYWRpbmc9ImxhenkiIGRhdGEtaTE4bi1hdHRyPSJhbHQ6dG95cy5hbHQiIGFsdD0i0JrQvtGC0LXQudC60LAg0YPCoNC00L7RgdC60Lgg0JPQsNC70YzRgtC+0L3QsCwg0LPQvtGB0YLQuCDQutCw0YTQtSDRgdC/0L7RgNGP0YIsINCz0LTQtSDQstGL0YDQsNGB0YLQtdGCINCz0L7RgNC60LAg0YjQsNGA0LjQutC+0LIiIG9uZXJyb3I9ImFydEZhaWwodGhpcykiPjxmaWdjYXB0aW9uIGNsYXNzPSJwaCIgZGF0YS1pMThuPSJ0b3lzLnBoIj7QmtC+0YLQtdC50LrQsCDRg8Kg0LTQvtGB0LrQuCDQk9Cw0LvRjNGC0L7QvdCwLCDQs9C+0YHRgtC4INGB0L/QvtGA0Y/RgiDQvsKg0LPQvtGA0LrQtTwvZmlnY2FwdGlvbj48L2ZpZ3VyZT4= -->
-  </div>
-</section>
 
 <!-- 4. Что получишь -->
 <section class="wrap block" id="results" aria-labelledby="res-h">
@@ -154,8 +146,9 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611237"></script>
-<script src="/i18n/probability.js?v=202611237"></script>
-<script src="/landing.js?v=202611237"></script>
+<script src="/i18n/site.js?v=202611238"></script>
+<script src="/i18n/probability.js?v=202611238"></script>
+<script src="/landing.js?v=202611238"></script>
+<script src="/site/course-anim.js?v=202611238"></script>
 </body>
 </html>

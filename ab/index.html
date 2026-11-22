@@ -18,10 +18,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
-<link rel="stylesheet" href="/tokens.css?v=202611237">
-<link rel="stylesheet" href="/home.css?v=202611237">
-<link rel="stylesheet" href="/course.css?v=202611237">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611238">
+<link rel="stylesheet" href="/tokens.css?v=202611238">
+<link rel="stylesheet" href="/home.css?v=202611238">
+<link rel="stylesheet" href="/course.css?v=202611238">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -66,6 +66,16 @@ function artFail(img){
   <figure class="art"><img src="/img/abm-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Две двери кафе, за кулисами шестерёнки и ящики-бакеты" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: две двери и шестерёнки</span></figcaption></figure>
 </section>
 
+<!-- анимация курса (решение Дили, 22.11.2026: одна «гифка» вместо блока игр) — site/course-anim.js -->
+<section class="wrap block bells-block anim-block" aria-labelledby="anim-h">
+  <h2 id="anim-h">Почему нельзя останавливать тест, как только стало зелёным</h2>
+  <figure class="bells-fig">
+    <p class="bells-cnt" aria-hidden="true">День теста: <b data-anim-n>0</b></p>
+    <svg data-anim="peeking" class="anim-svg" role="img" aria-label="Почему нельзя останавливать тест, как только стало зелёным"></svg>
+    <figcaption class="bells-cap"><span class="bells-sum"><!-- typo -->Это A/A-тест: обе группы одинаковые, эффекта нет. Но если пересчитывать p-value каждый день, он то и дело ныряет ниже 0.05. Остановишь на первом «прокрасе» — выкатишь то, что ничего не меняет.<!-- /typo --></span></figcaption>
+  </figure>
+</section>
+
 <!-- 2. Что будет в курсе -->
 <section class="wrap block" id="modules" aria-labelledby="mod-h">
   <div class="col">
@@ -85,24 +95,6 @@ function artFail(img){
   </div>
 </section>
 
-<!-- 3. Игры -->
-<section class="wrap block" id="toys" aria-labelledby="toys-h">
-  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
-  <p class="lead-note" data-i18n="toys.lead">Игра показывает идею за минуту, ноутбук делает то же на твоих данных. Игры появятся вместе с курсом.</p>
-  <div class="toys-wrap">
-  <ul class="toys c-toys" role="list">
-    <li><div class="off"><b data-i18n="t1.t">Сплит 90/10</b><span data-i18n="t1.d">Тянешь ползунок доли новинки: при 80/20 тест идёт в 1.6 раза дольше, чем при 50/50, при 90/10 — в 2.8 раза, при 99/1 — в 25 раз.</span><small data-i18n="t1.f">модуль 1</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t2.t">Два средних чека</b><span data-i18n="t2.d">Два гостя, два отчёта: средний чек «по заказам» вырос на 20%, а «по гостям» упал на 25%. Двигай заказы постоянного гостя и смотри, когда знак переворачивается.</span><small data-i18n="t2.f">модуль 2</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t3.t">Ползунок CUPED</b><span data-i18n="t3.d">Корреляция с прошлой неделей 0.6 — дисперсия метрики падает на 36%, и гостей для того же MDE нужно на 36% меньше. При корреляции 0.8 — на 64%.</span><small data-i18n="t3.f">модуль 4</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t4.t">Детектор SRM</b><span data-i18n="t4.d">508 000 против 492 000 при сплите 50/50 — это 16 стандартных отклонений от середины. Котейка бросает честную монетку миллион раз и так далеко не уходит практически никогда.</span><small data-i18n="t4.f">модуль 5</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t5.t">Тридцать утр</b><span data-i18n="t5.d">Боб смотрит A/A каждое утро и останавливается на первом «значимо»: ложноположительных около 28% вместо 5%. Включи границы О’Брайена–Флеминга — и снова 5%.</span><small data-i18n="t5.f">модуль 6</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t6.t">29 срезов</b><span data-i18n="t6.d">Если срезы независимы, без всякого эффекта хотя бы один из 29 «прокрашивается» в 77% тестов. Переключи Холма или Бенджамини–Хохберга и посмотри, что останется от «победы у вокзала».</span><small data-i18n="t6.f">модуль 7</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t7.t">Общий пул курьеров</b><span data-i18n="t7.d">Включаешь бесплатную доставку во всё большем числе кафе: в пилоте +15% заказов, а на всей сети прирост тает — курьеры одни на всех. Делим по заказам — эффект завышен, переключаем по часам — честно.</span><small data-i18n="t7.f">модуль 8</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t8.t">A/A-стенд</b><span data-i18n="t8.d">Загружаешь свою метрику, стенд прогоняет 1000 синтетических A/A и показывает, держит ли твой критерий обещанные 5% ложных тревог.</span><small data-i18n="t8.f">модуль 5</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-  </ul>
-  <!--missing-art /img/abm-toys.jpg PGZpZ3VyZSBjbGFzcz0iYXJ0Ij48aW1nIHNyYz0iL2ltZy9hYm0tdG95cy5qcGciIHdpZHRoPSI5MDAiIGhlaWdodD0iMTIwMCIgbG9hZGluZz0ibGF6eSIgZGF0YS1pMThuLWF0dHI9ImFsdDp0b3lzLmFsdCIgYWx0PSLQkNC70LjRgdCwINC30LDCoNC/0YPQu9GM0YLQvtC8INGBwqDQv9C+0LvQt9GD0L3QutCw0LzQuCwg0JrQvtGC0LXQudC60LAg0YDQsNGB0LrQu9Cw0LTRi9Cy0LDQtdGCINCz0L7RgdGC0LXQuSDQv9C+wqDRj9GJ0LjQutCw0Lwt0LHQsNC60LXRgtCw0LwiIG9uZXJyb3I9ImFydEZhaWwodGhpcykiPjxmaWdjYXB0aW9uIGNsYXNzPSJwaCIgZGF0YS1pMThuPSJ0b3lzLnBoIj7QkNC70LjRgdCwINC30LDCoNC/0YPQu9GM0YLQvtC8LCDQmtC+0YLQtdC50LrQsCDRgNCw0YHQutC70LDQtNGL0LLQsNC10YIg0LPQvtGB0YLQtdC5INC/0L7CoNGP0YnQuNC60LDQvDwvZmlnY2FwdGlvbj48L2ZpZ3VyZT4= -->
-  </div>
-</section>
 
 <!-- 4. Что получишь -->
 <section class="wrap block" id="results" aria-labelledby="res-h">
@@ -175,8 +167,9 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611237"></script>
-<script src="/i18n/ab.js?v=202611237"></script>
-<script src="/landing.js?v=202611237"></script>
+<script src="/i18n/site.js?v=202611238"></script>
+<script src="/i18n/ab.js?v=202611238"></script>
+<script src="/landing.js?v=202611238"></script>
+<script src="/site/course-anim.js?v=202611238"></script>
 </body>
 </html>

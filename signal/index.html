@@ -10,10 +10,10 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
-<link rel="stylesheet" href="/tokens.css?v=202611237">
-<link rel="stylesheet" href="/home.css?v=202611237">
-<link rel="stylesheet" href="/course.css?v=202611237">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611238">
+<link rel="stylesheet" href="/tokens.css?v=202611238">
+<link rel="stylesheet" href="/home.css?v=202611238">
+<link rel="stylesheet" href="/course.css?v=202611238">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -44,6 +44,16 @@
   <figure class="art"><img width="1600" height="900" src="/img/signal-cover.jpg" alt="Алиса, Боб и Котейка в кафе" onerror="if(!this.dataset.t){this.dataset.t='1';this.src='img/ch01-00-heroes.jpg'}else{this.parentNode.classList.add('missing')}"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
 </section>
 
+<!-- анимация курса (решение Дили, 22.11.2026: одна «гифка» вместо блока игр) — site/course-anim.js -->
+<section class="wrap block bells-block anim-block" aria-labelledby="anim-h">
+  <h2 id="anim-h">Где шум, а где настоящая разница</h2>
+  <figure class="bells-fig">
+    <p class="bells-cnt" aria-hidden="true">Дней наблюдений: <b data-anim-n>0</b></p>
+    <svg data-anim="cafes" class="anim-svg" role="img" aria-label="Где шум, а где настоящая разница"></svg>
+    <figcaption class="bells-cap"><span class="bells-sum"><!-- typo -->По дням кафе то и дело меняются местами — это шум. Среднее за много дней успокаивается и показывает, что B правда лучше. Курс о том, как отличить одно от другого.<!-- /typo --></span></figcaption>
+  </figure>
+</section>
+
 <section class="wrap block" id="modules">
   <div class="col">
     <h2>Что будет в курсе</h2>
@@ -70,21 +80,6 @@
   </div>
 </section>
 
-<section class="wrap block" id="toys">
-  <h2>Во что поиграем и что покрутим</h2>
-
-  <p class="lead-note">Каждая ссылка открывает игру прямо на карточке главы.</p>
-  <ul class="toys c-toys" role="list">
-    <li><a href="01-probability.html#card-3"><b>Ровно десять из двадцати</b><span>Бросай монетку сериями по 20. Все знают, что орлов «половина», но ровно 10 выпадает только в 18% серий, а «от 8 до 12» — в трёх сериях из четырёх.</span><small>глава 1, карточка 3</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="01-probability.html#card-6"><b>Ровно двое из сорока</b><span>Конверсия 5%, в день 40 посетителей. Сначала ставишь прогноз, как часто за день будет ровно двое покупателей, потом проверяешь. Правда — 28%.</span><small>глава 1, карточка 6</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="01-probability.html#card-7"><b>Магазин на 40 посетителей в день</b><span>Запускаешь дни по одному или сразу по 1000 и смотришь, как гистограмма покупателей ложится на теорию.</span><small>глава 1, карточка 7</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="01-probability.html#card-10"><b>Кофемашины</b><span>30 кофемашин, каждая ломается за месяц с шансом 2%. Хотя бы одна сломается в 45.5% месяцев. Двигай число машин и шанс поломки.</span><small>глава 1, карточка 10</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="01-probability.html#card-12"><b>Магазин в коде</b><span>100 000 дней по 40 посетителей — пара строк numpy прямо в браузере. Поменяй конверсию и смотри, что станет с долей «ровно двое».</span><small>глава 1, карточка 12</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="07-clt.html#card-4"><b>Колокол из средних</b><span>Берёшь гостей по 1, по 10, по 100 и складываешь средние в гистограмму: колокол растёт на глазах, а у «китов» не спешит.</span><small>глава 7, карточка 4</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="08-traps.html#card-4"><b>Котейка ждёт автобус</b><span>Двигаешь, насколько неровно ходят автобусы, и смотришь, как растёт ожидание, хотя средний интервал тот же.</span><small>глава 8, карточка 4</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="10-ab-test.html#card-4"><b>Честна ли монетка?</b><span>9 орлов из 10. У честной монетки 9 и больше выпадает в 1.1% серий, а перекос не меньше этого в любую сторону — в 2.1%. Первый p-value руками.</span><small>глава 10, карточка 4</small><span class="go">Попробовать →</span></a></li>
-  </ul>
-</section>
 
 <section class="wrap block">
   <h2>Один алгоритм на весь курс</h2>
@@ -181,5 +176,6 @@
     <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
+<script src="/site/course-anim.js?v=202611238"></script>
 </body>
 </html>

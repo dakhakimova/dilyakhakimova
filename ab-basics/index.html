@@ -15,10 +15,10 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
-<link rel="stylesheet" href="/tokens.css?v=202611237">
-<link rel="stylesheet" href="/home.css?v=202611237">
-<link rel="stylesheet" href="/course.css?v=202611237">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611238">
+<link rel="stylesheet" href="/tokens.css?v=202611238">
+<link rel="stylesheet" href="/home.css?v=202611238">
+<link rel="stylesheet" href="/course.css?v=202611238">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -47,6 +47,16 @@
     <p class="ctas"><a class="btn" href="01-before-after.html">Начать с шага 1</a><a class="btn ghost" href="cheatsheet.html">Шпаргалка для печати</a></p>
   </div>
   <figure class="art"><img width="1600" height="900" src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
+</section>
+
+<!-- анимация курса (решение Дили, 22.11.2026: одна «гифка» вместо блока игр) — site/course-anim.js -->
+<section class="wrap block bells-block anim-block" aria-labelledby="anim-h">
+  <h2 id="anim-h">Когда разнице можно верить</h2>
+  <figure class="bells-fig">
+    <p class="bells-cnt" aria-hidden="true">Гостей в каждой группе: <b data-anim-n>0</b></p>
+    <svg data-anim="forks" class="anim-svg" role="img" aria-label="Когда разнице можно верить"></svg>
+    <figcaption class="bells-cap"><span class="bells-sum"><!-- typo -->Точка — конверсия группы, полоса — вилка, где правда может быть. Пока гостей мало, вилки перекрываются, и разнице верить нельзя. Гостей больше — вилки уже, и они расходятся.<!-- /typo --></span></figcaption>
+  </figure>
 </section>
 
 <section class="wrap block">
@@ -95,21 +105,6 @@
   </div>
 </section>
 
-<section class="wrap block" id="toys">
-  <h2>Во что поиграем и что покрутим</h2>
-
-  <p class="lead-note">В каждом шаге есть игра: сначала прогноз, потом правда. Вот восемь, с которых удобно начать.</p>
-  <ul class="toys c-toys" role="list">
-    <li><a href="01-before-after.html#card-4"><b>Кнопка, которая ничего не делает</b><span>Двигаешь день релиза пустой кнопки. Перед Новым годом «до и после» показывает +15.8%, в июне −6.9%, а больше 5% в ту или другую сторону выходит в 28% дней года.</span><small>шаг 1, карточка 4</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="01-before-after.html#card-8"><b>Промо для худших кафе</b><span>Промо не делает ничего, а пять худших кафе через неделю всё равно растут. Регрессия к среднему вживую.</span><small>шаг 1, карточка 8</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="03-noise.html#card-8"><b>Перетасуй ярлыки</b><span>Фото блюд на 40 гостях: 1.15 против 1.55 заказа, «+35%». Перетасуй ярлыки тысячу раз и посмотри, как часто такая разница выходит сама.</span><small>шаг 3, карточка 8</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="05-bell-width.html#card-9"><b>Тир</b><span>Вчетверо больше гостей сжимают облако выстрелов, но не сдвигают его: баг, который добавляет группе B +2%, трафиком не лечится.</span><small>шаг 5, карточка 9</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="06-interval.html#card-4"><b>Лесенка вилок</b><span>Двигаешь эффект и число людей, насыпаешь эксперименты по двадцать: примерно 95 вилок из 100 накрывают правду.</span><small>шаг 6, карточка 4</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="07-p-value.html#card-4"><b>Мир без эффекта</b><span>Котейка насыпает 1000 A/A-тестов, флажок — разница Боба +3.1%. Доля тестов за флажком и есть p-value.</span><small>шаг 7, карточка 4</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="09-mde.html#card-6"><b>Сколько ждать</b><span>Тянешь ползунок доли новинки: при 80/20 тест идёт в 1.6 раза дольше, чем при 50/50, при 90/10 — в 2.8 раза.</span><small>шаг 9, карточка 6</small><span class="go">Попробовать →</span></a></li>
-    <li><a href="10-traps.html#card-4"><b>Тридцать утр с отчётом</b><span>Боб каждое утро смотрит A/A и выкатывает фичу на первом «значимо». Ложных побед — около четверти вместо 5%.</span><small>шаг 10, карточка 4</small><span class="go">Попробовать →</span></a></li>
-  </ul>
-</section>
 
 <section class="wrap block" id="results">
   <h2>Что получишь на выходе</h2>
@@ -176,5 +171,6 @@
     <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
+<script src="/site/course-anim.js?v=202611238"></script>
 </body>
 </html>
