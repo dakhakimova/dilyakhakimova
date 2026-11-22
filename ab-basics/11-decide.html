@@ -748,7 +748,7 @@ details.hint p{margin:6px 0 0}
   const pool = document.getElementById('rep-pool'), list = document.getElementById('rep-list'), appL = document.getElementById('rep-app'), fb = document.getElementById('rep-fb');
   function paint(){
     const used = new Set(rep.concat(app));
-    pool.innerHTML = shuffled.filter(f => !used.has(f.id)).map(f => '<div class="rep-item"><span>' + f.t + '</span><span class="rep-btns"><button type="button" class="btn" data-to="rep" data-id="' + f.id + '">В отчёт</button><button type="button" class="btn ghost" data-to="app" data-id="' + f.id + '">В приложение</button></span></div>').join('') || '<p class="note">Все фразы разложены. Нажми «Проверить».</p>';
+    pool.innerHTML = shuffled.filter(f => !used.has(f.id)).map(f => '<div class="rep-item"><span>' + f.t + '</span><span class="rep-btns"><button type="button" class="btn ghost" data-to="rep" data-id="' + f.id + '">В отчёт</button><button type="button" class="btn ghost" data-to="app" data-id="' + f.id + '">В приложение</button></span></div>').join('') || '<p class="note">Все фразы разложены. Нажми «Проверить».</p>';
     const by = id => F.find(f => f.id === id);
     list.innerHTML = rep.map((id, i) => '<li><span>' + by(id).t + '</span><span class="rep-btns"><button type="button" class="mini" data-up="' + i + '" aria-label="Выше">↑</button><button type="button" class="mini" data-down="' + i + '" aria-label="Ниже">↓</button><button type="button" class="mini" data-back="' + id + '" aria-label="Убрать">×</button></span></li>').join('');
     appL.innerHTML = app.map(id => '<li><span>' + by(id).t + '</span><span class="rep-btns"><button type="button" class="mini" data-back="' + id + '" aria-label="Убрать">×</button></span></li>').join('');
