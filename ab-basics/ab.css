@@ -351,3 +351,9 @@ h2[data-proverb]::before{color:var(--label-ink)}
 .next-step{display:block; margin:16px 0 0; padding:14px 16px; border-radius:12px; background:var(--surface); border:1px solid rgba(36,34,31,.12); text-decoration:none; color:var(--ink)}
 .next-step b{display:block; font:500 1.1875rem/1.3 var(--serif); color:var(--pen)}
 .next-step:hover{border-color:var(--ink)}
+/* задачи с собеседования не сливаются: над вопросом метка «Задача N» (решение Дили, 23.11.2026) */
+.card:has(> details.ivw){counter-reset:ivw}
+details.ivw{counter-increment:ivw}
+details.ivw > summary{flex-wrap:wrap}
+details.ivw > summary::before{content:"Задача " counter(ivw); display:block; flex-basis:100%; width:100%; margin:0 0 6px; font:600 .75rem/1.2 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink, #5E5A53); font-feature-settings:"case"}
+details.ivw + details.ivw{margin-top:16px}

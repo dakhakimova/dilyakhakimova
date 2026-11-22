@@ -395,3 +395,9 @@ h2[data-proverb]::before{color:var(--label-ink)}
 .chart-title{font-weight:var(--fw-medium)}
 .legend-row i.dot{width:10px; height:10px; border-radius:50%}
 html.solo #pt-vs{display:none}
+/* задачи с собеседования не сливаются: над вопросом метка «Задача N» (решение Дили, 23.11.2026) */
+.card:has(> details.ivw){counter-reset:ivw}
+details.ivw{counter-increment:ivw}
+details.ivw > summary{flex-wrap:wrap}
+details.ivw > summary::before{content:"Задача " counter(ivw); display:block; flex-basis:100%; width:100%; margin:0 0 6px; font:600 .75rem/1.2 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink, #5E5A53); font-feature-settings:"case"}
+details.ivw + details.ivw{margin-top:16px}
