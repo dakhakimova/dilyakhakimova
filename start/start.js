@@ -98,10 +98,10 @@ const load = () => { try { const v = JSON.parse(localStorage.getItem(STORE) || '
 const save = v => { try { localStorage.setItem(STORE, JSON.stringify(v)); } catch (e) {} };
 const fresh = () => ({v: V, stage: 'intro', about: {}, cur: null, ans: [], ck: null, say: null, res: null});
 const IMG = {
-  intro: ['/probability/img/vp09-02-next.jpg', 'img.intro'],
-  check: ['/probability/img/vp09-00-interview.jpg', 'img.check'],
-  unsure: ['/probability/img/vp04-02-next.jpg', 'img.unsure'],
-  final: ['/map/img/street.jpg', 'img.final']
+  intro: ['/start/img/start-intro.jpg', 'img.intro'],
+  check: ['/start/img/start-check.jpg', 'img.check'],
+  unsure: ['/start/img/start-unsure.jpg', 'img.unsure'],
+  final: ['/start/img/start-final.jpg', 'img.final']
 };
 
 const app = document.getElementById('app');
