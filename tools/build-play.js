@@ -8,10 +8,10 @@
    Сама игрушка не копируется: страница показывает её в iframe из главы курса в соло-режиме
    (<глава>?toy=<slug>, см. play/bridge.js). Правка игрушки в курсе = правка на /play/.
    credits.json — подписи «Игрушка из курса …» и список опубликованных игрушек для моста (bridge.js). */
-const fs = require('fs'), path = require('path');
+const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const SITE = 'https://dilyakhakimova.com';
-const V = '202611240';
+const V = '202611250';
 
 function build(lang = 'ru'){
   const {ROOT, I18N, cfg, toys, texts} = load(lang);
@@ -122,6 +122,16 @@ ${extra}<title>${plain(title)}</title>
     return same.concat(toys.filter(x => x.course !== toy.course)).slice(0, 3);
   };
 
+  // мини-лаборатория термина, где эта игрушка встроена (terms/terms.json → toy): ссылка «Что такое … — простыми словами»
+  const termOf = {};
+  if (lang === 'ru' && fs.existsSync(path.join(ROOT, 'terms/terms.json'))){
+    const tctx = {}; tctx.globalThis = tctx;
+    vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/terms.js'), 'utf8'), tctx);
+    for (const x of JSON.parse(fs.readFileSync(path.join(ROOT, 'terms/terms.json'), 'utf8')).terms){
+      const nm = tctx.TERMS_TEXT.ru[x.slug].name, low = /^[А-ЯЁ][а-яё]/.test(nm) ? nm[0].toLowerCase() + nm.slice(1) : nm;
+      if (!termOf[x.toy]) termOf[x.toy] = {slug: x.slug, text: typo(fill(tctx.I18N.ru['terms.playLink'], {name: low}))};
+    }
+  }
   const credits = {};
   for (const toy of toys){
     const s = toy.slug, url = `${pre}/play/${s}/`, frame = `${toy.src}?toy=${s}`;
@@ -177,6 +187,8 @@ ${extra}<title>${plain(title)}</title>
     </div>
   </section>
 
+${termOf[s] ? `  <p class="play-term"><a href="${pre}/terms/${termOf[s].slug}/">${termOf[s].text}</a></p>
+` : ''}
   <section class="play-share" aria-label="${attr(t('play.share'))}">
     <div class="row">
       <button class="btn" type="button" data-act="share">${t('play.share')}</button>

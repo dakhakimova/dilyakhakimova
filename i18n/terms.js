@@ -66,6 +66,8 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'terms.cta.all': 'Весь курс «{course}»',
   'terms.cta.wait': 'Готовим продвинутый курс «A/B без мифов» — <a href="/ab/#waitlist">лист ожидания</a>.',
   'terms.random': 'Ещё наугад →',
+  'terms.limToy': 'Покрути, где это ломается: «{q}» →',
+  'terms.playLink': 'Что такое {name} — простыми словами →',
   'terms.cmp.toy': 'Покрутить игрушку про это: {name} →',
   // подписи новых игрушек (terms/toys.js)
   'tt.guessLabel': 'Твой прогноз',

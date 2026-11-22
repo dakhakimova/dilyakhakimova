@@ -1,9 +1,9 @@
 # dilyakhakimova.com — правила для поисковых роботов. Карта сайта собирается командой node tools/bake-i18n.js.
+# ?embed=1 и ?toy= не закрываем: робот должен скачать такую страницу и увидеть canonical на основной адрес.
 User-agent: *
 Disallow: /api/
 Disallow: /styleguide/
 Disallow: /account.html
-Disallow: /*embed=1
 Allow: /
 
 # Яндекс: ?toy= (соло-режим игрушки в главе), ?embed=1, ref и utm-метки не меняют содержание страницы
@@ -11,7 +11,6 @@ User-agent: Yandex
 Disallow: /api/
 Disallow: /styleguide/
 Disallow: /account.html
-Disallow: /*embed=1
 Clean-param: toy&embed&ref&utm_source&utm_medium&utm_content
 
 Sitemap: https://dilyakhakimova.com/sitemap.xml

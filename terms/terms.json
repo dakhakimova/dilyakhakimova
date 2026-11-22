@@ -1,23 +1,328 @@
 {
-  "_doc": "Мини-лаборатории /terms/<slug>/. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игрушки с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игрушка (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js.",
-  "groups": ["prob", "stat", "ab"],
-  "terms": [
-    {"slug": "conditional-probability", "group": "prob", "demand": 22456, "toy": "sorter", "cta": {"course": "vp", "n": 5, "href": "/probability/05-conditional.html", "title": "Условная вероятность и независимость"}, "cmp": "bayes-theorem", "related": ["bayes-theorem", "monty-hall", "simpson-paradox"]},
-    {"slug": "bayes-theorem", "group": "prob", "demand": 6169, "toy": "bayes-cashbox", "cta": {"course": "vp", "n": 6, "href": "/probability/06-bayes.html", "title": "Байес"}, "cmp": "conditional-probability", "related": ["conditional-probability", "p-value", "monty-hall"]},
-    {"slug": "monty-hall", "group": "prob", "demand": 1386, "toy": "monty-hall", "cta": {"course": "vp", "n": 6, "href": "/probability/06-bayes.html", "title": "Байес"}, "related": ["bayes-theorem", "conditional-probability"]},
-    {"slug": "law-of-large-numbers", "group": "prob", "demand": 5867, "toy": "running-share", "cta": {"course": "vp", "n": 2, "href": "/probability/02-frequency.html", "title": "Вероятность как частота"}, "cmp": "central-limit-theorem", "related": ["central-limit-theorem", "regression-to-the-mean", "normal-distribution"]},
-    {"slug": "normal-distribution", "group": "prob", "demand": 20407, "toy": "bell-ruler", "cta": {"course": "vp", "n": 7, "href": "/probability/07-distribution.html", "title": "Случайная величина и распределение"}, "cmp": "t-test", "related": ["central-limit-theorem", "confidence-interval", "t-test"]},
-    {"slug": "central-limit-theorem", "group": "prob", "demand": 1071, "toy": "sample-means", "cta": {"course": "ss", "n": 7, "href": "/signal/07-clt.html", "title": "ЦПТ в деле"}, "cmp": "law-of-large-numbers", "related": ["law-of-large-numbers", "normal-distribution", "confidence-interval"]},
-    {"slug": "confidence-interval", "group": "stat", "demand": 11380, "toy": "catch-mu", "cta": {"course": "ss", "n": 7, "href": "/signal/07-clt.html", "title": "ЦПТ в деле"}, "cmp": "p-value", "related": ["p-value", "sample-size", "normal-distribution"]},
-    {"slug": "p-value", "group": "stat", "demand": 4709, "toy": "null-world", "cta": {"course": "ss", "n": 10, "href": "/signal/10-ab-test.html", "title": "A/B на простой метрике"}, "cmp": "confidence-interval", "related": ["statistical-significance", "confidence-interval", "t-test"]},
-    {"slug": "t-test", "group": "stat", "demand": 9870, "toy": "new:tt", "cta": {"course": "ab", "n": 7, "href": "/ab-basics/07-p-value.html", "title": "p-value на пальцах"}, "waitlist": true, "cmp": "mann-whitney", "related": ["mann-whitney", "p-value", "normal-distribution"]},
-    {"slug": "mann-whitney", "group": "stat", "demand": 7267, "toy": "new:mw", "cta": {"course": "ab", "n": 3, "href": "/ab-basics/03-noise.html", "title": "Шум есть всегда"}, "waitlist": true, "cmp": "t-test", "related": ["t-test", "p-value", "statistical-significance"]},
-    {"slug": "chi-square", "group": "stat", "demand": 5907, "toy": "new:chi", "cta": {"course": "ss", "n": 10, "href": "/signal/10-ab-test.html", "title": "A/B на простой метрике"}, "cmpHref": "/play/z-test/", "related": ["p-value", "ab-testing", "statistical-significance"]},
-    {"slug": "survivorship-bias", "group": "stat", "demand": 8480, "toy": "coin-gurus", "cta": {"course": "ss", "n": 8, "href": "/signal/08-traps.html", "title": "Симпсон, Берксон, ошибка выжившего и автобус"}, "cmpHref": "/play/berkson/", "related": ["regression-to-the-mean", "simpson-paradox"]},
-    {"slug": "regression-to-the-mean", "group": "stat", "demand": 359, "toy": "worst-cafes", "cta": {"course": "ab", "n": 1, "href": "/ab-basics/01-before-after.html", "title": "До и после — не доказательство"}, "cmp": "survivorship-bias", "related": ["survivorship-bias", "law-of-large-numbers", "ab-testing"]},
-    {"slug": "ab-testing", "group": "ab", "demand": 20761, "toy": "coin-split", "cta": {"course": "ab", "n": 1, "href": "/ab-basics/01-before-after.html", "title": "До и после — не доказательство"}, "waitlist": true, "cmpHref": "/play/dummy-release/", "related": ["statistical-significance", "sample-size", "p-value"]},
-    {"slug": "statistical-significance", "group": "ab", "demand": 2973, "toy": "tiny-effect", "cta": {"course": "ab", "n": 8, "href": "/ab-basics/08-errors.html", "title": "Два вида ошибок"}, "waitlist": true, "related": ["p-value", "sample-size", "ab-testing"]},
-    {"slug": "sample-size", "group": "ab", "demand": 3049, "toy": "new:ss", "cta": {"course": "ab", "n": 9, "href": "/ab-basics/09-mde.html", "title": "MDE: что мы способны заметить"}, "waitlist": true, "cmpHref": "/play/power-bells/", "related": ["statistical-significance", "confidence-interval", "ab-testing"]},
-    {"slug": "simpson-paradox", "group": "ab", "demand": 478, "toy": "simpson-preorder", "cta": {"course": "ab", "n": 10, "href": "/ab-basics/10-traps.html", "title": "Когда зелёное врёт"}, "waitlist": true, "cmpHref": "/play/berkson/", "related": ["conditional-probability", "survivorship-bias", "ab-testing"]}
-  ]
+ "_doc": "Мини-лаборатории /terms/<slug>/. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игрушки с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игрушка (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js. limToy — игрушка /play/ для блока «Когда метод врёт», если у термина нет своего кадра в tools/terms-viz.js (lim).",
+ "groups": [
+  "prob",
+  "stat",
+  "ab"
+ ],
+ "terms": [
+  {
+   "slug": "conditional-probability",
+   "group": "prob",
+   "demand": 22456,
+   "toy": "sorter",
+   "cta": {
+    "course": "vp",
+    "n": 5,
+    "href": "/probability/05-conditional.html",
+    "title": "Условная вероятность и независимость"
+   },
+   "cmp": "bayes-theorem",
+   "related": [
+    "bayes-theorem",
+    "monty-hall",
+    "simpson-paradox"
+   ],
+   "limToy": "many-metrics"
+  },
+  {
+   "slug": "bayes-theorem",
+   "group": "prob",
+   "demand": 6169,
+   "toy": "bayes-cashbox",
+   "cta": {
+    "course": "vp",
+    "n": 6,
+    "href": "/probability/06-bayes.html",
+    "title": "Байес"
+   },
+   "cmp": "conditional-probability",
+   "related": [
+    "conditional-probability",
+    "p-value",
+    "monty-hall"
+   ]
+  },
+  {
+   "slug": "monty-hall",
+   "group": "prob",
+   "demand": 1386,
+   "toy": "monty-hall",
+   "cta": {
+    "course": "vp",
+    "n": 6,
+    "href": "/probability/06-bayes.html",
+    "title": "Байес"
+   },
+   "related": [
+    "bayes-theorem",
+    "conditional-probability"
+   ],
+   "limToy": "monty-hall"
+  },
+  {
+   "slug": "law-of-large-numbers",
+   "group": "prob",
+   "demand": 5867,
+   "toy": "running-share",
+   "cta": {
+    "course": "vp",
+    "n": 2,
+    "href": "/probability/02-frequency.html",
+    "title": "Вероятность как частота"
+   },
+   "cmp": "central-limit-theorem",
+   "related": [
+    "central-limit-theorem",
+    "regression-to-the-mean",
+    "normal-distribution"
+   ]
+  },
+  {
+   "slug": "normal-distribution",
+   "group": "prob",
+   "demand": 20407,
+   "toy": "bell-ruler",
+   "cta": {
+    "course": "vp",
+    "n": 7,
+    "href": "/probability/07-distribution.html",
+    "title": "Случайная величина и распределение"
+   },
+   "cmp": "t-test",
+   "related": [
+    "central-limit-theorem",
+    "confidence-interval",
+    "t-test"
+   ]
+  },
+  {
+   "slug": "central-limit-theorem",
+   "group": "prob",
+   "demand": 1071,
+   "toy": "sample-means",
+   "cta": {
+    "course": "ss",
+    "n": 7,
+    "href": "/signal/07-clt.html",
+    "title": "ЦПТ в деле"
+   },
+   "cmp": "law-of-large-numbers",
+   "related": [
+    "law-of-large-numbers",
+    "normal-distribution",
+    "confidence-interval"
+   ],
+   "limToy": "heavy-tail"
+  },
+  {
+   "slug": "confidence-interval",
+   "group": "stat",
+   "demand": 11380,
+   "toy": "catch-mu",
+   "cta": {
+    "course": "ss",
+    "n": 7,
+    "href": "/signal/07-clt.html",
+    "title": "ЦПТ в деле"
+   },
+   "cmp": "p-value",
+   "related": [
+    "p-value",
+    "sample-size",
+    "normal-distribution"
+   ]
+  },
+  {
+   "slug": "p-value",
+   "group": "stat",
+   "demand": 4709,
+   "toy": "null-world",
+   "cta": {
+    "course": "ss",
+    "n": 10,
+    "href": "/signal/10-ab-test.html",
+    "title": "A/B на простой метрике"
+   },
+   "cmp": "confidence-interval",
+   "related": [
+    "statistical-significance",
+    "confidence-interval",
+    "t-test"
+   ],
+   "limToy": "peeking"
+  },
+  {
+   "slug": "t-test",
+   "group": "stat",
+   "demand": 9870,
+   "toy": "new:tt",
+   "cta": {
+    "course": "ab",
+    "n": 7,
+    "href": "/ab-basics/07-p-value.html",
+    "title": "p-value на пальцах"
+   },
+   "waitlist": true,
+   "cmp": "mann-whitney",
+   "related": [
+    "mann-whitney",
+    "p-value",
+    "normal-distribution"
+   ]
+  },
+  {
+   "slug": "mann-whitney",
+   "group": "stat",
+   "demand": 7267,
+   "toy": "new:mw",
+   "cta": {
+    "course": "ab",
+    "n": 3,
+    "href": "/ab-basics/03-noise.html",
+    "title": "Шум есть всегда"
+   },
+   "waitlist": true,
+   "cmp": "t-test",
+   "related": [
+    "t-test",
+    "p-value",
+    "statistical-significance"
+   ]
+  },
+  {
+   "slug": "chi-square",
+   "group": "stat",
+   "demand": 5907,
+   "toy": "new:chi",
+   "cta": {
+    "course": "ss",
+    "n": 10,
+    "href": "/signal/10-ab-test.html",
+    "title": "A/B на простой метрике"
+   },
+   "cmpHref": "/play/z-test/",
+   "related": [
+    "p-value",
+    "ab-testing",
+    "statistical-significance"
+   ]
+  },
+  {
+   "slug": "survivorship-bias",
+   "group": "stat",
+   "demand": 8480,
+   "toy": "coin-gurus",
+   "cta": {
+    "course": "ss",
+    "n": 8,
+    "href": "/signal/08-traps.html",
+    "title": "Симпсон, Берксон, ошибка выжившего и автобус"
+   },
+   "cmpHref": "/play/berkson/",
+   "related": [
+    "regression-to-the-mean",
+    "simpson-paradox"
+   ],
+   "limToy": "test-graveyard"
+  },
+  {
+   "slug": "regression-to-the-mean",
+   "group": "stat",
+   "demand": 359,
+   "toy": "worst-cafes",
+   "cta": {
+    "course": "ab",
+    "n": 1,
+    "href": "/ab-basics/01-before-after.html",
+    "title": "До и после — не доказательство"
+   },
+   "cmp": "survivorship-bias",
+   "related": [
+    "survivorship-bias",
+    "law-of-large-numbers",
+    "ab-testing"
+   ],
+   "limToy": "small-cafe-top"
+  },
+  {
+   "slug": "ab-testing",
+   "group": "ab",
+   "demand": 20761,
+   "toy": "coin-split",
+   "cta": {
+    "course": "ab",
+    "n": 1,
+    "href": "/ab-basics/01-before-after.html",
+    "title": "До и после — не доказательство"
+   },
+   "waitlist": true,
+   "cmpHref": "/play/dummy-release/",
+   "related": [
+    "statistical-significance",
+    "sample-size",
+    "p-value"
+   ],
+   "limToy": "late-effect"
+  },
+  {
+   "slug": "statistical-significance",
+   "group": "ab",
+   "demand": 2973,
+   "toy": "tiny-effect",
+   "cta": {
+    "course": "ab",
+    "n": 8,
+    "href": "/ab-basics/08-errors.html",
+    "title": "Два вида ошибок"
+   },
+   "waitlist": true,
+   "related": [
+    "p-value",
+    "sample-size",
+    "ab-testing"
+   ],
+   "limToy": "twenty-metrics"
+  },
+  {
+   "slug": "sample-size",
+   "group": "ab",
+   "demand": 3049,
+   "toy": "new:ss",
+   "cta": {
+    "course": "ab",
+    "n": 9,
+    "href": "/ab-basics/09-mde.html",
+    "title": "MDE: что мы способны заметить"
+   },
+   "waitlist": true,
+   "cmpHref": "/play/power-bells/",
+   "related": [
+    "statistical-significance",
+    "confidence-interval",
+    "ab-testing"
+   ],
+   "limToy": "big-order"
+  },
+  {
+   "slug": "simpson-paradox",
+   "group": "ab",
+   "demand": 478,
+   "toy": "simpson-preorder",
+   "cta": {
+    "course": "ab",
+    "n": 10,
+    "href": "/ab-basics/10-traps.html",
+    "title": "Когда зелёное врёт"
+   },
+   "waitlist": true,
+   "cmpHref": "/play/berkson/",
+   "related": [
+    "conditional-probability",
+    "survivorship-bias",
+    "ab-testing"
+   ],
+   "limToy": "slices"
+  }
+ ]
 }

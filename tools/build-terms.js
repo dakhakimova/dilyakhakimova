@@ -164,7 +164,10 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 
     const cmp = x.cmp, cmpLink = term.cmp ? `<a href="/terms/${term.cmp}/">${typo(h1Of(term.cmp))} →</a>` : (term.cmpHref ? `<a href="${term.cmpHref}">${t('terms.cmp.toy', {name: cmp.name})}</a>` : '');
     const c = term.cta;
-    const limFig = lim[s] ? `
+    if (!lim[s] && !term.limToy) throw new Error(`build-terms: ${s} — у блока «Когда метод врёт» нет ни кадра (terms-viz.js → lim), ни игрушки (limToy)`);
+    if (term.limToy && !toyOf(term.limToy)) throw new Error(`build-terms: ${s} — limToy ${term.limToy} нет на /play/`);
+    const limFig = !lim[s] ? `
+    <p class="more-link lim-toy"><a href="/play/${term.limToy}/">${t('terms.limToy', {q: plain(P.texts[term.limToy].q)})}</a></p>` : lim[s] ? `
     <figure class="viz small">${lim[s](Object.fromEntries(Object.entries(x.lz).map(([k, v]) => [k, plain(typo(v))])))}<figcaption class="figcap">${typo(x.limViz)}</figcaption></figure>` : '';
     const vzPlain = Object.fromEntries(Object.entries(x.vz).map(([k, v]) => [k, plain(typo(v))]));
     const wiki = 'https://ru.wikipedia.org/w/index.php?search=' + encodeURIComponent(x.wiki);
