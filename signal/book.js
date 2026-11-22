@@ -436,7 +436,7 @@ document.querySelectorAll('.card').forEach(card => {
     const why = q.querySelector('.why'), whyHtml = why ? why.innerHTML : '', warm = !!q.closest('.warmup');
     box.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
-      const ok = b.dataset.v === q.dataset.right, done = q.classList.contains('done');
+      const ok = b.dataset.v === q.dataset.right, done = q.classList.contains('done'), restoring = !!Book._restoring;
       // «курс пройден» (решение Дили, 22.11.2026): считается любой ответ, верный или нет
       { const allQ = [...document.querySelectorAll('.quiz')], ak = Book.chapter + ':ans', ans = new Set(store.get(ak) || []); ans.add(allQ.indexOf(q)); store.set(ak, [...ans]); if (window.CourseDone) CourseDone(); }
       box.querySelectorAll('button').forEach(x => x.classList.remove('picked')); b.classList.add('picked');
@@ -447,7 +447,9 @@ document.querySelectorAll('.card').forEach(card => {
         let plus = '';
         if (!done){
           q.classList.add('done');
-          if (warm){
+          // ответ переживает обновление страницы (решение Дили, 23.11.2026)
+          if (!restoring){ const allQ = [...document.querySelectorAll('.quiz')], k = Book.chapter + ':qdone', m = store.get(k) || {}; m[allQ.indexOf(q)] = {v: b.dataset.v, first: q.dataset.first}; store.set(k, m); }
+          if (restoring){} else if (warm){
             const wi = [...document.querySelectorAll('.warmup .quiz')].indexOf(q);
             if (q.dataset.first === '1' && Book.warm('w' + wi)) plus = ' <span class="plus warm">' + S.warm + '</span>';
           } else {
@@ -457,7 +459,8 @@ document.querySelectorAll('.card').forEach(card => {
         }
         html = '<p class="vd">' + (q.dataset.first === '1' ? S.right[qi % S.right.length] : S.right2[qi % S.right2.length]) + plus + '</p><p>' + whyHtml + '</p>';
         const nq = qs[qi + 1];
-        if (!done && nq){
+        if (!done && nq && restoring){ nq.classList.remove('later'); }
+        else if (!done && nq){
           const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = S.nextQ;
           nb.addEventListener('click', () => { nq.classList.remove('later'); nb.remove(); window.dispatchEvent(new Event('resize')); nq.scrollIntoView({behavior: REDUCED ? 'auto' : 'smooth', block: 'start'}); });
           q.appendChild(nb);
@@ -473,6 +476,18 @@ document.querySelectorAll('.card').forEach(card => {
     });
   });
 });
+
+// восстановить верные ответы квизов после обновления страницы: «нажимаем» тот же ответ без баллов и событий
+(function(){
+  const m = store.get(Book.chapter + ':qdone'); if (!m) return;
+  const allQ = [...document.querySelectorAll('.quiz')];
+  Book._restoring = true;
+  for (const [i, rec] of Object.entries(m)){
+    const q = allQ[+i], b = q && q.querySelector('.choice button[data-v="' + rec.v + '"]'); if (!b) continue;
+    q.dataset.first = rec.first || '1'; b.click();
+  }
+  Book._restoring = false;
+})();
 
 // Шаг пройден (решение Дили, 22.11.2026): открыта последняя карточка и на каждый вопрос (квиз, прогноз числом, выбор) дан
 // хоть какой-то ответ; игры не обязательны. Тогда один раз уходит событие done — сервер считает курс пройденным,
