@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/011-lab.html?toy=ratings-fives" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<meta name="robots" content="noindex, follow">
+<title>Пятёрок в тесте меньше. Значит, средняя оценка упала? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Одни и те же 2000 оценок гостей и две метрики — доля пятёрок и средняя: почему они говорят противоположное.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/ratings-fives/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/ratings-fives/">
+<meta property="og:title" content="Пятёрок в тесте меньше. Значит, средняя оценка упала? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Одни и те же 2000 оценок гостей и две метрики — доля пятёрок и средняя: почему они говорят противоположное.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/ratings-fives.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/play/play.css?v=202611301">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игры</a></li>
+    <li><span aria-current="page">Пятёрок в тесте меньше. Значит, средняя оценка упала?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="ratings-fives" data-frame="/ab-basics/011-lab.html?toy=ratings-fives"
+  data-share-title="Пятёрок в тесте меньше. Значит, средняя оценка упала?" data-share-text="В A/B-тесте нового меню доля пятёрок упала с 50% до 40%, и продакт хочет откатывать. Что при этом стало со средней оценкой? Угадай и проверь"
+  data-s-copied="Ссылка скопирована">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="ratings-fives" data-show-from="0" hidden></span></p>
+  <h1>Пятёрок в тесте меньше. Значит, средняя оценка упала?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В тесте нового меню пятёрок 40%, а в контроле 50%. Гостям хуже — откатываем!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А что с остальными оценками? Может, пятёрки ушли в четвёрки, а единицы — тоже в четвёрки.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Пятёрки — это самые довольные. Их стало меньше, всё ясно.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай разложим все оценки по группам и посчитаем среднюю.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Гости ставят оценку от 1 до 5. Доля пятёрок смотрит только на восторженных, средняя — на всех, а доля единиц и двоек — на недовольных. Это три разных вопроса к одним и тем же оценкам.</p><p>Столбики — сколько каких оценок в контроле и в тесте, по 1000 в группе. Запиши, на сколько процентов изменилась средняя оценка, и разложи оценки.</p></div>
+    <figure class="art"><img src="/play/img/ratings-fives.jpg" alt="Боб держит одну карточку с пятью звёздами, Алиса раскладывает на столе стопки карточек с разным числом звёзд" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/011-lab.html?toy=ratings-fives" title="Игра: Пятёрок в тесте меньше. Значит, средняя оценка упала?" style="height:1050px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/011-lab.html#card-1">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="tries-h">Попробуй ответить сам</p>
+    <ol class="tries"><li>На сколько изменилась средняя? А доля единиц и двоек?</li><li>Классика: какая медиана оценок в контроле и в тесте?</li><li>Какую метрику выбрать главной и когда?</li></ol>
+    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <div class="reveal" hidden>
+      <p>Средняя выросла с 3.60 до 4.18 — на 16%, хотя пятёрок стало меньше: новое меню почти убрало плохие оценки, единиц и двоек 30% → 5%, и многие стали четвёрками. Медиана при этом упала: 4.5 → 4, потому что середина ряда теперь среди четвёрок. Каждая метрика честно отвечает на свой вопрос. Главную метрику выбирают до теста, по задаче: «больше восторга» — доля пятёрок, «меньше недовольных» — доля плохих оценок, «в среднем лучше» — средняя.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Доля максимальных оценок, средняя и доля плохих — разные метрики одного распределения.</li><li>Перед выводом посмотри на всё распределение, а не на одну долю.</li><li>Медиана оценок по шкале 1–5 грубая: прыгает целыми шагами.</li><li>Главную метрику фиксируют до теста.</li></ul>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из книги Кирана Хили «Data Visualization: A Practical Introduction» (2018), гл. 1: одни данные, разные сводки — смотри на всё распределение.</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Рубрики</h2>
+      <ul role="list">
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/terms/">Словарь</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611301"></script>
+</body>
+</html>

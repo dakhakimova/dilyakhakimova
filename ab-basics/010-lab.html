@@ -55,6 +55,45 @@
   </div>
   <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
+<!-- default-city: город по умолчанию (Каиро, гл. 3) -->
+<section class="card" data-toy="default-city" data-title="Центр заказывает больше всех?" aria-label="Центр заказывает больше всех?">
+  <h2>Центр заказывает больше всех?</h2>
+  <p>1000 заказов за неделю по восьми районам. В отчёте Боба лидер — Центр, 215 заказов. Алиса знает одну особенность приложения: если адрес не распознан, заказ записывается в район по умолчанию — Центр.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="dc-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="dc-guess">Без заказов с нераспознанным адресом Центр окажется на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="dc-guess" aria-describedby="dc-gl"> месте из 8</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Проверить адреса</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="dc-t0">Заказы за неделю по районам; справа — место в рейтинге</p>
+    <canvas id="dc-cv" role="img" aria-label="Заказы по восьми районам"></canvas>
+    <p class="lab-key"><span><i style="background:#3D7DC4"></i>адрес распознан</span><span><i style="background:#A3A19A"></i>адрес не распознан — записан в Центр</span></p>
+    <p class="note lab-data">Данные: учебный пример, 1000 заказов, из них 120 с нераспознанным адресом.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+<!-- per-orders: где больше людей, там больше всего (Каиро, гл. 4) -->
+<section class="card" data-toy="per-orders" data-title="Жалобы и опоздания по районам" aria-label="Жалобы и опоздания по районам">
+  <h2>Жалобы и опоздания по районам</h2>
+  <p>12 районов доставки. Где больше опозданий, там больше жалоб: корреляция по районам 0.85. Больше всего жалоб — 124 — в Вокзальном, и Боб хочет менять там курьеров. Но районы очень разные: от 700 до 5500 заказов в месяц.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="po-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="po-guess">На 1000 заказов Вокзальный окажется по жалобам на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="po-guess" aria-describedby="po-gl"> месте из 12</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разделить на число заказов</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="po-t0">12 районов: опоздания и жалобы за месяц</p>
+    <canvas id="po-cv" role="img" aria-label="Двенадцать районов: опоздания и жалобы"></canvas>
+    <p class="note lab-data">Данные: учебный пример, 12 районов за месяц.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
 <!-- bob-strategies: турнир стратегий решения (Кейс, «The Evolution of Trust») -->
 <section class="card" data-toy="bob-strategies" data-title="Турнир стратегий" aria-label="Турнир стратегий">
   <h2>Турнир стратегий</h2>
@@ -91,6 +130,8 @@
 <script src="/ab-basics/course.js?v=202611301"></script>
 <script src="/play/lab/lab.js?v=202611301"></script>
 <script src="/play/lab/peeking-two-panels.js?v=202611301"></script>
+<script src="/play/lab/default-city.js?v=202611301"></script>
+<script src="/play/lab/per-orders.js?v=202611301"></script>
 <script src="/play/lab/bob-strategies.js?v=202611301"></script>
 </body>
 </html>

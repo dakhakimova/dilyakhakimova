@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/011-lab.html?toy=two-pearls" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<meta name="robots" content="noindex, follow">
+<title>Двенадцать графиков после теста. Какие два нужны продакту для решения? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Отчёт по A/B-тесту, двенадцать графиков и место для двух: какие из них отвечают на вопрос «катим или нет».">
+<link rel="canonical" href="https://dilyakhakimova.com/play/two-pearls/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/two-pearls/">
+<meta property="og:title" content="Двенадцать графиков после теста. Какие два нужны продакту для решения? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Отчёт по A/B-тесту, двенадцать графиков и место для двух: какие из них отвечают на вопрос «катим или нет».">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/two-pearls.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/play/play.css?v=202611301">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игры</a></li>
+    <li><span aria-current="page">Двенадцать графиков после теста. Какие два нужны продакту для решения?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="two-pearls" data-frame="/ab-basics/011-lab.html?toy=two-pearls"
+  data-share-title="Двенадцать графиков после теста. Какие два нужны продакту для решения?" data-share-text="После A/B-теста у аналитика двенадцать графиков, а продакту нужно решить, катить ли фичу. В отчёт помещается два. Какие два оставить? Выбери и сравни с ответом"
+  data-s-copied="Ссылка скопирована">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="two-pearls" data-show-from="0" hidden></span></p>
+  <h1>Двенадцать графиков после теста. Какие два нужны продакту для решения?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Алиса, тест закончился. Мне нужно решить одно: катим новое меню на всю сеть или нет.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">У меня двенадцать графиков: часы, районы, воронка, погода…</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Покажи все, разберусь.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нет, в отчёт влезет два. Выбери, какие ты бы оставил, а я покажу свои.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Разведочный анализ — это открыть сто устриц, чтобы найти две жемчужины. В отчёт идут жемчужины: то, что нужно для решения. Если отдать все устрицы, вскрывать их придётся тому, кто решает.</p><p>Плитки — двенадцать графиков отчёта по тесту нового меню. Выбери два, которые нужны Бобу, и отдай их ему. Алиса покажет свой выбор и объяснит каждый график, который ты взял.</p></div>
+    <figure class="art"><img src="/play/img/two-pearls.jpg" alt="Алиса раскрывает устрицы за столом, в двух из них жемчужины; Боб ждёт рядом с пустой папкой отчёта" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/011-lab.html?toy=two-pearls" title="Игра: Двенадцать графиков после теста. Какие два нужны продакту для решения?" style="height:1300px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/011-lab.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="tries-h">Попробуй ответить сам</p>
+    <ol class="tries"><li>Совпал ли твой выбор с Алисиным?</li><li>Почему «эффект по 30 районам» — плохая жемчужина?</li><li>Что ещё должно быть в отчёте одной строкой, без графика?</li></ol>
+    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <div class="reveal" hidden>
+      <p>Бобу нужны два графика: разница заказов B − A с 95% интервалом — это ответ на вопрос «катим или нет», — и отмены заказов в A и B: guardrail, проверка, что меню не сломало важное. Тридцать районов — тридцать шансов увидеть случайный «эффект», их место — в идеях для следующих тестов. Одной строкой без графика: сплит ровный, тест шёл столько, сколько планировали, данные без сбоев. Остальное — устрицы: полезны Алисе, но решение не меняют.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>В отчёт — то, что нужно для решения: главная метрика с интервалом и guardrails.</li><li>Разрезы и «интересное» — в приложение или в список гипотез.</li><li>Проверки (сплит, длина, сбои) — одной строкой.</li><li>Перед отчётом: кто решает, что ему решить, какие два графика это покажут.</li></ul>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из книги Коул Нафлик «Storytelling with Data» (2015), гл. 1: «Concentrate on the pearls, the information your audience needs to know».</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Рубрики</h2>
+      <ul role="list">
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/terms/">Словарь</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611301"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/010-lab.html?toy=default-city" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<meta name="robots" content="noindex, follow">
+<title>Центр заказывает больше всех районов. Или это адреса, которые не распознались? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Восемь районов, 1000 заказов и район по умолчанию, куда приложение складывает заказы без распознанного адреса.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/default-city/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Диля Хакимова">
+<meta property="og:url" content="https://dilyakhakimova.com/play/default-city/">
+<meta property="og:title" content="Центр заказывает больше всех районов. Или это адреса, которые не распознались? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Восемь районов, 1000 заказов и район по умолчанию, куда приложение складывает заказы без распознанного адреса.">
+<meta property="og:image" content="https://dilyakhakimova.com/play/og/default-city.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/home.css?v=202611301">
+<link rel="stylesheet" href="/play/play.css?v=202611301">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="true">Игры</a>
+    <a href="/shelf/">Полка</a>
+    <a href="/terms/">Словарь</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+
+<nav class="crumbs wrap" aria-label="Где ты на сайте">
+  <ol>
+    <li><a href="/play/">Игры</a></li>
+    <li><span aria-current="page">Центр заказывает больше всех районов. Или это адреса, которые не распознались?</span></li>
+  </ol>
+</nav>
+
+<main id="main" class="wrap play" data-toy="default-city" data-frame="/ab-basics/010-lab.html?toy=default-city"
+  data-share-title="Центр заказывает больше всех районов. Или это адреса, которые не распознались?" data-share-text="В отчёте по районам Центр заказывает почти вдвое больше остальных, и продакт хочет открыть там второе кафе. 120 заказов из 1000 пришли без распознанного адреса. На каком месте Центр на самом деле? Угадай и проверь"
+  data-s-copied="Ссылка скопирована">
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="default-city" data-show-from="0" hidden></span></p>
+  <h1>Центр заказывает больше всех районов. Или это адреса, которые не распознались?</h1>
+
+  <div class="chat" role="group" aria-label="Сцена">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Центр — наш лидер: 215 заказов за неделю, почти вдвое больше Северного. Открываем там второе кафе!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. Если приложение не распознаёт адрес, куда оно записывает заказ?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Не знаю. Куда-нибудь.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">В район по умолчанию — в Центр. Давай вычтем такие заказы и посмотрим, что останется от лидерства.</p></div></div>
+  </div>
+
+  <section class="play-what has-art" aria-labelledby="what-h">
+    <h2 id="what-h">Что здесь происходит</h2>
+    <div class="what-body"><p>Когда у записи нет значения, программа часто ставит значение по умолчанию: первый район в списке, 1 января, ноль. Эти записи выглядят как настоящие и копятся в одной клетке.</p><p>Полосы — заказы за неделю по районам, справа — место в рейтинге. Серая часть у Центра — заказы с нераспознанным адресом. Запиши, на каком месте окажется Центр без них, и проверь адреса.</p></div>
+    <figure class="art"><img src="/play/img/default-city.jpg" alt="Боб втыкает флажок второго кафе в центр карты города, Алиса держит пачку заказов с пустой графой адреса" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+  </section>
+
+  <div class="stage-frame">
+    <iframe id="toy-frame" src="/ab-basics/010-lab.html?toy=default-city" title="Игра: Центр заказывает больше всех районов. Или это адреса, которые не распознались?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/010-lab.html#card-2">Открой её в курсе</a>.</p>
+  </div>
+
+  <section class="play-out" aria-labelledby="out-h">
+    <p class="kicker" id="out-h">Почему так</p>
+    <p class="tries-h">Попробуй ответить сам</p>
+    <ol class="tries"><li>На каком месте Центр без заказов с нераспознанным адресом?</li><li>Классика: почему в базах так много людей с днём рождения 1 января?</li><li>Как найти значение по умолчанию в чужих данных?</li></ol>
+    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <div class="reveal" hidden>
+      <p>Без 120 заказов с нераспознанным адресом у Центра 95 заказов и 6-е место из 8. Лидерство дала не любовь центра к кафе, а настройка приложения. Так же 1 января бывает днём рождения у подозрительно многих: это дата, которую ставят, когда настоящую не указали. Значение по умолчанию ищут так: смотрят, нет ли одного значения, которого слишком много, и проверяют, что программа пишет вместо пустоты.</p>
+      <h3>Шпаргалка</h3>
+      <ul class="cheat"><li>Значение по умолчанию — тоже данные: оно копится в одной клетке.</li><li>Подозрительно частое значение (1 января, ноль, первый пункт списка) — сначала проверь, не заглушка ли это.</li><li>Перед разрезом по району, дате или городу посчитай записи без настоящего значения.</li><li>В отчёте пиши, сколько записей пришлось отбросить или пометить.</li></ul>
+    </div>
+  </section>
+
+  <div class="play-foot">
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="play-src"><b>Откуда идея.</b> Идея из книги Альберто Каиро «How Charts Lie» (2019), гл. 3: записи без определённого места система ставила в географический центр страны, и он вышел «лидером».</p>
+  </div>
+</main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap foot-grid">
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a></li>
+        <li><a href="/signal/">Сигнал или шум</a></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Рубрики</h2>
+      <ul role="list">
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/terms/">Словарь</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Диля Хакимова</p>
+  </div>
+</footer>
+
+<script src="/play/play.js?v=202611301"></script>
+</body>
+</html>
