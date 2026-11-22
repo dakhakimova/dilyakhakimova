@@ -5,7 +5,7 @@
    (numpy, scipy; логнормальное распределение σ = 1,5; 4000–200 000 повторов) и вписаны сюда константами.
    Ширина viewBox 460: на телефоне (≈330 px) подписи 17 → ≈12 px. Цвета — как в играх: синий A/данные, оранжевый B/прогноз, красный — «плохо». */
 const W = 460;
-const C = {a: '#E8644A', b: '#23418A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t2: '#4A463F', t3: '#5E5A53', line: '#CFC8BB', soft: '#E3DED4', mint: '#0E7E5F', paper: '#FBFAF6'};
+const C = {a: '#23418A', b: '#E8644A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t2: '#4A463F', t3: '#5E5A53', line: '#CFC8BB', soft: '#E3DED4', mint: '#0E7E5F', paper: '#FBFAF6'};
 const esc = s => String(s).replace(/&(?!nbsp;|#)/g, '&amp;').replace(/</g, '&lt;');
 const f1 = x => Math.round(x * 10) / 10;
 function svg(h, body, title){
@@ -70,7 +70,7 @@ viz['ab-testing'] = L => {
     ...dots, tx(230, 54, L.users, {a: 'middle', size: 15, fill: C.t3}),
     arrow(230, 62, 230, 86), box(130, 88, 200, 40, L.hash, C.pen, '#EEF2FA'),
     arrow(195, 130, 115, 166), arrow(265, 130, 345, 166),
-    box(30, 168, 170, 40, L.a, C.a, '#FCE8E3'), box(260, 168, 170, 40, L.b, C.b, '#E6ECF7'),
+    box(30, 168, 170, 40, L.a, C.a, '#E6ECF7'), box(260, 168, 170, 40, L.b, C.b, '#FCE8E3'),
     arrow(115, 210, 115, 238), arrow(345, 210, 345, 238),
     box(30, 240, 170, 40, L.ma, C.line), box(260, 240, 170, 40, L.mb, C.line),
     arrow(115, 282, 200, 314), arrow(345, 282, 260, 314),
@@ -102,7 +102,7 @@ viz['t-test'] = L => {
     path([[X(610), base], ...bell(640), [X(690), base]], 'none', 0, C.a, 'opacity=".18"'), path(bell(640), C.a, 2.5),
     path([[X(610), base], ...bell(660), [X(690), base]], 'none', 0, C.b, 'opacity=".18"'), path(bell(660), C.b, 2.5),
     ln(X(640), top - 4, X(640), base, C.a, 1.5, '4 3'), ln(X(660), top - 4, X(660), base, C.b, 1.5, '4 3'),
-    tx(X(640) - 8, top - 12, L.a, {a: 'end', size: 16, fill: '#B8432B', w: 500}), tx(X(660) + 8, top - 12, L.b, {a: 'start', size: 16, fill: '#23418A', w: 500}),
+    tx(X(640) - 8, top - 12, L.a, {a: 'end', size: 16, fill: '#23418A', w: 500}), tx(X(660) + 8, top - 12, L.b, {a: 'start', size: 16, fill: '#B8432B', w: 500}),
     ln(X(610), base, X(690), base, C.t3), ...[620, 640, 660, 680].map(v => ln(X(v), base, X(v), base + 5, C.t3) + tx(X(v), base + 22, v, {a: 'middle', size: 15, fill: C.t3})),
     tx(W / 2, base + 44, L.x, {a: 'middle', size: 15, fill: C.t3}),
     arrow(X(640), 270, X(660), 270, C.ink), arrow(X(660), 270, X(640), 270, C.ink), tx(X(660) + 12, 276, L.d, {size: 16, fill: C.ink}),
@@ -133,8 +133,8 @@ viz['mann-whitney'] = L => {
   const A = [200, 350, 600, 650, 700], B = [450, 550, 680, 800, 900];
   const x0 = 150, y0 = 70, c = 46, out = [];
   let u = 0;
-  B.forEach((b, j) => out.push(tx(x0 + j * c + c / 2, y0 - 10, b, {a: 'middle', size: 15, fill: '#23418A'})));
-  A.forEach((a, i) => { out.push(tx(x0 - 10, y0 + i * c + c / 2 + 5, a, {a: 'end', size: 15, fill: '#B8432B'}));
+  B.forEach((b, j) => out.push(tx(x0 + j * c + c / 2, y0 - 10, b, {a: 'middle', size: 15, fill: '#B8432B'})));
+  A.forEach((a, i) => { out.push(tx(x0 - 10, y0 + i * c + c / 2 + 5, a, {a: 'end', size: 15, fill: '#23418A'}));
     B.forEach((b, j) => { const w = b > a; if (w) u++; out.push(rect(x0 + j * c + 2, y0 + i * c + 2, c - 4, c - 4, w ? C.a : '#F3F0EA', `rx="6"${w ? ' opacity=".85"' : ` stroke="${C.line}"`}`)); }); });
   if (u !== 18) throw new Error('terms-viz: mann-whitney — U должно быть 18, вышло ' + u);
   out.push(tx(x0 + 2.5 * c, 30, L.b, {a: 'middle', size: 15, fill: C.t3}), tx(x0 - 70, y0 + 2.5 * c + 5, L.a, {a: 'middle', size: 15, fill: C.t3}).replace('<text', `<text transform="rotate(-90 ${x0 - 70} ${y0 + 2.5 * c})"`));
@@ -152,8 +152,8 @@ viz['bayes-theorem'] = L => {
     node(115, 110, L.nuts, C.red, '#FBE4E4', 190), node(345, 110, L.clean, C.a, '#E6EEF8', 170),
     ln(95, 128, 65, 182, C.t3), ln(135, 128, 165, 182, C.t3), ln(325, 128, 295, 182, C.t3), ln(365, 128, 395, 182, C.t3),
     tx(66, 158, L.p95, {a: 'end', size: 15, fill: C.t3}), tx(296, 158, L.p5, {a: 'end', size: 15, fill: C.t3}),
-    node(65, 200, L.b1, C.b, '#E6ECF7', 100), node(170, 200, L.s1, C.line, '#fff', 90),
-    node(290, 200, L.b2, C.b, '#E6ECF7', 100), node(400, 200, L.s2, C.line, '#fff', 100),
+    node(65, 200, L.b1, C.b, '#FCE8E3', 100), node(170, 200, L.s1, C.line, '#fff', 90),
+    node(290, 200, L.b2, C.b, '#FCE8E3', 100), node(400, 200, L.s2, C.line, '#fff', 100),
     `<path d="M65 220 Q65 262 180 268 M290 220 Q290 262 200 268" fill="none" stroke="${C.b}" stroke-width="2"/>`,
     rect(30, 270, 400, 40, '#FBF1C9', 'rx="10"'), tx(230, 296, L.sum, {a: 'middle', size: 16, fill: C.ink, w: 500}),
   ].join(''), L.sum);
@@ -166,7 +166,7 @@ viz['chi-square'] = L => {
     out.push(rect(x, Y(o), bw, o * 10, i === 5 ? C.b : C.a, 'opacity=".85" rx="3"'),
       tx(x + bw / 2, Y(o) - 8, o, {a: 'middle', size: 16, fill: C.ink, w: 500, bg: true}),
       tx(x + bw / 2, base + 22, i + 1, {a: 'middle', size: 15, fill: C.t3}),
-      tx(x + bw / 2, base + 46, '+' + String(f1(k)), {a: 'middle', size: 15, fill: i === 5 ? '#23418A' : C.t3})); });
+      tx(x + bw / 2, base + 46, '+' + String(f1(k)), {a: 'middle', size: 15, fill: i === 5 ? '#B8432B' : C.t3})); });
   out.push(ln(x0 - 10, Y(10), x0 + 6 * st, Y(10), C.ink, 1.5, '6 4'), tx(x0 - 16, Y(10) + 5, L.e, {a: 'end', size: 15, fill: C.ink}),
     tx(x0 - 14, base + 22, L.face, {a: 'end', size: 15, fill: C.t3}), tx(x0 - 14, base + 46, '(O−E)²/E', {a: 'end', size: 13, fill: C.t3}),
     tx(W / 2, base + 80, L.sum, {a: 'middle', size: 15, fill: C.ink, w: 500}));
@@ -196,7 +196,7 @@ viz['p-value'] = L => {
     path([[X(-3.8), base], ...curve(-3.8, -t), [X(-t), base]], 'none', 0, C.red, 'opacity=".55"'),
     path(curve(-3.8, 3.8), C.pen, 2.5), ln(X(-3.8), base, X(3.8), base, C.t3),
     ln(X(t), 70, X(t), base, C.b, 2.5), ln(X(-t), 70, X(-t), base, C.b, 2, '5 4'),
-    tx(X(t), 62, L.obs, {a: 'middle', size: 15, fill: '#23418A', w: 500}), tx(X(-t), 62, L.mir, {a: 'middle', size: 15, fill: C.t3}),
+    tx(X(t), 62, L.obs, {a: 'middle', size: 15, fill: '#B8432B', w: 500}), tx(X(-t), 62, L.mir, {a: 'middle', size: 15, fill: C.t3}),
     tx(X(0), Y(phi(0)) - 10, L.null, {a: 'middle', size: 15, fill: C.pen}),
     ...[-3, -2, -1, 0, 1, 2, 3].map(k => tx(X(k), base + 22, (k > 0 ? '+' : k < 0 ? '−' : '') + Math.abs(k), {a: 'middle', size: 15, fill: C.t3})),
     tx(X(3.8), base + 44, L.z, {a: 'end', size: 15, fill: C.t3}),
@@ -207,7 +207,7 @@ viz['p-value'] = L => {
 viz['statistical-significance'] = L => {
   const X = v => 240 + (v + 2) * 26, rows = [[L.a, 2.4, 4.6, C.mint], [L.b, .3, 1.1, C.a], [L.c, -1.8, 4.8, C.t3], [L.d, -.5, .6, C.t3]];
   const out = [ln(X(0), 30, X(0), 250, C.ink, 1.5), ln(X(2), 30, X(2), 250, C.b, 2, '6 4'),
-    tx(X(0), 270, L.zero, {a: 'middle', size: 15, fill: C.ink}), tx(X(2) + 4, 22, L.thr, {a: 'middle', size: 15, fill: '#23418A'})];
+    tx(X(0), 270, L.zero, {a: 'middle', size: 15, fill: C.ink}), tx(X(2) + 4, 22, L.thr, {a: 'middle', size: 15, fill: '#B8432B'})];
   rows.forEach(([s, a, b, col], i) => { const y = 60 + i * 52;
     out.push(tx(10, y + 5, s, {size: 15, fill: C.ink}), ln(X(a), y, X(b), y, col, 4), circ(X((a + b) / 2), y, 5, col)); });
   out.push(tx(X(6), 270, L.x + ' →', {a: 'end', size: 15, fill: C.t3}));
@@ -237,7 +237,7 @@ viz['central-limit-theorem'] = L => {
     ln(X(10), 20, X(10), base, C.line, 1.5, '4 4'),
     cv(1, '#9DB8DA', 2), cv(2, '#6E9BD0', 2), cv(5, C.a, 2.5), cv(30, C.pen, 3),
     tx(X(1.8), Y(.1) - 6, L.n1, {size: 15, fill: '#5C7FA8'}), tx(X(4.6), Y(.095) - 18, L.n2, {size: 15, fill: '#4D7DB7', bg: true}),
-    tx(X(15.2), Y(.12), L.n5, {size: 15, fill: '#B8432B', bg: true}), tx(X(12.4), Y(.205), L.n30, {size: 16, fill: C.pen, w: 500, bg: true}),
+    tx(X(15.2), Y(.12), L.n5, {size: 15, fill: '#23418A', bg: true}), tx(X(12.4), Y(.205), L.n30, {size: 16, fill: C.pen, w: 500, bg: true}),
     tx(X(30), base + 46, L.x, {a: 'end', size: 15, fill: C.t3}),
   ].join(''), [L.n1, L.n2, L.n5, L.n30].join(' · '));
 };
@@ -266,7 +266,7 @@ viz['simpson-paradox'] = L => {
     ...[0, .5, 1].map(s => tx(X(s), Y(50) + 22, Math.round(s * 100) + '%', {a: 'middle', size: 15, fill: C.t3})),
     tx(X(0), Y(50) + 46, L.m, {a: 'start', size: 15, fill: C.t3}), tx(X(1), Y(50) + 46, L.e, {a: 'end', size: 15, fill: C.t3}),
     path([[X(0), Y(95)], [X(1), Y(70)]], C.a, 3), path([[X(0), Y(90)], [X(1), Y(60)]], C.b, 3),
-    tx(X(1) - 4, Y(70) - 10, L.bob, {a: 'end', size: 16, fill: '#B8432B', w: 500}), tx(X(1) - 4, Y(60) + 22, L.kot, {a: 'end', size: 16, fill: '#23418A', w: 500}),
+    tx(X(1) - 4, Y(70) - 10, L.bob, {a: 'end', size: 16, fill: '#23418A', w: 500}), tx(X(1) - 4, Y(60) + 22, L.kot, {a: 'end', size: 16, fill: '#B8432B', w: 500}),
     circ(X(.8), Y(75), 8, C.a, 'stroke="#fff" stroke-width="2"'), circ(X(.1), Y(87), 8, C.b, 'stroke="#fff" stroke-width="2"'),
     tx(X(.8), Y(75) - 18, L.bp, {a: 'middle', size: 15, fill: C.ink, bg: true}), ln(X(.1), Y(87) - 8, X(.1) + 8, 52, C.t3, 1) , tx(X(.1) + 10, 48, L.kp, {size: 15, fill: C.ink, bg: true}),
     tx(X(.5), Y(50) + 70, L.x, {a: 'middle', size: 15, fill: C.t3}),
@@ -307,15 +307,15 @@ const lineChart = (L, xs, series, {ymax, yfmt, ref, refLabel, refLeft, xfmt}) =>
 };
 
 lim['confidence-interval'] = L => svg(280, lineChart(L, [10, 30, 100, 1000, 10000],
-  [{v: [67.3, 78.0, 85.0, 92.4, 93.9], c: C.a, label: L.cov, at: 1, dy: 26, ink: '#B8432B'}],
+  [{v: [67.3, 78.0, 85.0, 92.4, 93.9], c: C.a, label: L.cov, at: 1, dy: 26, ink: '#23418A'}],
   {ymax: 100, yfmt: v => v + '%', ref: 95, refLabel: L.ref, xfmt: nf}), L.cov);
 
 lim['t-test'] = L => svg(280, lineChart(L, [10, 30, 100, 1000],
-  [{v: [17.2, 13.9, 10.3, 6.8], c: C.red, label: L.une, at: 0, dx: 10, dy: -12}, {v: [1.7, 2.4, 3.7, 4.8], c: C.a, label: L.eq, at: 2, dy: 24, a: 'middle', ink: '#B8432B'}],
+  [{v: [17.2, 13.9, 10.3, 6.8], c: C.red, label: L.une, at: 0, dx: 10, dy: -12}, {v: [1.7, 2.4, 3.7, 4.8], c: C.a, label: L.eq, at: 2, dy: 24, a: 'middle', ink: '#23418A'}],
   {ymax: 20, yfmt: v => v + '%', ref: 5, refLabel: L.ref, refLeft: true, xfmt: nf}), L.une + ' · ' + L.eq);
 
 lim['chi-square'] = L => svg(280, lineChart(L, [6, 12, 18, 30, 60, 300],
-  [{v: [5.8, 3.3, 4.7, 4.8, 4.9, 5.1], c: C.a, label: L.fpr, at: 1, dy: 28, ink: '#B8432B'}],
+  [{v: [5.8, 3.3, 4.7, 4.8, 4.9, 5.1], c: C.a, label: L.fpr, at: 1, dy: 28, ink: '#23418A'}],
   {ymax: 10, yfmt: v => v + '%', ref: 5, refLabel: L.ref, xfmt: nf}), L.fpr);
 
 lim['bayes-theorem'] = L => {
@@ -335,7 +335,7 @@ lim['law-of-large-numbers'] = L => {
   return svg(312, [ln(X(1), Y(0), X(10000), Y(0), C.ink, 1.5, '5 4'), ln(X(1), Y(-2), X(10000), Y(-2), C.t3), ln(X(1), Y(-2), X(1), Y(2), C.t3),
     path(b, C.red, 1.8), path(a, C.a, 2.2), ...[1, 10, 100, 1000, 10000].map(n => tx(X(n), Y(-2) + 22, nf(n), {a: n === 10000 ? 'end' : 'middle', size: 15, fill: C.t3})),
     tx(X(10000), Y(-2) + 44, L.x, {a: 'end', size: 15, fill: C.t3}),
-    ln(X(1), 296, X(1) + 24, 296, C.a, 3), tx(X(1) + 30, 301, L.nor, {size: 15, fill: '#B8432B', w: 500}),
+    ln(X(1), 296, X(1) + 24, 296, C.a, 3), tx(X(1) + 30, 301, L.nor, {size: 15, fill: '#23418A', w: 500}),
     ln(X(1) + 170, 296, X(1) + 194, 296, C.red, 3), tx(X(1) + 200, 301, L.cau, {size: 15, fill: C.red, w: 500})].join(''), L.cau + ' · ' + L.nor);
 };
 
@@ -347,7 +347,7 @@ lim['normal-distribution'] = L => {
   return svg(280, [path(neg, 'none', 0, C.red, 'opacity=".35"'), ln(X(-20), base, X(50), base, C.t3),
     ...[-20, 0, 10, 30, 50].map(v => tx(X(v), base + 22, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 15, fill: C.t3})),
     path([[X(0), base], ...ex], C.a, 2.5), path(no, C.pen, 2, 'none', 'stroke-dasharray="6 4"'),
-    tx(X(2), Y(.1) - 6, L.real, {size: 15, fill: '#B8432B', w: 500, bg: true}), tx(X(19), Y(.045), L.bell, {size: 15, fill: C.pen, bg: true}),
+    tx(X(2), Y(.1) - 6, L.real, {size: 15, fill: '#23418A', w: 500, bg: true}), tx(X(19), Y(.045), L.bell, {size: 15, fill: C.pen, bg: true}),
     tx(X(-19), Y(.012) - 24, L.neg, {size: 15, fill: C.red, bg: true}), tx(X(50), base + 46, L.x, {a: 'end', size: 15, fill: C.t3})].join(''), L.real + ' · ' + L.bell);
 };
 

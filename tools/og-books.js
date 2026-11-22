@@ -14,7 +14,7 @@ for (const [fam, pkg] of [['Literata', 'literata'], ['Onest', 'onest']]) for (co
 }
 const FONTS = css.length === 4 ? `<style>${css.join('\n')}</style>` : require('./fonts-inline.js')();
 const ava = 'data:image/jpeg;base64,' + fs.readFileSync(path.join(ROOT, 'ab-basics/img/ava-kot.jpg')).toString('base64');
-const bar = `<svg width="620" height="56" viewBox="0 0 440 40"><rect x="0" y="4" width="38" height="30" rx="6" fill="#E8644A"/><rect x="42" y="4" width="398" height="30" rx="6" fill="#23418A"/>
+const bar = `<svg width="620" height="56" viewBox="0 0 440 40"><rect x="0" y="4" width="38" height="30" rx="6" fill="#23418A"/><rect x="42" y="4" width="398" height="30" rx="6" fill="#E8644A"/>
   <g stroke="#fff" stroke-opacity=".8" stroke-width="2"><line x1="122" y1="6" x2="122" y2="32"/><line x1="202" y1="6" x2="202" y2="32"/><line x1="282" y1="6" x2="282" y2="32"/><line x1="362" y1="6" x2="362" y2="32"/></g></svg>`;
 const page = (title, line, extra) => `<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">${FONTS}<style>
 *{box-sizing:border-box} body{margin:0; width:1200px; height:630px; overflow:hidden; background:#E9E5DE radial-gradient(rgba(120,110,90,.22) 1px, transparent 1.2px) 0 0/18px 18px; font-family:Onest, sans-serif; color:#24221F}
