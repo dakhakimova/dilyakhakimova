@@ -55,7 +55,7 @@
         <div class="stage-frame"><iframe class="tr-frame" src="/play/power-bells/?embed=1" data-toy="power-bells" title="Игра: Фото дают +2%. Заметит ли это недельный тест?" style="height:1150px" loading="lazy"></iframe></div>
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
-        <li><b class="st-h">Шум недельного теста.</b> <p class="formula">SE = √(2 · p(1 − p) / n) = √(2 · 0.09 / 70 000) ≈ 0.0016 = <b>1.6%</b> от 10%</p></li>
+        <li><b class="st-h">Шум недельного теста.</b> <p class="formula">SE = √(2 · p(1 − p) / n) = √(2 · 0.09/70 000) ≈ 0.0016 = <b>1.6%</b> от 10%</p></li>
         <li><b class="st-h">Мощность и MDE.</b> <p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(2% / 1.6% − 1.96) ≈ <b>24%</b></p><p class="formula">MDE ≈ 2.8 · SE ≈ <b>+4.5%</b></p></li>
         <li><b class="st-h">Как растёт.</b> 
           <table class="table sol-table"><thead><tr><th>Дней</th><th class="num">Мощность для +2%</th></tr></thead><tbody><tr><td>7</td><td class="num">24%</td></tr><tr><td>14</td><td class="num">42%</td></tr><tr><td>28</td><td class="num">70%</td></tr></tbody></table></li>
@@ -76,7 +76,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         <details class="tr-hint"><summary>Подсказка</summary><p>Две доли: 58% и 61%. Сложи дисперсии p(1 − p) обеих групп.</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>n = 7,85 · (0,58 · 0,42 + 0,61 · 0,39) / 0,03² ≈ 7,85 · 0,4815 / 0,0009 ≈ <b>4 200 гостей в каждом районе</b>.<br>Частая ошибка: найти n из условия «эффект 3 п. п. как раз равен 1,96 стандартной ошибки» — выйдет около 2 060. Но при таком n мощность всего 50%: половина опросов разницу не покажет. Мощность нужно закладывать отдельно, это слагаемое 0,84 в формуле.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>n = 7,85 · (0,58 · 0,42 + 0,61 · 0,39) / 0,03² ≈ 7,85 · 0,4815/0,0009 ≈ <b>4 200 гостей в каждом районе</b>.<br>Частая ошибка: найти n из условия «эффект 3 п. п. как раз равен 1,96 стандартной ошибки» — выйдет около 2 060. Но при таком n мощность всего 50%: половина опросов разницу не покажет. Мощность нужно закладывать отдельно, это слагаемое 0,84 в формуле.</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="S6a-s1" data-ans="609" data-tol="40">
@@ -123,7 +123,7 @@
         <div class="stage-frame"><iframe class="tr-frame" src="/play/power-curve/?embed=1" data-toy="power-curve" title="Игра: Какой эффект тест вообще заметит?" style="height:1000px" loading="lazy"></iframe></div>
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
-        <li><b class="st-h">Самый маленький заметный эффект.</b> <p class="formula">MDE ≈ 2.8 · √(2p(1 − p) / n) = 2.8 · √(2 · 0.09 / 10 000) ≈ <b>1.19</b> на 100 гостей</p></li>
+        <li><b class="st-h">Самый маленький заметный эффект.</b> <p class="formula">MDE ≈ 2.8 · √(2p(1 − p) / n) = 2.8 · √(2 · 0.09/10 000) ≈ <b>1.19</b> на 100 гостей</p></li>
         <li><b class="st-h">Эффект Боба +0.5.</b> Меньше MDE больше чем вдвое — тест поймает его лишь примерно в каждом пятом запуске (мощность ≈ 22%).</li>
         <li><b class="st-h">Сколько гостей нужно.</b> <p class="formula">n ≈ 2 · 2.8² · p(1 − p) / δ² = 2 · 7.84 · 0.09 / 0.005² ≈ <b>56 500</b> в группе</p></li>
         <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Вдвое меньший эффект — вдвое больше гостей»: вчетверо больше.</li></ul></li>
@@ -143,8 +143,8 @@
           <button type="submit" class="btn ghost">Проверить</button>
         </form>
         <p class="tr-fb" role="status"></p>
-        <details class="tr-hint"><summary>Подсказка</summary><p>SE разницы = √(2 · 0,08 · 0,92 / 2000).</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,08 · 0,92 / 2000) ≈ 0,0086; MDE ≈ 2,8 · 0,0086 ≈ <b>2,4 п. п.</b> — то есть рост с 8% до 10,4%. Эффект в 1 п. п. такой тест почти наверняка пропустит, поэтому «серый» здесь значит «не знаем», а не «эффекта нет».</p></details>
+        <details class="tr-hint"><summary>Подсказка</summary><p>SE разницы = √(2 · 0,08 · 0,92/2000).</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,08 · 0,92/2000) ≈ 0,0086; MDE ≈ 2,8 · 0,0086 ≈ <b>2,4 п. п.</b> — то есть рост с 8% до 10,4%. Эффект в 1 п. п. такой тест почти наверняка пропустит, поэтому «серый» здесь значит «не знаем», а не «эффекта нет».</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="S6b-s1" data-ans="2.57" data-tol="0.15">
@@ -156,7 +156,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,3 · 0,7 / 5000) ≈ 0,0092; MDE ≈ 2,8 · 0,0092 ≈ <b>2,6 п. п.</b></p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,3 · 0,7/5000) ≈ 0,0092; MDE ≈ 2,8 · 0,0092 ≈ <b>2,6 п. п.</b></p></details>
       </div>
       <div class="tr-task" data-id="S6b-s2" data-ans="0.277" data-tol="0.02">
         <p class="tr-kind">Реши сам · <span class="tr-dom">Маркетплейс</span></p>
@@ -167,7 +167,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,02 · 0,98 / 40000) ≈ 0,00099; MDE ≈ 2,8 · 0,00099 ≈ <b>0,28 п. п.</b>, то есть с 2% до 2,28%.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,02 · 0,98/40000) ≈ 0,00099; MDE ≈ 2,8 · 0,00099 ≈ <b>0,28 п. п.</b>, то есть с 2% до 2,28%.</p></details>
       </div>
     </section>
 
@@ -181,7 +181,7 @@
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Где ошибся Боб.</b> Серый тест — закрыл навсегда. Серый значит «не разглядели».</li>
-        <li><b class="st-h">Мощность недельного теста.</b> <p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(0.003 / 0.0016 − 1.96) ≈ <b>46%</b></p> Из 20 хороших идей серыми остаются в среднем 11.</li>
+        <li><b class="st-h">Мощность недельного теста.</b> <p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(0.003/0.0016 − 1.96) ≈ <b>46%</b></p> Из 20 хороших идей серыми остаются в среднем 11.</li>
         <li><b class="st-h">Длиннее тест.</b> При 28 днях закрытых хороших меньше одной из 20. Ложных тревог у пустых — около 4 из 80 при любой длине.</li>
       </ol></div></section>
       </div>

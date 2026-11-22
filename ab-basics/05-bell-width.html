@@ -380,7 +380,7 @@ window.addEventListener('resize', () => { drawBell(); drawCurve(); drawBand(); }
   for (let seed = 7; ; seed++){
     const r = rng(seed), g = () => Math.sqrt(-2 * Math.log(1 - r())) * Math.cos(2 * Math.PI * r());
     const list = [];
-    for (let i = 0; i < 29; i++){ const n = Math.round(Math.exp(Math.log(50) + r() * Math.log(5000 / 50))); const k = Math.max(0, Math.round(n * P0 + Math.sqrt(n * P0 * (1 - P0)) * g())); list.push({n, k}); }
+    for (let i = 0; i < 29; i++){ const n = Math.round(Math.exp(Math.log(50) + r() * Math.log(5000/50))); const k = Math.max(0, Math.round(n * P0 + Math.sqrt(n * P0 * (1 - P0)) * g())); list.push({n, k}); }
     const ok = list.every(c => Math.abs(c.k / c.n - P0) < 1.9 * Math.sqrt(P0 * (1 - P0) / c.n)) && list.some(c => c.n < 120 && Math.abs(c.k / c.n - P0) > 0.08);
     if (ok){ list.splice(17, 0, {n: SPECIAL_N, k: Math.round(SPECIAL_N * SPECIAL_P), special: true}); cafes = list.map((c, i) => Object.assign(c, {id: i + 1, p: c.k / c.n})); break; }
   }

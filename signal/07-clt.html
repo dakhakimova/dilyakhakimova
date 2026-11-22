@@ -464,7 +464,7 @@ const TXT = {
 // ---------- общие для страницы распределения ----------
 const CH7 = (function(){
   // гамма (Марсалья–Цанг), форма k ≥ 1, масштаб th
-  const gamma = (k, th) => { const d = k - 1 / 3, c = 1 / Math.sqrt(9 * d); for (;;){ let x, v; do { x = gauss(); v = 1 + c * x; } while (v <= 0); v = v * v * v; const u = rand(); if (Math.log(u) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v * th; } };
+  const gamma = (k, th) => { const d = k - 1/3, c = 1 / Math.sqrt(9 * d); for (;;){ let x, v; do { x = gauss(); v = 1 + c * x; } while (v <= 0); v = v * v * v; const u = rand(); if (Math.log(u) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v * th; } };
   const disc = p => { const cdf = []; p.reduce((a, x, i) => (cdf[i] = a + x), 0); const mu = p.reduce((a, x, i) => a + x * (i + 1), 0), v = p.reduce((a, x, i) => a + x * (i + 1 - mu) ** 2, 0), m3 = p.reduce((a, x, i) => a + x * (i + 1 - mu) ** 3, 0);
     return {disc: true, p, mu, sd: Math.sqrt(v), sk: v ? m3 / v ** 1.5 : 0, lo: 1, hi: 6, draw(){ const u = rand(); let k = 0; while (k < 5 && cdf[k] < u) k++; return k + 1; }}; };
   const LS = 1.1, LM = Math.log(350), lmean = Math.exp(LM + LS * LS / 2), lsd = lmean * Math.sqrt(Math.exp(LS * LS) - 1), lsk = (Math.exp(LS * LS) + 2) * Math.sqrt(Math.exp(LS * LS) - 1);
@@ -472,9 +472,9 @@ const CH7 = (function(){
     die: disc([1, 1, 1, 1, 1, 1].map(x => x / 6)),
     crook: disc([0.4, 0.25, 0.15, 0.1, 0.06, 0.04]),
     ushape: disc([0.4, 0.08, 0.02, 0.02, 0.08, 0.4]),
-    expo: {mu: 6, sd: 6, sk: 2, lo: 0, hi: 30, unit: ' мин', draw: () => expo(1 / 6), pdf: x => x < 0 ? 0 : Math.exp(-x / 6) / 6},
+    expo: {mu: 6, sd: 6, sk: 2, lo: 0, hi: 30, unit: ' мин', draw: () => expo(1/6), pdf: x => x < 0 ? 0 : Math.exp(-x / 6) / 6},
     whale: {mu: lmean, sd: lsd, sk: lsk, lo: 0, hi: 2500, unit: ' ₽', draw: () => Math.exp(LM + LS * gauss()), pdf: x => x <= 0 ? 0 : Math.exp(-((Math.log(x) - LM) ** 2) / (2 * LS * LS)) / (x * LS * Math.sqrt(2 * Math.PI))},
-    pareto: {mu: 600, sd: Infinity, sk: Infinity, lo: 0, hi: 2500, unit: ' ₽', draw: () => 200 * Math.pow(1 - rand(), -1 / 1.5), pdf: x => x < 200 ? 0 : 1.5 * Math.pow(200, 1.5) / Math.pow(x, 2.5)},
+    pareto: {mu: 600, sd: Infinity, sk: Infinity, lo: 0, hi: 2500, unit: ' ₽', draw: () => 200 * Math.pow(1 - rand(), -1/1.5), pdf: x => x < 200 ? 0 : 1.5 * Math.pow(200, 1.5) / Math.pow(x, 2.5)},
   };
   return {S, gamma};
 })();
@@ -625,7 +625,7 @@ const CH7 = (function(){
   const cv = document.getElementById('cv-dice'), sl = document.getElementById('nd7');
   let mode = 'sum';
   const pmfSum = n => { let d = [1]; for (let k = 0; k < n; k++){ const nd = new Array(d.length + 6).fill(0); d.forEach((p, s) => { if (p) for (let f = 1; f <= 6; f++) nd[s + f] += p / 6; }); d = nd; } return d; };
-  const V1 = 35 / 12;
+  const V1 = 35/12;
   function draw(){
     const n = +sl.value; document.getElementById('nd7-t').textContent = n;
     const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
@@ -651,7 +651,7 @@ const CH7 = (function(){
 
 // ---------- карточка 8: поймай μ ----------
 (function(){
-  const cv = document.getElementById('cv-ci'), K = (500 / 400) ** 2, TH = 500 / K, MU = 500;
+  const cv = document.getElementById('cv-ci'), K = (500/400) ** 2, TH = 500 / K, MU = 500;
   let n = 100, z = 1.96, list = [], cov = 0, tot = 0;
   function one(){ let s = 0, s2 = 0; for (let i = 0; i < n; i++){ const x = CH7.gamma(K, TH); s += x; s2 += x * x; } const m = s / n, sdv = Math.sqrt(Math.max(0, (s2 - n * m * m) / (n - 1))), hw = z * sdv / Math.sqrt(n); const hit = Math.abs(m - MU) <= hw; cov += hit; tot++; list.push({m, hw, hit}); if (list.length > 40) list.shift(); }
   function add(k){ for (let i = 0; i < k; i++) one(); update(); }
@@ -752,7 +752,7 @@ const CH7 = (function(){
     document.getElementById('v-run').textContent = TXT.run(a);
     const g = canvas(cv, 0.4, 0.66); if (!g) return; const {c, w, h} = g;
     const L = 44, R = 10, T = 10, B = 22, pw = w - L - R, ph = h - T - B, mu = a > 1 ? a * XM / (a - 1) : null;
-    let top = mu ? mu * 2 : 0; runs.forEach(r => { for (let i = 50; i < N; i += 10) top = Math.max(top, r[i]); }); top = Math.ceil(top * 1.1 / 200) * 200;
+    let top = mu ? mu * 2 : 0; runs.forEach(r => { for (let i = 50; i < N; i += 10) top = Math.max(top, r[i]); }); top = Math.ceil(top * 1.1/200) * 200;
     const step = top > 2000 ? 1000 : top > 1000 ? 500 : 200;
     axisY(c, L, R, T, ph, w, 0, top, step, v => int(v));
     const X = i => L + i / N * pw, Y = v => T + ph - ph * Math.min(v, top) / top;

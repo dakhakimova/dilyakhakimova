@@ -134,7 +134,7 @@
   <h2>Средний приз за вращение</h2>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Окупится ли колесо, зависит не от одного вращения, а от того, сколько призов оно раздаёт в среднем. Сравниваем этот средний приз с ценой вращения.</p></div>
-    <div class="things"><span class="lt">В штуках</span><p>Из 800 вращений ≈ 500 пустых, ≈ 200 с кофе и ≈ 100 с тортом. Призов на 200 · 150 + 100 · 400 = 70 000 ₽, по 70 000 / 800 = 87.5 ₽ на вращение.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 800 вращений ≈ 500 пустых, ≈ 200 с кофе и ≈ 100 с тортом. Призов на 200 · 150 + 100 · 400 = 70 000 ₽, по 70 000/800 = 87.5 ₽ на вращение.</p></div>
     <div class="formula-l"><span class="lt">Формула</span><p class="formula">E[X] = Σ x · P(X = x) = 0 · ⅝ + 150 · ²⁄₈ + 400 · ⅛ = 87.5</p><p class="read">Словами: «каждое значение × его доля, и всё сложить». Это центр тяжести столбиков распределения из шага 7.</p></div>
   </div>
   <p>Приз 87.5 ₽ не выпадает ни разу: такого сектора нет. Среднее — не самое частое и не «типичное» значение, а точка равновесия: где подпереть столбики, чтобы они не перевесили.</p>
@@ -339,7 +339,7 @@ _check()
   </div>
   <div class="quiz" data-right="d">
     <p class="q">У Котейки 5 наклеек из 6. Сколько обедов в среднем ждать последнюю?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Осталась одна наклейка, но шанс получить именно её в одном обеде — 1 из 6.">Один обед: осталась всего одна</button><button type="button" data-v="b" data-why="2.5 — средний промежуток по всему альбому (14.7 / 6). Последняя наклейка дороже остальных.">Около 2.5: столько в среднем на наклейку</button><button type="button" data-v="c" data-why="Половина от шести — это ни медиана, ни среднее ожидания. Ждём 1/p обедов.">Около 3: половина от шести</button><button type="button" data-v="d">Шесть: шанс новой — 1 из 6</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Осталась одна наклейка, но шанс получить именно её в одном обеде — 1 из 6.">Один обед: осталась всего одна</button><button type="button" data-v="b" data-why="2.5 — средний промежуток по всему альбому (14.7/6). Последняя наклейка дороже остальных.">Около 2.5: столько в среднем на наклейку</button><button type="button" data-v="c" data-why="Половина от шести — это ни медиана, ни среднее ожидания. Ждём 1/p обедов.">Около 3: половина от шести</button><button type="button" data-v="d">Шесть: шанс новой — 1 из 6</button></div>
     <p class="why">Новая наклейка приходит с шансом 1/6, а геометрическое ожидание — 1/p = 6 обедов. Последняя наклейка стоит почти столько же, сколько первые четыре вместе.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -406,7 +406,7 @@ const TXT = {
   let price = 100;
   // точная вероятность «призы дороже n · price» после n вращений (мультиномиальное распределение)
   function pPlus(n, pr){
-    let s = 0; const l5 = Math.log(5 / 8), l2 = Math.log(2 / 8), l1 = Math.log(1 / 8), ln = lgamma(n + 1);
+    let s = 0; const l5 = Math.log(5/8), l2 = Math.log(2/8), l1 = Math.log(1/8), ln = lgamma(n + 1);
     for (let c = 0; c <= n; c++) for (let t = 0; t <= n - c; t++){
       if (150 * c + 400 * t > pr * n){ const z = n - c - t; s += Math.exp(ln - lgamma(z + 1) - lgamma(c + 1) - lgamma(t + 1) + z * l5 + c * l2 + t * l1); }
     }
@@ -514,7 +514,7 @@ const TXT = {
   // ---------- карточка 7: два колеса ----------
   (function(){
     const cv = $('ch-two');
-    const wheels = [{name: TXT.twoBob, v: [0, 150, 400], p: [5 / 8, 2 / 8, 1 / 8], col: COL.ctrl}, {name: TXT.twoKot, v: [75, 100], p: [0.5, 0.5], col: COL.test}];
+    const wheels = [{name: TXT.twoBob, v: [0, 150, 400], p: [5/8, 2/8, 1/8], col: COL.ctrl}, {name: TXT.twoKot, v: [75, 100], p: [0.5, 0.5], col: COL.test}];
     function draw(){
       const g = canvas(cv, 0.32, 0.6); if (!g) return; const {c, w, h} = g;
       const L = 14, R = 14, pw = w - L - R, X = v => L + (v + 100) / 600 * pw, rowH = (h - 40) / 2;
@@ -539,7 +539,7 @@ const TXT = {
     function sim(){ vals = []; for (let g = 0; g < 1000; g++){ let s = 0; for (let k = 0; k < n; k++) s += spin(); vals.push(s - 100 * n); } }
     function draw(){
       const m = -12.5 * n, s = 134.0476 * Math.sqrt(n), lo = Math.floor(Math.min(m - 4 * s, -400) / 100) * 100, hi = Math.ceil(Math.max(m + 4 * s, 400) / 100) * 100;
-      const bw = Math.max(50, Math.round((hi - lo) / 40 / 50) * 50);
+      const bw = Math.max(50, Math.round((hi - lo) / 40/50) * 50);
       const r = histo(cv, vals, lo, hi, bw, TXT.sumX(n), m); if (!r) return;
       hoverBins(cv, r.X, lo, bw, r.b, {fmt: v => (v < 0 ? MINUS : '') + int(Math.abs(v)), words: {one: 'гость', few: 'гостя', many: 'гостей'}, total: vals.length});
       V.className = 'verdict good'; V.innerHTML = TXT.sumV(n, pPlus(n, 100), m, s);

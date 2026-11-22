@@ -128,9 +128,9 @@
   <figure class="art"><img loading="lazy" src="img/vp05-01-frame.jpg" alt="Алиса держит большую деревянную рамку, внутри рамки только гости с зонтиками, остальные бледные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса держит рамку, в ней только гости с зонтиками</figcaption></figure>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Алиса надевает рамку «пришёл в дождь». Гости в солнце больше не существуют — мир стал меньше. В новом мире считаем долю шоколада заново.</p></div>
-    <div class="things"><span class="lt">В штуках</span><p>В рамке 300 дождевых гостей, из них 120 с шоколадом: 120 / 300 = 40%. Среди всех гостей было 190 из 1000 — 19%.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>В рамке 300 дождевых гостей, из них 120 с шоколадом: 120/300 = 40%. Среди всех гостей было 190 из 1000 — 19%.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">P(A | B) = P(A и B) / P(B) = 0.12 / 0.3 = 0.4</p>
+      <p class="formula">P(A | B) = P(A и B) / P(B) = 0.12/0.3 = 0.4</p>
       <p class="read">Словами: доля A в мире, где случилось B. Вертикальная черта читается «при условии».</p>
     </div>
   </div>
@@ -151,7 +151,7 @@
     <canvas id="squares" role="img" aria-label="Два квадрата 1000 гостей: слева нарезка по погоде, потом по шоколаду; справа нарезка по шоколаду, потом по погоде; закрашенная площадь одна и та же — 120 гостей"></canvas>
   </div>
   <div class="layers">
-    <div class="things"><span class="lt">В штуках</span><p>Слева: 300 дождевых, из них 40% с шоколадом → 120. Справа: 190 с шоколадом, из них 120 / 190 ≈ 63% пришли в дождь → те же 120.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Слева: 300 дождевых, из них 40% с шоколадом → 120. Справа: 190 с шоколадом, из них 120/190 ≈ 63% пришли в дождь → те же 120.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
       <p class="formula">P(A и B) = P(B) · P(A | B) = P(A) · P(B | A)</p>
       <p class="read">Словами: долю «и» получают, умножая долю первого на долю второго внутри первого. В шаге 4 мы умножали просто P(A) · P(B) — так можно, только когда условие ничего не меняет.</p>
@@ -502,7 +502,7 @@ const TXT = {
       label(c, TXT.sqRain, x + wR / 2, y + s + 16, COL.ink2, 'center'); label(c, TXT.sqSun, x + wR + (s - wR) / 2, y + s + 16, COL.ink2, 'center');
       label(c, TXT.sqBoth, x + wR / 2, y + hA / 2 + 5, COL.ink, 'center');
     } else {
-      const hA = s * 0.19, wR = s * 120 / 190;
+      const hA = s * 0.19, wR = s * 120/190;
       c.fillStyle = COL.fillT; c.fillRect(x, y, s, hA);
       c.fillStyle = COL.test; c.fillRect(x, y, wR, hA);
       c.strokeStyle = COL.ink2; c.lineWidth = 1; c.strokeRect(x, y, s, s); c.beginPath(); c.moveTo(x, y + hA); c.lineTo(x + s, y + hA); c.stroke();

@@ -55,8 +55,8 @@
         <div class="stage-frame"><iframe class="tr-frame" src="/play/coin-p-value/?embed=1" data-toy="coin-p-value" title="Игра: 9 орлов из 10 — монетка нечестная?" style="height:1000px" loading="lazy"></iframe></div>
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
-        <li><b class="st-h">Как наш или необычнее.</b> Считаем не «ровно 9», а «9 и больше» — любая конкретная серия редкая:<p class="formula">P(«≥ 9 из 10») = (C(10, 9) + C(10, 10)) / 2¹⁰ = 11 / 1024 ≈ <b>1.1%</b></p></li>
-        <li><b class="st-h">В обе стороны.</b> Перекос мог быть и к решкам — добавляем 0 и 1 орёл:<p class="formula">p = 2 · 11 / 1024 ≈ <b>2.1%</b></p></li>
+        <li><b class="st-h">Как наш или необычнее.</b> Считаем не «ровно 9», а «9 и больше» — любая конкретная серия редкая:<p class="formula">P(«≥ 9 из 10») = (C(10, 9) + C(10, 10)) / 2¹⁰ = 11/1024 ≈ <b>1.1%</b></p></li>
+        <li><b class="st-h">В обе стороны.</b> Перекос мог быть и к решкам — добавляем 0 и 1 орёл:<p class="formula">p = 2 · 11/1024 ≈ <b>2.1%</b></p></li>
         <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Маленькое p — монетка точно нечестная»: оно говорит лишь, что честной монетке такое даётся редко.</li></ul></li>
       </ol></div></section>
       </div>
@@ -75,7 +75,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         <details class="tr-hint"><summary>Подсказка</summary><p>P(X ≥ 10) при Bin(12; 0,5): исходов с 10, 11 и 12 «пустыми» — 66 + 12 + 1.</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>P(X ≥ 10) = 79 / 4 096 ≈ 0,0193; двусторонний p ≈ <b>0,039</b>. На уровне 5% гипотезу «приз в половине случаев» отвергаем. Если бы взяли только P(«ровно 10») = 66 / 4 096, ответ был бы занижен.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>P(X ≥ 10) = 79/4 096 ≈ 0,0193; двусторонний p ≈ <b>0,039</b>. На уровне 5% гипотезу «приз в половине случаев» отвергаем. Если бы взяли только P(«ровно 10») = 66/4 096, ответ был бы занижен.</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="S5a-s1" data-ans="0.0336" data-tol="0.003">
@@ -98,7 +98,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>z = (0,07 − 0,05) / √(0,05 · 0,95 / 1000) ≈ 2,9; <b>p ≈ 0,004</b>.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>z = (0,07 − 0,05) / √(0,05 · 0,95/1000) ≈ 2,9; <b>p ≈ 0,004</b>.</p></details>
       </div>
     </section>
 
@@ -111,8 +111,8 @@
         <div class="stage-frame"><iframe class="tr-frame" src="/play/z-test/?embed=1" data-toy="z-test" title="Игра: +0.65 заказа на 100 гостей — сигнал или шум?" style="height:1200px" loading="lazy"></iframe></div>
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
-        <li><b class="st-h">Шум разницы.</b> Общая конверсия обеих групп и шум разницы:<p class="formula">p̂ = заказы / гости = 4130 / 40 000 ≈ 10.3%</p><p class="formula">SE = √(p̂ · (1 − p̂) · (1/n_A + 1/n_B)) = √(0.103 · 0.897 · 2/20 000) ≈ <b>0.30</b> на 100 гостей</p></li>
-        <li><b class="st-h">Сколько стандартных ошибок.</b> <p class="formula">z = разница / SE = 0.65 / 0.30 ≈ <b>2.14</b></p> |z| > 1.96 — значит p < 0.05: p ≈ <b>3.3%</b>.</li>
+        <li><b class="st-h">Шум разницы.</b> Общая конверсия обеих групп и шум разницы:<p class="formula">p̂ = заказы / гости = 4130/40 000 ≈ 10.3%</p><p class="formula">SE = √(p̂ · (1 − p̂) · (1/n_A + 1/n_B)) = √(0.103 · 0.897 · 2/20 000) ≈ <b>0.30</b> на 100 гостей</p></li>
+        <li><b class="st-h">Сколько стандартных ошибок.</b> <p class="formula">z = разница / SE = 0.65/0.30 ≈ <b>2.14</b></p> |z| > 1.96 — значит p < 0.05: p ≈ <b>3.3%</b>.</li>
         <li><b class="st-h">Интервал.</b> <p class="formula">d ± 1.96 · SE = 0.65 ± 1.96 · 0.30 = от <b>+0.05</b> до <b>+1.25</b></p> Ноль снаружи — та же проверка, прочитанная по-другому.</li>
         <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«9 гостей из 100 — огромная разница»: у групп по 100 такое бывает в A/A примерно в 12 случаях из 100.</li><li>«p = 3.3% — шанс, что эффекта нет»: это доля A/A с разницей не меньше нашей.</li></ul></li>
       </ol></div></section>
@@ -132,7 +132,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         <details class="tr-hint"><summary>Подсказка</summary><p>Доли 4,22% и 4,38%, общая около 4,30%.</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>SE ≈ √(0,043 · 0,957 · (1/9000 + 1/9600)) ≈ 0,0030; z ≈ 0,0015 / 0,0030 ≈ <b>0,51</b>, p ≈ 0,61. Разницы не видно — и это не доказательство, что её нет: MDE такого теста около 0,8 п. п.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE ≈ √(0,043 · 0,957 · (1/9000 + 1/9600)) ≈ 0,0030; z ≈ 0,0015/0,0030 ≈ <b>0,51</b>, p ≈ 0,61. Разницы не видно — и это не доказательство, что её нет: MDE такого теста около 0,8 п. п.</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="S5c-s1" data-ans="2.27" data-tol="0.06">
@@ -169,7 +169,7 @@
         <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Где ошибся Боб.</b> «Явно не случайность» — а проверить надо, как часто так бывает без эффекта.</li>
-        <li><b class="st-h">Шум разницы.</b> <p class="formula">SE = √(2 · (1 − p) / (p · n)) = √(2 · 0.9 / (0.1 · 100 000)) ≈ 1.34%</p><p class="formula">z = 3.1 / 1.34 ≈ <b>2.3</b></p></li>
+        <li><b class="st-h">Шум разницы.</b> <p class="formula">SE = √(2 · (1 − p) / (p · n)) = √(2 · 0.9 / (0.1 · 100 000)) ≈ 1.34%</p><p class="formula">z = 3.1/1.34 ≈ <b>2.3</b></p></li>
         <li><b class="st-h">p-value.</b> <p class="formula">p = P(|z| ≥ 2.3) ≈ <b>2.1%</b></p> Около 21 A/A из 1000. Маленький p значит «без эффекта так бывает редко», а не «эффект точно есть».</li>
       </ol></div></section>
       </div>

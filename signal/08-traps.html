@@ -386,7 +386,7 @@ const TXT = {
 (function(){
   const sl = document.getElementById('k8'), cv = document.getElementById('cv-bus');
   const KS = [Infinity, 4, 2, 1, 0.5, 0.25], SPAN = 300;  // 5 часов на ленте
-  const gamma1 = k => { const d = k - 1 / 3, c = 1 / Math.sqrt(9 * d); for (;;){ let x, v; do { x = gauss(); v = 1 + c * x; } while (v <= 0); v = v * v * v; if (Math.log(rand()) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v; } };
+  const gamma1 = k => { const d = k - 1/3, c = 1 / Math.sqrt(9 * d); for (;;){ let x, v; do { x = gauss(); v = 1 + c * x; } while (v <= 0); v = v * v * v; if (Math.log(rand()) < 0.5 * x * x + d - d * v + d * Math.log(v)) return d * v; } };
   const gam = k => k >= 1 ? gamma1(k) : gamma1(k + 1) * Math.pow(rand(), 1 / k);
   const gap = k => k === Infinity ? 10 : 10 * gam(k) / k;
   let ki = 3, buses = [], arr = [];
@@ -443,7 +443,7 @@ const TXT = {
   const OCT = {c: [80, 800], f: [60, 200]};
   function nov(){ const fN = Math.round(+sl.value * 10), cN = 1000 - fN; return {c: [Math.round(cN * 0.08), cN], f: [Math.round(fN * 0.25), fN]}; }
   function draw(){
-    const N = nov(), pO = 140 / 1000, pN = (N.c[0] + N.f[0]) / 1000;
+    const N = nov(), pO = 140/1000, pN = (N.c[0] + N.f[0]) / 1000;
     const g = canvas(cv, 0.3, 0.6); if (!g) return; const {c, w, h} = g;
     const L = 40, R = 8, T = 10, B = 24, pw = w - L - R, ph = h - T - B, top = 0.35;
     axisY(c, L, R, T, ph, w, 0, top, 0.1, v => shareT(v, 0));
