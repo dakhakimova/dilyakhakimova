@@ -17,13 +17,14 @@
 - `i18n/play-vp.js`, `i18n/play-ss.js`, `i18n/play-ab.js` — тексты игр; `i18n/play.js` — общие строки интерфейса.
 
 Одна кнопка на игру (решение Дили, 22.11.2026): `play/ui.json` — для каждой игры текст главной кнопки, что она нажимает (`run`, в том числе пошагово `{sel, n, ms}`), что нажать перед «Ещё раз» (`reset`) и кнопка второй ступени ×1000 (`big`); `play/bridge.js` прячет исходные кнопки и ставит свои, вешает Пробел / Shift+Пробел. Новая игра без записи в ui.json остаётся как есть.
-Игра-калькулятор `/play/sample-size/` (не опубликована) — `tools/build-sample-size.js`, `play/sample-size.json`, `play/sample-size/ss.js`.
+Игра-калькулятор `/play/sample-size/` (опубликована, в sitemap) — `tools/build-sample-size.js`, `play/sample-size.json`, `play/sample-size/ss.js`.
 Шрифты — свои: `/fonts/fonts.css` + woff2 (из npm @fontsource), Google Fonts не подключаем.
 
 Разметка в главе: `data-toy="<slug>"` — карточка игры, `data-toy-pre="<slug>"` — карточка прогноза, `data-toy-reveal` — блок-спойлер (на /play/ скрыт до первого касания), `data-toy-hide` — блок, ненужный вне курса.
 
 Команды (из корня):
 - `node tools/check-play.js [vp|ss|ab|slug]` — проверка данных и текстов по стандарту;
+- `NODE_PATH=$(npm root -g) node tools/check-links.js [/путь …]` — мёртвые ссылки и кнопки: пустые href, несуществующие якоря (свои и на других страницах, после выполнения скриптов), 404 внутренних ссылок, кнопки без обработчика. Без аргументов — все входные страницы, первые шаги бесплатных курсов и три случайные игры; код выхода 1, если что-то найдено;
 - `node tools/bake-i18n.js` — собирает и `/play/` (`tools/build-play.js`: страницы, каталог, `play/credits.json`);
 - `NODE_PATH=$(npm root -g) node tools/test-play.js [slug|курс|chapters] [--shots папка]` — headless-проверка (сервер поднимается сам);
 - `NODE_PATH=$(npm root -g) node tools/og-play.js [slug …]` — OG-картинки `play/og/<slug>.png`.
