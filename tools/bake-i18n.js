@@ -131,6 +131,8 @@ else {
   if (!target) require('./build-site.js')();
   // /privacy/ и /consent/ — tools/build-legal.js
   if (!target) require('./build-legal.js')();
+  // /trainer/ — тренажёр собеседований, tools/build-trainer.js
+  if (!target) require('./build-trainer.js').build();
   // входные страницы целиком — тем же типографом, что главы (неразрывные пробелы, тире): статичный текст вне data-i18n
   // и страницы, которые собирают build-site.js и build-extras.js. Повторный прогон ничего не меняет.
   if (!target) ['index.html', 'courses/index.html', 'probability/index.html', 'signal/index.html', 'ab-basics/index.html', 'stats/index.html', 'ab/index.html',

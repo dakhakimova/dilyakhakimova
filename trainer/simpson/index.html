@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Парадокс Симпсона — тренажёр собеседований</title>
+<meta name="description" content="Парадокс Симпсона: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="simpson">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · C1</p>
+  <h1>Парадокс Симпсона</h1>
+  <p class="t-def">Метрика выросла в каждой группе и упала в сумме. Ответ почти всегда — изменился состав.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Общая метрика — среднее по группам, взвешенное по их долям. Если доли сместились к группе с низкой метрикой, общая может упасть, даже когда каждая группа растёт.</p>
+    <p>Первый вопрос на собеседовании: как изменилась структура (mix). Второй: какой срез честнее отвечает на вопрос бизнеса.</p>
+    <p>В A/B-тесте с честным сплитом состав групп одинаков, поэтому Симпсон опасен в первую очередь в сравнениях «до и после» и между сегментами.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/08-traps.html">«Сигнал или шум», «Ловушки»</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#C1a">Выросло везде — упало в сумме</a></li></ol></nav>
+
+    <section class="tr-tpl" id="C1a" aria-labelledby="C1a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="C1a-h">Выросло везде — упало в сумме</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Опозданий меньше в каждом районе. А во всех заказах вместе?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/simpson-delivery/?embed=1" data-toy="simpson-delivery" title="Игра: Опозданий меньше в каждом районе. А во всех заказах вместе?" style="height:1300px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> В каждом районе опозданий меньше — он решил, что и в целом меньше. Но поменялись веса районов.</li>
+        <li><b class="st-h">Общая доля — среднее с весами.</b> <p class="formula">общая = Σ доля заказов района · доля опозданий</p><p class="formula">ноябрь: 0.4 · 8% + 0.6 · 25% = <b>18.2%</b></p> В октябре было 14%: на окраину шло 20% заказов.</li>
+        <li><b class="st-h">Сравниваем при одной структуре.</b> <p class="formula">ноябрь с весами октября: 0.8 · 8% + 0.2 · 25% = <b>11.4%</b></p> Маршруты помогли; заказов стало больше там, где опаздывают чаще.</li>
+        <li><b class="st-h">Где встретится на работе.</b> «Курьеры стали лучше?» — смотри по районам; «сколько заказов опоздало?» — в целом.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Метрика по каждому срезу (платформа, район, категория) лучше, а общая хуже — или наоборот.</p>
+        <ol class="tr-steps"><li>Посчитай общую метрику как взвешенное среднее срезов до и после.</li><li>Найди, чья доля выросла.</li><li>Сформулируй вывод: эффект от смены структуры, а не от поведения внутри групп.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="C1a-w" data-ans="5.15" data-tol="0.02">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Конверсия приложения кафе. Раньше: iOS — 2 000 визитов, 10%; Android — 8 000 визитов, 4%. Теперь: iOS — 1 000 визитов, 11%; Android — 9 000 визитов, 4,5%. Какая теперь общая конверсия (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Общая = (заказы iOS + заказы Android) / все визиты.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>Было (200 + 320) / 10 000 = 5,2%. Стало (110 + 405) / 10 000 = <b>5,15%</b>. В каждой платформе рост, в сумме падение: доля визитов с Android, где конверсия ниже, выросла с 80% до 90%.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="C1a-s1" data-ans="387.5" data-tol="1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Кафе</span></p>
+        <p class="tr-q">Средний чек. Раньше: центр — 1 000 заказов по 600 ₽, спальный район — 1 000 заказов по 300 ₽. Теперь: центр — 500 заказов по 620 ₽, спальный район — 1 500 заказов по 310 ₽. Какой теперь средний чек по сети (₽)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">₽</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>(500 · 620 + 1500 · 310) / 2 000 = <b>387,5 ₽</b> против 450 ₽ раньше. Чек вырос в обоих районах, но заказов стало больше в дешёвом.</p></details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

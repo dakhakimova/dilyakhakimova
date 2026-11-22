@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Мощность и размер выборки — тренажёр собеседований</title>
+<meta name="description" content="Мощность и размер выборки: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="sample-size">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · S6</p>
+  <h1>Мощность и размер выборки</h1>
+  <p class="t-def">Самый частый расчёт на собеседовании: сколько гостей нужно в тест и какой эффект мы вообще способны заметить.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Мощность — доля тестов, которые заметят эффект, если он настоящий. Обычно хотят 80%.</p>
+    <p>Размер выборки зависит от трёх вещей: насколько шумная метрика, какой эффект хотим поймать и с какими ошибками согласны (α и мощность). Эффект вдвое меньше — гостей нужно вчетверо больше.</p>
+    <p>Формула для двух долей, по группе: n = (z₁₋α/₂ + z₁₋β)² · (p₁(1 − p₁) + p₂(1 − p₂)) / (p₂ − p₁)². При α = 5% и мощности 80% множитель (1,96 + 0,84)² ≈ 7,85.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/11-errors.html">«Сигнал или шум», «Ошибки и мощность»</a> · <a href="/ab-basics/09-mde.html">«A/B на пальцах», шаг 9, MDE</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#S6a">Сколько наблюдений нужно</a></li><li><a href="#S6b">MDE: что мы не заметим</a></li><li><a href="#S6c">Ошибки I и II рода</a></li></ol></nav>
+
+    <section class="tr-tpl" id="S6a" aria-labelledby="S6a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S6a-h">Сколько наблюдений нужно</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Фото дают +2%. Заметит ли это недельный тест?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/power-bells/?embed=1" data-toy="power-bells" title="Игра: Фото дают +2%. Заметит ли это недельный тест?" style="height:1150px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Шум недельного теста.</b> <p class="formula">SE = √(2 · p(1 − p) / n) = √(2 · 0.09 / 70 000) ≈ 0.0016 = <b>1.6%</b> от 10%</p></li>
+        <li><b class="st-h">Мощность и MDE.</b> <p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(2% / 1.6% − 1.96) ≈ <b>24%</b></p><p class="formula">MDE ≈ 2.8 · SE ≈ <b>+4.5%</b></p></li>
+        <li><b class="st-h">Как растёт.</b> 
+          <table class="table sol-table"><thead><tr><th>Дней</th><th class="num">Мощность для +2%</th></tr></thead><tbody><tr><td>7</td><td class="num">24%</td></tr><tr><td>14</td><td class="num">42%</td></tr><tr><td>28</td><td class="num">70%</td></tr></tbody></table></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> В условии «сколько гостей / бросков / дней нужно, чтобы заметить…». Есть базовая доля и эффект, который хотят поймать.</p>
+        <ol class="tr-steps"><li>Выпиши базовую долю p₁, ожидаемую p₂ и эффект δ = p₂ − p₁.</li><li>Выбери α и мощность; по умолчанию 5% и 80%, это z = 1,96 и 0,84.</li><li>Подставь в формулу; для одной группы против известного значения — формула одной доли.</li><li>Проверь здравым смыслом: эффект вдвое меньше — выборка вчетверо больше.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S6a-w" data-ans="4200" data-tol="150">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Новый раф пробуют в двух районах доставки. В первом он нравится 58% гостей. Хотим заметить, если во втором районе доля на 3 п. п. выше. Сколько гостей опросить в каждом районе при α = 5% и мощности 80%?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">гостей в районе</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Две доли: 58% и 61%. Сложи дисперсии p(1 − p) обеих групп.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>n = 7,85 · (0,58 · 0,42 + 0,61 · 0,39) / 0,03² ≈ 7,85 · 0,4815 / 0,0009 ≈ <b>4 200 гостей в каждом районе</b>.<br>Частая ошибка: найти n из условия «эффект 3 п. п. как раз равен 1,96 стандартной ошибки» — выйдет около 2 060. Но при таком n мощность всего 50%: половина опросов разницу не покажет. Мощность нужно закладывать отдельно, это слагаемое 0,84 в формуле.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S6a-s1" data-ans="609" data-tol="40">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Приложение</span></p>
+        <p class="tr-q">В рулетке скидок «0%» должен выпадать в 25% вращений. Подозреваем, что на деле в 30%. Сколько вращений нужно, чтобы заметить это при α = 5% (двусторонний) и мощности 80%?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">вращений</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>Одна доля против известной: n = ((1,96 · √(0,25 · 0,75) + 0,84 · √(0,3 · 0,7)) / 0,05)² ≈ <b>610 вращений</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="S6a-s2" data-ans="7757" data-tol="250">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Финтех</span></p>
+        <p class="tr-q">Конверсия из заявки в оформленную карту — 12%. Новая анкета, по оценке продакта, даст 13,5%. Сколько заявок нужно в каждую группу A/B-теста (α = 5%, мощность 80%)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">заявок в группе</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>n = 7,85 · (0,12 · 0,88 + 0,135 · 0,865) / 0,015² ≈ <b>7 760 заявок в группе</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="S6a-s3" data-ans="17940" data-tol="600">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
+        <p class="tr-q">Стартовый набор покупают 4% новых игроков. Дизайнер верит, что новая витрина даст 4,6%. Сколько новых игроков нужно в каждую группу (α = 5%, мощность 80%)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">игроков в группе</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>n = 7,85 · (0,04 · 0,96 + 0,046 · 0,954) / 0,006² ≈ <b>17 900 игроков в группе</b>. Редкое событие и маленький эффект — выборка огромная.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S6b" aria-labelledby="S6b-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S6b-h">MDE: что мы не заметим</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Какой эффект тест вообще заметит?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/power-curve/?embed=1" data-toy="power-curve" title="Игра: Какой эффект тест вообще заметит?" style="height:1000px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Самый маленький заметный эффект.</b> <p class="formula">MDE ≈ 2.8 · √(2p(1 − p) / n) = 2.8 · √(2 · 0.09 / 10 000) ≈ <b>1.19</b> на 100 гостей</p></li>
+        <li><b class="st-h">Эффект Боба +0.5.</b> Меньше MDE больше чем вдвое — тест поймает его лишь примерно в каждом пятом запуске (мощность ≈ 22%).</li>
+        <li><b class="st-h">Сколько гостей нужно.</b> <p class="formula">n ≈ 2 · 2.8² · p(1 − p) / δ² = 2 · 7.84 · 0.09 / 0.005² ≈ <b>56 500</b> в группе</p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Вдвое меньший эффект — вдвое больше гостей»: вчетверо больше.</li></ul></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Размер выборки уже задан: «тест не прокрасился — эффекта нет?», «какое отклонение мы бы пропустили?».</p>
+        <ol class="tr-steps"><li>Найди стандартную ошибку разницы: SE = √(2p(1 − p)/n) для двух равных групп.</li><li>MDE ≈ (1,96 + 0,84) · SE ≈ 2,8 · SE.</li><li>Сравни MDE с эффектом, который важен для бизнеса. Если MDE больше — серый тест ничего не доказывает.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S6b-w" data-ans="2.4" data-tol="0.15">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">В тесте нового экрана корзины по 2 000 гостей в группе, конверсия в заказ около 8%. Тест серый. Какой минимальный эффект (в п. п.) тест заметил бы с мощностью 80%?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">п. п.</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>SE разницы = √(2 · 0,08 · 0,92 / 2000).</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,08 · 0,92 / 2000) ≈ 0,0086; MDE ≈ 2,8 · 0,0086 ≈ <b>2,4 п. п.</b> — то есть рост с 8% до 10,4%. Эффект в 1 п. п. такой тест почти наверняка пропустит, поэтому «серый» здесь значит «не знаем», а не «эффекта нет».</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S6b-s1" data-ans="2.57" data-tol="0.15">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Подписки</span></p>
+        <p class="tr-q">Тест нового пейвола: по 5 000 пользователей в группе, доля продливших пробный период около 30%. Какой минимальный эффект (п. п.) заметит тест при α = 5% и мощности 80%?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">п. п.</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,3 · 0,7 / 5000) ≈ 0,0092; MDE ≈ 2,8 · 0,0092 ≈ <b>2,6 п. п.</b></p></details>
+      </div>
+      <div class="tr-task" data-id="S6b-s2" data-ans="0.277" data-tol="0.02">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Маркетплейс</span></p>
+        <p class="tr-q">Доля возвратов — 2%, в каждой группе по 40 000 заказов. Какое изменение доли возвратов (п. п.) тест заметит с мощностью 80%?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">п. п.</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>SE = √(2 · 0,02 · 0,98 / 40000) ≈ 0,00099; MDE ≈ 2,8 · 0,00099 ≈ <b>0,28 п. п.</b>, то есть с 2% до 2,28%.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S6c" aria-labelledby="S6c-h">
+      <p class="tr-kind">На понимание</p>
+      <h2 id="S6c-h">Ошибки I и II рода</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/hundred-tests/?embed=1" data-toy="hundred-tests" title="Игра: Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?" style="height:1350px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Серый тест — закрыл навсегда. Серый значит «не разглядели».</li>
+        <li><b class="st-h">Мощность недельного теста.</b> <p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(0.003 / 0.0016 − 1.96) ≈ <b>46%</b></p> Из 20 хороших идей серыми остаются в среднем 11.</li>
+        <li><b class="st-h">Длиннее тест.</b> При 28 днях закрытых хороших меньше одной из 20. Ложных тревог у пустых — около 4 из 80 при любой длине.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Вопрос «как связаны α, мощность и размер выборки» или «что будет, если ужесточить порог».</p>
+        
+      </div>
+      
+      <div class="tr-task tr-idea" data-id="S6c-i">
+        <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
+        <p class="tr-q">Аналитик предлагает перейти с α = 5% на α = 1%, «чтобы было меньше ложных побед», и ничего больше не менять. Что произойдёт?</p>
+        <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
+        <details class="tr-sol"><summary>Что хотят услышать</summary>
+          <ul class="list"><li>Ложных побед на A/A станет меньше: 1 из 100 вместо 1 из 20.</li><li>При том же n мощность упадёт: больше настоящих эффектов останется серыми (ошибка II рода растёт).</li><li>Чтобы сохранить мощность 80%, выборку нужно увеличить примерно в 1,5 раза: (2,58 + 0,84)² / (1,96 + 0,84)² ≈ 1,49.</li><li>Правильный выбор α — про цену ошибок: что дороже, выкатить пустышку или пропустить хорошую идею.</li></ul>
+          <p><b>Слабый ответ:</b> «Строже — значит надёжнее, так и надо».</p>
+          <p><b>Сильный ответ:</b> Назвать компромисс: α и мощность тянут в разные стороны при фиксированном n, и посчитать, во сколько раз вырастет выборка.</p>
+        </details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

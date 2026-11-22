@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Тренажёр собеседований аналитика — вероятность, статистика, A/B</title>
+<meta name="description" content="Задачи с собеседований аналитика по вероятности, статистике, A/B и продуктовым кейсам: игра, шаблон, разбор и задачи в других доменах с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-map">
+  <p class="eyebrow">Тренажёр · первая версия</p>
+  <h1>Тренажёр собеседований аналитика</h1>
+  <p class="t-def">Вероятность, статистика, A/B-тесты и продуктовые кейсы — то, на чём чаще всего проваливаются на собеседовании и что не проверишь автопроверкой кода. SQL и Python здесь нет.</p>
+  
+  <section class="tr-how" aria-labelledby="how-h">
+    <h2 id="how-h">Как устроено</h2>
+    <ol class="tr-steps">
+      <li><b>Тема</b> — коротко о главном и ссылка на курс, где это разбираем подробно.</li>
+      <li><b>Игра</b> — сделай прогноз и проверь его: так идея запоминается лучше, чем из формулы.</li>
+      <li><b>Шаблон</b> — тип задачи, как узнать его по условию и как решать по шагам.</li>
+      <li><b>Разбор</b> — задача с решением по шагам. Сначала попробуй сам.</li>
+      <li><b>Реши сам</b> — та же задача в другом домене и с другими числами: доставка, финтех, игры, маркетплейс. Ответ проверяется сразу.</li>
+      <li><b>Смешанная тренировка</b> — задачи вперемешку, без подсказки темы, как на настоящем собеседовании.</li>
+    </ol>
+    <p class="tr-cta"><a class="btn" href="/trainer/mix/">Смешанная тренировка · 30 задач</a></p>
+    <p class="tr-meta">Готово 6 тем из 34. Остальные появятся до конца декабря.</p>
+  </section>
+
+  <section class="tr-sec" aria-labelledby="sec-P">
+    
+    <h2 id="sec-P">Вероятность</h2>
+    <p class="tr-meta">8 тем · 207 задач в банке</p>
+    <ul class="tr-topics"><li><b>Комбинаторика и классическая вероятность</b><span>скоро · 45 задач</span></li><li><b>Условная вероятность и независимость</b><span>скоро · 33 задач</span></li><li class="on"><a href="/trainer/bayes/"><b>Формула Байеса</b><span>4 шабл. · готово</span></a></li><li><b>Матожидание и индикаторы</b><span>скоро · 32 задач</span></li><li><b>Ожидание до события</b><span>скоро · 21 задач</span></li><li><b>Симметрия</b><span>скоро · 6 задач</span></li><li><b>Рекурсия, цепи, блуждания</b><span>скоро · 12 задач</span></li><li><b>Биномиальное, Пуассон, геометрическая вероятность</b><span>скоро · 31 задач</span></li></ul>
+  </section>
+  <section class="tr-sec" aria-labelledby="sec-S">
+    
+    <h2 id="sec-S">Статистика</h2>
+    <p class="tr-meta">12 тем · 127 задач в банке</p>
+    <ul class="tr-topics"><li><b>Нормальное распределение</b><span>скоро · 8 задач</span></li><li><b>Закон больших чисел и √n</b><span>скоро · 3 задач</span></li><li><b>Центральная предельная теорема</b><span>скоро · 5 задач</span></li><li class="on"><a href="/trainer/confidence-interval/"><b>Доверительный интервал</b><span>2 шабл. · готово</span></a></li><li class="on"><a href="/trainer/p-value/"><b>p-value и значимость</b><span>3 шабл. · готово</span></a></li><li class="on"><a href="/trainer/sample-size/"><b>Мощность и размер выборки</b><span>3 шабл. · готово</span></a></li><li><b>Критерии: z, t, Манн–Уитни, хи-квадрат</b><span>скоро · 18 задач</span></li><li><b>Хвосты, медиана, выбросы</b><span>скоро · 20 задач</span></li><li class="on"><a href="/trainer/multiple-testing/"><b>Множественные проверки</b><span>1 шабл. · готово</span></a></li><li><b>Регрессия к среднему</b><span>скоро · 3 задач</span></li><li><b>Оценивание: ОМП, «танки», численность</b><span>скоро · 12 задач</span></li><li><b>Корреляция и зависимость</b><span>скоро · 3 задач</span></li></ul>
+  </section>
+  <section class="tr-sec" aria-labelledby="sec-A">
+    
+    <h2 id="sec-A">A/B-тесты</h2>
+    <p class="tr-meta">6 тем · 40 задач в банке</p>
+    <ul class="tr-topics"><li><b>Дизайн теста: сплит, A/A, SRM</b><span>скоро · 7 задач</span></li><li><b>Метрики: дерево, ratio, бакеты</b><span>скоро · 20 задач</span></li><li><b>Подглядывание</b><span>скоро · 3 задач</span></li><li><b>Сетевой эффект и интерференция</b><span>скоро · 5 задач</span></li><li><b>Новизна, долгий эффект, окна метрик</b><span>скоро · 3 задач</span></li><li><b>Разбавление и триггерный анализ</b><span>скоро · 2 задач</span></li></ul>
+  </section>
+  <section class="tr-sec" aria-labelledby="sec-C">
+    
+    <h2 id="sec-C">Причинность и ловушки данных</h2>
+    <p class="tr-meta">3 темы · 22 задач в банке</p>
+    <ul class="tr-topics"><li class="on"><a href="/trainer/simpson/"><b>Парадокс Симпсона</b><span>1 шабл. · готово</span></a></li><li><b>Отбор: выживший, инспекция, Берксон</b><span>скоро · 11 задач</span></li><li><b>Конфаундеры и квази-эксперименты</b><span>скоро · 6 задач</span></li></ul>
+  </section>
+  <section class="tr-sec" aria-labelledby="sec-K">
+    
+    <h2 id="sec-K">Продуктовые кейсы</h2>
+    <p class="tr-meta">3 темы · 25 задач в банке</p>
+    <ul class="tr-topics"><li><b>От гипотезы до решения в деньгах</b><span>скоро · 11 задач</span></li><li><b>Метрика упала или выросла — найди причину</b><span>скоро · 8 задач</span></li><li><b>Экономика промо и привлечения</b><span>скоро · 6 задач</span></li></ul>
+  </section>
+  <section class="tr-sec" aria-labelledby="sec-L">
+    
+    <h2 id="sec-L">Логика и оценки Ферми</h2>
+    <p class="tr-meta">2 темы · 33 задач в банке</p>
+    <ul class="tr-topics"><li><b>Логические задачи</b><span>скоро · 32 задач</span></li><li><b>Оценки Ферми</b><span>скоро · 1 задач</span></li></ul>
+  </section>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

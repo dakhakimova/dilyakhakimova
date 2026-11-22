@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Множественные проверки — тренажёр собеседований</title>
+<meta name="description" content="Множественные проверки: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="multiple-testing">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · S9</p>
+  <h1>Множественные проверки</h1>
+  <p class="t-def">Много метрик, много вариантов, много тестов в год — и часть «побед» неизбежно случайна.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Каждая проверка на уровне 5% в мире без эффекта ошибается в 5% случаев. Двадцать проверок — почти наверняка хотя бы одна «значимая».</p>
+    <p>Поправка Бонферрони (α / k) держит вероятность хотя бы одной ложной победы, но сильно режет мощность. При сотнях метрик обычно контролируют долю ложных открытий (Бенджамини–Хохберг).</p>
+    <p>Доля ложных среди «зелёных» тестов зависит от того, сколько идей вообще работает, — это снова Байес.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/ab-basics/10-traps.html">«A/B на пальцах», шаг 10, ловушки</a> · <a href="/signal/12-wins.html">«Сигнал или шум», «Победы»</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#S9a">Сколько ложных побед</a></li></ol></nav>
+
+    <section class="tr-tpl" id="S9a" aria-labelledby="S9a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S9a-h">Сколько ложных побед</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · За год прокрасилось 125 тестов из 1000. Сколько побед настоящие?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/year-of-tests/?embed=1" data-toy="year-of-tests" title="Игра: За год прокрасилось 125 тестов из 1000. Сколько побед настоящие?" style="height:1450px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Взял 5% от 125 прокрасившихся. Но α — доля среди пустых идей, а не среди зелёных.</li>
+        <li><b class="st-h">Раскладываем 1000 тестов.</b> <p class="formula">настоящие победы: 1000 · 0.1 · 0.8 = <b>80</b></p><p class="formula">ложные: 1000 · 0.9 · 0.05 = <b>45</b></p></li>
+        <li><b class="st-h">Доля ложных среди зелёных.</b> <p class="formula">FDR = ложные / все зелёные = 45 / (80 + 45) ≈ <b>36%</b></p></li>
+        <li><b class="st-h">Как зависит от мощности.</b>  Подглядывание поднимает долю ещё выше: пустые красятся в 14% случаев.
+          <table class="table sol-table"><thead><tr><th>Мощность</th><th class="num">Ложных среди зелёных</th></tr></thead><tbody><tr><td>80%</td><td class="num">36%</td></tr><tr><td>30%</td><td class="num">60%</td></tr></tbody></table></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> «20 метрик», «99 цветов кнопки», «100 тестов за год» — и вопрос, сколько из значимых случайны.</p>
+        <ol class="tr-steps"><li>Хотя бы одна ложная из k независимых проверок: 1 − (1 − α)^k.</li><li>Доля ложных среди значимых: ложные = (нерабочие) · α; настоящие = (рабочие) · мощность; доля = ложные / (ложные + настоящие).</li><li>Оговорка: метрики обычно коррелированы, тогда формула (1 − α)^k неточна.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S9a-w" data-ans="28.8" data-tol="1">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">За год команда проверила 120 гипотез. По опыту, работают 15% идей. Мощность тестов 70%, α = 5%. Какая доля «зелёных» тестов в среднем ложная?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Рабочих 18, нерабочих 102.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>Ложных побед 102 · 0,05 = 5,1, настоящих 18 · 0,7 = 12,6. Доля ложных 5,1 / 17,7 ≈ <b>29%</b>. Почти каждая третья победа — случайность.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S9a-s1" data-ans="64.2" data-tol="1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">A/A</span></p>
+        <p class="tr-q">В A/A-тесте смотрят 20 независимых метрик на уровне 5%. Какова вероятность, что хотя бы одна «прокрасится»?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>1 − 0,95²⁰ ≈ <b>64%</b>. В среднем прокрасится одна метрика из двадцати.</p></details>
+      </div>
+      <div class="tr-task" data-id="S9a-s2" data-ans="47.4" data-tol="1.5">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Маркетплейс</span></p>
+        <p class="tr-q">Площадка запускает 200 тестов в год, работают 10% идей, мощность 50%, α = 5%. Какая доля значимых результатов ложная?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>Ложных 180 · 0,05 = 9, настоящих 20 · 0,5 = 10. Доля <b>9 / 19 ≈ 47%</b> — почти половина побед ложные.</p></details>
+      </div>
+      <div class="tr-task" data-id="S9a-s3" data-ans="14" data-tol="0.8">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Приложение</span></p>
+        <p class="tr-q">В отчёте 15 независимых метрик, порог 1%. Вероятность хотя бы одной ложной значимости?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>1 − 0,99¹⁵ ≈ <b>14%</b>.</p></details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

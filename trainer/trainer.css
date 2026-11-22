@@ -1,0 +1,51 @@
+/* Тренажёр собеседований /trainer/ — поверх tokens.css, home.css и terms/terms.css (колонка ~700 px, текст 20 px, по центру).
+   Страницы собирает tools/build-trainer.js. */
+.tr-page .term h1{font:400 var(--fs-h1)/1.08 var(--serif); letter-spacing:var(--tr-display); margin:var(--s-2) 0 var(--s-4)}
+.tr-page .eyebrow a{color:inherit}
+.tr-kind{font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--label-ink); margin:0 0 var(--s-2); font-feature-settings:"case"}
+.tr-kind .tr-dom{color:var(--pen)}
+.tr-theory{margin:var(--s-5) 0; padding:var(--s-5); background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card, 16px)}
+.tr-theory p{margin:0 0 var(--s-3)} .tr-theory p:last-child{margin:0}
+.tr-where{font-size:var(--fs-s); color:var(--text-2)}
+.tr-toc ol{margin:0; padding-left:1.3em} .tr-toc{margin:var(--s-5) 0 var(--s-6)}
+.tr-tpl{margin:var(--s-7) 0 0; padding-top:var(--s-5); border-top:1px solid var(--line)}
+.tr-tpl h2{font:400 var(--fs-h2)/1.15 var(--serif); letter-spacing:var(--tr-head); margin:0 0 var(--s-3)}
+.tr-h3{font:400 var(--fs-h3)/1.2 var(--serif); margin:var(--s-6) 0 var(--s-3)}
+.tr-rec{margin:0 0 var(--s-3)}
+.tr-steps{margin:0 0 var(--s-4); padding-left:1.3em} .tr-steps li{margin:0 0 var(--s-2)}
+.tr-game{margin:var(--s-5) 0}
+.tr-task{margin:var(--s-4) 0; padding:var(--s-5); background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card, 16px)}
+.tr-task.done{border-color:var(--good-ink)}
+.tr-q{font:400 var(--t-20)/1.5 var(--serif); margin:0 0 var(--s-4)}
+.tr-form{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-3); margin:0}
+.tr-form input{font:400 var(--fs-m)/1.2 var(--body); width:9em; padding:var(--s-3); border:1.5px solid var(--line-strong); border-radius:10px; background:#fff}
+.tr-form input:focus{outline:2px solid var(--pen); outline-offset:1px}
+.tr-unit{color:var(--text-3); font-size:var(--fs-s)}
+.tr-fb{min-height:1.5em; margin:var(--s-2) 0 0; font-size:var(--fs-s)}
+.tr-fb.ok{color:var(--good-ink)} .tr-fb.no{color:var(--test-ink)}
+.tr-task details{margin-top:var(--s-3)}
+.tr-task summary{cursor:pointer; color:var(--pen); font-weight:var(--fw-medium); font-size:var(--fs-s)}
+.tr-task details p, .tr-task details ul{margin:var(--s-2) 0 0}
+.tr-idea textarea{width:100%; box-sizing:border-box; font:400 var(--fs-m)/1.5 var(--body); padding:var(--s-3); border:1.5px solid var(--line-strong); border-radius:10px; background:#fff}
+.tr-next{margin:var(--s-7) 0 0}
+.tr-out{margin-top:var(--s-3)}
+/* карта */
+.tr-hero{display:block; width:100%; height:auto; border-radius:var(--r-card, 16px); margin:var(--s-5) 0}
+.tr-how{margin:var(--s-5) 0 var(--s-7)} .tr-how h2, .tr-sec h2{font:400 var(--fs-h2)/1.15 var(--serif); margin:0 0 var(--s-3)}
+.tr-cta{margin:var(--s-4) 0 var(--s-2)}
+.tr-meta{color:var(--text-3); font-size:var(--fs-s); margin:0 0 var(--s-3)}
+.tr-sec{margin:var(--s-7) 0 0}
+.tr-sec-img{display:block; width:100%; max-width:420px; height:auto; border-radius:var(--r-card, 16px); margin:0 0 var(--s-3)}
+.tr-topics{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(15em, 1fr)); gap:var(--s-3)}
+.tr-topics li{border:1px dashed var(--line-strong); border-radius:12px; padding:var(--s-3) var(--s-4); color:var(--text-3)}
+.tr-topics li b{display:block; font-weight:var(--fw-medium); color:var(--text-2); font-size:var(--fs-s)}
+.tr-topics li span{font-size:var(--fs-xs)}
+.tr-topics li.on{border:1px solid var(--pen); background:var(--surface)} .tr-topics li.on b{color:var(--pen)}
+.tr-topics li.on a{display:block; text-decoration:none; color:inherit; margin:calc(-1 * var(--s-3)) calc(-1 * var(--s-4)); padding:var(--s-3) var(--s-4)}
+.tr-topics li.on span{color:var(--good-ink)}
+/* смешанная */
+.tr-mixbox{margin:var(--s-5) 0; padding:var(--s-5); background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card, 16px)}
+.tr-ctrls{display:flex; flex-wrap:wrap; gap:var(--s-3); margin:var(--s-4) 0 0}
+.tr-after{margin-top:var(--s-3)}
+.tr-score{color:var(--text-3); font-size:var(--fs-s); margin:var(--s-3) 0 0}
+.tr-how-tpl{margin:var(--s-5) 0}

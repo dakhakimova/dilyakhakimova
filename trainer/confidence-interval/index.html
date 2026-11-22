@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Доверительный интервал — тренажёр собеседований</title>
+<meta name="description" content="Доверительный интервал: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="confidence-interval">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · S4</p>
+  <h1>Доверительный интервал</h1>
+  <p class="t-def">На собеседовании просят и посчитать «± сколько», и объяснить, что значит 95%.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Интервал для доли: p̂ ± 1,96 · √(p̂(1 − p̂)/n). Это интервал Вальда; при маленьких n и долях у края лучше интервал Уилсона.</p>
+    <p>95% — свойство процедуры: если повторять опрос много раз, примерно 95 интервалов из 100 накроют настоящее значение.</p>
+    <p>Ширина падает как 1/√n: чтобы сузить интервал вдвое, нужно вчетверо больше данных.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/10-ab-test.html">«Сигнал или шум», «A/B-тест»</a> · <a href="/ab-basics/06-interval.html">«A/B на пальцах», шаг 6, интервал</a>. <a href="/terms/confidence-interval/">Подробнее в словаре →</a></p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#S4a">Интервал для доли</a></li><li><a href="#S4b">Что значит 95%</a></li></ol></nav>
+
+    <section class="tr-tpl" id="S4a" aria-labelledby="S4a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S4a-h">Интервал для доли</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/ci-ladder/?embed=1" data-toy="ci-ladder" title="Игра: Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?" style="height:1300px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Записывает одно число и решает по нему.</li>
+        <li><b class="st-h">Вилка выше нуля — редко.</b> Эффект +3% при вилке ±2.6%: вилка целиком выше нуля примерно в <b>12 из 20</b> запусков.</li>
+        <li><b class="st-h">Правду накрывают почти все.</b> Около 19 вилок из 20. «Задела ноль» не значит «эффекта нет» — этот запуск его не разглядел.</li>
+        <li><b class="st-h">Как зависит от трафика.</b> 
+          <table class="table sol-table"><thead><tr><th>Гостей в группе</th><th class="num">Можно выкатить</th></tr></thead><tbody><tr><td>25 000</td><td class="num">≈ 4 из 20</td></tr><tr><td>100 000</td><td class="num">≈ 12 из 20</td></tr><tr><td>400 000</td><td class="num">почти всегда</td></tr></tbody></table></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> «x из n — сколько это ± ?», «конверсия 1,5% — насколько точно?».</p>
+        <ol class="tr-steps"><li>p̂ = x / n.</li><li>Полуширина = 1,96 · √(p̂(1 − p̂)/n).</li><li>Если n · p̂ < 10 или доля у края — посчитай интервал Уилсона.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S4a-w" data-ans="0.3" data-tol="0.02">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Баннер в приложении кафе показали 6 000 раз, заказов по нему 87. Конверсия 1,45%. Какова полуширина 95% интервала в п. п.?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">п. п.</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>√(0,0145 · 0,9855 / 6000).</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>1,96 · √(0,0145 · 0,9855 / 6000) ≈ <b>0,30 п. п.</b>: конверсия от 1,15% до 1,75%. Интервал Уилсона почти такой же, [1,18%; 1,79%], — данных достаточно.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S4a-s1" data-ans="3.05" data-tol="0.1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
+        <p class="tr-q">Из 1 000 новых игроков на следующий день вернулись 412. Полуширина 95% интервала для удержания 1-го дня (п. п.)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">п. п.</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>1,96 · √(0,412 · 0,588 / 1000) ≈ <b>3,05 п. п.</b></p></details>
+      </div>
+      <div class="tr-task" data-id="S4a-s2" data-ans="22.2" data-tol="0.5">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Кафе</span></p>
+        <p class="tr-q">В выборке из 60 круассанов партии 7 пересоленных. Какова верхняя граница 95% интервала Уилсона (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>Уилсон даёт [5,8%; 22,2%], <b>верхняя граница ≈ 22%</b>. Вальд дал бы [3,5%; 19,8%] — при маленьком n он сдвинут и слишком узок справа.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S4b" aria-labelledby="S4b-h">
+      <p class="tr-kind">На понимание</p>
+      <h2 id="S4b-h">Что значит 95%</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Какие эффекты остались живы после теста?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/ci-candidates/?embed=1" data-toy="ci-candidates" title="Игра: Какие эффекты остались живы после теста?" style="height:1100px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Записал в план одну точку +0.65. С результатом уживаются и другие эффекты.</li>
+        <li><b class="st-h">Кто жив.</b> Кандидат жив, если тест с порогом 5% его не отвергает:<p class="formula">d ± 1.96 · SE = 0.65 ± 1.96 · 0.30 = от <b>+0.05</b> до <b>+1.25</b></p></li>
+        <li><b class="st-h">Ноль погас.</b> Наша разница в 2.14 SE от нуля, p = 0.033: ноль вне интервала ⇔ p < 0.05.</li>
+        <li><b class="st-h">Что писать в план.</b> Не «+0.65», а «от +0.05 до +1.25»: правда может оказаться почти нулём.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Просят объяснить интервал нетехническому человеку.</p>
+        
+      </div>
+      
+      <div class="tr-task tr-idea" data-id="S4b-i">
+        <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
+        <p class="tr-q">Объясните продакту, что значит «конверсия 1,45%, 95% интервал от 1,15% до 1,75%».</p>
+        <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
+        <details class="tr-sol"><summary>Что хотят услышать</summary>
+          <ul class="list"><li>Настоящая конверсия неизвестна; интервал — диапазон значений, с которыми данные хорошо согласуются.</li><li>95% — про метод: если повторять такие замеры, 95 интервалов из 100 накроют настоящее значение.</li><li>Неверно: «с вероятностью 95% правда внутри этого интервала» (в частотном подходе правда фиксирована).</li><li>Практический смысл: всё, что внутри, нельзя отличить от наблюдённого; чтобы сузить вдвое, нужно вчетверо больше показов.</li></ul>
+          <p><b>Слабый ответ:</b> «95% вероятность, что конверсия внутри».</p>
+          <p><b>Сильный ответ:</b> Объяснение через повторение замеров плюс что делать с шириной.</p>
+        </details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

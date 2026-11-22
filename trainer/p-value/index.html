@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>p-value и значимость — тренажёр собеседований</title>
+<meta name="description" content="p-value и значимость: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="p-value">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · S5</p>
+  <h1>p-value и значимость</h1>
+  <p class="t-def">Спросят и определение, и расчёт. Определение проваливают чаще, чем расчёт.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>p-value — вероятность увидеть такое же или ещё более крайнее отклонение, если эффекта на самом деле нет.</p>
+    <p>Это не вероятность того, что эффекта нет, и не вероятность ошибиться. Маленькое p говорит: «в мире без эффекта такое бывает редко».</p>
+    <p>Частая ошибка в расчёте — взять вероятность ровно наблюдённого исхода, без «или ещё крайнее», и забыть про двусторонний тест.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/10-ab-test.html">«Сигнал или шум», «A/B-тест»</a> · <a href="/ab-basics/07-p-value.html">«A/B на пальцах», шаг 7, p-value</a>. <a href="/terms/p-value/">Подробнее в словаре →</a></p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#S5a">p-value для монетки и доли</a></li><li><a href="#S5c">Сравнение двух долей</a></li><li><a href="#S5b">Что такое p-value</a></li></ol></nav>
+
+    <section class="tr-tpl" id="S5a" aria-labelledby="S5a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S5a-h">p-value для монетки и доли</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · 9 орлов из 10 — монетка нечестная?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/coin-p-value/?embed=1" data-toy="coin-p-value" title="Игра: 9 орлов из 10 — монетка нечестная?" style="height:1000px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Как наш или необычнее.</b> Считаем не «ровно 9», а «9 и больше» — любая конкретная серия редкая:<p class="formula">P(≥ 9 из 10) = (C(10, 9) + C(10, 10)) / 2¹⁰ = 11 / 1024 ≈ <b>1.1%</b></p></li>
+        <li><b class="st-h">В обе стороны.</b> Перекос мог быть и к решкам — добавляем 0 и 1 орёл:<p class="formula">p = 2 · 11 / 1024 ≈ <b>2.1%</b></p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Маленькое p — монетка точно нечестная»: оно говорит лишь, что честной монетке такое даётся редко.</li></ul></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> «k из n — честно ли?», «доля должна быть X, а вышло Y». Одна выборка против известного значения.</p>
+        <ol class="tr-steps"><li>Нулевая гипотеза: доля равна заявленной. Альтернатива обычно двусторонняя.</li><li>Малое n — считай точно по биномиальному: P(X ≥ k) и удвой. Большое n — z = (p̂ − p₀) / √(p₀(1 − p₀)/n).</li><li>Сравни с α и скажи вывод словами.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S5a-w" data-ans="0.0386" data-tol="0.002">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Лотерея на кассе кафе обещает приз в половине розыгрышей. Из 12 розыгрышей 10 были без приза. Посчитайте двусторонний p-value.</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>P(X ≥ 10) при Bin(12; 0,5): исходов с 10, 11 и 12 «пустыми» — 66 + 12 + 1.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>P(X ≥ 10) = 79 / 4 096 ≈ 0,0193; двусторонний p ≈ <b>0,039</b>. На уровне 5% гипотезу «приз в половине случаев» отвергаем. Если бы взяли только P(ровно 10) = 66 / 4 096, ответ был бы занижен.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S5a-s1" data-ans="0.0336" data-tol="0.003">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
+        <p class="tr-q">Редкий предмет должен выпадать из лутбокса в 10% открытий. Игрок открыл 200 лутбоксов и получил редкий предмет 11 раз. Двусторонний p-value (точный, удвоенный односторонний)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>P(X ≤ 11) при Bin(200; 0,1) ≈ 0,0168, удваиваем: <b>p ≈ 0,034</b>. Похоже, шанс занижен.</p></details>
+      </div>
+      <div class="tr-task" data-id="S5a-s2" data-ans="0.0037" data-tol="0.0006">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Доставка</span></p>
+        <p class="tr-q">По договору опаздывать можно не больше чем в 5% заказов. За неделю опоздали 70 заказов из 1 000. Двусторонний p-value по z-тесту?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>z = (0,07 − 0,05) / √(0,05 · 0,95 / 1000) ≈ 2,9; <b>p ≈ 0,004</b>.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S5c" aria-labelledby="S5c-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S5c-h">Сравнение двух долей</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · +0.65 заказа на 100 гостей — сигнал или шум?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/z-test/?embed=1" data-toy="z-test" title="Игра: +0.65 заказа на 100 гостей — сигнал или шум?" style="height:1200px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Шум разницы.</b> Общая конверсия обеих групп и шум разницы:<p class="formula">p̂ = заказы / гости = 4130 / 40 000 ≈ 10.3%</p><p class="formula">SE = √(p̂ · (1 − p̂) · (1/n_A + 1/n_B)) = √(0.103 · 0.897 · 2/20 000) ≈ <b>0.30</b> на 100 гостей</p></li>
+        <li><b class="st-h">Сколько стандартных ошибок.</b> <p class="formula">z = разница / SE = 0.65 / 0.30 ≈ <b>2.14</b></p> |z| > 1.96 — значит p < 0.05: p ≈ <b>3.3%</b>.</li>
+        <li><b class="st-h">Интервал.</b> <p class="formula">d ± 1.96 · SE = 0.65 ± 1.96 · 0.30 = от <b>+0.05</b> до <b>+1.25</b></p> Ноль снаружи — та же проверка, прочитанная по-другому.</li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«9 гостей из 100 — огромная разница»: у групп по 100 такое бывает в A/A примерно в 12 случаях из 100.</li><li>«p = 3.3% — шанс, что эффекта нет»: это доля A/A с разницей не меньше нашей.</li></ul></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Два варианта, у каждого «показы и заказы» или «пользователи и конверсии». Значима ли разница?</p>
+        <ol class="tr-steps"><li>Посчитай доли p̂₁, p̂₂ и общую долю p̂.</li><li>SE = √(p̂(1 − p̂)(1/n₁ + 1/n₂)), z = (p̂₂ − p̂₁) / SE.</li><li>p-value двусторонний; плюс посмотри на размер эффекта и интервал, а не только на «значимо».</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S5c-w" data-ans="0.51" data-tol="0.05">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Два баннера в приложении кафе. A: 9 000 показов, 380 заказов. B: 9 600 показов, 420 заказов. Посчитайте z-статистику разницы.</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Доли 4,22% и 4,38%, общая около 4,30%.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>SE ≈ √(0,043 · 0,957 · (1/9000 + 1/9600)) ≈ 0,0030; z ≈ 0,0015 / 0,0030 ≈ <b>0,51</b>, p ≈ 0,61. Разницы не видно — и это не доказательство, что её нет: MDE такого теста около 0,8 п. п.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S5c-s1" data-ans="2.27" data-tol="0.06">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Финтех</span></p>
+        <p class="tr-q">Анкета A: 4 500 заявок, 540 оформленных карт. Анкета B: 4 500 заявок, 612 карт. z-статистика?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>Доли 12% и 13,6%, общая 12,8%. SE ≈ √(0,128 · 0,872 · 2/4500) ≈ 0,0070; <b>z ≈ 2,27</b>, p ≈ 0,023.</p></details>
+      </div>
+      <div class="tr-task" data-id="S5c-s2" data-ans="0.045" data-tol="0.004">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
+        <p class="tr-q">Удержание 7-го дня: старый онбординг — 1 240 из 6 000 игроков, новый — 1 330 из 6 000. Двусторонний p-value?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>z ≈ 2,0, <b>p ≈ 0,045</b>. На границе: стоит заранее решить, что делать с таким результатом, и проверить, не упало ли удержание 30-го дня.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S5b" aria-labelledby="S5b-h">
+      <p class="tr-kind">На понимание</p>
+      <h2 id="S5b-h">Что такое p-value</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · +3.1% на 100 000 гостей. Как часто так бывает без всякого эффекта?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/null-world/?embed=1" data-toy="null-world" title="Игра: +3.1% на 100 000 гостей. Как часто так бывает без всякого эффекта?" style="height:1500px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> «Явно не случайность» — а проверить надо, как часто так бывает без эффекта.</li>
+        <li><b class="st-h">Шум разницы.</b> <p class="formula">SE = √(2 · (1 − p) / (p · n)) = √(2 · 0.9 / (0.1 · 100 000)) ≈ 1.34%</p><p class="formula">z = 3.1 / 1.34 ≈ <b>2.3</b></p></li>
+        <li><b class="st-h">p-value.</b> <p class="formula">p = P(|z| ≥ 2.3) ≈ <b>2.1%</b></p> Около 21 A/A из 1000. Маленький p значит «без эффекта так бывает редко», а не «эффект точно есть».</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Просят дать определение или объяснить менеджеру. Ловят на «вероятность, что гипотеза верна».</p>
+        
+      </div>
+      
+      <div class="tr-task tr-idea" data-id="S5b-i">
+        <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
+        <p class="tr-q">Тест показал p = 0,03. Менеджер говорит: «Значит, с вероятностью 97% новая кнопка работает». Что ответить?</p>
+        <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
+        <details class="tr-sol"><summary>Что хотят услышать</summary>
+          <ul class="list"><li>p-value считается в мире, где эффекта нет: как часто там случаются такие же или большие отклонения. 0,03 — это «редко, 3 раза из 100».</li><li>Это не вероятность того, что эффект есть или нет: для неё нужна доля работающих идей до теста (Байес).</li><li>Если хороших идей мало, заметная часть «значимых» результатов окажется ложной даже при p < 0,05.</li><li>Значимость не говорит о размере эффекта: смотри интервал.</li></ul>
+          <p><b>Слабый ответ:</b> «p — вероятность, что результат случайный».</p>
+          <p><b>Сильный ответ:</b> Определение через мир без эффекта плюс пример, почему P(H₀ | данные) ≠ p.</p>
+        </details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

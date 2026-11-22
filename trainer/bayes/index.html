@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Формула Байеса — тренажёр собеседований</title>
+<meta name="description" content="Формула Байеса: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="bayes">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · P3</p>
+  <h1>Формула Байеса</h1>
+  <p class="t-def">Классика собеседований: тест «точен на 99%», а сработал зря в большинстве случаев. Решается не формулой, а подсчётом на 10 000 человек.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Формула Байеса переворачивает условную вероятность: из P(сработал | плохой) получаем P(плохой | сработал).</p>
+    <p>Главная ловушка — забыть, насколько событие редкое (базовую долю). Если плохих 1 на 1000, даже точный тест чаще срабатывает на хороших: их в тысячу раз больше.</p>
+    <p>Надёжный способ: представить 10 000 объектов, посчитать, сколько плохих и хороших сработают, и взять долю.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/probability/06-bayes.html">«Вероятность на пальцах», «Байес»</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#P3a">Редкое событие и неидеальный тест</a></li><li><a href="#P3b">Несколько свидетелей или повторный тест</a></li><li><a href="#P3c">Искали и не нашли</a></li><li><a href="#P3d">Какая из гипотез</a></li></ol></nav>
+
+    <section class="tr-tpl" id="P3a" aria-labelledby="P3a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P3a-h">Редкое событие и неидеальный тест</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Касса пищит. Какая доля писков — правда фальшивки?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/bayes-cashbox/?embed=1" data-toy="bayes-cashbox" title="Игра: Касса пищит. Какая доля писков — правда фальшивки?" style="height:1100px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> «Ловит 99% фальшивок» он прочитал как «99% писков — фальшивки». Это разные доли.</li>
+        <li><b class="st-h">Считаем в штуках.</b> Возьмём 100 000 купюр, фальшивых из них 0.1%:<p class="formula">фальшивых: 100 000 · 0.001 = 100, писков на них: 100 · 0.99 = <b>99</b></p><p class="formula">настоящих: 99 900, писков зря: 99 900 · 0.01 = <b>999</b></p></li>
+        <li><b class="st-h">Доля правдивых писков.</b> <p class="formula">P(фальшивка | писк) = верные писки / все писки = 99 / (99 + 999) ≈ <b>9%</b></p></li>
+        <li><b class="st-h">Почему так мало.</b> На фальшивку касса пищит в 99 раз чаще, чем на настоящую, но настоящих купюр в 999 раз больше.</li>
+        <li><b class="st-h">Где встретится на работе.</b> Алерт на редкую беду: большинство тревог ложные, если не смотреть на базу.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Событие редкое (доли процента или пара процентов), тест «ловит 90–99%» и иногда срабатывает зря. Спрашивают: какова доля настоящих среди сработавших.</p>
+        <ol class="tr-steps"><li>Возьми 10 000 объектов. Плохих = базовая доля · 10 000.</li><li>Сработавших среди плохих = плохие · чувствительность; среди хороших = хорошие · доля ложных срабатываний.</li><li>Ответ = настоящие срабатывания / все срабатывания.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P3a-w" data-ans="31.5" data-tol="1">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Флаг «подозрительный промокод» в доставке кафе. Злоупотребляют промокодами 2% заказов. Флаг ловит 90% злоупотреблений и ложно срабатывает на 4% честных заказов. Какая доля помеченных заказов — правда злоупотребления?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>На 10 000 заказов: 200 злоупотреблений и 9 800 честных.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>Сработает на 200 · 0,9 = 180 злоупотреблений и на 9 800 · 0,04 = 392 честных заказа. Доля настоящих: 180 / 572 ≈ <b>31%</b>. Больше двух третей пометок — ложные, хотя флаг «точен на 90%».</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="P3a-s1" data-ans="5.7" data-tol="0.4">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Антифрод</span></p>
+        <p class="tr-q">Мошеннический заказ — 1 из 800. Антифрод ловит 97% мошенников и ложно блокирует 2% честных заказов. Какая доля заблокированных — мошенники?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>На 80 000 заказов: 100 мошенников → 97 блокировок; 79 900 честных → 1 598 блокировок. 97 / 1 695 ≈ <b>5,7%</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="P3a-s2" data-ans="22.2" data-tol="1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
+        <p class="tr-q">Читеров — 3 из 2 000 игроков. Античит ловит 95% читеров и ложно банит 0,5% честных игроков. Какая доля забаненных — читеры?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>На 200 000 игроков: 300 читеров → 285 банов; 199 700 честных → 998,5 бана. 285 / 1 283,5 ≈ <b>22%</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="P3a-s3" data-ans="32.1" data-tol="1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Отзывы</span></p>
+        <p class="tr-q">Токсичных отзывов — 5%. Модератор отмечает 90% токсичных и по ошибке 10% нормальных. Какая доля отмеченных отзывов действительно токсичная?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>На 1 000 отзывов: 50 токсичных → 45 отметок; 950 нормальных → 95 отметок. 45 / 140 ≈ <b>32%</b>.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="P3b" aria-labelledby="P3b-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P3b-h">Несколько свидетелей или повторный тест</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Почему редкая беда почти всегда — ложная тревога?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/base-rate/?embed=1" data-toy="base-rate" title="Игра: Почему редкая беда почти всегда — ложная тревога?" style="height:850px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Сигнал умножает шансы.</b> Касса пищит на фальшивку в 99 раз чаще, чем на настоящую:<p class="formula">шансы после = шансы до · сила сигнала = 1 : 999 · 99 ≈ 1 : 10 → <b>9%</b></p></li>
+        <li><b class="st-h">Как зависит от базы.</b> 
+          <table class="table sol-table"><thead><tr><th>База</th><th class="num">Правдивых писков</th></tr></thead><tbody><tr><td>0.1%</td><td class="num">9%</td></tr><tr><td>2%</td><td class="num">67%</td></tr><tr><td>10%</td><td class="num">92%</td></tr><tr><td>30%</td><td class="num">98%</td></tr></tbody></table></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Касса точная — значит, писк верный»: точность одна, а доля правдивых писков зависит от базы.</li></ul></li>
+        <li><b class="st-h">Что делать.</b> Редкое событие — вторая, независимая проверка: она умножит шансы ещё раз.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Два независимых теста, три отзыва, несколько свидетелей. Спрашивают, насколько выросла уверенность.</p>
+        <ol class="tr-steps"><li>Посчитай вероятность «все сработали» для плохих: чувствительность в степени числа тестов (если тесты независимы).</li><li>То же для хороших: доля ложных в той же степени.</li><li>Дальше как в одном тесте: настоящие / все. Обязательно оговори независимость — на практике тесты часто ошибаются вместе.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P3b-w" data-ans="76" data-tol="1.5">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">В доставке два независимых антифрод-флага. Подозрительных заказов 10%. Каждый флаг ловит 80% подозрительных и ложно срабатывает на 15% нормальных. Сработали оба. Какова вероятность, что заказ подозрительный?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Для подозрительных оба сработают с вероятностью 0,8², для нормальных — 0,15².</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>На 1 000 заказов: 100 · 0,64 = 64 и 900 · 0,0225 ≈ 20,3. Ответ 64 / 84,3 ≈ <b>76%</b>. Один флаг дал бы 80 / (80 + 135) ≈ 37%: второй независимый сигнал удваивает уверенность. Если флаги смотрят на одни и те же признаки, выигрыш будет меньше.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="P3b-s1" data-ans="92" data-tol="1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Кафе</span></p>
+        <p class="tr-q">Партия круассанов бывает чёрствой в 30% дней. Три гостя независимо пишут «чёрствые», а каждый отзыв ошибается с вероятностью 1/4. Какова вероятность, что партия правда чёрствая?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>0,3 · 0,75³ = 0,1266 против 0,7 · 0,25³ = 0,0109. Ответ 0,1266 / 0,1375 ≈ <b>92%</b>. Оговорка: если гости читали отзывы друг друга, они не независимы.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="P3c" aria-labelledby="P3c-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P3c-h">Искали и не нашли</h2>
+      
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Объект может быть в нескольких местах (или нигде); часть мест проверили — пусто. Где он теперь вероятнее всего?</p>
+        <ol class="tr-steps"><li>Распиши вероятности до поиска: по местам и «нигде».</li><li>Вычеркни проверенные места.</li><li>Оставшиеся вероятности раздели на их сумму.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P3c-w" data-ans="13" data-tol="0.6">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Пропавший заказ с вероятностью 60% лежит в зоне выдачи (там 10 одинаковых полок) и с вероятностью 40% уехал с другим курьером. Проверили 9 полок — пусто. Какова вероятность найти заказ на десятой?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>До поиска на каждой полке 6%. После поиска остаются только «десятая полка» и «уехал».</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>0,06 / (0,06 + 0,40) ≈ <b>13%</b>. Интуиция подсказывает «теперь точно на десятой», но пустые полки сильнее подтверждают версию «уехал».</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="P3d" aria-labelledby="P3d-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P3d-h">Какая из гипотез</h2>
+      
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Выбрали наугад одну из нескольких «машин», «урн», «монет»; по наблюдению нужно угадать какую.</p>
+        <ol class="tr-steps"><li>Априорные вероятности гипотез.</li><li>Правдоподобие наблюдения при каждой гипотезе (часто биномиальное или пуассоновское).</li><li>Произведения, нормированные на сумму.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P3d-w" data-ans="78.7" data-tol="1.2">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">В кафе стоит одна из двух кофемашин, равновероятно: старая ломается в среднем 2 раза за две недели, новая — 4 раза. За две недели была одна поломка. Какова вероятность, что машина старая? Поломки — пуассоновский поток.</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>P(1 поломка) = λe^(−λ) при λ = 2 и λ = 4.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>2e⁻² ≈ 0,271 и 4e⁻⁴ ≈ 0,073. Ответ 0,271 / (0,271 + 0,073) ≈ <b>79%</b>.</p></details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
