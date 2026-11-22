@@ -22,7 +22,10 @@
   const ENG = (typeof COL === 'object' && COL) ? COL : {};
   Lab.C = Object.assign({ctrl:'#23418A', test:'#E8644A', testInk:'#B8432B', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F',
     gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillGray:'#F4F3F0', fillB:'#F8DCD8', fillG:'#E2F0EB', fillC:'#E6ECF7', fillT:'#FCE8E3',
-    pen:'#23418A', accent:'#E8644A', paper:'#FFFFFF'}, ENG);
+    pen:'#23418A', accent:'#E8644A', paper:'#FBF9F4'}, ENG);
+  // поверхность листа — тёплая бумага из tokens.css (--surface), чистого белого на сайте нет
+  { const sf = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim(); if (sf) Lab.C.paper = sf; }
+  const PAPER = v => (v === '#fff' || v === '#FFF' || v === '#ffffff' || v === '#FFFFFF') ? Lab.C.paper : v;
 
   // ---------- числа по правилам сайта: «0.05», «90%», «10 000», «−3», без «−0» ----------
   const grp = s => s.replace(/^(\d{5,})/, d => d.replace(/\B(?=(\d{3})+$)/g, ' '));
@@ -78,7 +81,7 @@
     return {c, w, h, small: w < 520};
   };
   // текст на подложке цвета фона (метка не ложится на линии)
-  Lab.tag = (c, t, x, y, color = Lab.C.ink, align = 'left', font = Lab.FONT14, bg = '#fff') => {
+  Lab.tag = (c, t, x, y, color = Lab.C.ink, align = 'left', font = Lab.FONT14, bg = Lab.C.paper) => {
     c.font = font; const tw = c.measureText(t).width, x0 = align === 'center' ? x - tw / 2 : align === 'right' ? x - tw : x;
     if (bg){ c.fillStyle = bg; c.fillRect(x0 - 3, y - 12, tw + 6, 16); }
     c.fillStyle = color; c.textAlign = 'left'; c.fillText(t, x0, y); c.font = Lab.FONT;
@@ -93,7 +96,7 @@
     const W = c.canvas.clientWidth; c.font = Lab.FONT; c.fillStyle = Lab.C.ink2;
     ticks.forEach(v => { const t = fmt(v), tw = c.measureText(t).width; let x = X(v) - tw / 2; x = Math.max(1, Math.min(W - tw - 1, x)); c.textAlign = 'left'; c.fillText(t, x, y); });
   };
-  Lab.dot = (c, x, y, r, fill, stroke, lw = 1.5) => { c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); if (fill){ c.fillStyle = fill; c.fill(); } if (stroke){ c.strokeStyle = stroke; c.lineWidth = lw; c.stroke(); } };
+  Lab.dot = (c, x, y, r, fill, stroke, lw = 1.5) => { c.beginPath(); c.arc(x, y, r, 0, 2 * Math.PI); if (fill){ c.fillStyle = fill; c.fill(); } if (stroke){ c.strokeStyle = PAPER(stroke); c.lineWidth = lw; c.stroke(); } };
   Lab.line = (c, pts, color, lw = 2, dash) => { if (pts.length < 2) return; c.strokeStyle = color; c.lineWidth = lw; c.setLineDash(dash || []); c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke(); c.setLineDash([]); };
   Lab.lerp = (a, b, t) => a + (b - a) * t;
 

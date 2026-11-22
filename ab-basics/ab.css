@@ -11,7 +11,7 @@
   --trap-ink:#A8352F; --test-ink:#B8432B; --ctrl-ink:#23418A;
 }
 .choice{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
-.choice button{font:500 .9375rem/1.3 var(--body); padding:10px 14px; border-radius:10px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); cursor:pointer; text-align:left}
+.choice button{font:500 .9375rem/1.3 var(--body); padding:10px 14px; border-radius:10px; border:1px solid rgba(36,34,31,.25); background:var(--surface); color:var(--ink); cursor:pointer; text-align:left}
 .choice button:hover:not(:disabled){border-color:var(--ink)}
 .choice button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
 .choice button.right{background:var(--truth-bg); border-color:var(--truth); color:var(--ink)}
@@ -20,12 +20,12 @@
 .legend-row{display:flex; flex-wrap:wrap; gap:16px; font-size:.875rem; color:var(--muted); margin:6px 0 0}
 .legend-row i{display:inline-block; width:14px; height:4px; border-radius:2px; vertical-align:middle; margin-right:6px}
 .big2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0}
-.big2 > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 14px}
+.big2 > div{background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:12px 14px}
 .big2 b{display:block; font:500 1.875rem/1.15 var(--serif); font-variant-numeric:tabular-nums}
 .big2 span{font-size:.875rem; color:var(--muted)}
 .big2 .ctrl b{color:var(--ctrl-ink)} .big2 .test b{color:var(--test-ink)} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:var(--trap-ink)}
 .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0}
-.tiles button{all:unset; box-sizing:border-box; cursor:pointer; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:.9375rem; line-height:1.4; min-height:88px}
+.tiles button{all:unset; box-sizing:border-box; cursor:pointer; background:var(--surface); border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:.9375rem; line-height:1.4; min-height:88px}
 .tiles button:hover:not(:disabled){border-color:var(--ink)}
 .tiles button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .tiles button b{display:block; font:500 1.0625rem/1.3 var(--serif); margin-bottom:4px}
@@ -33,7 +33,7 @@
 .tiles button[aria-expanded="true"]{background:var(--butter)}
 .tiles button[aria-expanded="true"] span{display:block}
 .tiles button[aria-expanded="false"]::after{content:"нажми, чтобы открыть"; display:block; font-size:.75rem; color:var(--muted)}
-.quiz{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:16px 18px; margin:14px 0}
+.quiz{background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:16px 18px; margin:14px 0}
 .quiz p.q{font:500 1.125rem/1.45 var(--serif); margin-bottom:6px}
 .quiz .why{display:none; margin-top:10px; padding:10px 12px; border-radius:8px; background:#F7F5F0; font-size:1rem}
 .quiz.done .why{display:block}
@@ -57,12 +57,12 @@
 .grid10 > span.fp{background:var(--trap)}
 .grid10 > span.fn{background:#C9A43A}
 .grid10 > span.tn{background:#EAE8E2}
-.grid10 > span.real::after{content:""; position:absolute; inset:30%; border-radius:50%; background:#fff; opacity:.9}
+.grid10 > span.real::after{content:""; position:absolute; inset:30%; border-radius:50%; background:var(--surface); opacity:.9}
 .counts{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0}
-.counts > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:.8125rem; color:var(--muted); line-height:1.35}
+.counts > div{background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:.8125rem; color:var(--muted); line-height:1.35}
 .counts b{display:block; font:500 1.5rem/1.2 var(--serif); color:var(--ink); font-variant-numeric:tabular-nums}
 .counts i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:5px; vertical-align:-1px}
-.report{width:100%; border-collapse:collapse; font-size:.875rem; margin:8px 0; background:#fff; font-variant-numeric:tabular-nums}
+.report{width:100%; border-collapse:collapse; font-size:.875rem; margin:8px 0; background:var(--surface); font-variant-numeric:tabular-nums}
 .report th,.report td{padding:7px 8px; border-bottom:1px solid #E1E0D9; text-align:right; white-space:nowrap}
 .report th{font-size:.75rem; color:var(--muted); font-weight:500}
 .report th:first-child,.report td:first-child{text-align:left; white-space:normal}
@@ -71,7 +71,7 @@
 .report-wrap{overflow-x:auto; border:1px solid rgba(36,34,31,.10); border-radius:10px; margin:8px 0; max-width:100%}
 .report-meta{font-size:.8125rem; color:var(--muted); margin:4px 0 0}
 .metrics20{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:10px 0}
-.metrics20 > span{font-size:.7812rem; line-height:1.3; padding:7px 8px; border-radius:8px; background:#fff; border:1px solid rgba(36,34,31,.10)}
+.metrics20 > span{font-size:.7812rem; line-height:1.3; padding:7px 8px; border-radius:8px; background:var(--surface); border:1px solid rgba(36,34,31,.10)}
 .metrics20 > span.up{background:var(--truth-bg); border-color:var(--truth)}
 .metrics20 > span.down{background:var(--trap-bg); border-color:var(--trap)}
 .metrics20 small{display:block; color:var(--muted); font-variant-numeric:tabular-nums}
@@ -89,7 +89,7 @@
 .grp-pill.test{background:var(--test-bg); color:var(--test-ink)}
 .twoinputs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0}
 .twoinputs label{display:flex; flex-direction:column; gap:4px; font-size:.875rem; color:var(--muted)}
-.twoinputs input{font:500 1rem/1.2 ui-monospace, Menlo, Consolas, monospace; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff; color:var(--ink); width:100%; box-sizing:border-box}
+.twoinputs input{font:500 1rem/1.2 ui-monospace, Menlo, Consolas, monospace; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:var(--surface); color:var(--ink); width:100%; box-sizing:border-box}
 .daysrow{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:6px 0 10px}
 .daysrow b{font:500 .9375rem/1.3 var(--body); flex:0 0 250px}
 .daysrow span{width:36px; height:36px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font:600 .75rem/1 var(--body); color:#fff}
@@ -102,7 +102,7 @@
 .xtab th{font-weight:500; color:var(--muted); background:#FAF9F6}
 .xtab td.hot{background:var(--test-bg); font-weight:600}
 .nsel{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0}
-.nsel button{font:500 .9375rem/1 var(--body); padding:9px 14px; border-radius:999px; border:1px solid rgba(36,34,31,.3); background:#fff; color:var(--ink); cursor:pointer}
+.nsel button{font:500 .9375rem/1 var(--body); padding:9px 14px; border-radius:999px; border:1px solid rgba(36,34,31,.3); background:var(--surface); color:var(--ink); cursor:pointer}
 .nsel button[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
 @media (max-width:620px){ .twoinputs{grid-template-columns:1fr} .daysrow b{flex:0 0 100%} .daysrow span{width:32px; height:32px} }
 
@@ -135,7 +135,7 @@
 .chat{display:flex; flex-direction:column; gap:10px; margin:18px 0}
 .chat.mini{margin:8px 0 10px}
 .msg{display:flex; align-items:flex-end; gap:10px; max-width:88%}
-.msg .ava{width:44px; height:44px; flex:none; border-radius:50%; object-fit:cover; background:#E6EEF8; box-shadow:0 0 0 2px #fff}
+.msg .ava{width:44px; height:44px; flex:none; border-radius:50%; object-fit:cover; background:#E6EEF8; box-shadow:0 0 0 2px var(--surface)}
 .msg .bubble{border-radius:18px 18px 18px 4px; padding:9px 14px 10px; background:#F3F1EC}
 .msg .who{font:600 .75rem/1.3 var(--body); color:var(--muted); margin-bottom:2px}
 .msg .say{font:400 1.0625rem/1.5 var(--body); color:var(--ink); margin:0}
@@ -194,7 +194,7 @@
 /* книги: шаги 8–10 */
 .twoinputs .field input[type=range]{display:block; margin-top:4px}
 .tiles.tiles2{grid-template-columns:1fr 1fr}
-.tiles.tiles2 .tile{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:.9375rem; line-height:1.45}
+.tiles.tiles2 .tile{background:var(--surface); border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:.9375rem; line-height:1.45}
 .tiles.tiles2 .tile b{display:block; font:500 1.0625rem/1.3 var(--serif); margin-bottom:4px}
 .tiles.tiles2 .tile span{color:var(--muted)}
 .simp table{width:100%; border-collapse:collapse; font-size:.9375rem; font-variant-numeric:tabular-nums}
@@ -225,7 +225,7 @@
 .tiles.tiles2.tell4{grid-template-columns:repeat(4,1fr)}
 @media (max-width:760px){ .tiles.tiles2.tell4{grid-template-columns:1fr 1fr} }
 .cards4{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0}
-.cards4 span{background:#fff; border:2px solid var(--ink); border-radius:10px; padding:16px 8px; text-align:center; font:500 .875rem/1.3 var(--body); min-height:74px; display:flex; align-items:center; justify-content:center}
+.cards4 span{background:var(--surface); border:2px solid var(--ink); border-radius:10px; padding:16px 8px; text-align:center; font:500 .875rem/1.3 var(--body); min-height:74px; display:flex; align-items:center; justify-content:center}
 @media (max-width:620px){ .cards4{grid-template-columns:1fr 1fr} }
 .rep-pool{display:grid; gap:8px; margin-bottom:12px}
 .rep-item, .rep-list li{display:flex; gap:10px; align-items:center; justify-content:space-between; background:#F3F1EC; border-radius:10px; padding:8px 10px; font-size:.9375rem; line-height:1.4}
@@ -236,7 +236,7 @@
 .rep-list{margin:0; padding:0; list-style:none; display:grid; gap:6px; min-height:44px; border:1px dashed rgba(36,34,31,.2); border-radius:10px; padding:6px}
 ol.rep-list{counter-reset:r} ol.rep-list li{counter-increment:r} ol.rep-list li::before{content:counter(r); font-weight:600; color:var(--muted); margin-right:4px}
 .rep-app li{background:#F4F3F0; color:var(--muted)}
-button.mini{border:1px solid rgba(36,34,31,.25); background:#fff; border-radius:999px; width:30px; height:30px; cursor:pointer; font-size:.875rem; line-height:1}
+button.mini{border:1px solid rgba(36,34,31,.25); background:var(--surface); border-radius:999px; width:30px; height:30px; cursor:pointer; font-size:.875rem; line-height:1}
 button.mini:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 @media (max-width:620px){ .rep-cols{grid-template-columns:1fr} .rep-item{flex-direction:column; align-items:flex-start} }
 @media (max-width:620px){ .rep-list li{flex-wrap:wrap} .rep-list li > span:first-child{flex:1 1 100%} .rep-list li .rep-btns{margin-left:auto} }
@@ -271,19 +271,19 @@ h2[data-proverb]::before{content:"Пословица шага"; display:block; f
 .msg.kot.world .bubble{background:#F8F0D9; border:2px dashed #C9A43A}
 .msg.kot.world .who::after{content:" · мир без эффекта"; font-weight:500}
 /* Котейка ошибся, ученик поправляет: .msg.kot.oops */
-.msg.kot.oops .bubble{background:#fff; border:2px solid var(--trap)}
+.msg.kot.oops .bubble{background:var(--surface); border:2px solid var(--trap)}
 .msg.kot.oops .who::after{content:" · тут ошибка"; color:var(--trap-ink); font-weight:600}
 
 /* ===== дизайн-проход 22.11.2026: квизы, варианты, разминка, метки (одинаковый блок в ab-basics/ab.css и signal/free.css) =====
    Вопрос — Literata 400, 22 px / 1.35 (телефон 19 px), строка ≤ 32em. Варианты — Onest 400 16 px, рамка 1 px тёплого серого,
    padding 12×16, зазор 8, одна колонка ≤ 36em. Состояния: выбран — синее кольцо 2 px; верно/неверно — фон + рамка + значок ✓/✕.
    Разминка — тёплая подложка с радиусом 16 вместо голубого пунктира. «Вопрос 1 из 2» — обычный регистр, серый, 14 px. */
-.quiz{background:#fff; border:1px solid var(--line, #E3DED4); border-radius:16px; padding:24px; margin:24px 0; box-shadow:0 1px 2px rgba(60,40,10,.04)}
+.quiz{background:var(--surface); border:1px solid var(--line, #E3DED4); border-radius:16px; padding:24px; margin:24px 0; box-shadow:0 1px 2px rgba(60,40,10,.04)}
 .quiz .qnum{font:500 .875rem/1.4 var(--body); letter-spacing:0; text-transform:none; color:var(--muted); margin:0 0 8px}
 .quiz p.q{font:400 1.375rem/1.35 var(--serif); letter-spacing:-.005em; color:var(--ink); max-width:32em; margin:0 0 16px; text-wrap:pretty}
 .choice{gap:8px; margin:12px 0 4px}
 .quiz .choice{flex-direction:column; align-items:stretch; max-width:36em; margin:0}
-.choice button{position:relative; min-height:48px; padding:12px 16px; font:400 1rem/1.4 var(--body); color:var(--ink); background:#fff;
+.choice button{position:relative; min-height:48px; padding:12px 16px; font:400 1rem/1.4 var(--body); color:var(--ink); background:var(--surface);
   border:1px solid var(--line-strong, #CFC8BB); border-radius:12px; text-align:left; transition:background-color .15s, border-color .15s, box-shadow .15s}
 .choice button:hover:not(:disabled){border-color:#A9A194; background:#FBFAF7}
 .choice button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}

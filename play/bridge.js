@@ -280,7 +280,7 @@ html.solo .card + .card{margin-top:16px}
    белый фон, радиус 12, тень 1, отступы 16 × 24, метка сверху; между карточками зазор 24 px вместо линии.
    «Почему так» — такая же карточка на странице /play/ (play/play.css, .play-out). */
 html.solo body{padding:4px 4px 8px}
-html.solo .card[data-toy-pre], html.solo .card[data-toy]{background:#fff; border-radius:12px; padding:16px 24px 20px; box-shadow:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04)}
+html.solo .card[data-toy-pre], html.solo .card[data-toy]{background:var(--surface, #FBF9F4); border-radius:12px; padding:16px 24px 20px; box-shadow:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04)}
 html.solo .card[data-toy-pre] + .card{margin-top:24px}
 html.solo.pf-wait .card[data-toy]{display:none !important}
 html.solo .pf{margin:12px 0 0}

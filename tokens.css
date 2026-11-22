@@ -8,7 +8,7 @@
      Marck Script — только рукописные вставки в заголовке (h1 .hand, логотип), не метки. */
 :root{
   /* — цвет: стол, бумага, текст (тёплые серые) — */
-  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6; --white:#fff; --sunk:#F3F0EA;
+  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --surface:#FBF9F4; --paper:var(--surface); --white:#fff; --sunk:#F3F0EA;   /* --surface — тёплая бумага: фон карточек, листов, полей (чистого белого на сайте нет); --white — только текст и значки на цветном */
   --warm-900:#24221F; --warm-700:#4A463F; --warm-600:#5E5A53;
   --text-1:var(--warm-900);   /* основной: 15+ : 1 */
   --text-2:var(--warm-700);   /* вторичный: подзаголовки, описания — 7,5 : 1 на столе */
@@ -115,3 +115,5 @@ code, kbd, samp{font-family:var(--mono); font-size:1em; font-size-adjust:.5}
 .btn-pressed-check::before, [aria-pressed="true"].btn.ghost::before, .nsel button[aria-pressed="true"]::before, .seg [aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
 /* скрытые мостом и зафиксированные элементы не показываются, даже если у класса свой display */
 [data-fixed][hidden], [data-ui-hidden]{display:none !important}
+/* поля ввода без своего фона — тёплая бумага, а не белый браузера */
+:where(input:is([type=text], [type=number], [type=email], [type=search], [type=tel], [type=url], :not([type])), select, textarea){background-color:var(--surface)}

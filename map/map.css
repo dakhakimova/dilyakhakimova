@@ -15,12 +15,12 @@
 .goals{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--s-2)}
 .goals li{display:flex}
 .goal{display:flex; flex-direction:column; gap:4px; width:100%; text-align:left; cursor:pointer; min-height:44px; padding:var(--s-2) var(--s-3) var(--s-3);
-  border-radius:var(--r-m); border:2px solid rgba(36,34,31,.14); background:var(--white); color:var(--ink); font:400 var(--fs-xs)/1.35 var(--body)}
-.goal:hover{border-color:var(--line, var(--pen)); background:var(--paper)}
+  border-radius:var(--r-m); border:2px solid rgba(36,34,31,.14); background:var(--surface); color:var(--ink); font:400 var(--fs-xs)/1.35 var(--body)}
+.goal:hover{border-color:var(--line, var(--pen)); background:var(--surface)}
 .goal .g-t{display:flex; align-items:baseline; gap:var(--s-2); font:600 var(--fs-s)/1.25 var(--body)}
 .goal .sw{flex:none; transform:translateY(-2px)}
 .goal .g-for{color:var(--warm-700)}
-.goal[aria-pressed="true"]{border-color:var(--line, var(--pen)); box-shadow:var(--sh-2), inset 0 0 0 1px var(--line, var(--pen)); background:var(--white)}
+.goal[aria-pressed="true"]{border-color:var(--line, var(--pen)); box-shadow:var(--sh-2), inset 0 0 0 1px var(--line, var(--pen)); background:var(--surface)}
 .route-btns .all{margin-top:var(--s-2); font:600 var(--fs-s)/1.2 var(--body); min-height:44px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:2px solid var(--pen);
   background:transparent; color:var(--pen); cursor:pointer}
 .route-btns .all:hover{background:var(--pen-hover-bg)}
@@ -36,7 +36,7 @@
 
 /* панель навыка */
 .panel-side{position:fixed; z-index:20; top:var(--s-4); right:var(--s-4); bottom:var(--s-4); width:min(420px, calc(100vw - 2 * var(--s-4))); overflow:auto;
-  background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-3), 0 0 0 1px rgba(36,34,31,.06); padding:var(--s-5) var(--s-5) var(--s-6)}
+  background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-3), 0 0 0 1px rgba(36,34,31,.06); padding:var(--s-5) var(--s-5) var(--s-6)}
 .p-close{position:absolute; top:var(--s-2); right:var(--s-2); width:44px; height:44px; border-radius:var(--r-pill); border:0; background:var(--sunk); color:var(--ink);
   font:400 1.625rem/1 var(--body); cursor:pointer}
 .p-close:hover{background:#E6E1D8}
@@ -62,7 +62,7 @@
 
 /* честные границы */
 .bounds{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
-.bounds li{position:relative; background:var(--paper); border-radius:var(--r-m); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); box-shadow:var(--sh-1); overflow:hidden; font-size:var(--fs-s)}
+.bounds li{position:relative; background:var(--surface); border-radius:var(--r-m); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); box-shadow:var(--sh-1); overflow:hidden; font-size:var(--fs-s)}
 .bounds li::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
 .bounds b{display:block; font:500 var(--fs-m)/1.3 var(--serif); margin-bottom:var(--s-1)}
 .bounds p{margin:0; color:var(--warm-700)}
@@ -106,7 +106,7 @@
 .m-metro{padding-top:var(--s-7)}
 .m-metro h2, .m-detail h2{font:500 var(--fs-h3)/1.2 var(--serif); margin:0}
 .m-metro .lead-note{max-width:46em; margin:var(--s-2) 0 0}
-.metro-card{margin-top:var(--s-4); background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5)}
+.metro-card{margin-top:var(--s-4); background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5)}
 .metro-legend{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); align-items:center; justify-content:space-between}
 .ml-lines, .ml-keys{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-2)}
 .ml-keys{gap:var(--s-1) var(--s-4); font-size:var(--fs-xs); color:var(--warm-600)}
@@ -114,9 +114,9 @@
 .ml-line{display:inline-flex; align-items:center; gap:var(--s-2); min-height:44px; padding:var(--s-2) var(--s-3); border-radius:var(--r-pill); border:2px solid transparent;
   background:var(--sunk); color:var(--ink); font:600 var(--fs-s)/1.2 var(--body); cursor:pointer}
 .ml-line:hover{background:#ECE7DE}
-.ml-line[aria-pressed="true"]{background:var(--white); border-color:var(--line); box-shadow:var(--sh-1)}
+.ml-line[aria-pressed="true"]{background:var(--surface); border-color:var(--line); box-shadow:var(--sh-1)}
 .sw{display:inline-block; flex:none; width:22px; height:6px; border-radius:var(--r-pill); background:var(--line)}
-.route-btns .sw{box-shadow:0 0 0 1.5px #fff}
+.route-btns .sw{box-shadow:0 0 0 1.5px var(--surface)}
 .metro-scroll{margin-top:var(--s-4)}
 .metro{display:block; width:100%; height:auto; overflow:visible; font-family:var(--body)}
 .metro .zone rect{fill:var(--zc); fill-opacity:.13; stroke:none}
@@ -177,13 +177,13 @@
   border:0; background:none; text-align:left; font:400 var(--fs-s)/1.35 var(--body); color:var(--ink); cursor:pointer; position:static}
 .metro-linear .ls-b:hover .ls-n{text-decoration:underline}
 .metro-linear .ls-b[aria-expanded="true"] .ls-n{text-decoration:underline; text-decoration-thickness:2px}
-.metro-linear .dot{position:absolute; left:12px; top:14px; width:16px; height:16px; border-radius:50%; background:var(--line); box-shadow:0 0 0 2px #fff}
-.metro-linear .main .dot{left:8px; top:10px; width:24px; height:24px; background:#fff; box-shadow:inset 0 0 0 7px var(--line), 0 0 0 2px #fff}
-.metro-linear .later .dot{background:#fff; box-shadow:inset 0 0 0 2.5px var(--line)}
+.metro-linear .dot{position:absolute; left:12px; top:14px; width:16px; height:16px; border-radius:50%; background:var(--line); box-shadow:0 0 0 2px var(--surface)}
+.metro-linear .main .dot{left:8px; top:10px; width:24px; height:24px; background:var(--surface); box-shadow:inset 0 0 0 7px var(--line), 0 0 0 2px var(--surface)}
+.metro-linear .later .dot{background:var(--surface); box-shadow:inset 0 0 0 2.5px var(--line)}
 .metro-linear .main .ls-n{font-weight:600}
 .metro-linear .ls-m{font-size:.75rem; font-weight:600; background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px}
 .metro-linear .ls-h{font-size:.75rem; font-weight:600; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
-.metro-linear .here .dot{box-shadow:0 0 0 2px #fff, 0 0 0 5px var(--coral)}
+.metro-linear .here .dot{box-shadow:0 0 0 2px var(--surface), 0 0 0 5px var(--coral)}
 .metro-linear .ls-d{font-size:.75rem; color:var(--good-ink); font-weight:600}
 .metro-linear .ls-x{flex-basis:100%; font-size:var(--fs-xs); color:var(--warm-600)}
 .metro-linear .ls-x .sw{width:14px; height:5px; margin:0 4px 1px 2px; vertical-align:middle}
@@ -219,7 +219,7 @@
 .path-list{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s-4) var(--s-6); counter-reset:none}
 .path-list li{display:flex; gap:var(--s-4); align-items:flex-start}
 .path-list .pn{flex:none; width:48px; height:48px; border-radius:50%; display:grid; place-items:center; font:500 1.5rem/1 var(--serif); color:var(--ink);
-  background:var(--white); box-shadow:inset 0 0 0 3px var(--course); font-variant-numeric:tabular-nums}
+  background:var(--surface); box-shadow:inset 0 0 0 3px var(--course); font-variant-numeric:tabular-nums}
 .path-list .pt{margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
 .path-list .pt a{color:var(--ink)}
 .path-list .tag{font:500 .75rem/1 var(--body); vertical-align:middle}
@@ -236,11 +236,11 @@
 
 /* «Что в каждом курсе»: компактные карточки в порядке «Весь путь», список навыков свёрнут */
 .ccs{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); align-items:start}
-.cc{position:relative; background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); overflow:hidden; min-width:0}
+.cc{position:relative; background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); overflow:hidden; min-width:0}
 .cc::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
 .cc-h{display:flex; gap:var(--s-3); align-items:center; margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
 .cc-h a{color:var(--ink)}
-.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 1.125rem/1 var(--serif); background:var(--white);
+.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 1.125rem/1 var(--serif); background:var(--surface);
   box-shadow:inset 0 0 0 2px var(--course); font-variant-numeric:tabular-nums}
 .cc .chips{margin:var(--s-3) 0 0}
 .cc .tag.opt{background:var(--sunk); color:var(--warm-700)}
@@ -258,7 +258,7 @@
 .metro .zn-c{fill:#fff; stroke:var(--zc); stroke-width:2.5}
 .metro .zn{font:500 1.0625rem/1 var(--serif); fill:var(--ink)}
 .metro .ln .stroke.dash{stroke-dasharray:10 7; stroke-linecap:butt}
-.metro-linear .lz-n{display:inline-grid; place-items:center; width:26px; height:26px; margin-right:var(--s-2); border-radius:50%; background:#fff; box-shadow:inset 0 0 0 2px var(--zc);
+.metro-linear .lz-n{display:inline-grid; place-items:center; width:26px; height:26px; margin-right:var(--s-2); border-radius:50%; background:var(--surface); box-shadow:inset 0 0 0 2px var(--zc);
   font:500 .9375rem/1 var(--serif); color:var(--ink); vertical-align:middle}
 .metro-linear .lz.opt::after{background:transparent; opacity:1; border:1.5px dashed var(--zc)}
 .ml-line.mine{font-weight:500}

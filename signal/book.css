@@ -2,7 +2,7 @@
    Спокойная учебная вёрстка: те же шрифты и цвета, что на главной, но без декора (скотча, кнопок, наклонов, разлиновки),
    чтобы ничего не отвлекало от текста и интерактивов. */
 :root{
-  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6;
+  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:var(--surface, #FBF9F4);
   --ink:#24221F; --muted:#6B675F; --pen:#23418A; --margin:rgba(232,100,74,.5); --rule:rgba(61,125,196,.18);
   --accent:#E8644A; --good:#2F8F6B; --bad:#C2453A;
   --butter:#FBF1C9; --mint:#E2F1E7; --sky:#E1EBF7; --rose:#FBE4E4; --lilac:#ECE5F6;
@@ -28,7 +28,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* лесенка шагов */
 .ladder{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 26px; padding:0; list-style:none; font-size:.8125rem}
-.ladder li{padding:6px 10px; border-radius:999px; border:1px solid rgba(36,34,31,.15); color:var(--muted); background:rgba(255,255,255,.4)}
+.ladder li{padding:6px 10px; border-radius:999px; border:1px solid rgba(36,34,31,.15); color:var(--muted); background:color-mix(in srgb, var(--surface) 40%, transparent)}
 .ladder li.on{background:var(--ink); color:#fff; border-color:var(--ink)}
 .ladder li b{font-weight:600}
 
@@ -41,14 +41,14 @@ p{margin:0 0 14px}
 .muted{color:var(--muted)}
 .hand{font:400 1.25em/1.2 var(--script); color:var(--pen)}
 .num{font-variant-numeric:tabular-nums}
-.step-tag{display:inline-block; font:500 .75rem/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 9px; border-radius:6px; background:#fff; border:1px solid rgba(36,34,31,.12); color:var(--muted); margin-top:44px}
+.step-tag{display:inline-block; font:500 .75rem/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:6px 9px; border-radius:6px; background:var(--surface); border:1px solid rgba(36,34,31,.12); color:var(--muted); margin-top:44px}
 .step-tag + h2{margin-top:10px}
 
 /* листы */
-.sheet{background-color:var(--paper); padding:24px 26px; margin:18px 0 24px; position:relative;
+.sheet{background-color:var(--surface); padding:24px 26px; margin:18px 0 24px; position:relative;
   box-shadow:0 1px 1px rgba(0,0,0,.05), 0 14px 26px -18px rgba(60,40,10,.45); transform:rotate(var(--r,0deg))}
 .c-butter{background-color:var(--butter)} .c-mint{background-color:var(--mint)} .c-sky{background-color:var(--sky)}
-.c-rose{background-color:var(--rose)} .c-lilac{background-color:var(--lilac)} .c-white{background-color:#fff}
+.c-rose{background-color:var(--rose)} .c-lilac{background-color:var(--lilac)} .c-white{background-color:var(--surface)}
 .ruled{background-image:linear-gradient(transparent 31px, rgba(61,125,196,.18) 31px); background-size:100% 32px}
 .squared{background-image:linear-gradient(rgba(61,125,196,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.13) 1px, transparent 1px); background-size:18px 18px}
 .tape::before{content:""; position:absolute; top:-13px; left:50%; width:120px; height:28px; transform:translateX(-50%) rotate(-3deg);
@@ -75,9 +75,9 @@ button.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,
 button.btn:disabled{opacity:.5; cursor:default}
 label.field{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:1rem}
 input[type=range]{accent-color:var(--pen); width:220px}
-input[type=number]{font:500 1.125rem/1 var(--body); width:90px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff}
+input[type=number]{font:500 1.125rem/1 var(--body); width:90px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:var(--surface)}
 .readout{font:400 2.125rem/1.1 var(--script); color:var(--pen)}
-.verdict{margin-top:10px; padding:12px 14px; background:rgba(255,255,255,.7); border-radius:8px}
+.verdict{margin-top:10px; padding:12px 14px; background:color-mix(in srgb, var(--surface) 70%, transparent); border-radius:8px}
 .verdict.good{border-left:4px solid var(--good)} .verdict.bad{border-left:4px solid var(--accent)}
 
 /* точки-посетители */
@@ -111,7 +111,7 @@ canvas{width:100%; height:auto; display:block}
 .cell pre .err{color:#F28B82} .cell pre .ok{color:#7FD1A8} .cell pre .info{color:#8D96A8}
 
 /* собеседование, ловушка, шпаргалка */
-details{background:rgba(255,255,255,.65); border-radius:8px; padding:12px 16px; margin:10px 0}
+details{background:color-mix(in srgb, var(--surface) 65%, transparent); border-radius:8px; padding:12px 16px; margin:10px 0}
 details summary{cursor:pointer; font-weight:500}
 details[open] summary{margin-bottom:8px}
 .cheat li{margin:6px 0}
@@ -129,7 +129,7 @@ details[open] summary{margin-bottom:8px}
 /* ---- спокойный режим для курса: перекрывает декор выше ---- */
 body{background:#FAF8F4; background-image:none}
 .sheet{transform:none !important; box-shadow:none; border:1px solid rgba(36,34,31,.10); border-radius:12px; background-image:none !important}
-.c-white{background-color:#fff}
+.c-white{background-color:var(--surface)}
 .tape::before, .pin::after{display:none}
 .ruled, .squared{background-image:none !important}
 .kicker{font:500 .8125rem/1 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:18px 0 10px}
@@ -137,7 +137,7 @@ body{background:#FAF8F4; background-image:none}
 .readout, .stats b{font:500 1.625rem/1.1 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
 .bob .ava{font:500 1.375rem/1 var(--serif)}
 .step-tag{background:transparent; border:0; padding:0; color:var(--accent); font-size:.75rem}
-.ladder li{background:#fff}
+.ladder li{background:var(--surface)}
 
 /* ---- глава-карточки: меню слева, одна карточка на экране ---- */
 .reader{max-width:1180px; margin:0 auto; padding:16px 28px 40px; display:grid; grid-template-columns:260px minmax(0,1fr); gap:36px; align-items:start}
@@ -148,14 +148,14 @@ body{background:#FAF8F4; background-image:none}
 .toc-side h2{font:500 .8125rem/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:6px 0 10px}
 .toc-side ol{list-style:none; margin:0; padding:0; counter-reset:c}
 .toc-side li button{all:unset; box-sizing:border-box; display:grid; grid-template-columns:24px 1fr; gap:6px; width:100%; padding:7px 8px; border-radius:8px; cursor:pointer; color:var(--muted); line-height:1.35}
-.toc-side li button:hover:not(:disabled){background:#fff; color:var(--ink)}
+.toc-side li button:hover:not(:disabled){background:var(--surface); color:var(--ink)}
 .toc-side li button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .toc-side li.done button{color:var(--ink)}
 .toc-side li.done button .i::before{content:"✓"; color:var(--good)}
-.toc-side li.cur button{background:#fff; color:var(--ink); box-shadow:inset 3px 0 0 var(--accent)}
+.toc-side li.cur button{background:var(--surface); color:var(--ink); box-shadow:inset 3px 0 0 var(--accent)}
 .toc-side .i{font-variant-numeric:tabular-nums; text-align:right}
 .toc-side .i::before{content:attr(data-n)}
-.toggle{font:500 .875rem/1 var(--body); padding:9px 14px; border-radius:999px; border:1px solid rgba(36,34,31,.18); background:#fff; color:var(--ink); cursor:pointer}
+.toggle{font:500 .875rem/1 var(--body); padding:9px 14px; border-radius:999px; border:1px solid rgba(36,34,31,.18); background:var(--surface); color:var(--ink); cursor:pointer}
 .stage{max-width:780px; width:100%}
 .stage-head{display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap}
 .progress{flex:1; min-width:120px; height:6px; background:rgba(36,34,31,.08); border-radius:3px; overflow:hidden}
@@ -173,12 +173,12 @@ body{background:#FAF8F4; background-image:none}
 .art.missing img{display:none}
 .art.missing .ph{display:block}
 .heroes{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 6px}
-.heroes div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px; font-size:1rem}
+.heroes div{background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:14px 16px; font-size:1rem}
 .heroes b{display:block; font:500 1.1875rem/1.3 var(--serif); margin-bottom:4px}
 .heroes span{color:var(--muted)}
 @media (max-width:900px){
   .reader{grid-template-columns:1fr; gap:0}
-  .toc-side{position:static; max-height:none; background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px; margin-bottom:16px}
+  .toc-side{position:static; max-height:none; background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px; margin-bottom:16px}
   .reader:not(.open) .toc-side{display:none}
   .reader.collapsed .toc-side{display:none}
   .heroes{grid-template-columns:1fr}
@@ -193,11 +193,11 @@ body{background:#FAF8F4; background-image:none}
 .hbar span{display:block; width:100%; background:var(--pen); border-radius:3px 3px 0 0; transition:height .2s}
 .hbar.hl span{background:var(--accent)}
 .hbar i{position:absolute; left:-4px; right:-4px; text-align:center; font:500 .75rem/1 var(--body); font-style:normal; font-variant-numeric:tabular-nums}
-.hbar em{position:absolute; left:50%; width:10px; height:10px; margin:0 0 -5px -5px; border-radius:50%; background:#fff; border:2px solid var(--ink)}
+.hbar em{position:absolute; left:50%; width:10px; height:10px; margin:0 0 -5px -5px; border-radius:50%; background:var(--surface); border:2px solid var(--ink)}
 .hist-labels{display:grid; grid-template-columns:repeat(11,1fr); gap:6px; text-align:center; font-size:.8125rem; color:var(--muted); margin-top:4px}
 @media (prefers-reduced-motion: reduce){ .hbar span{transition:none} }
 
-.cmp{border:1px solid rgba(36,34,31,.12); border-radius:12px; overflow:hidden; background:#fff; font-size:1rem}
+.cmp{border:1px solid rgba(36,34,31,.12); border-radius:12px; overflow:hidden; background:var(--surface); font-size:1rem}
 .cmp-row{display:grid; grid-template-columns:1.1fr 1fr 1fr 1.2fr}
 .cmp-row > span{padding:10px 12px; border-top:1px solid rgba(36,34,31,.08)}
 .cmp-row.head > span{border-top:0; font:500 1rem/1.3 var(--serif); background:#F3F0EA}
@@ -239,12 +239,12 @@ button.btn{display:inline-flex; align-items:center; justify-content:center; gap:
   background:var(--pen); border-color:var(--pen); color:#fff; transition:background-color .15s, border-color .15s}
 button.btn:hover:not(:disabled){background:var(--pen-hover); border-color:var(--pen-hover)}
 /* вторичная кнопка — контур; при наведении и фокусе мягко заливается синим. Залитая — только одна главная в игре */
-button.btn.ghost{background:#fff; color:var(--pen); border:1.5px solid var(--pen)}
+button.btn.ghost{background:var(--surface); color:var(--pen); border:1.5px solid var(--pen)}
 button.btn.ghost:hover:not(:disabled){background:var(--pen-hover-bg); border-color:var(--pen); color:var(--pen)}
 button.btn.ghost:active:not(:disabled){background:var(--pen-press-bg)}
 @media (prefers-reduced-motion:reduce){ button.btn{transition:none} }
 /* «Запомнить» в прогнозе — вторичное действие: контур (залитая — только главная кнопка игры) */
-.guess button.btn:not(.ghost){background:#fff; color:var(--pen); border:1.5px solid var(--pen)}
+.guess button.btn:not(.ghost){background:var(--surface); color:var(--pen); border:1.5px solid var(--pen)}
 .guess button.btn:not(.ghost):hover:not(:disabled){background:var(--pen-hover-bg)}
 .guess button.btn:not(.ghost):active:not(:disabled){background:var(--pen-press-bg); transform:none}
 button.btn:disabled{opacity:.45}
@@ -265,7 +265,7 @@ canvas + .controls, .sheet canvas + .controls, svg + .controls, .bar + .controls
 .cell-bar button.check{background:#26795A}
 .cell-bar .hint{color:#A6AEBD}
 .cell pre{padding:12px 16px}
-details{background:#fff; border:1px solid var(--line); border-radius:12px; padding:0 20px; margin:16px 0}
+details{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:0 20px; margin:16px 0}
 details summary{min-height:48px; display:flex; align-items:center; padding:12px 0}
 details[open]{padding-bottom:16px}
 details[open] summary{margin-bottom:4px}
@@ -298,7 +298,7 @@ p code, li code, .qfb code, .note code, .choice code{font-size:1em; font-size-ad
 .guess-row{display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px 12px}
 .guess-row .controls{margin:0}
 span.field{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:1rem}
-input.guess-in{font:500 1.125rem/1 var(--body); width:96px; min-height:44px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff; color:var(--ink); box-sizing:border-box}
+input.guess-in{font:500 1.125rem/1 var(--body); width:96px; min-height:44px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:var(--surface); color:var(--ink); box-sizing:border-box}
 .jarrow .field input.guess-in{width:110px}
 
 /* Графики (гайд, пары 42–58): подпись над каждым холстом, до кнопок не меньше 16 px */

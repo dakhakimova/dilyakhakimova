@@ -8,7 +8,7 @@
     const cs = s / K;
     for (let i = 0; i < N; i++){
       const cx = x0 + (i % K) * cs, cy = y0 + Math.floor(i / K) * cs;
-      c.fillStyle = cnt[i] === 0 && shown === N ? C.fillB : '#fff'; c.fillRect(cx, cy, cs, cs);
+      c.fillStyle = cnt[i] === 0 && shown === N ? C.fillB : C.paper; c.fillRect(cx, cy, cs, cs);
       c.strokeStyle = C.grid; c.lineWidth = 1; c.strokeRect(cx + 0.5, cy + 0.5, cs - 1, cs - 1);
     }
     dots.forEach(d => Lab.dot(c, x0 + ((d.cell % K) + d.u) * cs, y0 + (Math.floor(d.cell / K) + d.v) * cs, Math.max(2, cs * 0.12), C.ctrl));

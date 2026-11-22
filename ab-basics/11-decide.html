@@ -17,12 +17,12 @@
 <style>
 /* шаг 11: дерево решений, пройденные развилки, разметка отчёта */
 .tree{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px; counter-reset:f}
-.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px 10px 46px; font-size:.9375rem; line-height:1.45}
+.tree > li{counter-increment:f; position:relative; background:var(--surface); border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px 10px 46px; font-size:.9375rem; line-height:1.45}
 .tree > li::before{content:counter(f); position:absolute; left:12px; top:9px; width:24px; height:24px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 .8125rem/1.5rem var(--body); text-align:center}
 .tree > li b{display:block; font:500 1.0625rem/1.35 var(--serif)}
 .tree .out{display:inline-block; margin:4px 6px 0 0; padding:2px 9px; border-radius:999px; font:600 .8125rem/1.5 var(--body); background:#F3F1EC}
 .dec{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:12px 0}
-.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 12px; font-size:.875rem; line-height:1.4; color:var(--muted)}
+.dec > div{background:var(--surface); border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 12px; font-size:.875rem; line-height:1.4; color:var(--muted)}
 .dec > div b{display:block; font:600 1rem/1.3 var(--body); color:var(--ink); margin-bottom:2px}
 /* пройденные развилки: появляются после верного ответа */
 .quiz .path{display:none; margin:12px 0 0; padding:10px 12px; border-radius:10px; background:#F7F5F0}
@@ -52,7 +52,7 @@ details.hint p{margin:6px 0 0}
 .legend-mk{list-style:none; margin:10px 0; padding:0; display:grid; gap:6px}
 .legend-mk li{font-size:.9375rem; line-height:1.45}
 .ifthen{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px}
-.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px; font-size:.9375rem; line-height:1.45}
+.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:var(--surface); border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px; font-size:.9375rem; line-height:1.45}
 .ifthen li span:first-child{color:var(--muted)}
 .ifthen li span:first-child::before{content:"Если "; font-weight:600; color:var(--ink)}
 .ifthen li span:last-child::before{content:"то я "; font-weight:600}

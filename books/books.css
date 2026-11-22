@@ -26,7 +26,7 @@
 /* первый экран */
 .bk-hero{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:var(--s-6); align-items:start; padding-top:var(--s-6)}
 .bk-label{display:flex; align-items:center; gap:var(--s-2); margin-bottom:var(--s-3)}
-.bk-label .ava{width:32px; height:32px; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--white)}
+.bk-label .ava{width:32px; height:32px; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--surface)}
 .bk h1{font:var(--fw-regular) var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5)}
 .bk-hero:not(.hub) h1{font-size:clamp(2.125rem,4.4vw,3.125rem)}
 .bk-pass{font:var(--fw-regular) var(--fs-l)/1.45 var(--serif); color:var(--text-2); margin:0 0 var(--s-2)}
@@ -39,7 +39,7 @@
 
 /* реплика Котейки — тот же пузырь, что в курсах и на /play/ */
 .msg{display:flex; align-items:flex-end; gap:var(--s-3); max-width:88%}
-.msg .ava{width:44px; height:44px; flex:none; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--white)}
+.msg .ava{width:44px; height:44px; flex:none; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--surface)}
 .msg .bubble{border-radius:18px 18px 18px 4px; padding:9px 14px 10px; background:#F8F0D9; box-shadow:var(--sh-1)}
 .msg .who{font:var(--fw-strong) .75rem/1.3 var(--body); color:var(--text-3); margin-bottom:2px}
 .msg .say{font:var(--fw-regular) 1.0625rem/1.5 var(--body); color:var(--text-1); margin:0}
@@ -60,7 +60,7 @@
 .lf{font-weight:var(--fw-medium)}
 
 /* схема и интерактивы */
-.bk-fig{margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:640px}
+.bk-fig{margin:var(--s-5) 0 0; background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:640px}
 .chart-head{font:var(--fw-medium) var(--fs-s)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
 .figcap{font-size:.875rem; color:var(--text-3); margin:var(--s-2) 0 0; line-height:1.45}
 .bk-svg{display:block; width:100%; max-width:560px; height:auto; overflow:visible}
@@ -73,13 +73,13 @@
 .bk-bar-lg{margin:0 0 var(--s-3)}
 .bk-bar{display:flex; gap:4px; align-items:stretch; max-width:560px}
 .bk-bar .a{flex:0 0 40px; background:var(--ctrl); border-radius:6px; min-height:40px}
-.bk-bar .b{flex:1; list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:2px; background:#fff}
+.bk-bar .b{flex:1; list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:2px; background:var(--surface)}
 .bk-bar .b li{flex:1 1 auto; background:var(--test); color:var(--text-1); font-size:.875rem; line-height:1.2; padding:11px 8px; text-align:center; max-width:none}
 .bk-bar .b li:first-child{border-radius:6px 0 0 6px} .bk-bar .b li:last-child{border-radius:0 6px 6px 0}
 .bk-svg .lead{stroke:var(--text-3); stroke-width:1}
 .bk-svg .halo{paint-order:stroke; stroke:var(--white); stroke-width:4px; stroke-linejoin:round}
 
-.bk-toy, .bk-frame{margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:720px}
+.bk-toy, .bk-frame{margin:var(--s-5) 0 0; background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:720px}
 .bk-toy .controls{margin:var(--s-4) 0 0; display:flex; flex-wrap:wrap; gap:var(--s-3)}
 .seg{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:0 0 var(--s-4)}
 .seg .btn{padding:var(--s-2) var(--s-4); border-width:1.5px}
@@ -127,7 +127,7 @@
 .bk-share .row .note{margin:0}
 
 /* карточка выпуска и заглушки «скоро» */
-.bk-card{display:flex; flex-direction:column; gap:var(--s-2); max-width:640px; padding:var(--s-5); border-radius:var(--r-l); background:var(--white); color:var(--text-1); text-decoration:none; box-shadow:var(--sh-2); transition:box-shadow .15s, transform .15s}
+.bk-card{display:flex; flex-direction:column; gap:var(--s-2); max-width:640px; padding:var(--s-5); border-radius:var(--r-l); background:var(--surface); color:var(--text-1); text-decoration:none; box-shadow:var(--sh-2); transition:box-shadow .15s, transform .15s}
 .bk-card:hover{box-shadow:var(--sh-3); transform:translateY(-1px); color:var(--text-1)}
 .bk-card h3{font:var(--fw-medium) var(--fs-h3)/1.25 var(--serif); margin:var(--s-2) 0 0}
 .bk-card p{margin:0}

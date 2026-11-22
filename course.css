@@ -26,17 +26,17 @@
 /* «Что будет»: модули карточками */
 .lead-note{color:var(--text-2); max-width:var(--measure)}
 .modules{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); counter-reset:m}
-.modules > li{background:var(--paper); border-radius:var(--r); padding:var(--s-5) var(--s-4) var(--s-4); box-shadow:var(--sh-2); display:flex; flex-direction:column; gap:var(--s-2)}
+.modules > li{background:var(--surface); border-radius:var(--r); padding:var(--s-5) var(--s-4) var(--s-4); box-shadow:var(--sh-2); display:flex; flex-direction:column; gap:var(--s-2)}
 .modules .n{font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:var(--tr-label); color:var(--label-ink)}
 .modules h3{font:500 var(--fs-l)/1.3 var(--serif); margin:0}
 .modules .d{margin:0; font-size:var(--fs-s); color:var(--text-2)}
 .modules .scene{margin:var(--s-1) 0 0; padding:var(--s-2) var(--s-3); border-radius:var(--r-s); background:var(--butter); font:400 var(--fs-s)/1.45 var(--serif)}
-.modules .x{margin:auto 0 0; padding:var(--s-2) var(--s-3); background:var(--white); box-shadow:var(--sh-1); border-radius:var(--r-s); font-size:var(--fs-xs); color:var(--muted); line-height:1.45}
+.modules .x{margin:auto 0 0; padding:var(--s-2) var(--s-3); background:var(--surface); box-shadow:var(--sh-1); border-radius:var(--r-s); font-size:var(--fs-xs); color:var(--muted); line-height:1.45}
 .modules .x b{color:var(--ink); font-weight:var(--fw-medium)}
 
 /* «Во что поиграем»: карточки игр — как .toys на главной; .toys .off — игра, которой ещё нет */
 .toys.c-toys{grid-template-columns:repeat(2,minmax(0,1fr))}
-.toys .off{display:flex; flex-direction:column; align-items:flex-start; gap:var(--s-2); height:100%; padding:var(--s-4); border-radius:var(--r); background:var(--white);
+.toys .off{display:flex; flex-direction:column; align-items:flex-start; gap:var(--s-2); height:100%; padding:var(--s-4); border-radius:var(--r); background:var(--surface);
   background-image:linear-gradient(rgba(61,125,196,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.08) 1px, transparent 1px); background-size:16px 16px}
 .toys .off b{font:500 var(--fs-l)/1.3 var(--serif)}
 .toys .off > span:not(.chip):not(.tag){font-size:var(--fs-s); color:var(--muted)}
@@ -49,14 +49,14 @@
 
 /* «Что получишь на выходе» */
 .results{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--s-3) var(--s-5); max-width:960px}
-.results li{position:relative; padding:var(--s-3) var(--s-4) var(--s-3) var(--s-7); background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); font-size:var(--fs-s)}
+.results li{position:relative; padding:var(--s-3) var(--s-4) var(--s-3) var(--s-7); background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); font-size:var(--fs-s)}
 .results li::before{content:"✓"; position:absolute; left:var(--s-4); top:var(--s-3); width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:500 .875rem/1.375rem var(--body); text-align:center}
 .results b{display:block; font:500 var(--fs-m)/1.35 var(--serif); margin-bottom:var(--s-1)}
 .results .nb{font-family:var(--body)}
 
 /* «Как устроен курс» (платные) */
 .how3{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
-.how3 li{background:var(--paper); border-radius:var(--r); padding:var(--s-4); box-shadow:var(--sh-2)}
+.how3 li{background:var(--surface); border-radius:var(--r); padding:var(--s-4); box-shadow:var(--sh-2)}
 .how3 h3{font:500 var(--fs-l)/1.3 var(--serif); margin:0 0 var(--s-2)}
 .how3 p{margin:0; font-size:var(--fs-s); color:var(--text-2)}
 .how-art{margin-top:var(--s-4); max-width:640px}
@@ -67,7 +67,7 @@
 .pair ul{margin:0 0 var(--s-3); padding-left:var(--s-5)}
 .pair li{margin:0 0 .45em}
 .pair li::marker{color:var(--muted)}
-.pair .need{background:var(--white); border-radius:var(--r-m); padding:var(--s-3) var(--s-4); box-shadow:var(--sh-1); font-size:var(--fs-s); margin:0}
+.pair .need{background:var(--surface); border-radius:var(--r-m); padding:var(--s-3) var(--s-4); box-shadow:var(--sh-1); font-size:var(--fs-s); margin:0}
 .pair .need b{font-weight:var(--fw-strong)}
 .next-course{display:flex; flex-direction:column; gap:var(--s-2)}
 .next-course .go{font:500 var(--fs-l)/1.3 var(--serif)}

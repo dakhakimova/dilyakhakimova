@@ -6,7 +6,7 @@ body.start{background:var(--desk); min-height:100vh}
 .s-close{display:inline-flex; align-items:center; gap:6px; min-height:44px; color:var(--text-2); font-size:var(--fs-s); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:3px}
 .s-close span[aria-hidden]{font-size:1.375rem; line-height:1; text-decoration:none}
 .s-main{max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) var(--s-9)}
-.s-app{background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-6) var(--s-7) var(--s-7); position:relative; overflow:hidden}
+.s-app{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-6) var(--s-7) var(--s-7); position:relative; overflow:hidden}
 
 /* прогресс и время */
 .s-app .bar{position:absolute; left:0; right:0; top:0; height:4px; background:var(--sunk)}
@@ -17,7 +17,7 @@ body.start{background:var(--desk); min-height:100vh}
 .pic{margin:0 0 var(--s-5); border-radius:var(--r-m); overflow:hidden; background:var(--sunk); aspect-ratio:16/9}
 .pic img{display:block; width:100%; height:100%; object-fit:cover}
 .kot{display:flex; gap:var(--s-3); align-items:flex-start; margin:0 0 var(--s-5)}
-.kot-ava{flex:none; width:56px; height:56px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 2px var(--white), 0 0 0 3px var(--line)}
+.kot-ava{flex:none; width:56px; height:56px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 2px var(--surface), 0 0 0 3px var(--line)}
 .kot-say{margin:0; background:var(--butter); border-radius:var(--r-m); border-top-left-radius:4px; padding:var(--s-3) var(--s-4); font:400 1.0625rem/1.5 var(--body); color:var(--text-1); max-width:32em}
 
 /* вопрос */
@@ -26,7 +26,7 @@ body.start{background:var(--desk); min-height:100vh}
 .hint{margin:var(--s-3) 0 0; font-size:var(--fs-s); line-height:1.5; color:var(--text-2); max-width:36em}
 .opts{list-style:none; margin:var(--s-5) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s-2)}
 .opt{display:block; width:100%; text-align:left; min-height:56px; padding:var(--s-3) var(--s-4); border-radius:var(--r-m); border:1.5px solid var(--line-strong);
-  background:var(--white); color:var(--text-1); font:400 1.0625rem/1.4 var(--body); cursor:pointer; transition:border-color .15s, background .15s}
+  background:var(--surface); color:var(--text-1); font:400 1.0625rem/1.4 var(--body); cursor:pointer; transition:border-color .15s, background .15s}
 .opt:hover{border-color:var(--pen); background:var(--pen-hover-bg)}
 .opt:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .opt.on{border-color:var(--pen); box-shadow:inset 0 0 0 1px var(--pen)}
@@ -61,10 +61,10 @@ body.start{background:var(--desk); min-height:100vh}
 .line{list-style:none; margin:0; padding:0; position:relative}
 .line::before{content:""; position:absolute; left:17px; top:18px; bottom:18px; width:5px; border-radius:3px; background:#4A463F}
 .dz{position:relative; padding:0 0 var(--s-5) 56px}
-.dz.dashed::before{content:""; position:absolute; left:15px; top:0; bottom:0; width:9px; background:var(--white);
+.dz.dashed::before{content:""; position:absolute; left:15px; top:0; bottom:0; width:9px; background:var(--surface);
   background-image:repeating-linear-gradient(to bottom, #4A463F 0 8px, transparent 8px 14px); background-size:5px 100%; background-repeat:no-repeat; background-position:2px 0}
 .dz-h{margin:0; display:flex; align-items:center; gap:var(--s-3); font:500 var(--fs-l)/1.3 var(--serif); min-height:36px}
-.dz-n{position:absolute; left:0; top:0; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:var(--white);
+.dz-n{position:absolute; left:0; top:0; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:var(--surface);
   box-shadow:inset 0 0 0 3px var(--zc); font:500 1.125rem/1 var(--serif); font-variant-numeric:tabular-nums}
 .dz-h a{color:var(--text-1)}
 .dz-s{margin:var(--s-1) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
@@ -73,7 +73,7 @@ body.start{background:var(--desk); min-height:100vh}
 .dz.passed .dz-h a{color:var(--text-3)}
 .sts{list-style:none; margin:var(--s-3) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s-2)}
 .sn{display:flex; flex-wrap:wrap; align-items:center; gap:4px var(--s-2); font-size:var(--fs-s); position:relative}
-.sn .dot{position:absolute; left:-45px; top:5px; width:13px; height:13px; border-radius:50%; background:#fff; border:3px solid #4A463F}
+.sn .dot{position:absolute; left:-45px; top:5px; width:13px; height:13px; border-radius:50%; background:var(--surface); border:3px solid #4A463F}
 .sn.main .dot{width:17px; height:17px; left:-47px; top:3px}
 .sn.done .dot{background:var(--good-ink); border-color:var(--good-ink)}
 .sn.done .sn-l{color:var(--text-3)}
