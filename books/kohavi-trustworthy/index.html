@@ -50,7 +50,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main" class="wrap bk" data-share-title="Trustworthy Online Controlled Experiments · Котейка читает"
-  data-i18n-attr="data-share-text:bk.share.text;data-s-copied:bk.copied;data-s-copied-msg:bk.copiedMsg" data-share-text="Скинь коллеге, который запускает A/B-тесты: пять мыслей, на чтение — десять минут." data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
+  data-i18n-attr="data-share-text:bk.share.text;data-s-copied:bk.copied" data-share-text="Скинь коллеге, который запускает A/B-тесты: пять мыслей, на чтение — десять минут." data-s-copied="Ссылка скопирована">
 
 <!-- метка → заголовок-обещание → паспорт → реплика Котейки; справа — своя иллюстрация вместо обложки -->
 <section class="bk-hero">
@@ -98,7 +98,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="legend-row"><span><i class="sw win"></i><span data-i18n="bk.i1.lg.win">помогла</span></span><span><i class="sw zero"></i><span data-i18n="bk.i1.lg.zero">ничего не дала</span></span><span><i class="sw loss"></i><span data-i18n="bk.i1.lg.loss">навредила</span></span></p>
     <p class="bk-out" aria-live="polite"></p>
     <p class="controls"><button type="button" class="btn" data-act="run" data-i18n="bk.i1.run">Ещё 10 идей</button></p>
-    <p class="figcap" data-i18n="bk.i1.cap">Доли — порядок величин из книги (треть · треть · треть; в зрелом продукте удачных 10–20%). Конкретные выпадения — случайные, жми ещё.</p>
+    <p class="figcap" data-i18n="bk.i1.cap">Доли — порядок величин из книги (треть, треть, треть; в зрелом продукте удачных 10–20%). Конкретные выпадения — случайные, жми ещё.</p>
   </div>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i1.take">перед запуском запиши прогноз по каждому тесту — через квартал посчитай, как часто угадал.</span></p>
 </li>
@@ -260,25 +260,12 @@ for i, h in enumerate(hist):
   </ul>
 </section>
 
+<p class="more bk-more"><a href="/books/" data-i18n="bk.more.all">Все выпуски «Котейка читает» →</a></p>
+
 <section class="bk-sec bk-share" aria-labelledby="share-h">
   <h2 id="share-h" data-i18n="bk.share.title">Понравился разбор?</h2>
   <p data-i18n="bk.share.text">Скинь коллеге, который запускает A/B-тесты: пять мыслей, на чтение — десять минут.</p>
-  <div class="row">
-    <button class="btn" type="button" data-act="share" data-i18n="bk.share">Скинуть коллеге</button>
-    <button class="btn ghost" type="button" data-act="copy" data-i18n="bk.copy">Скопировать ссылку</button>
-    <span class="note" role="status"></span>
-  </div>
-</section>
-
-<section class="bk-sec" aria-labelledby="more-h">
-  <h2 id="more-h" data-i18n="bk.more.h">Ещё в рубрике</h2>
-  <ul class="bk-stubs" role="list">
-    <li><p class="chips"><span class="tag" data-i18n="st.cuped.kind">научная статья</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.cuped.t">CUPED: как сузить интервал прошлым периодом</h3><p class="who" data-i18n="st.cuped.who">Денг, Сюй, Кохави, Уолкер · 2013</p><p data-i18n="st.cuped.d">Статья «Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data». Ползунок «корреляция с прошлым периодом» покажет, насколько сужается интервал, а ноутбук — CUPED на данных кафе.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.gig.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.gig.t">Risk Savvy: как говорить о риске в штуках</h3><p class="who" data-i18n="st.gig.who">Герд Гигеренцер · 2014</p><p data-i18n="st.gig.d">Почему «из 1000 гостей» понятнее, чем «вероятность 0.3%», и как это помогает объяснять результаты тестов продакту.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
-  </ul>
-  <p class="more"><a href="/books/" data-i18n="bk.more.all">Все выпуски «Котейка читает» →</a></p>
+  <p class="row"><button class="btn-text" type="button" data-act="share" data-i18n="bk.share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
 </section>
 
 </main>
