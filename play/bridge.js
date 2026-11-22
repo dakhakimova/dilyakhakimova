@@ -376,7 +376,7 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
         const u = preBox.dataset.unit ?? '%'; return i.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
       const b = preBox.querySelector('button[aria-pressed="true"], button.picked'); return b ? b.textContent.trim() : ''; };
     const flow = document.createElement('div'); flow.className = 'pf'; flow.setAttribute('role', 'status'); toy.appendChild(flow);
-    const pfMine = document.createElement('p'); pfMine.className = 'pf-pfMine'; pfMine.hidden = true; flow.appendChild(pfMine);
+    const pfMine = document.createElement('p'); pfMine.className = 'pf-mine'; pfMine.hidden = true; flow.appendChild(pfMine);
     const showMine = () => { const a = answer(); pfMine.hidden = !a; pfMine.textContent = a ? PS.your + a : ''; send(); };
     if (preBox && inCard){ preBox.addEventListener('chosen', showMine); preBox.addEventListener('guessed', showMine); }
     if (preBox && !inCard){

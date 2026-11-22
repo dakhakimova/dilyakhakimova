@@ -116,7 +116,7 @@
     const read = () => {
       if (o.pick) return o.pick(api);
       const v = Lab.parse(inp.value);
-      const ex = o.example != null ? o.example : 30;
+      const ex = o.example == null ? '30' : typeof o.example === 'number' ? Lab.numT(o.example, 2) : o.example;   // «−10», а не «-10»
       if (v === null) return {err: 'Сначала запиши прогноз: напиши число, например ' + ex + '.'};
       if (v < o.min || v > o.max) return {err: 'Напиши число от ' + Lab.numT(o.min, 2) + ' до ' + Lab.numT(o.max, 2) + '.'};
       return {v};
