@@ -10,8 +10,8 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim, top} = require('./terms-viz.js');
-// проба (решение Дили, 22.11.2026): шрифт 20 px и колонка ~700 px, как на Medium; графики — 880 px, как игра. Понравится — станет общим.
-const TRIAL = ['normal-distribution'];
+// все страницы терминов (решение Дили, 22.11.2026: «где объясняем — по центру, размер и шрифт как на нормальном»): шрифт 20 px, колонка ~700 px
+const TRIAL = {includes: () => true};
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
 const V = require('./version.js');

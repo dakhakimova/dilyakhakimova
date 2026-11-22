@@ -153,6 +153,8 @@
 
 /* разбор: одна колонка от левого края контейнера страницы, текст и картинки не шире колонки (пара 109a) */
 .bk:not(.bk-hub){max-width:calc(36 * var(--fs-m) + 2 * var(--s-6)); margin-inline:auto}  /* страница-колонка — по центру окна (гайд, 109a) */
+/* разбор, как страница термина: текст 20 px, колонка ~700 px (решение Дили, 22.11.2026) */
+@media (min-width:760px){ .bk:not(.bk-hub){--fs-m:var(--t-20); max-width:calc(35 * var(--t-20) + 2 * var(--s-6))} }
 .bk:not(.bk-hub) .bk-hero{grid-template-columns:minmax(0,1fr)}
 .bk:not(.bk-hub) :is(.bk-fig, .bk-toy, .bk-frame, .cell, .bk-take){max-width:none}
 .bk:not(.bk-hub) .bk-idea > h2, .bk:not(.bk-hub) .bk-sec > h2{max-width:none}

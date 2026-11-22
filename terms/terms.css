@@ -77,7 +77,8 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 @media (prefers-reduced-motion:reduce){ svg.hl .hl-c, svg.hl .hl-l{transition:none} }
 /* у картинки два варианта: широкий (своя сетка подписей под 880 px) и узкий (колонка, телефон) */
 .viz-wide{display:none}
-/* проба .t-wide: текст 20 px, колонка 35em ≈ 700 px (Medium: 680 px, 18–21 px); картинка под определением — 880 px, по оси колонки, как игра */
+/* .t-wide (все термины): текст 20 px, колонка 35em ≈ 700 px (Medium: 680 px, 18–21 px); картинка под определением — 880 px, по оси колонки, как игра.
+   Схемы без широкой версии (viz-narrow) — по центру своей рамки */
 @media (min-width:760px){
   .term.t-wide{--fs-m:var(--t-20); --measure:35em; font-size:var(--t-20)}
   .term.t-wide .t-def{font-size:var(--t-22, 1.375rem)}
@@ -86,7 +87,7 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
   .term.t-wide .t-top{max-width:none; margin-inline:calc(50% - min(440px, 50vw - 16px))}
   .term.t-wide .viz-wide{display:block} .term.t-wide .viz-narrow{display:none}
 }
-.viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0; font-family:var(--body); font-variant-numeric:tabular-nums}
+.viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0 auto; font-family:var(--body); font-variant-numeric:tabular-nums}
 .chart-head{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
 .figcap{font-size:.875rem; line-height:1.5; color:var(--text-3); margin:var(--s-3) 0 0; max-width:46em}
 
@@ -164,7 +165,7 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 .t-field output{font:500 var(--t-18)/1 var(--serif); color:var(--text-1)}
 .t-field input[type=range]{width:100%; min-height:32px; accent-color:var(--pen)}
 .t-lbl{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-2)}
-.t-svg{display:block; width:100%; max-width:600px; min-width:400px; margin:0; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
+.t-svg{display:block; width:100%; max-width:600px; min-width:400px; margin:0 auto; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
 .big2{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); margin:var(--s-4) 0 0}
 .big2 > div{display:flex; flex-direction:column; gap:2px; min-width:96px}
 .big2 b{font:500 var(--t-30)/1.1 var(--serif); color:var(--text-1); font-variant-numeric:tabular-nums}
