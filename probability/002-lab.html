@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к шагу 2 курса «Вероятность на пальцах» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/probability/02-frequency.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/probability/02-frequency.html">
+<title>Новые игры · Шаг 2 · Вероятность на пальцах</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-course="probability" data-chapter="lab-probability-2">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- running-share-fan: веер неопределённости над 50 сериями (FT, Виктор; переделка running-share) -->
+<section class="card" data-toy="running-share-fan" data-title="Веер из 50 серий" aria-label="Веер из 50 серий">
+  <h2>Веер из 50 серий</h2>
+  <p>Пятьдесят серий бросков монетки, в каждой следим за долей орлов. На 100 бросках почти все серии лежат в веере от 40% до 60%: ±10% вокруг половины.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="rsf-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="rsf-guess">На 400 бросках веер будет ± <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rsf-guess" aria-describedby="rsf-gl"> %</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Бросить 50 серий по 1000 раз</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="rsf-t0">Доля орлов в 50 сериях по мере бросков; серая полоса — веер, куда попадают 95% серий</p>
+    <canvas id="rsf-cv" role="img" aria-label="Пятьдесят линий доли орлов и веер вокруг половины"></canvas>
+    <p class="note lab-data">Данные: симуляция, ось бросков — логарифмическая, от 10 бросков.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/running-share-fan.js?v=202611301"></script>
+</body>
+</html>
