@@ -33,14 +33,14 @@
 .play-what .art{box-shadow:var(--sh-1)}
 
 /* игра */
-.stage-frame{background:var(--paper); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-4) var(--s-5)}
+.stage-frame{background:transparent; padding:0; margin:0 -4px}   /* карточки «Сначала угадай» и «Потом проверь» рисует сама игра (play/bridge.js) */
 .stage-frame iframe{display:block; width:100%; border:0; min-height:320px; background:transparent}
 .stage-frame .noframe{display:none; margin:var(--s-2) 0 0}
 .stage-frame.broken .noframe{display:block}
 
-.play-out{margin-top:var(--s-6)}
-.play-out{background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5); position:relative}
-.play-out::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:var(--r-m) 0 0 var(--r-m); background:var(--l1)}
+.play-out{margin-top:var(--s-5)}
+.play-out{background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5); position:relative}
+/* «Почему так» — та же карточка, что «Сначала угадай» и «Потом проверь»: без цветной полосы */
 .play-out .locked{color:var(--muted); margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:0 var(--s-3)}
 .play-out .kicker{margin:0 0 var(--s-2)}
 .play-out.open .locked{display:none}
@@ -69,7 +69,7 @@
 
 @media (max-width:620px){
   .play{padding-top:var(--s-3)}
-  .stage-frame{padding:var(--s-3) var(--s-3); margin:0 calc(-1 * var(--s-2))}
+  .stage-frame{padding:0; margin:0 -4px}
   .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:1rem}
   .play-what.has-art{grid-template-columns:1fr}
   .play-what.has-art .art{grid-row:2}

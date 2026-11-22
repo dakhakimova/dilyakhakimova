@@ -77,8 +77,7 @@
   <h2>Совпадение — это редкость?</h2>
   <div class="chat">
     <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс совпадения — от силы 6%. Это судьба!</p></div></div>
-    <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты ищешь совпадение только со своим днём. А совпасть может любая пара гостей — например, Котейка и курьер. Сколько пар можно составить из 23 гостей?</p></div></div>
-    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Давайте устроим тысячу вечеринок. Я раздам дни рождения из мешка.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Ты ищешь совпадение только со своим днём. А совпасть может любая пара гостей — например, я и курьер. Сколько пар можно составить из 23 гостей? Давайте проверим: дни рождения раздам из мешка.</p></div></div>
   </div>
   <p>Считаем, что все 365 дней равновозможны (29 февраля не берём) и гости не связаны друг с другом: не близнецы и не пришли отмечать общий праздник.</p>
   <div class="guess" data-key="party23" data-min="0" data-max="100" data-unit="%">
@@ -91,25 +90,24 @@
 <section class="card" data-toy="birthday" data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
   <span class="step-tag">Поиграй</span>
   <h2>Гости входят по одному</h2>
-  <p>Каждый гость приносит свой день рождения — точку в календаре. Если точка попадает в уже занятый день, обе вспыхивают синим.</p>
+  <p>Календарь — 365 дней. Каждый гость — точка в свой день рождения; если день уже занят, обе точки вспыхивают.</p>
   <div class="sheet c-white">
-    <p class="chart-title">Календарь на 365 дней: дни рождения гостей</p>
-    <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — синим"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>день рождения гостя</span><span><i style="background:var(--test)"></i>совпадение</span></div>
-    <div class="p4-stats">
+    <p class="chart-title" id="pt-title">Календарь на 365 дней: дни рождения гостей</p>
+    <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — коралловым кружком с числом гостей"></canvas>
+    <div class="legend-row"><span><i style="background:var(--text-2)"></i>день рождения гостя</span><span><i style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
+    <div class="p4-stats" id="pt-stats" hidden>
       <div><b id="pt-n">0</b>гостей в зале</div>
       <div><b id="pt-pairs">0</b>пар гостей</div>
       <div class="hot"><b id="pt-hit">нет</b>совпадение</div>
     </div>
-    <div class="controls">
-      <button class="btn ghost" type="button" id="pt-1">+1 гость</button>
-      <button class="btn ghost" type="button" id="pt-10">+10 гостей</button>
-      <button class="btn ghost" type="button" id="pt-new">Новая вечеринка</button>
+    <div class="controls pt-ctl">
+      <label class="field" for="pt-guests">Гостей: <input type="text" inputmode="numeric" autocomplete="off" class="guess-in pt-guests" id="pt-guests" value="23"></label>
+      <button class="btn" type="button" id="pt-go" title="Пробел">Впустить гостей</button>
+      <button class="btn ghost" type="button" id="pt-again" title="Пробел" hidden>Ещё раз</button>
+      <button class="btn ghost" type="button" id="pt-1000" title="Shift + Пробел" hidden>Провести 1000 вечеринок</button>
     </div>
+    <p class="ui-guess" id="pt-vs" hidden></p>
     <span class="kot-says" id="pt-kot" hidden></span>
-    <div class="controls">
-      <button class="btn" type="button" id="pt-1000">Провести 1000 вечеринок</button>
-    </div>
     <div class="verdict" id="pt-v" hidden></div>
   </div>
 </section>
@@ -410,22 +408,28 @@ const TXT = {
   ML.reduce((s, m, i) => (START[i] = s, s + m), 0);
   const cv = document.getElementById('cal'), v = document.getElementById('pt-v'), kot = document.getElementById('pt-kot');
   let days = [], hitShown = false, total = 0, hits = 0;
-  const batchN = 23;  // столько гостей, сколько в вопросе прогноза
   const theory = n => { let q = 1; for (let i = 0; i < n; i++) q *= (365 - i) / 365; return 1 - q; };
   function counts(){ const c = new Array(365).fill(0); days.forEach(d => c[d]++); return c; }
   function draw(){
     const g = canvas(cv, 0.36, 0.62); if (!g) return; const {c, w, h} = g;
-    const L = 34, R = 4, T = 4, B = 4, cw = (w - L - R) / 31, ch = (h - T - B) / 12, r = Math.max(2, Math.min(cw, ch) * 0.36), cnt = counts();
+    const L = 34, R = 4, T = 4, B = 4, cw = (w - L - R) / 31, ch = (h - T - B) / 12, r = Math.max(2, Math.min(cw, ch) * 0.3), cnt = counts(); let lab = null;
     c.font = (w < 520 ? 10 : 12) + 'px Onest, system-ui, sans-serif';
     for (let m = 0; m < 12; m++){
       const y = T + m * ch + ch / 2;
       label(c, TXT.months[m], 2, y + 4, COL.ink2);
       for (let d = 0; d < ML[m]; d++){
         const x = L + d * cw + cw / 2, k = cnt[START[m] + d];
-        c.fillStyle = k > 1 ? COL.test : k === 1 ? COL.ctrl : COL.grid;
-        c.beginPath(); c.arc(x, y, k ? r * 1.25 : r * 0.6, 0, 2 * Math.PI); c.fill();
+        // гости — нейтральный тёмный, совпадение — коралл крупнее, с обводкой и числом гостей внутри (цвета групп A/B тут ни при чём)
+        if (k > 1){ c.fillStyle = COL.accent; c.beginPath(); c.arc(x, y, r * 2, 0, 2 * Math.PI); c.fill(); c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.stroke();
+          c.save(); c.fillStyle = '#fff'; c.font = '600 ' + Math.round(r * 2.2) + 'px Onest, system-ui, sans-serif'; c.textAlign = 'center'; c.fillText(String(k), x, y + r * 0.8); c.restore();
+          if (!lab) lab = {x, y, k, m, d}; }
+        else { c.fillStyle = k === 1 ? COL.ink2 : COL.grid; c.beginPath(); c.arc(x, y, k ? r * 1.15 : r * 0.6, 0, 2 * Math.PI); c.fill(); }
       }
     }
+    // подпись у первого совпадения: «2 гостя · 10 мар»
+    if (lab){ const t = lab.k + ' ' + plural(lab.k, 'гость', 'гостя', 'гостей') + ' · ' + (lab.d + 1) + ' ' + TXT.months[lab.m], tw = c.measureText(t).width + 8;
+      const tx = lab.x + r * 2.4 + tw > w ? lab.x - r * 2.4 - tw : lab.x + r * 2.4, ty = lab.y - 2;
+      c.fillStyle = '#fff'; c.fillRect(tx, ty - 11, tw, 16); label(c, t, tx + 4, ty + 2, COL.ink); }
   }
   function paint(){
     const n = days.length, cnt = counts(), hit = cnt.some(k => k > 1);
@@ -433,16 +437,31 @@ const TXT = {
     document.getElementById('pt-pairs').textContent = int(n * (n - 1) / 2);
     document.getElementById('pt-hit').textContent = hit ? TXT.yes : TXT.no;
     if (hit && !hitShown){ hitShown = true; kot.hidden = false; kot.textContent = TXT.kotHit(n, n * (n - 1) / 2); }
-    document.getElementById('pt-1').disabled = document.getElementById('pt-10').disabled = n >= 80;
-    if (n >= 80){ kot.hidden = false; kot.textContent = TXT.kotFull; }
     draw();
   }
-  function add(k){ for (let i = 0; i < k && days.length < 80; i++) days.push(randInt(0, 364)); paint(); }
-  document.getElementById('pt-1').addEventListener('click', () => add(1));
-  document.getElementById('pt-10').addEventListener('click', () => add(10));
-  document.getElementById('pt-new').addEventListener('click', () => { days = []; hitShown = false; kot.hidden = true; paint(); });
-  document.getElementById('pt-1000').addEventListener('click', () => {
-    const seen = new Uint16Array(365);
+  // одна кнопка (решение Дили, 22.11.2026): «Впустить гостей» — гости входят по одному, 60–80 мс на гостя,
+  // при prefers-reduced-motion — сразу итог; потом «Ещё раз» и одна контурная «Провести 1000 вечеринок» с тем же числом гостей
+  const inN = document.getElementById('pt-guests'), go = document.getElementById('pt-go'), again = document.getElementById('pt-again'),
+    k1000 = document.getElementById('pt-1000'), stats = document.getElementById('pt-stats'), vs = document.getElementById('pt-vs');
+  const guests = () => { const x = Math.round(parseFloat(String(inN.value).replace(',', '.'))); const n = Number.isFinite(x) ? Math.min(80, Math.max(2, x)) : 23; inN.value = n; return n; };
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const guessLine = extra => { const g = Book.guess('party23'); vs.hidden = g === null; if (g !== null) vs.innerHTML = 'Твой прогноз: <b>' + shareT(g / 100, 1) + '</b>' + (extra || ''); };
+  let busy = false;
+  async function party(){
+    if (busy) return; busy = true; const n = guests();
+    days = []; hitShown = false; kot.hidden = true; stats.hidden = false; v.hidden = true;
+    document.getElementById('pt-title').textContent = 'Календарь на 365 дней: дни рождения гостей';
+    if (RM.matches){ for (let i = 0; i < n; i++) days.push(randInt(0, 364)); paint(); }
+    else for (let i = 0; i < n; i++){ days.push(randInt(0, 364)); paint(); await new Promise(r => setTimeout(r, 70)); }
+    go.hidden = true; again.hidden = false; k1000.hidden = false; busy = false;
+    const hit = counts().some(k => k > 1);
+    guessLine(' · в этой вечеринке совпадение <b>' + (hit ? TXT.yes : TXT.no) + '</b>');
+    window.dispatchEvent(new Event('resize'));
+  }
+  go.addEventListener('click', party); again.addEventListener('click', party);
+  inN.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); party(); } });
+  k1000.addEventListener('click', () => {
+    const batchN = guests(), seen = new Uint16Array(365); total = 0; hits = 0;   // каждое нажатие — свежая 1000
     let mark = 0;
     for (let t = 0; t < 1000; t++){
       mark++; if (mark > 60000){ seen.fill(0); mark = 1; }
@@ -451,9 +470,11 @@ const TXT = {
       total++; if (hit) hits++;
     }
     // последняя вечеринка — в календарь, чтобы было что разглядывать
-    days = []; for (let i = 0; i < batchN; i++) days.push(randInt(0, 364)); hitShown = true; kot.hidden = true; paint();
+    days = []; for (let i = 0; i < batchN; i++) days.push(randInt(0, 364)); hitShown = true; kot.hidden = true; stats.hidden = false; paint();
+    document.getElementById('pt-title').textContent = 'Последняя из 1000 вечеринок: дни рождения гостей';
     v.hidden = false; v.className = 'verdict good';
-    v.innerHTML = TXT.party(hits, total, batchN, theory(batchN), Book.guess('party23'));
+    v.innerHTML = TXT.party(hits, total, batchN, theory(batchN), null);
+    guessLine(' · совпадение в <b>' + share(hits / total, 1) + '</b> вечеринок');
   });
   window.addEventListener('resize', draw);
   paint();

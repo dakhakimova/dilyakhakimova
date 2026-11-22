@@ -276,7 +276,14 @@ html.solo .card{display:none !important}
 html.solo ${mine.replace(/, /g, ', html.solo ')}{display:block !important}
 html.solo .card + .card{margin-top:16px}
 /* «Сначала угадай» и «Потом проверь» — два отдельных листа с явным зазором */
-html.solo .card[data-toy-pre] + .card{margin-top:48px; padding-top:32px; border-top:1px solid rgba(36,34,31,.14)}
+/* три шага «Сначала угадай» → «Потом проверь» → «Почему так» — три карточки одного стиля (решение Дили, 22.11.2026):
+   белый фон, радиус 12, тень 1, отступы 16 × 24, метка сверху; между карточками зазор 24 px вместо линии.
+   «Почему так» — такая же карточка на странице /play/ (play/play.css, .play-out). */
+html.solo body{padding:4px 4px 8px}
+html.solo .card[data-toy-pre], html.solo .card[data-toy]{background:#fff; border-radius:12px; padding:16px 24px 20px; box-shadow:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04)}
+html.solo .card[data-toy-pre] + .card{margin-top:24px}
+html.solo .card .sheet.c-white{box-shadow:none; border:1px solid rgba(36,34,31,.10)}
+@media (max-width:620px){ html.solo .card[data-toy-pre], html.solo .card[data-toy]{padding:16px} }
 html.solo .card[data-toy] > h2.scene-h{display:none}
 html.solo .card .scene{font-size:inherit; margin-top:8px}
 html.solo .card > .step-tag:not(.play-pre), html.solo .card[data-toy-pre] > h2, html.solo .card[data-toy-pre] .chat,
