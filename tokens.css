@@ -1,0 +1,79 @@
+/* Общие токены типографики, цвета и ритма — подключается ПЕРВЫМ на всех страницах сайта
+   (главная, «Об авторе», лендинги, account, главы курсов, /play/). Правила и примеры — design-system.md.
+
+   Шрифты (ссылка Google Fonts одинаковая везде):
+     Literata 400 / 500 — заголовки, вопросы, цифры-герои; 500 — максимум (600/700 у Literata не подключаем);
+     Onest 400 / 500 / 600 — интерфейс и текст; 600 — максимум; 700 не подключён и не используется
+     (иначе браузер рисует «фальшивый жирный»);
+     Marck Script — только рукописные вставки в заголовке (h1 .hand, логотип), не метки. */
+:root{
+  /* — цвет: стол, бумага, текст (тёплые серые) — */
+  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6; --white:#fff; --sunk:#F3F0EA;
+  --warm-900:#24221F; --warm-700:#4A463F; --warm-600:#5E5A53;
+  --text-1:var(--warm-900);   /* основной: 15+ : 1 */
+  --text-2:var(--warm-700);   /* вторичный: подзаголовки, описания — 7,5 : 1 на столе */
+  --text-3:var(--warm-600);   /* третичный: подписи, сноски — 5,4 : 1 на столе */
+  --ink:var(--text-1); --muted:var(--text-3);
+  --line:#E3DED4; --line-strong:#CFC8BB;
+  --pen:#23418A; --pen-dark:#1A3270;
+  --coral:#E8644A; --coral-600:#A63D28; --accent:var(--coral); --accent-ink:var(--coral-600);
+  /* метка-«бровь»: коралл-текст. На столе (#E9E5DE) — #A63D28 (5,0 : 1); #B8432B — только на бумаге/белом (5,1 : 1) */
+  --label-ink:var(--coral-600);
+  --ctrl:#3D7DC4; --ctrl-bg:#E6EEF8; --test:#E59157; --test-ink:#A85A24;
+  --l1:#0E7E5F; --l2:#D7A928; --l3:#C9413A;
+  --butter:#FBF1C9; --mint:#E2F1E7; --sky:#E1EBF7; --rose:#FBE4E4;
+  --good-ink:#0B5E47; --soon-ink:#6A5410; --paid-ink:#1E3A78;
+  --c-prob:#D9A441; --c-ab:#E8644A; --c-sig:#3D7DC4; --c-st:#2F8F83; --c-abm:#7A3E6B; --c-cau:#6B7A8F;
+
+  /* — шрифты и веса — */
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --script:"Marck Script", "Segoe Script", cursive;
+  --body:"Onest", "Segoe UI", system-ui, sans-serif;
+  --fw-regular:400;
+  --fw-medium:500;       /* Literata-акцент (заголовок карточки, вопрос), кнопки и ссылки-действия в Onest */
+  --fw-strong:600;       /* Onest: один жирный элемент на блок; в Literata не бывает */
+
+  /* — шкала кеглей (px): 13 · 15 · 18 · 20 · 24 · 30 · 36 · 48 · 60 — */
+  --t-13:13px; --t-15:15px; --t-18:18px; --t-20:20px; --t-24:24px; --t-30:30px; --t-36:36px; --t-48:48px; --t-60:60px;
+  /* роли (адаптивные): */
+  --fs-xs:var(--t-13);                       /* метки, подписи, сноски */
+  --fs-s:var(--t-15);                        /* вторичный текст, кнопки, меню */
+  --fs-m:var(--t-18);                        /* основной текст (телефон — 17) */
+  --fs-l:var(--t-20);                        /* лид, заголовок карточки */
+  --fs-h3:clamp(20px,2.2vw,24px);            /* заголовок подблока */
+  --fs-h2:clamp(26px,3.2vw,36px);            /* заголовок блока */
+  --fs-h1:clamp(36px,5.2vw,60px);            /* заголовок страницы */
+
+  /* — межстрочные и трекинг — */
+  --lh-body:1.55; --lh-snug:1.35; --lh-head:1.2; --lh-tight:1.1;
+  --tr-display:-.02em;  /* h1 */
+  --tr-head:-.01em;     /* h2 */
+  --tr-label:.08em;     /* метка капслоком */
+  --measure:38em;       /* длина строки текста */
+
+  /* — отступы 4…256 и ритм — */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px; --s-11:192px; --s-12:256px;
+  /* над заголовком больше, чем под ним: */
+  --gap-h2-above:var(--s-7); --gap-h2-below:var(--s-3);   /* 48 / 12 (в курсах); между блоками лендинга — 64 */
+  --gap-h3-above:var(--s-6); --gap-h3-below:var(--s-2);   /* 32 / 8 */
+  --gap-label-below:var(--s-2);                           /* метка → заголовок: 8 */
+
+  /* — радиусы и тени — */
+  --r-xs:4px; --r-s:8px; --r-m:12px; --r-l:16px; --r-pill:9999px; --r:var(--r-l);
+  --sh-1:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04);
+  --sh-2:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22);
+  --sh-3:0 2px 4px rgba(60,40,10,.06), 0 20px 34px -18px rgba(60,40,10,.48);
+
+  /* — кнопки — */
+  --btn-h:44px; --btn-fw:var(--fw-medium);
+  color-scheme: light;
+}
+
+/* жирный — только 600 (Onest), внутри заголовков и вопросов в Literata — 500 */
+b, strong{font-weight:var(--fw-strong)}
+:where(h1, h2, h3, h4) :where(b, strong){font-weight:var(--fw-medium)}
+
+/* Метка-«бровь»: одна на блок, над заголовком. Мягкий капслок 13 px, трекинг .08em, 600, коралл-текст.
+   Капслок на сайте — только у меток. */
+.eyebrow{display:block; font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase;
+  color:var(--label-ink); margin:0 0 var(--gap-label-below)}

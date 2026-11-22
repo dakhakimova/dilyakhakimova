@@ -1,0 +1,163 @@
+/* Рубрика «Котейка читает»: хаб /books/ и разборы /books/<книга>/.
+   Порядок подключения: /tokens.css → /home.css → /books/books.css. Правила — design-system.md:
+   Literata 400/500, Onest 400–600 (без 700); одна метка на блок; одна залитая кнопка на блок; над заголовком отступ больше, чем под ним.
+   home.css в этой ветке ещё со старым :root и весами 600/700 — здесь они возвращаются к токенам (только на страницах рубрики). */
+:root{
+  --fs-xs:var(--t-13); --fs-s:var(--t-15); --fs-m:var(--t-18); --fs-l:var(--t-20);
+  --fs-h3:clamp(20px,2.2vw,24px); --fs-h2:clamp(26px,3.2vw,36px); --fs-h1:clamp(36px,5.2vw,60px);
+  --mono:ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+/* веса по дизайн-системе */
+.bk-page .btn{font-weight:var(--btn-fw); min-height:var(--btn-h)}
+.bk-page .chip, .bk-page .tag{font-weight:var(--fw-medium)}
+.bk-page .logo{font-weight:var(--fw-medium)}
+.bk-page .more{font-weight:var(--fw-medium)}
+.bk-page .foot h2{font:var(--fw-strong) var(--fs-s)/1.3 var(--body); text-transform:none; letter-spacing:0; color:var(--text-2)}
+
+/* крошки (как на /play/) */
+.crumbs{font-size:var(--fs-s); color:var(--text-3); padding-top:var(--s-2)}
+.crumbs ol{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-1) var(--s-2); align-items:baseline}
+.crumbs li{display:inline-flex; align-items:baseline; gap:var(--s-2); min-width:0}
+.crumbs li + li::before{content:"→"; color:var(--text-3)}
+.crumbs a{color:var(--text-3); text-decoration-color:rgba(36,34,31,.25); padding:var(--s-2) 0; display:inline-block}
+
+.bk p, .bk .list li{max-width:var(--measure)}
+
+/* первый экран */
+.bk-hero{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:var(--s-6); align-items:start; padding-top:var(--s-6)}
+.bk-label{display:flex; align-items:center; gap:var(--s-2); margin-bottom:var(--s-3)}
+.bk-label .ava{width:32px; height:32px; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--white)}
+.bk h1{font:var(--fw-regular) var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5)}
+.bk-hero:not(.hub) h1{font-size:clamp(34px,4.4vw,50px)}
+.bk-pass{font:var(--fw-regular) var(--fs-l)/1.45 var(--serif); color:var(--text-2); margin:0 0 var(--s-2)}
+.bk-pass cite{font-style:normal; color:var(--text-1)}
+.bk-pass2{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2) var(--s-3); font-size:var(--fs-s); color:var(--text-2); margin:0 0 var(--s-5)}
+.bk .sub{margin:0 0 var(--s-4)}
+.bk-how{font-size:var(--fs-s); color:var(--text-2)}
+.bk-hero .art{box-shadow:var(--sh-2)}
+.bk-hero .art.missing{min-height:120px; display:flex; align-items:center}
+
+/* реплика Котейки — тот же пузырь, что в курсах и на /play/ */
+.msg{display:flex; align-items:flex-end; gap:var(--s-3); max-width:88%}
+.msg .ava{width:44px; height:44px; flex:none; border-radius:var(--r-pill); object-fit:cover; background:#F8F0D9; box-shadow:0 0 0 2px var(--white)}
+.msg .bubble{border-radius:18px 18px 18px 4px; padding:9px 14px 10px; background:#F8F0D9; box-shadow:var(--sh-1)}
+.msg .who{font:var(--fw-strong) 12px/1.3 var(--body); color:var(--text-3); margin-bottom:2px}
+.msg .say{font:var(--fw-regular) 17px/1.5 var(--body); color:var(--text-1); margin:0}
+
+/* секции: над h2 — 64 (телефон 48), под h2 — 12–16 */
+.bk-sec, .bk-idea{padding-top:var(--s-8)}
+.bk-sec > h2, .bk-idea > h2{font:var(--fw-regular) var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); margin:0 0 var(--s-4); max-width:24em}
+.bk-thesis{font:var(--fw-regular) var(--fs-l)/1.5 var(--serif); color:var(--text-1); max-width:34em}
+
+.bk-ideas{list-style:none; margin:0; padding:0}
+.bk-idea > h2{max-width:none; display:flex; gap:var(--s-3); align-items:baseline}
+.bk-idea > h2 .n{font:var(--fw-regular) var(--fs-h2)/1 var(--serif); color:var(--label-ink); font-variant-numeric:tabular-nums; flex:none; min-width:.8em}
+.bk-idea > p{font-size:var(--fs-m)}
+
+/* «В работу:» — плашка-совет (масло), лид-фраза 500 */
+.bk-take{position:relative; margin:var(--s-5) 0 0; padding:var(--s-4) var(--s-5) var(--s-4) calc(var(--s-5) + 4px); border-radius:var(--r-m); background:var(--butter); box-shadow:var(--sh-1); max-width:var(--measure)}
+.bk-take::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:var(--r-m) 0 0 var(--r-m); background:var(--l2)}
+.lf{font-weight:var(--fw-medium)}
+
+/* схема и интерактивы */
+.bk-fig{margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:640px}
+.chart-head{font:var(--fw-medium) var(--fs-s)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
+.figcap{font-size:var(--fs-xs); color:var(--text-3); margin:var(--s-2) 0 0; line-height:1.45}
+.bk-svg{display:block; width:100%; max-width:560px; height:auto; overflow:visible}
+.bk-svg text{font-family:var(--body); fill:var(--text-1)}
+.bk-svg .lb{font-size:15px; font-weight:500}
+.bk-svg .sm{font-size:14px; fill:var(--text-2)}
+.bk-svg .ax{font-size:13px; fill:var(--text-3)}
+.sw.ctrl{background:var(--ctrl)} .sw.test{background:var(--test)}
+/* схема «главная мысль»: синяя доля — посчитать, оранжевая — проверки (HTML, чтобы подписи не мельчали на телефоне) */
+.bk-bar-lg{margin:0 0 var(--s-3)}
+.bk-bar{display:flex; gap:4px; align-items:stretch; max-width:560px}
+.bk-bar .a{flex:0 0 40px; background:var(--ctrl); border-radius:6px; min-height:40px}
+.bk-bar .b{flex:1; list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:2px; background:#fff}
+.bk-bar .b li{flex:1 1 auto; background:var(--test); color:var(--text-1); font-size:14px; line-height:1.2; padding:11px 8px; text-align:center; max-width:none}
+.bk-bar .b li:first-child{border-radius:6px 0 0 6px} .bk-bar .b li:last-child{border-radius:0 6px 6px 0}
+.bk-svg .lead{stroke:var(--text-3); stroke-width:1}
+.bk-svg .halo{paint-order:stroke; stroke:var(--white); stroke-width:4px; stroke-linejoin:round}
+
+.bk-toy, .bk-frame{margin:var(--s-5) 0 0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); max-width:720px}
+.bk-toy .controls{margin:var(--s-4) 0 0; display:flex; flex-wrap:wrap; gap:var(--s-3)}
+.seg{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:0 0 var(--s-4)}
+.seg .btn{padding:var(--s-2) var(--s-4); border-width:1.5px}
+.seg .btn[aria-pressed="true"]{background:var(--ctrl-bg); border-color:var(--pen)}
+.seg .btn[aria-pressed="false"]{border-color:var(--line-strong); color:var(--text-2)}
+.rng{display:grid; grid-template-columns:1fr auto; gap:var(--s-1) var(--s-3); align-items:baseline; font-size:var(--fs-s); color:var(--text-2); margin:0 0 var(--s-4); max-width:560px}
+.rng output{font:var(--fw-medium) var(--fs-l)/1 var(--serif); color:var(--text-1); font-variant-numeric:tabular-nums}
+.rng input{grid-column:1 / -1; width:100%; min-height:32px; accent-color:var(--pen); margin:0}
+.legend-row{display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-4); font-size:14px; color:var(--text-3); margin:var(--s-3) 0 0}
+.legend-row > span{display:inline-flex; align-items:center; gap:6px}
+.sw{display:inline-block; width:14px; height:14px; border-radius:4px}
+.sw.win{background:var(--l1)} .sw.zero{background:#CFC8BB} .sw.loss{background:var(--l3)}
+.bk-out{font-size:var(--fs-s); color:var(--text-2); margin:var(--s-3) 0 0; font-variant-numeric:tabular-nums; min-height:1.5em}
+.big2{margin:var(--s-3) 0 0; font-size:14px; color:var(--text-3)}
+.big2 b{font:var(--fw-medium) var(--t-30)/1.1 var(--serif); color:var(--text-1); font-variant-numeric:tabular-nums; margin-right:var(--s-1)}
+.verdict{margin:var(--s-3) 0 0; padding:var(--s-3) var(--s-4); border-radius:var(--r-m); font-size:16px; background:var(--sky)}
+.verdict.good{background:var(--mint)} .verdict.warn{background:var(--butter)} .verdict.bad{background:var(--rose)}
+
+.bk-frame iframe{display:block; width:100%; border:0; min-height:320px; background:transparent}
+.bk-frame .noframe{display:none; margin:var(--s-2) 0 0}
+.bk-frame.broken .noframe{display:block}
+
+/* ячейка Python (как в главах «Сигнала или шума», движок — /signal/py.js) */
+.cell{margin:var(--s-5) 0 var(--s-6); background:#1F2430; border-radius:10px; overflow:hidden; box-shadow:0 12px 24px -16px rgba(0,0,0,.5); max-width:720px}
+.cell-head{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 12px; background:#2A3040; color:#B9C0CE; font-size:13px; flex-wrap:wrap}
+.cell-head .t{font-weight:500; color:#E6E9EF}
+.cell textarea{display:block; width:100%; min-height:120px; border:0; resize:vertical; background:#1F2430; color:#E6E9EF; font:400 14px/1.55 var(--mono); padding:12px 16px; tab-size:4; white-space:pre; overflow:auto}
+.cell textarea:focus{outline:none; box-shadow:inset 0 0 0 2px #4A6FB5}
+.cell-bar{display:flex; gap:8px; padding:8px 12px; background:#252B38; flex-wrap:wrap; align-items:center}
+.cell-bar button{font:500 13px/1 var(--body); padding:8px 12px; min-height:36px; border-radius:6px; border:0; cursor:pointer; background:#3A4356; color:#E6E9EF}
+.cell-bar button.run{background:#4A6FB5}
+.cell-bar .hint{font-size:12px; color:#8D96A8; margin-left:auto}
+.cell pre{margin:0; padding:12px 16px; background:#171B24; color:#D5DAE3; font:400 13.5px/1.5 var(--mono); white-space:pre-wrap; overflow-x:auto}
+.cell pre:empty{display:none}
+.cell pre .err{color:#F28B82} .cell pre .ok{color:#7FD1A8} .cell pre .info{color:#8D96A8}
+.bk-idea > .note{font-size:var(--fs-s); color:var(--text-2)}
+
+/* списки */
+.bk .list{margin:0; padding-left:1.3em}
+.bk .list li{margin:0 0 var(--s-2); font-size:var(--fs-m); line-height:var(--lh-body)}
+.bk .list li::marker{color:var(--text-3)}
+
+/* поделиться */
+.bk-share .row{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin-top:var(--s-5)}
+.bk-share .row .note{margin:0}
+
+/* карточка выпуска и заглушки «скоро» */
+.bk-card{display:flex; flex-direction:column; gap:var(--s-2); max-width:640px; padding:var(--s-5); border-radius:var(--r-l); background:var(--white); color:var(--text-1); text-decoration:none; box-shadow:var(--sh-2); transition:box-shadow .15s, transform .15s}
+.bk-card:hover{box-shadow:var(--sh-3); transform:translateY(-1px); color:var(--text-1)}
+.bk-card h3{font:var(--fw-medium) var(--fs-h3)/1.25 var(--serif); margin:var(--s-2) 0 0}
+.bk-card p{margin:0}
+.bk-card .chips{margin:0}
+.who{font-size:var(--fs-s); color:var(--text-3)}
+.bk-card .go{margin-top:var(--s-2); color:var(--pen); font-weight:var(--fw-medium); text-decoration:underline; text-underline-offset:4px}
+.bk-stubs{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s-4)}
+.bk-stubs li{padding:var(--s-5); border:1px dashed var(--line-strong); border-radius:var(--r-l); background:rgba(251,250,246,.6)}
+.bk-stubs .chips{margin:0 0 var(--s-3)}
+.bk-stubs h3{font:var(--fw-medium) var(--fs-l)/1.3 var(--serif); margin:0 0 var(--s-1)}
+.bk-stubs p{margin:0 0 var(--s-2); font-size:var(--fs-s); color:var(--text-2)}
+.bk-stubs p.who{color:var(--text-3)}
+.bk-sec > .more{margin-top:var(--s-5)}
+.bk-sec > .note{margin-top:var(--s-4); font-size:var(--fs-s)}
+
+@media (max-width:760px){
+  .bk-hero{grid-template-columns:1fr; gap:var(--s-5); padding-top:var(--s-5)}
+  .bk-stubs{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  :root{--fs-m:17px}
+  .bk-sec, .bk-idea{padding-top:var(--s-7)}
+  .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:16px}
+  .bk-toy, .bk-fig{padding:var(--s-4)}
+  .bk-frame{padding:var(--s-3); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}
+  .bk-take{padding:var(--s-3) var(--s-4) var(--s-3) calc(var(--s-4) + 4px)}
+  .cell-bar button{min-height:44px}
+  .bk-svg .ax{font-size:18px} .bk-svg .sm{font-size:18px} .bk-svg .lb{font-size:20px}
+  .bk-bar .b li{border-radius:4px !important}
+  .cell-bar .hint{display:none}
+  .bk-share .btn{flex:1 1 auto; justify-content:center}
+  .crumbs li:last-child span{display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden}
+}
