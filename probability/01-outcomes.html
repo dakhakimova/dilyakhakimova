@@ -58,6 +58,10 @@
 .ev{border:1.5px solid var(--line-strong); border-radius:12px; padding:8px 12px; display:flex; flex-direction:column; align-items:center; gap:6px; background:var(--surface)}
 .ev.bob{border-color:var(--test)}
 .ev-o{display:flex; gap:12px}
+.evs.th{margin-top:8px}
+.th-o{display:flex; flex-direction:column; align-items:center; gap:4px}
+.th-n{font-size:.8125rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.things .mcs{display:flex; gap:4px}
 .ev-n{font-size:.875rem; color:var(--muted)} .ev.bob .ev-n{color:var(--test-ink); font-weight:500}
 .out4 .mcs{display:flex; gap:4px}
 .mc{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font:600 .9375rem/1 var(--body); color:#fff; box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
@@ -210,7 +214,7 @@
   <h2>Благоприятные делить на все</h2>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Котейке достаётся один исход из четырёх — РР, поэтому он свободен в трёх вечерах из четырёх. А у Боба «разные» — сразу два исхода, ОР и РО: он моет вдвое чаще Котейки и Алисы.</p></div>
-    <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеров примерно в 250 выпадет ОО, в 250 — ОР, в 250 — РО и в 250 — РР. Бобу достаются ОР и РО — около 500 вечеров (50%), Алисе и Котейке — по 250 (25%).</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеров на каждый исход придётся около 250.</p><div class="evs th" role="img" aria-label="Из 1000 вечеров: ОО около 250 — Алиса, 25%; ОР и РО по 250 — Боб, 50%; РР около 250 — Котейка, 25%"><div class="ev"><div class="ev-o"><span class="th-o"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">О</span></span><span class="th-n">≈ 250</span></span></div><span class="ev-n">Алиса — 25%</span></div><div class="ev bob"><div class="ev-o"><span class="th-o"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">Р</span></span><span class="th-n">≈ 250</span></span><span class="th-o"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">О</span></span><span class="th-n">≈ 250</span></span></div><span class="ev-n">Боб — 50%</span></div><div class="ev"><div class="ev-o"><span class="th-o"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">Р</span></span><span class="th-n">≈ 250</span></span></div><span class="ev-n">Котейка — 25%</span></div></div></div>
     <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(A) = благоприятные исходы / все исходы</p><p class="formula">P(«Котейка не моет») = 3 / 4 = 0.75</p><p class="read">Благоприятные исходы — те, что входят в событие A. Для события «Котейка не моет» это ОО, ОР и РО: три из четырёх. Формула работает, только если все исходы одинаково вероятны.</p></div>
   </div>
   <div class="fav" id="fav">
