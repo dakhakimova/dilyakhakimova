@@ -180,15 +180,17 @@ for (let k = 0; k <= N; k++){ const s = document.createElement('span'); s.textCo
 renderGuess();
 })();
 
-// ---------- главная: анимация двух колоколов без управления (v3 по комментарию Дили, 22.11.2026) ----------
+// ---------- главная: анимация двух колоколов без управления (v4, 22.11.2026) ----------
 // n плавно растёт 200 → 1 800 (~6 с), пауза 1.5 с на конечном кадре, кроссфейд к началу.
-// Высота колоколов постоянная (нормировка по пику), ширина падает в 3 раза. Порог неподвижен.
-// Заливки: хвост A за порогом — «ложная тревога», часть B до порога — «пропуск»; тают с ростом n.
+// Высота колоколов постоянная (нормировка по пику), ширина падает в 3 раза.
+// Двусторонний z-тест, α = 0.05: критическое значение = A ± 1.96σ(n) и едет к центру вместе с сужением A.
+// Синие хвосты A за критическими значениями — всегда 5% (ошибка I рода); коралловая часть B до критического значения — β, тает.
+// Эффект D = 1.8σ(200): β ≈ 56% при n = 200, ≈ 12% при n = 600, < 1% при n = 1 800.
 // prefers-reduced-motion — средний кадр.
 (function(){
   const svg = document.getElementById('bells'); if (!svg) return;
-  const W = 640, H = 250, L = 20, R = 20, T = 36, B = 40;
-  const D = 1.5, lo = -2.5, hi = D + 2.5, thr = D / 2, N0 = 200, N1 = 1800;   // единицы — σ при n = 200
+  const W = 640, H = 280, L = 20, R = 20, T = 48, B = 58;
+  const D = 1.8, Z = 1.959964, lo = -2.6, hi = D + 2.6, N0 = 200, N1 = 1800;   // единицы — σ при n = 200
   const X = v => L + (v - lo) / (hi - lo) * (W - L - R), base = H - B;
   const pdf = (v, m, s) => Math.exp(-0.5 * ((v - m) / s) ** 2);
   const Y = (v, m, s) => base - pdf(v, m, s) * (base - T);
@@ -199,31 +201,34 @@ renderGuess();
   };
   const normCdf = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; };
   const fmtN = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const clamp = v => Math.max(0, Math.min(1, v));
+  // β двустороннего z-теста: 1 − мощность = 1 − Φ(D/σ − z) − Φ(−D/σ − z)
+  const betaAt = s => 1 - normCdf(D / s - Z) - normCdf(-D / s - Z);
+  const pct = b => b < 0.005 ? '< 1%' : '= ' + Math.round(b * 100) + '%';
+  const mob = () => innerWidth <= 600;
   function scene(n){
-    const s = Math.sqrt(N0 / n), err = 1 - normCdf(thr / s);   // доля ложных тревог = доля пропусков (симметрично)
-    const vis = clamp((err - 0.013) / 0.03);                    // подписи уходят, когда заливка почти исчезла
+    const s = Math.sqrt(N0 / n), c = Z * s, beta = betaAt(s);
+    const fs = mob() ? 20 : 14, wA = 21 * fs * 0.56;   // оценка ширины подписи α, чтобы не уйти за край
     let h = '';
-    h += `<path d="${path(0, s, thr, hi, true)}" fill="rgba(35,65,138,.35)"/>`;
-    h += `<path d="${path(D, s, lo, thr, true)}" fill="rgba(232,100,74,.35)"/>`;
+    h += `<path d="${path(0, s, c, hi, true)}" fill="rgba(35,65,138,.35)"/>`;
+    h += `<path d="${path(0, s, lo, -c, true)}" fill="rgba(35,65,138,.35)"/>`;
+    h += `<path d="${path(D, s, lo, c, true)}" fill="rgba(232,100,74,.35)"/>`;
     h += `<line x1="${L}" x2="${W - R}" y1="${base}" y2="${base}" stroke="rgba(36,34,31,.35)"/>`;
     h += `<path d="${path(0, s, lo, hi)}" fill="none" stroke="#23418A" stroke-width="2.5"/>`;
     h += `<path d="${path(D, s, lo, hi)}" fill="none" stroke="#E8644A" stroke-width="2.5"/>`;
-    h += `<line x1="${X(thr)}" x2="${X(thr)}" y1="${T - 10}" y2="${base}" stroke="#24221F" stroke-width="1.25" stroke-dasharray="5 4"/>`;
-    h += `<text class="thr" x="${X(thr)}" y="${T - 16}" text-anchor="middle">порог</text>`;
-    h += `<text class="lab" x="${X(0) - 16}" y="${T - 3}" text-anchor="end" fill="#23418A">A</text>`;
-    h += `<text class="lab" x="${X(D) + 16}" y="${T - 3}" fill="#B8432B">B</text>`;
-    if (vis > 0){
-      // точка внутри заливки, куда смотрит подпись: у основания, чуть в сторону от порога
-      const fx = X(thr + 0.45 * s), mx = X(thr - 0.45 * s), fy = base - 0.35 * (base - Y(thr + 0.45 * s, 0, s));
-      const my = base - 0.35 * (base - Y(thr - 0.45 * s, D, s));
-      h += `<g opacity="${vis.toFixed(3)}">`;
-      h += `<line x1="${fx}" y1="${fy}" x2="${fx}" y2="${base + 8}" stroke="#23418A" stroke-width="1"/><circle cx="${fx}" cy="${fy}" r="2.5" fill="#23418A"/>`;
-      h += `<text class="zone" x="${fx - 4}" y="${base + 22}" fill="#23418A">ложная тревога</text>`;
-      h += `<line x1="${mx}" y1="${my}" x2="${mx}" y2="${base + 8}" stroke="#B8432B" stroke-width="1"/><circle cx="${mx}" cy="${my}" r="2.5" fill="#B8432B"/>`;
-      h += `<text class="zone" x="${mx + 4}" y="${base + 22}" text-anchor="end" fill="#B8432B">пропуск</text>`;
-      h += `</g>`;
-    }
+    if (X(-c) > L + 2) h += `<line x1="${X(-c)}" x2="${X(-c)}" y1="${Y(-c, 0, s) - 14}" y2="${base}" stroke="rgba(36,34,31,.45)" stroke-width="1" stroke-dasharray="3 4"/>`;
+    h += `<line x1="${X(c)}" x2="${X(c)}" y1="${T - 20}" y2="${base}" stroke="#24221F" stroke-width="1.25" stroke-dasharray="5 4"/>`;
+    h += `<text class="thr" x="${X(c)}" y="${T - 26}" text-anchor="middle">критическое значение</text>`;
+    // A и B — на внешних склонах (не спорят с критическим значением у вершины B)
+    h += `<text class="lab" x="${X(-1.1 * s) - 10}" y="${Y(-1.1 * s, 0, s)}" text-anchor="end" fill="#23418A">A</text>`;
+    h += `<text class="lab" x="${X(D + 1.1 * s) + 10}" y="${Y(D + 1.1 * s, D, s)}" fill="#B8432B">B</text>`;
+    // строка 1 — β (у кораллового куска слева от критического значения), строка 2 — α (у синего хвоста справа)
+    const mx = X(c - 0.45 * s), my = base - 0.35 * (base - Y(c - 0.45 * s, D, s)), mo = Math.min(1, beta / 0.02);
+    const fx = X(c + 0.5 * s), fy = base - 0.35 * (base - Y(c + 0.5 * s, 0, s));
+    const ax = Math.min(fx - 4, W - R - wA);
+    h += `<g opacity="${mo.toFixed(3)}"><line x1="${mx}" y1="${my}" x2="${mx}" y2="${base + 6}" stroke="#B8432B" stroke-width="1"/><circle cx="${mx}" cy="${my}" r="2.5" fill="#B8432B"/></g>`;
+    h += `<text class="zone num" x="${mx + 4}" y="${base + 22}" text-anchor="end" fill="#B8432B">ошибка II рода, β ${pct(beta)}</text>`;
+    h += `<line x1="${fx}" y1="${fy}" x2="${fx}" y2="${base + 32}" stroke="#23418A" stroke-width="1"/><circle cx="${fx}" cy="${fy}" r="2.5" fill="#23418A"/>`;
+    h += `<text class="zone" x="${ax}" y="${base + 48}" fill="#23418A">ошибка I рода, α = 5%</text>`;
     return h;
   }
   // расписание (мс): пауза на старте → рост → пауза на конце → кроссфейд к началу
