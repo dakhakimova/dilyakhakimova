@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611235">
-<link rel="stylesheet" href="/tokens.css?v=202611235">
-<link rel="stylesheet" href="/home.css?v=202611235">
-<link rel="stylesheet" href="/terms/terms.css?v=202611235">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
+<link rel="stylesheet" href="/tokens.css?v=202611236">
+<link rel="stylesheet" href="/home.css?v=202611236">
+<link rel="stylesheet" href="/terms/terms.css?v=202611236">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Закон больших чисел","item":"https://dilyakhakimova.com/terms/law-of-large-numbers/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/law-of-large-numbers/#term","name":"Закон больших чисел","description":"Закон больших чисел говорит: чем больше независимых повторений одного и того же опыта, тем ближе среднее результатов к ожидаемому значению. Короткие серии сильно скачут, длинные успокаиваются.","url":"https://dilyakhakimova.com/terms/law-of-large-numbers/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Закон больших чисел простыми словами","description":"Закон больших чисел на бросках монетки и десертах в кафе: почему короткие серии скачут, длинные успокаиваются, и чем закон не является.","url":"https://dilyakhakimova.com/terms/law-of-large-numbers/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/law-of-large-numbers/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Монетку бросили 10 раз — выпало 8 орлов. Другую бросили 1000 раз — выпало 600 орлов. Какая монетка подозрительнее?","acceptedAnswer":{"@type":"Answer","text":"Вторая. У честной монетки 8 орлов и больше из 10 бывают в 5.5% серий — не редкость. А 600 из 1000 — это 6.3 стандартного отклонения от 500 (σ = √(1000 · 0.25) ≈ 15.8): у честной монетки так почти не бывает."}},{"@type":"Question","name":"Чем закон больших чисел отличается от центральной предельной теоремы?","acceptedAnswer":{"@type":"Answer","text":"Закон больших чисел говорит, куда стремится среднее: к μ. Центральная предельная теорема — как именно оно колеблется вокруг μ по дороге: почти по колоколу шириной σ/√n."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -82,14 +82,12 @@
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">Как быстро успокаивается доля орлов?</h2>
-    <p>Бросай монетку и следи за бегущей долей орлов: сначала 10 бросков, потом до 10 000. Включи веер из 50 серий и посмотри, как они разбегаются в начале и сходятся к концу.</p>
+    
     <div class="stage-frame">
       <iframe id="toy-frame" src="/play/running-share/?embed=1" data-toy="running-share" title="Игра: Когда доля орлов наконец успокоится?" style="height:900px" loading="lazy" allow="clipboard-write"></iframe>
       <p class="note noframe">Игра не загрузилась? <a href="/probability/02-frequency.html#card-4">Открой её в курсе</a>.</p>
     </div>
-    <p class="note credit">Игра из курса «Вероятность на пальцах», шаг 2. <a href="/play/running-share/">Отдельная страница игры</a>.</p>
-    <h3>Что показывает игра</h3>
-    <p>На первых десятках бросков доля орлов легко уходит к 20% или 80%, а к 10 000 бросков почти все серии лежат в полосе 49–51%. Разброс доли сужается медленно, как 1/√n: чтобы сузить его вдвое, бросков нужно вчетверо больше.</p>
+  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
 
@@ -152,6 +150,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611235"></script>
+<script src="/terms/terms.js?v=202611236"></script>
 </body>
 </html>

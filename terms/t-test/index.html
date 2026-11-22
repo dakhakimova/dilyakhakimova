@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611235">
-<link rel="stylesheet" href="/tokens.css?v=202611235">
-<link rel="stylesheet" href="/home.css?v=202611235">
-<link rel="stylesheet" href="/terms/terms.css?v=202611235">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
+<link rel="stylesheet" href="/tokens.css?v=202611236">
+<link rel="stylesheet" href="/home.css?v=202611236">
+<link rel="stylesheet" href="/terms/terms.css?v=202611236">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Критерий Стьюдента","item":"https://dilyakhakimova.com/terms/t-test/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/t-test/#term","name":"Критерий Стьюдента","description":"t-тест (критерий Стьюдента) проверяет, не случайна ли разница двух средних: он делит разницу на её ожидаемый шум и смотрит, сколько «шумов» в ней помещается. Если больше примерно двух, случайностью разницу объяснить трудно.","url":"https://dilyakhakimova.com/terms/t-test/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Критерий Стьюдента (t-тест) простыми словами","description":"t-тест сравнивает два средних: делит разницу на её шум. Формула Уэлча, пример со средним чеком в кафе и игра, где видно, как размер выборки решает исход.","url":"https://dilyakhakimova.com/terms/t-test/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/t-test/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Чем t-тест Уэлча отличается от классического t-теста Стьюдента?","acceptedAnswer":{"@type":"Answer","text":"Классический считает общую (объединённую) дисперсию двух групп и предполагает, что дисперсии равны. Уэлч берёт в знаменатель √(s_A²/n_A + s_B²/n_B) и поправляет число степеней свободы (формула Уэлча–Саттертуэйта), поэтому не требует равенства дисперсий."}},{"@type":"Question","name":"В двух группах по 10 000 пользователей t-статистика равна 2.5. Каков двусторонний p-value?","acceptedAnswer":{"@type":"Answer","text":"При таких выборках t почти нормальна: p = 2 · P(Z > 2.5) ≈ 0.012. Разница значима на уровне 5%, но не на уровне 1%."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -82,7 +82,7 @@
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">Сколько гостей нужно, чтобы t-тест заметил разницу?</h2>
-    <p>Новая игра: выбери, сколько гостей в каждой группе, и проведи тест. Ты увидишь чеки двух групп, их средние и t на линейке с порогом ±1.96. Потом запусти сто тестов сразу и посчитай, как часто t-тест замечает ту же разницу.</p>
+    
     <div class="t-toy" data-ttoy="tt" data-s="{&quot;q&quot;:&quot;Средний чек вырос на 20 ₽, разброс чеков — 150 ₽. Сколько гостей нужно в каждой группе, чтобы t-тест замечал такую разницу почти всегда?&quot;,&quot;opts&quot;:[&quot;100 гостей&quot;,&quot;400 гостей&quot;,&quot;1600 гостей&quot;],&quot;nLabel&quot;:&quot;Гостей в каждой группе&quot;,&quot;run&quot;:&quot;Провести тест&quot;,&quot;many&quot;:&quot;Провести 100 тестов&quot;,&quot;reset&quot;:&quot;Сбросить счёт&quot;,&quot;chartA&quot;:&quot;Чеки группы A (первые 60)&quot;,&quot;chartB&quot;:&quot;Чеки группы B (первые 60)&quot;,&quot;ruler&quot;:&quot;t на линейке: серая зона — шум (|t| < 1.96)&quot;,&quot;diff&quot;:&quot;разница средних&quot;,&quot;se&quot;:&quot;шум разницы&quot;,&quot;t&quot;:&quot;t&quot;,&quot;p&quot;:&quot;p-value&quot;,&quot;caught&quot;:&quot;Заметили разницу: {k} из {n} тестов ({pct})&quot;,&quot;vYes&quot;:&quot;t = {t}: в разнице помещается больше 1.96 шума — тест считает разницу значимой (p {pv}).&quot;,&quot;vNo&quot;:&quot;t = {t}: разница меньше 1.96 шума — тест не может отличить её от случайности (p {pv}).&quot;}">
       <div class="guess">
         <p class="eyebrow">Твой прогноз</p>
@@ -92,9 +92,7 @@
       </div>
       <div class="t-body"></div>
     </div>
-    <p class="note credit">Игра сделана для этой страницы.</p>
-    <h3>Что показывает игра</h3>
-    <p>Разница в 20 ₽ одна и та же, а исход зависит от шума: при 100 гостях в группе t-тест замечает её примерно в 16% тестов, при 400 — в 47%, при 1600 — в 97%. Вчетверо больше гостей — вдвое меньше шум и вдвое больше t.</p>
+    <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
 
@@ -158,7 +156,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611235"></script>
-<script src="/terms/toys.js?v=202611235"></script>
+<script src="/terms/terms.js?v=202611236"></script>
+<script src="/terms/toys.js?v=202611236"></script>
 </body>
 </html>

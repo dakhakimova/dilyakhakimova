@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611235">
-<link rel="stylesheet" href="/tokens.css?v=202611235">
-<link rel="stylesheet" href="/home.css?v=202611235">
-<link rel="stylesheet" href="/terms/terms.css?v=202611235">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
+<link rel="stylesheet" href="/tokens.css?v=202611236">
+<link rel="stylesheet" href="/home.css?v=202611236">
+<link rel="stylesheet" href="/terms/terms.css?v=202611236">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Критерий Манна–Уитни","item":"https://dilyakhakimova.com/terms/mann-whitney/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/mann-whitney/#term","name":"Критерий Манна–Уитни","description":"Критерий Манна–Уитни (он же U-критерий, или ранговый тест Уилкоксона–Манна–Уитни) проверяет, склонны ли значения одной группы оказываться больше значений другой. Он смотрит не на сами числа, а на их места в общем ряду.","url":"https://dilyakhakimova.com/terms/mann-whitney/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Критерий Манна–Уитни простыми словами","description":"Что на самом деле проверяет U-критерий Манна–Уитни: дуэли каждого с каждым, ранги вместо чисел и почему он сравнивает не медианы. С игрой-таблицей дуэлей.","url":"https://dilyakhakimova.com/terms/mann-whitney/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/mann-whitney/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Когда критерий Манна–Уитни уместнее t-теста, а когда — нет?","acceptedAnswer":{"@type":"Answer","text":"Уместнее — на маленьких выборках с выбросами и для порядковых данных (оценки от 1 до 5), когда вопрос звучит как «чьи значения обычно больше». Хуже — когда нужна разница средних, например выручки: ранги её не измеряют."}},{"@type":"Question","name":"В группе A 5 значений, в группе B 4, и все значения B больше всех значений A. Чему равна U-статистика для B?","acceptedAnswer":{"@type":"Answer","text":"Всего пар 5 · 4 = 20, и B выигрывает в каждой: U_B = 20, а U_A = 0. Это максимально возможный перекос."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -82,7 +82,7 @@
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">Что найдёт Манн–Уитни при равных медианах?</h2>
-    <p>Новая игра: по 15 чеков в группах A и B. Сначала угадай, найдёт ли критерий разницу при равных медианах, потом проведи все 225 дуэлей. Сравни три набора: равные медианы, сдвиг всех чеков и один «кит» в группе B.</p>
+    
     <div class="t-toy" data-ttoy="mw" data-s="{&quot;q&quot;:&quot;В группах A и B медиана чека одинаковая — 600 ₽. Найдёт ли критерий Манна–Уитни разницу?&quot;,&quot;opts&quot;:[&quot;Нет: медианы равны — значит, разницы нет&quot;,&quot;Может найти: он сравнивает не медианы&quot;,&quot;Найдёт, только если средние разные&quot;],&quot;presets&quot;:[&quot;Медианы равны&quot;,&quot;Сдвиг на 200 ₽&quot;,&quot;Кит в группе B&quot;],&quot;run&quot;:&quot;Провести все дуэли&quot;,&quot;line&quot;:&quot;Чеки на одной оси&quot;,&quot;grid&quot;:&quot;Таблица дуэлей: строки — A, столбцы — B&quot;,&quot;wins&quot;:&quot;B победил в {u} дуэлях из {n}&quot;,&quot;share&quot;:&quot;доля побед B&quot;,&quot;p&quot;:&quot;p-value (≈)&quot;,&quot;med&quot;:&quot;медианы A · B&quot;,&quot;mean&quot;:&quot;средние A · B&quot;,&quot;v0&quot;:&quot;Медианы одинаковые, а B выигрывает {pct} дуэлей: у A много мелких чеков, у B — нет. Критерий находит разницу: p ≈ {p}.&quot;,&quot;v1&quot;:&quot;Каждый чек B на 200 ₽ больше своего двойника в A. B выигрывает {pct} дуэлей, p ≈ {p}.&quot;,&quot;v2&quot;:&quot;Кит на 30 000 ₽ поднял среднее B до {m} ₽, но в дуэлях он лишь побеждает всех — как побеждал бы и чек на 1000 ₽. Доля побед B — {pct}, p ≈ {p}: разницы нет.&quot;}">
       <div class="guess">
         <p class="eyebrow">Твой прогноз</p>
@@ -92,9 +92,7 @@
       </div>
       <div class="t-body"></div>
     </div>
-    <p class="note credit">Игра сделана для этой страницы.</p>
-    <h3>Что показывает игра</h3>
-    <p>При равных медианах B выигрывает 72% дуэлей, и критерий находит разницу (p ≈ 0.04). Один кит на 30 000 ₽ вчетверо поднимает среднее группы B, но для рангов это лишь одна победа в каждой дуэли: доля побед остаётся 50%. Манн–Уитни отвечает на вопрос «кто чаще больше», а не «на сколько больше».</p>
+    <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
 
@@ -157,7 +155,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611235"></script>
-<script src="/terms/toys.js?v=202611235"></script>
+<script src="/terms/terms.js?v=202611236"></script>
+<script src="/terms/toys.js?v=202611236"></script>
 </body>
 </html>

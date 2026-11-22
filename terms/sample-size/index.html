@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611235">
-<link rel="stylesheet" href="/tokens.css?v=202611235">
-<link rel="stylesheet" href="/home.css?v=202611235">
-<link rel="stylesheet" href="/terms/terms.css?v=202611235">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
+<link rel="stylesheet" href="/tokens.css?v=202611236">
+<link rel="stylesheet" href="/home.css?v=202611236">
+<link rel="stylesheet" href="/terms/terms.css?v=202611236">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Размер выборки","item":"https://dilyakhakimova.com/terms/sample-size/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/sample-size/#term","name":"Размер выборки","description":"Размер выборки — это сколько наблюдений нужно, чтобы эффект заданного размера тест заметил с высокой вероятностью, а не утопил в шуме. Его (иногда говорят «объём выборки») считают до теста по трём числам: минимальному интересному эффекту MDE, порогу α и мощности.","url":"https://dilyakhakimova.com/terms/sample-size/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Размер выборки простыми словами","description":"Как рассчитать размер выборки для A/B-теста: формула для долей, правило «вдвое меньший эффект — вчетверо больше людей» и калькулятор, который проверяет себя симуляцией.","url":"https://dilyakhakimova.com/terms/sample-size/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/sample-size/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Конверсия 5%, хотим заметить рост на 10% относительно (до 5.5%) при α = 5% и мощности 80%. Сколько пользователей нужно на группу?","acceptedAnswer":{"@type":"Answer","text":"n ≈ 7.85 · (0.05 · 0.95 + 0.055 · 0.945) / 0.005² ≈ 7.85 · 0.0995 / 0.000025 ≈ 31 200 пользователей в каждой группе."}},{"@type":"Question","name":"Во сколько раз вырастет размер выборки, если MDE уменьшить вдвое? А если уменьшить вдвое разброс метрики?","acceptedAnswer":{"@type":"Answer","text":"Вдвое меньший MDE — вчетверо больше выборки: эффект стоит в знаменателе в квадрате. Вдвое меньшее стандартное отклонение — вчетверо меньше выборки: дисперсия стоит в числителе. Поэтому методы снижения дисперсии (например, CUPED) так ценятся."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -82,7 +82,7 @@
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">Правда ли тест заметит эффект при рассчитанной выборке?</h2>
-    <p>Новая игра-калькулятор: задай базовую конверсию и эффект, получи размер группы — а потом проверь его, запустив 200 тестов с настоящим эффектом ровно такого размера. Сначала угадай, во сколько раз больше гостей нужно для вдвое меньшего эффекта.</p>
+    
     <div class="t-toy" data-ttoy="ss" data-s="{&quot;q&quot;:&quot;Тест на 14 750 гостей в группе замечает рост конверсии с 10% до 11% в 80% случаев. Сколько гостей нужно, чтобы так же уверенно замечать рост до 10.5%?&quot;,&quot;opts&quot;:[&quot;Вдвое больше&quot;,&quot;Вчетверо больше&quot;,&quot;В восемь раз больше&quot;],&quot;base&quot;:&quot;Базовая конверсия&quot;,&quot;mde&quot;:&quot;MDE: рост конверсии, п. п.&quot;,&quot;n&quot;:&quot;гостей в каждой группе&quot;,&quot;note&quot;:&quot;α = 5%, мощность 80%&quot;,&quot;run&quot;:&quot;Проверить: 200 тестов&quot;,&quot;half&quot;:&quot;MDE вдвое меньше&quot;,&quot;chart&quot;:&quot;z-статистика 200 тестов с настоящим эффектом = MDE&quot;,&quot;caught&quot;:&quot;Заметили эффект: {k} из {n} ({pct})&quot;,&quot;v&quot;:&quot;Из 200 тестов с настоящим эффектом {mde} п. п. значимыми вышли {k} — около {pct}. Так и задумано: мощность 80% значит, что каждый пятый такой эффект тест пропустит.&quot;}">
       <div class="guess">
         <p class="eyebrow">Твой прогноз</p>
@@ -92,9 +92,7 @@
       </div>
       <div class="t-body"></div>
     </div>
-    <p class="note credit">Игра сделана для этой страницы.</p>
-    <h3>Что показывает игра</h3>
-    <p>При рассчитанном размере выборки тест замечает эффект размера MDE примерно в 80% запусков — это и есть мощность 80%. Каждый пятый настоящий эффект такого размера всё равно останется незамеченным. Уменьшишь MDE вдвое — гостей понадобится вчетверо больше.</p>
+    <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
 
@@ -156,7 +154,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611235"></script>
-<script src="/terms/toys.js?v=202611235"></script>
+<script src="/terms/terms.js?v=202611236"></script>
+<script src="/terms/toys.js?v=202611236"></script>
 </body>
 </html>

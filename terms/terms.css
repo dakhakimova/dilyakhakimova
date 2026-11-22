@@ -56,7 +56,7 @@
 .msg.alice .bubble{background:#E6EEF8; border-radius:18px 18px 4px 18px}
 
 /* игра в iframe */
-.stage-frame{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-4) var(--s-5); margin:var(--s-5) 0 var(--s-2)}
+.stage-frame{margin:var(--s-4) 0 var(--s-2)}  /* без своей рамки: карточки игры («Сначала угадай», «Потом проверь», «Почему так») стоят прямо на странице, как в курсе (Д3) */
 @media (min-width:760px){ .term .stage-frame{margin-inline:calc(50% - min(440px, 50vw - 16px))} }
 .stage-frame iframe{display:block; width:100%; border:0; min-height:320px; background:transparent}
 .stage-frame .noframe{display:none; margin:var(--s-2) 0 0}
@@ -68,6 +68,13 @@
 .viz.small{box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5)}
 .nw{white-space:nowrap}
 .t-top .viz-svg{max-width:none}  /* картинка под определением — во всю ширину колонки */
+/* выделение кривой (terms/terms.js): остальные приглушены, в легенде видна только строка выбранной */
+svg.hl .hl-c, svg.hl .hl-l{cursor:pointer; transition:opacity .15s}
+svg.hl.on .hl-c:not(.cur){opacity:.15}
+svg.hl.on .hl-l:not(.cur){opacity:0}
+svg.hl .hl-c.cur path:not(.hl-hit){stroke-width:3.5}
+svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){ svg.hl .hl-c, svg.hl .hl-l{transition:none} }
 /* у картинки два варианта: широкий (своя сетка подписей под 880 px) и узкий (колонка, телефон) */
 .viz-wide{display:none}
 /* проба .t-wide: текст 20 px, колонка 35em ≈ 700 px (Medium: 680 px, 18–21 px); картинка под определением — 880 px, по оси колонки, как игра */
@@ -171,7 +178,7 @@
   .t-sec{margin-top:var(--s-7)}
   .t-def{font-size:var(--t-18); padding:var(--s-4) var(--s-4) var(--s-4) calc(var(--s-4) + 4px)}
   .formula{font-size:var(--t-18); padding:var(--s-4) var(--s-3)}
-  .stage-frame{padding:var(--s-3); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}
+
   .t-toy{padding:var(--s-4) var(--s-3); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}
   .t-toy .guess{padding:var(--s-4)}
   .viz{padding:var(--s-4) var(--s-2); margin-left:calc(-1 * var(--s-2)); margin-right:calc(-1 * var(--s-2))}

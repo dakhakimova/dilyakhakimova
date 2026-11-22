@@ -28,4 +28,26 @@
     try { await navigator.clipboard.writeText(url); say(main.dataset.sCopied, 2000); }
     catch(e) { say(url); }
   });
+
+  // графики с выделением (svg.hl, tools/terms-viz.js): наведение, фокус или нажатие на кривую/строку легенды — она яркая,
+  // остальные приглушены, в легенде одна её строка (рамка сжимается вокруг неё). Повторное нажатие или уход мыши — всё как было.
+  document.querySelectorAll('svg.hl').forEach(svg => {
+    const box = svg.querySelector('.hl-box'); let pinned = null;
+    const set = i => {
+      svg.classList.toggle('on', i !== null);
+      svg.querySelectorAll('.hl-c, .hl-l').forEach(g => g.classList.toggle('cur', g.dataset.i === i));
+      // строки легенды не двигаем (иначе строка уезжает из-под мыши) — рамка сжимается вокруг выбранной
+      if (box){ box.dataset.y0 = box.dataset.y0 || box.getAttribute('y');
+        box.setAttribute('y', i !== null ? +box.dataset.y0 + i * box.dataset.step : box.dataset.y0);
+        box.setAttribute('height', i !== null ? box.dataset.h1 : box.dataset.hn); }
+    };
+    svg.querySelectorAll('.hl-c, .hl-l').forEach(g => {
+      const i = g.dataset.i;
+      g.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && pinned === null) set(i); });
+      g.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && pinned === null) set(null); });
+      g.addEventListener('click', () => { pinned = pinned === i ? null : i; set(pinned); });
+      g.addEventListener('focus', () => set(i)); g.addEventListener('blur', () => { if (pinned === null) set(null); });
+      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pinned = pinned === i ? null : i; set(pinned); } });
+    });
+  });
 })();

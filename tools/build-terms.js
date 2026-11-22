@@ -100,7 +100,7 @@ ${chrome.header('terms', o.url === '/terms/')}
   for (const term of terms){
     const s = term.slug, x = TX[s];
     if (!x) throw new Error('build-terms: нет текстов для ' + s);
-    for (const k of ['name', 'title', 'desc', 'def', 'strict', 'read', 'toyLead', 'toyOut', 'vizT', 'vizCap', 'card', 'wiki']) if (!x[k]) throw new Error(`build-terms: ${s} — нет поля ${k}`);
+    for (const k of ['name', 'title', 'desc', 'def', 'strict', 'read', 'vizT', 'vizCap', 'card', 'wiki']) if (!x[k]) throw new Error(`build-terms: ${s} — нет поля ${k}`);
     if (!viz[s]) throw new Error('build-terms: нет схемы tools/terms-viz.js → viz[' + s + ']');
     const url = `/terms/${s}/`, title = x.title + RU['terms.brand'];
     if (title.length > 65) throw new Error(`build-terms: ${s} — title ${title.length} знаков (> 65): ${title}`);
@@ -124,7 +124,7 @@ ${chrome.header('terms', o.url === '/terms/')}
       <iframe id="toy-frame" src="/play/${ptoy.slug}/?embed=1" data-toy="${ptoy.slug}" title="${attr(t('terms.toy.frame') + ': ' + P.texts[ptoy.slug].q)}" style="height:${ptoy.h}px" loading="lazy" allow="clipboard-write"></iframe>
       <p class="note noframe">${t('terms.toy.noframe', {href: ptoy.src + '#card-' + (ptoy.pre[0] || ptoy.card)})}</p>
     </div>
-    <p class="note credit">${t('terms.toy.from', {course: courseName[playCourse[ptoy.course]], unit: unit[ptoy.course], n: ptoy.step, slug: ptoy.slug})}</p>`;
+`;  // подпись «Игра из курса …» уже есть внутри встроенной игры — вторую не ставим
 
     const cmp = x.cmp, cmpLink = term.cmp && bySlug[term.cmp].published ? `<a href="/terms/${term.cmp}/">${typo(h1Of(term.cmp))} →</a>` : (term.cmpHref && (!/^\/play\//.test(term.cmpHref) || pubToy(term.cmpHref.split('/')[2])) ? `<a href="${term.cmpHref}">${t('terms.cmp.toy', {name: cmp.name})}</a>` : '');
     const c = term.cta;
@@ -189,9 +189,7 @@ ${top[s] ? `  <figure class="viz t-top">
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">${typo(hq.toy)}</h2>
-    <p>${typo(x.toyLead)}</p>${toyBlock}
-    <h3>${t('terms.toy.out')}</h3>
-    <p>${typo(x.toyOut)}</p>
+    ${toyBlock}  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
 ${top[s] ? vizSec : ''}

@@ -78,13 +78,16 @@ top['normal-distribution'] = (L, wide) => {
     ln(x0, base, x1, base, C.t3, 1.5), ln(x0, y0, x0, base, C.t3, 1.5),
     ...[-4, -3, -2, -1, 0, 1, 2, 3, 4].filter(k => wide || k % 2 === 0).map(k => ln(X(k), base, X(k), base + 5, C.t3) + tx(X(k), base + 22, k < 0 ? '−' + -k : String(k), {a: 'middle', size: fs, fill: C.t3})),
     ...[0, .2, .4, .6, .8, 1].map(v => tx(x0 - 8, Y(v) + 5, v ? String(v) : '0', {a: 'end', size: fs - 1, fill: C.t3})),
-    ...S.map(([m, v, c]) => path(curve(m, v), c, 2.5)),
-    rect(lx - 12, ly - 8, lw, 4 * step + 8, C.paper, `rx="6" stroke="${C.line}"`),
-    ...S.map(([, , c, l], i) => ln(lx, ly + 8 + i * step, lx + 24, ly + 8 + i * step, c, 3) + tx(lx + 32, ly + 14 + i * step, l, {size: fs, fill: C.ink})),
+    // интерактив (terms/terms.js, svg.hl): наведение или нажатие на кривую либо строку легенды — кривая остаётся яркой,
+    // остальные приглушаются, в легенде остаётся только её строка. Невидимая толстая линия — чтобы попасть в кривую пальцем.
+    ...S.map(([m, v, c], i) => { const pts = curve(m, v); return `<g class="hl-c" data-i="${i}">${path(pts, c, 2.5)}${path(pts, 'transparent', 16, 'none', 'class="hl-hit"')}</g>`; }),
+    `<g class="hl-legend">` + rect(lx - 12, ly - 8, lw, 4 * step + 8, C.paper, `rx="6" stroke="${C.line}" class="hl-box" data-h1="${step + 8}" data-hn="${4 * step + 8}" data-step="${step}"`),
+    ...S.map(([, , c, l], i) => `<g class="hl-l" data-i="${i}" tabindex="0" role="button" aria-label="${esc(l)}">` + ln(lx, ly + 8 + i * step, lx + 24, ly + 8 + i * step, c, 3) + tx(lx + 32, ly + 14 + i * step, l, {size: fs, fill: C.ink}) + rect(lx - 8, ly - 4 + i * step, lw - 8, step, 'transparent') + `</g>`),
+    `</g>`,
     tx(x1, base + 22, 'x', {a: 'end', size: fs, fill: C.t3}),
   ].join('');
   const title = S.map(r => r[3]).join(' · ');
-  return `<svg class="viz-svg${wide ? ' viz-wide' : ' viz-narrow'}" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg"><title>${esc(title)}</title>${body}</svg>`;
+  return `<svg class="viz-svg hl${wide ? ' viz-wide' : ' viz-narrow'}" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg"><title>${esc(title)}</title>${body}</svg>`;
 };
 
 viz['ab-testing'] = L => {
