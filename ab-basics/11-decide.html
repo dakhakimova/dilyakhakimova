@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/11-decide.html">
 <title>Читаем отчёт и решаем · A/B на пальцах</title>
 <meta name="description" content="Шаг 11 интерактивного курса «A/B на пальцах»: подвохи в графиках и цифрах, дерево решений и тренажёр на восьми отчётах A/B-тестов, как рассказать результат.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="ab.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 <style>
 /* шаг 11: дерево решений, пройденные развилки, разметка отчёта */
 .tree{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px; counter-reset:f}
@@ -61,7 +61,7 @@ details.hint p{margin:6px 0 0}
 </head>
 <body data-chapter="ab11">
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="10-traps.html">← Шаг 10</a> · <a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -100,7 +100,7 @@ details.hint p{margin:6px 0 0}
   <h1>Читаем отчёт и решаем</h1>
   <p class="core">После шага ты сможешь <b>выбрать по отчёту одно из четырёх решений</b> и рассказать его за три минуты.</p>
   <figure class="art"><img loading="lazy" src="img/ab11-00-report.jpg" alt="Алиса и Боб склонились над большим листом отчёта, Котейка держит четыре таблички-решения" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: команда читает большой отчёт, у Котейки четыре таблички</figcaption></figure>
-  <p class="lead">В отчёте зелёная клетка и p = 0.002. Катим? Не торопись: сначала прочитай то, что обычно пропускают, — срок теста, доли групп и вилку.</p>
+  <p class="lead">В отчёте зелёная клетка и p = 0.002. Катим? Не торопись: сначала прочитай то, что обычно пропускают, — срок теста, доли групп и вилку.</p>
   <p>В <a href="10-traps.html">шаге 10</a> мы собрали ловушки, которые лечатся правилами до запуска. Теперь отчёт уже готов. Сначала поищем подвохи в графиках и цифрах, потом пройдём по дереву из пяти развилок и решим восемь отчётов. В конце — как рассказать результат так, чтобы за три минуты стало ясно, что делать.</p>
 </section>
 
@@ -123,7 +123,7 @@ details.hint p{margin:6px 0 0}
     <li><span class="mk">5</span><b>p-value</b> — насколько удивительна такая разница в мире без эффекта. Цвет у неё тот же, что у вилки: они говорят об одном.</li>
   </ol>
   <div class="quiz" data-right="a">
-    <p class="q">У сторожевой метрики вилка без заливки, p = 0.47. Что это значит?</p>
+    <p class="q">У сторожевой метрики вилка без заливки, p = 0.47. Что это значит?</p>
     <div class="choice"><button type="button" data-v="a">Разницу не отличили от нуля</button><button type="button" data-v="b" data-why="«Не отличили от нуля» и «доказали, что ноль» — разные вещи. Насколько метрика могла упасть, показывает левый край вилки: здесь до −1.1%.">Доказано, что чек не изменился</button><button type="button" data-v="c" data-why="Метрику посчитали: в строке есть и разница, и вилка. Заливки нет потому, что вилка задевает ноль.">Метрику не посчитали, данных нет</button></div>
     <p class="why">Вилка от −1.1 до +0.5% задевает ноль, поэтому клетка без цвета. Это значит «по этим данным не отличить от нуля». Что чек упал больше чем на 1.1%, данные почти исключают, а меньшее падение — нет. Поэтому у серых метрик смотрят на край вилки.</p>
   </div>
@@ -300,7 +300,7 @@ details.hint p{margin:6px 0 0}
       <tr><td>Отмены · сторожевая</td><td>3.10%</td><td>3.12%</td><td>+0.5%</td><td>[−7.1; +8.1]</td><td>0.90</td></tr>
     </table></div>
     <p class="report-meta">21 день из 21 запланированного, 840 000 пользователей, доли 50.0 / 50.0. Порог пользы: фото окупаются от +0.5%.</p>
-    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зелёное, p = 0.002. Катим?</p></div></div><div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай пройдём по развилкам. Нажимай.</p></div></div></div>
+    <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зелёное, p = 0.002. Катим?</p></div></div><div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай пройдём по развилкам. Нажимай.</p></div></div></div>
     <ol class="walk" id="walk">
       <li hidden><b>1. Доли групп</b>50.0/50.0 при плане 50 / 50. Деление в порядке, отчёту можно верить.</li>
       <li hidden><b>2. Срок</b>21 день из 21. Тест дошёл до конца, решать можно сегодня.</li>
@@ -432,7 +432,7 @@ details.hint p{margin:6px 0 0}
     <p class="report-meta">21 день из 21, 820 000 пользователей, доли 50.0 / 50.0.</p>
     <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Повторные заказы выросли на 6%! Катим.</p></div></div></div>
     <div class="choice"><button type="button" data-v="a" data-why="Одна зелёная метрика из 15 легко может быть случайностью: при 15 метриках так бывает в половине A/A. А главная метрика не изменилась.">Катим</button><button type="button" data-v="b">Не катим</button><button type="button" data-v="c" data-why="Тест закончился, ждать нечего.">Ждём</button><button type="button" data-v="d" data-why="Доли ровные, а одна зелёная метрика из 15 — обычное дело, а не признак поломки.">Ищем баг</button></div>
-    <p class="why">Главная метрика не изменилась. Из 15 метрик одна «прокрасилась» с p = 0.03, а при 15 метриках хотя бы одна такая в A/A бывает примерно в половине случаев. Это не повод катить. Если идея про повторные заказы интересна, её проверяют отдельным тестом, где это главная метрика.</p>
+    <p class="why">Главная метрика не изменилась. Из 15 метрик одна «прокрасилась» с p = 0.03, а при 15 метриках хотя бы одна такая в A/A бывает примерно в половине случаев. Это не повод катить. Если идея про повторные заказы интересна, её проверяют отдельным тестом, где это главная метрика.</p>
     <div class="path"><p>Пройденные развилки</p><ol>
       <li class="ok">Доли 50.0/50.0</li>
       <li class="ok">Срок: 21 день из 21</li>
@@ -515,7 +515,7 @@ details.hint p{margin:6px 0 0}
   <span class="step-tag">Шпаргалка шага 11</span>
   <h2 data-proverb="11">Отчёт → одно из четырёх решений</h2>
   <ul class="cheat">
-    <li><b>Сначала служебные строки:</b> доли групп и «день N из M». Если что-то не так, цифры эффекта не читаем.</li>
+    <li><b>Сначала служебные строки:</b> доли групп и «день N из M». Если что‑то не так, цифры эффекта не читаем.</li>
     <li><b>Слишком хорошо — сначала ищем баг.</b> Малое p исключает шум, но не ошибку подсчёта.</li>
     <li><b>Вилка главной метрики</b> сравнивается с нулём и с порогом пользы. Значимо ещё не значит «окупится».</li>
     <li><b>Серая сторожевая не значит «вреда нет».</b> Смотрим, насколько плохо может быть на краю вилки.</li>
@@ -558,8 +558,8 @@ details.hint p{margin:6px 0 0}
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611249"></script>
-<script src="course.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
+<script src="course.js?v=202611250"></script>
 <script>
 // ---------- найди подвох ----------
 (function(){

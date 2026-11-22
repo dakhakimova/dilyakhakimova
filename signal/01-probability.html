@@ -6,18 +6,18 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/01-probability.html">
 <title>Вероятность — это доля в штуках · Сигнал или шум</title>
 <meta name="description" content="Глава 1 бесплатного интерактивного курса «Сигнал или шум»: что такое вероятность, правила «и», «или», «хотя бы один» и задачи с собеседований.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="book.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="book.css?v=202611250">
 </head>
 <body data-chapter="ch01" data-next="04-noise.html">
-<script src="/signal/progress.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -127,7 +127,7 @@
     <div class="bob">
       <div class="ava" aria-hidden="true">Б</div>
       <div>
-        <div class="say">«Конверсия в покупку у нас 5%, в день приходят 40 посетителей. Значит, каждый день ровно двое что-нибудь купят?»</div>
+        <div class="say">«Конверсия в покупку у нас 5%, в день приходят 40 посетителей. Значит, каждый день ровно двое что‑нибудь купят?»</div>
         <div class="who">Боб, продакт-менеджер</div>
       </div>
     </div>
@@ -177,21 +177,21 @@
   <span class="step-tag">Правила</span>
   <h2>Три правила в штуках</h2>
   <h3>Не случилось: 1 − p</h3>
-  <p>Если покупка случается в 5% случаев, то в остальных 95% её нет. <span class="formula" style="display:block">P(не A) = 1 − P(A)</span></p>
+  <p>Если покупка случается в 5% случаев, то в остальных 95% её нет. <span class="formula" style="display:block">P(не A) = 1 − P(A)</span></p>
 
   <h3>«И» для независимых событий: умножаем</h3>
   <p>Двое посетителей покупают независимо — решение одного никак не влияет на другого, как две монетки. Из 10 000 пар первый купит в 500, и из этих 500 второй тоже купит в 5% — это 25 пар. Доля от доли:</p>
-  <p class="formula">P(A и B) = P(A) · P(B) = 0.05 · 0.05 = 0.0025</p>
+  <p class="formula">P(A и B) = P(A) · P(B) = 0.05 · 0.05 = 0.0025</p>
 
   <h3>«Или» для несовместных событий: складываем</h3>
-  <p>Несовместные — значит, не могут случиться одновременно: «за день 0 покупателей» и «за день ровно 1». Тогда <span class="num">P(0 или 1) = P(0) + P(1) ≈ 0.13 + 0.27 = 0.40</span>. Если события могут совпасть, сумма посчитает общие случаи дважды: <span class="num">P(A или B) = P(A) + P(B) − P(A и B)</span>.</p>
+  <p>Несовместные — значит, не могут случиться одновременно: «за день 0 покупателей» и «за день ровно 1». Тогда <span class="num">P(0 или 1) = P(0) + P(1) ≈ 0.13 + 0.27 = 0.40</span>. Если события могут совпасть, сумма посчитает общие случаи дважды: <span class="num">P(A или B) = P(A) + P(B) − P(A и B)</span>.</p>
 </section>
 <section class="card" data-toy="at-least-one" data-title="Хотя бы один" aria-label="Хотя бы один">
   <figure class="art"><img loading="lazy" src="img/ch01-03-coffee.jpg" alt="" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: ряд кофемашин сети, у одной мигает красная лампочка</figcaption></figure>
   <span class="step-tag">Правила</span>
   <h2>«Хотя бы один»: через противоположное</h2>
   <p>«Хотя бы один» — это «не ни одного». Посчитать «ни одного» легко: умножить вероятности «не случилось» для каждого.</p>
-  <p class="formula">P(«хотя бы один из n») = 1 − (1 − p)<sup>n</sup></p>
+  <p class="formula">P(«хотя бы один из n») = 1 − (1 − p)<sup>n</sup></p>
 
   <div class="sheet c-white tape" style="--r:-.3deg">
     <p style="margin-bottom:6px"><b>Кофемашины.</b> В сети <span id="l-n-t">30</span> кофемашин, каждая ломается за месяц с вероятностью <span id="l-p-t">2</span>%, независимо от других. Мастер приезжает, только если сломалась хотя бы одна.</p>
@@ -287,7 +287,7 @@ _check()
   <div class="sheet c-rose ruled tape" style="--r:-.3deg">
     <p class="hand" style="margin-bottom:8px">«Пять процентов от сорока — значит, ровно двое»</p>
     <p>Это верно только в среднем на длинной серии. В конкретный день из 40 посетителей ровно двое покупателей бывает лишь в 28% случаев. Отсюда частая ошибка в продукте: смотреть на маленький срез (один день, один город, двадцать пользователей) и удивляться, что метрика «скачет». Она и должна скакать.</p>
-    <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Вероятность хотя бы одной шестёрки за шесть бросков — не 6 · ⅙ = 1, а <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
+    <p>Вторая ловушка — складывать вероятности, когда события могут случиться вместе. Вероятность хотя бы одной шестёрки за шесть бросков — не 6 · ⅙ = 1, а <span class="num">1 − (5/6)<sup>6</sup> ≈ 67%</span>.</p>
   </div>
 </section>
 <section class="card" data-title="Собеседование" aria-label="Собеседование">
@@ -297,10 +297,10 @@ _check()
   <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → (если можно) проверь симуляцией → скажи вывод одной фразой.</p>
 
   <details data-key="disjoint">
-    <summary>P(A) = 0.6, P(B) = 0.7. Могут ли события A и B быть несовместными?</summary>
+    <summary>P(A) = 0.6, P(B) = 0.7. Могут ли события A и B быть несовместными?</summary>
     <p><b>Переформулирую:</b> могут ли A и B ни разу не случиться вместе?</p>
     <p><b>В штуках:</b> из 100 повторов A случается в 60, B — в 70. Вместе это 130 «случаев», а повторов всего 100 — значит, минимум в 30 повторах они совпали.</p>
-    <p><b>Формула:</b> <span class="num">P(A и B) ≥ P(A) + P(B) − 1 = 0.3</span>.</p>
+    <p><b>Формула:</b> <span class="num">P(A и B) ≥ P(A) + P(B) − 1 = 0.3</span>.</p>
     <p><b>Вывод:</b> нет, не могут — они обязаны пересекаться хотя бы в 30% случаев.</p>
   </details>
 
@@ -314,7 +314,7 @@ _check()
   <details data-key="dice">
     <summary>Кубик бросают 6 раз. Какова вероятность, что все шесть результатов разные?</summary>
     <p><b>В штуках:</b> первый бросок — любой, второй должен не совпасть с первым (5 из 6), третий — с двумя первыми (4 из 6), и так далее.</p>
-    <p><b>Формула:</b> <span class="num">6/6 · 5/6 · 4/6 · 3/6 · 2/6 · 1/6 = 6! / 6<sup>6</sup> = 720/46 656 ≈ 1.5%</span>.</p>
+    <p><b>Формула:</b> <span class="num">6/6 · 5/6 · 4/6 · 3/6 · 2/6 · 1/6 = 6! / 6<sup>6</sup> = 720/46 656 ≈ 1.5%</span>.</p>
     <p><b>Вывод:</b> полтора процента — «все разные» встречается гораздо реже, чем кажется. Это младший брат парадокса дней рождения — он в «Вероятности на пальцах», шаг 4.</p>
   </details>
 </section>
@@ -323,7 +323,7 @@ _check()
   <div class="sheet c-white squared pin" style="--r:.3deg; --pc:#7FA7C9">
     <ul class="cheat" style="margin:0; padding-left:20px">
       <li>Вероятность — доля случаев в длинной серии повторов. Считай в штуках на 1000.</li>
-      <li><span class="num">P(не A) = 1 − P(A)</span>.</li>
+      <li><span class="num">P(не A) = 1 − P(A)</span>.</li>
       <li>Независимые «и»: умножаем. Несовместные «или»: складываем. Пересекаются — вычитаем пересечение.</li>
       <li>«Хотя бы один» = <span class="num">1 − (1 − p)<sup>n</sup></span>. Никогда не <span class="num">p · n</span>.</li>
       <li>Маленькие порции скачут вокруг среднего — это шум, а не поломка.</li>

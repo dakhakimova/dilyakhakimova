@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/04-not-and-or.html">
 <title>Не, и, или · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="/signal/free.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="/signal/free.css?v=202611250">
 <style>
 /* стили только этой страницы */
 .controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
@@ -28,9 +28,9 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
-<script src="/signal/progress.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -51,7 +51,7 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">Котейка бросает два кубика. Сумма 7 — посуду моет Боб, сумма 12 — Алиса. Кому выпадает чаще?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Сумм действительно 11, но они не равновероятны: у одних много клеток в таблице 6 × 6, у других одна.">Поровну: сумм 11, у каждой шанс 1/11</button><button type="button" data-v="b">Бобу: у семёрки 6 клеток из 36</button><button type="button" data-v="c" data-why="Синий 3 и красный 4 — это не то же, что синий 4 и красный 3. Пар с суммой 7 шесть.">Поровну: обе суммы — одна пара чисел</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Сумм действительно 11, но они не равновероятны: у одних много клеток в таблице 6 × 6, у других одна.">Поровну: сумм 11, у каждой шанс 1/11</button><button type="button" data-v="b">Бобу: у семёрки 6 клеток из 36</button><button type="button" data-v="c" data-why="Синий 3 и красный 4 — это не то же, что синий 4 и красный 3. Пар с суммой 7 шесть.">Поровну: обе суммы — одна пара чисел</button></div>
     <p class="why">Исходов 36: синий кубик × красный. Сумма 7 — шесть клеток (1 + 6, 2 + 5, … 6 + 1), сумма 12 — одна (6 + 6). Боб моет посуду в 6 вечерах из 36, Алиса — в одном.</p>
   </div>
   <div class="quiz" data-right="c">
@@ -137,7 +137,7 @@
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеринок на 23 гостя примерно в 493 у всех дни разные. Значит, в остальных 507 (50.7%) совпадение есть.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
       <p class="formula">P(«все разные») = 365/365 · 364/365 · … · 343/365 ≈ 0.493</p>
-      <p class="formula">P(не A) = 1 − P(A), &nbsp;P(«совпадение») ≈ 1 − 0.493 = 0.507</p>
+      <p class="formula">P(не A) = 1 − P(A), &nbsp;P(«совпадение») ≈ 1 − 0.493 = 0.507</p>
       <p class="read">Словами: вероятность «хоть раз» — это единица минус вероятность «ни разу».</p>
     </div>
   </div>
@@ -158,7 +158,7 @@
     <div class="story"><span class="lt">История</span><p>Чтобы обе лампочки над дверью горели в декабре, должна выжить первая <b>и</b> вторая.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 10 000 пар лампочек первая выживает в 9900. Среди этих 9900 вторая выживает тоже в 99% — в 9801 паре. Обе целы в 9801 паре из 10 000.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">P(A и B) = P(A) · P(B) = 0.99 · 0.99 = 0.9801</p>
+      <p class="formula">P(A и B) = P(A) · P(B) = 0.99 · 0.99 = 0.9801</p>
       <p class="read">Словами: если события не влияют друг на друга, долю от доли берём умножением.</p>
     </div>
   </div>
@@ -171,7 +171,7 @@
   <h2>Хотя бы одна из ста</h2>
   <p>В гирлянде 100 лампочек, каждая перегорает за год с шансом 1%. Как часто за год перегорит хотя бы одна?</p>
   <div class="choice" data-key="lamps" role="group" aria-label="Твой прогноз">
-    <button type="button" data-v="all" data-fb="Логика понятна: 100 · 1% = 100%. Проверим на тысяче гирлянд." aria-pressed="false">Почти всегда: 100 раз по 1%</button>
+    <button type="button" data-v="all" data-fb="Логика понятна: 100 · 1% = 100%. Проверим на тысяче гирлянд." aria-pressed="false">Почти всегда: 100 раз по 1%</button>
     <button type="button" data-v="two3" data-fb="Ставка записана. Проверим на тысяче гирлянд." aria-pressed="false">Примерно в двух годах из трёх</button>
     <button type="button" data-v="one" data-fb="Каждая лампочка надёжна — но их сотня. Проверим на тысяче гирлянд." aria-pressed="false">Редко: лампочки же надёжные</button>
   </div>
@@ -193,7 +193,7 @@
     </div>
     <div class="verdict" id="lm-v" hidden></div>
   </div>
-  <p class="formula" data-toy-reveal>P(«хотя бы одна из n») = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
+  <p class="formula" data-toy-reveal>P(«хотя бы одна из n») = 1 − (1 − p)<sup>n</sup>, а не n · p</p>
   <p data-toy-reveal>При 100 лампочках n · p уже 100%, а вероятность больше единицы не бывает. Сумма n · p — это среднее число перегоревших лампочек, а не шанс, что перегорит хоть одна.</p>
 </section>
 
@@ -202,7 +202,7 @@
   <span class="step-tag">Правило</span>
   <h2>«Или»: не считай общих дважды</h2>
   <div class="chat" data-toy-hide>
-    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30% гостей, десерт — 40%. Значит, 70% берут хоть что-то из двух!</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Кофе берут 30% гостей, десерт — 40%. Значит, 70% берут хоть что‑то из двух!</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А тех, кто берёт кофе с десертом, ты посчитал два раза.</p></div></div>
   </div>
   <div class="sheet c-white">
@@ -218,9 +218,9 @@
     </div>
   </div>
   <div class="layers" data-toy-reveal>
-    <div class="things"><span class="lt">В штуках</span><p>Из 1000 гостей 300 взяли кофе, 400 — десерт, 150 — и то и другое. Хотя бы одно взяли 300 + 400 − 150 = 550 гостей, а не 700.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>Из 1000 гостей 300 взяли кофе, 400 — десерт, 150 — и то и другое. Хотя бы одно взяли 300 + 400 − 150 = 550 гостей, а не 700.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">P(A или B) = P(A) + P(B) − P(A и B)</p>
+      <p class="formula">P(A или B) = P(A) + P(B) − P(A и B)</p>
       <p class="read">Словами: сложи обе доли и вычти тех, кого посчитал дважды. Если A и B вместе не бывают (несовместны), вычитать нечего — тогда просто сумма.</p>
     </div>
   </div>
@@ -284,7 +284,7 @@ _check()
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так у Боба, если шаги не влияют друг на друга?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Складывать здесь нечего: 7 · 90% = 630%, так не бывает. И нужны все шаги сразу, а не хотя бы один.">Надо сложить шансы: выйдет больше 100%</button><button type="button" data-v="b">Нужны все семь «и» — перемножаем: 48%</button><button type="button" data-v="c" data-why="Средний шаг и правда надёжен на 90%, но заказу нужны все семь шагов сразу — а это «и», произведение.">Всё верно: средний шаг надёжен на 90%</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Складывать здесь нечего: 7 · 90% = 630%, так не бывает. И нужны все шаги сразу, а не хотя бы один.">Надо сложить шансы: выйдет больше 100%</button><button type="button" data-v="b">Нужны все семь «и» — перемножаем: 48%</button><button type="button" data-v="c" data-why="Средний шаг и правда надёжен на 90%, но заказу нужны все семь шагов сразу — а это «и», произведение.">Всё верно: средний шаг надёжен на 90%</button></div>
     <p class="why">«Вовремя» — это шаг 1 <b>и</b> шаг 2 <b>и</b> … шаг 7. Для независимых шагов: 0.9<sup>7</sup> ≈ 0.478. Из 1000 заказов вовремя приедут около 478 — меньше половины. Длинная цепочка из вероятных шагов вероятной быть не обязана.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -307,7 +307,7 @@ _check()
   <details class="ivw" data-key="dice6">
     <summary>Кубик бросают шесть раз. Какова вероятность, что выпадут все шесть граней?</summary>
     <p><b>Переформулирую:</b> это младший брат дней рождения: шесть «дней» и шесть «гостей», и нужно, чтобы никто не совпал.</p>
-    <p><b>В штуках:</b> всех цепочек из шести бросков 6<sup>6</sup> = 46 656. Цепочек без повторов 6 · 5 · 4 · 3 · 2 · 1 = 720 (правило умножения из шага 3). Это 720 из 46 656 — примерно 15 серий из 1000.</p>
+    <p><b>В штуках:</b> всех цепочек из шести бросков 6<sup>6</sup> = 46 656. Цепочек без повторов 6 · 5 · 4 · 3 · 2 · 1 = 720 (правило умножения из шага 3). Это 720 из 46 656 — примерно 15 серий из 1000.</p>
     <p><b>Формула:</b> <span class="num">6! / 6<sup>6</sup> = 720/46 656 ≈ 0.015</span>.</p>
     <p><b>Вывод:</b> около 1.5%: хотя бы одна грань повторится в 985 сериях из 1000.</p>
   </details>
@@ -315,7 +315,7 @@ _check()
     <summary>В гирлянде 100 лампочек, каждая перегорает за год с вероятностью 1%, независимо. Какова вероятность, что перегорит хотя бы одна?</summary>
     <p><b>Переформулирую:</b> «хотя бы одна перегорит» — это не «все целы».</p>
     <p><b>В штуках:</b> из 1000 гирлянд все 100 лампочек доживают до конца года примерно в 366. В остальных 634 хотя бы одна перегорела.</p>
-    <p><b>Формула:</b> <span class="num">1 − 0.99<sup>100</sup> ≈ 0.634</span>. Ловушка: 100 · 1% = 100% — это среднее число перегоревших (одна), а не вероятность.</p>
+    <p><b>Формула:</b> <span class="num">1 − 0.99<sup>100</sup> ≈ 0.634</span>. Ловушка: 100 · 1% = 100% — это среднее число перегоревших (одна), а не вероятность.</p>
     <p><b>Вывод:</b> примерно в двух годах из трёх, а не «наверняка».</p>
   </details>
 </section>
@@ -326,7 +326,7 @@ _check()
   <h2>Вопросы про «не, и, или»</h2>
   <div class="quiz" data-right="b">
     <p class="q">У каждого из 50 курьеров шанс опоздать сегодня 2%, независимо от других. Как часто опоздает хотя бы один?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="2% — шанс для одного курьера. Курьеров 50, и опоздать может любой.">Около 2%, как у одного курьера</button><button type="button" data-v="b">Около 64%: единица минус «никто»</button><button type="button" data-v="c" data-why="50 · 2% = 1 — это среднее число опоздавших. Бывают дни, когда не опоздал никто, и дни, когда опоздали двое.">Ровно 100%: пятьдесят раз по 2%</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="2% — шанс для одного курьера. Курьеров 50, и опоздать может любой.">Около 2%, как у одного курьера</button><button type="button" data-v="b">Около 64%: единица минус «никто»</button><button type="button" data-v="c" data-why="50 · 2% = 1 — это среднее число опоздавших. Бывают дни, когда не опоздал никто, и дни, когда опоздали двое.">Ровно 100%: пятьдесят раз по 2%</button></div>
     <p class="why">Все вовремя: 0.98<sup>50</sup> ≈ 0.364. Хотя бы один опоздает: 1 − 0.364 ≈ 0.636 — примерно в 64 днях из 100.</p>
   </div>
   <div class="quiz" data-right="c">
@@ -341,7 +341,7 @@ _check()
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Шевалье де Мере в XVII веке спорил: что вероятнее — хотя бы одна шестёрка за 4 броска кубика или хотя бы пара шестёрок за 24 броска двух кубиков?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Так рассуждал сам де Мере: 4 · 1/6 = 24 · 1/36 = 2/3. Но «хотя бы раз» складывать нельзя.">Поровну: четыре шестых — то же, что 24/36</button><button type="button" data-v="b">Одна шестёрка: 51.8% против 49.1%</button><button type="button" data-v="c" data-why="Бросков больше, но и пару шестёрок выбросить в шесть раз труднее. Считай через «ни разу».">Пара шестёрок: ведь бросков в шесть раз больше</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Так рассуждал сам де Мере: 4 · 1/6 = 24 · 1/36 = 2/3. Но «хотя бы раз» складывать нельзя.">Поровну: четыре шестых — то же, что 24/36</button><button type="button" data-v="b">Одна шестёрка: 51.8% против 49.1%</button><button type="button" data-v="c" data-why="Бросков больше, но и пару шестёрок выбросить в шесть раз труднее. Считай через «ни разу».">Пара шестёрок: ведь бросков в шесть раз больше</button></div>
     <p class="why">Через «ни разу»: 1 − (5/6)<sup>4</sup> ≈ 0.518 и 1 − (35/36)<sup>24</sup> ≈ 0.491. По легенде, де Мере заметил на практике, что вторая ставка проигрывает, и написал Паскалю — с этой переписки началась теория вероятностей.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -353,10 +353,10 @@ _check()
   <span class="step-tag">Шпаргалка шага 4</span>
   <h2 data-proverb="p04">«Хотя бы один» — через «ни одного»</h2>
   <ul class="cheat">
-    <li><b>Не:</b> P(не A) = 1 − P(A). «Хотя бы один» трудно, «ни одного» легко.</li>
-    <li><b>И для независимых:</b> P(A и B) = P(A) · P(B). Цепочка из 7 шагов по 90% — это 0.9<sup>7</sup> ≈ 48%.</li>
+    <li><b>Не:</b> P(не A) = 1 − P(A). «Хотя бы один» трудно, «ни одного» легко.</li>
+    <li><b>И для независимых:</b> P(A и B) = P(A) · P(B). Цепочка из 7 шагов по 90% — это 0.9<sup>7</sup> ≈ 48%.</li>
     <li><b>Хотя бы один из n:</b> 1 − (1 − p)<sup>n</sup>, а не n · p. 100 лампочек по 1% — 63.4%.</li>
-    <li><b>Или:</b> P(A или B) = P(A) + P(B) − P(A и B); для несовместных — просто сумма.</li>
+    <li><b>Или:</b> P(A или B) = P(A) + P(B) − P(A и B); для несовместных — просто сумма.</li>
     <li><b>Дни рождения:</b> смотри на пары, а не на людей. 23 гостя — 253 пары и 50.7%, 50 гостей — 97%.</li>
     <li>Несовместные события (с ненулевыми шансами) зависимы: одно исключает другое.</li>
   </ul>
@@ -364,10 +364,10 @@ _check()
     <dt>Дополнение</dt><dd>событие «не A», все исходы, где A не случилось; на собеседовании — complement</dd>
     <dt>Независимые события</dt><dd>одно не меняет шансов другого, поэтому «и» — произведение; на собеседовании — independent events</dd>
     <dt>Несовместные события</dt><dd>не случаются вместе, поэтому «или» — сумма; на собеседовании — mutually exclusive, disjoint</dd>
-    <dt>Включения и исключения</dt><dd>P(A или B) = P(A) + P(B) − P(A и B); на собеседовании — inclusion–exclusion</dd>
+    <dt>Включения и исключения</dt><dd>P(A или B) = P(A) + P(B) − P(A и B); на собеседовании — inclusion–exclusion</dd>
   </dl>
   <figure class="art"><img loading="lazy" src="img/vp04-02-next.jpg" alt="Котейка на подоконнике смотрит, как гости с зонтиками спешат в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: начинается дождь, Котейка смотрит на гостей с зонтиками</figcaption></figure>
-  <a class="next-step" href="05-conditional.html"><b>Дальше: 5. Условная вероятность и независимость</b>В дождь гости берут горячий шоколад чаще. А десерт? Сузим мир до дождливых дней и проверим, меняет ли погода хоть что-то.</a>
+  <a class="next-step" href="05-conditional.html"><b>Дальше: 5. Условная вероятность и независимость</b>В дождь гости берут горячий шоколад чаще. А десерт? Сузим мир до дождливых дней и проверим, меняет ли погода хоть что‑то.</a>
 </section>
 
     <div class="pager">
@@ -377,7 +377,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611249"></script>
+<script src="/signal/book.js?v=202611250"></script>
 <script>
 const TXT = {
   ru: {
@@ -580,6 +580,6 @@ const TXT = {
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611249"></script>
+<script src="/signal/py.js?v=202611250"></script>
 </body>
 </html>

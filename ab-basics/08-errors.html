@@ -6,18 +6,18 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/08-errors.html">
 <title>Два вида ошибок · A/B на пальцах</title>
 <meta name="description" content="Шаг 8 интерактивного курса «A/B на пальцах»: ложные тревоги и пропуски на ста экспериментах, и от чего зависит мощность теста.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="ab.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 </head>
 <body data-chapter="ab08" data-next="09-mde.html">
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -38,12 +38,12 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">За неделю теста 500 гостей группы B сделали 4000 заказов. Монетка бросалась за гостя. Сколько здесь независимых наблюдений?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Заказы одного гостя похожи друг на друга: любитель кофе закажет кофе и завтра. Это не 4000 отдельных бросков, а 500.">4000 — по одному на каждый заказ</button><button type="button" data-v="b">500 — по одному на каждого гостя</button><button type="button" data-v="c" data-why="Середина тут ни при чём. Независимы те, кого монетка делила по отдельности, то есть гости.">Около 2250 — где-то посередине</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Заказы одного гостя похожи друг на друга: любитель кофе закажет кофе и завтра. Это не 4000 отдельных бросков, а 500.">4000 — по одному на каждый заказ</button><button type="button" data-v="b">500 — по одному на каждого гостя</button><button type="button" data-v="c" data-why="Середина тут ни при чём. Независимы те, кого монетка делила по отдельности, то есть гости.">Около 2250 — где‑то посередине</button></div>
     <p class="why">Монетка решала за гостя, поэтому одно наблюдение — гость со всеми его заказами. Его 8 заказов не 8 независимых бросков: они похожи друг на друга. Это было в шаге 4.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">В отчёте: из 1000 гостей заказали 101.2 вместо 100 (+1.2%), вилка от −0.5 до +2.9%. Как честно написать?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Вилка задевает ноль, но и +2.9% она тоже допускает. «Эффекта нет» из неё не следует.">Эффекта нет: вилка задевает ноль</button><button type="button" data-v="b" data-why="+1.2% — лишь точка в середине вилки. По этим данным эффект может быть и около нуля.">Эффект +1.2%, просто незначимый</button><button type="button" data-v="c">Эффект где-то от −0.5 до +2.9%</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Вилка задевает ноль, но и +2.9% она тоже допускает. «Эффекта нет» из неё не следует.">Эффекта нет: вилка задевает ноль</button><button type="button" data-v="b" data-why="+1.2% — лишь точка в середине вилки. По этим данным эффект может быть и около нуля.">Эффект +1.2%, просто незначимый</button><button type="button" data-v="c">Эффект где‑то от −0.5 до +2.9%</button></div>
     <p class="why">Результат — это вилка. Она задевает ноль, значит, отличить эффект от шума не удалось. Но она широкая и допускает до +2.9%: пока не знаем. Это было в шаге 6.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -183,7 +183,7 @@
       <button type="button" data-v="c">Мягче обычного: ошибка дешёвая и обратимая</button>
       <button type="button" data-v="b" data-why="Так можно, но 5% — привычка, а не закон. Здесь цена ошибки низкая, и можно позволить себе мягче и быстрее.">Как обычно: порог 5% трогать нельзя</button>
     </div>
-    <p class="why">Если ложная тревога почти ничего не стоит, а пропуск хорошей идеи жалко, порог можно ослабить и решать быстрее. Важно договориться об этом до теста, а не после того, как увидели p = 0.08.</p>
+    <p class="why">Если ложная тревога почти ничего не стоит, а пропуск хорошей идеи жалко, порог можно ослабить и решать быстрее. Важно договориться об этом до теста, а не после того, как увидели p = 0.08.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Переход на новую систему оплаты: дорого внедрять, сложно откатить, ошибка ударит по всем заказам. Как строго проверять?</p>
@@ -243,8 +243,8 @@
   <span class="step-tag">Проверь себя</span>
   <h2>Какая это ошибка?</h2>
   <div class="quiz" data-right="a">
-    <p class="q">Новый экран оплаты дал в тесте +2.5%, p = 0.03. Выкатили на всех, а через полгода повторили тест: ноль. Какое объяснение первой «победы» самое простое?</p>
-    <div class="choice"><button type="button" data-v="b" data-why="Пропуск — это когда эффект был, а тест его не заметил. Здесь наоборот: тест «увидел» эффект, которого потом не нашли.">Пропуск: тест не заметил эффект экрана</button><button type="button" data-v="c" data-why="p = 0.03 эффект не доказывает: и пустой экран примерно в одном тесте из двадцати выглядит значимым. Подозревать второй тест повода нет.">Сломан второй тест: эффект ведь доказан</button><button type="button" data-v="a">Ложная тревога: пустой экран «победил»</button></div>
+    <p class="q">Новый экран оплаты дал в тесте +2.5%, p = 0.03. Выкатили на всех, а через полгода повторили тест: ноль. Какое объяснение первой «победы» самое простое?</p>
+    <div class="choice"><button type="button" data-v="b" data-why="Пропуск — это когда эффект был, а тест его не заметил. Здесь наоборот: тест «увидел» эффект, которого потом не нашли.">Пропуск: тест не заметил эффект экрана</button><button type="button" data-v="c" data-why="p = 0.03 эффект не доказывает: и пустой экран примерно в одном тесте из двадцати выглядит значимым. Подозревать второй тест повода нет.">Сломан второй тест: эффект ведь доказан</button><button type="button" data-v="a">Ложная тревога: пустой экран «победил»</button></div>
     <p class="why">Самое простое объяснение — ложная тревога: если экран ничего не делает, тест примерно в одном случае из двадцати всё равно покажет значимую разницу, и при повторе она пропадёт. Но это не единственное объяснение: эффект мог и выдохнуться (шаг 10). Насколько вероятна ложная «победа», зависит от доли хороших идей: при 10% хороших настоящих побед около половины, как в игре выше.</p>
   </div>
   <div class="quiz" data-right="b">
@@ -291,8 +291,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611249"></script>
-<script src="course.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
+<script src="course.js?v=202611250"></script>
 <script>
 const DAYS = [1, 3, 7, 14, 21, 28], P0 = 0.10, LIFT = 0.03, PER_DAY = 10000, REAL = 20;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');

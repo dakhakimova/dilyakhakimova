@@ -6,18 +6,18 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/04-clt.html">
 <title>Толпа предсказуема · A/B на пальцах</title>
 <meta name="description" content="Шаг 4 интерактивного курса «A/B на пальцах»: почему средние по толпе складываются в колокол, даже если люди непредсказуемы. Центральная предельная теорема и бакеты.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="ab.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -101,7 +101,7 @@
     <div class="choice">
       <button type="button" data-v="b" data-why="Если бы фича подняла чек всем понемногу, сдвинулась бы и медиана. А она стоит на месте.">Ничего: фича подняла чек всем понемногу</button>
       <button type="button" data-v="a">Нет ли в тесте пары огромных заказов</button>
-      <button type="button" data-v="c" data-why="В медиане ошибиться трудно. Она стоит потому, что не замечает крайних значений, — в этом её смысл.">Не ошиблись ли где-то в подсчёте медианы</button>
+      <button type="button" data-v="c" data-why="В медиане ошибиться трудно. Она стоит потому, что не замечает крайних значений, — в этом её смысл.">Не ошиблись ли где‑то в подсчёте медианы</button>
     </div>
     <p class="why">Когда среднее растёт, а медиана стоит, часто виноваты несколько гигантских заказов. Но бывает и иначе: фича могла поднять чек части гостей. Например, каждый десятый стал брать десерт за 600 ₽: среднее выросло, а медиана такого не видит. Поэтому сначала смотрят на выбросы, а перед расчётом их ограничивают: всё, что выше 99% заказов, считают по этому порогу. Иначе исход теста решит один корпоратив.</p>
   </div>
@@ -267,8 +267,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611249"></script>
-<script src="course.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
+<script src="course.js?v=202611250"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();

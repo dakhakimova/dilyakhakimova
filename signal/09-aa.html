@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/09-aa.html">
 <title>A/A-тест · Сигнал или шум</title>
 <meta name="description" content="Глава 9 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка разности двух групп, стенд A/A, ровные p-value без эффекта, тренд, которого нет, 20 метрик в A/A, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="/signal/free.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="/signal/free.css?v=202611250">
 <style>
 /* стили только этой страницы */
 .nsel button{min-height:44px}
@@ -23,9 +23,9 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch09" data-next="10-ab-test.html">
-<script src="/signal/progress.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -47,7 +47,7 @@
   <div class="quiz" data-right="b">
     <p class="q">σ чека — 400 ₽. Берём 1600 заказов. Насколько шумит их средний чек (стандартная ошибка)?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Это σ / n: делить нужно на корень из n.">Примерно на четверть рубля</button><button type="button" data-v="b">Примерно на 10 ₽</button><button type="button" data-v="c" data-why="400 ₽ — разброс одного чека. Среднее 1600 чеков гуляет гораздо меньше.">На те же 400 ₽, что и чек</button></div>
-    <p class="why">SE = σ/√n = 400/√1600 = 400/40 = 10 ₽. Это было в главе 7.</p>
+    <p class="why">SE = σ/√n = 400/√1600 = 400/40 = 10 ₽. Это было в главе 7.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Алиса хочет, чтобы средний чек шумел вдвое меньше. Во сколько раз больше заказов ей нужно?</p>
@@ -82,7 +82,7 @@
   <div class="chat">
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Я неделю делила гостей приложения на две группы. Обеим показывала одно и то же. В первой заказали 10.0 из 100, во второй — 10.6.</p></div></div>
     <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Это баг! Если группы одинаковые, разница должна быть ноль.</p></div></div>
-    <div class="msg kot world"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, это я раскладывал гостей монеткой. Кому-то просто захотелось кофе именно сегодня.</p></div></div>
+    <div class="msg kot world"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, это я раскладывал гостей монеткой. Кому‑то просто захотелось кофе именно сегодня.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это не баг, это линейка. Сейчас покажу, какой бывает разница, когда разницы нет.</p></div></div>
   </div>
   <p>Конверсия 10%, в каждой группе 10 000 гостей. Котейка 100 раз запускает такой A/A-тест.</p>
@@ -99,9 +99,9 @@
   <p>Каждый запуск — две группы одинаковых гостей. На гистограмме — разница «вторая минус первая» в заказах на 100 гостей. Серая кривая — колокол N(0, SE²), полоса — ±1.96·SE.</p>
   <div class="sheet c-white">
     <div class="sandbox" data-fixed hidden><p class="sandbox-t">Теперь поменяй условие</p><div class="nsel" id="p9" role="group" aria-label="Конверсия">
-      <button type="button" data-p="0.02" aria-pressed="false">p = 2%</button>
-      <button type="button" data-p="0.1" aria-pressed="true">p = 10%</button>
-      <button type="button" data-p="0.3" aria-pressed="false">p = 30%</button>
+      <button type="button" data-p="0.02" aria-pressed="false">p = 2%</button>
+      <button type="button" data-p="0.1" aria-pressed="true">p = 10%</button>
+      <button type="button" data-p="0.3" aria-pressed="false">p = 30%</button>
     </div>
     <label class="range-row" for="n9" hidden data-fixed>Гостей в каждой группе: <b class="num" id="n9-t">10 000</b><input type="hidden" data-fixed id="n9" min="0" max="5" step="1" value="3"></label></div>
     <div class="controls">
@@ -133,15 +133,15 @@
   <h2>SE разности: шумят обе группы</h2>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Две одинаковые группы дают разные цифры, потому что шумит каждая. Шум разности складывается из двух шумов, поэтому он больше шума одной группы — но не вдвое, а в √2 раз.</p></div>
-    <div class="things"><span class="lt">В штуках</span><p>При 10% и 10 000 гостей в группе у одной группы SE = √(0.1 · 0.9/10 000) = 0.3 заказа на 100 гостей. У разности — 0.3 · √2 ≈ 0.42. В 95 A/A из 100 разница в пределах ±1.96 · 0.42 ≈ ±0.83 заказа на 100 гостей, то есть ±83 заказа на 10 000.</p></div>
+    <div class="things"><span class="lt">В штуках</span><p>При 10% и 10 000 гостей в группе у одной группы SE = √(0.1 · 0.9/10 000) = 0.3 заказа на 100 гостей. У разности — 0.3 · √2 ≈ 0.42. В 95 A/A из 100 разница в пределах ±1.96 · 0.42 ≈ ±0.83 заказа на 100 гостей, то есть ±83 заказа на 10 000.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">Var(p̂<sub>B</sub> − p̂<sub>A</sub>) = p(1 − p) · (1/n<sub>A</sub> + 1/n<sub>B</sub>)</p>
+      <p class="formula">Var(p̂<sub>B</sub> − p̂<sub>A</sub>) = p(1 − p) · (1/n<sub>A</sub> + 1/n<sub>B</sub>)</p>
       <p class="formula">SE разности средних = √(s²<sub>A</sub>/n<sub>A</sub> + s²<sub>B</sub>/n<sub>B</sub>)</p>
       <p class="formula">P(«|разница| &gt; 1.96 · SE») ≈ 5%</p>
       <p class="read">Словами: дисперсии независимых групп складываются. Разница за 1.96·SE в A/A бывает в 5 тестах из 100 — это норма, а не баг.</p>
     </div>
   </div>
-  <p>Формула для средних — та же, что для долей: у доли s² = p(1 − p). Поэтому одну линейку можно приложить к любой метрике «на гостя»: конверсии, среднему чеку, числу заказов.</p>
+  <p>Формула для средних — та же, что для долей: у доли s² = p(1 − p). Поэтому одну линейку можно приложить к любой метрике «на гостя»: конверсии, среднему чеку, числу заказов.</p>
   <p class="xref"><span>Без формул и с сеткой из 100 гостей — в «A/B на пальцах», <a href="/ab-basics/03-noise.html">шаг 3 «Шум есть всегда»</a>.</span></p>
 </section>
 
@@ -215,7 +215,7 @@
 <section class="card" data-title="Код" aria-label="Код">
   <span class="step-tag">Попробуй в коде</span>
   <h2>Свой стенд A/A</h2>
-  <p>Напиши функцию: runs раз запускает A/A с конверсией p и n гостями в каждой группе, считает z = разница / SE и возвращает долю тестов с |z| &gt; 1.96. Если всё верно, получится около 0.05 при любых p и n.</p>
+  <p>Напиши функцию: runs раз запускает A/A с конверсией p и n гостями в каждой группе, считает z = разница / SE и возвращает долю тестов с |z| &gt; 1.96. Если всё верно, получится около 0.05 при любых p и n.</p>
   <div class="cell" data-title="Напиши сам" data-check="check-aa-rate">
 <textarea spellcheck="false" aria-label="Задание: функция aa_false_rate">import numpy as np
 
@@ -309,13 +309,13 @@ _check()
   </div>
   <div class="quiz" data-right="a">
     <p class="q">SE конверсии одной группы — 0.3 заказа на 100 гостей, группы равные. Какая SE у разности двух групп?</p>
-    <div class="choice"><button type="button" data-v="a">Около 0.42, в √2 раз больше</button><button type="button" data-v="b" data-why="Сигмы не складываются: складываются дисперсии, 0.09 + 0.09 = 0.18, а √0.18 ≈ 0.42.">0.6: два шума складываются</button><button type="button" data-v="c" data-why="Шумят обе группы, поэтому разность шумит сильнее одной группы.">0.3: группы одинаковые, шум тот же</button></div>
-    <p class="why">Var(разности) = 0.3² + 0.3² = 0.18, SE = √0.18 ≈ 0.42. Складываются дисперсии, а не сигмы, — как в главе 7.</p>
+    <div class="choice"><button type="button" data-v="a">Около 0.42, в √2 раз больше</button><button type="button" data-v="b" data-why="Сигмы не складываются: складываются дисперсии, 0.09 + 0.09 = 0.18, а √0.18 ≈ 0.42.">0.6: два шума складываются</button><button type="button" data-v="c" data-why="Шумят обе группы, поэтому разность шумит сильнее одной группы.">0.3: группы одинаковые, шум тот же</button></div>
+    <p class="why">Var(разности) = 0.3² + 0.3² = 0.18, SE = √0.18 ≈ 0.42. Складываются дисперсии, а не сигмы, — как в главе 7.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Как выглядит гистограмма p-value тысячи честных A/A?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Пик у нуля — признак бага: шум недооценён, и маленькие p выпадают слишком часто.">Пик у нуля: маленькие p частые</button><button type="button" data-v="b">Ровная, без пиков и провалов</button><button type="button" data-v="c" data-why="Колокол у 0.5 был бы, если бы тест не умел выдавать крайние p. По определению p &lt; 0.05 бывает в 5% A/A.">Колокол с вершиной около 0.5</button></div>
-    <p class="why">В A/A P(p ≤ t) = t для любого t, поэтому распределение p равномерное. Это главный тест платформы: ровно — считает правильно.</p>
+    <p class="why">В A/A P(p ≤ t) = t для любого t, поэтому распределение p равномерное. Это главный тест платформы: ровно — считает правильно.</p>
   </div>
   <p class="note quiz-score"></p>
 </section>
@@ -350,7 +350,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611249"></script>
+<script src="/signal/book.js?v=202611250"></script>
 <script>
 const TXT = {
   ru: {
@@ -500,6 +500,6 @@ const AA9 = (function(){
   paint();
 })();
 </script>
-<script src="/signal/py.js?v=202611249"></script>
+<script src="/signal/py.js?v=202611250"></script>
 </body>
 </html>

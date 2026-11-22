@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/06-interval.html">
 <title>Эффект — это вилка · A/B на пальцах</title>
 <meta name="description" content="Шаг 6 интерактивного курса «A/B на пальцах»: два колокола, разница между ними и почему результат эксперимента — это интервал, а не одно число.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="ab.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 <style>
 /* шаг 6: таблица «выше нуля? × ниже порога?» — текстовые ячейки с переносом */
 .report.lak{table-layout:fixed}
@@ -23,7 +23,7 @@
 </head>
 <body data-chapter="ab06" data-next="07-p-value.html">
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -139,7 +139,7 @@
   </div>
   <div class="tiles">
     <button type="button" aria-expanded="false"><b>А: от +0.4 до +4.2%</b><span>Эффект положительный. Каким именно, мы не знаем: может, совсем маленьким, может, заметным. Ноль и минусы с данными согласуются плохо.</span></button>
-    <button type="button" aria-expanded="false"><b>Б: от −1.5 до +3.1%</b><span>Внутри и плюсы, и минусы. Данных не хватает, чтобы отличить эффект от шума. Это не «фича не работает», это «пока не знаем». Но и тут края что-то говорят: эффект больше +3.1% или хуже −1.5% данные почти исключают.</span></button>
+    <button type="button" aria-expanded="false"><b>Б: от −1.5 до +3.1%</b><span>Внутри и плюсы, и минусы. Данных не хватает, чтобы отличить эффект от шума. Это не «фича не работает», это «пока не знаем». Но и тут края что‑то говорят: эффект больше +3.1% или хуже −1.5% данные почти исключают.</span></button>
     <button type="button" aria-expanded="false"><b>В: от +0.1 до +0.3%</b><span>Ноль с данными согласуется плохо, а эффект больше +0.3% — тоже: если эффект и есть, он крошечный. Стоит ли он того, решает уже не статистика, а бизнес: об этом следующая карточка.</span></button>
   </div>
   <div class="def">Если вилка целиком по одну сторону от нуля, про эффект говорят «значимо». Если задевает ноль — «не значимо»: данные не отличают эффект от шума. Тогда смотри на края: широкая вилка — пока не знаем, узкая вокруг нуля — эффект если и есть, то не больше края.</div>
@@ -287,7 +287,7 @@
 <section class="card" data-toy="bootstrap" data-title="Вилка без формул" aria-label="Вилка без формул">
   <span class="step-tag">Игра</span>
   <h2>Выборка из выборки</h2>
-  <p>Ширину вилки можно получить и без всяких правил. У нас есть всего одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера <b>с возвращением</b>: вытянули чек, записали, положили обратно. Какие-то чеки попадут дважды, какие-то не попадут вовсе. Так мы имитируем «а что, если бы нам попались другие гости».</p>
+  <p>Ширину вилки можно получить и без всяких правил. У нас есть всего одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера <b>с возвращением</b>: вытянули чек, записали, положили обратно. Какие‑то чеки попадут дважды, какие‑то не попадут вовсе. Так мы имитируем «а что, если бы нам попались другие гости».</p>
   <div class="sheet c-white">
     <p class="note">Наша выборка (среднее <b id="bs-m0">—</b>):</p>
     <div class="chips" id="bs-orig"></div>
@@ -320,7 +320,7 @@
   <div class="quiz" data-right="b">
     <p class="q">Разница +1.4%, вилка от −0.8 до +3.6%. Что можно сказать?</p>
     <div class="choice"><button type="button" data-v="a" data-why="+1.4% — лишь середина вилки. Вилка задевает ноль, так что и «эффекта нет» данные не исключают.">Фича работает: эффект около +1.4%</button><button type="button" data-v="b">Пока не отличить эффект от шума</button><button type="button" data-v="c" data-why="«Не значимо» не значит «не работает»: в вилке есть и заметные плюсы, до +3.6%.">Фича не работает: вилка задевает ноль</button></div>
-    <p class="why">Вилка задевает ноль: в ней есть и небольшие минусы, и заметные плюсы. Это «не значимо», то есть «пока не знаем». Края при этом кое-что говорят: эффект больше +3.6% или хуже −0.8% данные почти исключают.</p>
+    <p class="why">Вилка задевает ноль: в ней есть и небольшие минусы, и заметные плюсы. Это «не значимо», то есть «пока не знаем». Края при этом кое‑что говорят: эффект больше +3.6% или хуже −0.8% данные почти исключают.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Тест показал +2.3%, вилка от +0.2 до +4.4%. Что честнее написать в отчёте?</p>
@@ -364,8 +364,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611249"></script>
-<script src="course.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
+<script src="course.js?v=202611250"></script>
 <script>
 const P0 = 0.10, Z = 1.96;
 const NS = [10000, 25000, 50000, 100000, 200000, 400000];

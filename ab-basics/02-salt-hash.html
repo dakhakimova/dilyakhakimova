@@ -6,18 +6,18 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/02-salt-hash.html">
 <title>Монетка, соль и хеш · A/B на пальцах</title>
 <meta name="description" content="Шаг 2 интерактивного курса «A/B на пальцах»: как приложение делит пользователей на группы, чтобы каждый всегда попадал в одну и ту же.">
-<script src="/play/bridge.js?v=202611249"></script>
+<script src="/play/bridge.js?v=202611250"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611249">
-<link rel="stylesheet" href="/tokens.css?v=202611249">
-<link rel="stylesheet" href="/signal/book.css?v=202611249">
-<link rel="stylesheet" href="ab.css?v=202611249">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="ab.css?v=202611250">
 </head>
 <body data-chapter="ab02" data-next="03-noise.html">
 <nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -94,7 +94,7 @@
   </div>
   <div class="chat" data-toy-hide>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш.</p></div></div>
-    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где-то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где‑то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Саманта Клейнберг, «Почему»</a> — там подробно разобран опыт Джеймса Линда с цингой.</p>
 </section>
@@ -192,7 +192,7 @@
 <section class="card" data-title="Как делить нельзя" aria-label="Как делить нельзя">
   <span class="step-tag">Ловушки</span>
   <h2>Почему не делить «как удобно»</h2>
-  <p>Есть соблазн поделить гостей попроще. Открой карточки: у каждого способа группы отличаются чем-то ещё, кроме фичи. Это та же ловушка, что в шаге 1.</p>
+  <p>Есть соблазн поделить гостей попроще. Открой карточки: у каждого способа группы отличаются чем‑то ещё, кроме фичи. Это та же ловушка, что в шаге 1.</p>
   <div class="tiles">
     <button type="button" aria-expanded="false"><b>Чётный id — тест</b><span>id часто выдаются подряд. Чётность может совпасть с другой логикой: тестовыми аккаунтами, другим экспериментом, способом регистрации.</span></button>
     <button type="button" aria-expanded="false"><b>Один город — тест</b><span>Города отличаются погодой, ценами, конкурентами и праздниками. Разницу городов припишут фиче.</span></button>
@@ -255,8 +255,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611249"></script>
-<script src="course.js?v=202611249"></script>
+<script src="/signal/progress.js?v=202611250"></script>
+<script src="course.js?v=202611250"></script>
 <script>
 // FNV-1a, 32 бита: простой и честный хеш для учебных целей
 function fnv(str){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)){ h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }
