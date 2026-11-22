@@ -182,11 +182,13 @@ function homePath(){
   const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/home.js'), 'utf8'), ctx);
   const RU = ctx.I18N.ru, typo = s => ctx.I18N.typo('ru', s);
+  const mctx = {}; mctx.globalThis = mctx; vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/map.js'), 'utf8'), mctx);
+  const MAP = mctx.I18N.ru;   // «Проверь себя: ты уже {list}.» — та же строка, что на /map/
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
   const H = Object.fromEntries(chrome.COURSES.filter(c => c.hours).map(c => [c.href, c.hours]));
   M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; });
-  const html = require('./path-list.js').render(M, {esc, tx: s => typo(esc(s)),
-    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}}});
+  const html = require('./path-list.js').render(M, {esc, tx: s => typo(esc(s)).replace(/p-value/g, '<span class="nw">p-value</span>'),
+    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}, pre: list => typo(MAP['ui.pre.short'].replace('{list}', list))}});
   const file = path.join(ROOT, 'index.html'), page = fs.readFileSync(file, 'utf8');
   if (!page.includes('<!-- path -->')) throw new Error('index.html: нет места для «Весь путь» (<!-- path --><!-- /path -->)');
   fs.writeFileSync(file, page.replace(/<!-- path -->[\s\S]*?<!-- \/path -->/, () => '<!-- path -->' + html + '<!-- /path -->'));

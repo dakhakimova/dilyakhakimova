@@ -440,9 +440,9 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .path-list .pp{margin:var(--s-1) 0 0; font-size:var(--fs-xs); color:var(--warm-600)}
 @media (max-width: 760px){ .path-list{--pn:36px} .path-list .pn{font-size:1.125rem} .path-list li{gap:var(--s-3)} .path-list li > div{padding-top:2px} }
 /* компактный вид на главной: вместо кружка — круглая картинка станции, номер — маленький приглушённый кружок на её краю;
-   название и метки в одну строку, под ними строка-задача; неготовые курсы (li.later) выцветшие */
+   название и метки в одну строку, под ними описание и мелкая строка «Проверь себя»; неготовые курсы (li.later) выцветшие */
 .path-list.compact{--pn:60px; margin-top:var(--s-5)}   /* ширина 46em: в 36em название с метками не помещается в одну строку */
-.path-list.compact li{padding-bottom:var(--s-4)}
+.path-list.compact li{padding-bottom:var(--s-5)}
 .path-list.compact li:last-child{padding-bottom:0}
 .path-list.compact li > div{padding-top:4px}
 .path-list .pn.pic{background:none; box-shadow:none}
@@ -453,7 +453,6 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .path-list.compact .pt{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-1) var(--s-3)}
 .path-list.compact .pt .chips{margin:0}
 .path-list.compact .chip{font:500 .75rem/1 var(--body)}
-.path-list.compact .pg{margin-top:var(--s-1)}
 .path-list.compact li.later .pg{color:var(--text-3)}
 @media (max-width: 760px){ .path-list.compact{--pn:48px} .path-list .pnum{width:20px; height:20px; line-height:18px; font-size:.6875rem; top:-3px; left:-3px} }
 .extras .cards-ex .course{--course:var(--rub-extras-line)}   /* полоса карточек внутри рубрики — цветом рубрики */
