@@ -77,7 +77,7 @@
   <h2>Совпадение — это редкость?</h2>
   <div class="chat">
     <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс совпадения — от силы 6%. Это судьба!</p></div></div>
-    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Ты ищешь совпадение только со своим днём. А совпасть может любая пара гостей — например, я и курьер. Сколько пар можно составить из 23 гостей? Давайте проверим: дни рождения раздам из мешка случайно.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Ты ищешь совпадение только со своим днём. А совпасть может любая пара гостей — например, я и курьер. Сколько пар можно составить из 23 гостей? Давайте проверим: дни рождения раздам из мешка случайно.</p></div></div>
   </div>
   <p>Считаем, что все 365 дней равновозможны (29 февраля не берём) и гости не связаны друг с другом: не близнецы и не пришли отмечать общий праздник.</p>
   <div class="guess" data-key="party23" data-min="0" data-max="100" data-unit="%">
@@ -90,11 +90,11 @@
 <section class="card" data-toy="birthday" data-no-scene data-title="Вечеринка дней рождения" aria-label="Вечеринка дней рождения">
   <span class="step-tag">Поиграй</span>
   <h2>Гости входят по одному</h2>
-  <p>Календарь — 365 дней. Каждый гость — точка в свой день рождения; если день уже занят, обе точки вспыхивают.</p>
+  <p>Календарь — 365 дней. Каждый гость — точка в свой день рождения; если день уже занят, обе точки вспыхивают.</p>
   <div class="sheet c-white">
-    <p class="chart-title" id="pt-title">Календарь на 365 дней: дни рождения гостей</p>
-    <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — коралловым кружком с числом гостей"></canvas>
-    <div class="legend-row"><span><i class="dot" style="background:var(--pen)"></i>день рождения гостя</span><span><i class="dot" style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
+    <p class="chart-title" id="pt-title">Календарь на 365 дней: дни рождения гостей</p>
+    <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — коралловым кружком с числом гостей"></canvas>
+    <div class="legend-row"><span><i class="dot" style="background:var(--pen)"></i>день рождения гостя</span><span><i class="dot" style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
     <div class="p4-stats" id="pt-stats" hidden>
       <div><b id="pt-n">0</b>гостей в зале</div>
       <div><b id="pt-pairs">0</b>пар гостей</div>
@@ -104,7 +104,7 @@
       <label class="field" for="pt-guests">Гостей: <input type="text" inputmode="numeric" autocomplete="off" class="guess-in pt-guests" id="pt-guests" value="23"></label>
       <button class="btn" type="button" id="pt-go" title="Пробел">Впустить гостей</button>
       <button class="btn ghost" type="button" id="pt-again" title="Пробел" hidden>Ещё раз</button>
-      <button class="btn ghost" type="button" id="pt-1000" title="Shift + Пробел" hidden>Провести 1000 вечеринок</button>
+      <button class="btn ghost" type="button" id="pt-1000" title="Shift + Пробел" hidden>Провести 1000 вечеринок</button>
     </div>
     <p class="ui-guess" id="pt-vs" hidden></p>
     <span class="kot-says" id="pt-kot" hidden></span>
