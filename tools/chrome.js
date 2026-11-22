@@ -46,7 +46,7 @@ ${ME_JS}`;
 // анонс платного курса — только на финале /start/ (start.js) и страницах курсов; в контенте и футере не продаём
 function announce(cls = ''){
   return `<aside class="announce${cls ? ' ' + cls : ''}" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: старт в конце января</p>
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: скоро</p>
 </aside>`;
 }
 

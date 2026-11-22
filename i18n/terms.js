@@ -62,7 +62,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'terms.cta.text': 'Это {unit} {n} курса «{course}» — <a href="{href}">«{title}» →</a>',
   'terms.cta.open': 'Открыть {unit} {n} →',
   'terms.cta.all': 'Весь курс «{course}»',
-  'terms.cta.wait': '«A/B без мифов»: старт в конце января, 4&nbsp;900&nbsp;₽. <a href="/ab/#waitlist">Сообщить о&nbsp;старте</a>',
+  'terms.cta.wait': '«A/B без мифов»: скоро, 4&nbsp;900&nbsp;₽. <a href="/ab/#waitlist">Сообщить о&nbsp;старте</a>',
   'terms.random': 'Ещё игры наугад →',
   'terms.limToy': 'Покрути, где это ломается: «{q}» →',
   'terms.playLink': 'Что такое {name} — простыми словами →',
