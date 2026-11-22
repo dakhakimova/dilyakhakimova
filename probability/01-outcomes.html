@@ -77,6 +77,14 @@
 .ft.on{opacity:1; border-color:var(--l1); background:var(--mint)}
 .fav-p{font:500 1.0625rem/1.4 var(--body); margin:10px 0 0; font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion: reduce){ .ft{transition:none} }
+/* два кубика: бросок с гистограммой сумм (решение Дили, 23.11.2026) */
+.tpair{display:flex; gap:14px; align-items:center; min-height:64px; margin:4px 0 12px}
+.die{width:52px; height:52px; border-radius:12px; display:grid; place-items:center; font:600 1.375rem/1 var(--body); color:#fff; box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.die.c1{background:var(--ctrl)} .die.c2{background:var(--test)} .die.blank{background:#D6D2C9}
+.die.flip{animation:flip .45s ease}
+@media (prefers-reduced-motion: reduce){ .die.flip{animation:none} }
+.tpair .who-says{font:500 1rem/1.35 var(--body); color:var(--muted)}
+.sub-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:28px 0 8px}
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
@@ -232,10 +240,39 @@
 </section>
 
 <!-- 7: два кубика -->
-<section class="card" data-toy="two-dice" data-title="Два кубика" aria-label="Два кубика: таблица 6 на 6">
-  <span class="step-tag">Вторая игра</span>
-  <h2>Два кубика: 36 клеток</h2>
-  <p>Котейка бросает синий и красный кубики. Каждая пара — клетка таблицы, все 36 клеток равновероятны. Выбери сумму — и увидишь, сколько клеток её дают.</p>
+<!-- 7a: прогноз к двум кубикам (решение Дили, 23.11.2026: сначала угадай, потом подкинь, потом таблица объясняет) -->
+<section class="card" data-toy-pre="two-dice" data-title="Торт или пирожное" aria-label="Торт или пирожное: сначала угадай">
+  <span class="step-tag">Сначала угадай</span>
+  <h2>Торт или пирожное?</h2>
+  <div class="chat">
+    <div class="msg kot"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Новая игра для гостей: бросаем два кубика, синий и красный. Выпала сумма 12 — торт, сумма 11 — пирожное.</p></div></div>
+    <div class="msg bob"><img loading="lazy" class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Шансы одинаковые! Двенадцать — это шесть и шесть, одиннадцать — пять и шесть. Закупим тортов и пирожных поровну.</p></div></div>
+  </div>
+  <p>Как думаешь, что будет выпадать чаще?</p>
+  <div class="choice" data-key="d1112" role="group" aria-label="Что выпадает чаще">
+    <button type="button" data-v="12">Сумма 12 — торт</button><button type="button" data-v="eq">Одинаково, как говорит Боб</button><button type="button" data-v="11">Сумма 11 — пирожное</button>
+  </div>
+  <p class="note">Выбери ответ — на следующей карточке подкинем кубики и проверим.</p>
+</section>
+
+<section class="card" data-toy="two-dice" data-title="Два кубика" aria-label="Два кубика: подкинь и посчитай клетки">
+  <span class="step-tag">Поиграй</span>
+  <h2>Подкинь кубики</h2>
+  <p>Один бросок — синий и красный кубик, на графике копится, какая сумма сколько раз выпала. Понажимай «+1 бросок», потом впиши 1000 или 100 000 и нажми «Бросить». Следи за 11 и 12.</p>
+  <div class="sheet c-white dthrow" id="t-sheet">
+    <div class="tpair" aria-live="polite"><span class="die c1 blank" id="t-d1">?</span><span class="die c2 blank" id="t-d2">?</span><span class="who-says" id="t-says">Подкинь кубики</span></div>
+    <div class="controls addrow">
+      <label for="t-n" class="c-nl">Бросков всего</label><input id="t-n" type="text" inputmode="numeric" value="0" autocomplete="off">
+      <button class="btn" type="button" id="t-go">Бросить</button>
+      <button class="btn ghost" type="button" id="t-1">+1 бросок</button>
+    </div>
+    <p class="c-log" id="t-log" aria-live="polite"></p>
+    <p class="chart-title">Доля бросков с каждой суммой</p>
+    <canvas id="t-chart" role="img" aria-label="Доля бросков с каждой суммой от 2 до 12; суммы 11 и 12 выделены"></canvas>
+    <div class="verdict" id="t-v" hidden></div>
+  </div>
+  <h3 class="sub-h">Почему так: 36 клеток</h3>
+  <p>Каждая пара кубиков — клетка таблицы, все 36 клеток равновероятны. Выбери сумму — и увидишь, сколько клеток её дают.</p>
   <div class="sheet c-white">
     <div class="nsel sums" id="d-sums" role="group" aria-label="Выбери сумму двух кубиков"></div>
     <div class="dice-wrap">
@@ -247,7 +284,7 @@
       </div>
     </div>
   </div>
-  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Подпиши кубики — и у 11 окажется две клетки (синий 5 и красный 6, синий 6 и красный 5), а у 12 — одна.</p>
+  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Но если различать кубики, у суммы 11 две клетки: синий 5 с красным 6 и синий 6 с красным 5. А у суммы 12 клетка одна.</p>
   <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
 </section>
 
@@ -566,6 +603,78 @@ const TXT = {
   paint();
 })();
 
+
+// ---------- карточка 7: подкинь кубики (решение Дили, 23.11.2026) ----------
+// Поле «Бросков всего» растёт от «+1 бросок»; любое число и «Бросить»: больше — добавятся броски, меньше — опыт заново.
+// Гистограмма — доля бросков с каждой суммой; 11 (пирожное) и 12 (торт) выделены красным.
+(function(){
+  const d1 = document.getElementById('t-d1'), d2 = document.getElementById('t-d2'), says = document.getElementById('t-says');
+  const inp = document.getElementById('t-n'), log = document.getElementById('t-log'), cv = document.getElementById('t-chart'), vEl = document.getElementById('t-v');
+  if (!cv) return;
+  const cnt = new Array(13).fill(0); let n = 0, queue = [], qi = 0, perFrame = 1, raf = 0;
+  const roll = () => 1 + Math.floor(Math.random() * 6);
+  function draw(){
+    const g = canvas(cv, 0.42, 0.7); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 8, T0 = 16, B = 34, pw = w - L - R, ph = h - T0 - B, bw = pw / 11;
+    let top = 0.2; for (let s = 2; s <= 12; s++) if (n && cnt[s] / n > top) top = Math.ceil(cnt[s] / n * 20) / 20;
+    axisY(c, L, R, T0, ph, w, 0, top, 0.05, v => shareT(v, 0));
+    for (let s = 2; s <= 12; s++){
+      const x = L + (s - 2) * bw, v = n ? cnt[s] / n : 0, y = T0 + ph * (1 - v / top), hot = s >= 11;
+      if (n){ c.fillStyle = hot ? COL.test : COL.ctrl; c.fillRect(x + 2, y, bw - 4, T0 + ph - y); }
+      if (n && hot) label(c, shareT(v, 1), x + bw / 2, y - 5, COL.testInk, 'center');
+      label(c, String(s), x + bw / 2, h - 18, hot ? COL.testInk : COL.ink2, 'center');
+    }
+    label(c, TXT.sumX, L + pw / 2, h - 2, COL.ink2, 'center');
+    if (!n) label(c, 'Подкинь кубики', L + pw / 2, T0 + ph * 0.3, COL.ink2, 'center');
+  }
+  function verdict(){
+    if (n < 100){ vEl.hidden = true; return; }
+    const a = cnt[11], b = cnt[12], ch = Book.choice ? Book.choice('d1112') : null;
+    vEl.hidden = false; vEl.className = 'verdict good';
+    vEl.innerHTML = 'За ' + int(n) + ' ' + plural(n, {one: 'бросок', few: 'броска', many: 'бросков'}) + ' сумма 11 выпала <b>' + int(a) + '</b> раз, сумма 12 — <b>' + int(b) + '</b>' +
+      (b ? ': пирожных уходит примерно в ' + numT(a / b, 1) + ' раза больше, чем тортов.' : '.') + ' Почему так — в таблице ниже.';
+  }
+  function show(x, y, anim){
+    d1.textContent = x; d2.textContent = y;
+    [d1, d2].forEach(e => { e.classList.remove('blank', 'flip'); if (anim && !REDUCED){ void e.offsetWidth; e.classList.add('flip'); } });
+    const s = x + y; says.textContent = 'Сумма ' + s + (s === 12 ? ' — торт!' : s === 11 ? ' — пирожное!' : '');
+  }
+  function frame(){
+    const k = Math.min(perFrame, queue.length - qi); let last;
+    for (let i = 0; i < k; i++){ last = queue[qi++]; cnt[last[0] + last[1]]++; n++; }
+    if (last) show(last[0], last[1], false);
+    draw();
+    if (qi < queue.length) raf = requestAnimationFrame(frame); else { raf = 0; queue = []; qi = 0; verdict(); }
+  }
+  function run(m){
+    const fresh = new Array(m), c = new Array(13).fill(0);
+    for (let i = 0; i < m; i++){ const x = roll(), y = roll(); fresh[i] = [x, y]; c[x + y]++; }
+    if (m === 1){
+      const [x, y] = fresh[0]; cnt[x + y]++; n++; show(x, y, true); draw(); verdict();
+      log.textContent = '+1 бросок: синий ' + x + ', красный ' + y + ' — сумма ' + (x + y);
+      return;
+    }
+    log.textContent = '+' + int(m) + ' ' + plural(m, {one: 'бросок', few: 'броска', many: 'бросков'}) + ': сумма 11 — ' + int(c[11]) + ', сумма 12 — ' + int(c[12]) + ', сумма 7 — ' + int(c[7]);
+    if (REDUCED){ for (let s = 2; s <= 12; s++) cnt[s] += c[s]; n += m; show(fresh[m - 1][0], fresh[m - 1][1], false); draw(); verdict(); return; }
+    queue = queue.slice(qi).concat(fresh); qi = 0;
+    perFrame = Math.max(1, Math.ceil(queue.length / 150));
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+  const total = () => n + queue.length - qi, showTotal = () => { inp.value = int(total()); };
+  const N = () => { const v = Math.round(parseFloat(String(inp.value).replace(/\s| /g, '').replace(',', '.'))); return isFinite(v) && v >= 0 ? Math.min(v, 1000000) : null; };
+  function reset(){ queue = []; qi = 0; if (raf){ cancelAnimationFrame(raf); raf = 0; } cnt.fill(0); n = 0; }
+  document.getElementById('t-go').addEventListener('click', () => {
+    const m = N(); if (m === null){ inp.focus(); return; }
+    const t = total(); if (m === t) return;
+    if (m > t) run(m - t);
+    else { reset(); if (m) run(m); else { [d1, d2].forEach(e => { e.textContent = '?'; e.classList.add('blank'); }); says.textContent = 'Подкинь кубики'; log.textContent = ''; draw(); verdict(); } }
+    showTotal();
+  });
+  document.getElementById('t-1').addEventListener('click', () => { run(1); showTotal(); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); document.getElementById('t-go').click(); } });
+  window.addEventListener('resize', draw);
+  showTotal(); draw();
+})();
 
 // ---------- карточка 7: два кубика ----------
 (function(){
