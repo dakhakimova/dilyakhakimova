@@ -401,3 +401,8 @@ details.ivw{counter-increment:ivw}
 details.ivw > summary{flex-wrap:wrap}
 details.ivw > summary::before{content:"Задача " counter(ivw); display:block; flex-basis:100%; width:100%; margin:0 0 6px; font:600 .75rem/1.2 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--label-ink, #5E5A53); font-feature-settings:"case"}
 details.ivw + details.ivw{margin-top:16px}
+/* условие задачи с собеседования — как вопрос квиза (решение Дили, 23.11.2026): было 17 px полужирным, меньше текста разбора */
+details.ivw > summary{font:400 1.375rem/1.35 var(--serif); letter-spacing:-.005em; color:var(--ink); text-wrap:pretty}
+@media (max-width:620px){ details.ivw > summary{font-size:1.1875rem; line-height:1.4} }
+details.ivw > summary::after{content:"Показать разбор ▾"; display:block; flex-basis:100%; width:100%; margin-top:8px; font:500 .875rem/1.2 var(--body); color:var(--pen); letter-spacing:0}
+details.ivw[open] > summary::after{content:"Скрыть разбор ▴"}
