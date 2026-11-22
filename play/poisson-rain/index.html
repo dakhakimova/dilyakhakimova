@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Marck+Script&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611221">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611250">
 <link rel="stylesheet" href="/play/play.css?v=202611250">
 </head>
 <body>
@@ -84,7 +85,7 @@
     <div class="reveal" hidden>
       <p>Пока клеток мало, биномиальное заметно уже Пуассона: в 10 клеток не уместится больше 10 заказов. Чем мельче клетки, тем ближе столбики к точкам, и от 200 клеток их уже не отличить. Пуассону всё равно, сколько клеток: важна только сила дождя λ = np. Поэтому он подходит для заказов в час, жалоб за день и падений сервера за месяц — если события приходят по одному и независимо.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Binomial(n, λ/n) → Poisson(λ) при большом n.</li><li>Poisson(λ): P(k) = e<sup>−λ</sup> · λ<sup>k</sup> / k!, E = Var = λ.</li><li>λ = 5 заказов за 10 минут: ни одного заказа — в 7 отрезках из 1000, ровно 5 — в 175.</li><li>Условия: события приходят по одному, независимо, с постоянной средней силой.</li></ul>
+      <ul class="cheat"><li>Binomial(n, λ/n) → Poisson(λ) при большом n.</li><li>Poisson(λ): P(k) = e<sup>−λ</sup> · λ<sup>k</sup> / k!, E = Var = λ.</li><li>λ = 5 заказов за 10 минут: ни одного заказа — в 7 отрезках из 1000, ровно 5 — в 175.</li><li>Условия: события приходят по одному, независимо, с постоянной средней силой.</li></ul>
     </div>
   </section>
 
@@ -138,12 +139,13 @@
       <ul role="list">
         <li><a href="/play/">Все игрушки</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/books/">Котейка читает</a></li>
         <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
         <li><a href="/about/">Об авторе</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
