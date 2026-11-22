@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/07-clt.html?toy=sqrt-n" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?","item":"https://dilyakhakimova.com/play/sqrt-n/"}]}</script>
 <meta name="robots" content="noindex, follow">
 <title>Сто кубиков вместо десяти. Во сколько раз шире разброс суммы? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Сумма n кубиков уезжает вправо и расплывается, среднее стоит на месте и сжимается. С какой скоростью?">
@@ -44,21 +45,14 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="sqrt-n" data-frame="/signal/07-clt.html?toy=sqrt-n"
   data-share-title="Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?" data-share-text="Продакт хочет вдвое сузить разброс метрики в A/B-тесте и предлагает удвоить число гостей. Хватит? Угадай, как растёт и сжимается разброс, и проверь на кубиках"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="sqrt-n" data-show-from="0" hidden></span></p>
   <h1>Сто кубиков вместо десяти. Во сколько раз шире разброс суммы?</h1>
+  <p class="play-meta">Из курса <a href="/signal/">«Сигнал или шум»</a> · <span class="nw">Средний уровень</span><span class="play-count" data-count-for="sqrt-n" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая игра: гость бросает сразу 10 кубиков, приз — за большую сумму. Если кубиков станет сто, разброс суммы тоже вырастет в десять раз. Всё пропорционально.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая игра: гость бросает сразу 10 кубиков, приз — за большую сумму. Если кубиков станет сто, разброс суммы тоже вырастет в 100 / 10 = 10 раз. Всё пропорционально.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Центр суммы правда уедет в десять раз дальше. А ширина?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Мои кубики друг с другом не договариваются: где один выкинет шестёрку, другой выкинет единицу.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посмотрим на точное распределение суммы и среднего для разного числа кубиков.</p></div></div>
@@ -82,6 +76,9 @@
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>Центр суммы уезжает на 3.5 за каждый кубик, а ширина растёт медленнее — как √n: у 10 кубиков σ ≈ 5.4, у 100 — около 17.1, всего в 3.2 раза больше. Складываются дисперсии, а не сигмы: отклонения разных кубиков частично гасят друг друга. Среднее стоит на 3.5 и сжимается как 1/√n. Чтобы шум среднего упал вдвое, кубиков нужно вчетверо больше.</p>
+      <h3>Где ошибается интуиция</h3>
+      <ul class="cheat intuition"><li>Складываем сигмы: 10 кубиков по σ ≈ 1.71 — это не 17.1, а 5.4: отклонения частично гасят друг друга.</li><li>«Сто кубиков — в 10 раз шире»: в √10 ≈ 3.2 раза, с 5.4 до 17.1.</li><li>«Среднее тоже шумит сильнее»: у среднего шум падает как 1/√n — у ста кубиков SE ≈ 0.17.</li></ul>
+      <p>Правильно: σ суммы = 1.71 · √n.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Var(X₁ + … + Xₙ) = n·σ² для независимых слагаемых.</li><li>σ суммы = σ·√n, стандартная ошибка среднего SE = σ/√n.</li><li>Кубик: σ ≈ 1.71. Сто кубиков: σ суммы ≈ 17.1, SE среднего ≈ 0.17.</li><li>Вдвое меньше шум — вчетверо больше данных.</li></ul>
     </div>

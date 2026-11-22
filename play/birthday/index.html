@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/04-not-and-or.html?toy=birthday" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"В кафе 23 гостя. Какой шанс, что у двоих совпал день рождения?","item":"https://dilyakhakimova.com/play/birthday/"}]}</script>
 <meta name="robots" content="noindex, follow">
 <title>В кафе 23 гостя. Какой шанс, что у двоих совпал день рождения? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Вечеринка в кафе: гости входят по одному, а дни рождения совпадают куда раньше, чем кажется. Проверь на тысяче вечеринок.">
@@ -44,24 +45,17 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">В кафе 23 гостя. Какой шанс, что у двоих совпал день рождения?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="birthday" data-frame="/probability/04-not-and-or.html?toy=birthday"
   data-share-title="В кафе 23 гостя. Какой шанс, что у двоих совпал день рождения?" data-share-text="В команде аналитиков 23 человека, и в общем календаре у двоих день рождения в один день. Продакт говорит: «Вот это совпадение!» Угадай, какой у этого шанс, — и проверь на тысяче вечеринок"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="birthday" data-show-from="0" hidden></span></p>
   <h1>В кафе 23 гостя. Какой шанс, что у двоих совпал день рождения?</h1>
+  <p class="play-meta">Из курса <a href="/probability/">«Вероятность на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="birthday" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На открытие кафе пришли 23 гостя — и у двоих день рождения в один день! Это знак.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Или арифметика. Как думаешь, какой вообще шанс у такого совпадения?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В году 365 дней, а гостей всего 23. Шанс — от силы 6%. Это судьба!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты сравниваешь каждого гостя с одним днём. А совпасть может любая пара гостей. Сколько пар из 23?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я прикинул: каждый из 22 гостей не родился в мой день с шансом 364/365. Что все мимо — (364/365)²² ≈ 94%. Значит, совпадение — от силы 6%. Это судьба!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ты ищешь совпадение только со своим днём. А совпасть может любая пара гостей — например, Котейка и курьер. Сколько пар можно составить из 23 гостей?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Давайте устроим тысячу вечеринок. Я раздам дни рождения из мешка.</p></div></div>
   </div>
 
@@ -83,6 +77,9 @@
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>При 23 гостях совпадение есть примерно в половине вечеринок: 50.7%. При 30 — в 70.6%, при 50 — в 97%. Боб считал гостей, а совпасть может любая пара: из 23 гостей пар уже 253, и пары растут быстрее гостей. У каждой пары шанс совпасть маленький, 1 из 365, но пар много. Считать удобно через противоположное: «у всех дни разные» бывает в 49.3% вечеринок, а в остальных есть совпадение.</p>
+      <h3>Где ошибается интуиция</h3>
+      <ul class="cheat intuition"><li>Свой день вместо любой пары, как у Боба: шанс, что кто-то из 22 других родился в твой день, — 1 − (364/365)^22 ≈ 5.9%. Это вопрос про одного конкретного человека, а совпасть может любая пара.</li><li>Складываем пары: пар 253, и 253 × 1/365 ≈ 69% — перебор. Пары пересекаются (у них общие гости), поэтому складывать их вероятности нельзя.</li><li>«Нужно хотя бы полгода гостей, 183 человека». На деле уже 23 гостя дают 50.7%.</li></ul>
+      <p>Пар из 23 гостей: 23 · 22 / 2 = 253. Правильно: 1 − (365 · 364 · … · 343) / 365^23 ≈ 50.7%. Через пары почти то же: 1 − (364/365)^253 ≈ 50%.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Пар из n гостей — n · (n − 1) / 2: у 23 гостей их 253.</li><li>P(хотя бы одно совпадение) = 1 − P(у всех дни разные).</li><li>23 гостя — 50.7%, 30 — 70.6%, 50 — 97%.</li><li>Та же арифметика у хешей: когда гостей делят на группы хешем, два разных id могут получить одинаковый хеш.</li></ul>
     </div>

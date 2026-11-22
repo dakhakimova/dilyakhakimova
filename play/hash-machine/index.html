@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/02-salt-hash.html?toy=hash-machine" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Как монетка может помнить гостя?","item":"https://dilyakhakimova.com/play/hash-machine/"}]}</script>
 <meta name="robots" content="noindex, follow">
 <title>Как монетка может помнить гостя? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Хеш-машина: id гостя плюс название эксперимента — и номер ячейки, который не меняется, сколько ни заходи.">
@@ -44,18 +45,11 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Как монетка может помнить гостя?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="hash-machine" data-frame="/ab-basics/02-salt-hash.html?toy=hash-machine"
   data-share-title="Как монетка может помнить гостя?" data-share-text="Разработчик спрашивает, где A/B-платформа хранит группу каждого из миллиона пользователей. Ответ: нигде. Как тогда пользователь не прыгает между группами? Угадай — и покрути хеш-машину"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="hash-machine" data-show-from="0" hidden></span></p>
   <h1>Как монетка может помнить гостя?</h1>
+  <p class="play-meta">Из курса <a href="/ab-basics/">«A/B на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="hash-machine" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ладно, монетку бросаем один раз на гостя. Но где приложение хранит, кому что выпало? Это же миллионы записей.</p></div></div>

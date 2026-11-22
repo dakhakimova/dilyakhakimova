@@ -240,13 +240,13 @@ button.btn{display:inline-flex; align-items:center; justify-content:center; gap:
 button.btn:hover:not(:disabled){background:var(--pen-hover); border-color:var(--pen-hover)}
 /* вторичная кнопка — контур; при наведении и фокусе мягко заливается синим. Залитая — только одна главная в игре */
 button.btn.ghost{background:#fff; color:var(--pen); border:1.5px solid var(--pen)}
-button.btn.ghost:hover:not(:disabled){background:var(--pen-hover); border-color:var(--pen); color:var(--pen)}
-button.btn.ghost:active:not(:disabled){background:var(--pen-press)}
+button.btn.ghost:hover:not(:disabled){background:var(--pen-hover-bg); border-color:var(--pen); color:var(--pen)}
+button.btn.ghost:active:not(:disabled){background:var(--pen-press-bg)}
 @media (prefers-reduced-motion:reduce){ button.btn{transition:none} }
 /* «Запомнить» в прогнозе — вторичное действие: контур (залитая — только главная кнопка игры) */
 .guess button.btn:not(.ghost){background:#fff; color:var(--pen); border:1.5px solid var(--pen)}
-.guess button.btn:not(.ghost):hover:not(:disabled){background:var(--pen-hover)}
-.guess button.btn:not(.ghost):active:not(:disabled){background:var(--pen-press); transform:none}
+.guess button.btn:not(.ghost):hover:not(:disabled){background:var(--pen-hover-bg)}
+.guess button.btn:not(.ghost):active:not(:disabled){background:var(--pen-press-bg); transform:none}
 button.btn:disabled{opacity:.45}
 .controls{gap:12px; margin:16px 0}
 /* график или полоса результата не липнет к кнопкам: зазор ≥ 16 px */

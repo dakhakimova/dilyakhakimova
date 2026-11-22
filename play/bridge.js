@@ -161,16 +161,18 @@
     const big0 = cfg.big ? q(cfg.big) : null;
     const mk = (txt, cls, key) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls; b.textContent = txt; b.title = key; b.dataset.ui = cls === 'btn' ? 'main' : 'more'; return b; };
     const main = mk(cfg.label, 'btn', UI_STR.keySpace), again = mk(UI_STR.again, 'btn ghost', UI_STR.keySpace);
-    main.dataset.ui = 'main'; again.dataset.ui = 'again'; again.hidden = true;
+    main.dataset.ui = 'main'; again.dataset.ui = 'again';
+    const show = (el, on) => el && (on ? el.removeAttribute('data-ui-hidden') : el.setAttribute('data-ui-hidden', ''));
+    show(again, false);
     const big = big0 ? mk(big0.textContent.trim(), 'btn ghost', UI_STR.keyShift) : null;
-    if (big){ big.dataset.ui = 'big'; big.hidden = true; }
-    const note = document.createElement('span'); note.className = 'ui-guess'; note.hidden = true;
+    if (big){ big.dataset.ui = 'big'; show(big, false); }
+    const note = document.createElement('span'); note.className = 'ui-guess'; show(note, false);
     row.prepend(...[main, again, big, note].filter(Boolean));
     let busy = false, runs = 0;
     const click = el => { if (el && !el.disabled) el.click(); };
     const after = () => {
-      main.hidden = true; again.hidden = false; if (big) big.hidden = false;
-      const g = guessOf(card, slug); note.hidden = !g; if (g) note.innerHTML = UI_STR.yourGuess + '<b></b>', note.querySelector('b').textContent = g;
+      show(main, false); show(again, true); show(big, true);
+      const g = guessOf(card, slug); show(note, !!g); if (g) note.innerHTML = UI_STR.yourGuess + '<b></b>', note.querySelector('b').textContent = g;
       window.dispatchEvent(new Event('resize'));
     };
     const run = async () => {
@@ -184,7 +186,7 @@
     main.addEventListener('click', () => { run(); });
     again.addEventListener('click', () => { run(); });
     if (big) big.addEventListener('click', () => { click(big0); runs++; after(); });
-    card.uiKeys = {main: () => (again.hidden ? main : again).click(), big: big ? () => !big.hidden && big.click() : null};
+    card.uiKeys = {main: () => (again.hasAttribute('data-ui-hidden') ? main : again).click(), big: big ? () => !big.hasAttribute('data-ui-hidden') && big.click() : null};
   };
   const uiReady = fetch('/play/ui.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}).catch(() => ({}));
   document.addEventListener('DOMContentLoaded', () => {

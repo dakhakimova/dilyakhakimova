@@ -79,11 +79,15 @@
 /* фильтр по темам каталога: переключатели-таблетки; выбранный — тоном (--pen-soft, контур --pen, «✓»), не заливкой */
 .topic-filter{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:0 0 var(--s-5)}
 .topic-filter button{font:var(--fw-medium) var(--fs-s)/1.2 var(--body); min-height:var(--btn-h); padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:1.5px solid var(--line-strong); background:var(--white); color:var(--text-1); cursor:pointer}
-.topic-filter button:hover{background:var(--pen-hover); border-color:var(--pen)}
-.topic-filter button:active{background:var(--pen-press)}
+.topic-filter button:hover{background:var(--pen-hover-bg); border-color:var(--pen)}
+.topic-filter button:active{background:var(--pen-press-bg)}
 .topic-filter button[aria-pressed="true"]{background:var(--pen-soft); border-color:var(--pen); color:var(--pen)}
 .topic-filter button[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
 /* каталог: «Начни с этих» → группы по темам → «Ещё игры» */
 .play-cat .cat-start, .play-cat .cat-group{margin:var(--gap-h2-above) 0 0}
 .play-cat .cat-start > h2, .play-cat .cat-group > h2{font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:0 0 var(--s-4)}
 .play-cat .cat-more{margin:var(--s-6) 0 0}
+/* под заголовком игры — тихая строка метаданных вместо чипов (решение Дили, 22.11.2026): «Из курса «…» · Начальный уровень» */
+.play .play-meta{font:400 var(--fs-s)/1.45 var(--body); color:var(--text-3); margin:calc(-1 * var(--s-2)) 0 var(--s-5)}
+.play .play-meta a{color:var(--text-3); text-decoration-color:rgba(36,34,31,.35); text-underline-offset:3px}
+.play .play-meta a:hover{color:var(--pen)}

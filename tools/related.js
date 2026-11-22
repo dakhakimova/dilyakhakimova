@@ -5,7 +5,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
 const TOPICS = ['Вероятность', 'Статистика', 'A/B', 'Причинность', 'Решения'];
-const LEVELS = {1: 'Новичок', 2: 'Практик', 3: 'Продвинутый'};
+const LEVELS = {1: 'Начальный', 2: 'Средний', 3: 'Продвинутый'};
 const J = f => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
 
 function index(){

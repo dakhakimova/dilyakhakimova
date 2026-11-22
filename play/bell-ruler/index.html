@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/05-normal.html?toy=bell-ruler" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Вчера средний чек был на две сигмы выше обычного. Это редкость?","item":"https://dilyakhakimova.com/play/bell-ruler/"}]}</script>
 <title>Вчера средний чек был на две сигмы выше обычного. Это редкость? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Линейка колокола: окна ±1, 2 и 3 сигмы на среднем чеке кафе — и какая доля дней в них попадает.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/bell-ruler/">
@@ -43,21 +44,14 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Вчера средний чек был на две сигмы выше обычного. Это редкость?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="bell-ruler" data-frame="/signal/05-normal.html?toy=bell-ruler"
   data-share-title="Вчера средний чек был на две сигмы выше обычного. Это редкость?" data-share-text="Средний чек вчера на две сигмы выше обычного, и продакт пишет в рабочий чат: «рекорд, разбираемся, что сделали правильно». Как часто такие дни бывают сами по себе? Угадай и приложи линейку"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="bell-ruler" data-show-from="0" hidden></span></p>
   <h1>Вчера средний чек был на две сигмы выше обычного. Это редкость?</h1>
+  <p class="play-meta">Из курса <a href="/signal/">«Сигнал или шум»</a> · <span class="nw">Средний уровень</span><span class="play-count" data-count-for="bell-ruler" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Вчера средний чек был 740 ₽! Обычно около 640. Рекорд — надо понять, что мы сделали правильно.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Вчера средний чек был 740 ₽! Обычно около 640 — на 100 ₽ больше. Рекорд — надо понять, что мы сделали правильно.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Я взяла 300 дней работы кафе. Средние чеки дней обычно отходят от центра примерно на 50 ₽ — это сигма, стандартное отклонение.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вчерашние 740 — на две сигмы выше центра.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Две сигмы — это много или мало?</p></div></div>
@@ -82,6 +76,9 @@
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>В пределах ±1σ лежит около 68% дней, ±2σ — 95%, ±3σ — 99.7%. Дальше 2σ от центра — около 4.6% дней, по 2.3% с каждой стороны. Значит, день с чеком 740 ₽ и выше бывает примерно раз в 44 дня: редко, но за год работы — несколько раз. «Много или мало» решает не само число, а сколько в нём сигм.</p>
+      <h3>Где ошибается интуиция</h3>
+      <ul class="cheat intuition"><li>Смотрим на рубли, а не на сигмы: 100 ₽ при σ = 50 ₽ — это 2σ, такой день бывает примерно раз в 44 дня.</li><li>«Дальше 2σ — почти никогда»: в обе стороны это 4.6% дней, за год — около 17 дней.</li><li>«±2σ — это 68%»: 68% лежит в ±1σ, а в ±2σ — 95%.</li></ul>
+      <p>Правильно: P(|z| > 2) = 2 · (1 − Φ(2)) ≈ 4.6%.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Правило 68–95–99.7: доли значений в пределах ±1, ±2 и ±3σ.</li><li>z = (x − μ) / σ — сколько сигм до центра, z-score.</li><li>P(a < X < b) = Φ((b − μ)/σ) − Φ((a − μ)/σ).</li><li>Φ(1.96) = 0.975: в пределах ±1.96σ лежит ровно 95%.</li></ul>
     </div>

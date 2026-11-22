@@ -50,7 +50,7 @@ ${css.map(c => `<link rel="stylesheet" href="${c}?v=${V}">`).join('\n')}
 `;
 }
 
-const LV = {1: 'Новичок', 2: 'Практик', 3: 'Продвинутый'};
+const LV = {1: 'Начальный', 2: 'Средний', 3: 'Продвинутый'};
 const chip = lv => `<span class="chip"><span class="lvl l${lv}" aria-hidden="true"></span><span class="vh">Уровень </span><span>${LV[lv]}</span></span>`;
 
 function courses(){

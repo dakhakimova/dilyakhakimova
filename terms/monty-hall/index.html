@@ -44,13 +44,6 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/terms/">Словарь аналитика</a></li>
-    <li><span aria-current="page">Парадокс Монти Холла</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap term" data-slug="monty-hall"
   data-share-title="Парадокс Монти Холла простыми словами" data-share-text="Парадокс Монти Холла простыми словами — с игрой и задачей с собеседования:"
   data-s-copied="Ссылка скопирована">

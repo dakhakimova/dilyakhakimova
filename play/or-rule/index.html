@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/probability/04-not-and-or.html?toy=or-rule" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"30% берут кофе, 40% — десерт. Значит, 70% берут хоть что-то?","item":"https://dilyakhakimova.com/play/or-rule/"}]}</script>
 <meta name="robots" content="noindex, follow">
 <title>30% берут кофе, 40% — десерт. Значит, 70% берут хоть что-то? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Тысяча гостей кафе точками: кофе, десерт и те, кого Боб посчитал дважды.">
@@ -44,21 +45,14 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">30% берут кофе, 40% — десерт. Значит, 70% берут хоть что-то?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="or-rule" data-frame="/probability/04-not-and-or.html?toy=or-rule"
   data-share-title="30% берут кофе, 40% — десерт. Значит, 70% берут хоть что-то?" data-share-text="В дашборде: «промокодом пользуются 30% гостей, доставкой — 40%, значит, хоть одной фичей — 70%». Продакт уже несёт цифру на планёрку. Угадай, где подвох, — и проверь на тысяче гостей"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="or-rule" data-show-from="0" hidden></span></p>
   <h1>30% берут кофе, 40% — десерт. Значит, 70% берут хоть что-то?</h1>
+  <p class="play-meta">Из курса <a href="/probability/">«Вероятность на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="or-rule" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Отчёт за месяц: кофе берут 30% гостей, десерт — 40%. Значит, 70% берут хоть что-то из двух! Пишу в отчёт.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Отчёт за месяц: кофе берут 30% гостей, десерт — 40%. 30 + 40 = 70% берут хоть что-то из двух! Пишу в отчёт.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А гости, которые берут кофе с десертом? Где они у тебя?</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И в кофе, и в десерте. Всё честно.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот именно — в обоих. Давай подсветим тысячу гостей и посмотрим, сколько их на самом деле.</p></div></div>
@@ -82,6 +76,9 @@
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>Из 1000 гостей кофе взяли 300, десерт — 400, а 150 взяли и то и другое. Боб сложил 300 и 400 и получил 700, но 150 гостей с кофе и десертом попали в сумму дважды. Хоть что-то взяли 550 гостей, то есть 55%. Складывать доли можно, только если события вместе не бывают. Иначе вычитай тех, кого посчитал два раза.</p>
+      <h3>Где ошибается интуиция</h3>
+      <ul class="cheat intuition"><li>Складываем доли: 30% + 40% = 70%. Гости, взявшие и кофе, и десерт, попали в сумму дважды.</li><li>Считаем события независимыми: 1 − 0.7 · 0.6 = 58%. Ближе, но кофе и десерт берут вместе чаще, чем случайно: 150 гостей вместо 120.</li><li>«Сумма больше 100% — значит, все»: при кофе 60% и десерте 50% сумма 110%, а «хоть что-то» всё равно меньше 100%.</li></ul>
+      <p>Правильно: 30% + 40% − 15% = 55%.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>P(A или B) = P(A) + P(B) − P(A и B).</li><li>Если A и B вместе не бывают (несовместны), вычитать нечего — тогда просто сумма.</li><li>Это формула включений и исключений, inclusion–exclusion.</li><li>Сумма долей больше 100% — верный знак, что кого-то посчитали дважды.</li></ul>
     </div>

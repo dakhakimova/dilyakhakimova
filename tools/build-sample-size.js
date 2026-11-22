@@ -31,15 +31,9 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 <body>
 <a class="skip" href="#main">К содержанию</a>
 ${chrome.header('play', false)}
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Сколько дней держать тест?</span></li>
-  </ol>
-</nav>
 <main id="main" class="wrap play ss-page">
-  <p class="chips"><span class="tag">Калькуляторы</span></p>
   <h1>Сколько дней держать тест?</h1>
+  <p class="play-meta">Калькулятор · Средний уровень</p>
   <p class="lead">Размер выборки, самый маленький заметный эффект (MDE) и мощность связаны: поменяешь одно — поедут остальные. Зафиксируй два, третье посчитаю.</p>
 
   <section class="ss-card" aria-labelledby="ss-h">

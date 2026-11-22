@@ -111,19 +111,14 @@ ${chrome.header('play', /\/play\/$/.test(url))}
     const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
     const img = toy.img ? `
     <figure class="art"><img src="${toy.img}" alt="${attr(X(s, 'imgAlt'))}" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>` : '';
-    const html = head(q + ' · ' + t('play.sim') + ' · ' + plain(t('logo')), X(s, 'lead'), url, `/play/og/${s}.png`, embedJs, !toy.published) + `
-<nav class="crumbs wrap" aria-label="${attr(t('crumbs.label'))}">
-  <ol>
-    <li><a href="${pre}/play/">${t('play.crumbs')}</a></li>
-    <li><span aria-current="page">${q}</span></li>
-  </ol>
-</nav>
-
+    const crumbLd = `<script type="application/ld+json">${JSON.stringify({'@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      {'@type': 'ListItem', position: 1, name: plain(t('play.crumbs')), item: SITE + pre + '/play/'}, {'@type': 'ListItem', position: 2, name: plain(q), item: SITE + url}]})}</script>\n`;
+    const html = head(q + ' · ' + t('play.sim') + ' · ' + plain(t('logo')), X(s, 'lead'), url, `/play/og/${s}.png`, embedJs + crumbLd, !toy.published) + `
 <main id="main" class="wrap play" data-toy="${s}" data-frame="${frame}"
   data-share-title="${attr(q)}" data-share-text="${attr(X(s, 'challenge'))}"
   data-s-copied="${attr(t('play.copied'))}">
-  <p class="chips">${chip(toy.level)}<a class="tag" href="${C(toy.course).href}">${t('play.from')} «${cname(toy.course)}»</a>${countSlot(s)}</p>
   <h1>${q}</h1>
+  <p class="play-meta">${t('play.fromCap')} <a href="${C(toy.course).href}">«${cname(toy.course)}»</a> · <span class="nw">${t('lvl.' + toy.level)} ${t('play.levelWord')}</span>${countSlot(s)}</p>
 
   <div class="chat" role="group" aria-label="${attr(t('play.scene'))}">${x.chat.map(msg).join('')}
   </div>
@@ -144,7 +139,10 @@ ${chrome.header('play', /\/play\/$/.test(url))}
     <ol class="tries">${x.try.map(li => `<li>${typo(li)}</li>`).join('')}</ol>` : ''}
     <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">${t('play.showOut')} <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>${X(s, 'out')}</p>${x.cheat.length ? `
+      <p>${X(s, 'out')}</p>${x.intuition && x.intuition.length ? `
+      <h3>${t('play.intuition')}</h3>
+      <ul class="cheat intuition">${x.intuition.map(li => `<li>${typo(li)}</li>`).join('')}</ul>${x.right ? `
+      <p>${typo(x.right)}</p>` : ''}` : ''}${x.cheat.length ? `
       <h3>${t('play.cheat')}</h3>
       <ul class="cheat">${x.cheat.map(li => `<li>${typo(li)}</li>`).join('')}</ul>` : ''}
     </div>

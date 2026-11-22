@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/01-before-after.html?toy=dummy-release" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Кнопка ничего не делает. Как часто «до и после» покажет рост?","item":"https://dilyakhakimova.com/play/dummy-release/"}]}</script>
 <meta name="robots" content="noindex, follow">
 <title>Кнопка ничего не делает. Как часто «до и после» покажет рост? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Выпускаем пустую кнопку в любой день года и сравниваем неделю до с неделей после: «эффект» без всякого эффекта.">
@@ -44,18 +45,11 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
-<nav class="crumbs wrap" aria-label="Где ты на сайте">
-  <ol>
-    <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Кнопка ничего не делает. Как часто «до и после» покажет рост?</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap play" data-toy="dummy-release" data-frame="/ab-basics/01-before-after.html?toy=dummy-release"
   data-share-title="Кнопка ничего не делает. Как часто «до и после» покажет рост?" data-share-text="Команда выпустила фичу и сравнивает неделю до с неделей после. Если фича пустая, как часто такое сравнение покажет «эффект» больше 5%? Угадай — и выпусти пустую кнопку в каждый день года"
   data-s-copied="Ссылка скопирована">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="dummy-release" data-show-from="0" hidden></span></p>
   <h1>Кнопка ничего не делает. Как часто «до и после» покажет рост?</h1>
+  <p class="play-meta">Из курса <a href="/ab-basics/">«A/B на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="dummy-release" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Неделя до релиза против недели после — это же честно? Те же кафе, те же гости.</p></div></div>

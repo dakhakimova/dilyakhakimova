@@ -145,13 +145,6 @@ ${chrome.header('terms', o.url === '/terms/')}
     ]};
 
     const html = head({title, desc: x.desc, url, og: `/terms/og/${s}.png`, noindex: !own || !term.published, ld}) + `
-<nav class="crumbs wrap" aria-label="${attr(t('crumbs.label'))}">
-  <ol>
-    <li><a href="/terms/">${t('terms.hub.crumb')}</a></li>
-    <li><span aria-current="page">${typo(x.name)}</span></li>
-  </ol>
-</nav>
-
 <main id="main" class="wrap term" data-slug="${s}"
   data-share-title="${attr(h1Of(s))}" data-share-text="${attr(t('terms.shareText', {name: x.name}))}"
   data-s-copied="${attr(t('terms.copied'))}">

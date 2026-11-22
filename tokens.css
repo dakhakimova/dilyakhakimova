@@ -17,7 +17,7 @@
   --line:#E3DED4; --line-strong:#CFC8BB;
   --pen:#23418A; --pen-dark:#1A3270; --pen-soft:#E6ECF7;
   /* слои состояния у контурных кнопок (решение Дили, 22.11.2026): наведение ≈8% --pen, нажатие ≈14% */
-  --pen-hover:rgba(35,65,138,.08); --pen-press:rgba(35,65,138,.14);
+  --pen-hover-bg:rgba(35,65,138,.08); --pen-press-bg:rgba(35,65,138,.14);
   --coral:#E8644A; --coral-600:#A63D28; --accent:var(--coral); --accent-ink:var(--coral-600);
   /* метка-«бровь»: коралл-текст. На столе (#E9E5DE) — #A63D28 (5,0 : 1); #B8432B — только на бумаге/белом (5,1 : 1) */
   --label-ink:var(--coral-600);
@@ -113,3 +113,5 @@ code, kbd, samp{font-family:var(--mono); font-size:1em; font-size-adjust:.5}
    Нажатие видно всегда: у главной — сдвиг на 1 px, у контурной — подложка 14%. При prefers-reduced-motion без анимации. */
 .btn:active:not(:disabled):not(.ghost), button.btn:active:not(:disabled):not(.ghost){transform:translateY(1px)}
 .btn-pressed-check::before, [aria-pressed="true"].btn.ghost::before, .nsel button[aria-pressed="true"]::before, .seg [aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
+/* скрытые мостом и зафиксированные элементы не показываются, даже если у класса свой display */
+[data-fixed][hidden], [data-ui-hidden]{display:none !important}

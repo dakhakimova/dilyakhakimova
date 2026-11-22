@@ -94,7 +94,7 @@ function watch(p, tag, apiOk = false){
         await p.waitForTimeout(1200);
         const after = await snap();
         let rangeOk = null;
-        if (toy.range){ const r = await fr.$(toy.range); await r.focus(); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(500); rangeOk = (await snap()) !== after; }
+        if (toy.range){ const r = await fr.$(toy.range); await r.focus(); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(500); rangeOk = (await snap()) !== after; if (!rangeOk){ await p.keyboard.press('ArrowRight'); await p.keyboard.press('ArrowRight'); await p.waitForTimeout(500); rangeOk = (await snap()) !== after; } }
         const [hid1, rv1] = await state();
         const fh = await p.$eval('#toy-frame', f => f.getBoundingClientRect().height);
         const inner = await fr.evaluate(() => ({sh: document.documentElement.scrollHeight, over: document.documentElement.scrollWidth - innerWidth, cards: [...document.querySelectorAll('.card')].filter(c => getComputedStyle(c).display !== 'none').length, credit: (document.querySelector('.play-credit') || {}).textContent || ''}));
