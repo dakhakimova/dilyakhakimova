@@ -10,7 +10,10 @@
 .cards.path .path-n{color:var(--text-3); font-variant-numeric:tabular-nums}
 
 /* книжная полка */
-.bookshelf{position:relative; margin:var(--s-6) 0 var(--s-3); overflow-x:auto; overflow-y:visible; padding:220px var(--s-4) 0; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
+/* высота полки — только корешки и доска: подсказка не занимает места (position:fixed поверх, site/shelf.js).
+   Отступ от подзаголовка до корешков — --s-8, как между блоками страницы (.shelf-read): margin + padding; padding — запас под подъём корешка на 8 px, кольцо и тень доски */
+.bookshelf{position:relative; margin:calc(var(--s-8) - var(--s-4)) 0 var(--s-1); overflow-x:auto; overflow-y:hidden; padding:var(--s-4) var(--s-4) var(--s-2); -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
+.topic-filter + .bookshelf{margin-top:calc(var(--s-5) - var(--s-4))}
 .bookshelf:focus-visible{outline:3px solid var(--pen); outline-offset:3px; border-radius:var(--r-m)}
 .books{list-style:none; margin:0; padding:0 var(--s-2); display:flex; align-items:flex-end; gap:6px; min-width:max-content; position:relative; z-index:1}
 .book{position:relative; margin:0}
@@ -18,20 +21,19 @@
 .spine .b-t{writing-mode:vertical-rl; transform:rotate(180deg); font:var(--fw-medium) .9375rem/1.15 var(--serif); max-height:calc(var(--h) - 64px); overflow:hidden; text-align:left}
 .spine .b-a{writing-mode:vertical-rl; transform:rotate(180deg); font:400 .75rem/1.1 var(--body); opacity:.9; white-space:nowrap}
 .book:not(.live) .spine{filter:saturate(.7); opacity:.88; cursor:default}
-.book.live .spine{box-shadow:inset -6px 0 0 rgba(0,0,0,.14), inset 3px 0 0 rgba(255,255,255,.18), 0 0 0 2px var(--surface), 0 0 0 4px var(--coral)}
-.spine:hover, .spine:focus-visible, .book.open .spine{transform:translateY(-8px)}
+/* кольцо у наведённого или открытого корешка — нейтральное (коралл на сайте — только событие или группа B) */
+.book.live .spine:hover, .book.open .spine{box-shadow:inset -6px 0 0 rgba(0,0,0,.14), inset 3px 0 0 rgba(255,255,255,.18), 0 0 0 2px var(--surface), 0 0 0 4px var(--text-1)}
+.spine:hover, .spine:focus-visible, .book.open .spine{transform:translateY(-8px); color:#fff}  /* без color a:hover из home.css красит текст корешка в --ink */
 .spine:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .books.dim .book:not(.hit) .spine{opacity:.25; filter:saturate(.2)}
-.b-card{position:absolute; bottom:calc(100% + 14px); left:50%; transform:translateX(-50%); width:240px; background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-3) var(--s-4); font-size:var(--fs-s); color:var(--text-2); display:none; z-index:5; text-align:left}
+.b-card{position:fixed; left:0; top:0; width:240px; background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-3) var(--s-4); font-size:var(--fs-s); color:var(--text-2); display:none; z-index:5; text-align:left}
 .b-card > *{display:block}
 .b-card b{font:var(--fw-medium) 1rem/1.3 var(--serif); color:var(--ink); margin-bottom:var(--s-1)}
 .b-card .b-ru{font-size:var(--fs-xs); color:var(--text-3); margin:-2px 0 var(--s-2)}
 .b-card .b-topic{margin-top:var(--s-2); font-size:var(--fs-xs); color:var(--text-3)}
 .b-card .b-go{margin-top:var(--s-2); color:var(--pen); font-weight:var(--fw-medium)}
-/* без JS — CSS-подсказка над корешком; с JS (.tips, site/shelf.js) — position:fixed, прижата к краям экрана */
-.books:not(.tips) .book:hover .b-card, .books:not(.tips) .book:focus-within .b-card, .books:not(.tips) .book.open .b-card{display:block}
-.books:not(.tips) .book:first-child .b-card{left:0; transform:none}
-.books.tips .b-card{position:fixed; left:0; top:0; bottom:auto; transform:none; max-width:calc(100vw - 16px)}
+/* подсказку показывает только site/shelf.js (.tips): position:fixed поверх страницы, внутри экрана. Без JS её нет — корешок остаётся ссылкой на разбор, текст подсказки доступен через aria-describedby */
+.books.tips .b-card{max-width:calc(100vw - 16px)}
 .books.tips .b-card.on{display:block; animation:b-card-in .12s ease-out}
 .b-card .b-cover{width:120px; height:auto; margin:0 0 var(--s-3); border-radius:var(--r-xs); box-shadow:var(--sh-1); background:var(--sunk)}
 @keyframes b-card-in{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
@@ -39,8 +41,6 @@
   .books.tips .b-card.on{animation:none}
   .spine{transition:none}
 }
-.shelf-kot{align-self:flex-end; margin-left:var(--s-3); line-height:0}
-.shelf-kot img{width:64px; height:64px; border-radius:var(--r-m)}
 .board{height:14px; margin:0 calc(-1 * var(--s-4)); background:linear-gradient(#B98E5A, #9C7448); border-radius:3px; box-shadow:0 6px 10px -6px rgba(36,34,31,.45); min-width:max-content; width:calc(100% + 2 * var(--s-4))}
 /* фильтр по темам — появляется, когда на полке от 6 позиций (tools/build-site.js); те же таблетки, что в каталоге игр (play/play.css) */
 .shelf-page .topic-filter{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:var(--s-6) 0 0}
@@ -67,7 +67,6 @@ a.shelf-card:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .shelf-card.stub h3{color:var(--text-2)}
 .shelf-card .soon{margin-top:auto; padding-top:var(--s-2); font-size:var(--fs-s); color:var(--text-3)}
 @media (max-width:620px){
-  .bookshelf{padding-top:270px}
   .b-card{width:210px}
 }
 /* курс «в планах» — «выцветший снимок»: осознанное оформление будущего шага, без кнопок записи */

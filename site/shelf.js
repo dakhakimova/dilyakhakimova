@@ -1,5 +1,6 @@
 /* /shelf/: подсказка у корешка — при наведении мышью, по фокусу с клавиатуры и по нажатию на телефоне.
-   Одна подсказка на книгу (.b-card, role=tooltip, aria-describedby у корешка). Без JS работает CSS :hover/:focus-within.
+   Одна подсказка на книгу (.b-card, role=tooltip, aria-describedby у корешка). Без JS подсказки нет (корешок — ссылка на разбор).
+   Подсказка не занимает места на странице: position:fixed поверх, сначала над корешком, не влезла — под ним, и там тесно — сбоку; всегда внутри экрана и ниже заголовка.
    Обложка: при первом показе пробуем ISBN из data-isbn по очереди на covers.openlibrary.org (?default=false → 404, если нет);
    картинка попадает в карточку только после загрузки — нет обложки, нет и места под неё.
    Карточка position:fixed и прижимается к краям вьюпорта; закрывается по Esc, по нажатию мимо, при уходе мыши и фокуса.
@@ -42,9 +43,21 @@
     const w = card.offsetWidth, h = card.offsetHeight;
     let x = r.left + r.width / 2 - w / 2;
     x = Math.max(EDGE, Math.min(x, vw - w - EDGE));
-    let y = r.top - GAP - h;                                  // над корешком
-    if (y < EDGE) y = r.bottom + GAP;                         // не влезло — под ним
-    if (y + h > vh - EDGE) y = Math.max(EDGE, vh - h - EDGE); // и там нет места — внутри экрана
+    // потолок: над корешком подсказка встаёт, только если не заходит на шапку страницы (h1 и подзаголовки);
+    // когда экран низкий и её приходится поднять, h1 она всё равно не закрывает
+    const hero = document.querySelector('.c-hero'), h1 = hero && hero.querySelector('h1');
+    const top = Math.max(EDGE, hero ? hero.getBoundingClientRect().bottom + EDGE : EDGE), bottom = vh - EDGE;
+    const hard = Math.max(EDGE, h1 ? h1.getBoundingClientRect().bottom + EDGE : EDGE);
+    const clampY = v => Math.max(hard, Math.min(v, vh - h - EDGE));
+    let y = r.top - GAP - h;                                  // сначала — над корешком
+    if (y < top) {
+      y = r.bottom + GAP;                                     // не влезло — под ним
+      if (y + h > bottom) {                                   // и там тесно — сбоку от корешка, вровень с его верхом
+        if (r.right + GAP + w <= vw - EDGE) { x = r.right + GAP; y = clampY(Math.max(top, r.top)); }
+        else if (r.left - GAP - w >= EDGE) { x = r.left - GAP - w; y = clampY(Math.max(top, r.top)); }
+        else y = clampY(r.bottom + GAP);                      // узко со всех сторон — под корешком, но внутри экрана
+      }
+    }
     card.style.left = Math.round(x) + 'px';
     card.style.top = Math.round(y) + 'px';
   }

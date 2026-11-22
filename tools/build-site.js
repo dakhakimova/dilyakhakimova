@@ -86,7 +86,11 @@ function courses(){
 }
 
 // цвет корешка по теме — палитра сайта (tokens.css)
-const SPINE = {'Вероятность': '#23418A', 'Статистика': '#0E7E5F', 'A/B': '#A63D28', 'Причинность': '#6B4E8C', 'Решения': '#A85A24'};
+// корешки — спокойные «книжные» тона, не цвета данных (синий #23418A, коралл #E8644A), не уровни (--l1/2/3) и не рубрики;
+// белый текст на каждом ≥ 5.6 : 1. Цвет — от slug (FNV-1a), не от темы и не от порядка: не меняется между сборками.
+const SPINE = ['#2F5A3E' /* тёмно-зелёный 7.9:1 */, '#86601C' /* охра 5.7:1 */, '#5C3A64' /* сливовый 9.4:1 */,
+  '#3E4148' /* графит 10.2:1 */, '#1F4B5C' /* тёмно-синий с зеленцой 9.5:1 */, '#6A4632' /* умбра 8.3:1 */];
+const spineColor = slug => { let x = 0x811c9dc5; for (const ch of slug) { x ^= ch.codePointAt(0); x = Math.imul(x, 0x01000193) >>> 0; } return SPINE[x % SPINE.length]; };
 // названия книги: основное — оригинал (title_en; у русской книги — title_ru), под ним — русское издание или «перевода нет»
 const bookTitle = b => b.title_en || b.title_ru;
 const bookLang = b => b.title_en ? ' lang="en"' : '';
@@ -108,7 +112,7 @@ function shelf(){
     const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><b${lg}>${esc(t)}</b>${ru ? `<span class="b-ru">${esc(nb(ru))}</span>` : ''}<span>${esc(b.author)}, ${b.year}</span>${b.about ? `<span>${esc(nb(b.about))}</span>` : ''}<span class="b-topic">книга · ${b.topic}</span>${b.review ? '<span class="b-go">Читать разбор →</span>' : ''}</span>`;
     // на узком корешке — короткое название (title_short), полное — в подсказке
     const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
-    const st = `style="--h:${height}px; --w:${width}px; --c:${SPINE[b.topic]}"`;
+    const st = `style="--h:${height}px; --w:${width}px; --c:${spineColor(b.slug)}"`;
     const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc(b.author)}`;
     return b.review
       ? `<li class="book live" data-topic="${b.topic}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
@@ -157,7 +161,6 @@ ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
   </div>
 ` : ''}  <div class="bookshelf" role="region" aria-label="Книжная полка" tabindex="0">
     <ul class="books" role="list">${books.map(spine).join('')}
-      <li class="shelf-kot" aria-hidden="true"><img src="/img/kot.svg" width="64" height="64" alt=""></li>
     </ul>
     <div class="board" aria-hidden="true"></div>
   </div>
