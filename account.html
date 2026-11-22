@@ -9,6 +9,7 @@
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
 <link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">   <!-- общая шапка; страница — в стиле книги (book.css ниже) -->
 <link rel="stylesheet" href="/signal/book.css?v=202611302">
 <style>
 .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m); padding:var(--s-5); margin:var(--s-5) 0}
@@ -27,10 +28,20 @@
 </style>
 </head>
 <body>
-<nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a></span>
-  <span><a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></span>
-</nav>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти" aria-current="page"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 <main class="chapter">
   <p class="kicker">личный кабинет</p>
   <h1>Мой прогресс</h1>
@@ -79,6 +90,12 @@
     <p>Личный кабинет пока не подключён. Прогресс сохраняется в этом браузере.</p>
   </section>
 </main>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
 <script src="/signal/progress.js"></script>
 <script>
 // Главы трёх бесплатных курсов: прогресс по шагам; промокод 20% — за любой пройденный курс (правила — functions/api/_lib.js, RULES).

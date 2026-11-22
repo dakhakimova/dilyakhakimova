@@ -82,7 +82,7 @@
 
 @media (max-width:960px){
   .c-hero{grid-template-columns:1fr; gap:var(--s-5)}
-  .c-hero .art{order:-1}
+  /* картинка первого экрана на телефоне — под текстом, как на главной */
   .modules, .how3{grid-template-columns:1fr 1fr}
   .toys-wrap{grid-template-columns:1fr}
   .toys-wrap .art{display:none}
@@ -97,3 +97,33 @@
 /* курс «в планах» (Causal inference): «выцветший снимок» — картинки приглушены, текст третичный, без кнопок записи */
 .faded-course main .art img{filter:grayscale(1) sepia(.25) opacity(.75)}
 .faded-course main .sub, .faded-course main .h1-sub, .faded-course main p, .faded-course main li{color:var(--text-3)}
+
+/* блоки, которые есть только у «Сигнала или шума» и «A/B на пальцах» (те же карточки и отступы, что у остальных блоков лендинга) */
+.c-steps{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-3)}
+.c-steps li{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-3) var(--s-4); font-size:var(--fs-s)}
+.c-steps li b{display:block; font:500 var(--fs-l)/1 var(--serif); color:var(--pen); margin-bottom:var(--s-1)}
+.c-part{font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:var(--s-6) 0 var(--s-2)}
+.c-toc{list-style:none; margin:0; padding:0; max-width:46em}
+.c-toc li{display:grid; grid-template-columns:56px 1fr auto; gap:var(--s-3); align-items:baseline; padding:var(--s-3) 0; border-top:1px solid var(--line)}
+.c-toc li:last-child{border-bottom:1px solid var(--line)}
+.c-toc .n{font:500 var(--fs-m)/1.3 var(--serif); color:var(--pen)}
+.c-toc .t{font:500 var(--fs-m)/1.35 var(--serif)}
+.c-toc .t small{display:block; font:400 var(--fs-s)/1.45 var(--body); color:var(--text-2); margin-top:2px}
+.c-toc .s{font-size:var(--fs-xs); color:var(--text-3); white-space:nowrap}
+.c-toc a{text-decoration:none; color:var(--ink)}
+.c-toc a:hover .t{color:var(--pen)}
+.c-goals{margin:var(--s-3) 0 0; padding-left:var(--s-5); max-width:var(--measure)}
+.c-goals li{margin:0 0 .45em}
+.c-goals b{font-weight:var(--fw-medium)}
+.c-roles{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-3); margin-top:var(--s-4)}
+.c-roles > div{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-3) var(--s-4); font-size:var(--fs-s); line-height:1.5}
+.c-roles b{display:block; font:500 var(--fs-l)/1.3 var(--serif); margin-bottom:var(--s-1)}
+.c-sheet{margin-top:var(--s-5); max-width:var(--measure)}
+.c-sheet b{display:block; font:500 var(--fs-l)/1.3 var(--serif); margin-bottom:var(--s-1)}
+.c-books{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--s-3)}
+.c-books li{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-3) var(--s-4)}
+.c-books .ba{display:block; font-size:var(--fs-xs); color:var(--text-3)}
+.c-books .bt{display:block; font:500 var(--fs-m)/1.35 var(--serif); margin:2px 0 var(--s-1)}
+.c-books .bd{display:block; font-size:var(--fs-s); line-height:1.5}
+@media (max-width:960px){ .c-steps, .c-roles{grid-template-columns:1fr 1fr} .c-books{grid-template-columns:1fr} }
+@media (max-width:620px){ .c-steps, .c-roles{grid-template-columns:1fr} .c-toc li{grid-template-columns:36px 1fr} .c-toc .s{grid-column:2} }

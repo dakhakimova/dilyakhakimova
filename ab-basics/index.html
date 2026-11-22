@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лендинг курса в общем шаблоне (home.css + course.css, шапка и футер — tools/chrome.js), как /probability/. Типограф — node tools/bake-i18n.js. -->
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/">
 <title>A/B на пальцах — интерактивный курс</title>
 <meta name="description" content="Интерактивный курс Дили Хакимовой: как устроены A/B-тесты и как читать их результаты. Шум, колокола, интервалы, p-value и MDE без формул.">
@@ -16,104 +17,42 @@
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
 <link rel="stylesheet" href="/tokens.css?v=202611302">
-<link rel="stylesheet" href="/signal/book.css?v=202611302">
-<link rel="stylesheet" href="ab.css?v=202611302">
-<style>
-.toc{list-style:none; margin:0; padding:0}
-.toc li{display:grid; grid-template-columns:48px 1fr auto; gap:12px; align-items:baseline; padding:12px 0; border-top:1px solid var(--rule)}
-.toc li:last-child{border-bottom:1px solid var(--rule)}
-.toc .n{font:500 1.125rem/1.3 var(--serif); color:var(--pen)}
-.toc .t{font:500 1.125rem/1.35 var(--serif)}
-.toc .t small{display:block; font:400 .9375rem/1.45 var(--body); color:var(--muted); margin-top:2px}
-.toc .s{font-size:.8125rem; color:var(--muted); white-space:nowrap}
-.toc a{text-decoration:none; color:var(--ink)}
-.toc a:hover .t{color:var(--pen)}
-.toc .live .s{color:var(--good); font-weight:500}
-@media (max-width:620px){ .toc li{grid-template-columns:36px 1fr} .toc .s{grid-column:2} }
-.books{list-style:none; margin:0; padding:0; display:grid; gap:12px}
-.books li{background:var(--surface); border-radius:12px; padding:12px 16px}
-.books .ba{display:block; font-size:.8125rem; color:var(--muted)}
-.books .bt{display:block; font:500 1.125rem/1.35 var(--serif); margin:2px 0 4px}
-.books .bd{display:block; font-size:.9375rem; line-height:1.5}
-.goals{margin:8px 0 0; padding-left:22px}
-.goals li{margin:4px 0}
-.roles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0 0}
-.roles > div{background:var(--surface); border-radius:12px; padding:12px 14px; font-size:.9375rem; line-height:1.5}
-.roles b{display:block; font:500 1.125rem/1.3 var(--serif); margin-bottom:4px}
-.sheet-link{margin:18px 0 0; padding:14px 16px; border-radius:12px; background:var(--truth-bg); font-size:1rem; line-height:1.5}
-.sheet-link b{display:block; font:500 1.1875rem/1.3 var(--serif); margin-bottom:2px}
-/* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
-.chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px}
-.lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:500 .8125rem/1 var(--body); padding:6px 9px; border-radius:999px; background:var(--surface); color:var(--ink); white-space:nowrap}
-.tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
-.tag.free{background:var(--mint); color:#0B5E47}
-.tag.soon{background:var(--butter); color:#6A5410}
-.lvl{display:inline-block; width:11px; height:11px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.18)}
-.l1{background:#0E7E5F} .l2{background:#D7A928} .l3{background:#C9413A}
-.cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0 0}
-a.btn{display:inline-flex; align-items:center; min-height:var(--btn-h); font:var(--btn-fw) .9375rem/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
-a.btn:hover{background:#000; color:#fff}
-a.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,34,31,.3)}
-a.btn.ghost:hover{background:var(--surface)}
-.sec-lead{color:var(--muted)}
-.mods{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.mods li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:var(--surface); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:.9375rem; line-height:1.5}
-.mods .n{font:600 var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--accent-ink)}
-.mods b{font:500 1.125rem/1.3 var(--serif)}
-.mods p{margin:0}
-.mods .scene{padding:8px 10px; border-radius:8px; background:var(--butter); font-family:var(--serif)}
-.mods .x{font-size:.8125rem; color:var(--muted)}
-.toys2{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.toys2 a, .toys2 .off{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:var(--surface); color:var(--ink); text-decoration:none; font-size:.9375rem; line-height:1.5}
-.toys2 a:hover{box-shadow:0 2px 4px rgba(60,40,10,.06), 0 20px 34px -18px rgba(60,40,10,.48)}
-.toys2 b{font:500 1.125rem/1.3 var(--serif)}
-.toys2 small{font-size:.8125rem; color:var(--muted)}
-.toys2 .go{margin-top:auto; color:var(--pen); font-weight:500; text-decoration:underline; text-underline-offset:4px}
-.toys2 .off .tag{margin-top:auto}
-.res{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
-.res li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); position:relative; padding:12px 16px 12px 46px; background:var(--surface); border-radius:12px; font-size:1rem; line-height:1.5}
-.res li::before{content:"✓"; position:absolute; left:14px; top:12px; width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:500 .875rem/1.375rem var(--body); text-align:center}
-.res b{font:500 1.0625rem/1.35 var(--serif)}
-.pair2{display:grid; grid-template-columns:1.2fr 1fr; gap:14px; margin-top:14px}
-.pair2 > div{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:var(--surface); border-radius:12px; padding:16px 18px; font-size:1rem; line-height:1.5}
-.pair2 h3{font:500 1.25rem/1.3 var(--serif); margin:0 0 8px}
-.pair2 ul{margin:0 0 10px; padding-left:20px}
-.pair2 li{margin:0 0 .4em}
-.pair2 .need{background:#F7F5F0; border-radius:8px; padding:10px 12px; margin:0 0 8px}
-.pair2 .note{font-size:.875rem; color:var(--muted); margin:0}
-.pair2 .go{font:500 1.1875rem/1.3 var(--serif); margin:0 0 4px}
-@media (max-width:620px){ .mods, .toys2, .pair2{grid-template-columns:1fr} }
-@media (max-width:620px){ .roles{grid-template-columns:1fr} }
-/* правила design-system.md: одна синяя кнопка, вторичная — контур; Literata 500, Onest ≤ 600; лид-фразы пунктов — 500; метка и значение по базовой линии */
-a.btn{background:var(--pen); border-color:var(--pen); font-weight:var(--btn-fw)} a.btn:hover{background:#1A3270; border-color:#1A3270}
-a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line-strong)} a.btn.ghost:hover{background:#E6EEF8; color:#23418A}
-.kicker{font-weight:600} .goals b{font-weight:500} h3, .roles b, .sheet-link b, .books .bt{font-weight:500}
-.lchip .lvl{align-self:center} .lchip, .tag{align-items:baseline}
-.kicker{color:#A63D28} .toc .live .s{color:#0B5E47}
-.vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
-</style>
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/course.css?v=202611302">
 </head>
 <body>
-<nav class="top" aria-label="Навигация">
-  <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <span class="course" aria-current="page">A/B на пальцах</span></span>
-  <span><a href="/courses/">Все курсы</a></span>
-</nav>
-<main class="chapter">
-<!-- typo -->
-<!-- /typo -->
-  <p class="kicker">интерактивный курс</p>
-  <h1>A/B на пальцах</h1>
-<!-- typo -->
-  <p class="chips"><span class="tag free">бесплатно, без регистрации</span><span class="lchip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span>Начальный</span><span class="tag" data-hours="ab">≈&nbsp;7&nbsp;часов</span><span class="tag">для всей команды</span></p>
-<!-- /typo -->
-  <figure class="art"><img src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
-  <p class="lead">Для менеджеров, продактов, разработчиков — всех, кто пользуется результатами A/B-тестов и хочет понимать их чуть глубже, без лишних деталей. Как устроен A/B-тест и как читать его результаты: 11 шагов, без формул, всё можно подвигать руками.</p>
-<!-- typo -->
-  <p class="cta"><a class="btn" href="01-before-after.html">Начать с шага 1</a><a class="btn ghost" href="cheatsheet.html">Шпаргалка для печати</a></p>
-<!-- /typo -->
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses" aria-current="true">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
+<main id="main">
+
+<section class="c-hero wrap">
+  <div>
+    <p class="chips"><span class="tag free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><span class="tag" data-hours="ab">≈&nbsp;7&nbsp;часов</span><span class="tag">для всей команды</span></p>
+    <h1>A/B на пальцах</h1>
+    <p class="sub">Для менеджеров, продактов, разработчиков — всех, кто пользуется результатами A/B-тестов и хочет понимать их чуть глубже, без лишних деталей. Как устроен A/B-тест и как читать его результаты: 11 шагов, без формул, всё можно подвигать руками.</p>
+    <p class="ctas"><a class="btn" href="01-before-after.html">Начать с шага 1</a><a class="btn ghost" href="cheatsheet.html">Шпаргалка для печати</a></p>
+  </div>
+  <figure class="art"><img width="1600" height="900" src="img/ab-cover.jpg" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет обложка курса</figcaption></figure>
+</section>
+
+<section class="wrap block">
   <h2>После курса ты сможешь</h2>
-  <ul class="goals">
+
+  <ul class="c-goals">
     <li><b>спросить MDE и срок</b> до запуска и понять, хватит ли «недельки»;</li>
     <li><b>проверить доли групп</b> и «день N из M», прежде чем смотреть на эффект;</li>
     <li><b>прочитать вилку</b>: где она относительно нуля и порога пользы;</li>
@@ -121,17 +60,23 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
     <li><b>выбрать одно из четырёх решений</b>: катим, не катим, ждём или ищем баг;</li>
     <li><b>рассказать результат</b> за три минуты: что получилось и что делаем.</li>
   </ul>
+</section>
 
+<section class="wrap block">
   <h2>Зачем это тебе</h2>
+
   <p>Пройти стоит все шаги по порядку, но у каждой роли есть свои главные.</p>
-  <div class="roles">
+  <div class="c-roles">
     <div><b>Менеджеру</b>Как читать вилку, p-value и две ошибки (<a href="06-interval.html">шаги 6</a>–<a href="08-errors.html">8</a>) и как по отчёту выбрать решение (<a href="11-decide.html">шаг 11</a>).</div>
     <div><b>Продакту</b>Как до запуска выбрать MDE и посчитать срок теста (<a href="09-mde.html">шаг 9</a>) и какие правила записать заранее (<a href="10-traps.html">шаг 10</a>).</div>
     <div><b>Разработчику</b>Как работает деление по хешу (<a href="02-salt-hash.html">шаг 2</a>), что такое бакеты (<a href="04-clt.html">шаг 4</a>) и тест «не хуже» для переездов и рефакторинга (<a href="09-mde.html">шаг 9</a>).</div>
   </div>
+</section>
 
-  <h2 id="steps">Что будет в курсе: 11 шагов</h2>
-  <ol class="toc">
+<section class="wrap block" id="steps">
+  <h2>Что будет в курсе: 11 шагов</h2>
+
+  <ol class="c-toc" role="list">
     <li class="live"><span class="n">1</span><a href="01-before-after.html"><span class="t">До и после — не доказательство<small>Кнопка, которая «подняла» заказы на 15%, и почему сравнивать надо одновременно.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">2</span><a href="02-salt-hash.html"><span class="t">Монетка, соль и хеш<small>Как приложение делит пользователей на группы и почему человек не прыгает из группы в группу.</small></span></a><span class="s">открыть →</span></li>
     <li class="live"><span class="n">3</span><a href="03-noise.html"><span class="t">Шум есть всегда<small>A/A-тест: два одинаковых варианта, а «победитель» каждый раз новый.</small></span></a><span class="s">открыть →</span></li>
@@ -145,12 +90,14 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
     <li class="live"><span class="n">11</span><a href="11-decide.html"><span class="t">Читаем отчёт и решаем<small>Подвохи в графиках и цифрах, дерево из пяти развилок, тренажёр на восьми отчётах и как рассказать результат.</small></span></a><span class="s">открыть →</span></li>
   </ol>
 
-  <div class="sheet-link"><b>Шпаргалка для печати</b>Что решить до запуска, как читать отчёт по пяти развилкам, пять «если…, то я…» и пословицы всех шагов — на двух листах. <a href="cheatsheet.html">Открыть шпаргалку →</a></div>
+  <div class="plate c-sheet"><b>Шпаргалка для печати</b>Что решить до запуска, как читать отчёт по пяти развилкам, пять «если…, то я…» и пословицы всех шагов — на двух листах. <a href="cheatsheet.html">Открыть шпаргалку →</a></div>
+</section>
 
-<!-- typo -->
-  <h2 id="toys">Во что поиграем и что покрутим</h2>
-  <p class="sec-lead">В каждом шаге есть игра: сначала прогноз, потом правда. Вот восемь, с которых удобно начать.</p>
-  <ul class="toys2">
+<section class="wrap block" id="toys">
+  <h2>Во что поиграем и что покрутим</h2>
+
+  <p class="lead-note">В каждом шаге есть игра: сначала прогноз, потом правда. Вот восемь, с которых удобно начать.</p>
+  <ul class="toys c-toys" role="list">
     <li><a href="01-before-after.html#card-4"><b>Кнопка, которая ничего не делает</b><span>Двигаешь день релиза пустой кнопки. Перед Новым годом «до и после» показывает +15.8%, в июне −6.9%, а больше 5% в ту или другую сторону выходит в 28% дней года.</span><small>шаг 1, карточка 4</small><span class="go">Попробовать →</span></a></li>
     <li><a href="01-before-after.html#card-8"><b>Промо для худших кафе</b><span>Промо не делает ничего, а пять худших кафе через неделю всё равно растут. Регрессия к среднему вживую.</span><small>шаг 1, карточка 8</small><span class="go">Попробовать →</span></a></li>
     <li><a href="03-noise.html#card-8"><b>Перетасуй ярлыки</b><span>Фото блюд на 40 гостях: 1.15 против 1.55 заказа, «+35%». Перетасуй ярлыки тысячу раз и посмотри, как часто такая разница выходит сама.</span><small>шаг 3, карточка 8</small><span class="go">Попробовать →</span></a></li>
@@ -160,9 +107,12 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
     <li><a href="09-mde.html#card-6"><b>Сколько ждать</b><span>Тянешь ползунок доли новинки: при 80/20 тест идёт в 1.6 раза дольше, чем при 50/50, при 90/10 — в 2.8 раза.</span><small>шаг 9, карточка 6</small><span class="go">Попробовать →</span></a></li>
     <li><a href="10-traps.html#card-4"><b>Тридцать утр с отчётом</b><span>Боб каждое утро смотрит A/A и выкатывает фичу на первом «значимо». Ложных побед — около четверти вместо 5%.</span><small>шаг 10, карточка 4</small><span class="go">Попробовать →</span></a></li>
   </ul>
+</section>
 
-  <h2 id="results">Что получишь на выходе</h2>
-  <ul class="res">
+<section class="wrap block" id="results">
+  <h2>Что получишь на выходе</h2>
+
+  <ul class="results" role="list">
     <li><b>Шпаргалку для печати.</b> Два листа: что решить до запуска, пять развилок отчёта, пять «если…, то я…» и пословицы всех шагов. <a href="cheatsheet.html">Открыть →</a></li>
     <li><b>Тренажёр на восьми отчётах.</b> Один читаем вместе с Бобом, два — с подсказкой, пять — сам: по каждому выбираешь «катим», «не катим», «ждём» или «ищем баг». <a href="11-decide.html#card-8">К тренажёру →</a></li>
     <li><b>Дерево из пяти развилок.</b> Порядок, в котором читают любой отчёт: доли групп, срок, «не слишком ли хорошо», вилка главной метрики, сторожевые метрики.</li>
@@ -170,31 +120,36 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
     <li><b>Рассказ за три минуты.</b> Как сказать результат так, чтобы команда поняла, что получилось и что делаем дальше.</li>
     <li><b>Промокод.</b> Пройдёшь курс до конца — промокод на 20% на платный курс. Ответы могут быть любыми, важно дойти. <a href="/account.html#terms">Условия →</a></li>
   </ul>
+</section>
 
-  <!-- boundary --><h2 id="bounds">Где метод ломается и что дальше</h2>
-  <p class="bound">Ты принимаешь решение по готовому отчёту, но сам MDE не посчитаешь и критерий не проверишь. Чтобы считать самому — «Сигнал или шум».</p><!-- /boundary -->
+<!-- boundary --><section class="wrap block" id="bounds" aria-labelledby="bnd-h">
+  <div class="col">
+    <h2 id="bnd-h">Где метод ломается и что дальше</h2>
+    <p>Ты принимаешь решение по готовому отчёту, но сам MDE не посчитаешь и критерий не проверишь. Чтобы считать самому — «Сигнал или шум».</p>
+  </div>
+</section><!-- /boundary -->
 
-  <h2 id="who">Для кого и куда дальше</h2>
-  <div class="pair2">
-    <div>
-      <h3>Что нужно знать заранее</h3>
+<section class="wrap block pair" aria-label="Для кого и куда дальше">
+  <div class="panel">
+      <h2>Что нужно знать заранее</h2>
       <p class="need"><b>Ничего:</b> ни формул, ни кода. Хватит процентов на уровне «10 заказов из 100 гостей». Кому какие шаги главные — в блоке «Зачем это тебе» выше.</p>
       <p class="note"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> Начальный — без формул, с нуля. Характер курса: для всей команды.</p>
       <p class="note"><a href="/map/#ab">Где этот курс на карте навыков →</a></p>
-    </div>
-    <div>
-      <h3>Куда дальше</h3>
+  </div>
+  <div class="panel next-course">
+      <h2>Куда дальше</h2>
       <p class="go"><a href="/signal/">Сигнал или шум</a></p>
       <p>Если хочется не только читать отчёты, но и считать их самому: распределения, ЦПТ, A/A и A/B с кодом в браузере. Бесплатно.</p>
       <p class="go"><a href="/ab/">A/B без мифов</a></p>
       <p>Для аналитиков в твоей команде: ratio-метрики, бакеты, CUPED, SRM, peeking (подглядывание). Платно, скоро — зима 2027.</p>
-    </div>
   </div>
-<!-- /typo -->
+</section>
 
-  <h2 id="books">Что почитать</h2>
+<section class="wrap block" id="books">
+  <h2>Что почитать</h2>
+
   <p>Книги, из которых в курс пришли некоторые истории и идеи. Все — для неспециалистов.</p>
-  <ul class="books">
+  <ul class="c-books" role="list">
     <li><span class="ba">Владимир Савельев</span><span class="bt">«Статистика и котики»</span><span class="bd">Самое мягкое введение: среднее, разброс, графики и проверка гипотез на примерах с котиками — без страха перед формулами.</span></li>
     <li><span class="ba">Дэвид Шпигельхалтер</span><span class="bt">«Искусство статистики. Как находить ответы в данных»</span><span class="bd">Как думать о данных: откуда берутся интервалы, что на самом деле значит p-value, почему «в штуках из 1000» понятнее процентов.</span></li>
     <li><span class="ba">Дарелл Хафф</span><span class="bt">«Как лгать при помощи статистики»</span><span class="bd">Короткая классика про то, как цифрами и графиками вводят в заблуждение. После неё сложно не заметить шкалу не от нуля.</span></li>
@@ -209,6 +164,15 @@ a.btn.ghost{background:var(--surface); color:var(--pen); border-color:var(--line
     <li><span class="ba">Лими Нассери</span><span class="bt">«Practical A/B Testing: Creating Experimentation-Driven Products»</span><span class="bd">Практичная книга о том, как встроить A/B-тесты в работу продуктовой команды. Отсюда тест «не хуже» с допустимой потерей: переезд оплаты и рефакторинг.</span></li>
     <li><span class="ba">Рон Кохави, Диана Тан, Я Сюй</span><span class="bt">«Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing»</span><span class="bd">Главная книга про онлайн-эксперименты от людей, которые строили их в Microsoft и Bing. Отсюда правило «слишком хорошо — сначала ищем баг» и то, что удачные изменения обычно двигают метрики на 0.1–1%.</span></li>
   </ul>
+</section>
+
 </main>
+
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <span aria-current="page">A/B на пальцах</span></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
 </body>
 </html>

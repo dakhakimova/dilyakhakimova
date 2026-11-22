@@ -13,9 +13,9 @@ const nb = s => String(s).replace(/ (₽)/g, ' $1').replace(/(\d) (\d{3})/g, '$
 
 // какие статические страницы получают общую шапку и футер; значение — текущая рубрика
 const STAMP = {
-  'index.html': 'home', 'about/index.html': '', 'probability/index.html': 'courses', 'stats/index.html': 'courses',
+  'index.html': 'home', 'about/index.html': '', 'probability/index.html': 'courses', 'signal/index.html': 'courses', 'ab-basics/index.html': 'courses', 'stats/index.html': 'courses',
   'ab/index.html': 'courses', 'causal/index.html': 'courses', 'map/index.html': 'courses',
-  'books/index.html': 'shelf', 'books/kohavi-trustworthy/index.html': 'shelf', '404.html': '', 'styleguide/index.html': '',
+  'account.html': 'account', 'books/index.html': 'shelf', 'books/kohavi-trustworthy/index.html': 'shelf', '404.html': '', 'styleguide/index.html': '',
 };
 
 function head({title, desc, url, css = [], og = '/img/og.png', noindex = false}){
@@ -55,7 +55,6 @@ const chip = lv => `<span class="chip"><span class="lvl l${lv}" aria-hidden="tru
 
 function courses(){
   const list = chrome.COURSES.filter(c => c.published);
-  const firstFree = list.find(c => c.tag === 'free');
   const card = (c, i) => `
     <li class="course${c.faded ? ' faded' : ''}" id="c-${c.id}">
       <figure class="art"><img src="${c.img}" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" alt="${esc(c.alt)}" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
@@ -63,9 +62,7 @@ function courses(){
       <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
       <p class="line">${nb(c.line)}</p>
       <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd></dl>
-      <p class="course-act">${c.faded ? `<a class="more" href="${c.href}">О чём будет курс →</a>` : c.tag === 'free'
-        ? `<a class="btn${c === firstFree ? '' : ' ghost'}" href="${c.start}">Начать</a><a class="more" href="${c.href}">О курсе →</a>`
-        : `<a class="btn ghost" href="${c.href}#waitlist">Сообщить о старте</a><a class="more" href="${c.href}">О курсе →</a>`}</p>
+      <p class="course-act"><a class="btn ghost" href="${c.href}" aria-label="Подробнее о курсе «${esc(c.name)}»">Подробнее</a></p>
     </li>`;
   const html = head({title: 'Курсы по вероятности, статистике и A/B-тестам · Диля Хакимова',
     desc: 'Курсы по порядку «Весь путь»: от «Вероятности на пальцах» до продвинутого «A/B без мифов». Три бесплатных курса можно начать сразу, без регистрации.',
@@ -74,7 +71,7 @@ function courses(){
 <main id="main" class="wrap courses-page">
   <section class="c-hero">
     <h1>Курсы</h1>
-    <p class="sub">Весь путь — по порядку: от вероятностей «в штуках» до продвинутых A/B-тестов. Бесплатные курсы открываются сразу, без регистрации.</p>
+    <p class="sub">Весь путь — по порядку: от первой вероятности до продвинутых A/B-тестов. Бесплатные курсы открываются сразу, без регистрации.</p>
     <p class="start-link"><a class="more" href="/start/">Не знаешь, с чего начать? Подобрать маршрут →</a></p>
   </section>
   <ul class="cards path" role="list">${list.map(card).join('')}
@@ -204,7 +201,7 @@ function boundaries(){
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/site.js'), 'utf8'), ctx);
   const RU = ctx.I18N.ru, typo = s => ctx.I18N.typo('ru', s);
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
-  const BOOK = ['/signal/', '/ab-basics/'];
+  const BOOK = [];   // все лендинги — в общем шаблоне
   M.courses.filter(c => c.url && c.boundary).forEach(c => {
     const file = path.join(ROOT, c.url.slice(1), 'index.html'); if (!fs.existsSync(file)) return;
     const page = fs.readFileSync(file, 'utf8');

@@ -9,11 +9,11 @@
   "courses": [
     {"id": "prob", "prereq": {"none": "Ничего не нужно знать заранее: хватит школьной арифметики."}, "terms": ["закон больших чисел", "условная вероятность", "Байес", "задача Монти Холла", "матожидание", "дисперсия"], "short": "ВП", "title": "Вероятность на пальцах", "url": "/probability/", "pic": "/img/probability-cover.jpg", "status": "free", "level": 1, "color": "--c-prob",
      "main": "vp-interview", "lead": "вероятность, события, Байес, случайные величины",
-     "boundary": "Вероятности «в штуках» работают, пока все исходы известны и вероятность дана. Когда её надо оценить по шумным данным, это уже «Сигнал или шум»."},
-    {"id": "sig", "prereq": {"know": ["умеешь посчитать вероятность «в штуках»", "знаешь, что такое среднее, дисперсия и стандартное отклонение"], "else": ["prob"], "note": "Глава 1 — быстрый повтор «Вероятности на пальцах»."}, "terms": ["ЦПТ", "стандартная ошибка", "z-тест", "парадокс Симпсона", "A/A-тест", "p-value", "ошибки I и II рода", "мощность", "MDE"], "short": "СШ", "title": "Сигнал или шум", "url": "/signal/", "pic": "/img/signal-cover.jpg", "status": "free", "level": 2, "color": "--c-sig",
+     "boundary": "Простые вероятности работают, пока все исходы известны и вероятность дана. Когда её надо оценить по шумным данным, это уже «Сигнал или шум»."},
+    {"id": "sig", "prereq": {"know": ["умеешь считать простые вероятности, в том числе условные", "знаешь, что такое среднее, дисперсия и стандартное отклонение"], "else": ["prob"], "note": "Глава 1 — быстрый повтор «Вероятности на пальцах»."}, "terms": ["ЦПТ", "стандартная ошибка", "z-тест", "парадокс Симпсона", "A/A-тест", "p-value", "ошибки I и II рода", "мощность", "MDE"], "short": "СШ", "title": "Сигнал или шум", "url": "/signal/", "pic": "/img/signal-cover.jpg", "status": "free", "level": 2, "color": "--c-sig",
      "main": "ss-main", "lead": "распределения, ЦПТ, шум, ловушки в данных, первые A/A и A/B",
      "boundary": "z-тест держится на большой выборке, одной метрике и одном взгляде в конце. Средний чек с повторными заказами, малые выборки, много метрик и подглядывание его ломают: дальше «Прикладная статистика» и «A/B без мифов»."},
-    {"id": "ab", "prereq": {"none": "Ничего не нужно знать заранее: без формул и кода."}, "terms": ["регрессия к среднему", "A/A-тест", "доверительный интервал", "p-value", "ошибки I и II рода", "мощность", "MDE", "SRM", "peeking"], "short": "АП", "title": "A/B на пальцах", "url": "/ab-basics/", "pic": "/ab-basics/img/ab-cover.jpg", "status": "free", "level": 1, "color": "--c-ab", "parallel": true,
+    {"id": "ab", "prereq": {"none": "Можно начинать с нуля — без формул и кода. Поможет «Вероятность на пальцах», но она не обязательна."}, "terms": ["регрессия к среднему", "A/A-тест", "доверительный интервал", "p-value", "ошибки I и II рода", "мощность", "MDE", "SRM", "peeking"], "short": "АП", "title": "A/B на пальцах", "url": "/ab-basics/", "pic": "/ab-basics/img/ab-cover.jpg", "status": "free", "level": 1, "color": "--c-ab", "parallel": true,
      "main": "ap-decide", "lead": "чтение отчёта A/B без формул",
      "boundary": "Ты принимаешь решение по готовому отчёту, но сам MDE не посчитаешь и критерий не проверишь. Чтобы считать самому — «Сигнал или шум»."},
     {"id": "st", "prereq": {"know": ["знаешь нормальное распределение и ЦПТ", "считаешь стандартную ошибку и доверительный интервал", "понимаешь p-value и A/A-тест", "читаешь простой код на Python"], "else": ["sig"]}, "terms": ["бутстрап", "Манн — Уитни", "Колмогоров — Смирнов", "мощность", "регрессия", "ANCOVA", "поправка на множественное тестирование"], "short": "ПС", "title": "Прикладная статистика для аналитика", "url": "/stats/", "pic": "/img/stats-cover.jpg", "status": "soon", "when": "скоро", "level": 2, "color": "--c-st",
@@ -134,14 +134,14 @@
     {"id": "vp-interview", "course": "prob", "level": 1, "steps": ["p09"], "main": true,
      "label": "Решить задачу вслух за 5 минут",
      "title": "Решить классическую задачу с собеседования вслух за 5 минут",
-     "can": "Пройдёшь схему ответа: переформулировать, посчитать в штуках, записать формулу, проверить крайним случаем или симуляцией и сказать вывод одной фразой.",
+     "can": "Пройдёшь схему ответа: переформулировать, посчитать на 1000 случаев, записать формулу, проверить крайним случаем или симуляцией и сказать вывод одной фразой.",
      "check": "Пробное собеседование в шаге 9: десять задач на время и калибровка уверенности.",
      "toy": {"name": "Задача 1 · три кубика", "url": "/probability/09-interview.html#card-3"}},
 
     {"id": "ss-share", "course": "sig", "level": 1, "steps": ["ch01"],
      "covers": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement"],
-     "label": "Вероятность «в штуках» и симуляция в коде",
-     "title": "Посчитать вероятность «в штуках» и проверить симуляцией в коде",
+     "label": "Вероятность как доля исходов и симуляция в коде",
+     "title": "Посчитать вероятность как долю исходов и проверить симуляцией в коде",
      "can": "Посчитаешь «ровно один покупатель из 20» и «хотя бы одна лампочка» и проверишь ответ парой строк numpy прямо в браузере.",
      "note": "Быстрый повтор шагов 1–4 «Вероятности на пальцах»: засчитывает их в маршруте.",
      "toy": {"name": "Магазин в коде", "url": "/signal/01-probability.html#card-12"}},
@@ -420,7 +420,7 @@
     {"from": "ap-decide", "to": "ss-main", "why": "тот же вывод, только теперь посчитаешь сам"}
   ],
   "routes": [
-    {"id": "full", "label": "Весь путь", "button": "Весь путь: 1 → 6", "for": "Все шесть курсов по порядку — от вероятности «в штуках» до causal inference. Необязательные шаги отмечены.", "entry": "prob", "reaches": "cau", "path": [{"course": "prob", "optional": true, "quiet": true, "why": "можно пропустить, если знакомо: глава 1 «Сигнала или шума» — быстрый повтор"}, {"course": "sig"}, {"course": "ab", "optional": true, "why": "для аналитика — необязательно: язык принятия решений и тренажёр отчётов"}, {"course": "st"}, {"course": "abm"}, {"course": "cau"}], "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview", "ss-share", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main", "ap-random", "ap-hash", "ap-noise", "ap-crowd", "ap-width", "ap-interval", "ap-pvalue", "ap-errors", "ap-mde", "ap-traps", "ap-decide", "ps-interval", "ps-bootstrap", "ps-test", "ps-power", "ps-regression", "ps-multiple", "ps-outliers", "ps-sim", "abm-design", "abm-ratio", "abm-buckets", "abm-cuped", "abm-srm", "abm-peeking", "abm-multiple", "abm-switchback", "abm-industries", "abm-main", "ci-confound", "ci-dag", "ci-matching", "ci-did", "ci-synth", "ci-iv", "ci-rdd", "ci-main"], "then": "Если тест поставить можно — ставь тест."},
+    {"id": "full", "label": "Весь путь", "button": "Весь путь: 1 → 6", "for": "Все шесть курсов по порядку — от первой вероятности до causal inference. Необязательные шаги отмечены.", "entry": "prob", "reaches": "cau", "path": [{"course": "prob", "optional": true, "quiet": true, "why": "можно пропустить, если знакомо: глава 1 «Сигнала или шума» — быстрый повтор"}, {"course": "sig"}, {"course": "ab", "optional": true, "why": "для аналитика — необязательно: язык принятия решений и тренажёр отчётов"}, {"course": "st"}, {"course": "abm"}, {"course": "cau"}], "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview", "ss-share", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main", "ap-random", "ap-hash", "ap-noise", "ap-crowd", "ap-width", "ap-interval", "ap-pvalue", "ap-errors", "ap-mde", "ap-traps", "ap-decide", "ps-interval", "ps-bootstrap", "ps-test", "ps-power", "ps-regression", "ps-multiple", "ps-outliers", "ps-sim", "abm-design", "abm-ratio", "abm-buckets", "abm-cuped", "abm-srm", "abm-peeking", "abm-multiple", "abm-switchback", "abm-industries", "abm-main", "ci-confound", "ci-dag", "ci-matching", "ci-did", "ci-synth", "ci-iv", "ci-rdd", "ci-main"], "then": "Если тест поставить можно — ставь тест."},
     {
       "id": "decide",
       "label": "Понимать отчёты A/B и решать",
@@ -434,7 +434,7 @@
       "id": "basics",
       "label": "Разобраться в статистике с нуля",
       "button": "Разобраться в статистике с нуля",
-      "for": "Начинаешь с нуля или забыл теорвер: от вероятности «в штуках» до критериев и регрессии.",
+      "for": "Начинаешь с нуля или забыл теорвер: от первой вероятности до критериев и регрессии.",
       "entry": "prob",
       "nodes": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement", "vp-conditional", "vp-bayes", "vp-distribution", "vp-mean", "vp-interview", "ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps", "ss-aa", "ss-abtest", "ss-errors", "ss-wins", "ss-main", "ps-interval", "ps-bootstrap", "ps-test", "ps-power", "ps-regression", "ps-multiple", "ps-outliers", "ps-sim"],
       "then": "Дальше — «A/B без мифов»."

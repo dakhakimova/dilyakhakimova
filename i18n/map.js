@@ -46,7 +46,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'line.abtest': 'A/B без ошибок',
   'line.deep': 'Глубже: эффект без теста',
   'metro.zone.st': 'Прикладная статистика',
-  'metro.st.vp-outcomes': 'Вероятность «в штуках»',
+  'metro.st.vp-outcomes': 'Вероятность как доля исходов',
   'metro.st.vp-bayes': 'Байес «из 1000»',
   'metro.st.vp-mean': 'Матожидание и разброс',
   'metro.st.vp-interview': 'Задача вслух за 5 минут',
