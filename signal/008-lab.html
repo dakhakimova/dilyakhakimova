@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к главау 8 курса «Сигнал или шум» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/signal/08-traps.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/signal/08-traps.html">
+<title>Новые игры · Глава 8 · Сигнал или шум</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-course="signal" data-chapter="lab-signal-8">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- one-r-six-clouds: одна корреляция — шесть картинок (Хили, Анскомб) -->
+<section class="card" data-toy="one-r-six-clouds" data-title="Одна корреляция — шесть картинок" aria-label="Одна корреляция — шесть картинок">
+  <h2>Одна корреляция — шесть картинок</h2>
+  <p>Боб посчитал по 20 кафе связь листовок и заказов: корреляция r&nbsp;=&nbsp;0.6. Одно кафе у вокзала раздаёт листовок втрое больше остальных, и заказов у него тоже больше всех.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="orc-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="orc-guess">Чтобы связь пропала (r около нуля), из 20 кафе убрать надо <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="orc-guess" aria-describedby="orc-gl"> кафе</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Посмотреть на облако</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="orc-t0">20 кафе: листовки и заказы за неделю</p>
+    <canvas id="orc-cv" role="img" aria-label="Облако 20 кафе: листовки и заказы"></canvas>
+    <p class="chart-title" id="orc-t1">Шесть облаков по 20 точек, у всех r = 0.6</p>
+    <canvas id="orc-six" role="img" aria-label="Шесть облаков с одной и той же корреляцией 0.6"></canvas>
+    <p class="note lab-data">Данные: учебный пример, 20 точек в каждом облаке.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+<!-- eco-fallacy: экологическая ошибка: кафе · районы · гости (Каиро) -->
+<section class="card" data-toy="eco-fallacy" data-title="Десерт и возвраты: кафе, районы, гости" aria-label="Десерт и возвраты: кафе, районы, гости">
+  <h2>Десерт и возвраты: кафе, районы, гости</h2>
+  <p>В 30 кафе сети видно: чем чаще в чеке десерт, тем чаще гости возвращаются через месяц. Разница между кафе огромная, и Боб хочет дарить десерт каждому гостю.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="eco-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="eco-guess">Гость с десертом возвращается чаще гостя без десерта на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="eco-guess" aria-describedby="eco-gl"> п. п. (минус — реже)</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пройти от кафе к гостям</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="eco-t0">30 кафе: доля чеков с десертом и доля вернувшихся гостей</p>
+    <canvas id="eco-cv" role="img" aria-label="30 кафе: десерт и возвраты"></canvas>
+    <p class="chart-title" id="eco-t1">Гости внутри районов: вернулись через месяц (серый — без десерта, цветной — с десертом)</p>
+    <canvas id="eco-g" role="img" aria-label="Гости внутри районов: возвраты с десертом и без"></canvas>
+    <p class="note lab-data">Данные: учебный пример, 30 кафе по 1000 гостей.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/one-r-six-clouds.js?v=202611301"></script>
+<script src="/play/lab/eco-fallacy.js?v=202611301"></script>
+</body>
+</html>

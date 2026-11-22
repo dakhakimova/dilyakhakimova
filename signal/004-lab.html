@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к главау 4 курса «Сигнал или шум» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/signal/04-noise.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/signal/04-noise.html">
+<title>Новые игры · Глава 4 · Сигнал или шум</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-course="signal" data-chapter="lab-signal-4">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- random-clumps: где здесь случайность (Хили) -->
+<section class="card" data-toy="random-clumps" data-title="Сто заказов на сто кварталов" aria-label="Сто заказов на сто кварталов">
+  <h2>Сто заказов на сто кварталов</h2>
+  <p>Район доставки поделили сеткой 10&nbsp;×&nbsp;10 на сто кварталов. За вечер пришло сто заказов, и каждый падает в случайный квартал — как кубик со ста гранями.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="rc-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="rc-guess">Без единого заказа останется примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rc-guess" aria-describedby="rc-gl"> кварталов из 100</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Разбросать 100 заказов</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="rc-t0">Слева — 100 случайных заказов, справа — «ровный» район: в каждом квартале по одному</p>
+    <canvas id="rc-cv" role="img" aria-label="Две сетки 10 на 10: случайные заказы и ровные"></canvas>
+    <p class="lab-key"><span><i style="background:#F8DCD8"></i>квартал без заказа</span><span><i style="background:#3D7DC4"></i>заказ</span></p>
+    <p class="note lab-data">Данные: симуляция, каждый заказ — случайный квартал из 100.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 вечеров</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/random-clumps.js?v=202611301"></script>
+</body>
+</html>
