@@ -139,11 +139,13 @@
   { const st = document.createElement('style');
     st.textContent = 'html.ui-pending .card[data-toy] .controls{visibility:hidden} [data-ui-hidden]{display:none !important} .ui-guess{font:400 .875rem/1.3 var(--body, Onest, sans-serif); color:#5E5A53; align-self:center} .ui-guess b{font-weight:500; color:#24221F}';
     document.head.appendChild(st); }
+  // ответ как его поняли: «−10», а не «-10»; «0.5», а не «0,5» (пары 29–30, 90, 119)
+  const normAns = s => String(s).trim().replace(/^[-–]\s*/, '−').replace(/(\d),(\d)/g, '$1.$2');
   const guessOf = (card, slug) => {
     const cards = [card, ...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
     for (const c of cards){
       const box = c.querySelector('.guess.saved'), inp = box && box.querySelector('input');
-      if (inp && inp.value.trim()){ const u = box.dataset.unit ?? '%'; return inp.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
+      if (inp && inp.value.trim()){ const u = box.dataset.unit ?? '%'; return normAns(inp.value).replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
       const ch = c.querySelector('.choice[data-key] button[aria-pressed="true"], .choice[data-key] button.picked');
       if (ch && !ch.closest('.quiz')) return ch.textContent.trim();
     }
@@ -372,8 +374,8 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     const PS = {your: 'Твой ответ: ', was: 'Твой ответ был ', change: 'Хочешь изменить?', keep: 'Оставить', edit: 'Изменить',
       changed: ' → изменил на ', truth: 'На самом деле: ', skip: 'Проверить без прогноза', noTruth: 'Сравни с результатом игры выше.'};
     const answer = () => { if (!preBox) return '';
-      if (preBox.classList.contains('lab-guess')){ const i = preBox.querySelector('input'); if (i) return i.value.trim(); const b = preBox.querySelector('[aria-pressed="true"]'); return b ? b.textContent.trim() : ''; } if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
-        const u = preBox.dataset.unit ?? '%'; return i.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
+      if (preBox.classList.contains('lab-guess')){ const i = preBox.querySelector('input'); if (i) return normAns(i.value); const b = preBox.querySelector('[aria-pressed="true"]'); return b ? b.textContent.trim() : ''; } if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
+        const u = preBox.dataset.unit ?? '%'; return normAns(i.value).replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
       const b = preBox.querySelector('button[aria-pressed="true"], button.picked'); return b ? b.textContent.trim() : ''; };
     const flow = document.createElement('div'); flow.className = 'pf'; flow.setAttribute('role', 'status'); toy.appendChild(flow);
     const pfMine = document.createElement('p'); pfMine.className = 'pf-mine'; pfMine.hidden = true; flow.appendChild(pfMine);
