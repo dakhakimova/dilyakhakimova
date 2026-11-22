@@ -336,7 +336,7 @@ _check()
 </section>
     <div class="pager">
       <button class="btn ghost" id="prev" type="button">← Назад</button>
-      <button class="btn" id="next" type="button">Далее →</button>
+      <button class="btn" id="next" type="button">Далее</button>
     </div>
   </main>
 </div>
@@ -528,7 +528,7 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
     prev.disabled = cur === 0;
-    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее →';
+    next.textContent = cur === cards.length - 1 ? 'К оглавлению курса' : 'Далее';
     if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
     window.scrollTo({top: 0, behavior: 'auto'});
     window.dispatchEvent(new Event('resize'));

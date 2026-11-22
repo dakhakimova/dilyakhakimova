@@ -150,7 +150,7 @@ for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Obj
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
     prev.disabled = cur === 0;
-    next.textContent = cur === cards.length - 1 ? (nextPage ? 'Следующий шаг →' : 'К оглавлению курса') : 'Далее →';
+    next.textContent = cur === cards.length - 1 ? (nextPage ? 'Следующий шаг' : 'К оглавлению курса') : 'Далее';
     if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
     window.scrollTo({top: 0, behavior: 'auto'});
     AB.shown.forEach(f => f(cur));
@@ -281,7 +281,7 @@ document.querySelectorAll('.card').forEach(card => {
         html = '<p class="vd">' + (q.dataset.first === '1' ? RIGHT[qi % RIGHT.length] : RIGHT2[qi % RIGHT2.length]) + plus + '</p><p>' + whyHtml + '</p>';
         const next = qs[qi + 1];
         if (!done && next){
-          const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = 'Следующий вопрос →';
+          const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'btn qnext'; nb.textContent = 'Следующий вопрос';
           nb.addEventListener('click', () => { next.classList.remove('later'); nb.remove(); window.dispatchEvent(new Event('resize')); next.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); });
           q.appendChild(nb);
         }

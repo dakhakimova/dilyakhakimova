@@ -105,7 +105,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'lvl.line': '<b>Уровень:</b> <span class="lvl l3" aria-hidden="true"></span> Продвинутый — математика, статьи, симуляции. Характер курса: рабочий инструмент.',
   'next.t': 'Causal inference',
   'next.d': 'Причины по данным, когда эксперимента не было: DiD, synthetic control, instrumental variables, regression discontinuity. CUPED и стратификация отсюда — первый шаг к ковариатам и взвешиванию.',
-  'next.btn': 'О курсе →',
+  'next.btn': 'О курсе',
   'how.lead': 'Что показал интенсив <a href="https://shad.yandex.ru/abweek">A/B Week</a>: больше всего ценят готовые ноутбуки, которые остаются для работы. Поэтому здесь практики больше, чем лекций.',
   'points': '<b>Платно · скоро.</b> Пройди любой бесплатный курс до конца — промокод на 20%. Ответы могут быть любыми, важно дойти. <a href="/account.html#terms">Условия →</a>'
 });
