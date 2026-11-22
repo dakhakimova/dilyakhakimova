@@ -42,7 +42,7 @@ function watch(p, tag, apiOk = false){
       // пройти все карточки: многие игры рисуются при показе карточки
       const n = await p.$$eval('.card', c => c.length);
       // на последней карточке «Далее» ведёт в следующую главу — не уходим со страницы
-      for (let i = 0; i < n - 1; i++){ const go = await p.evaluate(() => { const b = document.getElementById('next'); if (!b || b.disabled || b.tagName === 'A' || /оглавлен|глав|шаг/i.test(b.textContent)) return false; b.click(); return true; }).catch(() => false); if (!go) break; await p.waitForTimeout(40); }
+      for (let i = 0; i < n - 1; i++){ const go = await p.evaluate(() => { const b = document.getElementById('next'); if (!b || b.disabled || b.tagName === 'A' || /оглавлен|глав|шаг|^Дальше/i.test(b.textContent.trim())) return false; b.click(); return true; }).catch(() => false); if (!go) break; await p.waitForTimeout(40); }
       if (!p.url().split("#")[0].endsWith(f)) errs.push(`${f}: листалка увела на ${p.url()}`);
       const over = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       if (over > 2) errs.push(`${f}: горизонтальная прокрутка ${over}`);

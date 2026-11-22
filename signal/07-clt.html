@@ -160,7 +160,7 @@
   <p data-toy-reveal>Почему √n, а не n? Складываются <b>дисперсии</b>, а не сигмы. У одного кубика дисперсия σ² ≈ 2.92, у суммы 4 кубиков — 4 · 2.92 ≈ 11.7, и σ суммы — √11.7 ≈ 3.4, всего вдвое больше, чем у одного кубика. Отклонения разных кубиков частично гасят друг друга.</p>
   <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
-    <p>Разброс выборочного среднего, σ/√n, называют <b class="term">стандартной ошибкой</b>; на собеседовании — <b>standard error</b>, SE.</p>
+    <p>Разброс выборочного среднего, σ/√n, называют <b class="term">стандартной ошибкой</b>; на собеседовании — standard error, SE.</p>
     <p class="aside">«Ошибка» здесь не промах, а шум: насколько гуляет среднее, если повторить выборку.</p>
   </aside>
   <p class="src">Идея из видео: Грант Сандерсон (3Blue1Brown), «Convolutions | Why X+Y in probability is a beautiful mess»</p>
@@ -183,7 +183,7 @@
   <p>Когда n «достаточно»? Чем сильнее перекос (асимметрия s) исходных значений, тем дольше ждать. Асимметрия среднего падает как s/√n, отсюда правило пальца: <span class="num">n ≳ 100 · s²</span> (у Кохави и соавторов правило строже — 355 · s²). У кубика s = 0, хватает нескольких бросков. У ожидания курьера (экспонента) s = 2 — нужно около 400. У наших чеков с банкетами s ≈ 8.2 — нужно около 6700 заказов.</p>
   <aside class="scary">
     <span class="scary-tag">Страшное слово</span>
-    <p>То, что среднее многих независимых значений с конечной σ ложится колоколом, называют <b class="term">центральной предельной теоремой</b>; на собеседовании — <b>central limit theorem</b>, CLT.</p>
+    <p>То, что среднее многих независимых значений с конечной σ ложится колоколом, называют <b class="term">центральной предельной теоремой</b>; на собеседовании — central limit theorem, CLT.</p>
     <p class="aside">Нормальным становится среднее, а не сами данные: чеки как были с хвостом, так и остались.</p>
   </aside>
   <p class="xref"><span>Без формул и с банкой драже — в «A/B на пальцах», <a href="/ab-basics/04-clt.html">шаг 4 «Толпа предсказуема»</a>.</span></p>
@@ -196,7 +196,7 @@
   <h2>Поймай μ: вилка из одной выборки</h2>
   <p>В жизни выборка одна, и μ мы не знаем. Но SE можно оценить по самой выборке: s/√n. Тогда вилка <span class="num">x̄ ± 1.96 · s/√n</span> накроет настоящее среднее в 95 случаях из 100 — если n достаточно. Проверь: Котейка знает правду (μ = 500 ₽), ты — нет.</p>
   <div class="guess" data-key="cover95" data-min="0" data-max="100" data-unit="%">
-    <div class="guess-row"><label class="field phrase" for="ci-guess" id="ci-guess-ctx">Вилка 95% накроет настоящее μ примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ci-guess" aria-describedby="ci-guess-ctx">% выборок</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="ci-guess" id="ci-guess-ctx">Вилка 95% накроет настоящее μ примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ci-guess" aria-describedby="ci-guess-ctx">% выборок</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
     <p class="note">Сначала запиши догадку, потом проверь.</p>
   </div>
   <div class="sheet c-white">
@@ -410,7 +410,7 @@ _check()
     <dt>Доверительный интервал</dt><dd>вилка x̄ ± z·SE, построенная так, что 95% таких вилок накрывают правду; confidence interval, подробно — в главе 10</dd>
   </dl>
   <figure class="art"><img loading="lazy" src="img/ch07-02-next.jpg" alt="Алиса держит лупу над таблицей данных, Котейка выглядывает из мешка с подозрительной улыбкой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса проверяет таблицу данных лупой</figcaption></figure>
-  <a class="next-step" href="08-traps.html"><b>Дальше, глава 8: «Симпсон, Берксон, ошибка выжившего и автобус»</b>Формула σ/√n честна, только если в данных правильные люди. Почему Котейка на остановке ждёт вдвое дольше, чем думает?</a>
+  <a class="next-step" href="08-traps.html"><b>Дальше: 8. Симпсон, Берксон, ошибка выжившего и автобус</b>Формула σ/√n честна, только если в данных правильные люди. Почему Котейка на остановке ждёт вдвое дольше, чем думает?</a>
 </section>
 
     <div class="pager">
