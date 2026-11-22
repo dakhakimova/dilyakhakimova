@@ -62,6 +62,17 @@
 .out4 .mcs{display:flex; gap:4px}
 .mc{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font:600 .9375rem/1 var(--body); color:#fff; box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
 .mc.c1{background:var(--ctrl)} .mc.c2{background:var(--test)}
+/* «Правило»: плитки исходов, подсветка благоприятных для выбранного события (решение Дили, 23.11.2026) */
+.fav{margin:6px 0 18px}
+.fav-h{font-size:.9375rem; color:var(--muted); margin:0 0 8px}
+.fav-ev{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px}
+.fav-ev .btn{min-height:36px; padding:6px 12px; font-size:.875rem}
+.fav-tiles{display:flex; gap:10px}
+.fav .mcs{display:flex; gap:4px}
+.ft{border:1.5px solid var(--line-strong); border-radius:12px; padding:10px; background:var(--surface); opacity:.45; transition:opacity .2s, border-color .2s, background .2s}
+.ft.on{opacity:1; border-color:var(--l1); background:var(--mint)}
+.fav-p{font:500 1.0625rem/1.4 var(--body); margin:10px 0 0; font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion: reduce){ .ft{transition:none} }
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
@@ -200,8 +211,19 @@
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Боб моет посуду вдвое чаще Алисы и Котейки: его «разные» — это сразу два исхода из четырёх, а у них — по одному.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеров примерно в 250 выпадет ОО, в 250 — ОР, в 250 — РО и в 250 — РР. Бобу достаются ОР и РО — около 500 вечеров (50%), Алисе и Котейке — по 250 (25%).</p></div>
-    <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(A) = (число исходов, благоприятных для A) / (число всех исходов)</p><p class="formula">P(«Котейка не моет») = 3 / 4 = 0.75</p><p class="read">Благоприятные исходы — те, что входят в событие A. Для события «Котейка не моет» это ОО, ОР и РО: три из четырёх. Формула работает, только если все исходы одинаково вероятны: у гостя «заказал» и «ушёл» — не 1 из 2.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(A) = благоприятные исходы / все исходы</p><p class="formula">P(«Котейка не моет») = 3 / 4 = 0.75</p><p class="read">Благоприятные исходы — те, что входят в событие A. Для события «Котейка не моет» это ОО, ОР и РО: три из четырёх. Формула работает, только если все исходы одинаково вероятны: у гостя «заказал» и «ушёл» — не 1 из 2.</p></div>
   </div>
+  <div class="fav" id="fav">
+    <p class="fav-h">Выбери событие — подсветятся благоприятные исходы</p>
+    <div class="fav-ev" role="group" aria-label="Событие"><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="true">Котейка не моет</button><button type="button" class="btn ghost" data-in="ОР РО" aria-pressed="false">моет Боб</button><button type="button" class="btn ghost" data-in="ОО" aria-pressed="false">моет Алиса</button><button type="button" class="btn ghost" data-in="ОО ОР РО" aria-pressed="false">хотя бы один орёл</button><button type="button" class="btn ghost" data-in="" aria-pressed="false">три орла</button></div>
+    <div class="fav-tiles"><div class="ft" data-o="ОО"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">О</span></span></div><div class="ft" data-o="ОР"><span class="mcs"><span class="mc c1">О</span><span class="mc c2">Р</span></span></div><div class="ft" data-o="РО"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">О</span></span></div><div class="ft" data-o="РР"><span class="mcs"><span class="mc c1">Р</span><span class="mc c2">Р</span></span></div></div>
+    <p class="fav-p" aria-live="polite"></p>
+  </div>
+  <script>(function(){const b=document.getElementById('fav');if(!b)return;const p=b.querySelector('.fav-p');
+  function pick(btn){b.querySelectorAll('.fav-ev button').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));const on=btn.dataset.in.split(' ').filter(Boolean);
+  b.querySelectorAll('.ft').forEach(t=>t.classList.toggle('on',on.includes(t.dataset.o)));const k=on.length;
+  p.innerHTML='P(«'+btn.textContent+'») = '+k+' / 4 = '+String(k/4)+(k===0?' — невозможное событие':k===4?' — достоверное событие':'');}
+  b.querySelectorAll('.fav-ev button').forEach(x=>x.addEventListener('click',()=>pick(x)));pick(b.querySelector('.fav-ev button'));})();</script>
   <p>Отсюда два края шкалы. Невозможное событие — 0 исходов из 4 (три орла на двух монетках), его вероятность 0. Достоверное — 4 из 4 (хоть какая-то сторона выпала), его вероятность 1. Всё остальное лежит между ними.</p>
 </section>
 
