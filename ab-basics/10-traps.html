@@ -96,8 +96,8 @@
 
 <section class="card" data-toy="twenty-metrics" data-title="Много метрик" aria-label="Много метрик">
   <span class="step-tag">На что смотрим</span>
-  <h2>Двадцать метрик — хоть одна да покраснеет</h2>
-  <p>В отчёте обычно не одна метрика, а двадцать: заказы, выручка, средний чек, отмены… Снова A/A-тест, эффекта нет нигде. Цветом отмечены «значимые» разницы.</p>
+  <h2>Дюжина метрик и два правила решения</h2>
+  <p>В отчёте теста 12 метрик: заказы, выручка, средний чек, отмены… Снова A/A-тест, эффекта нет нигде. Цветом отмечены «значимые» разницы. Решение можно принимать по-разному. Правило Боба: выкатываем, если «значимо» хоть что-то. Правило Алисы: до запуска выбрали одну главную метрику — конверсию в заказ — и решаем только по ней.</p>
   <div class="sheet c-white">
     <div class="controls">
       <button class="btn" type="button" data-mm="1">Ещё один A/A</button>
@@ -105,15 +105,15 @@
     </div>
     <div class="metrics20" id="metrics"></div>
     <div class="big2">
-      <div class="trap"><b id="mm-any">—</b><span>A/A, где «прокрасилась» хотя бы одна метрика</span></div>
-      <div class="ctrl"><b id="mm-avg">—</b><span>«значимых» метрик в среднем на один A/A</span></div>
+      <div class="trap"><b id="mm-any">—</b><span>A/A, где Боб выкатил бы пустышку: «значимо» хоть что-то</span></div>
+      <div class="ctrl"><b id="mm-avg">—</b><span>A/A, где выкатила бы Алиса: «значима» главная метрика</span></div>
     </div>
     <div class="verdict bad" id="v-mm" hidden></div>
   </div>
   <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
-    <p>Когда метрик или срезов много и каждую проверяют на «значимо», это называют <b class="term">множественными сравнениями</b>.</p>
-    <p class="aside">Длинное название для простой арифметики: двадцать лотерейных билетов выигрывают чаще, чем один.</p>
+    <p>Когда метрик или срезов много и каждую проверяют на «значимо», это называют <b class="term">множественными сравнениями</b>. Если решать всё же приходится по нескольким метрикам, порог для каждой делают строже — это <b class="term">поправка на множественное тестирование</b>.</p>
+    <p class="aside">Длинное название для простой арифметики: двенадцать лотерейных билетов выигрывают чаще, чем один.</p>
   </aside>
   <div class="def" data-toy-reveal>Как правильно: до запуска выбрать одну главную метрику, по которой принимаем решение, и пару «сторожевых», которые не должны ухудшиться. Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</div>
 </section>
@@ -319,11 +319,12 @@
 <section class="card" data-toy="test-graveyard" data-title="Проклятие победителя" aria-label="Проклятие победителя">
   <span class="step-tag">Что принимаем за эффект</span>
   <h2>Кладбище тестов</h2>
-  <p>Одну и ту же хорошую идею проверяют в 20 разных командах. Настоящий эффект <b>+3 %</b>, но тесты короткие: уверенно они замечают только эффекты от 6 %. Каждая команда выкатывает фичу, если её тест «победил», а остальные тесты отправляются на кладбище.</p>
+  <p>Одну и ту же хорошую идею проверяют в 20 разных командах. Настоящий эффект <b>+3 %</b>, но тесты короткие: уверенно они замечают только эффекты от 6 %. Каждая команда выкатывает фичу, если её тест «победил», а остальные тесты отправляются на кладбище. Победители пишут свою цифру в план роста. Алиса предлагает сначала перепроверить каждую победу повторным тестом: что он покажет?</p>
   <div class="sheet c-white">
     <div class="controls">
       <button class="btn" type="button" id="wc-one">Запустить один тест</button>
       <button class="btn ghost" type="button" id="wc-more" hidden>Ещё 19 тестов</button>
+      <button class="btn ghost" type="button" id="wc-retest" hidden>Перепроверить победителей</button>
       <button class="btn ghost" type="button" id="wc-reset" hidden>Сначала</button>
     </div>
     <p class="note" id="wc-last"></p>
@@ -333,6 +334,7 @@
       <div class="ctrl"><b id="wc-all">—</b><span>средний эффект по всем тестам</span></div>
       <div class="trap"><b id="wc-win">—</b><span>средний эффект выкаченных</span></div>
     </div>
+    <p class="note" id="wc-re" hidden></p>
     <div class="verdict" id="wc-v" hidden></div>
   </div>
   <div class="quiz" data-right="b">
@@ -439,7 +441,7 @@
   <h2 data-proverb="10">Правила — до цифр</h2>
   <ul class="cheat">
     <li><b>Не подглядываем.</b> Срок теста выбираем по MDE до запуска и решаем в конце. По ходу смотрим только на поломки или по заранее записанному плану.</li>
-    <li><b>Одна главная метрика и 2–3 сторожевые,</b> выбранные заранее. Из 20 метрик хоть одна «прокрасится» примерно в 2 A/A из 3.</li>
+    <li><b>Одна главная метрика и 2–3 сторожевые,</b> выбранные заранее. Из 12 метрик хоть одна «прокрасится» почти в половине A/A, а главная — в 5 %.</li>
     <li><b>Срез, найденный задним числом,</b> — гипотеза для нового теста, а не вывод.</li>
     <li><b>Записываем до запуска,</b> что будет успехом и что провалом. Если любой исход — «успех», проверки нет.</li>
     <li><b>Доли групп сверяем с планом.</b> Расходятся сильнее, чем бывает случайно, — ищем баг, даже если всё зелёное.</li>
@@ -519,18 +521,19 @@ document.querySelectorAll('[data-aa]').forEach(b => b.addEventListener('click', 
 $('aa-reset').addEventListener('click', () => { aa = []; drawPeek(); peekStats(); });
 
 // ---------- много метрик ----------
-const METRICS = [['Конверсия в заказ', .012], ['Заказы на пользователя', .02], ['Выручка на пользователя', .03], ['Средний чек', .01], ['Отмены', .05], ['Повторные заказы', .03], ['Время до заказа', .015], ['Добавления в корзину', .012], ['Брошенные корзины', .02], ['Заказы с десертом', .03], ['Заказы с напитком', .02], ['Промокоды', .05], ['Чаевые', .04], ['Оценки заказов', .03], ['Жалобы в поддержку', .08], ['Открытия приложения', .008], ['Просмотры меню', .01], ['Поиск по меню', .02], ['Заказы ночью', .06], ['Отписки от рассылки', .07]];
-let mmRuns = 0, mmAny = 0, mmSig = 0, mmLast = null;
+// первая метрика — главная (по ней решает Алиса); Боб выкатывает, если «значима» любая
+const METRICS = [['Конверсия в заказ', .012], ['Заказы на пользователя', .02], ['Выручка на пользователя', .03], ['Средний чек', .01], ['Отмены', .05], ['Повторные заказы', .03], ['Добавления в корзину', .012], ['Заказы с десертом', .03], ['Промокоды', .05], ['Чаевые', .04], ['Жалобы в поддержку', .08], ['Отписки от рассылки', .07]];
+let mmRuns = 0, mmAny = 0, mmMain = 0, mmLast = null;
 function oneMM(){ return METRICS.map(([name, se]) => { const z = gauss(); return {name, d: z * se, sig: Math.abs(z) > 1.96}; }); }
 function paintMM(){
-  $('metrics').innerHTML = (mmLast || METRICS.map(([name]) => ({name, d: null}))).map(m => '<span class="' + (m.sig ? (m.d > 0 ? 'up' : 'down') : '') + '">' + m.name + '<small>' + (m.d === null ? '—' : pct(m.d, 1)) + '</small></span>').join('');
+  $('metrics').innerHTML = (mmLast || METRICS.map(([name]) => ({name, d: null}))).map((m, i) => '<span class="' + (m.sig ? (m.d > 0 ? 'up' : 'down') : '') + '"' + (i ? '' : ' style="box-shadow:inset 0 0 0 2px var(--ink)"') + '>' + (i ? '' : '<b>Главная:</b> ') + m.name + '<small>' + (m.d === null ? '—' : pct(m.d, 1)) + '</small></span>').join('');
   $('mm-any').textContent = mmRuns ? share(mmAny / mmRuns, 0) : '—';
-  $('mm-avg').textContent = mmRuns ? num(mmSig / mmRuns, 1) : '—';
+  $('mm-avg').textContent = mmRuns ? share(mmMain / mmRuns, 0) : '—';
   const v = $('v-mm');
-  if (mmRuns >= 30){ v.hidden = false; v.innerHTML = 'В A/A-тесте нет ни одного настоящего эффекта, а хотя бы одна из 20 метрик «прокрашивается» в <b>' + share(mmAny / mmRuns, 0) + '</b> тестов: в среднем одна метрика на тест. Это ожидаемо: каждая метрика ошибается в 5 % случаев, а метрик двадцать.'; }
+  if (mmRuns >= 30){ v.hidden = false; v.innerHTML = 'В A/A-тесте нет ни одного настоящего эффекта. По правилу Боба пустышка уходит в релиз в <b>' + share(mmAny / mmRuns, 0) + '</b> тестов: хоть одна из 12 метрик «значима» почти в половине случаев, по расчёту в 46 %. По правилу Алисы — в <b>' + share(mmMain / mmRuns, 0) + '</b>, около 5 %, как и обещает порог. Метрики те же, шум тот же — разное только правило решения.'; }
 }
 document.querySelectorAll('[data-mm]').forEach(b => b.addEventListener('click', () => {
-  for (let i = 0; i < +b.dataset.mm; i++){ mmLast = oneMM(); const k = mmLast.filter(m => m.sig).length; mmRuns++; mmSig += k; if (k) mmAny++; }
+  for (let i = 0; i < +b.dataset.mm; i++){ mmLast = oneMM(); const k = mmLast.filter(m => m.sig).length; mmRuns++; if (mmLast[0].sig) mmMain++; if (k) mmAny++; }
   paintMM();
 }));
 
@@ -607,17 +610,21 @@ srmRun(); paintMM(); peekStats();
 (function(){
   const TRUE = 0.03, SE = 0.022, CUT = 1.96 * SE, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let tests = [], adding = 0; const cv = document.getElementById('ch-wc');
-  const one = () => { const e = TRUE + SE * gauss(); return {e, win: e > CUT}; };
+  const one = () => { const e = TRUE + SE * gauss(); return {e, win: e > CUT, re: null}; };
   function stats(){
     const n = tests.length, wins = tests.filter(t => t.win);
     document.getElementById('wc-all').textContent = n ? pct(mean(tests.map(t => t.e))) : '—';
     document.getElementById('wc-win').textContent = wins.length ? pct(mean(wins.map(t => t.e))) + ' (' + wins.length + ' ' + plural(wins.length, 'тест', 'теста', 'тестов') + ')' : '—';
     document.getElementById('wc-more').hidden = !n; document.getElementById('wc-reset').hidden = !n;
+    document.getElementById('wc-retest').hidden = n < 20 || !wins.length;
+    const re = wins.filter(t => t.re !== null), rn = document.getElementById('wc-re');
+    rn.hidden = !re.length;
+    if (re.length){ const rw = re.filter(t => t.re > CUT).length; rn.innerHTML = 'Повторный тест у ' + re.length + ' ' + plural(re.length, 'победителя', 'победителей', 'победителей') + ': в среднем <b>' + pct(mean(re.map(t => t.re))) + '</b> вместо ' + pct(mean(re.map(t => t.e))) + ' в первом тесте. Снова «победили» ' + rw + ' из ' + re.length + '.'; }
     document.getElementById('wc-more').textContent = n < 20 ? 'Ещё ' + (20 - n) + ' ' + plural(20 - n, 'тест', 'теста', 'тестов') : 'Ещё 100 тестов';
     const v = document.getElementById('wc-v');
     if (n >= 20 && wins.length){
       v.hidden = false; v.className = 'verdict bad';
-      v.innerHTML = 'Настоящий эффект у всех тестов один и тот же: <b>+3 %</b>. Среднее по всем тестам около него: ' + pct(mean(tests.map(t => t.e))) + '. А у выкаченных — <b>' + pct(mean(wins.map(t => t.e))) + '</b>: победили только те, кому шум подыграл. Победитель в среднем почти вдвое оптимистичнее правды.';
+      v.innerHTML = 'Настоящий эффект у всех тестов один и тот же: <b>+3 %</b>. Среднее по всем тестам около него: ' + pct(mean(tests.map(t => t.e))) + '. А у выкаченных — <b>' + pct(mean(wins.map(t => t.e))) + '</b>: победили только те, кому шум подыграл. Победитель в среднем почти вдвое оптимистичнее правды. ' + (wins.some(t => t.re !== null) ? 'Повторный тест шуму победителя не обязан: его цифры снова собираются вокруг +3 %, и снова «побеждает» только примерно каждый четвёртый. В план пиши цифру повтора, а не первой победы.' : 'Нажми «Перепроверить победителей» и посмотри, что покажет повторный тест.');
     } else v.hidden = true;
   }
   function draw(){
@@ -627,6 +634,9 @@ srmRun(); paintMM(); peekStats();
     c.fillStyle = COL.fillG; c.fillRect(X(CUT), 14, X(hi) - X(CUT), 104); label(c, 'победили, выкатили', X(CUT) + 4, 28, COL.truth);
     tests.forEach((t, i) => { const last = i === tests.length - 1 && tests.length <= 20; c.fillStyle = t.win ? COL.truth : COL.gray; c.globalAlpha = last ? 1 : 0.7; c.beginPath(); c.arc(X(t.e), 66 + ((i * 7919) % 31) - 15, last ? 7 : 4, 0, 2 * Math.PI); c.fill(); });
     c.globalAlpha = 1;
+    // повторные тесты победителей — кольца в нижней полосе
+    const reT = tests.filter(t => t.win && t.re !== null);
+    if (reT.length){ c.strokeStyle = COL.ink; c.lineWidth = 1.5; reT.forEach((t, i) => { c.beginPath(); c.arc(X(t.re), 104 - ((i * 37) % 9), 4, 0, 2 * Math.PI); c.stroke(); }); c.lineWidth = 1; label(c, 'повтор победителей', X(lo) + 4, 114, COL.ink); }
     c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), 10); c.lineTo(X(TRUE), 122); c.stroke(); c.lineWidth = 1;
     label(c, 'правда +3 %', X(TRUE) - 4, 10, COL.ink, 'right');
     label(c, 'на кладбище', X(lo) + 4, 28, COL.ink2);
@@ -642,6 +652,7 @@ srmRun(); paintMM(); peekStats();
     if (adding) return; adding = tests.length < 20 ? 20 - tests.length : 100;
     (function tick(){ if (!adding) return; const k = reduce ? adding : Math.min(adding, tests.length < 20 ? 1 : 5); for (let i = 0; i < k; i++) tests.push(one()); adding -= k; draw(); stats(); if (adding) setTimeout(tick, reduce ? 0 : 60); })();
   });
+  document.getElementById('wc-retest').addEventListener('click', () => { tests.forEach(t => { if (t.win && t.re === null) t.re = TRUE + SE * gauss(); }); draw(); stats(); });
   document.getElementById('wc-reset').addEventListener('click', () => { tests = []; adding = 0; document.getElementById('wc-last').textContent = ''; draw(); stats(); });
   window.addEventListener('resize', draw);
 })();

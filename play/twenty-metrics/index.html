@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/10-traps.html?toy=twenty-metrics" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»? · Игрушки · Диля Хакимова</title>
-<meta name="description" content="В отчёте не одна метрика, а двадцать: сто A/A-тестов показывают, как часто хотя бы одна из них «значимо» меняется без всякого эффекта.">
+<title>12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Дюжина метрик в A/A-тесте и два правила решения: «значимо хоть что-то» против «одна главная метрика, выбранная заранее».">
 <link rel="canonical" href="https://dilyakhakimova.com/play/twenty-metrics/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/twenty-metrics/">
-<meta property="og:title" content="Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»? · Игрушки · Диля Хакимова">
-<meta property="og:description" content="В отчёте не одна метрика, а двадцать: сто A/A-тестов показывают, как часто хотя бы одна из них «значимо» меняется без всякого эффекта.">
+<meta property="og:title" content="12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Дюжина метрик в A/A-тесте и два правила решения: «значимо хоть что-то» против «одна главная метрика, выбранная заранее».">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/twenty-metrics.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -45,47 +45,47 @@
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»?</span></li>
+    <li><span aria-current="page">12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="twenty-metrics" data-frame="/ab-basics/10-traps.html?toy=twenty-metrics"
-  data-share-title="Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»?" data-share-text="В отчёте A/B-теста 20 метрик, продакт ищет хоть одну зелёную, чтобы выкатить фичу. Если эффекта нет нигде, как часто такая найдётся? Угадай — и запусти сотню A/A"
+  data-share-title="12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то?" data-share-text="В отчёте A/B-теста 12 метрик, и продакт выкатывает фичу, если «значимо» хоть что-то. Если эффекта нет нигде, как часто он выкатит пустышку? Угадай — и запусти сотню A/A"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="twenty-metrics" data-show-from="0" hidden></span></p>
-  <h1>Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»?</h1>
+  <h1>12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Больше не подглядываю! Зато в отчёте теста двадцать метрик: заказы, выручка, средний чек, отмены…</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">И какую из них считаем главной?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Все! Какая прокрасится в зелёный, про ту и расскажем.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Больше не подглядываю! Зато в отчёте теста 12 метрик: заказы, выручка, средний чек, отмены… Выкатываю, если значимо хоть что-то.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я до запуска выбираю одну главную — конверсию в заказ — и решаю только по ней.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем выбрасывать информацию? Больше метрик — больше шансов увидеть эффект.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу A/A: эффекта нет ни в одной метрике. Каждая просто шумит.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай: в какой доле A/A-тестов хотя бы одна из двадцати метрик окажется «значимой»?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай: как часто каждое из двух правил выкатит пустышку?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Это A/A-тест: обе группы видят одно и то же, эффекта нет ни в одной метрике. Каждая клетка — метрика отчёта; цветом отмечены «значимые» разницы. Каждая метрика по отдельности ошибается в 5 % случаев.</p><p>Запусти один A/A, потом сотню. Внизу — доля A/A, где «прокрасилась» хотя бы одна метрика, и сколько «значимых» метрик в среднем на один тест.</p></div>
+    <div class="what-body"><p>Это A/A-тест: обе группы видят одно и то же, эффекта нет ни в одной метрике. Каждая клетка — метрика отчёта, главная обведена; цветом отмечены «значимые» разницы. Каждая метрика по отдельности ошибается в 5 % случаев.</p><p>Запусти один A/A, потом сотню. Внизу — две доли: как часто пустышку выкатил бы Боб («значимо» хоть что-то) и как часто — Алиса (значима главная метрика).</p></div>
     <figure class="art"><img src="/ab-basics/img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/10-traps.html?toy=twenty-metrics" title="Игрушка: Двадцать метрик в A/A-тесте. Как часто хоть одна «прокрасится»?" style="height:1000px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/10-traps.html?toy=twenty-metrics" title="Игрушка: 12 метрик в отчёте. Выкатывать, если «значимо» хоть что-то?" style="height:1000px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/10-traps.html#card-4">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
     <h2 id="try-h">Попробуй</h2>
-    <ol><li>Нажми «Ещё один A/A» несколько раз. Часто ли видишь цветные клетки?</li><li>Нажми «+100 A/A». В какой доле тестов «прокрасилась» хотя бы одна метрика?</li><li>Сколько «значимых» метрик в среднем на один A/A?</li></ol>
+    <ol><li>Нажми «Ещё один A/A» несколько раз. Часто ли видишь цветные клетки?</li><li>Нажми «+100 A/A». Как часто пустышку выкатил бы Боб, а как часто — Алиса?</li><li>Посмотри на главную метрику: часто ли «значима» именно она?</li></ol>
   </section>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
     <div class="reveal" hidden>
-      <p>Хотя бы одна из 20 метрик «прокрашивается» примерно в двух третях A/A-тестов — по расчёту 64 %, в симуляции около 70 %. В среднем одна «значимая» метрика на тест, хотя эффекта нет нигде. Это ожидаемо: каждая метрика ошибается в 5 % случаев, а метрик двадцать. Двадцать лотерейных билетов выигрывают чаще, чем один.</p>
+      <p>По правилу Боба пустышка уходит в релиз почти в половине A/A-тестов: хоть одна из 12 метрик «значима» с шансом 1 − 0,95¹² ≈ 46 %. По правилу Алисы — примерно в 5 %, как и обещает порог. Метрики те же и шум тот же, разное только правило решения. Двенадцать лотерейных билетов выигрывают чаще, чем один.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Шанс хотя бы одной ложной «значимой» из k метрик = 1 − 0,95<sup>k</sup>: для 20 — около 64 %.</li><li>До запуска выбирают одну главную метрику и пару сторожевых, которые не должны ухудшиться.</li><li>Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</li><li>Это называют множественными сравнениями (multiple comparisons).</li></ul>
+      <ul class="cheat"><li>Шанс хотя бы одной ложной «значимой» из k метрик = 1 − 0,95<sup>k</sup>: для 12 — около 46 %.</li><li>Решают по одной главной метрике, выбранной до запуска, и паре сторожевых, которые не должны ухудшиться.</li><li>Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</li><li>Если решать приходится по нескольким метрикам — поправка на множественное тестирование: порог для каждой строже.</li></ul>
     </div>
   </section>
 

@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/08-errors.html?toy=hundred-tests" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Сто экспериментов за год. Сколько «побед» окажутся пустышками? · Игрушки · Диля Хакимова</title>
-<meta name="description" content="Сто идей, из них 80 пустых: запускаем все тесты, а потом показываем правду — где настоящие победы, ложные тревоги и пропуски.">
+<title>Серый тест — закрыть идею навсегда? Сколько хороших так выбросим? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Сто идей, из них 20 с настоящим эффектом +3 %: недельные тесты, правило «не значимо — закрываем» и правда, которая показывает, сколько хорошего ушло в корзину.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/hundred-tests/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/hundred-tests/">
-<meta property="og:title" content="Сто экспериментов за год. Сколько «побед» окажутся пустышками? · Игрушки · Диля Хакимова">
-<meta property="og:description" content="Сто идей, из них 80 пустых: запускаем все тесты, а потом показываем правду — где настоящие победы, ложные тревоги и пропуски.">
+<meta property="og:title" content="Серый тест — закрыть идею навсегда? Сколько хороших так выбросим? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Сто идей, из них 20 с настоящим эффектом +3 %: недельные тесты, правило «не значимо — закрываем» и правда, которая показывает, сколько хорошего ушло в корзину.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/hundred-tests.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -45,46 +45,46 @@
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">Сто экспериментов за год. Сколько «побед» окажутся пустышками?</span></li>
+    <li><span aria-current="page">Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="hundred-tests" data-frame="/ab-basics/08-errors.html?toy=hundred-tests"
-  data-share-title="Сто экспериментов за год. Сколько «побед» окажутся пустышками?" data-share-text="За год команда выкатила все фичи, где A/B-тест показал значимую разницу. Если большинство идей пустые, сколько «побед» в этом списке — пустышки? Сделай ставку — и запусти сто экспериментов"
+  data-share-title="Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?" data-share-text="Команда закрывает навсегда каждую идею, по которой недельный A/B-тест не показал значимой разницы. Если хорошие идеи дают +3 %, сколько из них так выбросят? Сделай ставку — и запусти сто экспериментов"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="hundred-tests" data-show-from="0" hidden></span></p>
-  <h1>Сто экспериментов за год. Сколько «побед» окажутся пустышками?</h1>
+  <h1>Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За год проверили 100 идей. Я выкатываю всё, где тест показал значимую разницу. Значимо — значит работает.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Большинство идей ничего не меняют. Пусть 80 из 100 пустые, а у 20 настоящий эффект +3 %.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Какие из них пустые, знаю только я. Покажу в самом конце.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку: у скольких пустых идей из 80 тест по ошибке покажет значимую разницу?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За год проверили 100 идей недельными тестами. У меня правило: тест серый — идею закрываем навсегда. Не работает так не работает.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Большинство идей и правда ничего не меняют. Пусть 80 из 100 пустые, а у 20 настоящий эффект +3 %.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Какие из них хорошие, знаю только я. Покажу в самом конце.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку: сколько хороших идей из 20 Боб закроет по своему правилу?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Ошибиться можно двумя способами. Ложная тревога: фича ничего не делает, а тест показал эффект, и выкатили пустышку. Пропуск: фича работает, а тест эффекта не увидел, и её выбросили.</p><p>Каждая клетка — один эксперимент: в день в каждую группу приходит 10 000 гостей, конверсия в контроле 10 %. Зелёная клетка — тест показал значимую разницу, серая — нет. Сделай ставку, запусти 100 экспериментов и нажми «Показать правду». Ползунок меняет длину каждого эксперимента.</p></div>
+    <div class="what-body"><p>Ошибиться можно двумя способами. Ложная тревога: фича ничего не делает, а тест показал эффект, и выкатили пустышку. Пропуск: фича работает, а тест эффекта не увидел, и её выбросили. Правило Боба превращает каждый пропуск в закрытую хорошую идею.</p><p>Каждая клетка — один эксперимент: в день в каждую группу приходит 10 000 гостей, конверсия в контроле 10 %. Зелёная клетка — тест показал значимую разницу, серая — нет. Сделай ставку, запусти 100 экспериментов и нажми «Показать правду». Ползунок меняет длину каждого эксперимента.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab07-03-next.jpg" alt="Алиса раскладывает на столе сто карточек экспериментов, Котейка подглядывает" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=hundred-tests" title="Игрушка: Сто экспериментов за год. Сколько «побед» окажутся пустышками?" style="height:1100px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=hundred-tests" title="Игрушка: Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?" style="height:1100px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/08-errors.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
     <h2 id="try-h">Попробуй</h2>
-    <ol><li>Сделай ставку, запусти 100 экспериментов и посчитай зелёные клетки.</li><li>Нажми «Показать правду». Сколько среди зелёных пустышек? Сколько настоящих идей пропущено?</li><li>Поставь длину 21 день и повтори. Что изменилось — ложные тревоги или пропуски?</li></ol>
+    <ol><li>Сделай ставку, запусти 100 экспериментов и нажми «Показать правду». Сколько хороших идей осталось серыми?</li><li>Поставь длину 28 дней и повтори. Сколько хороших закрыли теперь?</li><li>Сравни ложные тревоги у пустых идей при 7 и 28 днях. Изменились?</li></ol>
   </section>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
     <div class="reveal" hidden>
-      <p>Из 80 пустых идей значимую разницу в среднем показывают 4 — одна из двадцати, ровно как обещает порог 5 %. А из 20 настоящих недельный тест замечает меньше половины, в среднем около 9: остальные пропущены. Так среди «победителей» набирается заметная доля пустышек. Если сделать тесты длиннее, пропусков становится меньше, а ложных тревог в среднем столько же: их задаёт порог, а не трафик.</p>
+      <p>При недельных тестах из 20 хороших идей серыми остаются в среднем 11 — больше половины. Эффект +3 % настоящий, но тест длиной 7 дней замечает его только в 46 % случаев. По правилу Боба все эти идеи закрыты навсегда. При 28 днях закрытых хороших почти нет — меньше одной из 20, а ложных тревог у пустых идей при любой длине около 4 из 80. Серый тест значит «не разглядели», а не «не работает».</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Ложная тревога — выкатили пустышку; пропуск — выбросили работающую фичу.</li><li>Порог 5 %: из каждых 20 пустых идей одна «побеждает» — при любой длине теста.</li><li>Пропуски зависят от длины теста и трафика: короткий тест слеп к небольшим эффектам.</li><li>«Тест не увидел эффекта» — ещё не «эффекта нет».</li></ul>
+      <ul class="cheat"><li>Ложная тревога — выкатили пустышку; пропуск — выбросили работающую фичу.</li><li>Пропуски зависят от длины теста и трафика: короткий тест слеп к небольшим эффектам.</li><li>Ложные тревоги задаёт порог: 5 % пустых идей «побеждают» при любой длине.</li><li>Серый тест — не приговор: посмотри на вилку и на мощность, прежде чем закрывать идею.</li></ul>
     </div>
   </section>
 
@@ -105,7 +105,7 @@
 
   <section class="play-next" aria-labelledby="next-h">
     <h2 id="next-h">Дальше в курсе</h2>
-    <p>Боб посчитал пустышки среди своих «победителей» и спросил, сколько дней держать тест, чтобы реже пропускать хорошее. Это шаг 8 курса — <a href="/ab-basics/08-errors.html">«Два вида ошибок»</a>.</p>
+    <p>Боб перестал закрывать серые идеи и спросил, сколько дней держать тест, чтобы реже пропускать хорошее. Это шаг 8 курса — <a href="/ab-basics/08-errors.html">«Два вида ошибок»</a>.</p>
     <p class="ctas"><a class="btn" href="/ab-basics/08-errors.html">Открыть шаг 8 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
     <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
   </section>
@@ -114,7 +114,7 @@
     <h2 id="more-h">Ещё игрушки</h2>
     <ul class="toys" role="list">
       <li><a href="/play/tiny-effect/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Эффект +0,5 % и десять миллионов гостей. Значимо — значит важно?</b><span>Одна и та же крошечная разница при 10 тысячах и 10 миллионах гостей: как трафик делает значимым даже ненужный эффект.</span><small>из курса «A/B на пальцах», шаг 7</small><span class="play-count" data-count-for="tiny-effect" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/true-wins/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Значимых «побед» за год — сотня. Сколько из них настоящие?</b><span>Тысяча идей, каждая десятая хорошая: раскладываем по исходам теста и считаем, какая доля значимых побед — правда.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="true-wins" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/true-wins/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Тесты мощные, а хороших идей — каждая двадцатая. Можно верить победам?</b><span>Тысяча идей без отбора и чувствительные тесты: раскладываем по исходам и смотрим, что сильнее поднимает долю настоящих побед — тесты или идеи.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="true-wins" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
       <li><a href="/play/p-and-ci/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Вилка задевает ноль. А что скажет p-value?</b><span>Двигай разницу и смотри сразу на колокол мира без эффекта и на вилку: где проходит граница «значимо».</span><small>из курса «A/B на пальцах», шаг 7</small><span class="play-count" data-count-for="p-and-ci" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
   </section>
 </main>

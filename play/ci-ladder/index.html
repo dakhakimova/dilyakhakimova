@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/06-interval.html?toy=ci-ladder" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Двадцать экспериментов, двадцать вилок. Сколько накроют правду? · Игрушки · Диля Хакимова</title>
-<meta name="description" content="Лесенка доверительных интервалов: как часто вилка «разница ± 2 ширины» промахивается мимо настоящего эффекта.">
+<title>Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Лесенка доверительных интервалов: эффект +3 % есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/ci-ladder/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/ci-ladder/">
-<meta property="og:title" content="Двадцать экспериментов, двадцать вилок. Сколько накроют правду? · Игрушки · Диля Хакимова">
-<meta property="og:description" content="Лесенка доверительных интервалов: как часто вилка «разница ± 2 ширины» промахивается мимо настоящего эффекта.">
+<meta property="og:title" content="Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Лесенка доверительных интервалов: эффект +3 % есть всегда, а вилка «разница ± 2 ширины» оказывается целиком выше нуля далеко не в каждом запуске.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/ci-ladder.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -45,47 +45,47 @@
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">Двадцать экспериментов, двадцать вилок. Сколько накроют правду?</span></li>
+    <li><span aria-current="page">Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="ci-ladder" data-frame="/ab-basics/06-interval.html?toy=ci-ladder"
-  data-share-title="Двадцать экспериментов, двадцать вилок. Сколько накроют правду?" data-share-text="Команда запускает много A/B-тестов, и у каждого в отчёте 95-процентный интервал. Как часто такой интервал промахивается мимо настоящего эффекта? Угадай — и построй лесенку из двадцати вилок"
+  data-share-title="Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?" data-share-text="Продакт выкатывает фичу, только если вилка в отчёте целиком выше нуля. Эффект настоящий, +3 %, гостей по 100 000 в группе. Как часто его правило сработает? Угадай — и построй лесенку из двадцати вилок"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="ci-ladder" data-show-from="0" hidden></span></p>
-  <h1>Двадцать экспериментов, двадцать вилок. Сколько накроют правду?</h1>
+  <h1>Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Эксперимент показал +2,3 %. Так и пишу: фото дают +2,3 % к заказам.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тот же эксперимент мог показать и +1 %, и +5 %. Давай писать вилку: разница плюс-минус две ширины колокола.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Хорошо. Но вилка же каждый раз своя. Как ей доверять?</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу двадцать одинаковых экспериментов. Правду знаю только я: +3 %.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши догадку: сколько из двадцати вилок накроют правду?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Договорились: пишу в отчёт вилку и выкатываю, только если она целиком выше нуля.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Хорошее правило. А если эффект правда есть — как часто вилка его подтвердит?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Если эффект есть, то всегда. Иначе зачем вилка.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу двадцать одинаковых экспериментов по 100 000 гостей в группе. Правду знаю только я: +3 %.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши догадку: в скольких из двадцати Боб сможет выкатить?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая строка — один эксперимент: точка — разница, которую он показал, отрезок — вилка ± 2 ширины колокола разницы. Зелёная линия — настоящий эффект. Цвет вилки — где она относительно нуля: целиком выше, задевает или целиком ниже.</p><p>Сначала ответь, сколько вилок из двадцати накроют правду. Потом запусти 20 экспериментов и посчитай. Ползунками можно поменять настоящий эффект и число людей в группе.</p></div>
+    <div class="what-body"><p>Каждая строка — один эксперимент: точка — разница, которую он показал, отрезок — вилка ± 2 ширины колокола разницы. Зелёная линия — настоящий эффект. Цвет вилки — где она относительно нуля: целиком выше («выкатываем»), задевает ноль или целиком ниже.</p><p>Сначала ответь, в скольких из двадцати экспериментов вилка будет целиком выше нуля. Потом запусти 20 экспериментов и посчитай. Ползунками можно поменять настоящий эффект и число людей в группе.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab06-01-bob-pin.jpg" alt="Боб втыкает булавку в одну точку линейки, Алиса показывает широкую скобку" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/06-interval.html?toy=ci-ladder" title="Игрушка: Двадцать экспериментов, двадцать вилок. Сколько накроют правду?" style="height:1300px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/06-interval.html?toy=ci-ladder" title="Игрушка: Эффект настоящий. В скольких из 20 тестов вилка позволит выкатить?" style="height:1300px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/06-interval.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
     <h2 id="try-h">Попробуй</h2>
-    <ol><li>Ответь и нажми «+20 экспериментов». Сколько вилок накрыли зелёную линию?</li><li>Сколько вилок целиком выше нуля, а сколько задевают ноль?</li><li>Уменьши число людей до 25 000. Что стало с шириной вилок и с тем, сколько из них выше нуля?</li></ol>
+    <ol><li>Ответь и нажми «+20 экспериментов». Сколько вилок целиком выше нуля?</li><li>Сколько вилок накрыли зелёную линию правды?</li><li>Поставь 400 000 людей в группе, потом 25 000. Как меняется число «выкатываем»?</li></ol>
   </section>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
     <div class="reveal" hidden>
-      <p>Настоящий эффект накрывают около 19 вилок из 20 — на длинной серии 95 %. Одна вилка из двадцати промахивается, и это нормально. При 100 000 гостей в группе примерно половина вилок целиком выше нуля, остальные задевают ноль: вилка в ± 2,6 % почти такая же, как эффект в +3 %. Задевшая ноль вилка не говорит «эффекта нет» — просто этот запуск его не разглядел. Больше людей — уже вилки и чаще «значимо».</p>
+      <p>При +3 % и 100 000 гостей в группе вилка целиком выше нуля примерно в 12 запусках из 20 — около 60 %. В остальных она задевает ноль: вилка в ± 2,6 % почти такая же, как сам эффект. Правду при этом накрывают около 19 вилок из 20. Значит, «задела ноль» не значит «эффекта нет» — этот запуск его просто не разглядел. При 400 000 в группе выкатить можно почти всегда, при 25 000 — лишь в 4 запусках из 20.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Вилка «разница ± 2 ширины» — доверительный интервал (confidence interval), 95 %.</li><li>95 % — свойство способа: такие вилки накрывают правду в 95 случаях из 100.</li><li>Вилка целиком выше нуля — «значимо»; задевает ноль — данные не отличают эффект от шума.</li><li>Задела ноль — ещё не «эффекта нет»: смотри на края вилки.</li></ul>
+      <ul class="cheat"><li>Вилка «разница ± 2 ширины» — доверительный интервал (confidence interval), 95 %.</li><li>Вилка накрывает правду в 95 случаях из 100 — но выше нуля бывает гораздо реже, если эффект сравним с её шириной.</li><li>Доля «выкатываем» при настоящем эффекте — это мощность теста.</li><li>Вилка задела ноль — смотри на её края, а не закрывай идею.</li></ul>
     </div>
   </section>
 
@@ -106,7 +106,7 @@
 
   <section class="play-next" aria-labelledby="next-h">
     <h2 id="next-h">Дальше в курсе</h2>
-    <p>Боб поверил способу, но спросил, что значат края одной конкретной вилки. Котейка как раз раздал 30 промокодов — шаг 6 курса, <a href="/ab-basics/06-interval.html">«Эффект — это вилка»</a>.</p>
+    <p>Боб понял, что вилка задевает ноль и у хороших идей, и спросил, что значат края одной конкретной вилки. Котейка как раз раздал 40 промокодов — шаг 6 курса, <a href="/ab-basics/06-interval.html">«Эффект — это вилка»</a>.</p>
     <p class="ctas"><a class="btn" href="/ab-basics/06-interval.html">Открыть шаг 6 →</a><a class="btn link" href="/ab-basics/">Весь курс «A/B на пальцах»</a></p>
     <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
   </section>
@@ -115,7 +115,7 @@
     <h2 id="more-h">Ещё игрушки</h2>
     <ul class="toys" role="list">
       <li><a href="/play/two-bells-diff/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Фото дают +3 % к заказам. Что покажет один эксперимент?</b><span>Два колокола — контроля и теста — и колокол их разницы: почему один и тот же эффект каждый раз выглядит по-разному.</span><small>из курса «A/B на пальцах», шаг 6</small><span class="play-count" data-count-for="two-bells-diff" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/ci-alive/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>19 гостей из 30 заказали по промокоду. Значит, 63 %?</b><span>Вилка как ряд кандидатов: проверяем каждую «правду» от 0 до 100 % и оставляем те, при которых 19 из 30 — обычное дело.</span><small>из курса «A/B на пальцах», шаг 6</small><span class="play-count" data-count-for="ci-alive" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
+      <li><a href="/play/ci-alive/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>24 заказа из 40 промокодов — 60 %. Промокод окупается с 50 %. Запускаем?</b><span>Вилка как ряд кандидатов: проверяем каждую «правду» от 0 до 100 % и смотрим, горит ли среди живых порог окупаемости промокода.</span><small>из курса «A/B на пальцах», шаг 6</small><span class="play-count" data-count-for="ci-alive" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
       <li><a href="/play/shooting-range/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Больше гостей в тесте — точнее результат?</b><span>Четыре стрелка, четыре мишени: честный, шумный, с багом и с тем и другим. Что исправят вчетверо больше гостей, а что нет.</span><small>из курса «A/B на пальцах», шаг 5</small><span class="play-count" data-count-for="shooting-range" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
   </section>
 </main>

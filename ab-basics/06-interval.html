@@ -84,12 +84,12 @@
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Эксперимент показал +2,3 %. Так и пишу: фото дают +2,3 % к заказам.</p></div></div>
   </div>
   <p><span data-toy-hide>Ты только что видел: тот же эксперимент мог показать и +1 %, и +5 %.</span> Одно число — лишь одна точка с колокола разницы. Алиса предлагает писать вилку: разница плюс-минус две ширины колокола. <span data-toy-hide>Мы знаем из шага 5, что в такую полосу попадают 95 % случаев.</span></p>
-  <p>Если запустить 20 одинаковых экспериментов и для каждого нарисовать вилку, сколько из них накроют настоящий эффект?</p>
+  <p>Боб решает так: выкатываем, если вилка целиком выше нуля. Пусть фото правда дают +3 %, а в каждой группе по 100 000 человек. Если запустить 20 таких экспериментов, в скольких вилка позволит выкатить?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="10" data-fb="Половина — осторожная ставка. Запустим 20 экспериментов и посчитаем." aria-pressed="false">Около 10</button>
-    <button type="button" data-v="15" data-fb="Три четверти. Запустим 20 экспериментов и посчитаем." aria-pressed="false">Около 15</button>
+    <button type="button" data-v="20" data-fb="Все до одной — уверенно! Запустим 20 экспериментов и посчитаем." aria-pressed="false">Во всех 20: эффект же настоящий</button>
     <button type="button" data-v="19" data-fb="Почти все. Запустим 20 экспериментов и посчитаем." aria-pressed="false">Около 19</button>
-    <button type="button" data-v="20" data-fb="Все до одной — уверенно! Запустим 20 экспериментов и посчитаем." aria-pressed="false">Все 20</button>
+    <button type="button" data-v="12" data-fb="Чуть больше половины. Запустим 20 экспериментов и посчитаем." aria-pressed="false">Около 12</button>
+    <button type="button" data-v="5" data-fb="Осторожная ставка. Запустим 20 экспериментов и посчитаем." aria-pressed="false">Около 5</button>
   </div>
   <p class="note" id="g1-note">Выбери вариант.</p>
 </section>
@@ -114,8 +114,8 @@
     <canvas id="ch-ladder" aria-label="Интервалы последних экспериментов"></canvas>
     <div class="legend-row"><span><i style="background:var(--truth)"></i>целиком выше нуля</span><span><i style="background:var(--theory)"></i>задевает ноль</span><span><i style="background:var(--trap)"></i>целиком ниже нуля</span></div>
     <div class="big2">
-      <div class="truth"><b id="cov6">—</b><span>вилок накрыли настоящий эффект</span></div>
-      <div class="ctrl"><b id="wid6">—</b><span>ширина вилки: ± от разницы</span></div>
+      <div class="truth"><b id="sig6">—</b><span>вилок целиком выше нуля — Боб выкатил бы</span></div>
+      <div class="ctrl"><b id="cov6">—</b><span>вилок накрыли настоящий эффект; ширина вилки <b id="wid6" style="font-size:inherit">—</b></span></div>
     </div>
     <div class="verdict" id="v6" hidden></div>
   </div>
@@ -146,34 +146,34 @@
   <span class="step-tag">Игрушка</span>
   <h2>Вилка — правды, которые остались живы</h2>
   <div class="chat" data-toy-hide>
-    <div class="msg kot"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я раздал 30 промокодов, и 19 гостей сделали заказ! Значит, по промокоду заказывают 63 % гостей.</p></div></div>
-    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">19 из 30 — одна точка. Давай проверим, какие доли вообще уживаются с таким результатом.</p></div></div>
+    <div class="msg kot"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Я раздал 40 промокодов, и 24 гостя сделали заказ! Это 60 %, а промокод окупается уже с 50 %. Запускаем на всю сеть!</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">24 из 40 — одна точка. Давай проверим, какие доли вообще уживаются с таким результатом, — и есть ли среди них 50 %.</p></div></div>
   </div>
-  <p>Пусть на самом деле по промокоду заказывает половина гостей. Тогда, раздавая по 30 промокодов, Котейка получал бы то 12 заказов, то 17, то 15. Результаты легли бы горкой. Посмотрим, где на этой горке наши 19. Если в середине, такая правда с данными уживается. Если в редком краю горки, правда гаснет.</p>
-  <p>Если попробовать так каждую правду от 0 до 100 %, какие останутся гореть?</p>
+  <p>Пусть на самом деле по промокоду заказывает половина гостей. Тогда, раздавая по 40 промокодов, Котейка получал бы то 17 заказов, то 23, то 20. Результаты легли бы горкой. Посмотрим, где на этой горке наши 24. Если в середине, такая правда с данными уживается. Если в редком краю горки, правда гаснет.</p>
+  <p>Промокод окупается, если по нему заказывает хотя бы половина гостей. Если попробовать каждую правду от 0 до 100 %, какие останутся гореть — и горит ли 50 %?</p>
   <div class="choice" data-key="edges6" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="a" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">Только рядом с 63 %: от 60 до 67 %</button>
-    <button type="button" data-v="b" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 53 до 73 %</button>
-    <button type="button" data-v="c" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 44 до 80 %</button>
+    <button type="button" data-v="a" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">Только рядом с 60 %: от 57 до 63 %, половина погасла</button>
+    <button type="button" data-v="b" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 52 до 68 %, половина погасла</button>
+    <button type="button" data-v="c" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">От 44 до 74 %, половина горит</button>
     <button type="button" data-v="d" data-fb="Записали. Проверим все правды по очереди." aria-pressed="false">Почти любые: от 20 до 100 %</button>
   </div>
   <div class="sheet c-white">
-    <p class="chart-title">Столбики — сколько заказов из 30 бывает при этой правде; красные — редкие края горки; кружки — правды от 0 до 100 %</p>
-    <canvas id="ch-cand" aria-label="Горка результатов из 30 гостей при выбранной правде, отметка 19 из 30 и ряд кружков-правд; горят правды от 44 до 80 процентов"></canvas>
+    <p class="chart-title">Столбики — сколько заказов из 40 бывает при этой правде; красные — редкие края горки; кружки — правды от 0 до 100 %</p>
+    <canvas id="ch-cand" aria-label="Горка результатов из 40 гостей при выбранной правде, отметка 24 из 40 и ряд кружков-правд; горят правды от 44 до 74 процентов, порог окупаемости 50 процентов внутри"></canvas>
     <label class="field" for="cand6">А если правда = <b id="cand6-t" class="num">50 %</b> гостей с промокодом закажут</label>
     <input type="range" id="cand6" min="0" max="100" step="2" value="50" style="width:100%">
     <div class="controls">
       <button class="btn" type="button" id="cand-all">Проверить все</button>
       <button class="btn ghost" type="button" id="cand-reset">Сначала</button>
     </div>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>горит: 19 из 30 при ней обычное дело</span><span><i style="background:var(--theory)"></i>погасла: 19 из 30 при ней редкость</span></div>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>горит: 24 из 40 при ней обычное дело</span><span><i style="background:var(--theory)"></i>погасла: 24 из 40 при ней редкость</span></div>
     <div class="verdict" id="cand-v"></div>
   </div>
-  <p data-toy-hide>Каждый кружок мы проверили одним и тем же вопросом: обычно ли выглядят 19 из 30 при такой правде? Горящие стоят подряд, это и есть вилка: от 44 до 80 %. Половина гостей тоже внутри. Значит, по 30 промокодам нельзя утверждать, что заказывает больше половины: такой результат мог выпасть и у промокода, на который откликается ровно каждый второй.</p>
+  <p data-toy-hide>Каждый кружок мы проверили одним и тем же вопросом: обычно ли выглядят 24 из 40 при такой правде? Горящие стоят подряд, это и есть вилка: от 44 до 74 %. Порог окупаемости, половина гостей, тоже внутри. Значит, по 40 промокодам нельзя утверждать, что промокод окупается: такой результат мог выпасть и у промокода, на который откликается каждый второй или даже меньше.</p>
   <div class="quiz" data-right="b">
-    <p class="q">Котейка раздал уже 120 промокодов, заказали 76 гостей — снова около 63 %. Какой будет вилка?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Доля та же, но гостей вчетверо больше. Горка каждой правды стала уже, и с результатом уживается меньше правд.">Такая же: от 44 до 80 %</button><button type="button" data-v="b">Вдвое уже: примерно от 54 до 72 %</button><button type="button" data-v="c" data-why="Вилка сужается медленнее, чем растёт число гостей: вчетверо больше людей дают вдвое, а не вчетверо уже.">Вчетверо уже: примерно от 59 до 68 %</button></div>
-    <p class="why">Вчетверо больше гостей — вдвое уже вилка, как в шаге 5: теперь горят правды примерно от 54 до 72 %. И половина гостей за краем: при 120 промокодах 76 заказов у промокода «каждый второй» — редкость.</p>
+    <p class="q">Котейка раздал уже 160 промокодов, заказали 96 гостей — снова 60 %. Можно ли теперь сказать, что промокод окупается?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Доля та же, но гостей вчетверо больше. Горка каждой правды стала уже, и с результатом уживается меньше правд.">Нет: вилка та же, от 44 до 74 %</button><button type="button" data-v="b">Да: вилка вдвое уже, примерно от 52 до 67 %</button><button type="button" data-v="c" data-why="Вилка сужается медленнее, чем растёт число гостей: вчетверо больше людей дают вдвое, а не вчетверо уже. А для решения хватает и вдвое более узкой.">Да, и вилка вчетверо уже: от 58 до 62 %</button></div>
+    <p class="why">Вчетверо больше гостей — вдвое уже вилка<span data-toy-hide>, как в шаге 5</span>: теперь горят правды примерно от 52 до 67 %. Половина гостей за краем: при 160 промокодах 96 заказов у промокода «каждый второй» — редкость. Доля не изменилась, а решение — да: его меняет число гостей.</p>
   </div>
   <p class="note quiz-score"></p>
   <p class="src">Идея из видеокурса: Академия аналитиков Авито, «Прикладная статистика»</p>
@@ -301,7 +301,7 @@
       <canvas id="ch-bs" aria-label="Гистограмма средних вытянутых выборок"></canvas>
       <div class="big2">
         <div><b id="bs-ci">—</b><span>вилка: где лежат средние 95 % вытянутых выборок</span></div>
-        <div class="ctrl"><b id="bs-f">—</b><span>вилка по правилу ± 2 ширины из шага 5</span></div>
+        <div class="ctrl"><b id="bs-f">—</b><span>вилка по правилу ± 2 ширины<span data-toy-hide> из шага 5</span></span></div>
       </div>
     </div>
     <div class="verdict" id="bs-v" hidden></div>
@@ -446,15 +446,18 @@ function drawLadder(){
   c.lineCap = 'butt';
 }
 function stats6(){
-  const n = runs.length, cov = runs.filter(r => r.lo <= r.e && r.e <= r.hi).length;
+  const n = runs.length, cov = runs.filter(r => r.lo <= r.e && r.e <= r.hi).length, up = runs.filter(r => r.lo > 0).length;
   document.getElementById('cov6').textContent = n ? cov + ' из ' + n : '—';
+  document.getElementById('sig6').textContent = n ? up + ' из ' + n : '—';
   document.getElementById('wid6').textContent = '± ' + num(100 * Z * seRel(N(), E()), 1) + '\u00a0%';
   const v = document.getElementById('v6');
   if (n < 20){ v.hidden = true; return; }
   const g1 = AB.choice('g1'), sig = runs.filter(r => r.lo > 0).length, zero = runs.filter(r => r.lo <= 0 && r.hi >= 0).length;
-  v.hidden = false; v.className = 'verdict ' + (g1 === '19' ? 'good' : 'bad');
-  v.innerHTML = (g1 === '19' ? 'Ты угадал. ' : g1 ? 'Ответ — около 19. ' : '') + 'Настоящий эффект накрыли <b>' + cov + ' вилок из ' + n + '</b>, то есть ' + share(cov / n, 0) + '. На длинной серии будет около 95 %: одна вилка из двадцати промахивается, и это нормально. ' +
-    (E() !== 0 ? 'Целиком выше нуля оказались ' + sig + ' вилок, задели ноль ' + zero + '. Задевшие ноль не говорят «эффекта нет»: просто этот запуск его не разглядел.' : 'Эффекта нет, и почти все вилки задевают ноль. Те, что не задели, — ложные «значимые» результаты.');
+  const base = E() === 0.03 && N() === 100000, ok = base && g1 === '12';
+  v.hidden = false; v.className = 'verdict ' + (ok ? 'good' : 'bad');
+  v.innerHTML = (base ? (g1 === '12' ? 'Ты угадал. ' : g1 ? 'При +3 % и 100 000 в группе ответ — около 12 из 20. ' : '') : '') +
+    (E() > 0 ? 'Целиком выше нуля оказались <b>' + sig + ' вилок из ' + n + '</b> — столько раз Боб выкатил бы фото. Задели ноль ' + zero + ': эффект настоящий, но вилка в ± ' + num(100 * Z * seRel(N(), E()), 1) + '\u00a0% почти такая же, как он сам, и этот запуск его не разглядел. «Задевает ноль» не значит «эффекта нет». ' : E() < 0 ? 'Эффект отрицательный: целиком ниже нуля ' + runs.filter(r => r.hi < 0).length + ' вилок, задели ноль ' + zero + '. ' : 'Эффекта нет, и почти все вилки задевают ноль. Те, что не задели, — ложные «значимые» результаты. ') +
+    'Настоящий эффект накрыли ' + cov + ' вилок из ' + n + ' — на длинной серии около 95 %.';
 }
 function upd6(reset){
   document.getElementById('eff6-t').textContent = (E() > 0 ? '+' : E() < 0 ? '−' : '') + num(Math.abs(100 * E()), 1).replace(',0', '') + '\u00a0%';
@@ -484,10 +487,10 @@ function drawRead(){
   });
 }
 
-// ---------- ряд кандидатов: какие правды уживаются с 19 из 30 ----------
+// ---------- ряд кандидатов: какие правды уживаются с 24 из 40 (порог окупаемости 50 %) ----------
 (function(){
-  const K = 19, NN = 30, cv = document.getElementById('ch-cand'), sl = document.getElementById('cand6');
-  const CAND = Array.from({length: 51}, (_, i) => i * 2), GUESS = {a: [60, 67], b: [53, 73], c: [44, 80], d: [20, 100]};
+  const K = 24, NN = 40, GOAL = 50, cv = document.getElementById('ch-cand'), sl = document.getElementById('cand6');
+  const CAND = Array.from({length: 51}, (_, i) => i * 2), GUESS = {a: [57, 63], b: [52, 68], c: [44, 74], d: [20, 100]};
   const choose = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
   const pmf = q => Array.from({length: NN + 1}, (_, k) => choose(NN, k) * Math.pow(q, k) * Math.pow(1 - q, NN - k));
   // край горки: столбики, левее (или правее) которых вместе с ними набирается меньше 2,5 %
@@ -507,9 +510,11 @@ function drawRead(){
     c.fillStyle = COL.ink; c.beginPath(); c.moveTo(X(pc), y0 - 1); c.lineTo(X(pc) - 6, y0 + 7); c.lineTo(X(pc) + 6, y0 + 7); c.closePath(); c.fill();
     const fx = X(100 * K / NN), ok = K >= r0.a && K <= r0.b;
     c.strokeStyle = COL.ink; c.lineWidth = 2; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(fx, y0); c.lineTo(fx, T - 10); c.stroke(); c.setLineDash([]);
-    const tx = 'у Котейки: 19 из 30', right = fx + 8 + c.measureText(tx).width < w - 2;
+    const tx = 'у Котейки: ' + K + ' из ' + NN, right = fx + 8 + c.measureText(tx).width < w - 2;
     label(c, tx, right ? fx + 6 : fx - 6, T - 12, ok ? COL.ink : COL.trapInk, right ? 'left' : 'right');
     const yC = h - 14, step = X(2) - X(0), r = Math.max(2.5, Math.min(6, step * 0.36)), cur = idx(pc);
+    c.strokeStyle = COL.truth; c.lineWidth = 1.5; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(X(GOAL), yC + 9); c.lineTo(X(GOAL), y0 + 22); c.stroke(); c.setLineDash([]);
+    label(c, 'окупается', X(GOAL) + 4, y0 + 34, COL.truth);
     CAND.forEach((x, i) => { const cx = X(x), s = state[i];
       if (s === 1){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(cx, yC, r, 0, 2 * Math.PI); c.fill(); }
       else if (s === -1){ c.strokeStyle = COL.gray; c.lineWidth = 1.3; c.beginPath(); c.arc(cx, yC, r - 0.6, 0, 2 * Math.PI); c.stroke(); }
@@ -518,7 +523,7 @@ function drawRead(){
     if (done()){
       const li = state.indexOf(1), ri = state.lastIndexOf(1), a = X(CAND[li]) - step / 2, b = X(CAND[ri]) + step / 2, yb = yC - r - 8;
       c.strokeStyle = COL.ink; c.lineWidth = 1.6; c.beginPath(); c.moveTo(a, yb + 5); c.lineTo(a, yb); c.lineTo(b, yb); c.lineTo(b, yb + 5); c.stroke();
-      label(c, 'вилка: от 44 до 80 %', (a + b) / 2, yb - 5, COL.ink, 'center');
+      label(c, 'вилка: от ' + CAND[li] + ' до ' + CAND[ri] + ' %', (a + b) / 2, yb - 5, COL.ink, 'center');
       const gs = GUESS[AB.choice('edges6')];
       if (gs){ const yg = yb - 26, t = 'твоя догадка'; c.strokeStyle = COL.test; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(X(gs[0]), yg); c.lineTo(X(gs[1]), yg); c.stroke(); c.setLineDash([]);
         [gs[0], gs[1]].forEach(v => { c.beginPath(); c.moveTo(X(v), yg - 4); c.lineTo(X(v), yg + 4); c.stroke(); });
@@ -530,9 +535,10 @@ function drawRead(){
     state[idx(pc)] = ok ? 1 : -1;
     document.getElementById('cand6-t').textContent = pc + ' %';
     const v = document.getElementById('cand-v'); v.className = 'verdict ' + (ok ? 'good' : 'bad');
-    let t = 'Если по промокоду заказывают ' + pc + ' % гостей, ' + (r0.a === r0.b ? 'из 30 закажут ровно ' + r0.a : 'из 30 обычно заказывают от ' + r0.a + ' до ' + r0.b) + '. ' + (ok ? '19 — в середине горки: <b>правда горит</b>.' : '19 — в редком краю горки: <b>правда гаснет</b>.');
+    let t = 'Если по промокоду заказывают ' + pc + ' % гостей, ' + (r0.a === r0.b ? 'из ' + NN + ' закажут ровно ' + r0.a : 'из ' + NN + ' обычно заказывают от ' + r0.a + ' до ' + r0.b) + '. ' + (ok ? K + ' — в середине горки: <b>правда горит</b>.' : K + ' — в редком краю горки: <b>правда гаснет</b>.');
     if (done()){ const g = AB.choice('edges6'), n = state.filter(s => s === 1).length;
-      t += ' Проверены все правды от 0 до 100 % с шагом 2: горят ' + n + ', от 44 до 80 %. Это и есть вилка. ' + (g === 'c' ? 'Ты угадал края.' : g === 'a' || g === 'b' ? 'Твоя догадка уже: 30 гостей — это мало, и с ними уживается много правд.' : g === 'd' ? 'Твоя догадка шире: даже 30 гостей отсекают и маленькие, и очень большие доли.' : ''); }
+      const li = state.indexOf(1), ri = state.lastIndexOf(1), goalOn = state[idx(GOAL)] === 1;
+      t += ' Проверены все правды от 0 до 100 % с шагом 2: горят ' + n + ', от ' + CAND[li] + ' до ' + CAND[ri] + ' %. Это и есть вилка. ' + (goalOn ? 'Порог окупаемости ' + GOAL + ' % <b>горит</b>: по ' + NN + ' промокодам нельзя утверждать, что промокод окупается. Решение — раздать ещё, а не запускать на всю сеть. ' : 'Порог окупаемости ' + GOAL + ' % погас: промокод окупается. ') + (g === 'c' ? 'Ты угадал края.' : g === 'a' || g === 'b' ? 'Твоя догадка уже: 40 гостей — это мало, и с ними уживается много правд.' : g === 'd' ? 'Твоя догадка шире: даже 40 гостей отсекают и маленькие, и очень большие доли.' : ''); }
     v.innerHTML = t; draw();
   }
   const stop = () => { if (timer){ clearTimeout(timer); timer = null; } };

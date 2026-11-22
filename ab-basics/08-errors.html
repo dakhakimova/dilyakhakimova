@@ -77,13 +77,13 @@
 <section class="card" data-toy-pre="hundred-tests" data-title="Угадай" aria-label="Угадай">
   <span class="step-tag">Угадай</span>
   <h2>Сто экспериментов Боба</h2>
-  <p>За год команда Боба проверила 100 идей. Честно говоря, большинство идей ничего не меняют: пусть 80 из 100 пустые, а у 20 настоящий эффект: из 1000 гостей заказывают 103 вместо 100 (+3 %). Боб верит всему, где тест показал значимую разницу.</p>
-  <p>Как думаешь, у скольких пустых идей из 80 тест по ошибке покажет значимую разницу?</p>
+  <p>За год команда Боба проверила 100 идей, каждую — недельным тестом. Честно говоря, большинство идей ничего не меняют: пусть 80 из 100 пустые, а у 20 настоящий эффект: из 1000 гостей заказывают 103 вместо 100 (+3 %). У Боба правило: если тест не показал значимой разницы, идею закрываем навсегда.</p>
+  <p>Как думаешь, сколько хороших идей из 20 Боб так закроет?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="0" data-fb="Хотелось бы. Запустим сто экспериментов и посмотрим." aria-pressed="false">Ни одной</button>
-    <button type="button" data-v="4" data-fb="Ставка записана. Запустим сто экспериментов и посмотрим." aria-pressed="false">Около 4</button>
-    <button type="button" data-v="20" data-fb="Ставка записана. Запустим сто экспериментов и посмотрим." aria-pressed="false">Около 20</button>
-    <button type="button" data-v="40" data-fb="Пессимистично! Запустим сто экспериментов и посмотрим." aria-pressed="false">Около половины</button>
+    <button type="button" data-v="0" data-fb="Хотелось бы. Запустим сто экспериментов и посмотрим." aria-pressed="false">Ни одной: хорошую тест заметит</button>
+    <button type="button" data-v="3" data-fb="Ставка записана. Запустим сто экспериментов и посмотрим." aria-pressed="false">Около 3</button>
+    <button type="button" data-v="10" data-fb="Ставка записана. Запустим сто экспериментов и посмотрим." aria-pressed="false">Около половины</button>
+    <button type="button" data-v="18" data-fb="Пессимистично! Запустим сто экспериментов и посмотрим." aria-pressed="false">Почти все</button>
   </div>
   <p class="note" id="g1-note">Выбери вариант.</p>
 </section>
@@ -94,7 +94,7 @@
   <h2>Запускаем сто экспериментов</h2>
   <p>Каждая клетка — один эксперимент. В день в каждую группу приходит 10 000 человек, конверсия в контроле 10 %. Зелёная клетка — тест показал значимую разницу, серая — нет. Какие идеи на самом деле пустые, пока не видно.</p>
   <div class="chat" data-toy-hide>
-    <div class="msg kot world"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">80 пустых идей — мои. В них ничего не меняется, но каждой двадцатой я всё равно подкину «победу».</p></div></div>
+    <div class="msg kot world"><img loading="lazy" class="ava" src="img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">80 пустых идей — мои: в них ничего не меняется. А в 20 хороших я подмешиваю шум — и иногда он прячет настоящие +3 %.</p></div></div>
   </div>
   <div class="sheet c-white">
     <label class="field" for="days">Длина каждого эксперимента: <b id="days-t" class="num">7 дней</b></label>
@@ -104,7 +104,7 @@
       <button class="btn ghost" type="button" id="reveal" disabled>Показать правду</button>
     </div>
     <div class="grid10" id="grid" aria-label="Сто экспериментов"></div>
-    <div class="legend-row" id="lg-before"><span><i style="background:var(--truth)"></i>тест увидел эффект</span><span><i style="background:#EAE8E2"></i>не увидел</span></div>
+    <div class="legend-row" id="lg-before"><span><i style="background:var(--truth)"></i>тест увидел эффект</span><span><i style="background:#EAE8E2"></i>не увидел — Боб закрывает идею</span></div>
     <div class="counts" id="counts" hidden>
       <div><b id="c-tp">0</b><i style="background:var(--truth)"></i>верно выкатили настоящую</div>
       <div><b id="c-fp">0</b><i style="background:var(--trap)"></i>ложная тревога</div>
@@ -166,7 +166,7 @@
       <button type="button" data-v="c" data-why="Наоборот: мягкий судья чаще выносит приговор «эффект есть», в том числе пустым идеям.">Меньше станет и пропусков, и ложных тревог</button>
       <button type="button" data-v="b">Пропусков меньше, ложных тревог больше</button>
     </div>
-    <p class="why">Мягкий судья реже отпускает виновных, но чаще осуждает невиновных: при пороге 20 % каждая пятая пустая идея выглядит «победой». Уменьшить оба вида ошибок сразу можно, только если колокола разойдутся: больше людей и дней в тесте или менее шумная метрика (шаг 9).</p>
+    <p class="why">Мягкий судья реже отпускает виновных, но чаще осуждает невиновных: при пороге 20 % каждая пятая пустая идея выглядит «победой». Уменьшить оба вида ошибок сразу можно, только если колокола разойдутся: больше людей и дней в тесте или менее шумная метрика<span data-toy-hide> (шаг 9)</span>.</p>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Дэвид Шпигельхалтер, «Искусство статистики»</a></p>
 </section>
@@ -202,7 +202,7 @@
 <section class="card" data-toy="true-wins" data-title="Сколько побед настоящие" aria-label="Сколько побед настоящие">
   <span class="step-tag">Игрушка</span>
   <h2>Сколько «побед» настоящие</h2>
-  <p>За год команда проверяет 1000 идей. Хороших среди них обычно немного, скажем, каждая десятая. Тесты замечают хорошую идею в половине случаев, а пустая «побеждает» в 5 % случаев.</p>
+  <p>Команда Алисы перешла на длинные тесты: теперь тест замечает хорошую идею в 80 % случаев, а пустая «побеждает» в 5 %. Зато идеи она проверяет все подряд, без отбора: за год 1000 штук, и хорошая среди них лишь каждая двадцатая. Боб хочет выкатывать каждую победу без перепроверки.</p>
   <p>Как думаешь, какая доля значимых «побед» окажется настоящей?</p>
   <div class="choice" data-key="g2" role="group" aria-label="Твой прогноз">
     <button type="button" data-v="all" data-fb="Хотелось бы. Разложим 1000 идей и посчитаем.">Почти все</button>
@@ -213,8 +213,8 @@
   <p class="note" id="g2-note">Выбери вариант.</p>
   <div class="sheet c-white" id="wins-box" hidden>
     <div class="twoinputs">
-      <label class="field" for="w-good">Хороших идей: <b id="w-good-t" class="num">10 %</b><input type="range" id="w-good" min="1" max="50" value="10" style="width:100%"></label>
-      <label class="field" for="w-pow">Тест замечает хорошую идею: <b id="w-pow-t" class="num">50 %</b><input type="range" id="w-pow" min="10" max="95" step="5" value="50" style="width:100%"></label>
+      <label class="field" for="w-good">Хороших идей: <b id="w-good-t" class="num">5 %</b><input type="range" id="w-good" min="1" max="50" value="5" style="width:100%"></label>
+      <label class="field" for="w-pow">Тест замечает хорошую идею: <b id="w-pow-t" class="num">80 %</b><input type="range" id="w-pow" min="10" max="95" step="5" value="80" style="width:100%"></label>
     </div>
     <canvas id="ch-wins" aria-label="1000 идей, раскрашенных по исходу теста"></canvas>
     <div class="legend-row"><span><i style="background:var(--truth)"></i>настоящая победа</span><span><i style="background:var(--trap)"></i>ложная победа</span><span><i style="background:#C9A43A"></i>пропуск</span><span><i style="background:#E1E0D9"></i>верный отказ</span></div>
@@ -225,13 +225,13 @@
     <div class="verdict" id="w-v" hidden></div>
   </div>
   <div class="quiz" data-right="a" id="w-quiz" hidden>
-    <p class="q">Как поднять долю настоящих побед?</p>
+    <p class="q">Тесты у команды уже чувствительные. Что теперь сильнее всего поднимет долю настоящих побед?</p>
     <div class="choice">
-      <button type="button" data-v="b" data-why="Больше тестов — больше и настоящих, и ложных побед. Доля настоящих от этого не меняется.">Запускать больше тестов за тот же год</button>
-      <button type="button" data-v="a">Сильнее идеи и чувствительнее тесты</button>
-      <button type="button" data-v="c" data-why="Подглядывание только добавляет ложных побед — об этом шаг 10.">Смотреть на результаты каждый день</button>
+      <button type="button" data-v="b" data-why="Подвинь ползунок мощности до 95 %: настоящих побед станет лишь половина. Чувствительность почти исчерпана, мешает поток пустых идей.">Ещё длиннее тесты: мощность 95 %</button>
+      <button type="button" data-v="a">Отбирать идеи до теста, чтобы хороших стало больше</button>
+      <button type="button" data-v="c" data-why="Больше тестов — больше и настоящих, и ложных побед. Доля настоящих от этого не меняется.">Запускать больше тестов за тот же год</button>
     </div>
-    <p class="why">Подвигай ползунки: доля настоящих побед растёт, когда хороших идей больше и тест чаще их замечает. Каждая ложная победа — это выкаченная пустая фича, которую потом поддерживают годами.</p>
+    <p class="why">Подвигай ползунки: при 5 % хороших идей даже мощность 95 % даёт только половину настоящих побед, а при 20 % хороших и мощности 80 % настоящих уже 80 %. Когда тесты чувствительные, слабое место — поток идей. Каждая ложная победа — это выкаченная пустая фича, которую потом поддерживают годами.</p>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Майкл Херцог, Майкл Фрэнсис, Аарон Кларк, «Статистика и планирование эксперимента для непосвящённых»</a></p>
 </section>
@@ -329,10 +329,10 @@ function paint(){
   const c = {tp: 0, fp: 0, fn: 0, tn: 0};
   res.forEach(r => c[cls(r).split(' ')[0]]++);
   Object.keys(c).forEach(k => document.getElementById('c-' + k).textContent = c[k]);
-  const g1 = AB.choice('g1');
-  const head = g1 === '4' ? 'Ты угадал. ' : g1 === '0' ? 'Ни одной не получается. ' : g1 ? 'Меньше, чем ты думал. ' : '';
-  v.hidden = false; v.className = 'verdict ' + (g1 === '4' ? 'good' : 'bad');
-  v.innerHTML = head + 'У <b>' + c.fp + '</b> из 80 пустых идей тест показал значимую разницу: в среднем так выходит 4, одна из двадцати. А из 20 настоящих заметил <b>' + c.tp + '</b> и пропустил <b>' + c.fn + '</b>. Посмотри на зелёные клетки до раскрытия: из ' + (c.tp + c.fp) + ' «победителей» ' + c.fp + ' — пустышки. Подвинь длину эксперимента и запусти ещё раз: пропусков станет меньше, а ложных тревог в среднем столько же.';
+  const g1 = AB.choice('g1'), wk = DAYS[di] === 7, expFn = 20 * (1 - power(DAYS[di]));
+  const head = !wk ? '' : g1 === '10' ? 'Ты угадал. ' : g1 === '0' ? 'Тест замечает далеко не каждую хорошую идею. ' : g1 === '18' ? 'Не так плохо: часть хороших тест всё же замечает. ' : g1 ? 'Больше, чем ты думал. ' : '';
+  v.hidden = false; v.className = 'verdict ' + (wk && g1 === '10' ? 'good' : 'bad');
+  v.innerHTML = head + 'Из 20 хороших идей тест длиной ' + daysWord(DAYS[di]) + ' заметил <b>' + c.tp + '</b>, а <b>' + c.fn + '</b> остались серыми — по правилу Боба их закрыли бы навсегда. В среднем при такой длине теста закрывают ' + num(expFn, expFn < 10 ? 1 : 0).replace(',0', '') + ' из 20. Ложных тревог у пустых идей — <b>' + c.fp + '</b> из 80, в среднем 4 при любой длине. Подвинь длину и запусти ещё раз: при 4 неделях закрытых хороших идей почти не останется. Серый тест значит «не разглядели», а не «не работает».';
 }
 document.getElementById('run').addEventListener('click', run);
 document.getElementById('reveal').addEventListener('click', () => { revealed = true; paint(); });

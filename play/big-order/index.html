@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/04-clt.html?toy=big-order" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Один заказ на 50 000 ₽: что станет со средним чеком? · Игрушки · Диля Хакимова</title>
-<meta name="description" content="Двадцать обычных чеков и один корпоратив: как один выброс двигает среднее и почти не трогает медиану.">
+<title>Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Маленький тест нового меню: по 20 обычных чеков в группах A и B и один корпоратив, который решает исход теста, — если смотреть на среднее.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/big-order/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/big-order/">
-<meta property="og:title" content="Один заказ на 50 000 ₽: что станет со средним чеком? · Игрушки · Диля Хакимова">
-<meta property="og:description" content="Двадцать обычных чеков и один корпоратив: как один выброс двигает среднее и почти не трогает медиану.">
+<meta property="og:title" content="Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Маленький тест нового меню: по 20 обычных чеков в группах A и B и один корпоратив, который решает исход теста, — если смотреть на среднее.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/big-order.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -45,47 +45,47 @@
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">Один заказ на 50 000 ₽: что станет со средним чеком?</span></li>
+    <li><span aria-current="page">Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="big-order" data-frame="/ab-basics/04-clt.html?toy=big-order"
-  data-share-title="Один заказ на 50 000 ₽: что станет со средним чеком?" data-share-text="В A/B-тесте средний чек вырос на 12 %, а медиана не сдвинулась. Продакт празднует. Что может сделать со средним один большой заказ? Угадай — и добавь корпоратив на 50 000 ₽"
+  data-share-title="Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста?" data-share-text="В A/B-тесте нового меню средний чек в группе B вырос в разы, а медиана не сдвинулась. Продакт готовит релиз. Что может сделать с отчётом один корпоративный заказ? Угадай — и добавь его в группу B"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="big-order" data-show-from="0" hidden></span></p>
-  <h1>Один заказ на 50 000 ₽: что станет со средним чеком?</h1>
+  <h1>Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Средний чек в тесте вырос на 12 %! Новый экран оплаты явно уговаривает брать больше.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А медиана? Она почти не изменилась.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Медиана, среднее — какая разница, это примерно одно и то же.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А ещё вчера в тестовую группу попал офис, который заказал кофе на весь этаж.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай возьмём двадцать обычных заказов — и добавим к ним один корпоратив.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест нового меню: средний чек в группе B вырос в разы! Меню явно уговаривает брать больше.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А медиана в B? И сколько заказов в каждой группе?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. По двадцать обычных заказов. А ещё вчера в группу B попал офис, который заказал кофе на весь этаж.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну и что, это тоже заказ. Среднее есть среднее.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим на обе группы — с корпоративом и без, по среднему и по медиане.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Здесь 20 обычных заказов из приложения, каждый столбик — чек. Среднее — сумма, делённая на число заказов. Медиана — чек ровно посередине, если выстроить заказы от меньшего к большему.</p><p>Прикинь, во сколько раз вырастет среднее, если добавить один корпоративный заказ на 50 000 ₽, и что будет с медианой. Потом нажми кнопку и проверь.</p></div>
+    <div class="what-body"><p>Здесь тест, где меню на самом деле ничего не меняет: в группах A и B по 20 обычных заказов, средние и медианы у них одинаковые. Каждая точка — чек. Среднее — сумма, делённая на число заказов. Медиана — чек ровно посередине, если выстроить заказы от меньшего к большему.</p><p>Прикинь, что покажет отчёт по среднему и по медиане, если в группу B попадёт один корпоративный заказ на 50 000 ₽. Потом добавь его, а второй кнопкой ограничь все чеки порогом 1 000 ₽.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab04-01-superfan.jpg" alt="Один гость несёт башню из пакетов с заказами, рядом очередь обычных гостей с одним стаканчиком" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/04-clt.html?toy=big-order" title="Игрушка: Один заказ на 50 000 ₽: что станет со средним чеком?" style="height:800px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/04-clt.html?toy=big-order" title="Игрушка: Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста?" style="height:1100px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/04-clt.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
     <h2 id="try-h">Попробуй</h2>
-    <ol><li>Посмотри на среднее и медиану двадцати обычных заказов. Сильно ли они различаются?</li><li>Добавь корпоративный заказ. Во сколько раз выросло среднее? А медиана?</li><li>Ответь на вопрос под игрушкой: что проверить первым, если среднее выросло, а медиана — нет?</li></ol>
+    <ol><li>Нажми «Корпоратив попал в B». На сколько процентов «вырос» средний чек? А медиана?</li><li>Включи порог 1 000 ₽. Что осталось от разницы средних?</li><li>Ответь на вопрос под игрушкой: что проверить первым, если среднее выросло, а медиана — нет?</li></ol>
   </section>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
     <div class="reveal" hidden>
-      <p>Один заказ из 21 поднял среднее с 420 ₽ до 2 781 ₽ — почти в 7 раз. Медиана сдвинулась с 415 ₽ до 420 ₽: ей всё равно, насколько велик крайний заказ. Если такой корпоратив случайно попадёт в тест, средний чек вырастет, а фича будет ни при чём. Поэтому, когда среднее растёт, а медиана стоит, первым делом ищут гигантские заказы.</p>
+      <p>Меню ничего не меняет, а один корпоратив в группе B даёт в отчёте +562 % к среднему чеку: 2 781 ₽ против 420 ₽. Медиана сдвинулась всего на 1,2 %: ей всё равно, насколько велик крайний заказ. Порог 1 000 ₽ срезает «эффект» до +6,6 %, а на настоящем тесте с тысячами заказов в группе от корпоратива почти ничего не останется. Решение по такому среднему — это решение по одному офису, а не по меню.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Среднее чувствительно к выбросам, медиана — почти нет.</li><li>Среднее выросло, медиана стоит — проверь, нет ли в тесте пары огромных заказов.</li><li>Перед расчётом выбросы ограничивают: всё, что выше 99 % заказов, считают по этому порогу.</li><li>Медиана — не замена среднему: она не заметит, если фича подняла чек только части гостей.</li></ul>
+      <ul class="cheat"><li>Среднее чувствительно к выбросам, медиана — почти нет.</li><li>Среднее выросло, медиана стоит — проверь, нет ли в тесте пары огромных заказов.</li><li>Перед расчётом выбросы ограничивают порогом, выбранным до теста, — например, по 99 % всех заказов.</li><li>Медиана — не замена среднему: она не заметит, если фича подняла чек только части гостей.</li></ul>
     </div>
   </section>
 

@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/12-wins.html?toy=many-metrics" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>В тесте 20 метрик. Как часто хоть одна прокрасится сама? · Игрушки · Диля Хакимова</title>
-<meta name="description" content="Каждая метрика в отчёте A/B — ещё один лотерейный билет. Двигай число метрик и смотри шанс хотя бы одного ложного прокраса.">
+<title>Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»? · Игрушки · Диля Хакимова</title>
+<meta name="description" content="Каждый срез отчёта — ещё один лотерейный билет. Двигай число районов доставки и смотри шанс, что хоть один ложно «сработает».">
 <link rel="canonical" href="https://dilyakhakimova.com/play/many-metrics/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/many-metrics/">
-<meta property="og:title" content="В тесте 20 метрик. Как часто хоть одна прокрасится сама? · Игрушки · Диля Хакимова">
-<meta property="og:description" content="Каждая метрика в отчёте A/B — ещё один лотерейный билет. Двигай число метрик и смотри шанс хотя бы одного ложного прокраса.">
+<meta property="og:title" content="Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»? · Игрушки · Диля Хакимова">
+<meta property="og:description" content="Каждый срез отчёта — ещё один лотерейный билет. Двигай число районов доставки и смотри шанс, что хоть один ложно «сработает».">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/many-metrics.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -45,46 +45,46 @@
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">В тесте 20 метрик. Как часто хоть одна прокрасится сама?</span></li>
+    <li><span aria-current="page">Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="many-metrics" data-frame="/signal/12-wins.html?toy=many-metrics"
-  data-share-title="В тесте 20 метрик. Как часто хоть одна прокрасится сама?" data-share-text="В отчёте A/B 20 метрик: главная не сдвинулась, зато «заказы с десертом» прокрасились, и продакт объявляет победу. Как часто хоть одна из 20 метрик краснеет без всякого эффекта? Угадай и проверь"
+  data-share-title="Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»?" data-share-text="Тест в целом серый, но в одном из 30 районов доставки прокрасилось, и продакт хочет запускать фичу там. Как часто хоть один из 30 районов краснеет без всякого эффекта? Угадай и проверь"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="many-metrics" data-show-from="0" hidden></span></p>
-  <h1>В тесте 20 метрик. Как часто хоть одна прокрасится сама?</h1>
+  <h1>Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест нового меню: выручка не изменилась, зато «заказы с десертом» прокрасились! Значит, меню работает.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сколько метрик было в отчёте?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Штук двадцать: заказы, выручка, чек, отмены, десерты… Чем больше смотрим, тем больше видим.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. На каждую метрику я бросаю свою монетку: каждая двадцатая краснеет просто так.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем, как часто хоть одна из двадцати прокрасится, если меню не делает ничего.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест бесплатной доставки в целом серый. Но я разрезал его по районам — и в Заречье прокрасилось! Запускаем доставку там.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сколько районов ты проверил?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Все тридцать. Чем мельче смотрим, тем больше видим.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. На каждый район я бросаю свою монетку: каждый двадцатый краснеет просто так.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем, как часто хоть один из тридцати районов прокрасится, если доставка не делает ничего.</p></div></div>
   </div>
 
   <section class="play-what" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>В одном A/B-тесте смотрят много метрик. Если эффекта нет нигде, каждая метрика ложно прокрашивается с вероятностью α = 5 %. Кривая показывает шанс, что прокрасится хотя бы одна, в зависимости от числа метрик.</p><p>Подумай, какой этот шанс при 20 метриках, потом двигай ползунок от 1 до 50.</p></div>
+    <div class="what-body"><p>Один и тот же тест режут на срезы — здесь районы доставки — и в каждом проверяют «значимо или нет». Если эффекта нет нигде, каждый район ложно прокрашивается с вероятностью α = 5 %. Кривая показывает шанс, что прокрасится хотя бы один, в зависимости от числа районов.</p><p>Подумай, какой этот шанс при 30 районах, потом двигай ползунок от 1 до 50.</p></div>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/signal/12-wins.html?toy=many-metrics" title="Игрушка: В тесте 20 метрик. Как часто хоть одна прокрасится сама?" style="height:800px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/signal/12-wins.html?toy=many-metrics" title="Игрушка: Тест серый, но Боб режет его на 30 районов. Найдётся «работающий»?" style="height:800px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игрушка не загрузилась? <a href="/signal/12-wins.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
     <h2 id="try-h">Попробуй</h2>
-    <ol><li>Сдвинь ползунок на 1 метрику и верни на 20. Какой шанс хотя бы одной ложной?</li><li>При скольких метриках шанс переваливает за половину?</li><li>Поставь 50 метрик. Сколько ложных прокрасов в среднем?</li></ol>
+    <ol><li>Сдвинь ползунок на 1 район и верни на 30. Какой шанс хотя бы одного ложного?</li><li>При скольких районах шанс переваливает за половину?</li><li>Поставь 50 районов. Сколько ложных «сработавших» районов в среднем?</li></ol>
   </section>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
     <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
     <div class="reveal" hidden>
-      <p>При одной метрике ложный прокрас бывает в 5 % тестов, а при 20 независимых метриках хотя бы одна прокрасится в 64 % тестов. Уже с 14 метрик шанс больше половины. В среднем ложных прокрасов α·k: при 20 метриках — один, при 50 — два с половиной. Связанные метрики красятся пачками, и шанс «хотя бы одной» у них меньше, но среднее то же.</p>
+      <p>При одном районе ложный прокрас бывает в 5 % тестов, а при 30 независимых районах хотя бы один прокрасится в 79 % тестов. Уже с 14 районов шанс больше половины. В среднем ложных районов α·k: при 30 — полтора, при 50 — два с половиной. Так что прокрасившееся Заречье в сером тесте — обычное дело: «работающий» срез находится почти всегда.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>P(хотя бы одна ложная) = 1 − (1 − α)<sup>k</sup> для независимых метрик.</li><li>20 метрик при α = 5 %: 64 %. В среднем ложных α·k.</li><li>Главную метрику выбирают до теста; остальные — для новых гипотез, а не для решения.</li><li>Это проблема множественных проверок (multiple comparisons); её лечат поправками на число метрик.</li></ul>
+      <ul class="cheat"><li>P(хотя бы один ложный срез) = 1 − (1 − α)<sup>k</sup> для независимых срезов.</li><li>30 районов при α = 5 %: 79 %. В среднем ложных α·k = 1,5.</li><li>Срезы, метрики, тесты за квартал — один и тот же счёт.</li><li>Срез, который «сработал», — гипотеза для нового теста, а не решение. Поправка на множественное тестирование делает порог строже.</li></ul>
     </div>
   </section>
 
@@ -101,11 +101,11 @@
     </details>
   </section>
 
-  <p class="play-src"><b>Откуда идея.</b> Классическая проблема множественных проверок.</p>
+  <p class="play-src"><b>Откуда идея.</b> Классическая проблема множественных проверок (multiple comparisons).</p>
 
   <section class="play-next" aria-labelledby="next-h">
     <h2 id="next-h">Дальше в курсе</h2>
-    <p>Боб пообещал выбирать главную метрику до теста. А Алиса собрала весь путь от «что здесь случайно?» до ответа бизнесу. Это глава 12 курса — <a href="/signal/12-wins.html">«„Прокрасилось“ — значит, работает?»</a>.</p>
+    <p>Боб пообещал не искать победу по срезам после теста. А Алиса собрала весь путь от «что здесь случайно?» до ответа бизнесу. Это глава 12 курса — <a href="/signal/12-wins.html">«„Прокрасилось“ — значит, работает?»</a>.</p>
     <p class="ctas"><a class="btn" href="/signal/12-wins.html">Открыть глава 12 →</a><a class="btn link" href="/signal/">Весь курс «Сигнал или шум»</a></p>
     <p class="status"><span class="tag free">бесплатный курс — начни сразу, без регистрации</span></p>
   </section>

@@ -120,18 +120,18 @@
   <p>Выборочное SD <i>s</i> делят на n − 1, а не на n: так оценка не занижает разброс на маленьких выборках. Разброс самого среднего, σ/√n, называют стандартной ошибкой — подробно о ней в главе 7.</p>
 </section>
 
-<!-- 5: Керрих -->
+<!-- 5: сплит монеткой: доля и разность -->
 <section class="card" data-toy="share-vs-diff" data-title="Доля и разность" aria-label="Доля и разность">
   <span class="step-tag">Вторая игрушка</span>
   <h2 data-toy-hide>Доля успокаивается, а разность — нет</h2>
-  <p>В 1940-х Джон Керрих сидел в лагере для интернированных и от скуки бросил монетку 10 000 раз.<span data-toy-hide> Доля орлов подползла к половине. А вот разность «орлы минус решки» к нулю не пришла.</span> Повтори его опыт.</p>
+  <p>Приложение делит новых гостей на группы теста монеткой: орёл — в группу A, решка — в B. За неделю пришло 40 000 гостей. Боб каждый вечер смотрит в дашборд на разницу «гостей в A минус гостей в B»: если сплит честный, она же должна уходить к нулю?<span data-toy-hide> Доля гостей в A подползает к половине. А вот разница в штуках к нулю не приходит.</span> Прокрути неделю.</p>
   <div class="sheet c-white">
     <div class="controls">
-      <button class="btn" type="button" id="k-run">Бросить 10 000 раз</button>
-      <button class="btn ghost" type="button" id="k-clear">Убрать старые серии</button>
+      <button class="btn" type="button" id="k-run">Прокрутить неделю: 40 000 гостей</button>
+      <button class="btn ghost" type="button" id="k-clear">Убрать старые недели</button>
     </div>
-    <canvas id="k-cv" role="img" aria-label="Сверху доля орлов прижимается к половине, снизу разность орлов и решек уходит всё дальше от нуля"></canvas>
-    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>твоя серия</span><span><i style="background:var(--theory)"></i>коридор ±2 SD и прошлые серии</span></div>
+    <canvas id="k-cv" role="img" aria-label="Сверху доля гостей в группе A прижимается к половине, снизу разница между числом гостей в A и в B уходит всё дальше от нуля"></canvas>
+    <div class="legend-row"><span><i style="background:var(--ctrl)"></i>твоя неделя</span><span><i style="background:var(--theory)"></i>коридор ±2 SD и прошлые недели</span></div>
     <div class="verdict" id="k-v" hidden></div>
   </div>
   <aside class="scary" data-toy-hide>
@@ -263,9 +263,9 @@ _check()
   <span class="step-tag">Проверь себя</span>
   <h2>Вопросы про шум</h2>
   <div class="quiz" data-right="b">
-    <p class="q">Что обычно происходит с разностью «орлы минус решки», если бросать честную монетку всё дольше?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="К половине ползёт доля. Разность в штуках закон не обещает: на 10 000 бросков она обычно порядка 80.">Стремится к нулю вместе с долей орлов</button><button type="button" data-v="b">Обычно растёт, примерно как √n</button><button type="button" data-v="c" data-why="Разность блуждает, и её типичный размах растёт: около 8 на 100 бросков, около 80 на 10 000.">Держится около одного и того же числа</button></div>
-    <p class="why">Разброс числа орлов на n бросках — √n / 2, поэтому разность «орлы − решки» обычно порядка √n. А доля — это разность, делённая на n: она уменьшается как 1/√n. Доля успокаивается, разность — нет.</p>
+    <p class="q">Сплит теста честный: каждого гостя в группу A или B отправляет монетка. Что обычно происходит с разницей «гостей в A минус гостей в B», пока гостей становится всё больше?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="К половине ползёт доля гостей в A. Разницу в штуках закон не обещает: на 40 000 гостей она обычно порядка 160.">Стремится к нулю вместе с долей гостей в A</button><button type="button" data-v="b">Обычно растёт, примерно как √n</button><button type="button" data-v="c" data-why="Разница блуждает, и её типичный размах растёт: около 8 на 100 гостей, около 160 на 40 000.">Держится около одного и того же числа</button></div>
+    <p class="why">Разброс числа гостей в A при n гостях — √n / 2, поэтому разница «A − B» обычно порядка √n. А доля — это разница, делённая на n: она уменьшается как 1/√n. Доля успокаивается, разница — нет. Поэтому сплит проверяют по доле, а не по разнице в штуках.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">В топе рейтинга конверсии — три самых маленьких кафе сети. Что вероятнее всего?</p>
@@ -327,8 +327,8 @@ const TXT = {
       'За серую полосу вышли <b>' + int(k) + '</b> ' + plural(k, 'день', 'дня', 'дней') + ' из ' + int(n) + ' — ' + share(k / n, 0) + '. ' +
       'Теория для этих n и p: <b>' + share(th, 1) + '</b>.' + (isBase ? ' Почти каждый четвёртый день доля выходит за 7–13 % без всяких причин.' : ''),
     sdLog: list => 'Твои замеры SD дневной доли: ' + list.map(r => '<b>' + int(r.n) + '</b> гостей — ' + num(100 * r.sd, 1) + ' (теория ' + num(100 * r.th, 1) + ')').join(' · ') + ' п.' + NBSP + 'п.',
-    kShare: 'доля орлов', kDiff: 'орлы − решки', kX: 'бросков (шкала логарифмическая)',
-    kv: (sh, diff, n) => 'После ' + int(n) + ' бросков доля орлов — <b>' + share(sh, 1) + '</b>, до половины ' + num(Math.abs(100 * sh - 50), 2) + NBSP + 'п.' + NBSP + 'п. А орлов ' + (diff >= 0 ? 'больше' : 'меньше') + ' решек на <b>' + int(Math.abs(diff)) + '</b>. Обычно на 10 000 бросках доля в пределах 49–51 %, а разность — порядка 80 и бывает до 200.',
+    kShare: 'доля гостей в A', kDiff: 'гостей в A − в B', kX: 'гостей пришло (шкала логарифмическая)',
+    kv: (sh, diff, n) => 'За неделю пришло ' + int(n) + ' гостей. В группе A — <b>' + share(sh, 1) + '</b>, до половины ' + num(Math.abs(100 * sh - 50), 2) + NBSP + 'п.' + NBSP + 'п. А гостей в A ' + (diff >= 0 ? 'больше' : 'меньше') + ', чем в B, на <b>' + int(Math.abs(diff)) + '</b>. Обычно на 40 000 гостей доля в пределах 49,5–50,5 %, а разница — порядка 160 и бывает до 400. Сплит при этом честный.',
     rX: 'гостей за неделю (шкала логарифмическая)', rY: 'конверсия',
     rv: (top, bot, med) => 'Топ-3: кафе с ' + top.map(int).join(', ') + ' гостями. Последние три: ' + bot.map(int).join(', ') + '. Типичное кафе сети — около ' + int(med) + ' гостей. У всех конверсия ровно 10 %.',
     sX: 'день', sInvite: 'Нажми «Пуск» или «Следующий день»',
@@ -409,20 +409,20 @@ function ch04niceStep(range){ const raw = range / 5, e = Math.pow(10, Math.floor
   paint();
 })();
 
-// ---------- карточка 5: Керрих ----------
+// ---------- карточка 5: сплит монеткой — доля и разность ----------
 (function(){
-  const cv = document.getElementById('k-cv'), NMAX = 10000;
+  const cv = document.getElementById('k-cv'), NMAX = 40000, LG = Math.log10(NMAX), DL = 500;
   let old = [], cur = null, shown = 0, timer = null;
   function series(){ const a = new Int32Array(NMAX + 1); for (let i = 1; i <= NMAX; i++) a[i] = a[i - 1] + (rand() < 0.5 ? 1 : 0); return a; }
   function draw(){
     const g = canvas(cv, 0.62, 1.05); if (!g) return; const {c, w, h} = g;
     const L = 46, R = 10, T = 10, gap = 30, B = 34, pw = w - L - R, ph = (h - T - B - gap) / 2;
-    const X = n => L + Math.log10(n) / 4 * pw;
+    const X = n => L + Math.log10(n) / LG * pw;
     // верхняя панель: доля
     const Y1 = v => T + (1 - (v - 0.2) / 0.6) * ph;
     axisY(c, L, R, T, ph, w, 0.2, 0.8, 0.1, v => shareT(v, 0));
-    const Y2 = v => T + ph + gap + (1 - (v + 250) / 500) * ph;
-    axisY(c, L, R, T + ph + gap, ph, w, -250, 250, 100, v => (v > 0 ? '+' : v < 0 ? MINUS : '') + int(Math.abs(v)));
+    const Y2 = v => T + ph + gap + (1 - (v + DL) / (2 * DL)) * ph;
+    axisY(c, L, R, T + ph + gap, ph, w, -DL, DL, 250, v => (v > 0 ? '+' : v < 0 ? MINUS : '') + int(Math.abs(v)));
     // коридоры
     c.strokeStyle = COL.gray; c.lineWidth = 1.2; c.setLineDash([5, 4]);
     [1, -1].forEach(sg => {
@@ -434,14 +434,14 @@ function ch04niceStep(range){ const raw = range / 5, e = Math.pow(10, Math.floor
     function line(a, upto, col, lw){
       c.strokeStyle = col; c.lineWidth = lw;
       c.beginPath(); for (let n = 1; n <= upto; n = n < 50 ? n + 1 : Math.ceil(n * 1.01)){ const y = Y1(clip(a[n] / n, 0.2, 0.8)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
-      c.beginPath(); for (let n = 1; n <= upto; n = n < 50 ? n + 1 : Math.ceil(n * 1.01)){ const y = Y2(clip(2 * a[n] - n, -250, 250)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
+      c.beginPath(); for (let n = 1; n <= upto; n = n < 50 ? n + 1 : Math.ceil(n * 1.01)){ const y = Y2(clip(2 * a[n] - n, -DL, DL)); n === 1 ? c.moveTo(X(n), y) : c.lineTo(X(n), y); } c.stroke();
     }
     old.forEach(a => line(a, NMAX, COL.gray, 1));
     if (cur) line(cur, shown, COL.ctrl, 2);
     label(c, TXT.kShare, L + 6, T + 14, COL.ink2);
     label(c, TXT.kDiff, L + 6, T + ph + gap + 14, COL.ink2);
     c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y2(0)); c.lineTo(w - R, Y2(0)); c.stroke();
-    axisX(c, X, [1, 10, 100, 1000], h - 18, v => int(v)); label(c, int(10000), w - R, h - 18, COL.ink2, 'right');
+    axisX(c, X, [1, 10, 100, 1000, 10000], h - 18, v => int(v)); label(c, int(NMAX), w - R, h - 18, COL.ink2, 'right');
     label(c, TXT.kX, L + pw / 2, h - 3, COL.ink2, 'center');
   }
   function finish(){

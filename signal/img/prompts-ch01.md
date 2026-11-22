@@ -29,9 +29,11 @@ Bob stands at a whiteboard, proudly pointing at a big hand-drawn pie chart with 
 
 A cheerful small shop seen from the front, with a big open door. Visitors arrive in neat little groups of twenty, like small tour groups following a flag. In the nearest group nobody carries a bag, in the next group two people carry shopping bags, in the third group one person does. Alice stands at the side with a clipboard making tally marks. Kotejka sits on the shop counter in its sack, stamping receipts. Bright, readable composition, the three groups clearly distinct.
 
-## ch01-03-lamps — карточка «Хотя бы один: лампочки»
+## ch01-03-coffee — карточка «Хотя бы один: кофемашины»
 
-A long festive garland of many identical warm light bulbs stretched across a cozy evening room, almost all glowing; one or two bulbs in the middle are dark and broken. Bob, standing on a small ladder, holds one good bulb and looks surprised at the dark ones. Alice below holds up a magnifying glass toward the dark bulb. Kotejka, in its sack on a shelf, is tangled in the end of the garland with a sheepish expression. Calm warm lighting, the dark bulbs easy to spot.
+A long counter in a cozy cafe chain's central workshop with a neat row of many identical espresso machines, all working and steaming gently; on one machine in the middle a small red warning light blinks. Bob leans on the counter relaxed, waving his hand as if to say "they never break". Alice next to him holds a notebook and looks at the row of machines thoughtfully. Kotejka in its sack sits on top of one machine, peering down at the blinking red light. Calm warm lighting, the single warning light easy to spot.
+
+(Старая картинка ch01-03-lamps про гирлянду больше не используется: задача про лампочки осталась в «Вероятности на пальцах», шаг 4.)
 
 ## ch01-04-thousand — карточка «Рецепт: представь 1000 повторов»
 

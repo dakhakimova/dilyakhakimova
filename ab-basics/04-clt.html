@@ -79,16 +79,18 @@
 <!-- 3 -->
 <section class="card" data-toy="big-order" data-title="Среднее и выбросы" aria-label="Среднее и выбросы">
   <span class="step-tag">Игрушка</span>
-  <h2>Один заказ на 50 000 ₽</h2>
-  <p>Средний чек — главная метрика многих тестов. Вот 20 обычных заказов из приложения. Посчитаем две вещи: <b>среднее</b> (сумма, делённая на число заказов) и <b>медиану</b> (чек ровно посередине, если выстроить заказы от меньшего к большему).</p>
+  <h2>Корпоратив в группе B</h2>
+  <p>Средний чек — главная метрика многих тестов. Вот маленький тест нового меню: по 20 обычных заказов в группах A и B. Меню на самом деле ничего не меняет. Посчитаем по каждой группе две вещи: <b>среднее</b> (сумма, делённая на число заказов) и <b>медиану</b> (чек ровно посередине, если выстроить заказы от меньшего к большему).</p>
+  <p>А теперь в группу B случайно попадает корпоративный заказ на 50 000 ₽. Что покажет отчёт теста?</p>
   <div class="sheet c-white">
-    <canvas id="ch-cheq" aria-label="Чеки заказов"></canvas>
+    <canvas id="ch-cheq" aria-label="Чеки заказов групп A и B, средние и медианы"></canvas>
     <div class="big2">
-      <div class="trap"><b id="cq-mean">…</b><span>среднее</span></div>
-      <div><b id="cq-med">…</b><span>медиана</span></div>
+      <div class="trap"><b id="cq-mean">…</b><span>средний чек: B против A</span></div>
+      <div><b id="cq-med">…</b><span>медиана: B против A</span></div>
     </div>
     <div class="controls">
-      <button class="btn" type="button" id="cq-add">Добавить корпоративный заказ на 50 000 ₽</button>
+      <button class="btn" type="button" id="cq-add">Корпоратив на 50 000 ₽ попал в B</button>
+      <button class="btn ghost" type="button" id="cq-cap" aria-pressed="false">Ограничить чеки порогом 1 000 ₽</button>
     </div>
     <div class="verdict" id="cq-v" hidden></div>
   </div>
@@ -352,7 +354,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     bm = s.map((x, i) => x / k[i]); gm = tot / NU;
     document.getElementById('bk-mean').textContent = num(gm, 3);
     document.getElementById('bk-sd').textContent = '±' + num(sd(bm), 2);
-    document.getElementById('v-buckets').innerHTML = 'В каждой корзине около ' + Math.round(NU / NB) + ' гостей, и средние по корзинам разбросаны колоколом примерно на ±' + num(sd(bm), 2) + '. Это и есть шум, только увиденный внутри одного эксперимента. Из этого разброса платформа и узнаёт, насколько может шататься среднее всей группы. Как именно — в шаге 5.';
+    document.getElementById('v-buckets').innerHTML = 'В каждой корзине около ' + Math.round(NU / NB) + ' гостей, и средние по корзинам разбросаны колоколом примерно на ±' + num(sd(bm), 2) + '. Это и есть шум, только увиденный внутри одного эксперимента. Из этого разброса платформа и узнаёт, насколько может шататься среднее всей группы.' + (window.PLAY_SOLO ? '' : ' Как именно — в шаге 5.');
     draw();
   }
   function draw(){
@@ -373,31 +375,42 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
   gen();
 })();
 
-// ---------- карточка «Среднее и выбросы» ----------
+// ---------- карточка «Среднее и выбросы»: корпоратив в группе B ----------
 (function(){
   const base = [350, 420, 280, 510, 390, 460, 300, 620, 410, 370, 450, 330, 480, 520, 290, 400, 440, 360, 550, 470];
-  let big = false;
+  const baseB = [380, 400, 310, 490, 360, 470, 330, 590, 420, 340, 460, 300, 500, 540, 270, 410, 430, 390, 560, 450];
+  const BIG = 50000, CAP = 1000;
+  let big = false, cap = false;
   const cv = document.getElementById('ch-cheq'), med = a => { const b = [...a].sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; };
   const rub = x => int(x) + ' ₽';
+  const grpA = () => base.map(v => cap ? Math.min(v, CAP) : v);
+  const grpB = () => (big ? baseB.concat([BIG]) : baseB).map(v => cap ? Math.min(v, CAP) : v);
   function draw(){
-    const a = big ? base.concat([50000]) : base, m = mean(a), md = med(a);
-    document.getElementById('cq-mean').textContent = rub(m); document.getElementById('cq-med').textContent = rub(md);
-    const g = canvas(cv, 0.22, 0.4); if (!g) return; const {c, w, h} = g;
-    const lo = 0, hi = 1000, L = 12, R = big ? 70 : 12, pw = w - L - R, X = v => L + (Math.min(v, hi) - lo) / (hi - lo) * pw, y0 = h - 28;
-    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, y0); c.lineTo(L + pw, y0); c.stroke();
-    [0, 250, 500, 750, 1000].forEach(v => label(c, int(v), X(v), h - 10, COL.ink2, 'center'));
-    const cnt = {}; base.forEach(v => { const k = Math.round(v / 40); cnt[k] = (cnt[k] || 0) + 1; c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(v), y0 - 8 - (cnt[k] - 1) * 12, 5, 0, 2 * Math.PI); c.fill(); });
-    if (big){ c.fillStyle = COL.trap; c.beginPath(); c.arc(w - 40, y0 - 8, 9, 0, 2 * Math.PI); c.fill(); label(c, '50 000 ₽ →', w - 40, y0 - 24, COL.ink, 'center'); c.setLineDash([3, 3]); c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(L + pw + 4, y0); c.lineTo(w - 52, y0); c.stroke(); c.setLineDash([]); }
-    const mk = (v, col, t, up) => { const x = v > hi ? L + pw : X(v); c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); c.moveTo(x, 6); c.lineTo(x, y0); c.stroke(); c.lineWidth = 1; label(c, t, x > w - 200 ? x - 6 : x + 4, up ? 16 : 30, col, x > w - 200 ? 'right' : 'left'); };
-    mk(m, COL.trapInk, m > hi ? 'среднее ' + rub(m) + ' — за краем шкалы' : 'среднее', true); mk(md, COL.ink, 'медиана', false);
+    const a = grpA(), b = grpB(), dm = mean(b) / mean(a) - 1, dd = med(b) / med(a) - 1;
+    document.getElementById('cq-mean').textContent = pct(dm); document.getElementById('cq-med').textContent = pct(dd);
+    const g = canvas(cv, 0.3, 0.58); if (!g) return; const {c, w, h} = g;
+    const lo = 0, hi = 1000, L = 22, R = big ? 70 : 24, pw = w - L - R, X = v => L + (Math.min(v, hi) - lo) / (hi - lo) * pw;
+    const rowH = (h - 26) / 2, rows = [[a, base, COL.ctrl, 'A', rowH], [b, baseB, COL.test, 'B', 2 * rowH]];
+    [0, 250, 500, 750, 1000].forEach(v => label(c, int(v), X(v), h - 8, COL.ink2, 'center'));
+    rows.forEach(([arr, raw, col, nm, y0]) => {
+      c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, y0); c.lineTo(L + pw, y0); c.stroke();
+      label(c, nm, 4, y0 - 6, col === COL.ctrl ? COL.ctrl : COL.testInk);
+      const cnt = {}; raw.forEach(v => { const k = Math.round(v / 40); cnt[k] = (cnt[k] || 0) + 1; c.fillStyle = col; c.beginPath(); c.arc(X(v), y0 - 8 - (cnt[k] - 1) * 11, 4.5, 0, 2 * Math.PI); c.fill(); });
+      const m = mean(arr), md = med(arr), top = y0 - rowH + 14;
+      const mk = (v, cl, t, dy) => { const x = v > hi ? L + pw : X(v); c.strokeStyle = cl; c.lineWidth = 2; c.beginPath(); c.moveTo(x, top); c.lineTo(x, y0); c.stroke(); c.lineWidth = 1; label(c, t, x > w - 220 ? x - 6 : x + 4, top + dy, cl, x > w - 220 ? 'right' : 'left'); };
+      mk(m, COL.trapInk, m > hi ? 'среднее ' + rub(m) + ' — за краем шкалы' : 'среднее ' + rub(m), 0); mk(md, COL.ink, 'медиана', 13);
+    });
+    if (big){ const y0 = 2 * rowH, x = w - 40; c.fillStyle = COL.trap; c.beginPath(); c.arc(x, y0 - 8, 9, 0, 2 * Math.PI); c.fill(); label(c, (cap ? '1 000' : '50 000') + ' ₽ →', x, y0 - 24, COL.ink, 'center'); c.setLineDash([3, 3]); c.strokeStyle = COL.gray; c.beginPath(); c.moveTo(L + pw + 4, y0); c.lineTo(x - 12, y0); c.stroke(); c.setLineDash([]); }
+    const v = document.getElementById('cq-v'); v.hidden = !big && !cap; v.className = 'verdict ' + (Math.abs(dm) > 0.1 ? 'bad' : 'good');
+    if (big && !cap) v.innerHTML = 'Меню ничего не меняет, а отчёт показывает <b>' + pct(dm, 0) + '</b> к среднему чеку: один заказ из 41 решил исход теста. Медиана сдвинулась всего на ' + pct(dd) + ': ей всё равно, насколько велик крайний заказ. Выкатывать по такому среднему — выкатить корпоратив, а не меню.';
+    else if (big && cap) v.innerHTML = 'С порогом 1 000 ₽ корпоратив считается как обычный крупный заказ, и разница средних упала до <b>' + pct(dm) + '</b>. На 20 заказах этого ещё много, а на настоящем тесте с тысячами заказов в группе от корпоратива почти ничего не останется. Порог выбирают до теста — например, по 99 % всех заказов.';
+    else v.innerHTML = 'Без выбросов порог почти ничего не меняет: обычные заказы и так ниже 1 000 ₽. Разница средних — ' + pct(dm) + ', медиан — ' + pct(dd) + '.';
   }
   document.getElementById('cq-add').addEventListener('click', e => {
-    big = !big; e.target.textContent = big ? 'Убрать корпоративный заказ' : 'Добавить корпоративный заказ на 50 000 ₽';
-    const v = document.getElementById('cq-v'); v.hidden = !big; v.className = 'verdict bad';
-    const m0 = mean(base), m1 = mean(base.concat([50000])), d0 = med(base), d1 = med(base.concat([50000]));
-    v.innerHTML = 'Один заказ из 21 поднял <b>среднее</b> с ' + rub(m0) + ' до ' + rub(m1) + ' — почти в ' + Math.round(m1 / m0) + ' раз. <b>Медиана</b> сдвинулась с ' + rub(d0) + ' до ' + rub(d1) + ': ей всё равно, насколько велик крайний заказ. Если такой корпоратив случайно попадёт в тест, «средний чек» вырастет, и фича тут будет ни при чём.';
+    big = !big; e.target.textContent = big ? 'Убрать корпоратив из B' : 'Корпоратив на 50 000 ₽ попал в B';
     draw();
   });
+  document.getElementById('cq-cap').addEventListener('click', e => { cap = !cap; e.target.setAttribute('aria-pressed', String(cap)); draw(); });
   window.addEventListener('resize', draw);
 })();
 
