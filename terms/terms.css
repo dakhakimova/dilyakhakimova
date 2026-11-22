@@ -193,3 +193,29 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 }
 .toys b .nw{font:inherit; color:inherit}
 .nf-h{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5)}
+/* «Почему так» под игрой на странице термина — копия правил .play-out из play/play.css (три шага игры, решение Дили, 22.11.2026) */
+.play-out{margin-top:var(--s-5)}
+.play-out{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5); position:relative}
+/* «Почему так» — та же карточка, что «Сначала угадай» и «Потом проверь»: без цветной полосы */
+.play-out .locked{color:var(--muted); margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:0 var(--s-3)}
+.play-out .kicker{margin:0 0 var(--s-2)}
+.play-out.open .locked{display:none}
+.play-out .reveal p{max-width:var(--measure)}
+.play-out .tries-h{margin:0 0 var(--s-1); font-weight:500}
+.play-out .tries{margin:0 0 var(--s-4); padding-left:1.3em; max-width:var(--measure)}
+.play-out .tries li{margin:0 0 var(--s-2)}
+.play-out .reveal{border-top:1px solid var(--line); padding-top:var(--s-3)}
+.play-out .solution{margin:0; padding-left:1.4em; max-width:var(--measure)}
+.play-out .solution > li{margin:0 0 var(--s-4)}
+.play-out .solution .st-h{font-weight:500}
+/* формула не обязана умещаться в колонку текста (--measure): шире абзаца — до края карточки, дальше прокручивается сама */
+.play-out{container-type:inline-size}
+.play-out .reveal p.formula{width:max-content; max-width:calc(100cqw - 1.4em); box-sizing:border-box; white-space:nowrap; overflow-x:auto; margin:var(--s-2) 0; padding:var(--s-2) var(--s-4); background:var(--sunk); border-radius:var(--r-s); font-variant-numeric:tabular-nums}
+.play-out .formula b, .play-out .solution b:not(.st-h){font-weight:500}
+.play-out .sol-table{border-collapse:collapse; margin:var(--s-2) 0 0; font-variant-numeric:tabular-nums}
+.play-out .sol-table th, .play-out .sol-table td{padding:6px 16px 6px 0; border-bottom:1px solid var(--line); font-size:var(--fs-s); text-align:left}
+.play-out .sol-table th{font-weight:500; color:var(--text-3)}
+.play-out .sol-table .num{text-align:right; padding-right:0}
+.play-out .sol-table{width:auto; min-width:16em}
+@media (max-width:620px){ .play-out{padding:var(--s-4)} }
+.term .t-out{margin:var(--s-3) 0 0}

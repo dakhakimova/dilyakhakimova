@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611238">
-<link rel="stylesheet" href="/tokens.css?v=202611238">
-<link rel="stylesheet" href="/home.css?v=202611238">
-<link rel="stylesheet" href="/terms/terms.css?v=202611238">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611239">
+<link rel="stylesheet" href="/tokens.css?v=202611239">
+<link rel="stylesheet" href="/home.css?v=202611239">
+<link rel="stylesheet" href="/terms/terms.css?v=202611239">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Парадокс Симпсона","item":"https://dilyakhakimova.com/terms/simpson-paradox/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term","name":"Парадокс Симпсона","description":"Парадокс Симпсона — это когда в каждой подгруппе один вариант лучше, а в сумме по всем данным выигрывает другой. Виноваты разные пропорции подгрупп: общая доля — это взвешенное среднее, и веса у вариантов разные.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Парадокс Симпсона простыми словами","description":"Парадокс Симпсона: лучше в каждой подгруппе и хуже в сумме. Разбираем на двух бариста кафе, рисуем взвешенные средние и объясняем, какому сравнению верить.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Лечение A лучше лечения B и для мелких, и для крупных камней в почках, но в целом его успешность ниже. Как такое возможно и какому сравнению верить?","acceptedAnswer":{"@type":"Answer","text":"Так было в известном исследовании: у A 93% успеха на мелких камнях и 73% на крупных, у B — 87% и 69%, а в сумме A — 78%, B — 83%. Лечение A чаще назначали тяжёлым случаям с крупными камнями. Размер камня влияет и на выбор лечения, и на исход, поэтому верить надо сравнению внутри групп."}},{"@type":"Question","name":"В A/B-тесте сплит в первую неделю был 90/10, во вторую — 50/50. Можно сложить данные двух недель и сравнить конверсии?","acceptedAnswer":{"@type":"Answer","text":"Нельзя: если конверсия во вторую неделю другая (сезон, акция), группа B в сумме окажется почти целиком из второй недели, а A — из первой. Сравнивай внутри каждой недели или взвешивай недели одинаково для обеих групп."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -87,6 +87,18 @@
       <iframe id="toy-frame" src="/play/simpson-preorder/?embed=1" data-toy="simpson-preorder" title="Игра: Лучше среди постоянных, лучше среди новичков — и хуже в сумме?" style="height:800px" loading="lazy" allow="clipboard-write"></iframe>
       <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/10-traps.html#card-11">Открой её в курсе</a>.</p>
     </div>
+    <section class="play-out t-out" aria-labelledby="out-h">
+      <p class="kicker" id="out-h">Почему так</p>
+      <p class="locked">Откроется после проверки.</p>
+      <div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">В каждой подгруппе.</b> 
+          <table class="table sol-table"><thead><tr><th>Гости</th><th class="num">Включили</th><th class="num">Не включили</th></tr></thead><tbody><tr><td>постоянные</td><td class="num">50%</td><td class="num">45%</td></tr><tr><td>новички</td><td class="num">15%</td><td class="num">12%</td></tr></tbody></table></li>
+        <li><b class="st-h">В сумме.</b> <p class="formula">включили: (200 · 50% + 800 · 15%) / 1000 = <b>22%</b></p><p class="formula">не включили: (800 · 45% + 200 · 12%) / 1000 ≈ <b>38%</b></p> Среди включивших 800 новичков из 1000 — они тянут долю вниз. Это парадокс Симпсона.</li>
+        <li><b class="st-h">Где встретится на работе.</b> Сравнение «кто включил против кто нет» — сравнение разных людей. Монетка делает состав групп случайным.</li>
+      </ol>
+      </div>
+    </section>
   <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
@@ -148,6 +160,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611238"></script>
+<script src="/terms/terms.js?v=202611239"></script>
 </body>
 </html>

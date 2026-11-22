@@ -119,7 +119,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
       <ol class="solution">${steps.map(stepHtml).join('')}
       </ol>`;
   };
-  const credits = {};
+  const credits = {}, solutions = {};   // solutions — «Почему так» для страниц терминов (tools/build-terms.js)
   for (const toy of toys){
     const s = toy.slug, url = `${pre}/play/${s}/`, frame = `${toy.src}?toy=${s}`;
     const q = X(s, 'q'), x = texts[s];
@@ -127,6 +127,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
       html: t('play.credit', Object.assign({course: cname(toy.course), href: stepHref(toy) + '?utm_source=play&utm_medium=credit&utm_content=' + s, target: '{target}'}, unitN(toy))),
       badge: st(toy.course, 'badge'), status: C(toy.course).status, published: !!toy.published, truth: x.truth || '',
     };
+    solutions[s] = solutionHtml(s, x);
     // встраивание: редирект в соло-режим главы как можно раньше, до загрузки шрифтов и стилей
     // (ref — домен сайта, где встроено: после редиректа document.referrer в iframe был бы уже наш)
     const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
@@ -215,6 +216,7 @@ ${foot()}
 `;
   fs.writeFileSync(path.join(outDir, 'index.html'), cat);
   fs.writeFileSync(path.join(outDir, 'credits.json'), JSON.stringify(credits, null, 1) + '\n');
+  if (lang === 'ru') fs.writeFileSync(path.join(ROOT, 'play', 'solutions.json'), JSON.stringify(solutions, null, 1) + '\n');
   console.log('play:', path.relative(ROOT, path.join(outDir, 'index.html')), '+ credits.json');
   // старые страницы игр, которых больше нет в списках
   for (const d of fs.readdirSync(outDir, {withFileTypes: true})){

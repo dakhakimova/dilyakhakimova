@@ -10,6 +10,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim, top} = require('./terms-viz.js');
+const SOL = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'play', 'solutions.json'), 'utf8')); } catch { return {}; } })();  // «Почему так» игр — из tools/build-play.js
 // все страницы терминов (решение Дили, 22.11.2026: «где объясняем — по центру, размер и шрифт как на нормальном»): шрифт 20 px, колонка ~700 px
 const TRIAL = {includes: () => true};
 const ROOT = path.join(__dirname, '..');
@@ -124,7 +125,14 @@ ${chrome.header('terms', o.url === '/terms/')}
       <iframe id="toy-frame" src="/play/${ptoy.slug}/?embed=1" data-toy="${ptoy.slug}" title="${attr(t('terms.toy.frame') + ': ' + P.texts[ptoy.slug].q)}" style="height:${ptoy.h}px" loading="lazy" allow="clipboard-write"></iframe>
       <p class="note noframe">${t('terms.toy.noframe', {href: ptoy.src + '#card-' + (ptoy.pre[0] || ptoy.card)})}</p>
     </div>
-`;  // подпись «Игра из курса …» уже есть внутри встроенной игры — вторую не ставим
+    <section class="play-out t-out" aria-labelledby="out-h">
+      <p class="kicker" id="out-h">${t('play.out')}</p>
+      <p class="locked">${t('play.locked')}</p>
+      <div class="reveal" hidden>${SOL[ptoy.slug] || ''}
+      </div>
+    </section>
+`;  // три шага игры, как на /play/ (решение Дили, 22.11.2026): «Сначала угадай» и «Потом проверь» — внутри iframe, «Почему так» — здесь,
+    // открывается по toy:reveal (terms/terms.js). Подпись «Игра из курса …» уже есть внутри игры — вторую не ставим
 
     const cmp = x.cmp, cmpLink = term.cmp && bySlug[term.cmp].published ? `<a href="/terms/${term.cmp}/">${typo(h1Of(term.cmp))} →</a>` : (term.cmpHref && (!/^\/play\//.test(term.cmpHref) || pubToy(term.cmpHref.split('/')[2])) ? `<a href="${term.cmpHref}">${t('terms.cmp.toy', {name: cmp.name})}</a>` : '');
     const c = term.cta;

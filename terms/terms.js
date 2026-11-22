@@ -11,6 +11,9 @@
       if (e.source !== frame.contentWindow || !e.data || e.data.toy !== frame.dataset.toy) return;
       alive = true;
       if (e.data.type === 'toy:h') frame.style.height = Math.max(320, Math.min(4000, +e.data.h || 0)) + 'px';
+      // «Почему так» открывается после проверки прогноза — как на /play/
+      const out = main.querySelector('.t-out');
+      if (e.data.type === 'toy:reveal' && out){ out.querySelector('.reveal').hidden = false; out.classList.add('open'); }
     });
     // iframe загрузился, но молчит 8 секунд — показываем ссылку на игру в курсе
     frame.addEventListener('load', () => setTimeout(() => { if (!alive) frame.parentNode.classList.add('broken'); }, 8000));
