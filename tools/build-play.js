@@ -140,8 +140,10 @@ ${chrome.header('play')}
   </div>
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
-    <p class="kicker" id="out-h">${t('play.out')}</p>
-    <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal">${t('play.showOut')}</button></p>
+    <p class="kicker" id="out-h">${t('play.out')}</p>${x.try && x.try.length ? `
+    <p class="tries-h">${t('play.tryQ')}</p>
+    <ol class="tries">${x.try.map(li => `<li>${typo(li)}</li>`).join('')}</ol>` : ''}
+    <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">${t('play.showOut')} <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>${X(s, 'out')}</p>${x.cheat.length ? `
       <h3>${t('play.cheat')}</h3>

@@ -79,7 +79,9 @@
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <p class="kicker" id="out-h">Почему так</p>
-    <p class="locked">Разбор откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal">Показать разбор</button></p>
+    <p class="tries-h">Попробуй ответить сам</p>
+    <ol class="tries"><li>Нажми «+1000 A/A» несколько раз. Какой формы гистограмма?</li><li>Какая доля тестов получила p < 0.05? Сравни с 5%.</li><li>Нажми «Добавить баг: дубли событий» и снова «+1000 A/A». Что выросло у нуля?</li></ol>
+    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>Без эффекта p-value ложатся ровным ковром: любое значение от 0 до 1 одинаково вероятно, в каждом столбике около 5% тестов. Поэтому p < 0.05 получают около 5% A/A — ровно выбранный порог. С дублями платформа думает, что данных больше, чем есть, и недооценивает шум: у нуля вырастает пик, «значимых» A/A уже около 13%.</p>
       <h3>Шпаргалка</h3>

@@ -29,7 +29,7 @@
 
   // «Показать разбор» без игры
   const rb = main.querySelector('[data-act=reveal]');
-  if (rb) rb.addEventListener('click', () => { reveal.hidden = false; out.classList.add('open'); });
+  if (rb) rb.addEventListener('click', () => { reveal.hidden = false; out.classList.add('open'); rb.setAttribute('aria-expanded', 'true'); });
 
   // ---------- поделиться: одна текстовая кнопка ----------
   // есть navigator.share (телефон, Safari) — системное меню; иначе ссылка в буфер и «Ссылка скопирована» на 2 секунды
