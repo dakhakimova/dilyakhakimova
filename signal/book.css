@@ -315,3 +315,21 @@ button.btn.step{flex:none; min-width:44px; min-height:44px; padding:0 12px; just
 label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:1rem; cursor:text}
 /* вердикт — по отпусканию ползунка: пока тянешь, двигается график, вердикт и крупные числа ждут (play/bridge.js ставит .dragging) */
 .card.dragging .verdict, .card.dragging .big2, .card.dragging [role="status"]{visibility:hidden}
+
+/* ===== аудит глав по гайду «Так · Не так», 22.11.2026 ===== */
+/* Ширины (пара 109a): текст, плашки, квизы и иллюстрации — по колонке --measure; на ширину сцены идут только
+   листы с графиками игр, ячейки кода и сетки. :where — без специфичности, свои узкие max-width у блоков остаются */
+:where(.card > :not(.sheet, .cell, .tiles, .xtab-wrap, .report-wrap, table, .cmp, .cards4, .timer, .heroes, .shelves, .p6-tree, .rep2, .dec, .big2, .controls, .counts, .tree, .ladder, .choice)){max-width:var(--measure)}
+.card > figure.art{max-width:var(--measure-media)}
+/* Формула — одной строкой; если не влезает, прокручивается сама формула, а не страница (пара 66c) */
+.formula{white-space:nowrap; overflow-x:auto; overflow-y:hidden; max-width:100%}
+/* Одна залитая кнопка на экран (пара 13): если в открытой карточке есть своя залитая кнопка, «Далее» внизу — контурная */
+.stage:has(.card.on button.btn:not(.ghost):not([hidden]):not(.guess .btn):not(.cell-bar button)) .pager #next{background:var(--surface); color:var(--pen); border:1.5px solid var(--pen)}
+.stage:has(.card.on button.btn:not(.ghost):not([hidden]):not(.guess .btn):not(.cell-bar button)) .pager #next:hover:not(:disabled){background:var(--pen-hover-bg)}
+/* формула без переноса не распирает сетку «История · В штуках · Формула» и колонку сцены */
+.stage{min-width:0}
+.layers{grid-template-columns:minmax(0,1fr)} .layers > div{min-width:0}
+/* словарик в итоге шага: длинный термин («Перестановочный тест») не налезает на определение */
+@media (min-width:621px){ dl.terms{grid-template-columns:minmax(140px, auto) minmax(0,1fr)} }
+/* листалка — по колонке текста, как карточка */
+.pager, .stage-head{max-width:var(--measure)}

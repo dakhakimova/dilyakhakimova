@@ -294,6 +294,7 @@ Object.assign(Book, {
     li.querySelector('button').addEventListener('click', () => { go(i); if (matchMedia('(max-width: 900px)').matches) setOpen(false); });
     list.appendChild(li);
   });
+  const nextLabel = () => { const t = cards[cards.length - 1].querySelector('.next-step b'); if (!t) return Book.course === 'signal' ? S.nextChapter : S.nextStep; const l = t.textContent.trim(); return l.length > 28 ? l.replace(/^(Дальше: \d+)\..*$/, '$1') : l; };  // длинное название — только номер: оно же крупно на плитке выше
   let cur = 0;
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
@@ -304,7 +305,8 @@ Object.assign(Book, {
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + S.of + cards.length;
     prev.disabled = cur === 0;
-    next.textContent = cur === cards.length - 1 ? (nextPage ? (Book.course === 'signal' ? S.nextChapter : S.nextStep) : S.toToc) : S.next;
+    // последняя карточка: кнопка называет следующий шаг так же, как плитка «Дальше: N. Название» (гайд, пара 129)
+    next.textContent = cur === cards.length - 1 ? (nextPage ? nextLabel() : S.toToc) : S.next;
     if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
     window.scrollTo({top: 0, behavior: 'auto'});
     Book.shown.forEach(f => f(cur, cards[cur]));

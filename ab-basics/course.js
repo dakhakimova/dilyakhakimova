@@ -150,7 +150,9 @@ for (let i = 1; i <= 12; i++){ const ch = 'ab' + String(i).padStart(2, '0'); Obj
     document.getElementById('prog').style.width = (100 * (cur + 1) / cards.length) + '%';
     document.getElementById('count').textContent = (cur + 1) + ' из ' + cards.length;
     prev.disabled = cur === 0;
-    next.textContent = cur === cards.length - 1 ? (nextPage ? 'Следующий шаг' : 'К оглавлению курса') : 'Далее';
+    // последняя карточка: кнопка называет следующий шаг так же, как плитка «Дальше: N. Название» (гайд, пара 129)
+    const nx = cards[cards.length - 1].querySelector('.next-step b');
+    next.textContent = cur === cards.length - 1 ? (nextPage ? (nx ? (l => l.length > 28 ? l.replace(/^(Дальше: \d+)\..*$/, '$1') : l)(nx.textContent.trim()) : 'Следующий шаг') : 'К оглавлению курса') : 'Далее';
     if (push && location.hash !== '#card-' + (cur + 1)) history.replaceState(null, '', '#card-' + (cur + 1));
     window.scrollTo({top: 0, behavior: 'auto'});
     AB.shown.forEach(f => f(cur));
