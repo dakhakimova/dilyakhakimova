@@ -9,7 +9,7 @@
    Хаб: поиск, указатель букв и термины по алфавиту (пары 7, 8 гайда). */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
-const {viz, lim} = require('./terms-viz.js');
+const {viz, lim, top} = require('./terms-viz.js');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
 const V = require('./version.js');
@@ -145,6 +145,16 @@ ${chrome.header('terms', o.url === '/terms/')}
       {'@type': 'FAQPage', mainEntity: x.faq.map(([q, a]) => ({'@type': 'Question', name: plain(q), acceptedAnswer: {'@type': 'Answer', text: plain(a)}}))},
     ]};
 
+    // первая картинка — сразу под определением (решение Дили, 22.11.2026): своя top[slug] или, если её нет, главная схема со своим вопросом
+    const vizSec = `  <section class="t-sec" aria-labelledby="viz-h">
+    <h2 id="viz-h">${typo(hq.viz)}</h2>
+    <figure class="viz">
+      <p class="chart-head">${typo(x.vizT)}</p>
+      ${viz[s](vzPlain)}
+      <figcaption class="figcap">${typo(x.vizCap)}</figcaption>
+    </figure>
+  </section>
+`;
     const html = head({title, desc: x.desc, url, og: `/terms/og/${s}.png`, noindex: !own || !term.published, ld}) + `
 <main id="main" class="wrap term" data-slug="${s}"
   data-share-title="${attr(h1Of(s))}" data-share-text="${attr(t('terms.shareText', {name: x.name}))}"
@@ -156,7 +166,12 @@ ${chrome.header('terms', o.url === '/terms/')}
   </header>
   <p class="t-def">${typo(x.def)}</p>
   <p class="t-not">${t('terms.not', {href: wiki, wiki: x.wiki})}</p>
-
+${top[s] ? `  <figure class="viz t-top">
+    <p class="chart-head">${typo(x.topT)}</p>
+    ${top[s](Object.fromEntries(Object.entries(x.tz).map(([k, v]) => [k, plain(typo(v))])))}
+    <figcaption class="figcap">${typo(x.topCap)}</figcaption>
+  </figure>
+` : vizSec}
   <section class="t-sec" aria-labelledby="strict-h">
     <h2 id="strict-h">${typo(hq.strict)}</h2>
     <p>${typo(x.strict)}</p>${x.formula ? `
@@ -177,15 +192,7 @@ ${chrome.header('terms', o.url === '/terms/')}
     <p>${typo(x.toyOut)}</p>
   </section>
 
-  <section class="t-sec" aria-labelledby="viz-h">
-    <h2 id="viz-h">${typo(hq.viz)}</h2>
-    <figure class="viz">
-      <p class="chart-head">${typo(x.vizT)}</p>
-      ${viz[s](vzPlain)}
-      <figcaption class="figcap">${typo(x.vizCap)}</figcaption>
-    </figure>
-  </section>
-
+${top[s] ? vizSec : ''}
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">${typo(hq.err)}</h2>
     <ul class="list t-err">${x.mistakes.map(([a, b]) => `

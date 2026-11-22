@@ -32,6 +32,8 @@ function lgamma(z){ const g = 7, c = [0.99999999999980993, 676.5203681218851, -1
 
 const viz = {};
 const lim = {};
+// top[slug](L) — картинка сразу под определением (решение Дили, 22.11.2026: «сразу график»); L = .tz. Если её нет, наверх встаёт главная схема viz.
+const top = {};
 
 viz['conditional-probability'] = L => {
   const x0 = 20, y0 = 50, w = 420, h = 190, kw = w * .25;
@@ -60,6 +62,26 @@ viz['normal-distribution'] = L => {
     br(1, 256, L.s1), br(2, 290, L.s2), br(3, 324, L.s3),
     arrow(X(2.75), 120, X(2.35), Y(phi(2.3)) + 6), tx(X(2.75) - 6, 112, L.tail, {size: 16, fill: C.ink}),
   ].join(''), L.s1 + ' · ' + L.s2 + ' · ' + L.s3);
+};
+
+// семейство колоколов: разная ширина σ при одном центре и сдвиг центра μ; подписи — обозначение N(μ, σ²)
+top['normal-distribution'] = L => {
+  const X = x => 230 + x * 34, base = 200, Y = d => base - d * 390;
+  const pdf = (x, m, sd) => phi((x - m) / sd) / sd;
+  const curve = (m, sd) => { const p = []; for (let x = -6.5; x <= 6.5 + 1e-9; x += .05) p.push([X(x), Y(pdf(x, m, sd))]); return p; };
+  const blue2 = '#7E97C9', plum = '#8A5A7A';
+  return svg(262, [
+    path([[X(-6.5), base], ...curve(0, 1), [X(6.5), base]], 'none', 0, C.a, 'opacity=".08"'),
+    path(curve(0, 2), blue2, 2.5, 'none', 'stroke-dasharray="7 5"'),
+    path(curve(3, 1), plum, 2.5),
+    path(curve(0, 1), C.a, 3),
+    ln(X(-6.5), base, X(6.5), base, C.t3, 1.5),
+    ...[-6, -4, -2, 0, 2, 4, 6].map(k => ln(X(k), base, X(k), base + 6, C.t3) + tx(X(k), base + 24, k < 0 ? '−' + -k : String(k), {a: 'middle', size: 15, fill: C.t3})),
+    tx(X(-1.2), Y(pdf(0, 0, 1)) + 2, L.n01, {a: 'end', size: 16, fill: C.a, w: 500, bg: true}),
+    tx(X(-3.1), Y(pdf(-3.1, 0, 2)) - 12, L.n04, {a: 'end', size: 16, fill: '#4F68A3', w: 500, bg: true}),
+    tx(X(4.1), Y(pdf(3, 3, 1)) + 2, L.n31, {a: 'start', size: 16, fill: plum, w: 500, bg: true}),
+    tx(X(6.5), base + 48, L.axis, {a: 'end', size: 14, fill: C.t3}),
+  ].join(''), [L.n01, L.n04, L.n31].join(' · '));
 };
 
 viz['ab-testing'] = L => {
@@ -362,4 +384,4 @@ lim['mann-whitney'] = L => {
   return svg(270, out.join(''), L.med);
 };
 
-module.exports = {viz, lim};
+module.exports = {viz, lim, top};
