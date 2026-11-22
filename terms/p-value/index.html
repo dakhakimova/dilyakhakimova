@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
-<link rel="stylesheet" href="/tokens.css?v=202611236">
-<link rel="stylesheet" href="/home.css?v=202611236">
-<link rel="stylesheet" href="/terms/terms.css?v=202611236">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
+<link rel="stylesheet" href="/tokens.css?v=202611237">
+<link rel="stylesheet" href="/home.css?v=202611237">
+<link rel="stylesheet" href="/terms/terms.css?v=202611237">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"p-value","item":"https://dilyakhakimova.com/terms/p-value/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/p-value/#term","name":"p-value","description":"p-value — это доля случаев, в которых результат не слабее нашего получился бы сам по себе, если бы эффекта не было. По-русски его ещё называют p-значением; маленький p-value значит, что в мире без эффекта наш результат был бы редкостью.","url":"https://dilyakhakimova.com/terms/p-value/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"p-value простыми словами","description":"p-value — это доля миров без эффекта, где результат не слабее твоего. Разбираем на A/B-тесте кафе, рисуем хвосты колокола и перечисляем частые ошибки.","url":"https://dilyakhakimova.com/terms/p-value/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/p-value/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"A/B-тест дал p = 0.04. Какова вероятность, что нулевая гипотеза верна?","acceptedAnswer":{"@type":"Answer","text":"Из одного p-value этого не узнать: p считается при условии, что H₀ верна, а вопрос — про обратное условие. Нужны априорная доля работающих идей и мощность теста — тогда ответ даёт формула Байеса."}},{"@type":"Question","name":"Как распределены p-value в 1000 A/A-тестов, если система сплитования исправна?","acceptedAnswer":{"@type":"Answer","text":"Равномерно от 0 до 1: примерно по 50 тестов в каждом интервале шириной 0.05, в том числе около 50 «значимых» с p \u003c 0.05."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -59,7 +59,7 @@
     <figure class="viz">
       <p class="chart-head">p-value — площадь хвостов колокола «мира без эффекта»</p>
       <svg class="viz-svg" viewBox="0 0 460 320" role="img" aria-describedby="fc-p-value-1" aria-label="p ≈ 0.03 — площадь двух хвостов" xmlns="http://www.w3.org/2000/svg"><title>p ≈ 0.03 — площадь двух хвостов</title><path d="M349.4 220L349.4 203.7L352.1 205.4L354.8 207L357.6 208.4L360.3 209.7L363.1 210.8L365.8 211.9L368.6 212.8L371.3 213.7L374.1 214.5L376.8 215.1L379.6 215.8L382.3 216.3L385.1 216.8L387.8 217.2L390.6 217.6L393.3 217.9L396.1 218.2L398.8 218.5L401.6 218.7L404.3 218.9L407.1 219L409.8 219.2L412.6 219.3L415.3 219.4L418.1 219.5L420.8 219.6L423.6 219.7L426.3 219.7L429.1 219.8L431.8 219.8L434.6 219.8L437.3 219.9L439 220Z" fill="#C9413A" stroke="none" stroke-width="0" stroke-linejoin="round" opacity=".55"/><path d="M21 220L21 219.9L23.8 219.8L26.5 219.8L29.2 219.8L32 219.7L34.7 219.7L37.5 219.6L40.2 219.6L43 219.5L45.7 219.4L48.5 219.3L51.2 219.1L54 219L56.7 218.8L59.5 218.6L62.2 218.4L65 218.1L67.7 217.8L70.5 217.4L73.2 217L76 216.6L78.7 216.1L81.5 215.5L84.2 214.9L87 214.2L89.7 213.4L92.5 212.5L95.2 211.5L98 210.4L100.7 209.2L103.5 207.8L106.2 206.4L109 204.7L110.7 220Z" fill="#C9413A" stroke="none" stroke-width="0" stroke-linejoin="round" opacity=".55"/><path d="M21 219.9L23.8 219.8L26.5 219.8L29.2 219.8L32 219.7L34.7 219.7L37.5 219.6L40.2 219.6L43 219.5L45.7 219.4L48.5 219.3L51.2 219.1L54 219L56.7 218.8L59.5 218.6L62.2 218.4L65 218.1L67.7 217.8L70.5 217.4L73.2 217L76 216.6L78.7 216.1L81.5 215.5L84.2 214.9L87 214.2L89.7 213.4L92.5 212.5L95.2 211.5L98 210.4L100.7 209.2L103.5 207.8L106.2 206.4L109 204.7L111.7 203L114.5 201.1L117.2 199L120 196.8L122.7 194.4L125.5 191.8L128.2 189L131 186.1L133.7 182.9L136.5 179.6L139.2 176L142 172.3L144.7 168.4L147.5 164.3L150.2 160L153 155.6L155.7 151L158.5 146.3L161.2 141.5L164 136.5L166.7 131.4L169.5 126.3L172.2 121.2L175 116L177.7 110.8L180.5 105.6L183.2 100.5L186 95.4L188.7 90.5L191.5 85.7L194.2 81.1L197 76.7L199.7 72.5L202.5 68.6L205.2 65L208 61.6L210.7 58.6L213.5 56L216.2 53.7L219 51.9L221.7 50.4L224.5 49.3L227.2 48.7L230 48.5L232.7 48.7L235.5 49.3L238.2 50.4L241 51.9L243.7 53.7L246.5 56L249.2 58.6L252 61.6L254.7 65L257.5 68.6L260.2 72.5L263 76.7L265.7 81.1L268.5 85.7L271.2 90.5L274 95.4L276.7 100.5L279.5 105.6L282.2 110.8L285 116L287.7 121.2L290.5 126.3L293.2 131.4L296 136.5L298.7 141.5L301.5 146.3L304.2 151L307 155.6L309.7 160L312.5 164.3L315.2 168.4L318 172.3L320.7 176L323.5 179.6L326.2 182.9L329 186.1L331.7 189L334.5 191.8L337.2 194.4L340 196.8L342.7 199L345.5 201.1L348.2 203L351 204.7L353.7 206.4L356.5 207.8L359.2 209.2L362 210.4L364.7 211.5L367.5 212.5L370.2 213.4L373 214.2L375.7 214.9L378.5 215.5L381.2 216.1L384 216.6L386.7 217L389.5 217.4L392.2 217.8L395 218.1L397.7 218.4L400.5 218.6L403.2 218.8L406 219L408.7 219.1L411.5 219.3L414.2 219.4L417 219.5L419.7 219.6L422.5 219.6L425.2 219.7L428 219.7L430.7 219.8L433.5 219.8L436.2 219.8L439 219.9" fill="none" stroke="#23418A" stroke-width="2.5" stroke-linejoin="round" /><line x1="21" y1="220" x2="439" y2="220" stroke="#5E5A53" stroke-width="1.5"/><line x1="349.4" y1="70" x2="349.4" y2="220" stroke="#E8644A" stroke-width="2.5"/><line x1="110.7" y1="70" x2="110.7" y2="220" stroke="#E8644A" stroke-width="2" stroke-dasharray="5 4"/><text x="349.4" y="62" text-anchor="middle" font-size="15" font-weight="500" fill="#B8432B" >наш результат</text><text x="110.7" y="62" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >зеркально</text><text x="230" y="38.5" text-anchor="middle" font-size="15" font-weight="400" fill="#23418A" >мир без эффекта (H₀)</text><text x="65" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >−3</text><text x="120" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >−2</text><text x="175" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >−1</text><text x="230" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >0</text><text x="285" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+1</text><text x="340" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+2</text><text x="395" y="242" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >+3</text><text x="439" y="264" text-anchor="end" font-size="15" font-weight="400" fill="#5E5A53" >статистика t</text><text x="230" y="304" text-anchor="middle" font-size="16" font-weight="500" fill="#24221F" >p ≈ 0.03 — площадь двух хвостов</text></svg>
-      <figcaption class="figcap" id="fc-p-value-1">Колокол — как распределена статистика, если эффекта нет. Вертикальные линии — наблюдаемый результат и его зеркало. Закрашенные хвосты — доля миров без эффекта, где вышло не слабее: здесь t = 2.17 и p ≈ 0.03.</figcaption>
+      <figcaption class="figcap" id="fc-p-value-1">Колокол — как распределена статистика, если эффекта нет. Вертикальные линии — наблюдаемый результат и его зеркало. Закрашенные хвосты — доля миров без эффекта, где вышло не слабее: здесь t = 2.17 и p ≈ 0.03.</figcaption>
     </figure>
   </section>
 
@@ -71,9 +71,9 @@
   </section>
 
   <section class="t-sec" aria-labelledby="cafe-h">
-    <h2 id="cafe-h">Что ответить, если p = 0.03?</h2>
+    <h2 id="cafe-h">Что ответить, если p = 0.03?</h2>
     <div class="chat" role="group" aria-label="Пример из кафе">
-      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Фото дали +4% к заказам, p = 0.03. Значит, с вероятностью 97% фото работают!</p></div></div>
+      <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Фото дали +4% к заказам, p = 0.03. Значит, с вероятностью 97% фото работают!</p></div></div>
       <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Нет. Это значит: если бы фото ничего не делали, разница в 4% или больше в любую сторону получалась бы в 3% тестов.</p></div></div>
       <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">А насколько верить, что фото работают, — это уже вопрос к Байесу. И к тому, сколько идей у Боба обычно работает.</p></div></div>
     </div>
@@ -95,7 +95,7 @@
     <ul class="list t-err">
       <li><span class="lead">p-value — не вероятность того, что гипотеза верна.</span> И 1 − p — не вероятность, что эффект есть. Чтобы оценить шанс гипотезы, нужна ещё доля идей, которые вообще работают, и мощность теста. При 10% работающих идей и мощности 80% среди значимых результатов около 36% ложных.</li>
       <li><span class="lead">Маленький p-value — не большой эффект.</span> На 10 миллионах гостей даже +0.1% даёт p около нуля. Размер эффекта показывает доверительный интервал, а не p-value.</li>
-      <li><span class="lead">p = 0.06 — не «эффекта нет».</span> Отсутствие доказательства — не доказательство отсутствия. Возможно, тест просто маломощный; смотри на интервал: он может включать и ноль, и важный эффект.</li>
+      <li><span class="lead">p = 0.06 — не «эффекта нет».</span> Отсутствие доказательства — не доказательство отсутствия. Возможно, тест просто маломощный; смотри на интервал: он может включать и ноль, и важный эффект.</li>
       <li><span class="lead">Удивляться p < 0.05 в A/A-тестах.</span> Когда эффекта нет, p-value распределён равномерно от 0 до 1: в 5% A/A-тестов он меньше 0.05. Это норма, а не баг.</li>
     </ul>
   </section>
@@ -124,7 +124,7 @@
   <section class="t-sec" aria-labelledby="faq-h">
     <h2 id="faq-h">Что про p-value спросят на собеседовании?</h2>
     <details class="t-faq">
-      <summary><span class="q">A/B-тест дал p = 0.04. Какова вероятность, что нулевая гипотеза верна?</span><span class="show">Показать ответ</span></summary>
+      <summary><span class="q">A/B-тест дал p = 0.04. Какова вероятность, что нулевая гипотеза верна?</span><span class="show">Показать ответ</span></summary>
       <p>Из одного p-value этого не узнать: p считается при условии, что H₀ верна, а вопрос — про обратное условие. Нужны априорная доля работающих идей и мощность теста — тогда ответ даёт формула Байеса.</p>
     </details>
     <details class="t-faq">
@@ -150,6 +150,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611236"></script>
+<script src="/terms/terms.js?v=202611237"></script>
 </body>
 </html>

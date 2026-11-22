@@ -144,7 +144,7 @@ ${chrome.header('terms', o.url === '/terms/')}
       {'@type': 'DefinedTerm', '@id': SITE + url + '#term', name: plain(x.name), description: plain(x.def), url: SITE + url, inDefinedTermSet: termSet},
       {'@type': 'LearningResource', name: plain(h1Of(s)), description: plain(x.desc), url: SITE + url, inLanguage: 'ru', learningResourceType: 'interactive explanation',
         author: person, about: {'@id': SITE + url + '#term'}, isAccessibleForFree: true},
-      {'@type': 'FAQPage', mainEntity: x.faq.map(([q, a]) => ({'@type': 'Question', name: plain(q), acceptedAnswer: {'@type': 'Answer', text: plain(a)}}))},
+      {'@type': 'FAQPage', mainEntity: [...(x.faqQ || []), ...x.faq].map(([q, a]) => ({'@type': 'Question', name: plain(q), acceptedAnswer: {'@type': 'Answer', text: plain(a)}}))},
     ]};
 
     // первая картинка — сразу под определением (решение Дили, 22.11.2026): своя top[slug] или, если её нет, главная схема со своим вопросом
@@ -218,11 +218,12 @@ ${top[s] ? vizSec : ''}
   </section>
 
   <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">${typo(hq.faq)}</h2>${x.faq.map(([q, a], i) => `
+    <h2 id="faq-h">${typo(hq.faq)}</h2>${(x.faqQ ? [[t('terms.faq.qual'), x.faqQ], [t('terms.faq.calc'), x.faq]] : [['', x.faq]]).map(([h, list]) => `${h ? `
+    <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a]) => `
     <details class="t-faq">
       <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
       <p>${typo(a)}</p>
-    </details>`).join('')}
+    </details>`).join('')}`).join('')}
   </section>
 
   <section class="t-sec t-next" aria-label="${attr(t('terms.next.label'))}">

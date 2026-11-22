@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611236">
-<link rel="stylesheet" href="/tokens.css?v=202611236">
-<link rel="stylesheet" href="/home.css?v=202611236">
-<link rel="stylesheet" href="/terms/terms.css?v=202611236">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611237">
+<link rel="stylesheet" href="/tokens.css?v=202611237">
+<link rel="stylesheet" href="/home.css?v=202611237">
+<link rel="stylesheet" href="/terms/terms.css?v=202611237">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Условная вероятность","item":"https://dilyakhakimova.com/terms/conditional-probability/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/conditional-probability/#term","name":"Условная вероятность","description":"Условная вероятность — это шанс события, когда уже известно, что случилось другое событие. Мы выбрасываем все случаи, где условие не выполнено, и считаем долю среди оставшихся.","url":"https://dilyakhakimova.com/terms/conditional-probability/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Условная вероятность простыми словами","description":"Что такое условная вероятность P(A | B): объясняем на гостях кафе, формулу читаем словами, проверяем на игре-сортировочной.","url":"https://dilyakhakimova.com/terms/conditional-probability/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/conditional-probability/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"В семье двое детей, и известно, что хотя бы один из них — мальчик. Какова вероятность, что оба мальчики?","acceptedAnswer":{"@type":"Answer","text":"Равновероятные варианты: ММ, МД, ДМ, ДД. Условие «хотя бы один мальчик» убирает ДД, остаётся три варианта, и только в одном оба мальчики. Ответ — 1/3, а не 1/2."}},{"@type":"Question","name":"Бросили два кубика, сумма вышла 8. Какова вероятность, что на первом кубике шестёрка?","acceptedAnswer":{"@type":"Answer","text":"Сумму 8 дают пять равновероятных пар: (2, 6), (3, 5), (4, 4), (5, 3), (6, 2). Шестёрка на первом — только в одной. Ответ — 1/5, хотя без условия было бы 1/6."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -59,7 +59,7 @@
     <figure class="viz">
       <p class="chart-head">1000 гостей кафе: кто пришёл с детьми и кто взял мороженое</p>
       <svg class="viz-svg" viewBox="0 0 460 320" role="img" aria-describedby="fc-conditional-probability-1" aria-label="с детьми: 250; 150 из 250 = 60%" xmlns="http://www.w3.org/2000/svg"><title>с детьми: 250; 150 из 250 = 60%</title><text x="20" y="36" text-anchor="start" font-size="17" font-weight="500" fill="#23418A" >с детьми: 250</text><text x="137" y="36" text-anchor="start" font-size="17" font-weight="400" fill="#4A463F" >без детей: 750</text><rect x="20" y="50" width="420" height="190" fill="#F3F0EA" stroke="#CFC8BB"/><rect x="20" y="126" width="105" height="114" fill="#E8644A" opacity=".85"/><rect x="125" y="227.3" width="315" height="12.7" fill="#E8644A" opacity=".85"/><rect x="20" y="50" width="105" height="190" fill="none" stroke="#23418A" stroke-width="3"/><line x1="72.5" y1="244" x2="72.5" y2="262" stroke="#5E5A53" stroke-width="1.5"/><text x="20" y="282" text-anchor="start" font-size="17" font-weight="500" fill="#24221F" >150 из 250 = 60%</text><line x1="275" y1="244" x2="275" y2="262" stroke="#5E5A53" stroke-width="1.5"/><text x="195" y="282" text-anchor="start" font-size="17" font-weight="400" fill="#4A463F" >50 из 750 ≈ 6.7%</text><rect x="20" y="302" width="14" height="14" fill="#E8644A" opacity=".85"/><text x="42" y="314" text-anchor="start" font-size="15" font-weight="400" fill="#4A463F" >взяли мороженое</text></svg>
-      <figcaption class="figcap" id="fc-conditional-probability-1">Условие B вырезает колонку «с детьми» (250 гостей). P(мороженое | с детьми) — доля закрашенного внутри колонки: 150 из 250 = 60%. Среди всех гостей мороженое у 200 из 1000 = 20%.</figcaption>
+      <figcaption class="figcap" id="fc-conditional-probability-1">Условие B вырезает колонку «с детьми» (250 гостей). P(мороженое | с детьми) — доля закрашенного внутри колонки: 150 из 250 = 60%. Среди всех гостей мороженое у 200 из 1000 = 20%.</figcaption>
     </figure>
   </section>
 
@@ -95,7 +95,7 @@
     <ul class="list t-err">
       <li><span class="lead">Путать P(A | B) и P(B | A).</span> «Почти все фальшивки вызывают писк кассы» и «почти все писки — фальшивки» — разные утверждения. Первое про долю внутри фальшивок, второе — внутри писков. В суде эту ошибку называют ошибкой прокурора.</li>
       <li><span class="lead">Читать условие как причину.</span> P(зонт | горячий шоколад) высокая, но шоколад не заставляет брать зонт: оба связаны с дождём. Условная вероятность говорит о связи, а не о том, что чем вызвано.</li>
-      <li><span class="lead">Считать несовместные события независимыми.</span> Если события не могут случиться вместе (гость пришёл и в дождь, и в ясный день), то знание одного полностью меняет шанс другого: это сильная зависимость. Независимость — это P(A | B) = P(A).</li>
+      <li><span class="lead">Считать несовместные события независимыми.</span> Если события не могут случиться вместе (гость пришёл и в дождь, и в ясный день), то знание одного полностью меняет шанс другого: это сильная зависимость. Независимость — это P(A | B) = P(A).</li>
     </ul>
   </section>
 
@@ -146,6 +146,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611236"></script>
+<script src="/terms/terms.js?v=202611237"></script>
 </body>
 </html>
