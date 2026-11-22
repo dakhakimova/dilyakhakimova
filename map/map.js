@@ -36,7 +36,7 @@ function init(M){
   const course = Object.fromEntries(M.courses.map(c => [c.id, c]));
   // личная линия — ещё одна цель «Твой маршрут» (id mine): её узлы — курсы цели и второй цели по порядку «Весь путь»
   if (PLAN && Array.isArray(PLAN.nodes)) M.routes.unshift({id: 'mine', label: t('ui.mine'), button: t('ui.mine'), for: t('ui.mineFor'), entry: '', nodes: PLAN.nodes.filter(id => M.nodes.some(n => n.id === id))});
-  const FULL = M.routes.find(r => r.id === 'full'), NUM = Object.fromEntries(((FULL && FULL.path) || []).map((p, i) => [p.course, {n: i + 1, optional: !!p.optional, why: p.why}]));
+  const FULL = M.routes.find(r => r.id === 'full'), NUM = Object.fromEntries(((FULL && FULL.path) || []).map((p, i) => [p.course, {n: i + 1, optional: !!p.optional, why: p.quiet ? '' : p.why}]));
   const node = new Map(M.nodes.map(n => [n.id, n]));
   const ins = new Map(), outs = new Map(), softIn = new Map();
   M.nodes.forEach(n => { ins.set(n.id, []); outs.set(n.id, []); softIn.set(n.id, []); });
@@ -146,7 +146,7 @@ function init(M){
     const pre = c.prereq ? (c.prereq.none ? tx(c.prereq.none) : t('ui.pre.short', {list: tx(c.prereq.know.join('; '))})) : '';
     return `<li${lastFree >= 0 && i >= lastFree ? ' class="dim"' : ''}><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a></p>`
       + `<p class="chips">${c.status !== 'free' ? `<span class="price"><b>${t('price.paid')}</b></span>` : ''}<span class="tag ${c.status}">${tx(pathTag(c.status))}</span>${p.optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
-      + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why ?' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
+      + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why && !p.quiet ?' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
       + (pre ? `<p class="pp">${pre}</p>` : '') + `</div></li>`; }).join('');
   const mb = $('mine-btn');
   if (mb){ mb.hidden = !PLAN; mb.addEventListener('click', () => { setRoute('mine', true); $('metro-h').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }); }
