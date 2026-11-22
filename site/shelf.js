@@ -125,6 +125,24 @@
   window.addEventListener('resize', place, {passive: true});
   window.addEventListener('scroll', place, {passive: true, capture: true});
 
+  // связь полки и списка разборов через data-slug: строка (мышь, фокус) → корешок поднят и в кольце, подсказка не открывается;
+  // корешок (мышь, фокус) → строка с лёгким фоном. У статей корешков нет — поиск ничего не находит, и ничего не происходит. Страницу не прокручиваем.
+  const list = document.querySelector('.reviews');
+  if (list) {
+    const pair = (from, slug) => slug ? (from === 'row' ? books : list).querySelector('[data-slug="' + CSS.escape(slug) + '"]') : null;
+    const lit = (el, on) => { if (el) el.classList.toggle('lit', on); };
+    const rowOf = t => t.closest && t.closest('.reviews > li[data-slug]');
+    list.addEventListener('pointerover', e => { const li = rowOf(e.target); if (li) lit(pair('row', li.dataset.slug), true); });
+    list.addEventListener('pointerout', e => { const li = rowOf(e.target); if (li && !li.contains(e.relatedTarget) && !li.contains(document.activeElement)) lit(pair('row', li.dataset.slug), false); });
+    list.addEventListener('focusin', e => { const li = rowOf(e.target); if (li) lit(pair('row', li.dataset.slug), true); });
+    list.addEventListener('focusout', e => { const li = rowOf(e.target); if (li && !li.contains(e.relatedTarget) && !li.matches(':hover')) lit(pair('row', li.dataset.slug), false); });
+    const bookOf = t => t.closest && t.closest('.book[data-slug]');
+    books.addEventListener('pointerover', e => { const b = bookOf(e.target); if (b) lit(pair('book', b.dataset.slug), true); });
+    books.addEventListener('pointerout', e => { const b = bookOf(e.target); if (b && !b.contains(e.relatedTarget) && !b.contains(document.activeElement)) lit(pair('book', b.dataset.slug), false); });
+    books.addEventListener('focusin', e => { const b = bookOf(e.target); if (b) lit(pair('book', b.dataset.slug), true); });
+    books.addEventListener('focusout', e => { const b = bookOf(e.target); if (b && !b.contains(e.relatedTarget) && !b.matches(':hover')) lit(pair('book', b.dataset.slug), false); });
+  }
+
   const f = document.querySelector('.topic-filter');
   if (f) f.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;

@@ -123,17 +123,31 @@ function shelf(){
     const st = `style="--h:${height}px; --w:${width}px; --c:${spineColor(b.slug)}"`;
     const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc(b.author)}`;
     return b.review
-      ? `<li class="book live" data-topic="${b.topic}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
-      : `<li class="book" data-topic="${b.topic}"><button class="spine" type="button" ${st} aria-label="${label}" aria-describedby="bc-${b.slug}" aria-expanded="false">${inner}</button>${card}</li>`;
+      ? `<li class="book live" data-topic="${b.topic}" data-slug="${b.slug}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
+      : `<li class="book" data-topic="${b.topic}" data-slug="${b.slug}"><button class="spine" type="button" ${st} aria-label="${label}" aria-describedby="bc-${b.slug}" aria-expanded="false">${inner}</button>${card}</li>`;
   };
-  // чужая статья с разбором: вся карточка — ссылка на разбор
-  const art = a => `
-    <li><a class="panel article shelf-card" href="${a.review}">
-      <p class="chips"><span class="tag">статья</span><span class="tag">${esc(a.where)}</span>${a.topic ? `<span class="tag">${a.topic}</span>` : ''}</p>
-      <h3>${esc(a.title)}</h3>
-      <p>${esc(nb(a.about))}</p>
-      <span class="go">Читать разбор →</span>
-    </a></li>`;
+  // список разборов под полкой (просьба Дили, 22.11): группы «Книги» → «Статьи», пустая группа не выводится;
+  // строка без рамки и фона: название-ссылка на разбор, мелко — авторы · год, приглушённо — русское издание, справа — метки тем.
+  // Метки «книга/статья» нет: тип задан заголовком группы. Колонка — .col (гайд, 109a), чуть шире --measure, чтобы метки вставали в строку.
+  const topicsOf = x => [].concat(x.topic || []).filter(Boolean);
+  const tags = x => { const t = topicsOf(x); return t.length ? `<span class="r-tags">${t.map(tp => `<span class="tag">${esc(tp)}</span>`).join('')}</span>` : ''; };
+  const meta = (a, y, lg = '') => a || y ? `<span class="r-by"${lg}>${a ? esc(a) : ''}${a && y ? '&nbsp;· ' : ''}${y || ''}</span>` : '';
+  const bookRow = b => {
+    const ru = b.title_en ? `<span class="r-tr">${b.title_ru ? `На русском: «${esc(nb(b.title_ru))}»${b.year_ru ? `&nbsp;· ${b.year_ru}` : ''}` : 'Перевода на русском нет'}</span>` : '';
+    return `
+      <li data-slug="${b.slug}"><div class="r-main"><a class="r-t" href="${b.review}"${bookLang(b)}>${esc(bookTitle(b))}</a>${meta(b.title_en ? (b.author_en || b.author) : b.author, b.year, b.title_en && b.author_en ? ' lang="en"' : '')}${ru}</div>${tags(b)}</li>`;
+  };
+  const artRow = a => {
+    const t = a.title_en || a.title, by = a.title_en ? (a.author_en || a.author) : a.author;
+    return `
+      <li><div class="r-main"><a class="r-t" href="${a.review}"${a.title_en ? ' lang="en"' : ''}>${esc(t)}</a>${meta([by, a.where].filter(Boolean).join(', '), a.year)}</div>${tags(a)}</li>`;
+  };
+  const group = (id, name, list, row) => list.length ? `
+    <section class="r-group" aria-labelledby="${id}">
+      <h2 id="${id}">${name}</h2>
+      <ul class="reviews" role="list">${list.map(row).join('')}
+      </ul>
+    </section>` : '';
   // свои материалы: есть url — вся карточка ссылка в той же вкладке, площадка названа словами (гайд, п. 126); url:null — заглушка «скоро», после готовых
   const WHERE = {'Хабр': 'на Хабре', 'Medium': 'на Medium', 'YouTube': 'на YouTube', 'Telegram': 'в Telegram'};
   const GO = {article: 'Читать', video: 'Смотреть', channel: 'Открыть канал'};
@@ -161,10 +175,17 @@ function shelf(){
     url: '/shelf/', css: ['/site/site.css'], og: '/shelf/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
 
 <main id="main" class="wrap shelf-page">
-  <section class="c-hero">
-    <h1>Полка</h1>
-    <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
-    <p class="shelf-how">Разборы «Котейка читает»: главная мысль, 3–5 идей с играми, кому читать и что вошло в курсы.</p>
+  <!-- первый экран — как на главной и /map/: .hero, .hero-text, .art.hero-art (home.css); картинка 4:3 целиком (.r43, пара 135a), на телефоне — под текстом.
+       Класс c-hero оставлен для site/shelf.js: подсказка у корешка не заходит на шапку -->
+  <section class="hero c-hero">
+    <div class="hero-text">
+      <h1>Полка</h1>
+      <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
+      <p class="shelf-how">Разборы «Котейка читает»: главная мысль, 3–5 идей с играми, кому читать и что вошло в курсы.</p>
+    </div>
+    <figure class="art r43 hero-art">
+      <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="1200" decoding="async" alt="Котейка в очках читает книгу в кресле">
+    </figure>
   </section>
 ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <button type="button" aria-pressed="true" data-topic="">Все темы</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
@@ -175,12 +196,11 @@ ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <div class="board" aria-hidden="true"></div>
   </div>
   <p class="figcap">Нажми на корешок — откроется разбор.</p>
-${arts.length ? `
-  <section class="block shelf-read" aria-labelledby="read-h">
-    <h2 id="read-h">Статьи</h2>
-    <ul class="shelf-cards" role="list">${arts.map(art).join('')}
-    </ul>
-  </section>
+${books.length || arts.length ? `
+  <div class="block shelf-list">
+    <div class="col">${group('books-h', 'Книги', books, bookRow)}${group('arts-h', 'Статьи', arts, artRow)}
+    </div>
+  </div>
 ` : ''}${mine.length ? `
   <section class="block shelf-read" aria-labelledby="mine-h">
     <h2 id="mine-h">Статьи и видео от автора</h2>
