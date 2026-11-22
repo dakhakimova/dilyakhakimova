@@ -124,7 +124,7 @@
 <section class="card" data-toy="two-coins" data-title="Две монетки" aria-label="Две монетки моют посуду">
   <span class="step-tag">Поиграй</span>
   <h2>Две монетки моют посуду</h2>
-  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Сначала добавляй по одному вечеру и смотри, к кому улетает исход. Потом вбей тысячу или сто тысяч вечеров: на сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
+  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Впиши, сколько вечеров бросать, и нажми «Бросить»: начни с десяти, потом сотня, тысяча, сто тысяч. Каждый раз опыт начинается с нуля. На сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
   <div class="sheet c-white coins2" id="c-sheet">
     <div class="pair" id="pair" aria-live="polite"><span class="coin c1 blank">?</span><span class="coin c2 blank">?</span><span class="who-says" id="pair-who">Брось пару монеток</span></div>
     <div class="bins" id="bins">
@@ -133,10 +133,9 @@
       <div class="hb hb-kot"><b>Котейка</b><div class="outs"><span class="out" data-o="RR"><b><i class="c1">Р</i><i class="c2">Р</i></b><em>0</em></span></div><span class="tot" data-t="K"></span></div>
     </div>
     <div class="controls addrow">
-      <button class="btn" type="button" id="c-1">+1 вечер</button>
-      <label for="c-n" class="c-nl">или сразу</label><input id="c-n" type="text" inputmode="numeric" value="1000" autocomplete="off">
-      <button class="btn ghost" type="button" id="c-add">Добавить вечера</button>
-      <button class="btn ghost" type="button" id="c-0">Сначала</button>
+      <label for="c-n" class="c-nl">Вечеров</label><input id="c-n" type="text" inputmode="numeric" value="10" autocomplete="off">
+      <button class="btn" type="button" id="c-go">Бросить</button>
+      <button class="btn ghost" type="button" id="c-1">+1 вечер</button>
     </div>
     <p class="c-log" id="c-log" aria-live="polite"></p>
     <p class="chart-title">Доля вечеров у каждого героя</p>
@@ -492,25 +491,28 @@ const TXT = {
     if (m === 1){
       const o = fresh[0]; cnt[o]++; n++;
       showPair(o, true); fly(o); paint(); draw(); verdict();
-      log.innerHTML = '+1 вечер: ' + lab(o) + ' — улетело к ' + {OO: 'Алисе', OR: 'Бобу', RO: 'Бобу', RR: 'Котейке'}[o];
+      log.innerHTML = 'Ещё вечер: ' + lab(o) + ' — улетело к ' + {OO: 'Алисе', OR: 'Бобу', RO: 'Бобу', RR: 'Котейке'}[o];
       return;
     }
-    log.innerHTML = '+' + int(m) + ' ' + plural(m, {one: 'вечер', few: 'вечера', many: 'вечеров'}) + ': Алисе ' + int(c.OO) + ', Бобу ' + int(c.OR + c.RO) + ' (' + lab('OR') + ' ' + int(c.OR) + ', ' + lab('RO') + ' ' + int(c.RO) + '), Котейке ' + int(c.RR);
+    log.innerHTML = int(m) + ' ' + plural(m, {one: 'вечер', few: 'вечера', many: 'вечеров'}) + ': Алисе ' + int(c.OO) + ', Бобу ' + int(c.OR + c.RO) + ' (' + lab('OR') + ' ' + int(c.OR) + ', ' + lab('RO') + ' ' + int(c.RO) + '), Котейке ' + int(c.RR);
     if (REDUCED){ for (const o in c){ cnt[o] += c[o]; } n += m; showPair(fresh[m - 1], false); paint(); draw(); verdict(); return; }
     queue = queue.slice(qi).concat(fresh); qi = 0;
     perFrame = Math.max(1, Math.ceil(queue.length / 150));   // ~2.5 с при 60 кадрах
     if (!raf) raf = requestAnimationFrame(frame);
   }
-  const N = () => { const v = Math.round(parseFloat(String(inp.value).replace(/\s| /g, '').replace(',', '.'))); return isFinite(v) && v > 0 ? Math.min(v, 1000000) : 0; };
-  document.getElementById('c-1').addEventListener('click', () => run(1));
-  document.getElementById('c-add').addEventListener('click', () => { const m = N(); if (m){ inp.value = int(m); run(m); } else inp.focus(); });
-  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); document.getElementById('c-add').click(); } });
-  document.getElementById('c-0').addEventListener('click', () => {
+  const N = () => { const v = Math.round(parseFloat(String(inp.value).replace(/\s|\u00a0/g, '').replace(',', '.'))); return isFinite(v) && v > 0 ? Math.min(v, 1000000) : 0; };
+  function reset(){
     queue = []; qi = 0; if (raf){ cancelAnimationFrame(raf); raf = 0; }
     Object.keys(cnt).forEach(k => cnt[k] = 0); n = 0;
-    coins.forEach(x => { x.textContent = '?'; x.classList.add('blank'); }); who.textContent = 'Брось пару монеток'; log.textContent = '';
-    paint(); draw(); verdict();
-  });
+  }
+  // «Бросить» — каждый раз новый опыт с нуля на N вечеров; «+1 вечер» — добавить один вечер к текущему (решение Дили, 22.11.2026)
+  const go = document.getElementById('c-go');
+  const goLabel = () => { const m = N(); go.textContent = m ? 'Бросить ' + int(m) + ' ' + plural(m, {one: 'раз', few: 'раза', many: 'раз'}) : 'Бросить'; };
+  go.addEventListener('click', () => { const m = N(); if (!m){ inp.focus(); return; } reset(); run(m); });
+  document.getElementById('c-1').addEventListener('click', () => run(1));
+  inp.addEventListener('input', goLabel);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); go.click(); } });
+  goLabel();
   window.addEventListener('resize', draw);
   paint();
 })();
