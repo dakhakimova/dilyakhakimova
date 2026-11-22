@@ -1,14 +1,18 @@
 -- База сайта dilyakhakimova.com (Cloudflare D1, SQLite).
 -- Применить: Cloudflare → D1 → база → Console, вставить этот файл целиком и выполнить.
 
+-- Персональных данных здесь нет: почта, имя и аватар хранятся в России (id.dilyakhakimova.com, папка id/).
 CREATE TABLE IF NOT EXISTS users (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
-  tg_id       INTEGER NOT NULL UNIQUE,          -- id пользователя в Telegram
-  first_name  TEXT,
-  username    TEXT,
-  photo_url   TEXT,
+  uid         TEXT NOT NULL UNIQUE,             -- случайный номер ученика из id.dilyakhakimova.com ('u_…')
   created_at  TEXT NOT NULL DEFAULT (datetime('now')),
   last_seen   TEXT
+);
+
+-- одноразовость пропусков от id.dilyakhakimova.com
+CREATE TABLE IF NOT EXISTS pass_used (
+  n    TEXT PRIMARY KEY,
+  exp  INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sessions (

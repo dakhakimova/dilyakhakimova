@@ -7,9 +7,9 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611229">
-<link rel="stylesheet" href="/tokens.css?v=202611229">
-<link rel="stylesheet" href="/home.css?v=202611229">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
+<link rel="stylesheet" href="/tokens.css?v=202611230">
+<link rel="stylesheet" href="/home.css?v=202611230">
 <style>
 /* общий шаблон страницы (как /extras/, 404): шапка и футер data-chrome, main.wrap.block — 1120 px (--page-max), отступы шаблона */
 .account h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:var(--s-2) 0 var(--s-6)}
@@ -25,8 +25,23 @@
 .account .promos{list-style:none; padding:0}
 .promos li{margin:0 0 var(--s-4)}
 .who{display:flex; align-items:center; gap:12px}
-.who img{width:44px; height:44px; border-radius:50%}
-#tg-login{min-height:48px; margin:16px 0}
+/* вход: Яндекс ID или код из почты (решение Дили, 22.11.2026); данные — в России, id.dilyakhakimova.com */
+.login{display:grid; gap:var(--s-4); max-width:480px}
+.btn.ya{background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); box-shadow:var(--sh-1); justify-self:start}
+.btn.ya:hover:not(:disabled){background:#fff; color:var(--ink); border-color:var(--ink)}
+.btn.ya .ya-i{width:22px; height:22px; border-radius:50%; background:#FC3F1D; color:#fff; font:700 14px/22px var(--body); text-align:center}
+.or{display:flex; align-items:center; gap:var(--s-3); color:var(--muted); font-size:var(--fs-s); margin:0}
+.or::before, .or::after{content:""; flex:1; border-top:1px solid var(--line)}
+.consent{display:flex; gap:var(--s-2); align-items:flex-start; font-size:var(--fs-s); line-height:1.45; color:var(--text-2); cursor:pointer}
+.consent input{width:20px; height:20px; margin:2px 0 0; flex:none; accent-color:var(--pen)}
+.consent.need{outline:2px solid #A8352F; outline-offset:6px; border-radius:4px}
+.code-in{letter-spacing:.35em; font-variant-numeric:tabular-nums; max-width:12em}
+.who{gap:var(--s-4)}
+.ava{width:64px; height:64px; border-radius:50%; flex:none; background:var(--pen-soft); border:1.5px solid var(--pen); display:inline-flex; align-items:center; justify-content:center; overflow:hidden; color:var(--pen); font:400 1.75rem/1 var(--serif)}
+.ava img{width:100%; height:100%; object-fit:cover}
+#f-name{margin-top:var(--s-4)}
+.danger{color:#A8352F}
+#guest, #member{margin-bottom:var(--s-7)}
 #m-chapters h3{margin:var(--s-5) 0 var(--s-1); font:400 var(--fs-m)/1.3 var(--serif)} #m-chapters h3:first-child{margin-top:var(--s-1)}
 #m-chapters .chs{padding-left:20px; margin:6px 0 0} #m-chapters .chs li{margin:3px 0; font-size:var(--fs-s)} #m-chapters li.todo{color:var(--muted)}
 .err{color:#C2453A}
@@ -53,16 +68,39 @@
   <h1>Мой прогресс</h1>
 
   <section id="guest" hidden>
-    <p class="lead">Войди через Telegram, чтобы прогресс сохранялся на любом устройстве и пройденные курсы засчитывались.</p>
-    <p>Мы получим только твоё имя, ник и фото из Telegram — ни телефона, ни переписки.</p>
-    <div id="tg-login"></div>
+    <p class="lead">Войди, чтобы прогресс сохранялся на любом устройстве и пройденные курсы засчитывались.</p>
+    <div class="login">
+      <label class="consent" id="consent-box"><input type="checkbox" id="consent"> <span>Даю <a href="/consent/">согласие на обработку персональных данных</a> и принимаю <a href="/privacy/">политику конфиденциальности</a>. Нужно только при первом входе.</span></label>
+      <a class="btn ya" id="ya-btn" href="#"><span class="ya-i" aria-hidden="true">Я</span>Войти с Яндекс ID</a>
+      <p class="or">или по почте</p>
+      <form class="form" id="f-email" novalidate>
+        <label for="email">Почта</label>
+        <div class="row"><input class="input" id="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-describedby="email-msg"><button class="btn" type="submit">Получить код</button></div>
+        <p class="form-msg" id="email-msg">Пришлём код из шести цифр. Пароль не нужен.</p>
+      </form>
+      <form class="form" id="f-code" novalidate hidden>
+        <label for="code">Код из письма</label>
+        <div class="row"><input class="input code-in" id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required aria-describedby="code-msg"><button class="btn" type="submit">Войти</button></div>
+        <p class="form-msg" id="code-msg" role="status"></p>
+        <div class="form" id="new-box" hidden>
+          <label for="name">Как к тебе обращаться</label>
+          <input class="input" id="name" type="text" autocomplete="given-name" maxlength="40">
+        </div>
+        <div class="row"><button class="btn-text" type="button" id="resend">Отправить код ещё раз</button><button class="btn-text" type="button" id="other-email">Другая почта</button></div>
+      </form>
+    </div>
     <p class="muted" id="queued"></p>
-    <p class="err" id="login-err" role="alert"></p>
+    <p class="form-msg err" id="login-err" role="alert"></p>
   </section>
 
   <section id="member" hidden>
     <div class="panel">
-      <div class="who"><img id="m-photo" alt="" hidden><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
+      <div class="who"><span class="ava" id="m-ava" aria-hidden="true"></span><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
+      <form class="form" id="f-name" novalidate>
+        <label for="m-name-in">Имя на сайте</label>
+        <div class="row"><input class="input" id="m-name-in" type="text" maxlength="40" autocomplete="given-name"><button class="btn ghost" type="submit">Сохранить</button></div>
+        <p class="form-msg" id="name-msg" role="status"></p>
+      </form>
     </div>
     <div class="panel">
       <p id="m-courses" style="margin:0"></p>
@@ -78,6 +116,12 @@
       <div id="m-chapters"></div>
     </div>
     <button class="btn ghost" id="logout" type="button">Выйти</button>
+    <p><button class="btn-text danger" id="del" type="button">Удалить аккаунт</button></p>
+    <div class="panel" id="del-box" hidden>
+      <p>Удалим почту, имя, аватар и весь прогресс. Неиспользованные промокоды пропадут. Вернуть нельзя.</p>
+      <button class="btn" id="del-yes" type="button">Удалить навсегда</button> <button class="btn ghost" id="del-no" type="button">Отмена</button>
+      <p class="form-msg err" id="del-msg" role="alert"></p>
+    </div>
   </section>
 
   <!-- Условия скидки (решение Дили, 22.11.2026) — /account.html#terms, на них ведут «Условия →» с главной и страниц курсов -->
@@ -88,7 +132,7 @@
       <li>За каждый пройденный курс — свой промокод.</li>
       <li>Одна покупка — один промокод.</li>
       <li>Промокод можно подарить: он действует год и только один раз.</li>
-      <li>Чтобы прогресс засчитывался, нужен вход через Telegram.</li>
+      <li>Чтобы прогресс засчитывался, нужен вход: через Яндекс ID или по почте.</li>
     </ol>
   </section>
 
@@ -145,13 +189,33 @@ const COURSES = [
 ];
 const $ = id => document.getElementById(id);
 
+// Российский сервис входа: почта, имя, аватар хранятся там; сайт (Cloudflare) знает только случайный номер ученика.
+let ID = 'https://id.dilyakhakimova.com', profile = null;
+const CONSENT = '2026-11-22';
+const idFetch = (path, opt = {}) => fetch(ID + path, {credentials: 'include', ...opt,
+  headers: opt.body ? {'content-type': 'application/json'} : {}}).then(async r => ({ok: r.ok, status: r.status, data: await r.json().catch(() => ({}))}));
+const AVA_RE = /^(cat|dog)-\d+$/;
+
+function remember(p){
+  // для кружка входа в шапке (tools/chrome.js): имя и аватар — только в этом браузере
+  try { localStorage.setItem('dk:me', JSON.stringify({name: p.name || '', photo: p.avatar ? '' : (p.avatar_url || ''), avatar: p.avatar || ''})); } catch(e) {}
+}
+function drawAva(el, p){
+  el.textContent = (p.name || p.email || '?').trim().charAt(0).toUpperCase();
+  const src = p.avatar && AVA_RE.test(p.avatar) ? '/img/avatars/' + p.avatar + '.webp' : (p.avatar_url || '');
+  if (src){ const g = new Image(); g.alt = ''; g.onload = () => { el.textContent = ''; el.appendChild(g); }; g.src = src; }
+}
+function showProfile(p){
+  profile = p; remember(p);
+  $('m-name').textContent = p.name || 'Без имени';
+  $('m-user').textContent = [p.email, p.yandex ? 'Яндекс ID' : ''].filter(Boolean).join(' · ');
+  $('m-name-in').value = p.name || '';
+  drawAva($('m-ava'), p);
+}
+
 function showMember(me){
-  // для кружка входа в шапке сайта (tools/chrome.js): имя и фото, без запросов к /api/ на других страницах
-  try { localStorage.setItem('dk:me', JSON.stringify({name: me.user.first_name || '', photo: me.user.photo_url || ''})); } catch(e) {}
   $('guest').hidden = true; $('member').hidden = false;
-  $('m-name').textContent = me.user.first_name || 'Без имени';
-  $('m-user').textContent = me.user.username ? '@' + me.user.username : '';
-  if (me.user.photo_url){ $('m-photo').src = me.user.photo_url; $('m-photo').hidden = false; }
+  if (!profile) $('m-name').textContent = 'Ученик';
   $('m-points').textContent = me.points; $('m-max').textContent = me.max;
   const cp = me.courses_progress || {}, NAMES = {vp: 'Вероятность на пальцах', ss: 'Сигнал или шум', ab: 'A/B на пальцах'};
   $('m-courses').textContent = (me.courses_done && me.courses_done.length)
@@ -190,31 +254,96 @@ function showMember(me){
   }
 }
 
-async function start(){
-  let me = await SignalProgress.refresh();
-  if (me){ showMember(me); return; }
-  let cfg = null;
-  try { const r = await fetch('/api/config'); cfg = r.ok ? await r.json() : null; } catch(e) {}
-  if (!cfg || !cfg.telegram_bot){ $('down').hidden = false; return; }
-  $('guest').hidden = false;
+async function exchange(pass){
+  const r = await fetch('/api/auth/pass', {method: 'POST', headers: {'content-type': 'application/json'}, credentials: 'same-origin', body: JSON.stringify({pass})});
+  if (!r.ok){ $('login-err').textContent = (await r.json().catch(() => ({}))).error || 'Не получилось войти'; return null; }
+  await SignalProgress.refresh(); await SignalProgress.flush(); return SignalProgress.refresh();
+}
+function guest(){
+  $('guest').hidden = false; $('member').hidden = true;
   let q = []; try { q = JSON.parse(localStorage.getItem('signal:queue') || '[]'); } catch(e) {}
   const pts = q.filter(e => e.kind !== 'card').length;
   if (pts) $('queued').textContent = 'В этом браузере уже сохранён прогресс: ' + pts + ' действий. Он перенесётся после входа.';
-  window.onTelegramAuth = async user => {
-    $('login-err').textContent = '';
-    const r = await fetch('/api/auth/telegram', {method: 'POST', headers: {'content-type': 'application/json'}, credentials: 'same-origin', body: JSON.stringify(user)});
-    if (!r.ok){ $('login-err').textContent = (await r.json().catch(() => ({}))).error || 'Не получилось войти'; return; }
-    me = await SignalProgress.refresh(); await SignalProgress.flush(); me = await SignalProgress.refresh();
-    if (me) showMember(me);
-  };
-  const s = document.createElement('script');
-  s.async = true; s.src = 'https://telegram.org/js/telegram-widget.js?22';
-  s.setAttribute('data-telegram-login', cfg.telegram_bot);
-  s.setAttribute('data-size', 'large'); s.setAttribute('data-radius', '10');
-  s.setAttribute('data-onauth', 'onTelegramAuth(user)'); s.setAttribute('data-request-access', 'write');
-  $('tg-login').appendChild(s);
 }
-$('logout').addEventListener('click', async () => { try { localStorage.removeItem('dk:me'); } catch(e) {} await fetch('/api/logout', {method: 'POST', credentials: 'same-origin'}); location.reload(); });
+const ERR = {state: 'Вход через Яндекс прервался. Попробуй ещё раз', cancel: 'Вход через Яндекс отменён', yandex: 'Яндекс не ответил. Попробуй ещё раз или войди по почте',
+  consent: 'Ты здесь впервые: отметь согласие на обработку данных и войди ещё раз'};
+
+async function start(){
+  try { const r = await fetch('/api/config'); const c = r.ok ? await r.json() : null; if (c && c.id_origin) ID = c.id_origin; } catch(e) {}
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.has('pass') || h.has('err')) history.replaceState(null, '', location.pathname + location.search);
+  if (h.get('err')){ $('login-err').textContent = ERR[h.get('err')] || 'Не получилось войти'; if (h.get('err') === 'consent') $('consent-box').classList.add('need'); }
+  // профиль — из России; если там вход есть, а на сайте нет — сайт получает свежий пропуск
+  const pr = await idFetch('/profile').catch(() => null);
+  if (pr && pr.ok) showProfile(pr.data.profile);
+  let me = await SignalProgress.refresh();
+  if (!me){
+    const pass = h.get('pass') || (pr && pr.ok && pr.data.pass);
+    if (pass) me = await exchange(pass);
+  }
+  if (me){ showMember(me); return; }
+  if (!pr){ $('down').hidden = false; return; }
+  guest();
+}
+
+// --- вход ---
+let email = '';
+$('ya-btn').addEventListener('click', e => { e.preventDefault(); location.href = ID + '/yandex/start' + ($('consent').checked ? '?consent=' + CONSENT : ''); });
+$('consent').addEventListener('change', () => $('consent-box').classList.remove('need'));
+$('f-email').addEventListener('submit', async e => {
+  e.preventDefault(); const el = $('email'), msg = $('email-msg'); el.removeAttribute('aria-invalid'); msg.className = 'form-msg';
+  email = el.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(email)){ el.setAttribute('aria-invalid', 'true'); msg.className = 'form-msg err'; msg.textContent = 'Проверь адрес: нужна почта вида name@example.com'; el.focus(); return; }
+  const r = await idFetch('/email/start', {method: 'POST', body: JSON.stringify({email})}).catch(() => null);
+  if (!r || !r.ok){ msg.className = 'form-msg err'; msg.textContent = (r && r.data.error) || 'Сервис входа не отвечает. Попробуй позже'; return; }
+  $('f-email').hidden = true; $('f-code').hidden = false;
+  $('code-msg').className = 'form-msg'; $('code-msg').textContent = 'Отправили код на ' + email + '. Он действует 10 минут.';
+  $('code').value = ''; $('code').focus();
+});
+$('code').addEventListener('input', () => { $('code').value = $('code').value.replace(/\D/g, '').slice(0, 6); });
+$('f-code').addEventListener('submit', async e => {
+  e.preventDefault(); const msg = $('code-msg'), code = $('code').value;
+  if (code.length !== 6){ msg.className = 'form-msg err'; msg.textContent = 'Нужен код из шести цифр'; return; }
+  const body = {email, code, name: $('name').value};
+  if ($('consent').checked) body.consent = CONSENT;
+  const r = await idFetch('/email/verify', {method: 'POST', body: JSON.stringify(body)}).catch(() => null);
+  if (!r){ msg.className = 'form-msg err'; msg.textContent = 'Сервис входа не отвечает. Попробуй позже'; return; }
+  if (!r.ok){
+    msg.className = 'form-msg err';
+    if (r.data.need_consent){
+      msg.textContent = 'Ты здесь впервые. Отметь согласие выше, напиши, как к тебе обращаться, и нажми «Войти» ещё раз';
+      $('new-box').hidden = false; $('consent-box').classList.add('need'); $('name').focus();
+    } else msg.textContent = r.data.error + (r.data.tries_left !== undefined ? '. Осталось попыток: ' + r.data.tries_left : '');
+    return;
+  }
+  showProfile(r.data.profile);
+  const me = await exchange(r.data.pass);
+  if (me) showMember(me);
+});
+$('resend').addEventListener('click', () => { $('f-code').hidden = true; $('f-email').hidden = false; $('f-email').requestSubmit(); });
+$('other-email').addEventListener('click', () => { $('f-code').hidden = true; $('f-email').hidden = false; $('new-box').hidden = true; $('email').focus(); });
+
+// --- профиль ---
+$('f-name').addEventListener('submit', async e => {
+  e.preventDefault(); const msg = $('name-msg');
+  const r = await idFetch('/profile', {method: 'POST', body: JSON.stringify({name: $('m-name-in').value})}).catch(() => null);
+  if (r && r.ok){ showProfile(r.data.profile); msg.className = 'form-msg ok'; msg.textContent = 'Сохранено'; setTimeout(() => { msg.textContent = ''; }, 2000); }
+  else { msg.className = 'form-msg err'; msg.textContent = (r && r.data.error) || 'Не получилось сохранить'; }
+});
+$('del').addEventListener('click', () => { $('del-box').hidden = false; $('del-no').focus(); });
+$('del-no').addEventListener('click', () => { $('del-box').hidden = true; });
+$('del-yes').addEventListener('click', async () => {
+  const r = await idFetch('/profile', {method: 'DELETE'}).catch(() => null);
+  if (!r || !r.ok){ $('del-msg').textContent = (r && r.data.error) || 'Не получилось удалить. Попробуй ещё раз'; return; }
+  try { ['dk:me', 'signal:queue', 'signal:sent'].forEach(k => localStorage.removeItem(k)); } catch(e) {}
+  await fetch('/api/logout', {method: 'POST', credentials: 'same-origin'}).catch(() => {});
+  location.replace('/account.html');
+});
+$('logout').addEventListener('click', async () => {
+  try { localStorage.removeItem('dk:me'); } catch(e) {}
+  await Promise.all([fetch('/api/logout', {method: 'POST', credentials: 'same-origin'}), idFetch('/logout', {method: 'POST'})].map(p => p.catch(() => {})));
+  location.reload();
+});
 start();
 </script>
 </body>

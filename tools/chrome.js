@@ -21,10 +21,12 @@ const TAGLINE = 'Вероятность, статистика и A/B — в и�
 // на внутренних страницах слева в шапке вместо названия сайта — «← На главную» (решение Дили, 22.11.2026); полное название — только на главной, без ссылки
 const BACK = '← На главную';
 
-// кружок входа: до входа — силуэт Котейки и подсказка «Войти»; после входа (account.html и progress.js кладут
-// в localStorage 'dk:me' имя и фото) — фото из Telegram или первая буква имени, aria-label «Мой кабинет».
+// кружок входа: до входа — силуэт Котейки и подсказка «Войти»; после входа account.html кладёт в localStorage 'dk:me'
+// {name, photo, avatar}: имя и аватар приходят из российского сервиса id.dilyakhakimova.com прямо в браузер, на Cloudflare их нет.
+// Показ: сначала первая буква имени, потом картинка, если загрузилась, — фото из Яндекс ID или выбранная аватарка /img/avatars/<ключ>.webp.
+// Ищет кружок по селектору: перед этим скриптом стоит скрипт бургера, так что previousElementSibling — не шапка (была ошибка: кружок не менялся).
 // Запросов к /api/ шапка не делает (на /play/ и /terms/ их быть не должно).
-const ME_JS = `<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>`;
+const ME_JS = `<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>`;
 
 function header(current = '', self = false){
   // текущая рубрика: на её главной странице — не ссылка (<span aria-current="page">), внутри рубрики — ссылка с aria-current="true";

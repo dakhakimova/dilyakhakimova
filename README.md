@@ -62,17 +62,20 @@ SELECT place, source, kind, SUM(count) AS n FROM toy_hits WHERE source <> '' GRO
 
 Поиск: `robots.txt` (sitemap, закрыты `/api/`, `/styleguide/`, `?embed=1`; для Яндекса `Clean-param` для `toy`, `embed`, `ref`, utm), canonical у всех глав курсов, соло-режим игры (`?toy=`) ставит себе `noindex` (`play/bridge.js`).
 
-## Бэкенд: вход через Telegram, прогресс и баллы
+## Бэкенд: вход, прогресс и баллы
+
+Вход — через российский сервис `id.dilyakhakimova.com` (папка `id/`, Yandex Cloud): код из почты или Яндекс ID. Почта, имя и аватар хранятся только там; на Cloudflare — случайный номер ученика. Вход через Telegram убран (ст. 13.55 КоАП с 07.07.2026). Юридические страницы `/privacy/`, `/consent/` — `tools/build-legal.js`. Проверка входа целиком: `NODE_PATH=$(npm root -g) node tools/test-login.js`.
 
 Серверная часть — Cloudflare Pages Functions в папке `functions/api/` и база D1 (`schema.sql`).
 
 | Адрес | Что делает |
 |---|---|
-| `POST /api/auth/telegram` | вход через Telegram Login Widget, проверка подписи, cookie-сессия на 30 дней |
-| `GET /api/me` | имя, баллы, прогресс по главам, калибровка, промокоды |
+| `POST /api/auth/pass` | вход по пропуску от id.dilyakhakimova.com (подпись HMAC, 2 минуты, один раз), cookie-сессия на 30 дней |
+| `POST /api/internal/forget` | удалить ученика и прогресс (только по подписанному запросу id-сервиса) |
+| `GET /api/me` | баллы, прогресс по главам, калибровка, промокоды (без имени) |
 | `POST /api/event` | события прохождения пачкой; баллы начисляет сервер |
 | `POST /api/logout` | выход |
-| `GET /api/config` | имя бота для кнопки входа |
+| `GET /api/config` | адрес сервиса входа (`ID_ORIGIN`) |
 
 Правила баллов и пороги скидок — в `functions/api/_lib.js` (`RULES`, `PTS`, `TIERS`, `PLANNED_MAX`).
 Новая глава = новая запись в `RULES` и вызовы `SignalProgress.track(...)` на её странице.

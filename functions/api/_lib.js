@@ -1,8 +1,9 @@
 // Общие функции API сайта: ответы, сессии, правила баллов.
 // Окружение (Cloudflare Pages → Settings → Variables and secrets / Bindings):
-//   DB                — привязка к базе D1
-//   TELEGRAM_BOT_TOKEN — секрет: токен бота сайта (никогда не уходит в браузер)
-//   TELEGRAM_BOT_NAME  — имя бота без @, для кнопки входа
+//   DB          — привязка к базе D1
+//   PASS_SECRET — секрет: общий с id.dilyakhakimova.com, им подписаны пропуска и служебные запросы
+//   ID_ORIGIN   — адрес российского сервиса входа, 'https://id.dilyakhakimova.com'
+// Персональных данных на Cloudflare нет: ученик здесь — только случайный номер uid.
 
 export const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
@@ -10,6 +11,25 @@ export const json = (data, status = 200, headers = {}) =>
 export const bad = (msg, status = 400) => json({ error: msg }, status);
 
 const enc = new TextEncoder();
+const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+export async function hmacB64(secret, s) {
+  const key = await crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return b64url(await crypto.subtle.sign('HMAC', key, enc.encode(s)));
+}
+export function safeEq(a, b) {
+  a = String(a); b = String(b);
+  if (a.length !== b.length) return false;
+  let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+// Пропуск от id.dilyakhakimova.com: base64url(JSON {uid, exp, n}) + '.' + HMAC-SHA256(PASS_SECRET). null, если подпись или срок не те.
+export async function readPass(secret, pass, now = Date.now()) {
+  const [body, sig] = String(pass || '').split('.');
+  if (!body || !sig || !safeEq(sig, await hmacB64(secret, body))) return null;
+  let p; try { p = JSON.parse(decodeURIComponent(escape(atob(body.replace(/-/g, '+').replace(/_/g, '/'))))); } catch { return null; }
+  if (!p || typeof p.uid !== 'string' || !/^u_[\w-]{8,40}$/.test(p.uid) || !(p.exp > now) || !p.n) return null;
+  return p;
+}
 export const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
 export const sha256 = async s => hex(await crypto.subtle.digest('SHA-256', enc.encode(s)));
 
@@ -176,7 +196,7 @@ export async function summary(env, user) {
   promos.forEach(p => { p.course_title = (COURSES[p.course] || {}).title || p.course; });
 
   return {
-    user: { first_name: user.first_name, username: user.username, photo_url: user.photo_url },
+    user: { uid: user.uid },
     points: total, max, share: Math.round(share * 1000) / 10,
     discount: courses_done.length ? DISCOUNT : 0, courses_done, courses_progress,
     calibration_error: calibration,
