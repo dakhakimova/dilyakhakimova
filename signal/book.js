@@ -297,6 +297,7 @@ Object.assign(Book, {
   let cur = 0;
   function go(i, push = true){
     cur = Math.max(0, Math.min(cards.length - 1, i));
+    if (!window.PLAY_SOLO) store.set('pos:' + location.pathname, cur);   // Купер: возврат в шаг — на то же место, а не с начала
     cards.forEach((c, k) => c.classList.toggle('on', k === cur));
     if (!window.PLAY_SOLO){ seen.add(cur); store.set(key, [...seen]); Book.track('card', cur + 1); }  // соло-режим /play/: без прогресса
     [...list.children].forEach((li, k) => { li.classList.toggle('cur', k === cur); li.classList.toggle('done', seen.has(k) && k !== cur); });
@@ -335,7 +336,8 @@ Object.assign(Book, {
   const solo = window.PLAY_SOLO ? cards.findIndex(c => (c.dataset.toy || '').split(/\s+/).includes(window.PLAY_SOLO)) : -1;
   setTimeout(() => {
     const m = location.hash.match(/^#card-(\d+)$/);
-    go(solo >= 0 ? solo : m ? +m[1] - 1 : 0, false);
+    const saved = store.get('pos:' + location.pathname);
+    go(solo >= 0 ? solo : m ? +m[1] - 1 : typeof saved === 'number' ? saved : 0, false);
   }, 0);
   window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });
 })();

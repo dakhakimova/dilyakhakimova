@@ -197,10 +197,22 @@
       }));
       done(); window.dispatchEvent(new Event('resize'));
     });
+    // Норман, вопрос 5 «что произошло?»: итог игры объявляется — у вердикта, где нет своей роли, role="status"
+    document.querySelectorAll('.card[data-toy] .verdict:not([role]):not([aria-live])').forEach(v => v.setAttribute('role', 'status'));
     // вердикт — по отпусканию ползунка: пока тянешь, у карточки класс .dragging (book.css прячет вердикт и крупные числа)
     document.addEventListener('pointerdown', e => { const r = e.target.closest && e.target.closest('.card input[type=range]'); if (r) r.closest('.card').classList.add('dragging'); });
     const drop = () => document.querySelectorAll('.card.dragging').forEach(c => c.classList.remove('dragging'));
     addEventListener('pointerup', drop); addEventListener('pointercancel', drop);
+    // Норман, вопрос 7 «это то, что я хотел?»: прогноз рядом с результатом и в играх без «одной кнопки» —
+    // после первого касания игры строка «Твой прогноз: …» встаёт над вердиктом (у игр с одной кнопкой она в ряду кнопок)
+    document.querySelectorAll('.card[data-toy]').forEach(card => {
+      const sl = card.dataset.toy.split(/\s+/)[0];
+      const put = () => { if (card.querySelector('.ui-guess')) return; const g = guessOf(card, sl); if (!g) return;
+        const at = card.querySelector('.verdict') || card.querySelector('.controls'); if (!at) return;
+        const n = document.createElement('p'); n.className = 'ui-guess'; n.innerHTML = UI_STR.yourGuess + '<b></b>'; n.querySelector('b').textContent = g;
+        at.before(n); window.dispatchEvent(new Event('resize')); };
+      onFirstTouch(card, () => setTimeout(put, 0));
+    });
     // горячие клавиши: игра — та карточка, что видна (в соло-режиме — единственная)
     document.addEventListener('keydown', e => {
       if (e.key !== ' ' || e.ctrlKey || e.metaKey || e.altKey) return;

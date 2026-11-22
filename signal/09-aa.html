@@ -194,6 +194,10 @@
   <span class="step-tag">Поиграй</span>
   <h2>Двадцать метрик в одном A/A</h2>
   <p>В отчёте A/A у Алисы 20 метрик. Красная — разница за полосой ±1.96·SE. Запускай A/A и считай красные. Потом сделай метрики связанными: заказы, выручка и чек ведь двигаются вместе.</p>
+  <div class="guess" data-key="any20" data-min="0" data-max="100" data-unit="%">
+    <div class="guess-row"><label class="field phrase" for="m20-guess" id="m20-guess-ctx">Хотя бы одна из 20 метрик покраснеет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="m20-guess" aria-describedby="m20-guess-ctx">% A/A-тестов</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
+    <p class="note">Сначала запиши догадку, потом проверь.</p>
+  </div>
   <div class="sheet c-white">
     <div class="metrics20" id="m20"></div>
     <div class="controls">
@@ -201,7 +205,7 @@
       <button class="btn ghost" type="button" id="m20-1000">+1000 A/A</button>
       <button class="btn ghost" type="button" id="m20-corr" aria-pressed="false">Метрики связаны</button>
     </div>
-    <p class="note readout9" id="m20-stat"></p>
+    <p class="note readout9" id="m20-stat" role="status"></p>
     <div class="verdict" id="v-m20" hidden></div>
   </div>
   <p data-toy-reveal>У независимых метрик в среднем красная одна, и хотя бы одна красная бывает в 64% A/A: 1 − 0.95²⁰ ≈ 0.64. У связанных в среднем тоже одна, но они краснеют пачками: чаще все серые, зато если уж покраснели — сразу несколько.</p>

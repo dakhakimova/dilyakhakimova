@@ -237,6 +237,12 @@
   <figure class="art"><img loading="lazy" src="img/ab01-02-coin-door.jpg" alt="Котейка у входа подбрасывает монетку для каждого гостя" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка у двери кафе подбрасывает монетку каждому гостю</figcaption></figure>
   <p>Алиса предлагает по-другому. С 1 декабря каждому пользователю Котейка подбрасывает монетку: орёл — видит новую кнопку, решка — старое приложение. Обе группы живут в одни и те же дни: у них одна погода, одни праздники и одно зимнее меню. Разница между ними — это кнопка и немного случайности.</p>
   <p>Проверим, какой способ ближе к правде. Пусть кнопка на самом деле добавляет заказам +2%. Котейка выбирает случайный день года и выпускает кнопку, а мы считаем эффект двумя способами и сравниваем с правдой.</p>
+  <p>Какой способ покажет эффект ближе к правде?</p>
+  <div class="choice" data-key="split" role="group" aria-label="Твой прогноз">
+    <button type="button" data-v="ba" aria-pressed="false" data-fb="Логично: те же дни, те же гости. Проверим на ста релизах.">Ближе «до и после»</button>
+    <button type="button" data-v="coin" aria-pressed="false" data-fb="Посмотрим, насколько ближе. Проверим на ста релизах.">Ближе монетка</button>
+    <button type="button" data-v="same" aria-pressed="false" data-fb="Осторожная версия. Проверим на ста релизах.">Одинаково</button>
+  </div>
   <div class="sheet c-white">
     <label class="field" for="eff" hidden data-fixed>Настоящий эффект кнопки: <b id="eff-t" class="num">+2%</b></label>
     <input type="hidden" data-fixed id="eff" min="-5" max="10" step="1" value="2" style="width:100%">

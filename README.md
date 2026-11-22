@@ -16,6 +16,10 @@
 - `play/toys-vp.json`, `play/toys-ss.json`, `play/toys-ab.json` — записи игр;
 - `i18n/play-vp.js`, `i18n/play-ss.js`, `i18n/play-ab.js` — тексты игр; `i18n/play.js` — общие строки интерфейса.
 
+Одна кнопка на игру (решение Дили, 22.11.2026): `play/ui.json` — для каждой игры текст главной кнопки, что она нажимает (`run`, в том числе пошагово `{sel, n, ms}`), что нажать перед «Ещё раз» (`reset`) и кнопка второй ступени ×1000 (`big`); `play/bridge.js` прячет исходные кнопки и ставит свои, вешает Пробел / Shift+Пробел. Новая игра без записи в ui.json остаётся как есть.
+Игра-калькулятор `/play/sample-size/` (не опубликована) — `tools/build-sample-size.js`, `play/sample-size.json`, `play/sample-size/ss.js`.
+Шрифты — свои: `/fonts/fonts.css` + woff2 (из npm @fontsource), Google Fonts не подключаем.
+
 Разметка в главе: `data-toy="<slug>"` — карточка игры, `data-toy-pre="<slug>"` — карточка прогноза, `data-toy-reveal` — блок-спойлер (на /play/ скрыт до первого касания), `data-toy-hide` — блок, ненужный вне курса.
 
 Команды (из корня):
