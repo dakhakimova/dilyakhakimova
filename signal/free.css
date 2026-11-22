@@ -287,12 +287,9 @@ body[data-course="signal"] h2[data-proverb]::before{content:"Пословица 
 .layers .read{font-size:15px; color:var(--muted); margin:4px 0 0}
 /* Прогноз числом: .guess[data-key] (движок сохраняет догадку и отправляет её на сервер) */
 .guess{background:var(--butter); border-radius:12px; padding:12px 16px; margin:14px 0}
-.guess::before{content:"Твой прогноз"; display:block; font:500 13px/1.3 var(--body); color:var(--muted); margin:0 0 6px}
 .guess .field{display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px}
 /* поле — прямоугольник (радиус 8), кнопка — таблетка; в одном ряду выравниваем по нижнему краю */
-.guess input[type=number]{border-radius:8px}
 .guess .controls, .field + .controls{align-items:flex-end}
-.guess input[type=number]{width:96px}
 .guess .note{margin-top:8px}
 .guess.saved{background:#F3F1EC}
 /* Ссылка в соседний курс: «подробнее — в «A/B на пальцах», шаг 7» */
@@ -325,7 +322,7 @@ details.ivw .lvl-tag{display:inline-block; margin-left:6px; font:600 11px/1 var(
 .nsel button{min-height:44px}
 .choice button{min-height:44px}
 .card input[type=range]{height:44px; margin-top:0; margin-bottom:0}
-.twoinputs input, .guess input[type=number]{min-height:44px}
+.twoinputs input{min-height:44px}
 
 /* ===== дизайн-проход 22.11.2026: квизы, варианты, разминка, метки (одинаковый блок в ab-basics/ab.css и signal/free.css) =====
    Вопрос — Literata 400, 22 px / 1.35 (телефон 19 px), строка ≤ 32em. Варианты — Onest 400 16 px, рамка 1 px тёплого серого,

@@ -74,7 +74,7 @@ function watch(p, tag, apiOk = false){
         const [hid0, rv0, rvN] = await state();
         // ставка внутри карточки игры (кнопка прогноза или поле догадки) не должна раскрывать вывод — это не касание игры
         let betOk = null;
-        const bet = await fr.$(`.card[data-toy~="${s}"] .choice[data-key] button, .card[data-toy~="${s}"] .guess button, .card[data-toy~="${s}"] input[placeholder="?"]`);
+        const bet = await fr.$(`.card[data-toy~="${s}"] .choice[data-key] button, .card[data-toy~="${s}"] .guess button, .card[data-toy~="${s}"] input.guess-in`);
         if (bet && await bet.isVisible() && !(typeof toy.act[0] === 'string' && await bet.evaluate((e, sel) => e.matches(sel), toy.act[0]))){
           if (await bet.evaluate(e => e.tagName === 'INPUT')) await bet.fill('7'); else await bet.click();
           await p.waitForTimeout(400);

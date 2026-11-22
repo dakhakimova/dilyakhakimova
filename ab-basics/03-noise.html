@@ -103,7 +103,8 @@
   <p>Тот же тест без изменений, но в каждой группе по 1000 гостей. Запустим его 100 раз. Как думаешь, в скольких запусках какая-нибудь из групп обгонит другую на 10% и больше? Например, 100 заказов против 110.</p>
   <p class="note">Здесь<span data-toy-hide> и дальше в курсе</span> «на 10%» значит «на десятую часть»: 11 заказов на 100 гостей вместо 10. Это не «с 10% до 20%»: такой рост был бы вдвое, на 100%.</p>
   <div class="sheet c-butter">
-    <label class="field" for="g2">Думаю, в <input type="number" id="g2" min="0" max="100" step="1" placeholder="?"> запусках из 100</label>
+    <label class="guess-l" for="g2">Твой прогноз</label>
+    <span class="field" id="g2-ctx">Думаю, в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g2" aria-describedby="g2-ctx"> запусках из 100</span>
   </div>
   <div class="sheet c-white">
     <label class="field" for="n-aa">Гостей в каждой группе: <b id="n-aa-t" class="num">1 000</b></label>
@@ -340,7 +341,7 @@ const P = 0.10;
     document.getElementById('aa-stat').textContent = runs.length ? 'Запусков: ' + runs.length + '. Разница 10% и больше: ' + k + ' (' + share(k / runs.length, 0) + ').' : '';
     const v = document.getElementById('v-aa');
     if (runs.length >= 100){
-      const g = parseFloat(document.getElementById('g2').value);
+      const g = parseFloat(String(document.getElementById('g2').value).replace(/[\s\u00a0%]/g, '').replace(',', '.').replace('\u2212', '-'));
       v.hidden = false; v.className = 'verdict good';
       v.innerHTML = (!isNaN(g) && n() === 1000 ? 'Твоя догадка — ' + g + ' из 100. ' : '') +
         'При ' + int(n()) + ' гостях в группе одинаковые группы расходятся на 10% и больше в <b>' + share(k / runs.length, 0) + '</b> запусков' + '. ' +

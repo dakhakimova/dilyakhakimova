@@ -57,8 +57,8 @@
   const utm = (q => (q.get('utm_source') || '').slice(0, 60))(new URLSearchParams(location.search));
   // первое осмысленное касание карточки игры: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр).
   // Прогноз внутри карточки игры — не касание: ставка (.choice[data-key]), поле догадки (.guess, жёлтый лист c-butter,
-  // поле с placeholder «?», id …-guess) только записывает догадку, вывод должен ждать, пока человек сыграет.
-  const GUESS = '[data-key], .guess, [data-guess], .c-butter, input[placeholder="?"], [id$="-guess"]';
+  // поле .guess-in, id …-guess) только записывает догадку, вывод должен ждать, пока человек сыграет.
+  const GUESS = '[data-key], .guess, [data-guess], .c-butter, input.guess-in, [id$="-guess"]';
   const onFirstTouch = (card, fn) => {
     const evs = ['click', 'input', 'change'];
     const h = e => { const t = e.target; if (!t.closest || !t.closest('button, input, select, canvas, [role=button]') || t.closest('.toy-share') || t.closest(GUESS)) return; evs.forEach(ev => card.removeEventListener(ev, h)); fn(); };

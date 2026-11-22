@@ -149,7 +149,8 @@
   <h2>Тысяча гостей по ячейкам</h2>
   <p>Пропустим через хеш 1000 гостей. Половина ячеек — тест. Сколько гостей окажется в тесте?</p>
   <div class="sheet c-butter">
-    <label class="field" for="g2">Думаю, в тесте будет <input type="number" id="g2" min="0" max="1000" step="1" placeholder="?"> человек из 1000</label>
+    <label class="guess-l" for="g2">Твой прогноз</label>
+    <span class="field" id="g2-ctx">Думаю, в тесте будет <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g2" aria-describedby="g2-ctx"> человек из 1000</span>
   </div>
   <div class="sheet c-white">
     <label class="field" for="split">Сплит, контроль / тест: <b id="split-t" class="num">50 / 50</b></label>
@@ -341,7 +342,7 @@ const randId = () => 'user_' + (10000 + Math.floor(Math.random() * 90000));
   }
   function verdict(){
     const v = document.getElementById('v-split'); if (!laid) return;
-    const n = people.length, s = +split.value / 100, nT = people.filter(isTest).length, g = parseFloat(document.getElementById('g2').value);
+    const n = people.length, s = +split.value / 100, nT = people.filter(isTest).length, g = parseFloat(String(document.getElementById('g2').value).replace(/[\s\u00a0%]/g, '').replace(',', '.').replace('\u2212', '-'));
     let html = '';
     if (!isNaN(g) && n === 1000 && +split.value === 50) html += 'Твоя догадка — <b>' + int(g) + '</b>. ';
     html += 'В тесте <b>' + int(nT) + '</b> вместо ' + int(n * s) + '. Ровно по плану почти никогда не выходит: хеш раздаёт ячейки как монетка.';

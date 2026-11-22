@@ -116,8 +116,8 @@
     <div class="jarrow">
       <canvas id="ch-jar" aria-label="Банка с драже"></canvas>
       <div>
-        <label class="field" for="jar-guess">Моя догадка: <input type="number" id="jar-guess" min="1" max="100000" step="1" placeholder="?"> драже</label>
-        <div class="controls"><button class="btn" type="button" id="jar-show">Показать догадки 200 гостей</button></div>
+        <label class="guess-l" for="jar-guess">Твой прогноз</label>
+    <div class="guess-row"><span class="field" id="jar-guess-ctx"><input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="jar-guess" aria-describedby="jar-guess-ctx"> драже</span><div class="controls"><button class="btn" type="button" id="jar-show">Показать догадки 200 гостей</button></div></div>
       </div>
     </div>
     <div id="jar-res" hidden>
@@ -451,12 +451,12 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     hoverBars(cvC, bars);
     const mark = (v, col, t, row, dash) => { const x = X(v); c.strokeStyle = col; c.lineWidth = 2; c.setLineDash(dash ? [4, 3] : []); c.beginPath(); c.moveTo(x, T - 2 - row * 0); c.lineTo(x, T + ph); c.stroke(); c.setLineDash([]); };
     mark(TRUTH, COL.truth, 'правда ' + int(TRUTH), 0); mark(med, COL.ink, 'медиана ' + int(med), 1); mark(avg, COL.trapInk, 'среднее ' + int(avg), 0);
-    const me = parseFloat(inp.value); if (me > 0) mark(me, COL.viol, 'ты', 1, true);
+    const me = parseFloat(String(inp.value).replace(/[\s\u00a0%]/g, '').replace(',', '.').replace('\u2212', '-')); if (me > 0) mark(me, COL.viol, 'ты', 1, true);
   }
   function show(){
     shown = true; document.getElementById('jar-res').hidden = false;
     document.getElementById('jar-med').textContent = int(med); document.getElementById('jar-mean').textContent = int(avg);
-    const me = parseFloat(inp.value); document.getElementById('jar-me-lg').hidden = !(me > 0);
+    const me = parseFloat(String(inp.value).replace(/[\s\u00a0%]/g, '').replace(',', '.').replace('\u2212', '-')); document.getElementById('jar-me-lg').hidden = !(me > 0);
     document.getElementById('jar-v').innerHTML = 'В банке <b>' + int(TRUTH) + '</b> драже. Медиана догадок — <b>' + int(med) + '</b>: она ближе к правде, чем <b>' + sh(beat(med)) + '</b> гостей. Среднее — <b>' + int(avg) + '</b>: его тянут вверх те, кто сказал 5 000 и 10 000.' + (me > 0 ? ' Твоя догадка ближе к правде, чем ' + sh(beat(me)) + ' гостей.' : '') + ' Любимые ответы толпы — круглые числа: ' + fav + ' называли чаще любых других.';
     crowd();
   }
