@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-site.js): правьте данные, а не этот файл. -->
-<title>Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова</title>
+<title>Полка Котейки — книги и статьи для аналитика</title>
 <meta name="description" content="Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.">
 <link rel="canonical" href="https://dilyakhakimova.com/shelf/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/shelf/">
-<meta property="og:title" content="Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова">
+<meta property="og:title" content="Полка Котейки — книги и статьи для аналитика">
 <meta property="og:description" content="Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.">
 <meta property="og:image" content="https://dilyakhakimova.com/shelf/img/kotejka-reads-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -19,10 +19,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tokens.css?v=202611229">
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611229">
-<link rel="stylesheet" href="/home.css?v=202611229">
-<link rel="stylesheet" href="/site/site.css?v=202611229">
+<link rel="stylesheet" href="/tokens.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
+<link rel="stylesheet" href="/home.css?v=202611230">
+<link rel="stylesheet" href="/site/site.css?v=202611230">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -39,23 +39,30 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap shelf-page">
   <!-- первый экран — как на главной и /map/: .hero, .hero-text, .art.hero-art (home.css); картинка 4:3 целиком (.r43, пара 135a), на телефоне — под текстом.
        Класс c-hero оставлен для site/shelf.js: подсказка у корешка не заходит на шапку -->
   <section class="hero c-hero">
     <div class="hero-text">
-      <h1>Полка</h1>
-      <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
-      <p class="shelf-how">Разборы «Котейка читает»: главная мысль, 3–5 идей с играми, кому читать и что вошло в курсы.</p>
+      <h1>Полка Котейки</h1>
+      <!-- три строки под h1, как на главной (.sub.hero-list): первая — подзаголовок, крупнее (решение Дили, 22.11.2026) -->
+      <p class="sub shelf-lead">Книги и статьи, которые стоит прочитать аналитику.</p>
+      <ul class="sub hero-list" role="list">
+        <li>Классика, на которой стоит вся статистика, — и свежие статьи о том, как эксперименты ставят в индустрии сейчас.</li>
+        <li>Каждый разбор — главная мысль, 3–5 идей с играми и что из этого пригодится на работе. Новый разбор каждую неделю.</li>
+      </ul>
     </div>
     <figure class="art r43 hero-art">
       <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="1200" decoding="async" alt="Котейка в очках читает книгу в кресле">
     </figure>
   </section>
-  <div class="bookshelf" role="region" aria-label="Книжная полка" tabindex="0">
-    <ul class="books" role="list"><li class="book live" data-topic="A/B" data-slug="kohavi-trustworthy"><a class="spine" href="/shelf/kohavi-trustworthy/" style="--h:232px; --w:64px; --c:#3E4148" aria-label="Trustworthy Online Controlled Experiments («Доверительное A/B-тестирование»), Рон Кохави, Диана Тан, Я Сюй — разбор «Котейка читает»" aria-describedby="bc-kohavi-trustworthy"><span class="b-t" lang="en">Trustworthy</span><span class="b-a">Кохави</span></a><span class="b-card" role="tooltip" id="bc-kohavi-trustworthy" data-isbn="9781108724265" data-cover-alt="Обложка: Trustworthy Online Controlled Experiments"><span class="b-txt"><span class="b-topic">книга · A/B</span><span class="b-orig" lang="en"><b>Trustworthy Online Controlled Experiments</b><span class="b-by">Ron Kohavi, Diane Tang, Ya Xu&nbsp;· 2020</span></span><span class="b-tr">Доверительное A/B-тестирование&nbsp;· 2021</span><span class="b-about">Как устроены онлайн-эксперименты в больших компаниях и почему отчёту нельзя верить на слово.</span><span class="b-tap" aria-hidden="true">Нажми ещё раз, чтобы открыть разбор</span></span></span></li>
+  <!-- полка — картинка Котейки (img/rubrics/shelf-kotejka.png, кадр 1600×850): корешки стоят на доске между горшком и мешком;
+       от 700 px; уже — прежняя полка из CSS (корешки на картинке стали бы нечитаемыми) -->
+  <div class="bookshelf scene" role="region" aria-label="Книжная полка" tabindex="0">
+    <img class="scene-art" src="/shelf/img/shelf-scene.jpg" srcset="/shelf/img/shelf-scene-800.jpg 800w, /shelf/img/shelf-scene.jpg 1600w" sizes="(max-width:1120px) 100vw, 1056px" width="1600" height="850" alt="" decoding="async">
+    <ul class="books" role="list"><li class="book live" data-topic="A/B" data-slug="kohavi-trustworthy"><a class="spine" href="/shelf/kohavi-trustworthy/" style="--h:232px; --w:64px; --hn:232; --wn:64; --c:#3E4148" aria-label="Trustworthy Online Controlled Experiments («Доверительное A/B-тестирование»), Рон Кохави, Диана Тан, Я Сюй — разбор «Котейка читает»" aria-describedby="bc-kohavi-trustworthy"><span class="b-t" lang="en">Trustworthy</span><span class="b-a">Кохави</span></a><span class="b-card" role="tooltip" id="bc-kohavi-trustworthy" data-isbn="9781108724265" data-cover-alt="Обложка: Trustworthy Online Controlled Experiments"><span class="b-txt"><span class="b-topic">книга · A/B</span><span class="b-orig" lang="en"><b>Trustworthy Online Controlled Experiments</b><span class="b-by">Ron Kohavi, Diane Tang, Ya Xu&nbsp;· 2020</span></span><span class="b-tr">Доверительное A/B-тестирование&nbsp;· 2021</span><span class="b-about">Как устроены онлайн-эксперименты в больших компаниях и почему отчёту нельзя верить на слово.</span><span class="b-tap" aria-hidden="true">Нажми ещё раз, чтобы открыть разбор</span></span></span></li>
     </ul>
     <div class="board" aria-hidden="true"></div>
   </div>
@@ -78,6 +85,6 @@
     <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
-<script src="/site/shelf.js?v=202611229"></script>
+<script src="/site/shelf.js?v=202611230"></script>
 </body>
 </html>

@@ -4,7 +4,9 @@
 .courses-page h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5)}
 .courses-page .sub{font:400 var(--fs-l)/1.5 var(--serif); color:var(--text-2); margin:0; max-width:30em}
 .shelf-page .hero .sub{color:var(--text-2)}
-.shelf-page .shelf-how{font-size:var(--fs-s); color:var(--text-3); margin:var(--s-3) 0 0; max-width:var(--measure)}
+/* три строки под h1 — как на главной: подзаголовок крупнее (24 px, на телефоне 22), ниже две строки .sub.hero-list */
+.shelf-page .hero .shelf-lead{font-size:clamp(1.375rem, 1.27rem + .44vw, 1.5rem); line-height:1.4; color:var(--text-1); max-width:26em}
+.shelf-page .shelf-lead + .hero-list{margin-top:var(--s-3)}
 .courses-page .ctas{margin-top:var(--s-6)}
 .cards.path{margin-top:var(--s-8)}
 .cards.path h3{font:var(--fw-medium) var(--fs-h3)/1.25 var(--serif); margin:var(--s-3) 0 var(--s-2)}
@@ -53,6 +55,19 @@
   .book.lit .spine{transform:none}   /* без подъёма — только кольцо */
 }
 .board{height:14px; margin:0 calc(-1 * var(--s-4)); background:linear-gradient(#B98E5A, #9C7448); border-radius:3px; box-shadow:0 6px 10px -6px rgba(36,34,31,.45); min-width:max-content; width:calc(100% + 2 * var(--s-4))}
+/* полка-картинка (решение Дили, 22.11.2026): на широком экране корешки стоят на нарисованной доске. Кадр 1600×850:
+   верх доски — 75,2% сверху, место под книги — от 11,9% (за горшком) до 46,5% (до мешка). Размеры корешков — в долях ширины
+   картинки (--hn, --wn — пиксели кадра × 1,15), чтобы книги были ростом с мешок при любой ширине. */
+.scene-art{display:none}
+@media (min-width:700px){
+  .bookshelf.scene{container-type:inline-size; overflow:visible; padding:0; margin-top:calc(var(--s-8) - var(--s-6))}
+  .scene .scene-art{display:block; width:100%; height:auto; border-radius:var(--r-l)}
+  .scene .board{display:none}
+  .scene .books{position:absolute; left:11.9%; bottom:24.8%; max-width:34.6%; min-width:0; padding:0; gap:.4cqw; flex-wrap:nowrap}
+  .scene .spine{height:calc(var(--hn) * 115cqw / 1600); width:calc(var(--wn) * 115cqw / 1600); padding:1.2cqw 0}
+  .scene .spine .b-t{font-size:clamp(.6875rem, 1.05cqw, .9375rem); max-height:calc(var(--hn) * 115cqw / 1600 - 4.5cqw)}
+  .scene .spine .b-a{font-size:clamp(.5625rem, .78cqw, .75rem)}
+}
 /* фильтр по темам — появляется, когда на полке от 6 позиций (tools/build-site.js); те же таблетки, что в каталоге игр (play/play.css) */
 .shelf-page .topic-filter{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:var(--s-6) 0 0}
 .shelf-page .topic-filter button{font:var(--fw-medium) var(--fs-s)/1.2 var(--body); min-height:var(--btn-h); padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:1.5px solid var(--line-strong); background:var(--surface); color:var(--text-1); cursor:pointer}
@@ -60,7 +75,7 @@
 .shelf-page .topic-filter button:active{background:var(--pen-press-bg)}
 .shelf-page .topic-filter button[aria-pressed="true"]{background:var(--pen-soft); border-color:var(--pen); color:var(--pen)}
 .shelf-page .topic-filter button[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
-/* список разборов под полкой: одна колонка по центру (.col, гайд 109a), чуть шире --measure — метки тем встают в строку с названием.
+/* список разборов под полкой: одна колонка от левого края контейнера (.col, гайд 109a), чуть шире --measure — метки тем встают в строку с названием.
    Группы «Книги» → «Статьи» с небольшим заголовком; строка без рамки и фона, строки разделены тонкой линией */
 .shelf-list{padding-top:var(--s-8); --col:42em}
 .shelf-list .r-group + .r-group{margin-top:var(--s-7)}

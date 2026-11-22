@@ -120,7 +120,7 @@ function shelf(){
     const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><span class="b-txt"><span class="b-topic">книга · ${b.topic}</span>${orig}${b.about ? `<span class="b-about">${esc(nb(b.about))}</span>` : ''}${b.review ? '<span class="b-tap" aria-hidden="true">Нажми ещё раз, чтобы открыть разбор</span>' : ''}</span></span>`;
     // на узком корешке — короткое название (title_short), полное — в подсказке
     const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
-    const st = `style="--h:${height}px; --w:${width}px; --c:${spineColor(b.slug)}"`;
+    const st = `style="--h:${height}px; --w:${width}px; --hn:${height}; --wn:${width}; --c:${spineColor(b.slug)}"`;  // --hn/--wn — для полки-картинки (масштаб от ширины)
     const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc(b.author)}`;
     return b.review
       ? `<li class="book live" data-topic="${b.topic}" data-slug="${b.slug}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
@@ -170,7 +170,7 @@ function shelf(){
   // Блок «Статьи и видео от автора» пока скрыт (решение Дили 22.11): данные в shelf.json сохранены, место для блока ещё ищем.
   const SHOW_MINE = false;
   const mine = SHOW_MINE ? (S.mine || []).filter(m => m.url).concat((S.mine || []).filter(m => !m.url)) : [];
-  const html = head({title: 'Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова',
+  const html = head({title: 'Полка Котейки — книги и статьи для аналитика',
     desc: 'Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
     url: '/shelf/', css: ['/site/site.css'], og: '/shelf/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
 
@@ -179,9 +179,13 @@ function shelf(){
        Класс c-hero оставлен для site/shelf.js: подсказка у корешка не заходит на шапку -->
   <section class="hero c-hero">
     <div class="hero-text">
-      <h1>Полка</h1>
-      <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
-      <p class="shelf-how">Разборы «Котейка читает»: главная мысль, 3–5 идей с играми, кому читать и что вошло в курсы.</p>
+      <h1>Полка Котейки</h1>
+      <!-- три строки под h1, как на главной (.sub.hero-list): первая — подзаголовок, крупнее (решение Дили, 22.11.2026) -->
+      <p class="sub shelf-lead">Книги и статьи, которые стоит прочитать аналитику.</p>
+      <ul class="sub hero-list" role="list">
+        <li>Классика, на которой стоит вся статистика, — и свежие статьи о том, как эксперименты ставят в индустрии сейчас.</li>
+        <li>Каждый разбор — главная мысль, 3–5 идей с играми и что из этого пригодится на работе. Новый разбор каждую неделю.</li>
+      </ul>
     </div>
     <figure class="art r43 hero-art">
       <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="1200" decoding="async" alt="Котейка в очках читает книгу в кресле">
@@ -190,7 +194,10 @@ function shelf(){
 ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <button type="button" aria-pressed="true" data-topic="">Все темы</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
   </div>
-` : ''}  <div class="bookshelf" role="region" aria-label="Книжная полка" tabindex="0">
+` : ''}  <!-- полка — картинка Котейки (img/rubrics/shelf-kotejka.png, кадр 1600×850): корешки стоят на доске между горшком и мешком;
+       от 700 px; уже — прежняя полка из CSS (корешки на картинке стали бы нечитаемыми) -->
+  <div class="bookshelf scene" role="region" aria-label="Книжная полка" tabindex="0">
+    <img class="scene-art" src="/shelf/img/shelf-scene.jpg" srcset="/shelf/img/shelf-scene-800.jpg 800w, /shelf/img/shelf-scene.jpg 1600w" sizes="(max-width:1120px) 100vw, 1056px" width="1600" height="850" alt="" decoding="async">
     <ul class="books" role="list">${books.map(spine).join('')}
     </ul>
     <div class="board" aria-hidden="true"></div>

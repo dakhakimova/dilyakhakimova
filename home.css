@@ -27,14 +27,14 @@ p{margin:0 0 .8em}
 .wrap{max-width:var(--page-max, 1120px); margin:0 auto; padding:0 var(--s-6)}
 .muted{color:var(--muted)}
 .block > p, .toy-head p{max-width:var(--measure)}
-/* узкий блок — колонка по центру страницы (справа нет пустого края); заголовок и текст — по той же колонке, текст в ней по левому краю.
-   Ширина колонки — --col (по умолчанию --measure). Исключения: первый экран главной и графики на всю ширину */
-.col{max-width:var(--col, var(--measure, 36em)); margin-inline:auto}
+/* узкий блок — колонка от левого края контейнера страницы, как заголовок первого экрана; справа может остаться пустое поле (гайд, 109a).
+   Заголовок, текст и список — по одной колонке, текст в ней по левому краю. Ширина колонки — --col (по умолчанию --measure) */
+.col{max-width:var(--col, var(--measure, 36em)); margin-inline:0}
 .col > p{max-width:none}
-/* 404: колонка по центру; картинка шириной --measure-media появится, когда будет файл (до этого figure скрыт); тихие текстовые ссылки рядом с кнопкой */
+/* 404: колонка от левого края контейнера; картинка шириной --measure-media появится, когда будет файл (до этого figure скрыт); тихие текстовые ссылки рядом с кнопкой */
 .nf{padding-top:var(--s-8)}
-.nf-art{aspect-ratio:auto; max-width:var(--measure-media, 36em); margin:0 0 var(--s-5); background:none}
-.nf-art img{height:auto}
+.art.nf-art{aspect-ratio:auto; max-width:var(--measure-media, 36em); margin:0 0 var(--s-5); background:none}
+.art.nf-art img{height:auto}
 .nf-acts{gap:var(--s-3) var(--s-5)}
 .nf-link{color:var(--pen); font-size:var(--fs-s); text-underline-offset:3px}
 .note{font-size:.875rem; color:var(--muted)}

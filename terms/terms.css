@@ -18,8 +18,8 @@
 .crumbs a{color:var(--muted); text-decoration-color:rgba(36,34,31,.25); padding:var(--s-2) 0; display:inline-block}
 
 /* ---------- страница термина ---------- */
-/* одна колонка 36em по центру: текст, формулы, схемы и игра не шире колонки (пара 109a) */
-.term{max-width:calc(var(--measure) + 2 * var(--s-6)); padding-top:var(--s-6)}
+/* одна колонка 36em от левого края контейнера страницы (как h1 в шапке): текст, формулы, схемы и игра не шире колонки (пара 109a) */
+.term{max-width:calc(var(--measure) + 2 * var(--s-6)); margin-left:var(--page-inset); margin-right:auto; padding-top:var(--s-6)}
 .term > *{max-width:100%}
 .t-hero h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5); max-width:18em}
 .t-sub{font:400 var(--t-20)/1.5 var(--serif); color:var(--text-2); max-width:30em; margin:0 0 var(--s-6)}
@@ -65,7 +65,7 @@
 .viz{overflow-x:auto; margin:var(--s-5) 0 0; background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5)}
 .viz.small{box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5)}
 .nw{white-space:nowrap}
-.viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0 auto; font-family:var(--body); font-variant-numeric:tabular-nums}
+.viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0; font-family:var(--body); font-variant-numeric:tabular-nums}
 .chart-head{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
 .figcap{font-size:.875rem; line-height:1.5; color:var(--text-3); margin:var(--s-3) 0 0; max-width:46em}
 
@@ -142,7 +142,7 @@
 .t-field output{font:500 var(--t-18)/1 var(--serif); color:var(--text-1)}
 .t-field input[type=range]{width:100%; min-height:32px; accent-color:var(--pen)}
 .t-lbl{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-2)}
-.t-svg{display:block; width:100%; max-width:600px; min-width:400px; margin:0 auto; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
+.t-svg{display:block; width:100%; max-width:600px; min-width:400px; margin:0; height:auto; font-family:var(--body); font-variant-numeric:tabular-nums}
 .big2{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); margin:var(--s-4) 0 0}
 .big2 > div{display:flex; flex-direction:column; gap:2px; min-width:96px}
 .big2 b{font:500 var(--t-30)/1.1 var(--serif); color:var(--text-1); font-variant-numeric:tabular-nums}
