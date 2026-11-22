@@ -6,10 +6,10 @@
 /* первый экран — как на главной: .hero, .hero-text, .art.hero-art (home.css), текст слева, иллюстрация с улицей справа; на узком экране картинка под текстом */
 
 /* «Выбери цель»: карточки целей в стиле карточек главной — один шаблон и одна высота; ряды полные (6 целей — 3 × 2),
-   если целей 7 (есть «Твой маршрут»), неполный последний ряд стоит по центру. «Все навыки» и строка-итог — под сеткой */
+   если целей 7 (есть «Твой маршрут»), неполный последний ряд — с левого края, как текст. «Все навыки» и строка-итог — под сеткой */
 .route-pick h2{font:400 var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); color:var(--ink); margin:0 0 var(--s-5)}
 .route-lead{margin:calc(-1 * var(--s-3)) 0 var(--s-5); max-width:var(--measure); color:var(--text-2)}
-.goals{--gap:var(--s-5); list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:var(--gap)}
+.goals{--gap:var(--s-5); list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:flex-start; gap:var(--gap)}
 .goals li{display:flex; flex:0 0 calc((100% - 2 * var(--gap)) / 3); min-width:0}
 .goal{position:relative; overflow:hidden; display:flex; flex-direction:column; gap:var(--s-2); width:100%; text-align:left; cursor:pointer; min-height:44px;
   padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); border-radius:var(--r-l); border:0; background:var(--surface); box-shadow:var(--sh-2); color:var(--ink); font:400 var(--fs-s)/1.45 var(--body)}

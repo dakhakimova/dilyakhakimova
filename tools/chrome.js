@@ -18,6 +18,8 @@ const NAV = [
 // курсы в футере и на /courses/: порядок «Весь путь»; published:false — не показываем
 const COURSES = JSON.parse(fs.readFileSync(path.join(ROOT, 'courses/courses.json'), 'utf8')).courses;
 const TAGLINE = 'Вероятность, статистика и A/B — в играх и задачах', TAGLINE_S = 'Вероятность · статистика · A/B';
+// на внутренних страницах слева в шапке вместо названия сайта — «← На главную» (решение Дили, 22.11.2026); полное название — только на главной, без ссылки
+const BACK = '← На главную';
 
 // кружок входа: до входа — силуэт Котейки и подсказка «Войти»; после входа (account.html и progress.js кладут
 // в localStorage 'dk:me' имя и фото) — фото из Telegram или первая буква имени, aria-label «Мой кабинет».
@@ -32,7 +34,7 @@ function header(current = '', self = false){
     : `<a href="${href}" data-rub="${k}"${k === current ? ' aria-current="true"' : ''}>${label}</a>`;
   const hl = `<span class="hl-full">${TAGLINE}</span><span class="hl-short" aria-hidden="true">${TAGLINE_S}</span>`;
   return `<header class="top wrap" data-chrome>
-  ${current === 'home' ? `<span class="home-line" aria-current="page">${hl}</span>` : `<a class="home-line" href="/" aria-label="${TAGLINE}">${hl}</a>`}
+  ${current === 'home' ? `<span class="home-line" aria-current="page">${hl}</span>` : `<a class="home-line" href="/">${BACK}</a>`}
   <nav id="site-nav" aria-label="Разделы сайта">
     ${NAV.map(a).join('\n    ')}
   </nav>

@@ -91,8 +91,6 @@ function init(M){
     return list && list.length ? `<p class="terms"><span class="terms-h">${t(key)}:</span> ${list.map(x => `<span class="term">${tx(x)}</span>`).join(' ')}</p>` : '';
   }
 
-  const mb = $('mine-btn');
-  if (mb){ mb.hidden = !PLAN; mb.addEventListener('click', () => { setRoute('mine', true); $('metro-h').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }); }
 
   // ---------- маршруты ----------
   let route = null;
