@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к главау 11 курса «Сигнал или шум» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/signal/11-errors.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/signal/11-errors.html">
+<title>Новые игры · Глава 11 · Сигнал или шум</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-course="signal" data-chapter="lab-signal-11">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- power-half: мощность при вдвое меньшем числе гостей -->
+<section class="card" data-toy="power-half" data-title="Вдвое меньше гостей — вдвое ниже мощность?" aria-label="Вдвое меньше гостей — вдвое ниже мощность?">
+  <h2>Вдвое меньше гостей — вдвое ниже мощность?</h2>
+  <p>Конверсия в заказ — 10%. Тест с 10&nbsp;000 гостей в группе замечает эффект Боба (+1.2 заказа на 100 гостей) в 80% случаев: это его мощность. Боб хочет сэкономить трафик и взять по 5000 гостей.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="ph-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="ph-guess">С 5000 гостей в группе тест заметит эффект в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ph-guess" aria-describedby="ph-gl"> % случаев</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Запустить 100 тестов по 5000 гостей</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="ph-t0">100 тестов по 5000 гостей в группе: зелёная точка — тест заметил эффект, серая — нет</p>
+    <canvas id="ph-grid" role="img" aria-label="100 тестов: заметил или нет"></canvas>
+    <p class="chart-title" id="ph-t1">Мощность и число гостей в группе</p>
+    <canvas id="ph-cv" role="img" aria-label="Кривая мощности от числа гостей"></canvas>
+    <p class="note lab-data">Данные: симуляция; порог значимости 0.05, двусторонний тест.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/signal/book.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/power-half.js?v=202611301"></script>
+</body>
+</html>

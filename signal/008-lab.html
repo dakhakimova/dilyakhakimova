@@ -78,6 +78,63 @@
   </div>
   <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
 </section>
+<!-- real-check: деньги в постоянных ценах (Тафти, ловушка 2) -->
+<section class="card" data-toy="real-check" data-title="Чек за пять лет: 420 → 610 ₽" aria-label="Чек за пять лет: 420 → 610 ₽">
+  <h2>Чек за пять лет: 420 → 610 ₽</h2>
+  <p>Средний чек в сети вырос с 420 ₽ в 2019 году до 610 ₽ в 2024-м — на 45%. За те же пять лет цены в меню сети выросли на 41%: что стоило 100 ₽, стало стоить 141 ₽.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="rch-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="rch-guess">В ценах 2019 года средний чек вырос на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="rch-guess" aria-describedby="rch-gl"> %</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Пересчитать в ценах 2019 года</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="rch-t0">Средний чек по годам, ₽</p>
+    <canvas id="rch-cv" role="img" aria-label="Средний чек по годам в рублях того года и в ценах 2019 года"></canvas>
+    <p class="note lab-data">Данные: учебный пример; цены — индекс цен меню сети, 2019 год = 100.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+<!-- half-month: неполный последний месяц (Тафти, ловушка 3) -->
+<section class="card" data-toy="half-month" data-title="Ноябрь провалился?" aria-label="Ноябрь провалился?">
+  <h2>Ноябрь провалился?</h2>
+  <p>Заказы по месяцам: с июня по октябрь от 8900 до 9300, в ноябре — 5800. Боб уже пишет в чат: «Ноябрь упал на 38%». Отчёт выгружен 18 ноября.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="hm-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="hm-guess">Весь ноябрь к октябрю, если темп не изменится: <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="hm-guess" aria-describedby="hm-gl"> % (минус — меньше)</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Досчитать ноябрь</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="hm-t0">Заказы по месяцам</p>
+    <canvas id="hm-cv" role="img" aria-label="Заказы по месяцам с июня по ноябрь"></canvas>
+    <p class="note lab-data">Данные: учебный пример. Остаток ноября — прогноз по темпу первых 18 дней, пунктиром.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+<!-- axis-step: смена шага оси посередине (Тафти, ловушка 4) -->
+<section class="card" data-toy="axis-step" data-title="Программа лояльности разогналась?" aria-label="Программа лояльности разогналась?">
+  <h2>Программа лояльности разогналась?</h2>
+  <p>Первые 12 недель Алиса считала участников программы лояльности каждую неделю, потом — раз в месяц. Боб поставил все 22 замера на график подряд, через равные промежутки, и увидел взлёт.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="ax-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="ax-guess">На самом деле после смены шага участников прибавлялось в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ax-guess" aria-describedby="ax-gl"> раз быстрее, чем до неё</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Расставить замеры по датам</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="ax-t0">Участники программы лояльности, тысячи</p>
+    <canvas id="ax-cv" role="img" aria-label="Участники программы лояльности по замерам"></canvas>
+    <p class="note lab-data">Данные: учебный пример, 22 замера: 12 недельных и 10 месячных.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
 
     <div class="pager">
       <button class="btn ghost" id="prev" type="button">← Назад</button>
@@ -90,5 +147,8 @@
 <script src="/play/lab/lab.js?v=202611301"></script>
 <script src="/play/lab/one-r-six-clouds.js?v=202611301"></script>
 <script src="/play/lab/eco-fallacy.js?v=202611301"></script>
+<script src="/play/lab/real-check.js?v=202611301"></script>
+<script src="/play/lab/half-month.js?v=202611301"></script>
+<script src="/play/lab/axis-step.js?v=202611301"></script>
 </body>
 </html>
