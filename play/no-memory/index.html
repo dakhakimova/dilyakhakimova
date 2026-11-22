@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,7 +61,7 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Жду курьера уже 6 минут. Они приезжают в среднем раз в 10 минут — значит, осталось 4.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Логично. Чем дольше ждёшь, тем ближе курьер.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">У нас два сервиса. Первый ездит строго каждые 10 минут. У второго интервалы случайные — в среднем те же 10, но как придётся.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">У нас два сервиса. Первый ездит строго каждые 10 минут. У второго интервалы случайные — в среднем те же 10, но как придётся.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И какая разница? Среднее-то одинаковое.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем, сколько ещё ждать у каждого, если прошло 6 минут.</p></div></div>
   </div>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/06-zoo.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Сдвинь ползунок. Сколько осталось ждать по графику и у случайных интервалов?</li><li>Поставь 0 минут, потом 9. Горка случайных интервалов изменилась?</li><li>При каком «уже прошло» оба сервиса обещают одинаковое ожидание?</li></ol>
+    <ol class="tries"><li>Сдвинь ползунок. Сколько осталось ждать по графику и у случайных интервалов?</li><li>Поставь 0 минут, потом 9. Горка случайных интервалов изменилась?</li><li>При каком «уже прошло» оба сервиса обещают одинаковое ожидание?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>По графику всё честно: прошло 6 минут — осталось 4. А у случайных интервалов в среднем осталось те же 10 минут, сколько бы ты уже ни прождал: горка остатка не меняется. Экспонента «не помнит» прошлое ожидание — это свойство называют отсутствием памяти. Шанс, что курьер приедет в следующую минуту, всё время один и тот же.</p>
+      <p>По графику всё честно: прошло 6 минут — осталось 4. А у случайных интервалов в среднем осталось те же 10 минут, сколько бы ты уже ни прождал: горка остатка не меняется. Экспонента «не помнит» прошлое ожидание — это свойство называют отсутствием памяти. Шанс, что курьер приедет в следующую минуту, всё время один и тот же.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Отсутствие памяти (memorylessness): P(T > s + t | T > s) = P(T > t).</li><li>Из непрерывных распределений так умеет только экспонента, из дискретных — геометрическое.</li><li>Строгий график: остаток = интервал − прошедшее. Экспонента: остаток в среднем — весь средний интервал.</li><li>Ждать «полинтервала» при приходе в случайный момент — только при строгом графике.</li></ul>
     </div>

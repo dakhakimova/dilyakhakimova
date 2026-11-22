@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js и i18n/map.js, навыки и маршруты — в map/skills.json (проверка: node tools/check-map.js). Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
-<title data-i18n="meta.title">Карта навыков: что ты научишься делать и в каком порядке · Диля Хакимова</title>
+<title data-i18n="meta.title">Карта навыков: что ты научишься делать и в каком порядке · Диля Хакимова</title>
 <meta name="description" data-i18n-attr="content:meta.desc" content="Схема-метро всей линейки курсов: шесть курсов по порядку — от «посчитать вероятность деревом» до CUPED и causal inference. Весь путь 1 → 6 и маршруты по целям: понимать отчёты A/B, разобраться в статистике с нуля, подготовиться к собеседованию, ставить A/B без ошибок, оценить эффект без теста.">
 <link rel="canonical" href="https://dilyakhakimova.com/map/">
 <meta property="og:type" content="website">
@@ -27,18 +27,18 @@
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap wide" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
-    <a href="/courses/" aria-current="page">Курсы</a>
+    <a href="/courses/" aria-current="true">Курсы</a>
     <a href="/play/">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 <nav class="crumbs wrap wide" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
@@ -50,7 +50,7 @@
 
 <section class="wrap wide m-hero">
   <h1 data-i18n="m.title">Карта навыков</h1>
-  <p class="sub" data-i18n="m.sub">Что ты научишься делать в каждом курсе и в каком порядке. Каждый навык — действие, которое можно сделать на работе или на собеседовании.</p>
+  <p class="sub" data-i18n="m.sub">Что ты научишься делать в каждом курсе и в каком порядке. Каждый навык — действие, которое можно сделать на работе или на собеседовании.</p>
   <p class="m-acts"><a class="more" href="/start/" data-i18n="start.btn">Не знаешь, с чего начать? Подобрать маршрут →</a> <button type="button" class="btn ghost" id="mine-btn" hidden data-i18n="start.mine">Показать мой маршрут</button></p>
 </section>
 
@@ -70,7 +70,7 @@
 <section class="wrap wide m-controls">
   <div class="route-pick" role="group" aria-labelledby="route-h">
     <h2 id="route-h" class="route-h" data-i18n="routes.label">Выбери цель</h2>
-    <p class="route-lead" data-i18n="routes.lead">Маршрут — по цели, а не по должности. Нажми — на схеме подсветится линия.</p>
+    <p class="route-lead" data-i18n="routes.lead">Маршрут — по цели, а не по должности. Нажми — на схеме подсветится линия.</p>
     <div class="route-btns" id="route-btns"></div>
     <p class="route-info" id="route-info" aria-live="polite"></p>
   </div>
@@ -91,7 +91,7 @@
 </section>
 
 <section class="wrap wide block m-courses" aria-labelledby="cc-h">
-  <h2 id="cc-h" data-i18n="cc.title">Что в каждом курсе</h2>
+  <h2 id="cc-h" data-i18n="cc.title">Что в каждом курсе</h2>
   <noscript><p class="plate" data-i18n="noscript">Карта рисуется скриптом. Без него вот курсы по порядку: <a href="/probability/">«Вероятность на пальцах»</a>, <a href="/signal/">«Сигнал или шум»</a>, <a href="/ab-basics/">«A/B на пальцах»</a>, <a href="/stats/">«Прикладная статистика для аналитика»</a>, <a href="/ab/">«A/B без мифов»</a>, <a href="/causal/">Causal inference</a>.</p></noscript>
   <ol class="ccs" id="course-cards" role="list"></ol>
 </section>
@@ -104,7 +104,7 @@
 </section>
 
 <section class="wrap wide block" id="bounds" aria-labelledby="bounds-h">
-  <h2 id="bounds-h" data-i18n="bounds.title">Честные границы: где метод ломается и что дальше</h2>
+  <h2 id="bounds-h" data-i18n="bounds.title">Честные границы: где метод ломается и что дальше</h2>
   <p class="lead-note" data-i18n="bounds.lead">У каждого курса есть место, где его инструменты перестают работать. Это не недостаток, а повод для следующего курса.</p>
   <ol class="bounds" id="bounds-list" role="list"></ol>
 </section>

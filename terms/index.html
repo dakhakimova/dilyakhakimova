@@ -31,18 +31,18 @@
 <body class="t-page">
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
     <a href="/shelf/">Полка</a>
-    <a href="/terms/" aria-current="page">Словарь</a>
+    <span class="cur" aria-current="page">Словарь</span>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main" class="wrap term-hub">
   <h1>Словарь аналитика: термины с играми</h1>
@@ -53,7 +53,7 @@
   <ul class="toys cat-list" role="list">
       <li data-topic="Вероятность"><a href="/terms/conditional-probability/"><b>Условная вероятность</b><span>Как известное событие меняет шансы другого.</span><span class="go">Открыть →</span></a></li>
       <li data-topic="Вероятность"><a href="/terms/normal-distribution/"><b>Нормальное распределение</b><span>Колокол, сигмы и правило 68–95–99.7.</span><span class="go">Открыть →</span></a></li>
-      <li data-topic="Статистика"><a href="/terms/confidence-interval/"><b>Доверительный интервал</b><span>Вилка правдоподобных значений и что значит «95%».</span><span class="go">Открыть →</span></a></li>
+      <li data-topic="Статистика"><a href="/terms/confidence-interval/"><b>Доверительный интервал</b><span>Вилка правдоподобных значений и что значит «95%».</span><span class="go">Открыть →</span></a></li>
       <li data-topic="Статистика"><a href="/terms/p-value/"><b>p-value</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
       <li data-topic="A/B"><a href="/terms/ab-testing/"><b>A/B-тестирование</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
   </ul>

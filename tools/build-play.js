@@ -66,7 +66,7 @@ ${extra}${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<tit
 </head>
 <body>
 <a class="skip" href="#main">${t('skip')}</a>
-${chrome.header('play')}
+${chrome.header('play', /\/play\/$/.test(url))}
 `;
   const foot = () => '\n' + chrome.footer() + '\n';
   // светофор + уровень словами (как на главной и лендингах)
@@ -139,7 +139,7 @@ ${chrome.header('play')}
     <p class="note noframe">${t('play.noframe', {href: toy.src + '#card-' + (toy.pre[0] || toy.card)})}</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">${t('play.out')}</p>${x.try && x.try.length ? `
     <p class="tries-h">${t('play.tryQ')}</p>
     <ol class="tries">${x.try.map(li => `<li>${typo(li)}</li>`).join('')}</ol>` : ''}

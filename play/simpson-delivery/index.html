@@ -6,15 +6,15 @@
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/08-traps.html?toy=simpson-delivery" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
-<title>Опозданий меньше в каждом районе. А во всех заказах вместе? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Курьеры стали опаздывать реже и в центре, и на окраине. Двигай долю заказов с окраины и смотри, куда пойдёт общий процент опозданий.">
+<title>Опозданий меньше в каждом районе. А во всех заказах вместе? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Курьеры стали опаздывать реже и в центре, и на окраине. Двигай долю заказов с окраины и смотри, куда пойдёт общий процент опозданий.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/simpson-delivery/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/simpson-delivery/">
-<meta property="og:title" content="Опозданий меньше в каждом районе. А во всех заказах вместе? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Курьеры стали опаздывать реже и в центре, и на окраине. Двигай долю заказов с окраины и смотри, куда пойдёт общий процент опозданий.">
+<meta property="og:title" content="Опозданий меньше в каждом районе. А во всех заказах вместе? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Курьеры стали опаздывать реже и в центре, и на окраине. Двигай долю заказов с окраины и смотри, куда пойдёт общий процент опозданий.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/simpson-delivery.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,57 +32,57 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Опозданий меньше в каждом районе. А во всех заказах вместе?</span></li>
+    <li><span aria-current="page">Опозданий меньше в каждом районе. А во всех заказах вместе?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="simpson-delivery" data-frame="/signal/08-traps.html?toy=simpson-delivery"
-  data-share-title="Опозданий меньше в каждом районе. А во всех заказах вместе?" data-share-text="В отчёте по доставке опозданий меньше в каждом районе, но заказов на дальнюю окраину стало втрое больше. Что покажет общий процент опозданий за месяц? Угадай и проверь"
+  data-share-title="Опозданий меньше в каждом районе. А во всех заказах вместе?" data-share-text="В отчёте по доставке опозданий меньше в каждом районе, но заказов на дальнюю окраину стало втрое больше. Что покажет общий процент опозданий за месяц? Угадай и проверь"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="simpson-delivery" data-show-from="0" hidden></span></p>
-  <h1>Опозданий меньше в каждом районе. А во всех заказах вместе?</h1>
+  <h1>Опозданий меньше в каждом районе. А во всех заказах вместе?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В ноябре поменяли маршруты курьеров. Опозданий меньше и в центре — с 10% до 8%, и на окраине — с 30% до 25%. В октябре в целом опаздывали 14% заказов. Ноябрь будет рекордным!</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">В ноябре поменяли маршруты курьеров. Опозданий меньше и в центре — с 10% до 8%, и на окраине — с 30% до 25%. В октябре в целом опаздывали 14% заказов. Ноябрь будет рекордным!</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А куда в ноябре шли заказы? Мы ведь открыли доставку в новый спальный район на окраине.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Какая разница куда? Если лучше в каждом районе, то и в целом лучше.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем общий процент в штуках. И посмотрим, что с ним будет, если окраины станет больше или меньше.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Какая разница куда? Если лучше в каждом районе, то и в целом лучше.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем общий процент в штуках. И посмотрим, что с ним будет, если окраины станет больше или меньше.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>На окраину ехать дальше, и там опаздывают чаще. Новый район поменял, куда идут заказы: в октябре окраина была пятой частью всех заказов, в ноябре — больше половины.</p><p>Таблица и столбики показывают долю опозданий в каждом районе и во всех заказах вместе: серые — октябрь, цветные — ноябрь. Опоздания внутри районов в ноябре фиксированы, 8% и 25%. Ползунок меняет только долю заказов на окраину. Запиши догадку про ноябрь в целом и сравни.</p></div>
+    <div class="what-body"><p>На окраину ехать дальше, и там опаздывают чаще. Новый район поменял, куда идут заказы: в октябре окраина была пятой частью всех заказов, в ноябре — больше половины.</p><p>Таблица и столбики показывают долю опозданий в каждом районе и во всех заказах вместе: серые — октябрь, цветные — ноябрь. Опоздания внутри районов в ноябре фиксированы, 8% и 25%. Ползунок меняет только долю заказов на окраину. Запиши догадку про ноябрь в целом и сравни.</p></div>
     <figure class="art"><img src="/play/img/simpson-delivery.jpg" alt="Боб гордо показывает Алисе два листка отчёта по районам, Алиса задумчиво смотрит на карту города, где новый спальный район на окраине утыкан флажками заказов" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/signal/08-traps.html?toy=simpson-delivery" title="Игра: Опозданий меньше в каждом районе. А во всех заказах вместе?" style="height:1300px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/signal/08-traps.html?toy=simpson-delivery" title="Игра: Опозданий меньше в каждом районе. А во всех заказах вместе?" style="height:1300px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игра не загрузилась? <a href="/signal/08-traps.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Запиши догадку и посмотри на строку «Все вместе». Сколько опозданий в ноябре?</li><li>Двигай ползунок: при какой доле окраины ноябрь в целом сравняется с октябрём?</li><li>Поставь 20% окраины, как в октябре. Насколько ноябрь теперь лучше?</li></ol>
+    <ol class="tries"><li>Запиши догадку и посмотри на строку «Все вместе». Сколько опозданий в ноябре?</li><li>Двигай ползунок: при какой доле окраины ноябрь в целом сравняется с октябрём?</li><li>Поставь 20% окраины, как в октябре. Насколько ноябрь теперь лучше?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>При 60% заказов на окраину в ноябре опоздали 182 заказа из 1000 — 18.2% против 14% в октябре, хотя в каждом районе опозданий меньше. Общая доля — это среднее долей районов с весами по числу заказов. Маршруты помогли, но заказов стало больше там, где опаздывают чаще. С октябрьской структурой ноябрь дал бы 11.4%. Граница — около 35% заказов на окраину.</p>
+      <p>При 60% заказов на окраину в ноябре опоздали 182 заказа из 1000 — 18.2% против 14% в октябре, хотя в каждом районе опозданий меньше. Общая доля — это среднее долей районов с весами по числу заказов. Маршруты помогли, но заказов стало больше там, где опаздывают чаще. С октябрьской структурой ноябрь дал бы 11.4%. Граница — около 35% заказов на окраину.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Общая доля = Σ (доля заказов района × доля опозданий в нём). Смена знака из-за весов — парадокс Симпсона, Simpson’s paradox.</li><li>Все части могут улучшиться, а итог — ухудшиться, если поменялись веса частей.</li><li>Сравнивай при одной структуре: пересчитай новый месяц со старыми весами.</li><li>Сначала реши, на каком уровне вопрос: «курьеры стали лучше?» — по районам; «сколько заказов опоздало?» — в целом.</li></ul>
     </div>

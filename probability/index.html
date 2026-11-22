@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/probability.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
 <title data-i18n="meta.title">«Вероятность на пальцах» — бесплатный интерактивный курс · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
+<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <link rel="canonical" href="https://dilyakhakimova.com/probability/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/probability/">
 <meta property="og:title" data-i18n-attr="content:c.title" content="Вероятность на пальцах">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <meta property="og:image" content="https://dilyakhakimova.com/img/probability-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -40,18 +40,18 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
-    <a href="/courses/" aria-current="page">Курсы</a>
+    <a href="/courses/" aria-current="true">Курсы</a>
     <a href="/play/">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 <nav class="crumbs wrap" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
@@ -84,18 +84,18 @@ function artFail(img){
     <li><span class="n" data-i18n="m1.n">Шаг 1</span><h3><a href="01-outcomes.html" data-i18n="m1.t">Исходы и события</a></h3><p class="d" data-i18n="m1.d">Вероятность — благоприятные исходы, делённые на все.</p><p class="scene" data-i18n="m1.s">Боб решает двумя монетками, кто моет посуду: два орла — Алиса, две решки — Боб, разные — Котейка. Котейка подозрительно доволен.</p><p class="x" data-i18n="m1.x"><b>Задача с собеседования:</b> два кубика — какова вероятность, что сумма равна 7?</p></li>
     <li><span class="n" data-i18n="m2.n">Шаг 2</span><h3><a href="02-frequency.html" data-i18n="m2.t">Вероятность как частота</a></h3><p class="d" data-i18n="m2.d">На длинной серии доля успокаивается, на короткой — скачет.</p><p class="scene" data-i18n="m2.s">Первая неделя кафе: в понедельник десерт к кофе взяли 7 гостей из 10, во вторник — 3. Боб уже переписывает меню.</p><p class="x" data-i18n="m2.x"><b>Задача с собеседования:</b> что вероятнее — 6 орлов из 10 или 60 из 100?</p></li>
     <li><span class="n" data-i18n="m3.n">Шаг 3</span><h3><a href="03-counting.html" data-i18n="m3.t">Считаем исходы</a></h3><p class="d" data-i18n="m3.d">Дерево, правило умножения и C(n, k).</p><p class="scene" data-i18n="m3.s">Алиса составляет меню комбо: каждый напиток сочетается с каждым десертом. Сколько всего комбо — и сколько из них без кофе?</p><p class="x" data-i18n="m3.x"><b>Задача с собеседования:</b> сколько рукопожатий, если здороваются n человек?</p></li>
-    <li><span class="n" data-i18n="m4.n">Шаг 4</span><h3><a href="04-not-and-or.html" data-i18n="m4.t">Не, и, или</a></h3><p class="d" data-i18n="m4.d">«Хотя бы один» считаем через противоположное.</p><p class="scene" data-i18n="m4.s">Вечеринка в честь открытия: гостей 23, и у двоих совпал день рождения. Совпадение?</p><p class="x" data-i18n="m4.x"><b>Задача с собеседования:</b> кубик бросили 6 раз — какова вероятность, что все грани разные?</p></li>
-    <li><span class="n" data-i18n="m5.n">Шаг 5</span><h3><a href="05-conditional.html" data-i18n="m5.t">Условная вероятность и независимость</a></h3><p class="d" data-i18n="m5.d">Сужаем мир: смотрим только на тех, кто пришёл в дождь.</p><p class="scene" data-i18n="m5.s">В дождь горячий шоколад берут чаще. А десерт? Алиса проверяет, меняет ли дождь хоть что-то.</p><p class="x" data-i18n="m5.x"><b>Задача с собеседования:</b> в семье двое детей, хотя бы один мальчик — какова вероятность, что оба мальчики?</p></li>
-    <li><span class="n" data-i18n="m6.n">Шаг 6</span><h3><a href="06-bayes.html" data-i18n="m6.t">Байес</a></h3><p class="d" data-i18n="m6.d">Считаем в штуках из 1000, сколько сигналов настоящие.</p><p class="scene" data-i18n="m6.s">Касса пищит на каждую подозрительную купюру, и Боб каждый раз паникует. А на празднике — розыгрыш с тремя дверями.</p><p class="x" data-i18n="m6.x"><b>Задача с собеседования:</b> Монти Холл — менять ли дверь?</p></li>
+    <li><span class="n" data-i18n="m4.n">Шаг 4</span><h3><a href="04-not-and-or.html" data-i18n="m4.t">Не, и, или</a></h3><p class="d" data-i18n="m4.d">«Хотя бы один» считаем через противоположное.</p><p class="scene" data-i18n="m4.s">Вечеринка в честь открытия: гостей 23, и у двоих совпал день рождения. Совпадение?</p><p class="x" data-i18n="m4.x"><b>Задача с собеседования:</b> кубик бросили 6 раз — какова вероятность, что все грани разные?</p></li>
+    <li><span class="n" data-i18n="m5.n">Шаг 5</span><h3><a href="05-conditional.html" data-i18n="m5.t">Условная вероятность и независимость</a></h3><p class="d" data-i18n="m5.d">Сужаем мир: смотрим только на тех, кто пришёл в дождь.</p><p class="scene" data-i18n="m5.s">В дождь горячий шоколад берут чаще. А десерт? Алиса проверяет, меняет ли дождь хоть что-то.</p><p class="x" data-i18n="m5.x"><b>Задача с собеседования:</b> в семье двое детей, хотя бы один мальчик — какова вероятность, что оба мальчики?</p></li>
+    <li><span class="n" data-i18n="m6.n">Шаг 6</span><h3><a href="06-bayes.html" data-i18n="m6.t">Байес</a></h3><p class="d" data-i18n="m6.d">Считаем в штуках из 1000, сколько сигналов настоящие.</p><p class="scene" data-i18n="m6.s">Касса пищит на каждую подозрительную купюру, и Боб каждый раз паникует. А на празднике — розыгрыш с тремя дверями.</p><p class="x" data-i18n="m6.x"><b>Задача с собеседования:</b> Монти Холл — менять ли дверь?</p></li>
     <li><span class="n" data-i18n="m7.n">Шаг 7</span><h3><a href="07-distribution.html" data-i18n="m7.t">Случайная величина и распределение</a></h3><p class="d" data-i18n="m7.d">Биномиальное распределение — снова монетки, только много.</p><p class="scene" data-i18n="m7.s">Котейка ставит у входа доску Гальтона: шарики падают в корзинки, гости спорят, где вырастет горка.</p><p class="x" data-i18n="m7.x"><b>Задача с собеседования:</b> сколько в среднем бросков до первого орла?</p></li>
-    <li><span class="n" data-i18n="m8.n">Шаг 8</span><h3><a href="08-mean-spread.html" data-i18n="m8.t">Среднее и разброс</a></h3><p class="d" data-i18n="m8.d">Матожидание и дисперсия — и мостик к «Сигналу или шуму».</p><p class="scene" data-i18n="m8.s">Ставить ли в кафе колесо призов? Боб уверен, что окупится. Алиса считает, сколько оно отдаёт в среднем и насколько этот средний выигрыш шатается.</p><p class="x" data-i18n="m8.x"><b>Задача с собеседования:</b> сколько в среднем бросков кубика нужно, чтобы увидеть все шесть граней?</p></li>
-    <li><span class="n" data-i18n="m9.n">Шаг 9</span><h3><a href="09-interview.html" data-i18n="m9.t">Пробное собеседование</a></h3><p class="d" data-i18n="m9.d">Десять задач на время из всех шагов.</p><p class="scene" data-i18n="m9.s">Алиса идёт на собеседование аналитиком. Напротив — Котейка в бабочке и с песочными часами.</p><p class="x" data-i18n="m9.x"><b>В конце:</b> баллы, калибровка прогнозов и список шагов, которые стоит повторить.</p></li>
+    <li><span class="n" data-i18n="m8.n">Шаг 8</span><h3><a href="08-mean-spread.html" data-i18n="m8.t">Среднее и разброс</a></h3><p class="d" data-i18n="m8.d">Матожидание и дисперсия — и мостик к «Сигналу или шуму».</p><p class="scene" data-i18n="m8.s">Ставить ли в кафе колесо призов? Боб уверен, что окупится. Алиса считает, сколько оно отдаёт в среднем и насколько этот средний выигрыш шатается.</p><p class="x" data-i18n="m8.x"><b>Задача с собеседования:</b> сколько в среднем бросков кубика нужно, чтобы увидеть все шесть граней?</p></li>
+    <li><span class="n" data-i18n="m9.n">Шаг 9</span><h3><a href="09-interview.html" data-i18n="m9.t">Пробное собеседование</a></h3><p class="d" data-i18n="m9.d">Десять задач на время из всех шагов.</p><p class="scene" data-i18n="m9.s">Алиса идёт на собеседование аналитиком. Напротив — Котейка в бабочке и с песочными часами.</p><p class="x" data-i18n="m9.x"><b>В конце:</b> баллы, калибровка прогнозов и список шагов, которые стоит повторить.</p></li>
   </ol>
 </section>
 
 <!-- 3. Игры -->
 <section class="wrap block" id="toys" aria-labelledby="toys-h">
-  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
+  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
   <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Каждая игра открывается прямо на своей карточке шага.</p>
   <div class="toys-wrap">
   <ul class="toys c-toys" role="list">
@@ -116,7 +116,7 @@ function artFail(img){
 <section class="wrap block" id="results" aria-labelledby="res-h">
   <h2 id="res-h" data-i18n="sec.results">Что получишь на выходе</h2>
   <ul class="results" role="list">
-    <li data-i18n="r1"><b>Классика собеседований без паники</b> Дни рождения, Монти Холл, редкий сигнал, купоны, «хотя бы один» — решение в штуках и формулой.</li>
+    <li data-i18n="r1"><b>Классика собеседований без паники</b> Дни рождения, Монти Холл, редкий сигнал, купоны, «хотя бы один» — решение в штуках и формулой.</li>
     <li data-i18n="r2"><b>Схема ответа вслух</b> Переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</li>
     <li data-i18n="r3"><b>Пробное собеседование</b> Десять задач на время с Котейкой-интервьюером: баллы, калибровка прогнозов и список шагов, которые стоит повторить.</li>
     <li data-i18n="r4"><b>Шпаргалки шагов</b> Формулы, которые спрашивают на собеседовании и пишут в коде: P(не A), P(A | B), Байес, C(n, k), биномиальное, матожидание и дисперсия.</li>
@@ -126,9 +126,9 @@ function artFail(img){
 </section>
 
 <!-- 6. Для кого и куда дальше -->
-<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
+<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
   <div class="panel">
-    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
+    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
     <ul>
       <li data-i18n="who1">кто забыл теорвер после университета и хочет вспомнить его без страха перед формулами;</li>
       <li data-i18n="who2">кто готовится к собеседованию аналитиком данных;</li>

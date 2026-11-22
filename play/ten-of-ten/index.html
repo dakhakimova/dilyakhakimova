@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,7 +61,7 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Последние десять отзывов в приложении — все пятёрки! Мы идеальное кафе.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">За всё время хороших отзывов у нас 95%. Не 100.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну так десять из десяти — это же редкость. Значит, мы стали лучше.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну так десять из десяти — это же редкость. Значит, мы стали лучше.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Разложу отзывы пачками по десять. Посмотрим, как часто идеальная пачка бывает у кафе, которое не идеально.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай заранее: в какой доле пачек все десять отзывов хорошие?</p></div></div>
   </div>
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/02-frequency.html#card-8">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Ещё 10 блоков». Сколько блоков из десяти обведено?</li><li>Нажми ещё пять раз. К какой доле идеальных блоков всё идёт?</li><li>Найди блок с двумя плохими отзывами. Часто такое бывает?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Идеальные «10 из 10» выпадают примерно в 60% блоков: шанс, что все десять хорошие, — 0.95 в десятой степени, около 0.60. Десять пятёрок подряд у кафе с 95% хороших отзывов — обычное дело, а не повод праздновать. Поэтому в топе любого рейтинга по доле пятёрок — заведения с горсткой отзывов. И в самом низу тоже они: маленькие порции дают крайности в обе стороны.</p>
+      <p>Идеальные «10 из 10» выпадают примерно в 60% блоков: шанс, что все десять хорошие, — 0.95 в десятой степени, около 0.60. Десять пятёрок подряд у кафе с 95% хороших отзывов — обычное дело, а не повод праздновать. Поэтому в топе любого рейтинга по доле пятёрок — заведения с горсткой отзывов. И в самом низу тоже они: маленькие порции дают крайности в обе стороны.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Все n из n при доле p: p<sup>n</sup>. При 95% и 10 отзывах — около 60%.</li><li>Маленькая выборка чаще даёт крайности: и «идеально», и «ужасно».</li><li>Сравнивая рейтинги, смотри на число отзывов, а не только на долю.</li></ul>
+      <ul class="cheat"><li>Все n из n при доле p: p<sup>n</sup>. При 95% и 10 отзывах — около 60%.</li><li>Маленькая выборка чаще даёт крайности: и «идеально», и «ужасно».</li><li>Сравнивая рейтинги, смотри на число отзывов, а не только на долю.</li></ul>
     </div>
   </section>
 

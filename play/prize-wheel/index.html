@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/08-mean-spread.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Покрути десять раз. Где сейчас средний приз?</li><li>Нажми «100 жетонов» несколько раз. К какому числу прижимается линия?</li><li>Двигай цену вращения. При какой цене в среднем выигрывает уже гость?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Средний приз прижимается к 87.5 ₽: из восьми секторов два дают по 150 ₽ и один — 400 ₽, всего 700 ₽ на восемь секторов. Гость платит 100 ₽ и в среднем теряет 12.5 ₽ на каждом вращении — ровно столько кафе и зарабатывает. Торт эффектный, но выпадает в одном вращении из восьми. При цене 80 ₽ в среднем выигрывает уже гость.</p>
+      <p>Средний приз прижимается к 87.5 ₽: из восьми секторов два дают по 150 ₽ и один — 400 ₽, всего 700 ₽ на восемь секторов. Гость платит 100 ₽ и в среднем теряет 12.5 ₽ на каждом вращении — ровно столько кафе и зарабатывает. Торт эффектный, но выпадает в одном вращении из восьми. При цене 80 ₽ в среднем выигрывает уже гость.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Среднее, expected value, — сумма «значение × вероятность»: 0 · 5/8 + 150 · 2/8 + 400 · 1/8 = 87.5 ₽.</li><li>Средний итог гостя за вращение = средний приз − цена: 87.5 − 100 = −12.5 ₽.</li><li>Один большой приз не делает игру выгодной: смотри на его вероятность.</li></ul>
     </div>

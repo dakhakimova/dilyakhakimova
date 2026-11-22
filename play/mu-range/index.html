@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,13 +61,13 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Открыли новое кафе, в первый день средний чек 740 ₽. Значит, обычный чек у него 740. Пишу в план.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Один день — это один день. По другим кафе сети мы знаем: средний чек дня гуляет примерно на 50 ₽ вокруг обычного.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Обычный чек нового кафе знаю только я — и не скажу. Могу только выдавать дни.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тогда переберём кандидатов: при каком обычном чеке день в 740 ₽ — нормальный день, а при каком — странный?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Обычный чек нового кафе знаю только я — и не скажу. Могу только выдавать дни.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тогда переберём кандидатов: при каком обычном чеке день в 740 ₽ — нормальный день, а при каком — странный?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Кандидат μ₀ — догадка про обычный средний чек нового кафе. Колокол встаёт на кандидата: так разбегались бы его дни при σ = 50 ₽. Отметка на оси — наш первый день, 740 ₽.</p><p>Если 740 ₽ лежит в средних 95% дней кандидата, он «не спорит» с данными, и полоска под осью в этом месте зеленеет. Если в хвосте — краснеет. Двигай кандидата и найди, где кончается зелёная часть.</p></div>
+    <div class="what-body"><p>Кандидат μ₀ — догадка про обычный средний чек нового кафе. Колокол встаёт на кандидата: так разбегались бы его дни при σ = 50 ₽. Отметка на оси — наш первый день, 740 ₽.</p><p>Если 740 ₽ лежит в средних 95% дней кандидата, он «не спорит» с данными, и полоска под осью в этом месте зеленеет. Если в хвосте — краснеет. Двигай кандидата и найди, где кончается зелёная часть.</p></div>
     <figure class="art"><img src="/play/img/mu-range.jpg" alt="у только что открытого нового кафе сети Боб вписывает одно число в план на доске, а Алиса рядом раздвигает руками широкую скобку" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/05-normal.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Поставь кандидата 600 ₽. Спорит ли он с днём в 740?</li><li>Двигай кандидата и найди края зелёной полоски.</li><li>Нажми «Закрасить всю полоску». Где центр зелёного отрезка?</li></ol>
+    <ol class="tries"><li>Поставь кандидата 600 ₽. Спорит ли он с днём в 740?</li><li>Двигай кандидата и найди края зелёной полоски.</li><li>Нажми «Закрасить всю полоску». Где центр зелёного отрезка?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Не спорят все кандидаты от 642 до 838 ₽, то есть 740 ± 1.96·50. Это та же линейка ±1.96σ, только приложенная не к центру колокола, а к нашему числу. Такую полоску называют доверительным интервалом: обычный чек нового кафе где-то в ней, но один день не скажет, где именно.</p>
+      <p>Не спорят все кандидаты от 642 до 838 ₽, то есть 740 ± 1.96·50. Это та же линейка ±1.96σ, только приложенная не к центру колокола, а к нашему числу. Такую полоску называют доверительным интервалом: обычный чек нового кафе где-то в ней, но один день не скажет, где именно.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>95%-й интервал по одному наблюдению: x ± 1.96σ.</li><li>x = 740 ₽, σ = 50 ₽: от 642 до 838 ₽.</li><li>Кандидат «не спорит», если наше число лежит в его средних 95%.</li><li>Для среднего за n дней линейка та же, но ширина σ/√n.</li></ul>
+      <ul class="cheat"><li>95%-й интервал по одному наблюдению: x ± 1.96σ.</li><li>x = 740 ₽, σ = 50 ₽: от 642 до 838 ₽.</li><li>Кандидат «не спорит», если наше число лежит в его средних 95%.</li><li>Для среднего за n дней линейка та же, но ширина σ/√n.</li></ul>
     </div>
   </section>
 

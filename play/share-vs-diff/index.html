@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -77,7 +77,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/04-noise.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Прокрутить неделю». Где оказалась доля гостей в A и где разница?</li><li>Прокрути ещё несколько недель. Разница хоть раз вернулась к нулю к концу?</li><li>Сравни коридоры: верхний сужается, а нижний?</li></ol>
@@ -85,7 +85,7 @@
     <div class="reveal" hidden>
       <p>После 40 000 гостей доля в группе A обычно в пределах 49.5–50.5%: закон больших чисел подводит её к половине. А разница «A минус B» к нулю не приходит — обычно она порядка 160 и бывает до 400. Коридор доли сужается как 1/√n, а коридор разницы расширяется как √n. Поэтому 230 гостей разницы у честного сплита — норма, а проверять сплит надо по доле.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Закон больших чисел (law of large numbers, LLN) обещает только долю.</li><li>Доля шумит как 1/√n, разница в штуках — как √n.</li><li>40 000 гостей при сплите 50/50: доля 49.5–50.5%, разница — до 400.</li><li>Сплит проверяют по доле, а не по разнице в штуках.</li></ul>
+      <ul class="cheat"><li>Закон больших чисел (law of large numbers, LLN) обещает только долю.</li><li>Доля шумит как 1/√n, разница в штуках — как √n.</li><li>40 000 гостей при сплите 50/50: доля 49.5–50.5%, разница — до 400.</li><li>Сплит проверяют по доле, а не по разнице в штуках.</li></ul>
     </div>
   </section>
 

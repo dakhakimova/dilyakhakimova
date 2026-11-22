@@ -6,15 +6,15 @@
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/07-p-value.html?toy=p-and-ci" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
-<title>Вилка задевает ноль. А что скажет p-value? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Двигай разницу и смотри сразу на колокол мира без эффекта и на вилку: где проходит граница «значимо».">
+<title>Вилка задевает ноль. А что скажет p-value? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Двигай разницу и смотри сразу на колокол мира без эффекта и на вилку: где проходит граница «значимо».">
 <link rel="canonical" href="https://dilyakhakimova.com/play/p-and-ci/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/p-and-ci/">
-<meta property="og:title" content="Вилка задевает ноль. А что скажет p-value? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Двигай разницу и смотри сразу на колокол мира без эффекта и на вилку: где проходит граница «значимо».">
+<meta property="og:title" content="Вилка задевает ноль. А что скажет p-value? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Двигай разницу и смотри сразу на колокол мира без эффекта и на вилку: где проходит граница «значимо».">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/p-and-ci.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,59 +32,59 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Вилка задевает ноль. А что скажет p-value?</span></li>
+    <li><span aria-current="page">Вилка задевает ноль. А что скажет p-value?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="p-and-ci" data-frame="/ab-basics/07-p-value.html?toy=p-and-ci"
-  data-share-title="Вилка задевает ноль. А что скажет p-value?" data-share-text="В отчёте A/B-теста вилка эффекта от −0.2% до +5.4%. Продакт надеется, что p-value всё же меньше 5%. Возможно ли это? Угадай — и подвигай разницу"
+  data-share-title="Вилка задевает ноль. А что скажет p-value?" data-share-text="В отчёте A/B-теста вилка эффекта от −0.2% до +5.4%. Продакт надеется, что p-value всё же меньше 5%. Возможно ли это? Угадай — и подвигай разницу"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="p-and-ci" data-show-from="0" hidden></span></p>
-  <h1>Вилка задевает ноль. А что скажет p-value?</h1>
+  <h1>Вилка задевает ноль. А что скажет p-value?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Аналитики говорят то «вилка не задевает ноль», то «p-value меньше 5%». Это две разные проверки? Какой верить?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай подвигаем разницу и посмотрим на обе сразу.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Колокол — мой мир без эффекта, в нём разница гуляет вокруг нуля. А вилка стоит вокруг разницы из теста.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Найди, при какой разнице вилка перестаёт задевать ноль. И посмотри, что в этот момент с p-value.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Найди, при какой разнице вилка перестаёт задевать ноль. И посмотри, что в этот момент с p-value.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Сверху — колокол мира без эффекта: какие разницы бывают, если эффекта нет. Флажок — разница из эксперимента, p-value — доля колокола не ближе к нулю, чем флажок. Ниже — вилка вокруг той же разницы: плюс-минус две ширины колокола.</p><p>Двигай разницу ползунком и следи за двумя вещами: какой p-value и задевает ли вилка ноль. Найди место, где одно меняется вместе с другим.</p></div>
+    <div class="what-body"><p>Сверху — колокол мира без эффекта: какие разницы бывают, если эффекта нет. Флажок — разница из эксперимента, p-value — доля колокола не ближе к нулю, чем флажок. Ниже — вилка вокруг той же разницы: плюс-минус две ширины колокола.</p><p>Двигай разницу ползунком и следи за двумя вещами: какой p-value и задевает ли вилка ноль. Найди место, где одно меняется вместе с другим.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab07-00-flag-hill.jpg" alt="Котейка втыкает флажок далеко на склоне холма в форме колокола" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/07-p-value.html?toy=p-and-ci" title="Игра: Вилка задевает ноль. А что скажет p-value?" style="height:700px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/07-p-value.html?toy=p-and-ci" title="Игра: Вилка задевает ноль. А что скажет p-value?" style="height:700px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/07-p-value.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Поставь разницу +2%. Какой p-value, задевает ли вилка ноль?</li><li>Двигай вправо, пока вилка не перестанет задевать ноль. Какой в этот момент p-value?</li><li>Поставь отрицательную разницу. Работает ли правило в другую сторону?</li></ol>
+    <ol class="tries"><li>Поставь разницу +2%. Какой p-value, задевает ли вилка ноль?</li><li>Двигай вправо, пока вилка не перестанет задевать ноль. Какой в этот момент p-value?</li><li>Поставь отрицательную разницу. Работает ли правило в другую сторону?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Пока вилка задевает ноль, p-value больше 5% — не значимо. Как только край вилки отходит от нуля, p-value становится меньше 5% — значимо. Граница одна и та же, здесь около +2.6%: флажок выходит за порог колокола ровно тогда, когда ноль выходит за край вилки. Это одно правило, сказанное двумя способами. Но вилка говорит больше: ещё и какого размера эффект согласуется с данными.</p>
+      <p>Пока вилка задевает ноль, p-value больше 5% — не значимо. Как только край вилки отходит от нуля, p-value становится меньше 5% — значимо. Граница одна и та же, здесь около +2.6%: флажок выходит за порог колокола ровно тогда, когда ноль выходит за край вилки. Это одно правило, сказанное двумя способами. Но вилка говорит больше: ещё и какого размера эффект согласуется с данными.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Вилка не задевает ноль ⇔ p-value меньше 5%.</li><li>Край вилки на нуле — p-value ровно 5%.</li><li>p-value отвечает «удивительно ли без эффекта», вилка — ещё и «насколько большой эффект».</li><li>Если в отчёте есть вилка, смотри сначала на неё.</li></ul>
+      <ul class="cheat"><li>Вилка не задевает ноль ⇔ p-value меньше 5%.</li><li>Край вилки на нуле — p-value ровно 5%.</li><li>p-value отвечает «удивительно ли без эффекта», вилка — ещё и «насколько большой эффект».</li><li>Если в отчёте есть вилка, смотри сначала на неё.</li></ul>
     </div>
   </section>
 

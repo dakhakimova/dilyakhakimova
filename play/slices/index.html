@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/10-traps.html?toy=slices" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Акция дала в среднем 0%. А внутри — тоже ноль? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
+<meta name="description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/slices/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/slices/">
 <meta property="og:title" content="Акция дала в среднем 0%. А внутри — тоже ноль? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
+<meta property="og:description" content="Эффект акции «второй кофе в подарок» по всей сети и по кафе: как ноль в среднем складывается из плюсов и минусов.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/slices.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/10-traps.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Нажми «Разложить по кафе». Где акция помогает, а где вредит?</li><li>Подумай, почему у университета и в ТЦ акция снижает заказы.</li><li>Ответь на вопрос под игрой: что делать с «значимым» срезом у вокзала?</li></ol>
+    <ol class="tries"><li>Нажми «Разложить по кафе». Где акция помогает, а где вредит?</li><li>Подумай, почему у университета и в ТЦ акция снижает заказы.</li><li>Ответь на вопрос под игрой: что делать с «значимым» срезом у вокзала?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>У вокзала и в центре акция поднимает заказы, а у университета и в ТЦ — снижает: там гости и так брали по два кофе, а теперь второй получают даром. В сумме плюсы и минусы съели друг друга. Но срез, найденный задним числом, — гипотеза, а не результат: при 30 срезах хотя бы один «значимый» находится примерно в 8 A/A из 10. Его проверяют новым тестом, где этот срез — главная цель с самого начала.</p>
+      <p>У вокзала и в центре акция поднимает заказы, а у университета и в ТЦ — снижает: там гости и так брали по два кофе, а теперь второй получают даром. В сумме плюсы и минусы съели друг друга. Но срез, найденный задним числом, — гипотеза, а не результат: при 30 срезах хотя бы один «значимый» находится примерно в 8 A/A из 10. Его проверяют новым тестом, где этот срез — главная цель с самого начала.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Ноль в среднем может быть суммой плюсов и минусов.</li><li>Срезы помогают понять, что произошло, но найденный задним числом срез — гипотеза.</li><li>Чем больше срезов, тем больше случайных «значимых»: при 30 — хотя бы один в 8 A/A из 10.</li><li>Важный срез проверяют новым тестом, где он — главная метрика с самого начала.</li></ul>
+      <ul class="cheat"><li>Ноль в среднем может быть суммой плюсов и минусов.</li><li>Срезы помогают понять, что произошло, но найденный задним числом срез — гипотеза.</li><li>Чем больше срезов, тем больше случайных «значимых»: при 30 — хотя бы один в 8 A/A из 10.</li><li>Важный срез проверяют новым тестом, где он — главная метрика с самого начала.</li></ul>
     </div>
   </section>
 

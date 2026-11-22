@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/08-mean-spread.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Запиши догадку и нажми кнопку. Какая доля гостей в плюсе?</li><li>Найди центр облака. Сколько в среднем теряет гость за сто вращений?</li><li>Нажми ещё раз. Сильно ли меняется доля в плюсе от запуска к запуску?</li></ol>
+    <ol class="tries"><li>Запиши догадку и нажми кнопку. Какая доля гостей в плюсе?</li><li>Найди центр облака. Сколько в среднем теряет гость за сто вращений?</li><li>Нажми ещё раз. Сильно ли меняется доля в плюсе от запуска к запуску?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В плюсе уходит примерно каждый шестой гость — около 17%, хотя в среднем гость теряет 1250 ₽ за сто вращений. Облако широкое: призы шатаются сильнее, чем кафе берёт в среднем. Типичный размах итога — около 1340 ₽ в обе стороны, это больше среднего проигрыша. В среднем — не значит каждый раз: кафе выигрывает у толпы, а не у каждого гостя.</p>
+      <p>В плюсе уходит примерно каждый шестой гость — около 17%, хотя в среднем гость теряет 1250 ₽ за сто вращений. Облако широкое: призы шатаются сильнее, чем кафе берёт в среднем. Типичный размах итога — около 1340 ₽ в обе стороны, это больше среднего проигрыша. В среднем — не значит каждый раз: кафе выигрывает у толпы, а не у каждого гостя.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Среднее — про толпу, разброс — про отдельного гостя.</li><li>Итог ста вращений: в среднем −1250 ₽, разброс SD ≈ 1340 ₽.</li><li>Если разброс больше среднего эффекта, заметная доля людей окажется по другую сторону от среднего.</li></ul>
     </div>

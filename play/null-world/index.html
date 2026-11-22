@@ -31,18 +31,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -58,15 +58,15 @@
   <h1>+3.1% на 100 000 гостей. Как часто так бывает без всякого эффекта?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в контроле 10 000 заказов, в тесте 10 310. Это +3.1%, по 100 000 человек в группе. Явно же не случайность?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая кнопка оплаты: в контроле 10 000 заказов, в тесте 10 310. Это +3.1%, по 100 000 человек в группе. Явно же не случайность?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Удачу не видно. Но можно представить мир, где кнопка ничего не делает, и посмотреть, как часто там выходит такая разница.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. В моём мире кнопки нет, гостей я раздаю монеткой. Запущу тысячу таких A/A-тестов.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку: в скольких A/A из 100 разница будет такой же, как у Боба, или ещё больше, в любую сторону?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку: в скольких A/A из 100 разница будет такой же, как у Боба, или ещё больше, в любую сторону?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Это мир без эффекта: тысяча A/A-тестов с теми же 100 000 гостей в группе, кнопки нет. Каждая точка — разница между группами в одном A/A. Разницы ложатся колоколом вокруг нуля.</p><p>Флажок — разница Боба, +3.1%. Красным отмечены A/A, где разница не меньше, чем у Боба, в любую сторону. Сделай ставку, насыпь 1000 A/A и посчитай красные. Флажок можно двигать.</p></div>
+    <div class="what-body"><p>Это мир без эффекта: тысяча A/A-тестов с теми же 100 000 гостей в группе, кнопки нет. Каждая точка — разница между группами в одном A/A. Разницы ложатся колоколом вокруг нуля.</p><p>Флажок — разница Боба, +3.1%. Красным отмечены A/A, где разница не меньше, чем у Боба, в любую сторону. Сделай ставку, насыпь 1000 A/A и посчитай красные. Флажок можно двигать.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом, Алиса держит стопку одинаковых карточек" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -75,7 +75,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/07-p-value.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Сделай ставку и нажми «Насыпать 1000 A/A». Сколько из них красные?</li><li>Подвинь флажок к +1%. Как изменилась доля красных?</li><li>Найди положение флажка, при котором красных около 5%.</li></ol>
@@ -83,7 +83,7 @@
     <div class="reveal" hidden>
       <p>Разница +3.1% или больше в любую сторону случилась примерно в 21 A/A-тесте из 1000 — по колоколу это 2.1%, около двух из ста. В мире без эффекта результат Боба — редкость. Шумом его объяснить трудно, и есть повод считать, что кнопка что-то меняет. Эта доля и есть p-value: насколько удивительна наша разница, если эффекта нет.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>p-value — доля миров без эффекта, где разница не меньше нашей, в любую сторону.</li><li>p-value меньше 5% — разницу называют значимой.</li><li>Маленький p-value значит «без эффекта так бывает редко», а не «эффект точно есть».</li><li>Считают «не меньше нашей», а не «ровно нашу»: любое точное значение маловероятно.</li></ul>
+      <ul class="cheat"><li>p-value — доля миров без эффекта, где разница не меньше нашей, в любую сторону.</li><li>p-value меньше 5% — разницу называют значимой.</li><li>Маленький p-value значит «без эффекта так бывает редко», а не «эффект точно есть».</li><li>Считают «не меньше нашей», а не «ровно нашу»: любое точное значение маловероятно.</li></ul>
     </div>
   </section>
 

@@ -31,18 +31,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -52,22 +52,22 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="worst-cafes" data-frame="/ab-basics/01-before-after.html?toy=worst-cafes"
-  data-share-title="Промо в пяти худших кафе — и через неделю они выросли. Это промо?" data-share-text="Команда запустила промо в самых слабых точках, через неделю продажи там выросли, в отчёте — «промо работает». Сколько роста было бы и без промо? Угадай — и проверь на пустом промо"
+  data-share-title="Промо в пяти худших кафе — и через неделю они выросли. Это промо?" data-share-text="Команда запустила промо в самых слабых точках, через неделю продажи там выросли, в отчёте — «промо работает». Сколько роста было бы и без промо? Угадай — и проверь на пустом промо"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="worst-cafes" data-show-from="0" hidden></span></p>
   <h1>Промо в пяти худших кафе — и через неделю они выросли. Это промо?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На прошлой неделе пять наших кафе сильно просели по заказам. Запускаю там промо — посмотрим, вытянет ли.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А с чем сравним? В остальных кафе промо не будет.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">С ними же самими: какими были на прошлой неделе и какими станут.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На прошлой неделе пять наших кафе сильно просели по заказам. Запускаю там промо — посмотрим, вытянет ли.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А с чем сравним? В остальных кафе промо не будет.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">С ними же самими: какими были на прошлой неделе и какими станут.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. У каждого кафе свой обычный уровень. А неделя к неделе его качают погода и случай — то есть я.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тогда проверим на промо, которое не делает ничего. Что будет с худшими через неделю?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Двадцать кафе сети выстроены от худшего к лучшему по прошлой неделе: точка — сколько заказов сделали на 100 гостей. Оранжевые — пять худших, туда отправили промо. Зелёные — пять лучших, там ничего не меняли.</p><p>Промо здесь пустое: оно не меняет ничего. У каждого кафе свой обычный уровень, а за неделю он гуляет от погоды и случая. Сделай прогноз, нажми «Прошла неделя» и посмотри, куда сдвинутся худшие и лучшие.</p></div>
+    <div class="what-body"><p>Двадцать кафе сети выстроены от худшего к лучшему по прошлой неделе: точка — сколько заказов сделали на 100 гостей. Оранжевые — пять худших, туда отправили промо. Зелёные — пять лучших, там ничего не меняли.</p><p>Промо здесь пустое: оно не меняет ничего. У каждого кафе свой обычный уровень, а за неделю он гуляет от погоды и случая. Сделай прогноз, нажми «Прошла неделя» и посмотри, куда сдвинутся худшие и лучшие.</p></div>
     <figure class="art"><img src="/play/img/worst-cafes.jpg" alt="Боб раскладывает на столе карту сети кафе и ставит оранжевые флажки промо на несколько точек, Котейка катает по карте игральный кубик, Алиса смотрит с сомнением" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/01-before-after.html#card-8">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Сделай прогноз и нажми «Прошла неделя». Куда сдвинулись пять худших кафе?</li><li>А пять лучших, где промо не было, — выросли или просели?</li><li>Нажми «Другие две недели» и повтори пару раз. Картина та же?</li></ol>
+    <ol class="tries"><li>Сделай прогноз и нажми «Прошла неделя». Куда сдвинулись пять худших кафе?</li><li>А пять лучших, где промо не было, — выросли или просели?</li><li>Нажми «Другие две недели» и повтори пару раз. Картина та же?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Пять худших кафе через неделю выросли — обычно на 2–5 заказов на 100 гостей, хотя промо пустое. А пять лучших без всякого промо просели примерно на столько же. Худшими кафе оказались во многом потому, что на прошлой неделе им не повезло. На этой неделе везение обычное, и они возвращаются к своему уровню. Это регрессия к среднему: крайние значения сами откатываются к обычным.</p>
+      <p>Пять худших кафе через неделю выросли — обычно на 2–5 заказов на 100 гостей, хотя промо пустое. А пять лучших без всякого промо просели примерно на столько же. Худшими кафе оказались во многом потому, что на прошлой неделе им не повезло. На этой неделе везение обычное, и они возвращаются к своему уровню. Это регрессия к среднему: крайние значения сами откатываются к обычным.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Отобрал худших — через неделю они вырастут сами. Отобрал лучших — просядут.</li><li>Это регрессия к среднему (regression to the mean): невезение кончается само.</li><li>Чтобы проверить промо для худших, нужна контрольная группа из таких же худших: половине промо, половине нет — по монетке.</li></ul>
+      <ul class="cheat"><li>Отобрал худших — через неделю они вырастут сами. Отобрал лучших — просядут.</li><li>Это регрессия к среднему (regression to the mean): невезение кончается само.</li><li>Чтобы проверить промо для худших, нужна контрольная группа из таких же худших: половине промо, половине нет — по монетке.</li></ul>
     </div>
   </section>
 

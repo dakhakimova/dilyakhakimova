@@ -31,18 +31,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -52,7 +52,7 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="catch-mu" data-frame="/signal/07-clt.html?toy=catch-mu"
-  data-share-title="Вилка «95%» из одной выборки. Как часто она накрывает правду?" data-share-text="Продакт пишет в отчёте: «с вероятностью 95% средний чек от 410 до 564 ₽». Что на самом деле значат эти 95%? Угадай, сколько таких вилок из 1000 накроют правду, и проверь"
+  data-share-title="Вилка «95%» из одной выборки. Как часто она накрывает правду?" data-share-text="Продакт пишет в отчёте: «с вероятностью 95% средний чек от 410 до 564 ₽». Что на самом деле значат эти 95%? Угадай, сколько таких вилок из 1000 накроют правду, и проверь"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="catch-mu" data-show-from="0" hidden></span></p>
   <h1>Вилка «95%» из одной выборки. Как часто она накрывает правду?</h1>
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/07-clt.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Нажми «+1000». Какая доля вилок накрыла 500 ₽ при n = 100?</li><li>Поставь n = 10. Вилки накрывают так же часто?</li><li>Во второй картинке нажми «+100 экспериментов» и «Показать правду». Как часто правда гаснет?</li></ol>
+    <ol class="tries"><li>Нажми «+1000». Какая доля вилок накрыла 500 ₽ при n = 100?</li><li>Поставь n = 10. Вилки накрывают так же часто?</li><li>Во второй картинке нажми «+100 экспериментов» и «Показать правду». Как часто правда гаснет?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>При n = 100 вилки «95%» накрывают 500 ₽ примерно в 94–95 случаях из 100. Это свойство способа, а не одной вилки: отдельная вилка либо накрыла правду, либо нет. Правда гаснет ровно тогда, когда среднее выборки попало в хвост её собственного колокола, — а туда попадают 5% выборок. При n = 10 на скошенных чеках вилки накрывают реже, около 89 из 100: оценка разброса сама шумит.</p>
+      <p>При n = 100 вилки «95%» накрывают 500 ₽ примерно в 94–95 случаях из 100. Это свойство способа, а не одной вилки: отдельная вилка либо накрыла правду, либо нет. Правда гаснет ровно тогда, когда среднее выборки попало в хвост её собственного колокола, — а туда попадают 5% выборок. При n = 10 на скошенных чеках вилки накрывают реже, около 89 из 100: оценка разброса сама шумит.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Вилка для среднего: x̄ ± 1.96 · s/√n.</li><li>«95%» — доля накрытий у способа, а не вероятность для одной вилки.</li><li>Вилка — все кандидаты μ₀, с которыми выборка не спорит.</li><li>Мало данных и скошенные значения — вилка накрывает реже обещанного.</li><li>Уровни: 90% — z = 1.645, 95% — 1.96, 99% — 2.576.</li></ul>
+      <ul class="cheat"><li>Вилка для среднего: x̄ ± 1.96 · s/√n.</li><li>«95%» — доля накрытий у способа, а не вероятность для одной вилки.</li><li>Вилка — все кандидаты μ₀, с которыми выборка не спорит.</li><li>Мало данных и скошенные значения — вилка накрывает реже обещанного.</li><li>Уровни: 90% — z = 1.645, 95% — 1.96, 99% — 2.576.</li></ul>
     </div>
   </section>
 

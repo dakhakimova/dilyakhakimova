@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,13 +61,13 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Сплит 50 на 50. Значит, из 1000 гостей в тесте будет ровно 500 — иначе платформа сломалась.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Хеш раздаёт ячейки как монетка. А тысяча бросков монетки ровно 500 орлов даёт нечасто.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Пропущу через хеш тысячу гостей. А завтра придут новые — посмотрим, не перебегут ли старые.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Пропущу через хеш тысячу гостей. А завтра придут новые — посмотрим, не перебегут ли старые.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши догадку: сколько гостей окажется в тесте? И какой разброс ещё нормален, а какой — повод искать поломку?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Хеш превращает id каждого гостя в ячейку от 0 до 99: ячейки 0–49 — контроль, 50–99 — тест. Каждая точка — гость, цвет — его группа. Ползунок меняет сплит, например 30 / 70.</p><p>Запиши догадку и нажми «Разложить 1000 гостей». «Наступило завтра» добавит новых гостей — проверь, сменил ли группу кто-то из старых. «Повторить 100 раз» покажет, как гуляет число гостей в тесте от раза к разу.</p></div>
+    <div class="what-body"><p>Хеш превращает id каждого гостя в ячейку от 0 до 99: ячейки 0–49 — контроль, 50–99 — тест. Каждая точка — гость, цвет — его группа. Ползунок меняет сплит, например 30 / 70.</p><p>Запиши догадку и нажми «Разложить 1000 гостей». «Наступило завтра» добавит новых гостей — проверь, сменил ли группу кто-то из старых. «Повторить 100 раз» покажет, как гуляет число гостей в тесте от раза к разу.</p></div>
     <figure class="art"><img src="/play/img/hash-thousand.jpg" alt="длинная очередь гостей проходит через хеш-машину Котейки и выходит с синими и оранжевыми жетонами в две корзины, Боб пытается пересчитать, Алиса спокойно наблюдает" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,13 +76,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/02-salt-hash.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Запиши догадку и разложи 1000 гостей. Сколько вышло в тесте?</li><li>Нажми «Наступило завтра». Сколько старых гостей сменили группу?</li><li>Нажми «Повторить 100 раз». В каких пределах обычно бывает число гостей в тесте?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Ровно 500 почти никогда не выходит: хеш раздаёт ячейки как монетка, и в тесте оказывается то чуть больше, то чуть меньше. За 100 повторов по 1000 гостей в 90 случаях из 100 в тесте было примерно от 475 до 527. Это нормальный разброс, а не поломка. А назавтра ни один старый гость группу не сменил: хеш от id не меняется.</p>
+      <p>Ровно 500 почти никогда не выходит: хеш раздаёт ячейки как монетка, и в тесте оказывается то чуть больше, то чуть меньше. За 100 повторов по 1000 гостей в 90 случаях из 100 в тесте было примерно от 475 до 527. Это нормальный разброс, а не поломка. А назавтра ни один старый гость группу не сменил: хеш от id не меняется.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>На 1000 гостей при сплите 50 / 50 отклонение от 500 на 20–25 человек — нормально.</li><li>Чем больше гостей, тем меньше разброс в долях: на 100 000 перекос даже в один процент — повод проверить.</li><li>Новые гости добавляются, старые остаются в своих группах.</li><li>Слишком большой перекос групп называют SRM (sample ratio mismatch) — это признак поломки.</li></ul>
     </div>

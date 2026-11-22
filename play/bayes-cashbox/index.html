@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,14 +61,14 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Поставили новую кассу с детектором. Точность 99%! Раз пискнула — почти наверняка фальшивка, звоню в полицию.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подожди. А сколько вообще фальшивок нам приносят? По данным банка — примерно одну на тысячу купюр.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Какая разница? Касса же точная.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Какая разница? Касса же точная.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">У меня в мешке как раз тысяча купюр. Пропустим через кассу?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сначала запиши, сколько из ста писков окажутся настоящими фальшивками.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая клетка — купюра. Фальшивок среди них одна на тысячу. Касса ловит 99% фальшивок, но и на настоящие изредка пищит зря — примерно на одну из ста. Цвет клетки показывает, что случилось: пойманная фальшивка, ложная тревога, пропущенная фальшивка или настоящая купюра, на которую касса промолчала.</p><p>Запиши догадку, пропусти тысячу купюр, а потом ещё сто пачек — писков станет много, и доля успокоится. Надень рамку «Только писки»: внутри останутся все тревоги, и видно, какая их доля — правда. В «Подвигать кассу» можно поменять долю фальшивок и точность кассы.</p></div>
+    <div class="what-body"><p>Каждая клетка — купюра. Фальшивок среди них одна на тысячу. Касса ловит 99% фальшивок, но и на настоящие изредка пищит зря — примерно на одну из ста. Цвет клетки показывает, что случилось: пойманная фальшивка, ложная тревога, пропущенная фальшивка или настоящая купюра, на которую касса промолчала.</p><p>Запиши догадку, пропусти тысячу купюр, а потом ещё сто пачек — писков станет много, и доля успокоится. Надень рамку «Только писки»: внутри останутся все тревоги, и видно, какая их доля — правда. В «Подвигать кассу» можно поменять долю фальшивок и точность кассы.</p></div>
     <figure class="art"><img src="/probability/img/vp06-00-cashbox.jpg" alt="Касса в кафе мигает и пищит, Боб хватается за голову, Алиса спокойно рассматривает купюру на свет" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/06-bayes.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Запиши догадку, нажми «Пропустить 1000 купюр», потом «Ещё 100 пачек по 1000». Какая доля фальшивок среди писков?</li><li>Нажми «Только писки». Чего в рамке больше — пойманных фальшивок или ложных тревог?</li><li>Открой «Подвигать кассу» и подними долю фальшивок. Что стало с долей правдивых писков?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Среди писков фальшивок всего около 9%. На 100 000 купюр приходится 100 фальшивок, и касса ловит 99 из них. Но из 99 900 настоящих она пищит зря на 999. Писков всего 1098, правдивых из них 99. Касса не плохая: на фальшивку она пищит в 99 раз чаще, чем на настоящую. Просто настоящих купюр в 999 раз больше. Без базы — доли фальшивок до всякой проверки — писк сам по себе почти ничего не говорит.</p>
+      <p>Среди писков фальшивок всего около 9%. На 100 000 купюр приходится 100 фальшивок, и касса ловит 99 из них. Но из 99 900 настоящих она пищит зря на 999. Писков всего 1098, правдивых из них 99. Касса не плохая: на фальшивку она пищит в 99 раз чаще, чем на настоящую. Просто настоящих купюр в 999 раз больше. Без базы — доли фальшивок до всякой проверки — писк сам по себе почти ничего не говорит.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Сначала база, потом сигнал: какая доля фальшивок была до писка?</li><li>Формула Байеса: P(H | E) = P(E | H) · P(H) / P(E).</li><li>Считай в штуках: 100 000 купюр → 100 фальшивых → 99 писков; 99 900 настоящих → 999 писков.</li><li>Редкое событие плюс неидеальная проверка — и большинство тревог ложные.</li></ul>
     </div>

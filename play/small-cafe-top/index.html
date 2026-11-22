@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -62,8 +62,8 @@
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Составил рейтинг 40 кафе сети по конверсии за неделю. В топе три маленьких кафе у вокзала. Переносим их меню во все!</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А кто внизу рейтинга?</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тоже какие-то маленькие. Плохо работают, надо разбираться.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я в каждом кафе бросаю монетку за каждого гостя — закажет или нет. Монетка везде одна и та же.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай представим, что у всех кафе конверсия ровно 10%, и посмотрим, кто попадёт в топ.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я в каждом кафе бросаю монетку за каждого гостя — закажет или нет. Монетка везде одна и та же.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай представим, что у всех кафе конверсия ровно 10%, и посмотрим, кто попадёт в топ.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/04-noise.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Нажми «Новая неделя» несколько раз. Сколько гостей у кафе на трёх первых местах?</li><li>А у трёх последних?</li><li>Есть ли кафе, которое вышло за воронку?</li></ol>
+    <ol class="tries"><li>Нажми «Новая неделя» несколько раз. Сколько гостей у кафе на трёх первых местах?</li><li>А у трёх последних?</li><li>Есть ли кафе, которое вышло за воронку?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В топе и на дне почти всегда кафе с несколькими десятками или сотнями гостей, хотя у всех конверсия ровно 10%. Маленькая выборка скачет сильнее: при 50 гостях SD доли около 4 п. п., при 5000 — 0.4 п. п. Поэтому края рейтинга достаются маленьким. Такая картинка называется воронкой: коридор шума сужается с ростом числа гостей. Честно сравнивать — значит смотреть, вышла ли точка за воронку, а не на место в рейтинге.</p>
+      <p>В топе и на дне почти всегда кафе с несколькими десятками или сотнями гостей, хотя у всех конверсия ровно 10%. Маленькая выборка скачет сильнее: при 50 гостях SD доли около 4 п. п., при 5000 — 0.4 п. п. Поэтому края рейтинга достаются маленьким. Такая картинка называется воронкой: коридор шума сужается с ростом числа гостей. Честно сравнивать — значит смотреть, вышла ли точка за воронку, а не на место в рейтинге.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Рейтинг по доле на разном числе гостей ставит маленьких на оба края — из-за шума.</li><li>SD доли = √(p(1 − p)/n): при 50 гостях — 4.2 п. п., при 5000 — 0.4 п. п.</li><li>Воронка (funnel plot): точка за коридором ±2 SD — повод разбираться, внутри — шум.</li><li>Перед переносом «лучших практик» проверь, не маленькая ли выборка у лидера.</li></ul>
+      <ul class="cheat"><li>Рейтинг по доле на разном числе гостей ставит маленьких на оба края — из-за шума.</li><li>SD доли = √(p(1 − p)/n): при 50 гостях — 4.2 п. п., при 5000 — 0.4 п. п.</li><li>Воронка (funnel plot): точка за коридором ±2 SD — повод разбираться, внутри — шум.</li><li>Перед переносом «лучших практик» проверь, не маленькая ли выборка у лидера.</li></ul>
     </div>
   </section>
 

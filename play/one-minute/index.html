@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -62,13 +62,13 @@
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Гость самовывоза пожаловался: заказ был готов на минуту позже обещанного. А доставка опаздывает на пять минут — и никто не жалуется. Странные гости.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Минута — это много или мало? Смотря с чем сравнивать.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Кофе на вынос у нас готов почти секунда в секунду, а курьер то в пробке, то на зелёной волне.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Положим оба разброса на одну ось и посмотрим, какая доля заказов укладывается в одно и то же окно.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Положим оба разброса на одну ось и посмотрим, какая доля заказов укладывается в одно и то же окно.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
     <div class="what-body"><p>Узкий колокол — самовывоз: заказ готов к обещанному времени с разбросом σ = 0.6 минуты. Широкий — доставка, σ = 4 минуты. По горизонтали — отклонение от обещанного времени.</p><p>Окно — «отклонение не больше чем на столько-то минут». Числа под графиком показывают, какая доля самовывозов и доставок в него попадает. Двигай окно.</p></div>
-    <figure class="art"><img src="/play/img/one-minute.jpg" alt="у стойки самовывоза гость недовольно показывает на часы, а за окном курьер на велосипеде спокойно подъезжает с опозданием, и гость доставки машет ему без обиды" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+    <figure class="art"><img src="/play/img/one-minute.jpg" alt="у стойки самовывоза гость недовольно показывает на часы, а за окном курьер на велосипеде спокойно подъезжает с опозданием, и гость доставки машет ему без обиды" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/05-normal.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Оставь окно ±1.2 минуты. Какая доля самовывозов и доставок в нём?</li><li>Расширь окно до 6 минут. Доставки догнали самовывоз?</li><li>Посмотри на высоту колоколов. Почему широкий ниже узкого?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Окно ±1.2 минуты — это ±2σ для самовывоза и всего ±0.3σ для доставки: в него попадает около 95% самовывозов и лишь около 24% доставок. Поэтому одно и то же опоздание на минуту — ЧП для самовывоза и пустяк для доставки. Широкий колокол ниже узкого, потому что площадь у обоих одна — единица.</p>
+      <p>Окно ±1.2 минуты — это ±2σ для самовывоза и всего ±0.3σ для доставки: в него попадает около 95% самовывозов и лишь около 24% доставок. Поэтому одно и то же опоздание на минуту — ЧП для самовывоза и пустяк для доставки. Широкий колокол ниже узкого, потому что площадь у обоих одна — единица.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Отклонение меряют в сигмах своего процесса, а не в минутах.</li><li>z = отклонение / σ: минута — это 1.7σ для самовывоза и 0.25σ для доставки.</li><li>Площадь под любым колоколом — 1: шире — значит ниже.</li><li>Один порог тревоги на два процесса с разным разбросом — ловушка.</li></ul>
+      <ul class="cheat"><li>Отклонение меряют в сигмах своего процесса, а не в минутах.</li><li>z = отклонение / σ: минута — это 1.7σ для самовывоза и 0.25σ для доставки.</li><li>Площадь под любым колоколом — 1: шире — значит ниже.</li><li>Один порог тревоги на два процесса с разным разбросом — ловушка.</li></ul>
     </div>
   </section>
 

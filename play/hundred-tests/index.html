@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,7 +60,7 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За год проверили 100 идей недельными тестами. У меня правило: тест серый — идею закрываем навсегда. Не работает так не работает.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Большинство идей и правда ничего не меняют. Пусть 80 из 100 пустые, а у 20 настоящий эффект +3%.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Большинство идей и правда ничего не меняют. Пусть 80 из 100 пустые, а у 20 настоящий эффект +3%.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Какие из них хорошие, знаю только я. Покажу в самом конце.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку: сколько хороших идей из 20 Боб закроет по своему правилу?</p></div></div>
   </div>
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/08-errors.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Сделай ставку, запусти 100 экспериментов и нажми «Показать правду». Сколько хороших идей осталось серыми?</li><li>Поставь длину 28 дней и повтори. Сколько хороших закрыли теперь?</li><li>Сравни ложные тревоги у пустых идей при 7 и 28 днях. Изменились?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>При недельных тестах из 20 хороших идей серыми остаются в среднем 11 — больше половины. Эффект +3% настоящий, но тест длиной 7 дней замечает его только в 46% случаев. По правилу Боба все эти идеи закрыты навсегда. При 28 днях закрытых хороших почти нет — меньше одной из 20, а ложных тревог у пустых идей при любой длине около 4 из 80. Серый тест значит «не разглядели», а не «не работает».</p>
+      <p>При недельных тестах из 20 хороших идей серыми остаются в среднем 11 — больше половины. Эффект +3% настоящий, но тест длиной 7 дней замечает его только в 46% случаев. По правилу Боба все эти идеи закрыты навсегда. При 28 днях закрытых хороших почти нет — меньше одной из 20, а ложных тревог у пустых идей при любой длине около 4 из 80. Серый тест значит «не разглядели», а не «не работает».</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Ложная тревога — выкатили пустышку; пропуск — выбросили работающую фичу.</li><li>Пропуски зависят от длины теста и трафика: короткий тест слеп к небольшим эффектам.</li><li>Ложные тревоги задаёт порог: 5% пустых идей «побеждают» при любой длине.</li><li>Серый тест — не приговор: посмотри на вилку и на мощность, прежде чем закрывать идею.</li></ul>
+      <ul class="cheat"><li>Ложная тревога — выкатили пустышку; пропуск — выбросили работающую фичу.</li><li>Пропуски зависят от длины теста и трафика: короткий тест слеп к небольшим эффектам.</li><li>Ложные тревоги задаёт порог: 5% пустых идей «побеждают» при любой длине.</li><li>Серый тест — не приговор: посмотри на вилку и на мощность, прежде чем закрывать идею.</li></ul>
     </div>
   </section>
 

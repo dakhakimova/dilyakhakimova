@@ -11,7 +11,7 @@
 }
 .choice{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
 .choice button{font:500 15px/1.3 var(--body); padding:10px 14px; border-radius:10px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); cursor:pointer; text-align:left}
-.choice button:hover{border-color:var(--ink)}
+.choice button:hover:not(:disabled){border-color:var(--ink)}
 .choice button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
 .choice button.right{background:var(--truth-bg); border-color:var(--truth); color:var(--ink)}
 .choice button.wrong{background:var(--trap-bg); border-color:var(--trap); color:var(--ink)}
@@ -25,8 +25,8 @@
 .big2 .ctrl b{color:var(--ctrl)} .big2 .test b{color:var(--test-ink)} .big2 .truth b{color:var(--truth)} .big2 .trap b{color:var(--trap-ink)}
 .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0}
 .tiles button{all:unset; box-sizing:border-box; cursor:pointer; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.4; min-height:88px}
-.tiles button:hover{border-color:var(--ink)}
-.tiles button:focus-visible{outline:2px solid var(--accent)}
+.tiles button:hover:not(:disabled){border-color:var(--ink)}
+.tiles button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .tiles button b{display:block; font:500 17px/1.3 var(--serif); margin-bottom:4px}
 .tiles button span{display:none; color:var(--muted)}
 .tiles button[aria-expanded="true"]{background:var(--butter)}
@@ -88,7 +88,7 @@
 .grp-pill.test{background:var(--test-bg); color:#9A4F1C}
 .twoinputs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0}
 .twoinputs label{display:flex; flex-direction:column; gap:4px; font-size:14px; color:var(--muted)}
-.twoinputs input{font:500 16px/1.2 ui-monospace, Menlo, Consolas, monospace; padding:8px 10px; border:1px solid rgba(36,34,31,.3); border-radius:8px; background:#fff; color:var(--ink); width:100%; box-sizing:border-box}
+.twoinputs input{font:500 16px/1.2 ui-monospace, Menlo, Consolas, monospace; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff; color:var(--ink); width:100%; box-sizing:border-box}
 .daysrow{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:6px 0 10px}
 .daysrow b{font:500 15px/1.3 var(--body); flex:0 0 250px}
 .daysrow span{width:36px; height:36px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font:600 12px/1 var(--body); color:#fff}
@@ -214,7 +214,7 @@
 .slot-btns{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 10px}
 .slot-b{font:600 16px/1 var(--body); padding:16px 22px; border-radius:14px; border:2px solid var(--ink); background:#F8F0D9; color:var(--ink); cursor:pointer; min-width:96px}
 .slot-b:active{transform:translateY(2px)}
-.slot-b:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.slot-b:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .slot-log{display:flex; flex-wrap:wrap; gap:4px; min-height:26px}
 .slot-log span{width:22px; height:22px; border-radius:6px; background:#F4F3F0; color:var(--muted); font:600 11px/22px var(--body); text-align:center}
 .slot-log span.w{background:var(--truth); color:#fff}
@@ -236,7 +236,7 @@
 ol.rep-list{counter-reset:r} ol.rep-list li{counter-increment:r} ol.rep-list li::before{content:counter(r); font-weight:600; color:var(--muted); margin-right:4px}
 .rep-app li{background:#F4F3F0; color:var(--muted)}
 button.mini{border:1px solid rgba(36,34,31,.25); background:#fff; border-radius:999px; width:30px; height:30px; cursor:pointer; font-size:14px; line-height:1}
-button.mini:focus-visible{outline:2px solid var(--accent)}
+button.mini:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 @media (max-width:620px){ .rep-cols{grid-template-columns:1fr} .rep-item{flex-direction:column; align-items:flex-start} }
 @media (max-width:620px){ .rep-list li{flex-wrap:wrap} .rep-list li > span:first-child{flex:1 1 100%} .rep-list li .rep-btns{margin-left:auto} }
 
@@ -335,10 +335,10 @@ details.ivw .lvl-tag{display:inline-block; margin-left:6px; font:600 11px/1 var(
 .quiz .choice{flex-direction:column; align-items:stretch; max-width:36em; margin:0}
 .choice button{position:relative; min-height:48px; padding:12px 16px; font:400 16px/1.4 var(--body); color:var(--ink); background:#fff;
   border:1px solid var(--line-strong, #CFC8BB); border-radius:12px; text-align:left; transition:background-color .15s, border-color .15s, box-shadow .15s}
-.choice button:hover{border-color:#A9A194; background:#FBFAF7}
-.choice button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.choice button:hover:not(:disabled){border-color:#A9A194; background:#FBFAF7}
+.choice button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .choice button[aria-pressed="true"], .choice button.picked{outline:0; border-color:var(--pen); box-shadow:inset 0 0 0 1px var(--pen); background:#F3F6FC; color:var(--ink)}
-.choice button.picked:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.choice button.picked:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .choice button.right, .choice button.wrong{padding-left:44px}
 .choice button.right{background:var(--truth-bg); border-color:var(--truth); box-shadow:inset 0 0 0 1px var(--truth)}
 .choice button.wrong{background:var(--trap-bg); border-color:var(--trap); box-shadow:inset 0 0 0 1px var(--trap)}

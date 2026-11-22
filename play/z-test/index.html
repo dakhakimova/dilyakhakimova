@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,15 +60,15 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Два дня теста кнопки «Повторить заказ». Контроль: 2000 заказов на 20 000 заходов. С кнопкой: 2130 на 20 000. Плюс 0.65 заказа на 100 гостей! Катим?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Разница между группами бывает всегда, даже когда обе видят одно и то же. Вопрос, насколько наша больше обычного шума.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Разница между группами бывает всегда, даже когда обе видят одно и то же. Вопрос, насколько наша больше обычного шума.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. В моём мире кнопка ничего не делает. Но разница у меня тоже бывает — я же шумлю.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И как часто у тебя выходит плюс 0.65?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Насыплем тысячу A/A с такими же группами и посчитаем.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И как часто у тебя выходит плюс 0.65?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Насыплем тысячу A/A с такими же группами и посчитаем.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Колокол — разницы, которые даёт мир без эффекта: A/A-тесты с такими же группами по 20 000 гостей. Флажок — наша разница. Пунктир — порог «значимо» при 5%. Красным закрашены A/A, где разница не меньше нашей в любую сторону: их доля и есть p-value.</p><p>Снизу — 95%-й интервал разницы: какие эффекты не спорят с данными. Сначала сделай ставку, потом насыпь A/A. Числа теста можно поменять, а кнопка «Две кофейни» покажет тот же расчёт на маленьких группах по 100 гостей.</p></div>
+    <div class="what-body"><p>Колокол — разницы, которые даёт мир без эффекта: A/A-тесты с такими же группами по 20 000 гостей. Флажок — наша разница. Пунктир — порог «значимо» при 5%. Красным закрашены A/A, где разница не меньше нашей в любую сторону: их доля и есть p-value.</p><p>Снизу — 95%-й интервал разницы: какие эффекты не спорят с данными. Сначала сделай ставку, потом насыпь A/A. Числа теста можно поменять, а кнопка «Две кофейни» покажет тот же расчёт на маленьких группах по 100 гостей.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab07-01-bob-result.jpg" alt="Боб показывает Алисе телефон с результатом теста, Алиса держит стопку одинаковых карточек" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,7 +77,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/10-ab-test.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Сделай ставку и нажми «Насыпать 1000 A/A». Сколько точек покраснело?</li><li>Нажми «Две кофейни: 74 и 83 из 100» и снова насыпь A/A. Разница больше — а сигнал?</li><li>Поменяй заказы в тесте на 2060. Где теперь флажок и интервал?</li></ol>

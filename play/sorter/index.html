@@ -31,18 +31,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -58,16 +58,16 @@
   <h1>Дождь меняет шанс, что гость закажет горячий шоколад?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За месяц пришли 1000 гостей, горячий шоколад взяли 190. Это 19%. Погода тут ни при чём, это просто вкус.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">За месяц пришли 1000 гостей, горячий шоколад взяли 190. Это 19%. Погода тут ни при чём, это просто вкус.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Девятнадцать процентов — среди всех. 300 гостей пришли в дождь, 700 — в солнце. А если смотреть только на тех, кто пришёл в дождь?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Будут те же 19%. Ну, может, чуть больше.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Будут те же 19%. Ну, может, чуть больше.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Я рассортирую гостей по погоде и заказу. А ты надевай рамку.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запиши, какая доля дождевых гостей взяла шоколад, и проверим.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая точка — гость. Кнопка «Рассортировать» раскладывает их по погоде (дождь или солнце) и по заказу. Рамка «Только дождь» оставляет мир, где все пришли в дождь: остальные гаснут, и доля считается заново, только внутри рамки. Доля внутри рамки и есть условная вероятность.</p><p>Запиши догадку, рассортируй гостей и надень рамку «Только дождь», потом «Только солнце». Переключись на «Десерт» и повтори: меняет ли дождь и его?</p></div>
+    <div class="what-body"><p>Каждая точка — гость. Кнопка «Рассортировать» раскладывает их по погоде (дождь или солнце) и по заказу. Рамка «Только дождь» оставляет мир, где все пришли в дождь: остальные гаснут, и доля считается заново, только внутри рамки. Доля внутри рамки и есть условная вероятность.</p><p>Запиши догадку, рассортируй гостей и надень рамку «Только дождь», потом «Только солнце». Переключись на «Десерт» и повтори: меняет ли дождь и его?</p></div>
     <figure class="art"><img src="/probability/img/vp05-00-rain.jpg" alt="Кафе в дождливый день: за окном ливень, у окна гости греют руки о кружки с горячим шоколадом" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/05-conditional.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Рассортировать» и «Только дождь». Какая доля шоколада в рамке?</li><li>Переключи рамку на «Только солнце». Во сколько раз доля ниже?</li><li>Выбери «Десерт» и сравни дождь с солнцем. Погода что-то меняет?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В рамке «дождь» 300 гостей, шоколад взяли 120 — это 40%, вдвое больше, чем 19% среди всех. В солнце — 70 из 700, всего 10%. Значит, шоколад зависит от погоды. А десерт берут 25% гостей и в дождь, и в солнце: рамка ничего не меняет, десерт от погоды не зависит. Условие сужает мир, и в новом мире долю считают заново.</p>
+      <p>В рамке «дождь» 300 гостей, шоколад взяли 120 — это 40%, вдвое больше, чем 19% среди всех. В солнце — 70 из 700, всего 10%. Значит, шоколад зависит от погоды. А десерт берут 25% гостей и в дождь, и в солнце: рамка ничего не меняет, десерт от погоды не зависит. Условие сужает мир, и в новом мире долю считают заново.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>P(A | B) — доля A внутри рамки B: P(A и B) / P(B).</li><li>Шоколад: 19% среди всех, 40% в дождь, 10% в солнце — зависит от погоды.</li><li>Независимость: рамка не меняет долю. Десерт — 25% и в дождь, и в солнце.</li><li>Рамка «только с шоколадом» — другой мир: доля дождевых гостей в ней своя.</li></ul>
+      <ul class="cheat"><li>P(A | B) — доля A внутри рамки B: P(A и B) / P(B).</li><li>Шоколад: 19% среди всех, 40% в дождь, 10% в солнце — зависит от погоды.</li><li>Независимость: рамка не меняет долю. Десерт — 25% и в дождь, и в солнце.</li><li>Рамка «только с шоколадом» — другой мир: доля дождевых гостей в ней своя.</li></ul>
     </div>
   </section>
 

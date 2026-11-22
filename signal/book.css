@@ -17,7 +17,7 @@ html,body{margin:0}
 body{background-color:var(--desk); background-image:radial-gradient(var(--dot) 1px, transparent 1.2px); background-size:18px 18px;
   color:var(--ink); font:400 18px/1.65 var(--body)}
 a{color:var(--pen); text-underline-offset:3px}
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 
 .top{max-width:1080px; margin:0 auto; padding:20px 28px 0; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:15px}
 .top a{color:var(--muted); text-decoration:none}
@@ -75,7 +75,7 @@ button.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,
 button.btn:disabled{opacity:.5; cursor:default}
 label.field{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:16px}
 input[type=range]{accent-color:var(--pen); width:220px}
-input[type=number]{font:500 18px/1 var(--body); width:90px; padding:8px 10px; border:1px solid rgba(36,34,31,.3); border-radius:8px; background:#fff}
+input[type=number]{font:500 18px/1 var(--body); width:90px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff}
 .readout{font:400 34px/1.1 var(--script); color:var(--pen)}
 .verdict{margin-top:10px; padding:12px 14px; background:rgba(255,255,255,.7); border-radius:8px}
 .verdict.good{border-left:4px solid var(--good)} .verdict.bad{border-left:4px solid var(--accent)}
@@ -148,8 +148,8 @@ body{background:#FAF8F4; background-image:none}
 .toc-side h2{font:500 13px/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:6px 0 10px}
 .toc-side ol{list-style:none; margin:0; padding:0; counter-reset:c}
 .toc-side li button{all:unset; box-sizing:border-box; display:grid; grid-template-columns:24px 1fr; gap:6px; width:100%; padding:7px 8px; border-radius:8px; cursor:pointer; color:var(--muted); line-height:1.35}
-.toc-side li button:hover{background:#fff; color:var(--ink)}
-.toc-side li button:focus-visible{outline:2px solid var(--accent)}
+.toc-side li button:hover:not(:disabled){background:#fff; color:var(--ink)}
+.toc-side li button:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .toc-side li.done button{color:var(--ink)}
 .toc-side li.done button .i::before{content:"✓"; color:var(--good)}
 .toc-side li.cur button{background:#fff; color:var(--ink); box-shadow:inset 3px 0 0 var(--accent)}
@@ -296,5 +296,9 @@ p code, li code, .qfb code, .note code, .choice code{font-size:.88em}
 .guess-row{display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px 12px}
 .guess-row .controls{margin:0}
 span.field{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:16px}
-input.guess-in{font:500 18px/1 var(--body); width:96px; min-height:44px; padding:8px 10px; border:1px solid rgba(36,34,31,.3); border-radius:8px; background:#fff; color:var(--ink); box-sizing:border-box}
+input.guess-in{font:500 18px/1 var(--body); width:96px; min-height:44px; padding:8px 10px; border:1px solid #857D70; border-radius:8px; background:#fff; color:var(--ink); box-sizing:border-box}
 .jarrow .field input.guess-in{width:110px}
+
+/* Графики (гайд, пары 42–58): подпись над каждым холстом, до кнопок не меньше 16 px */
+.chart-title:not(:first-child){margin-top:var(--s-4)}
+canvas + .controls, .tipwrap + .controls, canvas + .legend-row, .tipwrap + .legend-row, .legend-row + .controls, canvas + .rowbtns{margin-top:var(--s-4)}

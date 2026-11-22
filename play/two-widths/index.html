@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,9 +60,9 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ширину колокола мы мерить научились. Для выборок по 1000 человек она около 0.075 заказа.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И что мне с этой шириной делать? Число как число.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">И что мне с этой шириной делать? Число как число.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Отложим от правды по две ширины в каждую сторону — получится полоса примерно от 0.85 до 1.15 заказа.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я накидаю тысячу средних. Посмотрим, сколько из них упадёт в полосу.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я накидаю тысячу средних. Посмотрим, сколько из них упадёт в полосу.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
@@ -76,13 +76,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/05-bell-width.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Сделай ставку и нажми «Насыпать 1000 средних». Сколько попало в полосу?</li><li>Покажи полосу в одну ширину. Какая доля средних внутри неё?</li><li>Насыпь ещё раз. Сильно ли меняются доли?</li></ol>
+    <ol class="tries"><li>Сделай ставку и нажми «Насыпать 1000 средних». Сколько попало в полосу?</li><li>Покажи полосу в одну ширину. Какая доля средних внутри неё?</li><li>Насыпь ещё раз. Сильно ли меняются доли?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В полосу ± 2 ширины попадает около 95% средних — в одном из запусков 954 из 1000. Снаружи остаются редкие 5%, по краям. В полосу в одну ширину — около двух третей, в том же запуске 669. Это правило двух ширин: среднее в 95 случаях из 100 лежит не дальше двух ширин колокола от правды. На нём держатся и доверительный интервал, и «значимо».</p>
+      <p>В полосу ± 2 ширины попадает около 95% средних — в одном из запусков 954 из 1000. Снаружи остаются редкие 5%, по краям. В полосу в одну ширину — около двух третей, в том же запуске 669. Это правило двух ширин: среднее в 95 случаях из 100 лежит не дальше двух ширин колокола от правды. На нём держатся и доверительный интервал, и «значимо».</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>± 1 ширина колокола — около 68% средних, ± 2 ширины — около 95%.</li><li>Правило двух ширин: среднее почти всегда не дальше двух ширин от правды.</li><li>Если доля 50% и людей 1000, в 95 случаях из 100 увидишь от 47 до 53%.</li><li>На этом правиле стоят доверительный интервал и p-value.</li></ul>
     </div>

@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/08-mean-spread.html#card-8">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Сделай ставку и покупай обеды по одному. Сколько обедов ушло на последнюю наклейку?</li><li>Нажми «1000 альбомов». Сколько обедов нужно в среднем?</li><li>Посмотри на хвост: как часто альбом стоит 20 обедов и больше?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В среднем нужно 14.7 обеда, у половины гостей — не больше 13, а примерно каждому пятому-шестому — 20 и больше. Первая наклейка новая всегда, вторая — с шансом 5 из 6, а последняя — только 1 из 6: её ждут в среднем 6 обедов, почти столько же, сколько первые четыре вместе. Складываем ожидания: 1 + 1.2 + 1.5 + 2 + 3 + 6 = 14.7.</p>
+      <p>В среднем нужно 14.7 обеда, у половины гостей — не больше 13, а примерно каждому пятому-шестому — 20 и больше. Первая наклейка новая всегда, вторая — с шансом 5 из 6, а последняя — только 1 из 6: её ждут в среднем 6 обедов, почти столько же, сколько первые четыре вместе. Складываем ожидания: 1 + 1.2 + 1.5 + 2 + 3 + 6 = 14.7.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Ждать события с шансом p — в среднем 1 / p попыток.</li><li>Альбом из n наклеек: в среднем n · (1 + 1/2 + … + 1/n) обедов. Для шести — 14.7.</li><li>Последние наклейки самые дорогие: последняя из шести стоит в среднем 6 обедов.</li><li>Это задача о сборщике купонов, coupon collector.</li></ul>
     </div>

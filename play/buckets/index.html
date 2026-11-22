@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/04-clt.html?toy=buckets" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Эксперимент один. Как платформа узнаёт, насколько шатается среднее? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Двадцать тысяч гостей по 256 корзинам: как из одной группы получить сотни «маленьких экспериментов» и увидеть шум.">
+<meta name="description" content="Двадцать тысяч гостей по 256 корзинам: как из одной группы получить сотни «маленьких экспериментов» и увидеть шум.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/buckets/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/buckets/">
 <meta property="og:title" content="Эксперимент один. Как платформа узнаёт, насколько шатается среднее? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Двадцать тысяч гостей по 256 корзинам: как из одной группы получить сотни «маленьких экспериментов» и увидеть шум.">
+<meta property="og:description" content="Двадцать тысяч гостей по 256 корзинам: как из одной группы получить сотни «маленьких экспериментов» и увидеть шум.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/buckets.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,14 +60,14 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Хорошо, средние по толпе ложатся колоколом. Но эксперимент-то у меня один! Откуда взять пятьсот выборок?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Из той же группы. Разложим её гостей по корзинам и посчитаем среднее в каждой.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Корзины я люблю. Раскладываю тем же хешем от номера гостя — каждый попадает в свою.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Из той же группы. Разложим её гостей по корзинам и посчитаем среднее в каждой.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Корзины я люблю. Раскладываю тем же хешем от номера гостя — каждый попадает в свою.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Получится 256 маленьких экспериментов. Посмотрим, насколько разбегутся их средние.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>В группе 20 000 гостей. Платформа раскладывает их по 256 корзинам тем же хешем от id и считает среднее число заказов в каждой корзине — около 78 гостей на корзину. Гистограмма — средние по корзинам.</p><p>Под гистограммой — среднее по всей группе и разброс между корзинами. Нажми «Новая группа», чтобы набрать других гостей, и посмотри, что меняется, а что нет.</p></div>
+    <div class="what-body"><p>В группе 20 000 гостей. Платформа раскладывает их по 256 корзинам тем же хешем от id и считает среднее число заказов в каждой корзине — около 78 гостей на корзину. Гистограмма — средние по корзинам.</p><p>Под гистограммой — среднее по всей группе и разброс между корзинами. Нажми «Новая группа», чтобы набрать других гостей, и посмотри, что меняется, а что нет.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab04-02-baskets.jpg" alt="Котейка раскладывает гостей по длинному ряду одинаковых корзин" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/04-clt.html#card-8">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Посмотри на гистограмму средних по корзинам. На что она похожа?</li><li>Нажми «Новая группа из 20 000 гостей» пару раз. Как меняется разброс между корзинами?</li><li>Подумай: что разброс корзин говорит о том, насколько может шататься среднее всей группы?</li></ol>
+    <ol class="tries"><li>Посмотри на гистограмму средних по корзинам. На что она похожа?</li><li>Нажми «Новая группа из 20 000 гостей» пару раз. Как меняется разброс между корзинами?</li><li>Подумай: что разброс корзин говорит о том, насколько может шататься среднее всей группы?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>В каждой корзине около 78 гостей, и средние по корзинам ложатся колоколом с разбросом примерно ±0.28 заказа на гостя. Это и есть шум, только увиденный внутри одного эксперимента. А среднее всей группы держится около 1.00. Из разброса корзин платформа узнаёт, насколько может шататься среднее всей группы: намного меньше, ведь гостей в группе в 256 раз больше, чем в корзине.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Бакет (bucket) — корзина гостей внутри группы; раскладывают хешем от id.</li><li>Разброс средних по бакетам — это шум, увиденный внутри одного эксперимента.</li><li>Шум среднего всей группы ≈ разброс бакетов ÷ √(число бакетов).</li><li>Считают по людям или бакетам людей, а не по заказам: заказы одного гостя похожи друг на друга.</li></ul>
+      <ul class="cheat"><li>Бакет (bucket) — корзина гостей внутри группы; раскладывают хешем от id.</li><li>Разброс средних по бакетам — это шум, увиденный внутри одного эксперимента.</li><li>Шум среднего всей группы ≈ разброс бакетов ÷ √(число бакетов).</li><li>Считают по людям или бакетам людей, а не по заказам: заказы одного гостя похожи друг на друга.</li></ul>
     </div>
   </section>
 

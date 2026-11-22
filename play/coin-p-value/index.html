@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/10-ab-test.html?toy=coin-p-value" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>9 орлов из 10 — монетка нечестная? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.">
+<meta name="description" content="Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/coin-p-value/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/coin-p-value/">
 <meta property="og:title" content="9 орлов из 10 — монетка нечестная? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.">
+<meta property="og:description" content="Тысячи серий по 10 бросков честной монетки: как часто выпадает такой же перекос, как у Котейки, — и что такое p-value, если считать руками.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/coin-p-value.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,13 +53,13 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="coin-p-value" data-frame="/signal/10-ab-test.html?toy=coin-p-value"
-  data-share-title="9 орлов из 10 — монетка нечестная?" data-share-text="Сплит в A/B-тесте делает монетка, и из 10 первых гостей 9 попали в группу B. Пора чинить сплит? Угадай, как часто честная монетка даёт такой перекос, и проверь на тысяче серий"
+  data-share-title="9 орлов из 10 — монетка нечестная?" data-share-text="Сплит в A/B-тесте делает монетка, и из 10 первых гостей 9 попали в группу B. Пора чинить сплит? Угадай, как часто честная монетка даёт такой перекос, и проверь на тысяче серий"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="coin-p-value" data-show-from="0" hidden></span></p>
   <h1>9 орлов из 10 — монетка нечестная?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Монетка честная! Просто сегодня выпало 9 орлов из 10. Бывает же.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Монетка честная! Просто сегодня выпало 9 орлов из 10. Бывает же.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">По-моему, жульничает. Котейка этой монеткой решает, кто из гостей в какую группу теста попадёт, — мне такой жребий не нравится.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Не спорим, а считаем: как часто честная монетка даёт такой перекос? Если часто — Котейке можно верить.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">А считать «ровно 9» или «9 и больше»?</p></div></div>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/10-ab-test.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Запиши догадку и нажми «+1000 серий». В какой доле серий 9 или 10 орлов?</li><li>Включи «Считать в обе стороны». Во сколько раз выросла доля?</li><li>Нажми «+1000 серий» ещё несколько раз. Доля подходит к теории?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>У честной монетки 9 или 10 орлов выпадают в 11 сериях из 1024 — около 1.1%. Если считать перекос в обе стороны, добавив 0 и 1 орёл, — 22 из 1024, около 2.1%. Это и есть p-value: доля серий честной монетки, которые выглядят не менее странно, чем у Котейки. Считают «9 или необычнее», а не «ровно 9»: любая конкретная серия бросков редкая, и сама по себе редкость ничего не доказывает.</p>
+      <p>У честной монетки 9 или 10 орлов выпадают в 11 сериях из 1024 — около 1.1%. Если считать перекос в обе стороны, добавив 0 и 1 орёл, — 22 из 1024, около 2.1%. Это и есть p-value: доля серий честной монетки, которые выглядят не менее странно, чем у Котейки. Считают «9 или необычнее», а не «ровно 9»: любая конкретная серия бросков редкая, и сама по себе редкость ничего не доказывает.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>p-value — доля исходов «как наш или необычнее» в мире без эффекта.</li><li>9 и больше орлов из 10: 11 из 1024 ≈ 1.1%. В обе стороны: 22 из 1024 ≈ 2.1%.</li><li>Двусторонний тест (two-sided) — когда отклонение возможно в обе стороны. В A/B обычно так.</li><li>Маленькое p не доказывает жульничество: оно говорит, что честной монетке такое даётся редко.</li></ul>
     </div>

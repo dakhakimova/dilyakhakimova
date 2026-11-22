@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,22 +53,22 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="signal-game" data-frame="/signal/04-noise.html?toy=signal-game"
-  data-share-title="Заметишь, когда конверсия правда поменялась?" data-share-text="Продакт уверен, что видит по дашборду, когда конверсия меняется. 100 гостей в день, рост с 10 до 15%: заметишь сдвиг вовремя и без ложных тревог? Сыграй пять рядов и посчитай"
+  data-share-title="Заметишь, когда конверсия правда поменялась?" data-share-text="Продакт уверен, что видит по дашборду, когда конверсия меняется. 100 гостей в день, рост с 10 до 15%: заметишь сдвиг вовремя и без ложных тревог? Сыграй пять рядов и посчитай"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="signal-game" data-show-from="0" hidden></span></p>
   <h1>Заметишь, когда конверсия правда поменялась?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я по графику всегда вижу, когда что-то поменялось. Глаз намётан.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я по графику всегда вижу, когда что-то поменялось. Глаз намётан.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Даже когда в день всего 100 гостей? Доля из сотни скачет на несколько процентов сама по себе.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Давай так: я бросаю монетку. Орёл — с какого-то дня конверсия станет 15% вместо 10. Решка — ничего не поменяется.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Пять процентов разницы? Замечу в первый же день.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим. Нажимай «Сигнал!», когда решишь, что сдвиг уже был, а в конце Котейка покажет правду.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Пять процентов разницы? Замечу в первый же день.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим. Нажимай «Сигнал!», когда решишь, что сдвиг уже был, а в конце Котейка покажет правду.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Котейка показывает дневную конверсию кафе со 100 гостями в день, день за днём. В начале она 10%. В половине рядов с какого-то дня она становится 15%, в остальных не меняется: так решила монетка.</p><p>Жми «Сигнал!», когда считаешь, что сдвиг уже случился. Можно включить «Пуск» или идти по одному дню. Через 30 дней Котейка покажет правду: был ли сдвиг и сколько твоих тревог верные. Сыграй несколько рядов.</p></div>
+    <div class="what-body"><p>Котейка показывает дневную конверсию кафе со 100 гостями в день, день за днём. В начале она 10%. В половине рядов с какого-то дня она становится 15%, в остальных не меняется: так решила монетка.</p><p>Жми «Сигнал!», когда считаешь, что сдвиг уже случился. Можно включить «Пуск» или идти по одному дню. Через 30 дней Котейка покажет правду: был ли сдвиг и сколько твоих тревог верные. Сыграй несколько рядов.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab03-01-dashboard.jpg" alt="Боб у доски с двумя переплетёнными линиями: в один день радуется, в другой хватается за голову" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,7 +77,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/04-noise.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Пуск» и жми «Сигнал!», когда заметишь рост.</li><li>Сыграй пять рядов. Сколько у тебя ложных тревог?</li><li>Когда сдвиг был, на сколько дней ты опоздал с сигналом?</li></ol>

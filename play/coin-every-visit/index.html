@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,14 +53,14 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="coin-every-visit" data-frame="/ab-basics/02-salt-hash.html?toy=coin-every-visit"
-  data-share-title="Монетка при каждом заходе в приложение: что увидит гость за неделю?" data-share-text="Разработчик предлагает в A/B-тесте выбирать версию случайно при каждом открытии приложения: «так же поровну». Что увидит за неделю постоянный пользователь? Угадай — и проживи с ним неделю"
+  data-share-title="Монетка при каждом заходе в приложение: что увидит гость за неделю?" data-share-text="Разработчик предлагает в A/B-тесте выбирать версию случайно при каждом открытии приложения: «так же поровну». Что увидит за неделю постоянный пользователь? Угадай — и проживи с ним неделю"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="coin-every-visit" data-show-from="0" hidden></span></p>
   <h1>Монетка при каждом заходе в приложение: что увидит гость за неделю?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Всё просто: человек открывает приложение — бросаем монетку. Орёл — старый экран, решка — новая кнопка.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Номер не меняется, и гость всегда видит одну версию.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я бы решала один раз для каждого гостя — по его номеру в приложении. Номер не меняется, и гость всегда видит одну версию.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Да какая разница? Монетка есть монетка: и там, и там поровну.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Вот гость, он заходит каждый день. Могу бросать ему монетку хоть каждое утро.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проживём с ним неделю и посмотрим, что он увидит при каждом способе.</p></div></div>
@@ -77,21 +77,21 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/02-salt-hash.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Ответь и нажми «Прожить неделю». Сколько раз гость сменил версию в верхнем ряду?</li><li>Нажми «Другой гость» и проживи неделю ещё раз. Меняется ли что-нибудь в нижнем ряду?</li><li>Подумай: какой версии приписать заказ гостя, который видел кнопку в понедельник, а в среду — нет?</li></ol>
+    <ol class="tries"><li>Ответь и нажми «Прожить неделю». Сколько раз гость сменил версию в верхнем ряду?</li><li>Нажми «Другой гость» и проживи неделю ещё раз. Меняется ли что-нибудь в нижнем ряду?</li><li>Подумай: какой версии приписать заказ гостя, который видел кнопку в понедельник, а в среду — нет?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>С монеткой на каждый заход гость за неделю несколько раз переключается между версиями: сегодня кнопка есть, завтра нет. Он путается, а его заказы не приписать ни одной версии — эффект размазывается по обеим группам. По номеру группа каждый день одна и та же: гость живёт в своей версии, и сравнение групп честное.</p>
+      <p>С монеткой на каждый заход гость за неделю несколько раз переключается между версиями: сегодня кнопка есть, завтра нет. Он путается, а его заказы не приписать ни одной версии — эффект размазывается по обеим группам. По номеру группа каждый день одна и та же: гость живёт в своей версии, и сравнение групп честное.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Монетку бросают один раз на гостя, а не на каждый заход.</li><li>Делят по постоянному номеру — id пользователя (или устройства, если гость заказывает без входа).</li><li>Гость, который прыгает между группами, смешивает эффект: обе группы видят понемногу обе версии.</li></ul>
+      <ul class="cheat"><li>Монетку бросают один раз на гостя, а не на каждый заход.</li><li>Делят по постоянному номеру — id пользователя (или устройства, если гость заказывает без входа).</li><li>Гость, который прыгает между группами, смешивает эффект: обе группы видят понемногу обе версии.</li></ul>
     </div>
   </section>
 
   <div class="play-foot">
     <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
-    <p class="play-src"><b>Откуда идея.</b> Общий принцип A/B-платформ: группа закрепляется за пользователем, а не за заходом.</p>
+    <p class="play-src"><b>Откуда идея.</b> Общий принцип A/B-платформ: группа закрепляется за пользователем, а не за заходом.</p>
   </div>
 </main>
 

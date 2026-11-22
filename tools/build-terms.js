@@ -66,7 +66,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 </head>
 <body class="t-page">
 <a class="skip" href="#main">${t('skip')}</a>
-${chrome.header('terms')}
+${chrome.header('terms', o.url === '/terms/')}
 `;
   const foot = () => '\n' + chrome.footer() + '\n';
   const person = {'@type': 'Person', name: 'Диля Хакимова', url: SITE + '/about/'};
@@ -247,7 +247,14 @@ ${foot()}
 </html>
 `;
     fs.mkdirSync(path.join(ROOT, 'terms', s), {recursive: true});
-    fs.writeFileSync(path.join(ROOT, 'terms', s, 'index.html'), html);
+    // доступность схем: у SVG — <title> (название) и связь с подписью с данными (aria-describedby на figcaption)
+    let fi = 0;
+    const html2 = html.replace(/<figure class="viz[^"]*">[\s\S]*?<\/figure>/g, fig => {
+      if (!/<svg[^>]*role="img"/.test(fig) || !/<figcaption/.test(fig)) return fig;
+      const id = `fc-${s}-${++fi}`;
+      return fig.replace(/<svg([^>]*)role="img"/, `<svg$1role="img" aria-describedby="${id}"`).replace(/<figcaption class="figcap">/, `<figcaption class="figcap" id="${id}">`);
+    });
+    fs.writeFileSync(path.join(ROOT, 'terms', s, 'index.html'), html2);
     if (term.published) urls.push(url);
   }
 

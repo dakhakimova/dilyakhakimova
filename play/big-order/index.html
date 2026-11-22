@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -63,12 +63,12 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А медиана в B? И сколько заказов в каждой группе?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. По двадцать обычных заказов. А ещё вчера в группу B попал офис, который заказал кофе на весь этаж.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Ну и что, это тоже заказ. Среднее есть среднее.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим на обе группы — с корпоративом и без, по среднему и по медиане.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим на обе группы — с корпоративом и без, по среднему и по медиане.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Здесь тест, где меню на самом деле ничего не меняет: в группах A и B по 20 обычных заказов, средние и медианы у них одинаковые. Каждая точка — чек. Среднее — сумма, делённая на число заказов. Медиана — чек ровно посередине, если выстроить заказы от меньшего к большему.</p><p>Прикинь, что покажет отчёт по среднему и по медиане, если в группу B попадёт один корпоративный заказ на 50 000 ₽. Потом добавь его, а второй кнопкой ограничь все чеки порогом 1 000 ₽.</p></div>
+    <div class="what-body"><p>Здесь тест, где меню на самом деле ничего не меняет: в группах A и B по 20 обычных заказов, средние и медианы у них одинаковые. Каждая точка — чек. Среднее — сумма, делённая на число заказов. Медиана — чек ровно посередине, если выстроить заказы от меньшего к большему.</p><p>Прикинь, что покажет отчёт по среднему и по медиане, если в группу B попадёт один корпоративный заказ на 50 000 ₽. Потом добавь его, а второй кнопкой ограничь все чеки порогом 1 000 ₽.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab04-01-superfan.jpg" alt="Один гость несёт башню из пакетов с заказами, рядом очередь обычных гостей с одним стаканчиком" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/04-clt.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Корпоратив попал в B». На сколько процентов «вырос» средний чек? А медиана?</li><li>Включи порог 1 000 ₽. Что осталось от разницы средних?</li><li>Ответь на вопрос под игрой: что проверить первым, если среднее выросло, а медиана — нет?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Меню ничего не меняет, а один корпоратив в группе B даёт в отчёте +562% к среднему чеку: 2 781 ₽ против 420 ₽. Медиана сдвинулась всего на 1.2%: ей всё равно, насколько велик крайний заказ. Порог 1 000 ₽ срезает «эффект» до +6.6%, а на настоящем тесте с тысячами заказов в группе от корпоратива почти ничего не останется. Решение по такому среднему — это решение по одному офису, а не по меню.</p>
+      <p>Меню ничего не меняет, а один корпоратив в группе B даёт в отчёте +562% к среднему чеку: 2 781 ₽ против 420 ₽. Медиана сдвинулась всего на 1.2%: ей всё равно, насколько велик крайний заказ. Порог 1 000 ₽ срезает «эффект» до +6.6%, а на настоящем тесте с тысячами заказов в группе от корпоратива почти ничего не останется. Решение по такому среднему — это решение по одному офису, а не по меню.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Среднее чувствительно к выбросам, медиана — почти нет.</li><li>Среднее выросло, медиана стоит — проверь, нет ли в тесте пары огромных заказов.</li><li>Перед расчётом выбросы ограничивают порогом, выбранным до теста, — например, по 99% всех заказов.</li><li>Медиана — не замена среднему: она не заметит, если фича подняла чек только части гостей.</li></ul>
+      <ul class="cheat"><li>Среднее чувствительно к выбросам, медиана — почти нет.</li><li>Среднее выросло, медиана стоит — проверь, нет ли в тесте пары огромных заказов.</li><li>Перед расчётом выбросы ограничивают порогом, выбранным до теста, — например, по 99% всех заказов.</li><li>Медиана — не замена среднему: она не заметит, если фича подняла чек только части гостей.</li></ul>
     </div>
   </section>
 

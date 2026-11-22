@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,7 +61,7 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Запустили в приложении кафе подписку на кофе. Оформляет её каждый двадцатый гость, ровно 5%.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Значит, на каждые 20 гостей будет один подписчик. Так и запишу баристам в план смены.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Каждый двадцатый — это в среднем. А как часто в группе из 20 будет ровно один? И сколько групп останутся вообще без подписчиков?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Каждый двадцатый — это в среднем. А как часто в группе из 20 будет ровно один? И сколько групп останутся вообще без подписчиков?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Каждый гость для меня — монетка с маленьким шансом «да». Бросаю по двадцать таких монеток на группу.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Прикинь, в какой доле групп будет ровно один подписчик, — и запустим тысячу групп.</p></div></div>
   </div>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/02-frequency.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Ещё группа» десять раз. Сколько групп из десяти дали ровно одного подписчика?</li><li>Нажми «+1000 групп». Какой столбик выше — «1» или «0»?</li><li>Посмотри на общую долю подписчиков по всем гостям. Она близка к 5%?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Общая доля подписчиков быстро встаёт к 5%, а отдельные группы — нет. Ровно один подписчик только в 37.7% групп, ни одного — почти так же часто, в 35.8%. Остальные группы, около 26%, дают двоих и больше. «Каждый двадцатый» — это среднее по многим группам, а не обещание для каждой. План «один подписчик на 20 гостей» не выполнится примерно в двух сменах из трёх, хотя никто не виноват.</p>
+      <p>Общая доля подписчиков быстро встаёт к 5%, а отдельные группы — нет. Ровно один подписчик только в 37.7% групп, ни одного — почти так же часто, в 35.8%. Остальные группы, около 26%, дают двоих и больше. «Каждый двадцатый» — это среднее по многим группам, а не обещание для каждой. План «один подписчик на 20 гостей» не выполнится примерно в двух сменах из трёх, хотя никто не виноват.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Доля 5% — про длинную серию. В группе из 20 гостей подписчиков бывает и 0, и 3.</li><li>Ровно 1 из 20 при 5% — 37.7% групп; 0 из 20 — 35.8%.</li><li>Ровно k из n: C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup> — биномиальное распределение.</li><li>План «по среднему» на маленькие группы выполняется редко — и это не повод искать виноватых.</li></ul>
     </div>

@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/09-aa.html?toy=p-value-factory" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Как ложатся p-value, когда эффекта нет? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
+<meta name="description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
 <link rel="canonical" href="https://dilyakhakimova.com/play/p-value-factory/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/p-value-factory/">
 <meta property="og:title" content="Как ложатся p-value, когда эффекта нет? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
+<meta property="og:description" content="Тысяча A/A-тестов, у каждого своё p-value. Какой будет их гистограмма — и что с ней сделает один баг в логах?">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/p-value-factory.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -59,16 +59,16 @@
   <h1>Как ложатся p-value, когда эффекта нет?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Перед большим запуском хочу проверить нашу платформу экспериментов. Прогоню тысячу A/A — тестов, где обе группы видят одно и то же.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Перед большим запуском хочу проверить нашу платформу экспериментов. Прогоню тысячу A/A — тестов, где обе группы видят одно и то же.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем? Эффекта нет — значит, все p-value будут где-то около единицы. Скукота.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">p-value — это шанс увидеть такую же разницу или больше, если эффекта нет. Вопрос, как они лягут по тысяче тестов.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я в логах иногда записываю одного гостя дважды. Это же ничего?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">p-value — это шанс увидеть такую же разницу или больше, если эффекта нет. Вопрос, как они лягут по тысяче тестов.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. А я в логах иногда записываю одного гостя дважды. Это же ничего?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот и проверим: сначала честные A/A, потом — с твоими дублями.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>A/A-тест — эксперимент, в котором обе группы видят одно и то же: эффекта нет по построению. Для каждого теста считаем p-value — вероятность увидеть разницу не меньше нашей, если эффекта нет. Если p меньше 0.05, отчёт пишет «значимо».</p><p>Гистограмма раскладывает p-value тысяч A/A по столбикам шириной 0.05; пунктир — уровень «5% тестов». Подумай, какой она будет: горка у единицы, у нуля или что-то ещё. Потом включи баг — логгер записывает каждого второго гостя дважды — и посмотри, что изменится.</p></div>
+    <div class="what-body"><p>A/A-тест — эксперимент, в котором обе группы видят одно и то же: эффекта нет по построению. Для каждого теста считаем p-value — вероятность увидеть разницу не меньше нашей, если эффекта нет. Если p меньше 0.05, отчёт пишет «значимо».</p><p>Гистограмма раскладывает p-value тысяч A/A по столбикам шириной 0.05; пунктир — уровень «5% тестов». Подумай, какой она будет: горка у единицы, у нуля или что-то ещё. Потом включи баг — логгер записывает каждого второго гостя дважды — и посмотри, что изменится.</p></div>
     <figure class="art"><img src="/play/img/p-value-factory.jpg" alt="Алиса запускает «фабрику» A/A-тестов — конвейер, по которому едут одинаковые пары чашек, — а Котейка у логгера записывает одного гостя дважды" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,7 +77,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/09-aa.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «+1000 A/A» несколько раз. Какой формы гистограмма?</li><li>Какая доля тестов получила p < 0.05? Сравни с 5%.</li><li>Нажми «Добавить баг: дубли событий» и снова «+1000 A/A». Что выросло у нуля?</li></ol>

@@ -34,26 +34,26 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
-    <a href="/shelf/" aria-current="page">Полка</a>
+    <a href="/shelf/" aria-current="true">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main" class="wrap bk bk-hub">
 <section class="bk-hero hub">
   <div>
     <p class="eyebrow bk-label"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="32" height="32"><span data-i18n="bh.label">Разборы книг</span></p>
     <h1 data-i18n="bh.title">Котейка читает</h1>
-    <p class="sub" data-i18n="bh.lead">Разборы книг и научных статей по статистике и A/B-тестам. Котейка читает целиком, а тебе оставляет пять мыслей, игру к каждой и код, который можно запустить. Чтобы решить, читать ли книгу самому и с какой главы начать.</p>
-    <p class="bk-how" data-i18n="bh.how">В каждом выпуске: главная мысль одной фразой · 4–5 идей с живыми визуализациями · ячейки Python в браузере и ноутбук · с какой главы начать · что из этого есть в курсах.</p>
+    <p class="sub" data-i18n="bh.lead">Разборы книг и научных статей по статистике и A/B-тестам. Котейка читает целиком, а тебе оставляет пять мыслей, игру к каждой и код, который можно запустить. Чтобы решить, читать ли книгу самому и с какой главы начать.</p>
+    <p class="bk-how" data-i18n="bh.how">В каждом выпуске: главная мысль одной фразой · 4–5 идей с живыми визуализациями · ячейки Python в браузере и ноутбук · с какой главы начать · что из этого есть в курсах.</p>
   </div>
   <figure class="art r43 drawn"><img src="/books/img/kotejka-reads-cover.jpg" width="1600" height="1200" data-i18n-attr="alt:bh.k.alt" alt="Котейка в мешке листает толстую книгу у стойки кафе" onerror="artFail(this)"><figcaption class="ph" data-i18n="bh.cover.ph">Здесь будет обложка рубрики: Котейка с книгой в кафе</figcaption></figure>
 </section>
@@ -64,7 +64,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span class="tag">A/B</span></p>
     <h3 lang="en" data-i18n="bh.k.title">Trustworthy Online Controlled Experiments</h3>
     <p class="who" data-i18n="bh.k.who">Рон Кохави, Диана Тан, Я Сюй · 2020</p>
-    <p data-i18n="bh.k.line">Как не выкатить баг, который притворился победой: SRM, A/A-тесты, подглядывание и закон Твимена — с играми и кодом.</p>
+    <p data-i18n="bh.k.line">Как не выкатить баг, который притворился победой: SRM, A/A-тесты, подглядывание и закон Твимена — с играми и кодом.</p>
     <span class="go" data-i18n="bh.k.go">Читать разбор →</span>
   </a>
 </section>
@@ -73,9 +73,9 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <h2 id="next-h" data-i18n="bh.next">Следующие выпуски</h2>
   <ul class="bk-stubs" role="list">
     <li><p class="chips"><span class="tag" data-i18n="st.cuped.kind">научная статья</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.cuped.t">CUPED: как сузить интервал прошлым периодом</h3><p class="who" data-i18n="st.cuped.who">Денг, Сюй, Кохави, Уолкер · 2013</p><p data-i18n="st.cuped.d">Статья «Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data». Ползунок «корреляция с прошлым периодом» покажет, насколько сужается интервал, а ноутбук — CUPED на данных кафе.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.gig.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.gig.t">Risk Savvy: как говорить о риске в штуках</h3><p class="who" data-i18n="st.gig.who">Герд Гигеренцер · 2014</p><p data-i18n="st.gig.d">Почему «из 1000 гостей» понятнее, чем «вероятность 0.3%», и как это помогает объяснять результаты тестов продакту.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.gig.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.gig.t">Risk Savvy: как говорить о риске в штуках</h3><p class="who" data-i18n="st.gig.who">Герд Гигеренцер · 2014</p><p data-i18n="st.gig.d">Почему «из 1000 гостей» понятнее, чем «вероятность 0.3%», и как это помогает объяснять результаты тестов продакту.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
   </ul>
   <p class="note" data-i18n="bh.stub.note">Выпуск готовится. Пока загляни в <a href="/play/">игры</a> — многие идеи из следующих книг там уже есть.</p>
 </section>

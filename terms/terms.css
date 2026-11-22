@@ -118,7 +118,7 @@
 .choice{display:flex; flex-direction:column; gap:var(--s-2); max-width:34em}
 .choice button{font:400 16px/1.35 var(--body); text-align:left; padding:var(--s-3) var(--s-4); min-height:var(--btn-h); border-radius:var(--r-s);
   background:var(--white); color:var(--text-1); border:1px solid var(--line-strong); cursor:pointer}
-.choice button:hover{border-color:var(--pen)}
+.choice button:hover:not(:disabled){border-color:var(--pen)}
 .choice button[aria-pressed="true"]{border-color:var(--pen); box-shadow:0 0 0 2px var(--pen) inset}
 .choice.done button[data-right]{background:var(--mint); border-color:var(--l1)}
 .gnote{margin:var(--s-3) 0 0}

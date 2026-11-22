@@ -35,18 +35,18 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
-    <a href="/shelf/" aria-current="page">Полка</a>
+    <a href="/shelf/" aria-current="true">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" data-i18n-attr="aria-label:bk.crumbs.label" aria-label="Где ты на сайте">
   <ol>
@@ -62,7 +62,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <section class="bk-hero">
   <div>
     <p class="eyebrow bk-label"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="32" height="32"><span data-i18n="bk.rubric">Котейка читает</span></p>
-    <h1 data-i18n="bk.h1">Как не выкатить баг, который притворился победой</h1>
+    <h1 data-i18n="bk.h1">Как не выкатить баг, который притворился победой</h1>
     <p class="bk-pass" data-i18n="bk.pass.book"><cite lang="en">Trustworthy Online Controlled Experiments</cite> · Рон Кохави, Диана Тан, Я Сюй · 2020</p>
     <p class="bk-pass2"><span data-i18n="bk.pass.who">Для аналитиков и продактов, которые запускают A/B-тесты</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span data-i18n="bk.pass.read">около 290 страниц, на английском · разбор — 10 минут</span></p>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who" data-i18n="bk.kot.who">Котейка</div><p class="say" data-i18n="bk.kot.say">Прочитал за тебя почти 300 страниц. Вот пять мыслей, которые пригодятся в понедельник, когда откроешь отчёт.</p></div></div>
@@ -73,17 +73,17 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <!-- главная мысль + своя схема -->
 <section class="bk-sec bk-main" aria-labelledby="main-h">
   <h2 id="main-h" data-i18n="bk.main.h">Главная мысль</h2>
-  <p class="bk-thesis" data-i18n="bk.main.p">Посчитать эффект A/B-теста — дело минуты. Вся трудность в том, чтобы понять, можно ли этому числу верить, и книга почти целиком про это.</p>
+  <p class="bk-thesis" data-i18n="bk.main.p">Посчитать эффект A/B-теста — дело минуты. Вся трудность в том, чтобы понять, можно ли этому числу верить, и книга почти целиком про это.</p>
   <figure class="bk-fig">
     <p class="chart-head" data-i18n="bk.main.svg.t">Из чего состоит работа с экспериментом</p>
-    <p class="legend-row bk-bar-lg"><span><i class="sw ctrl"></i><span data-i18n="bk.main.svg.a">посчитать эффект</span></span><span><i class="sw test"></i><span data-i18n="bk.main.svg.b">проверить, можно ли ему верить</span></span></p>
+    <p class="legend-row bk-bar-lg"><span><i class="sw ctrl"></i><span data-i18n="bk.main.svg.a">посчитать эффект</span></span><span><i class="sw test"></i><span data-i18n="bk.main.svg.b">проверить, можно ли ему верить</span></span></p>
     <div class="bk-bar" role="img" data-i18n-attr="aria-label:bk.main.svg.t" aria-label="Из чего состоит работа с экспериментом">
       <span class="a" aria-hidden="true"></span>
       <ol class="b" aria-hidden="true">
         <li data-i18n="bk.main.svg.c1">SRM</li><li data-i18n="bk.main.svg.c2">A/A</li><li data-i18n="bk.main.svg.c3">боты</li><li data-i18n="bk.main.svg.c4">подглядывание</li><li data-i18n="bk.main.svg.c5">метрика-цель</li>
       </ol>
     </div>
-    <figcaption class="figcap" data-i18n="bk.main.cap">Схема наша, пропорции условные: так распределено внимание в книге, а не время в календаре.</figcaption>
+    <figcaption class="figcap" data-i18n="bk.main.cap">Схема наша, пропорции условные: так распределено внимание в книге, а не время в календаре.</figcaption>
   </figure>
 </section>
 
@@ -91,9 +91,9 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 
 <!-- идея 1: мы плохо угадываем — свой интерактив «10 идей» -->
 <li class="bk-idea" id="idea-1">
-  <h2><span class="n" aria-hidden="true">1</span><span data-i18n="bk.i1.h">Можно ли угадать, какая идея сработает?</span></h2>
+  <h2><span class="n" aria-hidden="true">1</span><span data-i18n="bk.i1.h">Можно ли угадать, какая идея сработает?</span></h2>
   <p data-i18n="bk.i1.p1">Авторы собрали истории тестов в Microsoft, Bing, Google и LinkedIn. Вывод неприятный: примерно треть идей улучшает метрики, треть ухудшает, треть ничего не меняет. В зрелых продуктах, где всё очевидное уже сделано, удачных ещё меньше — одна-две из десяти.</p>
-  <p data-i18n="bk.i1.p2">Значит, «я уверен, что новая витрина десертов поднимет заказы» — это ставка, а не знание. Тест нужен как раз потому, что чутьё ошибается чаще, чем кажется.</p>
+  <p data-i18n="bk.i1.p2">Значит, «я уверен, что новая витрина десертов поднимет заказы» — это ставка, а не знание. Тест нужен как раз потому, что чутьё ошибается чаще, чем кажется.</p>
   <div class="bk-toy" data-toy="ideas">
     <p class="chart-head" data-i18n="bk.i1.toy">Десять идей кафе: какие сработают</p>
     <div class="seg" role="group" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Десять идей кафе: какие сработают">
@@ -113,7 +113,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <li class="bk-idea" id="idea-2">
   <h2><span class="n" aria-hidden="true">2</span><span data-i18n="bk.i2.h">Слишком хороший результат — повод праздновать?</span></h2>
   <p data-i18n="bk.i2.p1">В книге это называется законом Твимена: <q>любая цифра, которая выглядит интересной или необычной, обычно ошибочна</q>. Удачные изменения в больших продуктах двигают метрику на доли процента. Если тест показал +12% выручки, первым делом ищут двойную запись событий, сломанную страницу в контроле или ботов.</p>
-  <p data-i18n="bk.i2.p2">Бывает, что рост настоящий — в книге есть такая история про заголовки рекламы в поиске. Но в неё поверили только после того, как всё перепроверили и повторили.</p>
+  <p data-i18n="bk.i2.p2">Бывает, что рост настоящий — в книге есть такая история про заголовки рекламы в поиске. Но в неё поверили только после того, как всё перепроверили и повторили.</p>
   <div class="bk-toy" data-toy="twyman">
     <p class="chart-head" data-i18n="bk.i2.toy">Насколько вероятно, что «победа» — баг</p>
     <label class="rng"><span data-i18n="bk.i2.eff">Эффект в отчёте</span> <output data-o="eff"></output><input type="range" min="0" max="15" step="0.1" value="1" data-k="eff"></label>
@@ -129,7 +129,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <!-- идея 3: SRM — свой интерактив с χ² + ячейка Python -->
 <li class="bk-idea" id="idea-3">
   <h2><span class="n" aria-hidden="true">3</span><span data-i18n="bk.i3.h">Группы чуть разного размера — это мелочь?</span></h2>
-  <p data-i18n="bk.i3.p1">Если сплит 50/50, а в группах 500 000 и 493 000 гостей, это не мелочь, а SRM — перекос соотношения групп. Он значит, что какие-то люди выпали из одной группы не случайно, и сравнивать оставшихся уже нечестно. По оценке авторов, такое случается в нескольких процентах тестов даже на зрелых платформах.</p>
+  <p data-i18n="bk.i3.p1">Если сплит 50/50, а в группах 500 000 и 493 000 гостей, это не мелочь, а SRM — перекос соотношения групп. Он значит, что какие-то люди выпали из одной группы не случайно, и сравнивать оставшихся уже нечестно. По оценке авторов, такое случается в нескольких процентах тестов даже на зрелых платформах.</p>
   <p data-i18n="bk.i3.p2">Любимая история книги: фильтр ботов отрезал в одной группе самых активных людей. Когда их вернули, вывод перевернулся — с «вариант хуже» на «вариант лучше». В кафе это антифрод, который считает ботом офис-менеджера с пятнадцатью заказами в день.</p>
   <div class="bk-toy" data-toy="srm">
     <p class="chart-head" data-i18n="bk.i3.toy">Сколько гостей можно потерять, чтобы никто не заметил</p>
@@ -165,15 +165,15 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 
 <!-- идея 4: подглядывание — живая игра с /play/ + ячейка Python -->
 <li class="bk-idea" id="idea-4">
-  <h2><span class="n" aria-hidden="true">4</span><span data-i18n="bk.i4.h">Можно ли смотреть на тест каждый день?</span></h2>
-  <p data-i18n="bk.i4.p1">Смотреть можно. Нельзя останавливать тест в первый день, когда стало «значимо». Каждый взгляд — ещё один шанс случайно увидеть зелёное, и за месяц таких шансов набегает много. Авторы вспоминают ранние инструменты для A/B, которые показывали p-value в реальном времени: ложных побед там было в разы больше обещанных 5%.</p>
+  <h2><span class="n" aria-hidden="true">4</span><span data-i18n="bk.i4.h">Можно ли смотреть на тест каждый день?</span></h2>
+  <p data-i18n="bk.i4.p1">Смотреть можно. Нельзя останавливать тест в первый день, когда стало «значимо». Каждый взгляд — ещё один шанс случайно увидеть зелёное, и за месяц таких шансов набегает много. Авторы вспоминают ранние инструменты для A/B, которые показывали p-value в реальном времени: ложных побед там было в разы больше обещанных 5%.</p>
   <p data-i18n="bk.i4.p2">Лечится планом: срок и размер выборки задаются до старта по MDE, а смотреть раньше можно только по заранее выбранным правилам последовательного теста.</p>
   <div class="bk-frame">
     <p class="chart-head" data-i18n="bk.i4.toy">Игра из курса «A/B на пальцах»</p>
     <iframe src="/play/peeking/?embed=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i4.code;data-note:bk.i4.code.note" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">
+  <div class="cell" data-i18n-attr="data-title:bk.i4.code;data-note:bk.i4.code.note" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">
 <textarea spellcheck="false">import numpy as np
 
 rng = np.random.default_rng(1)
@@ -192,20 +192,20 @@ significant = z > 1.96          # «значимо» при α = 0.05
 print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
 print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</textarea>
   </div>
-  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
+  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
 
 <!-- идея 5: A/A-тесты — живая игра с /play/ + ячейка Python -->
 <li class="bk-idea" id="idea-5">
   <h2><span class="n" aria-hidden="true">5</span><span data-i18n="bk.i5.h">Как проверить саму систему тестов?</span></h2>
-  <p data-i18n="bk.i5.p1">A/A-тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5% тестов, а p-value лягут ровно по всему отрезку от 0 до 1. Перекос гистограммы — сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
-  <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих тестах. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки, которых в одном тесте не видно.</p>
+  <p data-i18n="bk.i5.p1">A/A-тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5% тестов, а p-value лягут ровно по всему отрезку от 0 до 1. Перекос гистограммы — сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
+  <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих тестах. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки, которых в одном тесте не видно.</p>
   <div class="bk-frame">
     <p class="chart-head" data-i18n="bk.i5.toy">Игра из курса «Сигнал или шум»</p>
     <iframe src="/play/aa-stand/?embed=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="Честная платформа даёт ровную гистограмму. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по гостям.">
+  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="Честная платформа даёт ровную гистограмму. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по гостям.">
 <textarea spellcheck="false">import numpy as np
 from math import erfc, sqrt
 
@@ -244,19 +244,19 @@ for i, h in enumerate(hist):
 </section>
 
 <section class="bk-sec" aria-labelledby="who-h">
-  <h2 id="who-h" data-i18n="bk.who.h">Кому читать и с какой главы начать</h2>
+  <h2 id="who-h" data-i18n="bk.who.h">Кому читать и с какой главы начать</h2>
   <p data-i18n="bk.who.p">Книга для тех, кто уже запускает тесты и хочет понимать, когда отчёту можно верить. Математики в ней немного, зато много историй «результат оказался багом». Читать подряд не обязательно:</p>
   <ul class="list">
     <li data-i18n="bk.who.l1"><span class="lf">Запускаешь тесты на готовой платформе</span> — начни с главы 3 про закон Твимена, потом глава 21 про SRM и глава 19 про A/A-тесты.</li>
     <li data-i18n="bk.who.l2"><span class="lf">Выбираешь, по какой метрике решать</span> — глава 7 про метрику-цель (OEC) и глава 6 про метрики компании.</li>
     <li data-i18n="bk.who.l3"><span class="lf">Строишь платформу экспериментов</span> — части про инструментирование, единицу рандомизации и постепенную раскатку (главы 12–16).</li>
-    <li data-i18n="bk.who.l4"><span class="lf">Хочешь статистику подробно</span> — главы 17–18 короткие; для формул лучше учебник, а для интуиции — курс «Сигнал или шум».</li>
+    <li data-i18n="bk.who.l4"><span class="lf">Хочешь статистику подробно</span> — главы 17–18 короткие; для формул лучше учебник, а для интуиции — курс «Сигнал или шум».</li>
   </ul>
 </section>
 
 <section class="bk-sec" aria-labelledby="course-h">
-  <h2 id="course-h" data-i18n="bk.course.h">Что из этого вошло в курсы</h2>
-  <p data-i18n="bk.course.p">Идеи книги разобраны на играх и задачах — на своих числах и в мире кафе.</p>
+  <h2 id="course-h" data-i18n="bk.course.h">Что из этого вошло в курсы</h2>
+  <p data-i18n="bk.course.p">Идеи книги разобраны на играх и задачах — на своих числах и в мире кафе.</p>
   <ul class="list">
     <li data-i18n="bk.course.l1"><a href="/ab-basics/08-errors.html">«A/B на пальцах», шаг 8 «Два вида ошибок»</a> — сколько «побед» за год настоящие.</li>
     <li data-i18n="bk.course.l2"><a href="/ab-basics/10-traps.html">«A/B на пальцах», шаг 10 «Когда зелёное врёт»</a> — подглядывание, SRM, двадцать метрик в одном отчёте.</li>
@@ -280,9 +280,9 @@ for i, h in enumerate(hist):
   <h2 id="more-h" data-i18n="bk.more.h">Ещё в рубрике</h2>
   <ul class="bk-stubs" role="list">
     <li><p class="chips"><span class="tag" data-i18n="st.cuped.kind">научная статья</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.cuped.t">CUPED: как сузить интервал прошлым периодом</h3><p class="who" data-i18n="st.cuped.who">Денг, Сюй, Кохави, Уолкер · 2013</p><p data-i18n="st.cuped.d">Статья «Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data». Ползунок «корреляция с прошлым периодом» покажет, насколько сужается интервал, а ноутбук — CUPED на данных кафе.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.gig.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.gig.t">Risk Savvy: как говорить о риске в штуках</h3><p class="who" data-i18n="st.gig.who">Герд Гигеренцер · 2014</p><p data-i18n="st.gig.d">Почему «из 1000 гостей» понятнее, чем «вероятность 0.3%», и как это помогает объяснять результаты тестов продакту.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
-    <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.gig.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.gig.t">Risk Savvy: как говорить о риске в штуках</h3><p class="who" data-i18n="st.gig.who">Герд Гигеренцер · 2014</p><p data-i18n="st.gig.d">Почему «из 1000 гостей» понятнее, чем «вероятность 0.3%», и как это помогает объяснять результаты тестов продакту.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
+    <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
   </ul>
   <p class="more"><a href="/books/" data-i18n="bk.more.all">Все выпуски «Котейка читает» →</a></p>
 </section>

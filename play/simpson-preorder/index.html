@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/10-traps.html?toy=simpson-preorder" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Лучше среди постоянных, лучше среди новичков — и хуже в сумме? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Парадокс Симпсона на предзаказе: кто сам включил функцию, кто нет, и как состав групп переворачивает вывод.">
+<meta name="description" content="Парадокс Симпсона на предзаказе: кто сам включил функцию, кто нет, и как состав групп переворачивает вывод.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/simpson-preorder/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/simpson-preorder/">
 <meta property="og:title" content="Лучше среди постоянных, лучше среди новичков — и хуже в сумме? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Парадокс Симпсона на предзаказе: кто сам включил функцию, кто нет, и как состав групп переворачивает вывод.">
+<meta property="og:description" content="Парадокс Симпсона на предзаказе: кто сам включил функцию, кто нет, и как состав групп переворачивает вывод.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/simpson-preorder.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,7 +53,7 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="simpson-preorder" data-frame="/ab-basics/10-traps.html?toy=simpson-preorder"
-  data-share-title="Лучше среди постоянных, лучше среди новичков — и хуже в сумме?" data-share-text="Продакт сравнил пользователей, которые сами включили функцию, с остальными: у включивших конверсия ниже, «функция вредит». Может ли она при этом помогать каждой группе пользователей? Угадай — и раздели гостей"
+  data-share-title="Лучше среди постоянных, лучше среди новичков — и хуже в сумме?" data-share-text="Продакт сравнил пользователей, которые сами включили функцию, с остальными: у включивших конверсия ниже, «функция вредит». Может ли она при этом помогать каждой группе пользователей? Угадай — и раздели гостей"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="simpson-preorder" data-show-from="0" hidden></span></p>
   <h1>Лучше среди постоянных, лучше среди новичков — и хуже в сумме?</h1>
@@ -62,12 +62,12 @@
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Функцию «Предзаказ» не тестировали, просто дали включить желающим. Через месяц сравнили тех, кто включил, и остальных.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У включивших заказывают 22%, у остальных 38%. Функция вредит, выключаем!</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Группы набирали сами себя. Давай разделим гостей на постоянных и новичков.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я тут ни при чём: в этот раз монетку никто не бросал.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я тут ни при чём: в этот раз монетку никто не бросал.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>В таблице — тысяча гостей, включивших предзаказ, и тысяча, не включивших. Для каждой группы — сколько из них сделали заказ за месяц. Никакой монетки: функцию включал кто хотел.</p><p>Нажми «Разделить на постоянных и новичков»: таблица покажет те же группы по отдельности. Сравни доли внутри каждой строки и в сумме.</p></div>
+    <div class="what-body"><p>В таблице — тысяча гостей, включивших предзаказ, и тысяча, не включивших. Для каждой группы — сколько из них сделали заказ за месяц. Никакой монетки: функцию включал кто хотел.</p><p>Нажми «Разделить на постоянных и новичков»: таблица покажет те же группы по отдельности. Сравни доли внутри каждой строки и в сумме.</p></div>
     <figure class="art"><img src="/play/img/simpson-preorder.jpg" alt="у стойки две толпы гостей с телефонами — «включившие предзаказ» и остальные; Алиса разводит каждую толпу на две кучки — завсегдатаев в фирменных шарфах и новичков с картой кафе в руках, Боб удивлённо чешет затылок" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,7 +76,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/10-traps.html#card-11">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Посмотри на сумму: кто заказывает чаще — включившие или нет?</li><li>Раздели на постоянных и новичков. Кто заказывает чаще внутри каждой группы?</li><li>Посчитай, сколько новичков среди включивших и среди остальных.</li></ol>
@@ -84,7 +84,7 @@
     <div class="reveal" hidden>
       <p>Среди постоянных включившие заказывают чаще: 50% против 45%. Среди новичков тоже: 15% против 12%. А вместе — реже: 22% против 38%. Это парадокс Симпсона. Среди включивших 800 новичков из 1000, среди остальных — только 200. Новички заказывают в три-четыре раза реже постоянных и тянут вниз общую долю. Так бывает, когда группы набирают сами себя; монетка в A/B-тесте делает такой перекос состава случайным.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Парадокс Симпсона: в каждой подгруппе одно, в сумме — противоположное.</li><li>Причина — разный состав групп: здесь среди включивших много новичков.</li><li>Сравнение «кто включил против кто нет» — сравнение разных людей, а не версий.</li><li>Монетка делает состав групп случайным — поэтому в A/B-тесте такой переворот маловероятен.</li></ul>
+      <ul class="cheat"><li>Парадокс Симпсона: в каждой подгруппе одно, в сумме — противоположное.</li><li>Причина — разный состав групп: здесь среди включивших много новичков.</li><li>Сравнение «кто включил против кто нет» — сравнение разных людей, а не версий.</li><li>Монетка делает состав групп случайным — поэтому в A/B-тесте такой переворот маловероятен.</li></ul>
     </div>
   </section>
 

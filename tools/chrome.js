@@ -21,17 +21,21 @@ const TAGLINE = 'Вероятность, статистика и A/B — в и�
 // кружок входа: до входа — силуэт Котейки и подсказка «Войти»; после входа (account.html и progress.js кладут
 // в localStorage 'dk:me' имя и фото) — фото из Telegram или первая буква имени, aria-label «Мой кабинет».
 // Запросов к /api/ шапка не делает (на /play/ и /terms/ их быть не должно).
-const ME_JS = `<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>`;
+const ME_JS = `<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>`;
 
-function header(current = ''){
-  const a = ([k, href, label]) => `<a href="${href}"${k === current ? ' aria-current="page"' : ''}>${label}</a>`;
+function header(current = '', self = false){
+  // текущая рубрика: на её главной странице — не ссылка (<span aria-current="page">), внутри рубрики — ссылка с aria-current="true";
+  // на главной сайта строка-«логотип» тоже не ссылка (гайд, пара «Страница не ссылается на саму себя»)
+  const a = ([k, href, label]) => k === current && self ? `<span class="cur" aria-current="page">${label}</span>`
+    : `<a href="${href}"${k === current ? ' aria-current="true"' : ''}>${label}</a>`;
+  const hl = `<span class="hl-full">${TAGLINE}</span><span class="hl-short" aria-hidden="true">${TAGLINE_S}</span>`;
   return `<header class="top wrap" data-chrome>
-  <a class="home-line" href="/"${current === 'home' ? ' aria-current="page"' : ''}><span class="hl-full">${TAGLINE}</span><span class="hl-short" aria-hidden="true">${TAGLINE_S}</span></a>
+  ${current === 'home' ? `<span class="home-line" aria-current="page">${hl}</span>` : `<a class="home-line" href="/" aria-label="${TAGLINE}">${hl}</a>`}
   <nav id="site-nav" aria-label="Разделы сайта">
     ${NAV.map(a).join('\n    ')}
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"${current === 'account' ? ' aria-current="page"' : ''}><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"${current === 'account' ? ' aria-current="page"' : ''}><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 ${ME_JS}`;
@@ -74,9 +78,9 @@ function footer(){
 }
 
 // заменить шапку и футер на странице; current — ключ рубрики
-function stamp(html, current){
+function stamp(html, current, self = false){
   const cls = (html.match(/<header class="(top[^"]*)"/) || [])[1] || 'top wrap';
-  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?(\s*<script>\(function\(\)\{var a=document\.currentScript[\s\S]*?<\/script>)?/, () => header(current).replace('<header class="top wrap"', `<header class="${cls}"`));
+  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?(\s*<script>\(function\(\)\{var a=document\.currentScript[\s\S]*?<\/script>)?/, () => header(current, self).replace('<header class="top wrap"', `<header class="${cls}"`));
   if (/<footer class="foot"/.test(html)) html = html.replace(/<footer class="foot"[^>]*>[\s\S]*?<\/footer>/, footer());
   else html = html.replace(/<\/main>/, '</main>\n' + footer());
   return html;

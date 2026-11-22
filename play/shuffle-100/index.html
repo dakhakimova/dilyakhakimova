@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/03-noise.html?toy=shuffle-100" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Две одинаковые группы по сто гостей: насколько они разойдутся? · симулятор · Диля Хакимова</title>
-<meta name="description" content="A/A-тест на двух сотнях гостей: приложение одно и то же, шанс заказать одинаковый, а цифры — разные.">
+<meta name="description" content="A/A-тест на двух сотнях гостей: приложение одно и то же, шанс заказать одинаковый, а цифры — разные.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/shuffle-100/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/shuffle-100/">
 <meta property="og:title" content="Две одинаковые группы по сто гостей: насколько они разойдутся? · симулятор · Диля Хакимова">
-<meta property="og:description" content="A/A-тест на двух сотнях гостей: приложение одно и то же, шанс заказать одинаковый, а цифры — разные.">
+<meta property="og:description" content="A/A-тест на двух сотнях гостей: приложение одно и то же, шанс заказать одинаковый, а цифры — разные.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/shuffle-100.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,14 +60,14 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Запускаю тест, где обе группы видят старое приложение. Ничего не меняем.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем? Там же будет ноль. В обеих группах заказывают 10% гостей.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем? Там же будет ноль. В обеих группах заказывают 10% гостей.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Гостей по группам раздаю я, монеткой. А заказывают они, когда проголодаются.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Вот и посмотрим, какую разницу покажут две одинаковые группы по сто гостей.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Тест, где обе группы видят одно и то же, называют A/A-тестом: приложение сравнивают с ним же самим. Эффекта здесь нет по построению.</p><p>Каждый кружок — гость, закрашенный — сделал заказ. У каждого гостя шанс заказать одинаковый, 10%. Сначала ответь, какую разницу покажет тест, потом перемешивай гостей и смотри, сколько заказов в каждой группе.</p></div>
+    <div class="what-body"><p>Тест, где обе группы видят одно и то же, называют A/A-тестом: приложение сравнивают с ним же самим. Эффекта здесь нет по построению.</p><p>Каждый кружок — гость, закрашенный — сделал заказ. У каждого гостя шанс заказать одинаковый, 10%. Сначала ответь, какую разницу покажет тест, потом перемешивай гостей и смотри, сколько заказов в каждой группе.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab03-00-twins.jpg" alt="Боб удивлённо смотрит на два одинаковых телефона, а столбики над ними разной высоты" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,15 +76,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/03-noise.html#card-2">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Ответь на вопрос и нажми «Перемешать гостей». Сколько заказов в каждой группе?</li><li>Перемешай ещё раз пять. Бывает ли ровно поровну?</li><li>Найди самую большую разницу, какую выдадут одинаковые группы.</li></ol>
+    <ol class="tries"><li>Ответь на вопрос и нажми «Перемешать гостей». Сколько заказов в каждой группе?</li><li>Перемешай ещё раз пять. Бывает ли ровно поровну?</li><li>Найди самую большую разницу, какую выдадут одинаковые группы.</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Ровно поровну выходит редко. Чаще одна группа «лучше» другой — например, 12 заказов против 10, то есть на 20%, хотя группы одинаковые. Просто одной случайно достались гости, которые как раз хотели есть. Разница между группами есть всегда, даже без всякого эффекта. Этот разброс называют шумом, а главный вопрос A/B-теста — больше ли разница обычного шума.</p>
+      <p>Ровно поровну выходит редко. Чаще одна группа «лучше» другой — например, 12 заказов против 10, то есть на 20%, хотя группы одинаковые. Просто одной случайно достались гости, которые как раз хотели есть. Разница между группами есть всегда, даже без всякого эффекта. Этот разброс называют шумом, а главный вопрос A/B-теста — больше ли разница обычного шума.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>A/A-тест: обе группы видят одно и то же. Эффекта нет, а разница есть.</li><li>На 100 гостях в группе при конверсии 10% разница в 20–30% — обычный шум.</li><li>Главный вопрос A/B-теста: больше ли разница, чем шум?</li></ul>
+      <ul class="cheat"><li>A/A-тест: обе группы видят одно и то же. Эффекта нет, а разница есть.</li><li>На 100 гостях в группе при конверсии 10% разница в 20–30% — обычный шум.</li><li>Главный вопрос A/B-теста: больше ли разница, чем шум?</li></ul>
     </div>
   </section>
 

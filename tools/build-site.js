@@ -13,7 +13,7 @@ const nb = s => String(s).replace(/ (₽)/g, ' $1').replace(/(\d) (\d{3})/g, '$
 
 // какие статические страницы получают общую шапку и футер; значение — текущая рубрика
 const STAMP = {
-  'index.html': '', 'about/index.html': '', 'probability/index.html': 'courses', 'stats/index.html': 'courses',
+  'index.html': 'home', 'about/index.html': '', 'probability/index.html': 'courses', 'stats/index.html': 'courses',
   'ab/index.html': 'courses', 'causal/index.html': 'courses', 'map/index.html': 'courses',
   'books/index.html': 'shelf', 'books/kohavi-trustworthy/index.html': 'shelf', '404.html': '', 'styleguide/index.html': '',
 };
@@ -70,7 +70,7 @@ function courses(){
     </li>`;
   const html = head({title: 'Курсы по вероятности, статистике и A/B-тестам · Диля Хакимова',
     desc: 'Курсы по порядку «Весь путь»: от «Вероятности на пальцах» до продвинутого «A/B без мифов». Три бесплатных курса можно начать сразу, без регистрации.',
-    url: '/courses/', css: ['/course.css', '/site/site.css'], og: '/img/probability-cover.jpg'}) + chrome.header('courses') + `
+    url: '/courses/', css: ['/course.css', '/site/site.css'], og: '/img/probability-cover.jpg'}) + chrome.header('courses', true) + `
 
 <main id="main" class="wrap courses-page">
   <section class="c-hero">
@@ -115,7 +115,7 @@ function shelf(){
     </article>`;
   const html = head({title: 'Полка: книги и статьи по статистике и A/B-тестам · Диля Хакимова',
     desc: 'Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
-    url: '/shelf/', css: ['/site/site.css'], og: '/books/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf') + `
+    url: '/shelf/', css: ['/site/site.css'], og: '/books/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
 
 <main id="main" class="wrap shelf-page">
   <section class="c-hero">
@@ -153,7 +153,7 @@ function stampAll(){
     const file = path.join(ROOT, f);
     if (!fs.existsSync(file)) continue;
     let html = fs.readFileSync(file, 'utf8');
-    html = chrome.stamp(html, cur);
+    html = chrome.stamp(html, cur, cur === 'home');
     // картинки, которых ещё нет: есть запасная — ставим её; нет — убираем рисунок целиком (на входных страницах без заглушек)
     html = html.replace(/<figure class="art[^"]*"><img src="(\/[^"]+)"([^>]*)>[\s\S]*?<\/figure>/g, (all, src, rest) => {
       if (fs.existsSync(path.join(ROOT, src))) return all;

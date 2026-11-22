@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -59,8 +59,8 @@
   <h1>Как конверсия двигает число подписчиков в группе из 20 гостей?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Подписку на кофе оформляют 5% гостей. Поднимем до 10% — и в каждой группе из 20 гостей будет ровно два подписчика.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Даже при 5% ровно один подписчик бывал далеко не в каждой группе. С чего бы при 10% было ровно два?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Подписку на кофе оформляют 5% гостей. Поднимем до 10% — и в каждой группе из 20 гостей будет ровно два подписчика.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Даже при 5% ровно один подписчик бывал далеко не в каждой группе. С чего бы при 10% было ровно два?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Каждый гость — монетка с шансом «да». Двадцать монеток на группу, а шанс двигай сам.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Двигай конверсию и смотри, в какой доле групп подписчиков ровно столько, сколько ждёт Боб.</p></div></div>
   </div>
@@ -76,13 +76,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/07-distribution.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Поставь конверсию 10%. В какой доле групп ровно два подписчика?</li><li>Поставь 5%. Какой столбик выше — «0» или «1»?</li><li>Подними до 30%. Где теперь вершина и стала ли горка шире?</li></ol>
+    <ol class="tries"><li>Поставь конверсию 10%. В какой доле групп ровно два подписчика?</li><li>Поставь 5%. Какой столбик выше — «0» или «1»?</li><li>Подними до 30%. Где теперь вершина и стала ли горка шире?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>При 5% ровно один подписчик — в 37.7% групп, ни одного — в 35.8%. При 10% ровно два — только в 28.5% групп, а не в каждой. Вершина горки стоит около «20 гостей × конверсия», но с ростом конверсии горка расползается: при 30% обычное число подписчиков — от 3 до 9. Среднее послушно едет за ползунком, а отдельная группа попадает в него точно редко.</p>
+      <p>При 5% ровно один подписчик — в 37.7% групп, ни одного — в 35.8%. При 10% ровно два — только в 28.5% групп, а не в каждой. Вершина горки стоит около «20 гостей × конверсия», но с ростом конверсии горка расползается: при 30% обычное число подписчиков — от 3 до 9. Среднее послушно едет за ползунком, а отдельная группа попадает в него точно редко.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Число успехов из n попыток с шансом p — биномиальное распределение, Bin(n, p).</li><li>P(X = k) = C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></li><li>Среднее — n · p, но это лишь одно из значений, и доля у него скромная.</li><li>Группа из 20 при 10%: ровно 2 подписчика — около 28% групп.</li></ul>
     </div>

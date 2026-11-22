@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,21 +53,21 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="shuffle-labels" data-frame="/ab-basics/03-noise.html?toy=shuffle-labels"
-  data-share-title="+35% на 40 гостях: фото работают или повезло?" data-share-text="Продакт протестировал новые фото на 40 пользователях: +35% к заказам, «видно же!». Как часто такую разницу даёт простая перетасовка групп? Сделай ставку и перетасуй ярлыки"
+  data-share-title="+35% на 40 гостях: фото работают или повезло?" data-share-text="Продакт протестировал новые фото на 40 пользователях: +35% к заказам, «видно же!». Как часто такую разницу даёт простая перетасовка групп? Сделай ставку и перетасуй ярлыки"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="shuffle-labels" data-show-from="0" hidden></span></p>
   <h1>+35% на 40 гостях: фото работают или повезло?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Проверил новые фото блюд на 40 гостях. Без фото — 1.15 заказа на гостя за неделю, с фото — 1.55. Это +35%!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А если бы фото ничего не делали — такая разница бывала бы?</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А если бы фото ничего не делали — такая разница бывала бы?</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Если фото ничего не делают, то ярлыки «с фото» и «без» я раздал как попало. Вот и вся разница.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Тогда перетасуем ярлыки и посмотрим, как часто случайность даёт разницу не меньше, чем у Боба.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Сорок гостей: число в кружке — сколько заказов гость сделал за неделю. Синие видели старое приложение (A), оранжевые — с фото блюд (B). У Боба разница B − A — плюс 0.4 заказа на гостя.</p><p>Идея Алисы: если фото ни на что не влияют, ярлыки A и B можно раздать заново как угодно — заказы гостей от этого не изменятся. Каждая перетасовка даёт новую разницу, гистограмма собирает их. Сделай прогноз, перетасуй один раз, потом тысячу.</p></div>
+    <div class="what-body"><p>Сорок гостей: число в кружке — сколько заказов гость сделал за неделю. Синие видели старое приложение (A), оранжевые — с фото блюд (B). У Боба разница B − A — плюс 0.4 заказа на гостя.</p><p>Идея Алисы: если фото ни на что не влияют, ярлыки A и B можно раздать заново как угодно — заказы гостей от этого не изменятся. Каждая перетасовка даёт новую разницу, гистограмма собирает их. Сделай прогноз, перетасуй один раз, потом тысячу.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab09-01-bob-photos.jpg" alt="Боб фотографирует круассан для меню, Котейка позирует рядом" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -76,7 +76,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/03-noise.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Сделай прогноз и нажми «Перетасовать ярлыки». Какая разница вышла?</li><li>Нажми «Ещё 1000 перетасовок». Какая доля дала разницу не меньше 0.4 в любую сторону?</li><li>Нажми «Вернуть как было» и сравни настоящую разницу с горкой перетасовок.</li></ol>
@@ -84,7 +84,7 @@
     <div class="reveal" hidden>
       <p>Разница не меньше, чем у Боба (0.4 заказа на гостя в любую сторону), получается примерно в половине перетасовок — в симуляции около 52%. Значит, его «+35%» вполне могли сложиться случайно: просто от того, кому какой ярлык достался. На 40 гостях фото от шума не отличить. А доля перетасовок с разницей не меньше настоящей — это и есть p-value, только посчитанное руками.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Перестановочный тест (permutation test): тасуем ярлыки групп и смотрим, как часто случайность даёт такую же разницу.</li><li>Часто — разница похожа на шум. Редко, меньше чем в 5% перетасовок, — похоже на эффект.</li><li>Доля таких перетасовок — это p-value.</li><li>На маленьких группах даже +35% бывает просто шумом.</li></ul>
+      <ul class="cheat"><li>Перестановочный тест (permutation test): тасуем ярлыки групп и смотрим, как часто случайность даёт такую же разницу.</li><li>Часто — разница похожа на шум. Редко, меньше чем в 5% перетасовок, — похоже на эффект.</li><li>Доля таких перетасовок — это p-value.</li><li>На маленьких группах даже +35% бывает просто шумом.</li></ul>
     </div>
   </section>
 

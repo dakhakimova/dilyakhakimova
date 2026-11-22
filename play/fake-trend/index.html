@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,14 +53,14 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="fake-trend" data-frame="/signal/09-aa.html?toy=fake-trend"
-  data-share-title="Откуда «тренд» в A/A-тесте?" data-share-text="Продакт показывает график накопленного эффекта A/B: пять дней подряд линия растёт — «тренд же». Как часто такой рост бывает в A/A, где эффекта нет? Угадай и проверь на двадцати тестах"
+  data-share-title="Откуда «тренд» в A/A-тесте?" data-share-text="Продакт показывает график накопленного эффекта A/B: пять дней подряд линия растёт — «тренд же». Как часто такой рост бывает в A/A, где эффекта нет? Угадай и проверь на двадцати тестах"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="fake-trend" data-show-from="0" hidden></span></p>
   <h1>Откуда «тренд» в A/A-тесте?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Смотри: вторая группа выигрывает пятый день подряд, и разница всё растёт. Это тренд!</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это A/A-тест. Обе группы видят одно и то же приложение.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это A/A-тест. Обе группы видят одно и то же приложение.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Но линия явно ползёт вверх. Пять дней подряд — не случайность.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я каждый день добавляю в обе группы по две тысячи новых гостей — кого куда, решает монетка.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай нарисуем двадцать таких A/A и посмотрим, сколько из них «растут». А потом посчитаем тысячу.</p></div></div>
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/09-aa.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Другие 20 тестов» несколько раз. Сколько линий «растут» несколько дней подряд?</li><li>Нажми «Посчитать 1000 тестов». Какая доля хоть раз вышла за трубу?</li><li>Сравни её с долей тех, кто за трубой в последний, 14-й день.</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>В первые дни гостей мало, разница скачет сильнее всего, и линия легко «растёт» несколько дней подряд — это тренд, которого нет: накопленная линия долго помнит свои ранние случайные скачки. На 14-й день за трубой около 5% A/A, как и обещано. Но хоть раз за 14 дней за трубу выходит примерно каждый пятый A/A.</p>
+      <p>В первые дни гостей мало, разница скачет сильнее всего, и линия легко «растёт» несколько дней подряд — это тренд, которого нет: накопленная линия долго помнит свои ранние случайные скачки. На 14-й день за трубой около 5% A/A, как и обещано. Но хоть раз за 14 дней за трубу выходит примерно каждый пятый A/A.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Накопленная разница в первые дни шумит сильнее всего: гостей мало.</li><li>Несколько дней роста подряд в A/A — обычное дело, а не тренд.</li><li>Граница «значимо» обещает 5% ложных тревог только для одного взгляда, в конце.</li><li>Смотреть каждый день и останавливаться на первом выходе за границу — около 20% ложных тревог за 14 дней.</li><li>Длину теста решают заранее; по ходу смотрят только на поломки.</li></ul>
+      <ul class="cheat"><li>Накопленная разница в первые дни шумит сильнее всего: гостей мало.</li><li>Несколько дней роста подряд в A/A — обычное дело, а не тренд.</li><li>Граница «значимо» обещает 5% ложных тревог только для одного взгляда, в конце.</li><li>Смотреть каждый день и останавливаться на первом выходе за границу — около 20% ложных тревог за 14 дней.</li><li>Длину теста решают заранее; по ходу смотрят только на поломки.</li></ul>
     </div>
   </section>
 

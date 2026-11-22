@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -62,7 +62,7 @@
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Касса ловит 99% фальшивок и почти не ошибается. А ты говоришь, что большинство её писков — ложные. Как так?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Всё решает, сколько фальшивок вообще. Если их одна на тысячу, честных купюр в сотни раз больше — и редкие ошибки кассы на них складываются в толпу.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">А если фальшивок станет много? Скажем, каждая десятая?</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Касса та же, а верить писку можно будет по-другому. Нарисуем все купюры квадратом и посмотрим на площади.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Касса та же, а верить писку можно будет по-другому. Нарисуем все купюры квадратом и посмотрим на площади.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
@@ -76,7 +76,7 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/06-bayes.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>При базе 0.1% сравни два закрашенных куска. Какой больше?</li><li>Включи базу 10%. Какая теперь доля фальшивок среди писков?</li><li>При какой базе писку можно верить больше чем в половине случаев?</li></ol>
@@ -84,7 +84,7 @@
     <div class="reveal" hidden>
       <p>При базе 0.1% после писка фальшивок всего 9%: колонна узкая, а поле настоящих огромное, и даже 1% ошибок на нём больше всех фальшивок. При базе 2% — уже 66.9%, при 10% — 91.7%, при 30% — 97.7%. Сила кассы не меняется: на фальшивку она пищит в 99 раз чаще, чем на настоящую. Сигнал не сообщает шанс, а умножает тот, что был до него. Чем реже беда, тем больше тревог ложные.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Доля правдивых сигналов — precision, или PPV, — зависит от базы. Чувствительность, recall, — нет.</li><li>Шансы до × сила сигнала = шансы после: 1 : 999 × 99 ≈ 1 : 10.</li><li>Та же касса: база 0.1% → 9%, 2% → 67%, 10% → 92%.</li><li>Редкое событие — проверь второй, независимой проверкой: она умножит шансы ещё раз.</li></ul>
+      <ul class="cheat"><li>Доля правдивых сигналов — precision, или PPV, — зависит от базы. Чувствительность, recall, — нет.</li><li>Шансы до × сила сигнала = шансы после: 1 : 999 × 99 ≈ 1 : 10.</li><li>Та же касса: база 0.1% → 9%, 2% → 67%, 10% → 92%.</li><li>Редкое событие — проверь второй, независимой проверкой: она умножит шансы ещё раз.</li></ul>
     </div>
   </section>
 

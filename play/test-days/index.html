@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,7 +53,7 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="test-days" data-frame="/ab-basics/09-mde.html?toy=test-days"
-  data-share-title="Хочешь заметить +2% к конверсии. Сколько дней держать тест?" data-share-text="Продакт говорит: «Держим тест две недели, как всегда». Важный для него эффект — +2% к конверсии, 20 000 пользователей в день. Хватит ли двух недель? Угадай — и посчитай в калькуляторе"
+  data-share-title="Хочешь заметить +2% к конверсии. Сколько дней держать тест?" data-share-text="Продакт говорит: «Держим тест две недели, как всегда». Важный для него эффект — +2% к конверсии, 20 000 пользователей в день. Хватит ли двух недель? Угадай — и посчитай в калькуляторе"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="test-days" data-show-from="0" hidden></span></p>
   <h1>Хочешь заметить +2% к конверсии. Сколько дней держать тест?</h1>
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/09-mde.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Поставь +2% и 20 000 гостей в день. Сколько дней нужно? Хватит двух недель?</li><li>Поставь +1%. Во сколько раз вырос срок?</li><li>Поставь сплит 90/10. Во сколько раз дольше теперь тест?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Чтобы заметить +2% при 20 000 гостей в день, тест нужно держать около 36 дней — двух недель не хватит. Для +1% — уже 142 дня, вчетверо дольше. А для +5% хватит 6 дней. Сплит тоже стоит времени: при 90/10 тест идёт примерно в 2.8 раза дольше, чем при 50/50, — шум маленькой группы почти весь уходит в разницу. Длину теста считают до запуска, от важного эффекта.</p>
+      <p>Чтобы заметить +2% при 20 000 гостей в день, тест нужно держать около 36 дней — двух недель не хватит. Для +1% — уже 142 дня, вчетверо дольше. А для +5% хватит 6 дней. Сплит тоже стоит времени: при 90/10 тест идёт примерно в 2.8 раза дольше, чем при 50/50, — шум маленькой группы почти весь уходит в разницу. Длину теста считают до запуска, от важного эффекта.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Длину теста считают от MDE: какой эффект важен, такой тест и должен замечать.</li><li>Вдвое меньший эффект — вчетверо дольше тест.</li><li>Неравный сплит удлиняет тест: 90/10 — примерно в 2.8 раза дольше, чем 50/50.</li><li>Длину округляют до полных недель: в будни и в выходные приходят разные гости.</li></ul>
+      <ul class="cheat"><li>Длину теста считают от MDE: какой эффект важен, такой тест и должен замечать.</li><li>Вдвое меньший эффект — вчетверо дольше тест.</li><li>Неравный сплит удлиняет тест: 90/10 — примерно в 2.8 раза дольше, чем 50/50.</li><li>Длину округляют до полных недель: в будни и в выходные приходят разные гости.</li></ul>
     </div>
   </section>
 

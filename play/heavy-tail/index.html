@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,23 +53,23 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="heavy-tail" data-frame="/signal/07-clt.html?toy=heavy-tail"
-  data-share-title="Бывает среднее, которое не успокаивается?" data-share-text="Аналитик считает средний чек банкетов по первым 10 000 заказам и вписывает его в прогноз выручки. Сойдутся ли бегущие средние трёх одинаковых кафе? Угадай и проверь на тяжёлом хвосте"
+  data-share-title="Бывает среднее, которое не успокаивается?" data-share-text="Аналитик считает средний чек банкетов по первым 10 000 заказам и вписывает его в прогноз выручки. Сойдутся ли бегущие средние трёх одинаковых кафе? Угадай и проверь на тяжёлом хвосте"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="heavy-tail" data-show-from="0" hidden></span></p>
   <h1>Бывает среднее, которое не успокаивается?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Посчитаю средний чек банкетного зала по первым тысячам заказов — и в план. Больше данных — точнее.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Посчитаю средний чек банкетного зала по первым тысячам заказов — и в план. Больше данных — точнее.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">У банкетов чек без потолка: бывает ужин на десятерых, бывает свадьба на триста гостей.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Чем дольше ждёшь, тем больше шанс, что я подкину совсем огромный банкет.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Чем дольше ждёшь, тем больше шанс, что я подкину совсем огромный банкет.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">После тысячи заказов один банкет уже ничего не сдвинет.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем бегущий средний чек в трёх одинаковых кафе и посмотрим, сойдутся ли они.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посчитаем бегущий средний чек в трёх одинаковых кафе и посмотрим, сойдутся ли они.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Чеки здесь без потолка: распределение Парето, у которого хвост тем тяжелее, чем меньше α. Три кафе с одинаковыми гостями считают средний чек по мере прихода заказов, до 10 000.</p><p>Кнопки меняют тяжесть хвоста: лёгкий (α = 3), без конечной σ (α = 1.5), без конечного среднего (α = 1). Перезапускай три кафе и смотри, сходятся ли линии к одному числу.</p></div>
-    <figure class="art"><img src="/play/img/heavy-tail.jpg" alt="Боб у весов спокойно кладёт на чашу ещё один маленький чек, а в двери кафе Котейка вкатывает гигантский банкетный торт, от которого весы вот-вот подпрыгнут" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+    <div class="what-body"><p>Чеки здесь без потолка: распределение Парето, у которого хвост тем тяжелее, чем меньше α. Три кафе с одинаковыми гостями считают средний чек по мере прихода заказов, до 10 000.</p><p>Кнопки меняют тяжесть хвоста: лёгкий (α = 3), без конечной σ (α = 1.5), без конечного среднего (α = 1). Перезапускай три кафе и смотри, сходятся ли линии к одному числу.</p></div>
+    <figure class="art"><img src="/play/img/heavy-tail.jpg" alt="Боб у весов спокойно кладёт на чашу ещё один маленький чек, а в двери кафе Котейка вкатывает гигантский банкетный торт, от которого весы вот-вот подпрыгнут" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/07-clt.html#card-8">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Хвост лёгкий» и перезапусти. Линии сходятся?</li><li>Нажми «σ нет» и перезапусти несколько раз. Как ведут себя линии?</li><li>Нажми «Среднего нет». Где линии после 10 000 заказов?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>С лёгким хвостом три кафе быстро сходятся к одному среднему — 300 ₽. Без конечной σ среднее есть (600 ₽), но линии ползут к нему рывками: каждый огромный банкет сдвигает их скачком. А без конечного среднего каждое кафе уходит вверх своей лесенкой: чем дольше считаешь, тем выше. На таких метриках формула σ/√n не работает.</p>
+      <p>С лёгким хвостом три кафе быстро сходятся к одному среднему — 300 ₽. Без конечной σ среднее есть (600 ₽), но линии ползут к нему рывками: каждый огромный банкет сдвигает их скачком. А без конечного среднего каждое кафе уходит вверх своей лесенкой: чем дольше считаешь, тем выше. На таких метриках формула σ/√n не работает.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>ЦПТ требует конечной σ. У Парето с α ≤ 2 σ нет, с α ≤ 1 нет и среднего.</li><li>Проверка: перезапусти симуляцию или пересчитай по частям данных. Скачет — тяжёлый хвост.</li><li>Что делать: обрезать сверху (чеки выше 99-го процентиля заменить им) или мерить медиану.</li><li>Больше данных тяжёлый хвост не лечит.</li></ul>
     </div>

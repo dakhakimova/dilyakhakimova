@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -68,7 +68,7 @@
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>По горизонтали — настоящий эффект в заказах на 100 гостей, по вертикали — доля тестов, где он прокрасится, то есть мощность. Конверсия контроля 10%, порог значимости 5%, двусторонний тест.</p><p>На кривой отмечен эффект, который тест замечает в 8 случаях из 10, — MDE, minimum detectable effect. Подумай, какой он при 10 000 гостях в группе и заметит ли тест эффект Боба +0.5. Потом двигай число гостей.</p></div>
+    <div class="what-body"><p>По горизонтали — настоящий эффект в заказах на 100 гостей, по вертикали — доля тестов, где он прокрасится, то есть мощность. Конверсия контроля 10%, порог значимости 5%, двусторонний тест.</p><p>На кривой отмечен эффект, который тест замечает в 8 случаях из 10, — MDE, minimum detectable effect. Подумай, какой он при 10 000 гостях в группе и заметит ли тест эффект Боба +0.5. Потом двигай число гостей.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab09-00-telescope.jpg" alt="Алиса смотрит в телескоп на кофейные зёрна: крупные видны, самые мелкие расплываются" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,10 +77,10 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/11-errors.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Найди на кривой MDE при 10 000 гостях. Он больше или меньше +0.5?</li><li>Поставь 40 000 гостей. Во сколько раз уменьшился MDE?</li><li>Какое число гостей нужно, чтобы +0.5 замечался хотя бы в 8 тестах из 10?</li></ol>
+    <ol class="tries"><li>Найди на кривой MDE при 10 000 гостях. Он больше или меньше +0.5?</li><li>Поставь 40 000 гостей. Во сколько раз уменьшился MDE?</li><li>Какое число гостей нужно, чтобы +0.5 замечался хотя бы в 8 тестах из 10?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>При 10 000 гостях в группе MDE около 1.19 заказа на 100 гостей: такой эффект тест заметит в 8 случаях из 10. Эффект Боба +0.5 он поймает лишь примерно в каждом пятом тесте. MDE падает как 1/√n: вчетверо больше гостей — вдвое меньше MDE. Чтобы замечать +0.5, нужно около 56 500 гостей в группе.</p>

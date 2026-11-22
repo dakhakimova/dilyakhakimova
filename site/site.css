@@ -10,7 +10,7 @@
 
 /* книжная полка */
 .bookshelf{position:relative; margin:var(--s-6) 0 var(--s-3); overflow-x:auto; overflow-y:visible; padding:220px var(--s-4) 0; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
-.bookshelf:focus-visible{outline:2px solid var(--pen); outline-offset:2px; border-radius:var(--r-m)}
+.bookshelf:focus-visible{outline:3px solid var(--pen); outline-offset:3px; border-radius:var(--r-m)}
 .books{list-style:none; margin:0; padding:0 var(--s-2); display:flex; align-items:flex-end; gap:6px; min-width:max-content; position:relative; z-index:1}
 .book{position:relative; margin:0}
 .spine{display:flex; flex-direction:column; justify-content:space-between; align-items:center; height:var(--h); width:var(--w); padding:var(--s-3) 0; border:0; border-radius:4px 4px 2px 2px; background:var(--c); color:#fff; text-decoration:none; cursor:pointer; box-shadow:inset -6px 0 0 rgba(0,0,0,.12), inset 3px 0 0 rgba(255,255,255,.12); font:inherit; transition:transform .15s}
@@ -19,7 +19,7 @@
 .book:not(.live) .spine{filter:saturate(.7); opacity:.88; cursor:default}
 .book.live .spine{box-shadow:inset -6px 0 0 rgba(0,0,0,.14), inset 3px 0 0 rgba(255,255,255,.18), 0 0 0 2px var(--paper), 0 0 0 4px var(--coral)}
 .spine:hover, .spine:focus-visible, .book.open .spine{transform:translateY(-8px)}
-.spine:focus-visible{outline:2px solid var(--pen); outline-offset:3px}
+.spine:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .books.dim .book:not(.hit) .spine{opacity:.25; filter:saturate(.2)}
 .b-card{position:absolute; bottom:calc(100% + 14px); left:50%; transform:translateX(-50%); width:240px; background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-3); padding:var(--s-3) var(--s-4); font-size:var(--fs-s); color:var(--text-2); display:none; z-index:5; text-align:left}
 .b-card > *{display:block}

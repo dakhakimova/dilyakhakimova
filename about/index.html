@@ -34,7 +34,7 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
@@ -42,10 +42,10 @@ function artFail(img){
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main">
 
@@ -57,7 +57,7 @@ function artFail(img){
     <p class="sub" data-i18n="hero.sub">Делаю интерактивные курсы по вероятности, статистике и A/B-тестам — для аналитиков, продактов, разработчиков и всех, кому нужно решать по данным. Подход простой: сначала угадай, потом проверь.</p>
     <p class="ctas">
       <a class="btn" href="/#routes" data-i18n="hero.cta1">Выбрать курс</a>
-      <a class="btn ghost" href="#how" data-i18n="hero.cta2">Как я учу ↓</a>
+      <a class="btn ghost" href="#how" data-i18n="hero.cta2">Как я учу ↓</a>
     </p>
   </div>
   <figure class="portrait">
@@ -82,10 +82,10 @@ function artFail(img){
 <section class="wrap block" id="how" aria-labelledby="how-h">
   <div class="approach">
     <div>
-      <h2 id="how-h" data-i18n="how.title">Как я учу</h2>
+      <h2 id="how-h" data-i18n="how.title">Как я учу</h2>
       <ol class="principles" role="list">
         <li><span data-i18n="how.p1"><b>Сначала угадай, потом проверь.</b> Ставишь прогноз ползунком, правду показывает симуляция. Сразу видно, где интуиция подводит.</span></li>
-        <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
+        <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
         <li><span data-i18n="how.p3"><b>Честно про ошибки.</b> Где метод ломается и какие мифы ходят по статьям.</span></li>
       </ol>
       <p class="after more" data-i18n="how.cta"><a href="/#toy">Попробовать игру с монеткой на главной →</a></p>
@@ -159,7 +159,7 @@ function artFail(img){
 
   <div id="next" class="sub-block">
     <h3 class="h3" data-i18n="line.title">Курсы</h3>
-    <p class="muted" data-i18n="line.lead">Линейка от начального уровня до продвинутого. Бесплатные — без регистрации и без карты.</p>
+    <p class="muted" data-i18n="line.lead">Линейка от начального уровня до продвинутого. Бесплатные — без регистрации и без карты.</p>
     <ul class="lineup" role="list">
       <li style="--course:var(--c-prob)"><a href="/probability/"><b data-i18n="foot.c.prob">Вероятность на пальцах</b><span class="line" data-i18n="c.prob.line">шансы в штуках и задачи с собеседований</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Новичок</span></span><span class="tag soon" data-i18n="soon">в курсе</span></span></a></li>
       <li style="--course:var(--c-sig)"><a href="/signal/"><b data-i18n="foot.c.sig">Сигнал или шум</b><span class="line" data-i18n="c.sig.line">как отличить эффект от случайности</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
@@ -169,7 +169,7 @@ function artFail(img){
       <li style="--course:var(--c-cau)"><a href="/causal/"><b data-i18n="foot.c.cau">Causal inference</b><span class="line" data-i18n="c.cau.line">причины по данным, когда эксперимент не провести</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag later" data-i18n="later">позже</span></span></a></li>
     </ul>
     <p class="hand-line" data-i18n="line.hand">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
-    <p><a class="more" href="/#routes" data-i18n="line.all">Все курсы и как выбрать — на главной →</a></p>
+    <p><a class="more" href="/#routes" data-i18n="line.all">Все курсы и как выбрать — на главной →</a></p>
   </div>
 
   <article class="panel pelican sub-block" id="pelican" aria-labelledby="pel-h">

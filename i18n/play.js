@@ -41,7 +41,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'play.hero.kot': 'Котейка',
   'play.unit.step': 'шаг',
   'play.unit.chapter': 'глава',
-  // подпись под игрой (видна и в ?embed=1): «Игра из курса «…», шаг 7 — dilyakhakimova.com · бесплатный курс — …»
+  // подпись под игрой (видна и в ?embed=1): «Игра из курса „…“, шаг 7 — dilyakhakimova.com · бесплатный курс — …»
   'play.credit': 'Игра из курса «{course}», <a href="{href}" target="{target}" rel="noopener">{unit}&nbsp;{n}</a> — dilyakhakimova.com',
   // ---------- статус курса: формулировки для play/courses.json → status (единственное место, где их менять) ----------
   // badge — подпись под игрой и значок в «Дальше в курсе» и каталоге; cta — кнопка в «Дальше в курсе»;

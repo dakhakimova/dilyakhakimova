@@ -7,14 +7,14 @@
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/07-p-value.html?toy=tiny-effect" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
 <title>Эффект +0.5% и десять миллионов гостей. Значимо — значит важно? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Одна и та же крошечная разница при 10 тысячах и 10 миллионах гостей: как трафик делает значимым даже ненужный эффект.">
+<meta name="description" content="Одна и та же крошечная разница при 10 тысячах и 10 миллионах гостей: как трафик делает значимым даже ненужный эффект.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/tiny-effect/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/tiny-effect/">
 <meta property="og:title" content="Эффект +0.5% и десять миллионов гостей. Значимо — значит важно? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Одна и та же крошечная разница при 10 тысячах и 10 миллионах гостей: как трафик делает значимым даже ненужный эффект.">
+<meta property="og:description" content="Одна и та же крошечная разница при 10 тысячах и 10 миллионах гостей: как трафик делает значимым даже ненужный эффект.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/tiny-effect.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,22 +53,22 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="tiny-effect" data-frame="/ab-basics/07-p-value.html?toy=tiny-effect"
-  data-share-title="Эффект +0.5% и десять миллионов гостей. Значимо — значит важно?" data-share-text="На 10 млн пользователей в группе A/B-тест показал +0.5%, значимо. Продакт готовит релиз и анонс. Что на самом деле говорит «значимо» при таком трафике? Угадай — и подвигай число гостей"
+  data-share-title="Эффект +0.5% и десять миллионов гостей. Значимо — значит важно?" data-share-text="На 10 млн пользователей в группе A/B-тест показал +0.5%, значимо. Продакт готовит релиз и анонс. Что на самом деле говорит «значимо» при таком трафике? Угадай — и подвигай число гостей"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="tiny-effect" data-show-from="0" hidden></span></p>
   <h1>Эффект +0.5% и десять миллионов гостей. Значимо — значит важно?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новая анимация кнопки дала +0.5% к заказам — и значимо! Катим, это успех.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Значимо при скольких гостях? И окупается ли +0.5%?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Десять миллионов в группе. Значимо же — значит, работает.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Значимо при скольких гостях? И окупается ли +0.5%?</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Десять миллионов в группе. Значимо же — значит, работает.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Чем больше гостей, тем тише мой шум. На десяти миллионах я почти молчу.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посмотрим, что происходит с p-value и вилкой, когда разница та же, а гостей всё больше.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Посмотрим, что происходит с p-value и вилкой, когда разница та же, а гостей всё больше.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Разница в эксперименте совсем маленькая и всегда одна и та же: из 1000 гостей заказывают 100.5 вместо 100, то есть +0.5%. Меняется только число людей в каждой группе — от 10 тысяч до 10 миллионов.</p><p>Следи за p-value и за вилкой. p-value говорит, насколько разница удивительна без эффекта; вилка — какие эффекты согласуются с данными.</p></div>
+    <div class="what-body"><p>Разница в эксперименте совсем маленькая и всегда одна и та же: из 1000 гостей заказывают 100.5 вместо 100, то есть +0.5%. Меняется только число людей в каждой группе — от 10 тысяч до 10 миллионов.</p><p>Следи за p-value и за вилкой. p-value говорит, насколько разница удивительна без эффекта; вилка — какие эффекты согласуются с данными.</p></div>
     <figure class="art"><img src="/ab-basics/img/ab06-04-two-lines.jpg" alt="Алиса показывает вилку между двумя линиями на полу кафе: нулём и порогом пользы" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,21 +77,21 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/07-p-value.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Начни с 10 000 гостей в группе. Какой p-value? Какой ширины вилка?</li><li>Двигай ползунок вправо. При каком числе гостей +0.5% становится значимым?</li><li>Посмотри на вилку при 10 миллионах: насколько большой эффект она допускает?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>При 10 000 гостей в группе p-value около 91%, вилка от −7.8% до +8.8%. При миллионе — уже 24%, при 10 миллионах — меньше 0.1%: значимо. Сам эффект не изменился, +0.5%. При огромном трафике значимым становится даже эффект, который никому не нужен. p-value не говорит, большой ли эффект: размер смотрят по вилке и сравнивают с порогом пользы.</p>
+      <p>При 10 000 гостей в группе p-value около 91%, вилка от −7.8% до +8.8%. При миллионе — уже 24%, при 10 миллионах — меньше 0.1%: значимо. Сам эффект не изменился, +0.5%. При огромном трафике значимым становится даже эффект, который никому не нужен. p-value не говорит, большой ли эффект: размер смотрят по вилке и сравнивают с порогом пользы.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Значимо — значит «шумом трудно объяснить», а не «важно» и не «выгодно».</li><li>При огромном трафике значимы даже крошечные эффекты.</li><li>Размер эффекта смотрят по вилке: при 10 млн в группе это от +0.24% до +0.76%.</li><li>До теста договариваются о пороге пользы: какой эффект окупит фичу.</li></ul>
+      <ul class="cheat"><li>Значимо — значит «шумом трудно объяснить», а не «важно» и не «выгодно».</li><li>При огромном трафике значимы даже крошечные эффекты.</li><li>Размер эффекта смотрят по вилке: при 10 млн в группе это от +0.24% до +0.76%.</li><li>До теста договариваются о пороге пользы: какой эффект окупит фичу.</li></ul>
     </div>
   </section>
 
   <div class="play-foot">
     <p class="share-row"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
-    <p class="play-src"><b>Откуда идея.</b> Общий принцип: статистическая значимость — не то же, что практическая. Заказы в игре смоделированы.</p>
+    <p class="play-src"><b>Откуда идея.</b> Общий принцип: статистическая значимость — не то же, что практическая. Заказы в игре смоделированы.</p>
   </div>
 </main>
 

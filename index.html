@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Все тексты страницы — в i18n/home.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словарь, а не разметку. -->
 <title data-i18n="meta.title">Диля Хакимова — вероятность, статистика и A/B-тесты: интерактивные курсы</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность, статистика и A/B-тесты — через интерактивные задачи и разборы с собеседований: истории про кафе Алисы и Боба, игры вместо формул на доске. Бесплатно и без регистрации.">
+<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность, статистика и A/B-тесты — через интерактивные задачи и разборы с собеседований: истории про кафе Алисы и Боба, игры вместо формул на доске. Бесплатно и без регистрации.">
 <link rel="canonical" href="https://dilyakhakimova.com/">
 <!-- hreflang добавим, когда появится /en/: ru → /, en → /en/, x-default → / -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/">
 <meta property="og:title" data-i18n-attr="content:meta.ogtitle" content="Сначала угадай. Потом проверь.">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность, статистика и A/B-тесты — через интерактивные задачи и разборы с собеседований: истории про кафе Алисы и Боба, игры вместо формул на доске. Бесплатно и без регистрации.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность, статистика и A/B-тесты — через интерактивные задачи и разборы с собеседований: истории про кафе Алисы и Боба, игры вместо формул на доске. Бесплатно и без регистрации.">
 <!-- Когда появится img/home-hero.jpg, заменить строку ниже на https://dilyakhakimova.com/img/home-hero.jpg -->
 <meta property="og:image" content="https://dilyakhakimova.com/img/home-hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <span class="home-line" aria-current="page"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></span>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
     <a href="/play/">Игры</a>
@@ -44,17 +44,17 @@ function artFail(img){
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <main id="main">
 
 <!-- 1. Первый экран -->
 <section class="hero wrap">
   <div class="hero-text">
-    <p class="pre" data-i18n="hero.pre">Вероятность, статистика и A/B-тесты <span>— через интерактивные задачи и разборы с собеседований. Бесплатно и без регистрации.</span></p>
+    <p class="pre" data-i18n="hero.pre">Вероятность, статистика и A/B-тесты <span>— через интерактивные задачи и разборы с собеседований. Бесплатно и без регистрации.</span></p>
     <h1 data-i18n="hero.title">Сначала угадай. <span class="hand">Потом проверь.</span></h1>
     <p class="sub" data-i18n="hero.sub">Истории про кафе Алисы и Боба и игры вместо формул на доске: сначала прогноз, потом симуляция показывает правду.</p>
     <p class="ctas">
@@ -122,10 +122,10 @@ function artFail(img){
   <h2 id="how-h" data-i18n="how.title">Как здесь учат</h2>
   <ol class="principles" role="list">
     <li><span data-i18n="how.p1"><b>Сначала угадай, потом проверь.</b> Прогноз ползунком, правду показывает симуляция.</span></li>
-    <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
+    <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
     <li><span data-i18n="how.p3"><b>Честно про ошибки.</b> Где метод ломается и какие мифы ходят по статьям.</span></li>
   </ol>
-  <p class="after" data-i18n="how.cta">Пример шага: <a href="/ab-basics/01-before-after.html">До и после — не доказательство</a></p>
+  <p class="after" data-i18n="how.cta">Пример шага: <a href="/ab-basics/01-before-after.html">До и после — не доказательство</a></p>
 </section>
 
 <!-- 4. С чего начать -->
@@ -145,7 +145,7 @@ function artFail(img){
 <section class="wrap block" id="courses" aria-labelledby="courses-h">
   <h2 id="courses-h" data-i18n="line.title">Линейка курсов: от начального уровня до продвинутого</h2>
 
-  <h3 class="shelf" data-i18n="line.free">Бесплатно, без регистрации и без карты</h3>
+  <h3 class="shelf" data-i18n="line.free">Бесплатно, без регистрации и без карты</h3>
   <ul class="cards" role="list">
     <li class="course" id="c-prob">
       <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" loading="lazy" data-i18n-attr="alt:c.prob.alt" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="artFail(this)"><figcaption class="ph" data-i18n="c.prob.ph">обложка курса: две монетки и дерево исходов</figcaption></figure>
@@ -223,10 +223,10 @@ function artFail(img){
   <article class="panel lure">
     <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" data-i18n-attr="alt:lure.int.alt" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph" data-i18n="lure.int.ph">Алиса на собеседовании у Котейки</figcaption></figure>
     <h2 data-i18n="lure.int.t">Готовишься к собеседованию?</h2>
-    <p data-i18n="lure.int.d">Классические задачи на пальцах: в каждом шаге «Вероятности на пальцах», а в конце — пробное собеседование на время с Котейкой-интервьюером.</p>
+    <p data-i18n="lure.int.d">Классические задачи на пальцах: в каждом шаге «Вероятности на пальцах», а в конце — пробное собеседование на время с Котейкой-интервьюером.</p>
     <div class="task-box">
-      <p class="q" data-i18n="lure.int.q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
-      <details><summary data-i18n="lure.int.show">Показать ответ</summary><p data-i18n="lure.int.a"><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3.2) + C(3.3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
+      <p class="q" data-i18n="lure.int.q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
+      <details><summary data-i18n="lure.int.show">Показать ответ</summary><p data-i18n="lure.int.a"><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3.2) + C(3.3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
     </div>
     <p><a class="btn" href="/probability/09-interview.html" data-i18n="lure.int.cta">Решить задачи →</a></p>
     <p class="note" data-i18n="lure.int.note">Статья «Семь классических задач по теорверу для собеседования — на пальцах» — скоро.</p>

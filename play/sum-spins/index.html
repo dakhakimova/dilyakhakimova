@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -53,7 +53,7 @@
 </nav>
 
 <main id="main" class="wrap play" data-toy="sum-spins" data-frame="/probability/08-mean-spread.html?toy=sum-spins"
-  data-share-title="Почему казино не боится везунчиков?" data-share-text="Эффект в A/B-тесте маленький, а дневной шум большой. Продакт спрашивает, поможет ли просто держать тест дольше. Угадай, что растёт быстрее — накопленный эффект или шум, — и проверь на колесе призов"
+  data-share-title="Почему казино не боится везунчиков?" data-share-text="Эффект в A/B-тесте маленький, а дневной шум большой. Продакт спрашивает, поможет ли просто держать тест дольше. Угадай, что растёт быстрее — накопленный эффект или шум, — и проверь на колесе призов"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/probability/">из курса «Вероятность на пальцах»</a><span class="play-count" data-count-for="sum-spins" data-show-from="0" hidden></span></p>
   <h1>Почему казино не боится везунчиков?</h1>
@@ -61,7 +61,7 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">После одного вращения колеса в плюсе больше трети гостей. Пусть крутят подольше — везунчиков станет ещё больше!</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Каждое вращение в среднем отнимает у гостя 12.5 ₽. Чем дольше игра, тем дальше уезжает середина.</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Но и разброс растёт! Чем больше вращений, тем сильнее может повезти.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Но и разброс растёт! Чем больше вращений, тем сильнее может повезти.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Тогда пусть каждый гость крутит сколько хочет — хоть четыреста раз. Посмотрим, кто кого обгонит.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Двигай число вращений и смотри на облако итогов тысячи гостей.</p></div></div>
   </div>
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/probability/08-mean-spread.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Поставь 1 вращение, потом 10. Какая доля гостей в плюсе?</li><li>Поставь 100 вращений. Где центр облака и какая у него ширина?</li><li>Поставь 400. Во сколько раз уехал центр и во сколько выросла ширина по сравнению со 100?</li></ol>
+    <ol class="tries"><li>Поставь 1 вращение, потом 10. Какая доля гостей в плюсе?</li><li>Поставь 100 вращений. Где центр облака и какая у него ширина?</li><li>Поставь 400. Во сколько раз уехал центр и во сколько выросла ширина по сравнению со 100?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
       <p>После одного вращения в плюсе 37.5% гостей, после 10 — 32.5%, после 100 — 17%, после 400 — 3.2%. Центр облака уезжает пропорционально числу вращений: −1250 ₽ за 100 и −5000 ₽ за 400. А ширина растёт только как корень: около 1340 ₽ за 100 и 2680 ₽ за 400. Вращений вчетверо больше — центр ушёл вчетверо, ширина выросла вдвое. Чем дольше игра, тем увереннее выигрыш заведения.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Средние складываются всегда: у суммы n вращений среднее n · EX.</li><li>Дисперсии складываются для независимых величин: SD суммы растёт как √n, а не как n.</li><li>Эффект растёт как n, шум — как √n: длинная серия выдаёт даже маленький перевес.</li><li>Колесо: SD одного вращения ≈ 134 ₽, за сто вращений ≈ 1340 ₽, а не 13 400 ₽.</li></ul>
+      <ul class="cheat"><li>Средние складываются всегда: у суммы n вращений среднее n · EX.</li><li>Дисперсии складываются для независимых величин: SD суммы растёт как √n, а не как n.</li><li>Эффект растёт как n, шум — как √n: длинная серия выдаёт даже маленький перевес.</li><li>Колесо: SD одного вращения ≈ 134 ₽, за сто вращений ≈ 1340 ₽, а не 13 400 ₽.</li></ul>
     </div>
   </section>
 

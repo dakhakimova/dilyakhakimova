@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/01-probability.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Запиши догадку и нажми «+1000 серий». В какой доле серий ровно 10 орлов?</li><li>Сравни с долей серий, где от 8 до 12 орлов. Во сколько раз она больше?</li><li>Нажми «Сначала» и несколько раз «Бросить 20 раз». Как скачет доля орлов в начале?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Ровно 10 орлов из 20 выпадает только в 17.6% серий — реже, чем ровно 5 из 10 (24.6%). Чем длиннее серия, тем больше у неё возможных исходов, и на каждый, даже самый частый, приходится меньше. А вот «около половины», от 8 до 12 орлов, — уже 73.7% серий. Доля орлов на длинной серии ползёт к ½, но «ровно половина» в каждой порции от этого чаще не становится.</p>
+      <p>Ровно 10 орлов из 20 выпадает только в 17.6% серий — реже, чем ровно 5 из 10 (24.6%). Чем длиннее серия, тем больше у неё возможных исходов, и на каждый, даже самый частый, приходится меньше. А вот «около половины», от 8 до 12 орлов, — уже 73.7% серий. Доля орлов на длинной серии ползёт к ½, но «ровно половина» в каждой порции от этого чаще не становится.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>Вероятность — доля исхода в длинной серии повторов.</li><li>P(ровно 10 из 20) = C(20, 10) / 2²⁰ = 184 756 / 1 048 576 ≈ 17.6%.</li><li>От 8 до 12 орлов из 20 — 73.7% серий.</li><li>Длиннее серия — реже «ровно половина» и чаще «около половины».</li></ul>
     </div>

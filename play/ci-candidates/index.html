@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -61,14 +61,14 @@
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Тест кнопки «Повторить заказ» прокрасился: +0.65 заказа на 100 гостей. Так и запишу в план: плюс 0.65.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Прокрасился — значит, мир без эффекта плохо объясняет данные. Но ноль — только один кандидат. А если кнопка на самом деле даёт +1? Или +0.1?</p></div></div>
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мы же намерили 0.65. Откуда другие?</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Это я добавил шум. При другом раскладе гостей по группам вышло бы чуть больше или чуть меньше.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Мы же намерили 0.65. Откуда другие?</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Это я добавил шум. При другом раскладе гостей по группам вышло бы чуть больше или чуть меньше.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Проверим кандидатов по одному: какие из них не спорят с нашими данными?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Данные Боба: по 20 000 гостей в группе, 10 заказов на 100 гостей в контроле и 10.65 — с кнопкой. Разница +0.65. Кандидат — догадка о настоящем эффекте кнопки, например «ровно +1». Если правда такая, разницы в повторных тестах легли бы колоколом вокруг +1.</p><p>Смотрим, где на этом колоколе наша разница +0.65. Если в хвосте (красное, по 2.5% с каждой стороны) — кандидат гаснет, если в теле — остаётся жив. Выбери, какой ряд кандидатов уцелеет, потом двигай ползунок или нажми «Проверить всех».</p></div>
+    <div class="what-body"><p>Данные Боба: по 20 000 гостей в группе, 10 заказов на 100 гостей в контроле и 10.65 — с кнопкой. Разница +0.65. Кандидат — догадка о настоящем эффекте кнопки, например «ровно +1». Если правда такая, разницы в повторных тестах легли бы колоколом вокруг +1.</p><p>Смотрим, где на этом колоколе наша разница +0.65. Если в хвосте (красное, по 2.5% с каждой стороны) — кандидат гаснет, если в теле — остаётся жив. Выбери, какой ряд кандидатов уцелеет, потом двигай ползунок или нажми «Проверить всех».</p></div>
     <figure class="art"><img src="/ab-basics/img/ab06-01-bob-pin.jpg" alt="Боб втыкает булавку в одну точку линейки, Алиса показывает широкую скобку" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/10-ab-test.html#card-7">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Сделай ставку и нажми «Проверить всех». От какого до какого кандидата живы?</li><li>Нажми «Кандидат «ноль»». Жив он или погас?</li><li>Двигай ползунок у краёв ряда: на каком кандидате кружок гаснет?</li></ol>
+    <ol class="tries"><li>Сделай ставку и нажми «Проверить всех». От какого до какого кандидата живы?</li><li>Нажми «Кандидат „ноль“». Жив он или погас?</li><li>Двигай ползунок у краёв ряда: на каком кандидате кружок гаснет?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Живы кандидаты примерно от +0.05 до +1.25 заказа на 100 гостей — это и есть 95%-й доверительный интервал. Ноль погас: наша разница отстоит от него на 2.14 стандартной ошибки, p = 0.033. Поэтому интервал и не задевает ноль — это та же проверка, прочитанная по-другому. Живые стоят подряд, так что получается отрезок, и его края считают одной формулой, без перебора.</p>
+      <p>Живы кандидаты примерно от +0.05 до +1.25 заказа на 100 гостей — это и есть 95%-й доверительный интервал. Ноль погас: наша разница отстоит от него на 2.14 стандартной ошибки, p = 0.033. Поэтому интервал и не задевает ноль — это та же проверка, прочитанная по-другому. Живые стоят подряд, так что получается отрезок, и его края считают одной формулой, без перебора.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>95%-й доверительный интервал (CI) — все эффекты, которые двусторонний тест с порогом 5% не отвергает.</li><li>Интервал разницы долей: d ± 1.96 · √(p̂<sub>A</sub>(1 − p̂<sub>A</sub>)/n<sub>A</sub> + p̂<sub>B</sub>(1 − p̂<sub>B</sub>)/n<sub>B</sub>).</li><li>Ноль вне интервала ⇔ p < 0.05.</li><li>В план пишут не «+0.65», а «от +0.05 до +1.25»: правда может оказаться почти нулём.</li></ul>
     </div>

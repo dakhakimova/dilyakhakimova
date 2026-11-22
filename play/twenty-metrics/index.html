@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -60,16 +60,16 @@
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Больше не подглядываю! Зато в отчёте теста 12 метрик: заказы, выручка, средний чек, отмены… Выкатываю, если значимо хоть что-то.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я до запуска выбираю одну главную — конверсию в заказ — и решаю только по ней.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А я до запуска выбираю одну главную — конверсию в заказ — и решаю только по ней.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Зачем выбрасывать информацию? Больше метрик — больше шансов увидеть эффект.</p></div></div>
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу A/A: эффекта нет ни в одной метрике. Каждая просто шумит.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я запущу A/A: эффекта нет ни в одной метрике. Каждая просто шумит.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай: как часто каждое из двух правил выкатит пустышку?</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Это A/A-тест: обе группы видят одно и то же, эффекта нет ни в одной метрике. Каждая клетка — метрика отчёта, главная обведена; цветом отмечены «значимые» разницы. Каждая метрика по отдельности ошибается в 5% случаев.</p><p>Запусти один A/A, потом сотню. Внизу — две доли: как часто пустышку выкатил бы Боб («значимо» хоть что-то) и как часто — Алиса (значима главная метрика).</p></div>
-    <figure class="art"><img src="/ab-basics/img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+    <div class="what-body"><p>Это A/A-тест: обе группы видят одно и то же, эффекта нет ни в одной метрике. Каждая клетка — метрика отчёта, главная обведена; цветом отмечены «значимые» разницы. Каждая метрика по отдельности ошибается в 5% случаев.</p><p>Запусти один A/A, потом сотню. Внизу — две доли: как часто пустышку выкатил бы Боб («значимо» хоть что-то) и как часто — Алиса (значима главная метрика).</p></div>
+    <figure class="art"><img src="/ab-basics/img/ab10-00-traps.jpg" alt="Боб тянется к зелёной кнопке, а под ковром прячутся ловушки" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
@@ -77,15 +77,15 @@
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/10-traps.html#card-4">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Нажми «Ещё один A/A» несколько раз. Часто ли видишь цветные клетки?</li><li>Нажми «+100 A/A». Как часто пустышку выкатил бы Боб, а как часто — Алиса?</li><li>Посмотри на главную метрику: часто ли «значима» именно она?</li></ol>
+    <ol class="tries"><li>Нажми «Ещё один A/A» несколько раз. Часто ли видишь цветные клетки?</li><li>Нажми «+100 A/A». Как часто пустышку выкатил бы Боб, а как часто — Алиса?</li><li>Посмотри на главную метрику: часто ли «значима» именно она?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>По правилу Боба пустышка уходит в релиз почти в половине A/A-тестов: хоть одна из 12 метрик «значима» с шансом 1 − 0.95¹² ≈ 46%. По правилу Алисы — примерно в 5%, как и обещает порог. Метрики те же и шум тот же, разное только правило решения. Двенадцать лотерейных билетов выигрывают чаще, чем один.</p>
+      <p>По правилу Боба пустышка уходит в релиз почти в половине A/A-тестов: хоть одна из 12 метрик «значима» с шансом 1 − 0.95¹² ≈ 46%. По правилу Алисы — примерно в 5%, как и обещает порог. Метрики те же и шум тот же, разное только правило решения. Двенадцать лотерейных билетов выигрывают чаще, чем один.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Шанс хотя бы одной ложной «значимой» из k метрик = 1 − 0.95<sup>k</sup>: для 12 — около 46%.</li><li>Решают по одной главной метрике, выбранной до запуска, и паре сторожевых, которые не должны ухудшиться.</li><li>Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</li><li>Если решать приходится по нескольким метрикам — поправка на множественное тестирование: порог для каждой строже.</li></ul>
+      <ul class="cheat"><li>Шанс хотя бы одной ложной «значимой» из k метрик = 1 − 0.95<sup>k</sup>: для 12 — около 46%.</li><li>Решают по одной главной метрике, выбранной до запуска, и паре сторожевых, которые не должны ухудшиться.</li><li>Остальные метрики — чтобы понять, что произошло, а не чтобы найти победу.</li><li>Если решать приходится по нескольким метрикам — поправка на множественное тестирование: порог для каждой строже.</li></ul>
     </div>
   </section>
 

@@ -6,14 +6,14 @@
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/06-interval.html?toy=bootstrap" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
 <meta name="robots" content="noindex, follow">
-<title>Можно ли получить вилку для среднего чека без формул? · симулятор · Диля Хакимова</title>
+<title>Можно ли получить вилку для среднего чека без формул? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Бутстреп руками: тянем из 30 чеков новые выборки с возвращением и смотрим, где лежат их средние.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/bootstrap/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/bootstrap/">
-<meta property="og:title" content="Можно ли получить вилку для среднего чека без формул? · симулятор · Диля Хакимова">
+<meta property="og:title" content="Можно ли получить вилку для среднего чека без формул? · симулятор · Диля Хакимова">
 <meta property="og:description" content="Бутстреп руками: тянем из 30 чеков новые выборки с возвращением и смотрим, где лежат их средние.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/bootstrap.png">
 <meta property="og:image:width" content="1200">
@@ -32,59 +32,59 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/play/">Игры</a></li>
-    <li><span aria-current="page">Можно ли получить вилку для среднего чека без формул?</span></li>
+    <li><span aria-current="page">Можно ли получить вилку для среднего чека без формул?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="bootstrap" data-frame="/ab-basics/06-interval.html?toy=bootstrap"
-  data-share-title="Можно ли получить вилку для среднего чека без формул?" data-share-text="Аналитику нужна вилка для среднего чека нового кафе: всего 30 заказов, формулы под рукой нет. Можно ли обойтись без неё? Угадай — и вытяни пятьсот выборок из выборки"
+  data-share-title="Можно ли получить вилку для среднего чека без формул?" data-share-text="Аналитику нужна вилка для среднего чека нового кафе: всего 30 заказов, формулы под рукой нет. Можно ли обойтись без неё? Угадай — и вытяни пятьсот выборок из выборки"
   data-s-copied="Ссылка скопирована">
   <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="bootstrap" data-show-from="0" hidden></span></p>
-  <h1>Можно ли получить вилку для среднего чека без формул?</h1>
+  <h1>Можно ли получить вилку для среднего чека без формул?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У меня всего 30 чеков из нового кафе. Для вилки же нужны формулы, ширины, колокола…</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Можно и без них. Представим, что нам попались другие гости — из тех же самых чеков.</p></div></div>
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">У меня всего 30 чеков из нового кафе. Для вилки же нужны формулы, ширины, колокола…</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Можно и без них. Представим, что нам попались другие гости — из тех же самых чеков.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Я вытяну чек, запишу и положу обратно. И так тридцать раз. Какие-то попадут дважды, какие-то — ни разу.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Повторим пятьсот раз и посмотрим, где лежат средние. И сравним с вилкой по правилу двух ширин.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>У нас одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера с возвращением: вытянули чек, записали, положили обратно. Так мы имитируем «а что, если бы нам попались другие гости».</p><p>Под исходной выборкой появится вытянутая: оранжевые чеки с ×2, ×3 попали несколько раз, бледные не попали ни разу. Гистограмма собирает средние всех вытянутых выборок, а внизу — две вилки: по самим средним и по правилу двух ширин колокола.</p></div>
+    <div class="what-body"><p>У нас одна выборка — 30 чеков из кафе. Будем много раз тянуть из неё новые выборки того же размера с возвращением: вытянули чек, записали, положили обратно. Так мы имитируем «а что, если бы нам попались другие гости».</p><p>Под исходной выборкой появится вытянутая: оранжевые чеки с ×2, ×3 попали несколько раз, бледные не попали ни разу. Гистограмма собирает средние всех вытянутых выборок, а внизу — две вилки: по самим средним и по правилу двух ширин колокола.</p></div>
     <figure class="art"><img src="/play/img/bootstrap.jpg" alt="Котейка тянет чеки из мешка и кладёт обратно, Алиса записывает их на карточки, Боб растерянно держит толстый учебник формул" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/06-interval.html?toy=bootstrap" title="Игра: Можно ли получить вилку для среднего чека без формул?" style="height:900px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/06-interval.html?toy=bootstrap" title="Игра: Можно ли получить вилку для среднего чека без формул?" style="height:900px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/06-interval.html#card-10">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
     <ol class="tries"><li>Нажми «Вытянуть выборку из выборки». Какие чеки попали дважды?</li><li>Нажми «Ещё 500 раз». Где лежат средние 95% вытянутых выборок?</li><li>Сравни эту вилку с вилкой по правилу двух ширин.</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Средние 95% вытянутых выборок лежат примерно от 373 ₽ до 537 ₽, а правило двух ширин даёт почти то же: от 373 ₽ до 534 ₽. Мы ни разу не считали ширину колокола, а получили ту же вилку. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют бутстрепом.</p>
+      <p>Средние 95% вытянутых выборок лежат примерно от 373 ₽ до 537 ₽, а правило двух ширин даёт почти то же: от 373 ₽ до 534 ₽. Мы ни разу не считали ширину колокола, а получили ту же вилку. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют бутстрепом.</p>
       <h3>Шпаргалка</h3>
-      <ul class="cheat"><li>Бутстреп (bootstrap): тянем из выборки новые выборки того же размера с возвращением.</li><li>Вилка — где лежат средние 95% таких выборок, от 2.5-го до 97.5-го процентиля.</li><li>Работает и для медианы, долей, отношений — там, где формулы неудобны.</li><li>Не спасает, если сама выборка маленькая или смещённая.</li></ul>
+      <ul class="cheat"><li>Бутстреп (bootstrap): тянем из выборки новые выборки того же размера с возвращением.</li><li>Вилка — где лежат средние 95% таких выборок, от 2.5-го до 97.5-го процентиля.</li><li>Работает и для медианы, долей, отношений — там, где формулы неудобны.</li><li>Не спасает, если сама выборка маленькая или смещённая.</li></ul>
     </div>
   </section>
 

@@ -32,18 +32,18 @@
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/">Курсы</a>
-    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/play/" aria-current="true">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -63,7 +63,7 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поймает — в какой доле таких тестов? Наблюдаемая разница ведь тоже шумит вокруг настоящей.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Даже если фото правда работают, я подмешиваю шум: в одном тесте эффект выйдет побольше, в другом поменьше.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Если эффект есть, тест его почти всегда увидит.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим, где окажутся разницы в двух мирах — без эффекта и с эффектом Боба.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай посмотрим, где окажутся разницы в двух мирах — без эффекта и с эффектом Боба.</p></div></div>
   </div>
 
   <section class="play-what has-art" aria-labelledby="what-h">
@@ -77,13 +77,13 @@
     <p class="note noframe">Игра не загрузилась? <a href="/signal/11-errors.html#card-3">Открой её в курсе</a>.</p>
   </div>
 
-  <section class="play-out" aria-labelledby="out-h" aria-live="polite">
+  <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
     <p class="tries-h">Попробуй ответить сам</p>
-    <ol class="tries"><li>Запиши догадку и нажми «α = 5%» — появятся числа. Какая мощность у эффекта ровно на пороге?</li><li>Двигай число гостей: сколько нужно, чтобы мощность стала 80%?</li><li>Поставь α = 1%. Что стало с ложными тревогами и с мощностью?</li></ol>
+    <ol class="tries"><li>Запиши догадку и нажми «α = 5%» — появятся числа. Какая мощность у эффекта ровно на пороге?</li><li>Двигай число гостей: сколько нужно, чтобы мощность стала 80%?</li><li>Поставь α = 1%. Что стало с ложными тревогами и с мощностью?</li></ol>
     <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
     <div class="reveal" hidden>
-      <p>Если эффект ровно на пороге, оранжевый колокол стоит центром на пунктире, и за порог уходит его половина: тест прокрасится примерно в 50% экспериментов. «Эффект равен порогу» — это монетка. Для мощности 80% эффект должен отстоять от нуля примерно на 2.8 стандартной ошибки — или нужно больше гостей. Строже α — меньше ложных тревог, но больше пропусков.</p>
+      <p>Если эффект ровно на пороге, оранжевый колокол стоит центром на пунктире, и за порог уходит его половина: тест прокрасится примерно в 50% экспериментов. «Эффект равен порогу» — это монетка. Для мощности 80% эффект должен отстоять от нуля примерно на 2.8 стандартной ошибки — или нужно больше гостей. Строже α — меньше ложных тревог, но больше пропусков.</p>
       <h3>Шпаргалка</h3>
       <ul class="cheat"><li>α — доля ложных тревог без эффекта; β — доля пропусков при эффекте δ; мощность (power) = 1 − β.</li><li>Мощность ≈ Φ(δ/SE − 1.96) для двустороннего теста при α = 5%.</li><li>Эффект на пороге (1.96·SE) — мощность 50%. Для 80% нужно δ ≈ 2.8·SE.</li><li>Стандарт в индустрии — мощность 80%.</li><li>Сдвинуть порог — обменять одну ошибку на другую. Меньше обеих — только с большим числом гостей.</li></ul>
     </div>

@@ -36,18 +36,18 @@ function artFail(img){
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
+  <a class="home-line" href="/" aria-label="Вероятность, статистика и A/B — в играх и задачах"><span class="hl-full">Вероятность, статистика и A/B — в играх и задачах</span><span class="hl-short" aria-hidden="true">Вероятность · статистика · A/B</span></a>
   <nav id="site-nav" aria-label="Разделы сайта">
-    <a href="/courses/" aria-current="page">Курсы</a>
+    <a href="/courses/" aria-current="true">Курсы</a>
     <a href="/play/">Игры</a>
     <a href="/shelf/">Полка</a>
     <a href="/terms/">Словарь</a>
   </nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
-  <a class="me" href="/account.html" title="Войти" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.title='Мой кабинет';a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
 <nav class="crumbs wrap" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
@@ -63,11 +63,11 @@ function artFail(img){
     <p class="chips"><span class="tag later">в планах</span><span class="chip lvl-chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag" data-i18n="c.tag">для любознательных</span></p>
     <h1 data-i18n="c.title">Causal inference</h1>
     <p class="h1-sub" data-i18n="c.line">причины по данным, когда эксперимент не провести</p>
-    <p class="sub" data-i18n="hero.sub">DiD, synthetic control, instrumental variables и regression discontinuity: что каждый метод предполагает, где ломается и как проверить, можно ли ему верить.</p>
+    <p class="sub" data-i18n="hero.sub">DiD, synthetic control, instrumental variables и regression discontinuity: что каждый метод предполагает, где ломается и как проверить, можно ли ему верить.</p>
     <p class="ctas">
       <a class="btn" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
     </p>
-    <p class="facts" data-i18n="hero.facts">Курс позже, после «A/B без мифов». Формат тот же: интерактивная книга и рабочие ноутбуки.</p>
+    <p class="facts" data-i18n="hero.facts">Курс позже, после «A/B без мифов». Формат тот же: интерактивная книга и рабочие ноутбуки.</p>
   </div>
   <figure class="art"><img src="/img/causal-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Развилка дорог у кафе, одна ветка полупрозрачная" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: развилка дорог</span></figcaption></figure>
 </section>
@@ -78,25 +78,25 @@ function artFail(img){
   <p class="lead-note" data-i18n="mod.lead">Набросок программы: пока курс в работе, состав может поменяться.</p>
   <ol class="modules" role="list">
     <li><span class="n" data-i18n="m1.n">Тема 1</span><h3 data-i18n="m1.t">Почему наблюдения обманывают</h3><p class="d" data-i18n="m1.d">Конфаундеры (общие причины), самоотбор и обратная причинность.</p><p class="scene" data-i18n="m1.s">Подписчики заказывают больше остальных. Подписка работает — или подписываются те, кто и так много заказывает?</p></li>
-    <li><span class="n" data-i18n="m2.n">Тема 2</span><h3 data-i18n="m2.t">DAG: графы причин</h3><p class="d" data-i18n="m2.d">Что учитывать, а что трогать нельзя: конфаундер, медиатор, коллайдер.</p><p class="scene" data-i18n="m2.s">Меню стало грузиться дольше, а удержание выросло. Алиса рисует стрелки и находит, кто на самом деле виноват.</p></li>
+    <li><span class="n" data-i18n="m2.n">Тема 2</span><h3 data-i18n="m2.t">DAG: графы причин</h3><p class="d" data-i18n="m2.d">Что учитывать, а что трогать нельзя: конфаундер, медиатор, коллайдер.</p><p class="scene" data-i18n="m2.s">Меню стало грузиться дольше, а удержание выросло. Алиса рисует стрелки и находит, кто на самом деле виноват.</p></li>
     <li><span class="n" data-i18n="m3.n">Тема 3</span><h3 data-i18n="m3.t">Matching и взвешивание</h3><p class="d" data-i18n="m3.d">Propensity score: подбираем похожих и взвешиваем — из наблюдений получается подобие эксперимента.</p><p class="scene" data-i18n="m3.s">Промокод получили самые активные гости. Алиса ищет им «двойников» среди тех, кто промокода не получил.</p></li>
-    <li><span class="n" data-i18n="m4.n">Тема 4</span><h3 data-i18n="m4.t">DiD (difference-in-differences)</h3><p class="d" data-i18n="m4.d">Разность разностей: до и после — вместе с теми, кого изменение не коснулось. Главное допущение — параллельные тренды.</p><p class="scene" data-i18n="m4.s">Фичу выкатили на всех в одном городе, без теста. Алиса сравнивает его с соседним и проверяет, шли ли тренды параллельно до запуска.</p></li>
-    <li><span class="n" data-i18n="m5.n">Тема 5</span><h3 data-i18n="m5.t">Synthetic control</h3><p class="d" data-i18n="m5.d">Синтетический контроль: сравнить не с кем — собираем «двойника» из взвешенной смеси похожих объектов.</p><p class="scene" data-i18n="m5.s">Новое кафе у вокзала не похоже ни на одно другое. Алиса собирает ему «двойника» из пяти кафе с весами.</p></li>
+    <li><span class="n" data-i18n="m4.n">Тема 4</span><h3 data-i18n="m4.t">DiD (difference-in-differences)</h3><p class="d" data-i18n="m4.d">Разность разностей: до и после — вместе с теми, кого изменение не коснулось. Главное допущение — параллельные тренды.</p><p class="scene" data-i18n="m4.s">Фичу выкатили на всех в одном городе, без теста. Алиса сравнивает его с соседним и проверяет, шли ли тренды параллельно до запуска.</p></li>
+    <li><span class="n" data-i18n="m5.n">Тема 5</span><h3 data-i18n="m5.t">Synthetic control</h3><p class="d" data-i18n="m5.d">Синтетический контроль: сравнить не с кем — собираем «двойника» из взвешенной смеси похожих объектов.</p><p class="scene" data-i18n="m5.s">Новое кафе у вокзала не похоже ни на одно другое. Алиса собирает ему «двойника» из пяти кафе с весами.</p></li>
     <li><span class="n" data-i18n="m6.n">Тема 6</span><h3 data-i18n="m6.t">Instrumental variables (IV)</h3><p class="d" data-i18n="m6.d">Когда есть случайное приглашение, но приходят не все, — как честно оценить эффект.</p><p class="scene" data-i18n="m6.s">Пуш с напоминанием приходит гостям по монетке, а открывают его не все. Как оценить эффект самого напоминания?</p></li>
-    <li><span class="n" data-i18n="m7.n">Тема 7</span><h3 data-i18n="m7.t">Regression discontinuity (RDD)</h3><p class="d" data-i18n="m7.d">Разрывной дизайн: порог делит людей почти случайно, поэтому сравниваем тех, кто чуть ниже и чуть выше него.</p><p class="scene" data-i18n="m7.s">Бесплатная доставка от 1000 ₽. Алиса сравнивает заказы на 990 и на 1010 ₽ и проверяет, не подгоняют ли гости корзину под порог.</p></li>
+    <li><span class="n" data-i18n="m7.n">Тема 7</span><h3 data-i18n="m7.t">Regression discontinuity (RDD)</h3><p class="d" data-i18n="m7.d">Разрывной дизайн: порог делит людей почти случайно, поэтому сравниваем тех, кто чуть ниже и чуть выше него.</p><p class="scene" data-i18n="m7.s">Бесплатная доставка от 1000 ₽. Алиса сравнивает заказы на 990 и на 1010 ₽ и проверяет, не подгоняют ли гости корзину под порог.</p></li>
   </ol>
 </section>
 
 <!-- 3. Игры -->
 <section class="wrap block" id="toys" aria-labelledby="toys-h">
-  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
-  <p class="lead-note" data-i18n="toys.lead">Игры задуманы так же, как в других курсах: сначала прогноз, потом правда.</p>
+  <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
+  <p class="lead-note" data-i18n="toys.lead">Игры задуманы так же, как в других курсах: сначала прогноз, потом правда.</p>
   <div class="toys-wrap">
   <ul class="toys c-toys" role="list">
     <li><div class="off"><b data-i18n="t1.t">Параллельные тренды</b><span data-i18n="t1.d">Двигаешь тренд города без фичи. Пока линии шли параллельно, DiD ловит эффект; разошлись — и «эффект» появляется там, где его нет.</span><small data-i18n="t1.f">тема 4</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
     <li><div class="off"><b data-i18n="t2.t">Двойник кафе</b><span data-i18n="t2.d">Подбираешь веса пяти кафе, пока линия synthetic control не ляжет на настоящую до открытия. После открытия расстояние между ними — эффект.</span><small data-i18n="t2.f">тема 5</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
     <li><div class="off"><b data-i18n="t3.t">Стрелки причин</b><span data-i18n="t3.d">Включаешь и выключаешь учёт переменной: учёл конфаундер — эффект честный, учёл коллайдер — появилась связь, которой нет.</span><small data-i18n="t3.f">тема 2</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
-    <li><div class="off"><b data-i18n="t4.t">Окно у порога</b><span data-i18n="t4.d">Сужаешь окно (bandwidth) вокруг 1000 ₽: узкое честнее, но шумнее; широкое точнее, но со смещением.</span><small data-i18n="t4.f">тема 7</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
+    <li><div class="off"><b data-i18n="t4.t">Окно у порога</b><span data-i18n="t4.d">Сужаешь окно (bandwidth) вокруг 1000 ₽: узкое честнее, но шумнее; широкое точнее, но со смещением.</span><small data-i18n="t4.f">тема 7</small><span class="tag soon" data-i18n="soon">в курсе</span></div></li>
   </ul>
   <!--missing-art /img/causal-toys.jpg PGZpZ3VyZSBjbGFzcz0iYXJ0Ij48aW1nIHNyYz0iL2ltZy9jYXVzYWwtdG95cy5qcGciIHdpZHRoPSI5MDAiIGhlaWdodD0iMTIwMCIgbG9hZGluZz0ibGF6eSIgZGF0YS1pMThuLWF0dHI9ImFsdDp0b3lzLmFsdCIgYWx0PSLQkNC70LjRgdCwINGA0LjRgdGD0LXRgiDQvdCwwqDQtNC+0YHQutC1INGB0YLRgNC10LvQutC4INC80LXQttC00YMg0LrQsNGA0YLQvtGH0LrQsNC80LggwqvQv9C+0LPQvtC00LDCuywgwqvQt9Cw0LrQsNC30YvCuyDQuMKgwqvQv9GA0L7QvNC+0LrQvtC0wrssINCa0L7RgtC10LnQutCwINC00LXRgNC20LjRgiDQvNC10LsiIG9uZXJyb3I9ImFydEZhaWwodGhpcykiPjxmaWdjYXB0aW9uIGNsYXNzPSJwaCIgZGF0YS1pMThuPSJ0b3lzLnBoIj7QkNC70LjRgdCwINGA0LjRgdGD0LXRgiDQs9GA0LDRhCDQv9GA0LjRh9C40L0sINCa0L7RgtC10LnQutCwINC00LXRgNC20LjRgiDQvNC10Ls8L2ZpZ2NhcHRpb24+PC9maWd1cmU+ -->
   </div>
@@ -106,7 +106,7 @@ function artFail(img){
 <section class="wrap block" id="results" aria-labelledby="res-h">
   <h2 id="res-h" data-i18n="res.title">Что получишь на выходе: рабочие ноутбуки</h2>
   <ul class="results" role="list">
-    <li data-i18n="r1"><b>DAG как чек-лист</b> Что учитывать в анализе наблюдений, а что учитывать нельзя.</li>
+    <li data-i18n="r1"><b>DAG как чек-лист</b> Что учитывать в анализе наблюдений, а что учитывать нельзя.</li>
     <li data-i18n="r2"><b>Matching и взвешивание</b> Propensity score с проверкой баланса групп.</li>
     <li data-i18n="r3"><b>DiD</b> С проверкой параллельных трендов и плацебо-датами.</li>
     <li data-i18n="r4"><b>Synthetic control</b> Подбор весов и плацебо-проверка на других кафе.</li>
@@ -117,9 +117,9 @@ function artFail(img){
 <!-- 5. Как устроен курс -->
 <section class="wrap block" id="how" aria-labelledby="how-h">
   <h2 id="how-h" data-i18n="sec.how">Как устроен курс</h2>
-  <p class="lead-note" data-i18n="how.lead">Формат — как у остальных платных курсов линейки.</p>
+  <p class="lead-note" data-i18n="how.lead">Формат — как у остальных платных курсов линейки.</p>
   <ul class="how3" role="list">
-    <li><h3 data-i18n="how.book.t">Интерактивная книга</h3><p data-i18n="how.book.d">Короткие карточки: история с героями, игра «сначала угадай, потом проверь», правило формулой и задача. Работает и на телефоне.</p></li>
+    <li><h3 data-i18n="how.book.t">Интерактивная книга</h3><p data-i18n="how.book.d">Короткие карточки: история с героями, игра «сначала угадай, потом проверь», правило формулой и задача. Работает и на телефоне.</p></li>
     <li><h3 data-i18n="how.nb.t">Рабочие ноутбуки</h3><p data-i18n="how.nb.d">К каждому модулю — ноутбук, который можно запустить на своих данных. Задача → свой анализ → сверка с эталоном → разбор типичных ошибок.</p></li>
     <li><h3 data-i18n="how.video.t">Короткие ролики-разборы</h3><p data-i18n="how.video.d">По 5–10 минут на ноутбук: запись экрана и голос — как запустить, что смотреть, где ломается. В ролике-знакомстве с курсом Диля в кадре.</p></li>
   </ul>
@@ -127,9 +127,9 @@ function artFail(img){
 </section>
 
 <!-- 6. Для кого и куда дальше -->
-<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
+<section class="wrap block pair" data-i18n-attr="aria-label:sec.who" aria-label="Для кого и что нужно знать заранее">
   <div class="panel">
-    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
+    <h2 data-i18n="sec.who">Для кого и что нужно знать заранее</h2>
     <ul>
       <li data-i18n="who1">аналитикам после «A/B без мифов»;</li>
       <li data-i18n="who2">тем, кому эффект нужен там, где тест невозможен: запуск на всех, офлайн, цены, регионы.</li>

@@ -360,6 +360,7 @@ document.querySelectorAll('.choice[data-key]').forEach(box => {
 // и на элементе срабатывает событие 'guessed' (detail — число). Игра читает её через Book.guess('coin').
 document.querySelectorAll('.guess[data-key]').forEach(box => {
   const key = box.dataset.key, inp = box.querySelector('input'), btn = box.querySelector('button'), note = box.querySelector('.note');
+  if (note) note.setAttribute('role', 'status');
   const min = +(box.dataset.min ?? 0), max = +(box.dataset.max ?? 100), unit = box.dataset.unit ?? '%';
   const show = v => { box.classList.add('saved'); if (note) note.textContent = tpl(S.guessSaved, {v: numT(v, 2) + (unit ? (unit === '%' ? '' : ' ') + unit : '')}); };
   const old = Book.guess(key); if (old !== null){ inp.value = numT(old, 2); show(old); }
