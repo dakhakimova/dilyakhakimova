@@ -67,6 +67,17 @@
 .viz.small{box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5)}
 .nw{white-space:nowrap}
 .t-top .viz-svg{max-width:none}  /* картинка под определением — во всю ширину колонки */
+/* у картинки два варианта: широкий (своя сетка подписей под 880 px) и узкий (колонка, телефон) */
+.viz-wide{display:none}
+/* проба .t-wide: текст 20 px, колонка 35em ≈ 700 px (Medium: 680 px, 18–21 px); картинка под определением — 880 px, по оси колонки, как игра */
+@media (min-width:760px){
+  .term.t-wide{--fs-m:var(--t-20); --measure:35em; font-size:var(--t-20)}
+  .term.t-wide .t-def{font-size:var(--t-22, 1.375rem)}
+}
+@media (min-width:960px){
+  .term.t-wide .t-top{max-width:none; margin-inline:calc(50% - min(440px, 50vw - 16px))}
+  .term.t-wide .viz-wide{display:block} .term.t-wide .viz-narrow{display:none}
+}
 .viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0; font-family:var(--body); font-variant-numeric:tabular-nums}
 .chart-head{font:500 var(--t-15)/1.35 var(--body); color:var(--text-1); margin:0 0 var(--s-3)}
 .figcap{font-size:.875rem; line-height:1.5; color:var(--text-3); margin:var(--s-3) 0 0; max-width:46em}

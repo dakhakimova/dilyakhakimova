@@ -10,6 +10,8 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim, top} = require('./terms-viz.js');
+// проба (решение Дили, 22.11.2026): шрифт 20 px и колонка ~700 px, как на Medium; графики — 880 px, как игра. Понравится — станет общим.
+const TRIAL = ['normal-distribution'];
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
 const V = require('./version.js');
@@ -156,7 +158,7 @@ ${chrome.header('terms', o.url === '/terms/')}
   </section>
 `;
     const html = head({title, desc: x.desc, url, og: `/terms/og/${s}.png`, noindex: !own || !term.published, ld}) + `
-<main id="main" class="wrap term" data-slug="${s}"
+<main id="main" class="wrap term${TRIAL.includes(s) ? ' t-wide' : ''}" data-slug="${s}"
   data-share-title="${attr(h1Of(s))}" data-share-text="${attr(t('terms.shareText', {name: x.name}))}"
   data-s-copied="${attr(t('terms.copied'))}">
   <header class="t-hero">
@@ -168,7 +170,7 @@ ${chrome.header('terms', o.url === '/terms/')}
   <p class="t-not">${t('terms.not', {href: wiki, wiki: x.wiki})}</p>
 ${top[s] ? `  <figure class="viz t-top">
     <p class="chart-head">${typo(x.topT)}</p>
-    ${top[s](Object.fromEntries(Object.entries(x.tz).map(([k, v]) => [k, plain(typo(v))])))}
+    ${(tz => top[s](tz, true) + top[s](tz, false))(Object.fromEntries(Object.entries(x.tz).map(([k, v]) => [k, plain(typo(v))])))}
     <figcaption class="figcap">${typo(x.topCap)}</figcaption>
   </figure>
 ` : vizSec}

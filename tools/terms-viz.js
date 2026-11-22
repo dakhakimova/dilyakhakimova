@@ -65,22 +65,26 @@ viz['normal-distribution'] = L => {
 };
 
 // семейство колоколов как на Википедии: четыре сплошные линии разного цвета, без заливок и пунктира, легенда в углу (решение Дили, 22.11.2026)
-top['normal-distribution'] = L => {
-  const x0 = 46, x1 = 446, y0 = 20, base = 262, X = x => x0 + (x + 5) / 10 * (x1 - x0), Y = d => base - d / 1 * (base - y0);
+top['normal-distribution'] = (L, wide) => {
+  // wide — вариант для широкой рамки (880 px на экране): свой viewBox 780, чтобы подписи были ~16 px, а не раздувались масштабом
+  const VW = wide ? 780 : W, fs = wide ? 14 : 15, VH = wide ? 330 : 300;
+  const x0 = 46, x1 = VW - 14, y0 = 20, base = VH - 38, X = x => x0 + (x + 5) / 10 * (x1 - x0), Y = d => base - d / 1 * (base - y0);
   const pdf = (x, m, v) => phi((x - m) / Math.sqrt(v)) / Math.sqrt(v);
   const curve = (m, v) => { const p = []; for (let x = -5; x <= 5 + 1e-9; x += .04) p.push([X(x), Y(pdf(x, m, v))]); return p; };
   const S = [[0, .2, C.a, L.l1], [0, 1, '#C29A48', L.l2], [0, 5, C.mint, L.l3], [-2, .5, '#8A5A7A', L.l4]];
-  const lx = 300, ly = 26;
-  return svg(300, [
+  const lw = wide ? 160 : 166, lx = x1 - lw + 6, ly = 26, step = wide ? 22 : 24;
+  const body = [
     ...[.2, .4, .6, .8, 1].map(v => ln(x0, Y(v), x1, Y(v), C.soft, 1)),
     ln(x0, base, x1, base, C.t3, 1.5), ln(x0, y0, x0, base, C.t3, 1.5),
-    ...[-4, -2, 0, 2, 4].map(k => ln(X(k), base, X(k), base + 5, C.t3) + tx(X(k), base + 22, k < 0 ? '−' + -k : String(k), {a: 'middle', size: 15, fill: C.t3})),
-    ...[0, .2, .4, .6, .8, 1].map(v => tx(x0 - 8, Y(v) + 5, v ? String(v) : '0', {a: 'end', size: 14, fill: C.t3})),
+    ...[-4, -3, -2, -1, 0, 1, 2, 3, 4].filter(k => wide || k % 2 === 0).map(k => ln(X(k), base, X(k), base + 5, C.t3) + tx(X(k), base + 22, k < 0 ? '−' + -k : String(k), {a: 'middle', size: fs, fill: C.t3})),
+    ...[0, .2, .4, .6, .8, 1].map(v => tx(x0 - 8, Y(v) + 5, v ? String(v) : '0', {a: 'end', size: fs - 1, fill: C.t3})),
     ...S.map(([m, v, c]) => path(curve(m, v), c, 2.5)),
-    rect(lx - 12, ly - 8, 166, 4 * 24 + 8, C.paper, `rx="6" stroke="${C.line}"`),
-    ...S.map(([, , c, l], i) => ln(lx, ly + 8 + i * 24, lx + 24, ly + 8 + i * 24, c, 3) + tx(lx + 32, ly + 14 + i * 24, l, {size: 15, fill: C.ink})),
-    tx(x1, base + 22, 'x', {a: 'end', size: 15, fill: C.t3}),
-  ].join(''), S.map(r => r[3]).join(' · '));
+    rect(lx - 12, ly - 8, lw, 4 * step + 8, C.paper, `rx="6" stroke="${C.line}"`),
+    ...S.map(([, , c, l], i) => ln(lx, ly + 8 + i * step, lx + 24, ly + 8 + i * step, c, 3) + tx(lx + 32, ly + 14 + i * step, l, {size: fs, fill: C.ink})),
+    tx(x1, base + 22, 'x', {a: 'end', size: fs, fill: C.t3}),
+  ].join('');
+  const title = S.map(r => r[3]).join(' · ');
+  return `<svg class="viz-svg${wide ? ' viz-wide' : ' viz-narrow'}" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg"><title>${esc(title)}</title>${body}</svg>`;
 };
 
 viz['ab-testing'] = L => {
