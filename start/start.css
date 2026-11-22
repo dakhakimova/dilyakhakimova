@@ -1,0 +1,112 @@
+/* «Подобрать маршрут» (/start/). Подключается после /tokens.css и /home.css (кнопки, логотип, .vh).
+   Фокус: минимальная шапка (логотип + «Закрыть»), один вопрос на экран, крупно, много воздуха; один столбец.
+   Правила — design-system.md: Literata 400/500, Onest 400–600, без 700; один жирный элемент на экран; одна залитая кнопка. */
+body.start{background:var(--desk); min-height:100vh}
+.s-top{display:flex; justify-content:space-between; align-items:center; max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) 0}
+.s-close{display:inline-flex; align-items:center; gap:6px; min-height:44px; color:var(--text-2); font-size:var(--fs-s); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:3px}
+.s-close span[aria-hidden]{font-size:22px; line-height:1; text-decoration:none}
+.s-main{max-width:760px; margin:0 auto; padding:var(--s-5) var(--s-5) var(--s-9)}
+.s-app{background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-6) var(--s-7) var(--s-7); position:relative; overflow:hidden}
+
+/* прогресс и время */
+.s-app .bar{position:absolute; left:0; right:0; top:0; height:4px; background:var(--sunk)}
+.s-app .bar span{display:block; height:100%; background:var(--pen); transition:width .25s}
+.s-app .time{margin:0 0 var(--s-4); font-size:var(--fs-xs); color:var(--text-3)}
+
+/* картинка и Котейка */
+.pic{margin:0 0 var(--s-5); border-radius:var(--r-m); overflow:hidden; background:var(--sunk); aspect-ratio:16/9}
+.pic img{display:block; width:100%; height:100%; object-fit:cover}
+.kot{display:flex; gap:var(--s-3); align-items:flex-start; margin:0 0 var(--s-5)}
+.kot-ava{flex:none; width:56px; height:56px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 2px var(--white), 0 0 0 3px var(--line)}
+.kot-say{margin:0; background:var(--butter); border-radius:var(--r-m); border-top-left-radius:4px; padding:var(--s-3) var(--s-4); font:400 17px/1.5 var(--body); color:var(--text-1); max-width:32em}
+
+/* вопрос */
+.q{font:400 clamp(22px,2.6vw,26px)/1.3 var(--serif); letter-spacing:-.01em; margin:0; max-width:32em; outline:none}
+.qnum{margin:0 0 var(--s-2); font-size:14px; color:var(--text-3)}
+.hint{margin:var(--s-3) 0 0; font-size:var(--fs-s); line-height:1.5; color:var(--text-2); max-width:36em}
+.opts{list-style:none; margin:var(--s-5) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s-2)}
+.opt{display:block; width:100%; text-align:left; min-height:56px; padding:var(--s-3) var(--s-4); border-radius:var(--r-m); border:1.5px solid var(--line-strong);
+  background:var(--white); color:var(--text-1); font:400 17px/1.4 var(--body); cursor:pointer; transition:border-color .15s, background .15s}
+.opt:hover{border-color:var(--pen); background:var(--ctrl-bg)}
+.opt:focus-visible{outline:3px solid var(--pen); outline-offset:2px}
+.opt.on{border-color:var(--pen); box-shadow:inset 0 0 0 1px var(--pen)}
+.opt.ok{border-color:var(--good-ink); background:var(--mint)}
+.opt.ok::after{content:" ✓"; color:var(--good-ink)}
+.opt.no{border-color:var(--coral-600); background:var(--rose)}
+.opt.no::after{content:" ✕"; color:var(--coral-600)}
+.opt[aria-disabled="true"]{cursor:default}
+.opt[aria-disabled="true"]:not(.ok):not(.no){opacity:.55}
+.fb{margin-top:var(--s-4); border-radius:var(--r-m); padding:var(--s-3) var(--s-4); background:var(--sunk); font-size:16px; line-height:1.5}
+.fb.ok{background:var(--mint)} .fb.no{background:var(--rose)}
+.fb .vd{margin:0 0 var(--s-1); font-weight:600}
+.fb p{margin:0}
+.acts{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin:var(--s-6) 0 0}
+.acts .btn.link{padding-left:0; padding-right:0; min-height:44px; font-weight:500}
+.acts .btn + .btn:not(.link){margin-left:auto}
+.btn-note{margin:var(--s-2) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
+
+/* итог */
+.r-title{font:400 30px/1.2 var(--serif); letter-spacing:-.01em; margin:0; outline:none}
+.r-goal{margin:var(--s-3) 0 0; font:600 20px/1.35 var(--body); color:var(--text-1)}
+.r-start{margin:var(--s-2) 0 0; font-size:var(--fs-m); line-height:1.5}
+.r-why{margin:var(--s-2) 0 0; font-size:var(--fs-s); color:var(--text-2)}
+.s-app .acts .btn.ghost{margin-left:0}
+.r-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:var(--s-7) 0 var(--s-3)}
+.r-list{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:var(--s-2); font-size:var(--fs-s)}
+.r-note{margin:var(--s-5) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
+.mail{margin-top:var(--s-6); padding-top:var(--s-5); border-top:1px solid var(--line)}
+.mail .btn[disabled]{opacity:.6; cursor:not-allowed}
+
+/* личная линия: районы-курсы сверху вниз, вертикальная линия слева */
+.line{list-style:none; margin:0; padding:0; position:relative}
+.line::before{content:""; position:absolute; left:17px; top:18px; bottom:18px; width:5px; border-radius:3px; background:#4A463F}
+.dz{position:relative; padding:0 0 var(--s-5) 56px}
+.dz.dashed::before{content:""; position:absolute; left:15px; top:0; bottom:0; width:9px; background:var(--white);
+  background-image:repeating-linear-gradient(to bottom, #4A463F 0 8px, transparent 8px 14px); background-size:5px 100%; background-repeat:no-repeat; background-position:2px 0}
+.dz-h{margin:0; display:flex; align-items:center; gap:var(--s-3); font:500 var(--fs-l)/1.3 var(--serif); min-height:36px}
+.dz-n{position:absolute; left:0; top:0; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:var(--white);
+  box-shadow:inset 0 0 0 3px var(--zc); font:500 18px/1 var(--serif); font-variant-numeric:tabular-nums}
+.dz-h a{color:var(--text-1)}
+.dz-s{margin:var(--s-1) 0 0; font-size:var(--fs-xs); color:var(--text-3)}
+.dz-w{margin:var(--s-2) 0 0; font-size:var(--fs-s); color:var(--text-2)}
+.dz-k{margin:var(--s-1) 0 0; font-size:var(--fs-s); color:var(--good-ink)}
+.dz.passed .dz-h a{color:var(--text-3)}
+.sts{list-style:none; margin:var(--s-3) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s-2)}
+.sn{display:flex; flex-wrap:wrap; align-items:center; gap:4px var(--s-2); font-size:var(--fs-s); position:relative}
+.sn .dot{position:absolute; left:-45px; top:5px; width:13px; height:13px; border-radius:50%; background:#fff; border:3px solid #4A463F}
+.sn.main .dot{width:17px; height:17px; left:-47px; top:3px}
+.sn.done .dot{background:var(--good-ink); border-color:var(--good-ink)}
+.sn.done .sn-l{color:var(--text-3)}
+.sn.here .dot{border-color:var(--coral-600); box-shadow:0 0 0 3px rgba(166,61,40,.25)}
+.sn.here .sn-l{font-weight:500}
+.sn-h{font:500 12px/1 var(--body); background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:4px 8px}
+.sn-d{font-size:12px; color:var(--good-ink)}
+.sn.heard .sn-d{color:var(--soon-ink)}
+
+/* блок-схема ответов */
+.flow{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s-2); font-size:var(--fs-s)}
+.flow li{display:flex; gap:var(--s-2); align-items:baseline; position:relative; padding-left:4px}
+.flow li + li::before{content:""; position:absolute; left:12px; top:-10px; height:10px; border-left:1.5px solid var(--line-strong)}
+.f-m{flex:none; width:22px; height:22px; border-radius:50%; display:inline-grid; place-items:center; font-size:13px; background:var(--sunk)}
+.f-yes .f-m{background:var(--mint); color:var(--good-ink)}
+.f-heard .f-m{background:var(--butter); color:var(--soon-ink)}
+.f-no .f-m, .f-check .f-m{background:var(--rose); color:var(--coral-600)}
+.f-stop .f-m{background:var(--pen); color:#fff}
+.f-stop{font-weight:500}
+.f-a{color:var(--text-3)}
+
+@media (max-width:620px){
+  .s-top{padding:var(--s-4) var(--s-4) 0}
+  .s-main{padding:var(--s-3) var(--s-3) var(--s-8)}
+  .s-app{padding:var(--s-5) var(--s-4) var(--s-6); border-radius:var(--r-m)}
+  .q{font-size:20px}
+  .kot-ava{width:44px; height:44px}
+  .kot-say{font-size:16px}
+  .acts{flex-direction:column; align-items:stretch}
+  .acts .btn{width:100%; justify-content:center}
+  .acts .btn + .btn:not(.link){margin-left:0}
+  .acts .btn.link{order:3; align-self:center; width:auto}
+  .r-title{font-size:26px}
+}
+@media (prefers-reduced-motion: reduce){ .s-app .bar span, .opt{transition:none} }
+.s-top .logo{font-weight:500}

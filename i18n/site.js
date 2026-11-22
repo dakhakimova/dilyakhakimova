@@ -14,7 +14,8 @@ I18N.typo = I18N.typo || function (lang, str){
     .replace(RE_SHORT, '$1$2 ').replace(RE_SHORT, '$1$2 ')
     .replace(/(\d)\s+(?=[A-Za-zА-Яа-яЁё%×₽])/g, '$1 ')
     .replace(/(\d) (?=\d{3}(?!\d))/g, '$1 ')  // разряды: «10 000», «1 000 000» (четырёхзначные не группируем)
-    .replace(/\s+—/g, ' —')).join('');
+    .replace(/\s+—/g, ' —')
+    .replace(/\s+·(?=\s)/g, '\u00a0·')).join('');  // «·» между вариантами: неразрывный пробел перед ней
 };
 
 I18N.ru = Object.assign(I18N.ru || {}, {
@@ -25,6 +26,8 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'nav.play': 'Игрушки',
   'nav.read': 'Статьи',
   'nav.about': 'Об авторе',
+  'nav.map': 'Карта навыков',
+  'maplink': 'Где этот курс на карте навыков →',
   'tagline': 'Вероятность, статистика и A/B — на игрушках и задачах',
   'nav.progress': 'Мой прогресс',
   'nav.lang': 'English',
@@ -86,6 +89,7 @@ I18N.en = Object.assign(I18N.en || {}, {
   'nav.play': 'Toys',
   'nav.read': 'Articles',
   'nav.about': 'About',
+  'nav.map': 'Skill map',
   'nav.progress': 'My progress',
   'tagline': 'Probability, statistics and A/B — through toys and problems',
   'nav.lang': 'Русский',
