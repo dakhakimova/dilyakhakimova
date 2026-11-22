@@ -19,16 +19,16 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/course.css?v=202611230">
-<link rel="stylesheet" href="/site/site.css?v=202611230">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/course.css?v=202611231">
+<link rel="stylesheet" href="/site/site.css?v=202611231">
 </head>
 <body>
-<a class="skip" href="#main">К содержанию</a>
+<a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <span class="cur" data-rub="courses" aria-current="page">Курсы</span>
     <a href="/play/" data-rub="play">Игры</a>
@@ -40,69 +40,69 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap courses-page">
   <section class="c-hero">
     <h1>Курсы</h1>
-    <p class="sub">Весь путь — по порядку: от первой вероятности до продвинутых A/B-тестов. Бесплатные курсы открываются сразу, без регистрации.</p>
-    <p class="start-link"><a class="more" href="/start/">Не знаешь, с чего начать? Подобрать маршрут →</a></p>
+    <p class="sub">Весь путь — по порядку: от первой вероятности до продвинутых A/B-тестов. Бесплатные курсы открываются сразу, без регистрации.</p>
+    <p class="start-link"><a class="more" href="/start/">Не знаешь, с чего начать? Подобрать маршрут →</a></p>
   </section>
   <ul class="cards path" role="list">
     <li class="course" id="c-vp">
-      <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" loading="eager" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" loading="eager" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><span class="tag">≈&nbsp;6&nbsp;часов</span></p>
-      <h3><span class="path-n">1.</span> <a href="/probability/">Вероятность на пальцах</a></h3>
+      <h3><span class="path-n">1.</span> <a href="/probability/">Вероятность на пальцах</a></h3>
       <p class="line">Вероятности на примерах и задачи с собеседований.</p>
-      <dl><dt>Тема</dt><dd>Вероятность</dd><dt>Внутри</dt><dd>9 шагов, задачи с собеседований в каждом, пробное собеседование на время</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/probability/" aria-label="Подробнее о курсе «Вероятность на пальцах»">Подробнее</a></p>
+      <dl><dt>Тема</dt><dd>Вероятность</dd><dt>Внутри</dt><dd>9 шагов, задачи с собеседований в каждом, пробное собеседование на время</dd></dl>
+      <p class="course-act"><a class="btn ghost" href="/probability/" aria-label="Подробнее о курсе «Вероятность на пальцах»">Подробнее</a></p>
     </li>
     <li class="course" id="c-ss">
-      <figure class="art"><img src="/img/signal-cover.jpg" width="1600" height="900" loading="eager" alt="Алиса, Боб и Котейка в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/signal-cover.jpg" width="1600" height="900" loading="eager" alt="Алиса, Боб и Котейка в кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><span class="tag">≈&nbsp;6&nbsp;часов</span></p>
-      <h3><span class="path-n">2.</span> <a href="/signal/">Сигнал или шум</a></h3>
-      <p class="line">Как отличить настоящий эффект от случайного колебания и проверить это кодом.</p>
-      <dl><dt>Тема</dt><dd>Статистика</dd><dt>Внутри</dt><dd>12 глав, код прямо в браузере</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/signal/" aria-label="Подробнее о курсе «Сигнал или шум»">Подробнее</a></p>
+      <h3><span class="path-n">2.</span> <a href="/signal/">Сигнал или шум</a></h3>
+      <p class="line">Как отличить настоящий эффект от случайного колебания и проверить это кодом.</p>
+      <dl><dt>Тема</dt><dd>Статистика</dd><dt>Внутри</dt><dd>12 глав, код прямо в браузере</dd></dl>
+      <p class="course-act"><a class="btn ghost" href="/signal/" aria-label="Подробнее о курсе «Сигнал или шум»">Подробнее</a></p>
     </li>
     <li class="course" id="c-ab">
-      <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе, синей и оранжевой" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><span class="tag">≈&nbsp;7&nbsp;часов</span></p>
-      <h3><span class="path-n">3.</span> <a href="/ab-basics/">A/B на пальцах</a></h3>
-      <p class="line">Как прочитать отчёт A/B и выбрать: катим, не катим, ждём или ищем баг.</p>
-      <dl><dt>Тема</dt><dd>A/B</dd><dt>Внутри</dt><dd>11 шагов, тренажёр на восьми отчётах, шпаргалка для печати</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/ab-basics/" aria-label="Подробнее о курсе «A/B на пальцах»">Подробнее</a></p>
+      <h3><span class="path-n">3.</span> <a href="/ab-basics/">A/B на пальцах</a></h3>
+      <p class="line">Как прочитать отчёт A/B и выбрать: катим, не катим, ждём или ищем баг.</p>
+      <dl><dt>Тема</dt><dd>A/B</dd><dt>Внутри</dt><dd>11 шагов, тренажёр на восьми отчётах, шпаргалка для печати</dd></dl>
+      <p class="course-act"><a class="btn ghost" href="/ab-basics/" aria-label="Подробнее о курсе «A/B на пальцах»">Подробнее</a></p>
     </li>
     <li class="course" id="c-st">
-      <figure class="art"><img src="/img/stats-cover.jpg" width="1600" height="900" loading="lazy" alt="Мастерская кафе в строительных лесах: мешок с шариками, линейка-интервал" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/stats-cover.jpg" width="1600" height="900" loading="lazy" alt="Мастерская кафе в строительных лесах: мешок с шариками, линейка-интервал" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="price"><b>4 900 ₽</b></span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><span class="tag muted">скоро</span></p>
-      <h3><span class="path-n">4.</span> <a href="/stats/">Прикладная статистика для аналитика</a></h3>
-      <p class="line">Интервалы, критерии, мощность и регрессия для любых данных, не только в A/B.</p>
+      <h3><span class="path-n">4.</span> <a href="/stats/">Прикладная статистика для аналитика</a></h3>
+      <p class="line">Интервалы, критерии, мощность и регрессия для любых данных, не только в A/B.</p>
       <dl><dt>Тема</dt><dd>Статистика</dd><dt>Внутри</dt><dd>интерактивная книга и рабочие ноутбуки</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/stats/" aria-label="Подробнее о курсе «Прикладная статистика для аналитика»">Подробнее</a></p>
+      <p class="course-act"><a class="btn ghost" href="/stats/" aria-label="Подробнее о курсе «Прикладная статистика для аналитика»">Подробнее</a></p>
     </li>
     <li class="course" id="c-abm">
-      <figure class="art"><img src="/img/abm-cover.jpg" width="1600" height="900" loading="lazy" alt="Две двери кафе, за кулисами шестерёнки и ящики-бакеты" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/abm-cover.jpg" width="1600" height="900" loading="lazy" alt="Две двери кафе, за кулисами шестерёнки и ящики-бакеты" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="price"><b>4 900 ₽</b></span><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><span class="tag muted">скоро</span></p>
-      <h3><span class="path-n">5.</span> <a href="/ab/">A/B без мифов</a></h3>
-      <p class="line">Для тех, кто уже запускает A/B-тесты: MDE при неравных группах, SRM, ratio-метрики, CUPED, бакеты, peeking.</p>
+      <h3><span class="path-n">5.</span> <a href="/ab/">A/B без мифов</a></h3>
+      <p class="line">Для тех, кто уже запускает A/B-тесты: MDE при неравных группах, SRM, ratio-метрики, CUPED, бакеты, peeking.</p>
       <dl><dt>Тема</dt><dd>A/B</dd><dt>Внутри</dt><dd>модуль = рабочий ноутбук, задачи на данных со сверкой с эталоном</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/ab/" aria-label="Подробнее о курсе «A/B без мифов»">Подробнее</a></p>
+      <p class="course-act"><a class="btn ghost" href="/ab/" aria-label="Подробнее о курсе «A/B без мифов»">Подробнее</a></p>
     </li>
     <li class="course faded" id="c-ci">
-      <figure class="art"><img src="/img/causal-cover.jpg" width="1600" height="900" loading="lazy" alt="Развилка дорог у кафе, одна ветка полупрозрачная" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/causal-cover.jpg" width="1600" height="900" loading="lazy" alt="Развилка дорог у кафе, одна ветка полупрозрачная" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips"><span class="price"><b>4 900 ₽</b></span><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh">Уровень </span><span>Продвинутый</span></span><span class="tag muted">позже</span></p>
       <h3><span class="path-n">6.</span> <a href="/causal/">Causal inference</a></h3>
       <p class="line">Причины по данным, когда эксперимент не провести.</p>
       <dl><dt>Тема</dt><dd>Причинность</dd><dt>Внутри</dt><dd>интерактивная книга и ноутбуки</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="/causal/" aria-label="Подробнее о курсе «Causal inference»">Подробнее</a></p>
+      <p class="course-act"><a class="btn ghost" href="/causal/" aria-label="Подробнее о курсе «Causal inference»">Подробнее</a></p>
     </li>
   </ul>
 </main>
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 </body>

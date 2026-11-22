@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/terms/terms.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/terms/terms.css?v=202611231">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Нормальное распределение","item":"https://dilyakhakimova.com/terms/normal-distribution/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/normal-distribution/#term","name":"Нормальное распределение","description":"Нормальное распределение (его ещё называют гауссовым, или распределением Гаусса) — это «колокол»: большинство значений собирается у среднего, и чем дальше от него, тем реже они встречаются, одинаково в обе стороны. Его задают два числа: центр μ и ширина σ.","url":"https://dilyakhakimova.com/terms/normal-distribution/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Нормальное распределение простыми словами","description":"Нормальное распределение без страшных слов: колокол, правило 68–95–99.7 и время доставки в кафе. С линейкой сигм, которую можно покрутить.","url":"https://dilyakhakimova.com/terms/normal-distribution/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/normal-distribution/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Рост мужчин распределён нормально со средним 178 см и σ = 7 см. Какая доля мужчин выше 192 см?","acceptedAnswer":{"@type":"Answer","text":"192 = 178 + 2 · 7, это +2σ. Выше двух сигм лежит около 2.3% значений — примерно каждый 44-й."}},{"@type":"Question","name":"X и Y независимы и распределены нормально со средним 0 и σ = 1. Как распределена сумма X + Y?","acceptedAnswer":{"@type":"Answer","text":"Тоже нормально, со средним 0 и дисперсией 1 + 1 = 2, то есть σ = √2 ≈ 1.41. Складываются дисперсии, а не стандартные отклонения."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -42,7 +42,7 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap term" data-slug="normal-distribution"
   data-share-title="Нормальное распределение простыми словами" data-share-text="Нормальное распределение простыми словами — с игрой и задачей с собеседования:"
@@ -151,6 +151,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611230"></script>
+<script src="/terms/terms.js?v=202611231"></script>
 </body>
 </html>

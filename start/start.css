@@ -2,14 +2,14 @@
    Фокус: минимальная шапка (логотип + «Закрыть»), один вопрос на экран, крупно, много воздуха; один столбец.
    Правила — design-system.md: Literata 400/500, Onest 400–600, без 700; один жирный элемент на экран; одна залитая кнопка. */
 body.start{background:var(--desk); min-height:100vh}
-.s-top{display:flex; justify-content:flex-end; align-items:center; max-width:760px; margin-left:var(--page-inset); margin-right:auto; padding:var(--s-5) var(--s-5) 0}
+.s-top{display:flex; justify-content:flex-end; align-items:center; max-width:760px; margin-inline:auto; padding:var(--s-5) var(--s-5) 0}
 /* «Закрыть ×» — одна ссылка; подчёркнуто только слово, крестик без подчёркивания */
 .s-close{display:inline-flex; align-items:center; gap:6px; min-height:44px; color:var(--text-2); font-size:var(--fs-s); text-decoration:none}
 .s-close-t{text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:3px}
 .s-close:hover .s-close-t{text-decoration-color:currentColor}
 .s-close span[aria-hidden]{font-size:1.375rem; line-height:1}
-/* шапка и колонка вопроса — от левого края контейнера страницы (гайд, 109a) */
-.s-main{max-width:760px; margin-left:var(--page-inset); margin-right:auto; padding:var(--s-5) var(--s-5) var(--s-9)}
+/* страница-колонка: шапка и колонка вопроса — по центру окна (гайд, 109a) */
+.s-main{max-width:760px; margin-inline:auto; padding:var(--s-5) var(--s-5) var(--s-9)}
 .s-app{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-6) var(--s-7) var(--s-7); position:relative; overflow:hidden}
 
 /* прогресс и время */

@@ -7,9 +7,9 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
 <style>
 /* общий шаблон страницы (как /extras/, 404): шапка и футер data-chrome, main.wrap.block — 1120 px (--page-max), отступы шаблона */
 .account h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:var(--s-2) 0 var(--s-6)}
@@ -50,7 +50,7 @@
 </head>
 <body>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -62,7 +62,7 @@
   <a class="me" href="/account.html" aria-label="Войти" aria-current="page"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 <main id="main" class="wrap block account">
   <p class="kicker">личный кабинет</p>
   <h1>Мой прогресс</h1>
@@ -71,7 +71,7 @@
     <p class="lead">Войди, чтобы прогресс сохранялся на любом устройстве и пройденные курсы засчитывались.</p>
     <div class="login">
       <label class="consent" id="consent-box"><input type="checkbox" id="consent"> <span>Даю <a href="/consent/">согласие на обработку персональных данных</a> и принимаю <a href="/privacy/">политику конфиденциальности</a>. Нужно только при первом входе.</span></label>
-      <a class="btn ya" id="ya-btn" href="#"><span class="ya-i" aria-hidden="true">Я</span>Войти с Яндекс ID</a>
+      <a class="btn ya" id="ya-btn" href="https://id.dilyakhakimova.com/yandex/start"><span class="ya-i" aria-hidden="true">Я</span>Войти с Яндекс ID</a>
       <p class="or">или по почте</p>
       <form class="form" id="f-email" novalidate>
         <label for="email">Почта</label>
@@ -142,8 +142,8 @@
 </main>
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 <script src="/signal/progress.js"></script>
@@ -270,6 +270,7 @@ const ERR = {state: 'Вход через Яндекс прервался. Поп
 
 async function start(){
   try { const r = await fetch('/api/config'); const c = r.ok ? await r.json() : null; if (c && c.id_origin) ID = c.id_origin; } catch(e) {}
+  $('ya-btn').href = ID + '/yandex/start';
   const h = new URLSearchParams(location.hash.slice(1));
   if (h.has('pass') || h.has('err')) history.replaceState(null, '', location.pathname + location.search);
   if (h.get('err')){ $('login-err').textContent = ERR[h.get('err')] || 'Не получилось войти'; if (h.get('err') === 'consent') $('consent-box').classList.add('need'); }

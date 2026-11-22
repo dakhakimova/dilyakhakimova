@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/terms/terms.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/terms/terms.css?v=202611231">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Доверительный интервал","item":"https://dilyakhakimova.com/terms/confidence-interval/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/confidence-interval/#term","name":"Доверительный интервал","description":"Доверительный интервал — это вилка значений, которые не спорят с данными: всё, что внутри, правдоподобно, а ширина вилки показывает, насколько точно мы измерили. У 95-процентного интервала способ построения такой, что вилка накрывает правду в 95 случаях из 100.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Доверительный интервал простыми словами","description":"Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95%» и игра, где вилки ловят правду.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/confidence-interval/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Среднее время на сайте — 120 секунд, стандартное отклонение — 60 секунд, пользователей 400. Каков 95-процентный доверительный интервал для среднего?","acceptedAnswer":{"@type":"Answer","text":"Стандартная ошибка 60/√400 = 3 секунды. Интервал: 120 ± 1.96 · 3 = 120 ± 5.9, то есть примерно от 114.1 до 125.9 секунды."}},{"@type":"Question","name":"Во сколько раз нужно увеличить выборку, чтобы доверительный интервал стал вдвое уже?","acceptedAnswer":{"@type":"Answer","text":"В четыре раза: ширина пропорциональна 1/√n."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -42,7 +42,7 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap term" data-slug="confidence-interval"
   data-share-title="Доверительный интервал простыми словами" data-share-text="Доверительный интервал простыми словами — с игрой и задачей с собеседования:"
@@ -152,6 +152,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611230"></script>
+<script src="/terms/terms.js?v=202611231"></script>
 </body>
 </html>

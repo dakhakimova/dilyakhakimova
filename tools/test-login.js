@@ -108,7 +108,7 @@ function serve(){
   check(![...site.users.keys()].some(k => /anya|Аня/.test(k)), 'на сайте нет почты и имени');
   await shot('3-member');
   // шапка на другой странице: буква имени
-  await page.goto(SITE + '/play/'); await page.evaluate(s => { const x = document.createElement('script'); x.textContent = s; document.body.appendChild(x); }, require('./chrome.js').header('').match(/<script>(\(function\(\)\{var a=[\s\S]*?)<\/script>/)[1]);
+  await page.goto(SITE + '/play/');
   check((await page.textContent('.me .me-l').catch(() => '')) === 'А', 'буква имени в шапке');
   // смена имени
   await page.goto(SITE + '/account.html'); await page.waitForSelector('#member:not([hidden])');

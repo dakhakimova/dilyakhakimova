@@ -24,10 +24,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/play/play.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/play/play.css?v=202611231">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -44,7 +44,7 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap play" data-toy="hundred-tests" data-frame="/ab-basics/08-errors.html?toy=hundred-tests"
   data-share-title="Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?" data-share-text="Команда закрывает навсегда каждую идею, по которой недельный A/B-тест не показал значимой разницы. Если хорошие идеи дают +3%, сколько из них так выбросят? Сделай ставку — и запусти сто экспериментов"
@@ -92,6 +92,6 @@
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611230"></script>
+<script src="/play/play.js?v=202611231"></script>
 </body>
 </html>

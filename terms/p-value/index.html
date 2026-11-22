@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/terms/terms.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/terms/terms.css?v=202611231">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"p-value","item":"https://dilyakhakimova.com/terms/p-value/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/p-value/#term","name":"p-value","description":"p-value — это доля случаев, в которых результат не слабее нашего получился бы сам по себе, если бы эффекта не было. По-русски его ещё называют p-значением; маленький p-value значит, что в мире без эффекта наш результат был бы редкостью.","url":"https://dilyakhakimova.com/terms/p-value/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"p-value простыми словами","description":"p-value — это доля миров без эффекта, где результат не слабее твоего. Разбираем на A/B-тесте кафе, рисуем хвосты колокола и перечисляем частые ошибки.","url":"https://dilyakhakimova.com/terms/p-value/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/p-value/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"A/B-тест дал p = 0.04. Какова вероятность, что нулевая гипотеза верна?","acceptedAnswer":{"@type":"Answer","text":"Из одного p-value этого не узнать: p считается при условии, что H₀ верна, а вопрос — про обратное условие. Нужны априорная доля работающих идей и мощность теста — тогда ответ даёт формула Байеса."}},{"@type":"Question","name":"Как распределены p-value в 1000 A/A-тестов, если система сплитования исправна?","acceptedAnswer":{"@type":"Answer","text":"Равномерно от 0 до 1: примерно по 50 тестов в каждом интервале шириной 0.05, в том числе около 50 «значимых» с p \u003c 0.05."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -42,7 +42,7 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap term" data-slug="p-value"
   data-share-title="p-value простыми словами" data-share-text="p-value простыми словами — с игрой и задачей с собеседования:"
@@ -152,6 +152,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611230"></script>
+<script src="/terms/terms.js?v=202611231"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@ const BACK = '← На главную';
 // Показ: сначала первая буква имени, потом картинка, если загрузилась, — фото из Яндекс ID или выбранная аватарка /img/avatars/<ключ>.webp.
 // Ищет кружок по селектору: перед этим скриптом стоит скрипт бургера, так что previousElementSibling — не шапка (была ошибка: кружок не менялся).
 // Запросов к /api/ шапка не делает (на /play/ и /terms/ их быть не должно).
-const ME_JS = `<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>`;
+const ME_JS = `<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>`;
 
 function header(current = '', self = false){
   // текущая рубрика: на её главной странице — не ссылка (<span aria-current="page">), внутри рубрики — ссылка с aria-current="true";
@@ -68,7 +68,7 @@ function footer(here = ''){   // here — адрес текущей страни
 // заменить шапку и футер на странице; current — ключ рубрики
 function stamp(html, current, self = false, here = ''){
   const cls = (html.match(/<header class="(top[^"]*)"/) || [])[1] || 'top wrap';
-  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?(\s*<script>\(function\(\)\{var a=document\.currentScript[\s\S]*?<\/script>)?/, () => header(current, self).replace('<header class="top wrap"', `<header class="${cls}"`));
+  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?(\s*<script>\(function\(\)\{var a=document\.(?:currentScript|querySelector\('header\.top \.me'\))[\s\S]*?<\/script>)*/, () => header(current, self).replace('<header class="top wrap"', `<header class="${cls}"`));
   if (/<footer class="foot"/.test(html)) html = html.replace(/<footer class="foot"[^>]*>[\s\S]*?<\/footer>/, () => footer(here));
   else html = html.replace(/<\/main>/, () => '</main>\n' + footer(here));
   return html;

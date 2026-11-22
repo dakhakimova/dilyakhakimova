@@ -18,8 +18,8 @@
 .crumbs a{color:var(--muted); text-decoration-color:rgba(36,34,31,.25); padding:var(--s-2) 0; display:inline-block}
 
 /* ---------- страница термина ---------- */
-/* одна колонка 36em от левого края контейнера страницы (как h1 в шапке): текст, формулы, схемы и игра не шире колонки (пара 109a) */
-.term{max-width:calc(var(--measure) + 2 * var(--s-6)); margin-left:var(--page-inset); margin-right:auto; padding-top:var(--s-6)}
+/* страница-колонка (решение Дили, 22.11.2026): колонка 36em вместе с h1 — по центру окна; игра шире колонки — до 880 px, по той же оси (гайд, 109a) */
+.term{max-width:calc(var(--measure) + 2 * var(--s-6)); margin-inline:auto; padding-top:var(--s-6)}
 .term > *{max-width:100%}
 .t-hero h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5); max-width:18em}
 .t-sub{font:400 var(--t-20)/1.5 var(--serif); color:var(--text-2); max-width:30em; margin:0 0 var(--s-6)}
@@ -56,6 +56,7 @@
 
 /* игра в iframe */
 .stage-frame{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-4) var(--s-5); margin:var(--s-5) 0 var(--s-2)}
+@media (min-width:760px){ .term .stage-frame{margin-inline:calc(50% - min(440px, 50vw - 16px))} }
 .stage-frame iframe{display:block; width:100%; border:0; min-height:320px; background:transparent}
 .stage-frame .noframe{display:none; margin:var(--s-2) 0 0}
 .stage-frame.broken .noframe{display:block}

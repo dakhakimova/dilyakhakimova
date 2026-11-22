@@ -22,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/terms/terms.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/terms/terms.css?v=202611231">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Парадокс Симпсона","item":"https://dilyakhakimova.com/terms/simpson-paradox/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term","name":"Парадокс Симпсона","description":"Парадокс Симпсона — это когда в каждой подгруппе один вариант лучше, а в сумме по всем данным выигрывает другой. Виноваты разные пропорции подгрупп: общая доля — это взвешенное среднее, и веса у вариантов разные.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Парадокс Симпсона простыми словами","description":"Парадокс Симпсона: лучше в каждой подгруппе и хуже в сумме. Разбираем на двух бариста кафе, рисуем взвешенные средние и объясняем, какому сравнению верить.","url":"https://dilyakhakimova.com/terms/simpson-paradox/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/simpson-paradox/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Лечение A лучше лечения B и для мелких, и для крупных камней в почках, но в целом его успешность ниже. Как такое возможно и какому сравнению верить?","acceptedAnswer":{"@type":"Answer","text":"Так было в известном исследовании: у A 93% успеха на мелких камнях и 73% на крупных, у B — 87% и 69%, а в сумме A — 78%, B — 83%. Лечение A чаще назначали тяжёлым случаям с крупными камнями. Размер камня влияет и на выбор лечения, и на исход, поэтому верить надо сравнению внутри групп."}},{"@type":"Question","name":"В A/B-тесте сплит в первую неделю был 90/10, во вторую — 50/50. Можно сложить данные двух недель и сравнить конверсии?","acceptedAnswer":{"@type":"Answer","text":"Нельзя: если конверсия во вторую неделю другая (сезон, акция), группа B в сумме окажется почти целиком из второй недели, а A — из первой. Сравнивай внутри каждой недели или взвешивай недели одинаково для обеих групп."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -43,7 +43,7 @@
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.currentScript.previousElementSibling.querySelector('.me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.photo){var g=new Image();g.alt='';g.src=m.photo;g.onload=function(){i.replaceWith(g)}}else if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap term" data-slug="simpson-paradox"
   data-share-title="Парадокс Симпсона простыми словами" data-share-text="Парадокс Симпсона простыми словами — с игрой и задачей с собеседования:"
@@ -150,6 +150,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611230"></script>
+<script src="/terms/terms.js?v=202611231"></script>
 </body>
 </html>

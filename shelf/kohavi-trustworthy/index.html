@@ -21,11 +21,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/tokens.css?v=202611230">
+<link rel="stylesheet" href="/tokens.css?v=202611231">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611230">
-<link rel="stylesheet" href="/home.css?v=202611230">
-<link rel="stylesheet" href="/shelf/books.css?v=202611230">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611231">
+<link rel="stylesheet" href="/home.css?v=202611231">
+<link rel="stylesheet" href="/shelf/books.css?v=202611231">
 <script>
 function artFail(img){ img.closest('.art').classList.add('missing'); }
 </script>
@@ -47,7 +47,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
 </header>
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
-<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap bk" data-share-title="Trustworthy Online Controlled Experiments · Котейка читает"
   data-i18n-attr="data-share-text:bk.share.text;data-s-copied:bk.copied" data-share-text="Скинь коллеге, который запускает A/B-тесты: пять мыслей, на чтение — десять минут." data-s-copied="Ссылка скопирована">
@@ -278,9 +278,9 @@ for i, h in enumerate(hist):
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611230"></script>
-<script src="/i18n/books.js?v=202611230"></script>
-<script src="/signal/py.js?v=202611230"></script>
-<script src="/shelf/books.js?v=202611230"></script>
+<script src="/i18n/site.js?v=202611231"></script>
+<script src="/i18n/books.js?v=202611231"></script>
+<script src="/signal/py.js?v=202611231"></script>
+<script src="/shelf/books.js?v=202611231"></script>
 </body>
 </html>
