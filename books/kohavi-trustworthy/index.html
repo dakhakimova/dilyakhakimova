@@ -6,14 +6,14 @@
 <!-- Рубрика «Котейка читает». Тексты — в i18n/site.js (шапка, футер) и i18n/books.js. Русский текст вписан командой node tools/bake-i18n.js: правьте словари, а не разметку.
      Код ячеек Python — прямо здесь (textarea): из них же собирается ноутбук books/notebooks/kohavi-trustworthy.ipynb (python3 tools/build-book-notebook.py). -->
 <title data-i18n="bk.meta.title">Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам · Котейка читает</title>
-<meta name="description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми игрушками, кодом на Python и ноутбуком. С какой главы начать.">
+<meta name="description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком. С какой главы начать.">
 <link rel="canonical" href="https://dilyakhakimova.com/books/kohavi-trustworthy/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/books/kohavi-trustworthy/">
 <meta property="og:title" data-i18n-attr="content:bk.meta.title" content="Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам · Котейка читает">
-<meta property="og:description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми игрушками, кодом на Python и ноутбуком. С какой главы начать.">
+<meta property="og:description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги Кохави, Тан и Сюй «Trustworthy Online Controlled Experiments»: пять главных идей для аналитика — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком. С какой главы начать.">
 <meta property="og:image" content="https://dilyakhakimova.com/books/og/kohavi-trustworthy.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,10 +23,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611221">
-<link rel="stylesheet" href="/books/books.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/books/books.css?v=202611300">
 <script>
 function artFail(img){ img.closest('.art').classList.add('missing'); }
 </script>
@@ -34,18 +34,20 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <body class="bk-page">
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
-    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
-    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
-    <a href="/play/" data-i18n="nav.play">Игрушки</a>
-    <a href="/#read" data-i18n="nav.read">Статьи</a>
-    <a href="/about/" data-i18n="nav.about">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/" aria-current="page">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" data-i18n-attr="aria-label:bk.crumbs.label" aria-label="Где ты на сайте">
   <ol>
@@ -63,7 +65,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="eyebrow bk-label"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="32" height="32"><span data-i18n="bk.rubric">Котейка читает</span></p>
     <h1 data-i18n="bk.h1">Как не выкатить баг, который притворился победой</h1>
     <p class="bk-pass" data-i18n="bk.pass.book"><cite lang="en">Trustworthy Online Controlled Experiments</cite> · Рон Кохави, Диана Тан, Я Сюй · 2020</p>
-    <p class="bk-pass2"><span data-i18n="bk.pass.who">Для аналитиков и продактов, которые запускают A/B-тесты</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span data-i18n="bk.pass.read">около 290 страниц, на английском · разбор — 10 минут</span></p>
+    <p class="bk-pass2"><span data-i18n="bk.pass.who">Для аналитиков и продактов, которые запускают A/B-тесты</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span data-i18n="bk.pass.read">около 290 страниц, на английском · разбор — 10 минут</span></p>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who" data-i18n="bk.kot.who">Котейка</div><p class="say" data-i18n="bk.kot.say">Прочитал за тебя почти 300 страниц. Вот пять мыслей, которые пригодятся в понедельник, когда откроешь отчёт.</p></div></div>
   </div>
   <figure class="art r43 drawn"><img src="/books/img/kohavi-main.jpg" width="1600" height="1200" data-i18n-attr="alt:bk.art.alt" alt="Котейка за столиком кафе разглядывает зелёный отчёт через лупу, рядом Алиса и Боб" onerror="artFail(this)"><figcaption class="ph" data-i18n="bk.art.ph">Здесь будет иллюстрация: Котейка с лупой проверяет зелёный отчёт</figcaption></figure>
@@ -158,19 +160,19 @@ print(f"A = {n_a}, B = {n_b}, доля A = {n_a / (n_a + n_b):.4f}")
 print(f"χ² = {chi2:.1f}, p-value = {p:.2g}")
 print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0005 else "перекос в пределах шума")</textarea>
   </div>
-  <p class="note" data-i18n="bk.i3.more">Ещё игрушка: <a href="/play/srm/">«50,8 % против 49,2 % — это мелочь?»</a></p>
+  <p class="note" data-i18n="bk.i3.more">Ещё игра: <a href="/play/srm/">«50,8 % против 49,2 % — это мелочь?»</a></p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i3.take">проверяй соотношение групп до того, как смотришь на эффект; при SRM отчёт не читают, а ищут причину.</span></p>
 </li>
 
-<!-- идея 4: подглядывание — живая игрушка с /play/ + ячейка Python -->
+<!-- идея 4: подглядывание — живая игра с /play/ + ячейка Python -->
 <li class="bk-idea" id="idea-4">
   <h2><span class="n" aria-hidden="true">4</span><span data-i18n="bk.i4.h">Можно ли смотреть на тест каждый день?</span></h2>
   <p data-i18n="bk.i4.p1">Смотреть можно. Нельзя останавливать тест в первый день, когда стало «значимо». Каждый взгляд — ещё один шанс случайно увидеть зелёное, и за месяц таких шансов набегает много. Авторы вспоминают ранние инструменты для A/B, которые показывали p-value в реальном времени: ложных побед там было в разы больше обещанных 5 %.</p>
   <p data-i18n="bk.i4.p2">Лечится планом: срок и размер выборки задаются до старта по MDE, а смотреть раньше можно только по заранее выбранным правилам последовательного теста.</p>
   <div class="bk-frame">
-    <p class="chart-head" data-i18n="bk.i4.toy">Игрушка из курса «A/B на пальцах»</p>
+    <p class="chart-head" data-i18n="bk.i4.toy">Игра из курса «A/B на пальцах»</p>
     <iframe src="/play/peeking/?embed=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
-    <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игрушку отдельно →</a></p>
+    <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
   <div class="cell" data-i18n-attr="data-title:bk.i4.code;data-note:bk.i4.code.note" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">
 <textarea spellcheck="false">import numpy as np
@@ -194,15 +196,15 @@ print(f"смотрим каждый день, стоп при «значимо»
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
 
-<!-- идея 5: A/A-тесты — живая игрушка с /play/ + ячейка Python -->
+<!-- идея 5: A/A-тесты — живая игра с /play/ + ячейка Python -->
 <li class="bk-idea" id="idea-5">
   <h2><span class="n" aria-hidden="true">5</span><span data-i18n="bk.i5.h">Как проверить саму систему тестов?</span></h2>
   <p data-i18n="bk.i5.p1">A/A-тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5 % тестов, а p-value лягут ровно по всему отрезку от 0 до 1. Перекос гистограммы — сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
   <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих тестах. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки, которых в одном тесте не видно.</p>
   <div class="bk-frame">
-    <p class="chart-head" data-i18n="bk.i5.toy">Игрушка из курса «Сигнал или шум»</p>
+    <p class="chart-head" data-i18n="bk.i5.toy">Игра из курса «Сигнал или шум»</p>
     <iframe src="/play/aa-stand/?embed=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
-    <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игрушку отдельно →</a></p>
+    <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
   <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="Честная платформа даёт ровную гистограмму. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по гостям.">
 <textarea spellcheck="false">import numpy as np
@@ -226,7 +228,7 @@ hist, _ = np.histogram(pvals, bins=10, range=(0, 1))
 for i, h in enumerate(hist):
     print(f"p {i / 10:.1f}–{(i + 1) / 10:.1f} {'█' * (h // 5)} {h}")</textarea>
   </div>
-  <p class="note" data-i18n="bk.i5.more">Ещё игрушка: <a href="/play/fake-trend/">«Откуда „тренд“ в A/A-тесте?»</a> — накопленный эффект растёт несколько дней, хотя эффекта нет.</p>
+  <p class="note" data-i18n="bk.i5.more">Ещё игра: <a href="/play/fake-trend/">«Откуда „тренд“ в A/A-тесте?»</a> — накопленный эффект растёт несколько дней, хотя эффекта нет.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i5.take">запусти A/A на ключевых метриках и посмотри на гистограмму p-value, прежде чем верить платформе.</span></p>
 </li>
 </ol>
@@ -255,7 +257,7 @@ for i, h in enumerate(hist):
 
 <section class="bk-sec" aria-labelledby="course-h">
   <h2 id="course-h" data-i18n="bk.course.h">Что из этого вошло в курсы</h2>
-  <p data-i18n="bk.course.p">Идеи книги разобраны на игрушках и задачах — на своих числах и в мире кафе.</p>
+  <p data-i18n="bk.course.p">Идеи книги разобраны на играх и задачах — на своих числах и в мире кафе.</p>
   <ul class="list">
     <li data-i18n="bk.course.l1"><a href="/ab-basics/08-errors.html">«A/B на пальцах», шаг 8 «Два вида ошибок»</a> — сколько «побед» за год настоящие.</li>
     <li data-i18n="bk.course.l2"><a href="/ab-basics/10-traps.html">«A/B на пальцах», шаг 10 «Когда зелёное врёт»</a> — подглядывание, SRM, двадцать метрик в одном отчёте.</li>
@@ -288,38 +290,50 @@ for i, h in enumerate(hist):
 
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
-      <h2 data-i18n="foot.courses">Курсы</h2>
+      <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
-        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2 data-i18n="foot.more">Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="/books/" data-i18n="foot.books">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
-        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
-    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611250"></script>
-<script src="/i18n/books.js?v=202611250"></script>
-<script src="/signal/py.js?v=202611250"></script>
-<script src="/books/books.js?v=202611250"></script>
+<script src="/i18n/site.js?v=202611300"></script>
+<script src="/i18n/books.js?v=202611300"></script>
+<script src="/signal/py.js?v=202611300"></script>
+<script src="/books/books.js?v=202611300"></script>
 </body>
 </html>

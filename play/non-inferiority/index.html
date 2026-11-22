@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/09-mde.html?toy=non-inferiority" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Переезд на сервис подешевле. Как доказать, что заказов не стало меньше? · Игрушки · Диля Хакимова</title>
+<meta name="robots" content="noindex, follow">
+<title>Переезд на сервис подешевле. Как доказать, что заказов не стало меньше? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Тест «не хуже»: допустимая потеря, вилка и красная линия — когда переезжать, когда откатывать, а когда пока не знаем.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/non-inferiority/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/non-inferiority/">
-<meta property="og:title" content="Переезд на сервис подешевле. Как доказать, что заказов не стало меньше? · Игрушки · Диля Хакимова">
+<meta property="og:title" content="Переезд на сервис подешевле. Как доказать, что заказов не стало меньше? · симулятор · Диля Хакимова">
 <meta property="og:description" content="Тест «не хуже»: допустимая потеря, вилка и красная линия — когда переезжать, когда откатывать, а когда пока не знаем.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/non-inferiority.png">
 <meta property="og:image:width" content="1200">
@@ -24,28 +25,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/play/play.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/play/play.css?v=202611300">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/" aria-current="page">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
-    <li><a href="/play/">Игрушки</a></li>
+    <li><a href="/play/">Игры</a></li>
     <li><span aria-current="page">Переезд на сервис подешевле. Как доказать, что заказов не стало меньше?</span></li>
   </ol>
 </nav>
@@ -53,7 +56,7 @@
 <main id="main" class="wrap play" data-toy="non-inferiority" data-frame="/ab-basics/09-mde.html?toy=non-inferiority"
   data-share-title="Переезд на сервис подешевле. Как доказать, что заказов не стало меньше?" data-share-text="Команда переводит оплату на дешёвый сервис. A/B-тест показал −0,4 % заказов, «незначимо», разработчики хотят катить. Достаточно ли этого? Угадай — и проверь вилку против допуска"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
-  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="non-inferiority" data-show-from="0" hidden></span></p>
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="non-inferiority" data-show-from="0" hidden></span></p>
   <h1>Переезд на сервис подешевле. Как доказать, что заказов не стало меньше?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
@@ -70,8 +73,8 @@
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/09-mde.html?toy=non-inferiority" title="Игрушка: Переезд на сервис подешевле. Как доказать, что заказов не стало меньше?" style="height:1000px" allow="clipboard-write"></iframe>
-    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/09-mde.html#card-9">Открой её в курсе</a>.</p>
+    <iframe id="toy-frame" src="/ab-basics/09-mde.html?toy=non-inferiority" title="Игра: Переезд на сервис подешевле. Как доказать, что заказов не стало меньше?" style="height:1000px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/09-mde.html#card-9">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
@@ -81,7 +84,7 @@
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
     <div class="reveal" hidden>
       <p>При допуске −2 % и результате −0,4 % вилка от −1,8 % до +1,0 % — вся правее линии: потеря больше допуска почти исключена, переезжаем. При −1,5 % вилка пересекает линию — пока не знаем. При −3,5 % она вся левее — откатываем. Строгость дорогая: при допуске −4 % хватит 9 дней, при −2 % нужно 36, при −1 % — 142. Вдвое строже допуск — вчетверо больше гостей.</p>
       <h3>Шпаргалка</h3>
@@ -98,7 +101,7 @@
     </div>
     <details class="embed">
       <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
       <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
     </details>
   </section>
@@ -113,42 +116,54 @@
   </section>
 
   <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё игрушки</h2>
-    <ul class="toys" role="list">
-      <li><a href="/play/power-bells/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Фото дают +2 %. Заметит ли это недельный тест?</b><span>Два колокола — мир без эффекта и мир с эффектом: как длина теста, трафик и конверсия решают, увидим ли мы эффект.</span><small>из курса «A/B на пальцах», шаг 9</small><span class="play-count" data-count-for="power-bells" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/srm/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>50,8 % против 49,2 % при сплите 50/50 — это мелочь?</b><span>Перекос групп (SRM): миллион пользователей, сплит 50/50 и полтора процента разницы — бывает ли такое случайно.</span><small>из курса «A/B на пальцах», шаг 10</small><span class="play-count" data-count-for="srm" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/test-days/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Хочешь заметить +2 % к конверсии. Сколько дней держать тест?</b><span>Калькулятор длины теста: какой эффект важен, сколько гостей в день, какой сплит — и сколько дней на это уйдёт.</span><small>из курса «A/B на пальцах», шаг 9</small><span class="play-count" data-count-for="test-days" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+    <h2 id="more-h">Ещё по теме</h2>
+    <ul class="toys rel" role="list">
+      <li><a href="/play/year-of-tests/"><span class="kind">Игра</span><b>За год прокрасилось 125 тестов из 1000. Сколько побед настоящие?</b><span>Тысяча A/B-тестов за год: доля рабочих идей, мощность и α решают, сколько зелёного в отчёте — подарки шума.</span><span class="go">Сыграть →</span></a></li>
+      <li><a href="/ab-basics/11-decide.html"><span class="kind">Глава курса</span><b>Читаем отчёт и решаем</b><span>«A/B на пальцах», шаг 11</span><span class="go">Открыть главу →</span></a></li></ul>
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2>Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/play/">Игры</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
-        <li><a href="/books/">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611250"></script>
+<script src="/play/play.js?v=202611300"></script>
 </body>
 </html>

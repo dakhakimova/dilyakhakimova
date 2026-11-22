@@ -33,15 +33,50 @@ p{margin:0 0 .8em}
 .skip:focus{left:var(--s-2)}
 .vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 
-/* шапка: логотип + строка «о чём сайт», справа разделы */
-header.top{display:flex; justify-content:space-between; align-items:center; gap:var(--s-2) var(--s-5); flex-wrap:wrap; padding-top:var(--s-5); padding-bottom:var(--s-1)}
-.brand{display:flex; align-items:baseline; gap:var(--s-3); flex-wrap:wrap; min-width:0}
-.logo{font:500 var(--fs-m)/1 var(--serif); color:var(--ink); text-decoration:none; white-space:nowrap}
-.logo i{font:400 var(--fs-h3)/1 var(--script); color:var(--pen); font-style:normal}
-.tagline{font-size:var(--fs-xs); color:var(--muted); margin:0}
-header nav{display:flex; gap:var(--s-1) var(--s-5); flex-wrap:wrap; font-size:var(--fs-s)}
-header nav a{color:var(--warm-700); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:4px; padding:var(--s-3) 0; display:inline-block}
-header nav a:hover{color:var(--ink)}
+/* шапка (tools/chrome.js): значок Котейки → главная, строка о сайте, рубрики, «Войти», «С чего начать» */
+header.top{display:flex; align-items:center; gap:var(--s-2) var(--s-4); padding-top:var(--s-5); padding-bottom:var(--s-1); position:relative}
+.kot-home{display:block; flex:none; width:30px; height:30px; border-radius:var(--r-s); line-height:0}
+.kot-home img{width:30px; height:30px; display:block; border-radius:var(--r-s)}
+.kot-home:focus-visible{outline:2px solid var(--pen); outline-offset:3px}
+.tagline{font-size:var(--fs-xs); color:var(--text-3); margin:0; flex:1 1 auto; min-width:0}
+header.top nav{display:flex; align-items:center; gap:var(--s-1) var(--s-5); flex-wrap:wrap; font-size:var(--fs-s); margin-left:auto}
+header.top nav a{color:var(--text-2); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); text-underline-offset:4px; padding:var(--s-3) 0; display:inline-block}
+header.top nav a:hover{color:var(--ink)}
+header.top nav a[aria-current="page"]{color:var(--ink); text-decoration-color:var(--coral); text-decoration-thickness:2px}
+header.top nav .login{margin-left:var(--s-2)}
+header.top nav .btn.start-btn{text-decoration:none; padding:var(--s-2) var(--s-4); min-height:40px; color:var(--pen)}
+header.top nav .btn.start-btn[aria-current="page"]{background:var(--ctrl-bg)}
+.burger{display:none; margin-left:auto; width:44px; height:44px; border:1px solid var(--line-strong); border-radius:var(--r-m); background:var(--white); cursor:pointer; padding:0; align-items:center; justify-content:center}
+.burger-i, .burger-i::before, .burger-i::after{display:block; width:18px; height:2px; background:var(--ink); border-radius:2px; position:relative; content:""}
+.burger-i::before{position:absolute; top:-6px} .burger-i::after{position:absolute; top:6px}
+header.top.open .burger-i{background:transparent} header.top.open .burger-i::before{top:0; transform:rotate(45deg)} header.top.open .burger-i::after{top:0; transform:rotate(-45deg)}
+@media (max-width:860px){
+  .tagline{display:none}
+  .burger{display:inline-flex}
+  header.top nav{display:none; position:absolute; top:100%; left:var(--s-4); right:var(--s-4); z-index:20; flex-direction:column; align-items:stretch; gap:0; background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-3); padding:var(--s-2) var(--s-5) var(--s-5)}
+  header.top.open nav{display:flex}
+  header.top nav a{padding:var(--s-3) 0; border-bottom:1px solid var(--line); text-decoration:none; font-size:var(--fs-m)}
+  header.top nav .login{margin:0}
+  header.top nav .btn.start-btn{margin-top:var(--s-4); justify-content:center; border-bottom:1.5px solid var(--pen); min-height:var(--btn-h)}
+}
+
+/* анонс платного курса (tools/chrome.js → announce): конец бесплатных курсов, финал /start/, футер */
+.announce{border-left:4px solid var(--pen); background:var(--sky); border-radius:var(--r-l); padding:var(--s-4) var(--s-5); margin:var(--s-7) 0 var(--s-5)}
+.announce p{margin:0}
+.announce-t{font:var(--fw-medium) var(--fs-l)/1.35 var(--serif); color:var(--ink)}
+.announce-t a{color:inherit}
+.announce-s{color:var(--text-2); font-size:var(--fs-s); margin-top:var(--s-2) !important; max-width:38em}
+.announce .ctas{margin-top:var(--s-4)}
+.foot .announce{grid-column:1 / -1; margin:var(--s-4) 0 0; max-width:44em}
+
+/* фильтр по теме (/play/, /terms/, /shelf/) */
+.topic-filter{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:var(--s-6) 0 var(--s-5)}
+.topic-filter button{font:var(--fw-medium) var(--fs-s)/1.2 var(--body); min-height:40px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:1px solid var(--line-strong); background:var(--white); color:var(--text-2); cursor:pointer}
+.topic-filter button[aria-pressed="true"]{border-color:var(--pen); color:var(--pen); box-shadow:inset 0 0 0 1px var(--pen)}
+.cat-list > li[hidden]{display:none}
+
+/* «Ещё по теме»: подпись вида материала — метка */
+.rel .kind{display:block; font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--label-ink); margin:0 0 var(--s-2)}
 
 /* кнопки: главная — синяя, второстепенная — контур */
 .ctas{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin:var(--s-6) 0 0}
@@ -101,7 +136,7 @@ h1 .hand{display:block; font:400 1.08em/1.1 var(--script); color:var(--pen)}
 .block > h2, .lure h2, .toy h2, .about h2{font:400 var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); margin:0 0 var(--s-5)}
 .panel{background:var(--paper); border-radius:var(--r-l); padding:var(--s-6); box-shadow:var(--sh-2)}
 
-/* 2. игрушка */
+/* 2. игра */
 .toy{background:var(--white)}
 .toy-head{display:grid; grid-template-columns:64px 1fr; gap:var(--s-4); align-items:start; margin-bottom:var(--s-3)}
 .toy h2{font-size:var(--fs-h3); margin-bottom:var(--s-3)}
@@ -203,7 +238,7 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .task-box summary{cursor:pointer; color:var(--pen); font-weight:var(--fw-medium); padding:var(--s-2) 0; min-height:44px; text-decoration:underline dotted; text-underline-offset:4px}
 .task-box details p{margin:var(--s-2) 0 0}
 
-/* 7. игрушки */
+/* 7. игры */
 .toys{list-style:none; margin:var(--s-4) 0 var(--s-3); padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s-4)}
 .toys a{display:flex; flex-direction:column; align-items:flex-start; gap:var(--s-2); height:100%; padding:var(--s-4); border-radius:var(--r-l); background:var(--white); color:var(--ink); text-decoration:none; box-shadow:var(--sh-2); transition:box-shadow .15s, transform .15s;
   background-image:linear-gradient(rgba(61,125,196,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.08) 1px, transparent 1px); background-size:16px 16px}
@@ -226,7 +261,7 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 
 /* 11. футер */
 .foot{margin-top:var(--s-8); padding:var(--s-6) 0 var(--s-7); background:rgba(251,250,246,.75); box-shadow:0 -1px 0 rgba(36,34,31,.08); font-size:var(--fs-s); position:relative; overflow:hidden}
-.foot-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--s-5); position:relative}
+.foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:var(--s-5); position:relative}
 .foot h2{font:var(--fw-strong) var(--fs-s)/1.3 var(--body); color:var(--text-2); margin:0 0 var(--s-3)}
 .foot ul{list-style:none; margin:0; padding:0}
 .foot li{margin:0; display:flex; flex-wrap:wrap; align-items:baseline; gap:0 var(--s-2)}
@@ -292,12 +327,10 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 @media (max-width:620px){
   :root{--fs-m:17px}
   .wrap{padding:0 var(--s-4)}
-  .tagline{display:none}
   .block{padding-top:var(--s-8)}
   .panel{padding:var(--s-5) var(--s-4)}
   .toy-head{grid-template-columns:44px 1fr; gap:var(--s-3)}
   .coin-big{width:44px; height:44px}
-  header nav{gap:var(--s-1) var(--s-4); font-size:var(--fs-xs)}
   #hist .ax{font-size:19px} #hist .guess-lab{font-size:18px} #hist .over{font-size:17px}
   .toy-cta{flex-direction:column; gap:var(--s-2)}
   .toy-cta .note{order:0}
@@ -320,3 +353,6 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
   *, *::before, *::after{animation:none !important; transition:none !important}
 }
 .last:empty{display:none}
+/* курс «в планах» — «выцветший снимок» (Causal inference) */
+.course.faded .art img{filter:grayscale(1) sepia(.25) opacity(.75)}
+.course.faded, .course.faded .line, .course.faded dd, .course.faded h4 a{color:var(--text-3)}

@@ -270,3 +270,18 @@ details[open] summary{margin-bottom:4px}
 }
 /* моноширинный в тексте — чуть мельче, иначе он крупнее соседних букв */
 p code, li code, .qfb code, .note code, .choice code{font-size:.88em}
+
+/* шапка курса: значок Котейки → главная (как в шапке сайта) */
+.top{align-items:center}
+.top .top-l{display:inline-flex; align-items:center; gap:12px}
+.top .kot-home{display:block; line-height:0; border-radius:6px}
+.top .kot-home img{width:28px; height:28px; border-radius:6px; display:block}
+
+/* анонс платного курса в конце бесплатного курса (tools/chrome.js → announce) */
+.announce{border-left:3px solid var(--pen); background:#E1EBF7; border-radius:12px; padding:16px 20px; margin:40px 0 24px}
+.announce p{margin:0}
+.announce-t{font:500 20px/1.35 var(--serif, 'Literata', serif); color:var(--ink)}
+.announce-t a{color:inherit}
+.announce-s{color:#4A463F; font-size:15px; margin-top:8px !important}
+.announce .ctas{margin-top:16px; display:flex}
+.announce .btn{display:inline-flex; align-items:center; min-height:44px; padding:10px 20px; border-radius:999px; border:1.5px solid var(--pen); color:var(--pen); text-decoration:none; font-weight:500; font-size:15px; background:transparent}

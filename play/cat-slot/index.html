@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/03-noise.html?toy=cat-slot" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Котейка нашёл «систему» у автомата с игрушками. Она работает? · Игрушки · Диля Хакимова</title>
+<meta name="robots" content="noindex, follow">
+<title>Котейка нашёл «систему» у автомата с играми. Она работает? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Три кнопки автомата, двадцать нажатий и «счастливая» кнопка: как мозг находит закономерности в чистой случайности.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/cat-slot/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/cat-slot/">
-<meta property="og:title" content="Котейка нашёл «систему» у автомата с игрушками. Она работает? · Игрушки · Диля Хакимова">
+<meta property="og:title" content="Котейка нашёл «систему» у автомата с играми. Она работает? · симулятор · Диля Хакимова">
 <meta property="og:description" content="Три кнопки автомата, двадцать нажатий и «счастливая» кнопка: как мозг находит закономерности в чистой случайности.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/cat-slot.png">
 <meta property="og:image:width" content="1200">
@@ -24,40 +25,42 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/play/play.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/play/play.css?v=202611300">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/" aria-current="page">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
-    <li><a href="/play/">Игрушки</a></li>
-    <li><span aria-current="page">Котейка нашёл «систему» у автомата с игрушками. Она работает?</span></li>
+    <li><a href="/play/">Игры</a></li>
+    <li><span aria-current="page">Котейка нашёл «систему» у автомата с играми. Она работает?</span></li>
   </ol>
 </nav>
 
 <main id="main" class="wrap play" data-toy="cat-slot" data-frame="/ab-basics/03-noise.html?toy=cat-slot"
-  data-share-title="Котейка нашёл «систему» у автомата с игрушками. Она работает?" data-share-text="Продакт смотрит на 20 заказов и говорит: «Видно же, что новая кнопка работает». А сколько «закономерностей» даёт чистая случайность на двадцати попытках? Угадай — и понажимай автомат"
+  data-share-title="Котейка нашёл «систему» у автомата с играми. Она работает?" data-share-text="Продакт смотрит на 20 заказов и говорит: «Видно же, что новая кнопка работает». А сколько «закономерностей» даёт чистая случайность на двадцати попытках? Угадай — и понажимай автомат"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="cat-slot" data-show-from="0" hidden></span></p>
-  <h1>Котейка нашёл «систему» у автомата с игрушками. Она работает?</h1>
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="cat-slot" data-show-from="0" hidden></span></p>
+  <h1>Котейка нашёл «систему» у автомата с играми. Она работает?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
-    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. У меня в кафе автомат с игрушками и три кнопки. Я нашёл систему: правая выигрывает чаще, а после двух проигрышей надо жать среднюю.</p></div></div>
+    <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. У меня в кафе автомат с играми и три кнопки. Я нашёл систему: правая выигрывает чаще, а после двух проигрышей надо жать среднюю.</p></div></div>
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Я тоже заметил, что правая какая-то удачливая. Может, повесим рядом подсказку для гостей?</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сколько раз нажимали? Двадцать? На двадцати нажатиях можно «доказать» любую систему.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу! Тогда нажимай сама и смотри.</p></div></div>
@@ -66,12 +69,12 @@
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
     <div class="what-body"><p>После нажатия автомат либо пищит — выигрыш, — либо молчит. Понажимай кнопки 20–30 раз и реши, какая из них выигрышная: левая, средняя, правая или все одинаковые.</p><p>Когда ответишь, автомат нажмёт каждую кнопку ещё по 1000 раз и покажет долю выигрышей у каждой. Зелёный пунктир — как автомат устроен на самом деле.</p></div>
-    <figure class="art"><img src="/play/img/cat-slot.jpg" alt="в углу кафе автомат с мягкими игрушками и тремя большими круглыми кнопками, Котейка с хитрым видом жмёт правую кнопку, Боб заглядывает через плечо, Алиса стоит рядом, скрестив руки, со скептической улыбкой" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
+    <figure class="art"><img src="/play/img/cat-slot.jpg" alt="в углу кафе автомат с мягкими играми и тремя большими круглыми кнопками, Котейка с хитрым видом жмёт правую кнопку, Боб заглядывает через плечо, Алиса стоит рядом, скрестив руки, со скептической улыбкой" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/03-noise.html?toy=cat-slot" title="Игрушка: Котейка нашёл «систему» у автомата с игрушками. Она работает?" style="height:400px" allow="clipboard-write"></iframe>
-    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/03-noise.html#card-6">Открой её в курсе</a>.</p>
+    <iframe id="toy-frame" src="/ab-basics/03-noise.html?toy=cat-slot" title="Игра: Котейка нашёл «систему» у автомата с играми. Она работает?" style="height:400px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/03-noise.html#card-6">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
@@ -81,7 +84,7 @@
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
     <div class="reveal" hidden>
       <p>Автомат пищит случайно, в 30 % нажатий, какую кнопку ни жми. Но на двадцати нажатиях одна из кнопок обычно выглядит «счастливой», а в сериях выигрышей и проигрышей мерещатся правила. На тысяче нажатий доли у трёх кнопок сходятся к 30 %. Мозг ищет закономерность даже там, где её нет, — поэтому разницу проверяют на большом числе повторов, а не на ощущениях.</p>
       <h3>Шпаргалка</h3>
@@ -98,7 +101,7 @@
     </div>
     <details class="embed">
       <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
       <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
     </details>
   </section>
@@ -113,42 +116,56 @@
   </section>
 
   <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё игрушки</h2>
-    <ul class="toys" role="list">
-      <li><a href="/play/daily-dashboard/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Две одинаковые группы на дашборде. Сколько раз сменится лидер?</b><span>Конверсия двух одинаковых групп день за днём: лидер меняется, разрывы бывают по 20 % — без всякого эффекта.</span><small>из курса «A/B на пальцах», шаг 3</small><span class="play-count" data-count-for="daily-dashboard" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/big-order/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Корпоратив на 50 000 ₽ попал в группу B. Что покажет отчёт теста?</b><span>Маленький тест нового меню: по 20 обычных чеков в группах A и B и один корпоратив, который решает исход теста, — если смотреть на среднее.</span><small>из курса «A/B на пальцах», шаг 4</small><span class="play-count" data-count-for="big-order" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/aa-thousands/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Тысяча гостей в группе. Как часто одинаковые группы разойдутся на 10 %?</b><span>Сто A/A-тестов по 1000 гостей в группе: как часто одинаковые группы расходятся на десятую часть и что меняет число гостей.</span><small>из курса «A/B на пальцах», шаг 3</small><span class="play-count" data-count-for="aa-thousands" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+    <h2 id="more-h">Ещё по теме</h2>
+    <ul class="toys rel" role="list">
+      <li><a href="/play/peeking/"><span class="kind">Игра</span><b>Остановишь тест в первый же «значимый» день?</b><span>Тридцать утр с отчётом: что будет, если смотреть на A/A-тест каждый день и выкатывать при первом «значимо».</span><span class="go">Сыграть →</span></a></li>
+      <li><a href="/terms/ab-testing/"><span class="kind">Термин</span><b>A/B-тестирование</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/ab-basics/07-p-value.html"><span class="kind">Глава курса</span><b>p-value на пальцах</b><span>«A/B на пальцах», шаг 7</span><span class="go">Открыть главу →</span></a></li>
+      <li><a href="/books/kohavi-trustworthy/"><span class="kind">Книга</span><b>«Доверительное A/B-тестирование»</b><span>Рон Кохави, Диана Тан, Я Сюй — разбор «Котейка читает»</span><span class="go">Читать разбор →</span></a></li></ul>
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2>Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/play/">Игры</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
-        <li><a href="/books/">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611250"></script>
+<script src="/play/play.js?v=202611300"></script>
 </body>
 </html>

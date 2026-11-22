@@ -1,4 +1,4 @@
-/* Главная: словарь + игрушка «Самая длинная серия орлов». Без внешних библиотек. */
+/* Главная: словарь + игра «Самая длинная серия орлов». Без внешних библиотек. */
 (function () {
 'use strict';
 const LANG = (document.documentElement.lang || 'ru').slice(0, 2);
@@ -28,7 +28,7 @@ function apply(root){
 if (LANG !== 'ru') apply(document);
 window.HomeI18n = { t, plural, apply, LANG };
 
-// ---------- игрушка ----------
+// ---------- игра ----------
 const N = 10, BATCH = 1000;
 const $ = id => document.getElementById(id);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');

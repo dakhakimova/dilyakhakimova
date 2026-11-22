@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 /* Собирает мини-лаборатории терминов /terms/<slug>/index.html, хаб /terms/index.html, а заодно /sitemap.xml.
-   Данные: terms/terms.json — список терминов (тема, игрушка, призыв, сравнение, связанные); i18n/terms.js — тексты;
-   шапка и футер — i18n/site.js и i18n/play.js; схемы SVG — tools/terms-viz.js; названия игрушек /play/ — tools/play-data.js.
+   Данные: terms/terms.json — список терминов (тема, игра, призыв, сравнение, связанные); i18n/terms.js — тексты;
+   шапка и футер — i18n/site.js и i18n/play.js; схемы SVG — tools/terms-viz.js; названия игр /play/ — tools/play-data.js.
    Запускается из tools/bake-i18n.js (одна команда на весь сайт) или сам: node tools/build-terms.js
    Проверки при сборке (ошибка — сборка не проходит): title ≤ 65 знаков, description 50–220 знаков и не равен title,
-   у термина есть пример, игрушка, схема и две задачи (иначе страница выходит с noindex), сравнение ссылается на существующий термин.
-   «Ещё наугад» — случайный термин или игрушка /play/, выбирается заново при каждой сборке. */
+   у термина есть пример, игра, схема и две задачи (иначе страница выходит с noindex), сравнение ссылается на существующий термин.
+   «Ещё наугад» — случайный термин или игра /play/, выбирается заново при каждой сборке. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim} = require('./terms-viz.js');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
-const V = '202611250';
+const V = require('./version.js');
+const chrome = require('./chrome.js'), REL = require('./related.js');
 const FONTS = 'https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap';
 const HEROES = {bob: 'play.hero.bob', alice: 'play.hero.alice', kot: 'play.hero.kot'};
 
 function build(){
-  const P = load('ru');                       // игрушки /play/ и словари site.js + play.js
+  const P = load('ru');                       // игры /play/ и словари site.js + play.js
   const ctx = {}; ctx.globalThis = ctx;
   for (const f of ['i18n/site.js', 'i18n/play.js', 'i18n/terms.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx, {filename: f});
   const RU = ctx.I18N.ru, TX = ctx.TERMS_TEXT.ru, typo = s => ctx.I18N.typo('ru', s);
@@ -59,53 +60,15 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="${FONTS}" rel="stylesheet">
 <link rel="stylesheet" href="/tokens.css?v=${V}">
-<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/terms/terms.css?v=${V}">
 <script type="application/ld+json">${json(o.ld)}</script>
 </head>
 <body class="t-page">
 <a class="skip" href="#main">${t('skip')}</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/">${t('logo')}</a>
-    <p class="tagline">${t('tagline')}</p>
-  </div>
-  <nav aria-label="${attr(t('nav.label'))}">
-    <a href="/#courses">${t('nav.courses')}</a>
-    <a href="/play/">${t('nav.play')}</a>
-    <a href="/#read">${t('nav.read')}</a>
-    <a href="/about/">${t('nav.about')}</a>
-  </nav>
-</header>
+${chrome.header('terms')}
 `;
-  const foot = () => `
-<footer class="foot">
-  <div class="wrap foot-grid">
-    <div>
-      <h2>${t('foot.courses')}</h2>
-      <ul role="list">
-        <li><a href="/probability/">${t('foot.c.prob')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/signal/">${t('foot.c.sig')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/ab-basics/">${t('foot.c.ab')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/stats/">${t('foot.c.st')}</a><span class="note">${t('soon.w27')} · <a href="/stats/#waitlist">${t('wait.title').toLowerCase()}</a></span></li>
-        <li><a href="/ab/">${t('foot.c.abm')}</a><span class="note">${t('soon.w27')} · <a href="/ab/#waitlist">${t('wait.title').toLowerCase()}</a></span></li>
-        <li><a href="/causal/">${t('foot.c.cau')}</a><span class="note">${t('later')}</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>${t('foot.more')}</h2>
-      <ul role="list">
-        <li><a href="/play/">${t('play.all')}</a></li>
-        <li><a href="/terms/">${t('foot.terms')}</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">${t('foot.habr')}</a></li>
-        <li><a href="/about/">${t('nav.about')}</a></li>
-        <li><a href="/account.html">${t('nav.progress')}</a></li>
-      </ul>
-    </div>
-    <p class="copy">${t('foot.copy')}</p>
-  </div>
-</footer>
-`;
+  const foot = () => '\n' + chrome.footer() + '\n';
   const person = {'@type': 'Person', name: 'Диля Хакимова', url: SITE + '/about/'};
   const termSet = {'@type': 'DefinedTermSet', '@id': SITE + '/terms/#set', name: plain(t('terms.hub.h1')), url: SITE + '/terms/'};
   const msg = ([who, say]) => `
@@ -114,7 +77,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
       <li><a href="${href}"><b>${typo(title)}</b><span>${typo(line)}</span><span class="go">${go}</span></a></li>`;
   const toyOf = slug => P.toys.find(x => x.slug === slug);
 
-  // ---------- игрушки, сделанные для страниц терминов (логика — terms/toys.js) ----------
+  // ---------- игры, сделанные для страниц терминов (логика — terms/toys.js) ----------
   const ownToy = (id, x) => {
     const s = Object.assign({}, x.toy); for (const k in s) s[k] = Array.isArray(s[k]) ? s[k].map(typo) : typo(s[k]);
     return `
@@ -140,19 +103,20 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
     const url = `/terms/${s}/`, title = x.title + RU['terms.brand'];
     if (title.length > 65) throw new Error(`build-terms: ${s} — title ${title.length} знаков (> 65): ${title}`);
     if (x.desc.length < 50 || x.desc.length > 220 || plain(x.desc) === plain(x.title)) throw new Error(`build-terms: ${s} — description ${x.desc.length} знаков`);
-    // своя игрушка, свой пример, своя схема и две задачи — иначе noindex (правка 6 из terms-fixes)
+    // своя игра, свой пример, своя схема и две задачи — иначе noindex (правка 6 из terms-fixes)
     const own = !!term.toy && (x.chat || []).length >= 2 && (x.faq || []).length >= 2 && !!viz[s];
     const isNew = term.toy.startsWith('new:'), ptoy = isNew ? null : toyOf(term.toy);
-    if (!isNew && !ptoy) throw new Error(`build-terms: ${s} — игрушки ${term.toy} нет на /play/`);
-    if (isNew && !x.toy) throw new Error(`build-terms: ${s} — нет текстов своей игрушки (поле toy)`);
+    if (!isNew && !ptoy) throw new Error(`build-terms: ${s} — игры ${term.toy} нет на /play/`);
+    if (isNew && !x.toy) throw new Error(`build-terms: ${s} — нет текстов своей игры (поле toy)`);
     if (term.cmp && !bySlug[term.cmp]) throw new Error(`build-terms: ${s} — cmp ${term.cmp} не термин`);
     for (const r of term.related) if (!bySlug[r]) throw new Error(`build-terms: ${s} — связанный ${r} не термин`);
     const hq = x.hq;
 
-    // «Ещё наугад»: термин не из связанных или игрушка /play/
-    const pool = terms.filter(o => o.slug !== s && !term.related.includes(o.slug));
-    const rnd = Math.random() < .5 ? (o => ({href: `/terms/${o.slug}/`, title: TX[o.slug].name, line: TX[o.slug].card}))(pick(pool))
-      : (o => ({href: `/play/${o.slug}/`, title: P.texts[o.slug].q, line: P.texts[o.slug].lead}))(pick(P.toys.filter(o => !ptoy || o.slug !== ptoy.slug)));
+    // «Ещё наугад»: термин не из связанных или игра /play/
+    const RI = REL.index(), near = REL.sameTopic(RI, term.topic, `/terms/${s}/`);
+    const gpool = RI.toys.filter(o => o.published && (!ptoy || o.href !== `/play/${ptoy.slug}/`) && !near.some(n => n.href === o.href));
+    const rg = gpool.length ? pick(gpool) : null, rnd = rg && {href: rg.href, title: rg.title, line: rg.line};
+    const pubToy = slug => RI.toys.some(o => o.slug === slug && o.published);
 
     const toyBlock = isNew ? ownToy(term.toy.slice(4), x) + `
     <p class="note credit">${t('terms.toy.own')}</p>` : `
@@ -162,12 +126,12 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
     </div>
     <p class="note credit">${t('terms.toy.from', {course: courseName[playCourse[ptoy.course]], unit: unit[ptoy.course], n: ptoy.step, slug: ptoy.slug})}</p>`;
 
-    const cmp = x.cmp, cmpLink = term.cmp ? `<a href="/terms/${term.cmp}/">${typo(h1Of(term.cmp))} →</a>` : (term.cmpHref ? `<a href="${term.cmpHref}">${t('terms.cmp.toy', {name: cmp.name})}</a>` : '');
+    const cmp = x.cmp, cmpLink = term.cmp && bySlug[term.cmp].published ? `<a href="/terms/${term.cmp}/">${typo(h1Of(term.cmp))} →</a>` : (term.cmpHref && (!/^\/play\//.test(term.cmpHref) || pubToy(term.cmpHref.split('/')[2])) ? `<a href="${term.cmpHref}">${t('terms.cmp.toy', {name: cmp.name})}</a>` : '');
     const c = term.cta;
-    if (!lim[s] && !term.limToy) throw new Error(`build-terms: ${s} — у блока «Когда метод врёт» нет ни кадра (terms-viz.js → lim), ни игрушки (limToy)`);
+    if (!lim[s] && !term.limToy) throw new Error(`build-terms: ${s} — у блока «Когда метод врёт» нет ни кадра (terms-viz.js → lim), ни игры (limToy)`);
     if (term.limToy && !toyOf(term.limToy)) throw new Error(`build-terms: ${s} — limToy ${term.limToy} нет на /play/`);
-    const limFig = !lim[s] ? `
-    <p class="more-link lim-toy"><a href="/play/${term.limToy}/">${t('terms.limToy', {q: plain(P.texts[term.limToy].q)})}</a></p>` : lim[s] ? `
+    const limFig = !lim[s] ? (!pubToy(term.limToy) ? '' : `
+    <p class="more-link lim-toy"><a href="/play/${term.limToy}/">${t('terms.limToy', {q: plain(P.texts[term.limToy].q)})}</a></p>`) : lim[s] ? `
     <figure class="viz small">${lim[s](Object.fromEntries(Object.entries(x.lz).map(([k, v]) => [k, plain(typo(v))])))}<figcaption class="figcap">${typo(x.limViz)}</figcaption></figure>` : '';
     const vzPlain = Object.fromEntries(Object.entries(x.vz).map(([k, v]) => [k, plain(typo(v))]));
     const wiki = 'https://ru.wikipedia.org/w/index.php?search=' + encodeURIComponent(x.wiki);
@@ -183,7 +147,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
       {'@type': 'FAQPage', mainEntity: x.faq.map(([q, a]) => ({'@type': 'Question', name: plain(q), acceptedAnswer: {'@type': 'Answer', text: plain(a)}}))},
     ]};
 
-    const html = head({title, desc: x.desc, url, og: `/terms/og/${s}.png`, noindex: !own, ld}) + `
+    const html = head({title, desc: x.desc, url, og: `/terms/og/${s}.png`, noindex: !own || !term.published, ld}) + `
 <nav class="crumbs wrap" aria-label="${attr(t('crumbs.label'))}">
   <ol>
     <li><a href="/terms/">${t('terms.hub.crumb')}</a></li>
@@ -272,7 +236,8 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 
   <section class="t-sec" aria-labelledby="rel-h">
     <h2 id="rel-h">${t('terms.rel.h')}</h2>
-    <ul class="toys t-rel" role="list">${term.related.map(r => card(`/terms/${r}/`, TX[r].name, TX[r].card)).join('')}${card(rnd.href, rnd.title, rnd.line, t('terms.random'))}
+    <ul class="toys t-rel rel" role="list">${near.map(o => `
+      <li><a href="${o.href}"><span class="kind">${REL.KIND[o.kind]}</span><b>${typo(o.title)}</b><span>${typo(o.line)}</span><span class="go">${REL.GO[o.kind]}</span></a></li>`).join('')}${rnd ? card(rnd.href, rnd.title, rnd.line, t('terms.random')) : ''}
     </ul>
   </section>
 
@@ -294,7 +259,7 @@ ${foot()}
 `;
     fs.mkdirSync(path.join(ROOT, 'terms', s), {recursive: true});
     fs.writeFileSync(path.join(ROOT, 'terms', s, 'index.html'), html);
-    urls.push(url);
+    if (term.published) urls.push(url);
   }
 
   // ---------- хаб ----------
@@ -302,22 +267,23 @@ ${foot()}
     {'@type': 'BreadcrumbList', itemListElement: [
       {'@type': 'ListItem', position: 1, name: plain(t('terms.home')), item: SITE + '/'},
       {'@type': 'ListItem', position: 2, name: plain(t('terms.hub.crumb')), item: SITE + '/terms/'}]},
-    Object.assign({}, termSet, {'@context': undefined, author: person, hasDefinedTerm: terms.map(o => ({'@type': 'DefinedTerm', name: plain(TX[o.slug].name), url: `${SITE}/terms/${o.slug}/`}))}),
+    Object.assign({}, termSet, {'@context': undefined, author: person, hasDefinedTerm: terms.filter(o => o.published).map(o => ({'@type': 'DefinedTerm', name: plain(TX[o.slug].name), url: `${SITE}/terms/${o.slug}/`}))}),
   ]};
   const hub = head({title: t('terms.hub.title'), desc: t('terms.hub.desc'), url: '/terms/', og: '/terms/og/index.png', ld: hubLd}) + `
 <main id="main" class="wrap term-hub">
   <h1>${t('terms.hub.h1')}</h1>
   <p class="lead">${t('terms.hub.lead')}</p>
-${cfg.groups.map(g => `
-  <section class="hub-group" aria-labelledby="g-${g}">
-    <h2 id="g-${g}">${t('terms.g.' + g)}</h2>
-    <p class="sec-lead">${t('terms.g.' + g + '.d')}</p>
-    <ul class="toys" role="list">${terms.filter(o => o.group === g).map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card)).join('')}
-    </ul>
-  </section>`).join('')}
+  <div class="topic-filter" role="group" aria-label="Тема">
+    <button type="button" aria-pressed="true" data-topic="">Все темы</button>${REL.TOPICS.filter(tp => terms.some(o => o.published && o.topic === tp)).map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
+  </div>
+  <ul class="toys cat-list" role="list">${terms.filter(o => o.published).map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li data-topic="${o.topic}">`)).join('')}
+  </ul>
   <p class="t-author">${t('terms.author')}</p>
 </main>
 ${foot()}
+<script>
+(function(){var f=document.querySelector('.topic-filter');f.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.topic;f.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});document.querySelectorAll('.cat-list > li').forEach(function(li){li.hidden=!!v&&li.dataset.topic!==v})})})();
+</script>
 </body>
 </html>
 `;
@@ -325,10 +291,11 @@ ${foot()}
   console.log('terms:', terms.length, 'терминов + хаб → terms/');
 
   // ---------- sitemap.xml: только канонические публичные адреса ----------
-  const list = ['/', '/about/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/play/', '/terms/'];
+  const list = ['/', '/courses/', '/about/', '/probability/', '/signal/', '/ab-basics/', '/stats/', '/ab/', '/causal/', '/play/', '/terms/', '/shelf/', '/books/', '/map/', '/start/'];
+  for (const b of JSON.parse(fs.readFileSync(path.join(ROOT, 'shelf/shelf.json'), 'utf8')).books) if (b.published && b.review) list.push(b.review);
   for (const d of ['probability', 'signal', 'ab-basics']) for (const f of fs.readdirSync(path.join(ROOT, d)).filter(f => /^\d\d-.*\.html$/.test(f)).sort()) list.push(`/${d}/${f}`);
   if (fs.existsSync(path.join(ROOT, 'ab-basics/cheatsheet.html'))) list.push('/ab-basics/cheatsheet.html');
-  for (const o of P.toys) list.push(`/play/${o.slug}/`);
+  for (const o of P.toys) if (o.published) list.push(`/play/${o.slug}/`);
   list.push(...urls);
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Собирает tools/build-terms.js (node tools/bake-i18n.js). Только канонические адреса; без lastmod — его ставим только при правках по существу. -->

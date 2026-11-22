@@ -32,7 +32,7 @@ p{font:400 28px/1.35 Literata, serif; color:#4A463F; margin:0}
   fs.mkdirSync(path.join(ROOT, 'books/og'), {recursive: true});
   const shots = {
     'kohavi-trustworthy': page('Как не выкатить баг, который притворился победой', 'Trustworthy Online Controlled Experiments · Кохави, Тан, Сюй', `<div class="bar">${bar}</div>`),
-    index: page('Книги по статистике и A/B — пять мыслей и игрушки', 'Разборы книг и научных статей: главная мысль, живые визуализации, код'),
+    index: page('Книги по статистике и A/B — пять мыслей и игры', 'Разборы книг и научных статей: главная мысль, живые визуализации, код'),
   };
   for (const [k, html] of Object.entries(shots)){
     await p.setContent(html); await p.evaluate(() => document.fonts.ready);

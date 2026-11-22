@@ -19,9 +19,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/about.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/about.css?v=202611300">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph (пустая подпись — блок схлопывается) */
 function artFail(img){
@@ -33,20 +33,20 @@ function artFail(img){
 <body>
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
-    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
-    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
-    <a href="/map/" data-i18n="nav.map">Карта навыков</a>
-    <a href="/play/" data-i18n="nav.play">Игрушки</a>
-    <a href="/#read" data-i18n="nav.read">Статьи</a>
-    <a href="/about/" aria-current="page" data-i18n="nav.about">Об авторе</a>
-    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <main id="main">
 
@@ -89,9 +89,9 @@ function artFail(img){
         <li><span data-i18n="how.p2"><b>Сначала в штуках, потом формула.</b> «Из 1000 гостей…», а затем формула, которая нужна на собеседовании и в коде.</span></li>
         <li><span data-i18n="how.p3"><b>Честно про ошибки.</b> Где метод ломается и какие мифы ходят по статьям.</span></li>
       </ol>
-      <p class="after more" data-i18n="how.cta"><a href="/#toy">Попробовать игрушку с монеткой на главной →</a></p>
+      <p class="after more" data-i18n="how.cta"><a href="/#toy">Попробовать игру с монеткой на главной →</a></p>
     </div>
-    <figure class="art r11 drawn"><img src="/img/home-about.jpg" width="1024" height="1024" loading="lazy" data-i18n-attr="alt:how.alt" alt="Рисованный портрет: Диля и Котейка" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+    <!--missing-art /img/home-about.jpg PGZpZ3VyZSBjbGFzcz0iYXJ0IHIxMSBkcmF3biI+PGltZyBzcmM9Ii9pbWcvaG9tZS1hYm91dC5qcGciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIGxvYWRpbmc9ImxhenkiIGRhdGEtaTE4bi1hdHRyPSJhbHQ6aG93LmFsdCIgYWx0PSLQoNC40YHQvtCy0LDQvdC90YvQuSDQv9C+0YDRgtGA0LXRgjog0JTQuNC70Y8g0LjCoNCa0L7RgtC10LnQutCwIiBvbmVycm9yPSJhcnRGYWlsKHRoaXMpIj48ZmlnY2FwdGlvbiBjbGFzcz0icGgiPjwvZmlnY2FwdGlvbj48L2ZpZ3VyZT4= -->
   </div>
 </section>
 
@@ -162,11 +162,11 @@ function artFail(img){
     <h3 class="h3" data-i18n="line.title">Курсы</h3>
     <p class="muted" data-i18n="line.lead">Линейка от начального уровня до продвинутого. Бесплатные — без регистрации и без карты.</p>
     <ul class="lineup" role="list">
-      <li style="--course:var(--c-prob)"><a href="/probability/"><b data-i18n="foot.c.prob">Вероятность на пальцах</b><span class="line" data-i18n="c.prob.line">шансы в штуках и задачи с собеседований</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag soon" data-i18n="soon">скоро</span></span></a></li>
-      <li style="--course:var(--c-sig)"><a href="/signal/"><b data-i18n="foot.c.sig">Сигнал или шум</b><span class="line" data-i18n="c.sig.line">как отличить эффект от случайности</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
-      <li style="--course:var(--c-ab)"><a href="/ab-basics/"><b data-i18n="foot.c.ab">A/B на пальцах</b><span class="line" data-i18n="c.ab.line">как читать отчёт A/B — для всей команды</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
-      <li style="--course:var(--c-st)"><a href="/stats/"><b data-i18n="foot.c.st">Прикладная статистика для аналитика</b><span class="line" data-i18n="c.st.line">интервалы, критерии, мощность и регрессия для любых данных</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span></span></a></li>
-      <li style="--course:var(--c-abm)"><a href="/ab/"><b data-i18n="foot.c.abm">A/B без мифов</b><span class="line" data-i18n="c.abm.line">для тех, кто уже запускает A/B-тесты</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag soon" data-i18n="soon.w27">скоро — зима 2027</span></span></a></li>
+      <li style="--course:var(--c-prob)"><a href="/probability/"><b data-i18n="foot.c.prob">Вероятность на пальцах</b><span class="line" data-i18n="c.prob.line">шансы в штуках и задачи с собеседований</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Новичок</span></span><span class="tag soon" data-i18n="soon">в курсе</span></span></a></li>
+      <li style="--course:var(--c-sig)"><a href="/signal/"><b data-i18n="foot.c.sig">Сигнал или шум</b><span class="line" data-i18n="c.sig.line">как отличить эффект от случайности</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
+      <li style="--course:var(--c-ab)"><a href="/ab-basics/"><b data-i18n="foot.c.ab">A/B на пальцах</b><span class="line" data-i18n="c.ab.line">как читать отчёт A/B — для всей команды</span><span class="meta"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Новичок</span></span><span class="tag free" data-i18n="free">бесплатно</span></span></a></li>
+      <li style="--course:var(--c-st)"><a href="/stats/"><b data-i18n="foot.c.st">Прикладная статистика для аналитика</b><span class="line" data-i18n="c.st.line">интервалы, критерии, мощность и регрессия для любых данных</span><span class="meta"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span class="tag soon" data-i18n="soon.w27">в работе</span></span></a></li>
+      <li style="--course:var(--c-abm)"><a href="/ab/"><b data-i18n="foot.c.abm">A/B без мифов</b><span class="line" data-i18n="c.abm.line">для тех, кто уже запускает A/B-тесты</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag soon" data-i18n="soon.w27">в работе</span></span></a></li>
       <li style="--course:var(--c-cau)"><a href="/causal/"><b data-i18n="foot.c.cau">Causal inference</b><span class="line" data-i18n="c.cau.line">причины по данным, когда эксперимент не провести</span><span class="meta"><span class="chip"><span class="lvl l3" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.3">Продвинутый</span></span><span class="tag later" data-i18n="later">позже</span></span></a></li>
     </ul>
     <p class="hand-line" data-i18n="line.hand">Сначала научись отличать шум, потом ставь честные эксперименты.</p>
@@ -193,7 +193,7 @@ function artFail(img){
           <p class="meta-line"><span class="kind" data-i18n="wr.my.kind">статья</span><time datetime="2025-06-26" data-i18n="wr.my.when">26 июня 2025</time></p>
           <h4 data-i18n="wr.my.h">10 мифов об A/B-тестировании</h4>
           <p data-i18n="wr.my.p">Как избежать распространённых заблуждений в статистическом анализе — с симуляциями, которые можно запустить самому.</p>
-          <p class="links"><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="wr.my.l1">Хабр</a><a href="https://dev.go.yandex/blog/myths-about-testing-2025-06-26" data-i18n="wr.my.l2">Блог Яндекс Go</a><a href="https://github.com/dakhakimova/Fun-stats/blob/main/10myths.ipynb" data-i18n="wr.my.l3">Код на GitHub</a><a href="/ab-basics/08-errors.html#card-5" data-i18n="wr.my.l4">Игрушка к статье</a></p>
+          <p class="links"><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="wr.my.l1">Хабр</a><a href="https://dev.go.yandex/blog/myths-about-testing-2025-06-26" data-i18n="wr.my.l2">Блог Яндекс Go</a><a href="https://github.com/dakhakimova/Fun-stats/blob/main/10myths.ipynb" data-i18n="wr.my.l3">Код на GitHub</a><a href="/ab-basics/08-errors.html#card-5" data-i18n="wr.my.l4">Игра к статье</a></p>
         </li>
       </ul>
     </div>
@@ -228,38 +228,49 @@ function artFail(img){
 
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
-      <h2 data-i18n="foot.courses">Курсы</h2>
+      <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
-        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2 data-i18n="foot.more">Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="/terms/" data-i18n="foot.terms">Словарь аналитика</a></li>
-        <li><a href="/books/" data-i18n="foot.books">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
-        <li><a href="/about/" aria-current="page" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
-    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611221"></script>
-<script src="/i18n/about.js?v=202611221"></script>
-<script src="/landing.js?v=202611221"></script>
+<script src="/i18n/site.js?v=202611300"></script>
+<script src="/i18n/about.js?v=202611300"></script>
+<script src="/landing.js?v=202611300"></script>
 </body>
 </html>

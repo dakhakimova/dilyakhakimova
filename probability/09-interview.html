@@ -48,7 +48,7 @@
 <body data-course="probability" data-chapter="p09">
 <script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
-  <a class="course" href="./">Вероятность на пальцах</a>
+  <span class="top-l"><a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="28" height="28" alt=""></a> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -153,18 +153,18 @@
 </section>
 
 <!-- 6: задача 4 -->
-<section class="card task" data-title="Задача 4 · автомат с игрушкой" aria-label="Задача 4" data-task="4">
+<section class="card task" data-title="Задача 4 · автомат с игрой" aria-label="Задача 4" data-task="4">
   <span class="step-tag">Задача 4 из 10 · шаг 4</span>
-  <h2>Автомат с игрушкой</h2>
+  <h2>Автомат с игрой</h2>
   <div class="timer"><span class="tm">0:00</span><i><b></b></i><span class="tnote"></span></div>
-  <p class="task-cond">У автомата с игрушкой в кафе три попытки. Каждая удачна с шансом 70 %, попытки не зависят друг от друга. Какой шанс достать игрушку хотя бы раз?</p>
+  <p class="task-cond">У автомата с игрой в кафе три попытки. Каждая удачна с шансом 70 %, попытки не зависят друг от друга. Какой шанс достать игру хотя бы раз?</p>
   <p class="conf-q">Сначала: насколько ты уверен, что ответишь верно?</p>
   <div class="choice conf" data-key="c4" data-order="fixed" role="group" aria-label="Уверенность"><button type="button" data-v="50" data-fb="Записали: 50 %. Теперь ответ." aria-pressed="false">50 %</button><button type="button" data-v="70" data-fb="Записали: 70 %. Теперь ответ." aria-pressed="false">70 %</button><button type="button" data-v="90" data-fb="Записали: 90 %. Теперь ответ." aria-pressed="false">90 %</button></div>
   <div class="quiz locked" data-right="a" data-step="4">
     <p class="lock-note">Варианты ответа появятся, когда выберешь уверенность.</p>
     <p class="q">Твой ответ:</p>
     <div class="choice"><button type="button" data-v="a">97,3 %: 1 − 0,3³</button><button type="button" data-v="b" data-why="Вероятности складывают только у несовместных событий. Две удачные попытки могут случиться вместе, а сумма больше 1 — сигнал ошибки.">100 %: 3 · 70 % больше единицы</button><button type="button" data-v="c" data-why="0,7³ — шанс, что удачны все три попытки. А нужна хотя бы одна.">34,3 %: 0,7 · 0,7 · 0,7</button><button type="button" data-v="d" data-why="70 % — шанс одной попытки. С тремя попытками шансов больше.">70 %: попытки же независимы</button></div>
-    <p class="why"><b>Переформулирую:</b> «хотя бы раз» — это «не все три неудачны». <b>В штуках:</b> из 1000 гостей первая попытка провалится у 300, вторая — у 90 из них, третья — у 27. Без игрушки уйдут 27, с игрушкой — 973. <b>Формула:</b> 1 − 0,3³ = 0,973. <b>Вывод:</b> 97,3 %: «хотя бы один» — через «ни одного».</p>
+    <p class="why"><b>Переформулирую:</b> «хотя бы раз» — это «не все три неудачны». <b>В штуках:</b> из 1000 гостей первая попытка провалится у 300, вторая — у 90 из них, третья — у 27. Без игры уйдут 27, с игрой — 973. <b>Формула:</b> 1 − 0,3³ = 0,973. <b>Вывод:</b> 97,3 %: «хотя бы один» — через «ни одного».</p>
   </div>
 </section>
 
@@ -361,6 +361,11 @@ _check()
   <figure class="art"><img loading="lazy" src="img/vp09-02-next.jpg" alt="Котейка открывает дверь, на которой нарисованы два колокола, за дверью — графики и данные" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка открывает дверь в «Сигнал или шум»</figcaption></figure>
   <a class="next-step" href="/signal/"><b>Дальше — «Сигнал или шум»: данные, шум и первые A/B</b>Кафе уже работает, и у Алисы есть данные. Как отличить настоящий эффект от шума — следующий курс.</a>
   <p class="note">Или вернись <a href="/probability/">к оглавлению «Вероятности на пальцах»</a> и повтори шаги, на которых споткнулся.</p>
+<aside class="announce course-end" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
 </section>
 
     <div class="pager">

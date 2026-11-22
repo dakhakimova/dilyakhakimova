@@ -7,7 +7,7 @@
    (главная: i18n/home.js; лендинги курсов: i18n/site.js + i18n/<курс>.js; «Об авторе»: i18n/site.js + i18n/about.js; «Карта навыков»: i18n/site.js + i18n/map.js).
    Правило разметки: у элемента с data-i18n всё содержимое берётся из словаря; data-i18n-attr="атрибут:ключ;…".
 
-   Игрушки /play/ собирает tools/build-play.js (вызывается в конце): тексты — i18n/play.js, список — play/toys-*.json.
+   Игры /play/ собирает tools/build-play.js (вызывается в конце): тексты — i18n/play.js, список — play/toys-*.json.
    Мини-лаборатории /terms/ и /sitemap.xml собирает tools/build-terms.js: тексты — i18n/terms.js, список — terms/terms.json.
 
    TYPO_ONLY — страницы без словаря (оглавления «Сигнала» и «A/B на пальцах»): там типограф (неразрывные пробелы,
@@ -108,8 +108,10 @@ if (process.argv[2] === '--typo') process.argv.slice(3).forEach(typoPage);
 else {
   PAGES.forEach(bake);
   if (!target) TYPO_ONLY.forEach(typoOnly);
-  // страницы игрушек /play/ (и /<lang>/play/) — из play/toys-*.json и i18n/play.js
+  // страницы игр /play/ (и /<lang>/play/) — из play/toys-*.json и i18n/play.js
   require('./build-play.js')(target || 'ru');
   // мини-лаборатории /terms/ и /sitemap.xml — из terms/terms.json и i18n/terms.js (пока только русская версия)
   if (!target) require('./build-terms.js')();
+  // /courses/, /shelf/, общая шапка и футер (tools/chrome.js) на статических страницах, noindex неопубликованных курсов
+  if (!target) require('./build-site.js')();
 }

@@ -51,7 +51,7 @@
 
   const sent = new Set(JSON.parse((() => { try { return localStorage.getItem('signal:sent') || '[]'; } catch(e) { return '[]'; } })()));
   function track(chapter, kind, key, value){
-    if (window.PLAY_SOLO) return;  // соло-режим /play/: игрушка без баллов
+    if (window.PLAY_SOLO) return;  // соло-режим /play/: игра без баллов
     const id = chapter + '|' + kind + '|' + key;
     const q = load();
     if (sent.has(id) || q.some(e => e.chapter + '|' + e.kind + '|' + e.key === id)) return;

@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Хаб рубрики «Котейка читает». Тексты — в i18n/site.js и i18n/books.js (ключи bh.*, st.*). Русский текст вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
 <title data-i18n="bh.meta.title">Котейка читает — что почитать аналитику: книги по A/B-тестам и статистике, краткое содержание · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:bh.meta.desc" content="Наглядные разборы книг и научных статей по статистике и A/B-тестам: краткое содержание, главные идеи, живые игрушки и код. Первый выпуск — «Trustworthy Online Controlled Experiments» Кохави, Тан и Сюй: книга по A/B-тестам, которую стоит прочитать аналитику.">
+<meta name="description" data-i18n-attr="content:bh.meta.desc" content="Наглядные разборы книг и научных статей по статистике и A/B-тестам: краткое содержание, главные идеи, живые игры и код. Первый выпуск — «Trustworthy Online Controlled Experiments» Кохави, Тан и Сюй: книга по A/B-тестам, которую стоит прочитать аналитику.">
 <link rel="canonical" href="https://dilyakhakimova.com/books/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/books/">
 <meta property="og:title" data-i18n-attr="content:bh.meta.title" content="Котейка читает — что почитать аналитику: книги по A/B-тестам и статистике, краткое содержание · Диля Хакимова">
-<meta property="og:description" data-i18n-attr="content:bh.meta.desc" content="Наглядные разборы книг и научных статей по статистике и A/B-тестам: краткое содержание, главные идеи, живые игрушки и код. Первый выпуск — «Trustworthy Online Controlled Experiments» Кохави, Тан и Сюй: книга по A/B-тестам, которую стоит прочитать аналитику.">
+<meta property="og:description" data-i18n-attr="content:bh.meta.desc" content="Наглядные разборы книг и научных статей по статистике и A/B-тестам: краткое содержание, главные идеи, живые игры и код. Первый выпуск — «Trustworthy Online Controlled Experiments» Кохави, Тан и Сюй: книга по A/B-тестам, которую стоит прочитать аналитику.">
 <meta property="og:image" content="https://dilyakhakimova.com/books/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -22,10 +22,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/home.css?v=202611221">
-<link rel="stylesheet" href="/books/books.css?v=202611250">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/books/books.css?v=202611300">
 <script>
 function artFail(img){ img.closest('.art').classList.add('missing'); }
 </script>
@@ -33,25 +33,27 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <body class="bk-page">
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
-    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
-    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
-    <a href="/play/" data-i18n="nav.play">Игрушки</a>
-    <a href="/#read" data-i18n="nav.read">Статьи</a>
-    <a href="/about/" data-i18n="nav.about">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/" aria-current="page">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <main id="main" class="wrap bk bk-hub">
 <section class="bk-hero hub">
   <div>
     <p class="eyebrow bk-label"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="32" height="32"><span data-i18n="bh.label">Разборы книг</span></p>
     <h1 data-i18n="bh.title">Котейка читает</h1>
-    <p class="sub" data-i18n="bh.lead">Разборы книг и научных статей по статистике и A/B-тестам. Котейка читает целиком, а тебе оставляет пять мыслей, игрушку к каждой и код, который можно запустить. Чтобы решить, читать ли книгу самому и с какой главы начать.</p>
+    <p class="sub" data-i18n="bh.lead">Разборы книг и научных статей по статистике и A/B-тестам. Котейка читает целиком, а тебе оставляет пять мыслей, игру к каждой и код, который можно запустить. Чтобы решить, читать ли книгу самому и с какой главы начать.</p>
     <p class="bk-how" data-i18n="bh.how">В каждом выпуске: главная мысль одной фразой · 4–5 идей с живыми визуализациями · ячейки Python в браузере и ноутбук · с какой главы начать · что из этого есть в курсах.</p>
   </div>
   <figure class="art r43 drawn"><img src="/books/img/kotejka-reads-cover.jpg" width="1600" height="1200" data-i18n-attr="alt:bh.k.alt" alt="Котейка в мешке листает толстую книгу у стойки кафе" onerror="artFail(this)"><figcaption class="ph" data-i18n="bh.cover.ph">Здесь будет обложка рубрики: Котейка с книгой в кафе</figcaption></figure>
@@ -60,10 +62,10 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <section class="bk-sec" aria-labelledby="now-h">
   <h2 id="now-h" data-i18n="bh.now">Свежий выпуск</h2>
   <a class="bk-card" href="/books/kohavi-trustworthy/">
-    <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Средний</span></span><span class="tag">A/B</span></p>
+    <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.2">Практик</span></span><span class="tag">A/B</span></p>
     <h3 lang="en" data-i18n="bh.k.title">Trustworthy Online Controlled Experiments</h3>
     <p class="who" data-i18n="bh.k.who">Рон Кохави, Диана Тан, Я Сюй · 2020</p>
-    <p data-i18n="bh.k.line">Как не выкатить баг, который притворился победой: SRM, A/A-тесты, подглядывание и закон Твимена — с игрушками и кодом.</p>
+    <p data-i18n="bh.k.line">Как не выкатить баг, который притворился победой: SRM, A/A-тесты, подглядывание и закон Твимена — с играми и кодом.</p>
     <span class="go" data-i18n="bh.k.go">Читать разбор →</span>
   </a>
 </section>
@@ -76,40 +78,52 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <li><p class="chips"><span class="tag" data-i18n="st.kah.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.kah.t">Thinking, Fast and Slow: где интуиция ошибается в числах</h3><p class="who" data-i18n="st.kah.who">Дэниел Канеман · 2011</p><p data-i18n="st.kah.d">Закон малых чисел, якоря и уверенность без оснований — те же ловушки, что в отчётах A/B.</p></li>
     <li><p class="chips"><span class="tag" data-i18n="st.rit.kind">книга</span><span class="tag soon" data-i18n="bk.soon">скоро</span></p><h3 data-i18n="st.rit.t">Science Fictions: как наука обманывает сама себя</h3><p class="who" data-i18n="st.rit.who">Стюарт Ричи · 2020</p><p data-i18n="st.rit.d">Кризис воспроизводимости, p-hacking и публикация только «значимого» — и что из этого знакомо любой команде экспериментов.</p></li>
   </ul>
-  <p class="note" data-i18n="bh.stub.note">Выпуск готовится. Пока загляни в <a href="/play/">игрушки</a> — многие идеи из следующих книг там уже есть.</p>
+  <p class="note" data-i18n="bh.stub.note">Выпуск готовится. Пока загляни в <a href="/play/">игры</a> — многие идеи из следующих книг там уже есть.</p>
 </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
-      <h2 data-i18n="foot.courses">Курсы</h2>
+      <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
-        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2 data-i18n="foot.more">Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="/books/" data-i18n="foot.books">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
-        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
-    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611250"></script>
-<script src="/i18n/books.js?v=202611250"></script>
+<script src="/i18n/site.js?v=202611300"></script>
+<script src="/i18n/books.js?v=202611300"></script>
 </body>
 </html>

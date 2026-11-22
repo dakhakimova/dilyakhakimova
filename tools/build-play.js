@@ -1,17 +1,18 @@
 #!/usr/bin/env node
-/* Собирает страницы игрушек /play/<slug>/index.html, каталог /play/index.html и /play/credits.json.
-   Данные (tools/play-data.js): play/courses.json — курсы и их статус; play/toys-{vp,ss,ab}.json — игрушки;
-   i18n/play-{vp,ss,ab}.js — тексты игрушек; i18n/play.js — общие строки; шапка и футер — i18n/site.js.
+/* Собирает страницы игр /play/<slug>/index.html, каталог /play/index.html и /play/credits.json.
+   Данные (tools/play-data.js): play/courses.json — курсы и их статус; play/toys-{vp,ss,ab}.json — игры;
+   i18n/play-{vp,ss,ab}.js — тексты игр; i18n/play.js — общие строки; шапка и футер — i18n/site.js.
    Запускается из tools/bake-i18n.js (одна команда на весь сайт) или сам:
      node tools/build-play.js        — русская версия в /play/
      node tools/build-play.js en     — позже: /en/play/
-   Сама игрушка не копируется: страница показывает её в iframe из главы курса в соло-режиме
-   (<глава>?toy=<slug>, см. play/bridge.js). Правка игрушки в курсе = правка на /play/.
-   credits.json — подписи «Игрушка из курса …» и список опубликованных игрушек для моста (bridge.js). */
+   Сама игра не копируется: страница показывает её в iframe из главы курса в соло-режиме
+   (<глава>?toy=<slug>, см. play/bridge.js). Правка игры в курсе = правка на /play/.
+   credits.json — подписи «Игра из курса …» и список опубликованных игр для моста (bridge.js). */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
+const chrome = require('./chrome.js'), REL = require('./related.js');
 const SITE = 'https://dilyakhakimova.com';
-const V = '202611250';
+const V = require('./version.js');
 
 function build(lang = 'ru'){
   const {ROOT, I18N, cfg, toys, texts} = load(lang);
@@ -34,13 +35,13 @@ function build(lang = 'ru'){
   const stepHref = toy => C(toy.course).status === 'free' ? toy.src : C(toy.course).href + st(toy.course, 'anchor');
   const unitN = toy => ({unit: t(C(toy.course).unit), n: String(toy.step)});
 
-  const head = (title, desc, url, og, extra = '') => `<!DOCTYPE html>
+  const head = (title, desc, url, og, extra = '', noindex = false) => `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
-${extra}<title>${plain(title)}</title>
+${extra}${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<title>${plain(title)}</title>
 <meta name="description" content="${attr(desc)}">
 <link rel="canonical" href="${SITE}${url}">
 <meta property="og:type" content="website">
@@ -59,54 +60,15 @@ ${extra}<title>${plain(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=${V}">
+<link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/play/play.css?v=${V}">
 </head>
 <body>
 <a class="skip" href="#main">${t('skip')}</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="${pre}/">${t('logo')}</a>
-    <p class="tagline">${t('tagline')}</p>
-  </div>
-  <nav aria-label="${attr(t('nav.label'))}">
-    <a href="${pre}/#courses">${t('nav.courses')}</a>
-    <a href="${pre}/play/" aria-current="page">${t('nav.play')}</a>
-    <a href="${pre}/#read">${t('nav.read')}</a>
-    <a href="${pre}/about/">${t('nav.about')}</a>
-  </nav>
-</header>
+${chrome.header('play')}
 `;
-  const foot = () => `
-<footer class="foot">
-  <div class="wrap foot-grid">
-    <div>
-      <h2>${t('foot.courses')}</h2>
-      <ul role="list">
-        <li><a href="/probability/">${t('foot.c.prob')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/signal/">${t('foot.c.sig')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/ab-basics/">${t('foot.c.ab')}</a><span class="note">${t('free')}</span></li>
-        <li><a href="/stats/">${t('foot.c.st')}</a><span class="note">${t('soon.w27')} · <a href="/stats/#waitlist">${t('wait.title').toLowerCase()}</a></span></li>
-        <li><a href="/ab/">${t('foot.c.abm')}</a><span class="note">${t('soon.w27')} · <a href="/ab/#waitlist">${t('wait.title').toLowerCase()}</a></span></li>
-        <li><a href="/causal/">${t('foot.c.cau')}</a><span class="note">${t('later')}</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>${t('foot.more')}</h2>
-      <ul role="list">
-        <li><a href="${pre}/play/">${t('play.all')}</a></li>
-        <li><a href="${pre}/terms/">${t('foot.terms')}</a></li>
-        <li><a href="${pre}/books/">${t('foot.books')}</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">${t('foot.habr')}</a></li>
-        <li><a href="/about/">${t('nav.about')}</a></li>
-        <li><a href="/account.html">${t('nav.progress')}</a></li>
-      </ul>
-    </div>
-    <p class="copy">${t('foot.copy')}</p>
-  </div>
-</footer>
-`;
+  const foot = () => '\n' + chrome.footer() + '\n';
   // светофор + уровень словами (как на главной и лендингах)
   const chip = lv => `<span class="chip"><span class="lvl l${lv}" aria-hidden="true"></span><span class="vh">${t('lvl.word')} </span><span>${t('lvl.' + lv)}</span></span>`;
   const statusTag = id => `<span class="tag ${C(id).status === 'free' ? 'free' : 'soon'}">${st(id, 'badge')}</span>`;
@@ -116,7 +78,7 @@ ${extra}<title>${plain(title)}</title>
       <li><a href="${pre}/play/${o.slug}/">${chip(o.level)}<b>${X(o.slug, 'q')}</b><span>${X(o.slug, 'lead')}</span><small>${t('play.from')} «${cname(o.course)}», ${t(C(o.course).unit)} ${o.step}</small>${countSlot(o.slug)}<span class="go">${t('play.go')}</span></a></li>`;
   // место под счётчик «сыграли N раз»: пустое и скрытое, пока не включён показ (play/courses.json → showCountsFrom)
   const countSlot = s => `<span class="play-count" data-count-for="${s}" data-show-from="${cfg.showCountsFrom || 0}" hidden></span>`;
-  // «Ещё игрушки»: из поля more, иначе соседи по курсу, потом другие курсы
+  // «Ещё игры»: из поля more, иначе соседи по курсу, потом другие курсы
   const moreOf = toy => {
     if (toy.more) return toy.more.map(s => toys.find(x => x.slug === s)).filter(Boolean);
     const same = toys.filter(x => x.course === toy.course && x.slug !== toy.slug), i = toys.indexOf(toy);
@@ -124,30 +86,33 @@ ${extra}<title>${plain(title)}</title>
     return same.concat(toys.filter(x => x.course !== toy.course)).slice(0, 3);
   };
 
-  // мини-лаборатория термина, где эта игрушка встроена (terms/terms.json → toy): ссылка «Что такое … — простыми словами»
+  // мини-лаборатория термина, где эта игра встроена (terms/terms.json → toy): ссылка «Что такое … — простыми словами»
   const termOf = {};
   if (lang === 'ru' && fs.existsSync(path.join(ROOT, 'terms/terms.json'))){
     const tctx = {}; tctx.globalThis = tctx;
     vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/terms.js'), 'utf8'), tctx);
     for (const x of JSON.parse(fs.readFileSync(path.join(ROOT, 'terms/terms.json'), 'utf8')).terms){
       const nm = tctx.TERMS_TEXT.ru[x.slug].name, low = /^[А-ЯЁ][а-яё]/.test(nm) ? nm[0].toLowerCase() + nm.slice(1) : nm;
-      if (!termOf[x.toy]) termOf[x.toy] = {slug: x.slug, text: typo(fill(tctx.I18N.ru['terms.playLink'], {name: low}))};
+      if (x.published && !termOf[x.toy]) termOf[x.toy] = {slug: x.slug, text: typo(fill(tctx.I18N.ru['terms.playLink'], {name: low}))};
     }
   }
+  const RI = REL.index();
+  const relCard = o => `
+      <li><a href="${o.href}"><span class="kind">${REL.KIND[o.kind]}</span><b>${typo(o.title)}</b><span>${typo(o.line)}</span><span class="go">${REL.GO[o.kind]}</span></a></li>`;
   const credits = {};
   for (const toy of toys){
     const s = toy.slug, url = `${pre}/play/${s}/`, frame = `${toy.src}?toy=${s}`;
-    const q = X(s, 'q'), x = texts[s], others = moreOf(toy);
+    const q = X(s, 'q'), x = texts[s], others = REL.sameTopic(RI, toy.topic, `/play/${s}/`);
     credits[s] = {
       html: t('play.credit', Object.assign({course: cname(toy.course), href: stepHref(toy) + '?utm_source=play&utm_medium=credit&utm_content=' + s, target: '{target}'}, unitN(toy))),
-      badge: st(toy.course, 'badge'), status: C(toy.course).status,
+      badge: st(toy.course, 'badge'), status: C(toy.course).status, published: !!toy.published,
     };
     // встраивание: редирект в соло-режим главы как можно раньше, до загрузки шрифтов и стилей
     // (ref — домен сайта, где встроено: после редиректа document.referrer в iframe был бы уже наш)
     const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
     const img = toy.img ? `
     <figure class="art"><img src="${toy.img}" alt="${attr(X(s, 'imgAlt'))}" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>` : '';
-    const html = head(q + ' · ' + t('play.title') + ' · ' + plain(t('logo')), X(s, 'lead'), url, `/play/og/${s}.png`, embedJs) + `
+    const html = head(q + ' · ' + t('play.sim') + ' · ' + plain(t('logo')), X(s, 'lead'), url, `/play/og/${s}.png`, embedJs, !toy.published) + `
 <nav class="crumbs wrap" aria-label="${attr(t('crumbs.label'))}">
   <ol>
     <li><a href="${pre}/play/">${t('play.crumbs')}</a></li>
@@ -215,7 +180,7 @@ ${termOf[s] ? `  <p class="play-term"><a href="${pre}/terms/${termOf[s].slug}/">
 ${others.length ? `
   <section class="play-more" aria-labelledby="more-h">
     <h2 id="more-h">${t('play.more')}</h2>
-    <ul class="toys" role="list">${others.map(card).join('')}</ul>
+    <ul class="toys rel" role="list">${others.map(relCard).join('')}</ul>
   </section>` : ''}
 </main>
 ${foot()}
@@ -226,34 +191,38 @@ ${foot()}
     fs.mkdirSync(path.join(outDir, s), {recursive: true});
     fs.writeFileSync(path.join(outDir, s, 'index.html'), html);
   }
-  console.log('play:', toys.length, 'игрушек →', path.relative(ROOT, outDir) + '/<slug>/index.html');
+  console.log('play:', toys.length, 'игр →', path.relative(ROOT, outDir) + '/<slug>/index.html');
 
-  // ---------- каталог: по курсам ----------
-  const groups = cfg.order.map(id => ({id, list: toys.filter(x => x.course === id)})).filter(g => g.list.length);
+  // ---------- каталог: только опубликованные, фильтр по теме (темы без опубликованных игр не показываем) ----------
+  const pub = toys.filter(x => x.published);
+  const topics = REL.TOPICS.filter(tp => pub.some(x => x.topic === tp));
+  const catCard = o => card(o).replace('<li>', `<li data-topic="${o.topic}">`);
   const cat = head(t('play.meta.title'), t('play.meta.desc'), `${pre}/play/`, '/play/og/index.png') + `
 <main id="main" class="wrap play-cat">
   <h1>${t('play.title')}</h1>
   <p class="lead">${t('play.lead')}</p>
+  <div class="topic-filter" role="group" aria-label="${attr(t('play.filter'))}">
+    <button type="button" aria-pressed="true" data-topic="">${t('play.filter.all')}</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
+  </div>
+  <ul class="toys cat-list" role="list">${pub.map(catCard).join('')}
+  </ul>
   <p class="legend"><span>${t('play.legend')}</span>${[1, 2, 3].map(chip).join('')}</p>
-${groups.map(g => `
-  <section class="cat-course" aria-labelledby="cat-${g.id}">
-    <h2 id="cat-${g.id}"><a href="${C(g.id).href}">${cname(g.id)}</a> ${statusTag(g.id)}</h2>
-    <ul class="toys" role="list">${g.list.map(card).join('')}
-    </ul>
-  </section>`).join('')}
 </main>
 ${foot()}
+<script>
+(function(){var f=document.querySelector('.topic-filter');f.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.topic;f.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});document.querySelectorAll('.cat-list > li').forEach(function(li){li.hidden=!!v&&li.dataset.topic!==v})})})();
+</script>
 </body>
 </html>
 `;
   fs.writeFileSync(path.join(outDir, 'index.html'), cat);
   fs.writeFileSync(path.join(outDir, 'credits.json'), JSON.stringify(credits, null, 1) + '\n');
   console.log('play:', path.relative(ROOT, path.join(outDir, 'index.html')), '+ credits.json');
-  // старые страницы игрушек, которых больше нет в списках
+  // старые страницы игр, которых больше нет в списках
   for (const d of fs.readdirSync(outDir, {withFileTypes: true})){
     if (d.isDirectory() && !['og'].includes(d.name) && !toys.some(x => x.slug === d.name) && fs.existsSync(path.join(outDir, d.name, 'index.html'))
       && /tools\/build-play\.js/.test(fs.readFileSync(path.join(outDir, d.name, 'index.html'), 'utf8')))
-      console.warn('play: папка', d.name, 'не в списках игрушек — удалите её, если игрушку убрали');
+      console.warn('play: папка', d.name, 'не в списках игр — удалите её, если игру убрали');
   }
 }
 

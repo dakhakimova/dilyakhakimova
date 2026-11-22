@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Тексты страницы — в i18n/site.js (шапка, футер, общие блоки) и i18n/probability.js. Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. -->
 <title data-i18n="meta.title">«Вероятность на пальцах» — бесплатный интерактивный курс · Диля Хакимова</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
+<meta name="description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <link rel="canonical" href="https://dilyakhakimova.com/probability/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dilyakhakimova.com/probability/">
 <meta property="og:title" data-i18n-attr="content:c.title" content="Вероятность на пальцах">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игрушки, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Вероятность с нуля до матожидания: девять шагов-историй про кафе Алисы и Боба, игры, код в браузере и задачи с собеседований в каждом шаге. Бесплатно и без регистрации.">
 <meta property="og:image" content="https://dilyakhakimova.com/img/probability-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -20,9 +20,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/course.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/course.css?v=202611300">
 <style>
 /* названия шагов — ссылки на страницы шагов (оглавление курса) */
 .modules h3 a{color:inherit; text-decoration:none}
@@ -39,20 +39,20 @@ function artFail(img){
 <body>
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
-    <p class="tagline" data-i18n="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav data-i18n-attr="aria-label:nav.label" aria-label="Разделы сайта">
-    <a href="/#courses" data-i18n="nav.courses">Курсы</a>
-    <a href="/map/" data-i18n="nav.map">Карта навыков</a>
-    <a href="/play/" data-i18n="nav.play">Игрушки</a>
-    <a href="/#read" data-i18n="nav.read">Статьи</a>
-    <a href="/about/" data-i18n="nav.about">Об авторе</a>
-    <a href="/en/" class="lang" hreflang="en" hidden data-i18n="nav.lang">English</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" aria-current="page">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <nav class="crumbs wrap" data-i18n-attr="aria-label:crumbs.label" aria-label="Где ты на сайте">
   <ol>
     <li><a href="/#courses" data-i18n="crumbs.courses">Курсы</a></li>
@@ -65,14 +65,14 @@ function artFail(img){
 <!-- 1. Первый экран -->
 <section class="c-hero wrap">
   <div>
-    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
+    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Новичок</span></span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
     <h1 data-i18n="c.title">Вероятность на пальцах</h1>
     <p class="sub" data-i18n="hero.sub">Шансы в штуках: от двух монеток до матожидания — и задачи с собеседований в каждом шаге.</p>
     <p class="ctas">
       <a class="btn" href="01-outcomes.html" data-i18n="cta1">Начать с шага 1</a>
       <a class="btn ghost" href="#modules" data-i18n="cta2">Что будет в курсе ↓</a>
     </p>
-    <p class="facts" data-i18n="hero.facts">9 шагов. В каждом — история, игрушка, правило формулой и задачи с собеседований, в конце — пробное собеседование на время. Все шаги открыты, начинать можно с любого.</p>
+    <p class="facts" data-i18n="hero.facts">9 шагов. В каждом — история, игра, правило формулой и задачи с собеседований, в конце — пробное собеседование на время. Все шаги открыты, начинать можно с любого.</p>
   </div>
   <figure class="art"><img src="/img/probability-cover.jpg" width="1600" height="900" data-i18n-attr="alt:cover.alt" alt="Алиса и Боб бросают монетки, на доске дерево исходов" onerror="artFail(this)"><figcaption class="ph"><span data-i18n="ph.prefix">Здесь будет картинка</span>: <span data-i18n="cover.ph">обложка курса: две монетки и дерево исходов</span></figcaption></figure>
 </section>
@@ -94,10 +94,10 @@ function artFail(img){
   </ol>
 </section>
 
-<!-- 3. Игрушки -->
+<!-- 3. Игры -->
 <section class="wrap block" id="toys" aria-labelledby="toys-h">
   <h2 id="toys-h" data-i18n="sec.toys">Во что поиграем и что покрутим</h2>
-  <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Каждая игрушка открывается прямо на своей карточке шага.</p>
+  <p class="lead-note" data-i18n="toys.lead">Сначала ставишь прогноз, потом симуляция показывает правду. Каждая игра открывается прямо на своей карточке шага.</p>
   <div class="toys-wrap">
   <ul class="toys c-toys" role="list">
     <li><a href="01-outcomes.html#card-3"><b data-i18n="t1.t">Две монетки моют посуду</b><span data-i18n="t1.d">Бросай пары: плитки ОО, ОР, РО и РР загораются по очереди. Через сотню бросков видно, что «разные» выпадают вдвое чаще, чем «два орла», — правило Боба нечестное.</span><small data-i18n="t1.f">шаг 1, карточка 3</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
@@ -109,7 +109,7 @@ function artFail(img){
     <li><a href="06-bayes.html#card-4"><b data-i18n="t7.t">Касса и фальшивые купюры</b><span data-i18n="t7.d">Ползунки: как часто попадаются фальшивки и насколько точна касса. Если фальшивая одна купюра из 1000, а касса ловит 99 % фальшивок и ошибается на 1 % настоящих, настоящих тревог среди писков — около 9 %.</span><small data-i18n="t7.f">шаг 6, карточка 4</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
     <li><a href="06-bayes.html#card-9"><b data-i18n="t8.t">Монти Холл на празднике</b><span data-i18n="t8.d">Сыграй несколько раз сам, потом запусти автомат на 1000 игр: кто меняет дверь, выигрывает примерно в двух играх из трёх.</span><small data-i18n="t8.f">шаг 6, карточка 9</small><span class="go" data-i18n="toy.try">Попробовать →</span></a></li>
   </ul>
-  <figure class="art"><img src="/img/prob-toys.jpg" width="900" height="1200" loading="lazy" data-i18n-attr="alt:toys.alt" alt="Котейка у доски Гальтона, гости кафе спорят, где вырастет горка шариков" onerror="artFail(this)"><figcaption class="ph" data-i18n="toys.ph">Котейка у доски Гальтона, гости спорят о горке</figcaption></figure>
+  <!--missing-art /img/prob-toys.jpg PGZpZ3VyZSBjbGFzcz0iYXJ0Ij48aW1nIHNyYz0iL2ltZy9wcm9iLXRveXMuanBnIiB3aWR0aD0iOTAwIiBoZWlnaHQ9IjEyMDAiIGxvYWRpbmc9ImxhenkiIGRhdGEtaTE4bi1hdHRyPSJhbHQ6dG95cy5hbHQiIGFsdD0i0JrQvtGC0LXQudC60LAg0YPCoNC00L7RgdC60Lgg0JPQsNC70YzRgtC+0L3QsCwg0LPQvtGB0YLQuCDQutCw0YTQtSDRgdC/0L7RgNGP0YIsINCz0LTQtSDQstGL0YDQsNGB0YLQtdGCINCz0L7RgNC60LAg0YjQsNGA0LjQutC+0LIiIG9uZXJyb3I9ImFydEZhaWwodGhpcykiPjxmaWdjYXB0aW9uIGNsYXNzPSJwaCIgZGF0YS1pMThuPSJ0b3lzLnBoIj7QmtC+0YLQtdC50LrQsCDRg8Kg0LTQvtGB0LrQuCDQk9Cw0LvRjNGC0L7QvdCwLCDQs9C+0YHRgtC4INGB0L/QvtGA0Y/RgiDQvsKg0LPQvtGA0LrQtTwvZmlnY2FwdGlvbj48L2ZpZ3VyZT4= -->
   </div>
 </section>
 
@@ -136,7 +136,7 @@ function artFail(img){
       <li data-i18n="who3">кто собирается в «Сигнал или шум» и хочет крепкую базу.</li>
     </ul>
     <p class="need" data-i18n="need"><b>Заранее нужно:</b> дроби и проценты. Это первый курс линейки, до него ничего проходить не надо.</p>
-    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> Начальный — без формул на входе, с нуля. Характер курса: к собеседованию.</p>
+    <p class="note" data-i18n="lvl.line"><b>Уровень:</b> <span class="lvl l1" aria-hidden="true"></span> Новичок — без формул на входе, с нуля. Характер курса: к собеседованию.</p>
     <p class="note"><a href="/map/#prob" data-i18n="maplink">Где этот курс на карте навыков →</a></p>
   </div>
   <div class="panel next-course">
@@ -150,38 +150,49 @@ function artFail(img){
 
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
-      <h2 data-i18n="foot.courses">Курсы</h2>
+      <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/" data-i18n="foot.c.prob">Вероятность на пальцах</a></li>
-        <li><a href="/signal/" data-i18n="foot.c.sig">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/" data-i18n="foot.c.ab">A/B на пальцах</a></li>
-        <li><a href="/stats/" data-i18n="foot.c.st">Прикладная статистика для аналитика</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/ab/" data-i18n="foot.c.abm">A/B без мифов</a><span class="note" data-i18n="soon.w27">скоро — зима 2027</span></li>
-        <li><a href="/causal/" data-i18n="foot.c.cau">Causal inference</a><span class="note" data-i18n="later">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2 data-i18n="foot.more">Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/" data-i18n="nav.play">Игрушки</a></li>
-        <li><a href="/terms/" data-i18n="foot.terms">Словарь аналитика</a></li>
-        <li><a href="/books/" data-i18n="foot.books">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/" data-i18n="foot.habr">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="https://github.com/dakhakimova" data-i18n="foot.gh">GitHub</a></li>
-        <li><a href="/about/" data-i18n="nav.about">Об авторе</a></li>
-        <li><a href="/account.html" data-i18n="nav.progress">Мой прогресс</a></li>
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy" data-i18n="foot.copy">© 2026 Диля Хакимова · Белград</p>
-    <figure class="art kot-sleep"><img src="/img/footer-kot.png" width="800" height="800" loading="lazy" data-i18n-attr="alt:foot.kot" alt="Котейка спит в мешке" onerror="artFail(this)"><figcaption class="ph" aria-hidden="true">z z z</figcaption></figure>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611221"></script>
-<script src="/i18n/probability.js?v=202611221"></script>
-<script src="/landing.js?v=202611221"></script>
+<script src="/i18n/site.js?v=202611300"></script>
+<script src="/i18n/probability.js?v=202611300"></script>
+<script src="/landing.js?v=202611300"></script>
 </body>
 </html>

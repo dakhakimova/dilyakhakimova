@@ -1,6 +1,6 @@
 /* Лендинги курсов (/probability/, /stats/, /ab/, /causal/). Подключается после /home.css и берёт оттуда
    шрифты, шкалу кеглей, кнопки, метки, светофор, заглушки картинок, панель листа ожидания и футер.
-   Здесь только то, чего на главной нет: крошки, первый экран курса, модули, игрушки-заглушки, результаты, «как устроен». */
+   Здесь только то, чего на главной нет: крошки, первый экран курса, модули, игры-заглушки, результаты, «как устроен». */
 
 /* крошки */
 .crumbs{font-size:var(--fs-s); color:var(--muted); padding-top:var(--s-2)}
@@ -34,7 +34,7 @@
 .modules .x{margin:auto 0 0; padding:var(--s-2) var(--s-3); background:var(--white); box-shadow:var(--sh-1); border-radius:var(--r-s); font-size:var(--fs-xs); color:var(--muted); line-height:1.45}
 .modules .x b{color:var(--ink); font-weight:var(--fw-medium)}
 
-/* «Во что поиграем»: карточки игрушек — как .toys на главной; .toys .off — игрушка, которой ещё нет */
+/* «Во что поиграем»: карточки игр — как .toys на главной; .toys .off — игра, которой ещё нет */
 .toys.c-toys{grid-template-columns:repeat(2,minmax(0,1fr))}
 .toys .off{display:flex; flex-direction:column; align-items:flex-start; gap:var(--s-2); height:100%; padding:var(--s-4); border-radius:var(--r); background:var(--white);
   background-image:linear-gradient(rgba(61,125,196,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(61,125,196,.08) 1px, transparent 1px); background-size:16px 16px}
@@ -90,3 +90,7 @@
   .crumbs{font-size:var(--fs-xs)}
   .c-hero{padding-top:var(--s-2)}
 }
+
+/* курс «в планах» (Causal inference): «выцветший снимок» — картинки приглушены, текст третичный, без кнопок записи */
+.faded-course main .art img{filter:grayscale(1) sepia(.25) opacity(.75)}
+.faded-course main .sub, .faded-course main .h1-sub, .faded-course main p, .faded-course main li{color:var(--text-3)}

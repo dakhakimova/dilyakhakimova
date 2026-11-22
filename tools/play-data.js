@@ -1,4 +1,4 @@
-/* Общий загрузчик данных /play/: курсы (play/courses.json), игрушки (play/toys-<курс>.json), тексты (i18n/play-<курс>.js)
+/* Общий загрузчик данных /play/: курсы (play/courses.json), игры (play/toys-<курс>.json), тексты (i18n/play-<курс>.js)
    и словари сайта. Им пользуются tools/build-play.js, tools/og-play.js, tools/check-play.js, tools/test-play.js.
    Жёсткие ошибки (нет поля, нет карточки в главе, нет картинки…) — исключение с понятным текстом: сборка не пройдёт.
    Стандарт полей — /home/claude/play-guide.md. */
@@ -63,7 +63,7 @@ function load(lang = 'ru', {strict = true} = {}){
     t.step = +((t.src.match(/\/(\d+)-[^/]+$/) || [])[1] || 0);
     if (!t.step) fail(`${where}: из имени главы не понять номер шага (ждём …/07-name.html)`);
     if (![1, 2, 3].includes(t.level)) fail(`${where}: level — 1, 2 или 3`);
-    if (!(t.h >= 300 && t.h <= 4000)) fail(`${where}: h — примерная высота игрушки в px, 300…4000`);
+    if (!(t.h >= 300 && t.h <= 4000)) fail(`${where}: h — примерная высота игры в px, 300…4000`);
     if (typeof t.img !== 'string') fail(`${where}: img — путь к картинке или "" (пусто)`);
     else if (t.img && !fs.existsSync(path.join(ROOT, t.img.replace(/^\//, '')))) fail(`${where}: нет файла картинки ${t.img}`);
     if (!Array.isArray(t.act) || !t.act.length || !t.act.every(require('./play-act.js').actOk)) fail(`${where}: act — список шагов первого касания (тест и OG-картинка): селекторы или {sel, color | at} для точки на холсте, см. tools/play-act.js`);

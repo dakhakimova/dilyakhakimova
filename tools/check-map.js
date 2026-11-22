@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Проверка карты навыков map/skills.json.
    node tools/check-map.js          — проверить: id, ссылки, циклы, пути из бесплатных курсов, параллельные ветки,
-                                      маршруты (предпосылки идут раньше), лишние рёбра, адреса игрушек и карточек,
+                                      маршруты (предпосылки идут раньше), лишние рёбра, адреса игр и карточек,
                                       курсы «в планах» (status: planned): без узлов, вне маршрутов, связи и тексты plan.* в i18n/map.js
    node tools/check-map.js --cards  — ещё и вписать в steps настоящее число карточек из страниц шагов
    node tools/check-map.js --street — показать иллюстрацию над схемой, если лежит map/img/street.jpg (снять hidden, вписать src)
@@ -357,9 +357,9 @@ for (const [id, st] of Object.entries(M.steps)){
 for (const n of nodes.values()){
   const u = n.toy && n.toy.url; if (!u) continue;
   const m = u.match(/#card-(\d+)$/), cnt = countCards(u);
-  if (cnt === null) err(n.id + ': игрушка — нет файла ' + u);
-  else if (m && +m[1] > cnt) err(n.id + ': игрушка — карточки ' + m[1] + ' нет (' + cnt + ')');
-  if (!isFree(n.id)) err(n.id + ': у платного навыка у игрушки не должно быть адреса');
+  if (cnt === null) err(n.id + ': игра — нет файла ' + u);
+  else if (m && +m[1] > cnt) err(n.id + ': игра — карточки ' + m[1] + ' нет (' + cnt + ')');
+  if (!isFree(n.id)) err(n.id + ': у платного навыка у игры не должно быть адреса');
 }
 if (write) fs.writeFileSync(FILE, JSON.stringify(M, null, 2) + '\n');
 

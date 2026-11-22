@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/signal/06-zoo.html?toy=poisson-rain" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Откуда берётся распределение Пуассона? · Игрушки · Диля Хакимова</title>
+<meta name="robots" content="noindex, follow">
+<title>Откуда берётся распределение Пуассона? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Режем 10 минут на клетки, в каждую заказ попадает с крошечным шансом. Дроби клетки мельче и смотри, во что превращается картинка.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/poisson-rain/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/poisson-rain/">
-<meta property="og:title" content="Откуда берётся распределение Пуассона? · Игрушки · Диля Хакимова">
+<meta property="og:title" content="Откуда берётся распределение Пуассона? · симулятор · Диля Хакимова">
 <meta property="og:description" content="Режем 10 минут на клетки, в каждую заказ попадает с крошечным шансом. Дроби клетки мельче и смотри, во что превращается картинка.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/poisson-rain.png">
 <meta property="og:image:width" content="1200">
@@ -24,28 +25,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/play/play.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/play/play.css?v=202611300">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/" aria-current="page">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
-    <li><a href="/play/">Игрушки</a></li>
+    <li><a href="/play/">Игры</a></li>
     <li><span aria-current="page">Откуда берётся распределение Пуассона?</span></li>
   </ol>
 </nav>
@@ -53,7 +56,7 @@
 <main id="main" class="wrap play" data-toy="poisson-rain" data-frame="/signal/06-zoo.html?toy=poisson-rain"
   data-share-title="Откуда берётся распределение Пуассона?" data-share-text="В дашборде заказов за 10 минут бывает и 0, и 12, и продакт видит в этом аномалии. Средний поток — 5 заказов. Как распределено число заказов? Угадай форму и проверь на дожде"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
-  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="poisson-rain" data-show-from="0" hidden></span></p>
+  <p class="chips"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Практик</span></span><a class="tag" href="/signal/">из курса «Сигнал или шум»</a><span class="play-count" data-count-for="poisson-rain" data-show-from="0" hidden></span></p>
   <h1>Откуда берётся распределение Пуассона?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
@@ -71,8 +74,8 @@
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/signal/06-zoo.html?toy=poisson-rain" title="Игрушка: Откуда берётся распределение Пуассона?" style="height:850px" allow="clipboard-write"></iframe>
-    <p class="note noframe">Игрушка не загрузилась? <a href="/signal/06-zoo.html#card-5">Открой её в курсе</a>.</p>
+    <iframe id="toy-frame" src="/signal/06-zoo.html?toy=poisson-rain" title="Игра: Откуда берётся распределение Пуассона?" style="height:850px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/signal/06-zoo.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
@@ -82,7 +85,7 @@
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
     <div class="reveal" hidden>
       <p>Пока клеток мало, биномиальное заметно уже Пуассона: в 10 клеток не уместится больше 10 заказов. Чем мельче клетки, тем ближе столбики к точкам, и от 200 клеток их уже не отличить. Пуассону всё равно, сколько клеток: важна только сила дождя λ = np. Поэтому он подходит для заказов в час, жалоб за день и падений сервера за месяц — если события приходят по одному и независимо.</p>
       <h3>Шпаргалка</h3>
@@ -99,7 +102,7 @@
     </div>
     <details class="embed">
       <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
       <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
     </details>
   </section>
@@ -114,42 +117,55 @@
   </section>
 
   <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё игрушки</h2>
-    <ul class="toys" role="list">
-      <li><a href="/play/dist-zoo/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Средний чек 640 ₽. Какая доля гостей тратит больше среднего?</b><span>Зоопарк распределений кафе: «заказал ли», «сколько за 10 минут», «сколько ждать», «сколько денег» — шесть вопросов и шесть разных форм.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="dist-zoo" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/no-memory/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Курьера нет уже 6 минут. Сколько ещё ждать?</b><span>Курьеры по строгому графику и курьеры со случайными интервалами: сколько ещё ждать, если с прошлого прошло несколько минут.</span><small>из курса «Сигнал или шум», глава 6</small><span class="play-count" data-count-for="no-memory" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/fat-tail-shift/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Средний чек вырос на 10 ₽. Во сколько раз чаще станут рекордные дни?</b><span>Рекордные дни живут в хвосте колокола. Сдвигай центр на несколько рублей и смотри, как быстро растёт число рекордов.</span><small>из курса «Сигнал или шум», глава 5</small><span class="play-count" data-count-for="fat-tail-shift" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+    <h2 id="more-h">Ещё по теме</h2>
+    <ul class="toys rel" role="list">
+      <li><a href="/play/twenty-metrics-aa/"><span class="kind">Игра</span><b>Сколько из 20 метрик покраснеют в A/A?</b><span>Отчёт A/A с двадцатью метриками кафе: сколько из них «прокрасится», когда эффекта нет, и что меняется, если метрики связаны.</span><span class="go">Сыграть →</span></a></li>
+      <li><a href="/terms/p-value/"><span class="kind">Термин</span><b>p-value</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/signal/07-clt.html"><span class="kind">Глава курса</span><b>ЦПТ в деле</b><span>«Сигнал или шум», глава 7</span><span class="go">Открыть главу →</span></a></li></ul>
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2>Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/play/">Игры</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
-        <li><a href="/books/">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611250"></script>
+<script src="/play/play.js?v=202611300"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
 <body data-chapter="ch01">
 <script src="/signal/progress.js?v=202611240"></script>
 <nav class="top" aria-label="Навигация">
-  <a class="course" href="./">Сигнал или шум</a>
+  <span class="top-l"><a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="28" height="28" alt=""></a> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
 </nav>
 <div class="reader" id="reader">
@@ -555,7 +555,7 @@ document.getElementById('guess-save').addEventListener('click', () => {
   });
   if (matchMedia('(max-width: 900px)').matches) toggle.setAttribute('aria-expanded', 'false');
   const m = location.hash.match(/^#card-(\d+)$/);
-  // соло-режим (/play/bridge.js, ?toy=<slug>): сразу карточка игрушки, остальные скрыты стилем моста
+  // соло-режим (/play/bridge.js, ?toy=<slug>): сразу карточка игры, остальные скрыты стилем моста
   const solo = window.PLAY_SOLO ? cards.findIndex(c => (c.dataset.toy || '').split(/\s+/).includes(window.PLAY_SOLO)) : -1;
   go(solo >= 0 ? solo : m ? +m[1] - 1 : 0, false);
   window.addEventListener('hashchange', () => { const h = location.hash.match(/^#card-(\d+)$/); if (h) go(+h[1] - 1, false); });

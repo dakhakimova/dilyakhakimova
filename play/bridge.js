@@ -1,36 +1,36 @@
-/* Мост между главами бесплатных курсов и страницами игрушек /play/<slug>/.
+/* Мост между главами бесплатных курсов и страницами игр /play/<slug>/.
    Подключается в <head> каждой главы (до progress.js и движка): <script src="/play/bridge.js?v=…"></script>
 
    Разметка в главе (подробно — /home/claude/play-guide.md, §4):
-     <section class="card" data-toy="galton">       — карточка с игрушкой (slug латиницей);
-     <section class="card" data-toy-pre="galton">   — необязательно: карточка «сначала угадай» к ней (показывается выше игрушки);
-     data-toy-reveal  — у блока внутри этих карточек: на /play/ скрыт до первого касания игрушки (спойлер: «Как правильно…»);
+     <section class="card" data-toy="galton">       — карточка с игрой (slug латиницей);
+     <section class="card" data-toy-pre="galton">   — необязательно: карточка «сначала угадай» к ней (показывается выше игры);
+     data-toy-reveal  — у блока внутри этих карточек: на /play/ скрыт до первого касания игры (спойлер: «Как правильно…»);
      data-toy-hide    — у блока внутри этих карточек: на /play/ не показывается вовсе (отсылки к курсу, «страшное слово» и т. п.).
    В самом курсе обе пометки ничего не меняют.
 
    1. Соло-режим: глава открыта как …/07-distribution.html?toy=galton — видны только эти карточки, без шапки,
       оглавления и листалки; баллы, прогресс и догадки не пишутся (движки смотрят на PLAY_SOLO и держат всё в памяти).
-      Так страница /play/<slug>/ показывает игрушку в iframe: код игрушки один — тот, что в главе.
-      Под игрушкой — подпись «Игрушка из курса «…», шаг N — dilyakhakimova.com · <статус курса>» из /play/credits.json
+      Так страница /play/<slug>/ показывает игру в iframe: код игры один — тот, что в главе.
+      Под игрой — подпись «Игра из курса «…», шаг N — dilyakhakimova.com · <статус курса>» из /play/credits.json
       (его собирает tools/build-play.js из play/courses.json — статус курса задаётся там). С &embed=1 ссылки открываются в новой вкладке.
-      Родителю уходят сообщения: {type:'toy:h', h} — высота; {type:'toy:interact'} — первое касание игрушки
+      Родителю уходят сообщения: {type:'toy:h', h} — высота; {type:'toy:interact'} — первое касание игры
       (по нему раскрывается вывод); {type:'toy:guess'} — сделан прогноз.
    2. В обычном режиме под каждой карточкой с data-toy, у которой уже есть страница на /play/ (есть в credits.json), —
-      кнопка «Поделиться игрушкой»: Web Share API на телефоне, копирование ссылки на десктопе.
+      кнопка «Поделиться игрой»: Web Share API на телефоне, копирование ссылки на десктопе.
 
-   3. Анонимный счётчик (POST /api/hit → таблица toy_hits): «сыграл» = первое взаимодействие с игрушкой за загрузку страницы,
+   3. Анонимный счётчик (POST /api/hit → таблица toy_hits): «сыграл» = первое взаимодействие с игрой за загрузку страницы,
       в курсе (place 'course') и во встраивании (place 'embed', source — домен сайта); на /play/<slug>/ считает play/play.js.
-      Только на боевом домене, через navigator.sendBeacon, ошибки молча; не чаще одного события на игрушку и вид за загрузку.
+      Только на боевом домене, через navigator.sendBeacon, ошибки молча; не чаще одного события на игру и вид за загрузку.
 
    Строки — в PLAY_STR (готово к /en/: язык из <html lang>). */
 (function(){
   const PLAY_STR = {
     ru: {
-      share: 'Поделиться игрушкой',
+      share: 'Поделиться игрой',
       copied: 'Ссылка скопирована',
       copyFail: 'Скопируй ссылку: ',
-      shareNote: 'Отдельная страница этой игрушки — для коллег и статей.',
-      guessNote: 'Сначала запиши догадку, потом проверь на игрушке ниже.',
+      shareNote: 'Отдельная страница этой игры — для коллег и статей.',
+      guessNote: 'Сначала запиши догадку, потом проверь на игре ниже.',
       preTag: 'Сначала угадай',
     },
   };
@@ -41,12 +41,12 @@
   const ok = /^[a-z0-9-]{1,40}$/.test(slug);
   const root = document.documentElement;
   const base = location.origin + (lang !== 'ru' ? '/' + lang : '') + '/play/';
-  // список опубликованных игрушек и подписи к ним — /play/credits.json (собирает tools/build-play.js)
-  // (cache: 'no-cache' — браузер переспрашивает сервер по ETag, так новая игрушка видна без смены версий)
+  // список опубликованных игр и подписи к ним — /play/credits.json (собирает tools/build-play.js)
+  // (cache: 'no-cache' — браузер переспрашивает сервер по ETag, так новая игра видна без смены версий)
   let credits = null;
   const loadCredits = () => credits || (credits = fetch(base + 'credits.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}).catch(() => ({})));
 
-  // ---------- счётчик: одно событие на (игрушка, место, вид) за загрузку страницы; локально и на превью не шлём ----------
+  // ---------- счётчик: одно событие на (игра, место, вид) за загрузку страницы; локально и на превью не шлём ----------
   const sent = new Set();
   const hit = (slug, place, kind, source) => {
     const k = slug + '|' + place + '|' + kind;
@@ -55,8 +55,8 @@
     try { navigator.sendBeacon('/api/hit', JSON.stringify({slug, place, kind, source: source || ''})); } catch(e) {}
   };
   const utm = (q => (q.get('utm_source') || '').slice(0, 60))(new URLSearchParams(location.search));
-  // первое осмысленное касание карточки игрушки: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр).
-  // Прогноз внутри карточки игрушки — не касание: ставка (.choice[data-key]), поле догадки (.guess, жёлтый лист c-butter,
+  // первое осмысленное касание карточки игры: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр).
+  // Прогноз внутри карточки игры — не касание: ставка (.choice[data-key]), поле догадки (.guess, жёлтый лист c-butter,
   // поле с placeholder «?», id …-guess) только записывает догадку, вывод должен ждать, пока человек сыграет.
   const GUESS = '[data-key], .guess, [data-guess], .c-butter, input[placeholder="?"], [id$="-guess"]';
   const onFirstTouch = (card, fn) => {
@@ -75,7 +75,7 @@
   };
 
   if (!ok){
-    // ---------- обычный режим: кнопка «Поделиться» в карточках опубликованных игрушек ----------
+    // ---------- обычный режим: кнопка «Поделиться» в карточках опубликованных игр ----------
     document.addEventListener('DOMContentLoaded', () => {
       const cards = [...document.querySelectorAll('.card[data-toy]')];
       if (!cards.length) return;
@@ -137,13 +137,13 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     const toy = document.querySelector(`.card[data-toy~="${slug}"]`);
     if (!toy) return;
     const stage = document.querySelector('.stage') || toy.parentNode;
-    // подсказка «на следующей карточке проверим» в соло-режиме неверна: игрушка тут же, ниже
+    // подсказка «на следующей карточке проверим» в соло-режиме неверна: игра тут же, ниже
     document.querySelectorAll(`.card[data-toy-pre~="${slug}"] .note, .card[data-toy-pre~="${slug}"] p`).forEach(n => {
       if (!n.children.length && /(следующ|дальше|«Далее»)[^.]*карточк|карточк[^.]*(следующ|дальше)|Жми «Далее»/.test(n.textContent)) n.textContent = T.guessNote;
     });
     // единая метка «Сначала угадай» над прогнозом (свои метки карточек в соло-режиме скрыты)
     document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`).forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
-    // подпись-источник под игрушкой (видна и в ?embed=1)
+    // подпись-источник под игрой (видна и в ?embed=1)
     loadCredits().then(c => {
       const x = c[slug]; if (!x) return;
       const p = document.createElement('p'); p.className = 'play-credit';
@@ -157,7 +157,7 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       const h = Math.ceil(b + scrollY + 20); if (Math.abs(h - last) > 1){ last = h; post({type: 'toy:h', h, toy: slug}); } };
     new ResizeObserver(send).observe(document.body);
     addEventListener('resize', send); setTimeout(send, 50); setTimeout(send, 600);
-    // первое касание игрушки: раскрыть спойлеры (data-toy-reveal) и сообщить родителю
+    // первое касание игры: раскрыть спойлеры (data-toy-reveal) и сообщить родителю
     // на /play/<slug>/ «сыграл» считает родитель (play/play.js); во встраивании и при прямом заходе — здесь
     const ref = (() => { try { const h = (q.get('ref') || (document.referrer ? new URL(document.referrer).hostname : '')).replace(/^www\./, '').toLowerCase(); return h === 'dilyakhakimova.com' ? '' : h; } catch(e) { return ''; } })();
     const touch = () => { if (root.classList.contains('touched')) return; root.classList.add('touched'); post({type: 'toy:interact', toy: slug}); setTimeout(send, 30);

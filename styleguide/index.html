@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/course.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/course.css?v=202611300">
 <style>
 /* только для самой страницы-образца: сетка «образец / подпись», не для продакшна */
 .sg-nav{display:flex; flex-wrap:wrap; gap:var(--s-1) var(--s-4); font-size:var(--fs-s); margin:var(--s-5) 0 0}
@@ -43,18 +43,20 @@
 <a class="skip" href="#main">К содержанию</a>
 
 <!-- Шапка: логотип (Literata 500 + рукописное имя), строка о сайте 13 px, меню 15 px, подчёркнутые ссылки -->
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <main id="main" class="wrap">
 
@@ -122,14 +124,14 @@
 <section class="sg" id="eyebrow">
   <h2>Метка-«бровь»</h2>
   <p class="rule">Одна на блок, над тем заголовком, который подписывает. 13 px, 600, капслок с трекингом .08em, коралл-текст. Капслок на сайте — только у меток.</p>
-  <div class="demo"><p class="eyebrow">Игрушка на минуту</p><h3 style="font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:0">Котейка бросает монетку 10 раз</h3></div>
+  <div class="demo"><p class="eyebrow">Игра на минуту</p><h3 style="font:400 var(--fs-h3)/var(--lh-head) var(--serif); margin:0">Котейка бросает монетку 10 раз</h3></div>
 </section>
 
 <section class="sg" id="badges">
   <h2>Бейджи: уровень и статус</h2>
   <p class="rule">Уровень — белый чип с точкой-светофором и словом. Статус — тихая плашка цвета статуса. В одной строке не больше трёх, вес 500.</p>
   <div class="demo">
-    <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Начальный</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span>Средний</span><span class="chip"><span class="lvl l3" aria-hidden="true"></span>Продвинутый</span></p>
+    <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Новичок</span><span class="chip"><span class="lvl l2" aria-hidden="true"></span>Практик</span><span class="chip"><span class="lvl l3" aria-hidden="true"></span>Продвинутый</span></p>
     <p class="chips"><span class="tag soon">скоро — зима 2027</span><span class="tag paid">платно</span><span class="tag later">позже</span><span class="tag">для всей команды</span></p>
   </div>
 </section>
@@ -161,12 +163,12 @@
 </section>
 
 <section class="sg" id="tiles">
-  <h2>Карточки-плитки: курс, игрушка, статья</h2>
+  <h2>Карточки-плитки: курс, игра, статья</h2>
   <p class="rule">Порядок: картинка → бейджи → заголовок (Literata 500) → строка-описание (15, вторичный) → факты → действия внизу. Внутри 16–24, между плитками 24.</p>
   <ul class="cards" role="list" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
     <li class="course" id="c-ab">
       <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе"></figure>
-      <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Начальный</span></p>
+      <p class="chips"><span class="tag free">бесплатно</span><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Новичок</span></p>
       <h4><a href="/ab-basics/">A/B на пальцах</a></h4>
       <p class="line">как читать отчёт A/B — для всей команды</p>
       <dl><dt>Сможешь</dt><dd>прочитать отчёт A/B и выбрать: катим, не катим, ждём или ищем баг</dd><dt>Внутри</dt><dd>11 шагов, тренажёр, шпаргалка</dd></dl>
@@ -174,7 +176,7 @@
     </li>
     <li style="list-style:none">
       <ul class="toys" role="list" style="grid-template-columns:1fr; margin:0">
-        <li><a href="/play/galton/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Начальный</span><b>Доска Гальтона</b><span>Шарики падают и сами собираются в колокол.</span><span class="go">Покрутить →</span></a></li>
+        <li><a href="/play/galton/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span>Новичок</span><b>Доска Гальтона</b><span>Шарики падают и сами собираются в колокол.</span><span class="go">Покрутить →</span></a></li>
       </ul>
       <article class="article" style="margin-top:var(--s-5)">
         <p class="chips"><span class="tag">Хабр</span></p>
@@ -263,10 +265,43 @@
 
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
-    <div><h2>Курсы</h2><ul role="list"><li><a href="/probability/">Вероятность на пальцах</a></li><li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027</span></li></ul></div>
-    <div><h2>Ещё</h2><ul role="list"><li><a href="/play/">Игрушки</a></li><li><a href="/about/">Об авторе</a></li></ul></div>
+    <div>
+      <h2>Курсы</h2>
+      <ul role="list">
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Разделы</h2>
+      <ul role="list">
+        <li><a href="/play/">Игры</a></li>
+        <li><a href="/terms/">Словарь аналитика</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
+        <li><a href="/account.html">Мой прогресс</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
     <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-/* Проверка данных и текстов игрушек /play/ без браузера — быстро, запускать после каждой правки.
+/* Проверка данных и текстов игр /play/ без браузера — быстро, запускать после каждой правки.
      node tools/check-play.js            — все курсы
      node tools/check-play.js ab         — один курс (vp | ss | ab)
-     node tools/check-play.js peeking    — одна игрушка
+     node tools/check-play.js peeking    — одна игра
    ОШИБКА — сборка не пройдёт (то же проверяет tools/build-play.js). ВНИМАНИЕ — нарушение стандарта текстов
    (/home/claude/play-guide.md, §3): исправить или осознанно оставить. Код выхода 1, если есть ошибки. */
 const {load} = require('./play-data.js');
@@ -44,7 +44,7 @@ for (const t of pick){
     if (SCARE.test(p)) warn(s, `${k}: запугивание? («${p.match(SCARE)[0]}»)`);
     if (COMPANIES.test(p)) warn(s, `${k}: название компании («${p.match(COMPANIES)[0]}») — примеры только из мира кафе; реальный кейс — только общеизвестный, публичный и с источником в src`);
     if (STRAIGHT.test(p)) warn(s, `${k}: прямые кавычки или дефис вместо тире — «ёлочки» и « — »`);
-    if (COURSEREF.test(p)) warn(s, `${k}: отсылка к устройству курса («${p.match(COURSEREF)[0]}») — страница игрушки читается без курса`);
+    if (COURSEREF.test(p)) warn(s, `${k}: отсылка к устройству курса («${p.match(COURSEREF)[0]}») — страница игры читается без курса`);
   }
   if (x.challenge && !/(продакт|аналитик|отчёт|тест|дашборд|метрик|эксперимент|команд|релиз|коллег|A\/B|A\/A)/i.test(plain(x.challenge))) warn(s, 'challenge не про рабочую ситуацию аналитика (нет «тест», «отчёт», «продакт», «метрика»…)');
   if (!t.img) warn(s, 'img пустой — проверь, что промпт для картинки записан в /home/claude/play-image-prompts.md');
@@ -55,7 +55,7 @@ for (const t of pick){
 function cardHtml(html, n){ const parts = html.split(/<section class="card"/); return parts[n] || ''; }
 
 const errs = D.errs.filter(e => !arg || e.includes(arg) || !/→|:/.test(e) || pick.some(t => e.includes(t.slug)));
-console.log(`Игрушек: ${pick.length}${arg ? ' (' + arg + ')' : ''}`);
+console.log(`Игр: ${pick.length}${arg ? ' (' + arg + ')' : ''}`);
 errs.forEach(e => console.log('  ОШИБКА ' + e));
 D.warn.filter(w => !arg || pick.some(t => w.includes(t.slug)) || w.includes('без записи')).forEach(w => console.log('  ВНИМАНИЕ ' + w));
 W.forEach(w => console.log(w));

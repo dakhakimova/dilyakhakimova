@@ -1,5 +1,5 @@
-/* Необязательный скрипт для сайтов, которые встраивают игрушки dilyakhakimova.com через iframe:
-   подгоняет высоту iframe под игрушку (сообщения {type:'toy:h', h} из /play/bridge.js). Без него iframe просто фиксированной высоты. */
+/* Необязательный скрипт для сайтов, которые встраивают игры dilyakhakimova.com через iframe:
+   подгоняет высоту iframe под игру (сообщения {type:'toy:h', h} из /play/bridge.js). Без него iframe просто фиксированной высоты. */
 (function(){
   if (window.__dkPlayEmbed) return; window.__dkPlayEmbed = 1;
   addEventListener('message', e => {

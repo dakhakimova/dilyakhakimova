@@ -18,7 +18,7 @@
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
-  <a class="course" href="./">A/B на пальцах</a>
+  <span class="top-l"><a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="28" height="28" alt=""></a> <a class="course" href="./">A/B на пальцах</a></span>
   <span><a href="./">Оглавление курса</a></span>
 </nav>
 <div class="reader" id="reader">
@@ -80,7 +80,7 @@
 
 <!-- 3 -->
 <section class="card" data-toy="big-order" data-title="Среднее и выбросы" aria-label="Среднее и выбросы">
-  <span class="step-tag">Игрушка</span>
+  <span class="step-tag">Игра</span>
   <h2>Корпоратив в группе B</h2>
   <p>Средний чек — главная метрика многих тестов. Вот маленький тест нового меню: по 20 обычных заказов в группах A и B. Меню на самом деле ничего не меняет. Посчитаем по каждой группе две вещи: <b>среднее</b> (сумма, делённая на число заказов) и <b>медиану</b> (чек ровно посередине, если выстроить заказы от меньшего к большему).</p>
   <p>А теперь в группу B случайно попадает корпоративный заказ на 50 000 ₽. Что покажет отчёт теста?</p>
@@ -109,7 +109,7 @@
 </section>
 
 <section class="card" data-toy="jelly-jar" data-title="Мудрость толпы" aria-label="Мудрость толпы">
-  <span class="step-tag">Игрушка</span>
+  <span class="step-tag">Игра</span>
   <h2>Сколько драже в банке</h2>
   <p>На кассе стоит банка с драже, и Котейка устроил конкурс: кто ближе угадает, сколько их там, получит банку. Угадай и ты.</p>
   <div class="sheet c-white">
@@ -134,7 +134,7 @@
 </section>
 
 <section class="card" data-toy="sample-means" data-title="Средние по выборкам" aria-label="Средние по выборкам">
-  <span class="step-tag">Игрушка</span>
+  <span class="step-tag">Игра</span>
   <h2>Собираем средние</h2>
   <p>Выбери, сколько гостей брать за раз. Каждая выборка даёт одно число — среднее число заказов у этих гостей. Складывай эти числа в гистограмму.</p>
   <div class="sheet c-white">
@@ -192,7 +192,7 @@
 </section>
 
 <section class="card" data-toy="buckets" data-title="Корзины" aria-label="Корзины">
-  <span class="step-tag">Игрушка</span>
+  <span class="step-tag">Игра</span>
   <h2>Как это используют платформы экспериментов</h2>
   <figure class="art"><img loading="lazy" src="img/ab04-02-baskets.jpg" alt="Котейка раскладывает гостей по длинному ряду одинаковых корзин" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Котейка раскладывает гостей по длинному ряду корзин</figcaption></figure>
   <p>В эксперименте одна группа — это один набор гостей, и среднее по ней одно. Как узнать, насколько оно шатается? Многие платформы делают так: раскладывают гостей группы по 256 корзинам тем же хешем от id и считают среднее в каждой корзине. Получается 256 «маленьких экспериментов» сразу.</p>

@@ -1,14 +1,12 @@
 {
- "_doc": "Мини-лаборатории /terms/<slug>/. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игрушки с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игрушка (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js. limToy — игрушка /play/ для блока «Когда метод врёт», если у термина нет своего кадра в tools/terms-viz.js (lim).",
+ "_doc": "Мини-лаборатории /terms/<slug>/. Порядок внутри темы = порядок в хабе. group: prob | stat | ab. toy: slug игры с /play/ (встраивается iframe /play/<slug>/?embed=1) или new:<id> — своя игра (terms/toys.js: tt, mw, chi, ss). cta: главный призыв по стадии — шаг бесплатного курса {course: vp | ss | ab, href, n, title}; waitlist: true — строка «Готовим «A/B без мифов»» (термины A/B). cmp: второй термин сравнения (slug, ссылки в обе стороны) или cmpHref — куда ведёт сравнение, если страницы нет. related — 2–3 связанных термина. demand — частотность запроса в Вордстате (ноябрь 2026). Тексты — i18n/terms.js. limToy — игра /play/ для блока «Когда метод врёт», если у термина нет своего кадра в tools/terms-viz.js (lim).",
  "groups": [
   "prob",
   "stat",
   "ab"
  ],
  "terms": [
-  {
-   "slug": "conditional-probability",
-   "group": "prob",
+  {"slug": "conditional-probability", "published": true, "topic": "Вероятность", "group": "prob",
    "demand": 22456,
    "toy": "sorter",
    "cta": {
@@ -25,9 +23,7 @@
    ],
    "limToy": "many-metrics"
   },
-  {
-   "slug": "bayes-theorem",
-   "group": "prob",
+  {"slug": "bayes-theorem", "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 6169,
    "toy": "bayes-cashbox",
    "cta": {
@@ -43,9 +39,7 @@
     "monty-hall"
    ]
   },
-  {
-   "slug": "monty-hall",
-   "group": "prob",
+  {"slug": "monty-hall", "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 1386,
    "toy": "monty-hall",
    "cta": {
@@ -60,9 +54,7 @@
    ],
    "limToy": "monty-hall"
   },
-  {
-   "slug": "law-of-large-numbers",
-   "group": "prob",
+  {"slug": "law-of-large-numbers", "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 5867,
    "toy": "running-share",
    "cta": {
@@ -78,9 +70,7 @@
     "normal-distribution"
    ]
   },
-  {
-   "slug": "normal-distribution",
-   "group": "prob",
+  {"slug": "normal-distribution", "published": true, "topic": "Вероятность", "group": "prob",
    "demand": 20407,
    "toy": "bell-ruler",
    "cta": {
@@ -96,9 +86,7 @@
     "t-test"
    ]
   },
-  {
-   "slug": "central-limit-theorem",
-   "group": "prob",
+  {"slug": "central-limit-theorem", "published": false, "topic": "Вероятность", "group": "prob",
    "demand": 1071,
    "toy": "sample-means",
    "cta": {
@@ -115,9 +103,7 @@
    ],
    "limToy": "heavy-tail"
   },
-  {
-   "slug": "confidence-interval",
-   "group": "stat",
+  {"slug": "confidence-interval", "published": true, "topic": "Статистика", "group": "stat",
    "demand": 11380,
    "toy": "catch-mu",
    "cta": {
@@ -133,9 +119,7 @@
     "normal-distribution"
    ]
   },
-  {
-   "slug": "p-value",
-   "group": "stat",
+  {"slug": "p-value", "published": true, "topic": "Статистика", "group": "stat",
    "demand": 4709,
    "toy": "null-world",
    "cta": {
@@ -152,9 +136,7 @@
    ],
    "limToy": "peeking"
   },
-  {
-   "slug": "t-test",
-   "group": "stat",
+  {"slug": "t-test", "published": false, "topic": "Статистика", "group": "stat",
    "demand": 9870,
    "toy": "new:tt",
    "cta": {
@@ -171,9 +153,7 @@
     "normal-distribution"
    ]
   },
-  {
-   "slug": "mann-whitney",
-   "group": "stat",
+  {"slug": "mann-whitney", "published": false, "topic": "Статистика", "group": "stat",
    "demand": 7267,
    "toy": "new:mw",
    "cta": {
@@ -190,9 +170,7 @@
     "statistical-significance"
    ]
   },
-  {
-   "slug": "chi-square",
-   "group": "stat",
+  {"slug": "chi-square", "published": false, "topic": "Статистика", "group": "stat",
    "demand": 5907,
    "toy": "new:chi",
    "cta": {
@@ -208,9 +186,7 @@
     "statistical-significance"
    ]
   },
-  {
-   "slug": "survivorship-bias",
-   "group": "stat",
+  {"slug": "survivorship-bias", "published": false, "topic": "Причинность", "group": "stat",
    "demand": 8480,
    "toy": "coin-gurus",
    "cta": {
@@ -226,9 +202,7 @@
    ],
    "limToy": "test-graveyard"
   },
-  {
-   "slug": "regression-to-the-mean",
-   "group": "stat",
+  {"slug": "regression-to-the-mean", "published": false, "topic": "Причинность", "group": "stat",
    "demand": 359,
    "toy": "worst-cafes",
    "cta": {
@@ -245,9 +219,7 @@
    ],
    "limToy": "small-cafe-top"
   },
-  {
-   "slug": "ab-testing",
-   "group": "ab",
+  {"slug": "ab-testing", "published": true, "topic": "A/B", "group": "ab",
    "demand": 20761,
    "toy": "coin-split",
    "cta": {
@@ -265,9 +237,7 @@
    ],
    "limToy": "late-effect"
   },
-  {
-   "slug": "statistical-significance",
-   "group": "ab",
+  {"slug": "statistical-significance", "published": false, "topic": "A/B", "group": "ab",
    "demand": 2973,
    "toy": "tiny-effect",
    "cta": {
@@ -284,9 +254,7 @@
    ],
    "limToy": "twenty-metrics"
   },
-  {
-   "slug": "sample-size",
-   "group": "ab",
+  {"slug": "sample-size", "published": false, "topic": "A/B", "group": "ab",
    "demand": 3049,
    "toy": "new:ss",
    "cta": {
@@ -304,9 +272,7 @@
    ],
    "limToy": "big-order"
   },
-  {
-   "slug": "simpson-paradox",
-   "group": "ab",
+  {"slug": "simpson-paradox", "published": false, "topic": "Причинность", "group": "ab",
    "demand": 478,
    "toy": "simpson-preorder",
    "cta": {

@@ -6,6 +6,7 @@
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
 <title>Формула Байеса простыми словами · Диля Хакимова</title>
 <meta name="description" content="Формула Байеса на примере датчика орехов в десертах: почему тревога точного датчика чаще ложная, чем настоящая, и как это посчитать в штуках.">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dilyakhakimova.com/terms/bayes-theorem/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ru_RU">
@@ -23,25 +24,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611221">
-<link rel="stylesheet" href="/terms/terms.css?v=202611250">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Формула Байеса","item":"https://dilyakhakimova.com/terms/bayes-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term","name":"Формула Байеса","description":"Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с игрушками","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Формула Байеса простыми словами","description":"Формула Байеса на примере датчика орехов в десертах: почему тревога точного датчика чаще ложная, чем настоящая, и как это посчитать в штуках.","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Болезнью болеет 1 % людей. Тест находит 90 % больных, но у 9 % здоровых тоже показывает «болен». Тест положительный. Какова вероятность, что человек болен?","acceptedAnswer":{"@type":"Answer","text":"Из 1000 человек больны 10, тест найдёт 9. Из 990 здоровых ложно положительны около 89. Положительных 9 + 89 = 98, больных среди них 9 — примерно 9 %. По формуле: 0,9 · 0,01 / (0,9 · 0,01 + 0,09 · 0,99) ≈ 0,092."}},{"@type":"Question","name":"В мешке две монеты: честная и с орлами с обеих сторон. Достали одну наугад, бросили — выпал орёл. Какова вероятность, что монета двусторонняя?","acceptedAnswer":{"@type":"Answer","text":"P(орёл | двусторонняя) = 1, P(орёл | честная) = 1/2, априорно обе по 1/2. Ответ: (1 · 1/2) / (1 · 1/2 + 1/2 · 1/2) = 2/3."}}]}]}</script>
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/terms/terms.css?v=202611300">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Формула Байеса","item":"https://dilyakhakimova.com/terms/bayes-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term","name":"Формула Байеса","description":"Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Формула Байеса простыми словами","description":"Формула Байеса на примере датчика орехов в десертах: почему тревога точного датчика чаще ложная, чем настоящая, и как это посчитать в штуках.","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Болезнью болеет 1 % людей. Тест находит 90 % больных, но у 9 % здоровых тоже показывает «болен». Тест положительный. Какова вероятность, что человек болен?","acceptedAnswer":{"@type":"Answer","text":"Из 1000 человек больны 10, тест найдёт 9. Из 990 здоровых ложно положительны около 89. Положительных 9 + 89 = 98, больных среди них 9 — примерно 9 %. По формуле: 0,9 · 0,01 / (0,9 · 0,01 + 0,09 · 0,99) ≈ 0,092."}},{"@type":"Question","name":"В мешке две монеты: честная и с орлами с обеих сторон. Достали одну наугад, бросили — выпал орёл. Какова вероятность, что монета двусторонняя?","acceptedAnswer":{"@type":"Answer","text":"P(орёл | двусторонняя) = 1, P(орёл | честная) = 1/2, априорно обе по 1/2. Ответ: (1 · 1/2) / (1 · 1/2 + 1/2 · 1/2) = 2/3."}}]}]}</script>
 </head>
 <body class="t-page">
 <a class="skip" href="#main">К содержанию</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/">Игры</a>
+    <a href="/terms/" aria-current="page">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
@@ -51,7 +54,7 @@
 </nav>
 
 <main id="main" class="wrap term" data-slug="bayes-theorem"
-  data-share-title="Формула Байеса простыми словами" data-share-text="Формула Байеса простыми словами — с игрушкой и задачей с собеседования:"
+  data-share-title="Формула Байеса простыми словами" data-share-text="Формула Байеса простыми словами — с игрой и задачей с собеседования:"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
@@ -59,7 +62,7 @@
     <p class="t-sub">Как пересчитать веру в причину, когда увидел следствие, — и почему редкая беда почти всегда ложная тревога.</p>
   </header>
   <p class="t-def">Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».</p>
-  <p class="t-not">Здесь — интуиция, игрушка и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A2%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0%20%D0%91%D0%B0%D0%B9%D0%B5%D1%81%D0%B0" rel="noopener">статье «Теорема Байеса» в Википедии ↗</a>.</p>
+  <p class="t-not">Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A2%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0%20%D0%91%D0%B0%D0%B9%D0%B5%D1%81%D0%B0" rel="noopener">статье «Теорема Байеса» в Википедии ↗</a>.</p>
 
   <section class="t-sec" aria-labelledby="strict-h">
     <h2 id="strict-h">Как выглядит формула Байеса и что в ней что?</h2>
@@ -81,11 +84,11 @@
     <h2 id="toy-h">Как проверить формулу Байеса без формулы?</h2>
     <p>Через кассу идёт тысяча купюр, касса ловит 99 % фальшивок. Сначала угадай, какая доля писков — правда фальшивки, потом надень рамку «только писки» и посчитай.</p>
     <div class="stage-frame">
-      <iframe id="toy-frame" src="/play/bayes-cashbox/?embed=1" data-toy="bayes-cashbox" title="Игрушка: Касса пищит. Какая доля писков — правда фальшивки?" style="height:1100px" loading="lazy" allow="clipboard-write"></iframe>
-      <p class="note noframe">Игрушка не загрузилась? <a href="/probability/06-bayes.html#card-2">Открой её в курсе</a>.</p>
+      <iframe id="toy-frame" src="/play/bayes-cashbox/?embed=1" data-toy="bayes-cashbox" title="Игра: Касса пищит. Какая доля писков — правда фальшивки?" style="height:1100px" loading="lazy" allow="clipboard-write"></iframe>
+      <p class="note noframe">Игра не загрузилась? <a href="/probability/06-bayes.html#card-2">Открой её в курсе</a>.</p>
     </div>
-    <p class="note credit">Игрушка из курса «Вероятность на пальцах», шаг 6. <a href="/play/bayes-cashbox/">Отдельная страница игрушки</a>.</p>
-    <h3>Что показывает игрушка</h3>
+    <p class="note credit">Игра из курса «Вероятность на пальцах», шаг 6. <a href="/play/bayes-cashbox/">Отдельная страница игры</a>.</p>
+    <h3>Что показывает игра</h3>
     <p>Когда фальшивок мало, даже точная касса пищит в основном на настоящие купюры: ложные тревоги на огромном поле честных купюр численно перевешивают пойманные фальшивки. Ответ решает не только точность датчика, но и базовая частота — сколько фальшивок вообще бывает.</p>
   </section>
 
@@ -148,11 +151,11 @@
 
   <section class="t-sec" aria-labelledby="rel-h">
     <h2 id="rel-h">Связанные термины</h2>
-    <ul class="toys t-rel" role="list">
-      <li><a href="/terms/conditional-probability/"><b>Условная вероятность</b><span>Как известное событие меняет шансы другого.</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/terms/p-value/"><b>p-value</b><span>Насколько удивителен результат в мире без эффекта.</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/terms/monty-hall/"><b>Парадокс Монти Холла</b><span>Почему после открытой двери выгодно сменить выбор.</span><span class="go">Открыть →</span></a></li>
-      <li><a href="/terms/central-limit-theorem/"><b>Центральная предельная теорема</b><span>Почему средние складываются в колокол.</span><span class="go">Ещё наугад →</span></a></li>
+    <ul class="toys t-rel rel" role="list">
+      <li><a href="/play/sorter/"><span class="kind">Игра</span><b>Дождь меняет шанс, что гость закажет горячий шоколад?</b><span>Сортировочная на 1000 гостей: надень рамку «только дождь» и посмотри, как меняется доля шоколада — и доля десерта.</span><span class="go">Сыграть →</span></a></li>
+      <li><a href="/terms/normal-distribution/"><span class="kind">Термин</span><b>Нормальное распределение</b><span>Колокол, сигмы и правило 68–95–99,7.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/probability/05-conditional.html"><span class="kind">Глава курса</span><b>Условная вероятность и независимость</b><span>«Вероятность на пальцах», шаг 5</span><span class="go">Открыть главу →</span></a></li>
+      <li><a href="/play/twenty-metrics-aa/"><b>Сколько из 20 метрик покраснеют в A/A?</b><span>Отчёт A/A с двадцатью метриками кафе: сколько из них «прокрасится», когда эффекта нет, и что меняется, если метрики связаны.</span><span class="go">Ещё игры наугад →</span></a></li>
     </ul>
   </section>
 
@@ -167,33 +170,47 @@
   <p class="t-author">Автор — Диля Хакимова: математик, аналитик и преподаватель, учит с 2002 года, ведёт открытый интенсив A/B Week в Школе анализа данных. <a href="/about/">Об авторе →</a></p>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2>Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/play/">Игры</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611250"></script>
+<script src="/terms/terms.js?v=202611300"></script>
 </body>
 </html>

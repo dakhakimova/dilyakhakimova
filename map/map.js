@@ -85,7 +85,7 @@ function init(M){
     const c = course[cid], list = M.nodes.filter(n => n.course === cid), lv = M.levels[c.level];
     return `<li class="cc" id="${cid}" style="--course:var(${c.color})">
       <p class="cc-h">${NUM[cid] ? `<span class="cnum" aria-hidden="true">${NUM[cid].n}</span>` : ''}<a href="${c.url}">${NUM[cid] ? `<span class="vh">${NUM[cid].n}. </span>` : ''}${tx(c.title)}</a></p>
-      <p class="chips"><span class="tag ${c.status}">${tx(M.status[c.status])}</span><span class="chip"><span class="lvl l${c.level}" aria-hidden="true"></span>${tx(lv.name)}</span>${NUM[cid] && NUM[cid].optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>
+      <p class="chips"><span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span><span class="chip"><span class="lvl l${c.level}" aria-hidden="true"></span>${tx(lv.name)}</span>${NUM[cid] && NUM[cid].optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>
       ${has('cc.' + cid) ? `<p class="cc-for">${t('cc.' + cid)}</p>` : ''}
       <details class="cc-more"><summary>${t('ui.ccCan', {n: skills(list.length)})}</summary>
         <ul class="cc-sk">${list.map(n => `<li><a href="#${n.id}" data-go="${n.id}">${tx(n.label)}</a></li>`).join('')}</ul>
@@ -141,7 +141,7 @@ function init(M){
   if (pl && FULL) pl.innerHTML = FULL.path.map((p, i) => { const c = course[p.course];
     const pre = c.prereq ? (c.prereq.none ? tx(c.prereq.none) : t('ui.pre.short', {list: tx(c.prereq.know.join('; '))})) : '';
     return `<li style="--course:var(${c.color})"><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a>`
-      + ` <span class="tag ${c.status}">${tx(M.status[c.status])}</span>${p.optional ? ` <span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
+      + ` <span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span>${p.optional ? ` <span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
       + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why ? ' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
       + (pre ? `<p class="pp">${pre}</p>` : '') + `</div></li>`; }).join('');
   const mb = $('mine-btn');
@@ -200,14 +200,14 @@ function init(M){
     const n = node.get(id), c = course[n.course], lv = M.levels[n.level], s = state.get(id);
     sel = id;
     const where = n.steps.map(x => { const st = M.steps[x], ss = stepState(x);
-      return `<li><a href="${st.url}">${tx(st.n)} · ${tx(st.title)}</a>${c.status === 'free' ? (ss === 2 ? ` <span class="tag free">${t('ui.done')}</span>` : ss === 1 ? ` <span class="tag">${t('ui.started')}</span>` : '') : ` <span class="tag ${c.status}">${tx(M.status[c.status])}</span>`}</li>`; }).join('');
+      return `<li><a href="${st.url}">${tx(st.n)} · ${tx(st.title)}</a>${c.status === 'free' ? (ss === 2 ? ` <span class="tag free">${t('ui.done')}</span>` : ss === 1 ? ` <span class="tag">${t('ui.started')}</span>` : '') : ` <span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span>`}</li>`; }).join('');
     const need = ins.get(id), helps = softIn.get(id), opens = outs.get(id);
     let act;
     if (c.status === 'free') act = `<a class="btn" href="${stepUrl(id)}">${t(s === 'done' ? 'ui.repeat' : s === 'started' ? 'ui.continue' : 'ui.start')}</a>`;
     else if (c.status === 'soon') act = `<a class="btn waitlist" href="${c.url}#waitlist">${t('ui.waitlist')}</a>`;
     else act = `<a class="btn ghost" href="${c.url}">${t('ui.laterBtn')}</a>`;
     if (c.status === 'free') act += `<a class="btn ghost" href="${c.url}">${t('ui.toCourse')}</a>`;
-    pbody.innerHTML = `<p class="chips"><span class="tag" style="box-shadow:inset 0 -3px 0 var(${c.color})">${tx(c.title)}</span><span class="tag ${c.status}">${tx(M.status[c.status])}</span>`
+    pbody.innerHTML = `<p class="chips"><span class="tag" style="box-shadow:inset 0 -3px 0 var(${c.color})">${tx(c.title)}</span><span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span>`
       + `<span class="chip"><span class="lvl l${n.level}" aria-hidden="true"></span><span class="vh">${t('ui.levelOf')}: </span>${tx(lv.name)}</span></p>`
       + `<h2 id="p-title" tabindex="-1">${tx(n.title)}</h2>`
       + `<h3>${t('ui.can')}</h3><p class="can">${tx(n.can)}</p>`

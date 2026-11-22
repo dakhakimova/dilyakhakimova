@@ -124,7 +124,7 @@ function init(api){
       + (NUM[cid] ? `<circle class="zn-c" cx="${rects[0][0] + 26}" cy="${rects[0][1] + 26}" r="15"/><text class="zn" x="${rects[0][0] + 26}" y="${rects[0][1] + 32}" text-anchor="middle">${NUM[cid].n}</text>` : '')
       + `<text class="zt" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" y="${rects[0][1] + 24}">${esc(has('metro.zone.' + cid) ? t('metro.zone.' + cid) : typo(c.title))}`
       + `<tspan class="zs" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" dy="16">`
-      + `${esc(typo(M.status[c.status]))} · ${esc(lv(c))}${NUM[cid] && NUM[cid].optional ? ' · ' + esc(t('ui.optional')) : ''}</tspan></text></g>`;
+      + `${esc(typo((c.when || M.status[c.status])))} · ${esc(lv(c))}${NUM[cid] && NUM[cid].optional ? ' · ' + esc(t('ui.optional')) : ''}</tspan></text></g>`;
   });
   // строится
   html += `<g class="plan-ln" aria-hidden="true">` + L.planned.paths.map(p => `<path d="${dstr(p.map(pt))}"/>`).join('') + `</g>`;
@@ -172,7 +172,7 @@ function init(api){
     }
     const nm = sname(id), max = side === 'l' || side === 'r' ? 22 : 15;
     stInfo.set(id, {cx, cy, r, side, lines, later, big});
-    const aria = t('metro.aria', {name: nm, course: c.title, status: M.status[c.status]})
+    const aria = t('metro.aria', {name: nm, course: c.title, status: (c.when || M.status[c.status])})
       + (big ? ' ' + t('metro.ariaMain') : '') + ' ' + t('metro.ariaLines', {list: lines.map(l => t('line.' + l)).join(', ')});
     html += `<g class="st${big ? ' main' : ''}${later ? ' later' : ''}" id="ms-${id}" data-id="${id}" data-lines="${lines.join(' ')}" tabindex="0" role="button" aria-label="${esc(aria)}" aria-controls="panel">`
       + `<circle class="hitc" cx="${cx}" cy="${cy}" r="22"/><circle class="ring" cx="${cx}" cy="${cy}" r="${r + 6}"/>` + mark
@@ -266,7 +266,7 @@ function init(api){
     seq.forEach(([id, later]) => {
       const n = node.get(id), c = course[n.course];
       if (n.course !== prev){
-        out += `<li class="lz z-${c.status}${NUM[c.id] && NUM[c.id].optional && rid === 'full' ? ' opt' : ''}" style="--zc:var(${c.color})">${NUM[c.id] ? `<span class="lz-n">${NUM[c.id].n}</span>` : ''}<span class="lz-t">${esc(typo(c.title))}</span> <span class="lz-s">${esc(typo(M.status[c.status]))} · ${esc(lv(c))}${NUM[c.id] && NUM[c.id].optional ? ' · ' + esc(t('ui.optional')) : ''}</span></li>`;
+        out += `<li class="lz z-${c.status}${NUM[c.id] && NUM[c.id].optional && rid === 'full' ? ' opt' : ''}" style="--zc:var(${c.color})">${NUM[c.id] ? `<span class="lz-n">${NUM[c.id].n}</span>` : ''}<span class="lz-t">${esc(typo(c.title))}</span> <span class="lz-s">${esc(typo((c.when || M.status[c.status])))} · ${esc(lv(c))}${NUM[c.id] && NUM[c.id].optional ? ' · ' + esc(t('ui.optional')) : ''}</span></li>`;
         prev = n.course;
       }
       const others = stops.get(id).filter(l => l !== rid);

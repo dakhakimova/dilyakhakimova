@@ -1,5 +1,5 @@
-/* Страница термина /terms/<slug>/: высота iframe игрушки по сообщениям из /play/bridge.js ({type:'toy:h', h, toy}),
-   ссылка «открой в курсе», если игрушка молчит, и кнопки «Скинуть коллеге» / «Скопировать ссылку».
+/* Страница термина /terms/<slug>/: высота iframe игры по сообщениям из /play/bridge.js ({type:'toy:h', h, toy}),
+   ссылка «открой в курсе», если игра молчит, и кнопки «Скинуть коллеге» / «Скопировать ссылку».
    Строки — из разметки (data-*), их печёт tools/build-terms.js из i18n/terms.js. */
 (function(){
   const main = document.querySelector('main.term'); if (!main) return;
@@ -12,7 +12,7 @@
       alive = true;
       if (e.data.type === 'toy:h') frame.style.height = Math.max(320, Math.min(4000, +e.data.h || 0)) + 'px';
     });
-    // iframe загрузился, но молчит 8 секунд — показываем ссылку на игрушку в курсе
+    // iframe загрузился, но молчит 8 секунд — показываем ссылку на игру в курсе
     frame.addEventListener('load', () => setTimeout(() => { if (!alive) frame.parentNode.classList.add('broken'); }, 8000));
   }
   const st = main.querySelector('.t-share [role=status]');

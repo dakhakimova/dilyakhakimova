@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/* Статичные OG-картинки игрушек: play/og/<slug>.png (1200×630) — вопрос + кадр игрушки; play/og/index.png — каталог.
-   Кадр снимается с самой игрушки (по slug) в соло-режиме главы: холст игрушки, без холста — её лист или карточка целиком.
+/* Статичные OG-картинки игр: play/og/<slug>.png (1200×630) — вопрос + кадр игры; play/og/index.png — каталог.
+   Кадр снимается с самой игры (по slug) в соло-режиме главы: холст игры, без холста — её лист или карточка целиком.
    Снимаем до первого действия, чтобы превью не выдавало ответ; если холст до действия пуст — после шагов act из json. Серверной генерации нет:
-   запускается руками после правки игрушки или вопроса, PNG кладутся в репозиторий. Сервер поднимается сам (tools/play-serve.js).
-     NODE_PATH=$(npm root -g) node tools/og-play.js [slug …]      — только эти игрушки (каталог index.png не трогается)
+   запускается руками после правки игры или вопроса, PNG кладутся в репозиторий. Сервер поднимается сам (tools/play-serve.js).
+     NODE_PATH=$(npm root -g) node tools/og-play.js [slug …]      — только эти игры (каталог index.png не трогается)
      NODE_PATH=$(npm root -g) node tools/og-play.js               — все и каталог
    Шрифты (Literata, Onest) берутся с Google Fonts — без доступа к ним картинка выйдет с запасными шрифтами. */
 const {chromium} = require('playwright');
@@ -14,10 +14,10 @@ const D = load('ru'), RU = D.I18N.ru, t = k => D.I18N.typo('ru', RU[k]), X = (s,
 const cfg = {toys: D.toys};
 const only = process.argv.slice(2);
 const LV = {1: '#0E7E5F', 2: '#D7A928', 3: '#C9413A'};
-const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Onest:wght@400;600&display=swap" rel="stylesheet">';
+const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">';
 // без доступа к Google Fonts — локальные шрифты из npm-пакетов @fontsource-variable/literata и /onest (если установлены:
 // npm i @fontsource-variable/literata @fontsource-variable/onest; ищутся в NODE_PATH и в OG_FONTS); ими же подменяется
-// запрос шрифтов в главе, чтобы подписи на холсте игрушки тоже были Onest
+// запрос шрифтов в главе, чтобы подписи на холсте игры тоже были Onest
 const LOCAL_FONTS = (() => {
   const dirs = [...(process.env.NODE_PATH || '').split(':'), process.env.OG_FONTS || '', '/tmp/fnt/node_modules'].filter(Boolean);
   const css = [];
@@ -42,7 +42,7 @@ const BASE = `*{box-sizing:border-box} body{margin:0; width:1200px; height:630px
     if (LOCAL_FONTS) await p.route(/fonts\.googleapis\.com\/css2/, r => r.fulfill({contentType: 'text/css', body: LOCAL_FONTS}));
     await p.goto(`${HOST}${toy.src}?toy=${toy.slug}`); await p.waitForTimeout(1200);
     const card = `.card[data-toy~="${toy.slug}"]`;
-    // кадр — с холста своей игрушки (первый видимый крупнее 50×50), а без холста — первый лист карточки или вся карточка
+    // кадр — с холста своей игры (первый видимый крупнее 50×50), а без холста — первый лист карточки или вся карточка
     const pick = async () => { for (const c of await p.$$(card + ' canvas')){ const bb = await c.boundingBox(); if (bb && bb.width > 50 && bb.height > 50) return c; }
       for (const sh of await p.$$(card + ' .sheet')) if (await sh.isVisible()) return sh; return p.$(card); };
     // доля цветных (насыщенных) пикселей — есть ли на холсте данные, а не только оси

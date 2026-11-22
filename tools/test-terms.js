@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Headless-проверка мини-лабораторий /terms/ (Playwright) на ширине 1200 и 375:
-   нет ошибок консоли (страница и iframe), нет горизонтальной прокрутки, игрушка в iframe ответила высотой,
-   своя игрушка (terms/toys.js) после прогноза и главной кнопки показывает вердикт, все кнопки игрушки нажимаются без ошибок;
+   нет ошибок консоли (страница и iframe), нет горизонтальной прокрутки, игра в iframe ответила высотой,
+   своя игра (terms/toys.js) после прогноза и главной кнопки показывает вердикт, все кнопки игры нажимаются без ошибок;
    ответы задач лежат в HTML; title ≤ 65; есть canonical; общий текст страниц не больше трети (правка 6 из terms-fixes).
      NODE_PATH=$(npm root -g) node tools/test-terms.js [slug …] [--base http://127.0.0.1:8000] [--shots папка --only hub,slug,…]
    Без --base сервер поднимается сам (tools/play-serve.js). */
@@ -53,7 +53,7 @@ function boiler(){
           // в iframe — соло-режим главы с noindex
           const fc = fr && await fr.contentFrame();
           if (fc){ const ni = await fc.$('meta[name=robots][content*=noindex]'); if (!ni) errs.push(`${tag}: в соло-режиме нет noindex`);
-            const vis = await fc.$$eval('.card', c => c.filter(x => getComputedStyle(x).display !== 'none').length); if (!vis) errs.push(`${tag}: в iframe не видно игрушки`); }
+            const vis = await fc.$$eval('.card', c => c.filter(x => getComputedStyle(x).display !== 'none').length); if (!vis) errs.push(`${tag}: в iframe не видно игры`); }
           console.log(`${tag}: iframe ${h0} → ${st.h}`);
         }
         const own = await p.$('.t-toy');
@@ -61,11 +61,11 @@ function boiler(){
           await own.scrollIntoViewIfNeeded();
           await p.click('.t-toy .choice button[data-v="0"]');
           await p.click('.t-toy .t-ctl .btn:not(.ghost)'); await p.waitForTimeout(1200);
-          if (!(await p.isVisible('.t-toy .verdict'))) errs.push(`${tag}: своя игрушка — нет вердикта`);
+          if (!(await p.isVisible('.t-toy .verdict'))) errs.push(`${tag}: своя игра — нет вердикта`);
           if (!(await p.$('.t-toy .choice.done [data-right]'))) errs.push(`${tag}: не подсвечен верный прогноз`);
           for (const g of await p.$$('.t-toy .btn.ghost, .t-toy .seg button')) { await g.click(); await p.waitForTimeout(150); }
           await p.click('.t-toy .t-ctl .btn:not(.ghost)'); await p.waitForTimeout(1200);
-          console.log(`${tag}: своя игрушка — ${(await p.textContent('.t-toy .verdict')).slice(0, 90)}`);
+          console.log(`${tag}: своя игра — ${(await p.textContent('.t-toy .verdict')).slice(0, 90)}`);
         }
         const faq = await p.$$eval('details.t-faq p', d => d.map(x => x.textContent.length));
         if (faq.length < 2 || faq.some(n => n < 20)) errs.push(`${tag}: ответы задач не в HTML`);

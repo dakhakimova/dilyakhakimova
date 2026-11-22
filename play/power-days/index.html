@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/08-errors.html?toy=power-days" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<title>Тест длиннее — что уменьшится: ложные тревоги или пропуски? · Игрушки · Диля Хакимова</title>
+<meta name="robots" content="noindex, follow">
+<title>Тест длиннее — что уменьшится: ложные тревоги или пропуски? · симулятор · Диля Хакимова</title>
 <meta name="description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3 % и доля ложных тревог.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/power-days/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/power-days/">
-<meta property="og:title" content="Тест длиннее — что уменьшится: ложные тревоги или пропуски? · Игрушки · Диля Хакимова">
+<meta property="og:title" content="Тест длиннее — что уменьшится: ложные тревоги или пропуски? · симулятор · Диля Хакимова">
 <meta property="og:description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3 % и доля ложных тревог.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/power-days.png">
 <meta property="og:image:width" content="1200">
@@ -24,28 +25,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611250">
-<link rel="stylesheet" href="/home.css?v=202611250">
-<link rel="stylesheet" href="/play/play.css?v=202611250">
+<link rel="stylesheet" href="/tokens.css?v=202611300">
+<link rel="stylesheet" href="/home.css?v=202611300">
+<link rel="stylesheet" href="/play/play.css?v=202611300">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="top wrap">
-  <div class="brand">
-    <a class="logo" href="/"><i>Диля</i> Хакимова</a>
-    <p class="tagline">Вероятность, статистика и A/B — на игрушках и задачах</p>
-  </div>
-  <nav aria-label="Разделы сайта">
-    <a href="/#courses">Курсы</a>
-    <a href="/play/" aria-current="page">Игрушки</a>
-    <a href="/#read">Статьи</a>
-    <a href="/about/">Об авторе</a>
+<header class="top wrap" data-chrome>
+  <a class="kot-home" href="/" aria-label="На главную"><img src="/img/kot.svg" width="30" height="30" alt=""></a>
+  <p class="tagline">Вероятность, статистика и A/B — в играх и задачах</p>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/">Курсы</a>
+    <a href="/play/" aria-current="page">Игры</a>
+    <a href="/terms/">Словарь</a>
+    <a href="/shelf/">Полка</a>
+    <a class="login" href="/account.html">Войти</a>
+    <a class="btn ghost start-btn" href="/start/">С чего начать</a>
   </nav>
 </header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 
 <nav class="crumbs wrap" aria-label="Где ты на сайте">
   <ol>
-    <li><a href="/play/">Игрушки</a></li>
+    <li><a href="/play/">Игры</a></li>
     <li><span aria-current="page">Тест длиннее — что уменьшится: ложные тревоги или пропуски?</span></li>
   </ol>
 </nav>
@@ -53,7 +56,7 @@
 <main id="main" class="wrap play" data-toy="power-days" data-frame="/ab-basics/08-errors.html?toy=power-days"
   data-share-title="Тест длиннее — что уменьшится: ложные тревоги или пропуски?" data-share-text="Продакт хочет держать A/B-тест неделю «для скорости». Если фича даёт +3 % к конверсии, как часто такой тест её заметит? Угадай — и подвигай длину теста"
   data-s-copied="Ссылка скопирована" data-s-copied-msg="Сообщение со ссылкой скопировано — вставь в чат">
-  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="power-days" data-show-from="0" hidden></span></p>
+  <p class="chips"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Новичок</span></span><a class="tag" href="/ab-basics/">из курса «A/B на пальцах»</a><span class="play-count" data-count-for="power-days" data-show-from="0" hidden></span></p>
   <h1>Тест длиннее — что уменьшится: ложные тревоги или пропуски?</h1>
 
   <div class="chat" role="group" aria-label="Сцена">
@@ -70,8 +73,8 @@
   </section>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=power-days" title="Игрушка: Тест длиннее — что уменьшится: ложные тревоги или пропуски?" style="height:700px" allow="clipboard-write"></iframe>
-    <p class="note noframe">Игрушка не загрузилась? <a href="/ab-basics/08-errors.html#card-5">Открой её в курсе</a>.</p>
+    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=power-days" title="Игра: Тест длиннее — что уменьшится: ложные тревоги или пропуски?" style="height:700px" allow="clipboard-write"></iframe>
+    <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/08-errors.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
   <section class="play-try" aria-labelledby="try-h">
@@ -81,7 +84,7 @@
 
   <section class="play-out" aria-labelledby="out-h" aria-live="polite">
     <h2 id="out-h">Что получилось</h2>
-    <p class="locked">Вывод откроется, когда покрутишь игрушку.</p>
+    <p class="locked">Вывод откроется, когда покрутишь игру.</p>
     <div class="reveal" hidden>
       <p>Ложных тревог при любой длине 5 %: их задаёт порог, а не трафик. А шанс заметить настоящие +3 % растёт с длиной: за 1 день — 11 %, за неделю — 46 %, за две — 75 %, за три — 90 %, за четыре — 96 %. Этот шанс называют мощностью теста. Обычно хотят мощность хотя бы 80 %: неделя этого не даёт, три недели дают с запасом.</p>
       <h3>Шпаргалка</h3>
@@ -98,12 +101,12 @@
     </div>
     <details class="embed">
       <summary>Вставить в статью или на сайт</summary>
-      <p class="note">Код iframe: игрушка подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
+      <p class="note">Код iframe: игра подстроит высоту сама, если подключить и скрипт. На Хабре iframe не работает — там вставь GIF или картинку и ссылку на эту страницу.</p>
       <textarea readonly rows="4" spellcheck="false" aria-label="Вставить в статью или на сайт"></textarea>
     </details>
   </section>
 
-  <p class="play-src"><b>Откуда идея.</b> Мощность теста — классика планирования экспериментов. Эксперименты в игрушке смоделированы.</p>
+  <p class="play-src"><b>Откуда идея.</b> Мощность теста — классика планирования экспериментов. Эксперименты в игре смоделированы.</p>
 
   <section class="play-next" aria-labelledby="next-h">
     <h2 id="next-h">Дальше в курсе</h2>
@@ -113,42 +116,56 @@
   </section>
 
   <section class="play-more" aria-labelledby="more-h">
-    <h2 id="more-h">Ещё игрушки</h2>
-    <ul class="toys" role="list">
-      <li><a href="/play/true-wins/"><span class="chip"><span class="lvl l2" aria-hidden="true"></span><span class="vh">Уровень </span><span>Средний</span></span><b>Тесты мощные, а хороших идей — каждая двадцатая. Можно верить победам?</b><span>Тысяча идей без отбора и чувствительные тесты: раскладываем по исходам и смотрим, что сильнее поднимает долю настоящих побед — тесты или идеи.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="true-wins" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/strict-judge/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Порог 20 % вместо 5 % — и хорошее не пропустим. В чём подвох?</b><span>Порог «значимо» как строгость судьи: двигай его и смотри, сколько пустых идей «осудим» и сколько хороших «отпустим».</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="strict-judge" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li>
-      <li><a href="/play/hundred-tests/"><span class="chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh">Уровень </span><span>Начальный</span></span><b>Серый тест — закрыть идею навсегда? Сколько хороших так выбросим?</b><span>Сто идей, из них 20 с настоящим эффектом +3 %: недельные тесты, правило «не значимо — закрываем» и правда, которая показывает, сколько хорошего ушло в корзину.</span><small>из курса «A/B на пальцах», шаг 8</small><span class="play-count" data-count-for="hundred-tests" data-show-from="0" hidden></span><span class="go">Играть →</span></a></li></ul>
+    <h2 id="more-h">Ещё по теме</h2>
+    <ul class="toys rel" role="list">
+      <li><a href="/play/peeking/"><span class="kind">Игра</span><b>Остановишь тест в первый же «значимый» день?</b><span>Тридцать утр с отчётом: что будет, если смотреть на A/A-тест каждый день и выкатывать при первом «значимо».</span><span class="go">Сыграть →</span></a></li>
+      <li><a href="/terms/ab-testing/"><span class="kind">Термин</span><b>A/B-тестирование</b><span>Монетка делит пользователей — разница говорит об эффекте.</span><span class="go">Открыть →</span></a></li>
+      <li><a href="/ab-basics/07-p-value.html"><span class="kind">Глава курса</span><b>p-value на пальцах</b><span>«A/B на пальцах», шаг 7</span><span class="go">Открыть главу →</span></a></li>
+      <li><a href="/books/kohavi-trustworthy/"><span class="kind">Книга</span><b>«Доверительное A/B-тестирование»</b><span>Рон Кохави, Диана Тан, Я Сюй — разбор «Котейка читает»</span><span class="go">Читать разбор →</span></a></li></ul>
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" data-chrome>
   <div class="wrap foot-grid">
     <div>
       <h2>Курсы</h2>
       <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро — зима 2027 · <a href="/stats/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро — зима 2027 · <a href="/ab/#waitlist">лист ожидания</a></span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">позже</span></li>
+        <li><a href="/probability/">Вероятность на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/signal/">Сигнал или шум</a><span class="note">бесплатно</span></li>
+        <li><a href="/ab-basics/">A/B на пальцах</a><span class="note">бесплатно</span></li>
+        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">весна 2027</span></li>
+        <li><a href="/ab/">A/B без мифов</a><span class="note">ранний доступ в конце января</span></li>
+        <li><a href="/causal/">Causal inference</a><span class="note">в планах</span></li>
       </ul>
     </div>
     <div>
-      <h2>Ещё</h2>
+      <h2>Разделы</h2>
       <ul role="list">
-        <li><a href="/play/">Все игрушки</a></li>
+        <li><a href="/play/">Игры</a></li>
         <li><a href="/terms/">Словарь аналитика</a></li>
-        <li><a href="/books/">Котейка читает</a></li>
-        <li><a href="https://habr.com/ru/companies/yandex/articles/919966/">10 мифов об A/B-тестировании (Хабр)</a></li>
-        <li><a href="/about/">Об авторе</a></li>
+        <li><a href="/shelf/">Полка</a></li>
+        <li><a href="/map/">Карта навыков</a></li>
+        <li><a href="/start/">С чего начать</a></li>
         <li><a href="/account.html">Мой прогресс</a></li>
       </ul>
     </div>
-    <p class="copy">© 2026 Диля Хакимова · Белград</p>
+    <div>
+      <h2>Автор</h2>
+      <ul role="list">
+        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
+        <li><a href="https://github.com/dakhakimova">GitHub</a></li>
+        <li hidden><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+    <aside class="announce foot-ann" aria-label="Анонс курса «A/B без мифов»">
+  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: ранний доступ в конце января, 3 490 ₽</p>
+  <p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на данных и со сверкой с эталоном.</p>
+  <p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о старте</a></p>
+</aside>
+    <p class="copy">© 2026 Диля Хакимова · Белград</p>
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611250"></script>
+<script src="/play/play.js?v=202611300"></script>
 </body>
 </html>
