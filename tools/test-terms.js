@@ -42,7 +42,8 @@ function boiler(){
       await p.goto(url, {waitUntil: 'load'});
       const title = await p.title(); if (title.length > 65) errs.push(`${tag}: title ${title.length}`);
       if (!(await p.$('link[rel=canonical]'))) errs.push(`${tag}: нет canonical`);
-      if (await p.$('meta[name=robots][content*=noindex]')) errs.push(`${tag}: noindex`);
+      const pubd = !s || (cfg.terms.find(t => t.slug === s) || {}).published; const ni = await p.$('meta[name=robots][content*=noindex]');
+      if (pubd && ni) errs.push(`${tag}: noindex`); if (!pubd && !ni) errs.push(`${tag}: не опубликован, а noindex нет`);
       if (s){
         const fr = await p.$('#toy-frame');
         if (fr){

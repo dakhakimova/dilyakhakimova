@@ -77,7 +77,8 @@ function footer(){
 
 // заменить шапку и футер на странице; current — ключ рубрики
 function stamp(html, current){
-  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?/, header(current));
+  const cls = (html.match(/<header class="(top[^"]*)"/) || [])[1] || 'top wrap';
+  html = html.replace(/<header class="top[^"]*"[^>]*>[\s\S]*?<\/header>(\s*<script>\(function\(\)\{var h=document\.currentScript[\s\S]*?<\/script>)?/, () => header(current).replace('<header class="top wrap"', `<header class="${cls}"`));
   if (/<footer class="foot"/.test(html)) html = html.replace(/<footer class="foot"[^>]*>[\s\S]*?<\/footer>/, footer());
   else html = html.replace(/<\/main>/, '</main>\n' + footer());
   return html;
