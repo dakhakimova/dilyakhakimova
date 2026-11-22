@@ -27,7 +27,9 @@ const skills = n => n + ' ' + ((SKILLS[LANG] || SKILLS.ru)[PR.select(n)] || (SKI
 const $ = id => document.getElementById(id);
 
 const src = new URL('skills.json', document.currentScript.src);
-fetch(src).then(r => r.json()).then(init).catch(e => { console.error('map: не загрузилась карта', e); });
+// время прохождения бесплатных курсов (hours) — из courses/courses.json, одно место на сайт; курс — по адресу (url = href)
+const HOURS = fetch('/courses/courses.json').then(r => r.json()).then(d => Object.fromEntries(d.courses.filter(c => c.hours).map(c => [c.href, c.hours]))).catch(() => ({}));
+Promise.all([fetch(src).then(r => r.json()), HOURS]).then(([M, H]) => { M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; }); init(M); }).catch(e => { console.error('map: не загрузилась карта', e); });
 
 // личный маршрут из «Подобрать маршрут» (/start/, start/start.js): цель, старт, знакомые навыки, личная линия по курсам
 const PLAN = (() => { try { const v = JSON.parse(localStorage.getItem('start:plan') || 'null'); return v && v.v === 1 && v.res ? v.res : null; } catch (e) { return null; } })();
@@ -145,7 +147,7 @@ function init(M){
   if (pl && FULL) pl.innerHTML = FULL.path.map((p, i) => { const c = course[p.course];
     const pre = c.prereq ? (c.prereq.none ? tx(c.prereq.none) : t('ui.pre.short', {list: tx(c.prereq.know.join('; '))})) : '';
     return `<li${lastFree >= 0 && i >= lastFree ? ' class="dim"' : ''}><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a></p>`
-      + `<p class="chips">${c.status !== 'free' ? `<span class="price"><b>${t('price.paid')}</b></span>` : ''}<span class="tag ${c.status}">${tx(pathTag(c.status))}</span>${p.optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
+      + `<p class="chips">${c.status !== 'free' ? `<span class="price"><b>${t('price.paid')}</b></span>` : ''}<span class="tag ${c.status}">${tx(pathTag(c.status))}</span>${c.status === 'free' && c.hours ? `<span class="tag">${esc(c.hours).replace(/ /g, '&nbsp;')}</span>` : ''}${p.optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
       + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why && !p.quiet ?' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
       + (pre ? `<p class="pp">${pre}</p>` : '') + `</div></li>`; }).join('');
   const mb = $('mine-btn');

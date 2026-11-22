@@ -59,7 +59,7 @@ function courses(){
   const card = (c, i) => `
     <li class="course${c.faded ? ' faded' : ''}" id="c-${c.id}">
       <figure class="art"><img src="${c.img}" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" alt="${esc(c.alt)}" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-      <p class="chips"><span class="tag ${c.tag}">${nb(c.status)}</span>${chip(c.level)}</p>
+      <p class="chips"><span class="tag ${c.tag}">${nb(c.status)}</span>${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}</p>
       <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
       <p class="line">${nb(c.line)}</p>
       <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd>${c.price ? `<dt>Цена</dt><dd>${nb(c.price)}</dd>` : ''}</dl>

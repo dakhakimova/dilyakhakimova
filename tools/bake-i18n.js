@@ -27,6 +27,12 @@ function loadDicts(files){
 const numFormat = (lang, o = {}, from = 4) => { if (lang !== 'ru') return new Intl.NumberFormat(lang, o);
   const f = new Intl.NumberFormat('en-US', Object.assign({}, o, {useGrouping: false}));
   return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d+)/, (_, a, d) => a + (d.length >= from ? d.replace(/\B(?=(\d{3})+$)/g, '\u00a0') : d))}; };
+// Метка примерного времени прохождения бесплатного курса — поле hours в courses/courses.json (одно место на сайт).
+// Разметка: <span class="tag" data-hours="<id курса>"></span> — содержимое вписывается при сборке, пробелы неразрывные.
+const HOURS = Object.fromEntries(JSON.parse(fs.readFileSync(path.join(ROOT, 'courses/courses.json'), 'utf8')).courses.filter(c => c.hours).map(c => [c.id, c.hours]));
+const fillHours = (page, html) => html.replace(/(<span\b[^>]*\sdata-hours="([\w-]+)"[^>]*>)[^<]*(<\/span>)/g, (_, a, id, b) => {
+  if (!HOURS[id]) throw new Error(page + ': нет hours у курса ' + id + ' в courses/courses.json');
+  return a + HOURS[id].replace(/ /g, '&nbsp;') + b; });
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function bake(page){
@@ -69,6 +75,7 @@ function bake(page){
     pos = end; open.lastIndex = end;
   }
   html = out + html.slice(pos);
+  html = fillHours(page, html);
 
   if (missing.size) console.warn(page + ': нет в русском словаре:', [...missing].join(', '));
   const dest = target ? path.join(ROOT, target, page) : path.join(ROOT, page);
@@ -87,7 +94,7 @@ function typoOnly(page){
   const file = path.join(ROOT, page);
   const html = fs.readFileSync(file, 'utf8');
   let n = 0;
-  const res = html.replace(/<!-- typo -->([\s\S]*?)<!-- \/typo -->/g, (_, body) => { n++; return '<!-- typo -->' + I18N.typo('ru', body) + '<!-- /typo -->'; });
+  const res = fillHours(page, html).replace(/<!-- typo -->([\s\S]*?)<!-- \/typo -->/g, (_, body) => { n++; return '<!-- typo -->' + I18N.typo('ru', body) + '<!-- /typo -->'; });
   fs.writeFileSync(file, res);
   console.log('typo:', page, n, n === 1 ? 'кусок' : 'куска(ов)');
 }

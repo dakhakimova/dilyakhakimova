@@ -98,9 +98,9 @@
 @media (max-width:1023px){ .plans{grid-template-columns:1fr 1fr} }
 @media (max-width:620px){ .plans{grid-template-columns:1fr} }
 
-/* ---------- иллюстрация над схемой (map/img/street.jpg, 16:9) ---------- */
+/* ---------- иллюстрация над схемой (map/img/street.jpg, 16:9): шириной в текстовую колонку (--measure-media), по левому краю вровень с заголовком ---------- */
 .m-street{margin-top:var(--s-6)}
-.m-street img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:var(--r-l); box-shadow:var(--sh-1); background:var(--sunk)}
+.m-street img{display:block; width:100%; max-width:var(--measure-media, 36em); height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:var(--r-l); box-shadow:var(--sh-1); background:var(--sunk)}
 
 /* ---------- схема метро ---------- */
 .m-metro{padding-top:var(--s-7)}

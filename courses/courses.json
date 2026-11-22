@@ -1,9 +1,10 @@
 {
- "_doc": "Курсы сайта по порядку «Весь путь». Единственное место для каталога /courses/ и списка курсов в футере (tools/chrome.js, tools/build-site.js). published:false — курс не показывается нигде в навигации. topic: Вероятность · Статистика · A/B · Причинность · Решения; level: 1 Начальный · 2 Средний · 3 Продвинутый. faded:true — курс «в планах»: карточка и страница в приглушённом виде («выцветший снимок»), без кнопок записи.",
+ "_doc": "Курсы сайта по порядку «Весь путь». Единственное место для каталога /courses/ и списка курсов в футере (tools/chrome.js, tools/build-site.js). published:false — курс не показывается нигде в навигации. topic: Вероятность · Статистика · A/B · Причинность · Решения; level: 1 Начальный · 2 Средний · 3 Продвинутый. hours — метка примерного времени прохождения («≈ 6 часов»), только у бесплатных курсов; одно место для главной, /courses/, /map/ и первых экранов курсов (вписывает node tools/bake-i18n.js, на /map/ читает map/map.js). faded:true — курс «позже»: карточка и страница в приглушённом виде («выцветший снимок»), без кнопок записи.",
  "courses": [
   {
    "id": "vp",
    "published": true,
+   "hours": "≈ 6 часов",
    "name": "Вероятность на пальцах",
    "href": "/probability/",
    "start": "/probability/01-outcomes.html",
@@ -19,6 +20,7 @@
   {
    "id": "ss",
    "published": true,
+   "hours": "≈ 6 часов",
    "name": "Сигнал или шум",
    "href": "/signal/",
    "start": "/signal/01-probability.html",
@@ -34,6 +36,7 @@
   {
    "id": "ab",
    "published": true,
+   "hours": "≈ 7 часов",
    "name": "A/B на пальцах",
    "href": "/ab-basics/",
    "start": "/ab-basics/01-before-after.html",
@@ -51,7 +54,7 @@
    "published": true,
    "name": "Прикладная статистика для аналитика",
    "href": "/stats/",
-   "status": "весна 2027",
+   "status": "скоро",
    "tag": "soon",
    "level": 2,
    "topic": "Статистика",
@@ -81,7 +84,7 @@
    "published": true,
    "name": "Causal inference",
    "href": "/causal/",
-   "status": "в планах",
+   "status": "позже",
    "tag": "later",
    "level": 3,
    "topic": "Причинность",
