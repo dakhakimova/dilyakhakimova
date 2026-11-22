@@ -15,7 +15,10 @@
 .c-hero{display:grid; grid-template-columns:1fr 1fr; gap:var(--s-7); align-items:center; padding-top:var(--s-4); padding-bottom:var(--s-2)}
 .c-hero h1{font-size:var(--fs-h1); line-height:1.06}
 .c-hero .sub{margin-top:var(--s-4)}
-.c-hero .chips{margin:0 0 var(--s-5)}
+.c-hero .chips{margin:0 0 var(--s-5); align-items:center}
+/* цена на первом экране платного курса — как на карточках главной: одна строка рядом с метками (константа price.paid) */
+.c-hero .price{font:500 var(--fs-m)/1.4 var(--body); font-variant-numeric:tabular-nums; color:var(--text-1); margin-right:var(--s-1)}
+.c-hero .c-promo{font-size:var(--fs-xs); color:var(--text-3); margin:calc(-1 * var(--s-4)) 0 var(--s-5); max-width:34em}
 .c-hero .facts{font-size:var(--fs-s); color:var(--muted); margin:var(--s-4) 0 0; max-width:34em}
 .c-hero .art{box-shadow:var(--sh-3)}
 .c-hero .h1-sub{font:400 var(--fs-l)/1.35 var(--serif); color:var(--warm-700); margin:var(--s-2) 0 0}
