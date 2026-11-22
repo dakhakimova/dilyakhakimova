@@ -101,9 +101,11 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   // «Почему так» — одно решение пронумерованными шагами (решение Дили, 22.11.2026): у шага заголовок 500 и 1–2 фразы,
   // формула отдельной строкой без переноса (общий вид → подстановка → результат), таблица значений — компактная.
   // Если в тексте игры нет поля solution, шаги собираются из out, intuition/right и cheat — без отдельных блоков.
-  const formula = f => `<p class="formula">${typo(f).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')}</p>`;
+  // **результат** — вес 500 (<b>) в абзаце, формуле, списке и строке после формулы
+  const bold = s => typo(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  const formula = f => `<p class="formula">${bold(f)}</p>`;
   const stepHtml = st => `
-        <li><b class="st-h">${typo(st.h)}.</b> ${st.p ? typo(st.p).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') : ''}${st.list ? `<ul>${st.list.map(li => `<li>${typo(li)}</li>`).join('')}</ul>` : ''}${(st.f || []).map(formula).join('')}${st.after ? ' ' + typo(st.after) : ''}${st.table ? `
+        <li><b class="st-h">${typo(st.h)}.</b> ${st.p ? bold(st.p) : ''}${st.list ? `<ul>${st.list.map(li => `<li>${bold(li)}</li>`).join('')}</ul>` : ''}${(st.f || []).map(formula).join('')}${st.after ? ' ' + bold(st.after) : ''}${st.table ? `
           <table class="table sol-table"><thead><tr>${st.table[0].map((c, i) => `<th${i ? ' class="num"' : ''}>${typo(c)}</th>`).join('')}</tr></thead><tbody>${st.table.slice(1).map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="num"' : ''}>${typo(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : ''}</li>`;
   const solutionHtml = (s, x) => {
     let steps = x.solution;
