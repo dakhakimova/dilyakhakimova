@@ -18,7 +18,8 @@
 .crumbs a{color:var(--muted); text-decoration-color:rgba(36,34,31,.25); padding:var(--s-2) 0; display:inline-block}
 
 /* ---------- страница термина ---------- */
-.term{max-width:860px; padding-top:var(--s-6)}
+/* одна колонка 36em по центру: текст, формулы, схемы и игра не шире колонки (пара 109a) */
+.term{max-width:calc(var(--measure) + 2 * var(--s-6)); padding-top:var(--s-6)}
 .term > *{max-width:100%}
 .t-hero h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:0 0 var(--s-5); max-width:18em}
 .t-sub{font:400 var(--t-20)/1.5 var(--serif); color:var(--text-2); max-width:30em; margin:0 0 var(--s-6)}
@@ -42,7 +43,7 @@
 .t-read .lbl{font-weight:500}
 
 /* диалог героев — как на /play/ */
-.chat{display:flex; flex-direction:column; gap:var(--s-3); margin:var(--s-5) 0; max-width:720px}
+.chat{display:flex; flex-direction:column; gap:var(--s-3); margin:var(--s-5) 0}
 .msg{display:flex; align-items:flex-end; gap:var(--s-3); max-width:88%}
 .msg .ava{width:44px; height:44px; flex:none; border-radius:var(--r-pill); object-fit:cover; background:#E6EEF8; box-shadow:0 0 0 2px var(--surface)}
 .msg .bubble{border-radius:18px 18px 18px 4px; padding:9px 14px 10px; background:#F3F1EC; box-shadow:var(--sh-1)}
@@ -78,7 +79,7 @@
 .t-table-wrap{overflow-x:auto; margin:var(--s-2) 0 var(--s-4); background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1)}
 .t-table{border-collapse:collapse; width:100%; font-size:var(--fs-s); line-height:1.45}
 .t-table th, .t-table td{padding:var(--s-3) var(--s-4); text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
-.t-table thead th{font-size:var(--fs-xs); font-weight:500; color:var(--text-3); background:var(--sunk)}
+.t-table thead th{font-size:.875rem; font-weight:500; color:var(--text-3); background:var(--sunk)}
 .t-table tbody th{font-weight:400; color:var(--text-3); width:26%}
 .t-table tr:last-child > *{border-bottom:0}
 .t-pick{font:400 var(--fs-m)/1.5 var(--serif)}
@@ -93,11 +94,8 @@
 .t-faq[open] .show{display:none}
 .t-faq p{margin:0; padding:0 var(--s-5) var(--s-4)}
 
-/* курс, связанные, поделиться, автор */
-.t-cta{padding-top:var(--s-5); border-top:1px solid rgba(36,34,31,.1)}
-.t-cta .ctas{margin:var(--s-5) 0 var(--s-3)}
-.t-wait{font-size:var(--fs-s); color:var(--text-2)}
-.t-rel{grid-template-columns:repeat(2, 1fr)}
+/* где это в курсе и связанные — тонкими строками (пара 43), поделиться, автор */
+.t-next p{margin:0 0 var(--s-2)}
 .t-share{margin-top:var(--s-7)}
 .t-share .row{display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-3); align-items:center}
 .t-share .row .note{margin:0}
@@ -110,6 +108,13 @@
 .hub-group{margin-top:var(--s-8)}
 .hub-group h2{font:400 var(--fs-h2)/var(--lh-head) var(--serif); letter-spacing:var(--tr-head); margin:0 0 var(--s-2)}
 .sec-lead{font-size:var(--fs-m); color:var(--text-2); margin:0}
+/* поиск первым (пара 7), указатель букв (пара 8) */
+.t-search{display:flex; flex-direction:column; gap:var(--s-2); max-width:24em; margin:var(--s-5) 0 var(--s-4)}
+.t-search label{font:var(--fw-medium) var(--fs-s)/1.3 var(--body); color:var(--text-1)}
+.t-search input{font:400 var(--fs-m)/1.3 var(--body); min-height:var(--btn-h); padding:var(--s-2) var(--s-3); border:1.5px solid #857D70; border-radius:var(--r-s); background:var(--surface); color:var(--text-1)}
+.t-abc{display:flex; flex-wrap:wrap; gap:var(--s-1) var(--s-3); margin:0 0 var(--s-2); font:var(--fw-medium) var(--fs-m)/1 var(--body)}
+.t-abc a{display:inline-block; min-width:28px; padding:var(--s-2) 0; text-align:center}
+.t-empty{color:var(--text-2); margin:var(--s-3) 0 0}
 
 /* ---------- свои игры (terms/toys.js) ---------- */
 .t-toy{background:var(--surface); border-radius:var(--r-l); box-shadow:var(--sh-2); padding:var(--s-5); margin:var(--s-5) 0 var(--s-2)}
@@ -119,7 +124,10 @@
 .choice button{font:400 1rem/1.35 var(--body); text-align:left; padding:var(--s-3) var(--s-4); min-height:var(--btn-h); border-radius:var(--r-s);
   background:var(--surface); color:var(--text-1); border:1px solid var(--line-strong); cursor:pointer}
 .choice button:hover:not(:disabled){border-color:var(--pen)}
-.choice button[aria-pressed="true"]{border-color:var(--pen); box-shadow:0 0 0 2px var(--pen) inset}
+/* выбранный вариант — тоном, с «✓» (пара 19a) */
+.choice button[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
+.choice button[aria-pressed="true"]::before{content:"✓\00a0"}
+.choice button:active:not(:disabled){background:var(--pen-press-bg)}
 .choice.done button[data-right]{background:var(--mint); border-color:var(--l1)}
 .gnote{margin:var(--s-3) 0 0}
 .t-sheet{overflow-x:auto; background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:var(--s-4)}
@@ -129,6 +137,7 @@
 .seg{display:inline-flex; flex-wrap:wrap; gap:var(--s-1); background:var(--sunk); border-radius:var(--r-pill); padding:3px}
 .seg button{font:500 var(--fs-s)/1 var(--body); padding:0 var(--s-4); min-height:40px; border-radius:var(--r-pill); border:0; background:transparent; color:var(--text-2); cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
+.seg button[aria-pressed="true"]::before{content:"✓\00a0"}
 .t-field{display:flex; flex-direction:column; gap:var(--s-1); font-size:var(--fs-s); color:var(--text-2); min-width:200px; flex:1 1 220px}
 .t-field output{font:500 var(--t-18)/1 var(--serif); color:var(--text-1)}
 .t-field input[type=range]{width:100%; min-height:32px; accent-color:var(--pen)}
@@ -153,7 +162,6 @@
   .t-toy .guess{padding:var(--s-4)}
   .viz{padding:var(--s-4) var(--s-3)}
   .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:1rem}
-  .t-rel{grid-template-columns:1fr}
   .t-table th, .t-table td{padding:var(--s-2) var(--s-3)}
   .t-faq summary{padding:var(--s-4)} .t-faq p{padding:0 var(--s-4) var(--s-4)}
   .t-share .btn{flex:1 1 auto; justify-content:center}

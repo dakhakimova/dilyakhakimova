@@ -145,19 +145,19 @@
     io.observe(f);
   });
 
-  // ---------- «Скинуть коллеге» (как на /play/) ----------
+  // ---------- одна кнопка «Поделиться» (как у терминов): на телефоне — системное меню, иначе ссылка в буфер и «Ссылка скопирована» на 2 секунды ----------
   const main = document.querySelector('main.bk'), share = main && main.querySelector('[data-act=share]');
   if (share){
     const st = main.querySelector('.bk-share [role=status]'), page = location.origin + location.pathname;
     const link = m => page + '?utm_source=share&utm_medium=' + m + '&utm_content=books';
-    const copy = async (s, msg) => { try { await navigator.clipboard.writeText(s); st.textContent = msg; } catch(e) { st.textContent = s; } };
+    let tm = 0;
+    const say = (m, ms) => { st.textContent = m; clearTimeout(tm); if (ms) tm = setTimeout(() => { st.textContent = ''; }, ms); };
     share.addEventListener('click', async () => {
       const url = link('books'), title = main.dataset.shareTitle, text = main.dataset.shareText;
       if (navigator.share && matchMedia('(pointer: coarse)').matches){
         try { await navigator.share({title, text, url}); return; } catch(e) { if (e && e.name === 'AbortError') return; }
       }
-      copy(text + ' ' + url, main.dataset.sCopiedMsg);
+      try { await navigator.clipboard.writeText(url); say(main.dataset.sCopied, 2000); } catch(e) { say(url); }
     });
-    main.querySelector('[data-act=copy]').addEventListener('click', () => copy(link('books'), main.dataset.sCopied));
   }
 })();
