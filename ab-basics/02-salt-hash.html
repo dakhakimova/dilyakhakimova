@@ -297,8 +297,8 @@ const randId = () => 'user_' + (10000 + Math.floor(Math.random() * 90000));
   function show(addLog){
     const s = salt.value + ':' + uid.value, h = fnv(s), slot = h % 100, t = slot >= 50;
     document.getElementById('h-in').textContent = s;
-    document.getElementById('h-out').textContent = h.toLocaleString('ru-RU');
-    document.getElementById('h-slot').textContent = h.toLocaleString('ru-RU') + ' → остаток от деления на 100 → ' + slot;
+    document.getElementById('h-out').textContent = int(h);
+    document.getElementById('h-slot').textContent = int(h) + ' → остаток от деления на 100 → ' + slot;
     document.getElementById('h-grp').innerHTML = '<span class="grp-pill ' + (t ? 'test' : 'ctrl') + '">' + (t ? 'тест: новая кнопка' : 'контроль: старый экран') + '</span>';
     if (addLog){
       hist.unshift([uid.value, salt.value, slot, t]); hist.length = Math.min(hist.length, 6);

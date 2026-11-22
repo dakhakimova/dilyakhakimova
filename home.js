@@ -4,8 +4,8 @@
 const LANG = (document.documentElement.lang || 'ru').slice(0, 2);
 const DICT = (window.I18N && window.I18N[LANG]) || {};
 const RU = (window.I18N && window.I18N.ru) || {};
-// Числа: для ru — десятичная точка, тысячи через неразрывный пробел, % вплотную («0.05», «10 000», «90%»).
-const numFormat = (lang, o = {}, from = 4) => { if (lang !== 'ru') return new Intl.NumberFormat(lang, o);
+// Числа: для ru — десятичная точка, тысячи через неразрывный пробел с пяти знаков, % вплотную («0.05», «1000», «10 000», «90%»).
+const numFormat = (lang, o = {}, from = 5) => { if (lang !== 'ru') return new Intl.NumberFormat(lang, o);
   const f = new Intl.NumberFormat('en-US', Object.assign({}, o, {useGrouping: false}));
   return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d+)/, (_, a, d) => a + (d.length >= from ? d.replace(/\B(?=(\d{3})+$)/g, '\u00a0') : d))}; };
 const NF = numFormat(LANG);

@@ -343,6 +343,8 @@ _check()
 
 
 <script>
+// числа по правилам сайта: десятичная точка, тысячи — неразрывный пробел с пяти знаков («1000», «10 000»)
+const nfr = (x, d = 0) => x.toLocaleString('en-US', {maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?$)/, '').replace(/^(-?)(\d{5,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
 // ---------- Монетка ----------
 (function(){
   const coins = document.getElementById('coins'), cv = document.getElementById('coin-chart'), ctx = cv.getContext('2d');
@@ -352,7 +354,7 @@ _check()
   const C = []; { let c = 1; for (let k = 0; k <= S; k++){ C.push(c / Math.pow(2, S)); c = c * (S - k) / (k + 1); } }
   const hist = document.getElementById('coin-hist'), hl = document.getElementById('coin-hist-l');
   for (let k = LO; k <= HI; k++){ const b = document.createElement('div'); b.className = 'hbar' + (k === S / 2 ? ' hl' : ''); b.innerHTML = '<span></span><i></i><em></em>'; hist.appendChild(b); const l = document.createElement('span'); l.textContent = k % 2 ? '' : k; hl.appendChild(l); }
-  const fmt = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+  const fmt = x => nfr(100 * x, 1) + '%';
   function toss(k){
     for (let i = 0; i < k; i++){
       const h = Math.random() < .5; tosses.push(h); if (h) heads++;
@@ -374,7 +376,7 @@ _check()
     const last = tosses.slice(-20);
     coins.innerHTML = last.map(h => '<span class="' + (h ? 'h' : 't') + '">' + (h ? 'О' : 'Р') + '</span>').join('');
     const n = tosses.length;
-    document.getElementById('c-n').textContent = n.toLocaleString('ru-RU');
+    document.getElementById('c-n').textContent = nfr(n);
     document.getElementById('c-share').textContent = n ? fmt(heads / n) : '—';
     document.getElementById('c-five').textContent = series ? fmt(fives / series) : '—';
     document.getElementById('c-near').textContent = series ? fmt(near / series) : '—';
@@ -385,7 +387,7 @@ _check()
     ctx.clearRect(0, 0, w, h);
     ctx.font = '11px Onest, system-ui, sans-serif'; ctx.fillStyle = '#6B675F'; ctx.strokeStyle = 'rgba(36,34,31,.15)';
     [0, .5, 1].forEach(v => { const y = T + (1 - v) * ph; ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(L + pw, y); ctx.stroke(); ctx.fillText(Math.round(v * 100) + '%', 2, y + 4); });
-    ctx.fillText('бросков (шкала растягивает начало): ' + n.toLocaleString('ru-RU'), L + pw - 250, h - 4);
+    ctx.fillText('бросков (шкала растягивает начало): ' + nfr(n), L + pw - 250, h - 4);
     if (!n) return;
     ctx.strokeStyle = '#23418A'; ctx.lineWidth = 1.8; ctx.beginPath();
     let hh = 0, px = -1;
@@ -426,7 +428,7 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
   let counts = [0,0,0,0,0,0], groups = 0, buyers = 0;
   for (let i = 0; i < G; i++) dots.appendChild(document.createElement('span'));
   for (let i = 0; i < 6; i++){ const b = document.createElement('div'); b.className = 'bar' + (i === K ? ' hl' : ''); b.appendChild(document.createElement('i')); bars.appendChild(b); }
-  const fmt = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+  const fmt = x => nfr(100 * x, 1) + '%';
 
   function one(){
     const row = [];
@@ -442,7 +444,7 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
       b.style.height = (groups ? 100 * counts[i] / max : 0) + '%';
       b.querySelector('i').textContent = groups ? fmt(counts[i] / groups) : '';
     });
-    document.getElementById('s-groups').textContent = groups.toLocaleString('ru-RU');
+    document.getElementById('s-groups').textContent = nfr(groups);
     document.getElementById('s-share').textContent = groups ? fmt(buyers / (groups * G)) : '—';
     document.getElementById('s-one').textContent = groups ? fmt(counts[K] / groups) : '—';
     const v = document.getElementById('shop-verdict');
@@ -472,17 +474,17 @@ document.getElementById('guess').addEventListener('keydown', e => { if (e.key ==
 (function(){
   const nIn = document.getElementById('l-n'), pIn = document.getElementById('l-p');
   const cv = document.getElementById('l-chart'), ctx = cv.getContext('2d');
-  const pct = x => (100 * x).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + '%';
+  const pct = x => nfr(100 * x, 1) + '%';
   function draw(){
     const n = +nIn.value, p = +pIn.value / 1000;
     const none = Math.pow(1 - p, n);
     document.getElementById('l-n-t').textContent = n;
-    document.getElementById('l-p-t').textContent = (p * 100).toLocaleString('ru-RU', {maximumFractionDigits: 1});
+    document.getElementById('l-p-t').textContent = nfr(p * 100, 1);
     document.getElementById('l-none').textContent = pct(none);
     document.getElementById('l-some').textContent = pct(1 - none);
-    document.getElementById('l-count').textContent = 'В штуках: из 1000 месяцев примерно в ' + Math.round(1000 * none).toLocaleString('ru-RU') +
-      ' не сломается ни одна кофемашина, а в ' + Math.round(1000 * (1 - none)).toLocaleString('ru-RU') + ' — хотя бы одна. В среднем за месяц ломается ' +
-      (n * p).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' шт.';
+    document.getElementById('l-count').textContent = 'В штуках: из 1000 месяцев примерно в ' + nfr(Math.round(1000 * none)) +
+      ' не сломается ни одна кофемашина, а в ' + nfr(Math.round(1000 * (1 - none))) + ' — хотя бы одна. В среднем за месяц ломается кофемашин: ' +
+      nfr(n * p, 1) + '.';
     const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = Math.round(w * 0.34);
     cv.width = w * dpr; cv.height = h * dpr; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const L = 40, R = 10, T = 10, B = 26, pw = w - L - R, ph = h - T - B, N = 100;
