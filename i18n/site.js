@@ -14,7 +14,8 @@ I18N.typo = I18N.typo || function (lang, str){
     .replace(RE_SHORT, '$1$2 ').replace(RE_SHORT, '$1$2 ')
     .replace(/(\d)\s+(?=[A-Za-zА-Яа-яЁё%×₽])/g, '$1 ')
     .replace(/(\d) (?=\d{3}(?!\d))/g, '$1 ')  // разряды: «10 000», «1 000 000» (четырёхзначные не группируем)
-    .replace(/\s+—/g, ' —')).join('');
+    .replace(/\s+—/g, ' —')
+    .replace(/\s+·(?=\s)/g, '\u00a0·')).join('');  // «·» между вариантами: неразрывный пробел перед ней
 };
 
 I18N.ru = Object.assign(I18N.ru || {}, {

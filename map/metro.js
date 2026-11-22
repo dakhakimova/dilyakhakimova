@@ -12,41 +12,51 @@
 'use strict';
 
 const LAYOUT = {
-  w: 1200, h: 760,
+  w: 1200, h: 780,
+  // Компоновка — «змейка» в порядке цели «Весь путь»: ряд 1 слева направо (1 ВП → 2 СШ), ряд 2 справа налево (3 АП → 4 ПС),
+  // ряд 3 слева направо (5 АБМ → 6 CI). Остальные цели — свои линии поверх той же компоновки, рядом (сдвиг off).
   // линия: цвет, сдвиг от осевой (px, + — слева по ходу) на общих перегонах, путь — id станций и точки изгибов [x, y];
-  // cont — продолжение «дальше» (курс «позже», вне маршрута): бледная линия того же цвета
+  // dashed — участки пути [от, до] (индексы точек) пунктиром: необязательные курсы; bypass — сплошной обход необязательного участка
+  // (рисуется той же линией, станций на нём нет); cont — продолжение «дальше» (курс «позже», вне маршрута)
   lines: {
-    decide:    {color: '#E8644A', off: 0,  path: ['ap-random', 'ap-interval', 'ap-mde', 'ap-decide']},
-    basics:    {color: '#23418A', off: -6, path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180],
-                                                   'ss-clt', 'ss-aa', 'ss-errors', 'ss-main', [640, 600], [700, 660], 'ps-interval', 'ps-power', 'ps-regression', 'ps-sim']},
-    interview: {color: '#0E7E5F', off: 0,  path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 100], [640, 180], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main']},
+    full:      {color: '#4A463F', off: 0, path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 120], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main',
+                                                [1130, 120], [1160, 150], [1160, 350], [1160, 390], [1130, 420], 'ap-random', 'ap-interval', 'ap-mde', 'ap-decide', [580, 420],
+                                                'ps-interval', 'ps-power', 'ps-regression', 'ps-sim', [80, 420], [50, 450], [50, 640], [80, 670],
+                                                'abm-design', 'abm-cuped', 'abm-srm', 'abm-main', 'ci-confound', 'ci-did', 'ci-main'],
+                dashed: [[0, 4], [11, 18]], bypass: [[1160, 350], [1130, 380], [620, 380], [580, 420]]},
+    decide:    {color: '#E8644A', off: 5, path: ['ap-random', 'ap-interval', 'ap-mde', 'ap-decide']},
+    basics:    {color: '#23418A', off: -5, path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 120], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main',
+                                                  [1130, 120], [1160, 150], [1160, 350], [1130, 380], [620, 380], [580, 420], 'ps-interval', 'ps-power', 'ps-regression', 'ps-sim']},
+    interview: {color: '#0E7E5F', off: 5, path: ['vp-outcomes', 'vp-bayes', 'vp-mean', 'vp-interview', [560, 120], 'ss-clt', 'ss-aa', 'ss-errors', 'ss-main']},
     // охра темнее прежней #C9A43A: контраст линии с белым ≥ 3:1
-    abtest:    {color: '#A8862A', off: 6,  path: ['ss-aa', 'ss-errors', [750, 560], [1150, 560], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main']},
-    deep:      {color: '#6A4C9C', off: 0,  path: ['ps-regression', 'ps-sim', [1110, 660], [1150, 620], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main',
-                                                   [1150, 140], [1110, 100], 'ci-confound', 'ci-did', 'ci-main']}
+    abtest:    {color: '#A8862A', off: -10, path: ['ss-aa', 'ss-errors', 'ss-main', [1130, 120], [1160, 150], [1160, 350], [1130, 380], [620, 380], [580, 420],
+                                                   'ps-interval', 'ps-power', 'ps-regression', 'ps-sim', [80, 420], [50, 450], [50, 640], [80, 670],
+                                                   'abm-design', 'abm-cuped', 'abm-srm', 'abm-main']},
+    deep:      {color: '#6A4C9C', off: 5, path: ['ps-regression', 'ps-sim', [80, 420], [50, 450], [50, 640], [80, 670], 'abm-design', 'abm-cuped', 'abm-srm', 'abm-main',
+                                                 'ci-confound', 'ci-did', 'ci-main']}
   },
   // станция: [x, y, где подпись: a — над, b — под, l — слева, r — справа]
   stations: {
-    'vp-outcomes': [90, 100, 'a'], 'vp-bayes': [220, 100, 'a'], 'vp-mean': [350, 100, 'a'], 'vp-interview': [480, 100, 'a'],
-    'ss-clt': [640, 270, 'l'], 'ss-aa': [640, 360, 'l'], 'ss-errors': [640, 450, 'l'], 'ss-main': [640, 540, 'l'],
-    'ap-random': [90, 680, 'b'], 'ap-interval': [200, 680, 'b'], 'ap-mde': [310, 680, 'b'], 'ap-decide': [420, 680, 'b'],
-    'ps-interval': [770, 660, 'b'], 'ps-power': [880, 660, 'b'], 'ps-regression': [990, 660, 'b'], 'ps-sim': [1100, 660, 'b'],
-    'abm-design': [1150, 500, 'l'], 'abm-cuped': [1150, 410, 'l'], 'abm-srm': [1150, 320, 'l'], 'abm-main': [1150, 230, 'l'],
-    'ci-confound': [1000, 100, 'b'], 'ci-did': [890, 100, 'b'], 'ci-main': [780, 100, 'b']
+    'vp-outcomes': [100, 120, 'a'], 'vp-bayes': [215, 120, 'a'], 'vp-mean': [330, 120, 'a'], 'vp-interview': [445, 120, 'a'],
+    'ss-clt': [660, 120, 'a'], 'ss-aa': [790, 120, 'a'], 'ss-errors': [920, 120, 'a'], 'ss-main': [1050, 120, 'a'],
+    'ap-random': [1060, 420, 'b'], 'ap-interval': [940, 420, 'b'], 'ap-mde': [820, 420, 'b'], 'ap-decide': [700, 420, 'b'],
+    'ps-interval': [530, 420, 'b'], 'ps-power': [410, 420, 'b'], 'ps-regression': [290, 420, 'b'], 'ps-sim': [170, 420, 'b'],
+    'abm-design': [170, 670, 'b'], 'abm-cuped': [300, 670, 'b'], 'abm-srm': [430, 670, 'b'], 'abm-main': [560, 670, 'b'],
+    'ci-confound': [760, 670, 'b'], 'ci-did': [900, 670, 'b'], 'ci-main': [1050, 670, 'b']
   },
-  // строится: курсы «в планах» (status: planned). Станция ведёт к карточке #plan-<course>.
+  // строится: курсы «в планах» (status: planned) — пунктирные ответвления от зон курсов. Станция ведёт к карточке #plan-<course>.
   planned: {
-    stations: {bet: [720, 260, 'r', 'luck'], luck: [720, 350, 'r', 'luck'], mkt: [850, 455, 'b', 'mkt'], talk: [540, 680, 'b', 'talk']},
-    paths: [[[640, 180], 'bet', 'luck', [720, 370], [805, 455], 'mkt', [1150, 455]], ['ap-decide', 'talk']]
+    stations: {bet: [300, 240, 'b', 'luck'], luck: [480, 240, 'b', 'luck'], mkt: [760, 240, 'b', 'mkt'], talk: [880, 550, 'r', 'talk']},
+    paths: [[[160, 170], [230, 240], 'bet', 'luck', 'mkt'], [[880, 500], 'talk']]
   },
-  // зоны курсов: прямоугольники [x, y, w, h]; подпись — в левом верхнем углу первого
+  // зоны курсов: прямоугольники [x, y, w, h]; номер (по цели «Весь путь») и подпись — в левом верхнем углу первого
   zones: {
-    prob: [[30, 14, 520, 150]],
-    sig:  [[430, 212, 250, 360]],
-    ab:   [[30, 592, 470, 156]],
-    st:   [[700, 574, 488, 174]],
-    abm:  [[935, 156, 253, 374]],
-    cau:  [[700, 14, 488, 130]]
+    prob: [[30, 20, 520, 150]],
+    sig:  [[580, 20, 530, 150]],
+    ab:   [[640, 320, 480, 180]],
+    st:   [[70, 320, 540, 180]],
+    abm:  [[70, 580, 560, 180]],
+    cau:  [[660, 580, 520, 180]]
   }
 };
 root.SkillMetroLayout = LAYOUT;
@@ -54,7 +64,7 @@ if (typeof document === 'undefined') return;                 // node: нужен
 
 const NS = 'http://www.w3.org/2000/svg';
 const INK = '#24221F', PLAN = '#8A847A';
-const R = {main: 13, st: 7, xfer: 11, single: 10};
+const R = {main: 14, st: 7, xfer: 12, single: 10};
 
 root.SkillMetro = {init};
 
@@ -106,22 +116,30 @@ function init(api){
 
   // ---------- рисуем ----------
   const lv = c => M.levels[c.level].name;
+  const full = routes.full, NUM = Object.fromEntries(((full && full.path) || []).map((p, i) => [p.course, {n: i + 1, optional: !!p.optional}]));
   let html = `<title>${esc(t('metro.label'))}</title>`;
   // зоны
   Object.entries(L.zones).forEach(([cid, rects]) => { const c = course[cid];
     html += `<g class="zone z-${c.status}" style="--zc:var(${c.color})">` + rects.map(r => `<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="16"/>`).join('')
-      + `<text class="zt" x="${rects[0][0] + 14}" y="${rects[0][1] + 24}">${esc(has('metro.zone.' + cid) ? t('metro.zone.' + cid) : typo(c.title))}`
-      + (rects[0][2] < 400 ? `<tspan class="zs" x="${rects[0][0] + 14}" dy="16">` : `<tspan class="zs" dx="8">`)   // узкая зона — статус второй строкой
-      + `${esc(typo(M.status[c.status]))} · ${esc(lv(c))}</tspan></text></g>`;
+      + (NUM[cid] ? `<circle class="zn-c" cx="${rects[0][0] + 26}" cy="${rects[0][1] + 26}" r="15"/><text class="zn" x="${rects[0][0] + 26}" y="${rects[0][1] + 32}" text-anchor="middle">${NUM[cid].n}</text>` : '')
+      + `<text class="zt" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" y="${rects[0][1] + 24}">${esc(has('metro.zone.' + cid) ? t('metro.zone.' + cid) : typo(c.title))}`
+      + `<tspan class="zs" x="${rects[0][0] + (NUM[cid] ? 50 : 14)}" dy="16">`
+      + `${esc(typo(M.status[c.status]))} · ${esc(lv(c))}${NUM[cid] && NUM[cid].optional ? ' · ' + esc(t('ui.optional')) : ''}</tspan></text></g>`;
   });
   // строится
   html += `<g class="plan-ln" aria-hidden="true">` + L.planned.paths.map(p => `<path d="${dstr(p.map(pt))}"/>`).join('') + `</g>`;
   // линии
+  // необязательные участки (dashed) — пунктиром, рядом — сплошной обход (bypass)
+  const pieces = (P, ranges) => { const solid = [], dash = [];
+    for (let i = 0; i < P.length - 1; i++){ const dsh = (ranges || []).some(([a, b]) => i >= a && i + 1 <= b), arr = dsh ? dash : solid;
+      const last = arr[arr.length - 1]; if (last && last.end === i) { last.pts.push(P[i + 1]); last.end = i + 1; } else arr.push({pts: [P[i], P[i + 1]], end: i + 1}); }
+    return [solid.map(x => dstr(x.pts)).join(''), dash.map(x => dstr(x.pts)).join('')]; };
   ids.forEach(lid => { const ln = L.lines[lid];
-    const d = dstr(offsetPts(ln.path, ln.off));
+    const P = offsetPts(ln.path, ln.off), [sd, dd] = pieces(P, ln.dashed), all = dstr(P);
+    const by = ln.bypass ? dstr(offsetPts(ln.bypass, ln.off)) : '';
     html += `<g class="ln" data-route="${lid}" style="--line:${ln.color}">`
       + (ln.cont ? `<path class="cont" d="${dstr(offsetPts(ln.cont, ln.off))}"/>` : '')
-      + `<path class="hit" d="${d}"/><path class="stroke" d="${d}"/></g>`;
+      + `<path class="hit" d="${all}${by}"/>` + (sd ? `<path class="stroke" d="${sd}${by}"/>` : '') + (dd ? `<path class="stroke dash" d="${dd}"/>` : '') + `</g>`;
   });
   // станции
   const labelSvg = (lines, x, y, side, r, cls) => {
@@ -166,12 +184,13 @@ function init(api){
       + `<circle class="hitc" cx="${x}" cy="${y}" r="22"/><circle class="ring" cx="${x}" cy="${y}" r="14"/><circle class="mk pl-mk" cx="${x}" cy="${y}" r="7"/>`
       + labelSvg(wrap(nm, side === 'r' ? 22 : 15).concat([{t: t('metro.building'), cls: 'bld'}]), x, y, side, 7, 'sl') + `</a>`;
   });
-  html += `<g class="here-pin" id="here-pin" aria-hidden="true" style="display:none"><circle r="19"/><rect x="-40" y="-52" width="80" height="24" rx="12"/><text y="-35" text-anchor="middle"></text></g>`;
+  // маркер «Ты здесь»: тонкое кольцо вплотную к кружку станции и плашка с ножкой — с той стороны, где нет подписи (подпись не перекрываем)
+  html += `<g class="here-pin" id="here-pin" aria-hidden="true" style="display:none"><circle class="hp-ring"/><path class="hp-leg"/><rect height="22" rx="11"/><text text-anchor="middle"></text></g>`;
   svg.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`);
   svg.innerHTML = html;
 
   // ---------- легенда: линии — переключатель маршрута ----------
-  legend.innerHTML = `<ul class="ml-lines" role="list">` + ids.map(lid => `<li><button type="button" class="ml-line" data-route="${lid}" aria-pressed="false" style="--line:${L.lines[lid].color}">`
+  legend.innerHTML = `<ul class="ml-lines" role="list">` + (routes.mine ? `<li><button type="button" class="ml-line mine" data-route="mine" aria-pressed="false" style="--line:${L.lines.full.color}"><span class="sw" aria-hidden="true"></span>${t('line.mine')}</button></li>` : '') + ids.map(lid => `<li><button type="button" class="ml-line" data-route="${lid}" aria-pressed="false" style="--line:${L.lines[lid].color}">`
       + `<span class="sw" aria-hidden="true"></span>${t('line.' + lid)}</button></li>`).join('') + `</ul>`
     + `<ul class="ml-keys" role="list">`
     + `<li><svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="#fff" stroke="${INK}" stroke-width="3"/></svg>${t('metro.key.xfer')}</li>`
@@ -205,41 +224,49 @@ function init(api){
   // ---------- состояние ----------
   let selId = null;
   function paint(s){
-    const r = s.route, rid = r ? r.id : '';
+    const r = s.route, rid = r ? r.id : '', mine = rid === 'mine';     // «Твой маршрут» рисуем по линии «Весь путь», гасим чужие станции
     svg.classList.toggle('routing', !!r);
-    svg.querySelectorAll('.ln').forEach(g => g.classList.toggle('on', g.dataset.route === rid));
+    svg.querySelectorAll('.ln').forEach(g => g.classList.toggle('on', g.dataset.route === (mine ? 'full' : rid)));
     svg.querySelectorAll('.st:not(.plan)').forEach(g => {
-      const id = g.dataset.id, on = !r || stops.get(id).includes(rid);
+      const id = g.dataset.id, on = !r || (mine ? r.nodes.includes(id) : stops.get(id).includes(rid));
       g.classList.toggle('off', !on); g.classList.toggle('done', s.known(id));
     });
     legend.querySelectorAll('[data-route]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.route === rid)));
     // маркер
     const here = stationFor(s.nx), pin = document.getElementById('here-pin');
     if (here && (s.any || r)){
-      const k = stInfo.get(here);
+      const k = stInfo.get(here), ring = k.r + 4, up = k.side !== 'a';   // плашка над станцией; если подпись сверху — под ней
       pin.setAttribute('transform', `translate(${k.cx} ${k.cy})`);
-      const up = k.side === 'b';                                // ярлык — с той стороны, где нет подписи станции
-      pin.querySelector('rect').setAttribute('y', up ? -52 : 28); pin.querySelector('text').setAttribute('y', up ? -35 : 45);
-      pin.querySelector('text').textContent = t(s.any ? 'metro.here' : 'metro.start');
+      pin.querySelector('.hp-ring').setAttribute('r', ring);
+      const tx = pin.querySelector('text'); tx.textContent = t(s.any ? 'metro.here' : 'metro.start');
       pin.style.display = '';
+      const w = Math.ceil((tx.getComputedTextLength ? tx.getComputedTextLength() : 60) + 20), gap = ring + 7;
+      const top = up ? -gap - 22 : gap, rect = pin.querySelector('rect');
+      rect.setAttribute('x', -w / 2); rect.setAttribute('width', w); rect.setAttribute('y', top);
+      tx.setAttribute('y', top + 15);
+      pin.querySelector('.hp-leg').setAttribute('d', up ? `M0 ${-ring - 1}V${-gap}` : `M0 ${ring + 1}V${gap}`);
     } else pin.style.display = 'none';
-    svg.querySelectorAll('.st.here').forEach(g => g.classList.remove('here'));
-    if (here && (s.any || r)) document.getElementById('ms-' + here).classList.add('here');
+    svg.querySelectorAll('.st.here').forEach(g => { g.classList.remove('here'); g.querySelector('.sl').removeAttribute('transform'); });
+    if (here && (s.any || r)){
+      const g = document.getElementById('ms-' + here), sd = stInfo.get(here).side;
+      g.classList.add('here');
+      g.querySelector('.sl').setAttribute('transform', `translate(${sd === 'l' ? -5 : sd === 'r' ? 5 : 0} ${sd === 'a' ? -5 : sd === 'b' ? 5 : 0})`);
+    }
     // линейный вид (узкий экран): выбранный маршрут сверху вниз
     card.classList.toggle('has-route', !!r);
-    linear.innerHTML = r ? linearHtml(rid, here && (s.any || r) ? here : null, s) : '';
-    linear.style.setProperty('--line', r ? L.lines[rid].color : '');
+    linear.innerHTML = r ? linearHtml(mine ? 'full' : rid, here && (s.any || r) ? here : null, s, mine ? r : null) : '';
+    linear.style.setProperty('--line', r ? L.lines[mine ? 'full' : rid].color : '');
     select(selId);
   }
-  function linearHtml(rid, here, s){
+  function linearHtml(rid, here, s, mine){
     const ln = L.lines[rid];
-    const seq = ln.path.filter(x => typeof x === 'string' && stops.get(x).includes(rid)).map(id => [id, false])
+    const seq = ln.path.filter(x => typeof x === 'string' && stops.get(x).includes(rid) && (!mine || mine.nodes.includes(x))).map(id => [id, false])
       .concat((ln.cont || []).slice(1).filter(x => typeof x === 'string').map(id => [id, true]));
     let prev = null, out = '';
     seq.forEach(([id, later]) => {
       const n = node.get(id), c = course[n.course];
       if (n.course !== prev){
-        out += `<li class="lz z-${c.status}" style="--zc:var(${c.color})"><span class="lz-t">${esc(typo(c.title))}</span> <span class="lz-s">${esc(typo(M.status[c.status]))} · ${esc(lv(c))}</span></li>`;
+        out += `<li class="lz z-${c.status}${NUM[c.id] && NUM[c.id].optional && rid === 'full' ? ' opt' : ''}" style="--zc:var(${c.color})">${NUM[c.id] ? `<span class="lz-n">${NUM[c.id].n}</span>` : ''}<span class="lz-t">${esc(typo(c.title))}</span> <span class="lz-s">${esc(typo(M.status[c.status]))} · ${esc(lv(c))}${NUM[c.id] && NUM[c.id].optional ? ' · ' + esc(t('ui.optional')) : ''}</span></li>`;
         prev = n.course;
       }
       const others = stops.get(id).filter(l => l !== rid);
@@ -248,7 +275,7 @@ function init(api){
         + `<span class="ls-n">${esc(sname(id))}</span>`
         + (n.main ? `<span class="ls-m">${t('ui.main')}</span>` : '')
         + (id === here ? `<span class="ls-h">${t(s.any ? 'metro.here' : 'metro.start')}</span>` : '')
-        + (s.known(id) ? `<span class="ls-d">✓ ${t('ui.done')}</span>` : '')
+        + (s.known(id) ? `<span class="ls-d">✓ ${s.knownLabel ? s.knownLabel(id) : t('ui.done')}</span>` : '')
         + (others.length ? `<span class="ls-x">${t('metro.xfer', {list: others.map(l => `<span class="sw" style="--line:${L.lines[l].color}"></span>${t('line.' + l)}`).join(', ')})}</span>` : '')
         + `</button></li>`;
     });

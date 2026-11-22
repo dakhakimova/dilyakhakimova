@@ -1,0 +1,98 @@
+{
+  "about_note": "«Подобрать маршрут» (/start/, start/start.js). Тексты — i18n/start.js. Задач здесь нет: блок «про тебя» (потребность) и дерево самооценки «Ты уже знаешь …? да · слышал(а), но не уверен(а) · нет». about: у варианта next — следующий вопрос или #дерево. items — пункты самооценки: skills — навыки карты (map/skills.json), которые «да» засчитывает знакомыми; implies — какие пункты «да» засчитывает заодно (без вопроса); у пункта без текста (hidden) вопроса нет, он только засчитывается. trees — блок-схемы: start — первый пункт; у пункта yes и no — следующий пункт или итог {goal, also}; «слышал(а)» идёт по ветке no, но навыки пункта отмечаются «знакомо по названию». Старт — первый навык маршрута цели, который не засчитан. answers — варианты пункта (по умолчанию yes · heard · no); у пункта с check — мини-проверка check: две задачи, показываются только по выбору «хочу проверить»; обе верно — как «да», иначе (или «пропустить») — как «нет»; unsure — как «нет». Проверка: node tools/check-map.js.",
+  "about": {
+    "start": "what",
+    "qs": {
+      "what":   {"opts": [{"id": "calc", "next": "exp"}, {"id": "decide", "next": "role"}, {"id": "none", "next": "aim"}]},
+      "role":   {"opts": [{"id": "pm"}, {"id": "dev"}, {"id": "lead"}, {"id": "other"}], "next": "future"},
+      "future": {"opts": [{"id": "yes", "next": "#decide-calc"}, {"id": "no", "next": "#decide"}]},
+      "exp":    {"opts": [{"id": "lt1"}, {"id": "y13"}, {"id": "gt3"}], "next": "#calc"},
+      "aim":    {"opts": [{"id": "interview", "next": "#interview"}, {"id": "switch", "next": "#switch"}, {"id": "learn", "next": "#learn"}]}
+    }
+  },
+  "items": {
+    "shares":     {"skills": ["vp-outcomes", "vp-frequency", "vp-counting", "vp-complement"]},
+    "bayes":      {"skills": ["vp-conditional", "vp-bayes"], "answers": ["yes", "unsure", "check", "no"]},
+    "mean":       {"skills": ["vp-distribution", "vp-mean", "vp-interview", "ss-share"]},
+    "clt":        {"skills": ["ss-noise", "ss-normal", "ss-zoo", "ss-clt", "ss-traps"], "implies": ["shares", "bayes", "mean"]},
+    "aa":         {"skills": ["ss-aa"]},
+    "pvalue":     {"skills": ["ss-abtest", "ps-interval"], "implies": ["clt", "aa"]},
+    "power":      {"skills": ["ss-errors", "ps-power"], "implies": ["pvalue"]},
+    "multiple":   {"skills": ["ss-wins", "ss-main", "ps-multiple"]},
+    "stats":      {"hidden": true, "skills": ["ps-bootstrap", "ps-test", "ps-outliers", "ps-sim"]},
+    "ratio":      {"skills": ["abm-design", "abm-ratio", "abm-buckets"], "implies": ["stats", "multiple"]},
+    "cuped":      {"skills": ["abm-cuped"]},
+    "srm":        {"skills": ["abm-srm"]},
+    "peeking":    {"skills": ["abm-peeking", "abm-multiple"]},
+    "interf":     {"skills": ["abm-switchback", "abm-industries", "abm-main"]},
+    "regression": {"skills": ["ps-regression"]},
+    "did":        {"skills": ["ci-confound", "ci-dag", "ci-did"]},
+    "r-before":   {"skills": ["ap-random", "ap-hash"]},
+    "r-noise":    {"skills": ["ap-noise", "ap-crowd"]},
+    "r-pvalue":   {"skills": ["ap-interval", "ap-pvalue"]},
+    "r-mde":      {"skills": ["ap-width", "ap-errors", "ap-mde"]},
+    "r-traps":    {"skills": ["ap-traps"]}
+  },
+  "check": {"item": "bayes", "tasks": [{"id": "t1", "opts": ["a", "b", "c", "d"], "right": "c"}, {"id": "t2", "opts": ["a", "b", "c", "d"], "right": "b"}]},
+  "trees": {
+    "decide": {"start": "r-before", "nodes": {
+      "r-before": {"yes": "r-noise", "no": {"goal": "decide"}},
+      "r-noise":  {"yes": "r-pvalue", "no": {"goal": "decide"}},
+      "r-pvalue": {"yes": "r-mde", "no": {"goal": "decide"}},
+      "r-mde":    {"yes": "r-traps", "no": {"goal": "decide"}},
+      "r-traps":  {"yes": {"goal": "decide", "also": "basics"}, "no": {"goal": "decide"}}
+    }},
+    "decide-calc": {"start": "r-before", "nodes": {
+      "r-before": {"yes": "r-noise", "no": {"goal": "decide", "also": "basics"}},
+      "r-noise":  {"yes": "r-pvalue", "no": {"goal": "decide", "also": "basics"}},
+      "r-pvalue": {"yes": "r-mde", "no": {"goal": "decide", "also": "basics"}},
+      "r-mde":    {"yes": "r-traps", "no": {"goal": "decide", "also": "basics"}},
+      "r-traps":  {"yes": "clt", "no": {"goal": "decide", "also": "basics"}},
+      "clt":      {"yes": {"goal": "basics", "also": "abtest"}, "no": "shares"},
+      "shares":   {"yes": {"goal": "basics"}, "no": {"goal": "basics"}}
+    }},
+    "calc": {"start": "power", "nodes": {
+      "power":      {"yes": "ratio", "no": "pvalue"},
+      "pvalue":     {"yes": {"goal": "abtest", "also": "basics"}, "no": "clt"},
+      "clt":        {"yes": {"goal": "basics", "also": "abtest"}, "no": "shares"},
+      "shares":     {"yes": {"goal": "basics", "also": "abtest"}, "no": {"goal": "basics"}},
+      "ratio":      {"yes": "cuped", "no": {"goal": "abtest", "also": "deep"}},
+      "cuped":      {"yes": "srm", "no": {"goal": "abtest", "also": "deep"}},
+      "srm":        {"yes": "peeking", "no": {"goal": "abtest", "also": "deep"}},
+      "peeking":    {"yes": "interf", "no": {"goal": "abtest", "also": "deep"}},
+      "interf":     {"yes": "regression", "no": {"goal": "abtest", "also": "deep"}},
+      "regression": {"yes": "did", "no": {"goal": "deep"}},
+      "did":        {"yes": {"goal": "deep"}, "no": {"goal": "deep"}}
+    }},
+    "interview": {"start": "shares", "nodes": {
+      "shares":   {"yes": "bayes", "no": {"goal": "interview"}},
+      "bayes":    {"yes": "mean", "no": {"goal": "interview"}},
+      "mean":     {"yes": "clt", "no": {"goal": "interview"}},
+      "clt":      {"yes": "aa", "no": {"goal": "interview"}},
+      "aa":       {"yes": "pvalue", "no": {"goal": "interview"}},
+      "pvalue":   {"yes": "power", "no": {"goal": "interview"}},
+      "power":    {"yes": "multiple", "no": {"goal": "interview", "also": "abtest"}},
+      "multiple": {"yes": {"goal": "interview", "also": "abtest"}, "no": {"goal": "interview", "also": "abtest"}}
+    }},
+    "switch": {"start": "shares", "nodes": {
+      "shares":   {"yes": "bayes", "no": {"goal": "basics", "also": "interview"}},
+      "bayes":    {"yes": "mean", "no": {"goal": "basics", "also": "interview"}},
+      "mean":     {"yes": "clt", "no": {"goal": "basics", "also": "interview"}},
+      "clt":      {"yes": "aa", "no": {"goal": "basics", "also": "interview"}},
+      "aa":       {"yes": "pvalue", "no": {"goal": "basics", "also": "interview"}},
+      "pvalue":   {"yes": "power", "no": {"goal": "basics", "also": "interview"}},
+      "power":    {"yes": "multiple", "no": {"goal": "basics", "also": "interview"}},
+      "multiple": {"yes": {"goal": "interview", "also": "abtest"}, "no": {"goal": "basics", "also": "interview"}}
+    }},
+    "learn": {"start": "shares", "nodes": {
+      "shares":   {"yes": "bayes", "no": {"goal": "basics"}},
+      "bayes":    {"yes": "mean", "no": {"goal": "basics"}},
+      "mean":     {"yes": "clt", "no": {"goal": "basics"}},
+      "clt":      {"yes": "aa", "no": {"goal": "basics"}},
+      "aa":       {"yes": "pvalue", "no": {"goal": "basics"}},
+      "pvalue":   {"yes": "power", "no": {"goal": "basics", "also": "decide"}},
+      "power":    {"yes": "multiple", "no": {"goal": "basics", "also": "decide"}},
+      "multiple": {"yes": {"goal": "basics", "also": "abtest"}, "no": {"goal": "basics", "also": "abtest"}}
+    }}
+  }
+}

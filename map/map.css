@@ -1,28 +1,16 @@
-/* Карта навыков (/map/). Подключается после /home.css и /course.css и берёт оттуда шкалу отступов, радиусы, тени,
-   тёплые серые, кнопки, метки и светофор уровней. Здесь — только граф, переключатель маршрутов, «ты здесь» и панель навыка.
-   Граф: шесть колонок-курсов (≥ 1024 px), стрелки рисует map.js в SVG под карточками. Уже 1024 px — список по курсам.
-   Под графом — «В планах»: пунктирные карточки будущих курсов.
-   Над графом — схема метро (map/metro.js): основной вид. Уже 1024 px — линейный вид выбранного маршрута, без маршрута — схема целиком с кнопкой «Приблизить». */
+/* Карта навыков (/map/). Подключается после /tokens.css, /home.css и /course.css и берёт оттуда шкалу отступов, радиусы, тени,
+   тёплые серые, кнопки, метки и светофор уровней. Здесь — «Весь путь» списком, переключатель целей, схема метро (map/metro.js),
+   «Что в каждом курсе» (карточки курсов со свёрнутым списком навыков), панель станции, «В планах», «Честные границы».
+   Уже 1024 px схема — линейный вид выбранной цели сверху вниз (или схема целиком с кнопкой «Приблизить»). */
 
 .wrap.wide{max-width:1280px}
 .m-hero{padding-top:var(--s-4)}
 .m-hero h1{font-size:clamp(38px,4.6vw,60px); line-height:1.06}
 .m-hero .sub{margin-top:var(--s-3); max-width:36em}
-.m-how{color:var(--warm-700); font-size:var(--fs-s); max-width:44em; margin:var(--s-3) 0 0}
-.m-legend{display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-5); align-items:center; font-size:var(--fs-xs); color:var(--warm-600); margin:var(--s-4) 0 0}
-.m-legend > span{display:inline-flex; align-items:center; gap:6px}
-.m-legend .tag{box-shadow:none}
-.tag.main-tag{background:var(--butter); color:var(--soon-ink)}
-.arrow-key{color:var(--warm-600)}
 
-/* «Ты здесь» и маршруты */
-.m-controls{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:var(--s-5); align-items:start; padding-top:var(--s-6)}
-.here{--plate-bar:var(--coral); background:var(--white)}
-.here-h, .route-h{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:0 0 var(--s-2)}
-.here p{font-size:var(--fs-s)}
-.here .big{font:600 var(--fs-m)/1.4 var(--body); color:var(--ink)}
-.here .bar{display:flex; gap:var(--s-3); flex-wrap:wrap; font-size:var(--fs-xs); color:var(--warm-600); margin-top:var(--s-2)}
-.here .btn{margin-top:var(--s-3)}
+/* цели (маршруты) */
+.m-controls{padding-top:var(--s-6)}
+.route-h{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:0 0 var(--s-2)}
 .route-lead{font-size:var(--fs-xs); color:var(--warm-600); margin:0 0 var(--s-3); max-width:46em}
 .goals{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--s-2)}
 .goals li{display:flex}
@@ -38,94 +26,12 @@
 .route-btns .all:hover{background:var(--ctrl-bg)}
 .route-btns .all[aria-pressed="true"]{background:var(--pen); color:#fff}
 
-/* тест уровня (map/quiz.js) */
-.m-quiz{padding-top:var(--s-5)}
-.qz{--plate-bar:var(--pen); background:var(--white); max-width:780px}
-.qz-h{font:600 var(--fs-h3)/1.2 var(--serif); margin:0 0 var(--s-2)}
-.qz .qz-lead, .qz .qz-note{font-size:var(--fs-s); color:var(--warm-700)}
-.qz-len{font-size:var(--fs-xs); color:var(--warm-600)}
-.qz .qz-acts{display:flex; flex-wrap:wrap; gap:var(--s-2); align-items:center; margin-top:var(--s-4)}
-.qz-acts .btn[disabled]{opacity:.45; cursor:not-allowed}
-.qz-of{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600)}
-.qz-bar{height:4px; border-radius:2px; background:var(--sunk); margin:var(--s-2) 0 var(--s-3); max-width:46em; overflow:hidden}
-.qz-bar span{display:block; height:100%; background:var(--pen); transition:width .2s}
-.qz-q{font:600 var(--fs-m)/1.35 var(--body); margin:0; outline:none}
-.qz-opts{list-style:none; margin:var(--s-3) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s-2); max-width:46em}
-.qz-opt{display:block; width:100%; text-align:left; min-height:44px; padding:var(--s-2) var(--s-3); border-radius:var(--r-m); border:2px solid rgba(36,34,31,.16);
-  background:var(--white); color:var(--ink); font:400 var(--fs-s)/1.4 var(--body); cursor:pointer}
-.qz-opt:hover{border-color:var(--pen); background:var(--ctrl-bg)}
-.qz-opt.on{border-color:var(--pen); background:var(--ctrl-bg); font-weight:600}
-.qz-opt.ok{border-color:var(--good-ink); background:var(--mint); font-weight:600}
-.qz-opt.ok::after{content:" ✓"; color:var(--good-ink)}
-.qz-opt.no{border-color:var(--coral-600); background:#FBEAE5}
-.qz-opt[aria-disabled="true"]{cursor:default}
-.qz-opt[aria-disabled="true"]:not(.ok):not(.no){opacity:.6}
-.qz .qz-fb{margin-top:var(--s-3); font-size:var(--fs-s)}
-.qz-fb.ok b{color:var(--good-ink)}
-.qz-fb.no b{color:var(--coral-600)}
-.qz .qz-start{font:600 var(--fs-s)/1.45 var(--body); margin-top:var(--s-2)}
-.qz .qz-why{font-size:var(--fs-s)}
-@media (prefers-reduced-motion: reduce){ .qz-bar span{transition:none} }
 .route-info{font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-3) 0 0; max-width:46em; min-height:1.5em}
 .route-info b{color:var(--ink)}
 
-/* граф */
-.m-graph-wrap{padding-top:var(--s-6)}
-.m-graph{position:relative}
-.edges{position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none}
-.edges path{fill:none; stroke:rgba(36,34,31,.22); stroke-width:1.5}
-.edges path.soft{stroke-dasharray:4 4; stroke:rgba(36,34,31,.35); display:none}
-.edges path.on{stroke:var(--pen); stroke-width:2.5; stroke-opacity:1}
-.edges path.soft.on{display:inline; stroke:var(--pen); stroke-width:2}
-.edges path.fade{stroke:rgba(36,34,31,.08)}
-.edges marker path{fill:rgba(36,34,31,.35); stroke:none}
-.edges marker.on path{fill:var(--pen)}
 
-.cols{position:relative; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:var(--s-5); align-items:start}
-.col{min-width:0}
-.col-h{position:relative; background:var(--paper); border-radius:var(--r-m); padding:calc(var(--s-3) + 4px) var(--s-3) var(--s-3); box-shadow:var(--sh-1); margin-bottom:var(--s-4); overflow:hidden; min-height:148px}
-.col-h::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course, var(--warm-600))}
-.col-h h2{font:600 var(--fs-s)/1.3 var(--serif); margin:0 0 var(--s-2)}
-.col-h h2 a{display:block; min-height:44px; padding:var(--s-1) 0; margin:calc(-1 * var(--s-1)) 0; color:var(--ink); text-decoration:underline; text-decoration-color:rgba(36,34,31,.2); text-underline-offset:3px}
-.col-h h2 a:hover{color:var(--pen)}
-.col-h .chips{gap:var(--s-1); margin:0}
-.col-h .chip, .col-h .tag{font-size:12px; padding:4px 6px; gap:4px}
-.col-h .par{font-size:12px; line-height:1.35; color:var(--warm-600); margin:var(--s-2) 0 0}
-.col-h .cnt{font-size:12px; color:var(--warm-600); margin:var(--s-1) 0 0}
 
-.nodes{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s-4)}
-.node{position:relative; display:flex; flex-direction:column; gap:var(--s-1); width:100%; text-align:left; cursor:pointer; min-height:44px;
-  font:400 14px/1.35 var(--body); color:var(--ink); background:var(--white); border:0; border-radius:var(--r-m); padding:var(--s-2) var(--s-3) var(--s-2);
-  box-shadow:var(--sh-2); transition:box-shadow .15s, transform .15s, background .15s}
-.node:hover{box-shadow:var(--sh-3); transform:translateY(-1px)}
-.node .lab{font-weight:600; hyphens:auto; -webkit-hyphens:auto}
 .nw{white-space:nowrap}
-.node .meta{display:flex; flex-wrap:wrap; gap:2px var(--s-2); align-items:center; font-size:12px; line-height:1.3; color:var(--warm-600)}
-.node .meta .lvl{width:8px; height:8px}
-.node .lv{display:inline-flex; align-items:center; gap:4px}
-.node .mn{background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px; font-weight:600}
-.node .stt{font-weight:600}
-.node.paid{background:var(--paper); box-shadow:var(--sh-1)}
-.node.main{box-shadow:var(--sh-2), inset 0 0 0 2px var(--l2)}
-.node.paid.main{box-shadow:var(--sh-1), inset 0 0 0 2px var(--l2)}
-.node.done{background:var(--mint)}
-.node.done .stt{color:var(--good-ink)}
-.node.covered{background:var(--mint)}
-.node.covered .stt{color:var(--good-ink); font-weight:400}
-.node.started .stt{color:var(--test-ink)}
-.node.next{box-shadow:var(--sh-2), 0 0 0 3px var(--coral)}
-.node.next .stt{color:var(--coral-600)}
-.node.sel{box-shadow:var(--sh-3), 0 0 0 3px var(--pen)}
-.node .ord{position:absolute; top:-10px; right:-8px; min-width:24px; height:24px; padding:0 6px; border-radius:var(--r-pill); background:var(--pen); color:#fff;
-  font:600 12px/24px var(--body); text-align:center; font-variant-numeric:tabular-nums; display:none}
-.routing .node.inroute .ord{display:block}
-.routing .node.inroute.assumed .ord{display:none}
-.routing .node:not(.inroute){background:transparent; box-shadow:inset 0 0 0 1px rgba(36,34,31,.14); color:var(--warm-600)}
-.routing .node:not(.inroute) .lab{font-weight:400}
-.routing .node.assumed{background:transparent; box-shadow:inset 0 0 0 2px rgba(35,65,138,.35); color:var(--warm-700)}
-.routing .node.next{box-shadow:var(--sh-2), 0 0 0 3px var(--coral)}
-.routing .node.sel{box-shadow:var(--sh-3), 0 0 0 3px var(--pen)}
-.col.parallel .col-h{background:var(--white)}
 
 /* панель навыка */
 .panel-side{position:fixed; z-index:20; top:var(--s-4); right:var(--s-4); bottom:var(--s-4); width:min(420px, calc(100vw - 2 * var(--s-4))); overflow:auto;
@@ -134,7 +40,7 @@
   font:400 26px/1 var(--body); cursor:pointer}
 .p-close:hover{background:#E6E1D8}
 .panel-side .chips{padding-right:var(--s-7)}
-.panel-side h2{font:600 var(--fs-l)/1.3 var(--serif); margin:var(--s-3) 0 var(--s-3); outline:none}
+.panel-side h2{font:500 var(--fs-l)/1.3 var(--serif); margin:var(--s-3) 0 var(--s-3); outline:none}
 .panel-side h3{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:var(--s-5) 0 var(--s-2)}
 .panel-side p{font-size:var(--fs-s); margin:0 0 var(--s-2)}
 .panel-side .can{font:400 var(--fs-m)/1.45 var(--serif)}
@@ -157,36 +63,21 @@
 .bounds{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
 .bounds li{position:relative; background:var(--paper); border-radius:var(--r-m); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); box-shadow:var(--sh-1); overflow:hidden; font-size:var(--fs-s)}
 .bounds li::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
-.bounds b{display:block; font:600 var(--fs-m)/1.3 var(--serif); margin-bottom:var(--s-1)}
+.bounds b{display:block; font:500 var(--fs-m)/1.3 var(--serif); margin-bottom:var(--s-1)}
 .bounds p{margin:0; color:var(--warm-700)}
 
-/* без графа: список по курсам (планшет и телефон) */
-@media (max-width:1023px){
-  .m-controls{grid-template-columns:1fr}
-  .edges{display:none}
-  .cols{display:flex; flex-direction:column; gap:var(--s-6)}
-  .col-h{min-height:0; display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-3); align-items:baseline}
-  .col-h h2{font-size:var(--fs-l); margin:0; flex-basis:100%}
-  .col-h .par, .col-h .cnt{margin:0}
-  .nodes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--s-3)}
-  .node{font-size:var(--fs-s)}
-  .node .ord{top:-8px; right:-4px}
-  .bounds{grid-template-columns:1fr 1fr}
-}
+@media (max-width:1023px){ .bounds{grid-template-columns:1fr 1fr} }
 @media (max-width:620px){
-  .nodes{grid-template-columns:1fr}
   .bounds{grid-template-columns:1fr}
   .panel-side{top:auto; left:0; right:0; bottom:0; width:100%; max-height:80vh; border-radius:var(--r-l) var(--r-l) 0 0; padding:var(--s-5) var(--s-4) var(--s-6)}
-  .m-legend{gap:var(--s-2) var(--s-4)}
 }
-@media (prefers-reduced-motion: reduce){ .node{transition:none} .node:hover{transform:none} }
 
 /* в планах: курсов ещё нет — пунктир, без тени и кнопок */
 .tag.planned{background:transparent; color:var(--warm-600); border:1px dashed currentColor; padding:5px 7px}
 .plans{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4)}
 .plan{display:flex; flex-direction:column; border:2px dashed rgba(36,34,31,.22); border-radius:var(--r-m); padding:var(--s-4); font-size:var(--fs-s); color:var(--warm-700); min-width:0}
 .plan .chips{margin:0}
-.plan h3{font:600 var(--fs-m)/1.3 var(--serif); color:var(--ink); margin:var(--s-2) 0 0}
+.plan h3{font:500 var(--fs-m)/1.3 var(--serif); color:var(--ink); margin:var(--s-2) 0 0}
 .plan .alt{font-size:var(--fs-xs); color:var(--warm-600); margin:var(--s-1) 0 0}
 .plan .pl-about{margin:var(--s-3) 0 0}
 .plan h4{font:600 var(--fs-xs)/1.3 var(--body); text-transform:uppercase; letter-spacing:.06em; color:var(--warm-600); margin:var(--s-4) 0 var(--s-2)}
@@ -212,7 +103,7 @@
 
 /* ---------- схема метро ---------- */
 .m-metro{padding-top:var(--s-7)}
-.m-metro h2, .m-detail h2{font:600 var(--fs-h3)/1.2 var(--serif); margin:0}
+.m-metro h2, .m-detail h2{font:500 var(--fs-h3)/1.2 var(--serif); margin:0}
 .m-metro .lead-note{max-width:46em; margin:var(--s-2) 0 0}
 .metro-card{margin-top:var(--s-4); background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5) var(--s-5)}
 .metro-legend{display:flex; flex-wrap:wrap; gap:var(--s-3) var(--s-6); align-items:center; justify-content:space-between}
@@ -230,7 +121,7 @@
 .metro .zone rect{fill:var(--zc); fill-opacity:.13; stroke:none}
 .metro .zone.z-soon rect{fill:var(--paper); fill-opacity:1; stroke:var(--zc); stroke-width:1.5; stroke-dasharray:6 4}
 .metro .zone.z-later rect{fill:none; stroke:var(--warm-600); stroke-opacity:.45; stroke-width:1.5; stroke-dasharray:2 4}
-.metro .zt{font:600 15px/1 var(--serif); fill:var(--ink)}
+.metro .zt{font:500 15px/1 var(--serif); fill:var(--ink)}
 .metro .zs{font:400 12px/1 var(--body); fill:var(--warm-600)}
 .metro .ln path{fill:none; stroke-linejoin:round; stroke-linecap:round}
 .metro .ln .stroke{stroke:var(--line); stroke-width:6}
@@ -246,7 +137,7 @@
 .metro .mk.cont-mk{fill:#fff; stroke:var(--line); stroke-width:2.5}
 .metro .mk.pl-mk{fill:#fff; stroke:#8A847A; stroke-width:2; stroke-dasharray:3 2}
 .metro .sl{font:400 13px/1 var(--body); fill:var(--ink)}
-.metro .sl.big{font-weight:700}
+.metro .sl.big{font-weight:600}
 .metro .st.later .sl{fill:var(--warm-700)}
 .metro .st.plan .sl{fill:var(--warm-700)}
 .metro .bld{font-style:italic; font-size:12px; fill:var(--warm-600)}
@@ -254,9 +145,10 @@
 .metro .st:hover .sl{text-decoration:underline}
 .metro .st:focus-visible .ring{opacity:1; stroke-dasharray:4 3}
 .metro .st.sel .ring{opacity:1; stroke-dasharray:none}
-.metro .here-pin circle{fill:none; stroke:var(--coral); stroke-width:3}
+.metro .here-pin .hp-ring{fill:none; stroke:var(--coral-600); stroke-width:2.5}
+.metro .here-pin .hp-leg{stroke:var(--coral-600); stroke-width:2}
 .metro .here-pin rect{fill:var(--coral-600)}
-.metro .here-pin text{font:700 12px/1 var(--body); fill:#fff; letter-spacing:.02em}
+.metro .here-pin text{font:600 12px/1 var(--body); fill:#fff; letter-spacing:.02em}
 /* выбран маршрут: остальное бледнеет */
 .metro.routing .ln:not(.on), .metro.routing .st.off, .metro.routing .plan-ln, .metro.routing .st.plan{opacity:.16}
 .metro.routing .ln.on .stroke{stroke-width:8}
@@ -264,8 +156,6 @@
 .metro-pick, .metro-linear{display:none}
 .metro-more{margin:var(--s-3) 0 0; font-size:var(--fs-s)}
 .metro-more a{display:inline-block; padding:var(--s-2) 0}
-.m-detail{padding-top:var(--s-8)}
-.m-detail .m-legend{margin-top:var(--s-4)}
 
 /* линейный вид маршрута (узкий экран) */
 .metro-linear{list-style:none; margin:var(--s-3) 0 0; padding:0; position:relative}
@@ -280,7 +170,7 @@
 .metro-linear .lz.z-later::after{background:transparent; opacity:.5; border:1.5px dotted var(--warm-600)}
 .metro-linear .lz > span{position:relative; z-index:1}
 .metro-linear .lz{padding-left:56px}
-.metro-linear .lz-t{font:600 var(--fs-s)/1.3 var(--serif); color:var(--ink)}
+.metro-linear .lz-t{font:500 var(--fs-s)/1.3 var(--serif); color:var(--ink)}
 .metro-linear .lz-s{font-size:var(--fs-xs); color:var(--warm-600); white-space:nowrap}
 .metro-linear .ls-b{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px var(--s-2); width:100%; min-height:44px; padding:var(--s-2) var(--s-2) var(--s-2) 0;
   border:0; background:none; text-align:left; font:400 var(--fs-s)/1.35 var(--body); color:var(--ink); cursor:pointer; position:static}
@@ -289,9 +179,9 @@
 .metro-linear .dot{position:absolute; left:12px; top:14px; width:16px; height:16px; border-radius:50%; background:var(--line); box-shadow:0 0 0 2px #fff}
 .metro-linear .main .dot{left:8px; top:10px; width:24px; height:24px; background:#fff; box-shadow:inset 0 0 0 7px var(--line), 0 0 0 2px #fff}
 .metro-linear .later .dot{background:#fff; box-shadow:inset 0 0 0 2.5px var(--line)}
-.metro-linear .main .ls-n{font-weight:700}
+.metro-linear .main .ls-n{font-weight:600}
 .metro-linear .ls-m{font-size:12px; font-weight:600; background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px}
-.metro-linear .ls-h{font-size:12px; font-weight:700; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
+.metro-linear .ls-h{font-size:12px; font-weight:600; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
 .metro-linear .here .dot{box-shadow:0 0 0 2px #fff, 0 0 0 5px var(--coral)}
 .metro-linear .ls-d{font-size:12px; color:var(--good-ink); font-weight:600}
 .metro-linear .ls-x{flex-basis:100%; font-size:var(--fs-xs); color:var(--warm-600)}
@@ -314,3 +204,60 @@
   .ml-line{font-size:var(--fs-xs); padding:var(--s-2) var(--s-3)}
 }
 @media (prefers-reduced-motion: reduce){ .metro .ln, .metro .st{transition:none} }
+/* термины: строка-облако в шапке курса, в панели навыка и в карточках «В планах» */
+.terms{display:flex; flex-wrap:wrap; gap:4px; align-items:baseline; margin:var(--s-2) 0 0; font-size:12px; line-height:1.3}
+.terms-h{color:var(--warm-600); margin-right:2px}
+.term{background:var(--sunk); color:var(--warm-900); border-radius:var(--r-pill); padding:2px 8px}
+.panel-side .terms, .plan .terms{font-size:var(--fs-xs); margin-top:var(--s-3)}
+
+/* «Подобрать маршрут» и «Показать мой маршрут» в шапке страницы */
+.m-acts{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin-top:var(--s-5)}
+/* «Весь путь» текстом: шесть курсов по порядку, крупный номер */
+.m-path{padding-top:var(--s-7)}
+.m-path h2{font:400 var(--fs-h2)/1.2 var(--serif); letter-spacing:-.01em; margin:0 0 var(--s-3)}
+.path-list{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s-4) var(--s-6); counter-reset:none}
+.path-list li{display:flex; gap:var(--s-4); align-items:flex-start}
+.path-list .pn{flex:none; width:48px; height:48px; border-radius:50%; display:grid; place-items:center; font:500 24px/1 var(--serif); color:var(--ink);
+  background:var(--white); box-shadow:inset 0 0 0 3px var(--course); font-variant-numeric:tabular-nums}
+.path-list .pt{margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
+.path-list .pt a{color:var(--ink)}
+.path-list .tag{font:500 12px/1 var(--body); vertical-align:middle}
+.path-list .tag.opt{background:var(--sunk); color:var(--warm-700)}
+.path-list .pg{margin:var(--s-1) 0 0; font-size:var(--fs-s); color:var(--warm-700)}
+.path-list .pp{margin:var(--s-1) 0 0; font-size:var(--fs-xs); color:var(--warm-600)}
+@media (max-width: 760px){ .path-list{grid-template-columns:1fr} .path-list .pn{width:40px; height:40px; font-size:20px} }
+.metro-full{font:500 var(--fs-s)/1.4 var(--body); color:var(--ink); margin:0 0 var(--s-2)}
+/* номер курса в шапке колонки графа и «что нужно заранее» */
+.pre{font-size:12px; line-height:1.4; color:var(--warm-700); margin-top:var(--s-2)}
+.pre ul{margin:var(--s-1) 0; padding-left:1.1em}
+.pre p{margin:var(--s-1) 0 0}
+.panel-side .pre{font-size:var(--fs-s); margin-top:var(--s-4)}
+
+/* «Что в каждом курсе»: компактные карточки в порядке «Весь путь», список навыков свёрнут */
+.ccs{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); align-items:start}
+.cc{position:relative; background:var(--white); border-radius:var(--r-m); box-shadow:var(--sh-1); padding:calc(var(--s-4) + 4px) var(--s-4) var(--s-4); overflow:hidden; min-width:0}
+.cc::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
+.cc-h{display:flex; gap:var(--s-3); align-items:center; margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
+.cc-h a{color:var(--ink)}
+.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 18px/1 var(--serif); background:var(--white);
+  box-shadow:inset 0 0 0 2px var(--course); font-variant-numeric:tabular-nums}
+.cc .chips{margin:var(--s-3) 0 0}
+.cc .tag.opt{background:var(--sunk); color:var(--warm-700)}
+.cc-for{margin:var(--s-2) 0 0; font-size:var(--fs-s); color:var(--warm-700)}
+.cc-more{margin-top:var(--s-3); font-size:var(--fs-s)}
+.cc-more summary{cursor:pointer; color:var(--pen); min-height:44px; display:flex; align-items:center}
+.cc-sk{margin:var(--s-1) 0 0; padding-left:1.1em; display:flex; flex-direction:column; gap:var(--s-1)}
+.cc-sk a{color:var(--ink); text-decoration-color:rgba(36,34,31,.25)}
+.cc .pre{font-size:var(--fs-s); margin-top:var(--s-4)}
+.pre .pre-h{font-weight:500; color:var(--ink); margin:0}
+.cc-open{margin:var(--s-4) 0 0; font-weight:500}
+@media (max-width:1023px){ .ccs{grid-template-columns:1fr 1fr} }
+@media (max-width:620px){ .ccs{grid-template-columns:1fr} }
+/* схема: номера зон по «Весь путь», пунктир необязательных участков */
+.metro .zn-c{fill:#fff; stroke:var(--zc); stroke-width:2.5}
+.metro .zn{font:500 17px/1 var(--serif); fill:var(--ink)}
+.metro .ln .stroke.dash{stroke-dasharray:10 7; stroke-linecap:butt}
+.metro-linear .lz-n{display:inline-grid; place-items:center; width:26px; height:26px; margin-right:var(--s-2); border-radius:50%; background:#fff; box-shadow:inset 0 0 0 2px var(--zc);
+  font:500 15px/1 var(--serif); color:var(--ink); vertical-align:middle}
+.metro-linear .lz.opt::after{background:transparent; opacity:1; border:1.5px dashed var(--zc)}
+.ml-line.mine{font-weight:500}

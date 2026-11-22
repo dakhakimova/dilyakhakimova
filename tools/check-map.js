@@ -8,7 +8,8 @@
    Схема метро (map/metro.js, LAYOUT): станции — настоящие узлы, у каждого курса 2–5 станций и есть главная, линии — маршруты,
    порядок остановок на линии = порядок маршрута, отрезки только под 0/45/90°, станции «строится» — курсы в планах, тексты metro.* есть.
    Маршруты-цели: поля, вход, опора из бесплатных внутри маршрута, каждый курс задет, reaches (маршрут «Глубже» доходит до CI).
-   Тест уровня (map/quiz.js): на любых ответах итог — маршрут и навык в нём, тексты quiz.* есть.
+   «Подобрать маршрут» (/start/): блок «про тебя» и деревья без тупиков, перебор и 200 случайных проходов — не длиннее 14 вопросов, итог — цель и навык в ней.
+   Порядок курсов: 1 ВП → 2 СШ → 3 АП → 4 ПС → 5 АБМ → 6 CI — везде одинаковый. Банк задач (map/quiz-bank.json) — навыки и тексты.
    Ошибки — код выхода 1; предупреждения (лишнее ребро, которое и так следует из других) — только печать. */
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -39,6 +40,20 @@ for (const c of M.courses){
   if (c.status === 'planned') continue;                       // у курсов «в планах» нет навыков и главного действия
   if (!nodes.has(c.main)) err(c.id + ': главный навык ' + c.main + ' не найден');
   else if (!nodes.get(c.main).main) err(c.id + ': у ' + c.main + ' нет main: true');
+}
+
+// термины (terms) у навыков и курсов: непустые строки без повторов; написание — как договорились
+{
+  const BAD = [[/бутстр[еэ]п/i, 'бутстрап'], [/поправк\S* на множественность/i, 'поправка на множественное тестирование'], [/множественные проверки/i, 'множественное тестирование']];
+  const chk = (who, list) => {
+    if (list === undefined) return;
+    if (!Array.isArray(list) || !list.length) { err(who + ': terms — нужен непустой список'); return; }
+    if (new Set(list).size !== list.length) err(who + ': terms — повтор');
+    list.forEach(x => { if (typeof x !== 'string' || !x.trim()) err(who + ': terms — пустой термин'); });
+  };
+  M.nodes.forEach(n => chk(n.id, n.terms)); M.courses.forEach(c => chk(c.id, c.terms));
+  const txt = JSON.stringify(M) + fs.readFileSync(path.join(ROOT, 'i18n/map.js'), 'utf8') + fs.readFileSync(path.join(ROOT, 'i18n/map-quiz.js'), 'utf8');
+  BAD.forEach(([re, ok]) => { const m = txt.match(re); if (m) err('написание: «' + m[0] + '» — пишем «' + ok + '»'); });
 }
 
 // рёбра
@@ -127,32 +142,132 @@ for (const r of M.routes){
   }
 }
 
-// тест уровня (map/quiz.js): 5–6 вопросов, у проверок правильный вариант есть среди вариантов; на любых ответах итог — маршрут и навык в нём; тексты quiz.* есть
+// порядок курсов — один везде: 1 «Вероятность на пальцах», 2 «Сигнал или шум», 3 «A/B на пальцах», 4 «Прикладная статистика»,
+// 5 «A/B без мифов», 6 Causal inference. Из него выводятся «Весь путь» (route full), «Что в каждом курсе», номера на схеме и в /start/.
+{
+  const ORDER = ['prob', 'sig', 'ab', 'st', 'abm', 'cau'];
+  const real = M.courses.filter(c => c.status !== 'planned').map(c => c.id);
+  if (real.join() !== ORDER.join()) err('порядок курсов в skills.json: ' + real.join(' → ') + ', нужно ' + ORDER.join(' → '));
+  const full = M.routes.find(r => r.id === 'full');
+  if (!full) err('нет цели «Весь путь» (full)');
+  else {
+    if ((full.path || []).map(p => p.course).join() !== ORDER.join()) err('«Весь путь»: path — ' + (full.path || []).map(p => p.course).join(' → ') + ', нужно ' + ORDER.join(' → '));
+    const seen = []; full.nodes.forEach(id => { const c = nodes.get(id) && nodes.get(id).course; if (c && seen[seen.length - 1] !== c) seen.push(c); });
+    if (seen.join() !== ORDER.join()) err('«Весь путь»: навыки идут по курсам ' + seen.join(' → '));
+    if (M.nodes.some(n => !full.nodes.includes(n.id))) err('«Весь путь» должен включать все навыки');
+    (full.path || []).forEach(p => { if (p.optional && !p.why) err('«Весь путь»: у необязательного курса ' + p.course + ' нет why'); });
+  }
+  if (M.routes[0] && M.routes[0].id !== 'full') err('«Весь путь» — первая цель в routes (вид по умолчанию)');
+  // что нужно заранее (prereq) у каждого курса
+  for (const c of M.courses.filter(c => c.status !== 'planned')){
+    const p = c.prereq;
+    if (!p) { err(c.id + ': нет prereq («что нужно заранее»)'); continue; }
+    if (!p.none && !(Array.isArray(p.know) && p.know.length)) err(c.id + ': prereq — нужен none или непустой know');
+    (p.else || []).concat(p.deeper || []).forEach(x => { if (!courses[x]) err(c.id + ': prereq — нет курса ' + x); });
+  }
+}
+
+// «Подобрать маршрут» (/start/: start/tree.json + start/start.js + i18n/start.js): блок «про тебя» без тупиков и циклов, все деревья достижимы,
+// у каждого пункта есть навыки и тексты (вопрос, подсказка, подпись), полный перебор ответов и 200 случайных проходов — не длиннее 14 вопросов,
+// итог — настоящая цель, стартовый навык в ней, личная линия по курсам — в порядке «Весь путь»
 {
   const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
-  for (const f of ['i18n/site.js', 'i18n/map.js', 'map/quiz.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
-  const Q = ctx.SkillQuizData, RU = ctx.I18N.ru, need = k => { if (!(k in RU)) err('тест: нет строки ' + k + ' в i18n/map.js'); };
-  if (Q.questions.length < 5 || Q.questions.length > 6) err('тест: вопросов ' + Q.questions.length + ', нужно 5–6');
-  ['quiz.title', 'quiz.lead', 'quiz.go', 'quiz.of', 'quiz.next', 'quiz.back', 'quiz.finish', 'quiz.right', 'quiz.wrong', 'quiz.dunno',
-   'quiz.res.goal', 'quiz.res.start', 'quiz.res.note', 'quiz.show', 'quiz.again', 'quiz.open', 'quiz.wait'].forEach(need);
-  if (!/ориентир/.test(RU['quiz.res.note'] || '') || !/любого места/.test(RU['quiz.res.note'] || '')) err('тест: в итоге нет оговорки «это ориентир, а не экзамен; можно начать с любого места»');
-  for (const q of Q.questions){
-    need('quiz.' + q.id + '.q');
-    q.opts.filter(o => o !== 'dunno').forEach(o => need('quiz.' + q.id + '.' + o));
-    if (q.right){ if (!q.opts.includes(q.right)) err('тест: у ' + q.id + ' правильного варианта нет среди вариантов'); need('quiz.' + q.id + '.why'); }
+  for (const f of ['i18n/site.js', 'i18n/start.js', 'start/start.js']) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
+  const E = ctx.SkillStart, RU = ctx.I18N.ru, T = JSON.parse(fs.readFileSync(path.join(ROOT, 'start/tree.json'), 'utf8'));
+  const need = k => { if (!(k in RU)) err('/start/: нет строки ' + k + ' в i18n/start.js'); };
+  ['st.title', 'st.hello', 'st.time', 'st.go', 'st.back', 'st.next', 'sa.yes', 'sa.heard', 'sa.no', 'sa.unsure', 'sa.check', 'ck.say', 'ck.skip',
+   'st.res.title', 'st.res.sum', 'st.res.start', 'st.res.open', 'st.res.map', 'st.res.again', 'st.res.mail', 'st.res.note', 'st.res.tree'].forEach(need);
+  if (!/2 минут/.test(RU['st.time'] || '')) err('/start/: в интро должно быть «около 2 минут»');
+  if (!/ориентир/.test(RU['st.res.note'] || '') || !/любого места/.test(RU['st.res.note'] || '')) err('/start/: в итоге нет оговорки «ориентир, а не экзамен; начать можно с любого места»');
+  for (const [id, it] of Object.entries(T.items)){
+    it.skills.forEach(sk => { if (!nodes.has(sk)) err('/start/: пункт ' + id + ' — нет навыка ' + sk); });
+    (it.implies || []).forEach(x => { if (!T.items[x]) err('/start/: пункт ' + id + ' — implies: нет пункта ' + x); });
+    if (!it.hidden) ['q', 'hint', 'short'].forEach(k => need('sa.' + id + '.' + k));
+    (it.answers || []).forEach(a => need('sa.' + a));
   }
-  const role = Q.questions.find(q => !q.right), checks = Q.questions.filter(q => q.right), goals = new Set();
-  if (!role) err('тест: нет вопроса «что ты делаешь с данными»');
-  else for (const ro of role.opts) for (let m = 0; m < 1 << checks.length; m++){
-    const ans = {[role.id]: ro};
-    checks.forEach((q, i) => { ans[q.id] = m >> i & 1 ? q.right : 'dunno'; });
-    const res = Q.result(ans), r = M.routes.find(x => x.id === res.goal);
-    if (!r) { err('тест: итог ' + JSON.stringify(ans) + ' — нет маршрута ' + res.goal); continue; }
-    if (!r.nodes.includes(res.start)) err('тест: итог ' + JSON.stringify(ans) + ' — навыка ' + res.start + ' нет в маршруте ' + r.id);
-    goals.add(res.goal);
+  T.check.tasks.forEach(k => { ['q', 'why'].concat(k.opts).forEach(o => need('ck.' + k.id + '.' + o)); if (!k.opts.includes(k.right)) err('/start/: у задачи ' + k.id + ' верного нет среди вариантов'); });
+  if (!(T.items[T.check.item].answers || []).includes('check')) err('/start/: у пункта мини-проверки нет варианта «хочу проверить»');
+  const A = T.about.qs, reachQ = new Set(), reachB = new Set();
+  (function walk(id, trail){
+    if (trail.includes(id)) { err('/start/: цикл в блоке «про тебя»: ' + trail.concat(id).join(' → ')); return; }
+    const q = A[id]; if (!q) { err('/start/: нет вопроса ' + id); return; }
+    reachQ.add(id); need('qz.' + id + '.q'); q.opts.forEach(o => need('qz.' + id + '.' + o.id));
+    if (trail.length + 1 > 4) err('/start/: блок «про тебя» длиннее 4 вопросов');
+    q.opts.map(o => o.next || q.next).forEach(nx => { if (!nx) err('/start/: тупик после ' + id); else if (nx[0] === '#'){ if (!T.trees[nx.slice(1)]) err('/start/: нет дерева ' + nx); else reachB.add(nx.slice(1)); } else walk(nx, trail.concat(id)); });
+  })(T.about.start, []);
+  Object.keys(A).forEach(id => { if (!reachQ.has(id)) err('/start/: вопрос ' + id + ' недостижим'); });
+  const isRoute = g => M.routes.some(r => r.id === g);
+  for (const [bid, tr] of Object.entries(T.trees)){
+    if (!reachB.has(bid)) err('/start/: дерево ' + bid + ' недостижимо');
+    if (!tr.nodes[tr.start]) err('/start/: у дерева ' + bid + ' нет стартового пункта');
+    for (const [it, nd] of Object.entries(tr.nodes)){
+      if (!T.items[it] || T.items[it].hidden) err('/start/: дерево ' + bid + ' — нет пункта с вопросом ' + it);
+      ['yes', 'no'].forEach(k => { const e = nd[k];
+        if (e === undefined) err('/start/: ' + bid + '.' + it + ' — нет ветки ' + k);
+        else if (typeof e === 'string'){ if (!tr.nodes[e]) err('/start/: ' + bid + '.' + it + ' → ' + e + ' — нет такого пункта в дереве'); }
+        else { if (!isRoute(e.goal)) err('/start/: ' + bid + '.' + it + ' — нет цели ' + e.goal); if (e.also && !isRoute(e.also)) err('/start/: ' + bid + '.' + it + ' — нет цели ' + e.also); need('st.why.' + e.goal); } });
+    }
   }
-  goals.forEach(g => need('quiz.why.' + g));
-  M.routes.forEach(r => { if (!goals.has(r.id)) warn('тест: ни один набор ответов не ведёт к цели ' + r.id); });
+  const abouts = [];
+  (function gen(about){ const x = E.aboutNext(T, about); if (x.branch) { abouts.push([JSON.parse(JSON.stringify(about)), x.branch]); return; }
+    A[x.q].opts.forEach(o => gen(Object.assign({}, about, {[x.q]: o.id}))); })({});
+  const ORDER = ['prob', 'sig', 'ab', 'st', 'abm', 'cau'];
+  const check = (about, bid, ans, end, where) => {
+    const total = E.aboutPath(T, about).length + ans.length;
+    if (total > 14) err('/start/: ' + where + ' — ' + total + ' вопросов, больше 14');
+    const R = E.result(T, M, bid, about, ans, end), r = M.routes.find(x => x.id === R.goal);
+    if (!r) { err('/start/: ' + where + ' — нет цели ' + R.goal); return; }
+    if (!r.nodes.includes(R.start)) err('/start/: ' + where + ' — старт ' + R.start + ' не в цели ' + r.id);
+    const seq = R.plan.map(p => ORDER.indexOf(p.course));
+    if (seq.some((x, i) => i && x <= seq[i - 1])) err('/start/: ' + where + ' — личная линия не в порядке «Весь путь»: ' + R.plan.map(p => p.course).join(' → '));
+    if (!R.plan.some(p => !p.skip && !p.extra) && !R.all) err('/start/: ' + where + ' — в личной линии нет ни одного курса');
+  };
+  let runs = 0, maxLen = 0;
+  const answersOf = it => (T.items[it].answers || ['yes', 'heard', 'no']);
+  for (const [about, bid] of abouts){
+    (function go(ans){
+      const r = E.run(T, bid, ans);
+      if (r.end){ runs++; maxLen = Math.max(maxLen, ans.length); check(about, bid, ans, r.end, bid + ' ' + ans.map(h => h.a[0]).join('')); return; }
+      if (ans.length > 14) { err('/start/: ' + bid + ' — дерево не заканчивается'); return; }
+      answersOf(r.next).forEach(a => {
+        if (a === 'check') { go(ans.concat({item: r.next, a, ck: T.check.tasks.map(k => k.right)})); go(ans.concat({item: r.next, a, ck: []})); }
+        else go(ans.concat({item: r.next, a}));
+      });
+    })([]);
+  }
+  let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let i = 0; i < 200; i++){
+    const [about, bid] = abouts[Math.floor(rnd() * abouts.length)], ans = [];
+    let r, guard = 0;
+    while (!(r = E.run(T, bid, ans)).end && guard++ < 30){ const as = answersOf(r.next), a = as[Math.floor(rnd() * as.length)];
+      ans.push(a === 'check' ? {item: r.next, a, ck: T.check.tasks.map(k => rnd() < .5 ? k.right : 'dunno')} : {item: r.next, a}); }
+    if (!r.end) { err('/start/: случайный проход ' + i + ' не завершился'); continue; }
+    check(about, bid, ans, r.end, 'случайный проход ' + i);
+  }
+  console.log('/start/: деревьев ' + Object.keys(T.trees).length + ', наборов ответов «про тебя» ' + abouts.length + ', полных проходов ' + runs + ' (дерево — до ' + maxLen + ' вопросов), случайных 200');
+}
+
+// банк задач (map/quiz-bank.json + i18n/map-quiz.js; сейчас не подключён к страницам): навыки есть, верный вариант среди вариантов,
+// тексты есть, верный вариант не всегда самый длинный и не всегда на одном месте
+{
+  const vm = require('vm'), ctx = {}; ctx.globalThis = ctx;
+  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/map-quiz.js'), 'utf8'), ctx);
+  const RU = ctx.I18N.ru, B = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/quiz-bank.json'), 'utf8')), Q = B.questions, ids = Object.keys(Q);
+  const need = k => { if (!(k in RU)) err('банк задач: нет строки ' + k); };
+  let longest = 0; const pos = {};
+  for (const id of ids){
+    const q = Q[id];
+    if (!nodes.has(q.skill)) err('банк задач: у ' + id + ' нет навыка ' + q.skill);
+    if (!q.opts.includes(q.right)) err('банк задач: у ' + id + ' верного нет среди вариантов');
+    ['q', 'why'].concat(q.opts).forEach(k => need('qz.' + id + '.' + k));
+    const len = o => (RU['qz.' + id + '.' + o] || '').length, mx = Math.max(...q.opts.map(len));
+    if (len(q.right) === mx && q.opts.filter(o => len(o) === mx).length === 1) longest++;
+    pos[q.opts.indexOf(q.right)] = (pos[q.opts.indexOf(q.right)] || 0) + 1;
+    if (!Object.values(B.pools).some(p => p.includes(id))) err('банк задач: ' + id + ' не входит ни в один набор');
+  }
+  Object.entries(B.pools).forEach(([k, p]) => p.forEach(id => { if (!Q[id]) err('банк задач: в наборе ' + k + ' нет ' + id); }));
+  if (longest > ids.length / 2) err('банк задач: верный — самый длинный в ' + longest + ' из ' + ids.length);
+  if (Object.values(pos).some(v => v > ids.length * 0.45)) err('банк задач: верный слишком часто на одном месте ' + JSON.stringify(pos));
 }
 
 // в планах: ни узлов, ни шагов; связи after/near/leads — курс, навык или ext:<ключ>; тексты plan.<id>.* есть в словаре; 3–5 навыков
@@ -196,7 +311,9 @@ for (const r of M.routes){
   for (const [lid, ln] of Object.entries(L.lines)){
     const r = routes[lid]; if (!r) { err('схема: линия ' + lid + ' — нет маршрута'); continue; }
     need('line.' + lid);
-    [ln.path, ln.cont || []].forEach(p => p.forEach((x, i) => i && angle(p[i - 1], x, 'линия ' + lid)));
+    [ln.path, ln.cont || [], ln.bypass || []].forEach(p => p.forEach((x, i) => i && angle(p[i - 1], x, 'линия ' + lid)));
+    (ln.dashed || []).forEach(([a, b]) => { if (!(a >= 0 && b < ln.path.length && a < b)) err('схема: линия ' + lid + ' — пунктир [' + a + ', ' + b + '] вне пути'); });
+    if (ln.bypass){ const k = x => JSON.stringify(pt(x)), P = ln.path.map(k); if (!P.includes(k(ln.bypass[0])) || !P.includes(k(ln.bypass[ln.bypass.length - 1]))) err('схема: линия ' + lid + ' — обход должен начинаться и кончаться на пути линии'); }
     const onPath = ln.path.filter(x => typeof x === 'string');
     const stopsSeq = onPath.filter(id => r.nodes.includes(id));
     const want = r.nodes.filter(id => L.stations[id]);

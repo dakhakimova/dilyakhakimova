@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- «Подобрать маршрут»: входная страница. Устройство — start/tree.json, логика — start/start.js, тексты — i18n/site.js + i18n/start.js.
+     Русский текст ниже вписан командой node tools/bake-i18n.js: правьте словари, а не разметку. Проверка: node tools/check-map.js. -->
+<title data-i18n="meta.title">Подобрать маршрут: с чего начать в статистике и A/B · Диля Хакимова</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Пара вопросов про тебя и про то, что ты уже знаешь, — и готовый маршрут по курсам: цель, стартовый шаг и что ты сможешь в конце. Около 2 минут, без регистрации.">
+<link rel="canonical" href="https://dilyakhakimova.com/start/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dilyakhakimova.com/start/">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="Подобрать маршрут: с чего начать в статистике и A/B · Диля Хакимова">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="Пара вопросов про тебя и про то, что ты уже знаешь, — и готовый маршрут по курсам: цель, стартовый шаг и что ты сможешь в конце. Около 2 минут, без регистрации.">
+<meta property="og:image" content="https://dilyakhakimova.com/map/img/street.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611270">
+<link rel="stylesheet" href="/home.css?v=202611221">
+<link rel="stylesheet" href="/start/start.css?v=202611270">
+</head>
+<body class="start">
+<a class="skip" href="#app" data-i18n="skip">К содержанию</a>
+<header class="s-top">
+  <a class="logo" href="/" data-i18n="logo"><i>Диля</i> Хакимова</a>
+  <a class="s-close" href="/map/" id="s-close"><span data-i18n="st.close">Закрыть</span> <span aria-hidden="true">×</span></a>
+</header>
+<main class="s-main">
+  <div id="app" class="s-app" aria-live="polite">
+    <noscript><p>Подбор маршрута работает со скриптами. Без них — <a href="/map/">карта навыков</a> со всеми курсами по порядку.</p></noscript>
+  </div>
+</main>
+<script>
+  // «Закрыть» — назад, если пришли с этого сайта; иначе на карту навыков
+  document.getElementById('s-close').addEventListener('click', e => { try { if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1){ e.preventDefault(); history.back(); } } catch (x) {} });
+</script>
+<script src="/i18n/site.js?v=202611270"></script>
+<script src="/i18n/start.js?v=202611270"></script>
+<script src="/map/metro.js?v=202611270"></script>
+<script src="/start/start.js?v=202611270"></script>
+</body>
+</html>
