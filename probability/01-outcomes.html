@@ -89,6 +89,21 @@
 @media (prefers-reduced-motion: reduce){ .die.flip{animation:none} }
 .tpair .who-says{font:500 1rem/1.35 var(--body); color:var(--muted)}
 .sub-h{font:400 var(--fs-h3)/1.25 var(--serif); margin:28px 0 8px}
+/* картинки к задачам с собеседования */
+.ivw-viz{margin:8px 0 14px}
+.mini6{display:grid; grid-template-columns:repeat(7, 26px); gap:3px}
+.mini6 span{width:26px; height:26px; display:grid; place-items:center; border-radius:5px; background:#F1EFEA; font:500 .75rem/1 var(--body); color:var(--muted); font-variant-numeric:tabular-nums}
+.mini6 span:first-child, .mini6 span.h{background:transparent}
+.mini6 span.h .dsvg{width:20px; height:20px}
+.mini6 span.on{background:var(--l1); color:#fff}
+.mini6 span.on2{background:#C29A48; color:#fff}
+.tiles8{display:flex; flex-wrap:wrap; gap:8px}
+.t8{display:flex; gap:3px; padding:6px 8px; border:1.5px solid var(--line-strong); border-radius:10px; opacity:.45; background:var(--surface)}
+.t8.on{opacity:1; border-color:var(--l1); background:var(--mint)}
+.t8 i{width:24px; height:24px; border-radius:50%; display:grid; place-items:center; font:600 .75rem/1 var(--body); font-style:normal; color:#fff}
+.viz-cap{font-size:.875rem; color:var(--muted); margin:8px 0 0}
+.viz-cap i{display:inline-block; width:10px; height:10px; border-radius:3px; margin:0 5px 0 0; vertical-align:0}
+.viz-cap i.k1{background:var(--l1)} .viz-cap i.k2{background:#C29A48}
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; max-width:320px; width:100%}
@@ -400,6 +415,7 @@ _check()
     <summary>Бросают два кубика. Какова вероятность, что сумма равна 7?</summary>
     <p><b>Переформулирую:</b> какая доля клеток таблицы 6 × 6 даёт сумму 7, если все клетки равновероятны.</p>
     <p><b>В штуках:</b> пар (синий, красный) 36, сумма 7 у шести: 1 + 6, 2 + 5, 3 + 4, 4 + 3, 5 + 2, 6 + 1. Из 3600 бросков — около 600.</p>
+    <div class="ivw-viz" data-viz="sum:7"></div>
     <p><b>Формула:</b> <span class="num">P(«сумма 7») = 6 / 36 = 1/6 ≈ 16.7%</span>.</p>
     <p><b>Проверка:</b> функция <code>p_sum(7)</code> из карточки с кодом.</p>
     <p><b>Вывод:</b> примерно каждый шестой бросок; семёрка — самая частая сумма.</p>
@@ -408,7 +424,8 @@ _check()
     <summary>Бросают три монетки. Какова вероятность, что орлов хотя бы два?</summary>
     <p><b>Переформулирую:</b> сколько из всех исходов трёх монеток содержат два или три орла.</p>
     <p><b>В штуках:</b> исходов 2 · 2 · 2 = 8. Подходят ООО, ООР, ОРО, РОО — четыре. Из 1000 бросков троек — около 500.</p>
-    <p><b>Формула:</b> <span class="num">P = 4 / 8 = 1/2</span>.</p>
+    <div class="ivw-viz" data-viz="coins3"></div>
+    <p><b>Формула:</b> <span class="num">P(«хотя бы два орла») = 4 / 8 = 1/2</span>.</p>
     <p><b>Быстрый способ:</b> «орлов хотя бы два» и «решек хотя бы две» — зеркальные события, и ровно одно из них случается в каждом броске. Значит, у каждого ½.</p>
     <p><b>Вывод:</b> ровно половина; монетки честные, и задача симметрична.</p>
   </details>
@@ -416,7 +433,8 @@ _check()
     <summary>Бросают два кубика и смотрят на сумму. Всего бывает 11 сумм, от 2 до 12. Кандидат говорит: «Значит, у каждой суммы шанс 1/11». Прав ли он? Сравните шансы сумм 2 и 7.</summary>
     <p><b>Переформулирую:</b> равновероятны ли суммы? Нет. Равновероятны клетки таблицы 6 × 6, а суммы собираются из разного числа клеток, поэтому 1/11 — неверно.</p>
     <p><b>В штуках:</b> сумму 2 даёт одна клетка (1 и 1), сумму 7 — шесть. Из 3600 бросков двойка выпадет около 100 раз, семёрка — около 600.</p>
-    <p><b>Формула:</b> <span class="num">1/36 ≈ 2.8%</span> против <span class="num">6/36 ≈ 16.7%</span>.</p>
+    <div class="ivw-viz" data-viz="sum:2,7"></div>
+    <p><b>Формула:</b> <span class="num">P(«сумма 2») = 1/36 ≈ 2.8%</span> против <span class="num">P(«сумма 7») = 6/36 ≈ 16.7%</span>.</p>
     <p><b>Вывод:</b> считать надо пары «синий, красный», а не суммы. Так ошибался даже Лейбниц: он считал 11 и 12 равновероятными, а у 11 две клетки, у 12 одна.</p>
   </details>
 </section>
@@ -499,6 +517,7 @@ const TXT = {
     sumX: 'сумма двух кубиков', sumY: 'клеток из 36',
   },
 }[LANG] || {};
+
 
 // ---------- карточка 3: две монетки моют посуду ----------
 // Исходы улетают к героям: ОО — Алисе, ОР и РО — Бобу, РР — Котейке (решение Дили, 22.11.2026: без кнопки «Подпиши монетки»,
@@ -627,6 +646,35 @@ const TXT = {
 // грань кубика с точками (решение Дили, 23.11.2026: в шапке таблицы — кубики, а не цифры)
 const PIPS = {1: [[2, 2]], 2: [[1, 1], [3, 3]], 3: [[1, 1], [2, 2], [3, 3]], 4: [[1, 1], [3, 1], [1, 3], [3, 3]], 5: [[1, 1], [3, 1], [2, 2], [1, 3], [3, 3]], 6: [[1, 1], [3, 1], [1, 2], [3, 2], [1, 3], [3, 3]]};
 const dieSVG = (k, fill) => '<svg class="dsvg" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="8" fill="' + fill + '"/>' + PIPS[k].map(([x, y]) => '<circle cx="' + (x * 10) + '" cy="' + (y * 10) + '" r="3.6" fill="#fff"/>').join('') + '</svg>';
+// ---------- картинки к задачам с собеседования (решение Дили, 23.11.2026): таблица 6 × 6 и плитки исходов ----------
+(function(){
+  document.querySelectorAll('.ivw-viz').forEach(box => {
+    const v = box.dataset.viz;
+    if (v.startsWith('sum:')){
+      const want = v.slice(4).split(',').map(Number);
+      let h = '<div class="mini6"><span></span>';
+      for (let r = 1; r <= 6; r++) h += '<span class="h">' + dieSVG(r, COL.test) + '</span>';
+      for (let b = 1; b <= 6; b++){
+        h += '<span class="h">' + dieSVG(b, COL.ctrl) + '</span>';
+        for (let r = 1; r <= 6; r++){ const s = b + r, k = want.indexOf(s); h += '<span class="' + (k === 0 ? 'on' : k === 1 ? 'on2' : '') + '">' + s + '</span>'; }
+      }
+      h += '</div>';
+      const cnt = s => 6 - Math.abs(s - 7);
+      h += '<p class="viz-cap">' + want.map((s, i) => '<i class="' + (i ? 'k2' : 'k1') + '"></i>сумма ' + s + ' — ' + cnt(s) + ' ' + plural(cnt(s), {one: 'клетка', few: 'клетки', many: 'клеток'}) + ' из 36').join(' · ') + '</p>';
+      box.innerHTML = h;
+    } else if (v === 'coins3'){
+      const C = [COL.ctrl, COL.test, '#C29A48'];
+      let h = '<div class="tiles8">';
+      for (let m = 0; m < 8; m++){
+        const o = [4, 2, 1].map(b => (m & b) ? 'Р' : 'О'), heads = o.filter(x => x === 'О').length;
+        h += '<span class="t8' + (heads >= 2 ? ' on' : '') + '">' + o.map((x, i) => '<i style="background:' + C[i] + '">' + x + '</i>').join('') + '</span>';
+      }
+      box.innerHTML = h + '</div><p class="viz-cap"><i class="k1"></i>хотя бы два орла — 4 исхода из 8</p>';
+    }
+  });
+})();
+
+
 // ---------- карточка 7: подкинь кубики (решение Дили, 23.11.2026) ----------
 // Поле «Бросков всего» растёт от «+1 бросок»; любое число и «Бросить»: больше — добавятся броски, меньше — опыт заново.
 // Гистограмма — доля бросков с каждой суммой; 11 (пирожное) и 12 (торт) выделены красным.
