@@ -36,6 +36,12 @@
 .hb .out i{font-style:normal} .hb .out i.c1{color:var(--ctrl)} .hb .out i.c2{color:var(--test-ink)}
 .hb .out em{display:block; font:500 1.25rem/1.2 var(--serif); font-style:normal; font-variant-numeric:tabular-nums; margin-top:2px}
 .hb .tot{display:block; font-size:.8125rem; color:var(--muted); margin-top:4px; font-variant-numeric:tabular-nums; min-height:1.2em}
+.hb .out[hidden]{display:none}
+.hb .outs{min-height:68px; align-items:center}
+.hb .out-empty{font-size:.8125rem; color:var(--muted); padding:14px 0}
+.hb .out.new{animation:outpop .6s ease}
+@keyframes outpop{0%{transform:scale(.6); opacity:0} 60%{transform:scale(1.08); opacity:1} 100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){ .hb .out.new{animation:none} }
 .chip{position:absolute; left:0; top:0; z-index:3; pointer-events:none; font:600 .8125rem/1 var(--body); padding:4px 6px; border-radius:999px; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.18); letter-spacing:.04em}
 .chip i{font-style:normal} .chip i.c1{color:var(--ctrl)} .chip i.c2{color:var(--test-ink)}
 .addrow{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
@@ -124,18 +130,18 @@
 <section class="card" data-toy="two-coins" data-title="Две монетки" aria-label="Две монетки моют посуду">
   <span class="step-tag">Поиграй</span>
   <h2>Две монетки моют посуду</h2>
-  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Впиши, сколько вечеров бросать, и нажми «Бросить»: начни с десяти, потом сотня, тысяча, сто тысяч. Каждый раз опыт начинается с нуля. На сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
+  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая красная. Впиши, сколько вечеров бросать, и нажми «Бросить»: начни с десяти, потом сотня, тысяча, сто тысяч. Каждый раз опыт начинается с нуля. На сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
   <div class="sheet c-white coins2" id="c-sheet">
     <div class="pair" id="pair" aria-live="polite"><span class="coin c1 blank">?</span><span class="coin c2 blank">?</span><span class="who-says" id="pair-who">Брось пару монеток</span></div>
     <div class="bins" id="bins">
-      <div class="hb hb-alice"><b>Алиса</b><div class="outs"><span class="out" data-o="OO"><b><i class="c1">О</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="A"></span></div>
-      <div class="hb hb-bob"><b>Боб</b><div class="outs"><span class="out" data-o="OR"><b><i class="c1">О</i><i class="c2">Р</i></b><em>0</em></span><span class="out" data-o="RO"><b><i class="c1">Р</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="B"></span></div>
-      <div class="hb hb-kot"><b>Котейка</b><div class="outs"><span class="out" data-o="RR"><b><i class="c1">Р</i><i class="c2">Р</i></b><em>0</em></span></div><span class="tot" data-t="K"></span></div>
+      <div class="hb hb-alice"><b>Алиса</b><div class="outs"><span class="out-empty">пока пусто</span><span class="out" hidden data-o="OO"><b><i class="c1">О</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="A"></span></div>
+      <div class="hb hb-bob"><b>Боб</b><div class="outs"><span class="out-empty">пока пусто</span><span class="out" hidden data-o="OR"><b><i class="c1">О</i><i class="c2">Р</i></b><em>0</em></span><span class="out" hidden data-o="RO"><b><i class="c1">Р</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="B"></span></div>
+      <div class="hb hb-kot"><b>Котейка</b><div class="outs"><span class="out-empty">пока пусто</span><span class="out" hidden data-o="RR"><b><i class="c1">Р</i><i class="c2">Р</i></b><em>0</em></span></div><span class="tot" data-t="K"></span></div>
     </div>
     <div class="controls addrow">
       <label for="c-n" class="c-nl">Вечеров</label><input id="c-n" type="text" inputmode="numeric" value="10" autocomplete="off">
       <button class="btn" type="button" id="c-go">Бросить</button>
-      <button class="btn ghost" type="button" id="c-1">+1 вечер</button>
+      <button class="btn ghost" type="button" id="c-1">+1 вечер</button>
     </div>
     <p class="c-log" id="c-log" aria-live="polite"></p>
     <p class="chart-title">Доля вечеров у каждого героя</p>
@@ -424,8 +430,15 @@ const TXT = {
   const NAME = {OO: 'Алиса', OR: 'Боб', RO: 'Боб', RR: 'Котейка'};
   const lab = o => '<i class="c1">' + (o[0] === 'O' ? TXT.H : TXT.T) + '</i><i class="c2">' + (o[1] === 'O' ? TXT.H : TXT.T) + '</i>';
   function paint(){
-    for (const o in cnt) outEl(o).querySelector('em').textContent = int(cnt[o]);
-    const t = (k) => n ? 'всего ' + int(k) + ' · ' + shareT(k / n, 1) : '';
+    // плитка исхода появляется у героя, только когда исход выпал впервые (решение Дили, 22.11.2026): у Боба сначала одна плитка, потом вторая
+    for (const o in cnt){
+      const t = outEl(o), box = t.parentNode;
+      if (cnt[o] && t.hidden){ t.hidden = false; box.appendChild(t); t.classList.add('new'); setTimeout(() => t.classList.remove('new'), 700); }
+      if (!cnt[o] && !t.hidden) t.hidden = true;
+      box.querySelector('.out-empty').hidden = [...box.querySelectorAll('.out')].some(x => !x.hidden);
+      t.querySelector('em').textContent = int(cnt[o]);
+    }
+    const t = (k) => n && k ? 'всего ' + int(k) + ' · ' + shareT(k / n, 1) : '';
     bins.querySelector('[data-t="A"]').textContent = t(cnt.OO);
     bins.querySelector('[data-t="B"]').textContent = t(cnt.OR + cnt.RO);
     bins.querySelector('[data-t="K"]').textContent = t(cnt.RR);
@@ -477,11 +490,12 @@ const TXT = {
     const k = Math.min(perFrame, queue.length - qi);
     let o;
     for (let i = 0; i < k; i++){ o = queue[qi++]; cnt[o]++; n++; }
+    paint();
     if (o){
       showPair(o, false);
       if (now - lastChip > 70){ fly(o); lastChip = now; }   // летят не все исходы, а один из каждых ~70 мс — иначе на тысячах будет каша
     }
-    paint(); draw();
+    draw();
     if (qi < queue.length) raf = requestAnimationFrame(frame);
     else { raf = 0; queue = []; qi = 0; verdict(); }
   }
@@ -490,7 +504,7 @@ const TXT = {
     for (let i = 0; i < m; i++){ const o = (bern(0.5) ? 'O' : 'R') + (bern(0.5) ? 'O' : 'R'); fresh[i] = o; c[o]++; }
     if (m === 1){
       const o = fresh[0]; cnt[o]++; n++;
-      showPair(o, true); fly(o); paint(); draw(); verdict();
+      showPair(o, true); paint(); fly(o); draw(); verdict();
       log.innerHTML = 'Ещё вечер: ' + lab(o) + ' — улетело к ' + {OO: 'Алисе', OR: 'Бобу', RO: 'Бобу', RR: 'Котейке'}[o];
       return;
     }
