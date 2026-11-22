@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Нормальное распределение — тренажёр собеседований</title>
+<meta name="description" content="Нормальное распределение: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="normal">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · S1</p>
+  <h1>Нормальное распределение</h1>
+  <p class="t-def">Доля за порогом, правило двух сигм и сумма нормальных — три расчёта, которые спрашивают чаще всего.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Нормальное распределение N(μ, σ²) задают среднее и разброс. Около 68% значений лежат в пределах ±1σ, около 95% — в пределах ±2σ.</p>
+    <p>Доля за порогом: z = (x − μ) / σ, потом таблица или Φ(z). Одна сторона за 2σ — около 2,3%.</p>
+    <p>Сумма независимых нормальных — нормальная: средние складываются, дисперсии тоже. Умножение на число растягивает σ в то же число раз.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/">«Сигнал или шум», «Нормальное распределение»</a> · <a href="/ab-basics/">«A/B на пальцах», шаг 5</a>. <a href="/terms/normal-distribution/">Подробнее в словаре →</a></p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#S1a">Доля за порогом, правило 2σ</a></li><li><a href="#S1b">Сумма нормальных и масштабирование</a></li></ol></nav>
+
+    <section class="tr-tpl" id="S1a" aria-labelledby="S1a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S1a-h">Доля за порогом, правило 2σ</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Сколько шариков долетит до средней корзины?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/galton/?embed=1" data-toy="galton" title="Игра: Сколько шариков долетит до средней корзины?" style="height:1150px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Что такое корзина.</b> Шарик на каждом из n рядов уходит вправо с шансом ½. Номер корзины — сколько раз он ушёл вправо.</li>
+        <li><b class="st-h">Сколько путей в середину.</b> Путей всего 2ⁿ, в среднюю корзину ведут C(n, n/2) из них:<p class="formula">P(средняя) = C(n, n/2) / 2ⁿ = C(10, 5) / 2¹⁰ = 252 / 1024 ≈ <b>24.6%</b></p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Самая полная корзина — значит, туда почти всё»: в ней четверть шариков, три четверти — в других.</li><li>«Больше рядов — полнее середина»: наоборот, горка шире, при 12 рядах в центре 924 / 4096 ≈ 22.6%.</li></ul></li>
+        <li><b class="st-h">Как меняется с рядами.</b> 
+          <table class="table sol-table"><thead><tr><th>Рядов</th><th class="num">В средней корзине</th></tr></thead><tbody><tr><td>10</td><td class="num">24.6%</td></tr><tr><td>12</td><td class="num">22.6%</td></tr></tbody></table></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Дано среднее и σ, спрашивают долю больше или меньше порога, или как часто сработает алерт.</p>
+        <ol class="tr-steps"><li>z = (порог − μ) / σ.</li><li>Доля за порогом = 1 − Φ(z) (одна сторона) или удвоенная (обе).</li><li>Для алертов: ожидаемое число дней до ложной тревоги = 1 / доля.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S1a-w" data-ans="1.51" data-tol="0.1">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Время доставки кафе примерно нормально: среднее 32 минуты, σ = 6 минут. Какая доля заказов едет дольше 45 минут (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>z = (45 − 32) / 6 ≈ 2,17.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>1 − Φ(2,17) ≈ <b>1,5%</b>. Оговорка: у времени доставки обычно правый хвост тяжелее нормального, так что на деле опозданий больше.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="S1a-s1" data-ans="2.28" data-tol="0.1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Сервис</span></p>
+        <p class="tr-q">Время ответа API примерно N(180 мс, 25²). Какая доля запросов медленнее 230 мс (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>z = 2, 1 − Φ(2) ≈ <b>2,3%</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="S1a-s2" data-ans="80.5" data-tol="3">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Мониторинг</span></p>
+        <p class="tr-q">Ежедневная метрика без поломок колеблется нормально. Алерт срабатывает при выходе за ±2,5σ. Раз в сколько дней в среднем будет ложная тревога?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">дней</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>P = 2 · (1 − Φ(2,5)) ≈ 1,24%; 1 / 0,0124 ≈ <b>81 день</b>.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="S1b" aria-labelledby="S1b-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="S1b-h">Сумма нормальных и масштабирование</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Эффект ровно на пороге значимости — тест его поймает?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/two-bells/?embed=1" data-toy="two-bells" title="Игра: Эффект ровно на пороге значимости — тест его поймает?" style="height:1250px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Эффект +0.83 ровно на пороге значимости — он решил, что тест поймает его наверняка.</li>
+        <li><b class="st-h">Эффект на пороге.</b> Колокол «с эффектом» стоит центром на пороге — за порог уходит его половина:<p class="formula">мощность ≈ Φ(δ / SE − 1.96) = Φ(1.96 − 1.96) = Φ(0) = <b>50%</b></p></li>
+        <li><b class="st-h">Сколько нужно для 80%.</b> <p class="formula">δ ≈ (1.96 + 0.84) · SE = <b>2.8 · SE</b></p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Строже α — лучше»: меньше ложных тревог, но больше пропусков. Меньше обеих ошибок — только больше гостей.</li></ul></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Сравнивают «сумму нескольких независимых» и «одно, умноженное на число».</p>
+        <ol class="tr-steps"><li>Сумма n независимых: μ·n и σ·√n.</li><li>Одно, умноженное на n: μ·n и σ·n.</li><li>Дальше — доля за порогом.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="S1b-w" data-ans="10.6" data-tol="0.4">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Бариста наливает порцию 250 мл с σ = 8 мл. Литровый кувшин собирают из 4 независимых порций. Какова вероятность, что в кувшине меньше 980 мл (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>σ суммы = 8 · √4 = 16 мл.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>z = (980 − 1000) / 16 = −1,25; Φ(−1,25) ≈ <b>10,6%</b>. Если отмерить одну порцию и умножить на 4, σ = 32 мл и вероятность 26,6%: ошибки одной порции не гасят друг друга.</p></details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

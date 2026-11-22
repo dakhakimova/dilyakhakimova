@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Подглядывание — тренажёр собеседований</title>
+<meta name="description" content="Подглядывание: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="peeking">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · A3</p>
+  <h1>Подглядывание</h1>
+  <p class="t-def">Если смотреть на тест каждый день и останавливать при первой значимости, ложных побед становится в разы больше.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Уровень 5% гарантирован, только если результат смотрят один раз, в заранее выбранный момент.</p>
+    <p>При ежедневных проверках p-value много раз «пробует» пересечь порог. В A/A-тесте на две недели с ежедневным взглядом хотя бы раз значимость появится примерно в 20% случаев.</p>
+    <p>Что делать: заранее зафиксировать длительность, либо использовать последовательные методы (поправки Покока и О’Брайена–Флеминга, mSPRT).</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/ab-basics/10-traps.html">«A/B на пальцах», шаг 10, ловушки</a> · <a href="/ab/">«A/B без мифов», подглядывание</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#A3a">Остановили, как только прокрасилось</a></li></ol></nav>
+
+    <section class="tr-tpl" id="A3a" aria-labelledby="A3a-h">
+      <p class="tr-kind">На понимание</p>
+      <h2 id="A3a-h">Остановили, как только прокрасилось</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Остановишь тест в первый же «значимый» день?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/peeking/?embed=1" data-toy="peeking" title="Игра: Остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Порог 5% обещан для одного взгляда в конце, а Боб смотрит каждый день и останавливается на первом «значимо».</li>
+        <li><b class="st-h">Каждый взгляд — ещё один шанс.</b> Если бы 30 взглядов были независимы, хотя бы один ложный прокрас был бы почти наверняка:<p class="formula">1 − (1 − α)³⁰ = 1 − 0.95³⁰ ≈ <b>79%</b></p> Соседние дни похожи друг на друга, поэтому на деле меньше — в симуляции около <b>28%</b> A/A, но не 5%.</li>
+        <li><b class="st-h">Что делать.</b> Длину теста решают заранее, по MDE. Каждый день смотрят только на поломки: падения, доли групп (SRM). Смотреть на эффект по ходу — только по плану, со строгим порогом.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> «Тест позеленел на третий день — выключаем?», «смотрим каждый день».</p>
+        
+      </div>
+      
+      <div class="tr-task tr-idea" data-id="A3a-i">
+        <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
+        <p class="tr-q">Тест запланирован на две недели. На третий день p = 0,03, и менеджер просит остановить и выкатить. Что ответить?</p>
+        <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
+        <details class="tr-sol"><summary>Что хотят услышать</summary>
+          <ul class="list"><li>Порог 5% рассчитан на один взгляд в конце. Каждый промежуточный взгляд — ещё одна попытка случайно пересечь порог.</li><li>Если смотреть каждый день две недели, в A/A-тесте ложная значимость появится примерно в каждом пятом тесте (по симуляции около 22%).</li><li>Ранний результат ещё и завышает эффект: остановились как раз на случайном выбросе.</li><li>Варианты: дождаться конца, либо заранее выбрать последовательный дизайн с поправленными порогами.</li></ul>
+          <p><b>Слабый ответ:</b> «p меньше 0,05 — значит, эффект есть, можно выкатывать».</p>
+          <p><b>Сильный ответ:</b> Объяснить рост ложных побед от многократных взглядов, оценить его порядок и предложить последовательный тест.</p>
+        </details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Условная вероятность и независимость — тренажёр собеседований</title>
+<meta name="description" content="Условная вероятность и независимость: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="conditional">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · P2</p>
+  <h1>Условная вероятность и независимость</h1>
+  <p class="t-def">Короткие задачи, на которых проверяют аккуратность: что именно известно и что из этого следует.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>P(A | B) = P(A и B) / P(B): из всех исходов, где случилось B, берём долю тех, где случилось и A.</p>
+    <p>Ответ зависит от того, что именно сообщили: «хотя бы один» и «первый» — разные условия с разными ответами.</p>
+    <p>Независимость — сильное предположение. Ретраи, повторные тесты и отзывы на практике часто связаны, и тогда перемножать вероятности нельзя.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/probability/">«Вероятность на пальцах», «Условная вероятность»</a>. <a href="/terms/conditional-probability/">Подробнее в словаре →</a></p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#P2a">«Хотя бы один» против «конкретный»</a></li><li><a href="#P2b">Монти Холл и скрытая информация</a></li><li><a href="#P2c">Независимость, надёжность, ретраи</a></li></ol></nav>
+
+    <section class="tr-tpl" id="P2a" aria-labelledby="P2a-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P2a-h">«Хотя бы один» против «конкретный»</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Два орла, две решки или по одной — что выпадет чаще?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/two-coins/?embed=1" data-toy="two-coins" title="Игра: Два орла, две решки или по одной — что выпадет чаще?" style="height:1250px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Сколько исходов.</b> Монетки две, даже если они одинаковые. Подпиши их — исходов четыре, все равновероятны:<p class="formula">ОО, ОР, РО, РР</p></li>
+        <li><b class="st-h">Считаем доли.</b> <p class="formula">P(A) = благоприятные / все</p><p class="formula">P(разные) = 2 / 4 = <b>½</b>, P(два орла) = P(две решки) = 1 / 4 = <b>¼</b></p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Исходов три: два орла, две решки, разные — по ⅓»: исходы «ОР» и «РО» разные, хоть монетки похожи.</li></ul></li>
+        <li><b class="st-h">Что видно в игре.</b> На десяти вечерах доли скачут, на сотне уже близки к 25%, 50% и 25%.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Два объекта, сообщили «хотя бы один такой» или «первый такой». Спрашивают про оба.</p>
+        <ol class="tr-steps"><li>Выпиши все исходы с вероятностями.</li><li>Оставь только те, что согласуются с условием.</li><li>Возьми долю нужных среди оставшихся.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P2a-w" data-ans="17.6" data-tol="0.5">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Гость сделал два заказа. Каждый заказ независимо с десертом с вероятностью 30%. Известно, что хотя бы один заказ был с десертом. Какова вероятность, что оба (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>P(оба) = 0,09; P(хотя бы один) = 1 − 0,7².</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>0,09 / (1 − 0,49) = 0,09 / 0,51 ≈ <b>17,6%</b>. Если бы сказали «первый заказ с десертом», ответ был бы 30%: условие «хотя бы один» отбрасывает меньше исходов.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="P2a-s1" data-ans="5.26" data-tol="0.2">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Финтех</span></p>
+        <p class="tr-q">Каждая из двух транзакций клиента независимо подозрительна с вероятностью 10%. Известно, что хотя бы одна подозрительная. Вероятность, что обе (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>0,01 / (1 − 0,81) = 0,01 / 0,19 ≈ <b>5,3%</b>.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="P2b" aria-labelledby="P2b-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P2b-h">Монти Холл и скрытая информация</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Котейка открыл пустую дверь. Менять свою или оставить?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/monty-hall/?embed=1" data-toy="monty-hall" title="Игра: Котейка открыл пустую дверь. Менять свою или оставить?" style="height:800px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Что знает ведущий.</b> Котейка знает, где торт, и всегда открывает пустую дверь из двух оставшихся.</li>
+        <li><b class="st-h">Своя дверь.</b> Твой первый выбор угадан с шансом 1/3, и открытая дверь этого не меняет.<p class="formula">P(выигрыш, если оставить) = <b>1/3</b></p></li>
+        <li><b class="st-h">Смена.</b> Если ты не угадал (2/3), Котейка вынужден открыть единственную пустую — и оставшаяся дверь с тортом:<p class="formula">P(выигрыш, если сменить) = 1 − 1/3 = <b>2/3</b></p></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>«Осталось две двери — 50 на 50»: так было бы, если бы ведущий открывал наугад и случайно попал в пустую.</li><li>«Ведущий открывает, только когда ты угадал» — тогда менять значит проиграть. Ответ зависит от правил ведущего.</li></ul></li>
+        <li><b class="st-h">В штуках.</b> 300 игр, ты всегда берёшь дверь 1: торт за ней в 100 играх, за другими — в 200. Смена выигрывает 200 из 300.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Кто-то знает ответ и открывает или называет вариант, который точно не выигрышный.</p>
+        <ol class="tr-steps"><li>Посчитай вероятность выигрыша, если не менять выбор: она не меняется от действий ведущего.</li><li>Всё остальное достаётся оставшимся закрытым вариантам.</li><li>Проверь, знал ли ведущий ответ: если открыл случайно, расчёт другой.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P2b-w" data-ans="66.7" data-tol="0.5">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Классика: три двери, за одной приз. Вы выбрали дверь, ведущий, зная, где приз, открыл пустую из двух других. Какова вероятность выиграть, если сменить выбор (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Первая дверь угадана с вероятностью 1/3, и ведущий её не трогает.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>Не менять — 1/3; сменить — <b>2/3 ≈ 66,7%</b>. Ведущий своим знанием «переливает» вероятность второй закрытой двери.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="P2b-s1" data-ans="75" data-tol="0.5">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Кафе</span></p>
+        <p class="tr-q">Котейка спрятал купон под одной из 4 чашек. Вы выбрали чашку, Котейка (знает, где купон) поднял две пустые из оставшихся трёх. Вероятность найти купон, если сменить выбор (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>Своя чашка — 1/4, оставшаяся закрытая — <b>3/4 = 75%</b>.</p></details>
+      </div>
+      <div class="tr-task" data-id="P2b-s2" data-ans="50" data-tol="0.5">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Поворот</span></p>
+        <p class="tr-q">Три двери, но ведущий не знает, где приз: он открыл одну из двух других наугад, и она случайно оказалась пустой. Вероятность выиграть при смене выбора (в %)?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p><b>50%</b>. Случайное открытие не несёт информации о вашей двери: из исходов, где ведущий открыл пустую, половина в пользу смены.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="P2c" aria-labelledby="P2c-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="P2c-h">Независимость, надёжность, ретраи</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · 30 кофемашин, у каждой 2% сломаться за месяц. Нужен ли мастер?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/at-least-one/?embed=1" data-toy="at-least-one" title="Игра: 30 кофемашин, у каждой 2% сломаться за месяц. Нужен ли мастер?" style="height:950px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> «2% — почти никогда» он применил к одной машине, а машин 30.</li>
+        <li><b class="st-h">Через противоположное.</b> <p class="formula">P(хотя бы одна) = 1 − (1 − p)ⁿ = 1 − 0.98³⁰ ≈ <b>45.5%</b></p></li>
+        <li><b class="st-h">Как растёт.</b> 
+          <table class="table sol-table"><thead><tr><th>Машин и шанс</th><th class="num">Хотя бы одна</th></tr></thead><tbody><tr><td>30 по 2%</td><td class="num">45.5%</td></tr><tr><td>35 по 2%</td><td class="num">50.7%</td></tr><tr><td>50 по 3%</td><td class="num">78%</td></tr></tbody></table></li>
+        <li><b class="st-h">Где ошибается интуиция.</b> <ul><li>Сложить: 30 · 2% = 60% — это среднее число поломок за месяц, а не шанс.</li></ul></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Несколько попыток, дублирующие сервисы, «каждый независимо». Нужна вероятность, что не сработает ничего.</p>
+        <ol class="tr-steps"><li>Все неудачи разом: произведение вероятностей неудачи (если независимы).</li><li>Хотя бы одна удача: 1 минус это произведение.</li><li>Обязательно оговори: при общей причине сбоя попытки зависимы, и произведение сильно занижает риск.</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="P2c-w" data-ans="8" data-tol="0.5">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Оплата в приложении кафе не проходит в 2% попыток. Приложение повторяет оплату до трёх раз. Сколько заказов на миллион не оплатятся, если попытки независимы?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">на миллион</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>0,02³.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>0,02³ = 0,000008 — <b>8 заказов на миллион</b>. На практике сбой часто общий (лежит банк), и повтор через секунду тоже упадёт, так что реальная доля будет больше.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="P2c-s1" data-ans="100" data-tol="2">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Маркетплейс</span></p>
+        <p class="tr-q">Заказ передаётся в склад через основной или резервный канал; каждый независимо недоступен 1% времени. Сколько заказов на миллион не уйдут ни по одному каналу?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">на миллион</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>0,01² = 0,0001 — <b>100 на миллион</b>.</p></details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>

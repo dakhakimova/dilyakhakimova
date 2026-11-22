@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Страница собрана командой node tools/build-trainer.js из tools/trainer-content.js: правьте их, а не этот файл. -->
+<title>Отбор: выживший, инспекция, Берксон — тренажёр собеседований</title>
+<meta name="description" content="Отбор: выживший, инспекция, Берксон: краткая теория, шаблоны и задачи с собеседований аналитика с проверкой ответа.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611240">
+<link rel="stylesheet" href="/tokens.css?v=202611240">
+<link rel="stylesheet" href="/home.css?v=202611240">
+<link rel="stylesheet" href="/terms/terms.css?v=202611240">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611240">
+</head>
+<body class="t-page tr-page">
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+
+<main id="main" class="wrap term t-wide tr-topic" data-topic="selection">
+  <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · C2</p>
+  <h1>Отбор: выживший, инспекция, Берксон</h1>
+  <p class="t-def">Данные собраны не случайно — и выводы перекашиваются. Главное умение: спросить, кого мы не видим.</p>
+  <section class="tr-theory" aria-label="Коротко о теме">
+    <p>Ошибка выжившего: смотрим только на тех, кто дошёл до конца, и путаем отбор с эффектом.</p>
+    <p>Парадокс инспекции: случайный наблюдатель чаще попадает в длинные интервалы и большие группы, поэтому «типичный опыт» хуже среднего.</p>
+    <p>Берксон: среди отобранных по сумме признаков признаки кажутся отрицательно связанными, хотя в целом независимы.</p>
+    <p class="tr-where">Разбираем в курсах: <a href="/signal/08-traps.html">«Сигнал или шум», «Ловушки»</a>.</p>
+  </section>
+  <nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol><li><a href="#C2b">Парадокс инспекции</a></li><li><a href="#C2a">Кого мы не видим</a></li></ol></nav>
+
+    <section class="tr-tpl" id="C2b" aria-labelledby="C2b-h">
+      <p class="tr-kind">Расчёт</p>
+      <h2 id="C2b-h">Парадокс инспекции</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Автобус раз в 10 минут. Почему ждём дольше пяти?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/bus-paradox/?embed=1" data-toy="bus-paradox" title="Игра: Автобус раз в 10 минут. Почему ждём дольше пяти?" style="height:900px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Котейка.</b> «В среднем раз в 10 минут — значит, жду 5». Это верно только для строгого расписания.</li>
+        <li><b class="st-h">Длинные интервалы ловят чаще.</b> Случайный момент попадает в интервал с шансом, пропорциональным его длине:<p class="formula">среднее ожидание = E[T²] / (2 · E[T])</p></li>
+        <li><b class="st-h">Подставляем.</b> 
+          <table class="table sol-table"><thead><tr><th>Интервалы</th><th class="num">Ждать в среднем</th></tr></thead><tbody><tr><td>строго по расписанию</td><td class="num">5 мин</td></tr><tr><td>случайные (экспонента)</td><td class="num">10 мин</td></tr><tr><td>пачками</td><td class="num">15 мин и больше</td></tr></tbody></table></li>
+        <li><b class="st-h">Где встретится на работе.</b> Опросы: гости видят зал людней, чем он в среднем, — в людный час их самих больше.</li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Интервалы между событиями неравные, а спрашивают о времени ожидания случайного человека или о «типичном» опыте.</p>
+        <ol class="tr-steps"><li>Случайный момент попадает в интервал с вероятностью, пропорциональной его длине.</li><li>Среднее ожидание = E[T²] / (2 · E[T]).</li><li>Сравни с наивным ответом «половина среднего интервала».</li></ol>
+      </div>
+      
+      <div class="tr-task" data-id="C2b-w" data-ans="6.25" data-tol="0.1">
+        <p class="tr-kind">Разбор · сначала попробуй сам</p>
+        <p class="tr-q">Автобус к кафе ходит в среднем раз в 10 минут: половина интервалов по 5 минут, половина по 15. Гость приходит на остановку в случайный момент. Сколько минут в среднем он ждёт?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">минуты</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        <details class="tr-hint"><summary>Подсказка</summary><p>E[T²] = (25 + 225) / 2 = 125.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>125 / (2 · 10) = <b>6,25 минуты</b>, а не 5: гость чаще попадает в длинные 15-минутные интервалы.</p></details>
+      </div>
+      <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
+      <div class="tr-task" data-id="C2b-s1" data-ans="4.6" data-tol="0.1">
+        <p class="tr-kind">Реши сам · <span class="tr-dom">Доставка</span></p>
+        <p class="tr-q">Курьеры подъезжают к окну выдачи с интервалами 2 минуты (70% интервалов) и 12 минут (30%). Готовый заказ ждёт курьера с случайного момента. Среднее ожидание в минутах?</p>
+        <form class="tr-form" novalidate>
+          <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">минуты</span>
+          <button type="submit" class="btn ghost">Проверить</button>
+        </form>
+        <p class="tr-fb" role="status"></p>
+        
+        <details class="tr-sol"><summary>Решение</summary><p>E[T] = 5, E[T²] = 0,7 · 4 + 0,3 · 144 = 46. Ожидание 46 / 10 = <b>4,6 минуты</b> вместо наивных 2,5.</p></details>
+      </div>
+    </section>
+
+    <section class="tr-tpl" id="C2a" aria-labelledby="C2a-h">
+      <p class="tr-kind">На понимание</p>
+      <h2 id="C2a-h">Кого мы не видим</h2>
+      
+      <div class="tr-game">
+        <p class="tr-kind">Игра · Конверсия 5%, в день 40 гостей. Каждый день закажут ровно двое?</p>
+        <div class="stage-frame"><iframe class="tr-frame" src="/play/shop-groups/?embed=1" data-toy="shop-groups" title="Игра: Конверсия 5%, в день 40 гостей. Каждый день закажут ровно двое?" style="height:1050px" loading="lazy"></iframe></div>
+        <section class="play-out tr-out"><p class="kicker">Почему так</p><p class="locked">Сначала сделай прогноз и проверь его в игре.</p><div class="reveal" hidden>
+      <ol class="solution">
+        <li><b class="st-h">Где ошибся Боб.</b> Он взял среднее:<p class="formula">n · p = 40 · 0.05 = <b>2</b></p> Это среднее, а не план на каждый день.</li>
+        <li><b class="st-h">Ровно два из 40.</b> <p class="formula">P(ровно k) = C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></p><p class="formula">P(2) = 780 · 0.05² · 0.95³⁸ ≈ <b>27.8%</b></p></li>
+        <li><b class="st-h">Как распределяются дни.</b> 
+          <table class="table sol-table"><thead><tr><th>Заказов</th><th class="num">Доля дней</th></tr></thead><tbody><tr><td>0 или 1</td><td class="num">39.9%</td></tr><tr><td>2</td><td class="num">27.8%</td></tr><tr><td>3 и больше</td><td class="num">32.3%</td></tr></tbody></table></li>
+      </ol></div></section>
+      </div>
+      <div class="tr-how-tpl">
+        <p class="tr-kind">Шаблон</p>
+        <p class="tr-rec"><b>Как узнать.</b> Вывод сделан по тем, кто остался, дошёл, ответил или купил.</p>
+        
+      </div>
+      
+      <div class="tr-task tr-idea" data-id="C2a-i">
+        <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
+        <p class="tr-q">Средний чек в приложении кафе за полгода вырос на 15%. Менеджер говорит: «Наши гости стали богаче и щедрее». Что проверить?</p>
+        <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
+        <details class="tr-sol"><summary>Что хотят услышать</summary>
+          <ul class="list"><li>Кто ушёл: если перестали заказывать гости с маленьким чеком, среднее растёт без изменения поведения оставшихся.</li><li>Сравнить чек одних и тех же гостей (когорту) до и после.</li><li>Проверить смену ассортимента, цен и промо.</li><li>Посмотреть на число гостей и выручку целиком, а не только на среднее.</li></ul>
+          <p><b>Слабый ответ:</b> «Значит, маркетинг сработал».</p>
+          <p><b>Сильный ответ:</b> Сразу спросить, как изменился состав гостей, и предложить когортное сравнение.</p>
+        </details>
+      </div>
+    </section>
+  <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
+</main>
+<script src="/trainer/trainer.js?v=202611240" defer></script>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
