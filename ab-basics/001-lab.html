@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к шагу 1 курса «A/B на пальцах» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/ab-basics/01-before-after.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/ab-basics/01-before-after.html">
+<title>Новые игры · Шаг 1 · A/B на пальцах</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/ab-basics/ab.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-chapter="lab-ab-basics-1">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- worst-cafes-slope: наклонный график «неделя 1 → неделя 2» (FT slope; переделка worst-cafes) -->
+<section class="card" data-toy="worst-cafes-slope" data-title="Неделя 1 → неделя 2" aria-label="Неделя 1 → неделя 2">
+  <h2>Неделя 1 → неделя 2</h2>
+  <p>В сети 20 кафе. По первой неделе выбрали пять худших и отправили им промо. Промо пустое: оно ничего не меняет. У каждого кафе свой обычный уровень заказов, а неделя добавляет случай: около 800 гостей, и каждый решает сам.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="wcs-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="wcs-guess">Во второй неделе пять худших кафе в среднем поднимутся в рейтинге на <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="wcs-guess" aria-describedby="wcs-gl"> мест из 20</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить вторую неделю</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="wcs-t0">Заказы на 100 гостей: неделя 1 и неделя 2, линия — одно кафе</p>
+    <canvas id="wcs-cv" role="img" aria-label="Наклонный график двадцати кафе: неделя 1 и неделя 2"></canvas>
+    <p class="lab-key"><span><i style="background:#E59157"></i>пять худших (с промо)</span><span><i style="background:#3D7DC4"></i>пять лучших</span><span><i style="background:#A3A19A"></i>остальные</span></p>
+    <p class="note lab-data">Данные: симуляция; обычный уровень кафе — от 8 до 12 заказов на 100 гостей.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 сетей</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/ab-basics/course.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/worst-cafes-slope.js?v=202611301"></script>
+</body>
+</html>

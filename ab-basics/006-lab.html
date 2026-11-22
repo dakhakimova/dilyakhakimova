@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к шагу 6 курса «A/B на пальцах» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/ab-basics/06-interval.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/ab-basics/06-interval.html">
+<title>Новые игры · Шаг 6 · A/B на пальцах</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/ab-basics/ab.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-chapter="lab-ab-basics-6">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- bar-or-dot: столбик с усами против точки с отрезком (Datawrapper; переделка графиков ab05–ab07) -->
+<section class="card" data-toy="bar-or-dot" data-title="Столбик с усами" aria-label="Столбик с усами">
+  <h2>Столбик с усами</h2>
+  <p>В отчёте Боба конверсия нового меню — столбик до 4.6% и усы от 4.1% до 5.1%: 95% доверительный интервал по 6750 гостям. Глазу кажется, что правда скорее внутри столбика, чем над ним.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="bod-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="bod-guess">Повторим такой тест 100 раз. Настоящая конверсия окажется ниже верха столбика в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="bod-guess" aria-describedby="bod-gl"> тестах из 100</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Повторить тест 100 раз</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="bod-t0">Один тест: столбик с усами и то же самое точкой с отрезком</p>
+    <canvas id="bod-one" role="img" aria-label="Один и тот же результат столбиком и точкой с интервалом"></canvas>
+    <p class="chart-title" id="bod-t1">100 повторов: точка — конверсия в тесте, отрезок — 95% интервал; черта — настоящая конверсия</p>
+    <canvas id="bod-cv" role="img" aria-label="Сто интервалов вокруг настоящей конверсии"></canvas>
+    <p class="lab-key"><span><i style="background:#3D7DC4"></i>правда ниже точки</span><span><i style="background:#A3A19A"></i>правда выше точки</span><span><i style="background:#C9413A"></i>интервал не накрыл правду</span></p>
+    <p class="note lab-data">Данные: симуляция; настоящая конверсия 4.6%, 6750 гостей в каждом тесте.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/ab-basics/course.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/bar-or-dot.js?v=202611301"></script>
+</body>
+</html>

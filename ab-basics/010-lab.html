@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Лаборатория новых игр к шагу 10 курса «A/B на пальцах» (ветка new-games). Здесь только карточки игр /play/<slug>/:
+     страница работает в соло-режиме (?toy=<slug>), без него сразу уводит в саму главу. Карточки — в курс не входят. -->
+<script>if (!/[?&]toy=/.test(location.search)) location.replace('/ab-basics/10-traps.html' + location.search);</script>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://dilyakhakimova.com/ab-basics/10-traps.html">
+<title>Новые игры · Шаг 10 · A/B на пальцах</title>
+<script src="/play/bridge.js?v=202611301"></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611301">
+<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="stylesheet" href="/ab-basics/ab.css?v=202611301">
+<link rel="stylesheet" href="/play/lab/lab.css?v=202611301">
+</head>
+<body data-chapter="lab-ab-basics-10">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">A/B на пальцах</a></span>
+  <span><a href="./">Оглавление курса</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки">
+    <h2>Новые игры · карточки</h2>
+    <ol id="toc-list"></ol>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+
+<!-- peeking-two-panels: вся траектория p по дням, две панели (Виктор, Datawrapper; переделка peeking) -->
+<section class="card" data-toy="peeking-two-panels" data-title="Тридцать утр в двух панелях" aria-label="Тридцать утр в двух панелях">
+  <h2>Тридцать утр в двух панелях</h2>
+  <p>A/A-тест на 30 дней: обе группы видят одно и то же, по 1000 гостей в день в каждую, заказывают 10%. Каждое утро Боб открывает отчёт: сверху разница B − A, снизу p-value. Как только p опустится ниже 0.05, он выкатывает.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess">
+    <p class="guess-l" id="ptp-gl">Твой прогноз</p>
+    <label class="field lab-phrase" for="ptp-guess">Хоть раз за 30 дней p опустится ниже 0.05 в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ptp-guess" aria-describedby="ptp-gl"> тестах из 100</label>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Прожить 100 A/A по 30 дней</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="ptp-t0">Сверху — разница B − A, п. п., снизу — p-value; по дням теста, 100 A/A-тестов</p>
+    <canvas id="ptp-cv" role="img" aria-label="Две панели: разница и p-value по дням для ста A/A-тестов"></canvas>
+    <p class="note lab-data">Данные: симуляция, двусторонний z-тест для долей каждый день по накопленным данным.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 тестов</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+<!-- bob-strategies: турнир стратегий решения (Кейс, «The Evolution of Trust») -->
+<section class="card" data-toy="bob-strategies" data-title="Турнир стратегий" aria-label="Турнир стратегий">
+  <h2>Турнир стратегий</h2>
+  <p>За год у команды 100 идей: 80 пустых и 20 хороших, которые дают +0.5 заказа на 100 гостей при конверсии 10%. Каждую проверяют тестом на 28 дней, по 2000 гостей в день в группу. За выкаченную хорошую идею — очко, за выкаченную пустышку — минус очко. Все четыре стратегии смотрят на одни и те же тесты.</p>
+  <span class="step-tag play-pre">Сначала угадай</span>
+  <div class="guess lab-guess lab-pick">
+    <p class="guess-l" id="bst-gl">Твой прогноз</p>
+    <p class="lab-phrase" id="bst-ph">Больше всех очков за год наберёт стратегия:</p>
+    <div class="opts cols1" role="group" aria-labelledby="bst-ph">
+      <button type="button" data-v="bob">Боб: смотрю каждый день, выкатываю при первом «значимо»</button>
+      <button type="button" data-v="alice">Алиса: один взгляд на 28-й день, порог 0.05</button>
+      <button type="button" data-v="week">Нетерпеливый: один взгляд на 7-й день, порог 0.05</button>
+      <button type="button" data-v="soft">Мягкий судья: на 28-й день, порог 0.20</button>
+    </div>
+  </div>
+  <p class="lab-status" role="status"></p>
+  <div class="controls lab-go"><button class="btn" type="button" data-lab="run">Провести турнир</button></div>
+  <div class="lab-stage" hidden>
+    <span class="step-tag play-pre play-check">Потом проверь</span>
+    <p class="chart-title" id="bst-t0">Итог года: очки каждой стратегии</p>
+    <canvas id="bst-cv" role="img" aria-label="Очки четырёх стратегий за год"></canvas>
+    <p class="note lab-data">Данные: симуляция; выкатывают, только если B лучше A.</p>
+  </div>
+  <div class="controls lab-after" hidden><button class="btn ghost" type="button" data-lab="x1000">×1000 лет</button><button class="lab-again" type="button" data-lab="again">⟳ Ещё раз</button></div>
+</section>
+
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее →</button>
+    </div>
+  </main>
+</div>
+
+<script src="/ab-basics/course.js?v=202611301"></script>
+<script src="/play/lab/lab.js?v=202611301"></script>
+<script src="/play/lab/peeking-two-panels.js?v=202611301"></script>
+<script src="/play/lab/bob-strategies.js?v=202611301"></script>
+</body>
+</html>
