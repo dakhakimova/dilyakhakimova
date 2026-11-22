@@ -116,7 +116,7 @@ function shelf(){
 <main id="main" class="wrap shelf-page">
   <section class="c-hero">
     <h1>Полка</h1>
-    <p class="sub">Книги, которые стоит прочитать аналитику, и статьи. Яркие корешки — с разбором «Котейка читает»: открой и читай. Наведи на любой корешок, чтобы узнать, о чём книга.</p>
+    <p class="sub">Книги и статьи, которые стоит прочитать аналитику.</p>
   </section>
 ${topics.length > 1 ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <button type="button" aria-pressed="true" data-topic="">Все темы</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
