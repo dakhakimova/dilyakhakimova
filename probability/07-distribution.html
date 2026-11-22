@@ -11,9 +11,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/signal/book.css?v=202611220">
-<link rel="stylesheet" href="/signal/free.css?v=202611220">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css?v=202611250">
+<link rel="stylesheet" href="/signal/book.css?v=202611250">
+<link rel="stylesheet" href="/signal/free.css?v=202611250">
 <style>
 /* стили только шага 7 (кандидаты в free.css — в notes-C.md) */
 .rng-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin:10px 0 4px}
@@ -178,7 +179,7 @@
   <p>Треугольник Паскаля из шага 3 — это и есть доска Гальтона: число в клетке треугольника — сколько путей ведёт к этому гвоздику.</p>
   <aside class="scary">
     <span class="scary-tag">Страшное слово</span>
-    <p>Число успехов в n независимых попытках с одинаковым шансом p распределено по <b class="term">биномиальному закону</b>; на собеседовании скажут <b>binomial distribution</b>, Bin(n, p). Одна попытка «да/нет» — это <b>Бернулли</b>.</p>
+    <p>Число успехов в n независимых попытках с одинаковым шансом p распределено по <b class="term">биномиальному закону</b>; на собеседовании скажут <b>binomial distribution</b>, Bin(n, p). Одна попытка «да · нет» — это <b>Бернулли</b>.</p>
     <p class="aside">Звучит солидно, а это просто «сколько раз шарик ушёл вправо».</p>
   </aside>
   <p class="xref"><span>Без формул и с кофейными зёрнами вместо шариков — в «A/B на пальцах», <a href="/ab-basics/04-clt.html">шаг 4 «Толпа предсказуема»</a>.</span></p>
@@ -188,7 +189,7 @@
 <section class="card" data-toy="binom-20" data-title="Группы по 20 гостей" aria-label="Группы по 20 гостей">
   <span class="step-tag">Малый график</span>
   <h2>Ровно один покупатель из двадцати</h2>
-  <p data-toy-hide>В шаге 2 мы смотрели на группы по 20 гостей при конверсии 5 % и видели: ровно один покупатель бывает только примерно в трети групп. Теперь у этой частоты есть формула. Каждый гость — монетка «купил/не купил» с шансом 5 %, гостей 20, и число покупателей распределено биномиально.</p>
+  <p data-toy-hide>В шаге 2 мы смотрели на группы по 20 гостей при конверсии 5 % и видели: ровно один покупатель бывает только примерно в трети групп. Теперь у этой частоты есть формула. Каждый гость — монетка «купил · не купил» с шансом 5 %, гостей 20, и число покупателей распределено биномиально.</p>
   <div class="sheet c-white">
     <canvas id="ch-shop" role="img" aria-label="Биномиальное распределение числа покупателей в группе из 20 гостей"></canvas>
     <div class="rng-row">
@@ -367,7 +368,7 @@ _check()
     <dt>Случайная величина</dt><dd>правило, которое каждому исходу ставит число; на собеседовании — random variable</dd>
     <dt>Распределение</dt><dd>какие значения бывают и с какими вероятностями; distribution, для дискретных — PMF</dd>
     <dt>Функция распределения</dt><dd>P(X ≤ k), лестница; CDF</dd>
-    <dt>Бернулли</dt><dd>одна попытка «да/нет» с шансом p; Bernoulli</dd>
+    <dt>Бернулли</dt><dd>одна попытка «да · нет» с шансом p; Bernoulli</dd>
     <dt>Биномиальное</dt><dd>число успехов из n попыток; binomial, Bin(n, p)</dd>
     <dt>Геометрическое</dt><dd>номер первого успеха; geometric</dd>
   </dl>
