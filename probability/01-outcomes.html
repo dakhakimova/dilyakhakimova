@@ -15,33 +15,36 @@
 <link rel="stylesheet" href="/signal/book.css?v=202611240">
 <link rel="stylesheet" href="/signal/free.css?v=202611240">
 <style>
-/* монетки пары */
+/* монетки пары: первая монетка синяя, вторая коралловая — исходы ОР и РО видны сразу, без кнопки «подписать» (решение Дили, 22.11.2026) */
+.sheet.coins2{position:relative}
 .pair{display:flex; gap:14px; align-items:center; min-height:64px; margin:4px 0 12px}
-.pair .coin{width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font:600 1.25rem/1 var(--body); color:#fff; background:var(--pen); box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
-.pair .coin.blank{background:#D6D2C9; color:#fff}
-.pair.labeled .coin.c1{background:var(--ctrl)}
-.pair.labeled .coin.c2{background:var(--test)}
+.pair .coin{width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font:600 1.25rem/1 var(--body); color:#fff; box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.pair .coin.c1{background:var(--ctrl)} .pair .coin.c2{background:var(--test)}
+.pair .coin.blank{background:#D6D2C9}
 .pair .coin.flip{animation:flip .45s ease}
 @keyframes flip{0%{transform:rotateY(0)} 50%{transform:rotateY(90deg) scale(.9)} 100%{transform:rotateY(0)}}
 @media (prefers-reduced-motion: reduce){ .pair .coin.flip{animation:none} }
 .pair .who-says{font:500 1rem/1.35 var(--body); color:var(--muted)}
-/* плитки исходов */
-.otiles{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:6px 0 12px}
-.otile{background:var(--surface); border:1px solid rgba(36,34,31,.14); border-radius:12px; padding:10px 8px; text-align:center; transition:background .25s}
-.otile b{display:block; font:600 1.25rem/1.2 var(--body); letter-spacing:.04em}
-.otile span{display:block; font-size:.8125rem; color:var(--muted); margin-top:2px}
-.otile em{display:block; font:500 1.25rem/1.2 var(--serif); font-style:normal; font-variant-numeric:tabular-nums; margin-top:4px}
-.otile.hit{background:var(--test-bg)}
-.otile .l{display:none}
-.otiles.labeled .otile .u{display:none}
-.otiles.labeled .otile .l{display:block}
-.otiles:not(.labeled){grid-template-columns:repeat(3,1fr)}
-.otiles:not(.labeled) .otile[data-o="RO"]{display:none}
-.otiles.labeled i.c1{font-style:normal; color:var(--ctrl)}
-.otiles.labeled i.c2{font-style:normal; color:var(--test-ink)}
-.otile i{font-style:normal}
-@media (prefers-reduced-motion: reduce){ .otile{transition:none} }
-@media (max-width:620px){ .otiles{grid-template-columns:1fr 1fr} .otiles:not(.labeled){grid-template-columns:repeat(3,1fr)} }
+/* корзины героев: Алиса — ОО, Боб — ОР и РО, Котейка — РР */
+.bins{display:grid; grid-template-columns:1fr 2fr 1fr; gap:8px; margin:6px 0 12px}
+.hb{background:var(--surface); border:1px solid rgba(36,34,31,.14); border-radius:12px; padding:10px 8px; text-align:center}
+.hb > b{display:block; font:500 1rem/1.2 var(--body)}
+.hb .outs{display:flex; justify-content:center; gap:8px; margin-top:6px}
+.hb .out{flex:1; max-width:9em; border-radius:10px; padding:6px 4px; transition:background .25s}
+.hb .out.hit{background:var(--test-bg)}
+.hb .out b{display:block; font:600 1.25rem/1.2 var(--body); letter-spacing:.04em}
+.hb .out i{font-style:normal} .hb .out i.c1{color:var(--ctrl)} .hb .out i.c2{color:var(--test-ink)}
+.hb .out em{display:block; font:500 1.25rem/1.2 var(--serif); font-style:normal; font-variant-numeric:tabular-nums; margin-top:2px}
+.hb .tot{display:block; font-size:.8125rem; color:var(--muted); margin-top:4px; font-variant-numeric:tabular-nums; min-height:1.2em}
+.chip{position:absolute; left:0; top:0; z-index:3; pointer-events:none; font:600 .8125rem/1 var(--body); padding:4px 6px; border-radius:999px; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.18); letter-spacing:.04em}
+.chip i{font-style:normal} .chip i.c1{color:var(--ctrl)} .chip i.c2{color:var(--test-ink)}
+.addrow{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+.c-nl{font-size:.9375rem; color:var(--muted)}
+.addrow input{width:7.5em; font:500 1rem/1.2 var(--body); padding:10px; border:1.5px solid var(--line-strong); border-radius:10px; background:#fff; font-variant-numeric:tabular-nums}
+.c-log{min-height:1.4em; font-size:.875rem; color:var(--muted); margin:6px 0 0}
+.c-log i{font-style:normal; font-weight:600} .c-log i.c1{color:var(--ctrl)} .c-log i.c2{color:var(--test-ink)}
+@media (prefers-reduced-motion: reduce){ .hb .out{transition:none} }
+@media (max-width:620px){ .bins{grid-template-columns:1fr 1fr} .hb.hb-bob{grid-column:1 / -1; order:-1} }
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
@@ -110,25 +113,24 @@
 <section class="card" data-toy="two-coins" data-title="Две монетки" aria-label="Две монетки моют посуду">
   <span class="step-tag">Поиграй</span>
   <h2>Две монетки моют посуду</h2>
-  <p>Один бросок пары — один вечер. Сначала бросай по одному, потом сразу сотней. Потом нажми «Подпиши монетки» и посмотри на плитки ещё раз.</p>
-  <div class="sheet c-white">
+  <p>Один бросок пары — один вечер. Первая монетка синяя, вторая коралловая. Сначала добавляй по одному вечеру и смотри, к кому улетает исход. Потом вбей тысячу или сто тысяч вечеров: на сотне доли ещё заметно гуляют, а чем больше вечеров, тем ближе к теории.</p>
+  <div class="sheet c-white coins2" id="c-sheet">
     <div class="pair" id="pair" aria-live="polite"><span class="coin c1 blank">?</span><span class="coin c2 blank">?</span><span class="who-says" id="pair-who">Брось пару монеток</span></div>
-    <div class="otiles" id="otiles">
-      <div class="otile" data-o="OO"><b>ОО</b><span>моет Алиса</span><em>0</em></div>
-      <div class="otile" data-o="OR"><b class="u">О и Р</b><b class="l"><i class="c1">О</i><i class="c2">Р</i></b><span>моет Боб</span><em>0</em></div>
-      <div class="otile" data-o="RO"><b class="l"><i class="c1">Р</i><i class="c2">О</i></b><span>моет Боб</span><em>0</em></div>
-      <div class="otile" data-o="RR"><b>РР</b><span>моет Котейка</span><em>0</em></div>
+    <div class="bins" id="bins">
+      <div class="hb hb-alice"><b>Алиса</b><div class="outs"><span class="out" data-o="OO"><b><i class="c1">О</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="A"></span></div>
+      <div class="hb hb-bob"><b>Боб</b><div class="outs"><span class="out" data-o="OR"><b><i class="c1">О</i><i class="c2">Р</i></b><em>0</em></span><span class="out" data-o="RO"><b><i class="c1">Р</i><i class="c2">О</i></b><em>0</em></span></div><span class="tot" data-t="B"></span></div>
+      <div class="hb hb-kot"><b>Котейка</b><div class="outs"><span class="out" data-o="RR"><b><i class="c1">Р</i><i class="c2">Р</i></b><em>0</em></span></div><span class="tot" data-t="K"></span></div>
     </div>
-    <div class="controls">
-      <button class="btn" type="button" id="c-1">Бросить пару</button>
-      <button class="btn ghost" type="button" id="c-10">×10</button>
-      <button class="btn ghost" type="button" id="c-100">×100</button>
-      <button class="btn ghost" type="button" id="c-lab" aria-pressed="false">Подпиши монетки</button>
+    <div class="controls addrow">
+      <button class="btn" type="button" id="c-1">+1 вечер</button>
+      <label for="c-n" class="c-nl">или сразу</label><input id="c-n" type="text" inputmode="numeric" value="1000" autocomplete="off">
+      <button class="btn ghost" type="button" id="c-add">Добавить вечера</button>
       <button class="btn ghost" type="button" id="c-0">Сначала</button>
     </div>
-    <p class="chart-title">Доли вечеров по исходу двух бросков; точки — теория</p>
-    <canvas id="c-chart" role="img" aria-label="Доли вечеров: две решки — Котейка, разные — Боб, два орла — Алиса. Серые точки — теория: четверть, половина, четверть. Красная пунктирная линия — «по трети»"></canvas>
-    <p class="note">Столбик — доля вечеров · серая точка — сколько должно быть по теории · красный пунктир — «по трети», как обещал Боб</p>
+    <p class="c-log" id="c-log" aria-live="polite"></p>
+    <p class="chart-title">Доля вечеров у каждого героя</p>
+    <canvas id="c-chart" role="img" aria-label="Доли вечеров: Алиса — два орла, Боб — разные, Котейка — две решки. Красная пунктирная линия — «по трети», как обещал Боб"></canvas>
+    <p class="note">Столбик — доля вечеров · красный пунктир — «по трети», как обещал Боб</p>
     <div class="verdict" id="c-v" hidden></div>
     <span class="kot-says" id="c-kot" hidden></span>
   </div>
@@ -385,48 +387,53 @@ const TXT = {
   ru: {
     who: {OO: 'Два орла — моет Алиса', OR: 'Разные — моет Боб', RO: 'Разные — моет Боб', RR: 'Две решки — моет Котейка'},
     H: 'О', T: 'Р',
-    cats: [['РР', 'Котейка'], ['разные', 'Боб'], ['ОО', 'Алиса']],
+    cats: [['ОО', 'Алиса'], ['ОР + РО', 'Боб'], ['РР', 'Котейка']],
     third: 'по трети',
     empty: 'Брось монетки',
     evenings: n => int(n) + ' ' + plural(n, {one: 'вечер', few: 'вечера', many: 'вечеров'}),
     verdict: (k, n, g) => (g === null ? '' : 'Твоя догадка — <b>' + int(g) + '</b> вечеров из 100. ') +
       'За ' + int(n) + ' ' + plural(n, {one: 'вечер', few: 'вечера', many: 'вечеров'}) + ' Боб мыл посуду <b>' + int(k) + '</b> ' + plural(k, {one: 'раз', few: 'раза', many: 'раз'}) +
       ' — это ' + share(k / n, 0) + '. Теория: 2 исхода из 4, то есть 50' + '%. «По трети» не выходит: «разные» — это ОР и РО.',
-    kotSmall: 'Мур… бросай ещё, сто вечеров честнее',
-    kotOk: 'Мяу. Раскусили: мне достаётся половина',
-    kotOdd: 'Мур! Повезло мне — бросай ещё',
+    kotSmall: 'Мур… на сотне доли ещё гуляют. Вбей тысячу',
+    kotOk: 'Мур. Мне — четверть вечеров, Бобу — половина. Я же говорил: очень согласен',
+    kotOdd: 'Мур. Пока шумит — добавь вечеров',
     sumRead: (s, k) => 'Сумма <b>' + s + '</b>: ' + k + ' ' + plural(k, {one: 'клетка', few: 'клетки', many: 'клеток'}) + ' из 36 — это ' + share(k / 36, 1) + '. Из 3600 бросков — около ' + int(k * 100) + '.',
     sumX: 'сумма двух кубиков', sumY: 'клеток из 36',
   },
 }[LANG] || {};
 
 // ---------- карточка 3: две монетки моют посуду ----------
+// Исходы улетают к героям: ОО — Алисе, ОР и РО — Бобу, РР — Котейке (решение Дили, 22.11.2026: без кнопки «Подпиши монетки»,
+// без серых точек теории; можно +1 вечер или сразу N из поля — до миллиона, чтобы доли сошлись с теорией).
+// При N > 1 исходы улетают к героям в ускоряющемся темпе (~2.5 с), счётчики и столбики растут вместе с ними.
 (function(){
-  const pair = document.getElementById('pair'), coins = pair.querySelectorAll('.coin'), who = document.getElementById('pair-who');
-  const tiles = document.getElementById('otiles'), cv = document.getElementById('c-chart');
-  const vEl = document.getElementById('c-v'), kot = document.getElementById('c-kot'), lab = document.getElementById('c-lab');
-  const cnt = {OO: 0, OR: 0, RO: 0, RR: 0}; let n = 0, labeled = false, flash = null;
-  const tileOf = o => tiles.querySelector('.otile[data-o="' + o + '"]');
-  function paintTiles(){
-    tileOf('OO').querySelector('em').textContent = int(cnt.OO);
-    tileOf('RR').querySelector('em').textContent = int(cnt.RR);
-    tileOf('OR').querySelector('em').textContent = int(labeled ? cnt.OR : cnt.OR + cnt.RO);
-    tileOf('RO').querySelector('em').textContent = int(cnt.RO);
+  const sheet = document.getElementById('c-sheet'), pair = document.getElementById('pair'), coins = pair.querySelectorAll('.coin'), who = document.getElementById('pair-who');
+  const bins = document.getElementById('bins'), cv = document.getElementById('c-chart'), log = document.getElementById('c-log');
+  const vEl = document.getElementById('c-v'), kot = document.getElementById('c-kot'), inp = document.getElementById('c-n');
+  const cnt = {OO: 0, OR: 0, RO: 0, RR: 0}; let n = 0, queue = [], qi = 0, perFrame = 1, raf = 0, lastChip = 0;
+  const outEl = o => bins.querySelector('.out[data-o="' + o + '"]');
+  const NAME = {OO: 'Алиса', OR: 'Боб', RO: 'Боб', RR: 'Котейка'};
+  const lab = o => '<i class="c1">' + (o[0] === 'O' ? TXT.H : TXT.T) + '</i><i class="c2">' + (o[1] === 'O' ? TXT.H : TXT.T) + '</i>';
+  function paint(){
+    for (const o in cnt) outEl(o).querySelector('em').textContent = int(cnt[o]);
+    const t = (k) => n ? 'всего ' + int(k) + ' · ' + shareT(k / n, 1) : '';
+    bins.querySelector('[data-t="A"]').textContent = t(cnt.OO);
+    bins.querySelector('[data-t="B"]').textContent = t(cnt.OR + cnt.RO);
+    bins.querySelector('[data-t="K"]').textContent = t(cnt.RR);
   }
   function draw(){
     const g = canvas(cv, 0.36, 0.7); if (!g) return; const {c, w, h} = g;
     const L = 40, R = 10, T0 = 16, B = 42, pw = w - L - R, ph = h - T0 - B, top = 0.7, bw = pw / 3;
     axisY(c, L, R, T0, ph, w, 0, top, 0.1, v => shareT(v, 0));
-    const vals = [cnt.RR, cnt.OR + cnt.RO, cnt.OO].map(k => n ? k / n : 0), theory = [0.25, 0.5, 0.25];
+    const vals = [cnt.OO, cnt.OR + cnt.RO, cnt.RR].map(k => n ? k / n : 0);
     const Y = v => T0 + ph * (1 - Math.min(v, top) / top);
     for (let i = 0; i < 3; i++){
       const x = L + i * bw, bwid = Math.min(bw * 0.56, 120), x0 = x + (bw - bwid) / 2;
       if (n){
         c.fillStyle = i === 1 ? COL.test : COL.ctrl; c.fillRect(x0, Y(vals[i]), bwid, Y(0) - Y(vals[i]));
-        label(c, shareT(vals[i], 0), x + bw / 2, Y(vals[i]) - 6, COL.ink, 'center');
+        label(c, shareT(vals[i], 1), x + bw / 2, Y(vals[i]) - 6, COL.ink, 'center');
       }
-      c.fillStyle = COL.gray; c.beginPath(); c.arc(x + bw / 2, Y(theory[i]), 5, 0, 2 * Math.PI); c.fill();
-      label(c, TXT.cats[i][0], x + bw / 2, h - 24, COL.ink, 'center'); label(c, TXT.cats[i][1], x + bw / 2, h - 8, COL.ink2, 'center');
+      label(c, TXT.cats[i][1], x + bw / 2, h - 24, COL.ink, 'center'); label(c, TXT.cats[i][0], x + bw / 2, h - 8, COL.ink2, 'center');
     }
     c.strokeStyle = COL.trap; c.setLineDash([6, 5]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, Y(1 / 3)); c.lineTo(w - R, Y(1 / 3)); c.stroke(); c.setLineDash([]);
     label(c, TXT.third, w - R - 4, Y(1 / 3) - 6, COL.trapInk, 'right');
@@ -437,36 +444,67 @@ const TXT = {
     const k = cnt.OR + cnt.RO;
     vEl.hidden = false; vEl.className = 'verdict good'; vEl.innerHTML = TXT.verdict(k, n, Book.guess('kot'));
     kot.hidden = false; kot.className = 'kot-says';
-    kot.textContent = n < 100 ? TXT.kotSmall : Math.abs(k / n - 0.5) < 0.08 ? TXT.kotOk : TXT.kotOdd;
+    kot.textContent = n < 1000 ? TXT.kotSmall : Math.abs(k / n - 0.5) < 0.03 ? TXT.kotOk : TXT.kotOdd;
   }
-  function showPair(a, b){
-    coins[0].textContent = a ? TXT.H : TXT.T; coins[1].textContent = b ? TXT.H : TXT.T;
-    coins.forEach(x => { x.classList.remove('blank', 'flip'); if (!REDUCED){ void x.offsetWidth; x.classList.add('flip'); } });
-    const o = (a ? 'O' : 'R') + (b ? 'O' : 'R');
+  function showPair(o, anim){
+    coins[0].textContent = o[0] === 'O' ? TXT.H : TXT.T; coins[1].textContent = o[1] === 'O' ? TXT.H : TXT.T;
+    coins.forEach(x => { x.classList.remove('blank', 'flip'); if (anim && !REDUCED){ void x.offsetWidth; x.classList.add('flip'); } });
     who.textContent = TXT.who[o];
-    const t = tileOf(!labeled && o === 'RO' ? 'OR' : o);
-    tiles.querySelectorAll('.otile').forEach(x => x.classList.remove('hit')); t.classList.add('hit');
-    clearTimeout(flash); flash = setTimeout(() => t.classList.remove('hit'), 600);
   }
-  function toss(m){
-    let a, b;
-    for (let i = 0; i < m; i++){ a = bern(0.5); b = bern(0.5); cnt[(a ? 'O' : 'R') + (b ? 'O' : 'R')]++; n++; }
-    showPair(a, b); paintTiles(); draw(); verdict();
+  function fly(o){
+    const t = outEl(o);
+    t.classList.add('hit'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('hit'), 300);
+    if (REDUCED || !sheet.animate) return;
+    const sr = sheet.getBoundingClientRect(), a = coins[0].getBoundingClientRect(), b = t.getBoundingClientRect();
+    const chip = document.createElement('span'); chip.className = 'chip'; chip.innerHTML = lab(o); sheet.appendChild(chip);
+    const x0 = a.left - sr.left + 30, y0 = a.top - sr.top + 16, x1 = b.left - sr.left + b.width / 2 - 14, y1 = b.top - sr.top + 4;
+    const an = chip.animate([
+      {transform: `translate(${x0}px,${y0}px)`, opacity: 1},
+      {transform: `translate(${(x0 + x1) / 2}px,${Math.min(y0, y1) - 24}px)`, opacity: 1, offset: .45},
+      {transform: `translate(${x1}px,${y1}px)`, opacity: .15}], {duration: 520, easing: 'ease-in-out'});
+    an.onfinish = () => chip.remove();
   }
-  document.getElementById('c-1').addEventListener('click', () => toss(1));
-  document.getElementById('c-10').addEventListener('click', () => toss(10));
-  document.getElementById('c-100').addEventListener('click', () => toss(100));
-  lab.addEventListener('click', () => {
-    labeled = !labeled; lab.setAttribute('aria-pressed', String(labeled));
-    tiles.classList.toggle('labeled', labeled); pair.classList.toggle('labeled', labeled); paintTiles();
-  });
+  function frame(now){
+    const k = Math.min(perFrame, queue.length - qi);
+    let o;
+    for (let i = 0; i < k; i++){ o = queue[qi++]; cnt[o]++; n++; }
+    if (o){
+      showPair(o, false);
+      if (now - lastChip > 70){ fly(o); lastChip = now; }   // летят не все исходы, а один из каждых ~70 мс — иначе на тысячах будет каша
+    }
+    paint(); draw();
+    if (qi < queue.length) raf = requestAnimationFrame(frame);
+    else { raf = 0; queue = []; qi = 0; verdict(); }
+  }
+  function run(m){
+    const fresh = new Array(m), c = {OO: 0, OR: 0, RO: 0, RR: 0};
+    for (let i = 0; i < m; i++){ const o = (bern(0.5) ? 'O' : 'R') + (bern(0.5) ? 'O' : 'R'); fresh[i] = o; c[o]++; }
+    if (m === 1){
+      const o = fresh[0]; cnt[o]++; n++;
+      showPair(o, true); fly(o); paint(); draw(); verdict();
+      log.innerHTML = '+1 вечер: ' + lab(o) + ' — улетело к ' + {OO: 'Алисе', OR: 'Бобу', RO: 'Бобу', RR: 'Котейке'}[o];
+      return;
+    }
+    log.innerHTML = '+' + int(m) + ' ' + plural(m, {one: 'вечер', few: 'вечера', many: 'вечеров'}) + ': Алисе ' + int(c.OO) + ', Бобу ' + int(c.OR + c.RO) + ' (' + lab('OR') + ' ' + int(c.OR) + ', ' + lab('RO') + ' ' + int(c.RO) + '), Котейке ' + int(c.RR);
+    if (REDUCED){ for (const o in c){ cnt[o] += c[o]; } n += m; showPair(fresh[m - 1], false); paint(); draw(); verdict(); return; }
+    queue = queue.slice(qi).concat(fresh); qi = 0;
+    perFrame = Math.max(1, Math.ceil(queue.length / 150));   // ~2.5 с при 60 кадрах
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+  const N = () => { const v = Math.round(parseFloat(String(inp.value).replace(/\s| /g, '').replace(',', '.'))); return isFinite(v) && v > 0 ? Math.min(v, 1000000) : 0; };
+  document.getElementById('c-1').addEventListener('click', () => run(1));
+  document.getElementById('c-add').addEventListener('click', () => { const m = N(); if (m){ inp.value = int(m); run(m); } else inp.focus(); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); document.getElementById('c-add').click(); } });
   document.getElementById('c-0').addEventListener('click', () => {
+    queue = []; qi = 0; if (raf){ cancelAnimationFrame(raf); raf = 0; }
     Object.keys(cnt).forEach(k => cnt[k] = 0); n = 0;
-    coins.forEach(x => { x.textContent = '?'; x.classList.add('blank'); }); who.textContent = '';
-    paintTiles(); draw(); verdict();
+    coins.forEach(x => { x.textContent = '?'; x.classList.add('blank'); }); who.textContent = 'Брось пару монеток'; log.textContent = '';
+    paint(); draw(); verdict();
   });
   window.addEventListener('resize', draw);
+  paint();
 })();
+
 
 // ---------- карточка 7: два кубика ----------
 (function(){
