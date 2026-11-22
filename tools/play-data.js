@@ -66,7 +66,7 @@ function load(lang = 'ru', {strict = true} = {}){
     if (!(t.h >= 300 && t.h <= 4000)) fail(`${where}: h — примерная высота игрушки в px, 300…4000`);
     if (typeof t.img !== 'string') fail(`${where}: img — путь к картинке или "" (пусто)`);
     else if (t.img && !fs.existsSync(path.join(ROOT, t.img.replace(/^\//, '')))) fail(`${where}: нет файла картинки ${t.img}`);
-    if (!Array.isArray(t.act) || !t.act.length) fail(`${where}: act — список селекторов, что нажать для первого касания (тест и OG-картинка)`);
+    if (!Array.isArray(t.act) || !t.act.length || !t.act.every(require('./play-act.js').actOk)) fail(`${where}: act — список шагов первого касания (тест и OG-картинка): селекторы или {sel, color | at} для точки на холсте, см. tools/play-act.js`);
     if (t.more && (!Array.isArray(t.more) || t.more.length > 3)) fail(`${where}: more — до трёх slug`);
     // тексты
     const x = texts[s];

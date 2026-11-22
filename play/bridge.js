@@ -55,10 +55,13 @@
     try { navigator.sendBeacon('/api/hit', JSON.stringify({slug, place, kind, source: source || ''})); } catch(e) {}
   };
   const utm = (q => (q.get('utm_source') || '').slice(0, 60))(new URLSearchParams(location.search));
-  // первое осмысленное касание карточки игрушки: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр)
+  // первое осмысленное касание карточки игрушки: кнопка, ползунок, выбор, холст (не прокрутка и не просмотр).
+  // Прогноз внутри карточки игрушки — не касание: ставка (.choice[data-key]), поле догадки (.guess, жёлтый лист c-butter,
+  // поле с placeholder «?», id …-guess) только записывает догадку, вывод должен ждать, пока человек сыграет.
+  const GUESS = '[data-key], .guess, [data-guess], .c-butter, input[placeholder="?"], [id$="-guess"]';
   const onFirstTouch = (card, fn) => {
     const evs = ['click', 'input', 'change'];
-    const h = e => { if (!e.target.closest('button, input, select, canvas, [role=button]') || e.target.closest('.toy-share')) return; evs.forEach(ev => card.removeEventListener(ev, h)); fn(); };
+    const h = e => { const t = e.target; if (!t.closest || !t.closest('button, input, select, canvas, [role=button]') || t.closest('.toy-share') || t.closest(GUESS)) return; evs.forEach(ev => card.removeEventListener(ev, h)); fn(); };
     evs.forEach(ev => card.addEventListener(ev, h));
   };
 
