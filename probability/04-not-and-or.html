@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/04-not-and-or.html">
 <title>Не, и, или · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
-<script src="/play/bridge.js?v=202611241"></script>
+<script src="/play/bridge.js?v=202611242"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611241">
-<link rel="stylesheet" href="/tokens.css?v=202611241">
-<link rel="stylesheet" href="/signal/book.css?v=202611241">
-<link rel="stylesheet" href="/signal/free.css?v=202611241">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611242">
+<link rel="stylesheet" href="/tokens.css?v=202611242">
+<link rel="stylesheet" href="/signal/book.css?v=202611242">
+<link rel="stylesheet" href="/signal/free.css?v=202611242">
 <style>
 /* стили только этой страницы */
 .controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
@@ -28,7 +28,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
-<script src="/signal/progress.js?v=202611241"></script>
+<script src="/signal/progress.js?v=202611242"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -136,8 +136,8 @@
     <div class="story"><span class="lt">История</span><p>Гости входят по одному. Второму нужно не попасть в день первого, третьему — в дни двух первых, и так далее. Если все промахнулись — совпадений нет. Во всех остальных вечеринках оно есть.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 вечеринок на 23 гостя примерно в 493 у всех дни разные. Значит, в остальных 507 (50.7%) совпадение есть.</p></div>
     <div class="formula-l"><span class="lt">Формула</span>
-      <p class="formula">P(все разные) = 365/365 · 364/365 · … · 343/365 ≈ 0.493</p>
-      <p class="formula">P(не A) = 1 − P(A), &nbsp;P(совпадение) ≈ 1 − 0.493 = 0.507</p>
+      <p class="formula">P(«все разные») = 365/365 · 364/365 · … · 343/365 ≈ 0.493</p>
+      <p class="formula">P(не A) = 1 − P(A), &nbsp;P(«совпадение») ≈ 1 − 0.493 = 0.507</p>
       <p class="read">Словами: вероятность «хоть раз» — это единица минус вероятность «ни разу».</p>
     </div>
   </div>
@@ -332,12 +332,12 @@ _check()
   <div class="quiz" data-right="c">
     <p class="q">Гость оформляет либо доставку, либо самовывоз — одновременно нельзя. Эти два события независимы?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Не пересекаются — значит, наоборот, сильно связаны: одно исключает другое.">Да: они не пересекаются, значит, не влияют</button><button type="button" data-v="b" data-why="Даже если доли доставки и самовывоза равны, это не делает события независимыми.">Да, если доли доставки и самовывоза равны</button><button type="button" data-v="c">Нет: узнав одно, знаешь, что второго нет</button></div>
-    <p class="why">Независимость — когда одно ничего не говорит о другом. А здесь «доставка» сразу говорит «не самовывоз». Числами: P(оба) = 0, а P(доставка) · P(самовывоз) больше нуля. Несовместные события с ненулевыми вероятностями всегда зависимы.</p>
+    <p class="why">Независимость — когда одно ничего не говорит о другом. А здесь «доставка» сразу говорит «не самовывоз». Числами: P(«оба») = 0, а P(«доставка») · P(«самовывоз») больше нуля. Несовместные события с ненулевыми вероятностями всегда зависимы.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">40% гостей берут кофе, 30% — круассан. Какая доля берёт хотя бы одно из двух?</p>
     <div class="choice"><button type="button" data-v="a">От 40 до 70%, смотря сколько берут оба</button><button type="button" data-v="b" data-why="Сумма верна, только если кофе с круассаном вместе не берёт никто.">Ровно 70%: сорок плюс тридцать процентов</button><button type="button" data-v="c" data-why="Произведение — это «и» для независимых событий, причём «оба», а не «хотя бы одно».">Ровно 12%: сорок умножить на тридцать</button></div>
-    <p class="why">P(кофе или круассан) = 40% + 30% − P(оба). Если все любители круассанов берут и кофе, выйдет 40%, если вместе не берёт никто — 70%. Без доли «оба» ответ не узнать.</p>
+    <p class="why">P(кофе или круассан) = 40% + 30% − P(«оба»). Если все любители круассанов берут и кофе, выйдет 40%, если вместе не берёт никто — 70%. Без доли «оба» ответ не узнать.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Шевалье де Мере в XVII веке спорил: что вероятнее — хотя бы одна шестёрка за 4 броска кубика или хотя бы пара шестёрок за 24 броска двух кубиков?</p>
@@ -377,7 +377,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611241"></script>
+<script src="/signal/book.js?v=202611242"></script>
 <script>
 const TXT = {
   ru: {
@@ -580,6 +580,6 @@ const TXT = {
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611241"></script>
+<script src="/signal/py.js?v=202611242"></script>
 </body>
 </html>
