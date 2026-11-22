@@ -5,7 +5,7 @@
    (numpy, scipy; логнормальное распределение σ = 1,5; 4000–200 000 повторов) и вписаны сюда константами.
    Ширина viewBox 460: на телефоне (≈330 px) подписи 17 → ≈12 px. Цвета — как в играх: синий A/данные, оранжевый B/прогноз, красный — «плохо». */
 const W = 460;
-const C = {a: '#23418A', b: '#E8644A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t2: '#4A463F', t3: '#5E5A53', line: '#CFC8BB', soft: '#E3DED4', mint: '#0E7E5F', paper: '#FBFAF6'};
+const C = {a: '#23418A', b: '#E8644A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t2: '#4A463F', t3: '#5E5A53', line: '#CFC8BB', soft: '#E3DED4', mint: '#0E7E5F', paper: '#FBF9F4'}  // paper = --surface: чистого белого на сайте нет (пара 111a);
 const esc = s => String(s).replace(/&(?!nbsp;|#)/g, '&amp;').replace(/</g, '&lt;');
 const f1 = x => Math.round(x * 10) / 10;
 function svg(h, body, title){
@@ -14,7 +14,7 @@ function svg(h, body, title){
 // подпись: подложка цвета фона под текстом, чтобы линии под ней не читались как зачёркивание
 function tx(x, y, s, o = {}){
   const a = o.a || 'start', size = o.size || 17, fill = o.fill || C.t2, w = o.w || 400;
-  const bg = o.bg ? `paint-order="stroke" stroke="${o.bg === true ? '#fff' : o.bg}" stroke-width="5" stroke-linejoin="round"` : '';
+  const bg = o.bg ? `paint-order="stroke" stroke="${o.bg === true ? C.paper : o.bg}" stroke-width="5" stroke-linejoin="round"` : '';
   return `<text x="${f1(x)}" y="${f1(y)}" text-anchor="${a}" font-size="${size}" font-weight="${w}" fill="${fill}" ${bg}>${esc(s)}</text>`;
 }
 const ln = (x1, y1, x2, y2, st = C.line, w = 1.5, dash = '') => `<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="${st}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
@@ -63,7 +63,7 @@ viz['normal-distribution'] = L => {
 };
 
 viz['ab-testing'] = L => {
-  const box = (x, y, w, h, s, st, fill = '#fff') => rect(x, y, w, h, fill, `rx="10" stroke="${st}" stroke-width="2"`) + tx(x + w / 2, y + h / 2 + 6, s, {a: 'middle', size: 16, fill: C.ink});
+  const box = (x, y, w, h, s, st, fill = C.paper) => rect(x, y, w, h, fill, `rx="10" stroke="${st}" stroke-width="2"`) + tx(x + w / 2, y + h / 2 + 6, s, {a: 'middle', size: 16, fill: C.ink});
   const dots = []; const r = rng(5);
   for (let i = 0; i < 14; i++) dots.push(circ(110 + i * 17.5, 26, 6, r() < .5 ? C.a : C.b, 'opacity=".9"'));
   return svg(430, [
@@ -115,7 +115,7 @@ viz['survivorship-bias'] = L => {
   const body = path([[cx - 16, 40], [cx, 18], [cx + 16, 40], [cx + 16, 300], [cx + 6, 330], [cx - 6, 330], [cx - 16, 300]], C.t3, 2, '#EEF0F2');
   const wing = path([[cx - 16, 140], [cx - 200, 205], [cx - 200, 225], [cx - 16, 195], [cx + 16, 195], [cx + 200, 225], [cx + 200, 205], [cx + 16, 140]], C.t3, 2, '#EEF0F2');
   const tail = path([[cx - 6, 290], [cx - 70, 320], [cx - 70, 332], [cx + 70, 332], [cx + 70, 320], [cx + 6, 290]], C.t3, 2, '#EEF0F2');
-  const eng = [cx - 110, cx + 110].map(x => rect(x - 13, 150, 26, 44, '#fff', `rx="8" stroke="${C.mint}" stroke-width="2.5"`)).join('');
+  const eng = [cx - 110, cx + 110].map(x => rect(x - 13, 150, 26, 44, C.paper, `rx="8" stroke="${C.mint}" stroke-width="2.5"`)).join('');
   const r = rng(11), holes = [];
   while (holes.length < 46){ const x = cx - 195 + r() * 390, y = 30 + r() * 300;
     const inBody = Math.abs(x - cx) < 13 && y > 45 && y < 300, inWing = Math.abs(x - cx) > 18 && y > 150 + Math.abs(x - cx) * .3 && y < 192 + Math.abs(x - cx) * .15,
@@ -145,15 +145,15 @@ viz['mann-whitney'] = L => {
 };
 
 viz['bayes-theorem'] = L => {
-  const node = (x, y, s, st, fill = '#fff', w = 150) => rect(x - w / 2, y - 18, w, 36, fill, `rx="10" stroke="${st}" stroke-width="2"`) + tx(x, y + 6, s, {a: 'middle', size: 15, fill: C.ink});
+  const node = (x, y, s, st, fill = C.paper, w = 150) => rect(x - w / 2, y - 18, w, 36, fill, `rx="10" stroke="${st}" stroke-width="2"`) + tx(x, y + 6, s, {a: 'middle', size: 15, fill: C.ink});
   return svg(330, [
-    node(230, 30, L.top, C.t3, '#fff', 160),
+    node(230, 30, L.top, C.t3, C.paper, 160),
     ln(200, 48, 115, 92, C.t3), ln(260, 48, 345, 92, C.t3),
     node(115, 110, L.nuts, C.red, '#FBE4E4', 190), node(345, 110, L.clean, C.a, '#E6EEF8', 170),
     ln(95, 128, 65, 182, C.t3), ln(135, 128, 165, 182, C.t3), ln(325, 128, 295, 182, C.t3), ln(365, 128, 395, 182, C.t3),
     tx(66, 158, L.p95, {a: 'end', size: 15, fill: C.t3}), tx(296, 158, L.p5, {a: 'end', size: 15, fill: C.t3}),
-    node(65, 200, L.b1, C.b, '#FCE8E3', 100), node(170, 200, L.s1, C.line, '#fff', 90),
-    node(290, 200, L.b2, C.b, '#FCE8E3', 100), node(400, 200, L.s2, C.line, '#fff', 100),
+    node(65, 200, L.b1, C.b, '#FCE8E3', 100), node(170, 200, L.s1, C.line, C.paper, 90),
+    node(290, 200, L.b2, C.b, '#FCE8E3', 100), node(400, 200, L.s2, C.line, C.paper, 100),
     `<path d="M65 220 Q65 262 180 268 M290 220 Q290 262 200 268" fill="none" stroke="${C.b}" stroke-width="2"/>`,
     rect(30, 270, 400, 40, '#FBF1C9', 'rx="10"'), tx(230, 296, L.sum, {a: 'middle', size: 16, fill: C.ink, w: 500}),
   ].join(''), L.sum);
@@ -248,12 +248,12 @@ viz['monty-hall'] = L => {
     const open = p === 1 ? 2 : p === 2 ? 3 : 2;   // ведущий открывает пустую из двух невыбранных (в раскладе 1 — любую, взята 2)
     out.push(tx(8, y + 34, L.row.replace('{n}', p), {size: 15, fill: C.ink}));
     for (let d = 1; d <= 3; d++){ const x = 150 + (d - 1) * 40;
-      out.push(rect(x, y + 6, 32, 46, d === open ? '#ECE9E2' : '#fff', `rx="4" stroke="${d === 1 ? C.pen : C.line}" stroke-width="${d === 1 ? 3 : 1.5}"${d === open ? ' stroke-dasharray="4 3"' : ''}`));
+      out.push(rect(x, y + 6, 32, 46, d === open ? '#ECE9E2' : C.paper, `rx="4" stroke="${d === 1 ? C.pen : C.line}" stroke-width="${d === 1 ? 3 : 1.5}"${d === open ? ' stroke-dasharray="4 3"' : ''}`));
       if (d === p) out.push(circ(x + 16, y + 29, 8, C.b)); }
     const stay = p === 1;
     out.push(tx(296, y + 36, stay ? '✓' : '✕', {a: 'middle', size: 22, fill: stay ? C.mint : C.red, w: 500}), tx(392, y + 36, stay ? '✕' : '✓', {a: 'middle', size: 22, fill: stay ? C.red : C.mint, w: 500})); }
   out.push(ln(8, 256, 452, 256, C.line), tx(8, 282, L.tot, {size: 15, fill: C.ink}), tx(296, 282, L.s, {a: 'middle', size: 16, fill: C.ink, w: 500}), tx(392, 282, L.w, {a: 'middle', size: 16, fill: C.mint, w: 500}));
-  out.push(rect(128, 296, 14, 14, '#fff', `stroke="${C.pen}" stroke-width="3"`), tx(148, 308, L.pick, {size: 13, fill: C.t3}),
+  out.push(rect(128, 296, 14, 14, C.paper, `stroke="${C.pen}" stroke-width="3"`), tx(148, 308, L.pick, {size: 13, fill: C.t3}),
     rect(250, 296, 14, 14, '#ECE9E2', `stroke="${C.line}" stroke-dasharray="3 2"`), tx(270, 308, L.open, {size: 13, fill: C.t3}));
   return svg(320, out.join(''), `${L.stay}: ${L.s} · ${L.sw}: ${L.w}`);
 };
@@ -267,7 +267,7 @@ viz['simpson-paradox'] = L => {
     tx(X(0), Y(50) + 46, L.m, {a: 'start', size: 15, fill: C.t3}), tx(X(1), Y(50) + 46, L.e, {a: 'end', size: 15, fill: C.t3}),
     path([[X(0), Y(95)], [X(1), Y(70)]], C.a, 3), path([[X(0), Y(90)], [X(1), Y(60)]], C.b, 3),
     tx(X(1) - 4, Y(70) - 10, L.bob, {a: 'end', size: 16, fill: '#23418A', w: 500}), tx(X(1) - 4, Y(60) + 22, L.kot, {a: 'end', size: 16, fill: '#B8432B', w: 500}),
-    circ(X(.8), Y(75), 8, C.a, 'stroke="#fff" stroke-width="2"'), circ(X(.1), Y(87), 8, C.b, 'stroke="#fff" stroke-width="2"'),
+    circ(X(.8), Y(75), 8, C.a, 'stroke="${C.paper}" stroke-width="2"'), circ(X(.1), Y(87), 8, C.b, 'stroke="${C.paper}" stroke-width="2"'),
     tx(X(.8), Y(75) - 18, L.bp, {a: 'middle', size: 15, fill: C.ink, bg: true}), ln(X(.1), Y(87) - 8, X(.1) + 8, 52, C.t3, 1) , tx(X(.1) + 10, 48, L.kp, {size: 15, fill: C.ink, bg: true}),
     tx(X(.5), Y(50) + 70, L.x, {a: 'middle', size: 15, fill: C.t3}),
   ].join(''), `${L.bp} · ${L.kp}`);

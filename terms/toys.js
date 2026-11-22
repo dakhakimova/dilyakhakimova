@@ -6,8 +6,8 @@
   const NS = 'http://www.w3.org/2000/svg';
   const C = {a: '#23418A', b: '#E8644A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t3: '#5E5A53', line: '#CFC8BB', soft: '#ECE9E2', mint: '#0E7E5F'};
   const RIGHT = {tt: 2, mw: 1, chi: 1, ss: 1};
-  // числа: десятичная точка, тысячи через неразрывный пробел, % вплотную
-  const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{4,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+  // числа: десятичная точка, тысячи через неразрывный пробел с пяти знаков («1600», «10 000» — как типограф сайта), % вплотную
+  const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
   const pct = x => nf(x * 100, x < .1 && x > 0 ? 1 : 0) + '%';
   const pf = p => p < .001 ? '< 0.001' : nf(p, p < .1 ? 3 : 2);
   const pv = p => p < .001 ? '< 0.001' : '= ' + pf(p);
@@ -45,17 +45,16 @@
   function tt(body, S, reveal){
     const NS_ = [100, 400, 1600], SD = 150, MU = 640;
     let n = 400, eff = 20, hist = [], caught = 0;
-    const effOut = el('output', {text: '20 ₽'}), effIn = el('input', {type: 'range', min: 0, max: 40, step: 5, value: 20, 'aria-label': S.effLabel});
-    const ctl1 = el('div', {class: 't-ctl'}, [el('div', {class: 't-field'}, [el('span', {text: S.nLabel}), seg(NS_.map(x => nf(x)), 1, i => { n = NS_[i]; hist = []; caught = 0; draw(null); })]),
-      el('label', {class: 't-field'}, [el('span', {text: S.effLabel}), effOut, effIn])]);
+    // разница 20 ₽ — условие вопроса, ползунка для неё нет (пара 35)
+    const ctl1 = el('div', {class: 't-ctl'}, [el('div', {class: 't-field'}, [el('span', {text: S.nLabel}), seg(NS_.map(x => nf(x)), 1, i => { n = NS_[i]; hist = []; caught = 0; draw(null); })])]);
     const run = btn(S.run, true), many = btn(S.many), ctl2 = el('div', {class: 't-ctl'}, [run, many]);
+    many.hidden = true;  // ×100 — вторая ступень, после первого запуска (пара 34a)
     const sheet1 = el('div', {class: 't-sheet'}), sheet2 = el('div', {class: 't-sheet'});
     const dots = svgBox(460, 150, S.chartA + ' · ' + S.chartB), ruler = svgBox(460, 96, S.ruler);
     sheet1.append(el('p', {class: 't-lbl', text: S.chartA + ' · ' + S.chartB}), dots, bigs([[S.diff, 'tt-d'], [S.se, 'tt-se'], [S.t, 'tt-t'], [S.p, 'tt-p']]));
     const cnt = el('p', {class: 'note', 'aria-live': 'polite'}), verdict = el('p', {class: 'verdict', hidden: ''});
     sheet2.append(el('p', {class: 't-lbl', text: S.ruler}), ruler, cnt);
     body.append(ctl1, sheet1, sheet2, ctl2, verdict);
-    effIn.oninput = () => { eff = +effIn.value; effOut.textContent = eff + ' ₽'; hist = []; caught = 0; draw(null); };
     const X = v => 20 + (v - 200) / 900 * 420, TX = z => 230 + Math.max(-5, Math.min(5, z)) * 40;
     function one(){ let sa = 0, sb = 0, qa = 0, qb = 0; const A = [], B = [];
       for (let i = 0; i < n; i++){ const a = MU + SD * gauss(), b = MU + eff + SD * gauss(); sa += a; sb += b; qa += a * a; qb += b * b; if (i < 60){ A.push(a); B.push(b); } }
@@ -71,17 +70,19 @@
       [-4, -2, 0, 2, 4].forEach(z => T(ruler, TX(z), 74, (z > 0 ? '+' : z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14}));
       T(ruler, TX(1.96), 92, '1.96', {a: 'middle', size: 14}); T(ruler, TX(-1.96), 92, '−1.96', {a: 'middle', size: 14});
       hist.slice(-100).forEach(z => L(ruler, TX(z), 22, TX(z), 46, Math.abs(z) > 1.96 ? C.pen : '#9AA4B5', 1.2));
-      if (r) Ci(ruler, TX(r.t), 34, 8, Math.abs(r.t) > 1.96 ? C.pen : C.t3, {stroke: '#fff', 'stroke-width': 2});
+      if (r) Ci(ruler, TX(r.t), 34, 8, Math.abs(r.t) > 1.96 ? C.pen : C.t3, {stroke: '#FBF9F4', 'stroke-width': 2});
       cnt.textContent = hist.length ? fill(S.caught, {k: nf(caught), n: nf(hist.length), pct: pct(caught / hist.length)}) : '';
       const g = i => body.querySelector('#' + i);
       g('tt-d').textContent = r ? nf(r.mb - r.ma, 1) + ' ₽' : '—'; g('tt-se').textContent = r ? nf(r.se, 1) + ' ₽' : '—';
       g('tt-t').textContent = r ? nf(r.t, 2) : '—'; g('tt-p').textContent = r ? pf(r.p) : '—';
     }
     const push = r => { hist.push(r.t); if (Math.abs(r.t) > 1.96) caught++; };
-    run.onclick = () => { const r = one(); push(r); draw(r); reveal(); verdict.hidden = false;
+    let batch = false;  // после «100 тестов» одиночный запуск начинает счёт заново, чтобы итог не был «98 из 101»
+    run.onclick = () => { if (batch){ hist = []; caught = 0; batch = false; } const r = one(); push(r); draw(r); reveal(); many.hidden = false; verdict.hidden = false;
       verdict.className = 'verdict ' + (Math.abs(r.t) > 1.96 ? 'good' : '');
-      verdict.textContent = (eff === 0 ? S.vZero + ' ' : '') + fill(Math.abs(r.t) > 1.96 ? S.vYes : S.vNo, {t: nf(r.t, 2), pv: pv(r.p)}); };
-    many.onclick = () => { let r; for (let i = 0; i < 100; i++){ r = one(); push(r); } draw(r); reveal(); };
+      verdict.textContent = fill(Math.abs(r.t) > 1.96 ? S.vYes : S.vNo, {t: nf(r.t, 2), pv: pv(r.p)}); };
+    // каждое нажатие — свежая сотня, итог «N из 100» (Д8)
+    many.onclick = () => { let r; hist = []; caught = 0; for (let i = 0; i < 100; i++){ r = one(); push(r); } batch = true; draw(r); reveal(); };
     draw(null);
   }
 
@@ -136,6 +137,7 @@
     const roll = () => { const c = [0, 0, 0, 0, 0, 0]; for (let i = 0; i < 60; i++){ const u = Math.random(); c[mode ? (u < 1 / 3 ? 5 : Math.floor((u - 1 / 3) / (2 / 15))) : Math.floor(u * 6)]++; } return c; };
     const stat = c => c.reduce((s, o) => s + (o - 10) ** 2 / 10, 0);
     const run = btn(S.run, true), many = btn(S.many);
+    many.hidden = true;  // ×1000 — после первого броска (пара 34a)
     const bars = svgBox(460, 200, S.bars), hist = svgBox(460, 170, S.hist), cnt = el('p', {class: 'note', 'aria-live': 'polite'}), verdict = el('p', {class: 'verdict', hidden: ''});
     body.append(el('div', {class: 't-ctl'}, [seg(S.modes, 0, i => { mode = i; chis = []; over = 0; draw(null); verdict.hidden = true; })]),
       el('div', {class: 't-sheet'}, [el('p', {class: 't-lbl', text: S.bars}), bars, bigs([[S.chi, 'chi-c'], [S.p, 'chi-p']])]),
@@ -153,9 +155,11 @@
       const g = i => body.querySelector('#' + i), x = c ? stat(c) : null;
       g('chi-c').textContent = c ? nf(x, 1) : '—'; g('chi-p').textContent = c ? pf(Q5(x)) : '—'; }
     const push = c => { const x = stat(c); chis.push(x); if (x > 11.07) over++; return x; };
-    run.onclick = () => { const c = roll(), x = push(c); draw(c); reveal(); verdict.hidden = false; verdict.className = 'verdict' + (x > 11.07 ? ' bad' : '');
+    let batch = false;
+    run.onclick = () => { if (batch){ chis = []; over = 0; batch = false; } const c = roll(), x = push(c); draw(c); reveal(); many.hidden = false; verdict.hidden = false; verdict.className = 'verdict' + (x > 11.07 ? ' bad' : '');
       verdict.textContent = fill(x > 11.07 ? S.vBad : S.vFair, {c: nf(x, 1), pv: pv(Q5(x))}); };
-    many.onclick = () => { let c; for (let i = 0; i < 1000; i++){ c = roll(); push(c); } draw(c); reveal(); };
+    // каждое нажатие — свежая тысяча серий, итог «N из 1000» (Д8)
+    many.onclick = () => { let c; chis = []; over = 0; for (let i = 0; i < 1000; i++){ c = roll(); push(c); } batch = true; draw(c); reveal(); };
     draw(null);
   }
 
