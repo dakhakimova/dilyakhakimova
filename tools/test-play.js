@@ -53,7 +53,8 @@ function watch(p, tag, apiOk = false){
     for (const toy of D.toys){
       const p = await b.newPage({viewport: {width: 800, height: 900}}); watch(p, toy.slug + ' solo');
       await p.goto(`${H}${toy.src}?toy=${toy.slug}`); await p.waitForTimeout(300);
-      const vis = await p.$$eval('.card', c => c.filter(x => getComputedStyle(x).display !== 'none').length);
+      // до прогноза игра закрыта (html.pf-wait) — считаем карточки без этого класса
+      const vis = await p.evaluate(() => { document.documentElement.classList.remove('pf-wait'); return [...document.querySelectorAll('.card')].filter(x => getComputedStyle(x).display !== 'none').length; });
       if (vis !== 1 + toy.pre.length) errs.push(`${toy.slug}: в соло-режиме видно карточек ${vis}, ждали ${1 + toy.pre.length}`);
       await p.close();
     }
@@ -81,6 +82,12 @@ function watch(p, tag, apiOk = false){
           const [hb, rb] = await state(); betOk = hb && rb === 0;
           if (!betOk) errs.push(`${s} ${width}: вывод раскрылся сразу после прогноза, до игры`);
         }
+        // прогноз в «Сначала угадай»: без него игра закрыта (play/bridge.js, решение Дили 22.11.2026)
+        const preIn = await fr.$(`.card[data-toy-pre~="${s}"] .guess input`), preCh = await fr.$(`.card[data-toy-pre~="${s}"] .choice[data-key] button`);
+        if (preIn){ await preIn.fill('30'); await preIn.press('Enter'); } else if (preCh) await preCh.click();
+        await p.waitForTimeout(300);
+        if (await fr.$eval(`.card[data-toy~="${s}"]`, c => getComputedStyle(c).display === 'none')) errs.push(`${s} ${width}: после прогноза игра не открылась`);
+        if (!(await p.$eval('.play-out .reveal', e => e.hidden))) errs.push(`${s} ${width}: решение открылось до проверки`);
         const before = await snap();
         // «одна кнопка» (play/ui.json): сначала нажимаем её, как человек; потом шаги act
         const uiMain = await fr.$(`.card[data-toy~="${s}"] [data-ui="main"]`);
@@ -91,7 +98,10 @@ function watch(p, tag, apiOk = false){
             if (!ag) errs.push(`${s} ${width}: после запуска нет «Ещё раз»`); }
         }
         for (const a of toy.act){ await doAct(fr, a); await p.waitForTimeout(500); }
-        await p.waitForTimeout(1200);
+        await p.waitForTimeout(1900);
+        const keep = await fr.$(`.card[data-toy~="${s}"] [data-ui="keep"]`);
+        if (keep && await keep.isVisible()){ await keep.click(); await p.waitForTimeout(300); }
+        else if (preIn || preCh) errs.push(`${s} ${width}: нет вопроса «Хочешь изменить?» после прогона`);
         const after = await snap();
         let rangeOk = null;
         if (toy.range){ const r = await fr.$(toy.range); await r.focus(); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(500); rangeOk = (await snap()) !== after; if (!rangeOk){ await p.keyboard.press('ArrowRight'); await p.keyboard.press('ArrowRight'); await p.waitForTimeout(500); rangeOk = (await snap()) !== after; } }

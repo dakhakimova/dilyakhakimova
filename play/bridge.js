@@ -172,7 +172,7 @@
     const click = el => { if (el && !el.disabled) el.click(); };
     const after = () => {
       show(main, false); show(again, true); show(big, true);
-      const g = guessOf(card, slug); show(note, !!g); if (g) note.innerHTML = UI_STR.yourGuess + '<b></b>', note.querySelector('b').textContent = g;
+      const g = window.PLAY_SOLO ? '' : guessOf(card, slug); show(note, !!g); if (g) note.innerHTML = UI_STR.yourGuess + '<b></b>', note.querySelector('b').textContent = g;
       window.dispatchEvent(new Event('resize'));
     };
     const run = async () => {
@@ -180,12 +180,12 @@
       try {
         if (runs) (cfg.reset || []).forEach(s => click(q(s)));
         for (const st of steps){ const el = q(st.sel); for (let i = 0; i < (st.n || 1); i++){ click(el); if (st.ms) await sleep(st.ms); } }
-        runs++; after();
+        runs++; after(); card.dispatchEvent(new CustomEvent('toy:ran', {bubbles: true}));
       } finally { busy = false; main.removeAttribute('aria-busy'); again.removeAttribute('aria-busy'); }
     };
     main.addEventListener('click', () => { run(); });
     again.addEventListener('click', () => { run(); });
-    if (big) big.addEventListener('click', () => { click(big0); runs++; after(); });
+    if (big) big.addEventListener('click', () => { click(big0); runs++; after(); card.dispatchEvent(new CustomEvent('toy:ran', {bubbles: true})); });
     card.uiKeys = {main: () => (again.hasAttribute('data-ui-hidden') ? main : again).click(), big: big ? () => !big.hasAttribute('data-ui-hidden') && big.click() : null};
   };
   const uiReady = fetch('/play/ui.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}).catch(() => ({}));
@@ -209,7 +209,7 @@
     // после первого касания игры строка «Твой прогноз: …» встаёт над вердиктом (у игр с одной кнопкой она в ряду кнопок)
     document.querySelectorAll('.card[data-toy]').forEach(card => {
       const sl = card.dataset.toy.split(/\s+/)[0];
-      const put = () => { if (card.querySelector('.ui-guess')) return; const g = guessOf(card, sl); if (!g) return;
+      const put = () => { if (window.PLAY_SOLO || card.querySelector('.ui-guess')) return; const g = guessOf(card, sl); if (!g) return;
         const at = card.querySelector('.verdict') || card.querySelector('.controls'); if (!at) return;
         const n = document.createElement('p'); n.className = 'ui-guess'; n.innerHTML = UI_STR.yourGuess + '<b></b>'; n.querySelector('b').textContent = g;
         at.before(n); window.dispatchEvent(new Event('resize')); };
@@ -282,6 +282,15 @@ html.solo .card + .card{margin-top:16px}
 html.solo body{padding:4px 4px 8px}
 html.solo .card[data-toy-pre], html.solo .card[data-toy]{background:#fff; border-radius:12px; padding:16px 24px 20px; box-shadow:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04)}
 html.solo .card[data-toy-pre] + .card{margin-top:24px}
+html.solo.pf-wait .card[data-toy]{display:none !important}
+html.solo .pf{margin:12px 0 0}
+html.solo .pf-mine, html.solo .pf-cmp{font:400 .9375rem/1.45 var(--body, Onest, sans-serif); color:#4A463F; margin:8px 0 0}
+html.solo .pf-mine b, html.solo .pf-cmp b, html.solo .pf-q b{font-weight:500; color:#24221F}
+html.solo .pf-ask{margin:12px 0 0; padding:12px 16px; background:#FBF1C9; border-radius:8px}
+html.solo .pf-q{margin:0 0 8px}
+html.solo .pf-row{display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; margin:0}
+html.solo .pf-row .guess-in{width:7em}
+html.solo .pf-skip{display:inline-block; margin:8px 0 0; background:none; border:0; padding:8px 0; min-height:44px; font:500 .9375rem/1.2 Onest, sans-serif; color:#23418A; text-decoration:underline; text-underline-offset:4px; cursor:pointer}
 html.solo .card .sheet.c-white{box-shadow:none; border:1px solid rgba(36,34,31,.10)}
 @media (max-width:620px){ html.solo .card[data-toy-pre], html.solo .card[data-toy]{padding:16px} }
 html.solo .card[data-toy] > h2.scene-h{display:none}
@@ -347,6 +356,69 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     const touch = () => { if (root.classList.contains('touched')) return; root.classList.add('touched'); post({type: 'toy:interact', toy: slug}); setTimeout(send, 30);
       if (embed) hit(slug, 'embed', 'play', ref); else if (parent === window) hit(slug, 'play', 'play', utm); };
     onFirstTouch(toy, touch);
+
+    // ---------- прогноз ведёт к действию (решение Дили, 22.11.2026) ----------
+    // а) «Сначала угадай»: «Запомнить» фиксирует ответ — и только тогда открывается игра, под ней «Твой ответ: 6%»;
+    //    можно и без прогноза («Проверить без прогноза»);
+    // б) после первого прогона: «Твой ответ был 6%. Хочешь изменить?» — поле с ответом, «Оставить» (главная) и «Изменить»;
+    // в) потом сравнение «твой ответ → изменил на → на самом деле» (truth — из /play/credits.json) и родителю toy:reveal:
+    //    на странице /play/ открывается «Почему так»; г) без прогноза — тот же ход без строки «твой ответ».
+    const preCards = [...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
+    const inCard = !preCards.some(c => c.querySelector('.guess[data-key], .choice[data-key]'));
+    const preBox = preCards.map(c => c.querySelector('.guess[data-key], .choice[data-key]')).find(Boolean)
+      || [...toy.querySelectorAll('.guess[data-key], .choice[data-key]')].find(x => !x.closest('.quiz'));
+    const PS = {your: 'Твой ответ: ', was: 'Твой ответ был ', change: 'Хочешь изменить?', keep: 'Оставить', edit: 'Изменить',
+      changed: ' → изменил на ', truth: 'На самом деле: ', skip: 'Проверить без прогноза', noTruth: 'Сравни с результатом игры выше.'};
+    const answer = () => { if (!preBox) return ''; if (preBox.classList.contains('guess')){ const i = preBox.querySelector('input'); if (!preBox.classList.contains('saved') || !i.value.trim()) return '';
+        const u = preBox.dataset.unit ?? '%'; return i.value.trim().replace(/\s*%$/, '') + (u === '%' ? '%' : u ? ' ' + u : ''); }
+      const b = preBox.querySelector('button[aria-pressed="true"], button.picked'); return b ? b.textContent.trim() : ''; };
+    const flow = document.createElement('div'); flow.className = 'pf'; flow.setAttribute('role', 'status'); toy.appendChild(flow);
+    const pfMine = document.createElement('p'); pfMine.className = 'pf-pfMine'; pfMine.hidden = true; flow.appendChild(pfMine);
+    const showMine = () => { const a = answer(); pfMine.hidden = !a; pfMine.textContent = a ? PS.your + a : ''; send(); };
+    if (preBox && inCard){ preBox.addEventListener('chosen', showMine); preBox.addEventListener('guessed', showMine); }
+    if (preBox && !inCard){
+      root.classList.add('pf-wait');
+      const sk = document.createElement('button'); sk.type = 'button'; sk.className = 'btn-text pf-skip'; sk.textContent = PS.skip;
+      (preBox.closest('.card')).appendChild(sk);
+      const open = () => { root.classList.remove('pf-wait'); sk.remove(); showMine(); window.dispatchEvent(new Event('resize')); setTimeout(send, 60); };
+      preBox.addEventListener('guessed', open); preBox.addEventListener('chosen', open); sk.addEventListener('click', open);
+      if (answer()) open();
+    }
+    let asked = false;
+    const reveal = changed0 => {
+      flow.querySelectorAll('.pf-ask').forEach(x => x.remove());
+      const r = document.createElement('p'); r.className = 'pf-cmp';
+      const a = answer();
+      if (changed0 && a && changed0 !== a){ r.append(PS.your, Object.assign(document.createElement('b'), {textContent: changed0}), PS.changed, Object.assign(document.createElement('b'), {textContent: a})); }
+      else if (a){ r.append(PS.your, Object.assign(document.createElement('b'), {textContent: a})); }
+      loadCredits().then(c => { const t = c[slug] && c[slug].truth; if (r.childNodes.length) r.append(' · ');
+        if (t){ r.append(PS.truth); r.append(Object.assign(document.createElement('b'), {textContent: t})); } else if (!r.childNodes.length) r.append(PS.noTruth); else r.append(PS.noTruth);
+        send(); });
+      pfMine.hidden = true; flow.appendChild(r);
+      post({type: 'toy:reveal', toy: slug}); root.classList.add('revealed'); send();
+    };
+    const ask = () => {
+      if (asked) return; asked = true;
+      const a = answer();
+      if (!a){ reveal(''); return; }
+      const box = document.createElement('div'); box.className = 'pf-ask';
+      const q = document.createElement('p'); q.className = 'pf-q'; q.append(PS.was, Object.assign(document.createElement('b'), {textContent: a}), '. ' + PS.change);
+      const row = document.createElement('div'); row.className = 'controls pf-row';
+      const keep = document.createElement('button'); keep.type = 'button'; keep.className = 'btn'; keep.textContent = PS.keep; keep.dataset.ui = 'keep';
+      const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'btn ghost'; edit.textContent = PS.edit; edit.dataset.ui = 'edit';
+      let inp = null;
+      if (preBox.classList.contains('guess')){ inp = document.createElement('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.className = 'guess-in'; inp.value = preBox.querySelector('input').value; inp.setAttribute('aria-label', PS.change); row.append(inp); }
+      row.append(keep, edit); box.append(q, row); flow.appendChild(box); pfMine.hidden = true; send();
+      keep.addEventListener('click', () => reveal(''));
+      edit.addEventListener('click', () => {
+        if (inp){ const i = preBox.querySelector('input'); const old = a; i.value = inp.value; const sv = preBox.querySelector('button'); if (sv) sv.click(); else i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', bubbles: true})); reveal(old); }
+        else { const old = a; preBox.scrollIntoView({block: 'center'}); asked = false; box.remove(); preBox.addEventListener('chosen', () => reveal(old), {once: true}); }
+      });
+    };
+    // «первый прогон»: событие toy:ran (одна кнопка, свои игры) или первое касание игры + 1.5 с
+    let ranT = 0;
+    toy.addEventListener('toy:ran', () => { clearTimeout(ranT); ranT = setTimeout(ask, 300); });
+    onFirstTouch(toy, () => { ranT = setTimeout(ask, 1500); });
     document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`).forEach(c => ['guessed', 'chosen'].forEach(ev => c.addEventListener(ev, () => post({type: 'toy:guess', toy: slug}), true)));
   });
 })();

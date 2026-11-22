@@ -22,10 +22,12 @@
     if (e.source !== frame.contentWindow || !e.data || e.data.toy !== slug) return;
     alive = true;
     if (e.data.type === 'toy:h') frame.style.height = Math.max(320, Math.min(4000, +e.data.h || 0)) + 'px';
-    if (e.data.type === 'toy:interact'){ hit('play'); if (reveal.hidden){ reveal.hidden = false; out.classList.add('open'); } }
+    if (e.data.type === 'toy:interact') hit('play');
+    // «Почему так» открывается после проверки прогноза (play/bridge.js: «Оставить» · «Изменить» → toy:reveal)
+    if (e.data.type === 'toy:reveal' && reveal.hidden){ reveal.hidden = false; out.classList.add('open'); }
   });
   // iframe молчит 10 секунд — показываем ссылку «открой в курсе»
-  setTimeout(() => { if (!alive) frame.parentNode.classList.add('broken'); }, 10000);
+  setTimeout(() => { if (!alive){ frame.parentNode.classList.add('broken'); reveal.hidden = false; out.classList.add('open'); } }, 10000);
 
   // «Показать разбор» без игры
   const rb = main.querySelector('[data-act=reveal]');

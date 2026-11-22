@@ -261,15 +261,11 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .about p{color:var(--ink); max-width:var(--measure)}
 
 /* 11. футер */
-.foot{margin-top:var(--s-8); padding:var(--s-6) 0 var(--s-7); background:rgba(251,250,246,.75); box-shadow:0 -1px 0 rgba(36,34,31,.08); font-size:var(--fs-s); position:relative; overflow:hidden}
-.foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:var(--s-5); position:relative}
-.foot h2{font:var(--fw-strong) var(--fs-s)/1.3 var(--body); color:var(--text-2); margin:0 0 var(--s-3)}
-.foot ul{list-style:none; margin:0; padding:0}
-.foot li{margin:0; display:flex; flex-wrap:wrap; align-items:baseline; gap:0 var(--s-2)}
-.foot li a{display:inline-block; padding:var(--s-2) 0}
-.foot li .note{font-size:var(--fs-xs)}
-.foot a{color:var(--ink)}
-.foot .copy{grid-column:1 / -1; color:var(--muted); margin:var(--s-2) 0 0}
+/* футер — две тихие строки: бесплатные курсы; об авторе и копирайт (решение Дили, 22.11.2026) */
+.foot{margin-top:var(--s-7); padding:var(--s-4) 0 var(--s-6); border-top:1px solid var(--line); font-size:var(--fs-xs); color:var(--text-3)}
+.foot-line{margin:0; line-height:1.9}
+.foot a{color:var(--text-3); display:inline-block; padding:4px 0; min-height:24px; text-decoration-color:rgba(36,34,31,.3); text-underline-offset:3px}
+.foot a:hover{color:var(--pen)}
 .kot-sleep{position:absolute; right:var(--s-6); bottom:calc(-1 * var(--s-2)); width:120px; aspect-ratio:1; background:none}
 .kot-sleep.missing{background:none; outline:0}
 .kot-sleep.missing .ph{font:400 var(--fs-h3)/1 var(--script); color:var(--pen); opacity:.6}
@@ -345,7 +341,6 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
   .course dl{grid-template-columns:1fr; gap:0}
   .course dt{margin-top:var(--s-2)}
   .about{grid-template-columns:96px 1fr; gap:var(--s-4); align-items:start}
-  .foot-grid{grid-template-columns:1fr 1fr}
   .kot-sleep{width:84px; right:var(--s-3)}
   .btn{padding:var(--s-3) var(--s-4)}
   .wait{padding:var(--s-5) var(--s-4) var(--s-5) calc(var(--s-4) + 4px)}
@@ -360,3 +355,11 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .course.faded, .course.faded .line, .course.faded dd, .course.faded h4 a{color:var(--text-3)}
 .toys.rel{grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
 .toys.rel a .kind{color:var(--label-ink); font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase}
+/* три бесплатных курса — равноценные карточки (решение Дили, 22.11.2026): одна структура, одно контурное «Подробнее →»,
+   строки выровнены между карточками через subgrid: картинка · метки · аудитория · заголовок · строка · «Сможешь…» · кнопка */
+@media (min-width:821px){
+  .cards-free .course{display:grid; grid-row:span 7; grid-template-rows:subgrid; row-gap:0}
+  .cards-free .course > *{align-self:start}
+  .cards-free .course-act{align-self:end}
+}
+.course .chips.aud{margin-top:var(--s-1)}

@@ -59,11 +59,8 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Сделай ставку, а потом соберём тысячу альбомов.</p></div></div>
   </div>
 
-  <section class="play-what has-art" aria-labelledby="what-h">
-    <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>К каждому обеду — одна из шести наклеек, все одинаково вероятны, повторы возможны. Альбом сверху показывает, какие наклейки уже есть. Гистограмма внизу — сколько обедов понадобилось 1000 гостям, чтобы собрать альбом целиком.</p><p>Сделай ставку. Потом купи несколько обедов по одному, дособери альбом и запусти 1000 альбомов.</p></div>
-    <figure class="art"><img src="/probability/img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-  </section>
+  
+    <figure class="art play-art"><img src="/probability/img/vp08-01-stickers.jpg" alt="Котейка роется в куче одинаковых наклеек, в альбоме не хватает одной" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
 
   <div class="stage-frame">
     <iframe id="toy-frame" src="/probability/08-mean-spread.html?toy=sticker-album" title="Игра: Сколько обедов нужно, чтобы собрать все шесть наклеек?" style="height:1100px" allow="clipboard-write"></iframe>
@@ -72,7 +69,7 @@
 
   <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
-    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <p class="locked">Откроется после проверки.</p>
     <div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Ждём новую наклейку.</b> Когда собрано k из 6, новая выпадает с шансом (6 − k) / 6, а ждать события с шансом p — в среднем 1 / p обедов.</li>
@@ -89,33 +86,9 @@
 </main>
 
 <footer class="foot" data-chrome>
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Курсы</h2>
-      <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a></li>
-        <li><a href="/signal/">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Рубрики</h2>
-      <ul role="list">
-        <li><a href="/play/">Игры</a></li>
-        <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/terms/">Словарь</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Автор</h2>
-      <ul role="list">
-        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-      </ul>
-    </div>
-    <p class="copy">© 2026 Диля Хакимова</p>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 

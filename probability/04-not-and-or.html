@@ -94,7 +94,7 @@
   <div class="sheet c-white">
     <p class="chart-title" id="pt-title">Календарь на 365 дней: дни рождения гостей</p>
     <canvas id="cal" role="img" aria-label="Календарь на 365 дней: дни рождения гостей отмечены точками, совпадения — коралловым кружком с числом гостей"></canvas>
-    <div class="legend-row"><span><i style="background:var(--pen)"></i>день рождения гостя</span><span><i style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
+    <div class="legend-row"><span><i class="dot" style="background:var(--pen)"></i>день рождения гостя</span><span><i class="dot" style="background:var(--coral); box-shadow:0 0 0 1.5px var(--ink)"></i>совпадение: 2 гостя в один день</span></div>
     <div class="p4-stats" id="pt-stats" hidden>
       <div><b id="pt-n">0</b>гостей в зале</div>
       <div><b id="pt-pairs">0</b>пар гостей</div>
@@ -426,10 +426,11 @@ const TXT = {
         else { c.fillStyle = k === 1 ? COL.pen : COL.grid; c.beginPath(); c.arc(x, y, k ? r * 1.15 : r * 0.6, 0, 2 * Math.PI); c.fill(); }
       }
     }
-    // подпись у первого совпадения: «2 гостя · 10 мар»
-    if (lab){ const t = lab.k + ' ' + plural(lab.k, 'гость', 'гостя', 'гостей') + ' · ' + (lab.d + 1) + ' ' + TXT.months[lab.m], tw = c.measureText(t).width + 8;
-      const tx = lab.x + r * 2.4 + tw > w ? lab.x - r * 2.4 - tw : lab.x + r * 2.4, ty = lab.y - 2;
-      c.fillStyle = '#fff'; c.fillRect(tx, ty - 11, tw, 16); label(c, t, tx + 4, ty + 2, COL.ink); }
+    // подпись у первого совпадения — только дата (число гостей уже в кружке); фон листа с отступом, справа, иначе слева, иначе над кружком
+    if (lab){ const t = (lab.d + 1) + ' ' + TXT.months[lab.m], tw = c.measureText(t).width, pad = 4, R0 = r * 2 + 3;
+      let tx = lab.x + R0, ty = lab.y + 4;
+      if (tx + tw + pad > w){ tx = lab.x - R0 - tw; if (tx - pad < L){ tx = lab.x - tw / 2; ty = lab.y - R0 - 2; } }
+      c.fillStyle = '#fff'; c.fillRect(tx - pad, ty - 12, tw + 2 * pad, 16); label(c, t, tx, ty, COL.ink); }
   }
   function paint(){
     const n = days.length, cnt = counts(), hit = cnt.some(k => k > 1);
@@ -454,6 +455,7 @@ const TXT = {
     if (RM.matches){ for (let i = 0; i < n; i++) days.push(randInt(0, 364)); paint(); }
     else for (let i = 0; i < n; i++){ days.push(randInt(0, 364)); paint(); await new Promise(r => setTimeout(r, 70)); }
     go.hidden = true; again.hidden = false; k1000.hidden = false; busy = false;
+    cv.dispatchEvent(new CustomEvent('toy:ran', {bubbles: true}));
     const hit = counts().some(k => k > 1);
     guessLine(' · в этой вечеринке совпадение <b>' + (hit ? TXT.yes : TXT.no) + '</b>');
     window.dispatchEvent(new Event('resize'));
@@ -475,6 +477,7 @@ const TXT = {
     v.hidden = false; v.className = 'verdict good';
     v.innerHTML = TXT.party(hits, total, batchN, theory(batchN), null);
     guessLine(' · совпадение в <b>' + share(hits / total, 1) + '</b> вечеринок');
+    cv.dispatchEvent(new CustomEvent('toy:ran', {bubbles: true}));
   });
   window.addEventListener('resize', draw);
   paint();

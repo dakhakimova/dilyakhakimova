@@ -23,7 +23,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'play.what': 'Что здесь происходит',
   'play.tryQ': 'Попробуй ответить сам',
   'play.out': 'Почему так',
-  'play.locked': 'Решение откроется, когда сыграешь.',
+  'play.locked': 'Откроется после проверки.',
   'play.showOut': 'Показать решение',
   'play.cheat': 'Шпаргалка',
   'play.sol.result': 'Что вышло',

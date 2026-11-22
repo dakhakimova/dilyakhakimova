@@ -123,13 +123,13 @@ ${chrome.header('play', /\/play\/$/.test(url))}
     const q = X(s, 'q'), x = texts[s];
     credits[s] = {
       html: t('play.credit', Object.assign({course: cname(toy.course), href: stepHref(toy) + '?utm_source=play&utm_medium=credit&utm_content=' + s, target: '{target}'}, unitN(toy))),
-      badge: st(toy.course, 'badge'), status: C(toy.course).status, published: !!toy.published,
+      badge: st(toy.course, 'badge'), status: C(toy.course).status, published: !!toy.published, truth: x.truth || '',
     };
     // встраивание: редирект в соло-режим главы как можно раньше, до загрузки шрифтов и стилей
     // (ref — домен сайта, где встроено: после редиректа document.referrer в iframe был бы уже наш)
     const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
     const img = toy.img ? `
-    <figure class="art"><img src="${toy.img}" alt="${attr(X(s, 'imgAlt'))}" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>` : '';
+    <figure class="art play-art"><img src="${toy.img}" alt="${attr(X(s, 'imgAlt'))}" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>` : '';
     const crumbLd = `<script type="application/ld+json">${JSON.stringify({'@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       {'@type': 'ListItem', position: 1, name: plain(t('play.crumbs')), item: SITE + pre + '/play/'}, {'@type': 'ListItem', position: 2, name: plain(q), item: SITE + url}]})}</script>\n`;
     const html = head(q + ' · ' + t('play.sim') + ' · ' + plain(t('logo')), X(s, 'lead'), url, `/play/og/${s}.png`, embedJs + crumbLd, !toy.published) + `
@@ -142,10 +142,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   <div class="chat" role="group" aria-label="${attr(t('play.scene'))}">${x.chat.map(msg).join('')}
   </div>
 
-  <section class="play-what${toy.img ? ' has-art' : ''}" aria-labelledby="what-h">
-    <h2 id="what-h">${t('play.what')}</h2>
-    <div class="what-body">${x.what.map(p => `<p>${typo(p)}</p>`).join('')}</div>${img}
-  </section>
+  ${img}
 
   <div class="stage-frame">
     <iframe id="toy-frame" src="${frame}" title="${attr(t('play.frame') + ': ' + q)}" style="height:${toy.h}px" allow="clipboard-write"></iframe>
@@ -154,7 +151,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
 
   <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">${t('play.out')}</p>
-    <p class="locked">${t('play.locked')} <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">${t('play.showOut')} <span aria-hidden="true">▾</span></button></p>
+    <p class="locked">${t('play.locked')}</p>
     <div class="reveal" hidden>${solutionHtml(s, x)}
     </div>
   </section>

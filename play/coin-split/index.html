@@ -57,11 +57,8 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А мы посчитаем эффект двумя способами и сравним с правдой. Какой окажется ближе?</p></div></div>
   </div>
 
-  <section class="play-what has-art" aria-labelledby="what-h">
-    <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Здесь правда известна: кнопка поднимает заказы на 2%. Каждый запуск — релиз в случайный день года. Способ 1, «до и после»: неделя до против недели после. Способ 2, по монетке: те же 14 дней, половина гостей видит старое приложение, половина — новую кнопку.</p><p>Ниже каждый эксперимент становится точкой — какой эффект он показал. Зелёная линия — правда. Чем плотнее точки у линии, тем честнее способ. Запусти один эксперимент, потом сотню.</p></div>
-    <figure class="art"><img src="/ab-basics/img/ab01-02-coin-door.jpg" alt="Котейка у входа в кафе подбрасывает монетку для каждого гостя" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-  </section>
+  
+    <figure class="art play-art"><img src="/ab-basics/img/ab01-02-coin-door.jpg" alt="Котейка у входа в кафе подбрасывает монетку для каждого гостя" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
 
   <div class="stage-frame">
     <iframe id="toy-frame" src="/ab-basics/01-before-after.html?toy=coin-split" title="Игра: «До и после» или монетка: какой способ ближе к правде?" style="height:900px" allow="clipboard-write"></iframe>
@@ -70,7 +67,7 @@
 
   <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
-    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <p class="locked">Откроется после проверки.</p>
     <div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">«До и после».</b> Неделя до против недели после: сезон и праздники попадают в оценку. На сотне экспериментов промах в среднем около <b>3%</b> — при правде +2% легко выходит +5% или минус.</li>
@@ -87,33 +84,9 @@
 </main>
 
 <footer class="foot" data-chrome>
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Курсы</h2>
-      <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a></li>
-        <li><a href="/signal/">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Рубрики</h2>
-      <ul role="list">
-        <li><a href="/play/">Игры</a></li>
-        <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/terms/">Словарь</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Автор</h2>
-      <ul role="list">
-        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-      </ul>
-    </div>
-    <p class="copy">© 2026 Диля Хакимова</p>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 

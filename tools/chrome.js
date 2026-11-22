@@ -49,30 +49,12 @@ function announce(cls = ''){
 }
 
 function footer(){
-  const c = COURSES.filter(x => x.published).map(x => `<li><a href="${x.href}">${x.name}</a>${x.tag === 'free' ? '' : '<span class="note">скоро</span>'}</li>`).join('\n        ');
+  // футер служебный (решение Дили, 22.11.2026): бесплатные курсы, об авторе, копирайт. Не продаём, не анонсируем, не дублируем шапку.
+  const c = COURSES.filter(x => x.published && x.tag === 'free').map(x => `<a href="${x.href}">${x.name}</a>`).join(' · ');
   return `<footer class="foot" data-chrome>
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Курсы</h2>
-      <ul role="list">
-        ${c}
-      </ul>
-    </div>
-    <div>
-      <h2>Рубрики</h2>
-      <ul role="list">
-        <li><a href="/play/">Игры</a></li>
-        <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/terms/">Словарь</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Автор</h2>
-      <ul role="list">
-        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-      </ul>
-    </div>
-    <p class="copy">© 2026 Диля Хакимова</p>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: ${c}</p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>`;
 }

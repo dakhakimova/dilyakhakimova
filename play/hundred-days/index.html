@@ -59,11 +59,8 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Давай прогоним сто дней кафе, где конверсия всегда ровно 10%, и посмотрим, как часто она выходит за 7–13%.</p></div></div>
   </div>
 
-  <section class="play-what has-art" aria-labelledby="what-h">
-    <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая точка — один день кафе: какая доля гостей сделала заказ. Настоящая конверсия всё время одна и та же — 10%. Серая полоса — коридор 7–13%, точки за ней красные. Пунктир — коридор ±2 SD: два стандартных отклонения дневной доли, её обычный размах.</p><p>Запиши догадку, сколько дней из ста выйдут за серую полосу при 100 гостях в день. Потом прогони сто дней и подвигай число гостей: внизу копятся твои замеры разброса.</p></div>
-    <figure class="art"><img src="/signal/img/ch04-00-window.jpg" alt="Котейка сидит у витрины кафе с блокнотом и считает гостей" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-  </section>
+  
+    <figure class="art play-art"><img src="/signal/img/ch04-00-window.jpg" alt="Котейка сидит у витрины кафе с блокнотом и считает гостей" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
 
   <div class="stage-frame">
     <iframe id="toy-frame" src="/signal/04-noise.html?toy=hundred-days" title="Игра: В кафе ничего не меняется. Сколько дней из ста выскочат из 7–13%?" style="height:1250px" allow="clipboard-write"></iframe>
@@ -72,7 +69,7 @@
 
   <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
-    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <p class="locked">Откроется после проверки.</p>
     <div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Где ошибся Котейка.</b> 8%, 11%, 12%, 13% подряд он принял за тренд. При 100 гостях это обычные дни.</li>
@@ -89,33 +86,9 @@
 </main>
 
 <footer class="foot" data-chrome>
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Курсы</h2>
-      <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a></li>
-        <li><a href="/signal/">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Рубрики</h2>
-      <ul role="list">
-        <li><a href="/play/">Игры</a></li>
-        <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/terms/">Словарь</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Автор</h2>
-      <ul role="list">
-        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-      </ul>
-    </div>
-    <p class="copy">© 2026 Диля Хакимова</p>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 

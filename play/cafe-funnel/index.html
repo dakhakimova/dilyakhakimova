@@ -58,11 +58,8 @@
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Угадай его по графику. Потом нарисуем воронку и проверим.</p></div></div>
   </div>
 
-  <section class="play-what has-art" aria-labelledby="what-h">
-    <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая точка — кафе сети. Слева направо — сколько заказов в нём было за месяц, снизу вверх — какая доля из них повторные (гость заказал во второй раз). Наведи на точку, чтобы увидеть числа.</p><p>Нажми на точку, которую считаешь по-настоящему странной, и нажми «Показать воронку». Воронка — это полоса в две ширины колокола вокруг общего уровня: у маленьких кафе она широкая, у больших — узкая.</p></div>
-    <figure class="art"><img src="/play/img/cafe-funnel.jpg" alt="Боб у доски с фотографиями 30 кафе сети тычет в крошечный киоск с «рекордом», Алиса задумчиво смотрит на всю доску, Котейка хитро щурится — он знает ответ" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
-  </section>
+  
+    <figure class="art play-art"><img src="/play/img/cafe-funnel.jpg" alt="Боб у доски с фотографиями 30 кафе сети тычет в крошечный киоск с «рекордом», Алиса задумчиво смотрит на всю доску, Котейка хитро щурится — он знает ответ" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
 
   <div class="stage-frame">
     <iframe id="toy-frame" src="/ab-basics/05-bell-width.html?toy=cafe-funnel" title="Игра: Какое из 30 кафе правда отличается от остальных?" style="height:1400px" allow="clipboard-write"></iframe>
@@ -71,7 +68,7 @@
 
   <section class="play-out" aria-labelledby="out-h">
     <p class="kicker" id="out-h">Почему так</p>
-    <p class="locked">Решение откроется, когда сыграешь. <button class="btn-text" type="button" data-act="reveal" aria-expanded="false">Показать решение <span aria-hidden="true">▾</span></button></p>
+    <p class="locked">Откроется после проверки.</p>
     <div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Воронка.</b> Коридор шума вокруг общего уровня 20% сужается с ростом числа заказов:<p class="formula">20% ± 2 · √(0.2 · 0.8 / n): при n = 200 — ±5.7 п. п., при n = 2000 — ±1.8 п. п.</p></li>
@@ -88,33 +85,9 @@
 </main>
 
 <footer class="foot" data-chrome>
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Курсы</h2>
-      <ul role="list">
-        <li><a href="/probability/">Вероятность на пальцах</a></li>
-        <li><a href="/signal/">Сигнал или шум</a></li>
-        <li><a href="/ab-basics/">A/B на пальцах</a></li>
-        <li><a href="/stats/">Прикладная статистика для аналитика</a><span class="note">скоро</span></li>
-        <li><a href="/ab/">A/B без мифов</a><span class="note">скоро</span></li>
-        <li><a href="/causal/">Causal inference</a><span class="note">скоро</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Рубрики</h2>
-      <ul role="list">
-        <li><a href="/play/">Игры</a></li>
-        <li><a href="/shelf/">Полка</a></li>
-        <li><a href="/terms/">Словарь</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Автор</h2>
-      <ul role="list">
-        <li><a href="/about/">Диля Хакимова</a><span class="note">об авторе</span></li>
-      </ul>
-    </div>
-    <p class="copy">© 2026 Диля Хакимова</p>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 
