@@ -6,19 +6,18 @@
 <title>Мой прогресс · бесплатные курсы</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
 <style>
 .panel{background:#fff; border:1px solid var(--line); border-radius:var(--r-m); padding:var(--s-5); margin:var(--s-5) 0}
 .big{font:400 var(--t-48)/1 var(--serif); letter-spacing:var(--tr-display); color:var(--pen); font-variant-numeric:tabular-nums}
 .bar{height:10px; background:rgba(36,34,31,.08); border-radius:5px; overflow:hidden; margin:12px 0 6px; position:relative}
 .bar span{display:block; height:100%; background:var(--accent)}
-.ticks{position:relative; height:18px; font-size:12px; color:var(--muted)}
+.ticks{position:relative; height:18px; font-size:.75rem; color:var(--muted)}
 .ticks i{position:absolute; transform:translateX(-50%); font-style:normal}
-.code{font:500 20px/1 ui-monospace, Menlo, monospace; background:#F3F0EA; padding:10px 14px; border-radius:8px; display:inline-block; letter-spacing:.05em}
+.code{font:500 1.25rem/1 ui-monospace, Menlo, monospace; background:#F3F0EA; padding:10px 14px; border-radius:8px; display:inline-block; letter-spacing:.05em}
 .who{display:flex; align-items:center; gap:12px}
 .who img{width:44px; height:44px; border-radius:50%}
 #tg-login{min-height:48px; margin:16px 0}
@@ -49,7 +48,7 @@
       <div class="who"><img id="m-photo" alt="" hidden><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
     </div>
     <div class="panel">
-      <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:20px">из <span id="m-max">0</span> баллов</span></div>
+      <div class="big"><span id="m-points">0</span> <span class="muted" style="font-size:1.25rem">из <span id="m-max">0</span> баллов</span></div>
       <div class="bar"><span id="m-bar"></span></div>
       <div class="ticks" aria-hidden="true"><i style="left:40%">−10%</i><i style="left:70%">−20%</i><i style="left:90%">−30%</i></div>
       <p id="m-next" style="margin-top:10px"></p>

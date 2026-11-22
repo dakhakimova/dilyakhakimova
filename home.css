@@ -27,7 +27,7 @@ p{margin:0 0 .8em}
 .wrap{max-width:1120px; margin:0 auto; padding:0 var(--s-6)}
 .muted{color:var(--muted)}
 .block > p, .toy-head p{max-width:var(--measure)}
-.note{font-size:14px; color:var(--muted)}
+.note{font-size:.875rem; color:var(--muted)}
 .kicker{font:var(--fw-strong) var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--label-ink); margin:0 0 var(--gap-label-below)}
 .skip{position:absolute; left:-9999px; top:var(--s-2); background:var(--white); padding:var(--s-2) var(--s-3); border-radius:var(--r-s); z-index:10}
 .skip:focus{left:var(--s-2)}
@@ -35,7 +35,7 @@ p{margin:0 0 .8em}
 
 /* шапка (tools/chrome.js): строка-ссылка на главную, рубрики, кружок входа */
 header.top{display:flex; align-items:center; gap:var(--s-2) var(--s-4); padding-top:var(--s-5); padding-bottom:var(--s-1); position:relative}
-.home-line{font:var(--fw-medium) 15px/1.35 var(--body); color:var(--ink); text-decoration:none; flex:0 1 auto; min-width:0}
+.home-line{font:var(--fw-medium) .9375rem/1.35 var(--body); color:var(--ink); text-decoration:none; flex:0 1 auto; min-width:0}
 a.home-line:hover, a.home-line:focus-visible{text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px}
 .home-line .hl-short{display:none}
 header.top nav{display:flex; align-items:center; gap:var(--s-1) var(--s-5); flex-wrap:wrap; font-size:var(--fs-s); margin-left:auto}
@@ -47,8 +47,8 @@ header.top nav a[aria-current], header.top nav .cur{color:var(--ink); text-decor
 .me{flex:none; width:34px; height:34px; border-radius:50%; background:var(--pen-soft, #E6ECF7); border:1.5px solid var(--pen); display:inline-flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; color:var(--pen)}
 .me .me-i{display:block; width:60%; height:85%; background:var(--pen); -webkit-mask:url(/img/kotejka-silhouette.png) center/contain no-repeat; mask:url(/img/kotejka-silhouette.png) center/contain no-repeat}
 .me img{width:100%; height:100%; object-fit:cover; display:block}
-.me .me-l{font:var(--fw-strong) 15px/1 var(--body); color:var(--pen)}
-.me:hover, .me:focus-visible{box-shadow:0 0 0 3px var(--ctrl-bg)}
+.me .me-l{font:var(--fw-strong) .9375rem/1 var(--body); color:var(--pen)}
+.me:hover, .me:focus-visible{box-shadow:0 0 0 3px var(--pen-soft)}
 .me:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 .burger{display:none; margin-left:auto; width:44px; height:44px; border:1px solid var(--line-strong); border-radius:var(--r-m); background:var(--white); cursor:pointer; padding:0; align-items:center; justify-content:center}
 .burger-i, .burger-i::before, .burger-i::after{display:block; width:18px; height:2px; background:var(--ink); border-radius:2px; position:relative; content:""}
@@ -70,7 +70,9 @@ header.top.open .burger-i{background:transparent} header.top.open .burger-i::bef
   background:var(--pen); color:#fff; border:2px solid var(--pen); cursor:pointer; text-decoration:none; text-align:center; box-shadow:var(--sh-1)}
 .btn:hover:not(:disabled):not([aria-disabled="true"]){background:var(--pen-dark); border-color:var(--pen-dark); color:#fff}
 .btn.ghost{background:transparent; color:var(--pen); border-width:1.5px; box-shadow:none}
-.btn.ghost:hover:not(:disabled), .btn.ghost:focus-visible{background:var(--pen); border-color:var(--pen); color:#fff}
+.btn.ghost:hover:not(:disabled){background:var(--pen-hover); border-color:var(--pen); color:var(--pen)}
+.btn.ghost:active:not(:disabled){background:var(--pen-press)}
+.btn.ghost[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
 .btn{transition:background-color .15s, color .15s, border-color .15s}
 @media (prefers-reduced-motion:reduce){ .btn{transition:none} }
 /* текстовая кнопка-ссылка (третичное действие): «Поделиться ↗», «Подробнее», «Показать ответ» */
@@ -155,18 +157,18 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 #hist{width:100%; height:auto; display:block}
 #hist .grid{stroke:rgba(36,34,31,.08)}
 #hist .base{stroke:rgba(36,34,31,.4)}
-#hist .ax{font:13px var(--body); fill:var(--warm-600)}
+#hist .ax{font:.8125rem var(--body); fill:var(--warm-600)}
 #hist .bar{fill:#A9C4E6}
 #hist .bar.ge{fill:var(--ctrl)}
-#hist .over{font:600 12px var(--body); fill:var(--warm-700)}
+#hist .over{font:600 .75rem var(--body); fill:var(--warm-700)}
 #hist .guess-line{stroke:var(--coral); stroke-width:2.5; stroke-dasharray:5 4}
-#hist .guess-lab{font:600 13px var(--body); fill:var(--coral-600)}
+#hist .guess-lab{font:600 .8125rem var(--body); fill:var(--coral-600)}
 /* Котейка с числом из теста — рядом с гистограммой, а не «для красоты» */
 .kot{display:flex; gap:var(--s-3); align-items:center; margin:var(--s-3) 0 0}
 .kot img{width:56px; height:56px; border-radius:50%; flex:none; object-fit:cover}
 .bubble{background:var(--butter); border-radius:14px 14px 14px var(--r-xs); padding:var(--s-2) var(--s-4); margin:0; font:400 var(--fs-m)/1.4 var(--serif); box-shadow:var(--sh-1)}
 .bubble b{font-variant-numeric:tabular-nums}
-.outcome{margin-top:var(--s-3); font-size:var(--fs-s); --plate-bar:var(--ctrl); background:var(--ctrl-bg)}
+.outcome{margin-top:var(--s-3); font-size:var(--fs-s); --plate-bar:var(--pen); background:var(--sky)}
 /* вердикт к прогнозу: тёмный текст на светлой плашке своего цвета */
 .verdict{margin-top:var(--s-3); font-size:var(--fs-s)}
 .verdict.good{background:var(--mint); --plate-bar:var(--l1)}
@@ -287,7 +289,7 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 .table tr:last-child td{border-bottom:0}
 .table td.num, .table th.num{text-align:right}
 /* подпись к графику */
-.figcap{font-size:14px; color:var(--text-3); margin:var(--s-2) 0 0; max-width:var(--measure)}
+.figcap{font-size:.875rem; color:var(--text-3); margin:var(--s-2) 0 0; max-width:var(--measure)}
 .chart-head{font:500 var(--fs-s)/1.35 var(--body); color:var(--ink); margin:0 0 var(--s-2)}
 /* списки в тексте */
 .list{margin:0 0 var(--s-4); padding-left:1.3em; max-width:var(--measure)}
@@ -319,13 +321,13 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
   .lures, .read{grid-template-columns:1fr}
 }
 @media (max-width:620px){
-  :root{--fs-m:17px}
+  :root{--fs-m:1.0625rem}
   .wrap{padding:0 var(--s-4)}
   .block{padding-top:var(--s-8)}
   .panel{padding:var(--s-5) var(--s-4)}
   .toy-head{grid-template-columns:44px 1fr; gap:var(--s-3)}
   .coin-big{width:44px; height:44px}
-  #hist .ax{font-size:19px} #hist .guess-lab{font-size:18px} #hist .over{font-size:17px}
+  #hist .ax{font-size:1.1875rem} #hist .guess-lab{font-size:1.125rem} #hist .over{font-size:1.0625rem}
   .toy-cta{flex-direction:column; gap:var(--s-2)}
   .toy-cta .note{order:0}
   .coins{gap:3px}

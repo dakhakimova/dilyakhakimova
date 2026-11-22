@@ -11,7 +11,7 @@
   const pct = (x, d = 0) => ruF({style: 'percent', minimumFractionDigits: d, maximumFractionDigits: d}).format(x);
   const SVG = 'http://www.w3.org/2000/svg';
   const el = (name, attrs = {}, parent) => { const e = document.createElementNS(SVG, name); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
-  const C = {win: '#0E7E5F', zero: '#CFC8BB', loss: '#C9413A', ctrl: '#3D7DC4', test: '#E59157', coral: '#E8644A', ink: '#24221F', mute: '#5E5A53', line: '#E3DED4'};
+  const C = {win: '#0E7E5F', zero: '#CFC8BB', loss: '#C9413A', ctrl: '#E8644A', test: '#23418A', coral: '#E8644A', ink: '#24221F', mute: '#5E5A53', line: '#E3DED4'};
 
   // erfc: Абрамовиц — Стиган 7.1.26 (точности хватает для подписей; для крошечных p — асимптотика)
   function erfc(x){

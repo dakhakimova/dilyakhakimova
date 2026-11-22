@@ -6,12 +6,11 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Стайлгайд сайта — объекты и правила</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/home.css?v=202611301">
-<link rel="stylesheet" href="/course.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/course.css?v=202611302">
 <style>
 /* только для самой страницы-образца: сетка «образец / подпись», не для продакшна */
 .sg-nav{display:flex; flex-wrap:wrap; gap:var(--s-1) var(--s-4); font-size:var(--fs-s); margin:var(--s-5) 0 0}
@@ -83,7 +82,7 @@
     <div><code>--fs-h3 20–24 / 400</code><span style="font:400 var(--fs-h3)/1.2 var(--serif)">Заголовок подблока</span></div>
     <div><code>--fs-l 20 / Literata 500</code><span style="font:500 var(--fs-l)/1.3 var(--serif)">Заголовок карточки</span></div>
     <div><code>--fs-l 20 / Literata 400</code><span style="font:400 var(--fs-l)/1.5 var(--serif); color:var(--text-2)">Лид: одна-две фразы под h1</span></div>
-    <div><code>--fs-m 18 / 400 / 1.55</code><span>Основной текст. Строка не длиннее 38em.</span></div>
+    <div><code>--fs-m 18 / 400 / 1.55 (телефон 1.5)</code><span>Основной текст. Строка не длиннее 36em.</span></div>
     <div><code>--fs-s 15 / 400</code><span style="font-size:var(--fs-s); color:var(--text-2)">Вторичный текст, кнопки, меню</span></div>
     <div><code>--fs-xs 13 / 600 caps</code><span class="eyebrow" style="margin:0">Метка блока</span></div>
     <div><code>--fs-xs 13 / 400</code><span class="note">Подпись, сноска, условие</span></div>
@@ -116,7 +115,7 @@
   </div>
   <div class="dodont">
     <div class="yes"><p class="cap">Так</p><p class="eyebrow">Модуль 3</p><h3 style="font:500 var(--fs-l)/1.3 var(--serif); margin:0 0 var(--s-2)">Бакеты</h3><p style="margin:0; font-size:var(--fs-s); color:var(--text-2)">Зачем платформы считают по бакетам.</p></div>
-    <div class="no"><p class="cap">Не так</p><p style="font:600 13px/1.3 var(--body); text-transform:uppercase; margin:0 0 4px">Модуль 3</p><h3 style="font:700 20px/1.3 var(--serif); margin:0 0 4px">Бакеты</h3><p style="margin:0; font-weight:600; font-size:15px">Зачем платформы считают по бакетам.</p></div>
+    <div class="no"><p class="cap">Не так</p><p style="font:600 .8125rem/1.3 var(--body); text-transform:uppercase; margin:0 0 4px">Модуль 3</p><h3 style="font:700 1.25rem/1.3 var(--serif); margin:0 0 4px">Бакеты</h3><p style="margin:0; font-weight:600; font-size:.9375rem">Зачем платформы считают по бакетам.</p></div>
   </div>
 </section>
 
@@ -201,8 +200,8 @@
     </div>
     <div class="no">
       <p class="cap">Не так: всё жирное, отбивки одинаковые</p>
-      <p style="font:700 30px/1.2 var(--serif); margin:0 0 8px">Не знаешь, с чего начать?</p>
-      <p style="font:600 13px/1.3 var(--body); text-transform:uppercase; margin:0 0 8px">Результат теста</p>
+      <p style="font:700 1.875rem/1.2 var(--serif); margin:0 0 8px">Не знаешь, с чего начать?</p>
+      <p style="font:600 .8125rem/1.3 var(--body); text-transform:uppercase; margin:0 0 8px">Результат теста</p>
       <p style="font-weight:600; margin:0 0 8px">Твоя цель — читать отчёты A/B</p>
       <p style="font-weight:600; margin:0 0 8px">Начни с курса «A/B на пальцах»</p>
       <p class="ctas" style="margin-top:8px"><a class="btn" href="#result">Открыть шаг</a><a class="btn" href="#result">Показать на схеме</a><a class="btn ghost" href="#result">Пройти заново</a></p>

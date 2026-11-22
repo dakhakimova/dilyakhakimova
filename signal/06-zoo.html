@@ -6,25 +6,24 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/06-zoo.html">
 <title>Зоопарк распределений · Сигнал или шум</title>
 <meta name="description" content="Глава 6 бесплатного интерактивного курса «Сигнал или шум»: Бернулли, биномиальное, Пуассон, геометрическое, экспонента и логнормальное — какой процесс какое распределение даёт. Среднее, медиана и «киты», задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* стили только этой страницы */
 .xref > span{flex:1}
 .zoo-map{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:6px 0 10px}
-.zoo-map button{min-height:56px; padding:8px 10px; border-radius:12px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); font:500 15px/1.25 var(--body); cursor:pointer; text-align:left}
-.zoo-map button small{display:block; font-weight:400; font-size:13px; color:var(--muted); margin-top:2px}
+.zoo-map button{min-height:56px; padding:8px 10px; border-radius:12px; border:1px solid rgba(36,34,31,.25); background:#fff; color:var(--ink); font:500 .9375rem/1.25 var(--body); cursor:pointer; text-align:left}
+.zoo-map button small{display:block; font-weight:400; font-size:.8125rem; color:var(--muted); margin-top:2px}
 .zoo-map button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
 .zoo-map button[aria-pressed="true"] small{color:rgba(255,255,255,.8)}
-.zoo-kin{font-size:15px; color:var(--muted); margin:4px 0 8px}
-.zoo-f{font:400 15px/1.5 "JetBrains Mono", monospace; background:#F3F1EC; border-radius:8px; padding:8px 12px; margin:10px 0 0; overflow-x:auto}
+.zoo-kin{font-size:.9375rem; color:var(--muted); margin:4px 0 8px}
+.zoo-f{font:400 .9375rem/1.5 "JetBrains Mono", monospace; background:#F3F1EC; border-radius:8px; padding:8px 12px; margin:10px 0 0; overflow-x:auto}
 .xtab.zoo-t td, .xtab.zoo-t th{text-align:left}
 .xtab-wrap{overflow-x:auto}
 :root{--viol:#8F6FC9; --ochre:#C9A43A}
@@ -32,7 +31,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch06" data-next="07-clt.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -105,7 +104,7 @@
 <section class="card" data-toy="dist-zoo" data-title="Зоопарк" aria-label="Зоопарк распределений">
   <span class="step-tag">Поиграй</span>
   <h2>Процесс → распределение</h2>
-  <p>Выбери вопрос, который задаёт кафе. Генератор выдаст смену: 500 гостей, компаний, отрезков времени или чеков. Столбики — что вышло, серые точки или линия — теория. Оранжевая черта — среднее, фиолетовая — медиана, жёлтая — мода (самое частое значение).</p>
+  <p>Выбери вопрос, который задаёт кафе. Генератор выдаст смену: 500 гостей, компаний, отрезков времени или чеков. Столбики — что вышло, серые точки или линия — теория. Синяя черта — среднее, фиолетовая — медиана, жёлтая — мода (самое частое значение).</p>
   <div class="sheet c-white">
     <div class="zoo-map" role="group" aria-label="Процесс">
       <button type="button" data-z="bern" aria-pressed="false">Заказал или нет?<small>Бернулли</small></button>
@@ -381,7 +380,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -576,6 +575,6 @@ const TXT = {
   paint();
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>

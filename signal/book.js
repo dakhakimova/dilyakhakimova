@@ -107,7 +107,7 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 // ctrl — синий (контроль, основная серия), test — оранжевый (тест, вторая серия), truth — зелёный (правда, хорошо),
 // trap — красный (плохо: ложная тревога, ошибка, вред), gray — теория. Текст красным — trapInk, оранжевым — testInk.
 // pen и accent — фирменные синий и коралл курса (кнопки, акцентная точка «ты здесь»), не для смысловых ролей.
-const COL = {ctrl:'#3D7DC4', test:'#E59157', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', testInk:'#A85A24', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6EEF8', fillT:'#FBEDE3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0', fillO:'#F8F0D9', pen:'#23418A', accent:'#E8644A'};
+const COL = {ctrl:'#E8644A', ctrlInk:'#B8432B', test:'#23418A', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', testInk:'#23418A', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#FCE8E3', fillT:'#E6ECF7', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0', fillO:'#F8F0D9', pen:'#23418A', accent:'#E8644A'};
 // соло-режим /play/ (window.PLAY_SOLO, ставит /play/bridge.js): догадки, выборы и баллы живут только в памяти вкладки —
 // игра на /play/ не подставляет старых ответов из курса и не начисляет баллов
 const store = window.PLAY_SOLO ? (() => { const m = {}; return {get: k => k in m ? JSON.parse(m[k]) : null, set: (k, v) => { m[k] = JSON.stringify(v); }}; })()

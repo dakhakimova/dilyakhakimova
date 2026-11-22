@@ -57,9 +57,8 @@ ${extra}${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<tit
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
 <link rel="stylesheet" href="/tokens.css?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/play/play.css?v=${V}">

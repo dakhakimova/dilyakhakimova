@@ -13,7 +13,7 @@ const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
 const V = require('./version.js');
 const chrome = require('./chrome.js'), REL = require('./related.js');
-const FONTS = 'https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap';
+const FONTS = '/fonts/fonts.css';  // свои шрифты (fonts/fonts.css), без Google Fonts
 const HEROES = {bob: 'play.hero.bob', alice: 'play.hero.alice', kot: 'play.hero.kot'};
 
 function build(){
@@ -56,9 +56,8 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="${FONTS}" rel="stylesheet">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${FONTS}?v=${V}">
 <link rel="stylesheet" href="/tokens.css?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/terms/terms.css?v=${V}">

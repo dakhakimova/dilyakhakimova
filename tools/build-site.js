@@ -7,7 +7,7 @@ const fs = require('fs'), path = require('path');
 const chrome = require('./chrome.js'), REL = require('./related.js'), V = require('./version.js');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://dilyakhakimova.com';
-const FONTS = 'https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap';
+const FONTS = '/fonts/fonts.css';  // свои шрифты (fonts/fonts.css), без Google Fonts
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const nb = s => String(s).replace(/ (₽)/g, ' $1').replace(/(\d) (\d{3})/g, '$1 $2').replace(/(^|[\s«(])([ВвКкСсОоИиАаУуЯя]|во|на|не|по|из|за|от|до|об|со) /g, '$1$2 ');
 
@@ -39,10 +39,9 @@ ${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel="c
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/tokens.css?v=${V}">
-<link href="${FONTS}" rel="stylesheet">
+<link rel="stylesheet" href="${FONTS}?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
 ${css.map(c => `<link rel="stylesheet" href="${c}?v=${V}">`).join('\n')}
 </head>

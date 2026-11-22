@@ -18,7 +18,7 @@ const LOCAL = (() => {
   for (const [fam, pkg] of [['Literata', 'literata'], ['Onest', 'onest']]) for (const sub of ['latin', 'cyrillic']){
     const d = dirs.map(x => path.join(x, '@fontsource-variable', pkg, 'files', `${pkg}-${sub}-wght-normal.woff2`)).find(f => fs.existsSync(f));
     if (d) css.push(`@font-face{font-family:${fam}; font-weight:100 900; src:url(data:font/woff2;base64,${fs.readFileSync(d).toString('base64')}) format('woff2')}`); }
-  return css.length === 4 ? `<style>${css.join('\n')}</style>` : '<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;600&display=swap" rel="stylesheet">';
+  return css.length === 4 ? `<style>${css.join('\n')}</style>` : require('./fonts-inline.js')();
 })();
 const BASE = `*{box-sizing:border-box} body{margin:0; width:1200px; height:630px; overflow:hidden; background:#E9E5DE radial-gradient(rgba(120,110,90,.22) 1px, transparent 1.2px) 0 0/18px 18px; font-family:Onest, sans-serif; color:#24221F}
 .eb{font:600 20px/1 Onest; letter-spacing:.08em; text-transform:uppercase; color:#A63D28} .site{font:400 22px/1 Onest; color:#5E5A53}

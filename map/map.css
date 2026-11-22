@@ -5,7 +5,7 @@
 
 .wrap.wide{max-width:1280px}
 .m-hero{padding-top:var(--s-4)}
-.m-hero h1{font-size:clamp(38px,4.6vw,60px); line-height:1.06}
+.m-hero h1{font-size:clamp(2.375rem,4.6vw,3.75rem); line-height:1.06}
 .m-hero .sub{margin-top:var(--s-3); max-width:36em}
 
 /* цели (маршруты) */
@@ -23,8 +23,9 @@
 .goal[aria-pressed="true"]{border-color:var(--line, var(--pen)); box-shadow:var(--sh-2), inset 0 0 0 1px var(--line, var(--pen)); background:var(--white)}
 .route-btns .all{margin-top:var(--s-2); font:600 var(--fs-s)/1.2 var(--body); min-height:44px; padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:2px solid var(--pen);
   background:transparent; color:var(--pen); cursor:pointer}
-.route-btns .all:hover{background:var(--ctrl-bg)}
-.route-btns .all[aria-pressed="true"]{background:var(--pen); color:#fff}
+.route-btns .all:hover{background:var(--pen-hover)}
+.route-btns .all[aria-pressed="true"]{background:var(--pen-soft); border:1.5px solid var(--pen); color:var(--pen)}
+.route-btns .all[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}
 
 .route-info{font-size:var(--fs-s); color:var(--warm-700); margin:var(--s-3) 0 0; max-width:46em; min-height:1.5em}
 .route-info b{color:var(--ink)}
@@ -37,7 +38,7 @@
 .panel-side{position:fixed; z-index:20; top:var(--s-4); right:var(--s-4); bottom:var(--s-4); width:min(420px, calc(100vw - 2 * var(--s-4))); overflow:auto;
   background:var(--white); border-radius:var(--r-l); box-shadow:var(--sh-3), 0 0 0 1px rgba(36,34,31,.06); padding:var(--s-5) var(--s-5) var(--s-6)}
 .p-close{position:absolute; top:var(--s-2); right:var(--s-2); width:44px; height:44px; border-radius:var(--r-pill); border:0; background:var(--sunk); color:var(--ink);
-  font:400 26px/1 var(--body); cursor:pointer}
+  font:400 1.625rem/1 var(--body); cursor:pointer}
 .p-close:hover{background:#E6E1D8}
 .panel-side .chips{padding-right:var(--s-7)}
 .panel-side h2{font:500 var(--fs-l)/1.3 var(--serif); margin:var(--s-3) 0 var(--s-3); outline:none}
@@ -46,16 +47,16 @@
 .panel-side .can{font:400 var(--fs-m)/1.45 var(--serif)}
 .panel-side .plate{font-size:var(--fs-s); margin:var(--s-3) 0 0}
 .panel-side .plate.mainp{--plate-bar:var(--l2)}
-.panel-side .plate.notep{--plate-bar:var(--ctrl); background:var(--ctrl-bg)}
+.panel-side .plate.notep{--plate-bar:var(--pen); background:var(--sky)}
 .panel-side ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s-1)}
 .panel-side li{font-size:var(--fs-s)}
 .panel-side li a{display:inline-block; padding:var(--s-2) 0}
 .panel-side .rel{display:flex; width:100%; gap:var(--s-2); align-items:baseline; text-align:left; min-height:44px; padding:var(--s-2) var(--s-3); border:0; border-radius:var(--r-s);
   background:var(--sunk); color:var(--ink); font:400 var(--fs-s)/1.35 var(--body); cursor:pointer}
-.panel-side .rel:hover{background:var(--ctrl-bg)}
-.panel-side .rel small{margin-left:auto; color:var(--warm-600); font-size:12px; white-space:nowrap}
+.panel-side .rel:hover{background:var(--pen-hover)}
+.panel-side .rel small{margin-left:auto; color:var(--warm-600); font-size:.75rem; white-space:nowrap}
 .panel-side .rel.ok small{color:var(--good-ink); font-weight:600}
-.panel-side .why{color:var(--warm-600); font-size:12px}
+.panel-side .why{color:var(--warm-600); font-size:.75rem}
 .panel-side .acts{display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-5)}
 .panel-side .dim{color:var(--warm-600)}
 
@@ -92,7 +93,7 @@
 .plan .ref.planref{text-decoration-style:dashed}
 .plan .ref.ext{text-decoration:none; color:var(--warm-700)}
 .plan a.ref:hover{color:var(--pen)}
-.plan .why{color:var(--warm-600); font-size:12px}
+.plan .why{color:var(--warm-600); font-size:.75rem}
 .plan .when{margin:auto 0 0; padding-top:var(--s-3); font-size:var(--fs-xs); color:var(--warm-600)}
 @media (max-width:1023px){ .plans{grid-template-columns:1fr 1fr} }
 @media (max-width:620px){ .plans{grid-template-columns:1fr} }
@@ -121,8 +122,8 @@
 .metro .zone rect{fill:var(--zc); fill-opacity:.13; stroke:none}
 .metro .zone.z-soon rect{fill:var(--paper); fill-opacity:1; stroke:var(--zc); stroke-width:1.5; stroke-dasharray:6 4}
 .metro .zone.z-later rect{fill:none; stroke:var(--warm-600); stroke-opacity:.45; stroke-width:1.5; stroke-dasharray:2 4}
-.metro .zt{font:500 15px/1 var(--serif); fill:var(--ink)}
-.metro .zs{font:400 12px/1 var(--body); fill:var(--warm-600)}
+.metro .zt{font:500 .9375rem/1 var(--serif); fill:var(--ink)}
+.metro .zs{font:400 .75rem/1 var(--body); fill:var(--warm-600)}
 .metro .ln path{fill:none; stroke-linejoin:round; stroke-linecap:round}
 .metro .ln .stroke{stroke:var(--line); stroke-width:6}
 .metro .ln .cont{stroke:var(--line); stroke-opacity:.45; stroke-width:4}
@@ -136,11 +137,11 @@
 .metro .mk-in{fill:#fff}
 .metro .mk.cont-mk{fill:#fff; stroke:var(--line); stroke-width:2.5}
 .metro .mk.pl-mk{fill:#fff; stroke:#8A847A; stroke-width:2; stroke-dasharray:3 2}
-.metro .sl{font:400 13px/1 var(--body); fill:var(--ink)}
+.metro .sl{font:400 .8125rem/1 var(--body); fill:var(--ink)}
 .metro .sl.big{font-weight:600}
 .metro .st.later .sl{fill:var(--warm-700)}
 .metro .st.plan .sl{fill:var(--warm-700)}
-.metro .bld{font-style:italic; font-size:12px; fill:var(--warm-600)}
+.metro .bld{font-style:italic; font-size:.75rem; fill:var(--warm-600)}
 .metro .st .ring{fill:none; stroke:var(--pen); stroke-width:3; opacity:0}
 .metro .st:hover .sl{text-decoration:underline}
 .metro .st:focus-visible .ring{opacity:1; stroke-dasharray:4 3}
@@ -148,7 +149,7 @@
 .metro .here-pin .hp-ring{fill:none; stroke:var(--coral-600); stroke-width:2.5}
 .metro .here-pin .hp-leg{stroke:var(--coral-600); stroke-width:2}
 .metro .here-pin rect{fill:var(--coral-600)}
-.metro .here-pin text{font:600 12px/1 var(--body); fill:#fff; letter-spacing:.02em}
+.metro .here-pin text{font:600 .75rem/1 var(--body); fill:#fff; letter-spacing:.02em}
 /* выбран маршрут: остальное бледнеет */
 .metro.routing .ln:not(.on), .metro.routing .st.off, .metro.routing .plan-ln, .metro.routing .st.plan{opacity:.16}
 .metro.routing .ln.on .stroke{stroke-width:8}
@@ -180,10 +181,10 @@
 .metro-linear .main .dot{left:8px; top:10px; width:24px; height:24px; background:#fff; box-shadow:inset 0 0 0 7px var(--line), 0 0 0 2px #fff}
 .metro-linear .later .dot{background:#fff; box-shadow:inset 0 0 0 2.5px var(--line)}
 .metro-linear .main .ls-n{font-weight:600}
-.metro-linear .ls-m{font-size:12px; font-weight:600; background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px}
-.metro-linear .ls-h{font-size:12px; font-weight:600; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
+.metro-linear .ls-m{font-size:.75rem; font-weight:600; background:var(--butter); color:var(--soon-ink); border-radius:var(--r-pill); padding:1px 6px}
+.metro-linear .ls-h{font-size:.75rem; font-weight:600; background:var(--coral-600); color:#fff; border-radius:var(--r-pill); padding:1px 8px}
 .metro-linear .here .dot{box-shadow:0 0 0 2px #fff, 0 0 0 5px var(--coral)}
-.metro-linear .ls-d{font-size:12px; color:var(--good-ink); font-weight:600}
+.metro-linear .ls-d{font-size:.75rem; color:var(--good-ink); font-weight:600}
 .metro-linear .ls-x{flex-basis:100%; font-size:var(--fs-xs); color:var(--warm-600)}
 .metro-linear .ls-x .sw{width:14px; height:5px; margin:0 4px 1px 2px; vertical-align:middle}
 .metro-linear li:focus-within{z-index:1}
@@ -205,7 +206,7 @@
 }
 @media (prefers-reduced-motion: reduce){ .metro .ln, .metro .st{transition:none} }
 /* термины: строка-облако в шапке курса, в панели навыка и в карточках «В планах» */
-.terms{display:flex; flex-wrap:wrap; gap:4px; align-items:baseline; margin:var(--s-2) 0 0; font-size:12px; line-height:1.3}
+.terms{display:flex; flex-wrap:wrap; gap:4px; align-items:baseline; margin:var(--s-2) 0 0; font-size:.75rem; line-height:1.3}
 .terms-h{color:var(--warm-600); margin-right:2px}
 .term{background:var(--sunk); color:var(--warm-900); border-radius:var(--r-pill); padding:2px 8px}
 .panel-side .terms, .plan .terms{font-size:var(--fs-xs); margin-top:var(--s-3)}
@@ -217,18 +218,18 @@
 .m-path h2{font:400 var(--fs-h2)/1.2 var(--serif); letter-spacing:-.01em; margin:0 0 var(--s-3)}
 .path-list{list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s-4) var(--s-6); counter-reset:none}
 .path-list li{display:flex; gap:var(--s-4); align-items:flex-start}
-.path-list .pn{flex:none; width:48px; height:48px; border-radius:50%; display:grid; place-items:center; font:500 24px/1 var(--serif); color:var(--ink);
+.path-list .pn{flex:none; width:48px; height:48px; border-radius:50%; display:grid; place-items:center; font:500 1.5rem/1 var(--serif); color:var(--ink);
   background:var(--white); box-shadow:inset 0 0 0 3px var(--course); font-variant-numeric:tabular-nums}
 .path-list .pt{margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
 .path-list .pt a{color:var(--ink)}
-.path-list .tag{font:500 12px/1 var(--body); vertical-align:middle}
+.path-list .tag{font:500 .75rem/1 var(--body); vertical-align:middle}
 .path-list .tag.opt{background:var(--sunk); color:var(--warm-700)}
 .path-list .pg{margin:var(--s-1) 0 0; font-size:var(--fs-s); color:var(--warm-700)}
 .path-list .pp{margin:var(--s-1) 0 0; font-size:var(--fs-xs); color:var(--warm-600)}
-@media (max-width: 760px){ .path-list{grid-template-columns:1fr} .path-list .pn{width:40px; height:40px; font-size:20px} }
+@media (max-width: 760px){ .path-list{grid-template-columns:1fr} .path-list .pn{width:40px; height:40px; font-size:1.25rem} }
 .metro-full{font:500 var(--fs-s)/1.4 var(--body); color:var(--ink); margin:0 0 var(--s-2)}
 /* номер курса в шапке колонки графа и «что нужно заранее» */
-.pre{font-size:12px; line-height:1.4; color:var(--warm-700); margin-top:var(--s-2)}
+.pre{font-size:.75rem; line-height:1.4; color:var(--warm-700); margin-top:var(--s-2)}
 .pre ul{margin:var(--s-1) 0; padding-left:1.1em}
 .pre p{margin:var(--s-1) 0 0}
 .panel-side .pre{font-size:var(--fs-s); margin-top:var(--s-4)}
@@ -239,7 +240,7 @@
 .cc::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--course)}
 .cc-h{display:flex; gap:var(--s-3); align-items:center; margin:0; font:500 var(--fs-l)/1.3 var(--serif)}
 .cc-h a{color:var(--ink)}
-.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 18px/1 var(--serif); background:var(--white);
+.cc .cnum{flex:none; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font:500 1.125rem/1 var(--serif); background:var(--white);
   box-shadow:inset 0 0 0 2px var(--course); font-variant-numeric:tabular-nums}
 .cc .chips{margin:var(--s-3) 0 0}
 .cc .tag.opt{background:var(--sunk); color:var(--warm-700)}
@@ -255,9 +256,9 @@
 @media (max-width:620px){ .ccs{grid-template-columns:1fr} }
 /* схема: номера зон по «Весь путь», пунктир необязательных участков */
 .metro .zn-c{fill:#fff; stroke:var(--zc); stroke-width:2.5}
-.metro .zn{font:500 17px/1 var(--serif); fill:var(--ink)}
+.metro .zn{font:500 1.0625rem/1 var(--serif); fill:var(--ink)}
 .metro .ln .stroke.dash{stroke-dasharray:10 7; stroke-linecap:butt}
 .metro-linear .lz-n{display:inline-grid; place-items:center; width:26px; height:26px; margin-right:var(--s-2); border-radius:50%; background:#fff; box-shadow:inset 0 0 0 2px var(--zc);
-  font:500 15px/1 var(--serif); color:var(--ink); vertical-align:middle}
+  font:500 .9375rem/1 var(--serif); color:var(--ink); vertical-align:middle}
 .metro-linear .lz.opt::after{background:transparent; opacity:1; border:1.5px dashed var(--zc)}
 .ml-line.mine{font-weight:500}

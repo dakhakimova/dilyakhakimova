@@ -6,17 +6,16 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/01-probability.html">
 <title>Вероятность — это доля в штуках · Сигнал или шум</title>
 <meta name="description" content="Глава 1 бесплатного интерактивного курса «Сигнал или шум»: что такое вероятность, правила «и», «или», «хотя бы один» и задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="book.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="book.css?v=202611302">
 </head>
 <body data-chapter="ch01">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -35,7 +34,7 @@
 <section class="card" data-title="Знакомство" aria-label="Знакомство">
   <p class="kicker">Часть 0 · глава 1</p>
   <h1>Вероятность — это доля в штуках</h1>
-  <p class="recap-note" style="margin:-2px 0 16px; padding:10px 14px; border-radius:10px; background:#F3F1EC; font-size:15px; line-height:1.5">↗ Эта глава — быстрый повтор вероятности. Полная версия, с нуля по шагам и с задачами с собеседований, — в курсе <a href="/probability/">«Вероятность на пальцах»</a>. Можно начать прямо с <a href="/probability/01-outcomes.html">шага 1 «Исходы и события»</a>.</p>
+  <p class="recap-note" style="margin:-2px 0 16px; padding:10px 14px; border-radius:10px; background:#F3F1EC; font-size:.9375rem; line-height:1.5">↗ Эта глава — быстрый повтор вероятности. Полная версия, с нуля по шагам и с задачами с собеседований, — в курсе <a href="/probability/">«Вероятность на пальцах»</a>. Можно начать прямо с <a href="/probability/01-outcomes.html">шага 1 «Исходы и события»</a>.</p>
   <figure class="art"><img loading="lazy" src="img/ch01-00-heroes.jpg" alt="Алиса, Боб и Котейка" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса, Боб и Котейка знакомятся</figcaption></figure>
   <p class="lead">Знакомься с командой, с которой мы пройдём весь курс.</p>
   <div class="heroes">
@@ -87,7 +86,7 @@
     <h3 style="margin-top:22px">Сколько орлов выпадает в серии из 20 бросков</h3>
     <div class="hist" id="coin-hist" aria-hidden="true" style="grid-template-columns:repeat(21,1fr); gap:2px"></div>
     <div class="hist-labels" id="coin-hist-l" style="grid-template-columns:repeat(21,1fr); gap:2px"></div>
-    <p class="muted" style="font-size:14px; margin:6px 0 0">столбик — доля серий с таким числом орлов · точка — сколько должно быть по теории</p>
+    <p class="muted" style="font-size:.875rem; margin:6px 0 0">столбик — доля серий с таким числом орлов · точка — сколько должно быть по теории</p>
     <div class="verdict" id="coin-verdict" hidden></div>
   </div>
   <p data-toy-reveal>Доля орлов на длинной серии упрямо ползёт к ½ — <b>это и есть вероятность</b>. А серия из 20 бросков ровно на «половину» попадает только в 18% случаев. «Около половины», от 8 до 12 орлов, — в трёх сериях из четырёх, а остальные дают 6, 7, 13, 14 орлов — и это нормально.</p>
@@ -160,7 +159,7 @@
     </div>
     <div class="bars" id="bars" aria-hidden="true"></div>
     <div class="bar-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5+</span></div>
-    <p class="muted" style="font-size:14px; text-align:center; max-width:520px; margin:4px 0 0">покупателей за день · высота — доля дней</p>
+    <p class="muted" style="font-size:.875rem; text-align:center; max-width:520px; margin:4px 0 0">покупателей за день · высота — доля дней</p>
     <div class="stats">
       <div><b id="s-groups">0</b>дней</div>
       <div><b id="s-share">—</b>купили, от всех посетителей</div>

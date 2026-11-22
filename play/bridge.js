@@ -114,7 +114,7 @@
       cards.forEach(card => card.dataset.toy.split(/\s+/).forEach(s => onFirstTouch(card, () => hit(s, 'course', 'play', utm))));
       loadCredits().then(pub => {
         const st0 = document.createElement('style');
-        st0.textContent = '.toy-share{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; margin:12px 0 0} .toy-share .share-t{background:none; border:0; padding:8px 0; min-height:44px; font:500 15px/1.2 Onest, system-ui, sans-serif; color:#23418A; text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:4px; cursor:pointer} .toy-share .share-t:hover, .toy-share .share-t:focus-visible{text-decoration-color:currentColor} .toy-share .note{margin:0}';
+        st0.textContent = '.toy-share{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; margin:12px 0 0} .toy-share .share-t{background:none; border:0; padding:8px 0; min-height:44px; font:500 .9375rem/1.2 Onest, "Onest fallback", system-ui, sans-serif; color:#23418A; text-decoration:underline; text-decoration-color:rgba(35,65,138,.35); text-underline-offset:4px; cursor:pointer} .toy-share .share-t:hover, .toy-share .share-t:focus-visible{text-decoration-color:currentColor} .toy-share .note{margin:0}';
         document.head.appendChild(st0);
         cards.forEach(card => {
           const s = card.dataset.toy.split(/\s+/).find(x => pub[x]);
@@ -161,7 +161,7 @@ html.solo [data-toy-hide], html.solo .plus{display:none !important}
 html.solo:not(.touched) [data-toy-reveal]{display:none !important}
 html.solo .card[data-toy-pre] .note{margin-bottom:0}
 html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{margin-bottom:4px}
-.play-credit{display:block; margin:10px 2px 0; font:400 13px/1.45 Onest, system-ui, sans-serif; color:#5E5A53}
+.play-credit{display:block; margin:10px 2px 0; font:400 .8125rem/1.45 Onest, "Onest fallback", system-ui, sans-serif; color:#5E5A53}
 .play-credit a{color:#23418A}
 .play-credit .st{white-space:nowrap}
 `;

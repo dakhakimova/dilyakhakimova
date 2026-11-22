@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/04-clt.html">
 <title>Толпа предсказуема · A/B на пальцах</title>
 <meta name="description" content="Шаг 4 интерактивного курса «A/B на пальцах»: почему средние по толпе складываются в колокол, даже если люди непредсказуемы. Центральная предельная теорема и бакеты.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 </head>
 <body data-chapter="ab04" data-next="05-bell-width.html">
 <nav class="top" aria-label="Навигация">
@@ -268,8 +267,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611301"></script>
-<script src="course.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
+<script src="course.js?v=202611302"></script>
 <script>
 // Заказы одного гостя за неделю: 60 % ноль, остальные — 1…40 с длинным хвостом. Среднее ≈ 1,0.
 const PMF = (() => { const w = []; for (let k = 1; k <= 40; k++) w.push(Math.pow(k, -1.6) * Math.exp(-k / 12)); const S = w.reduce((a, b) => a + b); return [0.6].concat(w.map(x => 0.4 * x / S)); })();
@@ -400,7 +399,7 @@ const sampleMean = n => { let s = 0; for (let i = 0; i < n; i++) s += draw1(); r
     [0, 250, 500, 750, 1000].forEach(v => label(c, int(v), X(v), h - 8, COL.ink2, 'center'));
     rows.forEach(([arr, raw, col, nm, y0]) => {
       c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, y0); c.lineTo(L + pw, y0); c.stroke();
-      label(c, nm, 4, y0 - 6, col === COL.ctrl ? COL.ctrl : COL.testInk);
+      label(c, nm, 4, y0 - 6, col === COL.ctrlInk ? COL.ctrlInk : COL.testInk);
       const cnt = {}; raw.forEach(v => { const k = Math.round(v / 40); cnt[k] = (cnt[k] || 0) + 1; c.fillStyle = col; c.beginPath(); c.arc(X(v), y0 - 8 - (cnt[k] - 1) * 11, 4.5, 0, 2 * Math.PI); c.fill(); });
       const m = mean(arr), md = med(arr), top = y0 - rowH + 14;
       const mk = (v, cl, t, dy) => { const x = v > hi ? L + pw : X(v); c.strokeStyle = cl; c.lineWidth = 2; c.beginPath(); c.moveTo(x, top); c.lineTo(x, y0); c.stroke(); c.lineWidth = 1; label(c, t, x > w - 220 ? x - 6 : x + 4, top + dy, cl, x > w - 220 ? 'right' : 'left'); };

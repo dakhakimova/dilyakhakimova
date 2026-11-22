@@ -6,32 +6,31 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/01-outcomes.html">
 <title>Исходы и события · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 1 бесплатного интерактивного курса «Вероятность на пальцах»: исходы, события, вероятность как доля нужных исходов, две монетки и два кубика, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* монетки пары */
 .pair{display:flex; gap:14px; align-items:center; min-height:64px; margin:4px 0 12px}
-.pair .coin{width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font:600 20px/1 var(--body); color:#fff; background:var(--pen); box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.pair .coin{width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font:600 1.25rem/1 var(--body); color:#fff; background:var(--pen); box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
 .pair .coin.blank{background:#D6D2C9; color:#fff}
 .pair.labeled .coin.c1{background:var(--ctrl)}
 .pair.labeled .coin.c2{background:var(--test)}
 .pair .coin.flip{animation:flip .45s ease}
 @keyframes flip{0%{transform:rotateY(0)} 50%{transform:rotateY(90deg) scale(.9)} 100%{transform:rotateY(0)}}
 @media (prefers-reduced-motion: reduce){ .pair .coin.flip{animation:none} }
-.pair .who-says{font:500 16px/1.35 var(--body); color:var(--muted)}
+.pair .who-says{font:500 1rem/1.35 var(--body); color:var(--muted)}
 /* плитки исходов */
 .otiles{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:6px 0 12px}
 .otile{background:#fff; border:1px solid rgba(36,34,31,.14); border-radius:12px; padding:10px 8px; text-align:center; transition:background .25s}
-.otile b{display:block; font:600 20px/1.2 var(--body); letter-spacing:.04em}
-.otile span{display:block; font-size:13px; color:var(--muted); margin-top:2px}
-.otile em{display:block; font:500 20px/1.2 var(--serif); font-style:normal; font-variant-numeric:tabular-nums; margin-top:4px}
+.otile b{display:block; font:600 1.25rem/1.2 var(--body); letter-spacing:.04em}
+.otile span{display:block; font-size:.8125rem; color:var(--muted); margin-top:2px}
+.otile em{display:block; font:500 1.25rem/1.2 var(--serif); font-style:normal; font-variant-numeric:tabular-nums; margin-top:4px}
 .otile.hit{background:var(--test-bg)}
 .otile .l{display:none}
 .otiles.labeled .otile .u{display:none}
@@ -46,14 +45,14 @@
 /* таблица двух кубиков */
 .dice-wrap{display:grid; grid-template-columns:minmax(0, 320px) 1fr; gap:18px; align-items:start}
 .dice{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:320px}
-.dice span{aspect-ratio:1; display:grid; place-items:center; border-radius:7px; font:500 14px/1 var(--body); font-variant-numeric:tabular-nums; background:#F4F3F0; color:var(--ink); cursor:pointer; transition:background .2s}
+.dice span{aspect-ratio:1; display:grid; place-items:center; border-radius:7px; font:500 .875rem/1 var(--body); font-variant-numeric:tabular-nums; background:#F4F3F0; color:var(--ink); cursor:pointer; transition:background .2s}
 .dice span.h{background:transparent; cursor:default; font-weight:600}
 .dice span.hb{color:var(--ctrl)}
 .dice span.ho{color:var(--test-ink)}
 .dice span.corner{background:transparent; cursor:default}
 .dice span.hot{background:var(--test); color:#fff; font-weight:600}
 @media (prefers-reduced-motion: reduce){ .dice span{transition:none} }
-.dice-read{font:400 18px/1.5 var(--body); margin:0 0 8px}
+.dice-read{font:400 1.125rem/1.5 var(--body); margin:0 0 8px}
 @media (max-width:620px){ .dice-wrap{grid-template-columns:1fr} }
 .nsel.sums button{min-width:44px; min-height:44px; padding:9px 10px}
 .heroes{margin-top:8px}
@@ -61,7 +60,7 @@
 </style>
 </head>
 <body data-course="probability" data-chapter="p01" data-next="02-frequency.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -142,7 +141,7 @@
   <span class="step-tag">Почему так</span>
   <h2>Одинаковые на вид монетки — всё равно две разные</h2>
   <figure class="art"><img loading="lazy" src="img/vp01-01-labels.jpg" alt="Алиса красит одну монетку в синий, другую в оранжевый, Котейка недовольно смотрит" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Алиса подписывает монетки синей и оранжевой краской</figcaption></figure>
-  <p>Пока монетки одинаковые, кажется, что «орёл и решка» — один исход. Покрась одну монетку в синий, другую в оранжевый. «Разные» сразу распадаются на два случая: синяя — орёл, оранжевая — решка, и наоборот.</p>
+  <p>Пока монетки одинаковые, кажется, что «орёл и решка» — один исход. Покрась одну монетку в коралловый, другую в синий. «Разные» сразу распадаются на два случая: коралловая — орёл, синяя — решка, и наоборот.</p>
   <p>Монеткам всё равно, покрасил ты их или нет: они и без краски две разные. Поэтому исходов четыре — ОО, ОР, РО, РР, — и все четыре одинаково вероятны. Котейке достаются два из четырёх, то есть половина вечеров.</p>
   <p>На этом спотыкались и знаменитые учёные. В XVIII веке Жан Д'Аламбер написал в Энциклопедии, что за два броска хотя бы один орёл выпадает с шансом 2 из 3: исходов, по его счёту, три — «орёл сразу», «решка, потом орёл», «две решки». Но «орёл сразу» — это два исхода, ОО и ОР. Верный ответ — 3 из 4.</p>
   <aside class="scary">
@@ -195,11 +194,11 @@
 <section class="card" data-toy="two-dice" data-title="Два кубика" aria-label="Два кубика: таблица 6 на 6">
   <span class="step-tag">Вторая игра</span>
   <h2>Два кубика: 36 клеток</h2>
-  <p>Котейка бросает синий и оранжевый кубики. Каждая пара — клетка таблицы, все 36 клеток равновозможны. Выбери сумму — и увидишь, сколько клеток её дают.</p>
+  <p>Котейка бросает коралловый и синий кубики. Каждая пара — клетка таблицы, все 36 клеток равновозможны. Выбери сумму — и увидишь, сколько клеток её дают.</p>
   <div class="sheet c-white">
     <div class="nsel sums" id="d-sums" role="group" aria-label="Выбери сумму двух кубиков"></div>
     <div class="dice-wrap">
-      <div class="dice" id="d-grid" aria-label="Таблица 6 на 6: строки — синий кубик, столбцы — оранжевый, в клетке сумма"></div>
+      <div class="dice" id="d-grid" aria-label="Таблица 6 на 6: строки — коралловый кубик, столбцы — синий, в клетке сумма"></div>
       <div>
         <p class="dice-read" id="d-read" aria-live="polite"></p>
         <p class="chart-title">Сколько клеток из 36 даёт каждую сумму от 2 до 12</p>
@@ -207,7 +206,7 @@
       </div>
     </div>
   </div>
-  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Подпиши кубики — и у 11 окажется две клетки (синий 5 и оранжевый 6, синий 6 и оранжевый 5), а у 12 — одна.</p>
+  <p data-toy-reveal>Даже Лейбниц ошибался: считал, что суммы 11 и 12 выпадают одинаково часто, ведь каждая получается «одним способом» — 5 и 6 или 6 и 6. Подпиши кубики — и у 11 окажется две клетки (коралловый 5 и синий 6, коралловый 6 и синий 5), а у 12 — одна.</p>
   <p class="src">Идея из книги: Джозеф Блицштейн, Джессика Хван, «Introduction to Probability»</p>
 </section>
 
@@ -302,7 +301,7 @@ _check()
   <details class="ivw" data-key="dice7">
     <summary>Бросают два кубика. Какова вероятность, что сумма равна 7?</summary>
     <p><b>Переформулирую:</b> какая доля клеток таблицы 6 × 6 даёт сумму 7, если все клетки равновозможны.</p>
-    <p><b>В штуках:</b> пар (синий, оранжевый) 36, сумма 7 у шести: 1 + 6, 2 + 5, 3 + 4, 4 + 3, 5 + 2, 6 + 1. Из 3600 бросков — около 600.</p>
+    <p><b>В штуках:</b> пар (коралловый, синий) 36, сумма 7 у шести: 1 + 6, 2 + 5, 3 + 4, 4 + 3, 5 + 2, 6 + 1. Из 3600 бросков — около 600.</p>
     <p><b>Формула:</b> <span class="num">P(сумма 7) = 6 / 36 = 1/6 ≈ 16.7%</span>.</p>
     <p><b>Проверка:</b> функция <code>p_sum(7)</code> из карточки с кодом.</p>
     <p><b>Вывод:</b> примерно каждый шестой бросок; семёрка — самая частая сумма.</p>
@@ -382,7 +381,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -509,6 +508,6 @@ const TXT = {
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>

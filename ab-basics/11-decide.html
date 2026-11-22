@@ -6,31 +6,30 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/11-decide.html">
 <title>Читаем отчёт и решаем · A/B на пальцах</title>
 <meta name="description" content="Шаг 11 интерактивного курса «A/B на пальцах»: подвохи в графиках и цифрах, дерево решений и тренажёр на восьми отчётах A/B-тестов, как рассказать результат.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 <style>
 /* шаг 11: дерево решений, пройденные развилки, разметка отчёта */
 .tree{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px; counter-reset:f}
-.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px 10px 46px; font-size:15px; line-height:1.45}
-.tree > li::before{content:counter(f); position:absolute; left:12px; top:9px; width:24px; height:24px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 13px/24px var(--body); text-align:center}
-.tree > li b{display:block; font:500 17px/1.35 var(--serif)}
-.tree .out{display:inline-block; margin:4px 6px 0 0; padding:2px 9px; border-radius:999px; font:600 13px/1.5 var(--body); background:#F3F1EC}
+.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px 10px 46px; font-size:.9375rem; line-height:1.45}
+.tree > li::before{content:counter(f); position:absolute; left:12px; top:9px; width:24px; height:24px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 .8125rem/1.5rem var(--body); text-align:center}
+.tree > li b{display:block; font:500 1.0625rem/1.35 var(--serif)}
+.tree .out{display:inline-block; margin:4px 6px 0 0; padding:2px 9px; border-radius:999px; font:600 .8125rem/1.5 var(--body); background:#F3F1EC}
 .dec{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:12px 0}
-.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 12px; font-size:14px; line-height:1.4; color:var(--muted)}
-.dec > div b{display:block; font:600 16px/1.3 var(--body); color:var(--ink); margin-bottom:2px}
+.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 12px; font-size:.875rem; line-height:1.4; color:var(--muted)}
+.dec > div b{display:block; font:600 1rem/1.3 var(--body); color:var(--ink); margin-bottom:2px}
 /* пройденные развилки: появляются после верного ответа */
 .quiz .path{display:none; margin:12px 0 0; padding:10px 12px; border-radius:10px; background:#F7F5F0}
 .quiz.done .path{display:block}
-.path > p{margin:0 0 6px; font:600 13px/1.3 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.path > p{margin:0 0 6px; font:600 .8125rem/1.3 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
 .path ol{list-style:none; margin:0; padding:0; display:grid; gap:4px}
-.path li{position:relative; padding:4px 8px 4px 30px; border-radius:8px; font-size:15px; line-height:1.4}
+.path li{position:relative; padding:4px 8px 4px 30px; border-radius:8px; font-size:.9375rem; line-height:1.4}
 .path li::before{position:absolute; left:8px; top:4px; font-weight:600}
 .path li.ok::before{content:"✓"; color:var(--truth)}
 .path li.stop{background:var(--trap-bg)}
@@ -42,18 +41,18 @@
 .path .verdict-tag{font-weight:600}
 /* разобранный отчёт: развилки открываются по одной */
 .walk{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px}
-.walk li{background:#F7F5F0; border-radius:10px; padding:10px 12px; font-size:15px; line-height:1.45}
+.walk li{background:#F7F5F0; border-radius:10px; padding:10px 12px; font-size:.9375rem; line-height:1.45}
 .walk li[hidden]{display:none}
-.walk li b{display:block; font:500 16px/1.35 var(--serif)}
-details.hint{margin:10px 0; padding:8px 12px; border:1px dashed rgba(61,125,196,.45); border-radius:10px; background:#F7FAFD; font-size:15px; line-height:1.45}
+.walk li b{display:block; font:500 1rem/1.35 var(--serif)}
+details.hint{margin:10px 0; padding:8px 12px; border:1px dashed rgba(61,125,196,.45); border-radius:10px; background:#F7FAFD; font-size:.9375rem; line-height:1.45}
 details.hint summary{cursor:pointer; font-weight:600; color:#2C5F99}
 details.hint p{margin:6px 0 0}
 /* разметка отчёта */
-.mk{display:inline-block; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font:600 12px/20px var(--body); text-align:center; vertical-align:1px; margin-right:4px}
+.mk{display:inline-block; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font:600 .75rem/1.25rem var(--body); text-align:center; vertical-align:1px; margin-right:4px}
 .legend-mk{list-style:none; margin:10px 0; padding:0; display:grid; gap:6px}
-.legend-mk li{font-size:15px; line-height:1.45}
+.legend-mk li{font-size:.9375rem; line-height:1.45}
 .ifthen{list-style:none; margin:12px 0; padding:0; display:grid; gap:8px}
-.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px; font-size:15px; line-height:1.45}
+.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:12px; padding:10px 14px; font-size:.9375rem; line-height:1.45}
 .ifthen li span:first-child{color:var(--muted)}
 .ifthen li span:first-child::before{content:"Если "; font-weight:600; color:var(--ink)}
 .ifthen li span:last-child::before{content:"то я "; font-weight:600}
@@ -558,8 +557,8 @@ details.hint p{margin:6px 0 0}
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611301"></script>
-<script src="course.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
+<script src="course.js?v=202611302"></script>
 <script>
 // ---------- найди подвох ----------
 (function(){
@@ -638,7 +637,7 @@ details.hint p{margin:6px 0 0}
     axisY(c, L, 12, T, ph, w, lo, hi, 1000, v => int(v));
     const nw = dau.map((v, d) => d >= 14 ? v * 1.18 : v);
     c.lineWidth = 2.5; c.strokeStyle = COL.ctrl; c.beginPath(); nw.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
-    if (both){ c.strokeStyle = COL.truth; c.setLineDash([5, 4]); c.beginPath(); dau.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); c.setLineDash([]); label(c, 'по старому правилу', X(27), Y(dau[27]) + 16, COL.truth, 'right'); label(c, 'по новому', X(27), Y(nw[27]) - 8, COL.ctrl, 'right'); }
+    if (both){ c.strokeStyle = COL.truth; c.setLineDash([5, 4]); c.beginPath(); dau.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); c.setLineDash([]); label(c, 'по старому правилу', X(27), Y(dau[27]) + 16, COL.truth, 'right'); label(c, 'по новому', X(27), Y(nw[27]) - 8, COL.ctrlInk, 'right'); }
     c.strokeStyle = COL.gray; c.lineWidth = 1; c.beginPath(); c.moveTo(X(14), T); c.lineTo(X(14), T + ph); c.stroke();
     label(c, 'обновление', X(14) + 4, T + 12, COL.ink2);
     label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 28', X(27), h - 6, COL.ink2, 'right');
@@ -668,7 +667,7 @@ details.hint p{margin:6px 0 0}
     const order = honest ? [1, 2, 3, 4, 5, 0] : [0, 1, 2, 3, 4, 5];
     order.forEach(k => { const main = honest && k === 0; c.strokeStyle = honest ? (main ? COL.ctrl : '#CFCBC1') : COLS6[k]; c.lineWidth = main ? 3 : honest ? 1.2 : 2; c.beginPath(); series[k].forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke(); });
     c.lineWidth = 1;
-    if (honest){ label(c, 'конверсия', X(20) + 6, Y(series[0][20]) + 4, COL.ctrl); label(c, 'остальные', X(20) + 6, Y(series[3][20]) + 4, COL.ink2); }
+    if (honest){ label(c, 'конверсия', X(20) + 6, Y(series[0][20]) + 4, COL.ctrlInk); label(c, 'остальные', X(20) + 6, Y(series[3][20]) + 4, COL.ink2); }
     else { const lg = NAMES.map((n, k) => [n, k]); lg.forEach(([n, k], i) => { const x = L + 6 + (i % 3) * (pw / 3), y = T + 12 + Math.floor(i / 3) * 15; c.fillStyle = COLS6[k]; c.fillRect(x, y - 8, 10, 3); label(c, n, x + 14, y - 4, COL.ink2); }); }
     label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 21', X(20), h - 6, COL.ink2, 'right');
   }
@@ -682,7 +681,7 @@ details.hint p{margin:6px 0 0}
     c.fillStyle = COL.test; [600, 620, 640].forEach(v => label(c, v + ' ₽', w - 2, Y2(v) + 4, COL.testInk, 'right'));
     c.lineWidth = 2.5; c.strokeStyle = COL.ctrl; c.beginPath(); ord.forEach((v, d) => d ? c.lineTo(X(d), Y1(v)) : c.moveTo(X(d), Y1(v))); c.stroke();
     c.strokeStyle = COL.test; c.beginPath(); chk.forEach((v, d) => d ? c.lineTo(X(d), Y2(v)) : c.moveTo(X(d), Y2(v))); c.stroke(); c.lineWidth = 1;
-    label(c, 'заказы', X(2), Y1(ord[2]) + 16, COL.ctrl); label(c, 'средний чек', X(2), Y2(chk[2]) - 8, COL.testInk);
+    label(c, 'заказы', X(2), Y1(ord[2]) + 16, COL.ctrlInk); label(c, 'средний чек', X(2), Y2(chk[2]) - 8, COL.testInk);
     label(c, 'день 1', X(0), h - 6, COL.ink2); label(c, 'день 30', X(29), h - 6, COL.ink2, 'right');
   }
   function twoPanels(cv){
@@ -720,7 +719,7 @@ details.hint p{margin:6px 0 0}
     binsC.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(61,125,196,.55)'; c.fillRect(L + i * bw + 1, T + ph - bh, bw / 2 - 1, bh); });
     binsT.forEach((k, i) => { const bh = k / mx * ph; c.fillStyle = 'rgba(229,145,87,.85)'; c.fillRect(L + i * bw + bw / 2, T + ph - bh, bw / 2 - 1, bh); });
     [0, 5, 10, 15, 20, 25].forEach(m => label(c, m + ' мин', L + m * bw, h - 6, COL.ink2, m === 0 ? 'left' : m === 25 ? 'right' : 'center'));
-    label(c, 'тест: среднее ' + num(meanOf(binsT, 0), 1) + ' мин', w - R, T + 12, COL.testInk, 'right'); label(c, 'контроль: ' + num(meanOf(binsC, 0), 1) + ' мин', w - R, T + 28, COL.ctrl, 'right');
+    label(c, 'тест: среднее ' + num(meanOf(binsT, 0), 1) + ' мин', w - R, T + 12, COL.testInk, 'right'); label(c, 'контроль: ' + num(meanOf(binsC, 0), 1) + ' мин', w - R, T + 28, COL.ctrlInk, 'right');
   }
   function draw(){
     spaghetti(document.getElementById('dash10'), false); spaghetti(document.getElementById('dash10h'), true);

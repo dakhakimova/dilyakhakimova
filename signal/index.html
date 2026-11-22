@@ -8,71 +8,70 @@
 <meta name="description" content="Бесплатный интерактивный курс Дили Хакимовой: вероятность, распределения, ловушки в данных и первые A/B-тесты. Всё можно запускать прямо в браузере.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="book.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="book.css?v=202611302">
 <style>
 .toc{list-style:none; margin:0; padding:0}
 .toc li{display:grid; grid-template-columns:64px 1fr auto; gap:12px; align-items:baseline; padding:12px 0; border-top:1px solid var(--rule)}
 .toc li:last-child{border-bottom:1px solid var(--rule)}
-.toc .n{font:500 18px/1.3 var(--serif); color:var(--pen)}
-.toc .t{font:500 18px/1.35 var(--serif)}
-.toc .t small{display:block; font:400 15px/1.45 var(--body); color:var(--muted); margin-top:2px}
-.toc .s{font-size:13px; color:var(--muted); white-space:nowrap}
+.toc .n{font:500 1.125rem/1.3 var(--serif); color:var(--pen)}
+.toc .t{font:500 1.125rem/1.35 var(--serif)}
+.toc .t small{display:block; font:400 .9375rem/1.45 var(--body); color:var(--muted); margin-top:2px}
+.toc .s{font-size:.8125rem; color:var(--muted); white-space:nowrap}
 .toc a{text-decoration:none; color:var(--ink)}
 .toc a:hover .t{color:var(--pen)}
 .toc .live .s{color:var(--good); font-weight:500}
-.part{font:400 26px/1.2 var(--serif); margin:30px 0 8px}
+.part{font:400 1.625rem/1.2 var(--serif); margin:30px 0 8px}
 .steps{counter-reset:s; list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-.steps li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; padding:12px 14px; border-radius:8px; font-size:15px}
-.steps li b{display:block; font:500 20px/1 var(--serif); color:var(--pen); margin-bottom:4px}
+.steps li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; padding:12px 14px; border-radius:8px; font-size:.9375rem}
+.steps li b{display:block; font:500 1.25rem/1 var(--serif); color:var(--pen); margin-bottom:4px}
 /* блоки лендинга курса в стиле книги (те же, что на /probability/, /stats/, /ab/, /causal/) */
-.crumbs{font-size:15px; color:var(--muted); margin:0 0 4px}
+.crumbs{font-size:.9375rem; color:var(--muted); margin:0 0 4px}
 .crumbs a{color:var(--muted); text-decoration:underline; text-decoration-color:rgba(36,34,31,.25); padding:10px 0; display:inline-block}
 .crumbs a:hover{color:var(--ink)}
 .crumbs .sep{margin:0 8px}
 .crumbs [aria-current]{color:var(--ink)}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px}
-.lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:500 13px/1 var(--body); padding:6px 9px; border-radius:999px; background:#fff; color:var(--ink); white-space:nowrap}
+.lchip, .tag{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:inline-flex; align-items:center; gap:6px; font:500 .8125rem/1 var(--body); padding:6px 9px; border-radius:999px; background:#fff; color:var(--ink); white-space:nowrap}
 .tag{background:#F3F0EA; border-color:transparent; color:var(--muted)}
 .tag.free{background:var(--mint); color:#0B5E47}
 .tag.soon{background:var(--butter); color:#6A5410}
 .lvl{display:inline-block; width:11px; height:11px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.18)}
 .l1{background:#0E7E5F} .l2{background:#D7A928} .l3{background:#C9413A}
 .cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0 0}
-a.btn{display:inline-flex; align-items:center; min-height:var(--btn-h); font:var(--btn-fw) 15px/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
+a.btn{display:inline-flex; align-items:center; min-height:var(--btn-h); font:var(--btn-fw) .9375rem/1.2 var(--body); padding:12px 20px; border-radius:999px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none}
 a.btn:hover{background:#000; color:#fff}
 a.btn.ghost{background:transparent; color:var(--ink); border-color:rgba(36,34,31,.3)}
 a.btn.ghost:hover{background:#fff}
 .sec-lead{color:var(--muted)}
 .mods{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.mods li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:15px; line-height:1.5}
+.mods li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:.9375rem; line-height:1.5}
 .mods .n{font:600 var(--fs-xs)/1.3 var(--body); letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--accent-ink)}
-.mods b{font:500 18px/1.3 var(--serif)}
+.mods b{font:500 1.125rem/1.3 var(--serif)}
 .mods p{margin:0}
 .mods .scene{padding:8px 10px; border-radius:8px; background:var(--butter); font-family:var(--serif)}
-.mods .x{font-size:13px; color:var(--muted)}
+.mods .x{font-size:.8125rem; color:var(--muted)}
 .toys2{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
-.toys2 a, .toys2 .off{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:#fff; color:var(--ink); text-decoration:none; font-size:15px; line-height:1.5}
+.toys2 a, .toys2 .off{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:100%; box-sizing:border-box; padding:14px 16px; border-radius:12px; background:#fff; color:var(--ink); text-decoration:none; font-size:.9375rem; line-height:1.5}
 .toys2 a:hover{box-shadow:0 2px 4px rgba(60,40,10,.06), 0 20px 34px -18px rgba(60,40,10,.48)}
-.toys2 b{font:500 18px/1.3 var(--serif)}
-.toys2 small{font-size:13px; color:var(--muted)}
+.toys2 b{font:500 1.125rem/1.3 var(--serif)}
+.toys2 small{font-size:.8125rem; color:var(--muted)}
 .toys2 .go{margin-top:auto; color:var(--pen); font-weight:500; text-decoration:underline; text-underline-offset:4px}
 .toys2 .off .tag{margin-top:auto}
 .res{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
-.res li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); position:relative; padding:12px 16px 12px 46px; background:#fff; border-radius:12px; font-size:16px; line-height:1.5}
-.res li::before{content:"✓"; position:absolute; left:14px; top:12px; width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:500 14px/22px var(--body); text-align:center}
-.res b{font:500 17px/1.35 var(--serif)}
+.res li{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); position:relative; padding:12px 16px 12px 46px; background:#fff; border-radius:12px; font-size:1rem; line-height:1.5}
+.res li::before{content:"✓"; position:absolute; left:14px; top:12px; width:22px; height:22px; border-radius:50%; background:var(--mint); color:#0B5E47; font:500 .875rem/1.375rem var(--body); text-align:center}
+.res b{font:500 1.0625rem/1.35 var(--serif)}
 .pair2{display:grid; grid-template-columns:1.2fr 1fr; gap:14px; margin-top:14px}
-.pair2 > div{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:16px 18px; font-size:16px; line-height:1.5}
-.pair2 h3{font:500 20px/1.3 var(--serif); margin:0 0 8px}
+.pair2 > div{box-shadow:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22); background:#fff; border-radius:12px; padding:16px 18px; font-size:1rem; line-height:1.5}
+.pair2 h3{font:500 1.25rem/1.3 var(--serif); margin:0 0 8px}
 .pair2 ul{margin:0 0 10px; padding-left:20px}
 .pair2 li{margin:0 0 .4em}
 .pair2 .need{background:#F7F5F0; border-radius:8px; padding:10px 12px; margin:0 0 8px}
-.pair2 .note{font-size:14px; color:var(--muted); margin:0}
-.pair2 .go{font:500 19px/1.3 var(--serif); margin:0 0 4px}
+.pair2 .note{font-size:.875rem; color:var(--muted); margin:0}
+.pair2 .go{font:500 1.1875rem/1.3 var(--serif); margin:0 0 4px}
 @media (max-width:620px){ .mods, .toys2, .pair2{grid-template-columns:1fr} }
 @media (max-width:620px){ .steps{grid-template-columns:1fr} .toc li{grid-template-columns:44px 1fr} .toc .s{grid-column:2} }
 /* правила design-system.md: одна синяя кнопка, вторичная — контур; Literata 500, Onest ≤ 600; лид-фразы пунктов — 500; метка и значение по базовой линии */

@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/09-mde.html">
 <title>MDE: что мы способны заметить · A/B на пальцах</title>
 <meta name="description" content="Шаг 9 интерактивного курса «A/B на пальцах»: два колокола, мощность, минимальный заметный эффект, неравный сплит и тест «не хуже» — на пальцах и с калькулятором.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 </head>
 <body data-chapter="ab09" data-next="10-traps.html">
 <nav class="top" aria-label="Навигация">
@@ -82,7 +81,7 @@
 <section class="card" data-toy="power-bells" data-title="Два колокола" aria-label="Два колокола">
   <span class="step-tag">Игра</span>
   <h2>Мир, где эффекта нет, и мир, где он есть</h2>
-  <p>Серый колокол — какие разницы мы увидим, если фото ничего не меняют. Оранжевый — если фото правда дают эффект. Пунктир — граница значимости: дальше неё лежат 5% серого колокола. Зелёная часть оранжевого колокола — эксперименты, где мы эффект <b>заметим</b>.</p>
+  <p>Серый колокол — какие разницы мы увидим, если фото ничего не меняют. Синий — если фото правда дают эффект. Пунктир — граница значимости: дальше неё лежат 5% серого колокола. Зелёная часть синего колокола — эксперименты, где мы эффект <b>заметим</b>.</p>
   <div class="sheet c-white">
     <div class="big2" style="margin-top:0">
       <div class="sandbox" data-sandbox hidden><label class="field" for="eff">Ожидаемый эффект: <b id="eff-t" class="num">+2%</b><input type="range" id="eff" min="1" max="20" value="4" style="width:100%"></label></div>
@@ -351,8 +350,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611301"></script>
-<script src="course.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
+<script src="course.js?v=202611302"></script>
 <script>
 const TRAFFIC = [5000, 10000, 20000, 50000, 100000, 200000], BASE = [0.02, 0.05, 0.10, 0.20, 0.30], Z = 1.96, ZP = 0.84;
 const daysWord = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : [2,3,4].includes(d % 10) && ![12,13,14].includes(d % 100) ? 'дня' : 'дней');
@@ -420,7 +419,7 @@ function drawMde(){
   c.strokeStyle = COL.ctrl; c.lineWidth = 2.4; c.beginPath();
   for (let d = 1; d <= 42; d += 0.25){ d === 1 ? c.moveTo(X(d), Y(mdeAt(d))) : c.lineTo(X(d), Y(mdeAt(d))); } c.stroke();
   c.strokeStyle = COL.ink2; c.lineWidth = 1.5; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(L, Y(0.02)); c.lineTo(w - R, Y(0.02)); c.stroke(); c.setLineDash([]);
-  label(c, w < 520 ? 'MDE' : 'MDE при 20\u00a0000 человек в день', X(14), Y(mdeAt(14)) - 10, COL.ctrl, 'left');
+  label(c, w < 520 ? 'MDE' : 'MDE при 20\u00a0000 человек в день', X(14), Y(mdeAt(14)) - 10, COL.ctrlInk, 'left');
   label(c, 'Боб ждёт +2%', L + 6, Y(0.02) - 6, COL.ink2);
   label(c, 'тест близорук', X(3), Y(0.012), COL.ink2);
   [7, Math.ceil(daysFor(0.02, 20000, 0.10))].forEach(d => { c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(d), Y(mdeAt(d)), 5, 0, 2 * Math.PI); c.fill(); });

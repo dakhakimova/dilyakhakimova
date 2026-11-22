@@ -6,25 +6,24 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/04-noise.html">
 <title>Шум · Сигнал или шум</title>
 <meta name="description" content="Глава 4 бесплатного интерактивного курса «Сигнал или шум»: насколько скачет доля на n наблюдениях, коридор ±2 SD, закон больших чисел, рейтинг маленьких кафе и задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* стили только этой страницы */
 .xref > span{flex:1}
-.sd-log{font-size:14px; color:var(--muted); margin:8px 0 0; line-height:1.5}
+.sd-log{font-size:.875rem; color:var(--muted); margin:8px 0 0; line-height:1.5}
 .sd-log b{color:var(--ink); font-weight:600}
 .alarm-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
 </style>
 </head>
 <body data-course="signal" data-chapter="ch04" data-next="05-normal.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -150,7 +149,7 @@
   <span class="step-tag">Малый график</span>
   <h2>Рейтинг Боба: кто в топе?</h2>
   <figure class="art"><img loading="lazy" src="img/ch04-01-ranking.jpg" alt="Боб гордо показывает на верхнюю строчку рейтинга кафе, где стоит самое маленькое кафе" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: Боб у доски с рейтингом кафе</figcaption></figure>
-  <p>В сети 40 кафе. <b>У всех одинаковая конверсия — 10%</b>, отличается только число гостей за неделю: от 50 до 5000. Каждая точка — кафе; по горизонтали — гости, по вертикали — конверсия за неделю. Оранжевые — топ-3 рейтинга, красные — три последних.</p>
+  <p>В сети 40 кафе. <b>У всех одинаковая конверсия — 10%</b>, отличается только число гостей за неделю: от 50 до 5000. Каждая точка — кафе; по горизонтали — гости, по вертикали — конверсия за неделю. Синие — топ-3 рейтинга, красные — три последних.</p>
   <div class="sheet c-white">
     <div class="controls"><button class="btn" type="button" id="r-week">Новая неделя</button></div>
     <p class="chart-title">Конверсия 40 кафе против числа гостей</p>
@@ -321,7 +320,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -558,6 +557,6 @@ function ch04niceStep(range){ const raw = range / 5, e = Math.pow(10, Math.floor
   fresh();
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>

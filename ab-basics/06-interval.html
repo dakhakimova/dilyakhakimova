@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/06-interval.html">
 <title>Эффект — это вилка · A/B на пальцах</title>
 <meta name="description" content="Шаг 6 интерактивного курса «A/B на пальцах»: два колокола, разница между ними и почему результат эксперимента — это интервал, а не одно число.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 <style>
 /* шаг 6: таблица «выше нуля? × ниже порога?» — текстовые ячейки с переносом */
 .report.lak{table-layout:fixed}
@@ -298,7 +297,7 @@
       <button class="btn ghost" type="button" id="bs-reset" hidden>Сначала</button>
     </div>
     <div id="bs-last" hidden>
-      <p class="note">Вытянули (оранжевые с ×2, ×3 — чек попал несколько раз; бледные в нашей выборке — не попали ни разу). Среднее: <b id="bs-m1">—</b></p>
+      <p class="note">Вытянули (синие с ×2, ×3 — чек попал несколько раз; бледные в нашей выборке — не попали ни разу). Среднее: <b id="bs-m1">—</b></p>
       <div class="chips" id="bs-new"></div>
     </div>
     <div id="bs-hist-box" hidden>
@@ -365,8 +364,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611301"></script>
-<script src="course.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
+<script src="course.js?v=202611302"></script>
 <script>
 const P0 = 0.10, Z = 1.96;
 const NS = [10000, 25000, 50000, 100000, 200000, 400000];
@@ -394,7 +393,7 @@ function drawTwo(){
   bell(c, X, Y, P0, sc, COL.ctrl, COL.fillC); bell(c, X, Y, p1, st, COL.test, COL.fillT);
   // подписи прямо у вершин вместо легенды
   const nar = w < 520, tC = nar ? 'контроль' : 'контроль · 10%', tT = nar ? 'тест с фото' : 'тест с фото · 10.3%';
-  label(c, tC, Math.max(c.measureText(tC).width + 2, X(P0) - 4), 14, COL.ctrl, 'right');
+  label(c, tC, Math.max(c.measureText(tC).width + 2, X(P0) - 4), 14, COL.ctrlInk, 'right');
   label(c, tT, Math.min(X(p1) + 4, w - c.measureText(tT).width - 2), 14, COL.testInk, 'left');
   axisX(c, X, [0.097, 0.099, 0.101, 0.103, 0.105], h - 6, v => num(100 * v, 1) + '%');
   if (last1){

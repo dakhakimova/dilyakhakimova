@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/01-before-after.html">
 <title>До и после — не доказательство · A/B на пальцах</title>
 <meta name="description" content="Шаг 1 интерактивного курса «A/B на пальцах»: почему сравнение «до и после релиза» обманывает и зачем сравнивать группы одновременно.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 </head>
 <body data-chapter="ab01" data-next="02-salt-hash.html">
 <nav class="top" aria-label="Навигация">
@@ -197,7 +196,7 @@
   <div class="chat" data-toy-hide>
     <div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">На прошлой неделе пять наших кафе провалились по заказам. Запускаю там промо — посмотрим, вытянет ли.</p></div></div>
   </div>
-  <p>Ниже 20 кафе сети. Точка — сколько заказов на 100 гостей сделали в кафе на прошлой неделе. Кафе выстроены от худшего к лучшему. Оранжевые — пять худших, туда Боб отправил промо. Зелёные — пять лучших, там ничего не меняли.</p>
+  <p>Ниже 20 кафе сети. Точка — сколько заказов на 100 гостей сделали в кафе на прошлой неделе. Кафе выстроены от худшего к лучшему. Синие — пять худших, туда Боб отправил промо. Зелёные — пять лучших, там ничего не меняли.</p>
   <p><b>Важно:</b> в этой игре промо не делает ничего. У каждого кафе свой обычный уровень, а неделя к неделе он гуляет от погоды и случая.</p>
   <p>Что будет через неделю с пятью худшими?</p>
   <div class="choice" data-key="rg" role="group" aria-label="Твой прогноз">
@@ -247,14 +246,14 @@
     <div class="duo" id="duo" hidden>
       <div>
         <h3>Способ 1. До и после</h3>
-        <p class="note">Все заказы за неделю до релиза (синим) против недели после (оранжевым). Пунктир — среднее за неделю.</p>
+        <p class="note">Все заказы за неделю до релиза (коралловым) против недели после (синим). Пунктир — среднее за неделю.</p>
         <p class="chart-title">Заказы за неделю до релиза и неделю после</p>
         <canvas id="ch-ba" aria-label="Заказы за неделю до и неделю после релиза"></canvas>
         <p class="res">Показал: <b id="r-ba">…</b></p>
       </div>
       <div>
         <h3>Способ 2. Одновременно, по монетке</h3>
-        <p class="note">Те же 14 дней после релиза: половина гостей видит старое приложение (синим), половина — новую кнопку (оранжевым).</p>
+        <p class="note">Те же 14 дней после релиза: половина гостей видит старое приложение (коралловым), половина — новую кнопку (синим).</p>
         <p class="chart-title">Заказы двух групп по дням</p>
         <canvas id="ch-ab" aria-label="Заказы двух групп по дням"></canvas>
         <p class="res">Показал: <b id="r-ab">…</b></p>
@@ -399,8 +398,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=202611301"></script>
-<script src="course.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
+<script src="course.js?v=202611302"></script>
 <script>
 
 // Подписи серий: на широком экране — справа от концов линий (разводим, чтобы не слипались),
@@ -445,7 +444,7 @@ function init(D){
     c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(X(R), T); c.lineTo(X(R), T + ph); c.stroke(); c.setLineDash([]);
     c.fillStyle = COL.ink; c.fillText('новая кнопка', Math.min(X(R) - 84, w - 90), T + 14);
     // подписи прямо у линий вместо легенды
-    const items = [{y: Y(avg7(D.thisYear, B)), text: 'этот год', col: COL.ctrl}];
+    const items = [{y: Y(avg7(D.thisYear, B)), text: 'этот год', col: COL.ctrlInk}];
     if (showLast) items.push({y: Y(avg7(D.lastYear, B)), text: 'прошлый год', col: COL.ink2});
     seriesLabels(c, items, X(B), w, wide, 14);
   }

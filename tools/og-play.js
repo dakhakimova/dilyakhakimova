@@ -14,7 +14,7 @@ const D = load('ru'), RU = D.I18N.ru, t = k => D.I18N.typo('ru', RU[k]), X = (s,
 const cfg = {toys: D.toys};
 const only = process.argv.slice(2);
 const LV = {1: '#0E7E5F', 2: '#D7A928', 3: '#C9413A'};
-const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">';
+const FONTS = require('./fonts-inline.js')();
 // без доступа к Google Fonts — локальные шрифты из npm-пакетов @fontsource-variable/literata и /onest (если установлены:
 // npm i @fontsource-variable/literata @fontsource-variable/onest; ищутся в NODE_PATH и в OG_FONTS); ими же подменяется
 // запрос шрифтов в главе, чтобы подписи на холсте игры тоже были Onest

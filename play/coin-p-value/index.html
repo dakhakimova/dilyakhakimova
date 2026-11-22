@@ -22,12 +22,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/home.css?v=202611301">
-<link rel="stylesheet" href="/play/play.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/home.css?v=202611302">
+<link rel="stylesheet" href="/play/play.css?v=202611302">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -68,7 +67,7 @@
 
   <section class="play-what has-art" aria-labelledby="what-h">
     <h2 id="what-h">Что здесь происходит</h2>
-    <div class="what-body"><p>Каждая серия — 10 бросков честной монетки. Столбик показывает, в какой доле серий выпало столько орлов, серые точки — теория. Оранжевые столбики — результат Котейки и всё, что ещё необычнее: 9 и 10 орлов.</p><p>Доля таких серий — это p-value: как часто мир, где монетка честная, даёт перекос не меньше нашего. Кнопка «Считать в обе стороны» добавляет перекос к решкам, 0 и 1 орёл: так считают, если заранее не знаешь, в какую сторону может жульничать монетка. Запиши догадку и накопи тысячу серий.</p></div>
+    <div class="what-body"><p>Каждая серия — 10 бросков честной монетки. Столбик показывает, в какой доле серий выпало столько орлов, серые точки — теория. Синие столбики — результат Котейки и всё, что ещё необычнее: 9 и 10 орлов.</p><p>Доля таких серий — это p-value: как часто мир, где монетка честная, даёт перекос не меньше нашего. Кнопка «Считать в обе стороны» добавляет перекос к решкам, 0 и 1 орёл: так считают, если заранее не знаешь, в какую сторону может жульничать монетка. Запиши догадку и накопи тысячу серий.</p></div>
     <figure class="art"><img src="/signal/img/ch10-00-coin.jpg" alt="Котейка выкладывает на стол девять монет орлом вверх, Алиса смотрит с сомнением" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
   </section>
 
@@ -126,6 +125,6 @@
   </div>
 </footer>
 
-<script src="/play/play.js?v=202611301"></script>
+<script src="/play/play.js?v=202611302"></script>
 </body>
 </html>

@@ -8,44 +8,43 @@
 <meta name="description" content="Шпаргалка курса «A/B на пальцах» на один-два листа: что решить до запуска A/B-теста, как читать отчёт по пяти развилкам, «если…, то я…» и пословицы одиннадцати шагов.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="ab.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="ab.css?v=202611302">
 <style>
 .sheet{background:var(--paper); border-radius:16px; box-shadow:0 1px 3px rgba(36,34,31,.08); padding:28px 32px}
-.sheet h1{font:500 32px/1.2 var(--serif); margin:4px 0 8px}
-.idea{margin:0 0 18px; padding:10px 14px; border-radius:10px; background:var(--truth-bg); font:500 17px/1.45 var(--body)}
-.idea span{display:block; font-weight:400; color:var(--muted); font-size:15px}
-.sheet h2{font:500 21px/1.3 var(--serif); margin:22px 0 8px; padding-top:10px; border-top:1px solid var(--rule)}
-.sheet h2 small{font:400 14px/1.3 var(--body); color:var(--muted); margin-left:6px}
+.sheet h1{font:500 2rem/1.2 var(--serif); margin:4px 0 8px}
+.idea{margin:0 0 18px; padding:10px 14px; border-radius:10px; background:var(--truth-bg); font:500 1.0625rem/1.45 var(--body)}
+.idea span{display:block; font-weight:400; color:var(--muted); font-size:.9375rem}
+.sheet h2{font:500 1.3125rem/1.3 var(--serif); margin:22px 0 8px; padding-top:10px; border-top:1px solid var(--rule)}
+.sheet h2 small{font:400 .875rem/1.3 var(--body); color:var(--muted); margin-left:6px}
 .todo{list-style:none; margin:0; padding:0; display:grid; gap:6px}
-.todo li{position:relative; padding:0 0 0 28px; font-size:15px; line-height:1.45}
+.todo li{position:relative; padding:0 0 0 28px; font-size:.9375rem; line-height:1.45}
 .todo li::before{content:""; position:absolute; left:2px; top:3px; width:14px; height:14px; border:1.5px solid var(--ink); border-radius:3px}
 .todo li b{font-weight:600}
 .todo .line{display:block; height:20px; border-bottom:1px dotted rgba(36,34,31,.35); margin:0 0 2px}
 .tree{list-style:none; margin:8px 0; padding:0; display:grid; gap:6px; counter-reset:f}
-.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 12px 8px 42px; font-size:15px; line-height:1.4}
-.tree > li::before{content:counter(f); position:absolute; left:10px; top:8px; width:22px; height:22px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 12px/22px var(--body); text-align:center}
-.tree > li b{display:block; font:500 16px/1.35 var(--serif)}
-.tree .out{display:inline-block; margin:3px 6px 0 0; padding:1px 8px; border-radius:999px; font:600 12px/1.5 var(--body); background:#F3F1EC}
+.tree > li{counter-increment:f; position:relative; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 12px 8px 42px; font-size:.9375rem; line-height:1.4}
+.tree > li::before{content:counter(f); position:absolute; left:10px; top:8px; width:22px; height:22px; border-radius:50%; background:var(--ctrl-bg); color:#2C5F99; font:600 .75rem/1.375rem var(--body); text-align:center}
+.tree > li b{display:block; font:500 1rem/1.35 var(--serif)}
+.tree .out{display:inline-block; margin:3px 6px 0 0; padding:1px 8px; border-radius:999px; font:600 .75rem/1.5 var(--body); background:#F3F1EC}
 .dec{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:8px 0}
-.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 10px; font-size:13px; line-height:1.35; color:var(--muted)}
-.dec > div b{display:block; font:600 15px/1.3 var(--body); color:var(--ink); margin-bottom:2px}
+.dec > div{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:8px 10px; font-size:.8125rem; line-height:1.35; color:var(--muted)}
+.dec > div b{display:block; font:600 .9375rem/1.3 var(--body); color:var(--ink); margin-bottom:2px}
 .ifthen{list-style:none; margin:8px 0; padding:0; display:grid; gap:6px}
-.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:7px 12px; font-size:15px; line-height:1.4}
+.ifthen li{display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:10px; padding:7px 12px; font-size:.9375rem; line-height:1.4}
 .ifthen li span:first-child{color:var(--muted)}
 .ifthen li span:first-child::before{content:"Если "; font-weight:600; color:var(--ink)}
 .ifthen li span:last-child::before{content:"то я "; font-weight:600}
 .proverbs{margin:8px 0 0; padding:0; list-style:none; columns:2; column-gap:24px}
-.proverbs li{break-inside:avoid; display:grid; grid-template-columns:28px 1fr; font-size:15px; line-height:1.4; padding:3px 0}
-.proverbs .n{font:500 15px/1.4 var(--serif); color:var(--pen)}
+.proverbs li{break-inside:avoid; display:grid; grid-template-columns:28px 1fr; font-size:.9375rem; line-height:1.4; padding:3px 0}
+.proverbs .n{font:500 .9375rem/1.4 var(--serif); color:var(--pen)}
 .proverbs a{color:var(--ink); text-decoration:none}
 .proverbs a:hover{color:var(--pen)}
 .actions{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 0}
-.actions a.btn{font:500 15px/1 var(--body); padding:11px 16px; border-radius:999px; border:1px solid rgba(36,34,31,.3); color:var(--ink); text-decoration:none}
+.actions a.btn{font:500 .9375rem/1 var(--body); padding:11px 16px; border-radius:999px; border:1px solid rgba(36,34,31,.3); color:var(--ink); text-decoration:none}
 @media (max-width:620px){
   .sheet{padding:20px 16px}
   .dec{grid-template-columns:1fr 1fr}
@@ -54,25 +53,25 @@
 }
 @media print{
   @page{size:A4; margin:12mm 13mm}
-  body{background:#fff; font-size:12px; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  body{background:#fff; font-size:.75rem; -webkit-print-color-adjust:exact; print-color-adjust:exact}
   .top, .actions, .noprint{display:none !important}
   .chapter{max-width:none; padding:0}
   .sheet{box-shadow:none; padding:0; background:#fff; border-radius:0}
-  .sheet h1{font-size:22px; margin:0 0 4px}
+  .sheet h1{font-size:1.375rem; margin:0 0 4px}
   .kicker{margin:0}
-  .idea{font-size:13px; padding:6px 10px; margin:0 0 8px}
-  .idea span{font-size:12px}
-  .sheet h2{font-size:15px; margin:10px 0 4px; padding-top:6px; break-after:avoid}
-  .sheet h2 small{font-size:11px}
-  .todo{gap:3px} .todo li{font-size:12px; padding-left:22px} .todo li::before{width:11px; height:11px; top:2px}
+  .idea{font-size:.8125rem; padding:6px 10px; margin:0 0 8px}
+  .idea span{font-size:.75rem}
+  .sheet h2{font-size:.9375rem; margin:10px 0 4px; padding-top:6px; break-after:avoid}
+  .sheet h2 small{font-size:.6875rem}
+  .todo{gap:3px} .todo li{font-size:.75rem; padding-left:22px} .todo li::before{width:11px; height:11px; top:2px}
   .todo .line{height:14px}
-  .tree{gap:3px; margin:4px 0} .tree > li{font-size:12px; padding:4px 10px 4px 34px; break-inside:avoid} .tree > li b{font-size:13px}
-  .tree > li::before{width:18px; height:18px; font-size:10px; line-height:18px; top:5px; left:8px}
-  .tree .out{font-size:10.5px; margin-top:1px}
-  .dec{gap:4px; margin:4px 0} .dec > div{font-size:11px; padding:4px 8px} .dec > div b{font-size:12px}
-  .ifthen{gap:3px} .ifthen li{font-size:12px; padding:4px 10px}
-  .proverbs li{font-size:12px; padding:1px 0}
-  .proverbs .n{font-size:12px}
+  .tree{gap:3px; margin:4px 0} .tree > li{font-size:.75rem; padding:4px 10px 4px 34px; break-inside:avoid} .tree > li b{font-size:.8125rem}
+  .tree > li::before{width:18px; height:18px; font-size:.625rem; line-height:18px; top:5px; left:8px}
+  .tree .out{font-size:.6562rem; margin-top:1px}
+  .dec{gap:4px; margin:4px 0} .dec > div{font-size:.6875rem; padding:4px 8px} .dec > div b{font-size:.75rem}
+  .ifthen{gap:3px} .ifthen li{font-size:.75rem; padding:4px 10px}
+  .proverbs li{font-size:.75rem; padding:1px 0}
+  .proverbs .n{font-size:.75rem}
   .page2{break-before:page}
   a{color:inherit; text-decoration:none}
 }

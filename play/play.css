@@ -19,7 +19,7 @@
 .msg .ava{width:44px; height:44px; flex:none; border-radius:var(--r-pill); object-fit:cover; background:#E6EEF8; box-shadow:0 0 0 2px var(--white)}
 .msg .bubble{border-radius:18px 18px 18px 4px; padding:9px 14px 10px; background:#F3F1EC; box-shadow:var(--sh-1)}
 .msg .who{font:600 var(--fs-xs)/1.3 var(--body); color:var(--muted); margin-bottom:2px}
-.msg .say{font:400 17px/1.5 var(--body); color:var(--ink); margin:0}
+.msg .say{font:400 1.0625rem/1.5 var(--body); color:var(--ink); margin:0}
 .msg.bob .bubble{background:#E9F1E6}
 .msg.kot .bubble{background:#F8F0D9}
 .msg.alice{align-self:flex-end; flex-direction:row-reverse}
@@ -70,9 +70,16 @@
 @media (max-width:620px){
   .play{padding-top:var(--s-3)}
   .stage-frame{padding:var(--s-3) var(--s-3); margin:0 calc(-1 * var(--s-2))}
-  .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:16px}
+  .msg{max-width:100%} .msg .ava{width:36px; height:36px} .msg .say{font-size:1rem}
   .play-what.has-art{grid-template-columns:1fr}
   .play-what.has-art .art{grid-row:2}
   .play-out{padding:var(--s-4)}
   .crumbs li:last-child span{display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden}
 }
+/* фильтр по темам каталога: переключатели-таблетки; выбранный — тоном (--pen-soft, контур --pen, «✓»), не заливкой */
+.topic-filter{display:flex; flex-wrap:wrap; gap:var(--s-2); margin:0 0 var(--s-5)}
+.topic-filter button{font:var(--fw-medium) var(--fs-s)/1.2 var(--body); min-height:var(--btn-h); padding:var(--s-2) var(--s-4); border-radius:var(--r-pill); border:1.5px solid var(--line-strong); background:var(--white); color:var(--text-1); cursor:pointer}
+.topic-filter button:hover{background:var(--pen-hover); border-color:var(--pen)}
+.topic-filter button:active{background:var(--pen-press)}
+.topic-filter button[aria-pressed="true"]{background:var(--pen-soft); border-color:var(--pen); color:var(--pen)}
+.topic-filter button[aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}

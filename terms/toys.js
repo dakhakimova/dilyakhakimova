@@ -4,7 +4,7 @@
    Числа считаются вживую; формулы — те же, что в тексте страницы (Уэлч, U с поправкой на ничьи, χ² Пирсона, n для двух долей). */
 (function(){
   const NS = 'http://www.w3.org/2000/svg';
-  const C = {a: '#3D7DC4', b: '#E59157', red: '#C9413A', pen: '#23418A', ink: '#24221F', t3: '#5E5A53', line: '#CFC8BB', soft: '#ECE9E2', mint: '#0E7E5F'};
+  const C = {a: '#E8644A', b: '#23418A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t3: '#5E5A53', line: '#CFC8BB', soft: '#ECE9E2', mint: '#0E7E5F'};
   const RIGHT = {tt: 2, mw: 1, chi: 1, ss: 1};
   // числа: десятичная точка, тысячи через неразрывный пробел, % вплотную
   const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{4,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
@@ -64,9 +64,9 @@
     function draw(r){
       dots.replaceChildren(); ruler.replaceChildren();
       L(dots, 20, 140, 440, 140, C.t3); [300, 600, 900].forEach(v => T(dots, X(v), 136, nf(v) + ' ₽', {a: 'middle', size: 14}));
-      T(dots, 20, 18, 'A', {fill: '#2B5E96', w: 500}); T(dots, 20, 78, 'B', {fill: '#A85A24', w: 500});
+      T(dots, 20, 18, 'A', {fill: '#B8432B', w: 500}); T(dots, 20, 78, 'B', {fill: '#23418A', w: 500});
       if (r){ r.A.forEach((v, i) => Ci(dots, X(v), 30 + (i % 4) * 7, 3.2, C.a, {opacity: .7})); r.B.forEach((v, i) => Ci(dots, X(v), 90 + (i % 4) * 7, 3.2, C.b, {opacity: .7}));
-        L(dots, X(r.ma), 20, X(r.ma), 62, '#2B5E96', 3); L(dots, X(r.mb), 80, X(r.mb), 122, '#A85A24', 3); }
+        L(dots, X(r.ma), 20, X(r.ma), 62, '#B8432B', 3); L(dots, X(r.mb), 80, X(r.mb), 122, '#23418A', 3); }
       R(ruler, TX(-1.96), 14, TX(1.96) - TX(-1.96), 40, C.soft, {rx: 4}); L(ruler, 30, 54, 430, 54, C.t3);
       [-4, -2, 0, 2, 4].forEach(z => T(ruler, TX(z), 74, (z > 0 ? '+' : z < 0 ? '−' : '') + Math.abs(z), {a: 'middle', size: 14}));
       T(ruler, TX(1.96), 92, '1.96', {a: 'middle', size: 14}); T(ruler, TX(-1.96), 92, '−1.96', {a: 'middle', size: 14});
@@ -108,12 +108,12 @@
     function drawLine(){ const [A, B] = SETS[k], X = v => 20 + Math.min(v, 1400) / 1400 * 410; line.replaceChildren();
       L(line, 20, 104, 430, 104, C.t3); [0, 500, 1000].forEach(v => T(line, X(v), 100, nf(v), {a: 'middle', size: 14}));
       const put = (arr, y, col) => { const seen = {}; arr.forEach(v => { seen[v] = (seen[v] || 0) + 1; Ci(line, X(v), y - (seen[v] - 1) * 8, 4.5, col, {opacity: .9}); if (v > 1400) T(line, X(v) - 8, y + 4, nf(v) + ' ₽ →', {a: 'end', size: 14, fill: C.red}); }); };
-      T(line, 4, 34, 'A', {fill: '#2B5E96', w: 500, size: 15}); T(line, 4, 76, 'B', {fill: '#A85A24', w: 500, size: 15});
+      T(line, 4, 34, 'A', {fill: '#B8432B', w: 500, size: 15}); T(line, 4, 76, 'B', {fill: '#23418A', w: 500, size: 15});
       put(A, 34, C.a); put(B, 76, C.b); }
     function drawGrid(upto){ const [A, B] = SETS[k], c = 20, x0 = 80, y0 = 30; grid.replaceChildren();
       const sa = A.slice().sort((x, y) => x - y), sb = B.slice().sort((x, y) => x - y);
-      sb.forEach((b, j) => { if (j % 2 === 0) T(grid, x0 + j * c + c / 2, y0 - 8, b > 9999 ? '30к' : nf(b), {a: 'middle', size: 12, fill: '#A85A24'}); });
-      sa.forEach((a, i) => { T(grid, x0 - 6, y0 + i * c + 14, nf(a), {a: 'end', size: 12, fill: '#2B5E96'});
+      sb.forEach((b, j) => { if (j % 2 === 0) T(grid, x0 + j * c + c / 2, y0 - 8, b > 9999 ? '30к' : nf(b), {a: 'middle', size: 12, fill: '#23418A'}); });
+      sa.forEach((a, i) => { T(grid, x0 - 6, y0 + i * c + 14, nf(a), {a: 'end', size: 12, fill: '#B8432B'});
         sb.forEach((b, j) => { const done = i <= upto, w = b > a, tie = b === a;
           R(grid, x0 + j * c + 1, y0 + i * c + 1, c - 2, c - 2, !done ? '#F7F5F0' : w ? C.a : tie ? '#B9CBE3' : C.soft, {rx: 3, opacity: done && w ? .85 : 1}); }); }); }
     function stats(on){ const [A, B] = SETS[k], r = test(A, B), g = i => body.querySelector('#' + i);

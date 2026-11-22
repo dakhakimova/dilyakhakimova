@@ -6,35 +6,34 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/07-distribution.html">
 <title>Случайная величина и распределение · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 7 бесплатного интерактивного курса «Вероятность на пальцах»: случайная величина, таблица «значение → вероятность», доска Гальтона, биномиальное и геометрическое распределения, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* стили только шага 7 (кандидаты в free.css — в notes-C.md) */
 .rng-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin:10px 0 4px}
-.rng-row label{display:flex; flex-direction:column; gap:2px; font-size:15px; color:var(--muted)}
+.rng-row label{display:flex; flex-direction:column; gap:2px; font-size:.9375rem; color:var(--muted)}
 .rng-row label b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
 .rng-row input[type=range]{height:44px; margin:0; width:240px; max-width:100%}
 .order-card{display:grid; grid-template-columns:1fr; gap:6px; background:#FBF7EC; border-radius:12px; padding:12px 16px; margin:10px 0}
 .order-card .items{display:flex; flex-wrap:wrap; gap:6px}
-.order-card .items span{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:999px; padding:4px 10px; font-size:15px}
-.order-card .meta{font-size:15px; color:var(--muted)}
+.order-card .items span{background:#fff; border:1px solid rgba(36,34,31,.12); border-radius:999px; padding:4px 10px; font-size:.9375rem}
+.order-card .meta{font-size:.9375rem; color:var(--muted)}
 .lenses{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:8px 0}
-.lenses > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:13px; color:var(--muted); line-height:1.35}
-.lenses b{display:block; font:500 24px/1.2 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
-@media (max-width:620px){ .lenses{grid-template-columns:1fr 1fr 1fr} .lenses b{font-size:20px} }
+.lenses > div{background:#fff; border:1px solid rgba(36,34,31,.10); border-radius:10px; padding:8px 10px; font-size:.8125rem; color:var(--muted); line-height:1.35}
+.lenses b{display:block; font:500 1.5rem/1.2 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
+@media (max-width:620px){ .lenses{grid-template-columns:1fr 1fr 1fr} .lenses b{font-size:1.25rem} }
 .xtab.dist td, .xtab.dist th{min-width:56px}
 .xtab-wrap{overflow-x:auto; max-width:100%}
 </style>
 </head>
 <body data-course="probability" data-chapter="p07" data-next="08-mean-spread.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -386,7 +385,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -614,6 +613,6 @@ const TXT = {
   })();
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>

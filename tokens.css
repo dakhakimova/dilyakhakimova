@@ -1,7 +1,7 @@
 /* Общие токены типографики, цвета и ритма — подключается ПЕРВЫМ на всех страницах сайта
    (главная, «Об авторе», лендинги, account, главы курсов, /play/). Правила и примеры — design-system.md.
 
-   Шрифты (ссылка Google Fonts одинаковая везде):
+   Шрифты — свои файлы /fonts/fonts.css (подключается перед tokens.css; Google Fonts не используем):
      Literata 400 / 500 — заголовки, вопросы, цифры-герои; 500 — максимум (600/700 у Literata не подключаем);
      Onest 400 / 500 / 600 — интерфейс и текст; 600 — максимум; 700 не подключён и не используется
      (иначе браузер рисует «фальшивый жирный»);
@@ -16,40 +16,48 @@
   --ink:var(--text-1); --muted:var(--text-3);
   --line:#E3DED4; --line-strong:#CFC8BB;
   --pen:#23418A; --pen-dark:#1A3270; --pen-soft:#E6ECF7;
+  /* слои состояния у контурных кнопок (решение Дили, 22.11.2026): наведение ≈8% --pen, нажатие ≈14% */
+  --pen-hover:rgba(35,65,138,.08); --pen-press:rgba(35,65,138,.14);
   --coral:#E8644A; --coral-600:#A63D28; --accent:var(--coral); --accent-ink:var(--coral-600);
   /* метка-«бровь»: коралл-текст. На столе (#E9E5DE) — #A63D28 (5,0 : 1); #B8432B — только на бумаге/белом (5,1 : 1) */
   --label-ink:var(--coral-600);
-  --ctrl:#3D7DC4; --ctrl-bg:#E6EEF8; --test:#E59157; --test-ink:#A85A24;
+  /* группы A/B (решение Дили, 22.11.2026): A — контроль — коралл, B — тест — синий (тот же, что --pen: кнопки и ссылки).
+     Коралл линиями и заливками (3.3 : 1 к белому), текстом — только --ctrl-ink. */
+  --ctrl:#E8644A; --ctrl-ink:#B8432B; --ctrl-bg:#FCE8E3; --test:#23418A; --test-ink:#23418A; --test-bg:#E6ECF7;
   --l1:#0E7E5F; --l2:#D7A928; --l3:#C9413A;
   --butter:#FBF1C9; --mint:#E2F1E7; --sky:#E1EBF7; --rose:#FBE4E4;
   --good-ink:#0B5E47; --soon-ink:#6A5410; --paid-ink:#1E3A78;
   --c-prob:#D9A441; --c-ab:#E8644A; --c-sig:#3D7DC4; --c-st:#2F8F83; --c-abm:#7A3E6B; --c-cau:#6B7A8F;
 
   /* — шрифты и веса — */
-  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --serif:"Literata", "Literata fallback", Georgia, "Times New Roman", serif;
   --script:"Marck Script", "Segoe Script", cursive;
-  --body:"Onest", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --body:"Onest", "Onest fallback", "Segoe UI", system-ui, sans-serif;
   --fw-regular:400;
   --fw-medium:500;       /* Literata-акцент (заголовок карточки, вопрос), кнопки и ссылки-действия в Onest */
   --fw-strong:600;       /* Onest: один жирный элемент на блок; в Literata не бывает */
 
-  /* — шкала кеглей (px): 13 · 15 · 18 · 20 · 24 · 30 · 36 · 48 · 60 — */
-  --t-13:13px; --t-15:15px; --t-18:18px; --t-20:20px; --t-24:24px; --t-30:30px; --t-36:36px; --t-48:48px; --t-60:60px;
+  /* — шкала кеглей в rem (при 16 px в браузере: 13 · 15 · 18 · 20 · 24 · 30 · 36 · 48 · 60 px); px — только у рамок — */
+  --t-13:.8125rem; --t-15:.9375rem; --t-18:1.125rem; --t-20:1.25rem; --t-24:1.5rem; --t-30:1.875rem; --t-36:2.25rem; --t-48:3rem; --t-60:3.75rem;
   /* роли (адаптивные): */
   --fs-xs:var(--t-13);                       /* метки, подписи, сноски */
   --fs-s:var(--t-15);                        /* вторичный текст, кнопки, меню */
   --fs-m:var(--t-18);                        /* основной текст (телефон — 17) */
   --fs-l:var(--t-20);                        /* лид, заголовок карточки */
-  --fs-h3:clamp(20px,2.2vw,24px);            /* заголовок подблока */
-  --fs-h2:clamp(26px,3.2vw,36px);            /* заголовок блока */
-  --fs-h1:clamp(36px,5.2vw,60px);            /* заголовок страницы */
+  /* заголовки — плавно от 320 до 1280 px ширины (Latin, «Better Web Typography») */
+  --fs-h3:clamp(1.25rem, 1.146rem + .442vw, 1.5rem);     /* заголовок подблока: 20 → 24 */
+  --fs-h2:clamp(1.625rem, 1.366rem + 1.105vw, 2.25rem);  /* заголовок блока: 26 → 36 */
+  --fs-h1:clamp(2.25rem, 1.629rem + 2.652vw, 3.75rem);   /* заголовок страницы: 36 → 60 */
 
   /* — межстрочные и трекинг — */
-  --lh-body:1.55; --lh-snug:1.35; --lh-head:1.2; --lh-tight:1.1;
+  --lh-body:1.5;   /* телефон; от 48em — 1.55 (ниже) */
+  --lh-snug:1.35; --lh-head:1.2; --lh-tight:1.1;
   --tr-display:-.02em;  /* h1 */
   --tr-head:-.01em;     /* h2 */
   --tr-label:.08em;     /* метка капслоком */
-  --measure:38em;       /* длина строки текста */
+  --measure:36em;       /* длина строки текста: ~70 знаков Onest (решение Дили, 22.11.2026) */
+  --measure-quiz:32em;  /* вопросы квиза и подписи */
 
   /* — отступы 4…256 и ритм — */
   --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px; --s-11:192px; --s-12:256px;
@@ -68,6 +76,8 @@
   --btn-h:44px; --btn-fw:var(--fw-medium);
   color-scheme: light;
 }
+/* межстрочный: короче строка — меньше нужно (телефон 1.5, от 48em — 1.55) */
+@media (min-width:48em){ :root{--lh-body:1.55} }
 
 /* жирный — только 600 (Onest), внутри заголовков и вопросов в Literata — 500 */
 b, strong{font-weight:var(--fw-strong)}
@@ -94,3 +104,12 @@ p, li{text-wrap:pretty}
 h1, h2, h3{text-wrap:balance}
 .eyebrow, .kicker, .step-tag, .verdict, .warm-tag, .scary-tag{font-feature-settings:"case"}
 @media (max-width:30em){ p{hyphens:auto; -webkit-hyphens:auto} }
+/* неразрывный дефис: U+2011 нет ни в Onest, ни в Literata — пишем обычный дефис внутри <span class="nw"> */
+.nw{white-space:nowrap}
+/* код в тексте — того же кегля, что текст, выровнен по высоте строчных (вместо .88em) */
+code, kbd, samp{font-family:var(--mono); font-size:1em; font-size-adjust:.5}
+/* Кнопки (решение Дили, 22.11.2026; гайд, «Кнопки и действия»): полная заливка — только у главной кнопки.
+   Выбранный вариант переключателя — тоном: подложка --pen-soft, контур --pen 1.5 px, текст --pen, «✓» перед словом.
+   Нажатие видно всегда: у главной — сдвиг на 1 px, у контурной — подложка 14%. При prefers-reduced-motion без анимации. */
+.btn:active:not(:disabled):not(.ghost), button.btn:active:not(:disabled):not(.ghost){transform:translateY(1px)}
+.btn-pressed-check::before, [aria-pressed="true"].btn.ghost::before, .nsel button[aria-pressed="true"]::before, .seg [aria-pressed="true"]::before{content:"✓\00a0"; font-weight:600}

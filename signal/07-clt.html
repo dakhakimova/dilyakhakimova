@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/07-clt.html">
 <title>ЦПТ в деле · Сигнал или шум</title>
 <meta name="description" content="Глава 7 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка среднего σ/√n, центральная предельная теорема на четырёх панелях, когда «киты» мешают колоколу, первая вилка для среднего, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* стили только этой страницы */
 .nsel button{min-height:44px}
@@ -24,7 +23,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch07" data-next="08-traps.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -215,7 +214,7 @@
       <button class="btn ghost" type="button" id="ci-1000">+1000</button>
     </div>
     <p class="chart-title">Последние 40 вилок: 95% доверительные интервалы среднего</p>
-    <canvas id="cv-ci" role="img" aria-label="Последние 40 вилок: синие накрыли настоящее среднее, красные промахнулись"></canvas>
+    <canvas id="cv-ci" role="img" aria-label="Последние 40 вилок: коралловые накрыли настоящее среднее, красные промахнулись"></canvas>
     <div class="big2">
       <div class="ctrl"><b id="ci-last">—</b><span>последняя вилка, ₽</span></div>
       <div class="truth"><b id="ci-cov">—</b><span>вилок накрыли μ = 500 ₽</span></div>
@@ -418,7 +417,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -605,7 +604,7 @@ const CH7 = (function(){
       c.globalAlpha = a; c.fillStyle = on ? COL.test : COL.ctrl; c.fillRect(gx + j * cs + 1, gy + i * cs + 1, cs - 2, cs - 2); c.globalAlpha = 1;
       if (cs > 26){ label(c, String(i + j + 2), gx + j * cs + cs / 2, gy + i * cs + cs / 2 + 4, on ? COL.ink : '#fff', 'center'); }
     }
-    for (let k = 0; k < 6; k++){ label(c, String(k + 1), gx + k * cs + cs / 2, gy - 6, COL.testInk, 'center'); label(c, String(k + 1), gx - 10, gy + k * cs + cs / 2 + 4, COL.ctrl, 'center'); }
+    for (let k = 0; k < 6; k++){ label(c, String(k + 1), gx + k * cs + cs / 2, gy - 6, COL.testInk, 'center'); label(c, String(k + 1), gx - 10, gy + k * cs + cs / 2 + 4, COL.ctrlInk, 'center'); }
     // гистограмма сумм
     const sums = new Array(11).fill(0); for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) sums[i + j] += P[i] * P[j];
     const hx = mob ? 12 : gx + side + 40, hy = mob ? gy + side + 30 : gy, hw = mob ? w - 24 : w - hx - 10, hh = mob ? h - hy - 22 : side, top = Math.max(...sums) * 1.12, bw = hw / 11;
@@ -766,6 +765,6 @@ const CH7 = (function(){
   gen();
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>

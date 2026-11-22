@@ -6,15 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/09-aa.html">
 <title>A/A-тест · Сигнал или шум</title>
 <meta name="description" content="Глава 9 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка разности двух групп, стенд A/A, ровные p-value без эффекта, тренд, которого нет, 20 метрик в A/A, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611301"></script>
+<script src="/play/bridge.js?v=202611302"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tokens.css?v=202611301">
-<link rel="stylesheet" href="/signal/book.css?v=202611301">
-<link rel="stylesheet" href="/signal/free.css?v=202611301">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611302">
+<link rel="stylesheet" href="/tokens.css?v=202611302">
+<link rel="stylesheet" href="/signal/book.css?v=202611302">
+<link rel="stylesheet" href="/signal/free.css?v=202611302">
 <style>
 /* стили только этой страницы */
 .nsel button{min-height:44px}
@@ -24,7 +23,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch09" data-next="10-ab-test.html">
-<script src="/signal/progress.js?v=202611301"></script>
+<script src="/signal/progress.js?v=202611302"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">Вероятность · статистика · A/B</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -348,7 +347,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611301"></script>
+<script src="/signal/book.js?v=202611302"></script>
 <script>
 const TXT = {
   ru: {
@@ -362,7 +361,7 @@ const TXT = {
     pvOK: 'Гистограмма ровная: каждый столбик около 5' + '%, и p < 0.05 тоже примерно у 5' + '%. Так выглядит честный тест без эффекта.',
     pvBug: 'С дублями у нуля вырос пик: p < 0.05 уже примерно у 13' + '% тестов. Платформа считает каждого второго гостя дважды и думает, что данных больше, чем есть.',
     pvEmpty: 'Нажми «+1000 A/A»',
-    tr: (out, n, fin) => n ? 'Из ' + int(n) + ' A/A хоть раз за 14 дней вышли за трубу <b>' + share(out / n, 0) + '</b>, а в последний день за ней — ' + share(fin / n, 0) + '. Каждый день смотреть и останавливаться при первом выходе — это ложная тревога примерно в каждом пятом A/A.' : 'Оранжевый путь — тот, на который смотрит Боб. Видишь «тренд»? Это A/A: эффекта нет. Нажми «Посчитать 1000 тестов», чтобы узнать, как часто пути выходят за трубу.',
+    tr: (out, n, fin) => n ? 'Из ' + int(n) + ' A/A хоть раз за 14 дней вышли за трубу <b>' + share(out / n, 0) + '</b>, а в последний день за ней — ' + share(fin / n, 0) + '. Каждый день смотреть и останавливаться при первом выходе — это ложная тревога примерно в каждом пятом A/A.' : 'Синий путь — тот, на который смотрит Боб. Видишь «тренд»? Это A/A: эффекта нет. Нажми «Посчитать 1000 тестов», чтобы узнать, как часто пути выходят за трубу.',
     day: d => d + ' дн.',
     m20stat: (runs, avg, any, two) => 'A/A: ' + int(runs) + '. Красных в среднем ' + num(avg, 2) + '; хотя бы одна — в ' + share(any, 0) + ' тестов, две и больше — в ' + share(two, 0) + '.',
     m20v: corr => corr ? 'Связанные метрики: «все серые» бывает чаще (около 64' + '%), но красные приходят пачками — по три-пять сразу. Формула 1 − 0.95²⁰ здесь не работает.' : 'Независимые метрики: хотя бы одна красная — около 64' + '% A/A, две и больше — около 26' + '%. Одна-две красные метрики в A/A — норма.',
@@ -498,6 +497,6 @@ const AA9 = (function(){
   paint();
 })();
 </script>
-<script src="/signal/py.js?v=202611301"></script>
+<script src="/signal/py.js?v=202611302"></script>
 </body>
 </html>
