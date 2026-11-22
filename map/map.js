@@ -138,11 +138,15 @@ function init(M){
 
   // ---------- «Весь путь» текстом: шесть курсов по порядку ----------
   const pl = $('path-list');
+  // Одна колонка: станции 1–6 сверху вниз на линии-маршруте; после последнего бесплатного курса линия бледнее (li.dim).
+  // Метки статуса — общие для сайта (бесплатно · скоро · позже), у платных рядом цена price.paid, как на главной.
+  const lastFree = FULL ? FULL.path.reduce((a, p, i) => course[p.course].status === 'free' ? i : a, -1) : -1;
+  const pathTag = s => s === 'free' ? M.status.free : t(s === 'soon' ? 'ui.soon' : 'ui.later');
   if (pl && FULL) pl.innerHTML = FULL.path.map((p, i) => { const c = course[p.course];
     const pre = c.prereq ? (c.prereq.none ? tx(c.prereq.none) : t('ui.pre.short', {list: tx(c.prereq.know.join('; '))})) : '';
-    return `<li style="--course:var(${c.color})"><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a>`
-      + ` <span class="tag ${c.status}">${tx((c.when || M.status[c.status]))}</span>${p.optional ? ` <span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
-      + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why ? ' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
+    return `<li${lastFree >= 0 && i >= lastFree ? ' class="dim"' : ''}><span class="pn" aria-hidden="true">${i + 1}</span><div><p class="pt"><a href="${c.url}">${tx(c.title)}</a></p>`
+      + `<p class="chips">${c.status !== 'free' ? `<span class="price"><b>${t('price.paid')}</b></span>` : ''}<span class="tag ${c.status}">${tx(pathTag(c.status))}</span>${p.optional ? `<span class="tag opt">${t('ui.optional')}</span>` : ''}</p>`
+      + `<p class="pg">${tx(c.lead.charAt(0).toUpperCase() + c.lead.slice(1))}.${p.why ?' ' + tx(p.why.charAt(0).toUpperCase() + p.why.slice(1)) + '.' : ''}</p>`
       + (pre ? `<p class="pp">${pre}</p>` : '') + `</div></li>`; }).join('');
   const mb = $('mine-btn');
   if (mb){ mb.hidden = !PLAN; mb.addEventListener('click', () => { setRoute('mine', true); $('metro-h').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }); }
