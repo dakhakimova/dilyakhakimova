@@ -220,7 +220,7 @@ Book.paintScore(false);
 Object.assign(Book, {
   // «Красивый» шаг оси: 1, 2, 5 × 10^k, около n делений на диапазон range.
   niceStep(range, n = 5){ const raw = range / n; if (!(raw > 0)) return 1; const e = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / e; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * e; },
-  // Гамма-распределение (Марсалья — Цанг): форма k > 0, масштаб theta; для k < 1 — gamma(k + 1) · U^(1/k).
+  // Гамма-распределение (Марсалья–Цанг): форма k > 0, масштаб theta; для k < 1 — gamma(k + 1) · U^(1/k).
   gamma(k, theta = 1){
     if (k < 1) return Book.gamma(k + 1, theta) * Math.pow(1 - rand(), 1 / k);
     const d = k - 1 / 3, cc = 1 / Math.sqrt(9 * d);

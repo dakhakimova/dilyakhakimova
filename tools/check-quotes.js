@@ -23,4 +23,6 @@ for (const f of files){
   });
 }
 console.log(bad ? `кавычки: ${bad} ошибок` : 'кавычки: ок');
-process.exit(bad ? 1 : 0);
+// без аргументов заодно — тире между фамилиями по всему сайту («Манн–Уитни», пара 119a): tools/check-names.js
+const names = process.argv.slice(2).length ? 0 : require('child_process').spawnSync(process.execPath, [path.join(__dirname, 'check-names.js')], {stdio: 'inherit'}).status;
+process.exit(bad || names ? 1 : 0);
