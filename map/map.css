@@ -3,10 +3,7 @@
    карточки целей «Выбери цель», схема метро (map/metro.js) и панель станции.
    Уже 1024 px схема — линейный вид выбранной цели сверху вниз (или схема целиком с кнопкой «Приблизить»). */
 
-/* первый экран — колонка текста по центру страницы, текст в ней по левому краю */
-.m-hero{padding-top:var(--s-7)}
-.m-hero h1{font-size:clamp(2.375rem,4.6vw,3.75rem); line-height:1.06}
-.m-hero .sub{margin-top:var(--s-3)}
+/* первый экран — как на главной: .hero, .hero-text, .art.hero-art (home.css), текст слева, иллюстрация с улицей справа; на узком экране картинка под текстом */
 
 /* «Выбери цель»: карточки целей в стиле карточек главной — один шаблон и одна высота; ряды полные (6 целей — 3 × 2),
    если целей 7 (есть «Твой маршрут»), неполный последний ряд стоит по центру. «Все навыки» и строка-итог — под сеткой */
@@ -170,8 +167,6 @@
 .term{background:var(--sunk); color:var(--warm-900); border-radius:var(--r-pill); padding:2px 8px}
 .panel-side .terms{font-size:var(--fs-xs); margin-top:var(--s-3)}
 
-/* «Пройти тест» и «Показать мой маршрут» на первом экране */
-.m-acts{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin-top:var(--s-5)}
 .metro-full{font:500 var(--fs-s)/1.4 var(--body); color:var(--ink); margin:0 0 var(--s-2)}
 /* номер курса в шапке колонки графа и «что нужно заранее» */
 .pre{font-size:.75rem; line-height:1.4; color:var(--warm-700); margin-top:var(--s-2)}
