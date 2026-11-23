@@ -137,6 +137,38 @@
         tab.innerHTML = `<thead><tr><th scope="col">${tr('bx.i3.t.g')}</th><th scope="col">${tr('bx.i3.t.e')}</th><th scope="col">${tr('bx.i3.t.r')}</th><th scope="col">${tr('bx.i3.t.d')}</th><th scope="col">${tr('bx.i3.t.c')}</th></tr></thead>`
           + `<tbody>${row('A', a)}${row('B', b)}</tbody><tfoot><tr><th scope="row" colspan="4">${tr('bx.i3.t.sum')}</th><td>${f1(chi2)}</td></tr></tfoot>`;
       }
+      // χ² → доля честных тестов, где χ² не меньше: кривая хвоста, порог SRM и наше значение
+      const cs = box.querySelector('svg.chi');
+      if (cs){
+        cs.textContent = '';
+        const XM = 16, L = 44, R = 428, B = 118, T = 18, THR = 12.12;
+        const px = x => L + x / XM * (R - L), py = q => B - q * (B - T);
+        const S = x => x <= 0 ? 1 : erfc(Math.sqrt(x / 2));
+        for (const q of [0, 0.5, 1]){
+          el('line', {x1: L, y1: py(q), x2: R, y2: py(q), stroke: C.line, 'stroke-width': q ? 1 : 1.5}, cs);
+          const yt = el('text', {x: L - 8, y: py(q) + 4, 'text-anchor': 'end', class: 'ax'}, cs); yt.textContent = Math.round(q * 100) + '%';
+        }
+        let d = '';
+        for (let i = 0; i <= 240; i++){ const x = XM * i / 240; d += (i ? 'L' : 'M') + px(x).toFixed(1) + ' ' + py(S(x)).toFixed(1); }
+        el('path', {d, fill: 'none', stroke: C.ctrl, 'stroke-width': 2.5}, cs);
+        for (const v of [0, 4, 8, 12, 16]){ const tt = el('text', {x: px(v), y: B + 20, 'text-anchor': 'middle', class: 'ax'}, cs); tt.textContent = v; }
+        const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = tr('bx.i3.ax');
+        // опорные точки: χ² = 3.84 → 5%, порог SRM 12.1 → 1 из 2000
+        el('line', {x1: px(THR), y1: T + 26, x2: px(THR), y2: B, stroke: C.loss, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, cs);
+        const tl = el('text', {x: px(THR), y: T + 20, 'text-anchor': 'middle', class: 'sm halo'}, cs); tl.textContent = tr('bx.i3.thr');
+        const v = chi2 < 10 ? chi2.toFixed(2) : chi2 < 100 ? chi2.toFixed(1) : NF.format(Math.round(chi2));
+        if (chi2 <= XM){
+          el('circle', {cx: px(chi2), cy: py(S(chi2)), r: 6, fill: C.ink}, cs);
+          const right = chi2 > 6, q = S(chi2), X = px(chi2) + (right ? -12 : 12), Y = Math.max(T + 34, py(q) - 30);
+          const qs = q >= 0.1 ? pct(q) : q >= 0.001 ? pct(q, 1) : tr('bx.i3.rare');
+          const l1 = el('text', {x: X, y: Y, 'text-anchor': right ? 'end' : 'start', class: 'lb halo'}, cs); l1.textContent = tr('bx.i3.ours', {v});
+          const l2 = el('text', {x: X, y: Y + 18, 'text-anchor': right ? 'end' : 'start', class: 'sm halo'}, cs); l2.textContent = tr('bx.i3.share2', {p: qs});
+        } else {
+          el('path', {d: `M${R - 2} ${B - 16} l10 6 l-10 6 z`, fill: C.ink}, cs);
+          const ol = el('text', {x: R - 8, y: B - 24, 'text-anchor': 'end', class: 'lb halo'}, cs); ol.textContent = tr('bx.i3.far', {v});
+        }
+        cs.setAttribute('aria-label', tr('bk.i3.dist') + '. ' + tr('bx.i3.far', {v}));
+      }
       // полоса: доля A и B, засечка 50 %
       svg.textContent = '';
       const W = 424, x0 = 8, wa = W * a / (a + b);
