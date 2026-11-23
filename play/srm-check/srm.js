@@ -70,7 +70,6 @@
   }
   Object.values(F).forEach(f => f.addEventListener('input', () => { f.classList.remove('ex'); calc(); }));
   [F.a, F.b].forEach(f => f.addEventListener('blur', () => { const n = parseN(f.value); if (n != null) f.value = nf(n); }));
-  $('srm-reset').addEventListener('click', () => { F.a.value = nf(EX.a); F.b.value = nf(EX.b); F.wa.value = EX.wa; F.wb.value = EX.wb; Object.values(F).forEach(f => f.classList.add('ex')); calc(); $('srm-note').textContent = 'Подставила пример.'; });
   $('srm-copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); $('srm-note').textContent = 'Ссылка скопирована.'; } catch(e) { $('srm-note').textContent = location.href; } });
   calc();
 })();

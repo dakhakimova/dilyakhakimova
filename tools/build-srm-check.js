@@ -62,7 +62,7 @@ ${chrome.header('play', false)}
       <p class="ss-big" id="srm-big"></p>
       <p class="ss-when" id="srm-p"></p>
     </div>
-    <p class="ss-acts"><button type="button" class="btn-text" id="srm-reset">Подставить пример</button><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
+    <p class="ss-acts"><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
   </section>
   <section class="play-out"><p class="kicker">Почему так</p>
     <div class="chi-f" role="img" aria-label="хи-квадрат равен сумме по всем группам: разница между «пришло» и «ждали» в квадрате, делённая на «ждали»">
