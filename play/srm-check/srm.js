@@ -65,7 +65,7 @@
     res.hidden = false; $('srm-copy').hidden = false; chart(chi2);
     // полоса долей, как в разборе Кохави: контроль синий, тест красный, пунктир — где граница по плану
     const bs = $('srm-bar'); bs.textContent = '';
-    const W = 424, x0 = 8, wA = W * v.a / tot;
+    const W = 424, x0 = 8, MIN = 6, wA = v.a ? Math.min(W - (v.b ? MIN : 0), Math.max(MIN, W * v.a / tot)) : 0;   // тонкую группу всё равно видно
     el('rect', {x: x0, y: 8, width: Math.max(0, wA), height: 26, rx: 5, fill: C.ctrl}, bs);
     el('rect', {x: x0 + wA, y: 8, width: Math.max(0, W - wA), height: 26, rx: 5, fill: '#E8644A'}, bs);
     el('line', {x1: x0 + W * sa, y1: 2, x2: x0 + W * sa, y2: 40, stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, bs);
