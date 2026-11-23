@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611311">
-<link rel="stylesheet" href="/tokens.css?v=202611311">
-<link rel="stylesheet" href="/home.css?v=202611311">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611311">
-<link rel="stylesheet" href="/terms/terms.css?v=202611311">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611312">
+<link rel="stylesheet" href="/tokens.css?v=202611312">
+<link rel="stylesheet" href="/home.css?v=202611312">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611312">
+<link rel="stylesheet" href="/terms/terms.css?v=202611312">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Регрессия к среднему","item":"https://dilyakhakimova.com/terms/regression-to-the-mean/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/regression-to-the-mean/#term","name":"Регрессия к среднему","description":"Регрессия к среднему — это когда после необычно хорошего или плохого результата следующий оказывается ближе к обычному, без всякой причины. Так бывает всегда, когда в результат подмешана случайность.","url":"https://dilyakhakimova.com/terms/regression-to-the-mean/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Регрессия к среднему простыми словами","description":"Регрессия к среднему: почему после рекордной недели приходит обычная, а худшие кафе «исправляются» без всякого промо. Формула, точечная схема и игра.","url":"https://dilyakhakimova.com/terms/regression-to-the-mean/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/regression-to-the-mean/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Корреляция результатов двух контрольных — 0.6. Ученик написал первую на 2σ выше среднего. Какого результата ждать на второй?","acceptedAnswer":{"@type":"Answer","text":"Примерно на 0.6 · 2 = 1.2σ выше среднего: заметно лучше среднего, но хуже, чем в первый раз. Это не значит, что ученик расслабился."}},{"@type":"Question","name":"У очень высоких отцов сыновья в среднем ниже отцов. Значит ли это, что через несколько поколений все станут одного роста?","acceptedAnswer":{"@type":"Answer","text":"Нет. У очень высоких сыновей отцы тоже в среднем ниже сыновей: регрессия работает в обе стороны. Разброс роста в популяции при этом остаётся прежним."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -72,6 +72,7 @@
     <p class="t-read"><span class="lbl">Как читать формулу.</span> «Ожидаемое отклонение во втором замере — это первое отклонение, умноженное на корреляцию». При ρ = 0.5 в среднем уходит половина «рекорда», при ρ = 1 (без случайности) не уходит ничего.</p>
   </section>
 
+
   <section class="t-sec" aria-labelledby="cafe-h">
     <h2 id="cafe-h">Выговор курьерам сработал или нет?</h2>
     <div class="chat" role="group" aria-label="Пример из кафе">
@@ -104,7 +105,6 @@
   </section>
 
 
-
   <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">Когда регрессии к среднему нет?</h2>
     <p>Регрессии нет, если в результате нет случайности: при ρ = 1 крайние так и остаются крайними. И она касается только тех, кого выбрали за крайний результат. Если курьер медленный всегда, потому что ездит на окраины, он медленным и останется.</p>
@@ -127,8 +127,8 @@
   <section class="t-sec" aria-labelledby="faq-h">
     <h2 id="faq-h">Что про регрессию к среднему спросят на собеседовании?</h2>
     <details class="t-faq">
-      <summary><span class="q">Корреляция результатов двух контрольных — 0.6. Ученик написал первую на <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> выше среднего. Какого результата ждать на второй?</span><span class="show">Показать ответ</span></summary>
-      <p>Примерно на 0.6 · 2 = <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.2</span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> выше среднего: заметно лучше среднего, но хуже, чем в первый раз. Это не значит, что ученик расслабился.</p>
+      <summary><span class="q">Корреляция результатов двух контрольных — 0.6. Ученик написал первую на 2<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> выше среднего. Какого результата ждать на второй?</span><span class="show">Показать ответ</span></summary>
+      <p>Примерно на 0.6 · 2 = 1.2<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> выше среднего: заметно лучше среднего, но хуже, чем в первый раз. Это не значит, что ученик расслабился.</p>
     </details>
     <details class="t-faq">
       <summary><span class="q">У очень высоких отцов сыновья в среднем ниже отцов. Значит ли это, что через несколько поколений все станут одного роста?</span><span class="show">Показать ответ</span></summary>
@@ -161,6 +161,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611311"></script>
+<script src="/terms/terms.js?v=202611312"></script>
 </body>
 </html>

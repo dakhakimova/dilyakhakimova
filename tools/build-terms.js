@@ -31,7 +31,7 @@ function greek(html){
       .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
       .replace(/σ\/√n/g, () => put('\\sigma/\\sqrt{n}'))
       .replace(/(^|[\s\u00a0(])([xX])(?=[\s\u00a0,;:.)]|$)/g, (_, a, v) => a + put(v))
-      .replace(/([±+−-]?\d*(?:\.\d+)?)([μσ])(²)?/g, (m, n, g, sq) => put((n || '').replace('−', '-') + TEX[g] + (sq ? '^2' : '')));
+      .replace(/([μσ])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // короткое слово или знак перед формулой не остаётся в конце строки
     x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
     return x.replace(/\u0001(\d+)\u0002/g, (_, i) => KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}));
@@ -220,6 +220,7 @@ ${top[s] ? `  <figure class="viz t-top">
     <p class="t-read"><span class="lbl">${t('terms.read.h')}.</span> ${typo(x.read)}</p>
   </section>
 
+${top[s] ? vizSec : ''}
   <section class="t-sec" aria-labelledby="cafe-h">
     <h2 id="cafe-h">${typo(hq.cafe)}</h2>
     <div class="chat" role="group" aria-label="${attr(t('terms.cafe.h'))}">${x.chat.map(msg).join('')}
@@ -231,7 +232,6 @@ ${top[s] ? `  <figure class="viz t-top">
     ${toyBlock}  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
-${top[s] ? vizSec : ''}
 
   <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">${typo(hq.lim)}</h2>
