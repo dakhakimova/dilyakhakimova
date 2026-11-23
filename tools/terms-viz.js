@@ -513,7 +513,7 @@ stu['normal-distribution'] = L => {
 // sum[slug](L) — сумма двух независимых нормальных (Диля, 23.11): готовка N(8, 2²) + путь N(22, σ²); кнопки σ пути = 1, 2, 4, 6.
 const sum = {};
 sum['normal-distribution'] = L => {
-  const X = v => 20 + v / 55 * 420, base = 210, Y = d => base - d * 760;
+  const X = v => 20 + v / 55 * 420, base = 210, Y = d => base - d / phi(0) * (base - 34);  // шкала по самому высокому пику (путь при σ₂ = 1), ничего не обрезается
   const nd = (m, s) => v => phi((v - m) / s) / s;
   const crv = f => { const p = []; for (let v = 0; v <= 55; v += .2) p.push([X(v), Y(f(v))]); return p; };
   const out = [path(crv(nd(8, 2)), C.mint, 2.5), tx(X(8), Y(nd(8, 2)(8)) - 8, L.cook, {a: 'middle', size: 14, fill: C.mint, w: 500, bg: true})];
