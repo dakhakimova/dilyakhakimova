@@ -136,10 +136,14 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <div class="seg" role="group" data-i18n-attr="aria-label:bk.i3.n" aria-label="Пользователей в тесте"><button type="button" class="btn ghost" data-n="10000" aria-pressed="false">10 000</button><button type="button" class="btn ghost" data-n="100000" aria-pressed="false">100 000</button><button type="button" class="btn ghost" data-n="1000000" aria-pressed="true">1 000 000</button></div>
     <label class="rng"><span data-i18n="bk.i3.loss">Потеряли в группе B</span> <output data-o="loss"></output><input type="range" min="0" max="3" step="0.1" value="1.4" data-k="loss"></label>
     <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
+    <table class="chi-tab" aria-live="polite"></table>
     <p class="big2"><b data-o="p"></b> <span data-i18n="bx.i3.p">p-value проверки SRM</span></p>
     <p class="verdict" aria-live="polite"></p>
-    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали по плану сплита. Здесь план 50/50, но критерий тот же для любого: при 90/10 ждём 90% и 10% от всех. В Microsoft проверка SRM — стандартная часть любого эксперимента. Раз её делают в каждом тесте, порог берут строже обычного: p < 0.0005 вместо 0.05, иначе то и дело были бы ложные срабатывания.</p>
+    <p class="figcap" data-i18n="bk.i3.cap">План — 50/50, но критерий тот же для любого сплита: при 90/10 ждём 90% и 10% от всех. В Microsoft проверка SRM — стандартная часть любого эксперимента. Раз её делают в каждом тесте, порог берут строже обычного: p < 0.0005 вместо 0.05, иначе то и дело были бы ложные срабатывания.</p>
   </div>
+  <h3 class="bk-sub" data-i18n="bk.i3.how.h">Как работает χ² на пальцах</h3>
+  <p data-i18n="bk.i3.how.p1">Критерий сравнивает реальность с ожиданием, как в таблице выше. Ожидание — сколько из всех пришедших должно было попасть в каждую группу по плану сплита: при 50/50 это половина от общего числа, поэтому в таблице не 500 000, а чуть меньше. Для каждой группы берём разницу «пришло минус ждали», возводим в квадрат, чтобы плюс в одной группе и минус в другой не сократились, и делим на «ждали». Деление нужно, чтобы недостача в 100 человек много значила в тесте на тысячу и почти ничего — в тесте на миллион. Сумма по группам и есть χ².</p>
+  <p data-i18n="bk.i3.how.p2">Если группы делились честно, в 95 тестах из 100 χ² меньше 4. Порог SRM p < 0.0005 соответствует χ² больше 12: при честном делении так бывает реже, чем один раз на две тысячи тестов.</p>
   <div class="cell" data-i18n-attr="data-title:bk.i3.code;data-note:bk.i3.code.note" data-title="Проверка SRM χ²-критерием" data-note="Поменяй n_a и n_b на числа из своего теста. Если сплит не 50/50, задай долю контроля: например, при 90/10 — srm_check(n_a, n_b, share_a=0.9).">
 <textarea spellcheck="false">import numpy as np
 from math import erfc, sqrt

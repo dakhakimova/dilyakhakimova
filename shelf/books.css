@@ -198,3 +198,13 @@
 .sw.rest{background:linear-gradient(90deg,#CFC8BB,#E3A29C)}
 .legend-row [hidden]{display:none}
 .seg-lb{font-size:var(--fs-s); color:var(--text-2); margin:0 0 var(--s-2)}
+
+/* SRM: таблица «ждали — пришло» (таблицы по дизайн-системе 2.16: разделители 1px --line, ячейки 12×16) */
+.chi-tab{width:100%; max-width:560px; border-collapse:collapse; margin:var(--s-4) 0 var(--s-3); font-size:var(--fs-s); font-variant-numeric:tabular-nums}
+.chi-tab th, .chi-tab td{padding:8px 12px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap}
+.chi-tab th:first-child{text-align:left}
+.chi-tab thead th{font-weight:var(--fw-medium); color:var(--text-2)}
+.chi-tab tfoot th, .chi-tab tfoot td{font-weight:var(--fw-medium); border-bottom:0}
+.chi-tab tfoot th{text-align:right}
+@media (max-width:520px){.chi-tab th, .chi-tab td{padding:6px 6px}}
+.bk-sub{font:var(--fw-medium) var(--fs-l)/1.3 var(--body); margin:var(--s-5) 0 var(--s-2)}

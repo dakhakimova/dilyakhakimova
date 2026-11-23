@@ -128,6 +128,15 @@
       const bad = p < 0.0005, mid = !bad && p < 0.05;
       verdict.className = 'verdict ' + (bad ? 'bad' : mid ? 'warn' : 'good');
       verdict.textContent = tr(bad ? 'bx.i3.bad' : mid ? 'bx.i3.mid' : 'bx.i3.ok');
+      // таблица «ждали — пришло»: из неё и складывается χ²
+      const tab = box.querySelector('.chi-tab');
+      if (tab){
+        const sg = x => (x > 0 ? '+' : x < 0 ? '−' : '') + NF.format(Math.abs(Math.round(x)));
+        const f1 = x => x < 10 ? x.toFixed(2) : x < 100 ? x.toFixed(1) : NF.format(Math.round(x));
+        const row = (g, r) => `<tr><th scope="row">${g}</th><td>${NF.format(Math.round(e))}</td><td>${NF.format(r)}</td><td>${sg(r - e)}</td><td>${f1((r - e) ** 2 / e)}</td></tr>`;
+        tab.innerHTML = `<thead><tr><th scope="col">${tr('bx.i3.t.g')}</th><th scope="col">${tr('bx.i3.t.e')}</th><th scope="col">${tr('bx.i3.t.r')}</th><th scope="col">${tr('bx.i3.t.d')}</th><th scope="col">${tr('bx.i3.t.c')}</th></tr></thead>`
+          + `<tbody>${row('A', a)}${row('B', b)}</tbody><tfoot><tr><th scope="row" colspan="4">${tr('bx.i3.t.sum')}</th><td>${f1(chi2)}</td></tr></tfoot>`;
+      }
       // полоса: доля A и B, засечка 50 %
       svg.textContent = '';
       const W = 424, x0 = 8, wa = W * a / (a + b);
