@@ -61,7 +61,7 @@
   // подсветка и кнопки ячеек — свои стили, чтобы ячейка выглядела одинаково на любой странице (книги, курсы)
   if (!document.getElementById('py-cell-css')){
     const st = document.createElement('style'); st.id = 'py-cell-css';
-    st.textContent = '.cell .ed{position:relative; background:#1F2430} .cell .ed pre.hl{position:absolute; inset:0; margin:0; padding:14px 16px; background:transparent; color:#E6E9EF; font:400 .875rem/1.55 var(--mono); tab-size:4; white-space:pre; overflow:hidden; pointer-events:none; min-height:0} .cell .ed pre.hl code{display:block; font:inherit; white-space:pre} .cell .ed textarea{position:relative; background:transparent; color:transparent; caret-color:#E6E9EF; -webkit-text-fill-color:transparent} .cell .ed textarea::selection{background:rgba(120,160,255,.35)} .py-k{color:#C3A6FF} .py-s{color:#A6D98C} .py-c{color:#8D96A8; font-style:italic} .py-n{color:#F2C46B} .py-b{color:#7FD1C8} .py-f{color:#F0A17A} .py-e{color:#F2C46B} .cell-bar .copy.done{background:#2F6B4F}';
+    st.textContent = '.cell .ed{position:relative; background:#1F2430} .cell .ed pre.hl{position:absolute; inset:0; margin:0; padding:14px 16px; background:transparent; color:#E6E9EF; font:400 .875rem/1.55 var(--mono); tab-size:4; white-space:pre; overflow:hidden; pointer-events:none; min-height:0} .cell .ed pre.hl code{display:block; font:inherit; white-space:pre} .cell .ed textarea{position:relative; background:transparent; color:transparent; caret-color:#E6E9EF; -webkit-text-fill-color:transparent} .cell .ed textarea::selection{background:rgba(120,160,255,.35)} .py-k{color:#C3A6FF} .py-s{color:#A6D98C} .py-c{color:#8D96A8; font-style:italic} .py-n{color:#F2C46B} .py-b{color:#7FD1C8} .py-f{color:#F0A17A} .py-e{color:#F2C46B} .cell-bar .copy.done{background:#2F6B4F} .cell .ed textarea, .cell .ed pre.hl, .cell .ed pre.hl code{white-space:pre-wrap !important; overflow-wrap:anywhere; word-break:normal} .cell .ed textarea{overflow:hidden !important; resize:none}';
     document.head.append(st);
   }
 
@@ -78,8 +78,10 @@
     ta.parentNode.insertBefore(ed, ta); ed.append(hlPre, ta);
     const paintHL = () => { hlCode.innerHTML = pyHL(ta.value); hlCode.style.transform = 'translate(' + (-ta.scrollLeft) + 'px,' + (-ta.scrollTop) + 'px)'; };
     ta.addEventListener('input', paintHL); ta.addEventListener('scroll', paintHL);
-    const fitHL = () => { const cs = getComputedStyle(ta); hlPre.style.padding = cs.padding; hlPre.style.font = cs.font; };
-    fitHL(); addEventListener('resize', fitHL);
+    // длинные строки переносятся, а не прокручиваются вбок; поле растёт по высоте под текст
+    const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
+    const fitHL = () => { const cs = getComputedStyle(ta); hlPre.style.padding = cs.padding; hlPre.style.font = cs.font; grow(); };
+    fitHL(); addEventListener('resize', fitHL); addEventListener('load', fitHL); ta.addEventListener('input', grow);
     paintHL();
 
     const head = document.createElement('div');
@@ -127,7 +129,7 @@
           solBox.hidden = false;
           { const t = document.createElement('textarea'); t.innerHTML = sol; solBox.innerHTML = '<pre class="cell-sol-code">' + pyHL(t.value) + '</pre>'; }
           const put = Object.assign(document.createElement('button'), {type:'button', className:'cell-more', textContent:'Вставить решение в ячейку'});
-          put.addEventListener('click', () => { const t = document.createElement('textarea'); t.innerHTML = sol; ta.value = t.value; paintHL(); ta.rows = Math.max(5, ta.value.split('\n').length + 1); try { localStorage.setItem(storeKey, ta.value); } catch(e) {} ta.focus(); });
+          put.addEventListener('click', () => { const t = document.createElement('textarea'); t.innerHTML = sol; ta.value = t.value; paintHL(); ta.rows = Math.max(5, ta.value.split('\n').length + 1); grow(); try { localStorage.setItem(storeKey, ta.value); } catch(e) {} ta.focus(); });
           solBox.append(put);
         }
         shown++; label();
@@ -171,7 +173,7 @@
 
     run.addEventListener('click', () => exec(false));
     if (check) check.addEventListener('click', () => exec(true));
-    reset.addEventListener('click', () => { ta.value = original; paintHL(); try { localStorage.removeItem(storeKey); } catch(e) {} out.textContent = ''; });
+    reset.addEventListener('click', () => { ta.value = original; paintHL(); grow(); try { localStorage.removeItem(storeKey); } catch(e) {} out.textContent = ''; });
     ta.addEventListener('input', () => { try { localStorage.setItem(storeKey, ta.value); } catch(e) {} });
     ta.addEventListener('keydown', e => {
       if (e.key === 'Tab'){
