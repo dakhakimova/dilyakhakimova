@@ -65,7 +65,6 @@ ${chrome.header('play', false)}
     <div class="ss-form">
       <label class="ss-f"><span id="ss-mde-l">Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
-      <label class="ss-f"><span>Всего в эксперименте</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек, тест и контроль вместе</i></label>
     </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
     <details class="ss-more"><summary>Дополнительно: в какую сторону ждём эффект, доли групп</summary>

@@ -33,6 +33,7 @@
   if (location.search) history.replaceState(null, '', location.pathname);
   const touched = new Set(fromLink ? Object.keys(DEF) : []);   // пока поле не трогали, в нём бледный пример
   const fields = {base: $('ss-base'), mean: $('ss-mean'), sd: $('ss-sd'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic'), split: $('ss-split')};
+  Object.keys(fields).forEach(k => { if (!fields[k]) delete fields[k]; });   // поля, которых нет на странице (всего в эксперименте — только в итоге)
   const fmt = {base: v => nf(v, 2) + '%', mean: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), sd: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), mde: v => nf(v, 1) + '%', pow: v => nf(v, 1) + '%', n: v => nf(v), traffic: v => nf(v), split: v => nf(v, 1) + '%'};
   const heard = {};
   const read = k => {
