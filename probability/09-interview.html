@@ -21,6 +21,11 @@
 .calc output{font:500 1rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
 .calc output.err{font:400 .875rem/1.3 var(--body); color:var(--muted); white-space:normal}
 .calc:focus-within{border-color:var(--ctrl)}
+.calc-ic{flex:none; width:26px; height:26px}
+.calc-ic .body{fill:var(--ctrl)}
+.calc-ic .scr{fill:#fff}
+.calc-ic circle{fill:#fff}
+.calc-ic .eq{fill:#E8644A}
 /* стили только шага 9 (кандидаты в free.css — в notes-C.md) */
 .task-cond{font:400 1.25rem/1.5 var(--serif); margin:10px 0 6px}
 .timer{display:flex; align-items:center; gap:10px; margin:6px 0 4px; font:500 .875rem/1.2 var(--body); color:var(--muted); font-variant-numeric:tabular-nums}
@@ -525,7 +530,7 @@ const TXT = {
   const fmt = v => Number.isInteger(v) ? String(v) : String(+v.toPrecision(6));
   document.querySelectorAll('.task .task-cond').forEach((cond, i) => {
     const box = document.createElement('div'); box.className = 'calc';
-    box.innerHTML = '<input id="calc-' + i + '" aria-label="Калькулятор" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="посчитать: 6/216, 7^3, 7!, sqrt(7), C(10, 9)"><output aria-live="polite"></output>';
+    box.innerHTML = '<svg class="calc-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="3" class="body"/><rect x="7" y="5.5" width="10" height="4" rx="1" class="scr"/><circle cx="8.5" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><circle cx="8.5" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><rect x="14.3" y="15.8" width="2.4" height="2.4" rx=".6" class="eq"/></svg><input id="calc-' + i + '" aria-label="Калькулятор" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="7^3, 7!, sqrt(7), C(10, 9)"><output aria-live="polite"></output>';
     cond.after(box);
     const inp = box.querySelector('input'), out = box.querySelector('output');
     inp.addEventListener('input', () => {
