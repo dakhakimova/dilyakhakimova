@@ -8,7 +8,8 @@
   const el = (n, at = {}, p) => { const e = document.createElementNS(SVG, n); for (const k in at) e.setAttribute(k, at[k]); if (p) p.appendChild(e); return e; };
   const C = {ctrl: '#23418A', loss: '#C9413A', ink: '#24221F', mute: '#5E5A53', line: '#E3DED4'};
   const GCOL = ['#23418A', '#E8644A', '#C29A48', '#0E7E5F', '#8A5A7A', '#4F8F8A', '#9A8F84', '#5E5A53'];
-  const NAME = i => i === 0 ? 'Контроль' : i === 1 ? 'Тест' : 'Тест ' + i;
+  // при двух группах — «Тест», при трёх и больше — «Тест 1», «Тест 2»…
+  const NAME = (i, k = rows.length) => i === 0 ? 'Контроль' : k <= 2 ? 'Тест' : 'Тест ' + i;
   const EX = [[500000, 50], [493000, 50], [497000, 50]];
   const MAXG = 8;
   const nf = x => String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -30,11 +31,12 @@
   // ---------- строки групп ----------
   const box = $('srm-rows-in');
   let rows = [];
+  const renameAll = () => rows.forEach((x, i) => { x.r.querySelector('.srm-name b').textContent = NAME(i); x.inN.previousElementSibling.textContent = NAME(i) + ': пришло пользователей'; x.inW.previousElementSibling.textContent = NAME(i) + ': доля в плане'; const d = x.r.querySelector('.srm-del'); if (d) d.setAttribute('aria-label', 'Убрать группу ' + NAME(i)); });
   function addRow(n = '', w = ''){
     if (rows.length >= MAXG) return;
     const i = rows.length, r = document.createElement('div'); r.className = 'srm-row';
     const ex = EX[i] || EX[1];
-    r.innerHTML = `<span class="srm-name"><i style="background:${GCOL[i]}"></i>${NAME(i)}</span>`
+    r.innerHTML = `<span class="srm-name"><i style="background:${GCOL[i]}"></i><b>${NAME(i)}</b></span>`
       + `<label><span class="vh">${NAME(i)}: пришло пользователей</span><input class="input ss-in srm-n" inputmode="numeric" autocomplete="off" placeholder="${nf(ex[0])}"></label>`
       + `<label><span class="vh">${NAME(i)}: доля в плане</span><input class="input ss-in srm-w" inputmode="decimal" autocomplete="off" placeholder="${ex[1]}"></label>`
       + (i >= 2 ? `<button type="button" class="srm-del" aria-label="Убрать группу ${NAME(i)}">×</button>` : '<span></span>');
@@ -47,9 +49,10 @@
     });
     inN.addEventListener('blur', () => { const v = parseN(inN.value); if (v != null) inN.value = nf(v); });
     const del = r.querySelector('.srm-del');
-    if (del) del.addEventListener('click', () => { const keep = rows.filter(x => x.r !== r).map(x => [x.inN.value, x.inW.value]); box.textContent = ''; rows = []; keep.forEach(([a, b]) => addRow(parseN(a) ?? '', b)); calc(); });
+    if (del) del.addEventListener('click', () => { const keep = rows.filter(x => x.r !== r).map(x => [x.inN.value, x.inW.value]); box.textContent = ''; rows = []; keep.forEach(([a, b]) => addRow(parseN(a) ?? '', b)); renameAll(); calc(); });
     rows.push({r, inN, inW});
     $('srm-add').hidden = rows.length >= MAXG;
+    renameAll();
   }
   $('srm-add').addEventListener('click', () => { addRow(); calc(); rows[rows.length - 1].inN.focus(); });
 
