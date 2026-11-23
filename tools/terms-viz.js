@@ -447,7 +447,7 @@ err['normal-distribution'] = L => {
 // clt[slug](L) — ЦПТ на чеках (Диля, 23.11): кнопки n = 1, 2, 5, 30; гистограмма средних n чеков и колокол с той же серединой и шириной σ/√n.
 const clt = {};
 clt['normal-distribution'] = L => {
-  const NS = [1, 2, 5, 30, 200], lo = 0, hi = 2000;
+  const NS = [1, 2, 5, 30, 100], lo = 0, hi = 2000;
   const m = 500 * Math.exp(.32), sd = m * Math.sqrt(Math.exp(.64) - 1);
   const X = v => 20 + (v - lo) / (hi - lo) * 420, base = 210, top = 30;
   const r = rng(20261123), gz = gauss(r), out = [];
