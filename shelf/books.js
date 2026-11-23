@@ -33,8 +33,15 @@
     const svg = box.querySelector('svg'), out = box.querySelector('.bk-out');
     const RATES = {young: [1 / 3, 1 / 3], mature: [0.15, 0.35]}; // [помогла, навредила], остальное — ноль
     let mode = 'young', tot = {w: 0, n: 0};
-    const cup = (x, kind) => {
-      const g = el('g', {transform: `translate(${x},8) scale(.86)`}, svg);
+    const bar = box.querySelector('.bk-share');
+    const share = () => {
+      const segs = mode === 'young'
+        ? [['win', 33.3, tr('bx.i1.young.w')], ['zero', 33.4, tr('bx.i1.young.z')], ['loss', 33.3, tr('bx.i1.young.l')]]
+        : [['win', 15, tr('bx.i1.mat.w')], ['rest', 85, tr('bx.i1.mat.rest')]];
+      bar.innerHTML = segs.map(([k, w, txt]) => `<span class="s-${k}" style="flex:${w}">${txt}</span>`).join('');
+    };
+    const cup = (x, y, kind) => {
+      const g = el('g', {transform: `translate(${x},${y}) scale(.86)`}, svg);
       el('path', {d: 'M2 10 h30 l-3 32 a4 4 0 0 1 -4 4 h-16 a4 4 0 0 1 -4 -4 z', fill: C[kind]}, g);
       el('path', {d: 'M32 16 h3 a6 6 0 0 1 0 12 h-4', fill: 'none', stroke: C[kind], 'stroke-width': 3}, g);
       const sym = {win: '✓', zero: '–', loss: '✕'}[kind];
@@ -44,12 +51,13 @@
     function run(){
       svg.textContent = '';
       const [pw, pl] = RATES[mode], res = [];
-      for (let i = 0; i < 10; i++){ const u = Math.random(); res.push(u < pw ? 'win' : u < pw + pl ? 'loss' : 'zero'); }
+      for (let i = 0; i < 20; i++){ const u = Math.random(); res.push(u < pw ? 'win' : u < pw + pl ? 'loss' : 'zero'); }
       res.sort((a, b) => ['win', 'zero', 'loss'].indexOf(a) - ['win', 'zero', 'loss'].indexOf(b));
-      res.forEach((k, i) => cup(4 + i * 43.6, k));
+      res.forEach((k, i) => cup(4 + (i % 10) * 43.6, 4 + Math.floor(i / 10) * 56, k));
+      share();
       const c = k => res.filter(x => x === k).length;
-      tot.w += c('win'); tot.n += 10;
-      out.textContent = tr('bx.i1.sum', {w: c('win'), z: c('zero'), l: c('loss')}) + ' ' + tr('bx.i1.tot', {w: tot.w, n: tot.n});
+      tot.w += c('win'); tot.n += 20;
+      out.textContent = tot.n > 20 ? tr('bx.i1.tot', {w: tot.w, n: tot.n}) : '';
     }
     box.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
       mode = b.dataset.mode; tot = {w: 0, n: 0};
