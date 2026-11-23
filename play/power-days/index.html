@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-play.js) из play/toys-*.json и i18n/play*.js: правьте их, а не этот файл. -->
 <script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace("/ab-basics/08-errors.html?toy=power-days" + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Тест длиннее — что уменьшится: ложные тревоги или пропуски?","item":"https://dilyakhakimova.com/play/power-days/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Игры","item":"https://dilyakhakimova.com/play/"},{"@type":"ListItem","position":2,"name":"Тест длиннее — что уменьшится: ложные срабатывания или пропуски?","item":"https://dilyakhakimova.com/play/power-days/"}]}</script>
 <meta name="robots" content="noindex, follow">
-<title>Тест длиннее — что уменьшится: ложные тревоги или пропуски? · симулятор · Диля Хакимова</title>
-<meta name="description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3% и доля ложных тревог.">
+<title>Тест длиннее — что уменьшится: ложные срабатывания или пропуски? · симулятор · Диля Хакимова</title>
+<meta name="description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3% и доля ложных срабатываний.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/power-days/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/play/power-days/">
-<meta property="og:title" content="Тест длиннее — что уменьшится: ложные тревоги или пропуски? · симулятор · Диля Хакимова">
-<meta property="og:description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3% и доля ложных тревог.">
+<meta property="og:title" content="Тест длиннее — что уменьшится: ложные срабатывания или пропуски? · симулятор · Диля Хакимова">
+<meta property="og:description" content="Длина теста от одного дня до четырёх недель: как меняются шанс заметить настоящие +3% и доля ложных срабатываний.">
 <meta property="og:image" content="https://dilyakhakimova.com/play/og/power-days.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -47,14 +47,14 @@
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap play" data-toy="power-days" data-frame="/ab-basics/08-errors.html?toy=power-days"
-  data-share-title="Тест длиннее — что уменьшится: ложные тревоги или пропуски?" data-share-text="Продакт хочет держать A/B-тест неделю «для скорости». Если фича даёт +3% к конверсии, как часто такой тест её заметит? Угадай — и подвигай длину теста"
+  data-share-title="Тест длиннее — что уменьшится: ложные срабатывания или пропуски?" data-share-text="Продакт хочет держать A/B-тест неделю «для скорости». Если фича даёт +3% к конверсии, как часто такой тест её заметит? Угадай — и подвигай длину теста"
   data-s-copied="Ссылка скопирована">
-  <h1>Тест длиннее — что уменьшится: ложные тревоги или пропуски?</h1>
+  <h1>Тест длиннее — что уменьшится: ложные срабатывания или пропуски?</h1>
   <p class="play-meta">Из курса <a href="/ab-basics/">«A/B на пальцах»</a> · <span class="nw">Начальный уровень</span><span class="play-count" data-count-for="power-days" data-show-from="0" hidden></span></p>
 
   <div class="chat" role="group" aria-label="Сцена">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Если держать тест дольше, он станет точнее во всём: и пустышек меньше, и хорошее не упустим.</p></div></div>
-    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это две разные ошибки. Ложная тревога — выкатить пустышку, пропуск — не заметить работающую фичу.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это две разные ошибки. Ложное срабатывание — выкатить пустышку, пропуск — не заметить работающую фичу.</p></div></div>
     <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу. Каждый день в каждую группу приходит 10 000 гостей. Дней бери сколько хочешь.</p></div></div>
     <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Подвигай длину теста и посмотри, какая ошибка от неё зависит, а какая нет.</p></div></div>
   </div>
@@ -63,7 +63,7 @@
     <figure class="art play-art"><img src="/ab-basics/img/ab08-00-two-errors.jpg" alt="Боб на распутье между двумя табличками: «катить» и «не катить»" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
 
   <div class="stage-frame">
-    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=power-days" title="Игра: Тест длиннее — что уменьшится: ложные тревоги или пропуски?" style="height:700px" allow="clipboard-write"></iframe>
+    <iframe id="toy-frame" src="/ab-basics/08-errors.html?toy=power-days" title="Игра: Тест длиннее — что уменьшится: ложные срабатывания или пропуски?" style="height:700px" allow="clipboard-write"></iframe>
     <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/08-errors.html#card-5">Открой её в курсе</a>.</p>
   </div>
 
@@ -72,7 +72,7 @@
     <p class="locked">Откроется после проверки.</p>
     <div class="reveal" hidden>
       <ol class="solution">
-        <li><b class="st-h">Ложные тревоги.</b> Их задаёт порог — 5% при любой длине.</li>
+        <li><b class="st-h">Ложные срабатывания.</b> Их задаёт порог — 5% при любой длине.</li>
         <li><b class="st-h">Мощность растёт с длиной.</b>  Обычно хотят хотя бы 80%: неделя не даёт, три недели дают с запасом.
           <table class="table sol-table"><thead><tr><th>Дней</th><th class="num">Заметит +3%</th></tr></thead><tbody><tr><td>1</td><td class="num">11%</td></tr><tr><td>7</td><td class="num">46%</td></tr><tr><td>14</td><td class="num">75%</td></tr><tr><td>21</td><td class="num">90%</td></tr><tr><td>28</td><td class="num">96%</td></tr></tbody></table></li>
       </ol>

@@ -105,7 +105,7 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- цвета графиков: один цвет — один смысл ----------
 // ctrl — синий (контроль, основная серия), test — оранжевый (тест, вторая серия), truth — зелёный (правда, хорошо),
-// trap — красный (плохо: ложная тревога, ошибка, вред), gray — теория. Текст красным — trapInk, оранжевым — testInk.
+// trap — красный (плохо: ложное срабатывание, ошибка, вред), gray — теория. Текст красным — trapInk, оранжевым — testInk.
 // pen и accent — фирменные синий и коралл курса (кнопки, акцентная точка «ты здесь»), не для смысловых ролей.
 const COL = {ctrl:'#23418A', ctrlInk:'#23418A', test:'#E8644A', truth:'#0E7E5F', trap:'#C9413A', trapInk:'#A8352F', testInk:'#B8432B', ochre:'#C9A43A', viol:'#8F6FC9', gray:'#A3A19A', ink:'#2F2E2B', ink2:'#6B6A65', grid:'#E1E0D9', fillC:'#E6ECF7', fillT:'#FCE8E3', fillG:'#E2F0EB', fillB:'#F8DCD8', fillGray:'#F4F3F0', fillO:'#F8F0D9', pen:'#23418A', accent:'#E8644A'};
 // соло-режим /play/ (window.PLAY_SOLO, ставит /play/bridge.js): догадки, выборы и баллы живут только в памяти вкладки —
