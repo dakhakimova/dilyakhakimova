@@ -100,8 +100,16 @@
     let acc = 0; for (let i = 0; i < k - 1; i++){ acc += w[i]; const xp = x0 + W * acc; el('line', {x1: xp, y1: 2, x2: xp, y2: 40, stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, bs); }
     const sh = v => (100 * v).toFixed(v > 0.001 && v < 0.999 ? 2 : 3).replace(/\.?0+$/, '') + '%';
     const lines = n.map((v, i) => NAME(i) + ': ' + nf(v) + ' · ' + sh(v / tot));
-    if (k === 2){ const a = el('text', {x: x0, y: 58, class: 'sm'}, bs); a.textContent = lines[0]; const b = el('text', {x: x0 + W, y: 58, 'text-anchor': 'end', class: 'sm'}, bs); b.textContent = lines[1]; bs.setAttribute('viewBox', '0 0 440 70'); }
-    else { const per = Math.ceil(k / 2); lines.forEach((t, i) => { const col = i < per ? 0 : 1; const tt = el('text', {x: x0 + col * (W / 2), y: 58 + (i % per) * 20, class: 'sm'}, bs); tt.textContent = t; el('rect', {x: x0 + col * (W / 2) - 0, y: 49 + (i % per) * 20, width: 0, height: 0}, bs); }); bs.setAttribute('viewBox', `0 0 440 ${58 + per * 20}`); }
+    // подписи без названий — под своим куском полосы, цвет и порядок те же, что в строках ввода; узкие куски уходят на вторую строку
+    let xs = x0, lastEnd = -1e9, row = 0, maxRow = 0;
+    ws.forEach((wd, i) => {
+      const txt = sh(n[i] / tot), estW = txt.length * 7.2;
+      const cx = Math.min(x0 + W - estW / 2, Math.max(x0 + estW / 2, xs + wd / 2)); xs += wd;
+      row = cx - estW / 2 < lastEnd + 8 ? row + 1 : 0;
+      const t = el('text', {x: cx, y: 58 + row * 20, 'text-anchor': 'middle', class: 'sm'}, bs); t.textContent = txt;
+      if (row === 0) lastEnd = cx + estW / 2; maxRow = Math.max(maxRow, row);
+    });
+    bs.setAttribute('viewBox', `0 0 440 ${66 + 20 * maxRow}`);
     bs.setAttribute('aria-label', lines.join(', '));
   }
 
