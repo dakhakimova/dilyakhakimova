@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/09-aa.html">
 <title>A/A-тест · Сигнал или шум</title>
 <meta name="description" content="Глава 9 бесплатного интерактивного курса «Сигнал или шум»: стандартная ошибка разности двух групп, стенд A/A, ровные p-value без эффекта, тренд, которого нет, 20 метрик в A/A, задачи с собеседований.">
-<script src="/play/bridge.js?v=202611291"></script>
+<script src="/play/bridge.js?v=202611292"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611291">
-<link rel="stylesheet" href="/tokens.css?v=202611291">
-<link rel="stylesheet" href="/signal/book.css?v=202611291">
-<link rel="stylesheet" href="/signal/free.css?v=202611291">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611292">
+<link rel="stylesheet" href="/tokens.css?v=202611292">
+<link rel="stylesheet" href="/signal/book.css?v=202611292">
+<link rel="stylesheet" href="/signal/free.css?v=202611292">
 <style>
 /* стили только этой страницы */
 .nsel button{min-height:44px}
@@ -23,7 +23,7 @@
 </style>
 </head>
 <body data-course="signal" data-chapter="ch09" data-next="10-ab-test.html">
-<script src="/signal/progress.js?v=202611291"></script>
+<script src="/signal/progress.js?v=202611292"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -110,13 +110,15 @@
       <button class="btn ghost" type="button" id="aa100">+100</button>
       <button class="btn ghost" type="button" id="aa0">Сначала</button>
     </div>
-    <p class="chart-title">Разницы между одинаковыми группами; полоса — ±1.96·SE</p>
+    <p class="chart-title">Разница Δ = тест − контроль между одинаковыми группами; полоса — ±1.96·SE</p>
     <canvas id="cv-aa" role="img" aria-label="Гистограмма разниц между одинаковыми группами, колокол N(0, SE²) и полоса ±1.96·SE"></canvas>
     <div class="big2">
       <div class="ctrl"><b id="aa-se">—</b><span>SE разности, заказов на 100 гостей</span></div>
       <div class="trap"><b id="aa-out">—</b><span>A/A за полосой ±1.96·SE</span></div>
     </div>
     <p class="note readout9" id="aa-last"></p>
+    <div class="viz-only"><p class="chart-title" id="aa-pv-t"></p>
+    <canvas id="cv-aa-pv" role="img" aria-label="Гистограмма p-value тех же A/A-тестов: при отсутствии эффекта распределение равномерное"></canvas>
     <div class="verdict" id="v-aa" hidden></div>
   </div>
   <aside class="scary" data-toy-hide>
@@ -350,14 +352,16 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611291"></script>
+<script src="/signal/book.js?v=202611292"></script>
 <script>
 const TXT = {
   ru: {
-    out: (k, n) => int(k) + ' из ' + int(n) + ' (' + share(k / n, 1) + ')',
-    last: (a, b, d) => 'Последний A/A: ' + num(a, 2) + ' и ' + num(b, 2) + ' заказа на 100 гостей, разница ' + signed(d, 2) + '.',
+    out: (k, n) => int(k) + ' из ' + int(n) + ' · ' + share(k / n, 1),
+    pvT: 'p-value этих же A/A: при отсутствии эффекта — равномерное распределение, каждый столбик около 5%; пунктир — 5%',
+    pvEx: 'каждый столбик ≈ 5%',
+    last: (a, b, d) => 'Последний A/A: контроль ' + num(a, 2) + ', тест ' + num(b, 2) + ' заказа на 100 гостей; Δ = тест − контроль = ' + signed(d, 2) + '.',
     empty: 'Нажми «+1000 A/A»',
-    xAx: 'разница, заказов на 100 гостей',
+    xAx: 'Δ = тест − контроль, заказов на 100 гостей',
     vAA: (g, sh, se) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'За полосой ±0.83 оказались <b>' + share(sh, 1) + '</b> A/A-тестов — около 5' + '%, как и обещает колокол: 0.83 — это 1.96 · SE, а SE разности здесь ' + num(se, 2) + '. Группы одинаковые, но шумят обе.',
     vAA2: (sh, se) => 'За полосой ±1.96·SE — ' + share(sh, 1) + ' A/A. SE разности ' + num(se, 2) + ' заказа на 100 гостей. Поменяй n: вчетверо больше гостей — полоса вдвое уже, а доля за полосой та же, около 5' + '%.',
     pvStat: (n, small) => 'A/A: ' + int(n) + '. p &lt; 0.05 у ' + share(small, 1) + ' тестов.',
@@ -413,8 +417,22 @@ const AA9 = (function(){
     document.getElementById('aa-out').textContent = res.length ? TXT.out(out, res.length) : '—';
     const l = res[res.length - 1]; document.getElementById('aa-last').textContent = l ? TXT.last(100 * l.pa, 100 * l.pb, 100 * l.d) : '';
     const v = document.getElementById('v-aa');
-    if (res.length >= 100){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = p === 0.1 && n === 10000 ? TXT.vAA(Book.guess('aa83'), res.filter(r => Math.abs(100 * r.d) > 0.83).length / res.length, se) : TXT.vAA2(out / res.length, se); } else v.hidden = true;
-    draw();
+    if (res.length >= 100){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = p === 0.1 && n === 10000 ? TXT.vAA(Book.guess('aa83'), out / res.length, se) : TXT.vAA2(out / res.length, se); } else v.hidden = true;
+    draw(); drawPv();
+  }
+  // гистограмма p-value тех же A/A: 20 столбиков по 0.05, при честном тесте — равномерная, пунктир на 5%
+  function drawPv(){
+    const cvp = document.getElementById('cv-aa-pv'); if (!cvp || !cvp.offsetParent) return;   // показывается только во встраивании ?viz=1 (разбор книги): в курсе p-value — в карточке 6
+    document.getElementById('aa-pv-t').textContent = TXT.pvT;
+    const g = canvas(cvp, 0.3, 0.55); if (!g) return; const {c, w, h} = g;
+    const L = 40, R = 10, T = 12, B = 22, pw = w - L - R, ph = h - T - B, X = v => L + v * pw;
+    const pv = res.map(r => r.pv), b = bins(pv.map(v => Math.min(v, 1 - 1e-9)), 0, 1, 0.05), n = pv.length, top = Math.max(0.1, ...b.map(k => n ? k / n : 0)) * 1.15;
+    axisY(c, L, R, T, ph, w, 0, top, 0.05, v => shareT(v, 0));
+    b.forEach((k, i) => { const sh = n ? k / n : 0, bh = ph * sh / top; c.fillStyle = i === 0 ? COL.trap : COL.ctrl; c.globalAlpha = 0.85; c.fillRect(X(i * 0.05) + 1, T + ph - bh, pw * 0.05 - 2, bh); });
+    c.globalAlpha = 1;
+    const y5 = T + ph - ph * 0.05 / top; c.strokeStyle = COL.gray; c.setLineDash([5, 4]); c.lineWidth = 1.5; c.beginPath(); c.moveTo(L, y5); c.lineTo(w - R, y5); c.stroke(); c.setLineDash([]);
+    axisX(c, X, [0, 0.05, 0.25, 0.5, 0.75, 1], h - 4, v => num(v, v === 0.05 ? 2 : v % 1 ? 2 : 0));
+    if (!n) label(c, TXT.empty, L + pw / 2, T + ph / 2, COL.ink2, 'center');
   }
   document.querySelectorAll('#p9 button').forEach(b => b.addEventListener('click', () => { p = +b.dataset.p; res = []; update(); }));
   sl.addEventListener('input', () => { n = NS[+sl.value]; res = []; update(); });
@@ -422,7 +440,7 @@ const AA9 = (function(){
   document.getElementById('aa100').addEventListener('click', () => add(100));
   document.getElementById('aa1000').addEventListener('click', () => add(1000));
   document.getElementById('aa0').addEventListener('click', () => { res = []; update(); });
-  window.addEventListener('resize', draw);
+  window.addEventListener('resize', () => { draw(); drawPv(); });
   update();
 })();
 
@@ -500,6 +518,6 @@ const AA9 = (function(){
   paint();
 })();
 </script>
-<script src="/signal/py.js?v=202611291"></script>
+<script src="/signal/py.js?v=202611292"></script>
 </body>
 </html>
