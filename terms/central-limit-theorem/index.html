@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611428">
-<link rel="stylesheet" href="/tokens.css?v=202611428">
-<link rel="stylesheet" href="/home.css?v=202611428">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611428">
-<link rel="stylesheet" href="/terms/terms.css?v=202611428">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611430">
+<link rel="stylesheet" href="/tokens.css?v=202611430">
+<link rel="stylesheet" href="/home.css?v=202611430">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611430">
+<link rel="stylesheet" href="/terms/terms.css?v=202611430">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Центральная предельная теорема","item":"https://dilyakhakimova.com/terms/central-limit-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/central-limit-theorem/#term","name":"Центральная предельная теорема","description":"Центральная предельная теорема (ЦПТ) говорит, что среднее многих независимых значений распределено почти как нормальный колокол — даже если сами значения выглядят совсем иначе. Ширина этого колокола уменьшается как σ/√n.","url":"https://dilyakhakimova.com/terms/central-limit-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Центральная предельная теорема","description":"Центральная предельная теорема (ЦПТ) на заказах кафе: как из горки у нуля вырастает колокол средних и почему от этого зависят все A/B-тесты.","url":"https://dilyakhakimova.com/terms/central-limit-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/central-limit-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Время ожидания курьера распределено экспоненциально со средним 10 минут. Как приблизительно распределено среднее по 100 заказам?","acceptedAnswer":{"@type":"Answer","text":"У экспоненты σ равна среднему: 10 минут. По ЦПТ среднее по 100 заказам ≈ N(10, 1²): σ/√n = 10/10 = 1 минута. Примерно в 95% случаев оно окажется между 8 и 12 минутами."}},{"@type":"Question","name":"Во сколько раз сузится колокол средних, если взять в 9 раз больше наблюдений?","acceptedAnswer":{"@type":"Answer","text":"В 3 раза: ширина пропорциональна 1/√n, а √9 = 3."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -195,7 +195,29 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <div class="reveal" hidden>
       <ol class="solution">
         <li><b class="st-h">Средние собираются в колокол.</b> Один гость непредсказуем, но крайности в выборке гасят друг друга. Это ЦПТ.</li>
-        <li><b class="st-h">Ширина колокола.</b> <p class="formula">SE = <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> / √n: при <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">100</span></span></span></span> — около <b>±0.24</b>, при <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1000</span></span></span></span> — <b>±0.08</b></p> В 10 раз больше гостей — колокол примерно в √10 ≈ 3 раза уже.</li>
+        <li><b class="st-h">Ширина колокола.</b> <p class="formula"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">SE</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord">/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span>: при <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">100</span></span></span></span> — около <b>±0.24</b>, при <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1000</span></span></span></span> — <b>±0.08</b></p> В 10 раз больше гостей — колокол примерно в <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">10</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span> раза уже.</li>
         <li><b class="st-h">Когда нужно больше.</b> Чем тяжелее хвост (выручка, банкеты), тем больше гостей нужно для колокола.</li>
       </ol>
       </div>
@@ -251,6 +273,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611428"></script>
+<script src="/terms/terms.js?v=202611430"></script>
 </body>
 </html>
