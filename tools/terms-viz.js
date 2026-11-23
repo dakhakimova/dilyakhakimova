@@ -390,4 +390,47 @@ lim['mann-whitney'] = L => {
   return svg(270, out.join(''), L.med);
 };
 
-module.exports = {viz, lim, top};
+// err[slug](L) — картинка в блоке ошибок (Диля, 23.11): какими бывают ненормальные данные. Сплошная — данные, пунктир — колокол с тем же средним и σ.
+const err = {};
+err['normal-distribution'] = L => {
+  const x0 = 16, x1 = 444, rowH = 170, plotH = 92, out = [];
+  const row = (i, title, sub, xs, curves, extra) => {
+    const top = i * rowH, base = top + 40 + plotH, lo = xs[0], hi = xs[1];
+    const X = v => x0 + (v - lo) / (hi - lo) * (x1 - x0);
+    const ymax = Math.max(...curves.map(c => c.max));
+    const Y = d => base - d / ymax * plotH;
+    out.push(tx(x0, top + 20, title, {size: 17, fill: C.ink, w: 500}), tx(x0, top + 38, sub, {size: 14, fill: C.t3}));
+    if (extra) out.push(extra(X, Y, base));
+    for (const c of curves){
+      const pts = []; for (let k = 0; k <= 300; k++){ const v = lo + (hi - lo) * k / 300; pts.push([X(v), Y(c.f(v))]); }
+      out.push(path(pts, c.dash ? C.t3 : C.a, c.dash ? 2 : 2.5, 'none', c.dash ? 'stroke-dasharray="6 4"' : ''));
+    }
+    out.push(ln(x0, base, x1, base, C.t3));
+    return {X, Y, base};
+  };
+  // 1. тяжёлые хвосты: t с 3 степенями свободы, приведённое к σ = 1
+  const s3 = 1 / Math.sqrt(3), t3 = z => { const u = z / s3; return 2 / (Math.PI * Math.sqrt(3) * Math.pow(1 + u * u / 3, 2)) / s3; };
+  row(0, L.h1, L.s1, [2.8, 6.2], [{f: t3, max: t3(2.8)}, {f: phi, max: phi(2.8), dash: true}], (X, Y, base) => {
+    const sh = [[X(3), base]]; for (let k = 0; k <= 60; k++){ const v = 3 + 3.2 * k / 60; sh.push([X(v), Y(t3(v))]); } sh.push([X(6.2), base]);
+    return path(sh, 'none', 0, C.a, 'opacity=".18"') + [3, 4, 5, 6].map(v => tx(X(v), base + 18, '+' + v + 'σ', {a: 'middle', size: 13, fill: C.t3})).join('');
+  });
+  // 2. скошенность: чеки, логнормальное, медиана 500, σ лога 0.6
+  const ln2 = v => v <= 0 ? 0 : Math.exp(-Math.pow(Math.log(v / 500), 2) / (2 * .36)) / (v * .6 * Math.sqrt(2 * Math.PI));
+  const m2 = 500 * Math.exp(.18), sd2 = m2 * Math.sqrt(Math.exp(.36) - 1), n2 = v => phi((v - m2) / sd2) / sd2;
+  row(1, L.h2, L.s2, [-300, 2000], [{f: ln2, max: ln2(500 * Math.exp(-.36))}, {f: n2, max: n2(m2), dash: true}], (X, Y, base) =>
+    [0, 500, 1000, 1500].map(v => tx(X(v), base + 18, v, {a: 'middle', size: 13, fill: C.t3})).join(''));
+  // 3. выручка на пользователя: 80% нулей, у покупателей логнормальное (медиана 800, σ лога 0.8)
+  const p0 = .8, ln3 = v => v <= 0 ? 0 : (1 - p0) * Math.exp(-Math.pow(Math.log(v / 800), 2) / (2 * .64)) / (v * .8 * Math.sqrt(2 * Math.PI));
+  const m3 = (1 - p0) * 800 * Math.exp(.32), ex2 = (1 - p0) * 640000 * Math.exp(1.28), sd3 = Math.sqrt(ex2 - m3 * m3), n3 = v => phi((v - m3) / sd3) / sd3;
+  const r3 = row(2, L.h3, L.s3, [-1600, 2600], [{f: ln3, max: n3(m3) * 1.15}, {f: n3, max: n3(m3), dash: true}], (X, Y, base) => {
+    const neg = [[X(-1600), base]]; for (let k = 0; k <= 80; k++){ const v = -1600 + 1600 * k / 80; neg.push([X(v), Y(n3(v))]); } neg.push([X(0), base]);
+    return path(neg, 'none', 0, C.red, 'opacity=".25"') + rect(X(0) - 3, base - 92, 6, 92, C.a) + [-1000, 0, 1000, 2000].map(v => tx(X(v), base + 18, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 13, fill: C.t3})).join('');
+  });
+  out.push(tx(r3.X(80), r3.base - 78, L.t3a, {size: 14, fill: C.a, w: 500, bg: true}), tx(r3.X(-1560), r3.base - 8, L.t3b, {size: 14, fill: C.red, w: 500, bg: true}));
+  // легенда
+  const ly = 3 * rowH + 6;
+  out.push(ln(x0, ly, x0 + 30, ly, C.a, 2.5), tx(x0 + 38, ly + 5, L.data, {size: 14}), ln(x0 + 120, ly, x0 + 150, ly, C.t3, 2, '6 4'), tx(x0 + 158, ly + 5, L.bell, {size: 14}));
+  return svg(3 * rowH + 20, out.join(''), [L.h1, L.h2, L.h3].join(' · '));
+};
+
+module.exports = {viz, lim, top, err};

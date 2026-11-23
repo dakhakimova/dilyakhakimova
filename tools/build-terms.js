@@ -39,7 +39,7 @@ function greek(html){
   return html.slice(0, a) + mid + html.slice(b);
 }
 const {load} = require('./play-data.js');
-const {viz, lim, top} = require('./terms-viz.js');
+const {viz, lim, top, err} = require('./terms-viz.js');
 const SOL = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'play', 'solutions.json'), 'utf8')); } catch { return {}; } })();  // «Почему так» игр — из tools/build-play.js
 // все страницы терминов (решение Дили, 22.11.2026: «где объясняем — по центру, размер и шрифт как на нормальном»): шрифт 20 px, колонка ~700 px
 const TRIAL = {includes: () => true};
@@ -232,12 +232,6 @@ ${top[s] ? `  <figure class="viz t-top">
   </section>
 
 ${top[s] ? vizSec : ''}
-  <section class="t-sec" aria-labelledby="err-h">
-    <h2 id="err-h">${typo(hq.err)}</h2>
-    <ul class="list t-err">${x.mistakes.map(([a, b]) => `
-      <li><span class="lead">${typo(a)}</span> ${typo(b)}</li>`).join('')}
-    </ul>
-  </section>
 
   <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">${typo(hq.lim)}</h2>
@@ -263,6 +257,16 @@ ${top[s] ? vizSec : ''}
       <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
       <p>${typo(a)}</p>
     </details>`).join('')}`).join('')}
+  </section>
+
+  <section class="t-sec" aria-labelledby="err-h">
+    <h2 id="err-h">${typo(hq.err)}</h2>
+    <ul class="list t-err">${x.mistakes.map(([a, b], i) => `
+      <li><span class="lead">${typo(a)}</span> ${typo(b)}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
+    </ul>
+    <figure class="viz t-err-viz">${err[s](Object.fromEntries(Object.entries(x.ez).map(([k, v]) => [k, plain(typo(String(v)))])))}<figcaption class="figcap">${typo(x.ez.cap)}</figcaption></figure>
+    <ul class="list t-err">` : ''}`).join('')}
+    </ul>
   </section>
 
   <section class="t-sec t-next" aria-label="${attr(t('terms.next.label'))}">
