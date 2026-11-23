@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/02-frequency.html">
 <title>Вероятность как частота · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 2 бесплатного интерактивного курса «Вероятность на пальцах»: бегущая доля, почему короткие серии скачут, закон больших чисел, ошибка игрока и задачи с собеседований.">
-<script src="/play/bridge.js?v=202611425"></script>
+<script src="/play/bridge.js?v=202611428"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611425">
-<link rel="stylesheet" href="/tokens.css?v=202611425">
-<link rel="stylesheet" href="/signal/book.css?v=202611425">
-<link rel="stylesheet" href="/signal/free.css?v=202611425">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611428">
+<link rel="stylesheet" href="/tokens.css?v=202611428">
+<link rel="stylesheet" href="/signal/book.css?v=202611428">
+<link rel="stylesheet" href="/signal/free.css?v=202611428">
 <style>
 .kot-says[hidden]{display:none}
 /* блоки отзывов */
@@ -25,9 +25,10 @@
 @media (max-width:620px){ .rev{grid-template-columns:repeat(5,1fr); gap:6px} .rev .blk{padding:4px; gap:2px} }
 .legend-row i.dot{width:10px; height:10px; border-radius:50%}
 </style>
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611428">
 </head>
 <body data-course="probability" data-chapter="p02" data-next="03-counting.html">
-<script src="/signal/progress.js?v=202611425"></script>
+<script src="/signal/progress.js?v=202611428"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -122,7 +123,7 @@
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Понедельник — 7 из 10, вторник — 3 из 10. Меню ни при чём: десять гостей — маленькая порция, а маленькие порции скачут.</p></div>
     <div class="things"><span class="lt">В штуках</span><p>Из 1000 дней по 10 гостей при честных 50% «семь и больше» бывает примерно в 172 днях, «три и меньше» — тоже в 172. Каждый третий день выглядит «странным», хотя ничего не менялось.</p></div>
-    <div class="formula-l"><span class="lt">Формула</span><p class="formula">P(A) ≈ (сколько раз случилось A) / n, при большом n</p><p class="read">Словами: вероятность — то, к чему ползёт доля, когда повторов становится много. Чем больше n, тем уже разброс доли: вчетверо больше бросков — вдвое уже.</p></div>
+    <div class="formula-l"><span class="lt">Формула</span><p class="formula"><span class="tx tx-d" data-tex="P(A) \approx \frac{\text{сколько раз случилось } A}{n}, \quad \text{при большом } n" data-d="1"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cyrillic_fallback">сколько</span><span class="mord"> </span><span class="mord cyrillic_fallback">раз</span><span class="mord"> </span><span class="mord cyrillic_fallback">случилось</span><span class="mord"> </span></span><span class="mord mathnormal">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord cyrillic_fallback">при</span><span class="mord"> </span><span class="mord cyrillic_fallback">большом</span><span class="mord"> </span></span><span class="mord mathnormal">n</span></span></span></span></span></span></p><p class="read">Словами: вероятность — то, к чему ползёт доля, когда повторов становится много. Чем больше <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>,</span> тем уже разброс доли: вчетверо больше бросков — вдвое уже.</p></div>
   </div>
   <aside class="scary">
     <span class="scary-tag">Страшное слово</span>
@@ -158,11 +159,22 @@
   <p>Во время Второй мировой войны математик Джон Керрих оказался в лагере для интернированных и, чтобы убить время, бросил монетку 10 000 раз. Орлов вышло 5067 — доля 50.67%. А вот разница «орлы минус решки» к концу была 134 — больше, чем вообще может получиться за первые 100 бросков.</p>
   <p>Брось сам и посмотри на разницу.</p>
   <div class="guess" data-key="kerrich" data-min="0" data-max="10000" data-unit="">
-    <div class="guess-row"><label class="field phrase" for="ker-guess" id="ker-guess-ctx">После 10&nbsp;000 бросков разница «орлы минус решки» будет примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ker-guess" aria-describedby="ker-guess-ctx">по модулю</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="ker-guess" id="ker-guess-ctx">После 10 000 бросков разница «орлы минус решки» будет примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="ker-guess" aria-describedby="ker-guess-ctx">по модулю</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
     <p class="note">Сначала запиши догадку, потом проверь.</p>
   </div>
   <div class="sheet c-white">
-    <p class="chart-title">Разница «орлы минус решки» по мере бросков; серая зона — ±√n</p>
+    <p class="chart-title">Разница «орлы минус решки» по мере бросков; серая зона — <span class="tx" data-tex="\pm \sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord">±</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span></p>
     <canvas id="ker" role="img" aria-label="Разница «орлы минус решки» за 10 000 бросков: линия уходит от нуля; серая зона — типичный размах ±√n"></canvas>
     <div class="controls">
       <button class="btn" type="button" id="ker-1">Бросить 10 000 раз</button>
@@ -170,7 +182,18 @@
     </div>
     <div class="verdict" id="ker-v" hidden></div>
   </div>
-  <p data-toy-reveal>Разница обычно растёт примерно как √n: после 100 бросков она около 8, после 10 000 — около 80. Но 80 на фоне 10 000 — меньше 1%, а 8 на фоне 100 — целых 8%. Доля сходится к ½ не потому, что монетка отыгрывается за серию орлов, а потому, что старый перекос тонет в новых бросках. Закон больших чисел работает разбавлением, а не возвратом долга.</p>
+  <p data-toy-reveal>Разница обычно растёт примерно как <span class="nw"><span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span>:</span> после 100 бросков она около 8, после 10 000 — около 80. Но 80 на фоне 10 000 — меньше 1%, а 8 на фоне 100 — целых 8%. Доля сходится к ½ не потому, что монетка отыгрывается за серию орлов, а потому, что старый перекос тонет в новых бросках. Закон больших чисел работает разбавлением, а не возвратом долга.</p>
   <p class="src">Идея из книги: Леонард Млодинов, «(Не)совершенная случайность»</p>
 </section>
 
@@ -263,7 +286,7 @@ _check()
     <summary>Что вероятнее при честной монетке: 6 орлов из 10 бросков или 60 орлов из 100? А «хотя бы 60%»?</summary>
     <p><b>Переформулирую:</b> доля орлов в обоих случаях 60%. Вопрос в том, как часто короткая и длинная серии дают такой перекос.</p>
     <p><b>В штуках:</b> из 1000 серий по 10 бросков ровно 6 орлов будет примерно в 205, из 1000 серий по 100 — ровно 60 примерно в 11. С «хотя бы 60%» — около 377 против 28.</p>
-    <p><b>Формула:</b> <span class="num">P(«ровно 6 из 10») = 210/1024 ≈ 20.5%</span>, <span class="num">P(«ровно 60 из 100») ≈ 1.1%</span>; хотя бы 60% — <span class="num">37.7%</span> против <span class="num">2.8%</span>. Откуда 210 из 1024 — шаг 3, общая формула — шаг 7.</p>
+    <p><b>Формула:</b> <span class="num"><span class="tx" data-tex="P(\text{«ровно }6 \text{ из }10\text{»}) = 210/1024 \approx 20.5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">ровно</span><span class="mord"> </span></span><span class="mord">6</span><span class="mord text"><span class="mord"> </span><span class="mord cyrillic_fallback">из</span><span class="mord"> </span></span><span class="mord">10</span><span class="mord text"><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">210/1024</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">20.5%</span></span></span></span></span></span>, <span class="num"><span class="tx" data-tex="P(\text{«ровно }60 \text{ из }100\text{»}) \approx 1.1\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">ровно</span><span class="mord"> </span></span><span class="mord">60</span><span class="mord text"><span class="mord"> </span><span class="mord cyrillic_fallback">из</span><span class="mord"> </span></span><span class="mord">100</span><span class="mord text"><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">1.1%</span></span></span></span></span></span>; хотя бы 60% — <span class="num">37.7%</span> против <span class="num">2.8%</span>. Откуда 210 из 1024 — шаг 3, общая формула — шаг 7.</p>
     <p><b>Проверка:</b> функция <code>share_at_least</code> из карточки с кодом.</p>
     <p><b>Вывод:</b> короткая серия даёт перекос в 60% гораздо чаще — в длинной он почти исчезает.</p>
   </details>
@@ -271,7 +294,7 @@ _check()
     <summary>Честная монетка выпала орлом пять раз подряд. Какова вероятность орла в шестой раз?</summary>
     <p><b>Переформулирую:</b> влияют ли прошлые броски на следующий? Нет: броски независимы, у монетки нет памяти.</p>
     <p><b>В штуках:</b> из 32 000 серий по шесть бросков около 1000 начинаются с пяти орлов. В шестом броске у этих серий около 500 орлов и около 500 решек.</p>
-    <p><b>Формула:</b> <span class="num">P(«орёл в шестом» | «пять орлов») = ½</span>. Другое дело — шесть орлов подряд, загаданные заранее: <span class="num">(½)<sup>6</sup> = 1/64</span>.</p>
+    <p><b>Формула:</b> <span class="num"><span class="tx" data-tex="P(\text{«орёл в шестом»}\mid \text{«пять орлов»}) = \tfrac12"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">орёл</span><span class="mord"> </span><span class="mord cyrillic_fallback">в</span><span class="mord"> </span><span class="mord cyrillic_fallback">шестом</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">пять</span><span class="mord"> </span><span class="mord cyrillic_fallback">орлов</span><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span>. Другое дело — шесть орлов подряд, загаданные заранее: <span class="num"><span class="tx" data-tex="(\tfrac12 )^{6} = 1/64"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/64</span></span></span></span></span></span>.</p>
     <p><b>Вывод:</b> ½. Закон больших чисел работает разбавлением, а не возвратом долга. Если интервьюер намекает на кривую монетку — это уже другая задача, про Байеса — шаг 6.</p>
   </details>
 </section>
@@ -283,7 +306,18 @@ _check()
   <div class="quiz" data-right="c">
     <p class="q">Бросков монетки становится всё больше. Что происходит с разницей «орлы минус решки»?</p>
     <div class="choice"><button type="button" data-v="a" data-why="Монетка ничего не выравнивает: у неё нет памяти. Выравнивается только доля, и то разбавлением.">Уменьшается: монетка постепенно выравнивает счёт</button><button type="button" data-v="b" data-why="В начале разница маленькая, но потом она обычно уходит от нуля — примерно на √n.">Всё время держится возле нуля</button><button type="button" data-v="c">Обычно растёт, хотя доля стремится к ½</button></div>
-    <p class="why">Разница обычно растёт примерно как √n: около 8 после 100 бросков, около 80 после 10 000. Но делится она на n, поэтому доля всё равно прижимается к ½.</p>
+    <p class="why">Разница обычно растёт примерно как <span class="nw"><span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span>:</span> около 8 после 100 бросков, около 80 после 10 000. Но делится она на <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>,</span> поэтому доля всё равно прижимается к ½.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">В понедельник десерт взяли 7 гостей из 10. Что из этого следует?</p>
@@ -308,11 +342,22 @@ _check()
   <span class="step-tag">Шпаргалка шага 2</span>
   <h2 data-proverb="p02">Короткая серия скачет, длинная успокаивается</h2>
   <ul class="cheat">
-    <li>Вероятность — то, к чему ползёт доля: <span class="num">P(A) ≈ k / n</span> при большом n.</li>
+    <li>Вероятность — то, к чему ползёт доля: <span class="num"><span class="tx" data-tex="P(A) \approx k / n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mord">/</span><span class="mord mathnormal">n</span></span></span></span></span></span> при большом <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>.</span></li>
     <li>Короткие серии скачут: ровно 5 орлов из 10 — только в 24.6% серий, а от 2 до 8 — в 97.9%.</li>
     <li>Длинные успокаиваются: на 10 000 бросков доля в пределах 49–51% примерно в 19 сериях из 20.</li>
     <li>Вчетверо больше повторов — разброс доли вдвое уже.</li>
-    <li>Разница «орлы − решки» при этом растёт (примерно как √n). Монетка не возвращает долг: закон больших чисел работает разбавлением.</li>
+    <li>Разница «орлы − решки» при этом растёт (примерно как <span class="nw"><span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span>).</span> Монетка не возвращает долг: закон больших чисел работает разбавлением.</li>
     <li>Маленькие выборки дают крайности в обе стороны: 10 из 10 — не повод для «100%».</li>
   </ul>
   <dl class="terms">
@@ -333,7 +378,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611425"></script>
+<script src="/signal/book.js?v=202611428"></script>
 <script>
 const TXT = {
   ru: {
@@ -538,6 +583,6 @@ const TXT = {
   run();
 })();
 </script>
-<script src="/signal/py.js?v=202611425"></script>
+<script src="/signal/py.js?v=202611428"></script>
 </body>
 </html>

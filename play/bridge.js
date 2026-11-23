@@ -244,7 +244,7 @@
           const s = card.dataset.toy.split(/\s+/).find(x => pub[x]);
           if (!s) return;
           const box = document.createElement('div'); box.className = 'toy-share';
-          const b = document.createElement('button'); b.type = 'button'; b.className = 'share-t'; b.textContent = T.share + ' ↗';
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'share-t'; b.textContent = T.share;
           const st = document.createElement('span'); st.className = 'note'; st.setAttribute('role', 'status');
           box.append(b, st); card.appendChild(box);
           b.addEventListener('click', () => {

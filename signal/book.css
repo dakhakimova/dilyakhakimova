@@ -357,3 +357,8 @@ label.field.phrase{display:inline-flex; align-items:center; gap:8px; flex-wrap:w
 
 .viz-only{display:none} html.viz .viz-only{display:block}
 html.viz .readout9{display:none}
+/* формулы TeX (tools/tex.js): отдельной строкой — KaTeX display внутри p.formula, без своих отступов KaTeX */
+.formula .tx-d .katex-display{margin:0}
+.formula .tx-d .katex{font-size:1.15em}
+p.formula:has(.tx-d){margin:12px 0}
+.nw, .tx{white-space:nowrap}

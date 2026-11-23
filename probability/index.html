@@ -18,10 +18,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611425">
-<link rel="stylesheet" href="/tokens.css?v=202611425">
-<link rel="stylesheet" href="/home.css?v=202611425">
-<link rel="stylesheet" href="/course.css?v=202611425">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611428">
+<link rel="stylesheet" href="/tokens.css?v=202611428">
+<link rel="stylesheet" href="/home.css?v=202611428">
+<link rel="stylesheet" href="/course.css?v=202611428">
 <script>
 /* Заглушка картинки: если файла нет, пробуем data-fallback, потом показываем подпись .ph */
 function artFail(img){
@@ -29,6 +29,7 @@ function artFail(img){
   img.closest('.art').classList.add('missing');
 }
 </script>
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611428">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
@@ -52,7 +53,7 @@ function artFail(img){
 <!-- 1. Первый экран -->
 <section class="c-hero wrap">
   <div>
-    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-hours="vp">≈&nbsp;6&nbsp;часов</span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
+    <p class="chips"><span class="tag free" data-i18n="free">бесплатно</span><span class="chip lvl-chip"><span class="lvl l1" aria-hidden="true"></span><span class="vh" data-i18n="lvl.word">Уровень</span><span data-i18n="lvl.1">Начальный</span></span><span class="tag" data-hours="vp"><span class="tx" data-tex="\approx 6"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span></span> часов</span><span class="tag" data-i18n="c.tag">к собеседованию</span></p>
     <h1 data-i18n="c.title">Вероятность на пальцах</h1>
     <p class="sub" data-i18n="hero.sub">Шансы в штуках: от двух монеток до матожидания — и задачи с собеседований в каждом шаге.</p>
     <p class="ctas">
@@ -102,7 +103,7 @@ function artFail(img){
     <li data-i18n="r2"><b>Привычку считать в штуках</b> «Из 1000 гостей…» вместо процентов: так Байес, «хотя бы один» и редкие события перестают путать.</li>
     <li data-i18n="r3"><b>Игру на каждом шаге</b> Сначала прогноз, потом игра, которая его проверяет, и только потом правило формулой.</li>
     <li data-i18n="r4"><b>Классические задачи с собеседований</b> Дни рождения, Монти Холл, редкий сигнал, купоны — с решением в штуках и формулой.</li>
-    <li data-i18n="r5"><b>Шпаргалки шагов</b> P(не A), P(A | B), Байес, C(n, k), биномиальное, матожидание и дисперсия — на одном листе к каждому шагу.</li>
+    <li data-i18n="r5"><b>Шпаргалки шагов</b> <span class="nw"><span class="tx" data-tex="P(\text{не } A)"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord cyrillic_fallback">не</span><span class="mord"> </span></span><span class="mord mathnormal">A</span><span class="mclose">)</span></span></span></span></span>,</span> <span class="nw"><span class="tx" data-tex="P(A \mid B)"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0502em;">B</span><span class="mclose">)</span></span></span></span></span>,</span> Байес, <span class="nw"><span class="tx" data-tex="C_n^k"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0961em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-2.453em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></span>,</span> биномиальное, матожидание и дисперсия — на одном листе к каждому шагу.</li>
     <li data-i18n="r6"><b>Промокод</b> Пройдёшь курс до конца — промокод на 20% на платный курс.</li>
   </ul>
 </section>
@@ -125,9 +126,9 @@ function artFail(img){
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611425"></script>
-<script src="/i18n/probability.js?v=202611425"></script>
-<script src="/landing.js?v=202611425"></script>
-<script src="/site/course-anim.js?v=202611425"></script>
+<script src="/i18n/site.js?v=202611428"></script>
+<script src="/i18n/probability.js?v=202611428"></script>
+<script src="/landing.js?v=202611428"></script>
+<script src="/site/course-anim.js?v=202611428"></script>
 </body>
 </html>
