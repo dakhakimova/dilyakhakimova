@@ -74,7 +74,7 @@
     document.querySelectorAll('[data-pml]').forEach(e => { e.hidden = e.dataset.pml !== st.metric; });
     const p = st.base, abs = p * st.mde / 100, am = st.mean * st.mde / 100;
     const rv = $('ss-rvar'); if (rv && st.metric === 'ratio') rv.textContent = nf(ratioSd(), 4) + ' на пользователя — посчитано дельта-методом; отношение ' + nf(st.rx / st.ry, 4);
-    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя — для доли это √(p · (1 − p))'; }
+    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.innerHTML = 'σ = √<span class="ss-rad">' + nf(q, 4) + ' · ' + nf(1 - q, 4) + '</span> ≈ ' + nf(Math.sqrt(q * (1 - q)), 3); }
     const lines = [st.metric !== 'share'
       ? (st.metric === 'ratio' ? 'Отношение ' : 'Среднее ') + sig(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + sig(am) + ': с ' + sig(st.mean) + ' до ' + sig(st.mean + (st.sides === 'left' ? -am : am))
       : 'Доля ' + fmt.base(p) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + (st.sides === 'left' ? -abs : abs), 3) + '%'];
