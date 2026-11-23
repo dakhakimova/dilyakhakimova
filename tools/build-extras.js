@@ -39,9 +39,9 @@ ${chrome.header('extras', true)}
       <span class="ex-d">Разделились ли группы так, как задумано: χ²-критерий по размерам групп</span>
     </a></li>
     <li><a class="ex-card" href="/probability/09-interview.html">
-      <span class="ex-pic" style="--ex:var(--c-prob)" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="34" r="20"/><path d="M28 8h8M32 8v6M32 34V22"/><path d="M32 34l9 6"/></svg></span>
+      <span class="ex-pic" style="--ex:var(--c-prob)" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M12 14h40a4 4 0 0 1 4 4v22a4 4 0 0 1-4 4H30l-10 9v-9h-8a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4z"/><path d="M27 24a5 5 0 1 1 7 4.6c-1.3.6-2 1.6-2 3v1"/><circle cx="32" cy="38.5" r="1.6" class="dot"/></svg></span>
       <span class="ex-t">Пробное собеседование</span>
-      <span class="ex-d">Десять задач по вероятности на время</span>
+      <span class="ex-d">Десять задач по вероятности, как на собеседовании</span>
     </a></li>
   </ul>
 </main>
