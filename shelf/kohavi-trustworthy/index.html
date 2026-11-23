@@ -35,7 +35,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -136,7 +136,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <div class="bk-toy" data-toy="srm">
     <p class="chart-head" data-i18n="bk.i3.toy">Сколько пользователей можно потерять, чтобы никто не заметил</p>
     <p class="seg-lb" data-i18n="bk.i3.n">Пользователей в тесте</p>
-    <div class="seg" role="group" data-i18n-attr="aria-label:bk.i3.n" aria-label="Пользователей в тесте"><button type="button" class="btn ghost" data-n="10000" aria-pressed="false">10 000</button><button type="button" class="btn ghost" data-n="100000" aria-pressed="false">100 000</button><button type="button" class="btn ghost" data-n="1000000" aria-pressed="true">1 000 000</button></div>
+    <div class="seg" role="group" data-i18n-attr="aria-label:bk.i3.n" aria-label="Пользователей в тесте"><button type="button" class="btn ghost" data-n="10000" aria-pressed="false">10 000</button><button type="button" class="btn ghost" data-n="100000" aria-pressed="false">100 000</button><button type="button" class="btn ghost" data-n="1000000" aria-pressed="true">1 000 000</button></div>
     <label class="rng"><span data-i18n="bk.i3.loss">Потеряли в группе B</span> <output data-o="loss"></output><input type="range" min="0" max="2" step="0.1" value="1.4" data-k="loss"></label>
     <p class="note srm-thr"></p>
     <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
@@ -189,26 +189,24 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
   <p data-i18n="bk.i4.p2">Лечится планом: срок и размер выборки задаются до старта по MDE, а смотреть раньше можно только по заранее выбранным правилам последовательного теста.</p>
   <div class="bk-frame">
     <p class="chart-head" data-i18n="bk.i4.toy">A/A-тест идёт 30 дней, и каждый день смотрим на результат: сколько раз он «прокрасится»</p>
-    <iframe src="/play/peeking/?embed=1&amp;viz=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
+    <iframe src="/play/peeking/?embed=1&amp;viz=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
   <template class="nb-cell" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">import numpy as np
 
-rng = np.random.default_rng(1)
-tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
+rng = np.random.default_rng(1)
+tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
 
-# накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
-a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
-b = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
-n = per_day * np.arange(1, days + 1)
+# накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
+a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
+b = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
+n = per_day * np.arange(1, days + 1)
 
-pool = (a + b) / (2 * n)
-se = np.sqrt(pool * (1 - pool) * 2 / n)
-z = np.abs(b - a) / n / se
-significant = z > 1.96          # «значимо» при α = 0.05
-
-print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
-print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</template>
+pool = (a + b) / (2 * n)
+se = np.sqrt(pool * (1 - pool) * 2 / n)
+z = np.abs(b - a) / n / se
+significant = z > 1.96          # «значимо» при α = 0.05 print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
+print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</template>
   <p class="note" data-i18n="bk.i4.calc">Срок теста заранее — <a href="/play/sample-size/">калькулятор MDE</a>: подставь конверсию, эффект и трафик, он посчитает срок теста; ссылкой на расчёт можно поделиться.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
@@ -282,14 +280,38 @@ print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.3f}",
 </section>
 
 <section class="bk-sec" aria-labelledby="who-h">
-  <h2 id="who-h" data-i18n="bk.who.h">Кому читать и с какой главы начать</h2>
-  <p data-i18n="bk.who.p">Книга для тех, кто уже запускает тесты и хочет понимать, когда отчёту можно верить. Математики в ней немного, зато много историй «результат оказался багом». Читать подряд не обязательно:</p>
-  <ul class="list">
-    <li data-i18n="bk.who.l1"><span class="lf">Запускаешь тесты на готовой платформе</span> — начни с главы 3 про закон Твимена, потом глава 21 про SRM и глава 19 про A/A-тесты.</li>
-    <li data-i18n="bk.who.l2"><span class="lf">Выбираешь, по какой метрике решать</span> — глава 7 про метрику-цель, она же OEC, и глава 6 про метрики компании.</li>
-    <li data-i18n="bk.who.l3"><span class="lf">Строишь платформу экспериментов</span> — части про инструментирование, единицу рандомизации и постепенную раскатку, главы 12–16.</li>
-    <li data-i18n="bk.who.l4"><span class="lf">Хочешь статистику подробно</span> — главы 17–18 короткие; для формул лучше учебник, а для интуиции — курс «Сигнал или шум».</li>
-  </ul>
+  <h2 id="who-h" data-i18n="bk.who.h">Что в каждой главе</h2>
+  <p data-i18n="bk.who.p">Читать подряд не обязательно: выбери главы по своей задаче.</p>
+  <div class="bk-toc">
+    <h3 data-i18n="bk.toc.p1">Часть I. Вводные темы</h3>
+    <p><span class="bk-toc-n">1</span><span class="bk-toc-t" data-i18n="bk.toc.c1">Зачем экспериментировать</span> <span data-i18n="bk.toc.v1">Удачной оказывается примерно треть идей, а в отлаженных продуктах ещё меньше. Поэтому решать должен эксперимент, а не уверенность автора идеи.</span></p>
+    <p><span class="bk-toc-n">2</span><span class="bk-toc-t" data-i18n="bk.toc.c2">Эксперимент от начала до конца</span> <span data-i18n="bk.toc.v2">На одном примере: поле для промокода на странице оплаты. Гипотеза, расчёт размера выборки, запуск, чтение отчёта и решение, запускать или нет. Важно, что статистически значимый эффект ещё не значит, что он стоит внедрения.</span></p>
+    <p><span class="bk-toc-n">3</span><span class="bk-toc-t" data-i18n="bk.toc.c3">Закон Твимена и доверие к результатам</span> <span data-i18n="bk.toc.v3">Слишком хороший результат чаще оказывается ошибкой. Каталог ловушек: подглядывание, несовпадение размеров групп, боты, парадокс Симпсона, эффекты новизны.</span></p>
+    <p><span class="bk-toc-n">4</span><span class="bk-toc-t" data-i18n="bk.toc.c4">Платформа и культура экспериментов</span> <span data-i18n="bk.toc.v4">Четыре ступени зрелости компании, от первых тестов до тысяч в год, и что нужно на каждой ступени: инструменты, люди, процессы.</span></p>
+    <h3 data-i18n="bk.toc.p2">Часть II. Темы для всех</h3>
+    <p><span class="bk-toc-n">5</span><span class="bk-toc-t" data-i18n="bk.toc.c5">Скорость важна</span> <span data-i18n="bk.toc.v5">Замедление сайта как эксперимент: каждые 100 мс задержки стоят денег. Так измеряют цену производительности, которую напрямую ускорить не получается.</span></p>
+    <p><span class="bk-toc-n">6</span><span class="bk-toc-t" data-i18n="bk.toc.c6">Метрики компании</span> <span data-i18n="bk.toc.v6">Какие метрики бывают: цели, метрики-драйверы, защитные метрики. Как их придумывать, проверять и как ими нельзя манипулировать.</span></p>
+    <p><span class="bk-toc-n">7</span><span class="bk-toc-t" data-i18n="bk.toc.c7">Метрика-цель для экспериментов</span> <span data-i18n="bk.toc.v7">Как свести несколько метрик в одну метрику-цель, по-английски OEC. Пример Amazon с рассылками: считать не только выручку от письма, но и потерю от отписок.</span></p>
+    <p><span class="bk-toc-n">8</span><span class="bk-toc-t" data-i18n="bk.toc.c8">Память компании и метаанализ</span> <span data-i18n="bk.toc.v8">Зачем хранить все прошлые эксперименты: видно, какие идеи обычно работают, как метрики связаны друг с другом и как растёт культура.</span></p>
+    <p><span class="bk-toc-n">9</span><span class="bk-toc-t" data-i18n="bk.toc.c9">Этика экспериментов</span> <span data-i18n="bk.toc.v9">Когда тест требует согласия пользователей, какие данные можно собирать и как устроить проверку рискованных экспериментов.</span></p>
+    <h3 data-i18n="bk.toc.p3">Часть III. Чем дополнить эксперимент</h3>
+    <p><span class="bk-toc-n">10</span><span class="bk-toc-t" data-i18n="bk.toc.c10">Дополняющие методы</span> <span data-i18n="bk.toc.v10">Логи, опросы, фокус-группы, исследования пользователей. Где они дают идеи и метрики, которые потом проверяет эксперимент.</span></p>
+    <p><span class="bk-toc-n">11</span><span class="bk-toc-t" data-i18n="bk.toc.c11">Наблюдательные исследования</span> <span data-i18n="bk.toc.v11">Что делать, если рандомизировать нельзя: разность разностей, разрывная регрессия и другие схемы. И примеры, где такие выводы потом опроверг эксперимент.</span></p>
+    <h3 data-i18n="bk.toc.p4">Часть IV. Как строить платформу</h3>
+    <p><span class="bk-toc-n">12</span><span class="bk-toc-t" data-i18n="bk.toc.c12">Тесты на стороне приложения</span> <span data-i18n="bk.toc.v12">Чем эксперименты в мобильном приложении отличаются от серверных: релизы через магазин, офлайн-режим, задержка данных.</span></p>
+    <p><span class="bk-toc-n">13</span><span class="bk-toc-t" data-i18n="bk.toc.c13">Сбор событий</span> <span data-i18n="bk.toc.v13">Без надёжного логирования эксперимент не посчитать. Как сводить логи клиента и сервера и почему за качество событий кто‑то должен отвечать.</span></p>
+    <p><span class="bk-toc-n">14</span><span class="bk-toc-t" data-i18n="bk.toc.c14">Единица рандомизации</span> <span data-i18n="bk.toc.v14">Делить по пользователю, сессии или странице. Что ломается, если единица анализа не совпадает с единицей деления.</span></p>
+    <p><span class="bk-toc-n">15</span><span class="bk-toc-t" data-i18n="bk.toc.c15">Постепенная раскатка</span> <span data-i18n="bk.toc.v15">Как наращивать долю трафика, балансируя скорость, качество и риск: четыре этапа раскатки и что проверять на каждом.</span></p>
+    <p><span class="bk-toc-n">16</span><span class="bk-toc-t" data-i18n="bk.toc.c16">Масштабирование анализа</span> <span data-i18n="bk.toc.v16">Как устроить конвейер данных и отчёт, чтобы считать тысячи экспериментов и показывать результаты понятно.</span></p>
+    <h3 data-i18n="bk.toc.p5">Часть V. Как анализировать</h3>
+    <p><span class="bk-toc-n">17</span><span class="bk-toc-t" data-i18n="bk.toc.c17">Статистика за экспериментами</span> <span data-i18n="bk.toc.v17">t-тест, p-value и доверительный интервал, мощность и множественные проверки. Коротко, как справочник.</span></p>
+    <p><span class="bk-toc-n">18</span><span class="bk-toc-t" data-i18n="bk.toc.c18">Оценка дисперсии и чувствительность</span> <span data-i18n="bk.toc.v18">Как правильно считать дисперсию для метрик-отношений с помощью дельта-метода и как её уменьшить, например методом CUPED.</span></p>
+    <p><span class="bk-toc-n">19</span><span class="bk-toc-t" data-i18n="bk.toc.c19">A/A-тест</span> <span data-i18n="bk.toc.v19">Тест без различий проверяет саму платформу: при честной системе p-value распределены равномерно. Примеры багов, которые нашли только так.</span></p>
+    <p><span class="bk-toc-n">20</span><span class="bk-toc-t" data-i18n="bk.toc.c20">Триггеринг</span> <span data-i18n="bk.toc.v20">Анализировать только тех, кого изменение действительно коснулось. Эффект не размывается, чувствительность растёт.</span></p>
+    <p><span class="bk-toc-n">21</span><span class="bk-toc-t" data-i18n="bk.toc.c21">Несовпадение размеров групп</span> <span data-i18n="bk.toc.v21">SRM: откуда берётся и почему результатам с ним нельзя верить. Боты, редиректы, кеш и другие причины.</span></p>
+    <p><span class="bk-toc-n">22</span><span class="bk-toc-t" data-i18n="bk.toc.c22">Утечка между группами</span> <span data-i18n="bk.toc.v22">Когда группы влияют друг на друга: соцсети, маркетплейсы, общие ресурсы. Как делить, чтобы оценка не искажалась.</span></p>
+    <p><span class="bk-toc-n">23</span><span class="bk-toc-t" data-i18n="bk.toc.c23">Долгосрочные эффекты</span> <span data-i18n="bk.toc.v23">Почему эффект первых недель может не совпасть с эффектом через год: привыкание, новизна, обучение пользователей. Как это измерить.</span></p>
+  </div>
 </section>
 
 <section class="bk-sec" aria-labelledby="course-h">
@@ -315,8 +337,8 @@ print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.3f}",
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 
