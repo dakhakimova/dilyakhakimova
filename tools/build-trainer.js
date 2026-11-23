@@ -22,6 +22,22 @@ function build(){
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, 'terms/terms.json'), 'utf8')).terms;
   const pubTerm = s => terms.some(x => x.slug === s && x.published);
   const img = name => fs.existsSync(path.join(ROOT, 'trainer/img', name + '.jpg')) ? `/trainer/img/${name}.jpg` : '';
+  // картинки к задачам — примерно каждая пятая (Диля, 23.11); промпты — в проектном документе «Тренажёр — промпты картинок к задачам».
+  // Показываем, только когда файл trainer/img/tasks/<имя>.jpg на месте.
+  const PICS = {
+    'S6a-w': ['raf-districts', 'Котейка с двумя стаканами рафа на карте двух районов доставки'],
+    'S6a-s1': ['discount-wheel', 'Колесо скидок в приложении, Боб ждёт выигрыш'],
+    'P3a-w': ['promo-flag', 'Котейка с лупой проверяет заказы с красными флажками'],
+    'P3b-s1': ['stale-croissants', 'Три гостя хмурятся над круассанами, Алиса записывает'],
+    'P3c-w': ['lost-order', 'Боб заглядывает в десятую полку выдачи, девять уже пустые'],
+    'P3d-w': ['coffee-machines', 'Две кофемашины, старая и новая, Котейка гадает, какая стоит в кафе'],
+    'S5a-w': ['cashbox-lottery', 'Лотерея на кассе: барабан с билетами, Боб держит пустой билет'],
+    'P2b-s1': ['cups-coupon', 'Котейка поднял две пустые чашки из четырёх, Алиса решает, менять ли выбор'],
+    'S1b-w': ['barista-jug', 'Бариста разливает четыре порции в литровый кувшин'],
+    'C2b-w': ['bus-stop', 'Алиса ждёт автобус у остановки возле кафе'],
+    'C2a-i': ['average-check', 'Боб радуется растущему среднему чеку, а часть гостей уходит из кафе'],
+  };
+  const pic = id => { const p = PICS[id]; return p && img('tasks/' + p[0]) ? `<figure class="tr-pic"><img src="${img('tasks/' + p[0])}" alt="${attr(p[1])}" width="1200" height="800" loading="lazy"></figure>` : ''; };
 
   const head = o => `<!DOCTYPE html>
 <html lang="ru">
@@ -56,7 +72,7 @@ ${chrome.header('')}
   const calcTask = (x, kind, id) => `
       <div class="tr-task" data-id="${id}" data-ans="${x.ans}" data-tol="${x.tol}">
         <p class="tr-kind">${kind}${x.dom ? ` · <span class="tr-dom">${typo(x.dom)}</span>` : ''}</p>
-        <p class="tr-q">${typo(x.q)}</p>
+        ${pic(id)}<p class="tr-q">${typo(x.q)}</p>
         <form class="tr-form" novalidate>
           <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>${x.unit ? `<span class="tr-unit">${typo(x.unit)}</span>` : ''}
           <button type="submit" class="btn ghost">Проверить</button>
@@ -69,7 +85,7 @@ ${chrome.header('')}
   const ideaTask = (d, id) => `
       <div class="tr-task tr-idea" data-id="${id}">
         <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
-        <p class="tr-q">${typo(d.q)}</p>
+        ${pic(id)}<p class="tr-q">${typo(d.q)}</p>
         <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
         <details class="tr-sol"><summary>Что хотят услышать</summary>
           <ul class="list">${d.points.map(p => `<li>${typo(p)}</li>`).join('')}</ul>
