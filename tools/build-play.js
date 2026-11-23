@@ -199,12 +199,13 @@ ${foot()}
 <main id="main" class="wrap play-cat">
   <h1>${t('play.title')}</h1>
   <p class="lead">${t('play.lead')}</p>
-  <section class="cat-start" aria-labelledby="start-h">
-    <h2 id="start-h">${t('play.start')}</h2>
-    <ul class="toys cat-list" role="list">${start.map(card).join('')}
-    </ul>
-  </section>${groups}${hiddenN ? `
-  <p class="cat-more"><button class="btn ghost" type="button" id="cat-more" aria-expanded="false">${t('play.moreGames')}</button></p>` : ''}
+  <figure class="cat-art"><img src="/img/play-hero.jpg" width="1600" height="900" alt="${attr(t('play.art.alt'))}" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>${cfg.order.filter(cid => pub.some(x => x.course === cid)).map(cid => `
+  <section class="cat-route" aria-labelledby="c-${cid}">
+    <h2 id="c-${cid}"><a href="${C(cid).href}">${cname(cid)}</a></h2>
+    <ol class="g-list" role="list">${pub.filter(x => x.course === cid).sort((a, b) => a.step - b.step).map(o => `
+      <li><a href="${pre}/play/${o.slug}/"><span class="g-step">${t(C(o.course).unit)} ${o.step}</span><span class="g-q">${X(o.slug, 'q')}</span><span class="g-lead">${X(o.slug, 'lead')}</span><span class="lvl l${o.level}" title="${attr(t('lvl.' + o.level))}"><span class="vh">${t('lvl.word')} ${t('lvl.' + o.level)}</span></span></a></li>`).join('')}
+    </ol>
+  </section>`).join('')}
   <p class="legend"><span>${t('play.legend')}</span>${[1, 2, 3].map(chip).join('')}</p>
 </main>
 ${foot()}

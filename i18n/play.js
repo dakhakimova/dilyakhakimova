@@ -10,8 +10,9 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'play.meta.title': 'Симуляторы по вероятности, статистике и A/B — игры онлайн · Диля Хакимова',
   'play.meta.desc': 'Интерактивные игры по вероятности, статистике и A/B: одна идея, один-два ползунка. Сначала угадай, потом проверь.',
   'play.title': 'Игры',
-  'play.lead': 'Здесь собраны игры из курсов — в каждой ссылка на шаг, откуда она.',
+  'play.lead': 'Игры из бесплатных курсов: сначала угадай, потом проверь симуляцией. Каждая открывается отдельно, рядом ссылка на шаг курса.',
   'play.start': 'Начни с этих',
+  'play.art.alt': 'Алиса, Боб и Котейка за столом кафе играют: монетка, кубики и доска с колоколом',
   'play.fromCap': 'Из курса',
   'play.intuition': 'Где ошибается интуиция',
   'play.levelWord': 'уровень',
@@ -67,6 +68,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
 });
 
 I18N.en = Object.assign(I18N.en || {}, {
+  'play.art.alt': 'Alice, Bob and Kotejka playing at a cafe table',
   'play.title': 'Toys',
 });
 })(typeof window !== 'undefined' ? window : globalThis);

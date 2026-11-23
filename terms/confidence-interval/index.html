@@ -6,6 +6,7 @@
 <!-- Страница собрана командой node tools/bake-i18n.js (tools/build-terms.js) из terms/terms.json и i18n/terms.js: правьте их, а не этот файл. -->
 <title>Доверительный интервал простыми словами · Диля Хакимова</title>
 <meta name="description" content="Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95%» и игра, где вилки ловят правду.">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dilyakhakimova.com/terms/confidence-interval/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ru_RU">
@@ -21,10 +22,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611306">
-<link rel="stylesheet" href="/tokens.css?v=202611306">
-<link rel="stylesheet" href="/home.css?v=202611306">
-<link rel="stylesheet" href="/terms/terms.css?v=202611306">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611307">
+<link rel="stylesheet" href="/tokens.css?v=202611307">
+<link rel="stylesheet" href="/home.css?v=202611307">
+<link rel="stylesheet" href="/terms/terms.css?v=202611307">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Доверительный интервал","item":"https://dilyakhakimova.com/terms/confidence-interval/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/confidence-interval/#term","name":"Доверительный интервал","description":"Доверительный интервал — это вилка значений, которые не спорят с данными: всё, что внутри, правдоподобно, а ширина вилки показывает, насколько точно мы измерили. У 95-процентного интервала способ построения такой, что вилка накрывает правду в 95 случаях из 100.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Доверительный интервал простыми словами","description":"Доверительный интервал как вилка правдоподобных эффектов: формула для среднего, что на самом деле значит «95%» и игра, где вилки ловят правду.","url":"https://dilyakhakimova.com/terms/confidence-interval/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/confidence-interval/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Что значит «95-процентный доверительный интервал»?","acceptedAnswer":{"@type":"Answer","text":"Это свойство процедуры: если много раз повторить эксперимент и каждый раз строить интервал так же, около 95% интервалов накроют настоящее значение. Про один уже построенный интервал нельзя сказать «правда внутри с вероятностью 95%»."}},{"@type":"Question","name":"Чем доверительный интервал отличается от интервала предсказания?","acceptedAnswer":{"@type":"Answer","text":"Доверительный — про параметр, например про средний чек всех гостей; он сужается с ростом выборки. Интервал предсказания — про одно будущее значение, например чек следующего гостя; он остаётся широким, потому что включает разброс самих чеков."}},{"@type":"Question","name":"Как связаны уровень доверия и уровень значимости?","acceptedAnswer":{"@type":"Answer","text":"Уровень доверия = 1 − α. Если 95-процентный интервал разницы не накрывает ноль, двусторонний тест на уровне 5% эту разницу отвергает как случайную."}},{"@type":"Question","name":"Баннер в приложении кафе показали 6000 раз, заказов — 87. Какую вилку назвать Бобу вместо «конверсия 1.45%»?","acceptedAnswer":{"@type":"Answer","text":"Стандартная ошибка доли √(0.0145 · 0.9855/6000) ≈ 0.16 п. п. 95-процентная вилка ± 1.96 · 0.16 ≈ ± 0.3 п. п., то есть примерно от 1.15% до 1.75%."}},{"@type":"Question","name":"В партии проверили 120 круассанов, пересоленных 9. Какой интервал для доли брака и почему обычная формула здесь хуже?","acceptedAnswer":{"@type":"Answer","text":"Доля 7.5%. Формула Вальда (p ± 1.96 · SE) даёт 2.8–12.2%, интервал Уилсона — 4.0–13.6%. При малом числе «успехов» Вальд симметричен там, где правда несимметрична, и занижает верх. Уилсон честнее."}},{"@type":"Question","name":"Сколько гостей опросить, чтобы узнать долю пьющих латте на растительном молоке с точностью ±2 п. п.?","acceptedAnswer":{"@type":"Answer","text":"n ≈ 1.96² · p(1 − p) / 0.02². Если о доле ничего не знаем, берём худший случай p = 0.5: около 2400 гостей. Если ждём около 20% — хватит примерно 1540."}},{"@type":"Question","name":"Во сколько раз нужно увеличить выборку, чтобы доверительный интервал стал вдвое уже?","acceptedAnswer":{"@type":"Answer","text":"В четыре раза: ширина пропорциональна 1/√n. Поэтому «просто подождать ещё неделю» сужает вилку медленнее, чем кажется."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -130,7 +131,6 @@
       </tbody>
     </table></div>
     <p class="t-pick">Для решения бери интервал: он показывает и значимость, и размер эффекта. p‑value — короткая сводка «шум или нет», когда размер не важен.</p>
-    <p class="more-link"><a href="/terms/p-value/">p‑value простыми словами →</a></p>
   </section>
 
   <section class="t-sec" aria-labelledby="faq-h">
@@ -169,7 +169,7 @@
 
   <section class="t-sec t-next" aria-label="Где это в курсе и связанные термины">
     <p>Это глава 7 курса «Сигнал или шум» — <a href="/signal/07-clt.html">«ЦПТ в деле» →</a></p>
-    <p>Связанные термины: <a href="/terms/p-value/">p‑value</a>, <a href="/terms/normal-distribution/">Нормальное распределение</a></p>
+    <p>Связанные термины: <a href="/terms/normal-distribution/">Нормальное распределение</a></p>
   </section>
 
   <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
@@ -184,6 +184,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611306"></script>
+<script src="/terms/terms.js?v=202611307"></script>
 </body>
 </html>

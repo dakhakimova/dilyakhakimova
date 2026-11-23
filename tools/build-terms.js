@@ -276,8 +276,9 @@ ${foot()}
 <main id="main" class="wrap term-hub">
   <h1>${t('terms.hub.h1')}</h1>
   <p class="lead">${t('terms.hub.lead')}</p>
-  <p class="t-search"><label for="t-q">${t('terms.hub.search')}</label><input id="t-q" type="search" autocomplete="off" spellcheck="false"></p>
-  <nav class="t-abc" aria-label="${attr(t('terms.hub.abc'))}">${letters.map(([L, i]) => `<a href="#abc-${i}">${L}</a>`).join('')}</nav>
+  <figure class="t-art"><img src="/img/terms-hero.jpg" width="1600" height="900" alt="Котейка листает на столе кафе толстый словарь, из страниц поднимается колокол нормального распределения" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>
+  ${hubList.length < 6 ? '' : `<p class="t-search"><label for="t-q">${t('terms.hub.search')}</label><input id="t-q" type="search" autocomplete="off" spellcheck="false"></p>
+  <nav class="t-abc" aria-label="${attr(t('terms.hub.abc'))}">${letters.map(([L, i]) => `<a href="#abc-${i}">${L}</a>`).join('')}</nav>`}
   <ul class="toys cat-list" role="list">${hubList.map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li${o.first !== undefined ? ` id="abc-${o.first}"` : ''} data-q="${attr([TX[o.slug].name, ...(o.aka || [])].join(' ').toLowerCase())}">`)).join('')}
   </ul>
   <p class="t-empty" role="status" hidden><span></span> <button class="btn-text" type="button">${t('terms.hub.reset')}</button></p>
@@ -285,7 +286,7 @@ ${foot()}
 </main>
 ${foot()}
 <script>
-(function(){var q=document.getElementById('t-q'),li=[].slice.call(document.querySelectorAll('.cat-list > li')),abc=document.querySelector('.t-abc'),em=document.querySelector('.t-empty'),msg=${json(RU['terms.hub.none'])};
+(function(){var q=document.getElementById('t-q');if(!q)return;var li=[].slice.call(document.querySelectorAll('.cat-list > li')),abc=document.querySelector('.t-abc'),em=document.querySelector('.t-empty'),msg=${json(RU['terms.hub.none'])};
 function go(){var D=/[\u2010-\u2015\-]/g,v=q.value.trim().toLowerCase().replace(D,'-'),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.replace(D,'-').indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
 q.addEventListener('input',go);em.querySelector('button').addEventListener('click',function(){q.value='';go();q.focus()})})();
 </script>

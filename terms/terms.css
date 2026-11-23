@@ -57,7 +57,7 @@
 
 /* игра в iframe */
 .stage-frame{margin:var(--s-4) 0 var(--s-2)}  /* без своей рамки: карточки игры («Сначала угадай», «Потом проверь», «Почему так») стоят прямо на странице, как в курсе (Д3) */
-@media (min-width:760px){ .term .stage-frame{margin-inline:calc(50% - min(440px, 50vw - 16px))} }
+/* ширина игры и картинки = ширина текста (Диля, 23.11) */
 .stage-frame iframe{display:block; width:100%; border:0; min-height:320px; background:transparent}
 .stage-frame .noframe{display:none; margin:var(--s-2) 0 0}
 .stage-frame.broken .noframe{display:block}
@@ -84,7 +84,7 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
   .term.t-wide .t-def{font-size:var(--t-22, 1.375rem)}
 }
 @media (min-width:960px){
-  .term.t-wide .t-top{max-width:none; margin-inline:calc(50% - min(440px, 50vw - 16px))}
+  .term.t-wide .t-top{max-width:none}
   .term.t-wide .viz-wide{display:block} .term.t-wide .viz-narrow{display:none}
 }
 .viz-svg{display:block; width:100%; max-width:520px; min-width:400px; height:auto; margin:0 auto; font-family:var(--body); font-variant-numeric:tabular-nums}
@@ -219,3 +219,5 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 .play-out .sol-table{width:auto; min-width:16em}
 @media (max-width:620px){ .play-out{padding:var(--s-4)} }
 .term .t-out{margin:var(--s-3) 0 0}
+.t-art{margin:var(--s-5) 0 var(--s-6)}
+.t-art img{display:block; width:100%; height:auto; border-radius:16px; background:#EFE9DF}
