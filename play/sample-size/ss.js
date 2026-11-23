@@ -100,7 +100,7 @@
   }
 
   // ---------- график: MDE от числа людей, отсечка — текущий расчёт; отсечку можно тянуть ----------
-  const svg = $('ss-curve'); let XMAX = 0, dragging = false;
+  const svg = $('ss-curve'); let XMAX = 0, YMAX = 0, SIG = '', dragging = false;
   const W = 560, H = 260, L = 52, R = 16, T = 30, B = 40;
   const NS = 'http://www.w3.org/2000/svg';
   const el = (t, a, par) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (par || svg).appendChild(e); return e; };
@@ -109,9 +109,13 @@
   function drawCurve(){
     if (!svg) return;
     const p = st.base / 100, a = st.alpha, pw = st.pow / 100;
-    if (!dragging || !XMAX) XMAX = niceUp(Math.max(st.n * 2.5, 100));
+    // масштаб не зависит от положения отсечки: пересчитываем, только когда поменялись исходные данные
+    // (метрика, её значение, разброс, α, мощность, сторона, сплит) или точка ушла за край графика
+    const sig = [st.metric, st.base, st.mean, st.sd, st.rx, st.ry, st.sx, st.sy, st.rho, st.alpha, st.pow, st.sides, st.split].join('|');
+    const outside = XMAX && (st.n > XMAX || st.mde > YMAX);
+    if (!XMAX || (!dragging && (sig !== SIG || outside))){ XMAX = niceUp(Math.max(st.n * 2.5, 100)); YMAX = 0; SIG = sig; }
     const mAt = n => 100 * mdeFor(p, n, pw, a);
-    const N0 = XMAX / 60, YMAX = Math.min(niceUp(Math.max(st.mde * 3, mAt(XMAX / 8))), 500);
+    const N0 = XMAX / 60; if (!YMAX) YMAX = Math.min(niceUp(Math.max(st.mde * 3, mAt(XMAX / 8))), 500);
     const sx = n => L + n / XMAX * (W - L - R), sy = m => T + (1 - Math.min(m, YMAX) / YMAX) * (H - T - B);
     svg.textContent = '';
     for (let i = 0; i <= 4; i++){ const y = YMAX * i / 4; el('line', {x1: L, x2: W - R, y1: sy(y), y2: sy(y), stroke: 'rgba(0,0,0,.07)'}); const t = el('text', {x: L - 8, y: sy(y) + 4, 'text-anchor': 'end', class: 'ax'}); t.textContent = nf(y, y < 10 ? 1 : 0) + '%'; }
@@ -129,7 +133,7 @@
   }
   if (svg){
     svg.setAttribute('tabindex', '0');
-    const toN = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * W; return Math.max(XMAX / 60, Math.min(XMAX, (x - L) / (W - L - R) * XMAX)); };
+    const toN = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * W; let n = Math.max(XMAX / 60, Math.min(XMAX, (x - L) / (W - L - R) * XMAX)); while (n < XMAX && 100 * mdeFor(st.base / 100, n, st.pow / 100, st.alpha) > YMAX) n *= 1.02; return n; };
     const setN = n => { st.mode = 'n'; st.mde = +(100 * mdeFor(st.base / 100, n, st.pow / 100, st.alpha)).toFixed(2); touched.add('mde'); calc(); render(); };   // тянем отсечку — меняется MDE, размер выборки пересчитывается
     svg.addEventListener('pointerdown', ev => { ev.preventDefault(); dragging = true; svg.setPointerCapture(ev.pointerId); setN(toN(ev)); });
     svg.addEventListener('pointermove', ev => { if (dragging) setN(toN(ev)); });
