@@ -143,6 +143,7 @@ ${tpls}
   <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a></p>
   <h1>Смешанная тренировка</h1>
   <p class="t-def">На собеседовании тему не называют. Здесь задачи идут вперемешку из всех готовых тем — сначала узнай шаблон, потом считай.</p>
+  ${img('trainer-mixed') ? `<img class="tr-sec-img" src="${img('trainer-mixed')}" alt="" width="1200" height="800">` : ''}
   <div class="tr-mixbox" aria-live="polite">
     <p class="tr-kind"><span data-mix-n></span><span class="tr-dom" data-mix-dom></span></p>
     <p class="tr-q" data-mix-q></p>
@@ -201,6 +202,11 @@ ${tpls}
     <p class="tr-meta">Готово ${nReady} тем из ${MAP.length}. Остальные появятся до конца декабря.</p>
   </section>
 ${sec}
+  <section class="tr-sec" aria-labelledby="sec-mock">
+    ${img('trainer-mock') ? `<img class="tr-sec-img" src="${img('trainer-mock')}" alt="" width="1200" height="800" loading="lazy">` : ''}
+    <h2 id="sec-mock">Пробное собеседование</h2>
+    <p class="tr-meta">Скоро · 45 минут, задачи из разных разделов, разбор в конце</p>
+  </section>
 </main>` + foot();
   write('trainer/index.html', index);
   return {topics: nReady, tasks: mix.length};
