@@ -13,8 +13,8 @@
   document.querySelectorAll('[data-metric]').forEach(b => b.addEventListener('click', () => {
     metric = b.dataset.metric;
     document.querySelectorAll('[data-metric]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
-    post.querySelectorAll('[data-m]').forEach(e => { e.hidden = e.dataset.m !== metric; });
-    post.querySelector('.pm-grid').classList.toggle('mean', metric === 'mean'); calc();
+    post.querySelectorAll('[data-m]').forEach(e => { e.hidden = e.dataset.m !== (metric === 'ratio' ? 'mean' : metric); });
+    post.querySelector('.pm-grid').classList.toggle('mean', metric !== 'share'); const mh = post.querySelector('.pm-head [data-m="mean"]'); if (mh) mh.textContent = metric === 'ratio' ? 'Отношение' : 'Среднее'; calc();
   }));
   const cdf = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; };
   const inv = p => { let lo = -8, hi = 8; for (let i = 0; i < 80; i++){ const m = (lo + hi) / 2; cdf(m) < p ? lo = m : hi = m; } return (lo + hi) / 2; };
@@ -35,7 +35,7 @@
     $('pm-big').innerHTML = 'Тест мог заметить эффект от <b>' + (Number.isFinite(rel) ? nf(rel * 100, 1) + '%' : abs) + '</b> относительных';
     $('pm-p').textContent = 'В абсолютных: ' + abs + (metric === 'share' ? '' : '.') + ' Множитель ' + nf(k, 2) + ' × стандартная ошибка ' + (metric === 'share' ? nf(se * 100, 3) + ' п. п.' : nf(se, 2)) + ', мощность ' + nf(pw * 100, 0) + '%, α = ' + al + '.\nЕсли важный для бизнеса эффект меньше, серый результат ничего не доказывает: тест такой эффект скорее всего пропустил бы.';
   }
-  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и самих долей.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'; }
+  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и самих долей.' : (metric === 'ratio' ? 'Для отношения нужны размеры групп, отношение в контроле и стандартные отклонения обеих групп — по дельта-методу.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'); }
   ['pm-na', 'pm-nb'].forEach(id => F(id).addEventListener('blur', () => { const v = num(F(id).value); if (v != null) F(id).value = nf(v); }));
   post.querySelectorAll('input').forEach(i => { i.addEventListener('input', calc); i.addEventListener('focus', () => setTimeout(() => i.select(), 0)); });
   calc();

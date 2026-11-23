@@ -45,13 +45,14 @@ ${chrome.header('play', false)}
     <p class="ss-step">1. Что знаем заранее</p>
     <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
       <span class="ss-mode-l">Метрика:</span>
-      <button type="button" role="radio" data-pmetric="share" aria-checked="true">доля: конверсия, ретеншен</button>
-      <button type="button" role="radio" data-pmetric="mean" aria-checked="false">среднее: чек, время</button>
+      <button type="button" role="radio" data-pmetric="share" aria-checked="true">доля</button>
+      <button type="button" role="radio" data-pmetric="mean" aria-checked="false">среднее</button>
+      <button type="button" role="radio" data-pmetric="ratio" aria-checked="false">отношение</button>
     </div>
     <div class="ss-form">
       <label class="ss-f" data-pm="share"><span>Доля сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i>конверсия, ретеншен</i></label>
-      <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
-      <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
+      <label class="ss-f" data-pm="mean ratio" hidden><span><b data-pml="mean">Среднее сейчас</b><b data-pml="ratio" hidden>Отношение сейчас</b></span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i><b data-pml="mean">чек, время на пользователя</b><b data-pml="ratio" hidden>клики на показ, выручка на заказ</b></i></label>
+      <label class="ss-f" data-pm="mean ratio" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i><b data-pml="mean">на пользователя</b><b data-pml="ratio" hidden>по дельта-методу, на пользователя</b></i></label>
       <div class="ss-f ss-var" data-pm="share"><span>Стандартное отклонение</span><output id="ss-var"></output></div>
     </div>
     <div class="ss-alpha">
@@ -103,8 +104,9 @@ ${chrome.header('play', false)}
     <p class="pm-lead">Тест закончился, и дисперсия, число людей и средние уже известны. Какой самый маленький эффект этот тест мог заметить? Если пост-MDE больше эффекта, который важен бизнесу, серый результат ничего не доказывает: такой эффект тест скорее всего не увидел бы.</p>
     <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
       <span class="ss-mode-l">Метрика:</span>
-      <button type="button" role="radio" data-metric="share" aria-checked="true">доля: конверсия, ретеншен</button>
-      <button type="button" role="radio" data-metric="mean" aria-checked="false">среднее: чек, время</button>
+      <button type="button" role="radio" data-metric="share" aria-checked="true">доля</button>
+      <button type="button" role="radio" data-metric="mean" aria-checked="false">среднее</button>
+      <button type="button" role="radio" data-metric="ratio" aria-checked="false">отношение</button>
     </div>
     <div class="pm-grid">
       <div class="pm-head"><span></span><span>Пользователей</span><span data-m="share">Доля</span><span data-m="mean" hidden>Среднее</span><span data-m="mean" hidden>Ст. отклонение</span></div>

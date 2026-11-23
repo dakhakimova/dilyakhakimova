@@ -12,12 +12,12 @@
   const inv = p => { let lo = -8, hi = 8; for (let i = 0; i < 80; i++){ const m = (lo + hi) / 2; cdf(m) < p ? lo = m : hi = m; } return (lo + hi) / 2; };
   // доля: дисперсии p(1 − p) и p2(1 − p2); среднее: обе группы с одним стандартным отклонением sd
   const v2 = (p, rel) => {   // n дальше — всего в эксперименте; доля теста q = split, контроля 1 − q
-   const r = st.sides === 'left' ? -rel : rel; return st.metric === 'mean' ? [st.sd * st.sd, st.sd * st.sd, st.mean * rel] : [p * (1 - p), p * (1 + r) * (1 - p * (1 + r)), p * rel]; };   // левосторонний: ждём падения
+   const r = st.sides === 'left' ? -rel : rel; return st.metric !== 'share' ? [st.sd * st.sd, st.sd * st.sd, st.mean * rel] : [p * (1 - p), p * (1 + r) * (1 - p * (1 + r)), p * rel]; };   // левосторонний: ждём падения
   const za = a => inv(1 - (st.sides === 'two' ? a / 2 : a));   // односторонний тест: весь α в одном хвосте
   const qT = () => st.split / 100;
   const nFor = (p, rel, pow, a) => { const [s1, s2, d] = v2(p, rel), q = qT(); return Math.ceil(Math.pow(za(a) + inv(pow), 2) * (s1 / (1 - q) + s2 / q) / (d * d)); };
   const powFor = (p, rel, n, a) => { const [s1, s2, d] = v2(p, rel), q = qT(); return cdf(Math.abs(d) / Math.sqrt(s1 / (n * (1 - q)) + s2 / (n * q)) - za(a)); };
-  const mdeFor = (p, n, pow, a) => { let lo = 1e-4, hi = st.metric === 'mean' ? 20 : Math.min(20, (1 - p) / p); for (let i = 0; i < 70; i++){ const m = (lo + hi) / 2; powFor(p, m, n, a) < pow ? lo = m : hi = m; } return hi; };
+  const mdeFor = (p, n, pow, a) => { let lo = 1e-4, hi = st.metric !== 'share' ? 20 : Math.min(20, (1 - p) / p); for (let i = 0; i < 70; i++){ const m = (lo + hi) / 2; powFor(p, m, n, a) < pow ? lo = m : hi = m; } return hi; };
   // разбор ввода: «4», «4%», «0.04» (доля), «4,5»; доли меньше 1 у процентов читаем как долю
   const parse = (raw, kind) => {
     const s = String(raw).trim().replace(/\s| /g, '').replace(',', '.'); const pct = /%$/.test(s);
@@ -65,11 +65,12 @@
     document.querySelectorAll('[data-sides]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.sides === st.sides)));
     const ml = $('ss-mde-l'); if (ml) ml.textContent = st.sides === 'left' ? 'Хочу заметить падение на' : 'Хочу заметить рост на';
     document.querySelectorAll('[data-pmetric]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.pmetric === st.metric)));
-    document.querySelectorAll('[data-pm]').forEach(e => { e.hidden = e.dataset.pm !== st.metric; });
+    document.querySelectorAll('[data-pm]').forEach(e => { e.hidden = !e.dataset.pm.split(' ').includes(st.metric); });
+    document.querySelectorAll('[data-pml]').forEach(e => { e.hidden = e.dataset.pml !== st.metric; });
     const p = st.base, abs = p * st.mde / 100, am = st.mean * st.mde / 100;
     const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = 'σ = √(p · (1 − p)) = √(' + nf(q, 4) + ' · ' + nf(1 - q, 4) + ') = ' + nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя'; }
-    const lines = [st.metric === 'mean'
-      ? 'Среднее ' + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
+    const lines = [st.metric !== 'share'
+      ? (st.metric === 'ratio' ? 'Отношение ' : 'Среднее ') + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
       : 'Доля ' + fmt.base(p) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + (st.sides === 'left' ? -abs : abs), 3) + '%'];
     if (st.sides !== 'two' || st.split !== 50) lines.push((st.sides === 'two' ? 'Ждём изменения в любую сторону' : 'Ждём только ' + (st.sides === 'left' ? 'падения' : 'роста')) + ', группы ' + nf(100 - st.split, 1) + ' на ' + nf(st.split, 1) + ' — меняется в «Дополнительно»');
     Object.entries(heard).forEach(([k, v]) => { if (v) lines.push({base: 'Доля', mean: 'Среднее', sd: 'Стандартное отклонение', mde: 'MDE', pow: 'Мощность', n: 'Всего в эксперименте', traffic: 'Трафик', split: 'Доля теста'}[k] + ': ' + v); });
@@ -84,7 +85,7 @@
     if (d > 90) warn.push('дольше 90 дней: за это время сменятся сезон и сама аудитория');
     if (st.mde > 100) warn.push('рост больше чем вдвое — обычно MDE в A/B-тестах от 1 до 20%');
     if (st.metric === 'share' && st.base >= 30) warn.push('доля ' + fmt.base(st.base) + ' — не имелась ли в виду ' + nf(st.base / 100, 2) + '%?');
-    if (st.metric === 'mean' && st.sd > 10 * st.mean) warn.push('стандартное отклонение в 10 раз больше среднего — проверь выбросы');
+    if (st.metric !== 'share' && st.sd > 10 * st.mean) warn.push('стандартное отклонение в 10 раз больше среднего — проверь выбросы');
     if (st.mode === 'pow' && st.pow < 50) warn.push('мощность ниже 50%: тест чаще пропустит эффект, чем заметит');
     $('ss-warn').hidden = !warn.length; $('ss-warn').textContent = warn.length ? 'Проверь: ' + warn.join('; ') + '.' : '';
     // «что если»
@@ -140,7 +141,13 @@
   document.querySelectorAll('.ss-mode [data-mode]').forEach(b => b.addEventListener('click', () => { st.mode = b.dataset.mode; calc(); render(); }));
   document.querySelectorAll('[data-alpha]').forEach(b => b.addEventListener('click', () => { st.alpha = +b.dataset.alpha; calc(); render(); }));
   document.querySelectorAll('[data-sides]').forEach(b => b.addEventListener('click', () => { st.sides = b.dataset.sides; calc(); render(); }));
-  document.querySelectorAll('[data-pmetric]').forEach(b => b.addEventListener('click', () => { st.metric = b.dataset.pmetric; calc(); render(); }));
+  document.querySelectorAll('[data-pmetric]').forEach(b => b.addEventListener('click', () => {
+    st.metric = b.dataset.pmetric;
+    // пример под тип метрики, пока поля не трогали: среднее — чек 850 ± 1200, отношение — клики на показ 0,12 ± 0,3
+    if (!touched.has('mean')) st.mean = st.metric === 'ratio' ? 0.12 : 850;
+    if (!touched.has('sd')) st.sd = st.metric === 'ratio' ? 0.3 : 1200;
+    calc(); render();
+  }));
   calc(); render();
   // «Скопировать ссылку на расчёт» — адрес страницы уже содержит все числа
   const cp = $('ss-copy');
