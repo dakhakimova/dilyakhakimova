@@ -27,6 +27,7 @@ ${chrome.header('extras', true)}
 <main id="main" class="wrap block extras">
   <h1>Плюшки</h1>
   <p class="lead">Калькуляторы и тренажёры</p>
+  <figure class="ex-art"><img src="/img/extras-hero.jpg" width="1600" height="900" alt="Котейка раскладывает на столе кафе калькулятор, линейку и стопку карточек с задачами" onerror="this.parentNode.hidden=true"></figure>
   <ul class="ex-list" role="list">
     <li><a class="ex-card" href="/play/sample-size/">
       <span class="ex-pic" style="--ex:var(--c-ab)" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 12v42h44"/><path d="M14 16c6 20 14 28 36 32" class="th"/><circle cx="27" cy="37" r="4" class="dot"/></svg></span>
