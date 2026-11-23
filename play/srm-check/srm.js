@@ -54,11 +54,11 @@
     const wa = v.wa || 50, wb = v.wb || 50, sa = wa / (wa + wb);
     const qq = new URLSearchParams(); if (v.a != null) qq.set('a', v.a); if (v.b != null) qq.set('b', v.b); if (v.wa) qq.set('wa', v.wa); if (v.wb) qq.set('wb', v.wb);
     link = qq.toString() ? location.origin + location.pathname + '?' + qq : '';
-    if (v.a == null || v.b == null || v.a + v.b < 20){
-      out.className = 'ss-out srm-out idle'; res.hidden = true; $('srm-copy').hidden = true;
-      $('srm-big').textContent = 'Впиши, сколько пользователей пришло в контроль и в тест.';
-      $('srm-p').textContent = 'План сплита по умолчанию — 50 и 50.'; return;
-    }
+    const idle = (big, small) => { out.className = 'ss-out srm-out idle'; res.hidden = true; $('srm-copy').hidden = true; $('srm-big').textContent = big; $('srm-p').textContent = small; };
+    if (v.a == null || v.b == null){ idle('Впиши, сколько пользователей пришло в контроль и в тест.', 'План сплита по умолчанию — 50 и 50.'); return; }
+    // χ²-критерий врёт на крошечных группах: нужно, чтобы в каждую группу по плану ждали хотя бы 5 человек
+    const minE = Math.min((v.a + v.b) * sa, (v.a + v.b) * (1 - sa));
+    if (minE < 5){ idle('Слишком мало пользователей для проверки.', `χ²-критерий работает, когда в каждой группе по плану ждут хотя бы 5 человек, а сейчас в меньшей ждут ${minE < 1 ? minE.toFixed(1) : Math.floor(minE * 10) / 10}. Подожди, пока в тест придёт больше людей.`); return; }
     const tot = v.a + v.b, ea = tot * sa, eb = tot - ea;
     const chi2 = (v.a - ea) ** 2 / ea + (v.b - eb) ** 2 / eb, p = erfc(Math.sqrt(chi2 / 2));
     const sg = x => (x > 0 ? '+' : x < 0 ? '−' : '') + nf(Math.abs(x)), f1 = x => x < 10 ? x.toFixed(2) : x < 100 ? x.toFixed(1) : nf(x);
