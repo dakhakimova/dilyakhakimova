@@ -402,8 +402,6 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
   </section>
 
   <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
-
-  <p class="t-author">${t('terms.author')}</p>
 </main>
 ${foot()}
 <script src="/terms/terms.js?v=${V}"></script>${isNew ? `
