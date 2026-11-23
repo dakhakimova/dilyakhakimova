@@ -59,27 +59,28 @@ function pyHl(src){
 }
 
 // Как нормальное превращается в стандартное (Диля, 23.11): две кнопки-переключателя «− μ» и «÷ σ», в любом порядке;
-// кривая плавно едет и сжимается, точка «40 минут» едет вместе с ней: 40 → 10 → 2 или 40 → 8 → 2.
+// кривая плавно едет и сжимается, точка 7 едет вместе с ней: 7 → 4 → 2 или 7 → 3.5 → 2; красная — стандартное N(0, 1), цель.
 function zFig(z, typo){
   const btn = z.ops.map((op, i) => `<button type="button" class="chip-btn" data-k="${i}" aria-pressed="false">${KATEX.renderToString(op, {output: 'html', throwOnError: false})}</button>`).join('');
   const T = z.out.map(v => greekFrag(typo(v)));
   return `<figure class="viz z-fig">
       <p class="chart-head">${greekFrag(typo(z.t))}</p>
-      <svg class="viz-svg z-svg" viewBox="0 0 460 250" role="img" aria-label="${z.aria}" xmlns="http://www.w3.org/2000/svg"><g class="z-ax"></g><path class="z-c" fill="rgba(35,65,138,.12)" stroke="#23418A" stroke-width="2.5"/><g class="z-pt"><line stroke="#C9413A" stroke-width="1.5" stroke-dasharray="4 3"/><circle r="5" fill="#C9413A"/><text font-size="14" fill="#C9413A" font-weight="500" text-anchor="middle" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></g><text class="z-lb" font-size="15" fill="#23418A" font-weight="500" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></svg>
+      <svg class="viz-svg z-svg" viewBox="0 0 460 250" role="img" aria-label="${z.aria}" xmlns="http://www.w3.org/2000/svg"><g class="z-ax"></g><path class="z-std" fill="none" stroke="#C9413A" stroke-width="2.5"/><path class="z-c" fill="rgba(35,65,138,.12)" stroke="#23418A" stroke-width="2.5"/><g class="z-pt"><line stroke="#E8644A" stroke-width="1.5" stroke-dasharray="4 3"/><circle r="5" fill="#E8644A"/><text font-size="14" fill="#B5492F" font-weight="500" text-anchor="middle" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></g><text class="z-lb" font-size="15" fill="#23418A" font-weight="500" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></svg>
       <div class="sg-ctl" role="group" aria-label="${z.label}">${btn}</div>
       <p class="sg-out" aria-live="polite">${T[0]}</p>
       <script>(function(){var f=document.currentScript.closest('figure'),sv=f.querySelector('svg'),pa=sv.querySelector('.z-c'),pt=sv.querySelector('.z-pt'),lb=sv.querySelector('.z-lb'),o=f.querySelector('.sg-out'),T=${JSON.stringify(T).replace(/</g, '\\u003c')},
-MU=30,SG=5,X0=40,sh=false,sc=false,lo=-12,hi=44,base=205,H=170,X=function(v){return 20+(v-lo)/(hi-lo)*420},Y=function(d){return base-d/.42*H},cur=[MU,SG,X0],raf=0,
+MU=3,SG=2,X0=7,sh=false,sc=false,lo=-9,hi=9,base=205,H=170,X=function(v){return 20+(v-lo)/(hi-lo)*420},Y=function(d){return base-d/.42*H},cur=[MU,SG,X0],raf=0,
 NS='http://www.w3.org/2000/svg',ax=sv.querySelector('.z-ax');
 function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;ax.appendChild(e)}
-el('line',{x1:X(lo),y1:base,x2:X(hi),y2:base,stroke:'#5E5A53','stroke-width':1.5});[-10,0,10,20,30,40].forEach(function(v){el('line',{x1:X(v),y1:base,x2:X(v),y2:base+5,stroke:'#5E5A53'});el('text',{x:X(v),y:base+21,'font-size':13,fill:'#5E5A53','text-anchor':'middle'},String(v).replace('-','−'))});
+el('line',{x1:X(lo),y1:base,x2:X(hi),y2:base,stroke:'#5E5A53','stroke-width':1.5});[-8,-6,-4,-2,0,2,4,6,8].forEach(function(v){el('line',{x1:X(v),y1:base,x2:X(v),y2:base+5,stroke:'#5E5A53'});el('text',{x:X(v),y:base+21,'font-size':13,fill:'#5E5A53','text-anchor':'middle'},String(v).replace('-','−'))});
 function nf(v){v=Math.round(v*10)/10;return String(v).replace('-','−')}
-function draw(m,s,p){var d='M'+X(lo)+' '+base;for(var v=lo;v<=hi+1e-9;v+=.1){var q=Math.exp(-Math.pow((v-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI));d+='L'+X(v).toFixed(1)+' '+Math.max(8,Y(q)).toFixed(1)}pa.setAttribute('d',d+'L'+X(hi)+' '+base+'Z');
+function draw(m,s,p){var d='M'+X(lo)+' '+base;for(var v=lo;v<=hi+1e-9;v+=.05){var q=Math.exp(-Math.pow((v-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI));d+='L'+X(v).toFixed(1)+' '+Math.max(8,Y(q)).toFixed(1)}pa.setAttribute('d',d+'L'+X(hi)+' '+base+'Z');
 var yp=Math.max(8,Y(Math.exp(-Math.pow((p-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI))));var c=pt.querySelector('circle'),ln=pt.querySelector('line'),tx=pt.querySelector('text');c.setAttribute('cx',X(p));c.setAttribute('cy',base);ln.setAttribute('x1',X(p));ln.setAttribute('x2',X(p));ln.setAttribute('y1',base);ln.setAttribute('y2',yp);tx.setAttribute('x',X(p)+14);tx.setAttribute('y',base-10);tx.textContent=nf(p);
-var ym=Y(1/(s*Math.sqrt(2*Math.PI)));lb.setAttribute('x',X(m)+(s>2?s*8+6:14));lb.setAttribute('y',Math.max(22,ym+(s>2?4:16)));lb.textContent='N('+nf(m)+', '+nf(s)+'²)'}
+var ym=Y(1/(s*Math.sqrt(2*Math.PI)));lb.setAttribute('x',X(m)+(s>1.2?s*24+6:24));lb.setAttribute('y',Math.max(22,ym+(s>1.2?4:16)));lb.textContent='N('+nf(m)+', '+nf(s)+'²)'}
 function target(){var k=sc?SG:1,m=sh?0:MU;return[m/k,SG/k,(X0-(sh?MU:0))/k]}
 function go(){var a=cur.slice(),b=target(),t0=null,R=matchMedia('(prefers-reduced-motion: reduce)').matches;o.innerHTML=T[(sh?1:0)+(sc?2:0)];cancelAnimationFrame(raf);
 function st(ts){if(t0===null)t0=ts;var u=R?1:Math.min(1,(ts-t0)/700),e=u*u*(3-2*u);cur=[a[0]+(b[0]-a[0])*e,a[1]+(b[1]-a[1])*e,a[2]+(b[2]-a[2])*e];draw(cur[0],cur[1],cur[2]);if(u<1)raf=requestAnimationFrame(st)}raf=requestAnimationFrame(st)}
+(function(){var d='M'+X(lo)+' '+base;for(var v=lo;v<=hi+1e-9;v+=.05){d+='L'+X(v).toFixed(1)+' '+Y(Math.exp(-v*v/2)/Math.sqrt(2*Math.PI)).toFixed(1)}sv.querySelector('.z-std').setAttribute('d',d)})();
 f.querySelectorAll('.sg-ctl button').forEach(function(x){x.addEventListener('click',function(){if(x.dataset.k==='0')sh=!sh;else sc=!sc;x.setAttribute('aria-pressed',x.dataset.k==='0'?sh:sc);go()})});draw(MU,SG,X0)})();</script>
     </figure>`;
 }
