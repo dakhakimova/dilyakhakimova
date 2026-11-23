@@ -43,12 +43,7 @@ ${chrome.header('play', false)}
   </div>
   <section class="ss-card" id="ss-pre" aria-labelledby="ss-h">
     <h2 id="ss-h" class="vh">Калькулятор</h2>
-    <div class="seg ss-mode" role="radiogroup" aria-label="Что посчитать">
-      <span class="ss-mode-l">Посчитать:</span>
-      <button type="button" role="radio" data-mode="n" aria-checked="true">размер выборки</button>
-      <button type="button" role="radio" data-mode="mde" aria-checked="false">MDE</button>
-      <button type="button" role="radio" data-mode="pow" aria-checked="false">мощность</button>
-    </div>
+    <p class="ss-step">1. Что знаем заранее</p>
     <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
       <span class="ss-mode-l">Метрика:</span>
       <button type="button" role="radio" data-pmetric="share" aria-checked="true">доля: конверсия, ретеншен</button>
@@ -58,12 +53,8 @@ ${chrome.header('play', false)}
       <label class="ss-f" data-pm="share"><span>Доля сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i>конверсия, ретеншен</i></label>
       <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
       <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
-      <label class="ss-f"><span id="ss-mde-l">Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
-      <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
-      <label class="ss-f"><span>Всего в эксперименте</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек, тест и контроль вместе</i></label>
       <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"><i>человек в день</i></label>
     </div>
-    <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
     <div class="ss-alpha">
       <div class="seg" role="radiogroup" aria-label="Ошибка I рода α"><span class="ss-mode-l">Ошибка I рода α:</span>
         <button type="button" role="radio" data-alpha="0.01" aria-checked="false">0.01</button>
@@ -71,6 +62,19 @@ ${chrome.header('play', false)}
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
     </div>
+    <p class="ss-step">2. Задай два — третье посчитаю</p>
+    <div class="seg ss-mode" role="radiogroup" aria-label="Что посчитать">
+      <span class="ss-mode-l">Посчитать:</span>
+      <button type="button" role="radio" data-mode="n" aria-checked="true">размер выборки</button>
+      <button type="button" role="radio" data-mode="mde" aria-checked="false">MDE</button>
+      <button type="button" role="radio" data-mode="pow" aria-checked="false">мощность</button>
+    </div>
+    <div class="ss-form">
+      <label class="ss-f"><span id="ss-mde-l">Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
+      <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
+      <label class="ss-f"><span>Всего в эксперименте</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек, тест и контроль вместе</i></label>
+    </div>
+    <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
     <details class="ss-more"><summary>Дополнительно: сторона теста и доли групп</summary>
       <div class="seg" role="radiogroup" aria-label="Тест"><span class="ss-mode-l">Тест:</span>
         <button type="button" role="radio" data-sides="two" aria-checked="true">двусторонний</button>
@@ -86,6 +90,11 @@ ${chrome.header('play', false)}
       <p class="ss-when" id="ss-when"></p>
       <p class="ss-warn" id="ss-warn" hidden></p>
     </div>
+    <figure class="ss-chart">
+      <figcaption class="chart-head">MDE и число людей в эксперименте</figcaption>
+      <svg id="ss-curve" viewBox="0 0 560 250" style="overflow:visible" role="img" aria-label="Кривая: какой эффект можно заметить при разном числе людей"></svg>
+      <p class="note">Чем больше людей, тем меньший эффект заметен, но медленно: чтобы заметить вдвое меньший эффект, людей нужно вчетверо больше.</p>
+    </figure>
     <figure class="ss-what">
       <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
       <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">всего людей</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>

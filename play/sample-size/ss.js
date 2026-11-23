@@ -88,7 +88,47 @@
     // «что если»
     const p0 = st.base / 100;
     $('ss-what').innerHTML = [2, 3, 5, 10, 20].map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${m}%</td><td class="num">${nf(n)}</td><td class="num">${nf(days(n))}</td></tr>`; }).join('');
+    drawCurve();
     // ссылка на расчёт — собирается при копировании, адрес страницы не меняем
+  }
+
+  // ---------- график: MDE от числа людей, отсечка — текущий расчёт; отсечку можно тянуть ----------
+  const svg = $('ss-curve'); let XMAX = 0, dragging = false;
+  const W = 560, H = 250, L = 52, R = 16, T = 14, B = 40;
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (t, a, par) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (par || svg).appendChild(e); return e; };
+  const niceUp = x => { const e = Math.pow(10, Math.floor(Math.log10(x))); return [1, 2, 2.5, 5, 10].map(m => m * e).find(v => v >= x); };
+  const short = n => n >= 1e6 ? nf(n / 1e6, n < 1e7 ? 1 : 0) + ' млн' : n >= 1e3 ? nf(n / 1e3, n < 1e4 ? 1 : 0) + ' тыс.' : nf(n);
+  function drawCurve(){
+    if (!svg) return;
+    const p = st.base / 100, a = st.alpha, pw = st.pow / 100;
+    if (!dragging || !XMAX) XMAX = niceUp(Math.max(st.n * 2.5, 100));
+    const mAt = n => 100 * mdeFor(p, n, pw, a);
+    const N0 = XMAX / 60, YMAX = Math.min(niceUp(Math.max(st.mde * 3, mAt(XMAX / 8))), 500);
+    const sx = n => L + n / XMAX * (W - L - R), sy = m => T + (1 - Math.min(m, YMAX) / YMAX) * (H - T - B);
+    svg.textContent = '';
+    for (let i = 0; i <= 4; i++){ const y = YMAX * i / 4; el('line', {x1: L, x2: W - R, y1: sy(y), y2: sy(y), stroke: 'rgba(0,0,0,.07)'}); const t = el('text', {x: L - 8, y: sy(y) + 4, 'text-anchor': 'end', class: 'ax'}); t.textContent = nf(y, y < 10 ? 1 : 0) + '%'; }
+    for (let i = 0; i <= 4; i++){ const x = XMAX * i / 4; const t = el('text', {x: sx(x), y: H - B + 18, 'text-anchor': i === 0 ? 'start' : i === 4 ? 'end' : 'middle', class: 'ax'}); t.textContent = i ? short(x) : '0'; }
+    const tl = el('text', {x: W - R, y: H - 4, 'text-anchor': 'end', class: 'ax'}); tl.textContent = 'людей в эксперименте →';
+    let d = ''; for (let i = 0; i <= 120; i++){ const n = N0 + (XMAX - N0) * Math.pow(i / 120, 1.8), m = mAt(n); if (m > YMAX) continue; d += (d ? 'L' : 'M') + sx(n).toFixed(1) + ' ' + sy(m).toFixed(1); }
+    const ty = el('text', {x: L - 8, y: T - 2, 'text-anchor': 'end', class: 'ax'}); ty.textContent = 'MDE';
+    el('path', {d, fill: 'none', stroke: '#23418A', 'stroke-width': 2.5});
+    const cx = sx(Math.min(st.n, XMAX)), cy = sy(st.mde);
+    el('line', {x1: cx, x2: cx, y1: cy, y2: H - B, stroke: '#E8644A', 'stroke-dasharray': '4 4', 'stroke-width': 1.5});
+    el('line', {x1: L, x2: cx, y1: cy, y2: cy, stroke: '#E8644A', 'stroke-dasharray': '4 4', 'stroke-width': 1.5});
+    el('circle', {cx, cy, r: 7, fill: '#E8644A', stroke: '#fff', 'stroke-width': 2, class: 'knob'});
+    const lb = el('text', {x: cx + (cx > W * 0.6 ? -12 : 12), y: cy - 12, 'text-anchor': cx > W * 0.6 ? 'end' : 'start', class: 'lbl'});
+    lb.textContent = 'MDE ' + fmt.mde(st.mde) + ' · ' + short(st.n) + ' · ' + daysW(days(st.n));
+  }
+  if (svg){
+    svg.setAttribute('tabindex', '0');
+    const toN = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * W; return Math.max(XMAX / 60, Math.min(XMAX, (x - L) / (W - L - R) * XMAX)); };
+    const setN = n => { st.mode = 'mde'; st.n = Math.round(n); touched.add('n'); calc(); render(); };
+    svg.addEventListener('pointerdown', ev => { dragging = true; svg.setPointerCapture(ev.pointerId); setN(toN(ev)); });
+    svg.addEventListener('pointermove', ev => { if (dragging) setN(toN(ev)); });
+    const stop = () => { if (dragging){ dragging = false; render(); } };
+    svg.addEventListener('pointerup', stop); svg.addEventListener('pointercancel', stop);
+    svg.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft'){ ev.preventDefault(); dragging = true; setN(st.n * (ev.key === 'ArrowRight' ? 1.05 : 1 / 1.05)); dragging = false; } });
   }
   Object.entries(fields).forEach(([k, el]) => {
     el.addEventListener('input', () => { if (el.readOnly) return; touched.add(k); read(k); calc(); render(k); });
