@@ -84,6 +84,13 @@ function st(ts){if(t0===null)t0=ts;var u=R?1:Math.min(1,(ts-t0)/700),e=u*u*(3-2*
 f.querySelectorAll('.sg-ctl button').forEach(function(x){x.addEventListener('click',function(){if(x.dataset.k==='0')sh=!sh;else sc=!sc;x.setAttribute('aria-pressed',x.dataset.k==='0'?sh:sc);go()})});draw(MU,SG,X0)})();</script>
     </figure>`;
 }
+// карточки словаря — как в «Плюшках» (Диля, 24.11): цветная плашка с мини-картинкой, кликается вся карточка, без «Открыть»
+const HUB_COL = {prob: '--c-prob', stat: '--c-sig', ab: '--c-ab'};
+const HUB_ICON = {
+  'normal-distribution': '<svg viewBox="0 0 64 64"><path d="M6 52h52"/><path d="M4 50c9 0 13-3 17-13s6-21 11-21 7 11 11 21 8 13 17 13"/><path d="M32 13v39" class="dash"/></svg>',
+  _: '<svg viewBox="0 0 64 64"><path d="M10 12v42h44"/><path d="M16 46l10-12 9 6 14-18"/></svg>',
+};
+
 function greek(html){
   const a = html.indexOf('<main'), b = html.indexOf('</main>');
   if (a < 0 || b < 0) return html;
@@ -478,7 +485,12 @@ ${foot()}
   </header>
   ${hubList.length < 6 ? '' : `<p class="t-search"><label for="t-q">${t('terms.hub.search')}</label><input id="t-q" type="search" autocomplete="off" spellcheck="false"></p>
   <nav class="t-abc" aria-label="${attr(t('terms.hub.abc'))}">${letters.map(([L, i]) => `<a href="#abc-${i}">${L}</a>`).join('')}</nav>`}
-  <ul class="toys cat-list" role="list">${hubList.map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li${o.first !== undefined ? ` id="abc-${o.first}"` : ''} data-q="${attr([TX[o.slug].name, ...(o.aka || [])].join(' ').toLowerCase())}">`)).join('')}
+  <ul class="ex-list cat-list" role="list">${hubList.map(o => `
+    <li${o.first !== undefined ? ` id="abc-${o.first}"` : ''} data-q="${attr([TX[o.slug].name, ...(o.aka || [])].join(' ').toLowerCase())}"><a class="ex-card" href="/terms/${o.slug}/">
+      <span class="ex-pic" style="--ex:var(${HUB_COL[o.group] || '--c-sig'})" aria-hidden="true">${HUB_ICON[o.slug] || HUB_ICON._}</span>
+      <span class="ex-t">${typo(TX[o.slug].name)}</span>
+      <span class="ex-d">${typo(TX[o.slug].card)}</span>
+    </a></li>`).join('')}
   </ul>
   <p class="t-empty" role="status" hidden><span></span> <button class="btn-text" type="button">${t('terms.hub.reset')}</button></p>
 </main>
