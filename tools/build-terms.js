@@ -23,7 +23,18 @@ function greek(html){
       return part;
     }
     if (skip > 0) return part;
-    return part.replace(/([μσ])(²)?/g, (_, g, sq) => KATEX.renderToString(TEX[g] + (sq ? '^2' : ''), {output: 'html', throwOnError: false}));
+    const S = '[\\s\\u00a0]*', tex = [];
+    const put = t => '\u0001' + (tex.push(t) - 1) + '\u0002';
+    let x = part
+      .replace(new RegExp('X' + S + '~' + S + 'N\\(μ,' + S + 'σ²\\)', 'g'), () => put('X \\sim N(\\mu, \\sigma^2)'))
+      .replace(new RegExp('N\\(μ,' + S + 'σ²\\)', 'g'), () => put('N(\\mu, \\sigma^2)'))
+      .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
+      .replace(/σ\/√n/g, () => put('\\sigma/\\sqrt{n}'))
+      .replace(/(^|[\s\u00a0(])([xX])(?=[\s\u00a0,;:.)]|$)/g, (_, a, v) => a + put(v))
+      .replace(/([±+−-]?\d*(?:\.\d+)?)([μσ])(²)?/g, (m, n, g, sq) => put((n || '').replace('−', '-') + TEX[g] + (sq ? '^2' : '')));
+    // короткое слово или знак перед формулой не остаётся в конце строки
+    x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
+    return x.replace(/\u0001(\d+)\u0002/g, (_, i) => KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}));
   }).join('');
   return html.slice(0, a) + mid + html.slice(b);
 }
