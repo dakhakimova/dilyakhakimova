@@ -73,7 +73,7 @@ function greekFrag(frag){
       .replace(new RegExp('([νnσ])' + S + '=' + S + '(\\d+)', 'g'), (_, v, d) => put(({'ν': '\\nu', 'σ': '\\sigma', n: 'n'})[v] + ' = ' + d))
       .replace(new RegExp('(^|[\\s\\u00a0(«])n' + S + '[−-]' + S + '1(?![\\d.])', 'g'), (_, a) => a + put('n - 1'))
       .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
-      .replace(/(^|[\s\u00a0(«])([xXnsZTK])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
+      .replace(/(^|[\s\u00a0(«])([xXnsZTKk])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
       .replace(/([μσν])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // неразрывный пробел сразу после формулы даёт пустой отступ в начале строки — делаем обычным
     x = x.replace(/\u0002\u00a0/g, '\u0002 ');
