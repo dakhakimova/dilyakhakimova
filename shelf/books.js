@@ -79,36 +79,33 @@
     // модель: честный результат ~ N(0,3; 0,8) %, результат с багом ~ N(0; 8) % — свои игрушечные числа
     const OK = [0.3, 0.8], BUG = [0, 8];
     const pdf = (x, [m, s]) => Math.exp(-0.5 * ((x - m) / s) ** 2) / (s * Math.sqrt(2 * Math.PI));
-    const X0 = -4, X1 = 16, L = 16, R = 424, B = 122, T = 32;
+    // одна ручка — эффект; доля тестов с багом фиксирована: 3 из 100
+    const PRIOR = 0.03, X0 = 0, X1 = 15, L = 9, R = 431; // шкала совпадает с ползунком 0…15
     const sx = x => L + (x - X0) / (X1 - X0) * (R - L);
-    function draw(eff, prior){
+    function draw(eff, post){
       svg.textContent = '';
-      // ось и подписи
-      el('line', {x1: L, y1: B, x2: R, y2: B, stroke: C.line, 'stroke-width': 1.5}, svg);
-      for (const v of [0, 5, 10, 15]){
-        el('line', {x1: sx(v), y1: B, x2: sx(v), y2: B + 5, stroke: C.mute}, svg);
-        const t = el('text', {x: sx(v), y: B + 20, 'text-anchor': 'middle', class: 'ax'}, svg); t.textContent = (v > 0 ? '+' : '') + v;
+      // шкала эффекта: где бывают честные результаты и где — с багом
+      const Y = 12;
+      el('rect', {x: L, y: Y - 8, width: R - L, height: 16, rx: 8, fill: '#F6D9D2'}, svg);
+      el('rect', {x: L, y: Y - 8, width: sx(2) - L, height: 16, rx: 8, fill: C.ctrl}, svg);
+      const t1 = el('text', {x: L, y: Y + 30, class: 'sm'}, svg); t1.textContent = tr('bx.i2.okzone');
+      const t2 = el('text', {x: R, y: Y + 30, 'text-anchor': 'end', class: 'sm'}, svg); t2.textContent = tr('bx.i2.bugzone');
+      el('line', {x1: sx(eff), y1: Y - 12, x2: sx(eff), y2: Y + 12, stroke: C.ink, 'stroke-width': 2.5}, svg);
+      // 20 тестов с таким эффектом
+      const nb = Math.round(post * 20), Y2 = 78;
+      const h = el('text', {x: L, y: Y2, class: 'lb'}, svg); h.textContent = tr('bx.i2.of20', {e: '+' + eff.toFixed(1) + '%'});
+      for (let i = 0; i < 20; i++){
+        el('rect', {x: L + i * 20.4, y: Y2 + 12, width: 16, height: 16, rx: 3, fill: i < nb ? C.coral : C.ctrl}, svg);
       }
-      const ax = el('text', {x: R, y: B + 44, 'text-anchor': 'end', class: 'ax'}, svg); ax.textContent = tr('bx.i2.ax');
-      // кривые: форма каждой своя (честная — до верха, с багом — пониже), вес априорной доли показан числом ниже
-      const H = B - T;
-      const path = (d, h) => { const top = pdf(d[0], d); let s = ''; for (let i = 0; i <= 200; i++){ const x = X0 + (X1 - X0) * i / 200; const y = B - pdf(x, d) / top * h; s += (i ? 'L' : 'M') + sx(x).toFixed(1) + ' ' + y.toFixed(1); } return s; };
-      el('path', {d: path(BUG, H * 0.45), fill: 'none', stroke: C.coral, 'stroke-width': 2.5}, svg);
-      el('path', {d: path(OK, H), fill: 'none', stroke: C.ctrl, 'stroke-width': 2.5}, svg);
-      // наблюдаемый эффект
-      el('line', {x1: sx(eff), y1: T - 6, x2: sx(eff), y2: B, stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '4 3'}, svg);
-      const lab = el('text', {x: Math.min(R, Math.max(L, sx(eff) + (eff > 11 ? -6 : 6))), y: T - 12, 'text-anchor': eff > 11 ? 'end' : 'start', class: 'lb halo'}, svg);
-      lab.textContent = '+' + eff.toFixed(1) + '%';
     }
     function upd(){
-      const eff = +inp('eff').value, prior = +inp('bug').value / 100;
-      const a = prior * pdf(eff, BUG), b = (1 - prior) * pdf(eff, OK), post = a / (a + b);
+      const eff = +inp('eff').value;
+      const a = PRIOR * pdf(eff, BUG), b = (1 - PRIOR) * pdf(eff, OK), post = a / (a + b);
       o('eff').textContent = '+' + eff.toFixed(1) + '%';
-      o('bug').textContent = inp('bug').value + '%';
       o('post').textContent = post > 0.995 ? '> 99%' : post < 0.005 ? '< 1%' : pct(post);
       verdict.className = 'verdict ' + (post < 0.2 ? 'good' : post < 0.7 ? 'warn' : 'bad');
       verdict.textContent = tr(post < 0.2 ? 'bx.i2.lo' : post < 0.7 ? 'bx.i2.mid' : 'bx.i2.hi');
-      draw(eff, prior);
+      draw(eff, post);
     }
     box.querySelectorAll('input').forEach(i => i.addEventListener('input', upd));
     upd();

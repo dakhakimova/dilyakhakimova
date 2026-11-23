@@ -116,11 +116,10 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <div class="bk-toy" data-toy="twyman">
     <p class="chart-head" data-i18n="bk.i2.toy">Насколько вероятно, что «победа» — баг</p>
     <label class="rng"><span data-i18n="bk.i2.eff">Эффект в отчёте</span> <output data-o="eff"></output><input type="range" min="0" max="15" step="0.1" value="1" data-k="eff"></label>
-    <label class="rng"><span data-i18n="bk.i2.bug">Тестов с багом в истории команды</span> <output data-o="bug"></output><input type="range" min="1" max="10" step="1" value="3" data-k="bug"></label>
-    <svg class="bk-svg dens" viewBox="0 0 440 172" role="img" data-i18n-attr="aria-label:bk.i2.toy" aria-label="Насколько вероятно, что «победа» — баг"></svg>
+    <svg class="bk-svg dens" viewBox="0 0 440 112" role="img" data-i18n-attr="aria-label:bk.i2.toy" aria-label="Насколько вероятно, что «победа» — баг"></svg>
     <p class="big2"><b data-o="post"></b> <span data-i18n="bx.i2.out">вероятность, что это баг</span></p>
     <p class="verdict" aria-live="polite"></p>
-    <p class="figcap" data-i18n="bk.i2.cap">Игрушечная модель с нашими числами: честные результаты обычно в пределах ±1–2%, а баг сдвигает метрику куда угодно, до ±20%. Синяя кривая — откуда берутся честные результаты, красная — результаты с багом.</p>
+    <p class="figcap" data-i18n="bk.i2.cap">Игрушечная модель с нашими числами: у команды баг в 3 тестах из 100. Честные результаты почти всегда в пределах ±2%, а баг сдвигает метрику куда угодно. Квадратики — 20 тестов, которые показали такой же эффект: синие честные, красные с багом.</p>
   </div>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i2.take">эффект в разы больше обычного для твоего продукта — сначала ищи ошибку, потом празднуй.</span></p>
 </li>
