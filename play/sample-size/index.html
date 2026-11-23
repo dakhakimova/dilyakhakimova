@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-sample-size.js: правьте его. Основная персона: П2 «Артём, обжёгшийся middle» (design-system.md, «Персоны»). -->
-<title>Сколько дней держать A/B-тест? · калькулятор · Диля Хакимова</title>
+<title>Калькулятор MDE: сколько дней держать A/B-тест? · Диля Хакимова</title>
 <meta name="description" content="Размер выборки, MDE и мощность: зафиксируй два — третий посчитается. Срок теста в днях и дата окончания.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/sample-size/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611287">
-<link rel="stylesheet" href="/tokens.css?v=202611287">
-<link rel="stylesheet" href="/home.css?v=202611287">
-<link rel="stylesheet" href="/play/play.css?v=202611287">
-<link rel="stylesheet" href="/play/sample-size/ss.css?v=202611287">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611288">
+<link rel="stylesheet" href="/tokens.css?v=202611288">
+<link rel="stylesheet" href="/home.css?v=202611288">
+<link rel="stylesheet" href="/play/play.css?v=202611288">
+<link rel="stylesheet" href="/play/sample-size/ss.css?v=202611288">
+<link rel="stylesheet" href="/play/srm-check/srm.css?v=202611288">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -32,9 +33,9 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 <main id="main" class="wrap play ss-page">
-  <h1>Сколько дней держать тест?</h1>
-  <p class="play-meta">Калькулятор</p>
-  <p class="lead">Размер выборки, самый маленький заметный эффект (MDE) и мощность связаны: поменяешь одно — поедут остальные. Зафиксируй два, третье посчитаю.</p>
+  <h1>Калькулятор MDE</h1>
+  <p class="play-meta srm-sub">Сколько дней держать тест?</p>
+  <p class="lead">MDE — minimum detectable effect, минимально детектируемый эффект: самый маленький эффект, который тест успеет заметить. MDE, размер выборки и мощность связаны: поменяешь одно — поедут остальные. Задай два, третье калькулятор посчитает.</p>
 
   <section class="ss-card" aria-labelledby="ss-h">
     <h2 id="ss-h" class="vh">Калькулятор</h2>
@@ -58,7 +59,7 @@
         <button type="button" role="radio" data-alpha="0.05" aria-checked="true">0.05</button>
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
-      <p class="note">Двусторонний тест, группы поровну, 50/50.</p>
+      <p class="note">Двусторонний тест, группы поровну: 50 и 50.</p>
     </details>
     <div class="ss-out" role="status" aria-live="polite">
       <p class="ss-big" id="ss-big"></p>
@@ -67,15 +68,17 @@
     </div>
     <figure class="ss-what">
       <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
-      <table class="table ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
+      <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
-    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><button type="button" class="btn-text" id="ss-reset">Вернуть типичные значения</button><span class="note" id="ss-undo" role="status"></span></p>
-    <div class="ss-recent" id="ss-recent-box" hidden><p class="note">Последние расчёты:</p><ul id="ss-recent"></ul></div>
+    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
   </section>
-  <section class="play-out"><p class="kicker">Почему так</p>
-    <p>Чтобы заметить вдвое меньший эффект, нужно вчетверо больше людей: шум группы падает как 1 / √n. Поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</p>
-    <p class="note">Формула на салфетке: n ≈ 16 · p(1 − p) / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в долях. Врёт при очень маленьких конверсиях и группах меньше сотни.</p>
-  </section>
+  <details class="play-out srm-how"><summary>Как считается</summary>
+    <ul class="srm-why">
+      <li><b>Вдвое меньший эффект — вчетверо больше людей.</b> Шум группы падает как 1 / √n, поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</li>
+      <li><b>Формула на салфетке:</b> n ≈ 16 · p(1 − p) / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в долях.</li>
+      <li><b>Где она врёт:</b> при очень маленьких конверсиях и в группах меньше сотни человек.</li>
+    </ul>
+  </details>
 </main>
 <footer class="foot" data-chrome>
   <div class="wrap">
@@ -83,6 +86,6 @@
     <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
-<script src="/play/sample-size/ss.js?v=202611287"></script>
+<script src="/play/sample-size/ss.js?v=202611288"></script>
 </body>
 </html>

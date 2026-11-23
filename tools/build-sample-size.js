@@ -17,7 +17,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-sample-size.js: правьте его. Основная персона: П2 «Артём, обжёгшийся middle» (design-system.md, «Персоны»). -->
-${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Сколько дней держать A/B-тест? · калькулятор · Диля Хакимова</title>
+${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Калькулятор MDE: сколько дней держать A/B-тест? · Диля Хакимова</title>
 <meta name="description" content="Размер выборки, MDE и мощность: зафиксируй два — третий посчитается. Срок теста в днях и дата окончания.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/sample-size/">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -27,14 +27,15 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 <link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/play/play.css?v=${V}">
 <link rel="stylesheet" href="/play/sample-size/ss.css?v=${V}">
+<link rel="stylesheet" href="/play/srm-check/srm.css?v=${V}">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
 ${chrome.header('play', false)}
 <main id="main" class="wrap play ss-page">
-  <h1>Сколько дней держать тест?</h1>
-  <p class="play-meta">Калькулятор</p>
-  <p class="lead">Размер выборки, самый маленький заметный эффект (MDE) и мощность связаны: поменяешь одно — поедут остальные. Зафиксируй два, третье посчитаю.</p>
+  <h1>Калькулятор MDE</h1>
+  <p class="play-meta srm-sub">Сколько дней держать тест?</p>
+  <p class="lead">MDE — minimum detectable effect, минимально детектируемый эффект: самый маленький эффект, который тест успеет заметить. MDE, размер выборки и мощность связаны: поменяешь одно — поедут остальные. Задай два, третье калькулятор посчитает.</p>
 
   <section class="ss-card" aria-labelledby="ss-h">
     <h2 id="ss-h" class="vh">Калькулятор</h2>
@@ -58,7 +59,7 @@ ${chrome.header('play', false)}
         <button type="button" role="radio" data-alpha="0.05" aria-checked="true">0.05</button>
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
-      <p class="note">Двусторонний тест, группы поровну, 50/50.</p>
+      <p class="note">Двусторонний тест, группы поровну: 50 и 50.</p>
     </details>
     <div class="ss-out" role="status" aria-live="polite">
       <p class="ss-big" id="ss-big"></p>
@@ -67,15 +68,17 @@ ${chrome.header('play', false)}
     </div>
     <figure class="ss-what">
       <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
-      <table class="table ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
+      <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
-    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><button type="button" class="btn-text" id="ss-reset">Вернуть типичные значения</button><span class="note" id="ss-undo" role="status"></span></p>
-    <div class="ss-recent" id="ss-recent-box" hidden><p class="note">Последние расчёты:</p><ul id="ss-recent"></ul></div>
+    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
   </section>
-  <section class="play-out"><p class="kicker">Почему так</p>
-    <p>Чтобы заметить вдвое меньший эффект, нужно вчетверо больше людей: шум группы падает как 1 / √n. Поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</p>
-    <p class="note">Формула на салфетке: n ≈ 16 · p(1 − p) / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в долях. Врёт при очень маленьких конверсиях и группах меньше сотни.</p>
-  </section>
+  <details class="play-out srm-how"><summary>Как считается</summary>
+    <ul class="srm-why">
+      <li><b>Вдвое меньший эффект — вчетверо больше людей.</b> Шум группы падает как 1 / √n, поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</li>
+      <li><b>Формула на салфетке:</b> n ≈ 16 · p(1 − p) / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в долях.</li>
+      <li><b>Где она врёт:</b> при очень маленьких конверсиях и в группах меньше сотни человек.</li>
+    </ul>
+  </details>
 </main>
 ${chrome.footer()}
 <script src="/play/sample-size/ss.js?v=${V}"></script>

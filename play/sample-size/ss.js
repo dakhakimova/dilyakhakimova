@@ -23,8 +23,10 @@
   };
   const LIM = {base: [0.01, 99], mde: [0.1, 500], pow: [5, 99.9], n: [10, 1e9], traffic: [1, 1e9]};
   let st = Object.assign({}, DEF);
-  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch(e) {}
-  const q = new URLSearchParams(location.search); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = k === 'mode' ? q.get(k) : +q.get(k);
+  // обновление страницы — снова пример (как в калькуляторе SRM); ссылка с числами читается один раз
+  const q = new URLSearchParams(location.search); const fromLink = [...q.keys()].some(k => k in DEF); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = k === 'mode' ? q.get(k) : +q.get(k);
+  if (location.search) history.replaceState(null, '', location.pathname);
+  const touched = new Set(fromLink ? Object.keys(DEF) : []);   // пока поле не трогали, в нём бледный пример
   const fields = {base: $('ss-base'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic')};
   const fmt = {base: v => nf(v, 2) + '%', mde: v => nf(v, 1) + '%', pow: v => nf(v, 1) + '%', n: v => nf(v), traffic: v => nf(v)};
   const heard = {};
@@ -32,7 +34,7 @@
     const r = parse(fields[k].value, k === 'n' || k === 'traffic' ? 'int' : 'pct');
     if (!r){ heard[k] = 'не понял «' + fields[k].value + '» — оставил ' + fmt[k](st[k]); return; }
     let v = r.v, [lo, hi] = LIM[k], note = r.how ? 'понял как ' + fmt[k](v) : '';
-    if (v < lo || v > hi){ const c = Math.min(hi, Math.max(lo, v)); note = 'прижал к границе: ' + fmt[k](c) + ' (можно от ' + fmt[k](lo) + ' до ' + fmt[k](hi) + ')'; v = c; }
+    if (v < lo || v > hi){ const c = Math.min(hi, Math.max(lo, v)); note = 'прижал к границе: ' + fmt[k](c) + ', можно от ' + fmt[k](lo) + ' до ' + fmt[k](hi); v = c; }
     if (k === 'n' || k === 'traffic') v = Math.round(v);
     st[k] = v; heard[k] = note;
   };
@@ -48,7 +50,7 @@
   function render(focusKeep){
     for (const k of Object.keys(fields)){
       const calcd = (k === st.mode) || (k === 'pow' && st.mode === 'pow');
-      fields[k].readOnly = calcd; fields[k].classList.toggle('calc', calcd);
+      fields[k].readOnly = calcd; fields[k].classList.toggle('calc', calcd); fields[k].classList.toggle('ex', !calcd && !touched.has(k));
       fields[k].setAttribute('aria-label', calcd ? 'посчитано' : '');
       if (k !== focusKeep) fields[k].value = fmt[k](st[k]).replace(/ /g, ' ');
     }
@@ -71,41 +73,17 @@
     // «что если»
     const p0 = st.base / 100;
     $('ss-what').innerHTML = [2, 3, 5, 10, 20].map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${m}%</td><td class="num">${nf(n)}</td><td class="num">${nf(days(n))}</td></tr>`; }).join('');
-    // запомнить: localStorage + адрес страницы
-    try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e) {}
-    const u = new URLSearchParams(); for (const k of Object.keys(DEF)) u.set(k, st[k]); history.replaceState(null, '', '?' + u);
+    // ссылка на расчёт — собирается при копировании, адрес страницы не меняем
   }
-  // три последних расчёта
-  const saveRecent = () => {
-    let r = []; try { r = JSON.parse(localStorage.getItem(RECENT) || '[]'); } catch(e) {}
-    const s = JSON.stringify(st); r = [s].concat(r.filter(x => x !== s)).slice(0, 3);
-    try { localStorage.setItem(RECENT, JSON.stringify(r)); } catch(e) {}
-    paintRecent(r);
-  };
-  const paintRecent = r => {
-    if (!r){ try { r = JSON.parse(localStorage.getItem(RECENT) || '[]'); } catch(e) { r = []; } }
-    $('ss-recent-box').hidden = r.length < 2;
-    $('ss-recent').innerHTML = '';
-    r.forEach(s => { const o = JSON.parse(s), li = document.createElement('li'), b = document.createElement('button'); b.type = 'button'; b.className = 'btn-text';
-      b.textContent = fmt.base(o.base) + ' · MDE ' + fmt.mde(o.mde) + ' · ' + nf(o.n) + ' на группу'; b.addEventListener('click', () => { Object.assign(st, o); render(); }); li.append(b); $('ss-recent').append(li); });
-  };
-  let saveT;
   Object.entries(fields).forEach(([k, el]) => {
-    el.addEventListener('input', () => { if (el.readOnly) return; read(k); calc(); render(k); clearTimeout(saveT); saveT = setTimeout(saveRecent, 1500); });
+    el.addEventListener('input', () => { if (el.readOnly) return; touched.add(k); read(k); calc(); render(k); });
+    el.addEventListener('focus', () => { if (!el.readOnly) setTimeout(() => el.select(), 0); });
     el.addEventListener('blur', () => render());
   });
   document.querySelectorAll('.ss-mode [data-mode]').forEach(b => b.addEventListener('click', () => { st.mode = b.dataset.mode; calc(); render(); }));
   document.querySelectorAll('[data-alpha]').forEach(b => b.addEventListener('click', () => { st.alpha = +b.dataset.alpha; calc(); render(); }));
-  // сброс без «Вы уверены?»: сразу сбрасываем, 10 секунд можно вернуть
-  let undoT;
-  $('ss-reset').addEventListener('click', () => {
-    const was = Object.assign({}, st); st = Object.assign({}, DEF); Object.keys(heard).forEach(k => delete heard[k]); calc(); render();
-    const box = $('ss-undo'); box.innerHTML = 'Вернул типичные значения. <button type="button" class="btn-text">Вернуть мои</button>';
-    box.querySelector('button').addEventListener('click', () => { st = was; render(); box.textContent = ''; clearTimeout(undoT); });
-    clearTimeout(undoT); undoT = setTimeout(() => { box.textContent = ''; }, 10000);
-  });
-  calc(); render(); paintRecent();
+  calc(); render();
   // «Скопировать ссылку на расчёт» — адрес страницы уже содержит все числа
   const cp = $('ss-copy');
-  if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); try { await navigator.clipboard.writeText(location.href); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = location.href; } });
+  if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); const u = new URLSearchParams(); for (const k of Object.keys(DEF)) u.set(k, st[k]); const link = location.origin + location.pathname + '?' + u; try { await navigator.clipboard.writeText(link); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = link; } });
 })();
