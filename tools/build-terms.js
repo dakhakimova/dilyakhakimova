@@ -299,8 +299,6 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     </table></div>${stu[s] && x.st ? `
     <p>${greekFrag(typo(x.st.p1))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex1, x.st.read1)}
-    <p>${greekFrag(typo(x.st.p1b))}</p>
-    ${(t => `<div class="formula tex" role="math">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex1b)}
     <p>${greekFrag(typo(x.st.p2))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex2, x.st.read2)}
     <figure class="viz st-fig" data-n="3">
