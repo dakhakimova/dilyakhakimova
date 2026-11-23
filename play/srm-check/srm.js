@@ -77,7 +77,7 @@
     const thrR = Math.round(THR * 10) / 10;
     const ticks = [0, thrR]; for (const v of [1, 4, 50, 100, 1000, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]) if (v <= XM && px(v) <= R - 36 && ticks.every(t => Math.abs(px(t) - px(v)) >= 52)) ticks.push(v);
     for (const v of ticks){ el('line', {x1: px(v), y1: B, x2: px(v), y2: B + 4, stroke: C.mute}, cs); const t = el('text', {x: px(v), y: B + 20, 'text-anchor': 'middle', class: 'ax'}, cs); t.textContent = v >= 1e6 ? (v / 1e6) + ' млн' : v === thrR ? String(thrR) : nf(v); }
-    const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = 'χ², шкала логарифмическая: под ваше число';
+    const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = 'χ², шкала логарифмическая';
     el('line', {x1: px(THR), y1: T + 8, x2: px(THR), y2: B, stroke: C.loss, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, cs);
     const far = px(THR) > R - 170, ta = far ? 'end' : 'start', tx = px(THR) + (far ? -6 : 6);
     const tl = el('text', {x: tx, y: T + 10, 'text-anchor': ta, class: 'sm halo'}, cs); tl.textContent = 'порог SRM';
