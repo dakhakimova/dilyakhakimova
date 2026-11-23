@@ -35,7 +35,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -118,10 +118,10 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="chart-head" data-i18n="bk.c2.fig.t">Выручка на пользователя, который начал оформлять заказ</p>
     <div class="bk-rev-rows">
       <div class="r"><span class="g" data-i18n="bk.c2.fig.g0">Контроль</span><span class="t"><i class="ctrl" style="width:100.0%"></i></span><span class="v">3,21 $</span><span class="d"></span></div>
-      <div class="r"><span class="g" data-i18n="bk.c2.fig.g1">Тест 1</span><span class="t"><i class="test" style="width:97.2%"></i></span><span class="v">3,12 $</span><span class="d">−2,8%<small data-i18n="bk.c2.fig.ci1">интервал от −4,3% до −1,3%</small></span></div>
-      <div class="r"><span class="g" data-i18n="bk.c2.fig.g2">Тест 2</span><span class="t"><i class="test" style="width:92.2%"></i></span><span class="v">2,96 $</span><span class="d">−7,8%<small data-i18n="bk.c2.fig.ci2">интервал от −9,3% до −6,3%</small></span></div>
+      <div class="r"><span class="g" data-i18n="bk.c2.fig.g1">Тест 1</span><span class="t"><i class="test" style="width:97.2%"></i></span><span class="v">3,12 $</span><span class="d">−2,8%<span class="ci" aria-hidden="true"><em style="left:90.9%"></em><i style="left:51.8%;width:27.3%"></i><b style="left:65.5%"></b></span><small data-i18n="bk.c2.fig.ci1">[−4,3%, −1,3%]</small></span></div>
+      <div class="r"><span class="g" data-i18n="bk.c2.fig.g2">Тест 2</span><span class="t"><i class="test" style="width:92.2%"></i></span><span class="v">2,96 $</span><span class="d">−7,8%<span class="ci" aria-hidden="true"><em style="left:90.9%"></em><i style="left:6.4%;width:27.2%"></i><b style="left:20.0%"></b></span><small data-i18n="bk.c2.fig.ci2">[−9,3%, −6,3%]</small></span></div>
     </div>
-    <figcaption class="figcap" data-i18n="bk.c2.fig.cap">Числа из книги, рисунок наш. Под разницей с контролем — её 95%-й доверительный интервал: оба теста уверенно ниже контроля.</figcaption>
+    <figcaption class="figcap" data-i18n="bk.c2.fig.cap">Числа из книги, рисунок наш. Под разницей с контролем — её 95%-й доверительный интервал, вертикальная черта — ноль. Оба интервала целиком левее нуля: оба теста уверенно ниже контроля.</figcaption>
   </figure>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.c2.take">до старта запиши, какой эффект окупит запуск. Если идею дорого строить, сначала проверь её дешёвой пустышкой.</span></p>
 </li>
@@ -436,8 +436,8 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 

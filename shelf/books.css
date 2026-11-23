@@ -258,3 +258,9 @@
 .bk-rev .d{color:var(--test-ink); font-weight:var(--fw-medium); font-variant-numeric:tabular-nums; line-height:1.25}
 .bk-rev .d small{display:block; color:var(--text-3); font-weight:var(--fw-regular); font-size:.8em}
 @media (max-width:560px){.bk-rev .r{grid-template-columns:5em 1fr 3.6em; row-gap:2px} .bk-rev .d{grid-column:2 / 4}}
+.bk-rev .ci{position:relative; display:block; height:14px; margin:4px 0 2px; border-bottom:1px solid var(--text-3)}
+.bk-rev .ci em{position:absolute; top:-2px; bottom:-4px; width:0; border-left:1.5px solid var(--text-2)}
+.bk-rev .ci i{position:absolute; top:6px; height:2px; background:var(--test-ink)}
+.bk-rev .ci i::before,.bk-rev .ci i::after{content:""; position:absolute; top:-4px; height:10px; border-left:2px solid var(--test-ink)} .bk-rev .ci i::before{left:0} .bk-rev .ci i::after{right:0}
+.bk-rev .ci b{position:absolute; top:3px; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--test-ink)}
+.bk-rev .ci em::after{content:"0"; position:absolute; top:-14px; left:-3px; font:var(--fw-regular) 11px/1 var(--body); color:var(--text-3)}
