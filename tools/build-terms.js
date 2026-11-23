@@ -83,6 +83,7 @@ function greekFrag(frag){
     const S = '[\\s\\u00a0]*', tex = [];
     const put = t => '\u0001' + (tex.push(t) - 1) + '\u0002';
     let x = part
+      .replace(/\\\[(.+?)\\\]/g, (_, t) => put('\u0005' + t.replace(/\u00a0/g, ' ').replace(/−/g, '-')))
       .replace(/\\\((.+?)\\\)/g, (_, t) => put(t.replace(/\u00a0/g, ' ').replace(/−/g, '-')))
       .replace(new RegExp('X' + S + '~' + S + 'N\\(μ,' + S + 'σ²\\)', 'g'), () => put('X \\sim N(\\mu, \\sigma^2)'))
       .replace(new RegExp('N\\(μ,' + S + 'σ²\\)', 'g'), () => put('N(\\mu, \\sigma^2)'))
@@ -98,7 +99,7 @@ function greekFrag(frag){
     // короткое слово или знак перед формулой не остаётся в конце строки
     x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
     // знак препинания сразу после формулы не уезжает на новую строку
-    return x.replace(/\u0001(\d+)\u0002([,.;:!?»)]*)/g, (_, i, p) => { const k = KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}); return p ? `<span class="nw">${k}${p}</span>` : k; });
+    return x.replace(/\u0001(\d+)\u0002([,.;:!?»)]*)/g, (_, i, p) => { const d = tex[i][0] === '\u0005', k = KATEX.renderToString(d ? tex[i].slice(1) : tex[i], {output: 'html', throwOnError: false, displayMode: d}); return p ? `<span class="nw">${k}${p}</span>` : k; });
   }).join(''));
 }
 const {load} = require('./play-data.js');
@@ -392,7 +393,7 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a]) => `
     <details class="t-faq">
       <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
-      <p>${typo(a)}</p>
+      ${a.split('\n').map(par => `<p>${typo(par)}</p>`).join('')}
     </details>`).join('')}`).join('')}
   </section>
 
