@@ -9,6 +9,24 @@
    Хаб: поиск, указатель букв и термины по алфавиту (пары 7, 8 гайда). */
 const KATEX = require('./vendor/katex.min.js');
 const fs = require('fs'), path = require('path'), vm = require('vm');
+
+// μ и σ в тексте термина — тем же TeX, что и формула (Диля, 23.11): только текст внутри <main>, кроме svg, кода, скриптов и атрибутов
+function greek(html){
+  const a = html.indexOf('<main'), b = html.indexOf('</main>');
+  if (a < 0 || b < 0) return html;
+  const TEX = {'μ': '\\mu', 'σ': '\\sigma'};
+  let skip = 0;
+  const mid = html.slice(a, b).split(/(<[^>]+>)/).map(part => {
+    if (part.startsWith('<')){
+      const m = part.match(/^<(\/?)(svg|script|style|code|pre|textarea|title)\b/i);
+      if (m && !part.endsWith('/>')) skip += m[1] ? -1 : 1;
+      return part;
+    }
+    if (skip > 0) return part;
+    return part.replace(/([μσ])(²)?/g, (_, g, sq) => KATEX.renderToString(TEX[g] + (sq ? '^2' : ''), {output: 'html', throwOnError: false}));
+  }).join('');
+  return html.slice(0, a) + mid + html.slice(b);
+}
 const {load} = require('./play-data.js');
 const {viz, lim, top} = require('./terms-viz.js');
 const SOL = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'play', 'solutions.json'), 'utf8')); } catch { return {}; } })();  // «Почему так» игр — из tools/build-play.js
@@ -259,7 +277,7 @@ ${foot()}
       const id = `fc-${s}-${++fi}`;
       return fig.replace(/<svg([^>]*)role="img"/, `<svg$1role="img" aria-describedby="${id}"`).replace(/<figcaption class="figcap">/, `<figcaption class="figcap" id="${id}">`);
     });
-    fs.writeFileSync(path.join(ROOT, 'terms', s, 'index.html'), html2);
+    fs.writeFileSync(path.join(ROOT, 'terms', s, 'index.html'), greek(html2));
     if (term.published) urls.push(url);
   }
 
