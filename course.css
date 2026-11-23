@@ -128,6 +128,8 @@
 @media (max-width:960px){ .c-steps, .c-roles{grid-template-columns:1fr 1fr} .c-books{grid-template-columns:1fr} }
 @media (max-width:620px){ .c-steps, .c-roles{grid-template-columns:1fr} }
 /* «Следующая остановка»: кусок маршрута как в «Весь путь» на главной — без карточки, во всю ширину; разметку станций вписывает tools/build-site.js (Диля, 23.11) */
+.next-route .bound{max-width:var(--measure)}
+.next-route .kicker{margin:var(--s-6) 0 0}
 .next-stop{margin:var(--s-4) 0 var(--s-4); max-width:none}
 .next-stop li{padding-bottom:var(--s-5)}
 .next-stop li.here .pg, .next-stop li.here .pp, .next-stop li.here .chips,

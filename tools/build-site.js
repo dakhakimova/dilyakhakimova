@@ -294,7 +294,7 @@ function boundaries(){
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/site.js'), 'utf8'), ctx);
   const RU = ctx.I18N.ru, typo = s => ctx.I18N.typo('ru', s);
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'map/skills.json'), 'utf8'));
-  const BOOK = [];   // все лендинги — в общем шаблоне
+  const BOOK = ['/probability/'];   // h2 + абзац внутри общего блока с маршрутом «Следующая остановка» (Диля, 23.11); остальные лендинги — отдельной секцией
   M.courses.filter(c => c.url && c.boundary).forEach(c => {
     const file = path.join(ROOT, c.url.slice(1), 'index.html'); if (!fs.existsSync(file)) return;
     const page = fs.readFileSync(file, 'utf8');
