@@ -16,7 +16,7 @@ function tx(x, y, s, o = {}){
   const a = o.a || 'start', size = o.size || 17, fill = o.fill || C.t2, w = o.w || 400;
   const bg = o.bg ? `paint-order="stroke" stroke="${o.bg === true ? C.paper : o.bg}" stroke-width="5" stroke-linejoin="round"` : '';
   // μ и σ — шрифтом формул KaTeX, как в тексте страницы (Диля, 23.11: «везде техом»)
-  const body = esc(s).replace(/([μσ])/g, '<tspan font-family="KaTeX_Math" font-style="italic">$1</tspan>');
+  const body = esc(s).replace(/([μσ]|N(?=\())/g, '<tspan font-family="KaTeX_Math" font-style="italic">$1</tspan>');
   return `<text x="${f1(x)}" y="${f1(y)}" text-anchor="${a}" font-size="${size}" font-weight="${w}" fill="${fill}" ${bg}>${body}</text>`;
 }
 const ln = (x1, y1, x2, y2, st = C.line, w = 1.5, dash = '') => `<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="${st}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
