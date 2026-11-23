@@ -9,7 +9,6 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 
 const NAV = [
-  ['courses', '/courses/', 'Курсы'],
   ['play', '/play/', 'Игры'],
   ['shelf', '/shelf/', 'Полка'],
   ['terms', '/terms/', 'Словарь'],

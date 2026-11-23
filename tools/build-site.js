@@ -188,7 +188,7 @@ function shelf(){
         <li>Каждый разбор — главная мысль, 3–5 идей с играми и что из этого пригодится на работе. Новый разбор каждую неделю.</li>
       </ul>
     </div>
-    <figure class="art r43 hero-art">
+    <figure class="art hero-art">
       <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="1200" decoding="async" alt="Котейка в очках читает книгу в кресле">
     </figure>
   </section>
