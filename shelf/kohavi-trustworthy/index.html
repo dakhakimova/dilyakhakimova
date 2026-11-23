@@ -138,7 +138,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
     <p class="big2"><b data-o="p"></b> <span data-i18n="bx.i3.p">p-value проверки SRM</span></p>
     <p class="verdict" aria-live="polite"></p>
-    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали при 50/50. Порог p < 0.0005 строже обычного 0.05: SRM проверяют в каждом тесте, и с обычным порогом проверка то и дело ругалась бы на честные тесты.</p>
+    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали при 50/50. В Microsoft проверка SRM — стандартная часть любого эксперимента. Раз её делают в каждом тесте, порог берут строже обычного: p < 0.0005 вместо 0.05, иначе она то и дело ругалась бы на честные тесты.</p>
   </div>
   <div class="cell" data-i18n-attr="data-title:bk.i3.code;data-note:bk.i3.code.note" data-title="Проверка SRM χ²-критерием" data-note="Поменяй n_a и n_b на числа из своего теста. Если сплит не 50/50, задай share_a.">
 <textarea spellcheck="false">import numpy as np
