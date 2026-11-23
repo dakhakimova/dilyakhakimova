@@ -68,3 +68,20 @@
 
 /* пока картинка грузится — тёплая плашка того же размера, без пустого белого места */
 .tr-hero, .tr-sec-img, .tr-pic img{background:#EFE9DF}
+/* главная тренажёра — как главная сайта (Диля, 24.11): первый экран в две колонки, «Как устроено» карточками, темы строками */
+.tr-land .hero{padding-top:48px}
+.tr-land .hero-art img{width:100%; height:100%; object-fit:cover}
+.tr-how-grid{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--s-4)}
+.tr-how-grid li{background:var(--surface); border-radius:var(--r-card, 16px); box-shadow:var(--sh-1); padding:var(--s-4) var(--s-5); display:grid; grid-template-columns:auto 1fr; column-gap:var(--s-3); row-gap:var(--s-1)}
+.tr-how-grid .n{grid-row:1 / 3; width:36px; height:36px; border-radius:50%; background:var(--pen); color:#fff; display:grid; place-items:center; font:600 1rem/1 var(--body)}
+.tr-how-grid b{font:500 var(--fs-l, 1.25rem)/1.25 var(--serif)}
+.tr-how-grid span:not(.n){color:var(--text-2); font-size:var(--fs-s)}
+.tr-secs > h2, .tr-how > h2{font:400 var(--fs-h2)/1.15 var(--serif); margin:0}
+.tr-row{display:grid; grid-template-columns:minmax(0, 340px) 1fr; gap:var(--s-6); align-items:start; margin:var(--s-7) 0 0}
+.tr-row .tr-sec-img{margin:0; aspect-ratio:3 / 2; object-fit:cover}
+.tr-row h3{font:400 var(--fs-h3)/1.2 var(--serif); margin:0 0 var(--s-1)}
+@media (max-width:900px){ .tr-how-grid{grid-template-columns:repeat(2, 1fr)} }
+@media (max-width:720px){ .tr-how-grid{grid-template-columns:1fr} .tr-row{grid-template-columns:1fr; gap:var(--s-4)} .tr-row > span:empty{display:none} }
+.tr-land .tr-how{margin:var(--s-7) auto 0}
+.tr-how-grid li{align-content:start} .tr-how-grid .n{grid-row:1}
+.tr-how-grid b{grid-column:2; grid-row:1; align-self:center} .tr-how-grid span:not(.n){grid-column:2; grid-row:2} .tr-how-grid .n{grid-column:1; grid-row:1 / 3; align-self:start}

@@ -11,14 +11,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611432">
-<link rel="stylesheet" href="/tokens.css?v=202611432">
-<link rel="stylesheet" href="/home.css?v=202611432">
-<link rel="stylesheet" href="/terms/terms.css?v=202611432">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611435">
+<link rel="stylesheet" href="/tokens.css?v=202611435">
+<link rel="stylesheet" href="/home.css?v=202611435">
+<link rel="stylesheet" href="/terms/terms.css?v=202611435">
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611432">
-<link rel="stylesheet" href="/trainer/trainer.css?v=202611432">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611435">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611435">
 </head>
 <body class="t-page tr-page">
 <a class="skip" href="#main">Перейти к содержанию</a>
@@ -36,68 +36,95 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
-<main id="main" class="wrap term t-wide tr-map">
-  <p class="eyebrow">Тренажёр · первая версия</p>
-  <h1>Тренажёр собеседований аналитика</h1>
-  <p class="t-def">Вероятность, статистика, A/B-тесты и продуктовые кейсы — задачи с собеседований аналитика, каждая разобрана по полочкам и проверена симуляцией. SQL и Python здесь нет.</p>
-  <img class="tr-hero" src="/trainer/img/trainer-hero.jpg" alt="" width="1600" height="900" fetchpriority="high">
-  <section class="tr-how" aria-labelledby="how-h">
-    <h2 id="how-h">Как устроено</h2>
-    <ol class="tr-steps">
-      <li><b>Тема</b> — коротко о главном и ссылка на курс, где это разбираем подробно.</li>
-      <li><b>Игра</b> — сделай прогноз и проверь его: так идея запоминается лучше, чем из формулы.</li>
-      <li><b>Шаблон</b> — тип задачи, как узнать его по условию и как решать по шагам.</li>
-      <li><b>Разбор</b> — задача с решением по шагам. Сначала попробуй сам.</li>
-      <li><b>Реши сам</b> — та же задача в другом домене и с другими числами: доставка, финтех, игры, маркетплейс. Ответ проверяется сразу.</li>
-      <li><b>Смешанная тренировка</b> — задачи вперемешку, без подсказки темы, как на настоящем собеседовании.</li>
-    </ol>
-    <p class="tr-cta"><a class="btn" href="/trainer/mix/">Смешанная тренировка · 45 задач</a></p>
-    <p class="tr-meta">Готово 11 тем из 34. Остальные появятся до конца декабря.</p>
+<main id="main" class="tr-land">
+  <!-- первый экран — как на главной (Диля, 24.11): слева заголовок и текст, справа картинка -->
+  <section class="wrap hero">
+    <div class="hero-text">
+      <p class="eyebrow">Тренажёр · первая версия</p>
+      <h1>Тренажёр собеседований аналитика</h1>
+      <p class="sub">Вероятность, статистика, A/B-тесты и продуктовые кейсы — задачи с собеседований аналитика, каждая разобрана по полочкам и проверена симуляцией. SQL и Python здесь нет.</p>
+      <ul class="sub hero-list" role="list">
+        <li>Готово 11 тем из 34, 45 задач в смешанной тренировке.</li>
+        <li>Остальные темы появятся до конца декабря.</li>
+      </ul>
+      <p class="ctas"><a class="btn" href="/trainer/mix/">Смешанная тренировка</a></p>
+    </div>
+    <figure class="art hero-art"><img src="/trainer/img/trainer-hero.jpg" alt="" width="1600" height="900" fetchpriority="high"></figure>
   </section>
 
-  <section class="tr-sec" aria-labelledby="sec-P">
+  <section class="wrap block tr-how" aria-labelledby="how-h">
+    <h2 id="how-h">Как устроено</h2>
+    <ol class="tr-how-grid" role="list">
+      <li><span class="n">1</span><b>Тема</b><span>Коротко о главном и ссылка на курс, где это разбираем подробно.</span></li>
+      <li><span class="n">2</span><b>Игра</b><span>Сделай прогноз и проверь его: так идея запоминается лучше, чем из формулы.</span></li>
+      <li><span class="n">3</span><b>Шаблон</b><span>Тип задачи, как узнать его по условию и как решать по шагам.</span></li>
+      <li><span class="n">4</span><b>Разбор</b><span>Задача с решением по шагам. Сначала попробуй сам.</span></li>
+      <li><span class="n">5</span><b>Реши сам</b><span>Та же задача в другом домене и с другими числами. Ответ проверяется сразу.</span></li>
+      <li><span class="n">6</span><b>Смешанная тренировка</b><span>Задачи вперемешку, без подсказки темы, как на настоящем собеседовании.</span></li>
+    </ol>
+  </section>
+
+  <section class="wrap block tr-secs" aria-labelledby="secs-h">
+    <h2 id="secs-h">Темы</h2>
+
+  <section class="tr-sec tr-row" aria-labelledby="sec-P">
     <img class="tr-sec-img" src="/trainer/img/trainer-probability.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-P">Вероятность</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-P">Вероятность</h3>
     <p class="tr-meta">8 тем · 207 задач в банке</p>
     <ul class="tr-topics"><li><b>Комбинаторика и классическая вероятность</b><span>скоро · 45 задач</span></li><li class="on"><a href="/trainer/conditional/"><b>Условная вероятность и независимость</b><span>3 шабл. · готово</span></a></li><li class="on"><a href="/trainer/bayes/"><b>Формула Байеса</b><span>4 шабл. · готово</span></a></li><li><b>Матожидание и индикаторы</b><span>скоро · 32 задач</span></li><li><b>Ожидание до события</b><span>скоро · 21 задач</span></li><li><b>Симметрия</b><span>скоро · 6 задач</span></li><li><b>Рекурсия, цепи, блуждания</b><span>скоро · 12 задач</span></li><li><b>Биномиальное, Пуассон, геометрическая вероятность</b><span>скоро · 31 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-S">
+  <section class="tr-sec tr-row" aria-labelledby="sec-S">
     <img class="tr-sec-img" src="/trainer/img/trainer-statistics.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-S">Статистика</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-S">Статистика</h3>
     <p class="tr-meta">12 тем · 127 задач в банке</p>
     <ul class="tr-topics"><li class="on"><a href="/trainer/normal/"><b>Нормальное распределение</b><span>2 шабл. · готово</span></a></li><li><b>Закон больших чисел и √n</b><span>скоро · 3 задач</span></li><li><b>Центральная предельная теорема</b><span>скоро · 5 задач</span></li><li class="on"><a href="/trainer/confidence-interval/"><b>Доверительный интервал</b><span>2 шабл. · готово</span></a></li><li class="on"><a href="/trainer/p-value/"><b>p‑value и значимость</b><span>3 шабл. · готово</span></a></li><li class="on"><a href="/trainer/sample-size/"><b>Мощность и размер выборки</b><span>3 шабл. · готово</span></a></li><li><b>Критерии: z, t, Манн–Уитни, хи-квадрат</b><span>скоро · 18 задач</span></li><li><b>Хвосты, медиана, выбросы</b><span>скоро · 20 задач</span></li><li class="on"><a href="/trainer/multiple-testing/"><b>Множественные проверки</b><span>1 шабл. · готово</span></a></li><li><b>Регрессия к среднему</b><span>скоро · 3 задач</span></li><li><b>Оценивание: ОМП, «танки», численность</b><span>скоро · 12 задач</span></li><li><b>Корреляция и зависимость</b><span>скоро · 3 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-A">
+  <section class="tr-sec tr-row" aria-labelledby="sec-A">
     <img class="tr-sec-img" src="/trainer/img/trainer-ab.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-A">A/B-тесты</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-A">A/B-тесты</h3>
     <p class="tr-meta">6 тем · 40 задач в банке</p>
     <ul class="tr-topics"><li class="on"><a href="/trainer/ab-design/"><b>Дизайн теста: сплит, A/A, SRM</b><span>2 шабл. · готово</span></a></li><li><b>Метрики: дерево, ratio, бакеты</b><span>скоро · 20 задач</span></li><li class="on"><a href="/trainer/peeking/"><b>Подглядывание</b><span>1 шабл. · готово</span></a></li><li><b>Сетевой эффект и интерференция</b><span>скоро · 5 задач</span></li><li><b>Новизна, долгий эффект, окна метрик</b><span>скоро · 3 задач</span></li><li><b>Разбавление и триггерный анализ</b><span>скоро · 2 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-C">
+  <section class="tr-sec tr-row" aria-labelledby="sec-C">
     <img class="tr-sec-img" src="/trainer/img/trainer-causal.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-C">Причинность и ловушки данных</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-C">Причинность и ловушки данных</h3>
     <p class="tr-meta">3 темы · 22 задач в банке</p>
     <ul class="tr-topics"><li class="on"><a href="/trainer/simpson/"><b>Парадокс Симпсона</b><span>1 шабл. · готово</span></a></li><li class="on"><a href="/trainer/selection/"><b>Отбор: выживший, инспекция, Берксон</b><span>2 шабл. · готово</span></a></li><li><b>Конфаундеры и квази-эксперименты</b><span>скоро · 6 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-K">
+  <section class="tr-sec tr-row" aria-labelledby="sec-K">
     <img class="tr-sec-img" src="/trainer/img/trainer-cases.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-K">Продуктовые кейсы</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-K">Продуктовые кейсы</h3>
     <p class="tr-meta">3 темы · 25 задач в банке</p>
     <ul class="tr-topics"><li><b>От гипотезы до решения в деньгах</b><span>скоро · 11 задач</span></li><li><b>Метрика упала или выросла — найди причину</b><span>скоро · 8 задач</span></li><li><b>Экономика промо и привлечения</b><span>скоро · 6 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-L">
+  <section class="tr-sec tr-row" aria-labelledby="sec-L">
     <img class="tr-sec-img" src="/trainer/img/trainer-logic.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-L">Логика и оценки Ферми</h2>
+    <div class="tr-row-body">
+    <h3 id="sec-L">Логика и оценки Ферми</h3>
     <p class="tr-meta">2 темы · 33 задач в банке</p>
     <ul class="tr-topics"><li><b>Логические задачи</b><span>скоро · 32 задач</span></li><li><b>Оценки Ферми</b><span>скоро · 1 задач</span></li></ul>
+    </div>
   </section>
-  <section class="tr-sec" aria-labelledby="sec-mock">
+  <section class="tr-sec tr-row" aria-labelledby="sec-mock">
     <img class="tr-sec-img" src="/trainer/img/trainer-mock.jpg" alt="" width="1200" height="800" loading="lazy">
-    <h2 id="sec-mock">Пробное собеседование</h2>
-    <p class="tr-meta">Скоро · 45 минут, задачи из разных разделов, разбор в конце</p>
+    <div class="tr-row-body">
+      <h3 id="sec-mock">Пробное собеседование</h3>
+      <p class="tr-meta">Скоро · 45 минут, задачи из разных разделов, разбор в конце</p>
+    </div>
+  </section>
   </section>
 </main>
-<script src="/trainer/trainer.js?v=202611432" defer></script>
+<script src="/trainer/trainer.js?v=202611435" defer></script>
 <footer class="foot" data-chrome>
   <div class="wrap">
     <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a></p>

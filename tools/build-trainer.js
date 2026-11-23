@@ -212,42 +212,59 @@ ${tpls}
     const total = items.reduce((a, m) => a + m[3], 0);
     const pic = img(s.img);
     return `
-  <section class="tr-sec" aria-labelledby="sec-${s.id}">
-    ${pic ? `<img class="tr-sec-img" src="${pic}" alt="" width="1200" height="800" loading="lazy">` : ''}
-    <h2 id="sec-${s.id}">${s.name}</h2>
+  <section class="tr-sec tr-row" aria-labelledby="sec-${s.id}">
+    ${pic ? `<img class="tr-sec-img" src="${pic}" alt="" width="1200" height="800" loading="lazy">` : '<span></span>'}
+    <div class="tr-row-body">
+    <h3 id="sec-${s.id}">${s.name}</h3>
     <p class="tr-meta">${items.length} ${items.length > 4 ? 'тем' : 'темы'} · ${total} задач в банке</p>
     <ul class="tr-topics">${items.map(m => {
       const r = m[4] && TOPICS[m[4]];
       return r ? `<li class="on"><a href="/trainer/${m[4]}/"><b>${typo(m[2])}</b><span>${r.templates.length} шабл. · готово</span></a></li>`
                : `<li><b>${typo(m[2])}</b><span>скоро · ${m[3]} задач</span></li>`;
     }).join('')}</ul>
+    </div>
   </section>`;
   }).join('');
   const nReady = Object.keys(TOPICS).length, nTasks = mix.length;
   const index = head({title: 'Тренажёр собеседований аналитика — вероятность, статистика, A/B', desc: 'Задачи с собеседований аналитика по вероятности, статистике, A/B и продуктовым кейсам: игра, шаблон, разбор и задачи в других доменах с проверкой ответа.'}) + `
-<main id="main" class="wrap term t-wide tr-map">
-  <p class="eyebrow">Тренажёр · первая версия</p>
-  <h1>Тренажёр собеседований аналитика</h1>
-  <p class="t-def">Вероятность, статистика, A/B-тесты и продуктовые кейсы — задачи с собеседований аналитика, каждая разобрана по полочкам и проверена симуляцией. SQL и Python здесь нет.</p>
-  ${hero ? `<img class="tr-hero" src="${hero}" alt="" width="1600" height="900" fetchpriority="high">` : ''}
-  <section class="tr-how" aria-labelledby="how-h">
-    <h2 id="how-h">Как устроено</h2>
-    <ol class="tr-steps">
-      <li><b>Тема</b> — коротко о главном и ссылка на курс, где это разбираем подробно.</li>
-      <li><b>Игра</b> — сделай прогноз и проверь его: так идея запоминается лучше, чем из формулы.</li>
-      <li><b>Шаблон</b> — тип задачи, как узнать его по условию и как решать по шагам.</li>
-      <li><b>Разбор</b> — задача с решением по шагам. Сначала попробуй сам.</li>
-      <li><b>Реши сам</b> — та же задача в другом домене и с другими числами: доставка, финтех, игры, маркетплейс. Ответ проверяется сразу.</li>
-      <li><b>Смешанная тренировка</b> — задачи вперемешку, без подсказки темы, как на настоящем собеседовании.</li>
-    </ol>
-    <p class="tr-cta"><a class="btn" href="/trainer/mix/">Смешанная тренировка · ${nTasks} задач</a></p>
-    <p class="tr-meta">Готово ${nReady} тем из ${MAP.length}. Остальные появятся до конца декабря.</p>
+<main id="main" class="tr-land">
+  <!-- первый экран — как на главной (Диля, 24.11): слева заголовок и текст, справа картинка -->
+  <section class="wrap hero">
+    <div class="hero-text">
+      <p class="eyebrow">Тренажёр · первая версия</p>
+      <h1>Тренажёр собеседований аналитика</h1>
+      <p class="sub">Вероятность, статистика, A/B-тесты и продуктовые кейсы — задачи с собеседований аналитика, каждая разобрана по полочкам и проверена симуляцией. SQL и Python здесь нет.</p>
+      <ul class="sub hero-list" role="list">
+        <li>Готово ${nReady} тем из ${MAP.length}, ${nTasks} задач в смешанной тренировке.</li>
+        <li>Остальные темы появятся до конца декабря.</li>
+      </ul>
+      <p class="ctas"><a class="btn" href="/trainer/mix/">Смешанная тренировка</a></p>
+    </div>
+    ${hero ? `<figure class="art hero-art"><img src="${hero}" alt="" width="1600" height="900" fetchpriority="high"></figure>` : ''}
   </section>
+
+  <section class="wrap block tr-how" aria-labelledby="how-h">
+    <h2 id="how-h">Как устроено</h2>
+    <ol class="tr-how-grid" role="list">
+      <li><span class="n">1</span><b>Тема</b><span>Коротко о главном и ссылка на курс, где это разбираем подробно.</span></li>
+      <li><span class="n">2</span><b>Игра</b><span>Сделай прогноз и проверь его: так идея запоминается лучше, чем из формулы.</span></li>
+      <li><span class="n">3</span><b>Шаблон</b><span>Тип задачи, как узнать его по условию и как решать по шагам.</span></li>
+      <li><span class="n">4</span><b>Разбор</b><span>Задача с решением по шагам. Сначала попробуй сам.</span></li>
+      <li><span class="n">5</span><b>Реши сам</b><span>Та же задача в другом домене и с другими числами. Ответ проверяется сразу.</span></li>
+      <li><span class="n">6</span><b>Смешанная тренировка</b><span>Задачи вперемешку, без подсказки темы, как на настоящем собеседовании.</span></li>
+    </ol>
+  </section>
+
+  <section class="wrap block tr-secs" aria-labelledby="secs-h">
+    <h2 id="secs-h">Темы</h2>
 ${sec}
-  <section class="tr-sec" aria-labelledby="sec-mock">
-    ${img('trainer-mock') ? `<img class="tr-sec-img" src="${img('trainer-mock')}" alt="" width="1200" height="800" loading="lazy">` : ''}
-    <h2 id="sec-mock">Пробное собеседование</h2>
-    <p class="tr-meta">Скоро · 45 минут, задачи из разных разделов, разбор в конце</p>
+  <section class="tr-sec tr-row" aria-labelledby="sec-mock">
+    ${img('trainer-mock') ? `<img class="tr-sec-img" src="${img('trainer-mock')}" alt="" width="1200" height="800" loading="lazy">` : '<span></span>'}
+    <div class="tr-row-body">
+      <h3 id="sec-mock">Пробное собеседование</h3>
+      <p class="tr-meta">Скоро · 45 минут, задачи из разных разделов, разбор в конце</p>
+    </div>
+  </section>
   </section>
 </main>` + foot();
   write('trainer/index.html', index);
