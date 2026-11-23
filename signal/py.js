@@ -58,6 +58,13 @@
   window.pyHL = pyHL;
 
 
+  // подсветка и кнопки ячеек — свои стили, чтобы ячейка выглядела одинаково на любой странице (книги, курсы)
+  if (!document.getElementById('py-cell-css')){
+    const st = document.createElement('style'); st.id = 'py-cell-css';
+    st.textContent = '.cell .ed{position:relative; background:#1F2430} .cell .ed pre.hl{position:absolute; inset:0; margin:0; padding:14px 16px; background:transparent; color:#E6E9EF; font:400 .875rem/1.55 var(--mono); tab-size:4; white-space:pre; overflow:hidden; pointer-events:none; min-height:0} .cell .ed pre.hl code{display:block; font:inherit; white-space:pre} .cell .ed textarea{position:relative; background:transparent; color:transparent; caret-color:#E6E9EF; -webkit-text-fill-color:transparent} .cell .ed textarea::selection{background:rgba(120,160,255,.35)} .py-k{color:#C3A6FF} .py-s{color:#A6D98C} .py-c{color:#8D96A8; font-style:italic} .py-n{color:#F2C46B} .py-b{color:#7FD1C8} .py-f{color:#F0A17A} .py-e{color:#F2C46B} .cell-bar .copy.done{background:#2F6B4F}';
+    document.head.append(st);
+  }
+
   document.querySelectorAll('.cell').forEach((cell, idx) => {
     const ta = cell.querySelector('textarea');
     const original = ta.value;
@@ -91,6 +98,15 @@
       bar.append(check);
     }
     bar.append(reset);
+    // «Скопировать» — унести код к себе
+    const copy = Object.assign(document.createElement('button'), {className:'copy', type:'button', textContent:'⧉ Скопировать'});
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(ta.value); }
+      catch(e) { ta.focus(); ta.select(); document.execCommand('copy'); }
+      copy.textContent = '✓ Скопировано'; copy.classList.add('done');
+      setTimeout(() => { copy.textContent = '⧉ Скопировать'; copy.classList.remove('done'); }, 1800);
+    });
+    bar.append(copy);
     run.title = 'Ctrl/⌘ + Enter';   // подсказка про клавиши — только во всплывающей подсказке (решение Дили, 23.11.2026)
     const out = document.createElement('pre');
     cell.append(bar, out);
