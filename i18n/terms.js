@@ -64,7 +64,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'terms.unit.step': 'шаг',
   'terms.unit.chapter': 'глава',
   'terms.home': 'Главная',
-  'terms.not': 'Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="{href}" rel="noopener">статье «{wiki}» в Википедии ↗</a>.',
+  'terms.not': 'Здесь — формулы, графики, которые можно покрутить, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="{href}" rel="noopener">статье «{wiki}» в Википедии ↗</a>.',
   'terms.cta.text': 'Это {unit} {n} курса «{course}» — <a href="{href}">«{title}» →</a>',
   'terms.cta.open': 'Открыть {unit} {n} →',
   'terms.cta.all': 'Весь курс «{course}»',

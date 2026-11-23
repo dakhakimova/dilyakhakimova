@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611315">
-<link rel="stylesheet" href="/tokens.css?v=202611315">
-<link rel="stylesheet" href="/home.css?v=202611315">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611315">
-<link rel="stylesheet" href="/terms/terms.css?v=202611315">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611316">
+<link rel="stylesheet" href="/tokens.css?v=202611316">
+<link rel="stylesheet" href="/home.css?v=202611316">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611316">
+<link rel="stylesheet" href="/terms/terms.css?v=202611316">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Формула Байеса","item":"https://dilyakhakimova.com/terms/bayes-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term","name":"Формула Байеса","description":"Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Формула Байеса","description":"Формула Байеса на примере датчика орехов в десертах: почему тревога точного датчика чаще ложная, чем настоящая, и как это посчитать в штуках.","url":"https://dilyakhakimova.com/terms/bayes-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/bayes-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Болезнью болеет 1% людей. Тест находит 90% больных, но у 9% здоровых тоже показывает «болен». Тест положительный. Какова вероятность, что человек болен?","acceptedAnswer":{"@type":"Answer","text":"Из 1000 человек больны 10, тест найдёт 9. Из 990 здоровых ложно положительны около 89. Положительных 9 + 89 = 98, больных среди них 9 — примерно 9%. По формуле: 0.9 · 0.01 / (0.9 · 0.01 + 0.09 · 0.99) ≈ 0.092."}},{"@type":"Question","name":"В мешке две монеты: честная и с орлами с обеих сторон. Достали одну наугад, бросили — выпал орёл. Какова вероятность, что монета двусторонняя?","acceptedAnswer":{"@type":"Answer","text":"P(«орёл» | «двусторонняя») = 1, P(«орёл» | «честная») = 1/2, априорно обе по 1/2. Ответ: (1 · 1/2) / (1 · 1/2 + 1/2 · 1/2) = 2/3."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -52,10 +52,10 @@
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
     <h1>Формула Байеса</h1>
+    <p class="t-not">Здесь — формулы, графики, которые можно покрутить, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A2%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0%20%D0%91%D0%B0%D0%B9%D0%B5%D1%81%D0%B0" rel="noopener">статье «Теорема Байеса» в Википедии ↗</a>.</p>
     <p class="t-sub">Как пересчитать веру в причину, когда увидел следствие, — и почему редкая беда почти всегда ложное срабатывание.</p>
   </header>
   <p class="t-def">Формула Байеса (её ещё называют теоремой Байеса) пересчитывает вероятность гипотезы после того, как появились новые данные. Она отвечает на вопрос «насколько теперь верить в причину, если я увидел её следствие».</p>
-  <p class="t-not">Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A2%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0%20%D0%91%D0%B0%D0%B9%D0%B5%D1%81%D0%B0" rel="noopener">статье «Теорема Байеса» в Википедии ↗</a>.</p>
   <section class="t-sec" aria-labelledby="viz-h">
     <h2 id="viz-h">Как посчитать Байеса в штуках?</h2>
     <figure class="viz">
@@ -165,6 +165,6 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611315"></script>
+<script src="/terms/terms.js?v=202611316"></script>
 </body>
 </html>

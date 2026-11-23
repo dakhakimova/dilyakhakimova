@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611315">
-<link rel="stylesheet" href="/tokens.css?v=202611315">
-<link rel="stylesheet" href="/home.css?v=202611315">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611315">
-<link rel="stylesheet" href="/terms/terms.css?v=202611315">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611316">
+<link rel="stylesheet" href="/tokens.css?v=202611316">
+<link rel="stylesheet" href="/home.css?v=202611316">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611316">
+<link rel="stylesheet" href="/terms/terms.css?v=202611316">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Центральная предельная теорема","item":"https://dilyakhakimova.com/terms/central-limit-theorem/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/central-limit-theorem/#term","name":"Центральная предельная теорема","description":"Центральная предельная теорема (ЦПТ) говорит, что среднее многих независимых значений распределено почти как нормальный колокол — даже если сами значения выглядят совсем иначе. Ширина этого колокола уменьшается как σ/√n.","url":"https://dilyakhakimova.com/terms/central-limit-theorem/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Центральная предельная теорема","description":"Центральная предельная теорема (ЦПТ) на заказах кафе: как из горки у нуля вырастает колокол средних и почему от этого зависят все A/B-тесты.","url":"https://dilyakhakimova.com/terms/central-limit-theorem/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/central-limit-theorem/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Время ожидания курьера распределено экспоненциально со средним 10 минут. Как приблизительно распределено среднее по 100 заказам?","acceptedAnswer":{"@type":"Answer","text":"У экспоненты σ равна среднему: 10 минут. По ЦПТ среднее по 100 заказам ≈ N(10, 1²): σ/√n = 10/10 = 1 минута. Примерно в 95% случаев оно окажется между 8 и 12 минутами."}},{"@type":"Question","name":"Во сколько раз сузится колокол средних, если взять в 9 раз больше наблюдений?","acceptedAnswer":{"@type":"Answer","text":"В 3 раза: ширина пропорциональна 1/√n, а √9 = 3."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -52,6 +52,7 @@
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
     <h1>Центральная предельная теорема</h1>
+    <p class="t-not">Здесь — формулы, графики, которые можно покрутить, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D1%82%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0" rel="noopener">статье «Центральная предельная теорема» в Википедии ↗</a>.</p>
     <p class="t-sub">Почему среднее по тысяче гостей ведёт себя предсказуемо, даже если каждый гость — нет.</p>
   </header>
   <p class="t-def">Центральная предельная теорема (ЦПТ) говорит, что среднее многих независимых значений распределено почти как нормальный колокол — даже если сами значения выглядят совсем иначе. Ширина этого колокола уменьшается как <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord">/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
@@ -66,7 +67,6 @@ H400000v40H845.2724
 s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
 c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
 M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span>.</p>
-  <p class="t-not">Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D1%82%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0" rel="noopener">статье «Центральная предельная теорема» в Википедии ↗</a>.</p>
   <section class="t-sec" aria-labelledby="viz-h">
     <h2 id="viz-h">Как меняется форма среднего с ростом n?</h2>
     <figure class="viz">
@@ -262,6 +262,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611315"></script>
+<script src="/terms/terms.js?v=202611316"></script>
 </body>
 </html>
