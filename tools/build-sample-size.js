@@ -60,13 +60,7 @@ ${chrome.header('play', false)}
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
     </div>
-    <p class="ss-step">2. Задай два — третье посчитаю</p>
-    <div class="seg ss-mode" role="radiogroup" aria-label="Что посчитать">
-      <span class="ss-mode-l">Посчитать:</span>
-      <button type="button" role="radio" data-mode="n" aria-checked="true">размер выборки</button>
-      <button type="button" role="radio" data-mode="mde" aria-checked="false">MDE</button>
-      <button type="button" role="radio" data-mode="pow" aria-checked="false">мощность</button>
-    </div>
+    <p class="ss-step">2. Какой эффект хотим заметить</p>
     <div class="ss-form">
       <label class="ss-f"><span id="ss-mde-l">Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>

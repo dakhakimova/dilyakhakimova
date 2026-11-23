@@ -29,7 +29,7 @@
   const LIM = {base: [0.01, 99], mean: [1e-6, 1e12], sd: [1e-6, 1e12], mde: [0.1, 500], pow: [5, 99.9], split: [1, 99], n: [10, 1e9], traffic: [1, 1e9]};
   let st = Object.assign({}, DEF);
   // обновление страницы — снова пример (как в калькуляторе SRM); ссылка с числами читается один раз
-  const q = new URLSearchParams(location.search); const fromLink = [...q.keys()].some(k => k in DEF); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = ['mode', 'metric', 'sides'].includes(k) ? q.get(k) : +q.get(k);
+  const q = new URLSearchParams(location.search); const fromLink = [...q.keys()].some(k => k in DEF); q.delete('mode'); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = ['mode', 'metric', 'sides'].includes(k) ? q.get(k) : +q.get(k);
   if (location.search) history.replaceState(null, '', location.pathname);
   const touched = new Set(fromLink ? Object.keys(DEF) : []);   // пока поле не трогали, в нём бледный пример
   const fields = {base: $('ss-base'), mean: $('ss-mean'), sd: $('ss-sd'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic'), split: $('ss-split')};
@@ -123,7 +123,7 @@
   if (svg){
     svg.setAttribute('tabindex', '0');
     const toN = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * W; return Math.max(XMAX / 60, Math.min(XMAX, (x - L) / (W - L - R) * XMAX)); };
-    const setN = n => { st.mode = 'mde'; st.n = Math.round(n); touched.add('n'); calc(); render(); };
+    const setN = n => { st.mode = 'n'; st.mde = +(100 * mdeFor(st.base / 100, n, st.pow / 100, st.alpha)).toFixed(2); touched.add('mde'); calc(); render(); };   // тянем отсечку — меняется MDE, размер выборки пересчитывается
     svg.addEventListener('pointerdown', ev => { dragging = true; svg.setPointerCapture(ev.pointerId); setN(toN(ev)); });
     svg.addEventListener('pointermove', ev => { if (dragging) setN(toN(ev)); });
     const stop = () => { if (dragging){ dragging = false; render(); } };
