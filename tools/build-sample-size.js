@@ -69,7 +69,7 @@ ${chrome.header('play', false)}
       <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
       <table class="table ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
-    <p class="ss-acts"><button type="button" class="btn-text" id="ss-reset">Вернуть типичные значения</button><span class="note" id="ss-undo" role="status"></span></p>
+    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><button type="button" class="btn-text" id="ss-reset">Вернуть типичные значения</button><span class="note" id="ss-undo" role="status"></span></p>
     <div class="ss-recent" id="ss-recent-box" hidden><p class="note">Последние расчёты:</p><ul id="ss-recent"></ul></div>
   </section>
   <section class="play-out"><p class="kicker">Почему так</p>

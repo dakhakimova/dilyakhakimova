@@ -105,4 +105,7 @@
     clearTimeout(undoT); undoT = setTimeout(() => { box.textContent = ''; }, 10000);
   });
   calc(); render(); paintRecent();
+  // «Скопировать ссылку на расчёт» — адрес страницы уже содержит все числа
+  const cp = $('ss-copy');
+  if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); try { await navigator.clipboard.writeText(location.href); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = location.href; } });
 })();
