@@ -38,10 +38,10 @@ function greekFrag(frag){
       .replace(new RegExp('N\\(μ,' + S + 'σ²\\)', 'g'), () => put('N(\\mu, \\sigma^2)'))
       .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
       .replace(new RegExp('([νn])' + S + '=' + S + 'n' + S + '[−-]' + S + '1', 'g'), (_, v) => put((v === 'ν' ? '\\nu' : 'n') + ' = n - 1'))
-      .replace(new RegExp('([νn])' + S + '=' + S + '(\\d+)', 'g'), (_, v, d) => put((v === 'ν' ? '\\nu' : 'n') + ' = ' + d))
+      .replace(new RegExp('([νnσ])' + S + '=' + S + '(\\d+)', 'g'), (_, v, d) => put(({'ν': '\\nu', 'σ': '\\sigma', n: 'n'})[v] + ' = ' + d))
       .replace(new RegExp('(^|[\\s\\u00a0(«])n' + S + '[−-]' + S + '1(?![\\d.])', 'g'), (_, a) => a + put('n - 1'))
       .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
-      .replace(/(^|[\s\u00a0(«])([xXns])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
+      .replace(/(^|[\s\u00a0(«])([xXnsZT])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
       .replace(/([μσν])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // неразрывный пробел сразу после формулы даёт пустой отступ в начале строки — делаем обычным
     x = x.replace(/\u0002\u00a0/g, '\u0002 ');
@@ -201,7 +201,10 @@ ${chrome.header('terms', o.url === '/terms/')}
 
     // первая картинка — сразу под определением (решение Дили, 22.11.2026): своя top[slug] или, если её нет, главная схема со своим вопросом
     const vizSec = `  <section class="t-sec" aria-labelledby="viz-h">
-    <h2 id="viz-h">${typo(hq.viz)}</h2>
+    <h2 id="viz-h">${typo(hq.viz)}</h2>${x.z ? `
+    <p>${greekFrag(typo(x.z.p))}</p>
+    <div class="formula tex" role="math" aria-label="${attr(x.z.read)}">${KATEX.renderToString(x.z.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
+    <p>${greekFrag(typo(x.z.p2))}</p>` : ''}
     <figure class="viz">
       <p class="chart-head">${typo(x.vizT)}</p>
       ${viz[s](vzPlain)}${x.sg ? `
