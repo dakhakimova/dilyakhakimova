@@ -34,7 +34,7 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 ${chrome.header('play', false)}
 <main id="main" class="wrap play ss-page">
   <h1>Группы разделились честно?</h1>
-  <p class="play-meta">Калькулятор · Средний уровень</p>
+  <p class="play-meta">Калькулятор</p>
   <p class="lead">Проверка SRM: подставь, сколько пользователей попало в каждую группу и какой был план сплита. Если группы разошлись сильнее, чем бывает случайно, отчёту теста верить нельзя.</p>
 
   <section class="ss-card" aria-labelledby="srm-h">

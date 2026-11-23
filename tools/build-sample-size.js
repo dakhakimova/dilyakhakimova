@@ -33,7 +33,7 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 ${chrome.header('play', false)}
 <main id="main" class="wrap play ss-page">
   <h1>Сколько дней держать тест?</h1>
-  <p class="play-meta">Калькулятор · Средний уровень</p>
+  <p class="play-meta">Калькулятор</p>
   <p class="lead">Размер выборки, самый маленький заметный эффект (MDE) и мощность связаны: поменяешь одно — поедут остальные. Зафиксируй два, третье посчитаю.</p>
 
   <section class="ss-card" aria-labelledby="ss-h">
