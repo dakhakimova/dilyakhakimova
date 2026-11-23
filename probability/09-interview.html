@@ -499,10 +499,23 @@ const TXT = {
   const F = {comb:(n,k)=>{if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}, perm:(n,k)=>{let r=1;for(let i=0;i<k;i++)r*=n-i;return r},
     factorial:n=>{let r=1;for(let i=2;i<=n;i++)r*=i;return r}, sqrt:Math.sqrt, exp:Math.exp, log:Math.log, abs:Math.abs, round:(x,d)=>d?Math.round(x*10**d)/10**d:Math.round(x),
     min:Math.min, max:Math.max, pi:Math.PI, e:Math.E};
-  const ok = /^[0-9+\-*/().,%\s_a-z]*$/i;
+  const ok = /^[0-9+\-*/().,%\s_a-z!^]*$/i;
+  // 7! и (n-1)! → factorial(…)
+  function bang(x){
+    let i;
+    while ((i = x.indexOf('!')) > 0){
+      let j = i - 1;
+      if (x[j] === ')'){ let d = 0; for (; j >= 0; j--){ if (x[j] === ')') d++; else if (x[j] === '(' && !--d) break; } if (j < 0) throw 0; }
+      else { while (j > 0 && /[0-9.]/.test(x[j - 1])) j--; if (!/[0-9.]/.test(x[j])) throw 0; }
+      x = x.slice(0, j) + 'factorial(' + x.slice(j, i) + ')' + x.slice(i + 1);
+    }
+    if (x.includes('!')) throw 0;
+    return x;
+  }
   function run(src){
-    const x = src.trim(); if (!x) return null;
+    let x = src.trim(); if (!x) return null;
     if (!ok.test(x)) throw 0;
+    x = bang(x.replace(/\^/g, '**'));
     (x.match(/[a-z_]+/gi) || []).forEach(w => { if (!(w in F)) throw 0; });
     const v = Function(...Object.keys(F), '"use strict"; return (' + x.replace(/\^/g, '**').replace(/(\d)_(?=\d)/g, '$1') + ')')(...Object.values(F));
     if (typeof v !== 'number' || !isFinite(v)) throw 0;
@@ -511,12 +524,12 @@ const TXT = {
   const fmt = v => Number.isInteger(v) ? String(v) : String(+v.toPrecision(6));
   document.querySelectorAll('.task .task-cond').forEach((cond, i) => {
     const box = document.createElement('div'); box.className = 'calc';
-    box.innerHTML = '<label for="calc-' + i + '">Калькулятор</label><input id="calc-' + i + '" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 6/216 или comb(10, 9) / 2**10"><output aria-live="polite"></output>';
+    box.innerHTML = '<input id="calc-' + i + '" aria-label="Калькулятор" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="посчитать: 6/216, 7^3, 7!, sqrt(7), comb(10, 9)"><output aria-live="polite"></output>';
     cond.after(box);
     const inp = box.querySelector('input'), out = box.querySelector('output');
     inp.addEventListener('input', () => {
       try { const v = run(inp.value); out.className = ''; out.textContent = v === null ? '' : '= ' + fmt(v); }
-      catch (e) { out.className = 'err'; out.textContent = 'пока не считается: + − * / ** ( ), comb, factorial, sqrt'; }
+      catch (e) { out.className = 'err'; out.textContent = 'не считается: умею + − * / ^ ** ! ( ), sqrt, comb'; }
     });
   });
 })();
