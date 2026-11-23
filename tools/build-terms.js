@@ -353,14 +353,6 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <p class="more-link">${cmpLink}</p>` : ''}
   </section>
 
-  <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">${typo(hq.faq)}</h2>${(x.faqQ ? [[t('terms.faq.qual'), x.faqQ], [t('terms.faq.calc'), x.faq]] : [['', x.faq]]).map(([h, list]) => `${h ? `
-    <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a]) => `
-    <details class="t-faq">
-      <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
-      <p>${typo(a)}</p>
-    </details>`).join('')}`).join('')}
-  </section>
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">${typo(hq.toy)}</h2>
@@ -375,6 +367,15 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <figure class="viz t-err-viz">${err[s](Object.fromEntries(Object.entries(x.ez).map(([k, v]) => [k, plain(typo(String(v)))])))}<figcaption class="figcap">${typo(x.ez.cap)}</figcaption></figure>
     <ul class="list t-err">` : ''}`).join('')}
     </ul>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">${typo(hq.faq)}</h2>${(x.faqQ ? [[t('terms.faq.qual'), x.faqQ], [t('terms.faq.calc'), x.faq]] : [['', x.faq]]).map(([h, list]) => `${h ? `
+    <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a]) => `
+    <details class="t-faq">
+      <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
+      <p>${typo(a)}</p>
+    </details>`).join('')}`).join('')}
   </section>
 
   <section class="t-sec t-next" aria-label="${attr(t('terms.next.label'))}">

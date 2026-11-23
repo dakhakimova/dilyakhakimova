@@ -21,11 +21,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611358">
-<link rel="stylesheet" href="/tokens.css?v=202611358">
-<link rel="stylesheet" href="/home.css?v=202611358">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611358">
-<link rel="stylesheet" href="/terms/terms.css?v=202611358">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611359">
+<link rel="stylesheet" href="/tokens.css?v=202611359">
+<link rel="stylesheet" href="/home.css?v=202611359">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611359">
+<link rel="stylesheet" href="/terms/terms.css?v=202611359">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Нормальное распределение","item":"https://dilyakhakimova.com/terms/normal-distribution/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/normal-distribution/#term","name":"Нормальное распределение","description":"Нормальное распределение, или распределение Гаусса, — это «колокол»: большинство значений собирается у среднего, и чем дальше от него, тем реже они встречаются. Его задают два числа — центр μ и ширина σ. По ним сразу видно, редкость перед тобой или обычный день.","url":"https://dilyakhakimova.com/terms/normal-distribution/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Нормальное распределение","description":"Нормальное распределение без страшных слов: колокол, правило двух и трёх сигм и время доставки в кафе. С доской Гальтона, где шарики сами складываются в колокол.","url":"https://dilyakhakimova.com/terms/normal-distribution/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/normal-distribution/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Почему нормальное распределение — главное в статистике?","acceptedAnswer":{"@type":"Answer","text":"Из-за центральной предельной теоремы: среднее многих независимых величин распределено почти нормально, как бы ни были распределены сами величины. Средний чек за день, доля конверсий, разница средних в A/B-эксперименте — всё это средние, поэтому доверительные интервалы и большинство критериев опираются на колокол."}},{"@type":"Question","name":"Что значит «при больших n распределение среднего сходится к нормальному»?","acceptedAnswer":{"@type":"Answer","text":"Если много раз брать выборку из n значений и считать среднее, гистограмма этих средних с ростом n всё ближе к колоколу с центром μ и шириной σ/√n. Сколько это «большое n», теорема не говорит: для симметричных данных хватает пары десятков, для чеков с длинным хвостом нужны тысячи."}},{"@type":"Question","name":"Как выглядит нормальное распределение и чем оно задаётся?","acceptedAnswer":{"@type":"Answer","text":"Симметричный колокол: среднее, медиана и мода совпадают, хвосты быстро тают. Задаётся двумя числами: центром μ и дисперсией σ², пишут N(μ, σ²). Изменишь μ — колокол сдвинется, увеличишь σ — станет шире и ниже."}},{"@type":"Question","name":"Что говорит правило двух сигм?","acceptedAnswer":{"@type":"Answer","text":"В пределах μ ± 2σ лежит около 95.4% значений нормального распределения, за ними — 4.6%, по 2.3% с каждой стороны. Ровно 95% даёт ±1.96σ. Отсюда «значение дальше двух сигм — редкость» и вилка «± 2 стандартные ошибки» у доверительного интервала."}},{"@type":"Question","name":"Чем распределение Стьюдента отличается от нормального?","acceptedAnswer":{"@type":"Answer","text":"Оно тоже симметричный колокол, но с более тяжёлыми хвостами, и форма зависит от числа степеней свободы. Оно появляется, когда σ неизвестна и её оценивают по выборке. С ростом выборки разница исчезает: уже при 30 степенях свободы t почти совпадает с нормальным."}},{"@type":"Question","name":"Время доставки распределено нормально: в среднем 30 минут, σ = 5 минут. Сколько заказов из 1000 едут дольше 40 минут?","acceptedAnswer":{"@type":"Answer","text":"40 минут — это +2σ. Дальше двух сигм в одну сторону лежит около 2.3% значений, то есть примерно 23 заказа из 1000. Значит, одна долгая доставка — не ЧП, а обычный хвост колокола."}},{"@type":"Question","name":"Бариста наливает порцию латте 250 мл с разбросом σ = 3 мл. Литровый кувшин можно собрать из четырёх отдельных порций или отмерить одну порцию и умножить на четыре. В каком случае чаще недолив — меньше 990 мл?","acceptedAnswer":{"@type":"Answer","text":"Четыре независимые порции: дисперсии складываются, σ суммы = √4 · 3 = 6 мл, P(«меньше 990») ≈ 4.8%. Одна порция × 4: ошибка тоже умножается на 4, σ = 12 мл, P ≈ 20%. Независимые ошибки частично гасят друг друга, а умноженная — нет."}},{"@type":"Question","name":"Время готовки распределено нормально со средним 8 минут и σ = 2, время в пути — со средним 22 и σ = 4, они независимы. Как распределено полное время заказа?","acceptedAnswer":{"@type":"Answer","text":"Тоже нормально, со средним 8 + 22 = 30 минут. Складываются дисперсии, а не σ: 2² + 4² = 20, поэтому σ = √20 ≈ 4.5 минуты, а не 6."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -246,54 +246,6 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <p class="t-pick">На больших выборках разницы почти нет. На малых бери распределение Стьюдента: оно честно учитывает, что разброс оценён по данным.</p>
   </section>
 
-  <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">Что спрашивают про нормальное распределение на собеседовании?</h2>
-    <h3 class="t-faq-h">На понимание</h3>
-    <details class="t-faq">
-      <summary><span class="q">Почему нормальное распределение — главное в статистике?</span><span class="show">Показать ответ</span></summary>
-      <p>Из-за центральной предельной теоремы: среднее многих независимых величин распределено почти нормально, как бы ни были распределены сами величины. Средний чек за день, доля конверсий, разница средних в A/B‑эксперименте — всё это средние, поэтому доверительные интервалы и большинство критериев опираются на колокол.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Что значит «при больших <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> распределение среднего сходится к нормальному»?</span><span class="show">Показать ответ</span></summary>
-      <p>Если много раз брать выборку из <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> значений и считать среднее, гистограмма этих средних с ростом <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> всё ближе к колоколу с центром <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span> и шириной <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord">/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span>.</span> Сколько это «большое <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>»,</span> теорема не говорит: для симметричных данных хватает пары десятков, для чеков с длинным хвостом нужны тысячи.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Как выглядит нормальное распределение и чем оно задаётся?</span><span class="show">Показать ответ</span></summary>
-      <p>Симметричный колокол: среднее, медиана и мода совпадают, хвосты быстро тают. Задаётся двумя числами: центром <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span> и дисперсией <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>,</span> пишут <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mopen">(</span><span class="mord mathnormal">μ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</span> Изменишь <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span> — колокол сдвинется, увеличишь <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> — станет шире и ниже.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Что говорит правило двух сигм?</span><span class="show">Показать ответ</span></summary>
-      <p>В пределах <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> лежит около 95.4% значений нормального распределения, за ними — 4.6%, по 2.3% с каждой стороны. Ровно 95% даёт ±1.96<span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span>.</span> Отсюда «значение дальше двух сигм — редкость» и вилка «± 2 стандартные ошибки» у доверительного интервала.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Чем распределение Стьюдента отличается от нормального?</span><span class="show">Показать ответ</span></summary>
-      <p>Оно тоже симметричный колокол, но с более тяжёлыми хвостами, и форма зависит от числа степеней свободы. Оно появляется, когда <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> неизвестна и её оценивают по выборке. С ростом выборки разница исчезает: уже при 30 степенях свободы t почти совпадает с нормальным.</p>
-    </details>
-    <h3 class="t-faq-h">С расчётом</h3>
-    <details class="t-faq">
-      <summary><span class="q">Время доставки распределено нормально: в среднем 30 минут, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> минут. Сколько заказов из 1000 едут дольше 40 минут?</span><span class="show">Показать ответ</span></summary>
-      <p>40 минут — это +2<span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span>.</span> Дальше двух сигм в одну сторону лежит около 2.3% значений, то есть примерно 23 заказа из 1000. Значит, одна долгая доставка — не ЧП, а обычный хвост колокола.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Бариста наливает порцию латте 250 мл с разбросом <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span> мл. Литровый кувшин можно собрать из четырёх отдельных порций или отмерить одну порцию и умножить на четыре. В каком случае чаще недолив — меньше 990 мл?</span><span class="show">Показать ответ</span></summary>
-      <p>Четыре независимые порции: дисперсии складываются, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> суммы = √4 · 3 = 6 мл, P(«меньше 990») ≈ 4.8%. Одна порция × 4: ошибка тоже умножается на 4, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">12</span></span></span></span> мл, P ≈ 20%. Независимые ошибки частично гасят друг друга, а умноженная — нет.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Время готовки распределено нормально со средним 8 минут и <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>,</span> время в пути — со средним 22 и <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span>,</span> они независимы. Как распределено полное время заказа?</span><span class="show">Показать ответ</span></summary>
-      <p>Тоже нормально, со средним 8 + 22 = 30 минут. Складываются дисперсии, а не <span class="nw"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span>:</span> 2² + 4² = 20, поэтому <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span> = √20 ≈ 4.5 минуты, а не 6.</p>
-    </details>
-  </section>
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
     <h2 id="toy-h">Откуда берётся колокол?</h2>
@@ -339,6 +291,44 @@ window.addEventListener('resize',function(){if(!raf)draw(0)})})();</script>
     </ul>
   </section>
 
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Что спрашивают про нормальное распределение на собеседовании?</h2>
+    <h3 class="t-faq-h">На понимание</h3>
+    <details class="t-faq">
+      <summary><span class="q">Почему нормальное распределение — главное в статистике?</span><span class="show">Показать ответ</span></summary>
+      <p>Из-за центральной предельной теоремы: среднее многих независимых величин распределено почти нормально, как бы ни были распределены сами величины. Средний чек за день, доля конверсий, разница средних в A/B‑эксперименте — всё это средние, поэтому доверительные интервалы и большинство критериев опираются на колокол.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Что значит «при больших n распределение среднего сходится к нормальному»?</span><span class="show">Показать ответ</span></summary>
+      <p>Если много раз брать выборку из n значений и считать среднее, гистограмма этих средних с ростом n всё ближе к колоколу с центром μ и шириной σ/√n. Сколько это «большое n», теорема не говорит: для симметричных данных хватает пары десятков, для чеков с длинным хвостом нужны тысячи.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Как выглядит нормальное распределение и чем оно задаётся?</span><span class="show">Показать ответ</span></summary>
+      <p>Симметричный колокол: среднее, медиана и мода совпадают, хвосты быстро тают. Задаётся двумя числами: центром μ и дисперсией σ², пишут N(μ, σ²). Изменишь μ — колокол сдвинется, увеличишь σ — станет шире и ниже.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Что говорит правило двух сигм?</span><span class="show">Показать ответ</span></summary>
+      <p>В пределах μ ± 2σ лежит около 95.4% значений нормального распределения, за ними — 4.6%, по 2.3% с каждой стороны. Ровно 95% даёт ±1.96σ. Отсюда «значение дальше двух сигм — редкость» и вилка «± 2 стандартные ошибки» у доверительного интервала.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Чем распределение Стьюдента отличается от нормального?</span><span class="show">Показать ответ</span></summary>
+      <p>Оно тоже симметричный колокол, но с более тяжёлыми хвостами, и форма зависит от числа степеней свободы. Оно появляется, когда σ неизвестна и её оценивают по выборке. С ростом выборки разница исчезает: уже при 30 степенях свободы t почти совпадает с нормальным.</p>
+    </details>
+    <h3 class="t-faq-h">С расчётом</h3>
+    <details class="t-faq">
+      <summary><span class="q">Время доставки распределено нормально: в среднем 30 минут, σ = 5 минут. Сколько заказов из 1000 едут дольше 40 минут?</span><span class="show">Показать ответ</span></summary>
+      <p>40 минут — это +2σ. Дальше двух сигм в одну сторону лежит около 2.3% значений, то есть примерно 23 заказа из 1000. Значит, одна долгая доставка — не ЧП, а обычный хвост колокола.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Бариста наливает порцию латте 250 мл с разбросом σ = 3 мл. Литровый кувшин можно собрать из четырёх отдельных порций или отмерить одну порцию и умножить на четыре. В каком случае чаще недолив — меньше 990 мл?</span><span class="show">Показать ответ</span></summary>
+      <p>Четыре независимые порции: дисперсии складываются, σ суммы = √4 · 3 = 6 мл, P(«меньше 990») ≈ 4.8%. Одна порция × 4: ошибка тоже умножается на 4, σ = 12 мл, P ≈ 20%. Независимые ошибки частично гасят друг друга, а умноженная — нет.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Время готовки распределено нормально со средним 8 минут и σ = 2, время в пути — со средним 22 и σ = 4, они независимы. Как распределено полное время заказа?</span><span class="show">Показать ответ</span></summary>
+      <p>Тоже нормально, со средним 8 + 22 = 30 минут. Складываются дисперсии, а не σ: 2² + 4² = 20, поэтому σ = √20 ≈ 4.5 минуты, а не 6.</p>
+    </details>
+  </section>
+
   <section class="t-sec t-next" aria-label="Где это в курсе и связанные термины">
     <p>Это шаг 7 курса «Вероятность на пальцах» — <a href="/probability/07-distribution.html">«Случайная величина и распределение» →</a></p>
   </section>
@@ -355,6 +345,6 @@ window.addEventListener('resize',function(){if(!raf)draw(0)})})();</script>
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611358"></script>
+<script src="/terms/terms.js?v=202611359"></script>
 </body>
 </html>
