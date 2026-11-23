@@ -313,3 +313,18 @@
 .bk-ramp .sf{margin-bottom:0}
 .bk-ramp .st{margin:2px 0 var(--s-2); font-size:var(--fs-s); color:var(--text-3)}
 .bk-ramp-h{margin:var(--s-4) 0 0; font-size:var(--fs-s); color:var(--text-3); font-weight:var(--fw-regular)}
+/* гл. 17–18: три группы метрик, ярче — увереннее */
+.bk-tiers .tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s-3); margin-top:var(--s-3)}
+.bk-tiers .tier{border-radius:var(--r-m); padding:var(--s-3); color:var(--text-1)}
+.bk-tiers .tier p{margin:0}
+.bk-tiers .g1{background:var(--test); color:#fff} .bk-tiers .g2{background:#F4A898} .bk-tiers .g3{background:var(--test-bg)}
+.bk-tiers .tn{font:var(--fw-regular) var(--fs-h3)/1.15 var(--serif)}
+.bk-tiers .tc{margin-top:4px !important; font-size:var(--fs-s)}
+.bk-tiers .tex{margin-top:var(--s-2) !important; font-size:var(--fs-s); line-height:1.4; opacity:.9}
+.bk-tiers .tfp{margin-top:var(--s-2) !important; font-size:var(--fs-s)}
+.bk-tiers .tfp b{font-size:1.15em}
+@media (max-width:560px){.bk-tiers .tiers{grid-template-columns:1fr}}
+/* ярче — строже порог: 0,05 светлый, 0,01 средний, 0,001 яркий, >0,05 серый */
+.bk-tiers .g1{background:var(--test-bg); color:var(--text-1)} .bk-tiers .g2{background:#F4A898; color:var(--text-1)} .bk-tiers .g3{background:var(--test); color:#fff}
+.bk-tiers .sw.p3{background:var(--test)} .bk-tiers .sw.p2{background:#F4A898} .bk-tiers .sw.p1{background:var(--test-bg); outline:1px solid rgba(0,0,0,.06)} .bk-tiers .sw.p0{background:#D9D6D0}
+.tiers-lg{margin-top:var(--s-3)}
