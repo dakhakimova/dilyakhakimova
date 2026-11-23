@@ -4,7 +4,7 @@
    расчётом можно поделиться ссылкой. Пересчёт мгновенный, кнопки «Рассчитать» нет. Сброс — с отменой на 10 секунд. */
 (function(){
   const $ = id => document.getElementById(id);
-  const DEF = {mode: 'n', metric: 'share', base: 4, mean: 850, sd: 1200, mde: 5, pow: 80, n: 100000, traffic: 20000, split: 50, alpha: 0.05, sides: 'two'};
+  const DEF = {mode: 'n', metric: 'share', base: 4, mean: 850, sd: 1200, rx: 1.2, sx: 2, ry: 10, sy: 12, rho: 0.6, mde: 5, pow: 80, n: 100000, traffic: 20000, split: 50, alpha: 0.05, sides: 'two'};
   const KEY = 'dk:sample-size', RECENT = 'dk:sample-size:recent';
   const nf = (x, d = 0) => { const s = (+x).toFixed(d).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1'); const [i, f] = s.split('.'); return i.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (f ? '.' + f : ''); };
   // нормальное распределение
@@ -26,18 +26,18 @@
     if (kind === 'pct' && !pct && v > 0 && v < 1){ v = v * 100; how = 'доля → '; }
     return {v, how};
   };
-  const LIM = {base: [0.01, 99], mean: [1e-6, 1e12], sd: [1e-6, 1e12], mde: [0.1, 500], pow: [5, 99.9], split: [1, 99], n: [10, 1e9], traffic: [1, 1e9]};
+  const LIM = {base: [0.01, 99], mean: [1e-6, 1e12], sd: [1e-6, 1e12], rx: [1e-9, 1e12], sx: [1e-9, 1e12], ry: [1e-9, 1e12], sy: [1e-9, 1e12], rho: [-0.99, 0.99], mde: [0.1, 500], pow: [5, 99.9], split: [1, 99], n: [10, 1e9], traffic: [1, 1e9]};
   let st = Object.assign({}, DEF);
   // обновление страницы — снова пример (как в калькуляторе SRM); ссылка с числами читается один раз
   const q = new URLSearchParams(location.search); const fromLink = [...q.keys()].some(k => k in DEF); q.delete('mode'); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = ['mode', 'metric', 'sides'].includes(k) ? q.get(k) : +q.get(k);
   if (location.search) history.replaceState(null, '', location.pathname);
   const touched = new Set(fromLink ? Object.keys(DEF) : []);   // пока поле не трогали, в нём бледный пример
-  const fields = {base: $('ss-base'), mean: $('ss-mean'), sd: $('ss-sd'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic'), split: $('ss-split')};
+  const fields = {base: $('ss-base'), mean: $('ss-mean'), sd: $('ss-sd'), rx: $('ss-rx'), sx: $('ss-sx'), ry: $('ss-ry'), sy: $('ss-sy'), rho: $('ss-rho'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic'), split: $('ss-split')};
   Object.keys(fields).forEach(k => { if (!fields[k]) delete fields[k]; });   // поля, которых нет на странице (всего в эксперименте — только в итоге)
-  const fmt = {base: v => nf(v, 2) + '%', mean: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), sd: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), mde: v => nf(v, 1) + '%', pow: v => nf(v, 1) + '%', n: v => nf(v), traffic: v => nf(v), split: v => nf(v, 1) + '%'};
+  const fmt = {base: v => nf(v, 2) + '%', mean: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), sd: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), rx: v => nf(v, 2), sx: v => nf(v, 2), ry: v => nf(v, 2), sy: v => nf(v, 2), rho: v => nf(v, 2), mde: v => nf(v, 1) + '%', pow: v => nf(v, 1) + '%', n: v => nf(v), traffic: v => nf(v), split: v => nf(v, 1) + '%'};
   const heard = {};
   const read = k => {
-    const r = parse(fields[k].value, k === 'n' || k === 'traffic' || k === 'mean' || k === 'sd' ? 'int' : 'pct');
+    const r = parse(fields[k].value, k === 'n' || k === 'traffic' || ['mean', 'sd', 'rx', 'sx', 'ry', 'sy', 'rho'].includes(k) ? 'int' : 'pct');
     if (!r){ heard[k] = 'не понял «' + fields[k].value + '» — оставил ' + fmt[k](st[k]); return; }
     let v = r.v, [lo, hi] = LIM[k], note = r.how ? 'понял как ' + fmt[k](v) : '';
     if (v < lo || v > hi){ const c = Math.min(hi, Math.max(lo, v)); note = 'прижал к границе: ' + fmt[k](c) + ', можно от ' + fmt[k](lo) + ' до ' + fmt[k](hi); v = c; }
@@ -47,7 +47,10 @@
   const date = days => { const d = new Date(); d.setDate(d.getDate() + days); return d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'}); };
   const days = n => Math.ceil(n / st.traffic);
   const daysW = d => d + ' ' + (d % 10 === 1 && d % 100 !== 11 ? 'день' : d % 10 >= 2 && d % 10 <= 4 && (d % 100 < 10 || d % 100 >= 20) ? 'дня' : 'дней');
+  // отношение R = X̄ / Ȳ; стандартное отклонение на пользователя по дельта-методу: σR = √(σX² − 2R·ρ·σX·σY + R²·σY²) / Ȳ
+  const ratioSd = () => { const R = st.rx / st.ry; return Math.sqrt(Math.max(0, st.sx ** 2 - 2 * R * st.rho * st.sx * st.sy + R * R * st.sy ** 2)) / st.ry; };
   function calc(){
+    if (st.metric === 'ratio'){ st.mean = st.rx / st.ry; st.sd = ratioSd(); }
     const p = st.base / 100, a = st.alpha;
     if (st.mode === 'n') st.n = nFor(p, st.mde / 100, st.pow / 100, a);
     else if (st.mode === 'mde') st.mde = +(100 * mdeFor(p, st.n, st.pow / 100, a)).toFixed(2);
@@ -68,6 +71,7 @@
     document.querySelectorAll('[data-pm]').forEach(e => { e.hidden = !e.dataset.pm.split(' ').includes(st.metric); });
     document.querySelectorAll('[data-pml]').forEach(e => { e.hidden = e.dataset.pml !== st.metric; });
     const p = st.base, abs = p * st.mde / 100, am = st.mean * st.mde / 100;
+    const rv = $('ss-rvar'); if (rv && st.metric === 'ratio'){ const R = st.rx / st.ry; rv.innerHTML = 'R = X̄ / Ȳ = ' + nf(st.rx, 2) + ' / ' + nf(st.ry, 2) + ' = ' + nf(R, 4) + '<br>σ<sub>R</sub> = √(σ<sub>X</sub>² − 2R·ρ·σ<sub>X</sub>·σ<sub>Y</sub> + R²·σ<sub>Y</sub>²) / Ȳ = √(' + nf(st.sx, 2) + '² − 2·' + nf(R, 4) + '·' + nf(st.rho, 2) + '·' + nf(st.sx, 2) + '·' + nf(st.sy, 2) + ' + ' + nf(R, 4) + '²·' + nf(st.sy, 2) + '²) / ' + nf(st.ry, 2) + ' = ' + nf(ratioSd(), 4) + ' — дельта-метод'; }
     const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = 'σ = √(p · (1 − p)) = √(' + nf(q, 4) + ' · ' + nf(1 - q, 4) + ') = ' + nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя'; }
     const lines = [st.metric !== 'share'
       ? (st.metric === 'ratio' ? 'Отношение ' : 'Среднее ') + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
@@ -143,9 +147,7 @@
   document.querySelectorAll('[data-sides]').forEach(b => b.addEventListener('click', () => { st.sides = b.dataset.sides; calc(); render(); }));
   document.querySelectorAll('[data-pmetric]').forEach(b => b.addEventListener('click', () => {
     st.metric = b.dataset.pmetric;
-    // пример под тип метрики, пока поля не трогали: среднее — чек 850 ± 1200, отношение — клики на показ 0,12 ± 0,3
-    if (!touched.has('mean')) st.mean = st.metric === 'ratio' ? 0.12 : 850;
-    if (!touched.has('sd')) st.sd = st.metric === 'ratio' ? 0.3 : 1200;
+    if (st.metric === 'mean'){ if (!touched.has('mean')) st.mean = 850; if (!touched.has('sd')) st.sd = 1200; }
     calc(); render();
   }));
   calc(); render();

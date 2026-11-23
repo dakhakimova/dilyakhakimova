@@ -51,8 +51,14 @@ ${chrome.header('play', false)}
     </div>
     <div class="ss-form">
       <label class="ss-f" data-pm="share"><span>Доля сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i>конверсия, ретеншен</i></label>
-      <label class="ss-f" data-pm="mean ratio" hidden><span><b data-pml="mean">Среднее сейчас</b><b data-pml="ratio" hidden>Отношение сейчас</b></span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i><b data-pml="mean">чек, время на пользователя</b><b data-pml="ratio" hidden>клики на показ, выручка на заказ</b></i></label>
-      <label class="ss-f" data-pm="mean ratio" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i><b data-pml="mean">на пользователя</b><b data-pml="ratio" hidden>по дельта-методу, на пользователя</b></i></label>
+      <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>чек, время на пользователя</i></label>
+      <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Числитель на пользователя</span><input class="input ss-in" id="ss-rx" inputmode="decimal" autocomplete="off"><i>среднее, например клики</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Его стандартное отклонение</span><input class="input ss-in" id="ss-sx" inputmode="decimal" autocomplete="off"><i>σ<sub>X</sub></i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Знаменатель на пользователя</span><input class="input ss-in" id="ss-ry" inputmode="decimal" autocomplete="off"><i>среднее, например показы</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Его стандартное отклонение</span><input class="input ss-in" id="ss-sy" inputmode="decimal" autocomplete="off"><i>σ<sub>Y</sub></i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Корреляция числителя и знаменателя</span><input class="input ss-in" id="ss-rho" inputmode="decimal" autocomplete="off"><i>ρ, от −1 до 1</i></label>
+      <div class="ss-f ss-var" data-pm="ratio" hidden><span>Отношение и его стандартное отклонение</span><output id="ss-rvar"></output></div>
       <div class="ss-f ss-var" data-pm="share"><span>Стандартное отклонение</span><output id="ss-var"></output></div>
     </div>
     <div class="ss-alpha">
