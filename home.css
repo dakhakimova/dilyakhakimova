@@ -504,3 +504,17 @@ input[type=range]{width:100%; accent-color:var(--coral); height:44px; margin:0; 
 /* Плюшки: картинка между подзаголовком и карточками */
 .ex-art{margin:0 0 var(--s-6)}
 .ex-art img{display:block; width:100%; max-width:960px; height:auto; border-radius:var(--r-card, 16px); background:#EFE9DF}
+/* шапка рубрики: слева заголовок и описание, справа картинка — как первый экран главной (Диля, 23.11) */
+.rub-hero{display:grid; grid-template-columns:1fr 1.05fr; gap:var(--s-7); align-items:center; margin:0 0 var(--s-7)}
+.rub-hero .rh-txt h1{margin:0 0 var(--s-3)}
+.rub-hero .rh-txt .lead{margin:0 0 var(--s-3)}
+.rub-hero .rh-txt p{max-width:32em}
+.rub-hero .rh-art{margin:0}
+.rub-hero .rh-art img{display:block; width:100%; height:auto; border-radius:16px}
+.rub-hero:has(.rh-art[hidden]){grid-template-columns:1fr}
+@media (max-width:860px){ .rub-hero{grid-template-columns:1fr; gap:var(--s-5)} }
+.rub-hero .ex-art{margin:0}.rub-hero .ex-art img{max-width:none}
+.rub-hero .cat-art, .rub-hero .t-art{margin:0}
+/* заголовок рубрики на той же высоте, что на главной (Диля, 23.11) */
+.rub-hero{align-items:start}
+main.extras{padding-top:48px}

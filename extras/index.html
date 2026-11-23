@@ -10,9 +10,9 @@
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611405">
-<link rel="stylesheet" href="/tokens.css?v=202611405">
-<link rel="stylesheet" href="/home.css?v=202611405">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611408">
+<link rel="stylesheet" href="/tokens.css?v=202611408">
+<link rel="stylesheet" href="/home.css?v=202611408">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -31,9 +31,14 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 <main id="main" class="wrap block extras">
-  <h1>Плюшки</h1>
-  <p class="lead">Калькуляторы и тренажёры</p>
-  <figure class="ex-art"><img src="/img/extras-hero.jpg" width="1600" height="900" alt="Котейка раскладывает на столе кафе калькулятор, линейку и стопку карточек с задачами" onerror="this.parentNode.hidden=true"></figure>
+  <header class="rub-hero">
+    <div class="rh-txt">
+      <h1>Плюшки</h1>
+      <p class="lead">Калькуляторы для повседневной работы аналитика с A/B‑экспериментами.</p>
+      <p>Вводишь свои числа — получаешь ответ и короткое объяснение, что он значит: сколько пользователей и дней нужно, чтобы заметить эффект, и не сломано ли деление на группы.</p>
+    </div>
+    <figure class="ex-art rh-art"><img src="/img/extras-hero.jpg" width="1600" height="900" alt="Котейка раскладывает на столе кафе калькулятор, линейку и стопку карточек с задачами" onerror="this.parentNode.hidden=true"></figure>
+  </header>
   <ul class="ex-list" role="list">
     <li><a class="ex-card" href="/play/sample-size/">
       <span class="ex-pic" style="--ex:var(--c-ab)" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 12v42h44"/><path d="M14 16c6 20 14 28 36 32" class="th"/><circle cx="27" cy="37" r="4" class="dot"/></svg></span>

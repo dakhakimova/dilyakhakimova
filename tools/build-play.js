@@ -202,9 +202,13 @@ ${foot()}
   const cat = head(t('play.meta.title'), t('play.meta.desc'), `${pre}/play/`, '/play/og/index.png') + `
 <!-- основная персона: П1 «Лена перед собесом» (design-system.md, «Персоны»); дополнительная — П3 «Марина, продакт без аналитика» -->
 <main id="main" class="wrap play-cat">
-  <h1>${t('play.title')}</h1>
-  <p class="lead">${t('play.lead')}</p>
-  <figure class="cat-art"><img src="/img/play-hero.jpg" width="1600" height="900" alt="${attr(t('play.art.alt'))}" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>${cfg.order.filter(cid => pub.some(x => x.course === cid)).map(cid => `
+  <header class="rub-hero">
+    <div class="rh-txt">
+      <h1>${t('play.title')}</h1>
+      <p class="lead">${t('play.lead')}</p>
+    </div>
+    <figure class="cat-art rh-art"><img src="/img/play-hero.jpg" width="1600" height="900" alt="${attr(t('play.art.alt'))}" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>
+  </header>${cfg.order.filter(cid => pub.some(x => x.course === cid)).map(cid => `
   <section class="cat-route" aria-labelledby="c-${cid}">
     <h2 id="c-${cid}"><a href="${C(cid).href}">${cname(cid)}</a></h2>
     <ol class="g-list" role="list">${pub.filter(x => x.course === cid).sort((a, b) => a.step - b.step).map(o => `

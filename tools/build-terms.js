@@ -469,9 +469,13 @@ ${foot()}
   hubList.forEach(o => { const L = TX[o.slug].name[0].toUpperCase(); if (!letters.length || letters[letters.length - 1][0] !== L){ o.first = letters.length + 1; letters.push([L, o.first]); } });
   const hub = head({title: t('terms.hub.title'), desc: t('terms.hub.desc'), url: '/terms/', og: '/terms/og/index.png', ld: hubLd}) + `
 <main id="main" class="wrap term-hub">
-  <h1>${t('terms.hub.h1')}</h1>
-  <p class="lead">${t('terms.hub.lead')}</p>
-  <figure class="t-art"><img src="/img/terms-hero.jpg" width="1600" height="900" alt="Котейка листает на столе кафе толстый словарь, из страниц поднимается колокол нормального распределения" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>
+  <header class="rub-hero">
+    <div class="rh-txt">
+      <h1>${t('terms.hub.h1')}</h1>
+      <p class="lead">${t('terms.hub.lead')}</p>
+    </div>
+    <figure class="t-art rh-art"><img src="/img/terms-hero.jpg" width="1600" height="900" alt="Котейка листает на столе кафе толстый словарь, из страниц поднимается колокол нормального распределения" fetchpriority="high" onerror="this.parentNode.hidden=true"></figure>
+  </header>
   ${hubList.length < 6 ? '' : `<p class="t-search"><label for="t-q">${t('terms.hub.search')}</label><input id="t-q" type="search" autocomplete="off" spellcheck="false"></p>
   <nav class="t-abc" aria-label="${attr(t('terms.hub.abc'))}">${letters.map(([L, i]) => `<a href="#abc-${i}">${L}</a>`).join('')}</nav>`}
   <ul class="toys cat-list" role="list">${hubList.map(o => card(`/terms/${o.slug}/`, TX[o.slug].name, TX[o.slug].card).replace('<li>', `<li${o.first !== undefined ? ` id="abc-${o.first}"` : ''} data-q="${attr([TX[o.slug].name, ...(o.aka || [])].join(' ').toLowerCase())}">`)).join('')}

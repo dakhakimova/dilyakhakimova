@@ -25,9 +25,14 @@ ${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>П�
 <a class="skip" href="#main">К содержанию</a>
 ${chrome.header('extras', true)}
 <main id="main" class="wrap block extras">
-  <h1>Плюшки</h1>
-  <p class="lead">Калькуляторы и тренажёры</p>
-  <figure class="ex-art"><img src="/img/extras-hero.jpg" width="1600" height="900" alt="Котейка раскладывает на столе кафе калькулятор, линейку и стопку карточек с задачами" onerror="this.parentNode.hidden=true"></figure>
+  <header class="rub-hero">
+    <div class="rh-txt">
+      <h1>Плюшки</h1>
+      <p class="lead">Калькуляторы для повседневной работы аналитика с A/B‑экспериментами.</p>
+      <p>Вводишь свои числа — получаешь ответ и короткое объяснение, что он значит: сколько пользователей и дней нужно, чтобы заметить эффект, и не сломано ли деление на группы.</p>
+    </div>
+    <figure class="ex-art rh-art"><img src="/img/extras-hero.jpg" width="1600" height="900" alt="Котейка раскладывает на столе кафе калькулятор, линейку и стопку карточек с задачами" onerror="this.parentNode.hidden=true"></figure>
+  </header>
   <ul class="ex-list" role="list">
     <li><a class="ex-card" href="/play/sample-size/">
       <span class="ex-pic" style="--ex:var(--c-ab)" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 12v42h44"/><path d="M14 16c6 20 14 28 36 32" class="th"/><circle cx="27" cy="37" r="4" class="dot"/></svg></span>
