@@ -138,9 +138,9 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
     <p class="big2"><b data-o="p"></b> <span data-i18n="bx.i3.p">p-value проверки SRM</span></p>
     <p class="verdict" aria-live="polite"></p>
-    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали при 50/50. В Microsoft проверка SRM — стандартная часть любого эксперимента. Раз её делают в каждом тесте, порог берут строже обычного: p < 0.0005 вместо 0.05, иначе то и дело были бы ложные срабатывания.</p>
+    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали по плану сплита. Здесь план 50/50, но критерий тот же для любого: при 90/10 ждём 90% и 10% от всех. В Microsoft проверка SRM — стандартная часть любого эксперимента. Раз её делают в каждом тесте, порог берут строже обычного: p < 0.0005 вместо 0.05, иначе то и дело были бы ложные срабатывания.</p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i3.code;data-note:bk.i3.code.note" data-title="Проверка SRM χ²-критерием" data-note="Поменяй n_a и n_b на числа из своего теста. Если сплит не 50/50, задай share_a.">
+  <div class="cell" data-i18n-attr="data-title:bk.i3.code;data-note:bk.i3.code.note" data-title="Проверка SRM χ²-критерием" data-note="Поменяй n_a и n_b на числа из своего теста. Если сплит не 50/50, задай долю контроля: например, при 90/10 — srm_check(n_a, n_b, share_a=0.9).">
 <textarea spellcheck="false">import numpy as np
 from math import erfc, sqrt
 
