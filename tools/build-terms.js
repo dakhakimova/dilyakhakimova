@@ -14,13 +14,15 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 // Доска Гальтона прямо на странице термина (Диля, 23.11: «сразу про Гальтона»): без прогноза и «Почему так»,
 // шарики сыплются, когда доска показалась на экране; «Ещё раз» — новая тысяча.
 function galBlock(g){
-  return `<p>${g.p}</p>
+  return `<p>${g.p}</p>${g.tex ? `
+    <div class="formula tex" role="math" aria-label="${g.read}">${KATEX.renderToString(g.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
+    <p>${g.p2}</p>` : ''}
     <figure class="viz gal-fig">
       <canvas class="gal-cv" role="img" aria-label="${g.aria}" style="width:100%;display:block"></canvas>
       <div class="sg-ctl"><button type="button" class="chip-btn gal-again">${g.again}</button></div>
       <figcaption class="figcap">${g.cap}</figcaption>
       <script>(function(){
-var f=document.currentScript.closest('figure'),cv=f.querySelector('canvas'),c=cv.getContext('2d'),n=10,N=1000,cnt,fly,raf=0,R=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var f=document.currentScript.closest('figure'),cv=f.querySelector('canvas'),c=cv.getContext('2d'),n=10,N=1000,MS=90,GAP=11,cnt,fly,raf=0,R=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var BLUE='#23418A',ORA='#E8644A',GRID='#CFC8BB',INK='#5E5A53',RED='#C9413A';
 function size(){var w=cv.clientWidth||600,h=Math.round(w*.72),d=window.devicePixelRatio||1;cv.width=w*d;cv.height=h*d;cv.style.height=h+'px';c.setTransform(d,0,0,d,0,0);return{w:w,h:h}}
 function binom(k){var r=1;for(var i=0;i<k;i++)r=r*(n-i)/(i+1);return r/Math.pow(2,n)}
@@ -31,10 +33,10 @@ var need=N*binom(n/2)*1.1,H=yb1-yb0-4,pk=null;for(var rr=Math.min(6,dx*.14);rr>=
 for(k=0;k<=n;k++){c.fillStyle=k===n/2?ORA:BLUE;var xl=x0+k*dx+dx*.07,off=pk?(dx*.86-pk.cols*2*pk.r)/2:0;for(var i=0;i<cnt[k];i++){if(!pk)break;var row=Math.floor(i/pk.cols),col=i%pk.cols;c.beginPath();c.arc(xl+off+pk.r+col*2*pk.r+(row%2?pk.r*.5:0)*(col===pk.cols-1?-1:1),yb1-pk.r-row*pk.dy,pk.r*.92,0,7);c.fill()}
 c.fillStyle=INK;c.font='13px Onest, sans-serif';c.textAlign='center';c.fillText(k,x0+k*dx+dx/2,yb1+16)}
 if(pk){c.strokeStyle=RED;c.lineWidth=2.5;c.beginPath();var sd=Math.sqrt(n)/2;for(i=0;i<=160;i++){var u=-.5+(n+1)*i/160,yy=yb1-N*Math.exp(-Math.pow(u-n/2,2)/(2*sd*sd))/(sd*Math.sqrt(2*Math.PI))*pk.dy/pk.cols,xx=x0+(u+.5)*dx;i?c.lineTo(xx,yy):c.moveTo(xx,yy)}c.stroke()}
-var rad=pk?Math.max(2.5,pk.r):3;c.fillStyle=BLUE;c.globalAlpha=.85;fly.forEach(function(b){var s=(t-b.t0)/38;if(s<0)return;var x,y;if(s<n){var r=Math.floor(s),fr=s-r,xa=cx+(b.p[r]-r/2)*dx,xb=cx+(b.p[r+1]-(r+1)/2)*dx;x=xa+(xb-xa)*fr;y=T0+(r+.5)*rh-rad-2+rh*fr-Math.sin(Math.PI*fr)*rh*.3}else{var kk=b.p[n],ff=Math.min(1,(s-n)/1.5),ya=T0+(n-.5)*rh,top=pk?yb1-Math.floor(cnt[kk]/pk.cols)*pk.dy-pk.r:yb1-6;x=cx+(kk-n/2)*dx;y=ya+(top-ya)*ff*ff}c.beginPath();c.arc(x,y,rad,0,7);c.fill()});c.globalAlpha=1}
+var rad=pk?Math.max(2.5,pk.r):3;c.fillStyle=BLUE;c.globalAlpha=.85;fly.forEach(function(b){var s=(t-b.t0)/MS;if(s<0)return;var x,y;if(s<n){var r=Math.floor(s),fr=s-r,xa=cx+(b.p[r]-r/2)*dx,xb=cx+(b.p[r+1]-(r+1)/2)*dx;x=xa+(xb-xa)*fr;y=T0+(r+.5)*rh-rad-2+rh*fr-Math.sin(Math.PI*fr)*rh*.3}else{var kk=b.p[n],ff=Math.min(1,(s-n)/1.5),ya=T0+(n-.5)*rh,top=pk?yb1-Math.floor(cnt[kk]/pk.cols)*pk.dy-pk.r:yb1-6;x=cx+(kk-n/2)*dx;y=ya+(top-ya)*ff*ff}c.beginPath();c.arc(x,y,rad,0,7);c.fill()});c.globalAlpha=1}
 function path(){var p=[0];for(var r=0;r<n;r++)p.push(p[r]+(Math.random()<.5?1:0));return p}
-function tick(t){var done=fly.filter(function(b){return(t-b.t0)/38>=n+1.5});done.forEach(function(b){cnt[b.p[n]]++});if(done.length)fly=fly.filter(function(b){return done.indexOf(b)<0});draw(t);raf=fly.length?requestAnimationFrame(tick):0}
-function run(){cnt=new Array(n+1).fill(0);fly=[];if(R){for(var i=0;i<N;i++)cnt[path()[n]]++;draw(0);return}var t=performance.now();for(i=0;i<N;i++)fly.push({p:path(),t0:t+i*4});if(!raf)raf=requestAnimationFrame(tick)}
+function tick(t){var done=fly.filter(function(b){return(t-b.t0)/MS>=n+1.5});done.forEach(function(b){cnt[b.p[n]]++});if(done.length)fly=fly.filter(function(b){return done.indexOf(b)<0});draw(t);raf=fly.length?requestAnimationFrame(tick):0}
+function run(){cnt=new Array(n+1).fill(0);fly=[];if(R){for(var i=0;i<N;i++)cnt[path()[n]]++;draw(0);return}var t=performance.now();for(i=0;i<N;i++)fly.push({p:path(),t0:t+i*GAP});if(!raf)raf=requestAnimationFrame(tick)}
 cnt=new Array(n+1).fill(0);fly=[];draw(0);f.querySelector('.gal-again').addEventListener('click',run);
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(cv)}else run();
 window.addEventListener('resize',function(){if(!raf)draw(0)})})();</script>
@@ -71,7 +73,7 @@ function greekFrag(frag){
       .replace(new RegExp('([νnσ])' + S + '=' + S + '(\\d+)', 'g'), (_, v, d) => put(({'ν': '\\nu', 'σ': '\\sigma', n: 'n'})[v] + ' = ' + d))
       .replace(new RegExp('(^|[\\s\\u00a0(«])n' + S + '[−-]' + S + '1(?![\\d.])', 'g'), (_, a) => a + put('n - 1'))
       .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
-      .replace(/(^|[\s\u00a0(«])([xXnsZT])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
+      .replace(/(^|[\s\u00a0(«])([xXnsZTK])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
       .replace(/([μσν])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // неразрывный пробел сразу после формулы даёт пустой отступ в начале строки — делаем обычным
     x = x.replace(/\u0002\u00a0/g, '\u0002 ');
