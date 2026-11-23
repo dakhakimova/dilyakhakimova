@@ -52,4 +52,7 @@
 
 /* картинка к задаче — примерно каждая пятая */
 .tr-pic{margin:var(--s-2) 0 var(--s-3)}
-.tr-pic img{display:block; width:100%; max-width:640px; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:var(--r-card, 16px)}
+.tr-pic img{display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:var(--r-card, 16px)}
+
+/* темы тренажёра: игра, картинки и текст одной ширины, как в разборе книги — ничего не выпирает (Диля, 23.11) */
+@media (min-width:760px){ .tr-topic .stage-frame, .tr-topic.t-wide .t-top{margin-inline:0} }
