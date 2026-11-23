@@ -197,6 +197,7 @@ ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
   </div>
 ` : ''}  <!-- полка — картинка Котейки (img/rubrics/shelf-kotejka.png, кадр 1600×850): корешки стоят на доске между горшком и мешком;
        от 700 px; уже — прежняя полка из CSS (корешки на картинке стали бы нечитаемыми) -->
+  <h2 class="shelf-h">Возьми книжку с полки</h2>
   <div class="bookshelf scene" role="region" aria-label="Книжная полка" tabindex="0">
     <img class="scene-art" src="/shelf/img/shelf-scene.jpg" srcset="/shelf/img/shelf-scene-800.jpg 800w, /shelf/img/shelf-scene.jpg 1600w" sizes="(max-width:1120px) 100vw, 1056px" width="1600" height="850" alt="" decoding="async">
     <ul class="books" role="list">${books.map(spine).join('')}
