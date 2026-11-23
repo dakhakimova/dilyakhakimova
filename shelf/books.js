@@ -42,17 +42,21 @@
     };
     const cup = (x, y, kind) => {
       const g = el('g', {transform: `translate(${x},${y}) scale(.86)`}, svg);
-      el('path', {d: 'M2 10 h30 l-3 32 a4 4 0 0 1 -4 4 h-16 a4 4 0 0 1 -4 -4 z', fill: C[kind]}, g);
-      el('path', {d: 'M32 16 h3 a6 6 0 0 1 0 12 h-4', fill: 'none', stroke: C[kind], 'stroke-width': 3}, g);
-      const sym = {win: '✓', zero: '–', loss: '✕'}[kind];
+      const fill = kind === 'rest' ? 'url(#cup-rest)' : C[kind];
+      el('path', {d: 'M2 10 h30 l-3 32 a4 4 0 0 1 -4 4 h-16 a4 4 0 0 1 -4 -4 z', fill}, g);
+      el('path', {d: 'M32 16 h3 a6 6 0 0 1 0 12 h-4', fill: 'none', stroke: kind === 'rest' ? '#E3A29C' : C[kind], 'stroke-width': 3}, g);
+      const sym = {win: '✓', zero: '–', loss: '✕', rest: '?'}[kind];
       const t = el('text', {x: 17, y: 34, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 600, fill: kind === 'zero' ? C.ink : '#fff'}, g);
       t.textContent = sym;
     };
     function run(){
       svg.textContent = '';
+      const defs = el('defs', {}, svg), gr = el('linearGradient', {id: 'cup-rest', x1: 0, x2: 1, y1: 0, y2: 0}, defs);
+      el('stop', {offset: '0', 'stop-color': C.zero}, gr); el('stop', {offset: '1', 'stop-color': '#E3A29C'}, gr);
       const [pw, pl] = RATES[mode], res = [];
-      for (let i = 0; i < 20; i++){ const u = Math.random(); res.push(u < pw ? 'win' : u < pw + pl ? 'loss' : 'zero'); }
-      res.sort((a, b) => ['win', 'zero', 'loss'].indexOf(a) - ['win', 'zero', 'loss'].indexOf(b));
+      for (let i = 0; i < 20; i++){ const u = Math.random(); res.push(u < pw ? 'win' : mode === 'mature' ? 'rest' : u < pw + pl ? 'loss' : 'zero'); }
+      res.sort((a, b) => ['win', 'zero', 'rest', 'loss'].indexOf(a) - ['win', 'zero', 'rest', 'loss'].indexOf(b));
+      box.querySelectorAll('[data-lg]').forEach(x => { x.hidden = (x.dataset.lg === 'rest') !== (mode === 'mature'); });
       res.forEach((k, i) => cup(4 + (i % 10) * 43.6, 4 + Math.floor(i / 10) * 56, k));
       share();
       const c = k => res.filter(x => x === k).length;
