@@ -13,7 +13,7 @@ function build(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-extras.js: правьте его. -->
 ${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Плюшки: калькуляторы, шпаргалки и тренажёры · Диля Хакимова</title>
-<meta name="description" content="Классические задачи по вероятности к собеседованию и калькулятор MDE при неравных группах.">
+<meta name="description" content="Калькулятор MDE до и после эксперимента, проверка SRM, шпаргалка по отчёту A/B и задачи с собеседований.">
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -28,6 +28,20 @@ ${chrome.header('extras', true)}
   <h1>Плюшки</h1>
   <p class="lead">Калькуляторы, шпаргалки и тренажёры</p>
   <ul class="cards cards-ex" role="list">
+    <li class="course" id="x-mde">
+      <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/play/sample-size/">Калькулятор MDE</a></h4>
+      <p class="line">до эксперимента — сколько людей и дней нужно, чтобы заметить эффект, с графиком MDE от числа людей; после — какой эффект эксперимент мог заметить. Доля, среднее или отношение</p>
+      <div></div>
+      <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть</a></p>
+    </li>
+    <li class="course" id="x-srm">
+      <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/play/srm-check/">Калькулятор SRM</a></h4>
+      <p class="line">проверка на несовпадение соотношения групп с планом (sample ratio mismatch, SRM): подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
+      <div></div>
+      <p class="course-act"><a class="btn ghost" href="/play/srm-check/">Открыть</a></p>
+    </li>
     <li class="course" id="x-interview">
       <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/probability/09-interview.html">Тренажёр к собеседованию</a></h4>
@@ -37,20 +51,6 @@ ${chrome.header('extras', true)}
         <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
       </div>
       <p class="course-act"><a class="btn ghost" href="/probability/09-interview.html">Открыть</a></p>
-    </li>
-    <li class="course" id="x-mde">
-      <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/play/sample-size/">Калькулятор MDE и размера выборки</a></h4>
-      <p class="line">размер выборки, MDE и мощность: зафиксируй два — третье посчитается; срок теста в днях</p>
-      <div></div>
-      <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть</a></p>
-    </li>
-    <li class="course" id="x-srm">
-      <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/play/srm-check/">Калькулятор SRM</a></h4>
-      <p class="line">SRM — sample ratio mismatch, перекос групп. Группы разделились честно? Подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
-      <div></div>
-      <p class="course-act"><a class="btn ghost" href="/play/srm-check/">Открыть</a></p>
     </li>
     <li class="course" id="x-cheat">
       <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>

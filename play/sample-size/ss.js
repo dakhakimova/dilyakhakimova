@@ -84,7 +84,7 @@
     const hasT = touched.has('traffic') && st.traffic > 0, d = hasT ? days(st.n) : 0;
     const nT = Math.round(st.n * qT()), nC = st.n - nT;
     $('ss-big').innerHTML = st.mode === 'n' ? '<b>' + nf(st.n) + '</b> человек всего: ' + nf(nC) + ' в контроле и ' + nf(nT) + ' в тесте' : st.mode === 'mde' ? 'Заметит рост от <b>' + fmt.mde(st.mde) + '</b> относительных' : 'Мощность <b>' + fmt.pow(st.pow) + '</b>';
-    $('ss-when').textContent = hasT ? 'При ' + nf(st.traffic) + ' человек в день это ' + daysW(d) + ' — тест закончится ' + date(d) + '.' : 'Впиши трафик — посчитаю, сколько дней держать тест и когда он закончится.';
+    $('ss-when').textContent = hasT ? 'При ' + nf(st.traffic) + ' человек в день это ' + daysW(d) + ' — эксперимент закончится ' + date(d) + '.' : 'Впиши трафик — посчитаю, сколько дней держать тест и когда он закончится.';
     const warn = [];
     if (st.split < 10 || st.split > 90) warn.push('доля теста ' + fmt.split(st.split) + ': при сильно неравных группах нужно больше людей, а точнее всего мерить при 50 на 50');
     if (st.n > 2e7) warn.push('больше 20 миллионов в эксперименте — точно ли такой маленький эффект важен?');

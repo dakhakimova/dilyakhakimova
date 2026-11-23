@@ -17,7 +17,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-sample-size.js: правьте его. Основная персона: П2 «Артём, обжёгшийся middle» (design-system.md, «Персоны»). -->
-${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Калькулятор MDE: сколько дней держать A/B-тест? · Диля Хакимова</title>
+${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Калькулятор MDE: сколько дней держать A/B-эксперимент? · Диля Хакимова</title>
 <meta name="description" content="Размер выборки, MDE и мощность: зафиксируй два — третий посчитается. Срок теста в днях и дата окончания.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/sample-size/">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -34,7 +34,7 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 ${chrome.header('play', false)}
 <main id="main" class="wrap play ss-page">
   <h1>Калькулятор MDE</h1>
-  <p class="play-meta srm-sub">Сколько дней держать тест?</p>
+  <p class="play-meta srm-sub">Сколько дней держать эксперимент?</p>
 
   <div class="seg ss-mode ss-when-mode" role="radiogroup" aria-label="Когда считаем">
     <button type="button" role="radio" data-when="pre" aria-checked="true">До теста: планирую</button>
