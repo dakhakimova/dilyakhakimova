@@ -520,13 +520,11 @@ sum['normal-distribution'] = L => {
   for (const sp of [1, 2, 4, 6]){
     const ss = Math.sqrt(4 + sp * sp), g = [`<g class="sm sm${sp}">`];
     g.push(path(crv(nd(22, sp)), C.a, 2.5), tx(X(22) + (sp < 3 ? 26 : 0), Math.max(28, Y(nd(22, sp)(22)) - 8), L.road, {a: sp < 3 ? 'start' : 'middle', size: 14, fill: C.a, w: 500, bg: true}));
-    g.push(path(crv(nd(30, 2 + sp)), C.t3, 2, 'none', 'stroke-dasharray="6 4"'));
     g.push(path(crv(nd(30, ss)), C.red, 2.5), tx(X(30) + 8 + ss * 7.6, Math.max(44, Y(nd(30, ss)(30)) + 4), L.sum, {size: 14, fill: C.red, w: 500, bg: true}));
     g.push('</g>'); out.push(g.join(''));
   }
   out.push(ln(X(0), base, X(55), base, C.t3, 1.5), ...[0, 10, 20, 30, 40, 50].map(v => tx(X(v), base + 20, v, {a: 'middle', size: 14, fill: C.t3})), tx(X(55), base + 40, L.x, {a: 'end', size: 14, fill: C.t3, bg: true}));
-  out.push(ln(20, 262, 42, 262, C.t3, 2, '6 4'), tx(50, 267, L.wrong, {size: 14}));
-  return svg(276, out.join(''), L.cook + ' + ' + L.road + ' = ' + L.sum);
+  return svg(258, out.join(''), L.cook + ' + ' + L.road + ' = ' + L.sum);
 };
 
 module.exports = {viz, lim, top, err, clt, stu, sum};
