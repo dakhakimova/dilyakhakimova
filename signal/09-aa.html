@@ -357,6 +357,8 @@ _check()
 const TXT = {
   ru: {
     out: (k, n) => share(k / n, 1) + ', ' + int(k) + ' из ' + int(n),
+    outSub: (k, n) => int(k) + ' из ' + int(n) + ' A/A за полосой ±1.96·SE',
+    outSub0: 'A/A за полосой ±1.96·SE',
     pvT: 'p-value этих же A/A: равномерное распределение, пунктир — 5%',
     pvEx: 'каждый столбик ≈ 5%',
     last: (a, b, d) => 'Последний A/A: контроль ' + num(a, 2) + ', тест ' + num(b, 2) + ' заказа на 100 гостей; Δ = тест − контроль = ' + signed(d, 2) + '.',
@@ -416,7 +418,9 @@ const AA9 = (function(){
     document.getElementById('n9-t').textContent = int(n);
     const se = SE(); document.getElementById('aa-se').textContent = num(se, 2);
     const out = res.filter(r => Math.abs(r.z) > 1.96).length;
-    document.getElementById('aa-out').textContent = res.length ? TXT.out(out, res.length) : '—';
+    // крупно — доля, под ней мелко — штуки: «5.0%» / «701 из 14 000 A/A за полосой ±1.96·SE»
+    const ao = document.getElementById('aa-out'); ao.textContent = res.length ? share(out / res.length, 1) : '—';
+    ao.nextElementSibling.textContent = res.length ? TXT.outSub(out, res.length) : TXT.outSub0;
     const l = res[res.length - 1]; document.getElementById('aa-last').textContent = l ? TXT.last(100 * l.pa, 100 * l.pb, 100 * l.d) : '';
     const v = document.getElementById('v-aa');
     if (res.length >= 100){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = p === 0.1 && n === 10000 ? TXT.vAA(Book.guess('aa83'), out / res.length, se) : TXT.vAA2(out / res.length, se); } else v.hidden = true;
