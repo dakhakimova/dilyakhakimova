@@ -123,6 +123,8 @@ else {
   require('./build-play.js')(target || 'ru');
   // игра-калькулятор /play/sample-size/ (не опубликована) — tools/build-sample-size.js
   if (!target) require('./build-sample-size.js')();
+  // калькулятор SRM /play/srm-check/ — tools/build-srm-check.js
+  if (!target) require('./build-srm-check.js')();
   // рубрика «Плюшки» /extras/ (не опубликована) — tools/build-extras.js
   if (!target) require('./build-extras.js')();
   // мини-лаборатории /terms/ и /sitemap.xml — из terms/terms.json и i18n/terms.js (пока только русская версия)

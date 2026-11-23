@@ -45,6 +45,13 @@ ${chrome.header('extras', true)}
       <div></div>
       <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть</a></p>
     </li>
+    <li class="course" id="x-srm">
+      <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/play/srm-check/">Калькулятор SRM</a></h4>
+      <p class="line">группы разделились честно? Подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
+      <div></div>
+      <p class="course-act"><a class="btn ghost" href="/play/srm-check/">Открыть</a></p>
+    </li>
     <li class="course" id="x-cheat">
       <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/ab-basics/cheatsheet.html">Шпаргалка «Как читать отчёт A/B»</a></h4>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Собрано командой node tools/build-srm-check.js: правьте его. Основная персона: П2 «Артём, обжёгшийся middle» (design-system.md, «Персоны»). -->
+<title>Проверка SRM: группы разделились честно? · калькулятор · Диля Хакимова</title>
+<meta name="description" content="Калькулятор SRM: подставь, сколько пользователей в группах и какой был план сплита, — χ²-критерий скажет, можно ли верить отчёту.">
+<link rel="canonical" href="https://dilyakhakimova.com/play/srm-check/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611256">
+<link rel="stylesheet" href="/tokens.css?v=202611256">
+<link rel="stylesheet" href="/home.css?v=202611256">
+<link rel="stylesheet" href="/play/play.css?v=202611256">
+<link rel="stylesheet" href="/play/sample-size/ss.css?v=202611256">
+<link rel="stylesheet" href="/play/srm-check/srm.css?v=202611256">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap" data-chrome>
+  <a class="home-line" href="/">← На главную</a>
+  <nav id="site-nav" aria-label="Разделы сайта">
+    <a href="/courses/" data-rub="courses">Курсы</a>
+    <a href="/play/" data-rub="play" aria-current="true">Игры</a>
+    <a href="/shelf/" data-rub="shelf">Полка</a>
+    <a href="/terms/" data-rub="terms">Словарь</a>
+    <a href="/extras/" data-rub="extras">Плюшки</a>
+  </nav>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav"><span class="vh">Меню</span><span class="burger-i" aria-hidden="true"></span></button>
+  <a class="me" href="/account.html" aria-label="Войти"><span class="me-i" aria-hidden="true"></span></a>
+</header>
+<script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
+<script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
+<main id="main" class="wrap play ss-page">
+  <h1>Группы разделились честно?</h1>
+  <p class="play-meta">Калькулятор · Средний уровень</p>
+  <p class="lead">Проверка SRM: подставь, сколько пользователей попало в каждую группу и какой был план сплита. Если группы разошлись сильнее, чем бывает случайно, отчёту теста верить нельзя.</p>
+
+  <section class="ss-card" aria-labelledby="srm-h">
+    <h2 id="srm-h" class="vh">Калькулятор</h2>
+    <p class="ss-sentence">
+      <label>В контроле <input class="input ss-in" id="srm-a" inputmode="numeric" autocomplete="off"> пользователей</label>,
+      <label>в тесте <input class="input ss-in" id="srm-b" inputmode="numeric" autocomplete="off"></label>.
+      <label>План: контролю <input class="input ss-in srm-share" id="srm-s" inputmode="decimal" autocomplete="off"> всех</label>.
+    </p>
+    <ul class="ss-heard" id="srm-heard" aria-live="polite"></ul>
+    <div class="ss-out srm-out" role="status" aria-live="polite">
+      <p class="ss-big" id="srm-big"></p>
+      <p class="ss-when" id="srm-p"></p>
+    </div>
+    <figure class="ss-what">
+      <figcaption class="chart-head">Реальность и ожидание</figcaption>
+      <table class="table ss-table srm-table"><thead><tr><th>Группа</th><th class="num">Ждали</th><th class="num">Пришло</th><th class="num">Разница</th><th class="num">Разница² / ждали</th></tr></thead><tbody id="srm-rows"></tbody><tfoot><tr><th colspan="4" class="num">Сумма: χ²</th><td class="num" id="srm-chi"></td></tr></tfoot></table>
+    </figure>
+    <p class="ss-acts"><button type="button" class="btn-text" id="srm-reset">Вернуть пример</button><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
+  </section>
+  <section class="play-out"><p class="kicker">Почему так</p>
+    <p>χ² = Σ (пришло − ждали)² / ждали по всем группам. «Ждали» — доля из плана сплита от всех пришедших. Если группы делились честно, χ² больше 12 бывает реже, чем в одном тесте из двух тысяч, поэтому порог SRM — p &lt; 0.0005, а не обычные 0.05: проверка идёт в каждом тесте, и с мягким порогом то и дело были бы ложные срабатывания.</p>
+    <p class="note">Что искать при SRM: фильтр ботов и антифрод, который по-разному режет группы; падения и редиректы в одной из версий; данные, которые теряются только в тесте. Подробно — в разборе книги <a href="/shelf/kohavi-trustworthy/">Trustworthy Online Controlled Experiments</a>.</p>
+  </section>
+</main>
+<footer class="foot" data-chrome>
+  <div class="wrap">
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+  </div>
+</footer>
+<script src="/play/srm-check/srm.js?v=202611256"></script>
+</body>
+</html>
