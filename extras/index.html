@@ -6,7 +6,7 @@
 <!-- Собрано командой node tools/build-extras.js: правьте его. -->
 <meta name="robots" content="noindex, follow">
 <title>Плюшки: калькуляторы, шпаргалки и тренажёры · Диля Хакимова</title>
-<meta name="description" content="Калькулятор MDE до и после эксперимента, проверка SRM, шпаргалка по отчёту A/B и задачи с собеседований.">
+<meta name="description" content="Калькулятор MDE до и после эксперимента, проверка SRM и задачи с собеседований.">
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="/home.css?v=202611295">
 </head>
 <body>
-<a class="skip" href="#main">К содержанию</a>
+<a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -32,45 +32,38 @@
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 <main id="main" class="wrap block extras">
   <h1>Плюшки</h1>
-  <p class="lead">Калькуляторы, шпаргалки и тренажёры</p>
+  <p class="lead">Калькуляторы, шпаргалки и тренажёры</p>
   <ul class="cards cards-ex" role="list">
     <li class="course" id="x-mde">
-      <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/img/home-notebook.jpg" width="1200" height="900" loading="lazy" alt="Алиса передаёт Бобу ноутбук с расчётом" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/play/sample-size/">Калькулятор MDE</a></h4>
-      <p class="line">до эксперимента — сколько людей и дней нужно, чтобы заметить эффект, с графиком MDE от числа людей; после — какой эффект эксперимент мог заметить. Доля, среднее или отношение</p>
+      <p class="line">до эксперимента — сколько людей и дней нужно, чтобы заметить эффект, с графиком MDE от числа людей; после — какой эффект эксперимент мог заметить. Доля, среднее или отношение</p>
       <div></div>
       <p class="course-act"><a class="btn ghost" href="/play/sample-size/">Открыть</a></p>
     </li>
     <li class="course" id="x-srm">
-      <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/play/srm-check/">Калькулятор SRM</a></h4>
-      <p class="line">проверка на несовпадение соотношения групп с планом (sample ratio mismatch, SRM): подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
+      <p class="line">проверка на несовпадение соотношения групп с планом (sample ratio mismatch, SRM): подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
       <div></div>
       <p class="course-act"><a class="btn ghost" href="/play/srm-check/">Открыть</a></p>
     </li>
     <li class="course" id="x-interview">
-      <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/probability/09-interview.html">Тренажёр к собеседованию</a></h4>
-      <p class="line">задачи из «Вероятности на пальцах» и пробное собеседование на время — шаг 9</p>
+      <figure class="art"><img src="/img/home-interview.jpg" width="1200" height="900" loading="lazy" alt="Алиса на собеседовании, напротив Котейка в бабочке с песочными часами" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
+      <h4><a href="/probability/09-interview.html">Тренажёр к собеседованию</a></h4>
+      <p class="line">задачи из «Вероятности на пальцах» и пробное собеседование на время — шаг 9</p>
       <div class="task-box">
-        <p class="q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
-        <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
+        <p class="q">Бросаем три монеты. Какова вероятность, что выпадет хотя бы два орла?</p>
+        <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
       </div>
       <p class="course-act"><a class="btn ghost" href="/probability/09-interview.html">Открыть</a></p>
-    </li>
-    <li class="course" id="x-cheat">
-      <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/ab-basics/cheatsheet.html">Шпаргалка «Как читать отчёт A/B»</a></h4>
-      <p class="line">два листа для печати из «A/B на пальцах»: пять развилок отчёта и вопросы до запуска</p>
-      <div></div>
-      <p class="course-act"><a class="btn ghost" href="/ab-basics/cheatsheet.html">Открыть</a></p>
     </li>
   </ul>
 </main>
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 <script>function artFail(i){ i.parentNode.classList.add('missing'); }</script>

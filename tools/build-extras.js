@@ -13,7 +13,7 @@ function build(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-extras.js: правьте его. -->
 ${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Плюшки: калькуляторы, шпаргалки и тренажёры · Диля Хакимова</title>
-<meta name="description" content="Калькулятор MDE до и после эксперимента, проверка SRM, шпаргалка по отчёту A/B и задачи с собеседований.">
+<meta name="description" content="Калькулятор MDE до и после эксперимента, проверка SRM и задачи с собеседований.">
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -51,13 +51,6 @@ ${chrome.header('extras', true)}
         <details><summary>Показать ответ</summary><p><b>1/2.</b> В штуках: у трёх монет 8 равновероятных исходов, и в четырёх из них орлов два или три: ООО, ООР, ОРО, РОО. Формулой: P = (C(3, 2) + C(3, 3)) / 2³ = (3 + 1) / 8 = 1/2.</p></details>
       </div>
       <p class="course-act"><a class="btn ghost" href="/probability/09-interview.html">Открыть</a></p>
-    </li>
-    <li class="course" id="x-cheat">
-      <figure class="art"><img src="/ab-basics/img/ab-cover.jpg" width="1600" height="900" loading="lazy" alt="Алиса, Боб и Котейка у двух дверей кафе" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
-      <h4><a href="/ab-basics/cheatsheet.html">Шпаргалка «Как читать отчёт A/B»</a></h4>
-      <p class="line">два листа для печати из «A/B на пальцах»: пять развилок отчёта и вопросы до запуска</p>
-      <div></div>
-      <p class="course-act"><a class="btn ghost" href="/ab-basics/cheatsheet.html">Открыть</a></p>
     </li>
   </ul>
 </main>
