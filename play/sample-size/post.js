@@ -13,8 +13,8 @@
   document.querySelectorAll('[data-metric]').forEach(b => b.addEventListener('click', () => {
     metric = b.dataset.metric;
     document.querySelectorAll('[data-metric]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
-    post.querySelectorAll('[data-m]').forEach(e => { e.hidden = e.dataset.m !== (metric === 'ratio' ? 'mean' : metric); });
-    post.querySelector('.pm-grid').classList.toggle('mean', metric !== 'share'); const mh = post.querySelector('.pm-head [data-m="mean"]'); if (mh) mh.textContent = metric === 'ratio' ? 'Отношение' : 'Среднее'; calc();
+    post.querySelectorAll('[data-m]').forEach(e => { e.hidden = e.dataset.m !== metric; });
+    post.querySelector('.pm-grid').classList.toggle('mean', metric === 'mean'); post.querySelector('.pm-grid').classList.toggle('ratio', metric === 'ratio'); calc();
   }));
   const cdf = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; };
   const inv = p => { let lo = -8, hi = 8; for (let i = 0; i < 80; i++){ const m = (lo + hi) / 2; cdf(m) < p ? lo = m : hi = m; } return (lo + hi) / 2; };
@@ -27,15 +27,20 @@
     const pw = share(F('pm-pow').value) ?? 0.8, al = num(F('pm-alpha').value) ?? 0.05;
     let sa2, sb2, base, unit = '';
     if (metric === 'share'){ const pa = share(F('pm-pa').value), pb = share(F('pm-pb').value); if ([na, nb, pa, pb].some(v => v == null)) return idle(); sa2 = pa * (1 - pa); sb2 = pb * (1 - pb); base = pa; }
+    else if (metric === 'ratio'){
+      // отношение R = X̄ / Ȳ в каждой группе; дисперсия на пользователя — дельта-методом: (σX² − 2R·ρ·σX·σY + R²·σY²) / Ȳ²
+      const g = k => { const v = ['rx', 'sx', 'ry', 'sy', 'rho'].map(n => num(F('pm-' + n + k).value)); if (v.some(x => x == null)) return null; const [x, sx, y, sy, r] = v, R = x / y; return {R, v2: (sx * sx - 2 * R * r * sx * sy + R * R * sy * sy) / (y * y)}; };
+      const A = g('a'), B = g('b'); if ([na, nb].some(v => v == null) || !A || !B) return idle(); sa2 = A.v2; sb2 = B.v2; base = A.R;
+    }
     else { const ma = num(F('pm-ma').value), mb = num(F('pm-mb').value), sa = num(F('pm-sa').value), sb = num(F('pm-sb').value); if ([na, nb, ma, sa, sb].some(v => v == null)) return idle(); sa2 = sa * sa; sb2 = sb * sb; base = ma; }
     if (na < 2 || nb < 2 || !(pw > 0 && pw < 1) || !(al > 0 && al < 1)) return idle('Проверь числа: в группах нужно хотя бы по два человека, мощность и α — между 0 и 1.');
     const se = Math.sqrt(sa2 / na + sb2 / nb), k = inv(1 - (sides === 'two' ? al / 2 : al)) + inv(pw), mde = k * se, rel = base ? mde / base : NaN;
     out.className = 'ss-out srm-out good';
-    const abs = metric === 'share' ? '+' + nf(mde * 100, 3) + ' п. п.' : '+' + nf(mde, mde < 10 ? 2 : mde < 100 ? 1 : 0);
+    const abs = metric === 'share' ? '+' + nf(mde * 100, 3) + ' п. п.' : '+' + (mde < 1 ? (+mde.toPrecision(3)).toString() : nf(mde, mde < 10 ? 2 : mde < 100 ? 1 : 0));
     $('pm-big').innerHTML = 'Тест мог заметить эффект от <b>' + (Number.isFinite(rel) ? nf(rel * 100, 1) + '%' : abs) + '</b> относительных';
-    $('pm-p').textContent = 'В абсолютных: ' + abs + (metric === 'share' ? '' : '.') + ' Множитель ' + nf(k, 2) + ' × стандартная ошибка ' + (metric === 'share' ? nf(se * 100, 3) + ' п. п.' : nf(se, 2)) + ', мощность ' + nf(pw * 100, 0) + '%, α = ' + al + '.\nЕсли важный для бизнеса эффект меньше, серый результат ничего не доказывает: тест такой эффект скорее всего пропустил бы.';
+    $('pm-p').textContent = 'В абсолютных: ' + abs + (metric === 'share' ? '' : '.') + ' Множитель ' + nf(k, 2) + ' × стандартная ошибка ' + (metric === 'share' ? nf(se * 100, 3) + ' п. п.' : (se < 1 ? String(+se.toPrecision(3)) : nf(se, 2))) + ', мощность ' + nf(pw * 100, 0) + '%, α = ' + al + '.\nЕсли важный для бизнеса эффект меньше, серый результат ничего не доказывает: тест такой эффект скорее всего пропустил бы.';
   }
-  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и самих долей.' : (metric === 'ratio' ? 'Для отношения нужны размеры групп, отношение в контроле и стандартные отклонения обеих групп — по дельта-методу.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'); }
+  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и самих долей.' : (metric === 'ratio' ? 'Для отношения в каждой группе нужны числитель и знаменатель на пользователя, их стандартные отклонения и корреляция ρ: дисперсию посчитаю дельта-методом.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'); }
   ['pm-na', 'pm-nb'].forEach(id => F(id).addEventListener('blur', () => { const v = num(F(id).value); if (v != null) F(id).value = nf(v); }));
   post.querySelectorAll('input').forEach(i => { i.addEventListener('input', calc); i.addEventListener('focus', () => setTimeout(() => i.select(), 0)); });
   calc();
