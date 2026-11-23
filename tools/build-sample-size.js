@@ -58,7 +58,7 @@ ${chrome.header('play', false)}
       <label class="ss-f" data-pm="ratio" hidden><span>Знаменатель на пользователя</span><input class="input ss-in" id="ss-ry" inputmode="decimal" autocomplete="off"><i>среднее, например показы</i></label>
       <label class="ss-f" data-pm="ratio" hidden><span>Его стандартное отклонение</span><input class="input ss-in" id="ss-sy" inputmode="decimal" autocomplete="off"><i>σ<sub>Y</sub></i></label>
       <label class="ss-f" data-pm="ratio" hidden><span>Корреляция числителя и знаменателя</span><input class="input ss-in" id="ss-rho" inputmode="decimal" autocomplete="off"><i>ρ, от −1 до 1</i></label>
-      <div class="ss-f ss-var" data-pm="ratio" hidden><span>Отношение и его стандартное отклонение</span><output id="ss-rvar"></output></div>
+      <div class="ss-f ss-var" data-pm="ratio" hidden><span>Стандартное отклонение</span><output id="ss-rvar"></output></div>
       <div class="ss-f ss-var" data-pm="share"><span>Стандартное отклонение</span><output id="ss-var"></output></div>
     </div>
     <div class="ss-alpha">
