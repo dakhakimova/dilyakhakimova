@@ -160,10 +160,11 @@
         const v = chi2 < 10 ? chi2.toFixed(2) : chi2 < 100 ? chi2.toFixed(1) : NF.format(Math.round(chi2));
         {
           el('circle', {cx: px(chi2), cy: py(S(chi2)), r: 6, fill: C.ink}, cs);
-          const right = chi2 > 30, q = S(chi2), X = px(chi2) + (right ? -12 : 12), Y = Math.max(T + 42, py(q) - 30);
-          const qs = q >= 0.1 ? pct(q) : q >= 0.001 ? pct(q, 1) : tr('bx.i3.rare');
-          const l1 = el('text', {x: X, y: Y, 'text-anchor': right ? 'end' : 'start', class: 'lb halo'}, cs); l1.textContent = tr('bx.i3.ours', {v});
-          const l2 = el('text', {x: X, y: Y + 18, 'text-anchor': right ? 'end' : 'start', class: 'sm halo'}, cs); l2.textContent = q >= 0.001 ? tr('bx.i3.share2', {p: qs}) : tr('bx.i3.rare2');
+          const q = S(chi2), X = Math.min(R - 4, Math.max(L + 4, px(chi2)));
+          const l1 = el('text', {x: X, y: py(q) - 14, 'text-anchor': chi2 > 80 ? 'end' : 'middle', class: 'lb halo'}, cs); l1.textContent = v;
+          const qs = q >= 0.1 ? pct(q) : q >= 0.001 ? pct(q, 1) : null;
+          const rd = box.querySelector('.chi-read');
+          if (rd) rd.textContent = tr('bx.i3.ours', {v}) + ': ' + (qs ? tr('bx.i3.share2', {p: qs}) : tr('bx.i3.rare2')) + '.';
         }
         cs.setAttribute('aria-label', tr('bk.i3.dist') + '. ' + tr('bx.i3.ours', {v}));
       }
