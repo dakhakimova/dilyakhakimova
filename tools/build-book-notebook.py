@@ -13,8 +13,11 @@ INTRO = {
         '# «Trustworthy Online Controlled Experiments»\n\n'
         'Ноутбук к разбору книги Кохави, Тан и Сюй (2020): '
         'https://dilyakhakimova.com/shelf/kohavi-trustworthy/\n\n'
-        'Три проверки доверия к A/B-тесту: SRM χ²-критерием, симуляция подглядывания и тысяча A/A на своих данных. '
-        'Код и числа наши, по описанию методов; нужны только Python и numpy. Подставь свои числа и запусти.'),
+        'Симуляции ко всем визуализациям разбора, по главам: сколько идей срабатывает, выручка и интервалы в примере с промокодом, '
+        'калькулятор MDE до и после теста, закон Твимена, подглядывание, почему мерить при 50 на 50, сто метрик и три порога, '
+        'тысяча A/A делением платформы и проверка SRM.\n\n'
+        'Перед каждой ячейкой написано, что она делает и что в ней поменять. Код и числа наши, по описанию методов из книги; '
+        'нужны только Python и numpy. Ячейки независимые: запускай любую.'),
 }
 
 def build(slug):
@@ -25,8 +28,9 @@ def build(slug):
         if m.group(3) is not None: m = type('M', (), {'group': lambda self, k, mm=m: mm.group(k + 2)})()
         attrs, code = m.group(1), html.unescape(m.group(2))
         get = lambda a: html.unescape((re.search(a + r'="([^"]*)"', attrs) or [None, ''])[1]).replace('\xa0', ' ')
-        cells.append({'cell_type': 'markdown', 'metadata': {}, 'source': f'## {get("data-title")}\n\n{get("data-note")}'})
-        cells.append({'cell_type': 'code', 'metadata': {}, 'execution_count': None, 'outputs': [], 'source': code.strip('\n')})
+        title, note = get('data-nb-title') or get('data-title'), get('data-nb-note') or get('data-note')   # data-nb-* — только для ноутбука
+        cells.append({'cell_type': 'markdown', 'metadata': {}, 'source': f'## {title}\n\n{note}'})
+        cells.append({'cell_type': 'code', 'metadata': {}, 'execution_count': None, 'outputs': [], 'source': code.replace('\xa0', ' ').replace('\u2011', '-').strip('\n')})   # типограф страницы ставит неразрывные пробелы и дефисы и в код
     nb = {'nbformat': 4, 'nbformat_minor': 5, 'cells': cells,
           'metadata': {'kernelspec': {'name': 'python3', 'display_name': 'Python 3', 'language': 'python'},
                        'language_info': {'name': 'python'}}}
