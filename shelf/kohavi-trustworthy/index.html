@@ -74,13 +74,13 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <p class="bk-thesis" data-i18n="bk.main.p">Посчитать эффект A/B-теста — дело минуты. Вся трудность в том, чтобы понять, можно ли этому числу верить, и книга почти целиком про это.</p>
   <figure class="bk-fig">
     <p class="chart-head" data-i18n="bk.main.svg.t">Из чего состоит работа с экспериментом</p>
-    <p class="legend-row bk-bar-lg"><span><i class="sw ctrl"></i><span data-i18n="bk.main.svg.a">посчитать эффект</span></span><span><i class="sw test"></i><span data-i18n="bk.main.svg.b">проверить, можно ли ему верить</span></span></p>
     <div class="bk-bar" role="img" data-i18n-attr="aria-label:bk.main.svg.t" aria-label="Из чего состоит работа с экспериментом">
       <span class="a" aria-hidden="true"></span>
       <ol class="b" aria-hidden="true">
         <li data-i18n="bk.main.svg.c1">SRM</li><li data-i18n="bk.main.svg.c2">A/A</li><li data-i18n="bk.main.svg.c3">боты</li><li data-i18n="bk.main.svg.c4">подглядывание</li><li data-i18n="bk.main.svg.c5">метрика-цель</li>
       </ol>
     </div>
+    <p class="legend-row bk-bar-lg"><span><i class="sw ctrl"></i><span data-i18n="bk.main.svg.a">посчитать эффект</span></span><span><i class="sw test"></i><span data-i18n="bk.main.svg.b">проверить, можно ли ему верить</span></span></p>
     <figcaption class="figcap" data-i18n="bk.main.cap">Схема наша, пропорции условные: так распределено внимание в книге, а не время в календаре.</figcaption>
   </figure>
 </section>
@@ -102,7 +102,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
     <p class="legend-row"><span><i class="sw win"></i><span data-i18n="bk.i1.lg.win">помогла</span></span><span><i class="sw zero"></i><span data-i18n="bk.i1.lg.zero">ничего не дала</span></span><span><i class="sw loss"></i><span data-i18n="bk.i1.lg.loss">навредила</span></span></p>
     <p class="bk-out" aria-live="polite"></p>
     <p class="controls"><button type="button" class="btn" data-act="run" data-i18n="bk.i1.run">Ещё 10 идей</button></p>
-    <p class="figcap" data-i18n="bk.i1.cap">Доли — порядок величин из книги (треть, треть, треть; в зрелом продукте удачных 10–20%). Конкретные выпадения — случайные, жми ещё.</p>
+    <p class="figcap" data-i18n="bk.i1.cap">Доли — порядок величин из книги: треть идей помогает, треть вредит, треть ничего не меняет, а в зрелом продукте удачных всего 10–20%. Конкретные выпадения случайные, жми ещё.</p>
   </div>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i1.take">перед запуском запиши прогноз по каждому тесту — через квартал посчитай, как часто угадал.</span></p>
 </li>
@@ -246,8 +246,8 @@ for i, h in enumerate(hist):
   <p data-i18n="bk.who.p">Книга для тех, кто уже запускает тесты и хочет понимать, когда отчёту можно верить. Математики в ней немного, зато много историй «результат оказался багом». Читать подряд не обязательно:</p>
   <ul class="list">
     <li data-i18n="bk.who.l1"><span class="lf">Запускаешь тесты на готовой платформе</span> — начни с главы 3 про закон Твимена, потом глава 21 про SRM и глава 19 про A/A-тесты.</li>
-    <li data-i18n="bk.who.l2"><span class="lf">Выбираешь, по какой метрике решать</span> — глава 7 про метрику-цель (OEC) и глава 6 про метрики компании.</li>
-    <li data-i18n="bk.who.l3"><span class="lf">Строишь платформу экспериментов</span> — части про инструментирование, единицу рандомизации и постепенную раскатку (главы 12–16).</li>
+    <li data-i18n="bk.who.l2"><span class="lf">Выбираешь, по какой метрике решать</span> — глава 7 про метрику-цель, она же OEC, и глава 6 про метрики компании.</li>
+    <li data-i18n="bk.who.l3"><span class="lf">Строишь платформу экспериментов</span> — части про инструментирование, единицу рандомизации и постепенную раскатку, главы 12–16.</li>
     <li data-i18n="bk.who.l4"><span class="lf">Хочешь статистику подробно</span> — главы 17–18 короткие; для формул лучше учебник, а для интуиции — курс «Сигнал или шум».</li>
   </ul>
 </section>
