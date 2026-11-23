@@ -152,7 +152,7 @@
       if (cs){
         cs.textContent = '';
         // шкала постоянная, но сжатая (по корню из χ²): порог стоит на месте, а наше χ² до 100 при любом ползунке видно
-        const XM = 110, L = 44, R = 428, B = 118, T = 18, THR = 12.12;
+        const XM = 110, L = 44, R = 428, B = 122, T = 30, THR = 12.12;
         const px = x => L + Math.sqrt(Math.min(x, XM) / XM) * (R - L), py = q => B - q * (B - T);
         const S = x => x <= 0 ? 1 : erfc(Math.sqrt(x / 2));
         for (const q of [0, 0.5, 1]){
@@ -165,13 +165,13 @@
         for (const v of [0, 1, 4, 12, 25, 50, 100]){ el('line', {x1: px(v), y1: B, x2: px(v), y2: B + 4, stroke: C.mute}, cs); const tt = el('text', {x: px(v), y: B + 20, 'text-anchor': 'middle', class: 'ax'}, cs); tt.textContent = v; }
         const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = tr('bx.i3.ax');
         // опорные точки: χ² = 3.84 → 5%, порог SRM 12.1 → 1 из 2000
-        el('line', {x1: px(THR), y1: T + 8, x2: px(THR), y2: B, stroke: C.loss, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, cs);
-        const tl = el('text', {x: px(THR) + 6, y: T + 10, 'text-anchor': 'start', class: 'sm halo'}, cs); tl.textContent = tr('bx.i3.thr');
+        el('line', {x1: px(THR), y1: T + 2, x2: px(THR), y2: B, stroke: C.loss, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, cs);
+        const tl = el('text', {x: Math.min(R - 120, Math.max(L + 120, px(THR))), y: T - 6, 'text-anchor': 'middle', class: 'sm halo'}, cs); tl.textContent = tr('bx.i3.thr');
         const v = chi2 < 10 ? chi2.toFixed(2) : chi2 < 100 ? chi2.toFixed(1) : NF.format(Math.round(chi2));
         {
           el('circle', {cx: px(chi2), cy: py(S(chi2)), r: 6, fill: C.ink}, cs);
           const q = S(chi2), X = Math.min(R - 4, Math.max(L + 4, px(chi2)));
-          const l1 = el('text', {x: X, y: py(q) - 14, 'text-anchor': chi2 > 80 ? 'end' : 'middle', class: 'lb halo'}, cs); l1.textContent = v;
+          const nearR = px(chi2) > R - 50; const l1 = el('text', {x: px(chi2) + (nearR ? -10 : 10), y: py(q) - 10, 'text-anchor': nearR ? 'end' : 'start', class: 'lb halo'}, cs); l1.textContent = v;
           const qs = q >= 0.1 ? pct(q) : q >= 0.001 ? pct(q, 1) : null;
           const rd = box.querySelector('.chi-read');
           if (rd) rd.textContent = tr('bx.i3.ours', {v}) + ': ' + (qs ? tr('bx.i3.share2', {p: qs}) : tr('bx.i3.rare2')) + '.';

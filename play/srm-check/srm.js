@@ -84,7 +84,7 @@
     const tl = el('text', {x: tcx, y: T - 4, 'text-anchor': 'middle', class: 'sm halo'}, cs); tl.textContent = 'порог SRM: p = 0.0005, χ² = ' + thrR;
     const v = chi2 < 10 ? chi2.toFixed(2) : chi2 < 100 ? chi2.toFixed(1) : nf(chi2), p = Math.exp(lp);
     el('circle', {cx: px(chi2), cy: py(p), r: 6, fill: C.ink}, cs);
-    const lab = el('text', {x: Math.min(R - 4, Math.max(L + 4, px(chi2))), y: py(p) - 14, 'text-anchor': px(chi2) > R - 60 ? 'end' : 'middle', class: 'lb halo'}, cs); lab.textContent = v;
+    const nearR = px(chi2) > R - 60; const lab = el('text', {x: px(chi2) + (nearR ? -10 : 10), y: py(p) - 10, 'text-anchor': nearR ? 'end' : 'start', class: 'lb halo'}, cs); lab.textContent = v;
     const qs = p >= 0.1 ? pct(p) : p >= 0.001 ? pct(p, 1) : null;
     $('srm-read').textContent = 'Наше χ² = ' + v + ': ' + (qs ? 'столько и больше бывает у ' + qs + ' честных тестов.' : 'при честном делении так почти не бывает.');
     cs.setAttribute('aria-label', $('srm-read').textContent);
