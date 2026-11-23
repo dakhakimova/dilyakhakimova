@@ -622,7 +622,7 @@ window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRea
   pIn.addEventListener('input', upd); eIn.addEventListener('input', upd); window.addEventListener('resize', upd);
 })();
 
-// ---------- бутстреп ----------
+// ---------- бутстрап ----------
 (function(){
   function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   const r = rng(42), g = () => Math.sqrt(-2 * Math.log(1 - r())) * Math.cos(2 * Math.PI * r());
@@ -649,7 +649,7 @@ window.addEventListener('resize', () => { drawTwo(); drawDiff(); upd6(); drawRea
     document.getElementById('bs-ci').textContent = showCI ? 'от ' + rub(a) + ' до ' + rub(z) : 'нужно больше выборок';
     document.getElementById('bs-f').textContent = 'от ' + rub(m0 - 2 * se) + ' до ' + rub(m0 + 2 * se);
     const v = document.getElementById('bs-v');
-    if (means.length >= 300){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = 'Мы ни разу не использовали правило ± 2 ширины, а получили вилку <b>от ' + rub(a) + ' до ' + rub(z) + '</b> — почти ту же, что и по правилу. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют <b>бутстрепом</b>.'; } else v.hidden = true;
+    if (means.length >= 300){ v.hidden = false; v.className = 'verdict good'; v.innerHTML = 'Мы ни разу не использовали правило ± 2 ширины, а получили вилку <b>от ' + rub(a) + ' до ' + rub(z) + '</b> — почти ту же, что и по правилу. Разброс средних «выборок из выборки» показывает, насколько наше среднее могло бы быть другим, попадись нам другие гости. Этот приём называют <b>бутстрапом</b>.'; } else v.hidden = true;
   }
   function one(show){
     const cnt = new Array(N).fill(0), pick = [];
