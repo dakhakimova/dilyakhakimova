@@ -232,13 +232,13 @@ function stampAll(){
     html = chrome.stamp(html, cur, cur === 'home', '/' + f.replace(/index\.html$/, ''));
     // картинки, которых ещё нет: есть запасная — ставим её; нет — убираем рисунок целиком (на входных страницах без заглушек)
     html = html.replace(/<figure class="art[^"]*"><img src="(\/[^"]+)"([^>]*)>[\s\S]*?<\/figure>/g, (all, src, rest) => {
-      if (fs.existsSync(path.join(ROOT, src))) return all;
+      if (fs.existsSync(path.join(ROOT, src.split('?')[0]))) return all;
       const fb = (rest.match(/data-fallback="([^"]+)"/) || [])[1];
       if (fb && fs.existsSync(path.join(ROOT, fb))) return all.replace(`src="${src}"`, `src="${fb}"`);
       return `<!--missing-art ${src} ${Buffer.from(all).toString('base64')} -->`;
     });
     // вернуть рисунки, файл которых уже появился
-    html = html.replace(/<!--missing-art (\S+) (\S+) -->/g, (all, src, b64) => fs.existsSync(path.join(ROOT, src)) ? Buffer.from(b64, 'base64').toString('utf8') : all);
+    html = html.replace(/<!--missing-art (\S+) (\S+) -->/g, (all, src, b64) => fs.existsSync(path.join(ROOT, src.split('?')[0])) ? Buffer.from(b64, 'base64').toString('utf8') : all);
     // единая версия ассетов
     html = html.replace(/(\.(?:css|js))\?v=\d+/g, `$1?v=${V}`);
     fs.writeFileSync(file, html);
