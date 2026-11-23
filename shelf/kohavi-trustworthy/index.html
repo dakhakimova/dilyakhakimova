@@ -188,26 +188,7 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
     <iframe src="/play/peeking/?embed=1&amp;viz=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i4.code;data-note:bk.i4.code.note" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">
-<textarea spellcheck="false">import numpy as np
-
-rng = np.random.default_rng(1)
-tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
-
-# накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
-a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
-b = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
-n = per_day * np.arange(1, days + 1)
-
-pool = (a + b) / (2 * n)
-se = np.sqrt(pool * (1 - pool) * 2 / n)
-z = np.abs(b - a) / n / se
-significant = z > 1.96          # «значимо» при α = 0.05
-
-print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
-print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</textarea>
-  </div>
-  <p class="note" data-i18n="bk.i4.calc">Без кода — <a href="/play/sample-size/">калькулятор MDE</a>: подставь конверсию, эффект и трафик, он посчитает срок теста; ссылкой на расчёт можно поделиться.</p>
+  <p class="note" data-i18n="bk.i4.calc">Срок теста заранее — <a href="/play/sample-size/">калькулятор MDE</a>: подставь конверсию, эффект и трафик, он посчитает срок теста; ссылкой на расчёт можно поделиться.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
 
@@ -251,7 +232,7 @@ for i, h in enumerate(hist):
 <!-- ноутбук -->
 <section class="bk-sec bk-nb" aria-labelledby="nb-h">
   <h2 id="nb-h" data-i18n="bk.nb.h">Весь код — одним ноутбуком</h2>
-  <p data-i18n="bk.nb.p">Три ячейки с этой страницы — проверка SRM, подглядывание и A/A-стенд — с пояснениями. Нужны только Python и numpy: подставь свои числа и запусти.</p>
+  <p data-i18n="bk.nb.p">Проверка SRM и A/A-стенд с этой страницы, а ещё симуляция подглядывания — с пояснениями. Нужны только Python и numpy: подставь свои числа и запусти.</p>
   <p class="ctas">
     <a class="btn" href="/shelf/notebooks/kohavi-trustworthy.ipynb" download data-i18n="bk.nb.dl">Скачать ноутбук</a>
     <a class="btn ghost" href="https://colab.research.google.com/github/dakhakimova/dilyakhakimova/blob/main/shelf/notebooks/kohavi-trustworthy.ipynb" rel="noopener" data-i18n="bk.nb.colab">Открыть в Colab ↗</a>
