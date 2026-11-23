@@ -35,7 +35,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -216,37 +216,45 @@ print(f"смотрим каждый день, стоп при «значимо�
   <h2><span class="n" aria-hidden="true">5</span><span data-i18n="bk.i5.h">Как проверить саму платформу экспериментов?</span></h2>
   <p class="bk-ch" data-i18n="bk.i5.ch">Глава 19</p>
   <p data-i18n="bk.i5.p1">A/A-тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5% тестов. Так как при отсутствии эффекта P(p-value < α) = α, p-value распределятся равномерно от 0 до 1. Если гистограмма p-value не похожа на равномерное распределение — есть горб или пик у нуля, — это сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
-  <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих тестах. Ждать тысячу настоящих A/A не нужно: берут данные прошлой недели и тысячу раз случайно делят пользователей на две группы, как сделала бы платформа. Получается тысяча A/A, и по гистограмме их p-value видно, равномерна ли она. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки, которых в одном тесте не видно.</p>
+  <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих тестах. Ждать тысячу настоящих A/A не нужно: берут данные прошлой недели и тысячу раз делят тех же пользователей той же функцией, что и платформа, — с её хешем и новой солью для каждого A/A. Случайное перемешивание тут не подходит: оно проверяет формулу, но не само деление. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки деления, которых в одном тесте не видно. А сбор событий и боты проверяет только настоящий A/A на платформе.</p>
   <div class="bk-frame">
     <p class="chart-head" data-i18n="bk.i5.toy">Какой бывает разница, когда эффекта нет: тысяча A/A-тестов</p>
     <iframe src="/play/aa-stand/?embed=1&amp;viz=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="Тысяча A/A на своих данных и гистограмма p-value" data-note="Заготовка для своих данных: метрика за прошлую неделю, одно число на пользователя. Файла с данными пока нет, поэтому в примере симулированные данные. У честного расчёта p &lt; 0.05 около 5%, гистограмма p-value — равномерное распределение, и тест Колмогорова — Смирнова это подтверждает.">
-<textarea spellcheck="false">import numpy as np
+  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="Тысяча A/A: деление как у платформы, гистограмма p-value" data-note="Заготовка для своих данных: id пользователя и метрика за прошлую неделю. Функцию split замени на деление своей платформы, p_value — на её расчёт. Файла с данными пока нет, поэтому в примере выдуманные числа. При честном делении доля теста около 50%, p &lt; 0.05 около 5%, а гистограмма p-value — равномерное распределение.">
+<textarea spellcheck="false">import hashlib
+import numpy as np
 from math import erfc, sqrt, exp
 
-rng = np.random.default_rng(7)
-
-# Данные: метрика за прошлую неделю, одно число на пользователя.
-# Файла с данными пока нет, поэтому берём симулированные: выручка с тяжёлым хвостом, 20 000 пользователей.
-# Когда будет файл — раскомментируй две строки ниже и закомментируй симуляцию:
+# Данные: метрика за прошлую неделю, одна строка на пользователя: id и значение.
+# Файла с данными пока нет, поэтому в примере выдуманные числа. Когда будет файл — раскомментируй две строки
+# и удали две строки с примером:
 # import pandas as pd
-# values = pd.read_csv("metric_last_week.csv")["value"].to_numpy()   # ← свой файл и своя колонка
-values = rng.lognormal(mean=6, sigma=1.2, size=20_000)
+# df = pd.read_csv("metric_last_week.csv"); user_ids, values = df["user_id"].astype(str).to_numpy(), df["value"].to_numpy()
+user_ids = np.array([f"u{i}" for i in range(10_000)])
+values = np.random.default_rng(7).lognormal(mean=6, sigma=1.2, size=len(user_ids))
+
+def split(user_id, salt):
+    """Деление на группы. Замени на функцию своей платформы: какой хеш, как склеиваются соль и id, какой порог."""
+    h = int(hashlib.md5(f"{salt}:{user_id}".encode()).hexdigest(), 16)
+    return h % 100 &lt; 50          # True — тест, False — контроль
 
 def p_value(a, b):
-    """Двусторонний тест разницы средних; дисперсия — по пользователям."""
+    """Тот же расчёт, что в отчёте платформы. Здесь — разница средних, дисперсия по пользователям."""
     se = sqrt(a.var(ddof=1) / len(a) + b.var(ddof=1) / len(b))
     return erfc(abs(b.mean() - a.mean()) / se / sqrt(2))
 
-# 1000 раз случайно делим пользователей пополам, как сделала бы платформа
-runs = 1000
+# 1000 A/A: те же пользователи, но каждый раз новая соль, как у нового эксперимента
+runs = 1000          # считается около минуты: хеш для каждого пользователя в каждом A/A
 pv = np.empty(runs)
+share = np.empty(runs)
 for i in range(runs):
-    in_test = rng.random(len(values)) &lt; 0.5
+    in_test = np.array([split(u, f"aa-{i}") for u in user_ids])
+    share[i] = in_test.mean()
     pv[i] = p_value(values[~in_test], values[in_test])
 
+print(f"доля теста: от {share.min():.1%} до {share.max():.1%} — должна колебаться около 50%")
 print(f"p &lt; 0.05 у {np.mean(pv &lt; 0.05):.1%} A/A — при честной платформе около 5%\n")
 
 # гистограмма p-value: 20 столбиков по 0.05, у равномерного распределения каждый около 5%
@@ -260,10 +268,10 @@ d = max(np.max(np.arange(1, runs + 1) / runs - x), np.max(x - np.arange(runs) / 
 lam = (sqrt(runs) + 0.12 + 0.11 / sqrt(runs)) * d
 p_ks = min(1.0, 2 * sum((-1) ** (k - 1) * exp(-2 * k * k * lam * lam) for k in range(1, 101)))
 print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.3f}",
-      "— похоже на равномерное" if p_ks &gt; 0.05 else "— не похоже на равномерное: ищи ошибку в расчёте")</textarea>
+      "— похоже на равномерное" if p_ks &gt; 0.05 else "— не похоже на равномерное: ищи ошибку в делении или в расчёте")</textarea>
   </div>
   <p class="note" data-i18n="bk.i5.more">Ещё игра: <a href="/play/fake-trend/">«Откуда „тренд“ в A/A-тесте?»</a> — накопленный эффект растёт несколько дней, хотя эффекта нет.</p>
-  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i5.take">на данных прошлой недели разыграй тысячу A/A на ключевых метриках и проверь, что p-value распределены равномерно, прежде чем верить платформе.</span></p>
+  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i5.take">на данных прошлой недели разыграй тысячу A/A с делением твоей платформы и проверь, что p-value распределены равномерно, прежде чем верить платформе.</span></p>
 </li>
 </ol>
 
@@ -337,8 +345,8 @@ print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.3f}",
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 
