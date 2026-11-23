@@ -64,14 +64,14 @@
       <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"><i>человек в день</i></label>
     </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
-    <details class="ss-more"><summary>Настроить: α</summary>
-      <div class="seg" role="radiogroup" aria-label="Уровень значимости α"><span class="ss-mode-l">α:</span>
+    <div class="ss-alpha">
+      <div class="seg" role="radiogroup" aria-label="Ошибка I рода α"><span class="ss-mode-l">Ошибка I рода α:</span>
         <button type="button" role="radio" data-alpha="0.01" aria-checked="false">0.01</button>
         <button type="button" role="radio" data-alpha="0.05" aria-checked="true">0.05</button>
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
       <p class="note">Двусторонний тест, группы поровну: 50 и 50.</p>
-    </details>
+    </div>
     <div class="ss-out" role="status" aria-live="polite">
       <p class="ss-big" id="ss-big"></p>
       <p class="ss-when" id="ss-when"></p>
@@ -98,7 +98,7 @@
     </div>
     <div class="ss-form pm-opts">
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="pm-pow" inputmode="decimal" autocomplete="off" placeholder="80%"><i></i></label>
-      <label class="ss-f"><span>Уровень значимости α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i>двусторонний тест</i></label>
+      <label class="ss-f"><span>Ошибка I рода α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i>двусторонний тест</i></label>
     </div>
     <div class="ss-out srm-out idle" id="pm-out" role="status" aria-live="polite">
       <p class="ss-big" id="pm-big">Впиши, сколько людей было в группах и что получилось.</p>
