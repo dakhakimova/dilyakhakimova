@@ -217,17 +217,23 @@ var go=function(){set(2)};if('IntersectionObserver' in window){var io=new Inters
     <h1>${typo(h1Of(s))}</h1>
 ${x.sub ? `    <p class="t-sub">${typo(x.sub)}</p>` : ''}
   </header>
-  <p class="t-def">${typo(x.def)}</p>
+${x.texTop ? `  <div class="t-def"><p>${typo(x.def)}</p><div class="formula tex" role="math" aria-label="${attr(x.read)}">${KATEX.renderToString(x.tex, {output: 'html', throwOnError: false, displayMode: true})}</div></div>` : `  <p class="t-def">${typo(x.def)}</p>`}
   <p class="t-not">${t('terms.not', {href: wiki, wiki: x.wiki})}</p>
-${top[s] ? `  <figure class="viz t-top">
+${top[s] && !x.texTop ? `  <figure class="viz t-top">
     <p class="chart-head">${typo(x.topT)}</p>
     ${(tz => top[s](tz, true) + top[s](tz, false))(Object.fromEntries(Object.entries(x.tz).map(([k, v]) => [k, plain(typo(v))])))}
     <figcaption class="figcap">${typo(x.topCap)}</figcaption>
   </figure>
-` : vizSec}
+` : top[s] ? '' : vizSec}
   <section class="t-sec" aria-labelledby="strict-h">
     <h2 id="strict-h">${typo(hq.strict)}</h2>
-    <p>${typo(x.strict)}</p>${x.formula ? `
+    <p>${typo(x.strict)}</p>${top[s] && x.texTop ? `
+`+`  <figure class="viz">
+    <p class="chart-head">${typo(x.topT)}</p>
+    ${(tz => top[s](tz, true) + top[s](tz, false))(Object.fromEntries(Object.entries(x.tz).map(([k, v]) => [k, plain(typo(v))])))}
+    <figcaption class="figcap">${typo(x.topCap)}</figcaption>
+  </figure>
+` : ''}${x.formula && !x.texTop ? `
     ${x.tex ? `<div class="formula tex" role="math" aria-label="${attr(x.read)}">${KATEX.renderToString(x.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>` : `<div class="formula" role="math" aria-label="${attr(x.read)}">${x.formula}</div>`}` : ''}
     <p class="t-read"><span class="lbl">${t('terms.read.h')}.</span> ${typo(x.read)}</p>
   </section>
