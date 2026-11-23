@@ -189,13 +189,13 @@ function shelf(){
       </ul>
     </div>
     <figure class="art hero-art">
-      <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="1200" decoding="async" alt="Котейка в очках читает книгу в кресле">
+      <img src="/shelf/img/kotejka-reads-cover.jpg" width="1600" height="900" decoding="async" alt="Котейка в очках читает книгу в кресле">
     </figure>
   </section>
 ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
     <button type="button" aria-pressed="true" data-topic="">Все темы</button>${topics.map(tp => `<button type="button" aria-pressed="false" data-topic="${tp}">${tp}</button>`).join('')}
   </div>
-` : ''}  <!-- полка — картинка Котейки (img/rubrics/shelf-kotejka.png, кадр 1600×850): корешки стоят на доске между горшком и мешком;
+` : ''}  <!-- полка — картинка (shelf/img/shelf-scene.jpg, 1600×850, 24.11: Котейка маленький у правого края): корешки стоят на доске между горшком и мешком;
        от 700 px; уже — прежняя полка из CSS (корешки на картинке стали бы нечитаемыми) -->
   <h2 class="shelf-h">Возьми книжку с полки</h2>
   <p class="shelf-hint">Нажми на корешок — откроется разбор.</p>
