@@ -69,6 +69,11 @@
     $('srm-p').textContent = `Контроль получил ${(100 * v.a / tot).toFixed(2)}% вместо ${(100 * sa).toFixed(2).replace(/\.00$/, '')}%. χ² = ${f1(chi2)}, p-value = ${fmtP(p)}; порог SRM — p < 0.0005.`;
   }
   Object.values(F).forEach(f => f.addEventListener('input', () => { f.classList.remove('ex'); calc(); }));
+  // в фокусе пример не мешает: число, совпадающее с примером, стирается, своё — выделяется целиком, и ввод его заменяет
+  Object.values(F).forEach(f => f.addEventListener('focus', () => {
+    if (f.value.replace(/[\s\u00a0]/g, '') === f.placeholder.replace(/\s/g, '')){ f.value = ''; calc(); }
+    else setTimeout(() => f.select(), 0);
+  }));
   [F.a, F.b].forEach(f => f.addEventListener('blur', () => { const n = parseN(f.value); if (n != null) f.value = nf(n); }));
   $('srm-copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); $('srm-note').textContent = 'Ссылка скопирована.'; } catch(e) { $('srm-note').textContent = location.href; } });
   calc();
