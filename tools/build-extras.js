@@ -48,7 +48,7 @@ ${chrome.header('extras', true)}
     <li class="course" id="x-srm">
       <figure class="art"><img src="/shelf/img/kohavi-main.jpg" width="1600" height="1200" loading="lazy" alt="Котейка с лупой проверяет зелёный отчёт" onerror="artFail(this)"><figcaption class="ph"></figcaption></figure>
       <h4><a href="/play/srm-check/">Калькулятор SRM</a></h4>
-      <p class="line">группы разделились честно? Подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
+      <p class="line">SRM — sample ratio mismatch, перекос групп. Группы разделились честно? Подставь размеры групп и план сплита — χ²-критерий скажет, можно ли верить отчёту</p>
       <div></div>
       <p class="course-act"><a class="btn ghost" href="/play/srm-check/">Открыть</a></p>
     </li>
