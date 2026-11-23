@@ -76,7 +76,7 @@
           const end = k - 1;
           h += txt(Math.min(X(end) + 8, W - R - 88), Y(rA[end]) + 18, 'кафе A', {c: 'lab', fill: BLUE});
           h += txt(Math.min(X(end) + 8, W - R - 88), Y(rB[end]) - 10, 'кафе B', {c: 'lab', fill: CORAL_T});
-          h += txt(W - R, H - 6, nw ? 'дни' : 'дни · точки — выручка за день, линии — среднее с первого дня', {a: 'end', c: 'tick', fill: T3});
+          h += txt(W - R, H - 6, nw ? 'дни' : 'точки — выручка за день, линии — средние', {a: 'end', c: 'tick', fill: T3});
           return h;
         },
       };
