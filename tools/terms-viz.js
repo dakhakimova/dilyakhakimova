@@ -447,18 +447,20 @@ err['normal-distribution'] = L => {
 // clt[slug](L) — ЦПТ на чеках (Диля, 23.11): кнопки n = 1, 2, 5, 30; гистограмма средних n чеков и колокол с той же серединой и шириной σ/√n.
 const clt = {};
 clt['normal-distribution'] = L => {
-  const NS = [1, 2, 5, 30], R = 20000, lo = 0, hi = 2000, B = 50, bw = (hi - lo) / B;
+  const NS = [1, 2, 5, 30, 1000], lo = 0, hi = 2000;
   const m = 500 * Math.exp(.32), sd = m * Math.sqrt(Math.exp(.64) - 1);
   const X = v => 20 + (v - lo) / (hi - lo) * 420, base = 210, top = 30;
   const r = rng(20261123), gz = gauss(r), out = [];
   for (const n of NS){
+    // у n = 1000 колокол узкий: корзины мельче
+    const s0 = sd / Math.sqrt(n), bw = n > 30 ? s0 / 2.5 : (hi - lo) / 50, B = Math.ceil((hi - lo) / bw), R = 20000;
     const h = new Array(B).fill(0);
     for (let i = 0; i < R; i++){ let sum = 0; for (let j = 0; j < n; j++) sum += 500 * Math.exp(.8 * gz()); const v = sum / n; if (v >= lo && v < hi) h[Math.floor((v - lo) / bw)]++; }
     const dens = h.map(c => c / R / bw), s2 = sd / Math.sqrt(n), nd = v => phi((v - m) / s2) / s2;
     const ymax = Math.max(...dens, nd(m)) * 1.05, Y = d => base - d / ymax * (base - top);
     const g = [`<g class="cl cl${n}">`];
-    dens.forEach((d, i) => { if (d > 0) g.push(rect(X(lo + i * bw) + 1, Y(d), X(lo + bw) - X(lo) - 2, base - Y(d), C.a, 'opacity=".55"')); });
-    const pts = []; for (let k = 0; k <= 200; k++){ const v = lo + (hi - lo) * k / 200; pts.push([X(v), Y(nd(v))]); }
+    dens.forEach((d, i) => { if (d > 0) g.push(rect(X(lo + i * bw) + (n > 30 ? 0 : 1), Y(d), Math.max(1, X(lo + bw) - X(lo) - (n > 30 ? 0.3 : 2)), base - Y(d), C.a, 'opacity=".55"')); });
+    const pts = []; for (let k = 0; k <= 1200; k++){ const v = lo + (hi - lo) * k / 1200; pts.push([X(v), Y(nd(v))]); }
     g.push(path(pts, C.t3, 2, 'none', 'stroke-dasharray="6 4"'), '</g>');
     out.push(g.join(''));
   }
