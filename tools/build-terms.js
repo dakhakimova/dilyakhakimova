@@ -33,6 +33,7 @@ function greekFrag(frag){
     const S = '[\\s\\u00a0]*', tex = [];
     const put = t => '\u0001' + (tex.push(t) - 1) + '\u0002';
     let x = part
+      .replace(/\\\((.+?)\\\)/g, (_, t) => put(t.replace(/\u00a0/g, ' ').replace(/−/g, '-')))
       .replace(new RegExp('X' + S + '~' + S + 'N\\(μ,' + S + 'σ²\\)', 'g'), () => put('X \\sim N(\\mu, \\sigma^2)'))
       .replace(new RegExp('N\\(μ,' + S + 'σ²\\)', 'g'), () => put('N(\\mu, \\sigma^2)'))
       .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
@@ -49,7 +50,7 @@ function greekFrag(frag){
   }).join('');
 }
 const {load} = require('./play-data.js');
-const {viz, lim, top, err, clt, stu} = require('./terms-viz.js');
+const {viz, lim, top, err, clt, stu, sum} = require('./terms-viz.js');
 const SOL = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'play', 'solutions.json'), 'utf8')); } catch { return {}; } })();  // «Почему так» игр — из tools/build-play.js
 // все страницы терминов (решение Дили, 22.11.2026: «где объясняем — по центру, размер и шрифт как на нормальном»): шрифт 20 px, колонка ~700 px
 const TRIAL = {includes: () => true};
@@ -268,7 +269,22 @@ f.dataset.n=1;f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEven
     </div>
   </section>
 
-  <section class="t-sec" aria-labelledby="lim-h">
+${sum[s] && x.sm ? `  <section class="t-sec" aria-labelledby="sum-h">
+    <h2 id="sum-h">${typo(x.sm.h)}</h2>
+    <p>${greekFrag(typo(x.sm.p1))}</p>
+    <div class="formula tex" role="math" aria-label="${attr(x.sm.read)}">${KATEX.renderToString(x.sm.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
+    <figure class="viz sm-fig" data-n="4">
+      <p class="chart-head">${typo(x.sm.t)}</p>
+      ${sum[s](Object.fromEntries(Object.entries(x.sm.vz).map(([k, v]) => [k, plain(typo(v))])))}
+      <div class="sg-ctl" role="group" aria-label="${attr(x.sm.label)}">${[1, 2, 4, 6].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 4}">${KATEX.renderToString('\\sigma_2 = ' + n, {output: 'html', throwOnError: false})}</button>`).join('')}</div>
+      <p class="sg-out" aria-live="polite">${greekFrag(typo(x.sm.out[2]))}</p>
+      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[1,2,4,6],T=${json(x.sm.out.map(v => greekFrag(typo(v))))};
+f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
+    </figure>
+    <p>${greekFrag(typo(x.sm.p2))}</p>
+  </section>
+
+` : ''}  <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">${typo(hq.lim)}</h2>
     ${x.lim.map(p => `<p>${typo(p)}</p>`).join('\n    ')}${limFig}
   </section>
