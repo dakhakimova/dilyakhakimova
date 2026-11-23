@@ -17,7 +17,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Собрано командой node tools/build-srm-check.js: правьте его. Основная персона: П2 «Артём, обжёгшийся middle» (design-system.md, «Персоны»). -->
-${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Проверка SRM: группы разделились честно? · калькулятор · Диля Хакимова</title>
+${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>Калькулятор SRM: группы разделились честно? · Диля Хакимова</title>
 <meta name="description" content="Калькулятор SRM: подставь, сколько пользователей в группах и какой был план сплита, — χ²-критерий скажет, можно ли верить отчёту.">
 <link rel="canonical" href="https://dilyakhakimova.com/play/srm-check/">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -33,8 +33,8 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 <a class="skip" href="#main">К содержанию</a>
 ${chrome.header('play', false)}
 <main id="main" class="wrap play ss-page">
-  <h1>Группы разделились честно?</h1>
-  <p class="play-meta">Калькулятор</p>
+  <h1>Калькулятор SRM</h1>
+  <p class="play-meta srm-sub">Группы разделились честно?</p>
   <p class="lead">Проверка SRM — sample ratio mismatch, несовпадения соотношения групп с планом. Подставь, сколько пользователей попало в каждую группу и какой был план сплита. Если группы разошлись сильнее, чем бывает случайно, отчёту теста верить нельзя.</p>
 
   <section class="ss-card" aria-labelledby="srm-h">
