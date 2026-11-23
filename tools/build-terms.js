@@ -299,7 +299,9 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
         <tr><th scope="row">${typo(r[0])}</th><td>${typo(r[1])}</td><td>${typo(r[2])}</td></tr>`).join('')}
       </tbody>
     </table></div>${stu[s] && x.st ? `
-    <p>${greekFrag(typo(x.st.p1))}</p>
+${x.st.p0 ? `    <p>${greekFrag(typo(x.st.p0))}</p>
+    <div class="formula tex" role="math" aria-label="${attr(x.st.read0)}">${KATEX.renderToString(x.st.tex0, {output: 'html', throwOnError: false, displayMode: true})}</div>
+` : ''}    <p>${greekFrag(typo(x.st.p1))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex1, x.st.read1)}
     <p>${greekFrag(typo(x.st.p2))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex2, x.st.read2)}${x.st.p3 ? `
