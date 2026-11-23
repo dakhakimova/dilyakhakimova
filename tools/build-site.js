@@ -96,6 +96,25 @@ const spineColor = slug => { let x = 0x811c9dc5; for (const ch of slug) { x ^= c
 const bookTitle = b => b.title_en || b.title_ru;
 const bookLang = b => b.title_en ? ' lang="en"' : '';
 const SHELF_FILTER_MIN = 6;  // фильтр по темам — только если на полке хотя бы столько позиций
+// Полка из элементов (Диля, 24.11; shelf/img/parts/): стена, доски друг над другом, Котейка на верхней доске справа, подпорки слева.
+// Корешки раскладываются по доскам при сборке. Ширины — в «пикселях кадра» шириной 1600 (как у доски), на экране — в cqw.
+// Корешок в кадре — его px × 1.15, как было у полки-картинки. Верхняя доска уже: справа сидит Котейка.
+function shelfRows(books, spine){
+  const F = 1.3, GAP = 8, END = 150, KOT = 330, FULL = 1380 / F, k = 1.15;  // F — масштаб полки в site/site.css (… / 16 * 1.3)
+  // ширины считаем на тех же корешках, что потом выводим: spine() меняет внутренний счётчик, поэтому сначала рендерим все
+  const html = books.map(spine), ws = html.map(x => (+((x.match(/--wn:(\d+)/) || [0, 60])[1])) * k + GAP);
+  const rows = [[]]; let cap = FULL - KOT - END, used = 0;
+  html.forEach((x, i) => { if (used + ws[i] > cap && rows[rows.length - 1].length){ rows.push([]); cap = FULL - END; used = 0; } rows[rows.length - 1].push(x); used += ws[i]; });
+  return rows.map((r, i) => `
+      <div class="sh-row${i === 0 ? ' top' : ''}">
+        <img class="sh-end ${i % 2 ? 'stack' : 'cup'}" src="/shelf/img/parts/${i % 2 ? 'bookend-stack' : 'bookend-cup'}.png" alt="" width="${i % 2 ? 212 : 140}" height="${i % 2 ? 90 : 120}" loading="lazy">
+        <ul class="row-books" role="list">${r.join('')}
+        </ul>${i === 0 ? `
+        <img class="sh-kot" src="/shelf/img/parts/kotejka-sack.png" alt="" width="277" height="420">` : ''}
+        <img class="sh-board" src="/shelf/img/parts/shelf-board.png" alt="" width="1600" height="140" loading="lazy">
+      </div>`).join('');
+}
+
 function shelf(){
   const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'shelf/shelf.json'), 'utf8'));
   // на полке — только то, у чего уже вышел разбор; остальное ждёт с published:false
@@ -199,10 +218,9 @@ ${showFilter ? `  <div class="topic-filter" role="group" aria-label="Тема">
        от 700 px; уже — прежняя полка из CSS (корешки на картинке стали бы нечитаемыми) -->
   <h2 class="shelf-h">Возьми книжку с полки</h2>
   <p class="shelf-hint">Нажми на корешок — откроется разбор.</p>
-  <div class="bookshelf scene" role="region" aria-label="Книжная полка" tabindex="0">
-    <img class="scene-art" src="/shelf/img/shelf-scene.jpg" srcset="/shelf/img/shelf-scene-800.jpg 800w, /shelf/img/shelf-scene.jpg 1600w" sizes="(max-width:1120px) 100vw, 1056px" width="1600" height="850" alt="" decoding="async">
-    <ul class="books" role="list">${books.map(spine).join('')}
-    </ul>
+  <div class="bookshelf stack" role="region" aria-label="Книжная полка" tabindex="0">
+    <div class="books shelf-stack">${shelfRows(books, spine)}
+    </div>
     <div class="board" aria-hidden="true"></div>
   </div>
 ${books.length || arts.length ? `

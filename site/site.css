@@ -123,3 +123,26 @@ a.shelf-card:focus-visible{outline:3px solid var(--pen); outline-offset:3px}
 @media (min-width:700px){ .bookshelf.scene{max-width:760px; margin-top:0} }
 .shelf-h{margin-bottom:var(--s-2)}
 .shelf-hint{margin:0 0 var(--s-4); color:var(--text-2)}
+/* полка из элементов (Диля, 24.11; shelf/img/parts/, tools/build-site.js → shelfRows): стена фоном, доски друг над другом,
+   Котейка на верхней доске справа, подпорка книг слева. Размеры — в долях ширины кадра 1600 (cqw), как у прежней полки-картинки.
+   Уже 700 px — прежняя полка из CSS одной строкой с прокруткой: мелкие корешки на картинке не читались бы. */
+.shelf-stack .sh-end, .shelf-stack .sh-kot, .shelf-stack .sh-board{display:none}
+.shelf-stack{display:flex; align-items:flex-end; gap:6px; min-width:max-content}
+.shelf-stack .sh-row{display:contents}
+.shelf-stack .row-books{list-style:none; margin:0; padding:0; display:flex; align-items:flex-end; gap:6px}
+@media (min-width:700px){
+  .bookshelf.stack{container-type:inline-size; overflow:visible; padding:calc(40cqw / 16) calc(40cqw / 16) 0; max-width:760px;
+    background:#FBE7C4 url(/shelf/img/parts/shelf-wall.jpg) center / 100% auto repeat-y; border-radius:var(--r-l); margin-top:0}
+  .bookshelf.stack > .board{display:none}
+  .shelf-stack{display:block; min-width:0; padding:0}
+  .shelf-stack .sh-row{display:block; position:relative; height:calc(440cqw / 16 * 1.3); margin-top:calc(30cqw / 16)}
+  .shelf-stack .sh-board{display:block; position:absolute; left:calc(-40cqw / 16); right:calc(-40cqw / 16); width:calc(100% + 80cqw / 16); height:auto; bottom:calc(-108cqw / 16 * 1.3)}
+  .shelf-stack .row-books{position:absolute; left:calc(170cqw / 16 * 1.3); bottom:0; gap:calc(8cqw / 16 * 1.3)}
+  .shelf-stack .sh-end{display:block; position:absolute; left:calc(10cqw / 16 * 1.3); bottom:0; height:auto; width:calc(140cqw / 16 * 1.3)}
+  .shelf-stack .sh-end.stack{width:calc(212cqw / 16 * 1.3)}
+  .shelf-stack .sh-kot{display:block; position:absolute; right:calc(90cqw / 16 * 1.3); bottom:calc(-89cqw / 16 * 1.3);  /* низ мешка — 331 из 420 px, хвост свисает за доску */ width:calc(277cqw / 16 * 1.3); height:auto; z-index:2; pointer-events:none}
+  .shelf-stack .spine{height:calc(var(--hn) * 1.15cqw / 16 * 1.3); width:calc(var(--wn) * 1.15cqw / 16 * 1.3); padding:1.2cqw 0}
+  .shelf-stack .spine .b-t{font-size:clamp(.6875rem, 1.05cqw, .9375rem); max-height:calc(var(--hn) * 1.15cqw / 16 * 1.3 - 4.5cqw)}
+  .shelf-stack .spine .b-a{font-size:clamp(.5625rem, .78cqw, .75rem)}
+  .shelf-stack .sh-row:last-child{margin-bottom:calc(150cqw / 16)}
+}
