@@ -41,7 +41,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
 
   /* ---------- разбор Кохави ---------- */
   'bk.meta.title': 'Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам',
-  'bk.meta.desc': 'Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком.',
+  'bk.meta.desc': 'Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A-эксперименты — с живыми схемами и играми.',
   'bk.crumb': 'Trustworthy Online Controlled Experiments',
   'bk.h1': 'Как не выкатить баг, который притворился победой',
   'bk.pass.book': '<cite lang="en">Trustworthy Online Controlled Experiments</cite>' + D + ' Ron Kohavi, Diane Tang, Ya Xu' + D + ' 2020',
