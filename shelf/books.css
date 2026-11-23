@@ -328,3 +328,14 @@
 .bk-tiers .g1{background:var(--test-bg); color:var(--text-1)} .bk-tiers .g2{background:#F4A898; color:var(--text-1)} .bk-tiers .g3{background:var(--test); color:#fff}
 .bk-tiers .sw.p3{background:var(--test)} .bk-tiers .sw.p2{background:#F4A898} .bk-tiers .sw.p1{background:var(--test-bg); outline:1px solid rgba(0,0,0,.06)} .bk-tiers .sw.p0{background:#D9D6D0}
 .tiers-lg{margin-top:var(--s-3)}
+/* выравнивание строк карточек между собой: заголовок, доля, срок, список — на одном уровне */
+@supports (grid-template-rows:subgrid){
+  .bk-ramp{grid-template-rows:auto auto auto auto 1fr}
+  .bk-ramp > li{display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0}
+  .bk-steps:not(.bk-ramp){grid-template-rows:auto auto 1fr}
+  .bk-steps:not(.bk-ramp) > li{display:grid; grid-row:span 3; grid-template-rows:subgrid; row-gap:0}
+}
+.bk-ramp .rb i.up{bottom:auto; background:var(--test); opacity:.35; border-radius:4px 4px 0 0}
+.bk-ramp .rb i:not(.up){border-radius:0}
+.bk-ramp > li > *, .bk-steps > li > *{align-self:start}
+.bk-ramp .sn, .bk-steps .sn{align-self:end}
