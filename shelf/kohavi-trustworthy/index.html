@@ -207,6 +207,7 @@ significant = z > 1.96          # «значимо» при α = 0.05
 print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
 print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</textarea>
   </div>
+  <p class="note" data-i18n="bk.i4.calc">Срок теста заранее — <a href="/play/sample-size/">калькулятор MDE</a>: подставь конверсию, эффект и трафик, он посчитает, сколько дней держать тест.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
 
