@@ -405,9 +405,9 @@ lim['mann-whitney'] = L => {
 // err[slug](L) — картинка в блоке ошибок (Диля, 23.11): какими бывают ненормальные данные. Сплошная — данные, пунктир — колокол с тем же средним и σ.
 const err = {};
 err['normal-distribution'] = L => {
-  const x0 = 16, x1 = 444, rowH = 170, plotH = 92, out = [];
+  const x0 = 16, x1 = 444, rowH = 180, plotH = 92, out = [];
   const row = (i, title, sub, xs, curves, extra) => {
-    const top = i * rowH, base = top + 40 + plotH, lo = xs[0], hi = xs[1];
+    const top = i * rowH, base = top + 52 + plotH, lo = xs[0], hi = xs[1];
     const X = v => x0 + (v - lo) / (hi - lo) * (x1 - x0);
     const ymax = Math.max(...curves.map(c => c.max));
     const Y = d => base - d / ymax * plotH;
@@ -436,9 +436,10 @@ err['normal-distribution'] = L => {
   const m3 = (1 - p0) * 800 * Math.exp(.32), ex2 = (1 - p0) * 640000 * Math.exp(1.28), sd3 = Math.sqrt(ex2 - m3 * m3), n3 = v => phi((v - m3) / sd3) / sd3;
   const r3 = row(2, L.h3, L.s3, [-1600, 2600], [{f: ln3, max: n3(m3) * 1.15}, {f: n3, max: n3(m3), dash: true}], (X, Y, base) => {
     const neg = [[X(-1600), base]]; for (let k = 0; k <= 80; k++){ const v = -1600 + 1600 * k / 80; neg.push([X(v), Y(n3(v))]); } neg.push([X(0), base]);
-    return path(neg, 'none', 0, C.red, 'opacity=".25"') + rect(X(0) - 3, base - 92, 6, 92, C.a) + [-1000, 0, 1000, 2000].map(v => tx(X(v), base + 18, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 13, fill: C.t3})).join('');
+    return path(neg, 'none', 0, C.red, 'opacity=".25"') + rect(X(0) - 3, base - 86, 6, 86, C.a) + [-1000, 0, 1000, 2000].map(v => tx(X(v), base + 18, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 13, fill: C.t3})).join('');
   });
-  out.push(tx(r3.X(80), r3.base - 78, L.t3a, {size: 14, fill: C.a, w: 500, bg: true}), tx(r3.X(-1560), r3.base - 8, L.t3b, {size: 14, fill: C.red, w: 500, bg: true}));
+  // подписи не залезают на линии (Диля, 23.11): «80% нулей» — в подзаголовке ряда, доля колокола ниже нуля — двумя строками над левым хвостом
+  out.push(...L.t3b.split('|').map((w, i) => tx(r3.X(-1580), r3.base - 84 + i * 17, w, {size: 14, fill: C.red, w: 500, bg: true})));
   // легенда
   const ly = 3 * rowH + 6;
   out.push(ln(x0, ly, x0 + 30, ly, C.a, 2.5), tx(x0 + 38, ly + 5, L.data, {size: 14}), ln(x0 + 120, ly, x0 + 150, ly, C.red, 2.5), tx(x0 + 158, ly + 5, L.bell, {size: 14}));
