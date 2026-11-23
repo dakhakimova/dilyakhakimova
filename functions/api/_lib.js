@@ -194,13 +194,18 @@ export async function summary(env, user) {
     'SELECT code, course, discount, created_at, expires_at, redeemed_at FROM course_promos WHERE user_id = ? ORDER BY created_at'
   ).bind(user.id).all();
   promos.forEach(p => { p.course_title = (COURSES[p.course] || {}).title || p.course; });
+  // купленные платные курсы (migrations/006-purchases.sql); пока таблицы нет — пустой список
+  let purchases = [];
+  try {
+    ({ results: purchases } = await env.DB.prepare('SELECT course, created_at AS at FROM purchases WHERE user_id = ? ORDER BY created_at DESC').bind(user.id).all());
+  } catch (e) { purchases = []; }
 
   return {
     user: { uid: user.uid },
     points: total, max, share: Math.round(share * 1000) / 10,
     discount: courses_done.length ? DISCOUNT : 0, courses_done, courses_progress,
     calibration_error: calibration,
-    chapters, promos,
+    chapters, promos, purchases,
   };
 }
 

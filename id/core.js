@@ -94,7 +94,7 @@ async function sessionUser(store, req, now){
   const p = await store.get('people', s.uid);
   return p ? {p, hash: sha(tok)} : null;
 }
-const publicProfile = p => ({name: p.name || '', avatar: p.avatar || null, avatar_url: p.avatar_url || null,
+const publicProfile = p => ({name: p.name || '', avatar: p.avatar || null, avatar_url: p.avatar_url || null, tg: p.tg || '',
   email: p.email || null, yandex: !!p.yid, created: p.created});
 
 export async function handle(req, deps){
@@ -181,6 +181,12 @@ export async function handle(req, deps){
     if (m === 'POST'){
       const p = {...u.p};
       if ('name' in body) p.name = cleanName(body.name);
+      // Telegram — необязательный контакт (кабинет, 24.11): @ник, латиница, цифры, _; пустая строка — стереть
+      if ('tg' in body){
+        const t = String(body.tg || '').trim().replace(/^https?:\/\/t\.me\//, '').replace(/^@/, '');
+        if (t && !/^[A-Za-z0-9_]{5,32}$/.test(t)) return J(400, {error: 'Ник в Telegram — латиница, цифры и _, от 5 символов'}, C);
+        p.tg = t ? '@' + t : '';
+      }
       if ('avatar' in body){
         if (body.avatar === null || body.avatar === 'yandex') p.avatar = null;
         else if (AVATARS.includes(body.avatar)) p.avatar = body.avatar;

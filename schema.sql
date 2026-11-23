@@ -84,3 +84,14 @@ CREATE TABLE IF NOT EXISTS page_reads (
 -- SELECT page, SUM(views) AS views, ROUND(1.0*SUM(read_sec)/MAX(SUM(reads),1)/60,1) AS avg_min,
 --        ROUND(100.0*SUM(deep)/MAX(SUM(reads),1)) AS deep_pct
 -- FROM page_reads GROUP BY page ORDER BY views DESC;
+
+-- купленные платные курсы (migrations/006-purchases.sql)
+CREATE TABLE IF NOT EXISTS purchases (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  course      TEXT NOT NULL,                     -- 'abm' | 'stats' | …
+  order_ref   TEXT,                              -- номер заказа у платёжного сервиса
+  promo_code  TEXT,                              -- если оплачено с промокодом
+  created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+  UNIQUE (user_id, course)
+);

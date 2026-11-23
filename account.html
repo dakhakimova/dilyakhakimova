@@ -7,9 +7,9 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611435">
-<link rel="stylesheet" href="/tokens.css?v=202611435">
-<link rel="stylesheet" href="/home.css?v=202611435">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611436">
+<link rel="stylesheet" href="/tokens.css?v=202611436">
+<link rel="stylesheet" href="/home.css?v=202611436">
 <style>
 /* общий шаблон страницы (как /extras/, 404): шапка и футер data-chrome, main.wrap.block — 1120 px (--page-max), отступы шаблона */
 .account h1{font:400 var(--fs-h1)/1.06 var(--serif); letter-spacing:var(--tr-display); margin:var(--s-2) 0 var(--s-6)}
@@ -46,6 +46,56 @@
 #m-chapters .chs{padding-left:20px; margin:6px 0 0} #m-chapters .chs li{margin:3px 0; font-size:var(--fs-s)} #m-chapters li.todo{color:var(--muted)}
 .err{color:#C2453A}
 @media (max-width:620px){ .panel{padding:var(--s-4)} }
+/* --- кабинет (24.11) --- */
+.me-head{display:flex; align-items:center; gap:var(--s-4); margin:0 0 var(--s-6)}
+.me-who{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0}
+.me-who b{font:400 var(--fs-h3)/1.2 var(--serif)}
+.ava-btn{cursor:pointer; padding:0}
+.ava-btn:hover{box-shadow:0 0 0 3px var(--pen-soft)}
+.me-sec{margin:0 0 var(--s-7)}
+.account > section#member{max-width:none}
+.prof{max-width:46em; display:grid; gap:6px}
+.prof label, .ava-pick legend{font-weight:600; font-size:var(--fs-s); margin-top:var(--s-3)}
+.prof .hint{margin:0; font-size:var(--fs-s); color:var(--text-3)}
+.prof .row{display:flex; gap:var(--s-4); align-items:center; margin-top:var(--s-4)}
+.ava-pick{border:0; padding:0; margin:0}
+.ava-grid{display:grid; grid-template-columns:repeat(auto-fill, 64px); gap:12px; margin-top:var(--s-3)}
+.ava-opt{width:64px; height:64px; border-radius:50%; border:2px solid transparent; padding:0; cursor:pointer; overflow:hidden; display:grid; place-items:center; font:400 1.4rem/1 var(--serif); color:#fff}
+.ava-opt img{width:100%; height:100%; object-fit:cover}
+.ava-opt[aria-checked="true"]{border-color:var(--pen); box-shadow:0 0 0 3px var(--pen-soft)}
+.ava-opt.plain{background:var(--pen-soft); color:var(--pen)}
+.ava-opt small{font:500 11px/1.1 var(--body); text-align:center; padding:4px}
+/* Мои курсы: карточка с кольцом прогресса */
+.mc-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:var(--s-5); margin-top:var(--s-4)}
+.mc{background:var(--surface); border-radius:16px; box-shadow:var(--sh-1); overflow:hidden; display:flex; flex-direction:column}
+.mc > img{width:100%; height:auto; aspect-ratio:16 / 7; object-fit:cover; display:block}
+.mc-body{padding:var(--s-4) var(--s-5) var(--s-5); display:grid; grid-template-columns:1fr auto; gap:var(--s-2) var(--s-4); align-items:start; flex:1}
+.mc h3{font:400 var(--fs-l)/1.2 var(--serif); margin:0}
+.mc h3 a{color:var(--ink); text-decoration:none} .mc h3 a:hover{text-decoration:underline}
+.mc .stat{margin:4px 0 0; font-size:var(--fs-s); color:var(--text-2)}
+.mc .tag{display:inline-block; font:600 12px/1 var(--body); letter-spacing:.04em; text-transform:uppercase; color:var(--pen); background:var(--pen-soft); border-radius:99px; padding:5px 9px; margin-bottom:6px}
+.ring{width:76px; height:76px; grid-row:1 / 3; grid-column:2}
+.ring .bg{stroke:#EAE5DC} .ring .fg{stroke:var(--pen); transition:stroke-dashoffset .6s}
+.ring .dia{fill:var(--pen-soft); stroke:var(--pen); stroke-width:1.5}
+.ring .dia.full{fill:var(--pen)}
+.ring text{font:600 15px/1 var(--body); fill:var(--ink); font-variant-numeric:tabular-nums}
+.mc .go{grid-column:1 / -1; margin-top:var(--s-3); font-weight:500}
+.mc details{grid-column:1 / -1; font-size:var(--fs-s)}
+.mc summary{cursor:pointer; color:var(--text-2)}
+.mc details ol{margin:var(--s-2) 0 0; padding-left:1.4em} .mc details li{margin:3px 0} .mc details li.ok{color:var(--text-3)} .mc details li.ok::marker{color:#3E8A5C}
+.mc-empty{grid-column:1 / -1}
+/* Промокоды: открытки. Картинка-болванка /img/promo/promo-<курс>.jpg, пока её нет — цветной фон */
+.cards-pc{list-style:none; padding:0; margin:var(--s-4) 0 0; display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:var(--s-5)}
+.pc{position:relative; aspect-ratio:8 / 5; border-radius:16px; overflow:hidden; box-shadow:var(--sh-2, var(--sh-1)); background:var(--pc, #E9C46A) center / cover no-repeat; display:grid; place-items:center}
+.pc.vp{--pc:#EFC75E} .pc.ss{--pc:#8FB3E0} .pc.ab{--pc:#E8907F} .pc.gift{--pc:#A9D8C4}
+.pc-in{background:rgba(255,253,248,.94); border-radius:12px; padding:var(--s-3) var(--s-4); width:66%; text-align:center; display:grid; gap:6px; box-shadow:0 2px 10px rgba(40,30,20,.12)}
+.pc-in .code{background:none; padding:0; font-size:1.5rem; user-select:all; -webkit-user-select:all}
+.pc-in .what{font-size:13px; color:var(--text-2); margin:0}
+.pc-in .btn{justify-self:center}
+.pc.used{filter:grayscale(1) opacity(.6)}
+.pc.used .code{text-decoration:line-through}
+.me-out{display:flex; gap:var(--s-5); align-items:center; margin:var(--s-6) 0 var(--s-4)}
+@media (max-width:620px){ .mc-grid, .cards-pc{grid-template-columns:1fr} .pc-in{width:82%} .me-head{flex-wrap:wrap} }
 </style>
 </head>
 <body>
@@ -63,8 +113,7 @@
 <script>(function(){var h=document.currentScript.previousElementSibling,b=h.querySelector('.burger');b.addEventListener('click',function(){var o=h.classList.toggle('open');b.setAttribute('aria-expanded',o)})})()</script>
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 <main id="main" class="wrap block account">
-  <p class="kicker">личный кабинет</p>
-  <h1>Мой прогресс</h1>
+  <h1 id="acc-h1">Личный кабинет</h1>
 
   <section id="guest" hidden>
     <p class="lead">Войди, чтобы прогресс сохранялся на любом устройстве и пройденные курсы засчитывались.</p>
@@ -93,29 +142,46 @@
   </section>
 
   <section id="member" hidden>
-    <div class="panel">
-      <div class="who"><span class="ava" id="m-ava" aria-hidden="true"></span><div><b id="m-name"></b><div class="muted" id="m-user"></div></div></div>
-      <form class="form" id="f-name" novalidate>
-        <label for="m-name-in">Имя на сайте</label>
-        <div class="row"><input class="input" id="m-name-in" type="text" maxlength="40" autocomplete="given-name"><button class="btn ghost" type="submit">Сохранить</button></div>
-        <p class="form-msg" id="name-msg" role="status"></p>
-      </form>
+    <!-- кабинет (Диля, 24.11): профиль → Мои курсы → Промокоды-открытки → выйти. Демо без входа: /account.html#demo -->
+    <div class="me-head">
+      <button class="ava ava-btn" id="m-ava" type="button" aria-label="Сменить аватарку"></button>
+      <div class="me-who"><b id="m-name"></b><span class="muted" id="m-user"></span></div>
+      <button class="btn ghost" id="edit-btn" type="button" aria-expanded="false" aria-controls="f-prof">Профиль</button>
     </div>
-    <div class="panel">
-      <p id="m-courses" style="margin:0"></p>
-      <p class="muted" id="m-pointsline"><span id="m-points">0</span> баллов из <span id="m-max">0</span> — это прогресс, на скидку они не влияют.</p>
+
+    <form class="panel prof" id="f-prof" novalidate hidden>
+      <h2>Профиль</h2>
+      <label for="m-name-in">Имя на сайте</label>
+      <input class="input" id="m-name-in" type="text" maxlength="40" autocomplete="given-name">
+      <p class="hint">Так будем обращаться в письмах и на сертификате.</p>
+      <label for="m-tg">Telegram, необязательно</label>
+      <input class="input" id="m-tg" type="text" maxlength="33" autocomplete="off" placeholder="@username">
+      <p class="hint">Чтобы написать, если письмо не дошло. Больше ни для чего.</p>
+      <fieldset class="ava-pick">
+        <legend>Аватарка</legend>
+        <p class="hint" id="ava-hint">Загрузи фото через Яндекс ID или выбери кота или собаку.</p>
+        <div class="ava-grid" id="ava-grid" role="radiogroup" aria-labelledby="ava-hint"></div>
+      </fieldset>
+      <div class="row"><button class="btn" type="submit">Сохранить</button><button class="btn-text" type="button" id="prof-cancel">Отмена</button></div>
+      <p class="form-msg" id="name-msg" role="status"></p>
+    </form>
+
+    <section class="me-sec" aria-labelledby="mc-h">
+      <h2 id="mc-h">Мои курсы</h2>
+      <div class="mc-grid" id="m-courses"></div>
       <p class="muted" id="m-calib"></p>
+    </section>
+
+    <section class="me-sec" id="promo-box" aria-labelledby="pr-h" hidden>
+      <h2 id="pr-h">Промокоды</h2>
+      <p class="muted">20% на любой платный курс. Код одноразовый и действует год — можно подарить коллеге. <a href="#terms">Условия</a></p>
+      <ul class="cards-pc" id="p-list" role="list"></ul>
+    </section>
+
+    <div class="me-out">
+      <button class="btn ghost" id="logout" type="button">Выйти</button>
+      <button class="btn-text danger" id="del" type="button">Удалить аккаунт</button>
     </div>
-    <div class="panel" id="promo-box" hidden>
-      <h2 style="margin-top:0">Мои промокоды</h2>
-      <ul class="promos" id="p-list"></ul>
-    </div>
-    <div class="panel">
-      <h2 style="margin-top:0">Главы курсов</h2>
-      <div id="m-chapters"></div>
-    </div>
-    <button class="btn ghost" id="logout" type="button">Выйти</button>
-    <p><button class="btn-text danger" id="del" type="button">Удалить аккаунт</button></p>
     <div class="panel" id="del-box" hidden>
       <p>Удалим почту, имя, аватар и весь прогресс. Неиспользованные промокоды пропадут. Вернуть нельзя.</p>
       <button class="btn" id="del-yes" type="button">Удалить навсегда</button> <button class="btn ghost" id="del-no" type="button">Отмена</button>
@@ -207,49 +273,134 @@ function drawAva(el, p){
 function showProfile(p){
   profile = p; remember(p);
   $('m-name').textContent = p.name || 'Без имени';
-  $('m-user').textContent = [p.email, p.yandex ? 'Яндекс ID' : ''].filter(Boolean).join(' · ');
-  $('m-name-in').value = p.name || '';
-  drawAva($('m-ava'), p);
+  $('m-user').textContent = [p.email, p.tg, p.yandex ? 'вход через Яндекс ID' : ''].filter(Boolean).join(' · ');
+  $('m-ava').textContent = ''; drawAva($('m-ava'), p);
 }
+
+// --- аватарки: 10 котов и 8 собак (id/core.js, AVATARS), фото из Яндекс ID, первая буква ---
+const AVA = [
+  ['cat-1','Подглядыватель','#C29A48'],['cat-2','Нулевая гипотеза','#9A8F84'],['cat-3','Медиана','#8C9A5B'],['cat-4','Выброс','#8A5A7A'],
+  ['cat-5','Большая выборка','#4F8F8A'],['cat-6','Без шума','#D9BE7E'],['cat-7','Бутстрап','#B3BE8C'],['cat-8','Значимый','#2F4A8A'],
+  ['cat-9','Дисперсия','#B89AAE'],['cat-10','Контроль','#9CC2BE'],
+  ['dog-1','Мощность','#C29A48'],['dog-2','Длинный хвост','#8C9A5B'],['dog-3','Поиск эффекта','#4F8F8A'],['dog-4','Гетероскедастичность','#2F4A8A'],
+  ['dog-5','Доверительный интервал','#9A8F84'],['dog-6','Перемешивание','#8A5A7A'],['dog-7','Холодный старт','#9CC2BE'],['dog-8','Ранняя остановка','#D9BE7E'],
+];
+let pick = null;   // выбранная в форме: 'cat-3' | 'yandex' | 'letter'
+function avaGrid(){
+  const g = $('ava-grid'); g.innerHTML = '';
+  const opts = [];
+  if (profile && profile.avatar_url) opts.push(['yandex', 'Фото из Яндекс ID', '']);
+  opts.push(['letter', 'Первая буква имени', ''], ...AVA);
+  for (const [id, name, col] of opts){
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'ava-opt'; b.dataset.id = id;
+    b.setAttribute('role', 'radio'); b.title = name; b.setAttribute('aria-label', name);
+    if (id === 'letter'){ b.classList.add('plain'); b.textContent = ((profile && profile.name) || '?').charAt(0).toUpperCase(); }
+    else if (id === 'yandex'){ const i = new Image(); i.alt = ''; i.src = profile.avatar_url; b.appendChild(i); }
+    else { b.style.background = col; b.textContent = name.charAt(0); const i = new Image(); i.alt = ''; i.onload = () => { b.textContent = ''; b.appendChild(i); }; i.src = '/img/avatars/' + id + '.webp'; }
+    b.addEventListener('click', () => setPick(id));
+    g.appendChild(b);
+  }
+  setPick(profile && profile.avatar ? profile.avatar : (profile && profile.avatar_url ? 'yandex' : 'letter'));
+}
+function setPick(id){ pick = id; $('ava-grid').querySelectorAll('.ava-opt').forEach(b => b.setAttribute('aria-checked', b.dataset.id === id)); }
+function openProfile(focusAva){
+  $('f-prof').hidden = false; $('edit-btn').setAttribute('aria-expanded', 'true');
+  $('m-name-in').value = (profile && profile.name) || ''; $('m-tg').value = (profile && profile.tg) || '';
+  avaGrid(); (focusAva ? $('ava-grid').querySelector('[aria-checked="true"]') : $('m-name-in')).focus();
+}
+function closeProfile(){ $('f-prof').hidden = true; $('edit-btn').setAttribute('aria-expanded', 'false'); }
+
+// --- Мои курсы ---
+// Платные курсы — первыми, потом бесплатные с прогрессом; внутри — по доле пройденного (решение Дили, 24.11).
+const META = {
+  vp:  {cover: '/img/route/route-1-probability.jpg', ci: 0},
+  ss:  {cover: '/img/route/route-2-signal.jpg', ci: 1},
+  ab:  {cover: '/img/route/route-3-ab-basics.jpg', ci: 2},
+  abm: {cover: '/img/route/route-5-abm.jpg', title: 'A/B без мифов', url: '/ab/', paid: true},
+  stats: {cover: '/img/route/route-4-stats.jpg', title: 'Прикладная статистика для аналитика', url: '/stats/', paid: true},
+};
+function ring(share){
+  const R = 32, L = 2 * Math.PI * R, pct = Math.round(share * 100);
+  return `<svg class="ring" viewBox="0 0 76 76" role="img" aria-label="Пройдено ${pct}%">
+    <circle class="bg" cx="38" cy="38" r="${R}" fill="none" stroke-width="6"/>
+    <circle class="fg" cx="38" cy="38" r="${R}" fill="none" stroke-width="6" stroke-linecap="round"
+      stroke-dasharray="${L.toFixed(1)}" stroke-dashoffset="${(L * (1 - share)).toFixed(1)}" transform="rotate(-90 38 38)"/>
+    <path class="dia${pct >= 100 ? ' full' : ''}" d="M38 17 l6 6 l-6 6 l-6 -6 z"/>
+    <text x="38" y="47" text-anchor="middle">${pct}%</text></svg>`;
+}
+function courseCard(key, me){
+  const m = META[key], c = m.ci !== undefined ? COURSES[m.ci] : null;
+  const card = document.createElement('article'); card.className = 'mc';
+  const title = c ? c.title : m.title, url = c ? c.url : m.url;
+  let share = 0, stat = '', next = null, list = '', pts = 0;
+  if (c){
+    const ids = Object.entries(c.chapters); let done = 0, i = 0;
+    for (const [id, ch] of ids){
+      i++; const st = (me.chapters || {})[id] || {points: 0, cards: []}, seen = new Set(st.cards).size, ok = seen >= ch.cards;
+      pts += st.points; if (ok) done++; else if (!next) next = {n: i, ...ch};
+      list += `<li${ok ? ' class="ok"' : ''}><a href="${ch.url}">${ch.title}</a> · ${seen} из ${ch.cards}</li>`;
+    }
+    share = done / ids.length;
+    stat = `Шагов ${done} из ${ids.length} · ${pts} ${plural(pts, 'балл', 'балла', 'баллов')}`;
+  } else stat = 'Модули выходят по неделям';
+  const go = share >= 1 ? `<a class="go" href="${url}">Курс пройден · повторить →</a>`
+    : next ? `<a class="go" href="${next.url}">${share ? 'Продолжить' : 'Начать'}: ${next.n}. ${next.title} →</a>`
+    : `<a class="go" href="${url}">Открыть курс →</a>`;
+  card.innerHTML = `<img src="${m.cover}" alt="" width="1200" height="525" loading="lazy">
+    <div class="mc-body"><div>${m.paid ? '<span class="tag">Твой курс</span>' : ''}<h3><a href="${url}">${title}</a></h3><p class="stat">${stat}</p></div>
+    ${ring(share)}${go}${list ? `<details><summary>Все шаги</summary><ol>${list}</ol></details>` : ''}</div>`;
+  return card;
+}
+const plural = (n, a, b, c) => { const d = n % 10, h = n % 100; return d === 1 && h !== 11 ? a : d >= 2 && d <= 4 && (h < 12 || h > 14) ? b : c; };
+
+// --- Промокоды: открытки ---
+function promoCard(p){
+  const li = document.createElement('li'), kind = COURSE_KEY[p.course] ? p.course : 'gift';
+  li.className = 'pc ' + kind + (p.redeemed_at ? ' used' : '');
+  const img = new Image(); img.onload = () => { li.style.backgroundImage = `url(${img.src})`; };
+  img.src = '/img/promo/promo-' + ({vp: 'probability', ss: 'signal', ab: 'ab'}[kind] || 'gift') + (p.redeemed_at ? '-used' : '') + '.jpg';
+  const box = document.createElement('div'); box.className = 'pc-in';
+  const code = document.createElement('span'); code.className = 'code'; code.textContent = p.code;
+  const what = document.createElement('p'); what.className = 'what';
+  what.textContent = p.redeemed_at ? 'Использован ' + new Date(p.redeemed_at).toLocaleDateString('ru-RU')
+    : '−' + (p.discount || 20) + '% · за «' + p.course_title + '» · до ' + new Date(p.expires_at).toLocaleDateString('ru-RU');
+  box.append(code, what);
+  if (!p.redeemed_at){
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = 'Скопировать';
+    b.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(p.code); b.textContent = '✓ Скопирован'; }
+      catch(e) { const r = document.createRange(); r.selectNodeContents(code); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = 'Выделен — нажми ⌘C'; }
+      setTimeout(() => { b.textContent = 'Скопировать'; }, 2000);
+    });
+    box.append(b);
+  }
+  li.append(box); return li;
+}
+const COURSE_KEY = {vp: 1, ss: 1, ab: 1};
 
 function showMember(me){
   $('guest').hidden = true; $('member').hidden = false;
   if (!profile) $('m-name').textContent = 'Ученик';
-  $('m-points').textContent = me.points; $('m-max').textContent = me.max;
-  const cp = me.courses_progress || {}, NAMES = {vp: 'Вероятность на пальцах', ss: 'Сигнал или шум', ab: 'A/B на пальцах'};
-  $('m-courses').textContent = (me.courses_done && me.courses_done.length)
-    ? 'Пройдено курсов: ' + me.courses_done.length + '. За каждый — свой промокод на 20%.'
-    : 'До промокода: пройди любой бесплатный курс до конца. ' + Object.entries(cp).map(([k, v]) => '«' + NAMES[k] + '» — шагов ' + v.done + ' из ' + v.total).join(' · ');
-  $('m-calib').textContent = me.calibration_error === null ? 'Калибровка появится после первых прогнозов.'
-    : 'Калибровка: твои прогнозы в среднем ошибаются на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
-  if (me.promos && me.promos.length){
-    $('promo-box').hidden = false; const ul = $('p-list'); ul.innerHTML = '';
-    me.promos.forEach(p => {
-      const li = document.createElement('li'), code = document.createElement('span'); code.className = 'code'; code.textContent = p.code;
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = 'Скопировать';
-      const st = document.createElement('span'); st.className = 'muted'; st.setAttribute('role', 'status');
-      b.addEventListener('click', async () => { try { await navigator.clipboard.writeText(p.code); st.textContent = 'Скопировано'; } catch(e) { st.textContent = p.code; } setTimeout(() => { st.textContent = ''; }, 2000); });
-      const meta = document.createElement('p'); meta.className = 'muted';
-      meta.textContent = p.redeemed_at ? 'использован' : '20% за «' + p.course_title + '» · до ' + new Date(p.expires_at).toLocaleDateString('ru-RU') + ' · можно подарить коллеге';
-      li.append(code, ' ', b, ' ', st, meta); ul.appendChild(li);
-    });
-  }
-  const box = $('m-chapters'); box.innerHTML = '';
-  for (const course of COURSES){
-    let pts = 0, done = 0;
-    const ul = document.createElement('ul'); ul.className = 'chs';
-    for (const [id, c] of Object.entries(course.chapters)){
-      const st = me.chapters[id] || {points: 0, cards: []}, seen = new Set(st.cards).size;
-      pts += st.points; if (seen >= c.cards) done++;
-      const li = document.createElement('li'); if (!seen) li.className = 'todo';
-      const a = document.createElement('a'); a.href = c.url; a.textContent = c.title;
-      li.append(a, ' — карточек ' + seen + ' из ' + c.cards + ', баллов ' + st.points);
-      ul.appendChild(li);
-    }
-    const h = document.createElement('h3'), a = document.createElement('a'); a.href = course.url; a.textContent = course.title;
-    h.append(a); const sub = document.createElement('p'); sub.className = 'muted';
-    sub.textContent = 'Пройдено глав: ' + done + ' из ' + Object.keys(course.chapters).length + ' · баллов: ' + pts;
-    box.append(h, sub, ul);
+  // курсы: купленные (даже без прогресса) + бесплатные, где есть хоть одно действие
+  const keys = [];
+  for (const k of (me.purchases || []).map(x => x.course)) if (META[k] && !keys.includes(k)) keys.push(k);
+  const free = ['vp', 'ss', 'ab'].filter(k => Object.keys(COURSES[META[k].ci].chapters).some(id => me.chapters && me.chapters[id] && (me.chapters[id].points || me.chapters[id].cards.length)));
+  const done = k => { const c = COURSES[META[k].ci]; const ids = Object.keys(c.chapters); return ids.filter(id => new Set(((me.chapters || {})[id] || {cards: []}).cards).size >= c.chapters[id].cards).length / ids.length; };
+  free.sort((a, b) => done(b) - done(a)); keys.push(...free);
+  const box = $('m-courses'); box.innerHTML = '';
+  if (!keys.length){
+    box.innerHTML = '<p class="mc-empty">Здесь появятся курсы, которые ты начнёшь. Можно начать с <a href="/probability/">«Вероятности на пальцах»</a> — это бесплатно.</p>';
+  } else keys.forEach(k => box.appendChild(courseCard(k, me)));
+  $('m-calib').textContent = me.calibration_error === null || me.calibration_error === undefined ? ''
+    : 'Точность прогнозов: в среднем ошибаешься на ' + me.calibration_error + ' п. п. Чем меньше, тем лучше.';
+  const pr = me.promos || [];
+  $('promo-box').hidden = !pr.length; const ul = $('p-list'); ul.innerHTML = '';
+  pr.slice().sort((a, b) => !!a.redeemed_at - !!b.redeemed_at).forEach(p => ul.appendChild(promoCard(p)));
+  // аватарки ещё нет — один раз предлагаем выбрать
+  let asked = false; try { asked = localStorage.getItem('dk:ava-asked') === '1'; } catch(e) {}
+  if (profile && !profile.avatar && !profile.avatar_url && !asked && !DEMO){
+    try { localStorage.setItem('dk:ava-asked', '1'); } catch(e) {}
+    openProfile(true);
   }
 }
 
@@ -267,7 +418,19 @@ function guest(){
 const ERR = {state: 'Вход через Яндекс прервался. Попробуй ещё раз', cancel: 'Вход через Яндекс отменён', yandex: 'Яндекс не ответил. Попробуй ещё раз или войди по почте',
   consent: 'Ты здесь впервые: отметь согласие на обработку данных и войди ещё раз'};
 
+// Демо кабинета без входа: /account.html#demo — выдуманные данные, ничего не сохраняется
+const DEMO = location.hash === '#demo';
+function demo(){
+  const ch = {}; ['p01','p02','p03','p04','p05'].forEach((id, i) => ch[id] = {points: 14 + i, cards: [...Array(14).keys()]}); ch.p06 = {points: 6, cards: [0,1,2,3,4]};
+  ['ch01','ch04'].forEach(id => ch[id] = {points: 12, cards: [...Array(16).keys()]});
+  showProfile({name: 'Аня', email: 'anya@example.com', tg: '@anya_data', avatar: null, avatar_url: null, yandex: false});
+  showMember({chapters: ch, calibration_error: 7.5, purchases: [{course: 'abm', at: '2026-11-20'}], promos: [
+    {code: 'VP-7K2M-Q9', course: 'vp', course_title: 'Вероятность на пальцах', discount: 20, expires_at: '2027-11-20', redeemed_at: null},
+    {code: 'SS-4HXP-2D', course: 'ss', course_title: 'Сигнал или шум', discount: 20, expires_at: '2027-10-02', redeemed_at: null},
+    {code: 'AB-9TQR-8L', course: 'ab', course_title: 'A/B на пальцах', discount: 20, expires_at: '2027-09-14', redeemed_at: '2026-11-20'}]});
+}
 async function start(){
+  if (DEMO){ demo(); return; }
   try { const r = await fetch('/api/config'); const c = r.ok ? await r.json() : null; if (c && c.id_origin) ID = c.id_origin; } catch(e) {}
   $('ya-btn').href = ID + '/yandex/start';
   const h = new URLSearchParams(location.hash.slice(1));
@@ -324,11 +487,18 @@ $('resend').addEventListener('click', () => { $('f-code').hidden = true; $('f-em
 $('other-email').addEventListener('click', () => { $('f-code').hidden = true; $('f-email').hidden = false; $('new-box').hidden = true; $('email').focus(); });
 
 // --- профиль ---
-$('f-name').addEventListener('submit', async e => {
+$('edit-btn').addEventListener('click', () => $('f-prof').hidden ? openProfile(false) : closeProfile());
+$('m-ava').addEventListener('click', () => openProfile(true));
+$('prof-cancel').addEventListener('click', closeProfile);
+$('f-prof').addEventListener('submit', async e => {
   e.preventDefault(); const msg = $('name-msg');
-  const r = await idFetch('/profile', {method: 'POST', body: JSON.stringify({name: $('m-name-in').value})}).catch(() => null);
-  if (r && r.ok){ showProfile(r.data.profile); msg.className = 'form-msg ok'; msg.textContent = 'Сохранено'; setTimeout(() => { msg.textContent = ''; }, 2000); }
-  else { msg.className = 'form-msg err'; msg.textContent = (r && r.data.error) || 'Не получилось сохранить'; }
+  const tg = $('m-tg').value.trim().replace(/^https?:\/\/t\.me\//, '').replace(/^@?/, '');
+  if (tg && !/^[A-Za-z0-9_]{5,32}$/.test(tg)){ msg.className = 'form-msg err'; msg.textContent = 'Ник в Telegram — латиница, цифры и _, от 5 символов'; $('m-tg').focus(); return; }
+  const body = {name: $('m-name-in').value, tg: tg ? '@' + tg : '', avatar: pick === 'letter' || pick === 'yandex' ? null : pick};
+  if (DEMO){ showProfile({...profile, ...body}); closeProfile(); return; }
+  const r = await idFetch('/profile', {method: 'POST', body: JSON.stringify(body)}).catch(() => null);
+  if (r && r.ok){ showProfile(r.data.profile); msg.className = 'form-msg ok'; msg.textContent = 'Сохранено'; setTimeout(() => { msg.textContent = ''; closeProfile(); }, 1200); }
+  else { msg.className = 'form-msg err'; msg.textContent = (r && r.data.error) || 'Не получилось сохранить. Попробуй ещё раз'; }
 });
 $('del').addEventListener('click', () => { $('del-box').hidden = false; $('del-no').focus(); });
 $('del-no').addEventListener('click', () => { $('del-box').hidden = true; });
