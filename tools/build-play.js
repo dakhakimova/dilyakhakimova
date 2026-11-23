@@ -130,7 +130,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
     solutions[s] = solutionHtml(s, x);
     // встраивание: редирект в соло-режим главы как можно раньше, до загрузки шрифтов и стилей
     // (ref — домен сайта, где встроено: после редиректа document.referrer в iframe был бы уже наш)
-    const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
+    const embedJs = `<script>if (/[?&]embed=1(&|$)/.test(location.search)){ var r = ''; try { r = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e) {} location.replace(${JSON.stringify(frame)} + '&embed=1' + (/[?&]viz=1(&|$)/.test(location.search) ? '&viz=1' : '') + (r ? '&ref=' + encodeURIComponent(r) : '')); }</script>\n`;
     const img = toy.img ? `
     <figure class="art play-art"><img src="${toy.img}" alt="${attr(X(s, 'imgAlt'))}" width="1600" height="900" loading="lazy" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>` : '';
     const crumbLd = `<script type="application/ld+json">${JSON.stringify({'@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [

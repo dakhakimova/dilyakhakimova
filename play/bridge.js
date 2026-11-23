@@ -267,6 +267,9 @@
   root.classList.add('solo');
   const embed = q.get('embed') === '1';
   if (embed) root.classList.add('embed');
+  // ?viz=1 — только визуализация: без «Сначала угадай / Потом проверь» и без прогноза (для разборов книг, решение Дили, 23.11.2026)
+  const viz = q.get('viz') === '1';
+  if (viz) root.classList.add('viz');
   const mine = `.card[data-toy~="${slug}"], .card[data-toy-pre~="${slug}"]`;
   const css = document.createElement('style');
   css.textContent = `
@@ -302,6 +305,7 @@ html.solo [data-toy-hide], html.solo .plus{display:none !important}
 html.solo:not(.touched) [data-toy-reveal]{display:none !important}
 html.solo .card[data-toy-pre] .note{margin-bottom:0}
 html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{margin-bottom:4px}
+html.viz .card[data-toy-pre], html.viz .play-pre, html.viz .pf, html.viz .ui-guess, html.viz .card[data-toy] .guess[data-key], html.viz .card[data-toy] .choice[data-key]:not(.quiz *), html.viz .card[data-toy] .lab-guess{display:none !important}
 .play-credit{display:block; margin:10px 2px 0; font:400 .8125rem/1.45 Onest, "Onest fallback", system-ui, sans-serif; color:#5E5A53}
 .play-credit a{color:#23418A}
 .play-credit .st{white-space:nowrap}
@@ -319,7 +323,7 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
       if (!n.children.length && /(следующ|дальше|«Далее»)[^.]*карточк|карточк[^.]*(следующ|дальше)|Жми «Далее»/.test(n.textContent)) n.textContent = T.guessNote;
     });
     // единая метка «Сначала угадай» над прогнозом (свои метки карточек в соло-режиме скрыты)
-    const pres = document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`);
+    const pres = viz ? [] : document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`);
     pres.forEach(c => { const t = document.createElement('span'); t.className = 'step-tag play-pre'; t.textContent = T.preTag; c.prepend(t); });
     // Под меткой «Потом проверь» — сразу визуализация, как у эталона (дни рождения, data-no-scene): заголовок-сцена h2
     // и абзацы главы под ним на /play/<slug>/ не показываются ни у какой игры — вопрос уже в h1 страницы, а это текст главы;
@@ -367,9 +371,9 @@ html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{marg
     // б) после первого прогона: «Твой ответ был 6%. Хочешь изменить?» — поле с ответом, «Оставить» (главная) и «Изменить»;
     // в) потом сравнение «твой ответ → изменил на → на самом деле» (truth — из /play/credits.json) и родителю toy:reveal:
     //    на странице /play/ открывается «Почему так»; г) без прогноза — тот же ход без строки «твой ответ».
-    const preCards = [...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
+    const preCards = viz ? [] : [...document.querySelectorAll(`.card[data-toy-pre~="${slug}"]`)];
     const inCard = !preCards.some(c => c.querySelector('.guess[data-key], .choice[data-key]'));
-    const preBox = preCards.map(c => c.querySelector('.guess[data-key], .choice[data-key]')).find(Boolean)
+    const preBox = viz ? null : preCards.map(c => c.querySelector('.guess[data-key], .choice[data-key]')).find(Boolean)
       || [...toy.querySelectorAll('.guess[data-key], .choice[data-key], .lab-guess')].find(x => !x.closest('.quiz'));
     const PS = {your: 'Твой ответ: ', was: 'Твой ответ был ', change: 'Хочешь изменить?', keep: 'Оставить', edit: 'Изменить',
       changed: ' → изменил на ', truth: 'На самом деле: ', skip: 'Проверить без прогноза', noTruth: 'Сравни с результатом игры выше.'};
