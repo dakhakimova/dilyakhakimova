@@ -87,7 +87,7 @@
     <p class="chart-title">Каждый день — новый шанс, что шум выйдет за полосу</p>
     <canvas id="ch-peek" aria-label="Разница в A/A-тесте по дням в сравнении с границей шума"></canvas>
     <div class="big2">
-      <div class="trap"><b id="pk-any">—</b><span>A/A, где Боб хоть раз увидел «значимо» и выкатил</span></div>
+      <div class="trap"><b id="pk-any">—</b><span>A/A, где Боб хоть раз увидел «значимо»</span></div>
       <div class="truth"><b id="pk-end">—</b><span>A/A, где «значимо» на 30-й день, если смотреть только в конце</span></div>
     </div>
     <div class="verdict" id="v-peek" hidden></div>
@@ -504,7 +504,7 @@ function drawPeek(){
     // линии, которые хоть раз вышли за полосу, — красные: это A/A, где Боб «нашёл» эффект
     c.strokeStyle = lastOne ? (r.any ? COL.trap : COL.ctrl) : (r.any ? 'rgba(201,65,58,.45)' : 'rgba(61,125,196,.18)'); c.lineWidth = lastOne ? 2.4 : 1.2;
     c.beginPath(); r.z.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
-    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут Боб выкатил бы', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, COL.trapInk, xr ? 'right' : 'left'); }
+    if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут впервые «значимо»', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, COL.trapInk, xr ? 'right' : 'left'); }
   });
   if (!aa.length) label(c, 'Запусти A/A-тест — здесь появится его линия.', L + 10, Y(0) - 10, COL.ink2);
 }
