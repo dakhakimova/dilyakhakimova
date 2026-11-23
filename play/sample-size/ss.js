@@ -67,7 +67,7 @@
     document.querySelectorAll('[data-pmetric]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.pmetric === st.metric)));
     document.querySelectorAll('[data-pm]').forEach(e => { e.hidden = e.dataset.pm !== st.metric; });
     const p = st.base, abs = p * st.mde / 100, am = st.mean * st.mde / 100;
-    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.innerHTML = st.metric === 'mean' ? 's² = σ² = ' + fmt.sd(st.sd) + '² = ' + nf(st.sd * st.sd) : 's² = p · (1 − p) = ' + nf(q, 4) + ' · ' + nf(1 - q, 4) + ' = ' + nf(q * (1 - q), 4); }
+    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = 'σ = √(p · (1 − p)) = √(' + nf(q, 4) + ' · ' + nf(1 - q, 4) + ') = ' + nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя'; }
     const lines = [st.metric === 'mean'
       ? 'Среднее ' + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
       : 'Доля ' + fmt.base(p) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + (st.sides === 'left' ? -abs : abs), 3) + '%'];
