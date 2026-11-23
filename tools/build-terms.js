@@ -252,10 +252,7 @@ ${chrome.header('terms', o.url === '/terms/')}
 
     // первая картинка — сразу под определением (решение Дили, 22.11.2026): своя top[slug] или, если её нет, главная схема со своим вопросом
     const vizSec = `  <section class="t-sec" aria-labelledby="viz-h">
-    <h2 id="viz-h">${typo(hq.viz)}</h2>${x.z ? `
-    <p>${greekFrag(typo(x.z.p))}</p>
-    <div class="formula tex" role="math" aria-label="${attr(x.z.read)}">${KATEX.renderToString(x.z.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
-    <p>${greekFrag(typo(x.z.p2))}</p>` : ''}
+    <h2 id="viz-h">${typo(hq.viz)}</h2>
     <figure class="viz">
       <p class="chart-head">${typo(x.vizT)}</p>
       ${viz[s](vzPlain)}${x.sg ? `
@@ -338,6 +335,13 @@ ${sum[s] && x.sm ? `  <section class="t-sec" aria-labelledby="sum-h">
 f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
     </figure>
     <p>${greekFrag(typo(x.sm.p2))}</p>
+  </section>
+
+` : ''}${x.z ? `  <section class="t-sec" aria-labelledby="z-h">
+    <h2 id="z-h">${typo(x.z.h)}</h2>
+    <p>${greekFrag(typo(x.z.p))}</p>
+    <div class="formula tex" role="math" aria-label="${attr(x.z.read)}">${KATEX.renderToString(x.z.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
+    <p>${greekFrag(typo(x.z.p2))}</p>
   </section>
 
 ` : ''}  <section class="t-sec" aria-labelledby="lim-h">
