@@ -21,11 +21,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/tokens.css?v=202611293">
+<link rel="stylesheet" href="/tokens.css?v=202611294">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611293">
-<link rel="stylesheet" href="/home.css?v=202611293">
-<link rel="stylesheet" href="/shelf/books.css?v=202611293">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611294">
+<link rel="stylesheet" href="/home.css?v=202611294">
+<link rel="stylesheet" href="/shelf/books.css?v=202611294">
 <script>
 function artFail(img){ img.closest('.art').classList.add('missing'); }
 </script>
@@ -99,7 +99,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
       <button type="button" class="btn ghost" data-mode="young" aria-pressed="true" data-i18n="bk.i1.young">Молодой продукт</button>
       <button type="button" class="btn ghost" data-mode="mature" aria-pressed="false" data-i18n="bk.i1.mature">Зрелый продукт</button>
     </div>
-    <div class="bk-share" aria-hidden="true"></div>
+    <div class="bk-shares" aria-hidden="true"></div>
     <svg class="bk-svg cups" viewBox="0 0 440 116" role="img" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Двадцать идей: какие сработают"></svg>
     <p class="legend-row"><span><i class="sw win"></i><span data-i18n="bk.i1.lg.win">помогла</span></span><span data-lg="known"><i class="sw zero"></i><span data-i18n="bk.i1.lg.zero">ничего не дала</span></span><span data-lg="known"><i class="sw loss"></i><span data-i18n="bk.i1.lg.loss">навредила</span></span><span data-lg="rest" hidden><i class="sw rest"></i><span data-i18n="bk.i1.lg.rest">ничего не дала или навредила</span></span></p>
     <p class="bk-out" aria-live="polite"></p>
@@ -188,6 +188,23 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
     <iframe src="/play/peeking/?embed=1&amp;viz=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
+  <template class="nb-cell" data-title="Симуляция подглядывания: 1000 A/A-тестов" data-note="Эффекта нет ни в одном тесте. Сравни, сколько «побед» дают проверка в конце и проверка каждый день. Поменяй days — посмотри, как растут ложные победы.">import numpy as np
+
+rng = np.random.default_rng(1)
+tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
+
+# накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
+a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
+b = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
+n = per_day * np.arange(1, days + 1)
+
+pool = (a + b) / (2 * n)
+se = np.sqrt(pool * (1 - pool) * 2 / n)
+z = np.abs(b - a) / n / se
+significant = z > 1.96          # «значимо» при α = 0.05
+
+print(f"смотрим один раз, в конце:          {significant[:, -1].mean():.1%} ложных побед")
+print(f"смотрим каждый день, стоп при «значимо»: {significant.any(axis=1).mean():.1%} ложных побед")</template>
   <p class="note" data-i18n="bk.i4.calc">Срок теста заранее — <a href="/play/sample-size/">калькулятор MDE</a>: подставь конверсию, эффект и трафик, он посчитает срок теста; ссылкой на расчёт можно поделиться.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i4.take">срок и размер выборки — до старта; остановка — по плану, а не по цвету отчёта.</span></p>
 </li>
@@ -202,27 +219,45 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
     <iframe src="/play/aa-stand/?embed=1&amp;viz=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="У честной платформы гистограмма p-value — равномерное распределение. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по пользователям.">
+  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="Тысяча A/A на своих данных и гистограмма p-value" data-note="Заготовка для своих данных: метрика за прошлую неделю, одно число на пользователя. Файла с данными пока нет, поэтому в примере симулированные данные. У честного расчёта p &lt; 0.05 около 5%, гистограмма p-value — равномерное распределение, и тест Колмогорова — Смирнова это подтверждает.">
 <textarea spellcheck="false">import numpy as np
-from math import erfc, sqrt
+from math import erfc, sqrt, exp
 
 rng = np.random.default_rng(7)
-runs, n, conv = 1000, 5000, 0.10   # 1000 A/A-тестов, по 5000 пользователей в группе, конверсия 10%
-bad_variance = False               # True — дисперсию недооценили (например, считали по заказам, а не по пользователям)
 
-a = rng.binomial(n, conv, runs)
-b = rng.binomial(n, conv, runs)
-pool = (a + b) / (2 * n)
-se = np.sqrt(pool * (1 - pool) * 2 / n)
-if bad_variance:
-    se = se * 0.7
-z = np.abs(b - a) / n / se
-pvals = np.array([erfc(x / sqrt(2)) for x in z])
+# Данные: метрика за прошлую неделю, одно число на пользователя.
+# Файла с данными пока нет, поэтому берём симулированные: выручка с тяжёлым хвостом, 20 000 пользователей.
+# Когда будет файл — раскомментируй две строки ниже и закомментируй симуляцию:
+# import pandas as pd
+# values = pd.read_csv("metric_last_week.csv")["value"].to_numpy()   # ← свой файл и своя колонка
+values = rng.lognormal(mean=6, sigma=1.2, size=20_000)
 
-print(f"значимых при α = 0.05: {np.mean(pvals &lt; 0.05):.1%} (у честной платформы — около 5%)")
-hist, _ = np.histogram(pvals, bins=10, range=(0, 1))
-for i, h in enumerate(hist):
-    print(f"p {i / 10:.1f}–{(i + 1) / 10:.1f} {'█' * (h // 5)} {h}")</textarea>
+def p_value(a, b):
+    """Двусторонний тест разницы средних; дисперсия — по пользователям."""
+    se = sqrt(a.var(ddof=1) / len(a) + b.var(ddof=1) / len(b))
+    return erfc(abs(b.mean() - a.mean()) / se / sqrt(2))
+
+# 1000 раз случайно делим пользователей пополам, как сделала бы платформа
+runs = 1000
+pv = np.empty(runs)
+for i in range(runs):
+    in_test = rng.random(len(values)) &lt; 0.5
+    pv[i] = p_value(values[~in_test], values[in_test])
+
+print(f"p &lt; 0.05 у {np.mean(pv &lt; 0.05):.1%} A/A — при честной платформе около 5%\n")
+
+# гистограмма p-value: 20 столбиков по 0.05, у равномерного распределения каждый около 5%
+counts, _ = np.histogram(pv, bins=20, range=(0, 1))
+for k, c in enumerate(counts):
+    print(f"{k * 0.05:.2f}–{(k + 1) * 0.05:.2f}  {'█' * round(c / runs * 400)} {c / runs:.1%}")
+
+# тест Колмогорова — Смирнова: похоже ли распределение p-value на равномерное
+x = np.sort(pv)
+d = max(np.max(np.arange(1, runs + 1) / runs - x), np.max(x - np.arange(runs) / runs))
+lam = (sqrt(runs) + 0.12 + 0.11 / sqrt(runs)) * d
+p_ks = min(1.0, 2 * sum((-1) ** (k - 1) * exp(-2 * k * k * lam * lam) for k in range(1, 101)))
+print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.3f}",
+      "— похоже на равномерное" if p_ks &gt; 0.05 else "— не похоже на равномерное: ищи ошибку в расчёте")</textarea>
   </div>
   <p class="note" data-i18n="bk.i5.more">Ещё игра: <a href="/play/fake-trend/">«Откуда „тренд“ в A/A-тесте?»</a> — накопленный эффект растёт несколько дней, хотя эффекта нет.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.i5.take">на данных прошлой недели разыграй тысячу A/A на ключевых метриках и проверь, что p-value распределены равномерно, прежде чем верить платформе.</span></p>
@@ -279,9 +314,9 @@ for i, h in enumerate(hist):
   </div>
 </footer>
 
-<script src="/i18n/site.js?v=202611293"></script>
-<script src="/i18n/books.js?v=202611293"></script>
-<script src="/signal/py.js?v=202611293"></script>
-<script src="/shelf/books.js?v=202611293"></script>
+<script src="/i18n/site.js?v=202611294"></script>
+<script src="/i18n/books.js?v=202611294"></script>
+<script src="/signal/py.js?v=202611294"></script>
+<script src="/shelf/books.js?v=202611294"></script>
 </body>
 </html>

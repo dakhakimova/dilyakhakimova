@@ -33,7 +33,7 @@
     const svg = box.querySelector('svg'), out = box.querySelector('.bk-out');
     const RATES = {young: [1 / 3, 1 / 3], mature: [0.15, 0.35]}; // [помогла, навредила], остальное — ноль
     let mode = 'young', tot = {w: 0, n: 0};
-    const bar = box.querySelector('.bk-share');
+    const bar = box.querySelector('.bk-shares');
     const share = () => {
       const segs = mode === 'young'
         ? [['win', 33.3, tr('bx.i1.young.w')], ['zero', 33.4, tr('bx.i1.young.z')], ['loss', 33.3, tr('bx.i1.young.l')]]
