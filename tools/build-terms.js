@@ -341,9 +341,8 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <h2 id="z-h">${typo(x.z.h)}</h2>
     <p>${greekFrag(typo(x.z.p))}</p>
     <div class="formula tex" role="math" aria-label="${attr(x.z.read)}">${KATEX.renderToString(x.z.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
-    <p>${greekFrag(typo(x.z.p2))}</p>${x.z.tex3 ? `
+    <p>${greekFrag(typo(x.z.p2))}</p>${x.z.p3 ? `
     <p>${greekFrag(typo(x.z.p3))}</p>
-    <div class="formula tex" role="math" aria-label="${attr(x.z.read3)}">${KATEX.renderToString(x.z.tex3, {output: 'html', throwOnError: false, displayMode: true})}</div>
     <p>${greekFrag(typo(x.z.p4))}</p>` : ''}
   </section>
 
