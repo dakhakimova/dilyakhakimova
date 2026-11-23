@@ -43,6 +43,21 @@ window.addEventListener('resize',function(){if(!raf)draw(0)})})();</script>
     </figure>`;
 }
 
+// Подсветка Python в блоках кода терминов (Диля, 23.11): комментарии, строки, числа, ключевые слова, вызовы
+function pyHl(src){
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const KW = new Set(['from', 'import', 'as', 'def', 'return', 'for', 'in', 'if', 'else', 'elif', 'while', 'and', 'or', 'not', 'None', 'True', 'False', 'lambda', 'with']);
+  const re = /(#[^\n]*)|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)(?=\s*\()|([A-Za-z_]\w*)/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(src))){
+    out += esc(src.slice(last, m.index)); last = re.lastIndex;
+    const t = esc(m[0]);
+    out += m[1] ? `<span class="c-cm">${t}</span>` : m[2] ? `<span class="c-st">${t}</span>` : m[3] ? `<span class="c-nu">${t}</span>`
+      : m[4] ? `<span class="c-fn">${t}</span>` : KW.has(m[5]) ? `<span class="c-kw">${t}</span>` : t;
+  }
+  return out + esc(src.slice(last));
+}
+
 function greek(html){
   const a = html.indexOf('<main'), b = html.indexOf('</main>');
   if (a < 0 || b < 0) return html;
@@ -365,7 +380,7 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">${typo(hq.err)}</h2>
     <ul class="list t-err">${x.mistakes.map(([a, b, code], i) => `
-      <li><span class="lead">${typo(a)}</span> ${typo(b)}${code ? `<pre class="t-code"><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>` : ''}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
+      <li><span class="lead">${typo(a)}</span> ${typo(b)}${code ? `<pre class="t-code"><code>${pyHl(code)}</code></pre>` : ''}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
     </ul>
     <figure class="viz t-err-viz">${err[s](Object.fromEntries(Object.entries(x.ez).map(([k, v]) => [k, plain(typo(String(v)))])))}<figcaption class="figcap">${typo(x.ez.cap)}</figcaption></figure>
     <ul class="list t-err">` : ''}`).join('')}
