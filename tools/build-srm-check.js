@@ -65,7 +65,18 @@ ${chrome.header('play', false)}
     <p class="ss-acts"><button type="button" class="btn-text" id="srm-reset">Подставить пример</button><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
   </section>
   <section class="play-out"><p class="kicker">Почему так</p>
-    <p>χ² = Σ (пришло − ждали)² / ждали по всем группам. «Ждали» — доля из плана сплита от всех пришедших. Если группы делились честно, χ² больше 12 бывает реже, чем в одном тесте из двух тысяч, поэтому порог SRM — p &lt; 0.0005, а не обычные 0.05: проверка идёт в каждом тесте, и с мягким порогом то и дело были бы ложные срабатывания.</p>
+    <div class="chi-f" role="img" aria-label="хи-квадрат равен сумме по всем группам: разница между «пришло» и «ждали» в квадрате, делённая на «ждали»">
+      <div class="chi-row"><span class="chi-lhs">χ²&nbsp;=</span>
+        <span class="chi-p p1"><b>Σ</b><i>по всем группам</i></span>
+        <span class="chi-frac"><span class="chi-num"><span class="chi-p p2"><b>(пришло − ждали)<sup class="sq">2</sup></b><i>насколько разошлись; в квадрате — чтобы + и − не сократились</i></span></span>
+        <span class="chi-den"><span class="chi-p p4"><b>ждали</b><i>сравниваем разницу с размером группы: не хватает 100 человек из тысячи — это много, из миллиона — пустяк</i></span></span></span>
+      </div>
+    </div>
+    <ul class="srm-why">
+      <li><b>«Ждали»</b> — доля из плана сплита от всех пришедших: при 50 и 50 это половина.</li>
+      <li><b>Порог SRM — p &lt; 0.0005,</b> это χ² больше 12. При честном делении так бывает реже, чем в одном тесте из двух тысяч.</li>
+      <li><b>Почему не 0.05:</b> SRM проверяют в каждом тесте, и с обычным порогом то и дело были бы ложные срабатывания.</li>
+    </ul>
   </section>
 </main>
 ${chrome.footer()}
