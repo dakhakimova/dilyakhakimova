@@ -461,12 +461,12 @@ clt['normal-distribution'] = L => {
     const g = [`<g class="cl cl${n}">`];
     dens.forEach((d, i) => { if (d > 0) g.push(rect(X(lo + i * bw) + (n > 30 ? 0 : 1), Y(d), Math.max(1, X(lo + bw) - X(lo) - (n > 30 ? 0.3 : 2)), base - Y(d), C.a, 'opacity=".55"')); });
     const pts = []; for (let k = 0; k <= 1200; k++){ const v = lo + (hi - lo) * k / 1200; pts.push([X(v), Y(nd(v))]); }
-    g.push(path(pts, C.t3, 2, 'none', 'stroke-dasharray="6 4"'), '</g>');
+    g.push(path(pts, C.red, 2.5), '</g>');
     out.push(g.join(''));
   }
   out.push(ln(X(m), top - 6, X(m), base, C.ink, 1.2, '2 3'), tx(X(m) + 6, top + 6, L.mean, {size: 14, fill: C.ink, bg: true}));
   out.push(ln(X(lo), base, X(hi), base, C.t3, 1.5), ...[0, 500, 1000, 1500, 2000].map(v => tx(X(v), base + 20, nf(v), {a: v ? (v === 2000 ? 'end' : 'middle') : 'start', size: 14, fill: C.t3})), tx(X(hi), base + 40, L.x, {a: 'end', size: 14, fill: C.t3, bg: true}));
-  out.push(rect(20, 262, 14, 10, C.a, 'opacity=".55"'), tx(40, 272, L.data, {size: 14}), ln(20, 292, 34, 292, C.t3, 2, '6 4'), tx(40, 297, L.bell, {size: 14}));
+  out.push(rect(20, 262, 14, 10, C.a, 'opacity=".55"'), tx(40, 272, L.data, {size: 14}), ln(18, 292, 36, 292, C.red, 2.5), tx(40, 297, L.bell, {size: 14}));
   return svg(306, out.join(''), L.h);
 };
 
