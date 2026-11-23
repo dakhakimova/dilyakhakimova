@@ -52,6 +52,8 @@ ${chrome.header('play', false)}
     </div>
     <ul class="ss-heard" id="srm-heard" aria-live="polite"></ul>
     <div class="srm-res" id="srm-res" hidden>
+      <p class="chart-sub">Как разделились группы; пунктир — план сплита</p>
+      <svg class="bk-svg split" id="srm-bar" viewBox="0 0 440 70" role="img" aria-label=""></svg>
       <p class="chart-sub">Реальность и ожидание</p>
       <table class="chi-tab" id="srm-tab"></table>
       <p class="chart-sub">Сколько честных тестов дают χ² не меньше: чем дальше вправо, тем реже</p>

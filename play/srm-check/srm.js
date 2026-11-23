@@ -19,6 +19,8 @@
   const q = new URLSearchParams(location.search);
   if (q.has('a')) F.a.value = nf(+q.get('a')); if (q.has('b')) F.b.value = nf(+q.get('b'));
   if (q.has('wa')) F.wa.value = q.get('wa'); if (q.has('wb')) F.wb.value = q.get('wb');
+  if (location.search) history.replaceState(null, '', location.pathname);   // обновление страницы — с чистыми полями
+  let link = '';
   const out = document.querySelector('.srm-out'), res = $('srm-res');
   function chart(chi2){
     const cs = $('srm-chart'); cs.textContent = '';
@@ -48,7 +50,7 @@
     $('srm-heard').innerHTML = heard.map(x => '<li>' + x + '</li>').join('');
     const wa = v.wa || 50, wb = v.wb || 50, sa = wa / (wa + wb);
     const qq = new URLSearchParams(); if (v.a != null) qq.set('a', v.a); if (v.b != null) qq.set('b', v.b); if (v.wa) qq.set('wa', v.wa); if (v.wb) qq.set('wb', v.wb);
-    history.replaceState(null, '', qq.toString() ? '?' + qq : location.pathname);
+    link = qq.toString() ? location.origin + location.pathname + '?' + qq : '';
     if (v.a == null || v.b == null || v.a + v.b < 20){
       out.className = 'ss-out srm-out idle'; res.hidden = true; $('srm-copy').hidden = true;
       $('srm-big').textContent = 'Впиши, сколько пользователей пришло в контроль и в тест.';
@@ -61,6 +63,16 @@
     $('srm-tab').innerHTML = '<thead><tr><th scope="col">Группа</th><th scope="col">Ждали</th><th scope="col">Пришло</th><th scope="col">Разница</th><th scope="col">Разница² / ждали</th></tr></thead>'
       + '<tbody>' + row('Контроль', ea, v.a) + row('Тест', eb, v.b) + `</tbody><tfoot><tr><th scope="row" colspan="4">Сумма: χ²</th><td>${f1(chi2)}</td></tr></tfoot>`;
     res.hidden = false; $('srm-copy').hidden = false; chart(chi2);
+    // полоса долей, как в разборе Кохави: контроль синий, тест красный, пунктир — где граница по плану
+    const bs = $('srm-bar'); bs.textContent = '';
+    const W = 424, x0 = 8, wA = W * v.a / tot;
+    el('rect', {x: x0, y: 8, width: Math.max(0, wA), height: 26, rx: 5, fill: C.ctrl}, bs);
+    el('rect', {x: x0 + wA, y: 8, width: Math.max(0, W - wA), height: 26, rx: 5, fill: '#E8644A'}, bs);
+    el('line', {x1: x0 + W * sa, y1: 2, x2: x0 + W * sa, y2: 40, stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, bs);
+    const sh = x => (100 * x).toFixed(x > 0.001 && x < 0.999 ? 2 : 3).replace(/\.?0+$/, '') + '%';
+    const ta = el('text', {x: x0, y: 58, class: 'sm'}, bs); ta.textContent = 'Контроль: ' + nf(v.a) + ' · ' + sh(v.a / tot);
+    const tb = el('text', {x: x0 + W, y: 58, 'text-anchor': 'end', class: 'sm'}, bs); tb.textContent = 'Тест: ' + nf(v.b) + ' · ' + sh(v.b / tot);
+    bs.setAttribute('aria-label', ta.textContent + ', ' + tb.textContent + ', по плану контролю ' + sh(sa));
     const bad = p < 0.0005, warn = !bad && p < 0.05;
     out.className = 'ss-out srm-out ' + (bad ? 'bad' : warn ? 'warn' : 'good');
     $('srm-big').innerHTML = bad ? '<b>SRM.</b> Отчёту не верим: ищем, куда пропали пользователи.'
@@ -75,6 +87,6 @@
     else setTimeout(() => f.select(), 0);
   }));
   [F.a, F.b].forEach(f => f.addEventListener('blur', () => { const n = parseN(f.value); if (n != null) f.value = nf(n); }));
-  $('srm-copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); $('srm-note').textContent = 'Ссылка скопирована.'; } catch(e) { $('srm-note').textContent = location.href; } });
+  $('srm-copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(link); $('srm-note').textContent = 'Ссылка скопирована.'; } catch(e) { $('srm-note').textContent = link; } });
   calc();
 })();
