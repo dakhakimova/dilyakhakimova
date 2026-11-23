@@ -499,6 +499,7 @@ const TXT = {
   const F = {comb:(n,k)=>{if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}, perm:(n,k)=>{let r=1;for(let i=0;i<k;i++)r*=n-i;return r},
     factorial:n=>{let r=1;for(let i=2;i<=n;i++)r*=i;return r}, sqrt:Math.sqrt, exp:Math.exp, log:Math.log, abs:Math.abs, round:(x,d)=>d?Math.round(x*10**d)/10**d:Math.round(x),
     min:Math.min, max:Math.max, pi:Math.PI, e:Math.E};
+  F.c = F.C = F.comb;   // C(10, 9) — как пишут на доске
   const ok = /^[0-9+\-*/().,%\s_a-z!^]*$/i;
   // 7! и (n-1)! → factorial(…)
   function bang(x){
@@ -524,7 +525,7 @@ const TXT = {
   const fmt = v => Number.isInteger(v) ? String(v) : String(+v.toPrecision(6));
   document.querySelectorAll('.task .task-cond').forEach((cond, i) => {
     const box = document.createElement('div'); box.className = 'calc';
-    box.innerHTML = '<input id="calc-' + i + '" aria-label="Калькулятор" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="посчитать: 6/216, 7^3, 7!, sqrt(7), comb(10, 9)"><output aria-live="polite"></output>';
+    box.innerHTML = '<input id="calc-' + i + '" aria-label="Калькулятор" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="посчитать: 6/216, 7^3, 7!, sqrt(7), C(10, 9)"><output aria-live="polite"></output>';
     cond.after(box);
     const inp = box.querySelector('input'), out = box.querySelector('output');
     inp.addEventListener('input', () => {
