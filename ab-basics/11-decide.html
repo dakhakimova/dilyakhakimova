@@ -110,7 +110,7 @@ details.hint p{margin:6px 0 0}
   <h2>Что где лежит в отчёте</h2>
   <p>Так выглядит отчёт почти любого A/B-теста. В твоём отчёте колонки могут называться иначе, а смысл у них тот же.</p>
   <div class="report-wrap"><table class="report">
-    <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th><span class="mk">3</span>Разница</th><th><span class="mk">4</span>Вилка 95%</th><th><span class="mk">5</span>p-value</th></tr>
+    <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th><span class="mk">3</span>Разница</th><th><span class="mk">4</span>Вилка 95%</th><th><span class="mk">5</span>p‑value</th></tr>
     <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.02%</td><td>10.23%</td><td class="up">+2.1%</td><td class="up">[+0.8; +3.4]</td><td class="up">0.002</td></tr>
     <tr><td>Средний чек · сторожевая</td><td>612 ₽</td><td>610 ₽</td><td>−0.3%</td><td>[−1.1; +0.5]</td><td>0.47</td></tr>
   </table></div>
@@ -120,7 +120,7 @@ details.hint p{margin:6px 0 0}
     <li><span class="mk">2</span><b>Доли групп.</b> Совпадают ли с планом. Если расходятся сильнее, чем бывает случайно, остальное читать нельзя.</li>
     <li><span class="mk">3</span><b>Разница</b> в процентах от контроля. +2.1% — это не «плюс 2 заказа из 100», а 102 заказа на 1000 гостей вместо 100.</li>
     <li><span class="mk">4</span><b>Вилка.</b> Зелёная заливка — вся вилка выше нуля, красная — вся ниже, без заливки — вилка задевает ноль.</li>
-    <li><span class="mk">5</span><b>p-value</b> — насколько удивительна такая разница в мире без эффекта. Цвет у неё тот же, что у вилки: они говорят об одном.</li>
+    <li><span class="mk">5</span><b>p‑value</b> — насколько удивительна такая разница в мире без эффекта. Цвет у неё тот же, что у вилки: они говорят об одном.</li>
   </ol>
   <div class="quiz" data-right="a">
     <p class="q">У сторожевой метрики вилка без заливки, p = 0.47. Что это значит?</p>
@@ -207,7 +207,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="a">
     <div class="chat mini"><div class="msg bob"><img loading="lazy" class="ava" src="img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Новый онбординг даёт +26% к заказам!</p></div></div></div>
     <p class="q">Что спросить первым?</p>
-    <div class="choice"><button type="button" data-v="a">С чем сравнивали новый онбординг?</button><button type="button" data-v="b" data-why="Хороший вопрос, но второй. Сначала надо понять, с чем вообще сравнивали: от этого зависит всё остальное.">Значима ли разница по p-value?</button><button type="button" data-v="c" data-why="Деньги считают потом. Сначала надо понять, с чем сравнивали: от этого зависит и сама цифра.">Сколько выручки это принесёт за год?</button></div>
+    <div class="choice"><button type="button" data-v="a">С чем сравнивали новый онбординг?</button><button type="button" data-v="b" data-why="Хороший вопрос, но второй. Сначала надо понять, с чем вообще сравнивали: от этого зависит всё остальное.">Значима ли разница по p‑value?</button><button type="button" data-v="c" data-why="Деньги считают потом. Сначала надо понять, с чем сравнивали: от этого зависит и сама цифра.">Сколько выручки это принесёт за год?</button></div>
     <p class="why">Боб сравнил новый онбординг с прошлогодним, а не с тем, что работает сейчас. Нынешний онбординг уже даёт +24% к прошлогоднему, так что новый лучше текущего всего на 1.6%. Число без «по сравнению с чем» ничего не значит.</p>
     <p class="honest-cap">Как это выглядит честно:</p>
     <canvas class="dash honest" id="dash9h" aria-label="Три онбординга"></canvas>
@@ -294,7 +294,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="a" data-order="fixed">
     <p class="q">1. Фото блюд крупнее</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.02%</td><td>10.23%</td><td class="up">+2.1%</td><td class="up">[+0.8; +3.4]</td><td class="up">0.002</td></tr>
       <tr><td>Средний чек · сторожевая</td><td>612 ₽</td><td>610 ₽</td><td>−0.3%</td><td>[−1.1; +0.5]</td><td>0.47</td></tr>
       <tr><td>Отмены · сторожевая</td><td>3.10%</td><td>3.12%</td><td>+0.5%</td><td>[−7.1; +8.1]</td><td>0.90</td></tr>
@@ -324,7 +324,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="c" data-order="fixed">
     <p class="q">2. Кнопка «Добавить соус»</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>9.98%</td><td>10.10%</td><td>+1.2%</td><td>[−1.0; +3.4]</td><td>0.29</td></tr>
       <tr><td>Средний чек · сторожевая</td><td>605 ₽</td><td>611 ₽</td><td>+1.0%</td><td>[−0.4; +2.4]</td><td>0.16</td></tr>
     </table></div>
@@ -342,7 +342,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="d" data-order="fixed">
     <p class="q">3. Новый экран оплаты</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>9.91%</td><td>10.39%</td><td class="up">+4.8%</td><td class="up">[+2.9; +6.8]</td><td class="up">&lt; 0.001</td></tr>
       <tr><td>Выручка на пользователя</td><td>61.4 ₽</td><td>64.1 ₽</td><td class="up">+4.4%</td><td class="up">[+2.1; +6.7]</td><td class="up">&lt; 0.001</td></tr>
     </table></div>
@@ -367,7 +367,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">4. Рекомендации «Вам понравится»</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.05%</td><td>10.03%</td><td>−0.2%</td><td>[−1.2; +0.9]</td><td>0.69</td></tr>
       <tr><td>Средний чек · сторожевая</td><td>609 ₽</td><td>612 ₽</td><td>+0.5%</td><td>[−0.2; +1.2]</td><td>0.14</td></tr>
     </table></div>
@@ -385,7 +385,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">5. Переснять всё меню у фотографа</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.00%</td><td>10.09%</td><td class="up">+0.85%</td><td class="up">[+0.2; +1.5]</td><td class="up">0.010</td></tr>
       <tr><td>Средний чек · сторожевая</td><td>608 ₽</td><td>609 ₽</td><td>+0.1%</td><td>[−0.3; +0.5]</td><td>0.63</td></tr>
     </table></div>
@@ -404,7 +404,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="d" data-order="fixed">
     <p class="q">6. Новый экран корзины</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.00%</td><td>10.03%</td><td>+0.3%</td><td>[−2.1; +2.7]</td><td>0.81</td></tr>
       <tr><td>Заказов на пользователя</td><td>0.120</td><td>0.134</td><td class="up">+11.8%</td><td class="up">[+9.0; +14.6]</td><td class="up">&lt; 0.001</td></tr>
       <tr><td>Средний чек</td><td>602 ₽</td><td>603 ₽</td><td>+0.2%</td><td>[−1.2; +1.6]</td><td>0.78</td></tr>
@@ -424,7 +424,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">7. Новая иконка приложения</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.00%</td><td>10.04%</td><td>+0.4%</td><td>[−0.9; +1.7]</td><td>0.55</td></tr>
       <tr><td>…ещё 13 метрик</td><td></td><td></td><td>±1%</td><td>задевают ноль</td><td>от 0.12 до 0.94</td></tr>
       <tr><td>Повторные заказы за неделю</td><td>2.31</td><td>2.45</td><td class="up">+6.1%</td><td class="up">[+0.6; +11.6]</td><td class="up">0.03</td></tr>
@@ -444,7 +444,7 @@ details.hint p{margin:6px 0 0}
   <div class="quiz" data-right="b" data-order="fixed">
     <p class="q">8. Дешёвый платёжный сервис</p>
     <div class="report-wrap"><table class="report">
-      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p-value</th></tr>
+      <tr><th>Метрика</th><th>Контроль</th><th>Тест</th><th>Разница</th><th>Вилка 95%</th><th>p‑value</th></tr>
       <tr><td><b>Конверсия в заказ</b> · главная</td><td>10.00%</td><td>9.98%</td><td>−0.2%</td><td>[−1.9; +1.5]</td><td>0.82</td></tr>
       <tr><td>Средний чек · сторожевая</td><td>610 ₽</td><td>611 ₽</td><td>+0.1%</td><td>[−1.0; +1.2]</td><td>0.86</td></tr>
       <tr><td>Ошибки оплаты на 1000 оплат · сторожевая</td><td>3.1</td><td>4.0</td><td>+29%</td><td>[−5; +63]</td><td>0.10</td></tr>
@@ -534,7 +534,7 @@ details.hint p{margin:6px 0 0}
     <li><b>Разница есть всегда.</b> Даже одинаковые группы отличаются, вопрос только в том, больше ли разница обычного шума.</li>
     <li><b>Средние ложатся колоколом,</b> и вчетверо больше людей делают его вдвое уже.</li>
     <li><b>Результат — это вилка.</b> Смотрим, где она относительно нуля и порога пользы. Если задевает ноль, называем края.</li>
-    <li><b>p-value</b> — насколько удивительна такая разница, если эффекта нет. Это не вероятность того, что фича работает.</li>
+    <li><b>p‑value</b> — насколько удивительна такая разница, если эффекта нет. Это не вероятность того, что фича работает.</li>
     <li><b>Ошибки бывают двух видов:</b> ложное срабатывание примерно в одном пустом тесте из двадцати и пропуск, когда тест короткий.</li>
     <li><b>MDE считают до запуска.</b> Вдвое меньший эффект стоит вчетверо больше людей.</li>
     <li><b>Правила — до цифр.</b> Не подглядываем, главную и сторожевые метрики выбираем заранее, доли групп проверяем.</li>
