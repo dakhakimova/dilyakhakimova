@@ -47,7 +47,8 @@ function greekFrag(frag){
     x = x.replace(/\u0002\u00a0/g, '\u0002 ');
     // короткое слово или знак перед формулой не остаётся в конце строки
     x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
-    return x.replace(/\u0001(\d+)\u0002/g, (_, i) => KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}));
+    // знак препинания сразу после формулы не уезжает на новую строку
+    return x.replace(/\u0001(\d+)\u0002([,.;:!?»)]*)/g, (_, i, p) => { const k = KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}); return p ? `<span class="nw">${k}${p}</span>` : k; });
   }).join('');
 }
 const {load} = require('./play-data.js');
@@ -301,11 +302,12 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <p>${greekFrag(typo(x.st.p1))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex1, x.st.read1)}
     <p>${greekFrag(typo(x.st.p2))}</p>
-    ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex2, x.st.read2)}
+    ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex2, x.st.read2)}${x.st.p3 ? `
+    <p>${greekFrag(typo(x.st.p3))}</p>` : ''}
     <figure class="viz st-fig" data-n="4">
       <p class="chart-head">${typo(x.st.t)}</p>
       ${stu[s](Object.fromEntries(Object.entries(x.st.vz).map(([k, v]) => [k, plain(typo(v))])))}
-      <div class="sg-ctl" role="group" aria-label="${attr(x.st.label)}">${[2, 4, 10, 30].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 4}">n = ${n}</button>`).join('')}</div>
+      <div class="sg-ctl" role="group" aria-label="${attr(x.st.label)}">${[2, 4, 10, 30].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 4}">ν = ${n - 1}</button>`).join('')}</div>
       <p class="sg-out" aria-live="polite">${greekFrag(typo(x.st.out[1]))}</p>
       <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[2,4,10,30],T=${json(x.st.out.map(v => greekFrag(typo(v))))};
 f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
