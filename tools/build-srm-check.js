@@ -61,7 +61,7 @@ ${chrome.header('play', false)}
     </div>
     <p class="ss-acts"><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
   </section>
-  <section class="play-out"><p class="kicker">Почему так</p>
+  <section class="play-out" aria-label="Как считается">
     <div class="chi-f" role="img" aria-label="хи-квадрат равен сумме по всем группам: разница между «пришло» и «ждали» в квадрате, делённая на «ждали»">
       <div class="chi-row"><span class="chi-lhs">χ²&nbsp;=</span>
         <span class="chi-p p1"><b>Σ</b><i>по всем группам</i></span>
