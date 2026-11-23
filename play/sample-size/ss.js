@@ -160,34 +160,6 @@
   calc(); render();
   // «Скопировать ссылку на расчёт» — адрес страницы уже содержит все числа
 
-  // «Скопировать код на Python»: тот же расчёт с текущими числами — видно, как считается
-  const pyNum = x => String(+(+x).toPrecision(6));
-  function pyCode(){
-    const L = ['from statistics import NormalDist', 'from math import sqrt, ceil', '', 'z = NormalDist().inv_cdf', ''];
-    if (st.metric === 'share'){
-      L.push('p = ' + pyNum(st.base / 100) + '              # доля сейчас', 'mde_rel = ' + pyNum(st.mde / 100) + '        # хотим заметить ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на столько, относительно',
-        'p2 = p * (1 ' + (st.sides === 'left' ? '-' : '+') + ' mde_rel)', 'var_c, var_t = p * (1 - p), p2 * (1 - p2)   # дисперсия доли: p(1 − p)', 'delta = abs(p2 - p)');
-    } else if (st.metric === 'mean'){
-      L.push('mean = ' + pyNum(st.mean) + '          # среднее сейчас', 'sd = ' + pyNum(st.sd) + '            # стандартное отклонение на пользователя', 'mde_rel = ' + pyNum(st.mde / 100),
-        'var_c = var_t = sd ** 2', 'delta = mean * mde_rel');
-    } else {
-      L.push('# отношение R = X̄ / Ȳ, например клики на показ; дисперсия на пользователя — дельта-методом',
-        'x, sx = ' + pyNum(st.rx) + ', ' + pyNum(st.sx) + '      # числитель на пользователя и его стандартное отклонение',
-        'y, sy = ' + pyNum(st.ry) + ', ' + pyNum(st.sy) + '      # знаменатель на пользователя и его стандартное отклонение',
-        'rho = ' + pyNum(st.rho) + '            # корреляция числителя и знаменателя', 'R = x / y',
-        'var_c = var_t = (sx**2 - 2*R*rho*sx*sy + R**2 * sy**2) / y**2', 'mde_rel = ' + pyNum(st.mde / 100), 'delta = R * mde_rel');
-    }
-    L.push('', 'alpha, power = ' + st.alpha + ', ' + pyNum(st.pow / 100), 'two_sided = ' + (st.sides === 'two' ? 'True' : 'False'),
-      'q_test = ' + pyNum(st.split / 100) + '          # доля теста, остальное — контроль', '',
-      'k = z(1 - alpha / 2 if two_sided else 1 - alpha) + z(power)',
-      'n_total = ceil(k**2 * (var_c / (1 - q_test) + var_t / q_test) / delta**2)',
-      'print(f"всего {n_total:,} человек: {round(n_total * (1 - q_test)):,} в контроле и {round(n_total * q_test):,} в тесте".replace(",", " "))');
-    if (touched.has('traffic') && st.traffic > 0) L.push('', 'traffic = ' + pyNum(st.traffic) + '        # человек в день', 'print("дней:", ceil(n_total / traffic))');
-    return L.join('\n') + '\n';
-  }
-  window.__ssPy = pyCode;   // для проверки
-  const cc = $('ss-code');
-  if (cc) cc.addEventListener('click', async () => { const note = $('ss-undo'); try { await navigator.clipboard.writeText(pyCode()); if (note) note.textContent = 'Код скопирован: запусти в Python или Colab.'; } catch(e) { if (note) note.textContent = 'Не удалось скопировать.'; } });
   const cp = $('ss-copy');
   if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); const u = new URLSearchParams(); for (const k of Object.keys(DEF)) if (k !== 'traffic' || touched.has('traffic')) u.set(k, st[k]); const link = location.origin + location.pathname + '?' + u; try { await navigator.clipboard.writeText(link); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = link; } });
 })();
