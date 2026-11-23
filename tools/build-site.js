@@ -74,7 +74,6 @@ function courses(){
   <section class="c-hero">
     <h1>Курсы</h1>
     <p class="sub">Весь путь — по порядку: от первой вероятности до продвинутых A/B-тестов. Бесплатные курсы открываются сразу, без регистрации.</p>
-    <p class="start-link"><a class="more" href="/start/">Не знаешь, с чего начать? Подобрать маршрут →</a></p>
   </section>
   <ul class="cards path" role="list">${list.map(card).join('')}
   </ul>
