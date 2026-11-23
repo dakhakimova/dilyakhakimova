@@ -487,18 +487,18 @@ clt['normal-distribution'] = L => {
 // stu[slug](L) — нормальное против Стьюдента (Диля, 23.11): кнопки ν = 1, 3, 10, 30; хвосты Стьюдента за ±1.96 залиты, пунктир — его порог 5%.
 const stu = {};
 stu['normal-distribution'] = L => {
-  const DF = {1: 12.71, 3: 3.18, 10: 2.23, 30: 2.04}, TAIL = {1: '30%', 3: '14.5%', 10: '7.8%', 30: '5.9%'};
+  const DF = {2: 12.71, 4: 3.18, 10: 2.26, 30: 2.05}, TAIL = {2: '30%', 4: '14.5%', 10: '8.2%', 30: '6%'};  // ключ — число наблюдений n, степеней свободы n − 1
   const X = z => 230 + z * 42, base = 200, Y = d => base - d * 400;
   const td = nu => { const c = Math.exp(lgamma((nu + 1) / 2) - lgamma(nu / 2)) / Math.sqrt(nu * Math.PI); return x => c * Math.pow(1 + x * x / nu, -(nu + 1) / 2); };
   const crv = (f, a, b) => { const p = []; for (let x = a; x <= b + 1e-9; x += .02) p.push([X(x), Y(f(x))]); return p; };
   const out = [];
-  for (const nu of [1, 3, 10, 30]){
-    const f = td(nu), g = [`<g class="st st${nu}">`];
+  for (const nn of [2, 4, 10, 30]){
+    const nu = nn - 1, f = td(nu), g = [`<g class="st st${nn}">`];
     for (const sg of [-1, 1]){ const a = sg < 0 ? -5.2 : 1.96, b = sg < 0 ? -1.96 : 5.2; g.push(path([[X(a), base], ...crv(f, a, b), [X(b), base]], 'none', 0, C.a, 'opacity=".25"')); }
     g.push(path(crv(f, -5.2, 5.2), C.a, 2.5));
-    const tc = DF[nu];
+    const tc = DF[nn];
     if (tc < 5.2) for (const sg of [-1, 1]) g.push(ln(X(sg * tc), base, X(sg * tc), 40, C.a, 1.5, '5 4'));
-    g.push(tx(X(5.2), 150, L.tail + ' ' + TAIL[nu], {a: 'end', size: 15, fill: C.a, w: 500, bg: true}),
+    g.push(tx(X(5.2), 150, L.tail + ' ' + TAIL[nn], {a: 'end', size: 15, fill: C.a, w: 500, bg: true}),
       tx(X(5.2), 30, tc < 5.2 ? L.crit + ' ±' + tc : L.crit + ' ±' + tc + ' — ' + L.off, {a: 'end', size: 14, fill: C.a, bg: true}));
     g.push('</g>'); out.push(g.join(''));
   }

@@ -39,6 +39,7 @@ function greekFrag(frag){
       .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
       .replace(new RegExp('([νn])' + S + '=' + S + 'n' + S + '[−-]' + S + '1', 'g'), (_, v) => put((v === 'ν' ? '\\nu' : 'n') + ' = n - 1'))
       .replace(new RegExp('([νn])' + S + '=' + S + '(\\d+)', 'g'), (_, v, d) => put((v === 'ν' ? '\\nu' : 'n') + ' = ' + d))
+      .replace(new RegExp('(^|[\\s\\u00a0(«])n' + S + '[−-]' + S + '1(?![\\d.])', 'g'), (_, a) => a + put('n - 1'))
       .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
       .replace(/(^|[\s\u00a0(«])([xXns])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
       .replace(/([μσν])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
@@ -301,12 +302,12 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex1, x.st.read1)}
     <p>${greekFrag(typo(x.st.p2))}</p>
     ${((t, r) => `<div class="formula tex" role="math" aria-label="${attr(r)}">${KATEX.renderToString(t, {output: 'html', throwOnError: false, displayMode: true})}</div>`)(x.st.tex2, x.st.read2)}
-    <figure class="viz st-fig" data-n="3">
+    <figure class="viz st-fig" data-n="4">
       <p class="chart-head">${typo(x.st.t)}</p>
       ${stu[s](Object.fromEntries(Object.entries(x.st.vz).map(([k, v]) => [k, plain(typo(v))])))}
-      <div class="sg-ctl" role="group" aria-label="${attr(x.st.label)}">${[1, 3, 10, 30].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 3}">ν = ${n}</button>`).join('')}</div>
+      <div class="sg-ctl" role="group" aria-label="${attr(x.st.label)}">${[2, 4, 10, 30].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 4}">n = ${n}</button>`).join('')}</div>
       <p class="sg-out" aria-live="polite">${greekFrag(typo(x.st.out[1]))}</p>
-      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[1,3,10,30],T=${json(x.st.out.map(v => greekFrag(typo(v))))};
+      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[2,4,10,30],T=${json(x.st.out.map(v => greekFrag(typo(v))))};
 f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
     </figure>` : ''}
     <p class="t-pick">${typo(cmp.pick)}</p>${cmpLink ? `
