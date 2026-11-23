@@ -34,7 +34,7 @@
     $('pm-big').innerHTML = 'Тест мог заметить эффект от <b>' + (Number.isFinite(rel) ? nf(rel * 100, 1) + '%' : abs) + '</b> относительных';
     $('pm-p').textContent = 'В абсолютных: ' + abs + (metric === 'share' ? '' : '.') + ' Множитель ' + nf(k, 2) + ' × стандартная ошибка ' + (metric === 'share' ? nf(se * 100, 3) + ' п. п.' : nf(se, 2)) + ', мощность ' + nf(pw * 100, 0) + '%, α = ' + al + '.\nЕсли важный для бизнеса эффект меньше, серый результат ничего не доказывает: тест такой эффект скорее всего пропустил бы.';
   }
-  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и конверсий.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'; }
+  function idle(msg){ out.className = 'ss-out srm-out idle'; $('pm-big').textContent = msg || 'Впиши, сколько людей было в группах и что получилось.'; $('pm-p').textContent = metric === 'share' ? 'Для доли хватит размеров групп и самих долей.' : 'Для среднего нужны размеры групп, среднее контроля и стандартные отклонения обеих групп.'; }
   ['pm-na', 'pm-nb'].forEach(id => F(id).addEventListener('blur', () => { const v = num(F(id).value); if (v != null) F(id).value = nf(v); }));
   post.querySelectorAll('input').forEach(i => { i.addEventListener('input', calc); i.addEventListener('focus', () => setTimeout(() => i.select(), 0)); });
   calc();
