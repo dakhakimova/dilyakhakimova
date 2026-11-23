@@ -6,6 +6,8 @@
   const $ = id => document.getElementById(id);
   const DEF = {mode: 'n', metric: 'share', base: 4, mean: 850, sd: 1200, rx: 1.2, sx: 2, ry: 10, sy: 12, rho: 0.6, mde: 5, pow: 80, n: 100000, traffic: 20000, split: 50, alpha: 0.05, sides: 'two'};
   const KEY = 'dk:sample-size', RECENT = 'dk:sample-size:recent';
+  // 3 значащие цифры: 0,126 · 42,5 · 893 · 1 440 000
+  const sig = x => { const a = Math.abs(x); if (!a) return '0'; const d = Math.max(0, 2 - Math.floor(Math.log10(a))); return nf(x, Math.min(d, 6)); };
   const nf = (x, d = 0) => { const s = (+x).toFixed(d).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1'); const [i, f] = s.split('.'); return i.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (f ? '.' + f : ''); };
   // нормальное распределение
   const cdf = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989423 * Math.exp(-x * x / 2); const q = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; };
@@ -72,9 +74,9 @@
     document.querySelectorAll('[data-pml]').forEach(e => { e.hidden = e.dataset.pml !== st.metric; });
     const p = st.base, abs = p * st.mde / 100, am = st.mean * st.mde / 100;
     const rv = $('ss-rvar'); if (rv && st.metric === 'ratio') rv.textContent = nf(ratioSd(), 4) + ' на пользователя — посчитано дельта-методом; отношение ' + nf(st.rx / st.ry, 4);
-    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = 'σ = √(p · (1 − p)) = √(' + nf(q, 4) + ' · ' + nf(1 - q, 4) + ') = ' + nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя'; }
+    const vv = $('ss-var'); if (vv){ const q = st.base / 100; vv.textContent = nf(Math.sqrt(q * (1 - q)), 3) + ' на пользователя — для доли это √(p · (1 − p))'; }
     const lines = [st.metric !== 'share'
-      ? (st.metric === 'ratio' ? 'Отношение ' : 'Среднее ') + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
+      ? (st.metric === 'ratio' ? 'Отношение ' : 'Среднее ') + sig(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + sig(am) + ': с ' + sig(st.mean) + ' до ' + sig(st.mean + (st.sides === 'left' ? -am : am))
       : 'Доля ' + fmt.base(p) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + (st.sides === 'left' ? -abs : abs), 3) + '%'];
     if (st.sides !== 'two' || st.split !== 50) lines.push((st.sides === 'two' ? 'Ждём изменения в любую сторону' : 'Ждём только ' + (st.sides === 'left' ? 'падения' : 'роста')) + ', группы ' + nf(100 - st.split, 1) + ' на ' + nf(st.split, 1) + ' — меняется в «Дополнительно»');
     Object.entries(heard).forEach(([k, v]) => { if (v) lines.push({base: 'Доля', mean: 'Среднее', sd: 'Стандартное отклонение', mde: 'MDE', pow: 'Мощность', n: 'Всего в эксперименте', traffic: 'Трафик', split: 'Доля теста'}[k] + ': ' + v); });
