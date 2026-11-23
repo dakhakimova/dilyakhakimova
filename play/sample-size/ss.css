@@ -68,3 +68,8 @@ details[hidden]{display:none}
 .ss-page .ss-chart .chart-head, .ss-page .ss-what .chart-head{font:500 var(--fs-m)/1.3 var(--body); color:var(--text-1)}
 .ss-page .ss-more > summary{border-radius:var(--r-s); outline:none}
 .ss-page .ss-more > summary:focus-visible{outline:2px solid var(--pen, #23418A); outline-offset:3px}
+/* подписи переключателей — в той же колонке, что подписи полей: кнопки начинаются там же, где поля ввода */
+.ss-page .ss-card .seg{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2)}
+.ss-page .ss-card .seg > .ss-mode-l{flex:0 0 15rem; margin-right:calc(var(--s-3) - var(--s-2))}
+.ss-page .ss-var output{grid-column:2 / -1; font:400 var(--fs-m)/1.3 var(--body); color:var(--text-2); font-variant-numeric:tabular-nums}
+@media (max-width:560px){ .ss-page .ss-card .seg > .ss-mode-l{flex-basis:100%} }
