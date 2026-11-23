@@ -30,7 +30,7 @@
 <body class="t-page">
 <a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -45,34 +45,34 @@
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap term t-wide" data-slug="ab-testing"
-  data-share-title="A/B-тестирование простыми словами" data-share-text="A/B-тестирование простыми словами — с игрой и задачей с собеседования:"
+  data-share-title="A/B-тестирование простыми словами" data-share-text="A/B‑тестирование простыми словами — с игрой и задачей с собеседования:"
   data-s-copied="Ссылка скопирована">
   <header class="t-hero">
     <p class="eyebrow">Мини-лаборатория</p>
-    <h1>A/B-тестирование простыми словами</h1>
+    <h1>A/B‑тестирование простыми словами</h1>
     <p class="t-sub">Почему монетка честнее сравнения «до и после» и что нужно, чтобы результату теста можно было верить.</p>
   </header>
-  <p class="t-def">A/B-тестирование — это способ проверить, работает ли изменение: пользователей случайно делят на две группы, одной показывают старую версию, другой — новую, и сравнивают метрики. Его ещё называют сплит-тестом, а сам эксперимент пишут и как «АБ-тест».</p>
-  <p class="t-not">Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=A%2FB-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5" rel="noopener">статье «A/B-тестирование» в Википедии ↗</a>.</p>
+  <p class="t-def">A/B‑тестирование — это способ проверить, работает ли изменение: пользователей случайно делят на две группы, одной показывают старую версию, другой — новую, и сравнивают метрики. Его ещё называют сплит-тестом, а сам эксперимент пишут и как «АБ-тест».</p>
+  <p class="t-not">Здесь — интуиция, игра и рабочие ловушки. Строгие доказательства и историю ищи в <a href="https://ru.wikipedia.org/w/index.php?search=A%2FB-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5" rel="noopener">статье «A/B‑тестирование» в Википедии ↗</a>.</p>
   <section class="t-sec" aria-labelledby="viz-h">
-    <h2 id="viz-h">Из чего состоит A/B-тест?</h2>
+    <h2 id="viz-h">Из чего состоит A/B‑тест?</h2>
     <figure class="viz">
-      <p class="chart-head">Как устроен A/B-тест</p>
-      <svg class="viz-svg" viewBox="0 0 460 430" role="img" aria-describedby="fc-ab-testing-1" aria-label="пользователи → монетка (хеш id) → A: как было → B: новое → разница = эффект + шум → вилка и p‑value → решение" xmlns="http://www.w3.org/2000/svg"><title>пользователи → монетка (хеш id) → A: как было → B: новое → разница = эффект + шум → вилка и p‑value → решение</title><circle cx="110" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="127.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="145" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="162.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="180" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="197.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="215" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="232.5" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="250" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="267.5" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="285" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="302.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="320" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="337.5" cy="26" r="6" fill="#23418A" opacity=".9"/><text x="230" y="54" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >пользователи</text><line x1="230" y1="62" x2="230" y2="86" stroke="#5E5A53" stroke-width="1.5"/><path d="M230 86L226.5 78.8L233.5 78.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="130" y="88" width="200" height="40" fill="#EEF2FA" rx="10" stroke="#23418A" stroke-width="2"/><text x="230" y="114" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >монетка (хеш id)</text><line x1="195" y1="130" x2="115" y2="166" stroke="#5E5A53" stroke-width="1.5"/><path d="M115 166L120.1 159.9L123 166.2Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="265" y1="130" x2="345" y2="166" stroke="#5E5A53" stroke-width="1.5"/><path d="M345 166L337 166.2L339.9 159.9Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="30" y="168" width="170" height="40" fill="#E6ECF7" rx="10" stroke="#23418A" stroke-width="2"/><text x="115" y="194" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >A: как было</text><rect x="260" y="168" width="170" height="40" fill="#FCE8E3" rx="10" stroke="#E8644A" stroke-width="2"/><text x="345" y="194" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >B: новое</text><line x1="115" y1="210" x2="115" y2="238" stroke="#5E5A53" stroke-width="1.5"/><path d="M115 238L111.5 230.8L118.5 230.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="345" y1="210" x2="345" y2="238" stroke="#5E5A53" stroke-width="1.5"/><path d="M345 238L341.5 230.8L348.5 230.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="30" y="240" width="170" height="40" fill="#FBF9F4" rx="10" stroke="#CFC8BB" stroke-width="2"/><text x="115" y="266" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >метрика A</text><rect x="260" y="240" width="170" height="40" fill="#FBF9F4" rx="10" stroke="#CFC8BB" stroke-width="2"/><text x="345" y="266" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >метрика B</text><line x1="115" y1="282" x2="200" y2="314" stroke="#5E5A53" stroke-width="1.5"/><path d="M200 314L192 314.7L194.5 308.2Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="345" y1="282" x2="260" y2="314" stroke="#5E5A53" stroke-width="1.5"/><path d="M260 314L265.5 308.2L268 314.7Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="80" y="316" width="300" height="40" fill="#FBF9F4" rx="10" stroke="#5E5A53" stroke-width="2"/><text x="230" y="342" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >разница = эффект + шум</text><line x1="230" y1="358" x2="230" y2="382" stroke="#5E5A53" stroke-width="1.5"/><path d="M230 382L226.5 374.8L233.5 374.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="80" y="384" width="300" height="40" fill="#E2F1E7" rx="10" stroke="#0E7E5F" stroke-width="2"/><text x="230" y="410" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >вилка и p‑value → решение</text></svg>
+      <p class="chart-head">Как устроен A/B‑тест</p>
+      <svg class="viz-svg" viewBox="0 0 460 430" role="img" aria-describedby="fc-ab-testing-1" aria-label="пользователи → монетка (хеш id) → A: как было → B: новое → разница = эффект + шум → вилка и p‑value → решение" xmlns="http://www.w3.org/2000/svg"><title>пользователи → монетка (хеш id) → A: как было → B: новое → разница = эффект + шум → вилка и p‑value → решение</title><circle cx="110" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="127.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="145" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="162.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="180" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="197.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="215" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="232.5" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="250" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="267.5" cy="26" r="6" fill="#23418A" opacity=".9"/><circle cx="285" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="302.5" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="320" cy="26" r="6" fill="#E8644A" opacity=".9"/><circle cx="337.5" cy="26" r="6" fill="#23418A" opacity=".9"/><text x="230" y="54" text-anchor="middle" font-size="15" font-weight="400" fill="#5E5A53" >пользователи</text><line x1="230" y1="62" x2="230" y2="86" stroke="#5E5A53" stroke-width="1.5"/><path d="M230 86L226.5 78.8L233.5 78.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="130" y="88" width="200" height="40" fill="#EEF2FA" rx="10" stroke="#23418A" stroke-width="2"/><text x="230" y="114" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >монетка (хеш id)</text><line x1="195" y1="130" x2="115" y2="166" stroke="#5E5A53" stroke-width="1.5"/><path d="M115 166L120.1 159.9L123 166.2Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="265" y1="130" x2="345" y2="166" stroke="#5E5A53" stroke-width="1.5"/><path d="M345 166L337 166.2L339.9 159.9Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="30" y="168" width="170" height="40" fill="#E6ECF7" rx="10" stroke="#23418A" stroke-width="2"/><text x="115" y="194" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >A: как было</text><rect x="260" y="168" width="170" height="40" fill="#FCE8E3" rx="10" stroke="#E8644A" stroke-width="2"/><text x="345" y="194" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >B: новое</text><line x1="115" y1="210" x2="115" y2="238" stroke="#5E5A53" stroke-width="1.5"/><path d="M115 238L111.5 230.8L118.5 230.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="345" y1="210" x2="345" y2="238" stroke="#5E5A53" stroke-width="1.5"/><path d="M345 238L341.5 230.8L348.5 230.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="30" y="240" width="170" height="40" fill="#FBF9F4" rx="10" stroke="#CFC8BB" stroke-width="2"/><text x="115" y="266" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >метрика A</text><rect x="260" y="240" width="170" height="40" fill="#FBF9F4" rx="10" stroke="#CFC8BB" stroke-width="2"/><text x="345" y="266" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >метрика B</text><line x1="115" y1="282" x2="200" y2="314" stroke="#5E5A53" stroke-width="1.5"/><path d="M200 314L192 314.7L194.5 308.2Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><line x1="345" y1="282" x2="260" y2="314" stroke="#5E5A53" stroke-width="1.5"/><path d="M260 314L265.5 308.2L268 314.7Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="80" y="316" width="300" height="40" fill="#FBF9F4" rx="10" stroke="#5E5A53" stroke-width="2"/><text x="230" y="342" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >разница = эффект + шум</text><line x1="230" y1="358" x2="230" y2="382" stroke="#5E5A53" stroke-width="1.5"/><path d="M230 382L226.5 374.8L233.5 374.8Z" fill="#5E5A53" stroke="#5E5A53" stroke-width="1" stroke-linejoin="round" /><rect x="80" y="384" width="300" height="40" fill="#E2F1E7" rx="10" stroke="#0E7E5F" stroke-width="2"/><text x="230" y="410" text-anchor="middle" font-size="16" font-weight="400" fill="#24221F" >вилка и p‑value → решение</text></svg>
       <figcaption class="figcap" id="fc-ab-testing-1">Пользователи приходят одним потоком, хеш от id и названия эксперимента (как монетка с памятью) делит их пополам. Обе группы живут в одни и те же дни, поэтому разница метрик — это эффект плюс шум, и шум оценивается статистикой.</figcaption>
     </figure>
   </section>
 
   <section class="t-sec" aria-labelledby="strict-h">
-    <h2 id="strict-h">Как A/B-тест описывают строго?</h2>
-    <p>A/B-тест — рандомизированный контролируемый эксперимент. Единицы (обычно пользователи) случайно распределяются по вариантам A (контроль) и B (тест); средний эффект оценивают разницей средних метрики в группах и проверяют нулевую гипотезу об отсутствии эффекта.</p>
-    <div class="formula" role="math" aria-label="«Оценка эффекта — разница средних значений метрики в группах B и A; нулевая гипотеза — эффекта нет». Случайное деление гарантирует, что кроме изменения группы различаются только шумом, а шум умеет измерять статистика."><i>τ̂</i> = <span class="ov"><i>Y</i></span><sub><i>B</i></sub> − <span class="ov"><i>Y</i></span><sub><i>A</i></sub>, &nbsp;&nbsp;<i>H</i><sub>0</sub>: <i>τ</i> = 0</div>
+    <h2 id="strict-h">Как A/B‑тест описывают строго?</h2>
+    <p>A/B‑тест — рандомизированный контролируемый эксперимент. Единицы (обычно пользователи) случайно распределяются по вариантам A (контроль) и B (тест); средний эффект оценивают разницей средних метрики в группах и проверяют нулевую гипотезу об отсутствии эффекта.</p>
+    <div class="formula" role="math" aria-label="«Оценка эффекта — разница средних значений метрики в группах B и A; нулевая гипотеза — эффекта нет». Случайное деление гарантирует, что кроме изменения группы различаются только шумом, а шум умеет измерять статистика."><i>τ̂</i> = <span class="ov"><i>Y</i></span><sub><i>B</i></sub> − <span class="ov"><i>Y</i></span><sub><i>A</i></sub>, &nbsp;&nbsp;<i>H</i><sub>0</sub>: <i>τ</i> = 0</div>
     <p class="t-read"><span class="lbl">Как читать формулу.</span> «Оценка эффекта — разница средних значений метрики в группах B и A; нулевая гипотеза — эффекта нет». Случайное деление гарантирует, что кроме изменения группы различаются только шумом, а шум умеет измерять статистика.</p>
   </section>
 
   <section class="t-sec" aria-labelledby="cafe-h">
     <h2 id="cafe-h">Почему рост после релиза — ещё не эффект?</h2>
-    <div class="chat" role="group" aria-label="Пример из кафе">
+    <div class="chat" role="group" aria-label="Пример из кафе">
       <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">Включил фото блюд в понедельник — за неделю заказы выросли на 8%. Фото работают!</p></div></div>
       <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">А в понедельник ещё и пришла зарплата. «До и после» — не доказательство. Давай монеткой: половина гостей видит фото, половина — нет, в одни и те же дни.</p></div></div>
       <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">Монетке всё равно, кто голодный и у кого зарплата. Поэтому ей и верят.</p></div></div>
@@ -83,7 +83,7 @@
     <h2 id="toy-h">Какой способ ближе к правде: «до и после» или монетка?</h2>
     
     <div class="stage-frame">
-      <iframe id="toy-frame" src="/play/coin-split/?embed=1" data-toy="coin-split" title="Игра: «До и после» или монетка: какой способ ближе к правде?" style="height:900px" loading="lazy" allow="clipboard-write"></iframe>
+      <iframe id="toy-frame" src="/play/coin-split/?embed=1" data-toy="coin-split" title="Игра: «До и после» или монетка: какой способ ближе к правде?" style="height:900px" loading="lazy" allow="clipboard-write"></iframe>
       <p class="note noframe">Игра не загрузилась? <a href="/ab-basics/01-before-after.html#card-9">Открой её в курсе</a>.</p>
     </div>
     <section class="play-out t-out" aria-labelledby="out-h">
@@ -102,7 +102,7 @@
 
 
   <section class="t-sec" aria-labelledby="err-h">
-    <h2 id="err-h">Что чаще всего портит A/B-тест?</h2>
+    <h2 id="err-h">Что чаще всего портит A/B‑тест?</h2>
     <ul class="list t-err">
       <li><span class="lead">Сравнивать «до и после» вместо одновременных групп.</span> Сезон, праздники, маркетинг и погода меняют метрики сильнее многих фич. Без одновременной контрольной группы их не отделить от эффекта.</li>
       <li><span class="lead">Подглядывать и останавливать тест при первом «значимо».</span> Если смотреть каждый день и останавливаться на первом p < 0.05, ложных побед становится в разы больше обещанных 5%. Срок теста считают заранее по размеру выборки.</li>
@@ -112,26 +112,26 @@
   </section>
 
   <section class="t-sec" aria-labelledby="lim-h">
-    <h2 id="lim-h">Когда A/B-тест не ответит на вопрос?</h2>
-    <p>A/B-тест врёт, когда группы влияют друг на друга: курьеры общие для обеих групп, цены видны всем, друзья из разных групп переписываются. Тогда разница групп — не эффект, а его осколок, и нужны другие схемы (по городам, по времени — switchback).</p>
+    <h2 id="lim-h">Когда A/B‑тест не ответит на вопрос?</h2>
+    <p>A/B‑тест врёт, когда группы влияют друг на друга: курьеры общие для обеих групп, цены видны всем, друзья из разных групп переписываются. Тогда разница групп — не эффект, а его осколок, и нужны другие схемы (по городам, по времени — switchback).</p>
     <p>И он не видит долгих эффектов: за две недели новизна ещё не прошла, а привыкание не наступило. Короткий тест отвечает на вопрос про две недели, не про год.</p>
   </section>
 
   <section class="t-sec" aria-labelledby="cmp-h">
-    <h2 id="cmp-h">Чем A/B-тест отличается от сравнения «до и после»?</h2>
+    <h2 id="cmp-h">Чем A/B‑тест отличается от сравнения «до и после»?</h2>
     <div class="t-table-wrap"><table class="t-table">
-      <thead><tr><th scope="col"></th><th scope="col">A/B-тест</th><th scope="col">«До и после»</th></tr></thead>
+      <thead><tr><th scope="col"></th><th scope="col">A/B‑тест</th><th scope="col">«До и после»</th></tr></thead>
       <tbody>
         <tr><th scope="row">Контрольная группа</th><td>Одновременная, случайная</td><td>Прошлый период</td></tr>
         <tr><th scope="row">Сезон и праздники</th><td>Общие для групп — сокращаются</td><td>Смешиваются с эффектом</td></tr>
         <tr><th scope="row">Когда допустимо</th><td>Почти всегда, если можно делить пользователей</td><td>Когда делить нельзя, и с поправками на тренд</td></tr>
       </tbody>
     </table></div>
-    <p class="t-pick">Бери A/B-тест, если можно случайно поделить пользователей. «До и после» — последний вариант, и тогда только с моделью тренда и сезонности.</p>
+    <p class="t-pick">Бери A/B‑тест, если можно случайно поделить пользователей. «До и после» — последний вариант, и тогда только с моделью тренда и сезонности.</p>
   </section>
 
   <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">Что спрашивают про A/B-тесты на собеседовании?</h2>
+    <h2 id="faq-h">Что спрашивают про A/B‑тесты на собеседовании?</h2>
     <h3 class="t-faq-h">На понимание</h3>
     <details class="t-faq">
       <summary><span class="q">Почему нельзя остановить тест, как только он стал значимым?</span><span class="show">Показать ответ</span></summary>
@@ -143,7 +143,7 @@
     </details>
     <details class="t-faq">
       <summary><span class="q">Почему нельзя просто сравнить неделю до релиза и неделю после?</span><span class="show">Показать ответ</span></summary>
-      <p>Между неделями меняется всё: сезон, праздники, акции конкурентов. Разница «до и после» смешивает эффект с фоном; A/B-тест в одно и то же время отделяет одно от другого.</p>
+      <p>Между неделями меняется всё: сезон, праздники, акции конкурентов. Разница «до и после» смешивает эффект с фоном; A/B‑тест в одно и то же время отделяет одно от другого.</p>
     </details>
     <details class="t-faq">
       <summary><span class="q">Протестировали 99 цветов кнопки, 5 оказались значимыми. Выкатываем самый зелёный?</span><span class="show">Показать ответ</span></summary>
@@ -155,8 +155,8 @@
       <p>Конверсии 4.22% и 4.38%, разница 0.15 п. п., стандартная ошибка разницы ≈ 0.30 п. п., z ≈ 0.5, p ≈ 0.6. Данные разницы не показывают: можно оставить любой или собрать больше показов, если 0.15 п. п. важны для денег.</p>
     </details>
     <details class="t-faq">
-      <summary><span class="q">В A/A-тесте 20 метрик, покраснели 2. Сплит сломан?</span><span class="show">Показать ответ</span></summary>
-      <p>При α = 5% и 20 независимых метриках в среднем краснеет одна, а две и больше бывают примерно в 26% A/A-тестов. Это не повод для паники; повод — если такое повторяется или краснеют связанные метрики пачкой.</p>
+      <summary><span class="q">В A/A‑тесте 20 метрик, покраснели 2. Сплит сломан?</span><span class="show">Показать ответ</span></summary>
+      <p>При α = 5% и 20 независимых метриках в среднем краснеет одна, а две и больше бывают примерно в 26% A/A‑тестов. Это не повод для паники; повод — если такое повторяется или краснеют связанные метрики пачкой.</p>
     </details>
     <details class="t-faq">
       <summary><span class="q">Новая кнопка «Повторить заказ» дала +4% заказов на Android (45% всех заказов) и +8% на iOS (35%). Каков эффект на всю сеть?</span><span class="show">Показать ответ</span></summary>
@@ -164,7 +164,7 @@
     </details>
   </section>
 
-  <section class="t-sec t-next" aria-label="Где это в курсе и связанные термины">
+  <section class="t-sec t-next" aria-label="Где это в курсе и связанные термины">
     <p>Это шаг 1 курса «A/B на пальцах» — <a href="/ab-basics/01-before-after.html">«До и после — не доказательство» →</a></p>
     <p>Связанные термины: <a href="/terms/p-value/">p‑value</a></p>
   </section>
@@ -176,8 +176,8 @@
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 

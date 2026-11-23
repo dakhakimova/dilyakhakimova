@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Рубрика «Котейка читает». Тексты — в i18n/site.js (шапка, футер) и i18n/books.js. Русский текст вписан командой node tools/bake-i18n.js: правьте словари, а не разметку.
      Код ячеек Python — прямо здесь (textarea): из них же собирается ноутбук shelf/notebooks/kohavi-trustworthy.ipynb (python3 tools/build-book-notebook.py). -->
-<title data-i18n="bk.meta.title">Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам</title>
-<meta name="description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком.">
+<title data-i18n="bk.meta.title">Trustworthy Online Controlled Experiments — краткое содержание книги по A/B‑тестам</title>
+<meta name="description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A‑тесты — с живыми играми, кодом на Python и ноутбуком.">
 <link rel="canonical" href="https://dilyakhakimova.com/shelf/kohavi-trustworthy/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Диля Хакимова">
 <meta property="og:url" content="https://dilyakhakimova.com/shelf/kohavi-trustworthy/">
-<meta property="og:title" data-i18n-attr="content:bk.meta.title" content="Trustworthy Online Controlled Experiments — краткое содержание книги по A/B-тестам">
-<meta property="og:description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A-тесты — с живыми играми, кодом на Python и ноутбуком.">
+<meta property="og:title" data-i18n-attr="content:bk.meta.title" content="Trustworthy Online Controlled Experiments — краткое содержание книги по A/B‑тестам">
+<meta property="og:description" data-i18n-attr="content:bk.meta.desc" content="Краткое содержание книги «Trustworthy Online Controlled Experiments», Ron Kohavi, Diane Tang, Ya Xu: все 23 главы на пальцах, по истории на главу — закон Твимена, SRM, подглядывание, A/A‑тесты — с живыми играми, кодом на Python и ноутбуком.">
 <meta property="og:image" content="https://dilyakhakimova.com/shelf/og/kohavi-trustworthy.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -50,7 +50,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <script>(function(){var a=document.querySelector('header.top .me');if(!a)return;var m=null;try{m=JSON.parse(localStorage.getItem('dk:me')||'null')}catch(e){}if(!m)return;a.setAttribute('aria-label','Мой кабинет');a.classList.add('in');var i=a.querySelector('.me-i');if(!i)return;if(m.name){i.className='me-l';i.textContent=m.name.trim().charAt(0).toUpperCase()}var s=m.photo||(/^(cat|dog)-\d+$/.test(m.avatar||'')?'/img/avatars/'+m.avatar+'.webp':'');if(s){var g=new Image();g.alt='';g.src=s;g.onload=function(){i.replaceWith(g)}}})()</script>
 
 <main id="main" class="wrap bk" data-share-title="Trustworthy Online Controlled Experiments"
-  data-i18n-attr="data-share-text:bk.share.text;data-s-copied:bk.copied" data-share-text="Скинь коллеге, который запускает A/B-тесты: вся книга на пальцах, по истории на каждую главу." data-s-copied="Ссылка скопирована">
+  data-i18n-attr="data-share-text:bk.share.text;data-s-copied:bk.copied" data-share-text="Скинь коллеге, который запускает A/B‑эксперименты: вся книга на пальцах, по истории на каждую главу." data-s-copied="Ссылка скопирована">
 
 <!-- метка → заголовок-обещание → паспорт → реплика Котейки; справа — своя иллюстрация вместо обложки -->
 <section class="bk-hero">
@@ -71,7 +71,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <!-- главная мысль + своя схема -->
 <section class="bk-sec bk-main" aria-labelledby="main-h">
   <h2 id="main-h" data-i18n="bk.main.h">Главная мысль</h2>
-  <p class="bk-thesis" data-i18n="bk.main.p">Посчитать эффект A/B-теста — дело минуты. Вся трудность в том, чтобы понять, можно ли этому числу верить, и книга почти целиком про это.</p>
+  <p class="bk-thesis" data-i18n="bk.main.p">Посчитать эффект A/B‑теста — дело минуты. Вся трудность в том, чтобы понять, можно ли этому числу верить, и книга почти целиком про это.</p>
   <p data-i18n="bk.main.who">Авторы много лет руководили экспериментами в больших компаниях: Рон Кохави — в Microsoft, Диана Тан — в Google, Я Сюй — в LinkedIn. Поэтому почти все истории в книге — про поисковики Bing и Google, новостной портал MSN от Microsoft и соцсеть LinkedIn: миллионы пользователей, тысячи экспериментов в год. Идеи переносятся и на продукты поменьше, но масштаб надо держать в уме.</p>
   <figure class="bk-fig">
     <p class="chart-head" data-i18n="bk.main.svg.t">Из чего состоит работа с экспериментом</p>
@@ -236,14 +236,14 @@ for lo in [0.5, 1, 2, 3, 5, 10]:
   <p data-i18n="bk.i4.p1">Смотреть можно. Нельзя останавливать эксперимент в первый день, когда стало «значимо». Каждый взгляд — ещё один шанс поймать случайный эффект, и за месяц таких шансов набегает много. Эту ловушку называют <b class="term">подглядыванием</b>, по‑английски <i lang="en">peeking problem</i>. Авторы вспоминают ранние инструменты для A/B, которые показывали p‑value в реальном времени: ложных срабатываний там было в разы больше обещанных 5%.</p>
   <p data-i18n="bk.i4.p2">Как правильно: длину эксперимента решают заранее по минимальному детектируемому эффекту (<i lang="en">minimum detectable effect</i>, MDE), а решение принимают в конце. Каждый день можно смотреть на поломки: не упало ли приложение, ровно ли делятся группы. Смотреть на эффект по ходу тоже можно, но только по плану, записанному до запуска: в заранее выбранные дни и с более строгим порогом.</p>
   <div class="bk-frame">
-    <p class="chart-head" data-i18n="bk.i4.toy">A/A-тест идёт 30 дней, и каждый день смотрим на результат: сколько раз он «прокрасится»</p>
+    <p class="chart-head" data-i18n="bk.i4.toy">A/A‑тест идёт 30 дней, и каждый день смотрим на результат: сколько раз он «прокрасится»</p>
     <iframe src="/play/peeking/?embed=1&amp;viz=1" title="Подглядывание: остановишь тест в первый же «значимый» день?" style="height:1400px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/peeking/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <template class="nb-cell" data-title="Глава 3. Подглядывание: 1000 A/A-тестов" data-note="Что делает симуляция: 1000 A/A-тестов по 20 дней, эффекта нет ни в одном. Каждый день считает p-value по накопленным данным и сравнивает два правила: смотреть только в конце и остановиться в первый же день, когда стало «значимо». Печатает долю ложных срабатываний для обоих — около 5% против многократно большей. Поменяй days и посмотри, как растут ложные срабатывания.">import numpy as np
+  <template class="nb-cell" data-title="Глава 3. Подглядывание: 1000 A/A‑тестов" data-note="Что делает симуляция: 1000 A/A-тестов по 20 дней, эффекта нет ни в одном. Каждый день считает p-value по накопленным данным и сравнивает два правила: смотреть только в конце и остановиться в первый же день, когда стало «значимо». Печатает долю ложных срабатываний для обоих — около 5% против многократно большей. Поменяй days и посмотри, как растут ложные срабатывания.">import numpy as np
 
 rng = np.random.default_rng(1)
-tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
+tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A‑тестов по 20 дней, по 500 пользователей в день в группе
 
 # накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
 a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
@@ -325,7 +325,7 @@ print(f"смотрим каждый день, стоп при «значимо�
   <p data-i18n="bk.c10.p2">Авторы раскладывают методы по двум осям: сколько людей охватывает метод и сколько узнаёшь о каждом пользователе. Логи — миллионы людей и мало подробностей, глубинные интервью — пять человек и всё про них. Сильнее всего методы работают вместе: опрос подсказывает гипотезу, логи — масштаб, эксперимент — причину.</p>
   <figure class="bk-fig bk-methods">
     <p class="chart-head" data-i18n="bk.c10.fig.t">Методы: сколько людей и сколько узнаём о каждом пользователе</p>
-    <svg class="bk-svg bk-axes" viewBox="0 0 560 300" role="img" data-i18n-attr="aria-label:bk.c10.fig.t" aria-label="Методы: сколько людей и сколько узнаём о каждом пользователе"><line x1="48" y1="256" x2="540" y2="256" class="ax"/><line x1="48" y1="256" x2="48" y2="16" class="ax"/><text x="540" y="284" text-anchor="end" class="axl" data-i18n="bk.c10.fig.x">сколько людей охватывает →</text><text x="34" y="16" transform="rotate(-90 34 16)" text-anchor="end" class="axl" data-i18n="bk.c10.fig.y">знаем о пользователе →</text><circle cx="97" cy="45" r="7" class="pt m"/><text x="109" y="50" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m0">Глубинные интервью · 5 человек</text><circle cx="166" cy="83" r="7" class="pt m"/><text x="178" y="88" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m1">Фокус-группы · 10 человек</text><circle cx="294" cy="141" r="7" class="pt m"/><text x="306" y="146" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m2">Опросы · тысячи</text><circle cx="481" cy="218" r="7" class="pt m"/><text x="469" y="223" text-anchor="end" class="ptl m" data-i18n="bk.c10.fig.m3">Логи · миллионы</text><circle cx="442" cy="179" r="7" class="pt t"/><text x="430" y="184" text-anchor="end" class="ptl t" data-i18n="bk.c10.fig.m4">A/B-эксперимент · миллионы</text></svg>
+    <svg class="bk-svg bk-axes" viewBox="0 0 560 300" role="img" data-i18n-attr="aria-label:bk.c10.fig.t" aria-label="Методы: сколько людей и сколько узнаём о каждом пользователе"><line x1="48" y1="256" x2="540" y2="256" class="ax"/><line x1="48" y1="256" x2="48" y2="16" class="ax"/><text x="540" y="284" text-anchor="end" class="axl" data-i18n="bk.c10.fig.x">сколько людей охватывает →</text><text x="34" y="16" transform="rotate(-90 34 16)" text-anchor="end" class="axl" data-i18n="bk.c10.fig.y">знаем о пользователе →</text><circle cx="97" cy="45" r="7" class="pt m"/><text x="109" y="50" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m0">Глубинные интервью · 5 человек</text><circle cx="166" cy="83" r="7" class="pt m"/><text x="178" y="88" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m1">Фокус-группы · 10 человек</text><circle cx="294" cy="141" r="7" class="pt m"/><text x="306" y="146" text-anchor="start" class="ptl m" data-i18n="bk.c10.fig.m2">Опросы · тысячи</text><circle cx="481" cy="218" r="7" class="pt m"/><text x="469" y="223" text-anchor="end" class="ptl m" data-i18n="bk.c10.fig.m3">Логи · миллионы</text><circle cx="442" cy="179" r="7" class="pt t"/><text x="430" y="184" text-anchor="end" class="ptl t" data-i18n="bk.c10.fig.m4">A/B‑эксперимент · миллионы</text></svg>
     <figcaption class="figcap" data-i18n="bk.c10.fig.cap">Чем больше людей охватывает метод, тем меньше он знает о каждом пользователе. Эксперимент стоит рядом с логами, но в отличие от них отвечает на вопрос о причине.</figcaption>
   </figure>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.c10.take">перед большим экспериментом поговори хотя бы с несколькими пользователями — дешевле, чем эксперимент на неверную гипотезу.</span></p>
@@ -445,11 +445,11 @@ print(f"\nВсего случайно красных на отчёт: {total_ti
 <li class="bk-idea" id="ch-19">
   <h2><span class="n" aria-hidden="true">19</span><span data-i18n="bk.i5.h">Как проверить саму платформу экспериментов?</span></h2>
   <p class="bk-ch" data-i18n="bk.i5.ch">Глава 19</p>
-  <p data-i18n="bk.i5.p1">A/A-тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5% экспериментов. Так как при отсутствии эффекта <span class="nw">P(p‑value < α) = α</span>, p‑value распределятся равномерно от 0 до 1. Если гистограмма p‑value не похожа на равномерное распределение — есть горб или пик у нуля, — это сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
+  <p data-i18n="bk.i5.p1">A/A‑тестом: обе группы видят одно и то же. Один A/A мало что скажет, а тысяча — многое. Если платформа честная, значимыми окажутся около 5% экспериментов. Так как при отсутствии эффекта <span class="nw">P(p‑value < α) = α</span>, p‑value распределятся равномерно от 0 до 1. Если гистограмма p‑value не похожа на равномерное распределение — есть горб или пик у нуля, — это сигнал: сломана формула дисперсии, рандомизация или сбор данных.</p>
   <p data-i18n="bk.i5.p2">Авторы советуют гонять A/A постоянно, на тех же метриках, что и в настоящих экспериментах. Ждать тысячу настоящих A/A не нужно: берут данные прошлой недели и тысячу раз делят тех же пользователей той же функцией, что и платформа, — с её хешем и новой солью для каждого A/A. Случайное перемешивание тут не подходит: оно проверяет формулу, но не само деление. Так находят метрики, которые «прокрашиваются» сами собой, и ошибки деления, которых в одном эксперименте не видно. А ошибки в сборе и обработке событий — потерю событий, фильтры, которые по-разному чистят группы, — найдёт только настоящий A/A, запущенный на платформе: офлайн-проверка берёт уже собранные данные.</p>
   <div class="bk-frame">
-    <p class="chart-head" data-i18n="bk.i5.toy">Какой бывает разница, когда эффекта нет: тысяча A/A-тестов</p>
-    <iframe src="/play/aa-stand/?embed=1&amp;viz=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
+    <p class="chart-head" data-i18n="bk.i5.toy">Какой бывает разница, когда эффекта нет: тысяча A/A‑тестов</p>
+    <iframe src="/play/aa-stand/?embed=1&amp;viz=1" title="A/A‑стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
   <template class="nb-cell" data-title="Глава 19. Тысяча A/A: деление как у платформы" data-note="Что делает код: берёт пользователей и метрику за прошлую неделю и тысячу раз делит их на тест и контроль той же функцией, что платформа, — хешем с новой солью для каждого A/A. Печатает, как колеблется доля теста, долю p &lt; 0,05 — при честном делении около 5% — и гистограмму p-value, а тест Колмогорова — Смирнова проверяет, равномерна ли она. Функцию split замени на деление своей платформы, p_value — на её расчёт. Файла с данными пока нет, поэтому в примере выдуманные числа.">import hashlib
@@ -595,12 +595,10 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 
 <!-- «Что из этого вошло в курсы» скрыт по просьбе Дили 23.11; тексты в i18n bk.course.* -->
 
-<p class="more bk-more"><a href="/shelf/" data-i18n="bk.more.all">Вся полка →</a></p>
-
 <section class="bk-sec bk-share" aria-labelledby="share-h">
   <h2 id="share-h" data-i18n="bk.share.title">Понравился разбор?</h2>
-  <p data-i18n="bk.share.text">Скинь коллеге, который запускает A/B-тесты: вся книга на пальцах, по истории на каждую главу.</p>
-  <p class="row"><button class="btn-text" type="button" data-act="share" data-i18n="bk.share">Поделиться <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+  <p data-i18n="bk.share.text">Скинь коллеге, который запускает A/B‑эксперименты: вся книга на пальцах, по истории на каждую главу.</p>
+  <p class="row"><button class="btn" type="button" data-act="share" data-i18n="bk.share">Поделиться <span aria-hidden="true">↗</span></button><a class="btn ghost" href="/shelf/" data-i18n="bk.more.read">Что ещё почитать →</a><span class="note" role="status"></span></p>
 </section>
 
 </main>

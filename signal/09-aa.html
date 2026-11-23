@@ -60,7 +60,7 @@
 <!-- 2: обложка -->
 <section class="card" data-title="Линейка для шума" aria-label="Линейка для шума">
   <p class="kicker">Часть III · глава 9</p>
-  <h1>A/A-тест</h1>
+  <h1>A/A‑тест</h1>
   <p class="core">После главы ты сможешь <b>посчитать SE разности двух групп и предсказать разброс A/A</b> — и по нему проверить, что эксперимент считается правильно.</p>
   <figure class="art"><img loading="lazy" src="img/ch09-00-twins.jpg" alt="Две одинаковые двери кафе, над ними столбики разной высоты; Алиса приставила к ним линейку" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph">Здесь будет иллюстрация: две одинаковые двери, разные столбики, Алиса с линейкой</figcaption></figure>
   <p class="lead">Разделим гостей на две группы и ничего не будем менять. Разница в конверсии всё равно будет. Какая она бывает — и почему это самое полезное число перед любым A/B?</p>
@@ -85,9 +85,9 @@
     <div class="msg kot world"><img loading="lazy" class="ava" src="/ab-basics/img/ava-kot.jpg" alt=""><div class="bubble"><div class="who">Котейка</div><p class="say">Мяу, это я раскладывал гостей монеткой. Кому‑то просто захотелось кофе именно сегодня.</p></div></div>
     <div class="msg alice"><img loading="lazy" class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Это не баг, это линейка. Сейчас покажу, какой бывает разница, когда разницы нет.</p></div></div>
   </div>
-  <p>Конверсия 10%, в каждой группе 10 000 гостей. Котейка 100 раз запускает такой A/A-тест.</p>
+  <p>Конверсия 10%, в каждой группе 10 000 гостей. Котейка 100 раз запускает такой A/A‑тест.</p>
   <div class="guess" data-key="aa83" data-min="0" data-max="100" data-unit="%">
-    <div class="guess-row"><label class="field phrase" for="g09-1-guess" id="g09-1-guess-ctx">Разница больше 0.83 заказа на 100 гостей (в любую сторону) будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g09-1-guess" aria-describedby="g09-1-guess-ctx">% A/A-тестов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="g09-1-guess" id="g09-1-guess-ctx">Разница больше 0.83 заказа на 100 гостей (в любую сторону) будет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g09-1-guess" aria-describedby="g09-1-guess-ctx">% A/A‑тестов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
     <p class="note">Напиши число — на следующей карточке запустим стенд.</p>
   </div>
 </section>
@@ -118,12 +118,12 @@
     </div>
     <p class="note readout9" id="aa-last"></p>
     <div class="viz-only"><p class="chart-title" id="aa-pv-t"></p>
-    <canvas id="cv-aa-pv" role="img" aria-label="Гистограмма p‑value тех же A/A-тестов: при отсутствии эффекта распределение равномерное"></canvas>
+    <canvas id="cv-aa-pv" role="img" aria-label="Гистограмма p‑value тех же A/A‑тестов: при отсутствии эффекта распределение равномерное"></canvas>
     <div class="verdict" id="v-aa" hidden></div>
   </div>
   <aside class="scary" data-toy-hide>
     <span class="scary-tag">Страшное слово</span>
-    <p>Тест, в котором группы получают одно и то же, называют <b class="term">A/A-тестом</b>; на собеседовании — A/A test.</p>
+    <p>Тест, в котором группы получают одно и то же, называют <b class="term">A/A‑тестом</b>; на собеседовании — A/A test.</p>
     <p class="aside">Звучит как опечатка в «A/B», а это эталон шума: всё, что он показывает, — случайность.</p>
   </aside>
   <p class="src">Идея из видео: Джош Стармер (StatQuest), «Sampling from a Distribution» — сэмплировать, чтобы проверить сам тест</p>
@@ -158,8 +158,8 @@
       <button class="btn ghost" type="button" id="pvbug" aria-pressed="false">Добавить баг: дубли событий</button>
       <button class="btn ghost" type="button" id="pv0">Сначала</button>
     </div>
-    <p class="chart-title">p‑value в A/A-тестах, гистограмма</p>
-    <canvas id="cv-pv" role="img" aria-label="Гистограмма p‑value в A/A-тестах: ровная без бага, с пиком у нуля при баге"></canvas>
+    <p class="chart-title">p‑value в A/A‑тестах, гистограмма</p>
+    <canvas id="cv-pv" role="img" aria-label="Гистограмма p‑value в A/A‑тестах: ровная без бага, с пиком у нуля при баге"></canvas>
     <p class="note readout9" id="pv-stat"></p>
     <div class="verdict" id="v-pv" hidden></div>
   </div>
@@ -197,7 +197,7 @@
   <h2>Двадцать метрик в одном A/A</h2>
   <p>В отчёте A/A у Алисы 20 метрик. Красная — разница за полосой ±1.96·SE. Запускай A/A и считай красные. Потом сделай метрики связанными: заказы, выручка и чек ведь двигаются вместе.</p>
   <div class="guess" data-key="any20" data-min="0" data-max="100" data-unit="%">
-    <div class="guess-row"><label class="field phrase" for="m20-guess" id="m20-guess-ctx">Хотя бы одна из 20 метрик покраснеет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="m20-guess" aria-describedby="m20-guess-ctx">% A/A-тестов</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
+    <div class="guess-row"><label class="field phrase" for="m20-guess" id="m20-guess-ctx">Хотя бы одна из 20 метрик покраснеет примерно в <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="m20-guess" aria-describedby="m20-guess-ctx">% A/A‑тестов</label><div class="controls"><button class="btn ghost" type="button">Запомнить</button></div></div>
     <p class="note">Сначала запиши догадку, потом проверь.</p>
   </div>
   <div class="sheet c-white">
@@ -278,7 +278,7 @@ _check()
   <h2>Две задачи про A/A</h2>
   <p>Схема ответа одна: переформулируй → посчитай в штуках → запиши формулу → проверь симуляцией → скажи вывод одной фразой.</p>
   <details class="ivw" data-key="pvuniform">
-    <summary>Как распределены p‑value в A/A-тестах? Что значит, если у нуля пик?</summary>
+    <summary>Как распределены p‑value в A/A‑тестах? Что значит, если у нуля пик?</summary>
     <p><b>Переформулирую:</b> эффекта нет, тест честный; как часто p меньше любого порога t?</p>
     <p><b>В штуках:</b> по определению теста при отсутствии эффекта p &lt; 0.05 бывает в 5 тестах из 100, p &lt; 0.1 — в 10, p &lt; 0.5 — в 50. Значит, в каждом столбике шириной 0.05 — по 5%: гистограмма ровная.</p>
     <p><b>Формула:</b> <span class="num">P(p ≤ t | «эффекта нет») = t</span>, то есть p ~ U(0, 1). Для дискретных метрик и малых n — ступеньками, но в среднем ровно.</p>
@@ -305,7 +305,7 @@ _check()
     <p class="why">При 10% и 10 000 гостей в группе SE разности ≈ 0.42 заказа на 100 гостей. 0.3 — меньше одной SE, а разница меньше одной SE бывает примерно в двух A/A из трёх.</p>
   </div>
   <div class="quiz" data-right="c">
-    <p class="q">Из 100 A/A-тестов покраснели 5 при пороге 5%. Что с платформой?</p>
+    <p class="q">Из 100 A/A‑тестов покраснели 5 при пороге 5%. Что с платформой?</p>
     <div class="choice"><button type="button" data-v="a" data-why="В честном A/A красных в среднем 5 из 100 — это и есть порог 5%.">Сломана: в A/A красных быть не должно</button><button type="button" data-v="b" data-why="Пять красных — ровно ожидаемое число, они не говорят ни о каком перекосе в группах.">Сломан сплит: пять групп получили больше</button><button type="button" data-v="c">Всё ожидаемо: 5% и есть порог</button></div>
     <p class="why">Доля ложных срабатываний честного теста равна α. 5 из 100 — норма; тревожно, если их стабильно 10–15 или p‑value копятся у нуля.</p>
   </div>
@@ -337,7 +337,7 @@ _check()
     <li>Накопленная разница в первые дни скачет и рисует «тренды». Каждый день смотреть и останавливаться при первом выходе за трубу — ложных срабатываний около 20% вместо 5.</li>
   </ul>
   <dl class="terms">
-    <dt>A/A-тест</dt><dd>эксперимент, где обе группы получают одно и то же; эталон шума и проверка платформы; A/A test</dd>
+    <dt>A/A‑тест</dt><dd>эксперимент, где обе группы получают одно и то же; эталон шума и проверка платформы; A/A test</dd>
     <dt>Доля ложных срабатываний</dt><dd>доля A/A, которые «прокрасились»; у честного теста равна α; false positive rate, FPR</dd>
     <dt>SRM</dt><dd>sample ratio mismatch: доли гостей в группах заметно отличаются от задуманных; признак сломанного сплита</dd>
   </dl>

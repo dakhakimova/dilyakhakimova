@@ -17,9 +17,9 @@
 <link rel="stylesheet" href="/play/srm-check/srm.css?v=202611295">
 </head>
 <body>
-<a class="skip" href="#main">К содержанию</a>
+<a class="skip" href="#main">К содержанию</a>
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play" aria-current="true">Игры</a>
@@ -37,12 +37,12 @@
   <p class="play-meta srm-sub">Сколько дней держать тест?</p>
 
   <div class="seg ss-mode ss-when-mode" role="radiogroup" aria-label="Когда считаем">
-    <button type="button" role="radio" data-when="pre" aria-checked="true">До теста: планирую</button>
+    <button type="button" role="radio" data-when="pre" aria-checked="true">До теста: планирую</button>
     <button type="button" role="radio" data-when="post" aria-checked="false">После теста: пост-MDE</button>
   </div>
   <section class="ss-card" id="ss-pre" aria-labelledby="ss-h">
     <h2 id="ss-h" class="vh">Калькулятор</h2>
-    <p class="ss-step">1. Что знаем заранее</p>
+    <p class="ss-step">1. Что знаем заранее</p>
     <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
       <span class="ss-mode-l">Метрика:</span>
       <button type="button" role="radio" data-pmetric="share" aria-checked="true">доля</button>
@@ -51,13 +51,13 @@
     </div>
     <div class="ss-form">
       <label class="ss-f" data-pm="share"><span>Доля сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i>конверсия, ретеншен</i></label>
-      <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>чек, время на пользователя</i></label>
-      <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
-      <label class="ss-f" data-pm="ratio" hidden><span>Числитель на пользователя</span><input class="input ss-in" id="ss-rx" inputmode="decimal" autocomplete="off"><i>среднее, например клики</i></label>
+      <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>чек, время на пользователя</i></label>
+      <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Числитель на пользователя</span><input class="input ss-in" id="ss-rx" inputmode="decimal" autocomplete="off"><i>среднее, например клики</i></label>
       <label class="ss-f" data-pm="ratio" hidden><span>Его стандартное отклонение</span><input class="input ss-in" id="ss-sx" inputmode="decimal" autocomplete="off"><i>σ<sub>X</sub></i></label>
-      <label class="ss-f" data-pm="ratio" hidden><span>Знаменатель на пользователя</span><input class="input ss-in" id="ss-ry" inputmode="decimal" autocomplete="off"><i>среднее, например показы</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Знаменатель на пользователя</span><input class="input ss-in" id="ss-ry" inputmode="decimal" autocomplete="off"><i>среднее, например показы</i></label>
       <label class="ss-f" data-pm="ratio" hidden><span>Его стандартное отклонение</span><input class="input ss-in" id="ss-sy" inputmode="decimal" autocomplete="off"><i>σ<sub>Y</sub></i></label>
-      <label class="ss-f" data-pm="ratio" hidden><span>Корреляция числителя и знаменателя</span><input class="input ss-in" id="ss-rho" inputmode="decimal" autocomplete="off"><i>ρ, от −1 до 1</i></label>
+      <label class="ss-f" data-pm="ratio" hidden><span>Корреляция числителя и знаменателя</span><input class="input ss-in" id="ss-rho" inputmode="decimal" autocomplete="off"><i>ρ, от −1 до 1</i></label>
     </div>
     <div class="ss-alpha">
       <div class="seg" role="radiogroup" aria-label="Ошибка I рода α"><span class="ss-mode-l">Ошибка I рода α:</span>
@@ -72,15 +72,15 @@
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
     </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
-    <details class="ss-more"><summary>Дополнительно: в какую сторону ждём эффект, доли групп</summary>
+    <details class="ss-more"><summary>Дополнительно: в какую сторону ждём эффект, доли групп</summary>
       <div class="seg" role="radiogroup" aria-label="Чего ждём"><span class="ss-mode-l">Ждём:</span>
-        <button type="button" role="radio" data-sides="two" aria-checked="true">изменения в любую сторону</button>
+        <button type="button" role="radio" data-sides="two" aria-checked="true">изменения в любую сторону</button>
         <button type="button" role="radio" data-sides="left" aria-checked="false">падения</button>
         <button type="button" role="radio" data-sides="right" aria-checked="false">роста</button>
       </div>
-      <p class="note">Это двусторонний, левосторонний и правосторонний тест. Односторонний требует меньше людей, но не заметит эффект в другую сторону.</p>
+      <p class="note">Это двусторонний, левосторонний и правосторонний тест. Односторонний требует меньше людей, но не заметит эффект в другую сторону.</p>
       <div class="ss-form">
-        <label class="ss-f"><span>Доля теста</span><input class="input ss-in" id="ss-split" inputmode="decimal" autocomplete="off"><i>остальное — контроль; обычно 50%</i></label>
+        <label class="ss-f"><span>Доля теста</span><input class="input ss-in" id="ss-split" inputmode="decimal" autocomplete="off"><i>остальное — контроль; обычно 50%</i></label>
       </div>
     </details>
     <div class="ss-out" role="status" aria-live="polite">
@@ -89,23 +89,23 @@
     </div>
     <p class="ss-step">3. Сколько дней держать</p>
     <div class="ss-form">
-      <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off" placeholder="например, 20 000"><i>человек в день</i></label>
+      <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off" placeholder="например, 20 000"><i>человек в день</i></label>
     </div>
     <p class="ss-when ss-days" id="ss-when"></p>
     <figure class="ss-chart">
-      <figcaption class="chart-head">MDE и число людей в эксперименте</figcaption>
-      <svg id="ss-curve" viewBox="0 0 560 260" style="overflow:visible" role="img" aria-label="Кривая: какой эффект можно заметить при разном числе людей"></svg>
-      <p class="note">Чем больше людей, тем меньший эффект заметен, но медленно: чтобы заметить вдвое меньший эффект, людей нужно вчетверо больше.</p>
+      <figcaption class="chart-head">MDE и число людей в эксперименте</figcaption>
+      <svg id="ss-curve" viewBox="0 0 560 260" style="overflow:visible" role="img" aria-label="Кривая: какой эффект можно заметить при разном числе людей"></svg>
+      <p class="note">Чем больше людей, тем меньший эффект заметен, но медленно: чтобы заметить вдвое меньший эффект, людей нужно вчетверо больше.</p>
     </figure>
     <figure class="ss-what">
-      <figcaption class="chart-head">Что если: другой MDE</figcaption>
+      <figcaption class="chart-head">Что если: другой MDE</figcaption>
       <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">всего людей</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
-    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
+    <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
   </section>
   <section class="ss-card" id="ss-post" aria-labelledby="pm-h" hidden>
     <h2 id="pm-h" class="vh">Пост-MDE</h2>
-    <p class="pm-lead">Тест закончился, и дисперсия, число людей и средние уже известны. Какой самый маленький эффект этот тест мог заметить? Если пост-MDE больше эффекта, который важен бизнесу, серый результат ничего не доказывает: такой эффект тест скорее всего не увидел бы.</p>
+    <p class="pm-lead">Тест закончился, и дисперсия, число людей и средние уже известны. Какой самый маленький эффект этот тест мог заметить? Если пост-MDE больше эффекта, который важен бизнесу, серый результат ничего не доказывает: такой эффект тест скорее всего не увидел бы.</p>
     <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
       <span class="ss-mode-l">Метрика:</span>
       <button type="button" role="radio" data-metric="share" aria-checked="true">доля</button>
@@ -114,32 +114,32 @@
     </div>
     <div class="pm-grid">
       <div class="pm-head"><span></span><span>Пользователей</span><span data-m="share">Доля</span><span data-m="mean" hidden>Среднее</span><span data-m="mean" hidden>Ст. отклонение</span><span data-m="ratio" hidden>числ.</span><span data-m="ratio" hidden>σ числ.</span><span data-m="ratio" hidden>знам.</span><span data-m="ratio" hidden>σ знам.</span><span data-m="ratio" hidden>ρ</span></div>
-      <div class="pm-row"><span class="srm-name"><i style="background:#23418A"></i><b>Контроль</b></span><input class="input ss-in" id="pm-na" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Контроль: пользователей"><input class="input ss-in" id="pm-pa" inputmode="decimal" autocomplete="off" placeholder="4%" aria-label="Контроль: доля" data-m="share"><input class="input ss-in" id="pm-ma" inputmode="decimal" autocomplete="off" placeholder="850" aria-label="Контроль: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sa" inputmode="decimal" autocomplete="off" placeholder="1 200" aria-label="Контроль: стандартное отклонение" data-m="mean" hidden><input class="input ss-in" id="pm-rxa" inputmode="decimal" autocomplete="off" placeholder="1.2" aria-label="Контроль: числитель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sxa" inputmode="decimal" autocomplete="off" placeholder="2" aria-label="Контроль: σ числителя" data-m="ratio" hidden><input class="input ss-in" id="pm-rya" inputmode="decimal" autocomplete="off" placeholder="10" aria-label="Контроль: знаменатель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sya" inputmode="decimal" autocomplete="off" placeholder="12" aria-label="Контроль: σ знаменателя" data-m="ratio" hidden><input class="input ss-in" id="pm-rhoa" inputmode="decimal" autocomplete="off" placeholder="0.6" aria-label="Контроль: корреляция" data-m="ratio" hidden></div>
-      <div class="pm-row"><span class="srm-name"><i style="background:#E8644A"></i><b>Тест</b></span><input class="input ss-in" id="pm-nb" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Тест: пользователей"><input class="input ss-in" id="pm-pb" inputmode="decimal" autocomplete="off" placeholder="4.1%" aria-label="Тест: доля" data-m="share"><input class="input ss-in" id="pm-mb" inputmode="decimal" autocomplete="off" placeholder="860" aria-label="Тест: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sb" inputmode="decimal" autocomplete="off" placeholder="1 250" aria-label="Тест: стандартное отклонение" data-m="mean" hidden><input class="input ss-in" id="pm-rxb" inputmode="decimal" autocomplete="off" placeholder="1.25" aria-label="Тест: числитель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sxb" inputmode="decimal" autocomplete="off" placeholder="2.1" aria-label="Тест: σ числителя" data-m="ratio" hidden><input class="input ss-in" id="pm-ryb" inputmode="decimal" autocomplete="off" placeholder="10" aria-label="Тест: знаменатель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-syb" inputmode="decimal" autocomplete="off" placeholder="12" aria-label="Тест: σ знаменателя" data-m="ratio" hidden><input class="input ss-in" id="pm-rhob" inputmode="decimal" autocomplete="off" placeholder="0.6" aria-label="Тест: корреляция" data-m="ratio" hidden></div>
+      <div class="pm-row"><span class="srm-name"><i style="background:#23418A"></i><b>Контроль</b></span><input class="input ss-in" id="pm-na" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Контроль: пользователей"><input class="input ss-in" id="pm-pa" inputmode="decimal" autocomplete="off" placeholder="4%" aria-label="Контроль: доля" data-m="share"><input class="input ss-in" id="pm-ma" inputmode="decimal" autocomplete="off" placeholder="850" aria-label="Контроль: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sa" inputmode="decimal" autocomplete="off" placeholder="1 200" aria-label="Контроль: стандартное отклонение" data-m="mean" hidden><input class="input ss-in" id="pm-rxa" inputmode="decimal" autocomplete="off" placeholder="1.2" aria-label="Контроль: числитель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sxa" inputmode="decimal" autocomplete="off" placeholder="2" aria-label="Контроль: σ числителя" data-m="ratio" hidden><input class="input ss-in" id="pm-rya" inputmode="decimal" autocomplete="off" placeholder="10" aria-label="Контроль: знаменатель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sya" inputmode="decimal" autocomplete="off" placeholder="12" aria-label="Контроль: σ знаменателя" data-m="ratio" hidden><input class="input ss-in" id="pm-rhoa" inputmode="decimal" autocomplete="off" placeholder="0.6" aria-label="Контроль: корреляция" data-m="ratio" hidden></div>
+      <div class="pm-row"><span class="srm-name"><i style="background:#E8644A"></i><b>Тест</b></span><input class="input ss-in" id="pm-nb" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Тест: пользователей"><input class="input ss-in" id="pm-pb" inputmode="decimal" autocomplete="off" placeholder="4.1%" aria-label="Тест: доля" data-m="share"><input class="input ss-in" id="pm-mb" inputmode="decimal" autocomplete="off" placeholder="860" aria-label="Тест: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sb" inputmode="decimal" autocomplete="off" placeholder="1 250" aria-label="Тест: стандартное отклонение" data-m="mean" hidden><input class="input ss-in" id="pm-rxb" inputmode="decimal" autocomplete="off" placeholder="1.25" aria-label="Тест: числитель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-sxb" inputmode="decimal" autocomplete="off" placeholder="2.1" aria-label="Тест: σ числителя" data-m="ratio" hidden><input class="input ss-in" id="pm-ryb" inputmode="decimal" autocomplete="off" placeholder="10" aria-label="Тест: знаменатель на пользователя" data-m="ratio" hidden><input class="input ss-in" id="pm-syb" inputmode="decimal" autocomplete="off" placeholder="12" aria-label="Тест: σ знаменателя" data-m="ratio" hidden><input class="input ss-in" id="pm-rhob" inputmode="decimal" autocomplete="off" placeholder="0.6" aria-label="Тест: корреляция" data-m="ratio" hidden></div>
     </div>
-    <p class="note pm-rnote" data-m="ratio" hidden>Числитель и знаменатель — средние на пользователя, например клики и показы; σ — их стандартные отклонения, ρ — корреляция. Дисперсию отношения посчитаю дельта-методом.</p>
+    <p class="note pm-rnote" data-m="ratio" hidden>Числитель и знаменатель — средние на пользователя, например клики и показы; σ — их стандартные отклонения, ρ — корреляция. Дисперсию отношения посчитаю дельта-методом.</p>
     <div class="ss-form pm-opts">
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="pm-pow" inputmode="decimal" autocomplete="off" placeholder="80%"><i></i></label>
       <label class="ss-f"><span>Ошибка I рода α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i></i></label>
     </div>
-    <details class="ss-more pm-more"><summary>Дополнительно: в какую сторону ждали эффект</summary>
+    <details class="ss-more pm-more"><summary>Дополнительно: в какую сторону ждали эффект</summary>
       <div class="seg" role="radiogroup" aria-label="Чего ждали"><span class="ss-mode-l">Ждали:</span>
-        <button type="button" role="radio" data-psides="two" aria-checked="true">изменения в любую сторону</button>
+        <button type="button" role="radio" data-psides="two" aria-checked="true">изменения в любую сторону</button>
         <button type="button" role="radio" data-psides="left" aria-checked="false">падения</button>
         <button type="button" role="radio" data-psides="right" aria-checked="false">роста</button>
       </div>
     </details>
     <div class="ss-out srm-out idle" id="pm-out" role="status" aria-live="polite">
-      <p class="ss-big" id="pm-big">Впиши, сколько людей было в группах и что получилось.</p>
+      <p class="ss-big" id="pm-big">Впиши, сколько людей было в группах и что получилось.</p>
       <p class="ss-when" id="pm-p"></p>
     </div>
-    <p class="note pm-crit"><b>Почему не «наблюдаемая мощность».</b> Пост-MDE считают по фактическому разбросу и размерам групп, а не по полученному эффекту. Мощность, посчитанная по самому наблюдённому эффекту, — однозначная функция p-value: серый результат всегда даёт низкую «мощность», и нового она ничего не говорит. Эту ошибку разобрали Hoenig и Heisey в статье «The Abuse of Power», 2001.</p>
+    <p class="note pm-crit"><b>Почему не «наблюдаемая мощность».</b> Пост-MDE считают по фактическому разбросу и размерам групп, а не по полученному эффекту. Мощность, посчитанная по самому наблюдённому эффекту, — однозначная функция p‑value: серый результат всегда даёт низкую «мощность», и нового она ничего не говорит. Эту ошибку разобрали Hoenig и Heisey в статье «The Abuse of Power», 2001.</p>
   </section>
 </main>
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 <script src="/play/sample-size/ss.js?v=202611295"></script>
