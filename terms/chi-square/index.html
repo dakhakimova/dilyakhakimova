@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611391">
-<link rel="stylesheet" href="/tokens.css?v=202611391">
-<link rel="stylesheet" href="/home.css?v=202611391">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611391">
-<link rel="stylesheet" href="/terms/terms.css?v=202611391">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611393">
+<link rel="stylesheet" href="/tokens.css?v=202611393">
+<link rel="stylesheet" href="/home.css?v=202611393">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611393">
+<link rel="stylesheet" href="/terms/terms.css?v=202611393">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Критерий хи-квадрат","item":"https://dilyakhakimova.com/terms/chi-square/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/chi-square/#term","name":"Критерий хи-квадрат","description":"Критерий хи-квадрат (χ², критерий Пирсона) проверяет, насколько количества по категориям расходятся с ожидаемыми, и бывает ли такое расхождение просто из-за случайности. Им проверяют честность кубика, ровность сплита в A/B и связь двух категориальных признаков.","url":"https://dilyakhakimova.com/terms/chi-square/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Критерий хи-квадрат","description":"Хи-квадрат (χ², критерий Пирсона) на примере кубика Котейки: как сравнить наблюдаемые количества с ожидаемыми и при чём тут проверка сплита в A/B.","url":"https://dilyakhakimova.com/terms/chi-square/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/chi-square/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?","acceptedAnswer":{"@type":"Answer","text":"Ожидали по 50 000. χ² = 600²/50 000 + 600²/50 000 = 14.4 при одной степени свободы, p ≈ 0.00015. Такой перекос (SRM) почти наверняка значит баг в сплитовании или логировании: результаты теста нельзя читать, пока не найдёшь причину."}},{"@type":"Question","name":"Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?","acceptedAnswer":{"@type":"Answer","text":"Это один и тот же тест: без поправки Йейтса χ² для таблицы 2 × 2 равен квадрату z-статистики, и p-value совпадают."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -125,21 +125,21 @@
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">Где ошибаются с хи-квадратом?</h2>
     <ul class="list t-err">
-      <li><span class="lead">Подставлять проценты вместо количеств.</span> χ² зависит от числа наблюдений: одни и те же доли на 60 и на 6000 бросках дают разные выводы. В формулу идут штуки, а не проценты.</li>
-      <li><span class="lead">Считать при маленьких ожидаемых количествах.</span> Если в категориях ожидается меньше 5 наблюдений, приближение распределением χ² врёт. Объединяй редкие категории или бери точный тест Фишера.</li>
-      <li><span class="lead">Искать в значимом χ² ответ «где именно».</span> Тест говорит, что расхождение есть, но не где. Смотри на вклады (O − E)²/E или остатки (O − E)/√E по категориям.</li>
-      <li><span class="lead">Забывать о независимости наблюдений.</span> Пятьдесят заказов одного гостя — не пятьдесят независимых наблюдений. Считай в единицах рандомизации, иначе χ² раздувается.</li>
+      <li><span class="t-num">Ловушка 1</span><span class="lead">Подставлять проценты вместо количеств.</span> χ² зависит от числа наблюдений: одни и те же доли на 60 и на 6000 бросках дают разные выводы. В формулу идут штуки, а не проценты.</li>
+      <li><span class="t-num">Ловушка 2</span><span class="lead">Считать при маленьких ожидаемых количествах.</span> Если в категориях ожидается меньше 5 наблюдений, приближение распределением χ² врёт. Объединяй редкие категории или бери точный тест Фишера.</li>
+      <li><span class="t-num">Ловушка 3</span><span class="lead">Искать в значимом χ² ответ «где именно».</span> Тест говорит, что расхождение есть, но не где. Смотри на вклады (O − E)²/E или остатки (O − E)/√E по категориям.</li>
+      <li><span class="t-num">Ловушка 4</span><span class="lead">Забывать о независимости наблюдений.</span> Пятьдесят заказов одного гостя — не пятьдесят независимых наблюдений. Считай в единицах рандомизации, иначе χ² раздувается.</li>
     </ul>
   </section>
 
   <section class="t-sec" aria-labelledby="faq-h">
     <h2 id="faq-h">Какие задачи на хи-квадрат дают на собеседовании?</h2>
     <details class="t-faq">
-      <summary><span class="q">Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?</span><span class="show">Показать ответ</span></summary>
+      <summary><span class="t-num">Задача 1</span><span class="q">Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?</span><span class="show">Показать ответ</span></summary>
       <p>Ожидали по 50 000. χ² = 600²/50 000 + 600²/50 000 = 14.4 при одной степени свободы, p ≈ 0.00015. Такой перекос (SRM) почти наверняка значит баг в сплитовании или логировании: результаты теста нельзя читать, пока не найдёшь причину.</p>
     </details>
     <details class="t-faq">
-      <summary><span class="q">Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?</span><span class="show">Показать ответ</span></summary>
+      <summary><span class="t-num">Задача 2</span><span class="q">Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?</span><span class="show">Показать ответ</span></summary>
       <p>Это один и тот же тест: без поправки Йейтса χ² для таблицы 2 × 2 равен квадрату z-статистики, и p‑value совпадают.</p>
     </details>
   </section>
@@ -159,7 +159,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611391"></script>
-<script src="/terms/toys.js?v=202611391"></script>
+<script src="/terms/terms.js?v=202611393"></script>
+<script src="/terms/toys.js?v=202611393"></script>
 </body>
 </html>

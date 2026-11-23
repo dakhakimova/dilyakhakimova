@@ -43,6 +43,9 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'terms.toy.out': 'Что показывает игра',
   'terms.faq.qual': 'На понимание',   // вопросы без расчёта (решение Дили, 22.11.2026: на собеседовании есть качественные и количественные)
   'terms.faq.calc': 'С расчётом',
+  'terms.faq.qn': 'Вопрос',
+  'terms.faq.tn': 'Задача',
+  'terms.err.n': 'Ловушка',
   'terms.toy.from': 'Игра из курса «{course}», {unit} {n}. <a href="/play/{slug}/">Отдельная страница игры</a>.',
   'terms.toy.own': 'Игра сделана для этой страницы.',
   'terms.toy.frame': 'Игра',

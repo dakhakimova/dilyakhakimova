@@ -381,7 +381,7 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">${typo(hq.err)}</h2>
     <ul class="list t-err">${x.mistakes.map(([a, b, code], i) => `
-      <li><span class="lead">${typo(a)}</span> ${typo(b)}${code ? `<pre class="t-code"><code>${pyHl(code)}</code></pre>` : ''}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
+      <li><span class="t-num">${t('terms.err.n')} ${i + 1}</span><span class="lead">${typo(a)}</span> ${typo(b)}${code ? `<pre class="t-code"><code>${pyHl(code)}</code></pre>` : ''}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
     </ul>
     <figure class="viz t-err-viz">${err[s](Object.fromEntries(Object.entries(x.ez).map(([k, v]) => [k, plain(typo(String(v)))])))}<figcaption class="figcap">${typo(x.ez.cap)}</figcaption></figure>
     <ul class="list t-err">` : ''}`).join('')}
@@ -389,10 +389,10 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
   </section>
 
   <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">${typo(hq.faq)}</h2>${(x.faqQ ? [[t('terms.faq.qual'), x.faqQ], [t('terms.faq.calc'), x.faq]] : [['', x.faq]]).map(([h, list]) => `${h ? `
-    <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a]) => `
+    <h2 id="faq-h">${typo(hq.faq)}</h2>${(x.faqQ ? [[t('terms.faq.qual'), x.faqQ, t('terms.faq.qn')], [t('terms.faq.calc'), x.faq, t('terms.faq.tn')]] : [['', x.faq, t('terms.faq.tn')]]).map(([h, list, nm]) => `${h ? `
+    <h3 class="t-faq-h">${h}</h3>` : ''}${list.map(([q, a], qi) => `
     <details class="t-faq">
-      <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
+      <summary><span class="t-num">${nm} ${qi + 1}</span><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
       ${a.split('\n').map(par => `<p>${typo(par)}</p>`).join('')}
     </details>`).join('')}`).join('')}
   </section>
