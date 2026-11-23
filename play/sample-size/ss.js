@@ -126,7 +126,7 @@
     svg.setAttribute('tabindex', '0');
     const toN = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * W; return Math.max(XMAX / 60, Math.min(XMAX, (x - L) / (W - L - R) * XMAX)); };
     const setN = n => { st.mode = 'n'; st.mde = +(100 * mdeFor(st.base / 100, n, st.pow / 100, st.alpha)).toFixed(2); touched.add('mde'); calc(); render(); };   // тянем отсечку — меняется MDE, размер выборки пересчитывается
-    svg.addEventListener('pointerdown', ev => { dragging = true; svg.setPointerCapture(ev.pointerId); setN(toN(ev)); });
+    svg.addEventListener('pointerdown', ev => { ev.preventDefault(); dragging = true; svg.setPointerCapture(ev.pointerId); setN(toN(ev)); });
     svg.addEventListener('pointermove', ev => { if (dragging) setN(toN(ev)); });
     const stop = () => { if (dragging){ dragging = false; render(); } };
     svg.addEventListener('pointerup', stop); svg.addEventListener('pointercancel', stop);
