@@ -68,7 +68,7 @@
       
       <div class="tr-task" data-id="A1c-w" data-ans="5" data-tol="0.15">
         <p class="tr-kind">Разбор · сначала попробуй сам</p>
-        <p class="tr-q">Тест нового меню, сплит 50/50. В A 20 000 гостей, в B 20 450. Посчитайте статистику хи-квадрат.</p>
+        <figure class="tr-pic"><img src="/trainer/img/tasks/split-machine.jpg" alt="Машина делит гостей на две группы, Алиса проверяет весы" width="1600" height="900" loading="lazy"></figure><p class="tr-q">Тест нового меню, сплит 50/50. В A 20 000 гостей, в B 20 450. Посчитайте статистику хи-квадрат.</p>
         <form class="tr-form" novalidate>
           <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label>
           <button type="submit" class="btn ghost">Проверить</button>
@@ -113,7 +113,7 @@
       
       <div class="tr-task tr-idea" data-id="A1a-i">
         <p class="tr-kind">На понимание · ответь вслух или письменно, потом сверься</p>
-        <p class="tr-q">Разработчик предлагает делить гостей по чётности id: чётные — в A, нечётные — в B. Что не так и как сделать лучше?</p>
+        <figure class="tr-pic"><img src="/trainer/img/tasks/lottery-drum.jpg" alt="Барабан лотереи, шарики лежат слоями и не перемешаны, Котейка крутит ручку" width="1600" height="900" loading="lazy"></figure><p class="tr-q">Разработчик предлагает делить гостей по чётности id: чётные — в A, нечётные — в B. Что не так и как сделать лучше?</p>
         <textarea rows="4" placeholder="Твой ответ (остаётся только в этом браузере)" aria-label="Твой ответ"></textarea>
         <details class="tr-sol"><summary>Что хотят услышать</summary>
           <ul class="list"><li>Одни и те же люди окажутся в A во всех тестах: эффекты прошлых тестов переносятся, тесты пересекаются.</li><li>Чётность может быть связана с чем‑то (например, с порядком регистрации или способом генерации id).</li><li>Лучше: хеш от id вместе с солью эксперимента, остаток от деления — номер бакета; для каждого теста своя соль.</li><li>После запуска — проверка SRM и A/A‑тест на той же схеме.</li></ul>
