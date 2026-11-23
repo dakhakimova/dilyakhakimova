@@ -11,14 +11,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611431">
-<link rel="stylesheet" href="/tokens.css?v=202611431">
-<link rel="stylesheet" href="/home.css?v=202611431">
-<link rel="stylesheet" href="/terms/terms.css?v=202611431">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611432">
+<link rel="stylesheet" href="/tokens.css?v=202611432">
+<link rel="stylesheet" href="/home.css?v=202611432">
+<link rel="stylesheet" href="/terms/terms.css?v=202611432">
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611431">
-<link rel="stylesheet" href="/trainer/trainer.css?v=202611431">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611432">
+<link rel="stylesheet" href="/trainer/trainer.css?v=202611432">
 </head>
 <body class="t-page tr-page">
 <a class="skip" href="#main">Перейти к содержанию</a>
@@ -42,7 +42,7 @@
   <p class="t-def">Классика собеседований: тест «точен на 99%», а сработал зря в большинстве случаев. Решается не формулой, а подсчётом на 10 000 человек.</p>
   <section class="tr-theory" aria-label="Шпаргалка">
     <p class="tr-kind">Шпаргалка</p>
-    <p>Формула Байеса переворачивает условную вероятность: из P(«сработал» | «плохой») получаем P(«плохой» | «сработал»).</p>
+    <p>Формула Байеса переворачивает условную вероятность: из <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">сработал</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">плохой</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span> получаем <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">плохой</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">сработал</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span>.</p>
     <p>Главная ловушка — забыть, насколько событие редкое (базовую долю). Если плохих 1 на 1000, даже точный тест чаще срабатывает на хороших: их в тысячу раз больше.</p>
     <p>Надёжный способ: представить 10 000 объектов, посчитать, сколько плохих и хороших сработают, и взять долю.</p>
     <p class="tr-where">Разбираем в курсах: <a href="/probability/06-bayes.html">«Вероятность на пальцах», «Байес»</a>.</p>
@@ -80,7 +80,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         <details class="tr-hint"><summary>Подсказка</summary><p>На 10 000 заказов: 200 злоупотреблений и 9 800 честных.</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>Сработает на 200 · 0,9 = 180 злоупотреблений и на 9 800 · 0,04 = 392 честных заказа. Доля настоящих: 180/572 ≈ <b>31%</b>. Больше двух третей пометок — ложные, хотя флаг «точен на 90%».</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>Сработает на <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">200</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.9</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">180</span></span></span></span> злоупотреблений и на <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">800</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.04</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">392</span></span></span></span> честных заказа. Доля настоящих: 180/572 ≈ <b>31%</b>. Больше двух третей пометок — ложные, хотя флаг «точен на 90%».</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="P3a-s1" data-ans="5.7" data-tol="0.4">
@@ -92,18 +92,18 @@
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>На 80 000 заказов: 100 мошенников → 97 блокировок; 79 900 честных → 1 598 блокировок. 97/1 695 ≈ <b>5,7%</b>.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>На 80 000 заказов: 100 мошенников → 97 блокировок; 79 900 честных → 1 598 блокировок. 97/1 695 ≈ <b>5.7%</b>.</p></details>
       </div>
       <div class="tr-task" data-id="P3a-s2" data-ans="22.2" data-tol="1">
         <p class="tr-kind">Реши сам · <span class="tr-dom">Игры</span></p>
-        <p class="tr-q">Читеров — 3 из 2 000 игроков. Античит ловит 95% читеров и ложно банит 0,5% честных игроков. Какая доля забаненных — читеры?</p>
+        <p class="tr-q">Читеров — 3 из 2 000 игроков. Античит ловит 95% читеров и ложно банит 0.5% честных игроков. Какая доля забаненных — читеры?</p>
         <form class="tr-form" novalidate>
           <label><span class="vh">Ответ</span><input type="text" inputmode="decimal" autocomplete="off" placeholder="Ответ"></label><span class="tr-unit">%</span>
           <button type="submit" class="btn ghost">Проверить</button>
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>На 200 000 игроков: 300 читеров → 285 банов; 199 700 честных → 998,5 бана. 285/1 283,5 ≈ <b>22%</b>.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>На 200 000 игроков: 300 читеров → 285 банов; 199 700 честных → 998.5 бана. 285/1 283.5 ≈ <b>22%</b>.</p></details>
       </div>
       <div class="tr-task" data-id="P3a-s3" data-ans="32.1" data-tol="1">
         <p class="tr-kind">Реши сам · <span class="tr-dom">Отзывы</span></p>
@@ -148,8 +148,8 @@
           <button type="submit" class="btn ghost">Проверить</button>
         </form>
         <p class="tr-fb" role="status"></p>
-        <details class="tr-hint"><summary>Подсказка</summary><p>Для подозрительных оба сработают с вероятностью 0,8², для нормальных — 0,15².</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>На 1 000 заказов: 100 · 0,64 = 64 и 900 · 0,0225 ≈ 20,3. Ответ 64/84,3 ≈ <b>76%</b>. Один флаг дал бы 80 / (80 + 135) ≈ 37%: второй независимый сигнал удваивает уверенность. Если флаги смотрят на одни и те же признаки, выигрыш будет меньше.</p></details>
+        <details class="tr-hint"><summary>Подсказка</summary><p>Для подозрительных оба сработают с вероятностью <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.</span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>, для нормальных — <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.1</span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>На 1 000 заказов: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">100</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.64</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">64</span></span></span></span> и <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">900</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0225</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">20.3</span></span></span></span>. Ответ 64/84.3 ≈ <b>76%</b>. Один флаг дал бы <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">80/</span><span class="mopen">(</span><span class="mord">80</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">135</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">37%</span></span></span></span>: второй независимый сигнал удваивает уверенность. Если флаги смотрят на одни и те же признаки, выигрыш будет меньше.</p></details>
       </div>
       <h3 class="tr-h3">Реши сам — тот же шаблон, другой сюжет</h3>
       <div class="tr-task" data-id="P3b-s1" data-ans="92" data-tol="1">
@@ -161,7 +161,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         
-        <details class="tr-sol"><summary>Решение</summary><p>0,3 · 0,75³ = 0,1266 против 0,7 · 0,25³ = 0,0109. Ответ 0,1266/0,1375 ≈ <b>92%</b>. Оговорка: если гости читали отзывы друг друга, они не независимы.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.7</span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.1266</span></span></span></span> против <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.2</span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0109</span></span></span></span>. Ответ 0.1266/0.1375 ≈ <b>92%</b>. Оговорка: если гости читали отзывы друг друга, они не независимы.</p></details>
       </div>
     </section>
 
@@ -184,7 +184,7 @@
         </form>
         <p class="tr-fb" role="status"></p>
         <details class="tr-hint"><summary>Подсказка</summary><p>До поиска на каждой полке 6%. После поиска остаются только «десятая полка» и «уехал».</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>0,06 / (0,06 + 0,40) ≈ <b>13%</b>. Интуиция подсказывает «теперь точно на десятой», но пустые полки сильнее подтверждают версию «уехал».</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p>0.06 / (0.06 + 0.40) ≈ <b>13%</b>. Интуиция подсказывает «теперь точно на десятой», но пустые полки сильнее подтверждают версию «уехал».</p></details>
       </div>
     </section>
 
@@ -206,13 +206,13 @@
           <button type="submit" class="btn ghost">Проверить</button>
         </form>
         <p class="tr-fb" role="status"></p>
-        <details class="tr-hint"><summary>Подсказка</summary><p>P(«1 поломка») = λe^(−λ) при λ = 2 и λ = 4.</p></details>
-        <details class="tr-sol"><summary>Решение</summary><p>2e⁻² ≈ 0,271 и 4e⁻⁴ ≈ 0,073. Ответ 0,271 / (0,271 + 0,073) ≈ <b>79%</b>.</p></details>
+        <details class="tr-hint"><summary>Подсказка</summary><p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span></span><span class="mord">1</span><span class="mord text"><span class="mord"> </span><span class="mord cyrillic_fallback">поломка</span><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord mathnormal">λ</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">λ</span></span></span></span></span></span></span></span></span></span></span></span> при <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span> и <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span>.</p></details>
+        <details class="tr-sol"><summary>Решение</summary><p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">2</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.271</span></span></span></span> и <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">4</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.073</span></span></span></span>. Ответ 0.271 / (0.271 + 0.073) ≈ <b>79%</b>.</p></details>
       </div>
     </section>
   <p class="tr-next"><a href="/trainer/mix/">Смешанная тренировка: задачи вперемешку, без подсказки темы →</a></p>
 </main>
-<script src="/trainer/trainer.js?v=202611431" defer></script>
+<script src="/trainer/trainer.js?v=202611432" defer></script>
 <footer class="foot" data-chrome>
   <div class="wrap">
     <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a></p>
