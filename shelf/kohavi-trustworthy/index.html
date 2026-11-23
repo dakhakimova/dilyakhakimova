@@ -35,7 +35,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -505,7 +505,7 @@ print(f"\nКолмогоров — Смирнов: D = {d:.3f}, p = {p_ks:.
   <p class="bk-ch" data-i18n="bk.c20.ch">Глава 20</p>
   <p data-i18n="bk.c20.p1">Если изменение видят только пользователи из США, у остальных эффект нулевой — они добавляют в анализ один шум. Анализировать нужно тех, кого изменение могло коснуться. Это называется <b class="term">триггерный анализ</b> (<i lang="en">triggering</i>): эффект не размывается, и эксперимент становится чувствительнее.</p>
   <p data-i18n="bk.c20.p2">Но условие отбора нельзя строить на том, что меняет сам эксперимент. Если отбирать «неактивных» по состоянию на конец эксперимента, а эксперимент кого‑то «разбудил», «разбуженные» выпадут из анализа — и получится SRM.</p>
-  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.c20.take">условие отбора бери из данных до начала эксперимента и логируй момент, когда пользователь его выполнил.</span></p>
+  <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.c20.take">по возможности бери условие отбора из данных до начала эксперимента и логируй <b class="term">точку касания</b> — момент, когда пользователь впервые столкнулся с изменением.</span></p>
 </li>
 <li class="bk-idea" id="ch-21">
   <h2><span class="n" aria-hidden="true">21</span><span data-i18n="bk.i3.h">Группы чуть разного размера — это мелочь?</span></h2>
@@ -607,8 +607,8 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 
