@@ -24,20 +24,23 @@
   const out = document.querySelector('.srm-out'), res = $('srm-res');
   function chart(chi2){
     const cs = $('srm-chart'); cs.textContent = '';
-    const XM = 110, L = 44, R = 428, B = 118, T = 18, THR = 12.12;
-    const px = x => L + Math.sqrt(Math.min(x, XM) / XM) * (R - L), py = v => B - v * (B - T);
+    // шкала подстраивается под наше χ², чтобы точка всегда помещалась; логарифмическая — иначе огромные χ² сжали бы всё к нулю
+    const NICE = [110, 300, 1000, 3000, 1e4, 3e4, 1e5, 3e5, 1e6, 3e6, 1e7, 3e7, 1e8, 1e9, 1e10];
+    const XM = NICE.find(m => m >= chi2 * 1.05) || chi2 * 1.2, L = 44, R = 428, B = 118, T = 18, THR = 12.12;
+    const lg = x => Math.log10(1 + Math.max(0, x)), px = x => L + lg(Math.min(x, XM)) / lg(XM) * (R - L), py = v => B - v * (B - T);
     const S = x => x <= 0 ? 1 : erfc(Math.sqrt(x / 2));
     for (const v of [0, 0.5, 1]){ el('line', {x1: L, y1: py(v), x2: R, y2: py(v), stroke: C.line, 'stroke-width': v ? 1 : 1.5}, cs); const t = el('text', {x: L - 8, y: py(v) + 4, 'text-anchor': 'end', class: 'ax'}, cs); t.textContent = Math.round(v * 100) + '%'; }
-    let d = ''; for (let i = 0; i <= 400; i++){ const x = XM * Math.pow(i / 400, 2); d += (i ? 'L' : 'M') + px(x).toFixed(1) + ' ' + py(S(x)).toFixed(1); }
+    let d = ''; for (let i = 0; i <= 400; i++){ const x = Math.pow(10, lg(XM) * i / 400) - 1; d += (i ? 'L' : 'M') + px(x).toFixed(1) + ' ' + py(S(x)).toFixed(1); }
     el('path', {d, fill: 'none', stroke: C.ctrl, 'stroke-width': 2.5}, cs);
-    for (const v of [0, 1, 4, 12, 25, 50, 100]){ el('line', {x1: px(v), y1: B, x2: px(v), y2: B + 4, stroke: C.mute}, cs); const t = el('text', {x: px(v), y: B + 20, 'text-anchor': 'middle', class: 'ax'}, cs); t.textContent = v; }
-    const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = 'χ², шкала сжата: чем правее, тем крупнее шаг';
+    const ticks = [0, 12]; for (const v of [1, 4, 50, 100, 1000, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]) if (v <= XM && px(v) <= R - 36 && ticks.every(t => Math.abs(px(t) - px(v)) >= 52)) ticks.push(v);
+    for (const v of ticks){ el('line', {x1: px(v), y1: B, x2: px(v), y2: B + 4, stroke: C.mute}, cs); const t = el('text', {x: px(v), y: B + 20, 'text-anchor': px(v) > R - 20 ? 'end' : 'middle', class: 'ax'}, cs); t.textContent = v >= 1e6 ? (v / 1e6) + '\u00a0млн' : nf(v); }
+    const ax = el('text', {x: R, y: B + 40, 'text-anchor': 'end', class: 'ax'}, cs); ax.textContent = 'χ², шкала логарифмическая: под ваше число';
     el('line', {x1: px(THR), y1: T + 8, x2: px(THR), y2: B, stroke: C.loss, 'stroke-width': 1.5, 'stroke-dasharray': '3 3'}, cs);
-    const tl = el('text', {x: px(THR) + 6, y: T + 10, class: 'sm halo'}, cs); tl.textContent = 'порог SRM: p = 0.0005, это χ² = 12.1';
+    const far = px(THR) > R - 170, ta = far ? 'end' : 'start', tx = px(THR) + (far ? -6 : 6); const tl = el('text', {x: tx, y: T + 10, 'text-anchor': ta, class: 'sm halo'}, cs); tl.textContent = 'порог SRM'; const tl2 = el('text', {x: tx, y: T + 28, 'text-anchor': ta, class: 'sm halo'}, cs); tl2.textContent = 'p = 0.0005, χ² = 12.1';
     const v = chi2 < 10 ? chi2.toFixed(2) : chi2 < 100 ? chi2.toFixed(1) : nf(chi2), p = S(chi2);
     el('circle', {cx: px(chi2), cy: py(p), r: 6, fill: C.ink}, cs);
-    const lab = el('text', {x: Math.min(R - 4, Math.max(L + 4, px(chi2))), y: py(p) - 14, 'text-anchor': chi2 > 80 ? 'end' : 'middle', class: 'lb halo'}, cs);
-    lab.textContent = chi2 > XM ? v + ' →' : v;
+    const lab = el('text', {x: Math.min(R - 4, Math.max(L + 4, px(chi2))), y: py(p) - 14, 'text-anchor': px(chi2) > R - 60 ? 'end' : 'middle', class: 'lb halo'}, cs);
+    lab.textContent = v;
     const qs = p >= 0.1 ? pct(p) : p >= 0.001 ? pct(p, 1) : null;
     $('srm-read').textContent = 'Наше χ² = ' + v + ': ' + (qs ? 'столько и больше бывает у ' + qs + ' честных тестов.' : 'при честном делении так почти не бывает.');
     cs.setAttribute('aria-label', $('srm-read').textContent);
