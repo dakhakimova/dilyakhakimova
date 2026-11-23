@@ -44,7 +44,7 @@ I18N.ru = Object.assign(I18N.ru || {}, {
   'bk.crumb': 'Trustworthy Online Controlled Experiments',
   'bk.h1': 'Как не выкатить баг, который притворился победой',
   'bk.pass.book': '<cite lang="en">Trustworthy Online Controlled Experiments</cite>' + D + ' Ron Kohavi, Diane Tang, Ya Xu' + D + ' 2020',
-  'bk.pass.ru': '«Доверительное A/B‑тестирование»',
+  'bk.pass.ru': 'На русском: «Доверительное A/B‑тестирование»',
   'bk.pass.who': 'аналитики и продакты, которые запускают A/B‑тесты',
   'bk.pass.read': '290 страниц за 10 минут',
   'bk.pass.lang': 'английский',
