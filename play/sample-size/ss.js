@@ -94,7 +94,7 @@
 
   // ---------- график: MDE от числа людей, отсечка — текущий расчёт; отсечку можно тянуть ----------
   const svg = $('ss-curve'); let XMAX = 0, dragging = false;
-  const W = 560, H = 250, L = 52, R = 16, T = 14, B = 40;
+  const W = 560, H = 260, L = 52, R = 16, T = 30, B = 40;
   const NS = 'http://www.w3.org/2000/svg';
   const el = (t, a, par) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (par || svg).appendChild(e); return e; };
   const niceUp = x => { const e = Math.pow(10, Math.floor(Math.log10(x))); return [1, 2, 2.5, 5, 10].map(m => m * e).find(v => v >= x); };
@@ -111,7 +111,7 @@
     for (let i = 0; i <= 4; i++){ const x = XMAX * i / 4; const t = el('text', {x: sx(x), y: H - B + 18, 'text-anchor': i === 0 ? 'start' : i === 4 ? 'end' : 'middle', class: 'ax'}); t.textContent = i ? short(x) : '0'; }
     const tl = el('text', {x: W - R, y: H - 4, 'text-anchor': 'end', class: 'ax'}); tl.textContent = 'людей в эксперименте →';
     let d = ''; for (let i = 0; i <= 120; i++){ const n = N0 + (XMAX - N0) * Math.pow(i / 120, 1.8), m = mAt(n); if (m > YMAX) continue; d += (d ? 'L' : 'M') + sx(n).toFixed(1) + ' ' + sy(m).toFixed(1); }
-    const ty = el('text', {x: L - 8, y: T - 2, 'text-anchor': 'end', class: 'ax'}); ty.textContent = 'MDE';
+    const ty = el('text', {x: L - 8, y: 12, 'text-anchor': 'end', class: 'ax'}); ty.textContent = 'MDE ↑';
     el('path', {d, fill: 'none', stroke: '#23418A', 'stroke-width': 2.5});
     const cx = sx(Math.min(st.n, XMAX)), cy = sy(st.mde);
     el('line', {x1: cx, x2: cx, y1: cy, y2: H - B, stroke: '#E8644A', 'stroke-dasharray': '4 4', 'stroke-width': 1.5});
