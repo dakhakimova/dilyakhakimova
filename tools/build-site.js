@@ -53,16 +53,18 @@ ${css.map(c => `<link rel="stylesheet" href="${c}?v=${V}">`).join('\n')}
 const LV = {1: 'Начальный', 2: 'Средний', 3: 'Продвинутый'};
 const chip = lv => `<span class="chip"><span class="lvl l${lv}" aria-hidden="true"></span><span class="vh">Уровень </span><span>${LV[lv]}</span></span>`;
 
+// курсы без ссылок на главной и в «Курсах», пока их страницы не вычитаны (Диля, 23.11); сами страницы на месте
+const HOLD = new Set(['/ab-basics/']);
 function courses(){
   const list = chrome.COURSES.filter(c => c.published);
   const card = (c, i) => `
     <li class="course${c.faded ? ' faded' : ''}" id="c-${c.id}">
       <figure class="art"><img src="${c.img}" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" alt="${esc(c.alt)}" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips">${c.tag === 'free' ? `<span class="tag free">${nb(c.status)}</span>` : `<span class="price"><b>${nb(c.price || '')}</b></span>`}${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}${c.tag === 'free' ? '' : `<span class="tag muted">${nb(c.status)}</span>`}</p>
-      <h3><span class="path-n">${i + 1}.</span> ${c.tag === 'free' ? `<a href="${c.href}">${c.name}</a>` : c.name}</h3>
+      <h3><span class="path-n">${i + 1}.</span> ${c.tag === 'free' && !HOLD.has(c.href) ? `<a href="${c.href}">${c.name}</a>` : c.name}</h3>
       <p class="line">${nb(c.line)}</p>
       <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd></dl>
-      ${c.tag === 'free' ? `<p class="course-act"><a class="btn ghost" href="${c.href}" aria-label="Подробнее о курсе «${esc(c.name)}»">Подробнее</a></p>` : ''}
+      ${c.tag === 'free' && !HOLD.has(c.href) ? `<p class="course-act"><a class="btn ghost" href="${c.href}" aria-label="Подробнее о курсе «${esc(c.name)}»">Подробнее</a></p>` : ''}
     </li>`;   // платные курсы пока без ссылок: их страницы ещё не вычитаны (Диля, 23.11); сами страницы на месте
   const html = head({title: 'Курсы по вероятности, статистике и A/B-тестам · Диля Хакимова',
     desc: 'Курсы по порядку «Весь путь»: от «Вероятности на пальцах» до продвинутого «A/B без мифов». Три бесплатных курса можно начать сразу, без регистрации.',
@@ -269,7 +271,7 @@ function homePath(){
   TERMS.filter(x => x.published).forEach(x => [tctx.TERMS_TEXT.ru[x.slug].name, ...(x.aka || [])].forEach(n => TERM.set(n.toLowerCase(), '/terms/' + x.slug + '/')));
   M.courses.forEach(c => { if (H[c.url]) c.hours = H[c.url]; });
   const html = require('./path-list.js').render(M, {esc, tx: s => typo(esc(s)).replace(/p-value/g, '<span class="nw">p-value</span>'),
-    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}, pre: list => typo(MAP['ui.pre.short'].replace('{list}', list)), terms: RU['path.terms']}, termHref: n => TERM.get(n.toLowerCase())});
+    L: {free: RU.free, soon: RU['soon.abm'], later: RU.later, optional: RU['path.opt'], price: RU['price.paid'], level: RU['lvl.word'], lvl: {1: RU['lvl.1'], 2: RU['lvl.2'], 3: RU['lvl.3']}, pre: list => typo(MAP['ui.pre.short'].replace('{list}', list)), terms: RU['path.terms']}, termHref: n => TERM.get(n.toLowerCase()), hold: HOLD});
   const file = path.join(ROOT, 'index.html'), page = fs.readFileSync(file, 'utf8');
   if (!page.includes('<!-- path -->')) throw new Error('index.html: нет места для «Весь путь» (<!-- path --><!-- /path -->)');
   fs.writeFileSync(file, page.replace(/<!-- path -->[\s\S]*?<!-- \/path -->/, () => '<!-- path -->' + html + '<!-- /path -->'));

@@ -50,13 +50,13 @@ ${ME_JS}`;
 // анонс платного курса — только на финале /start/ (start.js) и страницах курсов; в контенте и футере не продаём
 function announce(cls = ''){
   return `<aside class="announce${cls ? ' ' + cls : ''}" aria-label="Анонс курса «A/B без мифов»">
-  <p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: скоро</p>
+  <p class="announce-t">«A/B без мифов»: скоро</p>
 </aside>`;
 }
 
 function footer(here = ''){   // here — адрес текущей страницы («/about/»): ссылка на саму себя становится текстом (гайд, пара 125)
   // футер служебный (решение Дили, 22.11.2026): бесплатные курсы, об авторе, копирайт. Не продаём, не анонсируем, не дублируем шапку.
-  const c = COURSES.filter(x => x.published && x.tag === 'free').map(x => x.href === here ? `<span aria-current="page">${x.name}</span>` : `<a href="${x.href}">${x.name}</a>`).join(' · ');
+  const c = COURSES.filter(x => x.published && x.tag === 'free' && x.href !== '/ab-basics/').map(x => x.href === here ? `<span aria-current="page">${x.name}</span>` : `<a href="${x.href}">${x.name}</a>`).join(' · ');
   return `<footer class="foot" data-chrome>
   <div class="wrap">
     <p class="foot-line">Бесплатные курсы: ${c}</p>

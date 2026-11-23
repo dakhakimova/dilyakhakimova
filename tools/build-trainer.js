@@ -128,6 +128,8 @@ ${chrome.header('')}
       </div>`;
   };
 
+  // курсы без ссылок, пока их страницы не вычитаны (Диля, 23.11): список мест — проектный документ «Ссылки, снятые до вычитки»
+  const HOLD = new Set(['/stats/', '/ab/', '/causal/', '/ab-basics/']);
   const ready = {};
   for (const [slug, t] of Object.entries(TOPICS)) ready[t.code] = slug;
   const mix = [];
@@ -136,7 +138,7 @@ ${chrome.header('')}
   for (const [slug, t] of Object.entries(TOPICS)){
     const url = `/trainer/${slug}/`;
     const termLink = t.term && pubTerm(t.term) ? ` <a href="/terms/${t.term}/">Подробнее в словаре →</a>` : '';
-    const courses = t.courses.map(([c, step, href]) => `<a href="${href}">«${C[c].name}», ${typo(step)}</a>`).join(' · ');
+    const courses = t.courses.map(([c, step, href]) => HOLD.has(C[c].href) ? `«${C[c].name}», ${typo(step)}` : `<a href="${href}">«${C[c].name}», ${typo(step)}</a>`).join(' · ');
     const nav = `<nav class="tr-toc" aria-label="Шаблоны темы"><p class="tr-kind">Шаблоны</p><ol>${t.templates.map(x => `<li><a href="#${x.id}">${typo(x.name)}</a></li>`).join('')}</ol></nav>`;
     const tpls = t.templates.map(x => {
       const steps = x.steps ? `<ol class="tr-steps">${x.steps.map(s => `<li>${typo(s)}</li>`).join('')}</ol>` : '';

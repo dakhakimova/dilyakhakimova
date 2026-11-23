@@ -210,7 +210,7 @@ function mount(T, M){
       + `<h2 class="r-h">${t('st.res.can')}</h2><ul class="r-list" role="list">${r.nodes.slice(-3).map(id => `<li>${tx(node.get(id).title)}</li>`).join('')}</ul>`
       + `<h2 class="r-h">${t('st.res.tree')}</h2>` + flowHtml(R, n)
       // анонс платного курса — тот же блок, что в конце бесплатных курсов и в футере (tools/chrome.js → announce)
-      + `<aside class="announce" aria-label="Анонс курса «A/B без мифов»"><p class="announce-t"><a href="/ab/">«A/B без мифов»</a>: скоро</p><p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на\u00a0данных и\u00a0со\u00a0сверкой с\u00a0эталоном.</p><p class="ctas"><a class="btn ghost" href="/ab/#waitlist">Сообщить о\u00a0старте</a></p></aside>`
+      + `<aside class="announce" aria-label="Анонс курса «A/B без мифов»"><p class="announce-t">«A/B без мифов»: скоро</p><p class="announce-s">Продвинутый A/B на практике: каждый модуль — рабочий ноутбук, каждая задача — на\u00a0данных и\u00a0со\u00a0сверкой с\u00a0эталоном.</p></aside>`
       + `<p class="r-note">${t('st.res.note')}</p>`;
   }
   // личная линия метро: курсы по порядку («районы» с номерами 1, 2, 3… только своих), в каждом — зачем, статус, что пропустить, станции

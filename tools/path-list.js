@@ -27,7 +27,7 @@ function render(M, o){
       + (p.optional ? `<span class="tag opt">${tx(L.optional)}</span>` : '')
       + (free ? '' : `<span class="tag muted">${tx(status(c.status))}</span>`);
     return `<li${cls ? ` class="${cls}"` : ''}><span class="pn pic"><img src="${esc(c.pic)}" width="120" height="120" loading="lazy" alt=""><span class="pnum" aria-hidden="true">${i + 1}</span></span>`
-      + `<div><p class="pt">${free ? `<a href="${c.url}">${tx(c.title)}</a>` : `<span class="pt-name">${tx(c.title)}</span>`} <span class="chips">${chips}</span></p>`  // платные — без ссылки, пока страницы не вычитаны (Диля, 23.11)
+      + `<div><p class="pt">${free && !(o.hold && o.hold.has(c.url)) ? `<a href="${c.url}">${tx(c.title)}</a>` : `<span class="pt-name">${tx(c.title)}</span>`} <span class="chips">${chips}</span></p>`  // платные — без ссылки, пока страницы не вычитаны (Диля, 23.11)
       + `<p class="pg">${tx(cap(c.lead))}.${p.why && !p.quiet ? ' ' + tx(cap(p.why)) + '.' : ''}</p>`
       + (c.terms && c.terms.length ? `<p class="pp pterms">${tx(L.terms)} ${c.terms.map(x => { const h = o.termHref && o.termHref(x);
           const w = tx(x).replace(/<span class="nw">(.*?)<\/span>/g, '$1');   // термин целиком в строке: «z-тест» не рвётся
