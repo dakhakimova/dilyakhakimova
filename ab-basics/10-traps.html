@@ -498,11 +498,14 @@ function drawPeek(){
   label(c, '«значимо»', L + 6, Y(1.96) - 6, COL.ink2);
   label(c, '«значимо»', L + 6, Y(-1.96) + 16, COL.ink2);
   axisX(c, X, [0, 6, 13, 20, 29], h - 6, d => (d + 1) + ' дн.');
-  const recent = aa.slice(-15);
-  recent.forEach((r, k) => {
+  // все прогоны остаются на картинке: «+100 A/A» добавляет линии, а не перерисовывает; чем их больше, тем они прозрачнее
+  const recent = aa.slice(-600), fade = Math.min(1, Math.sqrt(15 / Math.max(15, recent.length)));
+  // сначала синие, поверх красные, последний прогон — сверху всех
+  const order = recent.map((r, k) => [r, k]).sort((x, y) => (x[1] === recent.length - 1) - (y[1] === recent.length - 1) || x[0].any - y[0].any);
+  order.forEach(([r, k]) => {
     const lastOne = k === recent.length - 1;
     // линии, которые хоть раз вышли за полосу, — красные: это A/A, где Боб «нашёл» эффект
-    c.strokeStyle = lastOne ? (r.any ? COL.trap : COL.ctrl) : (r.any ? 'rgba(201,65,58,.45)' : 'rgba(61,125,196,.18)'); c.lineWidth = lastOne ? 2.4 : 1.2;
+    c.strokeStyle = lastOne ? (r.any ? COL.trap : COL.ctrl) : (r.any ? `rgba(201,65,58,${(0.45 * fade + 0.06).toFixed(3)})` : `rgba(61,125,196,${(0.18 * fade + 0.03).toFixed(3)})`); c.lineWidth = lastOne ? 2.4 : 1.2;
     c.beginPath(); r.z.forEach((v, d) => d ? c.lineTo(X(d), Y(v)) : c.moveTo(X(d), Y(v))); c.stroke();
     if (lastOne && r.any){ c.fillStyle = COL.trap; c.beginPath(); c.arc(X(r.first), Y(r.z[r.first]), 6, 0, 2 * Math.PI); c.fill(); const xr = X(r.first) > w / 2; const yy = Y(r.z[r.first]); label(c, 'тут впервые «значимо»', X(r.first) + (xr ? -10 : 10), yy > h - B - 24 ? yy - 10 : yy < T + 20 ? yy + 18 : yy - 10, COL.trapInk, xr ? 'right' : 'left'); }
   });
