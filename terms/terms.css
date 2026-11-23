@@ -250,3 +250,6 @@ div.t-def .formula.tex{margin:var(--s-4) 0 0}
 .term .t-def{background:none; box-shadow:none; padding:0; border-radius:0}
 .term .t-def::before{content:none}
 .cl-fig .sg-ctl{flex-wrap:wrap}
+/* интерактивные графики — во всю ширину колонки, как плотности сверху (Диля, 23.11) */
+.viz:has(.sg-ctl) .viz-svg{max-width:none}
+.sg-out{font-size:var(--t-18, 1.125rem); max-width:36em; margin-inline:auto}
