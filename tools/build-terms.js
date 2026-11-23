@@ -396,12 +396,13 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     </details>`).join('')}`).join('')}
   </section>
 
-  <section class="t-sec t-next" aria-label="${attr(t('terms.next.label'))}">
+  <section class="t-sec t-next" aria-labelledby="next-h">
+    <h2 id="next-h">${t('terms.next.h')}</h2>
     <p>${t('terms.cta.text', {course: courseName[c.course], unit: unit[c.course], n: c.n, title: c.title, href: c.href})}</p>${relTerms.length ? `
     <p>${t('terms.rel.h')}: ${relTerms.map(r => `<a href="/terms/${r}/">${typo(TX[r].name)}</a>`).join(', ')}</p>` : ''}
   </section>
 
-  <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+  <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')}</button><span class="note" role="status"></span></p>
 </main>
 ${foot()}
 <script src="/terms/terms.js?v=${V}"></script>${isNew ? `

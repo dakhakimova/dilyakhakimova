@@ -165,7 +165,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   </section>
 
   <div class="play-foot">
-    <p class="share-row"><button class="btn-text" type="button" data-act="share">${t('play.share')} <span aria-hidden="true">↗</span></button><span class="note" role="status"></span></p>
+    <p class="share-row"><button class="btn-text" type="button" data-act="share">${t('play.share')}</button><span class="note" role="status"></span></p>
     <p class="play-src"><b>${t('play.src')}.</b> ${X(s, 'src')}</p>
   </div>
 </main>

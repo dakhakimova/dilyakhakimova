@@ -26,7 +26,7 @@
 (function(){
   const PLAY_STR = {
     ru: {
-      share: 'Поделиться',
+      share: 'Скопировать ссылку',
       copied: 'Ссылка скопирована',
       copyFail: 'Скопируй ссылку: ',
       guessNote: 'Сначала запиши догадку, потом проверь на игре ниже.',
@@ -69,9 +69,7 @@
   // одна кнопка «Поделиться»: системное меню (navigator.share — телефон, Safari), иначе ссылка в буфер
   // и на 2 секунды «Ссылка скопирована» рядом с кнопкой
   window.PlayShare = async function(url, title, text, statusEl){
-    if (navigator.share){
-      try { await navigator.share({title, text, url}); return 'shared'; } catch(e) { if (e && e.name === 'AbortError') return 'abort'; }
-    }
+      // только копируем ссылку (Диля, 23.11): системное меню «Поделиться» не открываем
     const say = (m, ms) => { if (!statusEl) return; statusEl.textContent = m; clearTimeout(statusEl._t); if (ms) statusEl._t = setTimeout(() => { statusEl.textContent = ''; }, ms); };
     try { await navigator.clipboard.writeText(url); say(T.copied, 2000); return 'copied'; }
     catch(e) { say(T.copyFail + url); return 'fail'; }

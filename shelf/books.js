@@ -215,9 +215,7 @@
     const say = (m, ms) => { st.textContent = m; clearTimeout(tm); if (ms) tm = setTimeout(() => { st.textContent = ''; }, ms); };
     share.addEventListener('click', async () => {
       const url = link('books'), title = main.dataset.shareTitle, text = main.dataset.shareText;
-      if (navigator.share && matchMedia('(pointer: coarse)').matches){
-        try { await navigator.share({title, text, url}); return; } catch(e) { if (e && e.name === 'AbortError') return; }
-      }
+      // только копируем ссылку (Диля, 23.11): системное меню «Поделиться» не открываем
       try { await navigator.clipboard.writeText(url); say(main.dataset.sCopied, 2000); } catch(e) { say(url); }
     });
   }

@@ -42,9 +42,7 @@
   main.querySelector('[data-act=share]').addEventListener('click', async () => {
     hit('share_click');
     const url = link('play');
-    if (navigator.share){
-      try { await navigator.share({title, text, url}); return; } catch(e) { if (e && e.name === 'AbortError') return; }
-    }
+      // только копируем ссылку (Диля, 23.11): системное меню «Поделиться» не открываем
     try { await navigator.clipboard.writeText(url); say(main.dataset.sCopied, 2000); }
     catch(e) { say(url); }
   });
