@@ -273,6 +273,19 @@ function homePath(){
   const file = path.join(ROOT, 'index.html'), page = fs.readFileSync(file, 'utf8');
   if (!page.includes('<!-- path -->')) throw new Error('index.html: нет места для «Весь путь» (<!-- path --><!-- /path -->)');
   fs.writeFileSync(file, page.replace(/<!-- path -->[\s\S]*?<!-- \/path -->/, () => '<!-- path -->' + html + '<!-- /path -->'));
+  // «Следующая остановка» на страницах курсов: та же станция, что в «Весь путь» на главной, — следующая по маршруту full.
+  // Место — между <!-- next --> и <!-- /next --> (Диля, 23.11)
+  const items = html.split('</li>').filter(Boolean).map(x => x + '</li>');
+  const FULL = M.routes.find(r => r.id === 'full'), byId = Object.fromEntries(M.courses.map(c => [c.id, c]));
+  // до и после: текущая станция (тише, «ты здесь»), следующая — целиком, за ней — следующая за ней (только картинка и название)
+  const mark = (li, cls, extra) => li.replace(/^<li(?: class="([^"]*)")?>/, (_, k) => `<li class="${[k, cls].filter(Boolean).join(' ')}">`)
+    .replace(' loading="lazy"', '').replace(/(<\/a>) <span class="chips">/, extra ? `$1 <span class="here-tag">${extra}</span> <span class="chips">` : '$1 <span class="chips">');
+  FULL.path.forEach((st, i) => { const c = byId[st.course]; if (!c.url || !items[i + 1]) return;
+    const nx = mark(items[i], 'here', typo(RU['next.here'] || 'ты здесь')) + mark(items[i + 1], 'next', '') + (items[i + 2] ? mark(items[i + 2], 'after', '') : '');
+    const f = path.join(ROOT, c.url.slice(1), 'index.html'); if (!fs.existsSync(f)) return;
+    const pg = fs.readFileSync(f, 'utf8'); if (!pg.includes('<!-- next -->')) return;
+    fs.writeFileSync(f, pg.replace(/<!-- next -->[\s\S]*?<!-- \/next -->/, () => '<!-- next --><ol class="path-list compact next-stop" role="list">' + nx + '</ol><!-- /next -->'));
+  });
 }
 // «Где метод ломается и что дальше» на страницах курсов: заголовок — bnd.title (i18n/site.js), абзац — boundary курса из map/skills.json.
 // Место — между <!-- boundary --> и <!-- /boundary -->: на лендингах перед «Для кого / Куда дальше», в «Сигнале» и «A/B на пальцах» — перед «Для кого и куда дальше»
