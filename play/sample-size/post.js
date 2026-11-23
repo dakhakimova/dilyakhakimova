@@ -8,7 +8,8 @@
     document.querySelectorAll('[data-when]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
     pre.hidden = b.dataset.when !== 'pre'; post.hidden = b.dataset.when !== 'post'; const h = $('ss-pre-how'); if (h) h.hidden = b.dataset.when !== 'pre';
   }));
-  let metric = 'share';
+  let metric = 'share', sides = 'two';
+  document.querySelectorAll('[data-psides]').forEach(b => b.addEventListener('click', () => { sides = b.dataset.psides; document.querySelectorAll('[data-psides]').forEach(x => x.setAttribute('aria-checked', String(x === b))); calc(); }));
   document.querySelectorAll('[data-metric]').forEach(b => b.addEventListener('click', () => {
     metric = b.dataset.metric;
     document.querySelectorAll('[data-metric]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
@@ -28,7 +29,7 @@
     if (metric === 'share'){ const pa = share(F('pm-pa').value), pb = share(F('pm-pb').value); if ([na, nb, pa, pb].some(v => v == null)) return idle(); sa2 = pa * (1 - pa); sb2 = pb * (1 - pb); base = pa; }
     else { const ma = num(F('pm-ma').value), mb = num(F('pm-mb').value), sa = num(F('pm-sa').value), sb = num(F('pm-sb').value); if ([na, nb, ma, sa, sb].some(v => v == null)) return idle(); sa2 = sa * sa; sb2 = sb * sb; base = ma; }
     if (na < 2 || nb < 2 || !(pw > 0 && pw < 1) || !(al > 0 && al < 1)) return idle('Проверь числа: в группах нужно хотя бы по два человека, мощность и α — между 0 и 1.');
-    const se = Math.sqrt(sa2 / na + sb2 / nb), k = inv(1 - al / 2) + inv(pw), mde = k * se, rel = base ? mde / base : NaN;
+    const se = Math.sqrt(sa2 / na + sb2 / nb), k = inv(1 - (sides === 'two' ? al / 2 : al)) + inv(pw), mde = k * se, rel = base ? mde / base : NaN;
     out.className = 'ss-out srm-out good';
     const abs = metric === 'share' ? '+' + nf(mde * 100, 3) + ' п. п.' : '+' + nf(mde, mde < 10 ? 2 : mde < 100 ? 1 : 0);
     $('pm-big').innerHTML = 'Тест мог заметить эффект от <b>' + (Number.isFinite(rel) ? nf(rel * 100, 1) + '%' : abs) + '</b> относительных';

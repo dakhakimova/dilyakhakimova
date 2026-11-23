@@ -35,7 +35,7 @@
 <main id="main" class="wrap play ss-page">
   <h1>Калькулятор MDE</h1>
   <p class="play-meta srm-sub">Сколько дней держать тест?</p>
-  <p class="lead">MDE — минимальный детектируемый эффект (minimum detectable effect, MDE): самый маленький эффект, который тест успеет заметить. MDE, размер выборки и мощность связаны: поменяешь одно — поедут остальные. Задай два, третье калькулятор посчитает.</p>
+  <p class="lead">Минимальный детектируемый эффект (minimum detectable effect, MDE) — самый маленький эффект, который тест успеет заметить. MDE, размер выборки и мощность связаны: поменяешь одно — поедут остальные. Задай два, третье калькулятор посчитает.</p>
 
   <div class="seg ss-mode ss-when-mode" role="radiogroup" aria-label="Когда считаем">
     <button type="button" role="radio" data-when="pre" aria-checked="true">До теста: планирую</button>
@@ -58,9 +58,9 @@
       <label class="ss-f" data-pm="share"><span>Доля сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i>конверсия, ретеншен</i></label>
       <label class="ss-f" data-pm="mean" hidden><span>Среднее сейчас</span><input class="input ss-in" id="ss-mean" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
       <label class="ss-f" data-pm="mean" hidden><span>Стандартное отклонение</span><input class="input ss-in" id="ss-sd" inputmode="decimal" autocomplete="off"><i>на пользователя</i></label>
-      <label class="ss-f"><span>Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
+      <label class="ss-f"><span id="ss-mde-l">Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
-      <label class="ss-f"><span>В каждой группе</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек</i></label>
+      <label class="ss-f"><span>Всего в эксперименте</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек, тест и контроль вместе</i></label>
       <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"><i>человек в день</i></label>
     </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
@@ -70,8 +70,17 @@
         <button type="button" role="radio" data-alpha="0.05" aria-checked="true">0.05</button>
         <button type="button" role="radio" data-alpha="0.1" aria-checked="false">0.1</button>
       </div>
-      <p class="note">Двусторонний тест, группы поровну: 50 и 50.</p>
     </div>
+    <details class="ss-more"><summary>Дополнительно: сторона теста и доли групп</summary>
+      <div class="seg" role="radiogroup" aria-label="Тест"><span class="ss-mode-l">Тест:</span>
+        <button type="button" role="radio" data-sides="two" aria-checked="true">двусторонний</button>
+        <button type="button" role="radio" data-sides="left" aria-checked="false">левосторонний: ждём падения</button>
+        <button type="button" role="radio" data-sides="right" aria-checked="false">правосторонний: ждём роста</button>
+      </div>
+      <div class="ss-form">
+        <label class="ss-f"><span>Доля теста</span><input class="input ss-in" id="ss-split" inputmode="decimal" autocomplete="off"><i>остальное — контроль; обычно 50%</i></label>
+      </div>
+    </details>
     <div class="ss-out" role="status" aria-live="polite">
       <p class="ss-big" id="ss-big"></p>
       <p class="ss-when" id="ss-when"></p>
@@ -79,7 +88,7 @@
     </div>
     <figure class="ss-what">
       <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
-      <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">на группу</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
+      <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">всего людей</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
     <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
   </section>
@@ -98,8 +107,15 @@
     </div>
     <div class="ss-form pm-opts">
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="pm-pow" inputmode="decimal" autocomplete="off" placeholder="80%"><i></i></label>
-      <label class="ss-f"><span>Ошибка I рода α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i>двусторонний тест</i></label>
+      <label class="ss-f"><span>Ошибка I рода α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i></i></label>
     </div>
+    <details class="ss-more pm-more"><summary>Дополнительно: сторона теста</summary>
+      <div class="seg" role="radiogroup" aria-label="Тест"><span class="ss-mode-l">Тест:</span>
+        <button type="button" role="radio" data-psides="two" aria-checked="true">двусторонний</button>
+        <button type="button" role="radio" data-psides="left" aria-checked="false">левосторонний</button>
+        <button type="button" role="radio" data-psides="right" aria-checked="false">правосторонний</button>
+      </div>
+    </details>
     <div class="ss-out srm-out idle" id="pm-out" role="status" aria-live="polite">
       <p class="ss-big" id="pm-big">Впиши, сколько людей было в группах и что получилось.</p>
       <p class="ss-when" id="pm-p"></p>
@@ -107,7 +123,7 @@
     <details class="pm-how"><summary>Как считается</summary>
       <ul class="srm-why">
         <li><b>Шум разницы</b> — стандартная ошибка: SE = √(s²A / nA + s²B / nB). Для доли s² = p(1 − p).</li>
-        <li><b>Пост-MDE</b> = (z<sub>1−α/2</sub> + z<sub>мощность</sub>) · SE, при α = 0.05 и мощности 80% множитель 2.8. Делим на среднее контроля — получаем относительный.</li>
+        <li><b>Пост-MDE</b> = (z<sub>1−α/2</sub> + z<sub>мощность</sub>) · SE для двустороннего теста, z<sub>1−α</sub> вместо z<sub>1−α/2</sub> — для одностороннего; при α = 0.05 и мощности 80% множитель 2.8 и 2.5. Делим на среднее контроля — получаем относительный.</li>
         <li><b>Зачем:</b> до теста MDE считают по прикидке дисперсии, после — по настоящей. Если дисперсия оказалась больше, тест был слабее, чем планировали.</li>
       </ul>
     </details>
@@ -115,7 +131,7 @@
   <details class="play-out srm-how" id="ss-pre-how"><summary>Как считается</summary>
     <ul class="srm-why">
       <li><b>Вдвое меньший эффект — вчетверо больше людей.</b> Шум группы падает как 1 / √n, поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</li>
-      <li><b>Формула на салфетке:</b> n ≈ 16 · s² / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в абсолютных единицах, s² — дисперсия метрики. Для доли s² = p(1 − p), для среднего — квадрат стандартного отклонения.</li>
+      <li><b>Формула на салфетке:</b> n ≈ 16 · s² / δ² на группу при сплите 50 на 50, α = 0.05 и мощности 80%, где δ — эффект в абсолютных единицах, s² — дисперсия метрики. Для доли s² = p(1 − p), для среднего — квадрат стандартного отклонения.</li>
       <li><b>Где она врёт:</b> при очень маленьких долях, при сильных выбросах в среднем и в группах меньше сотни человек.</li>
     </ul>
   </details>
