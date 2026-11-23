@@ -447,7 +447,7 @@ err['normal-distribution'] = L => {
 // clt[slug](L) — ЦПТ на чеках (Диля, 23.11): кнопки n = 1, 2, 5, 30; гистограмма средних n чеков и колокол с той же серединой и шириной σ/√n.
 const clt = {};
 clt['normal-distribution'] = L => {
-  const NS = [1, 2, 5, 30, 1000], lo = 0, hi = 2000;
+  const NS = [1, 2, 5, 30, 200], lo = 0, hi = 2000;
   const m = 500 * Math.exp(.32), sd = m * Math.sqrt(Math.exp(.64) - 1);
   const X = v => 20 + (v - lo) / (hi - lo) * 420, base = 210, top = 30;
   const r = rng(20261123), gz = gauss(r), out = [];
@@ -461,7 +461,20 @@ clt['normal-distribution'] = L => {
     const g = [`<g class="cl cl${n}">`];
     dens.forEach((d, i) => { if (d > 0) g.push(rect(X(lo + i * bw) + (n > 30 ? 0 : 1), Y(d), Math.max(1, X(lo + bw) - X(lo) - (n > 30 ? 0.3 : 2)), base - Y(d), C.a, 'opacity=".55"')); });
     const pts = []; for (let k = 0; k <= 1200; k++){ const v = lo + (hi - lo) * k / 1200; pts.push([X(v), Y(nd(v))]); }
-    g.push(path(pts, C.red, 2.5), '</g>');
+    g.push(path(pts, C.red, 2.5));
+    // n = 1000: пик в одну-две корзины не читается — рядом крупный план со своей шкалой
+    if (n > 300){
+      const zl = m - 4 * s0, zh = m + 4 * s0, ix0 = 300, ix1 = 440, iy0 = 40, iy1 = 150;
+      const ZX = v => ix0 + (v - zl) / (zh - zl) * (ix1 - ix0), ZY = d => iy1 - d / ymax * (iy1 - iy0 - 8);
+      g.push(rect(ix0 - 8, iy0 - 22, ix1 - ix0 + 16, iy1 - iy0 + 52, C.paper, `stroke="${C.line}" rx="8"`));
+      g.push(ln(X(m) + 4, Y(nd(m)) + 30, ix0 - 8, iy0 + 40, C.line, 1.2, '3 3'));
+      dens.forEach((d, i) => { const v = lo + i * bw; if (d > 0 && v >= zl && v + bw <= zh) g.push(rect(ZX(v) + .5, ZY(d), ZX(v + bw) - ZX(v) - 1, iy1 - ZY(d), C.a, 'opacity=".55"')); });
+      const zp = []; for (let k = 0; k <= 120; k++){ const v = zl + (zh - zl) * k / 120; zp.push([ZX(v), ZY(nd(v))]); }
+      g.push(path(zp, C.red, 2), ln(ix0, iy1, ix1, iy1, C.t3, 1.2));
+      for (const v of [Math.round((m - 40) / 10) * 10, Math.round(m / 10) * 10, Math.round((m + 40) / 10) * 10]) g.push(tx(ZX(v), iy1 + 16, v, {a: 'middle', size: 12, fill: C.t3}));
+      g.push(tx(ix0, iy0 - 8, L.zoom, {size: 12, fill: C.t3}));
+    }
+    g.push('</g>');
     out.push(g.join(''));
   }
   out.push(ln(X(m), top - 6, X(m), base, C.ink, 1.2, '2 3'), tx(X(m) + 6, top + 6, L.mean, {size: 14, fill: C.ink, bg: true}));

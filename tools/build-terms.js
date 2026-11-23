@@ -250,9 +250,9 @@ ${clt[s] && x.cl ? `  <section class="t-sec" aria-labelledby="clt-h">
     <figure class="viz cl-fig">
       <p class="chart-head">${typo(x.cl.t)}</p>
       ${clt[s](Object.fromEntries(Object.entries(x.cl.vz).map(([k, v]) => [k, plain(typo(v))])))}
-      <div class="sg-ctl" role="group" aria-label="${attr(x.cl.label)}">${[1, 2, 5, 30, 1000].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 1}">n = ${n}</button>`).join('')}</div>
+      <div class="sg-ctl" role="group" aria-label="${attr(x.cl.label)}">${[1, 2, 5, 30, 200].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 1}">n = ${n}</button>`).join('')}</div>
       <p class="sg-out" aria-live="polite">${greekFrag(typo(x.cl.out[0]))}</p>
-      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[1,2,5,30,1000],T=${json(x.cl.out.map(v => greekFrag(typo(v))))};
+      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[1,2,5,30,200],T=${json(x.cl.out.map(v => greekFrag(typo(v))))};
 f.dataset.n=1;f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
     </figure>
     <p>${typo(x.cl.p2)}</p>
