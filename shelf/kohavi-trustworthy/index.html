@@ -132,7 +132,8 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
   <p data-i18n="bk.i3.p2">Самая показательная история — из Microsoft. В тесте на портале MSN новый вариант так понравился людям, что самые активные стали кликать очень много. Фильтр ботов считает: кто кликает слишком часто, тот робот, — и выкинул этих людей из анализа. В группе с новым вариантом пропали лучшие пользователи, и вариант выглядел хуже, чем был. Заметили это только по SRM: в новом варианте оказалось меньше людей, чем в старом. Когда отфильтрованных вернули в анализ, вывод перевернулся: вариант не хуже, а лучше. В любом продукте так может сработать антифрод: самый активный покупатель похож на бота.</p>
   <div class="bk-toy" data-toy="srm">
     <p class="chart-head" data-i18n="bk.i3.toy">Сколько пользователей можно потерять, чтобы никто не заметил</p>
-    <label class="rng"><span data-i18n="bk.i3.n">Гостей в тесте</span> <output data-o="n"></output><input type="range" min="0" max="6" step="1" value="5" data-k="n"></label>
+    <p class="seg-lb" data-i18n="bk.i3.n">Пользователей в тесте</p>
+    <div class="seg" role="group" data-i18n-attr="aria-label:bk.i3.n" aria-label="Пользователей в тесте"><button type="button" class="btn ghost" data-n="10000" aria-pressed="false">10 000</button><button type="button" class="btn ghost" data-n="100000" aria-pressed="false">100 000</button><button type="button" class="btn ghost" data-n="1000000" aria-pressed="true">1 000 000</button></div>
     <label class="rng"><span data-i18n="bk.i3.loss">Потеряли в группе B</span> <output data-o="loss"></output><input type="range" min="0" max="3" step="0.1" value="1.4" data-k="loss"></label>
     <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
     <p class="big2"><b data-o="p"></b> <span data-i18n="bx.i3.p">p-value проверки SRM</span></p>

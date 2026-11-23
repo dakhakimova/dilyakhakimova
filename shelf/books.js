@@ -115,12 +115,14 @@
   document.querySelectorAll('[data-toy="srm"]').forEach(box => {
     const svg = box.querySelector('svg'), inp = k => box.querySelector(`[data-k=${k}]`), o = k => box.querySelector(`[data-o=${k}]`);
     const verdict = box.querySelector('.verdict');
-    const NS = [10000, 20000, 50000, 100000, 200000, 500000, 1000000];
+    let n = 1000000; // размер теста — переключатель, ползунок один: сколько потеряли
+    box.querySelectorAll('[data-n]').forEach(b => b.addEventListener('click', () => {
+      n = +b.dataset.n; box.querySelectorAll('[data-n]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); upd();
+    }));
     function upd(){
-      const n = NS[+inp('n').value], loss = +inp('loss').value / 100;
+      const loss = +inp('loss').value / 100;
       const a = Math.round(n / 2), b = Math.round(n / 2 * (1 - loss)), e = (a + b) / 2;
       const chi2 = ((a - e) ** 2 + (b - e) ** 2) / e, p = erfc(Math.sqrt(chi2 / 2));
-      o('n').textContent = NF.format(n);
       o('loss').textContent = inp('loss').value + '%';
       o('p').textContent = fmtP(p);
       const bad = p < 0.0005, mid = !bad && p < 0.05;
