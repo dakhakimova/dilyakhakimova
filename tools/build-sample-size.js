@@ -67,12 +67,13 @@ ${chrome.header('play', false)}
       <label class="ss-f"><span>Всего в эксперименте</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек, тест и контроль вместе</i></label>
     </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
-    <details class="ss-more"><summary>Дополнительно: сторона теста и доли групп</summary>
-      <div class="seg" role="radiogroup" aria-label="Тест"><span class="ss-mode-l">Тест:</span>
-        <button type="button" role="radio" data-sides="two" aria-checked="true">двусторонний</button>
-        <button type="button" role="radio" data-sides="left" aria-checked="false">левосторонний: ждём падения</button>
-        <button type="button" role="radio" data-sides="right" aria-checked="false">правосторонний: ждём роста</button>
+    <details class="ss-more"><summary>Дополнительно: в какую сторону ждём эффект, доли групп</summary>
+      <div class="seg" role="radiogroup" aria-label="Чего ждём"><span class="ss-mode-l">Ждём:</span>
+        <button type="button" role="radio" data-sides="two" aria-checked="true">изменения в любую сторону</button>
+        <button type="button" role="radio" data-sides="left" aria-checked="false">падения</button>
+        <button type="button" role="radio" data-sides="right" aria-checked="false">роста</button>
       </div>
+      <p class="note">Это двусторонний, левосторонний и правосторонний тест. Односторонний требует меньше людей, но не заметит эффект в другую сторону.</p>
       <div class="ss-form">
         <label class="ss-f"><span>Доля теста</span><input class="input ss-in" id="ss-split" inputmode="decimal" autocomplete="off"><i>остальное — контроль; обычно 50%</i></label>
       </div>
@@ -114,11 +115,11 @@ ${chrome.header('play', false)}
       <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="pm-pow" inputmode="decimal" autocomplete="off" placeholder="80%"><i></i></label>
       <label class="ss-f"><span>Ошибка I рода α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i></i></label>
     </div>
-    <details class="ss-more pm-more"><summary>Дополнительно: сторона теста</summary>
-      <div class="seg" role="radiogroup" aria-label="Тест"><span class="ss-mode-l">Тест:</span>
-        <button type="button" role="radio" data-psides="two" aria-checked="true">двусторонний</button>
-        <button type="button" role="radio" data-psides="left" aria-checked="false">левосторонний</button>
-        <button type="button" role="radio" data-psides="right" aria-checked="false">правосторонний</button>
+    <details class="ss-more pm-more"><summary>Дополнительно: в какую сторону ждали эффект</summary>
+      <div class="seg" role="radiogroup" aria-label="Чего ждали"><span class="ss-mode-l">Ждали:</span>
+        <button type="button" role="radio" data-psides="two" aria-checked="true">изменения в любую сторону</button>
+        <button type="button" role="radio" data-psides="left" aria-checked="false">падения</button>
+        <button type="button" role="radio" data-psides="right" aria-checked="false">роста</button>
       </div>
     </details>
     <div class="ss-out srm-out idle" id="pm-out" role="status" aria-live="polite">

@@ -69,7 +69,7 @@
     const lines = [st.metric === 'mean'
       ? 'Среднее ' + fmt.mean(st.mean) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(am, am < 10 ? 2 : 1) + ': с ' + fmt.mean(st.mean) + ' до ' + fmt.mean(st.mean + (st.sides === 'left' ? -am : am))
       : 'Доля ' + fmt.base(p) + ', ' + (st.sides === 'left' ? 'падение' : 'рост') + ' на ' + fmt.mde(st.mde) + ' относительных = ' + (st.sides === 'left' ? '−' : '+') + '' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + (st.sides === 'left' ? -abs : abs), 3) + '%'];
-    if (st.sides !== 'two' || st.split !== 50) lines.push('Тест ' + {two: 'двусторонний', left: 'левосторонний', right: 'правосторонний'}[st.sides] + ', группы ' + nf(100 - st.split, 1) + ' на ' + nf(st.split, 1) + ' — меняется в «Дополнительно»');
+    if (st.sides !== 'two' || st.split !== 50) lines.push((st.sides === 'two' ? 'Ждём изменения в любую сторону' : 'Ждём только ' + (st.sides === 'left' ? 'падения' : 'роста')) + ', группы ' + nf(100 - st.split, 1) + ' на ' + nf(st.split, 1) + ' — меняется в «Дополнительно»');
     Object.entries(heard).forEach(([k, v]) => { if (v) lines.push({base: 'Доля', mean: 'Среднее', sd: 'Стандартное отклонение', mde: 'MDE', pow: 'Мощность', n: 'Всего в эксперименте', traffic: 'Трафик', split: 'Доля теста'}[k] + ': ' + v); });
     $('ss-heard').innerHTML = lines.map(l => '<li>' + l.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>').join('');
     const d = days(st.n);
