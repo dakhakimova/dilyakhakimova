@@ -434,12 +434,18 @@ err['normal-distribution'] = L => {
   // 3. выручка на пользователя: 80% нулей, у покупателей логнормальное (медиана 800, σ лога 0.8)
   const p0 = .8, ln3 = v => v <= 0 ? 0 : (1 - p0) * Math.exp(-Math.pow(Math.log(v / 800), 2) / (2 * .64)) / (v * .8 * Math.sqrt(2 * Math.PI));
   const m3 = (1 - p0) * 800 * Math.exp(.32), ex2 = (1 - p0) * 640000 * Math.exp(1.28), sd3 = Math.sqrt(ex2 - m3 * m3), n3 = v => phi((v - m3) / sd3) / sd3;
-  const r3 = row(2, L.h3, L.s3, [-1600, 2600], [{f: ln3, max: n3(m3) * 1.15}, {f: n3, max: n3(m3), dash: true}], (X, Y, base) => {
+  // данные — гистограммой по 200 ₽ (Диля, 23.11): столбик нулей честной высоты, покупки — соседними столбиками; колокол — в тех же единицах
+  const bw = 200, bins = [];
+  for (let lo = 0; lo < 2600; lo += bw){ let m = 0; for (let k = 0; k < 40; k++){ const v = lo + (k + .5) * bw / 40; m += ln3(v) * bw / 40; } bins.push([lo, (lo === 0 ? p0 : 0) + m]); }
+  const top3 = bins[0][1] / bw;
+  const r3 = row(2, L.h3, L.s3, [-1600, 2600], [{f: n3, max: top3 * 1.2, dash: true}], (X, Y, base) => {
     const neg = [[X(-1600), base]]; for (let k = 0; k <= 80; k++){ const v = -1600 + 1600 * k / 80; neg.push([X(v), Y(n3(v))]); } neg.push([X(0), base]);
-    return path(neg, 'none', 0, C.red, 'opacity=".25"') + rect(X(0) - 3, base - 86, 6, 86, C.a) + [-1000, 0, 1000, 2000].map(v => tx(X(v), base + 18, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 13, fill: C.t3})).join('');
+    return path(neg, 'none', 0, C.red, 'opacity=".25"')
+      + bins.map(([lo, m]) => rect(X(lo) + .5, Y(m / bw), X(lo + bw) - X(lo) - 1, base - Y(m / bw), C.a, 'opacity=".75"')).join('')
+      + tx(X(bw / 2), Y(top3) - 6, L.t3a, {a: 'middle', size: 14, fill: C.a, w: 500, bg: true})
+      + [-1000, 0, 1000, 2000].map(v => tx(X(v), base + 18, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 13, fill: C.t3})).join('');
   });
-  // подписи не залезают на линии (Диля, 23.11): «80% нулей» — в подзаголовке ряда, доля колокола ниже нуля — двумя строками над левым хвостом
-  out.push(...L.t3b.split('|').map((w, i) => tx(r3.X(-1580), r3.base - 84 + i * 17, w, {size: 14, fill: C.red, w: 500, bg: true})));
+  out.push(...L.t3b.split('|').map((w, i) => tx(r3.X(-1580), r3.base - 56 + i * 17, w, {size: 14, fill: C.red, w: 500, bg: true})));
   // легенда
   const ly = 3 * rowH + 6;
   out.push(ln(x0, ly, x0 + 30, ly, C.a, 2.5), tx(x0 + 38, ly + 5, L.data, {size: 14}), ln(x0 + 120, ly, x0 + 150, ly, C.red, 2.5), tx(x0 + 158, ly + 5, L.bell, {size: 14}));
