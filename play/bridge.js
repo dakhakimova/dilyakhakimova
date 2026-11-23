@@ -306,7 +306,7 @@ html.solo:not(.touched) [data-toy-reveal]{display:none !important}
 html.solo .card[data-toy-pre] .note{margin-bottom:0}
 html.solo .card[data-toy-pre] .guess, html.solo .card[data-toy-pre] .choice{margin-bottom:4px}
 html.viz .card[data-toy-pre], html.viz .play-pre, html.viz .pf, html.viz .ui-guess, html.viz .card[data-toy] .guess[data-key], html.viz .card[data-toy] .choice[data-key]:not(.quiz *), html.viz .card[data-toy] .lab-guess{display:none !important}
-html.viz .play-credit{display:none !important}
+html.viz .play-credit, html.viz .calc-note{display:none !important}
 html.viz .card[data-toy]{background:transparent !important; box-shadow:none !important; padding:0 !important}
 html.viz body{padding:0}
 .play-credit{display:block; margin:10px 2px 0; font:400 .8125rem/1.45 Onest, "Onest fallback", system-ui, sans-serif; color:#5E5A53}
