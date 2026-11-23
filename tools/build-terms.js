@@ -68,7 +68,7 @@ function greekFrag(frag){
   const scr = []; frag = frag.replace(/<script[\s\S]*?<\/script>/g, m => '\u0003' + (scr.push(m) - 1) + '\u0004');
   const back = h => h.replace(/\u0003(\d+)\u0004/g, (_, k) => scr[k]);
   let kd = 0;  // глубина внутри уже готовой формулы KaTeX: её не трогаем
-  const TEX = {'μ': '\\mu', 'σ': '\\sigma', 'ν': '\\nu'};
+  const TEX = {'μ': '\\mu', 'σ': '\\sigma', 'ν': '\\nu', 'Φ': '\\Phi'};
   let skip = 0;
   return back(frag.split(/(<[^>]+>)/).map(part => {
     if (kd > 0 && part.startsWith('<')){ if (/^<span[\s>]/.test(part)) kd++; else if (/^<\/span>/.test(part)) kd--; return part; }
@@ -93,7 +93,7 @@ function greekFrag(frag){
       .replace(new RegExp('(^|[\\s\\u00a0(«])n' + S + '[−-]' + S + '1(?![\\d.])', 'g'), (_, a) => a + put('n - 1'))
       .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
       .replace(/(^|[\s\u00a0(«])([xXnsZTKk])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
-      .replace(/([μσν])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
+      .replace(/([μσνΦ])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // неразрывный пробел сразу после формулы даёт пустой отступ в начале строки — делаем обычным
     x = x.replace(/\u0002\u00a0/g, '\u0002 ');
     // короткое слово или знак перед формулой не остаётся в конце строки
@@ -341,7 +341,10 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
     <h2 id="z-h">${typo(x.z.h)}</h2>
     <p>${greekFrag(typo(x.z.p))}</p>
     <div class="formula tex" role="math" aria-label="${attr(x.z.read)}">${KATEX.renderToString(x.z.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>
-    <p>${greekFrag(typo(x.z.p2))}</p>
+    <p>${greekFrag(typo(x.z.p2))}</p>${x.z.tex3 ? `
+    <p>${greekFrag(typo(x.z.p3))}</p>
+    <div class="formula tex" role="math" aria-label="${attr(x.z.read3)}">${KATEX.renderToString(x.z.tex3, {output: 'html', throwOnError: false, displayMode: true})}</div>
+    <p>${greekFrag(typo(x.z.p4))}</p>` : ''}
   </section>
 
 ` : ''}  <section class="t-sec" aria-labelledby="lim-h">
