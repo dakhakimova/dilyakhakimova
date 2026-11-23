@@ -110,7 +110,7 @@
       <button class="btn ghost" type="button" id="aa100">+100</button>
       <button class="btn ghost" type="button" id="aa0">Сначала</button>
     </div>
-    <p class="chart-title">Разница Δ = тест − контроль между одинаковыми группами; полоса — ±1.96·SE</p>
+    <p class="chart-title">Разница Δ = тест − контроль</p>
     <canvas id="cv-aa" role="img" aria-label="Гистограмма разниц между одинаковыми группами, колокол N(0, SE²) и полоса ±1.96·SE"></canvas>
     <div class="big2">
       <div class="ctrl"><b id="aa-se">—</b><span>SE разности, заказов на 100 гостей</span></div>
@@ -357,11 +357,12 @@ _check()
 const TXT = {
   ru: {
     out: (k, n) => int(k) + ' из ' + int(n) + ' · ' + share(k / n, 1),
-    pvT: 'p-value этих же A/A: при отсутствии эффекта — равномерное распределение, каждый столбик около 5%; пунктир — 5%',
+    pvT: 'p-value этих же A/A: равномерное распределение, пунктир — 5%',
     pvEx: 'каждый столбик ≈ 5%',
     last: (a, b, d) => 'Последний A/A: контроль ' + num(a, 2) + ', тест ' + num(b, 2) + ' заказа на 100 гостей; Δ = тест − контроль = ' + signed(d, 2) + '.',
     empty: 'Нажми «+1000 A/A»',
     xAx: 'Δ = тест − контроль, заказов на 100 гостей',
+    band: 'полоса ±1.96·SE: внутри около 95% A/A',
     vAA: (g, sh, se) => (g === null ? '' : 'Твоя догадка — <b>' + shareT(g / 100, 1) + '</b>. ') + 'За полосой ±0.83 оказались <b>' + share(sh, 1) + '</b> A/A-тестов — около 5' + '%, как и обещает колокол: 0.83 — это 1.96 · SE, а SE разности здесь ' + num(se, 2) + '. Группы одинаковые, но шумят обе.',
     vAA2: (sh, se) => 'За полосой ±1.96·SE — ' + share(sh, 1) + ' A/A. SE разности ' + num(se, 2) + ' заказа на 100 гостей. Поменяй n: вчетверо больше гостей — полоса вдвое уже, а доля за полосой та же, около 5' + '%.',
     pvStat: (n, small) => 'A/A: ' + int(n) + '. p &lt; 0.05 у ' + share(small, 1) + ' тестов.',
@@ -398,6 +399,7 @@ const AA9 = (function(){
     const g = canvas(cv, 0.42, 0.7); if (!g) return; const {c, w, h} = g;
     const se = SE(), L = 10, R = 10, T = 14, B = 34, pw = w - L - R, ph = h - T - B, lo = -4.5 * se, hi = 4.5 * se, bw = se / 4, X = v => L + (v - lo) / (hi - lo) * pw;
     c.fillStyle = COL.fillG; c.fillRect(X(-1.96 * se), T, X(1.96 * se) - X(-1.96 * se), ph);
+    label(c, TXT.band, X(0), T + 14, COL.ink2, 'center');   // подпись полосы — на самом графике
     if (!res.length){ label(c, TXT.empty, w / 2, T + ph / 2, COL.ink2, 'center'); }
     const vals = res.map(r => 100 * r.d), b = bins(vals.map(v => Math.max(lo, Math.min(hi - 1e-9, v))), lo, hi, bw);
     const curve = v => res.length * bw * normPdf(v / se) / se, top = Math.max(1, ...b, res.length ? curve(0) : 0) * 1.1;
