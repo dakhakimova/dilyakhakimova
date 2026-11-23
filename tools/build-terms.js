@@ -49,10 +49,13 @@ function greek(html){
   return html.slice(0, a) + greekFrag(html.slice(a, b)) + html.slice(b);
 }
 function greekFrag(frag){
+  // скрипты вынимаем целиком: знак «<» в их коде иначе читается как тег и ломает разбор (Диля, 23.11)
+  const scr = []; frag = frag.replace(/<script[\s\S]*?<\/script>/g, m => '\u0003' + (scr.push(m) - 1) + '\u0004');
+  const back = h => h.replace(/\u0003(\d+)\u0004/g, (_, k) => scr[k]);
   let kd = 0;  // глубина внутри уже готовой формулы KaTeX: её не трогаем
   const TEX = {'μ': '\\mu', 'σ': '\\sigma', 'ν': '\\nu'};
   let skip = 0;
-  return frag.split(/(<[^>]+>)/).map(part => {
+  return back(frag.split(/(<[^>]+>)/).map(part => {
     if (kd > 0 && part.startsWith('<')){ if (/^<span[\s>]/.test(part)) kd++; else if (/^<\/span>/.test(part)) kd--; return part; }
     if (/^<span class="katex/.test(part)){ kd = 1; return part; }
     if (kd > 0) return part;
@@ -81,7 +84,7 @@ function greekFrag(frag){
     x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
     // знак препинания сразу после формулы не уезжает на новую строку
     return x.replace(/\u0001(\d+)\u0002([,.;:!?»)]*)/g, (_, i, p) => { const k = KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}); return p ? `<span class="nw">${k}${p}</span>` : k; });
-  }).join('');
+  }).join(''));
 }
 const {load} = require('./play-data.js');
 const {viz, lim, top, err, clt, stu, sum} = require('./terms-viz.js');
@@ -361,8 +364,8 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
 
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">${typo(hq.err)}</h2>
-    <ul class="list t-err">${x.mistakes.map(([a, b], i) => `
-      <li><span class="lead">${typo(a)}</span> ${typo(b)}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
+    <ul class="list t-err">${x.mistakes.map(([a, b, code], i) => `
+      <li><span class="lead">${typo(a)}</span> ${typo(b)}${code ? `<pre class="t-code"><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>` : ''}</li>${err[s] && x.ez && i === (x.ez.after || 0) ? `
     </ul>
     <figure class="viz t-err-viz">${err[s](Object.fromEntries(Object.entries(x.ez).map(([k, v]) => [k, plain(typo(String(v)))])))}<figcaption class="figcap">${typo(x.ez.cap)}</figcaption></figure>
     <ul class="list t-err">` : ''}`).join('')}
