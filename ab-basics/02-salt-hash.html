@@ -69,17 +69,17 @@
   <span class="step-tag">Игра</span>
   <h2>Почему решать должна монетка, а не мы</h2>
   <p>Почти 300 лет назад корабельный врач проверял, помогают ли от цинги лимоны. Сыграем в его опыт. На корабле 40 больных моряков: 20 болеют легко, 20 тяжело. За неделю лёгкие обычно выздоравливают, тяжёлые — редко. А лимоны в нашей игре <b>не делают ничего</b>.</p>
-  <p>Лимоны раздаёт врач Котейка. Он добрый и даёт их тем, кому, как ему кажется, они нужнее. Что покажет сравнение «с лимонами» и «без»?</p>
+  <p>Лимоны раздаёт врач Боб. Он добрый и даёт их тем, кому, как ему кажется, они нужнее. Что покажет сравнение «с лимонами» и «без»?</p>
   <div class="choice" data-key="g3" role="group" aria-label="Твой прогноз">
-    <button type="button" data-v="same" data-fb="Логично: лимоны же ничего не делают. Проверим, так ли это, когда раздаёт Котейка.">Разницы не будет</button>
-    <button type="button" data-v="good" data-fb="Посмотрим, кому именно Котейка их раздаст. Проверим на корабле.">Лимоны «помогут»</button>
+    <button type="button" data-v="same" data-fb="Логично: лимоны же ничего не делают. Проверим, так ли это, когда раздаёт Боб.">Разницы не будет</button>
+    <button type="button" data-v="good" data-fb="Посмотрим, кому именно Боб их раздаст. Проверим на корабле.">Лимоны «помогут»</button>
     <button type="button" data-v="bad" data-fb="Интересная версия. Проверим на корабле.">Лимоны «навредят»</button>
   </div>
   <p class="note" id="g3-note" role="status">Выбери вариант.</p>
   <div class="sheet c-white">
     <div class="controls" role="group" aria-label="Кто решает, кому дать лимоны">
-      <button class="btn ghost" type="button" data-mode="light" aria-pressed="true">Котейка жалеет лёгких</button>
-      <button class="btn ghost" type="button" data-mode="heavy" aria-pressed="false">Котейка жалеет тяжёлых</button>
+      <button class="btn ghost" type="button" data-mode="light" aria-pressed="true">Боб жалеет лёгких</button>
+      <button class="btn ghost" type="button" data-mode="heavy" aria-pressed="false">Боб жалеет тяжёлых</button>
       <button class="btn ghost" type="button" data-mode="coin" aria-pressed="false">Решает монетка</button>
     </div>
     <p class="chart-title">Сорок моряков: кому дали лимоны и кто выздоровел</p>
@@ -94,7 +94,7 @@
   </div>
   <div class="chat" data-toy-hide>
     <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Поэтому в A/B-тесте никто не выбирает, кому показать новинку: ни мы, ни сами гости. Решает монетка — то есть хеш.</p></div></div>
-    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где‑то лёгких окажется на пару больше. Но это различие случайное, а не выбор Котейки. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
+    <div class="msg alice"><img loading="lazy" class="ava" src="img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Ровно поровну монетка не разделит: где‑то лёгких окажется на пару больше. Но это различие случайное, а не выбор Боба. А случайность входит в шум, который мы научимся мерить в шагах 3–6.</p></div></div>
   </div>
   <p class="src">Идея из книги: <a href="./#books">Саманта Клейнберг, «Почему»</a> — там подробно разобран опыт Джеймса Линда с цингой.</p>
 </section>
@@ -442,7 +442,7 @@ const randId = () => 'user_' + (10000 + Math.floor(Math.random() * 90000));
     } else {
       const lift = ra - rb;
       v.className = 'verdict bad';
-      v.innerHTML = (mode === 'light' ? 'Котейка дал лимоны лёгким — и лимоны «вылечили» ' : 'Котейка дал лимоны тяжёлым — и лимоны «навредили»: ') + share(ra, 0) + ' против ' + share(rb, 0) + '. А ведь лимоны в этой игре ничего не делают! Разницу создал выбор Котейки: кому дали, те и так выздоравливали ' + (mode === 'light' ? 'чаще' : 'реже') + '.' + (g === 'same' ? ' Твой прогноз «разницы не будет» был бы верен, если бы решала монетка.' : '') + (ran.coin ? '' : ' Теперь переключи на монетку.');
+      v.innerHTML = (mode === 'light' ? 'Боб дал лимоны лёгким — и лимоны «вылечили» ' : 'Боб дал лимоны тяжёлым — и лимоны «навредили»: ') + share(ra, 0) + ' против ' + share(rb, 0) + '. А ведь лимоны в этой игре ничего не делают! Разницу создал выбор Котейки: кому дали, те и так выздоравливали ' + (mode === 'light' ? 'чаще' : 'реже') + '.' + (g === 'same' ? ' Твой прогноз «разницы не будет» был бы верен, если бы решала монетка.' : '') + (ran.coin ? '' : ' Теперь переключи на монетку.');
     }
   }
   document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
