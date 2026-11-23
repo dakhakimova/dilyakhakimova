@@ -221,3 +221,7 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 .term .t-out{margin:var(--s-3) 0 0}
 .t-art{margin:var(--s-5) 0 var(--s-6)}
 .t-art img{display:block; width:100%; height:auto; border-radius:16px; background:#EFE9DF}
+/* формула TeX — без белой плашки (Диля, 23.11) */
+.formula.tex{background:none; box-shadow:none; padding:0; margin:var(--s-5) 0; font-size:inherit}
+.formula.tex .katex{font-size:1.45em}
+@media (max-width:620px){ .formula.tex .katex{font-size:1.2em} }

@@ -7,6 +7,7 @@
    у термина есть пример, игра, схема и две задачи (иначе страница выходит с noindex), сравнение ссылается на существующий термин.
    Внизу — две тонкие строки (где это в курсе; связанные термины из terms.json → related, только опубликованные) и одна кнопка «Поделиться».
    Хаб: поиск, указатель букв и термины по алфавиту (пары 7, 8 гайда). */
+const KATEX = require('./vendor/katex.min.js');
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const {load} = require('./play-data.js');
 const {viz, lim, top} = require('./terms-viz.js');
@@ -64,6 +65,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 <link rel="stylesheet" href="${FONTS}?v=${V}">
 <link rel="stylesheet" href="/tokens.css?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
 <link rel="stylesheet" href="/terms/terms.css?v=${V}">
 <script type="application/ld+json">${json(o.ld)}</script>
 </head>
@@ -185,7 +187,7 @@ ${top[s] ? `  <figure class="viz t-top">
   <section class="t-sec" aria-labelledby="strict-h">
     <h2 id="strict-h">${typo(hq.strict)}</h2>
     <p>${typo(x.strict)}</p>${x.formula ? `
-    <div class="formula" role="math" aria-label="${attr(x.read)}">${x.formula}</div>` : ''}
+    ${x.tex ? `<div class="formula tex" role="math" aria-label="${attr(x.read)}">${KATEX.renderToString(x.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>` : `<div class="formula" role="math" aria-label="${attr(x.read)}">${x.formula}</div>`}` : ''}
     <p class="t-read"><span class="lbl">${t('terms.read.h')}.</span> ${typo(x.read)}</p>
   </section>
 
