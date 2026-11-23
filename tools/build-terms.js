@@ -14,9 +14,16 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 function greek(html){
   const a = html.indexOf('<main'), b = html.indexOf('</main>');
   if (a < 0 || b < 0) return html;
+  return html.slice(0, a) + greekFrag(html.slice(a, b)) + html.slice(b);
+}
+function greekFrag(frag){
+  let kd = 0;  // глубина внутри уже готовой формулы KaTeX: её не трогаем
   const TEX = {'μ': '\\mu', 'σ': '\\sigma'};
   let skip = 0;
-  const mid = html.slice(a, b).split(/(<[^>]+>)/).map(part => {
+  return frag.split(/(<[^>]+>)/).map(part => {
+    if (kd > 0 && part.startsWith('<')){ if (/^<span[\s>]/.test(part)) kd++; else if (/^<\/span>/.test(part)) kd--; return part; }
+    if (/^<span class="katex/.test(part)){ kd = 1; return part; }
+    if (kd > 0) return part;
     if (part.startsWith('<')){
       const m = part.match(/^<(\/?)(svg|script|style|code|pre|textarea|title)\b/i);
       if (m && !part.endsWith('/>')) skip += m[1] ? -1 : 1;
@@ -29,17 +36,16 @@ function greek(html){
       .replace(new RegExp('X' + S + '~' + S + 'N\\(μ,' + S + 'σ²\\)', 'g'), () => put('X \\sim N(\\mu, \\sigma^2)'))
       .replace(new RegExp('N\\(μ,' + S + 'σ²\\)', 'g'), () => put('N(\\mu, \\sigma^2)'))
       .replace(new RegExp('μ' + S + '±' + S + '2σ', 'g'), () => put('\\mu \\pm 2\\sigma'))
-      .replace(/σ\/√n/g, () => put('\\sigma/\\sqrt{n}'))
-      .replace(/(^|[\s\u00a0(])([xX])(?=[\s\u00a0,;:.)]|$)/g, (_, a, v) => a + put(v))
+      .replace(/σ\/√(n|\d+)/g, (_, q) => put('\\sigma/\\sqrt{' + q + '}'))
+      .replace(/(^|[\s\u00a0(«])([xXn])(?=[\s\u00a0,;:.)»]|$)/g, (_, a, v) => a + put(v))
       .replace(/([μσ])(²)?/g, (m, g, sq) => put(TEX[g] + (sq ? '^2' : '')));
     // короткое слово или знак перед формулой не остаётся в конце строки
     x = x.replace(/(^|[\s\u00a0])([а-яёА-ЯЁ]{1,3}|[=≈~±—–]) (?=\u0001)/g, '$1$2\u00a0');
     return x.replace(/\u0001(\d+)\u0002/g, (_, i) => KATEX.renderToString(tex[i], {output: 'html', throwOnError: false}));
   }).join('');
-  return html.slice(0, a) + mid + html.slice(b);
 }
 const {load} = require('./play-data.js');
-const {viz, lim, top, err} = require('./terms-viz.js');
+const {viz, lim, top, err, clt} = require('./terms-viz.js');
 const SOL = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'play', 'solutions.json'), 'utf8')); } catch { return {}; } })();  // «Почему так» игр — из tools/build-play.js
 // все страницы терминов (решение Дили, 22.11.2026: «где объясняем — по центру, размер и шрифт как на нормальном»): шрифт 20 px, колонка ~700 px
 const TRIAL = {includes: () => true};
@@ -191,7 +197,13 @@ ${chrome.header('terms', o.url === '/terms/')}
     <h2 id="viz-h">${typo(hq.viz)}</h2>
     <figure class="viz">
       <p class="chart-head">${typo(x.vizT)}</p>
-      ${viz[s](vzPlain)}
+      ${viz[s](vzPlain)}${x.sg ? `
+      <div class="sg-ctl" role="group" aria-label="${attr(x.sg.label)}">${[1, 2, 3].map(k => `<button type="button" class="chip-btn" data-k="${k}" aria-pressed="${k === 2}">±${k}σ</button>`).join('')}</div>
+      <p class="sg-out" aria-live="polite">${typo(x.sg.out[1])}</p>
+      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),T=${json(x.sg.out.map(v => greekFrag(typo(v))))};
+f.classList.add('sg-live');function set(k){f.dataset.k=k;f.querySelectorAll('.sg-ctl button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k==k)});o.innerHTML=T[k-1]}
+f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){set(+b.dataset.k)})});
+var go=function(){set(2)};if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();setTimeout(go,250)}},{threshold:.5});io.observe(f)}else go()})();</script>` : ''}
       <figcaption class="figcap">${typo(x.vizCap)}</figcaption>
     </figure>
   </section>
@@ -221,17 +233,29 @@ ${top[s] ? `  <figure class="viz t-top">
   </section>
 
 ${top[s] ? vizSec : ''}
-  <section class="t-sec" aria-labelledby="cafe-h">
+
+
+
+${clt[s] && x.cl ? `  <section class="t-sec" aria-labelledby="clt-h">
+    <h2 id="clt-h">${typo(x.cl.h)}</h2>
+    <p>${typo(x.cl.p1)}</p>${x.cl.tex ? `
+    <div class="formula tex" role="math" aria-label="${attr(x.cl.read)}">${KATEX.renderToString(x.cl.tex, {output: 'html', throwOnError: false, displayMode: true})}</div>` : ''}
+    <figure class="viz cl-fig">
+      <p class="chart-head">${typo(x.cl.t)}</p>
+      ${clt[s](Object.fromEntries(Object.entries(x.cl.vz).map(([k, v]) => [k, plain(typo(v))])))}
+      <div class="sg-ctl" role="group" aria-label="${attr(x.cl.label)}">${[1, 2, 5, 30].map(n => `<button type="button" class="chip-btn" data-k="${n}" aria-pressed="${n === 1}">n = ${n}</button>`).join('')}</div>
+      <p class="sg-out" aria-live="polite">${greekFrag(typo(x.cl.out[0]))}</p>
+      <script>(function(){var f=document.currentScript.closest('figure'),o=f.querySelector('.sg-out'),N=[1,2,5,30],T=${json(x.cl.out.map(v => greekFrag(typo(v))))};
+f.dataset.n=1;f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('click',function(){f.dataset.n=b.dataset.k;f.querySelectorAll('.sg-ctl button').forEach(function(c){c.setAttribute('aria-pressed',c===b)});o.innerHTML=T[N.indexOf(+b.dataset.k)]})})})();</script>
+    </figure>
+    <p>${typo(x.cl.p2)}</p>
+  </section>
+
+` : ''}  <section class="t-sec" aria-labelledby="cafe-h">
     <h2 id="cafe-h">${typo(hq.cafe)}</h2>
     <div class="chat" role="group" aria-label="${attr(t('terms.cafe.h'))}">${x.chat.map(msg).join('')}
     </div>
   </section>
-
-  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
-    <h2 id="toy-h">${typo(hq.toy)}</h2>
-    ${toyBlock}  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
-  </section>
-
 
   <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">${typo(hq.lim)}</h2>
@@ -257,6 +281,11 @@ ${top[s] ? vizSec : ''}
       <summary><span class="q">${typo(q)}</span><span class="show">${t('terms.faq.show')}</span></summary>
       <p>${typo(a)}</p>
     </details>`).join('')}`).join('')}
+  </section>
+
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">${typo(hq.toy)}</h2>
+    ${toyBlock}  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
   </section>
 
   <section class="t-sec" aria-labelledby="err-h">

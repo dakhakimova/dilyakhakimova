@@ -226,3 +226,18 @@ svg.hl .hl-l:focus{outline:none} svg.hl .hl-l:focus-visible text{text-decoration
 .formula.tex .katex{font-size:1.45em}
 @media (max-width:620px){ .formula.tex .katex{font-size:1.2em} }
 .t-err-viz{margin:var(--s-4) 0 var(--s-5)}
+/* правило сигм: интерактив (Диля, 23.11) */
+.viz .sg{opacity:0; transition:opacity .35s}
+.viz:not(.sg-live) .sg2, .viz[data-k="1"] .sg1, .viz[data-k="2"] .sg2, .viz[data-k="3"] .sg3{opacity:1}
+.viz .sg-wipe{transform:scaleX(0); transition:transform .7s cubic-bezier(.3,.7,.3,1)}
+.viz:not(.sg-live) .sg-wipe, .viz[data-k="1"] .sg1 .sg-wipe, .viz[data-k="2"] .sg2 .sg-wipe, .viz[data-k="3"] .sg3 .sg-wipe{transform:scaleX(1)}
+.viz .sg-tail{opacity:0; transition:opacity .4s .45s}
+.viz:not(.sg-live) .sg2 .sg-tail, .viz[data-k="1"] .sg1 .sg-tail, .viz[data-k="2"] .sg2 .sg-tail, .viz[data-k="3"] .sg3 .sg-tail{opacity:1}
+.sg-ctl{display:flex; gap:var(--s-2); justify-content:center; margin:var(--s-3) 0 var(--s-2)}
+.sg-ctl .chip-btn{font:500 1rem/1 var(--body); padding:.55em 1.1em; border-radius:999px; border:1.5px solid #23418A; background:transparent; color:#23418A; cursor:pointer}
+.sg-ctl .chip-btn[aria-pressed="true"]{background:#23418A; color:#fff}
+.sg-out{text-align:center; margin:0 0 var(--s-3); min-height:3em}
+@media (prefers-reduced-motion:reduce){ .viz .sg, .viz .sg-wipe, .viz .sg-tail{transition:none} }
+/* ЦПТ: переключатель n (Диля, 23.11) */
+.cl-fig .cl{opacity:0; transition:opacity .45s}
+.cl-fig[data-n="1"] .cl1, .cl-fig[data-n="2"] .cl2, .cl-fig[data-n="5"] .cl5, .cl-fig[data-n="30"] .cl30, .cl-fig:not([data-n]) .cl1{opacity:1}

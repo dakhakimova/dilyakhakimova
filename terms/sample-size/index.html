@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611312">
-<link rel="stylesheet" href="/tokens.css?v=202611312">
-<link rel="stylesheet" href="/home.css?v=202611312">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611312">
-<link rel="stylesheet" href="/terms/terms.css?v=202611312">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611314">
+<link rel="stylesheet" href="/tokens.css?v=202611314">
+<link rel="stylesheet" href="/home.css?v=202611314">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611314">
+<link rel="stylesheet" href="/terms/terms.css?v=202611314">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Размер выборки","item":"https://dilyakhakimova.com/terms/sample-size/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/sample-size/#term","name":"Размер выборки","description":"Размер выборки — это сколько наблюдений нужно, чтобы эффект заданного размера тест заметил с высокой вероятностью, а не утопил в шуме. Его (иногда говорят «объём выборки») считают до теста по трём числам: минимальному интересному эффекту MDE, порогу α и мощности.","url":"https://dilyakhakimova.com/terms/sample-size/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Размер выборки простыми словами","description":"Как рассчитать размер выборки для A/B-теста: формула для долей, правило «вдвое меньший эффект — вчетверо больше людей» и калькулятор, который проверяет себя симуляцией.","url":"https://dilyakhakimova.com/terms/sample-size/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/sample-size/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Конверсия 5%, хотим заметить рост на 10% относительно (до 5.5%) при α = 5% и мощности 80%. Сколько пользователей нужно на группу?","acceptedAnswer":{"@type":"Answer","text":"n ≈ 7.85 · (0.05 · 0.95 + 0.055 · 0.945) / 0.005² ≈ 7.85 · 0.0995/0.000025 ≈ 31 200 пользователей в каждой группе."}},{"@type":"Question","name":"Во сколько раз вырастет размер выборки, если MDE уменьшить вдвое? А если уменьшить вдвое разброс метрики?","acceptedAnswer":{"@type":"Answer","text":"Вдвое меньший MDE — вчетверо больше выборки: эффект стоит в знаменателе в квадрате. Вдвое меньшее стандартное отклонение — вчетверо меньше выборки: дисперсия стоит в числителе. Поэтому методы снижения дисперсии (например, CUPED) так ценятся."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -68,9 +68,12 @@
   <section class="t-sec" aria-labelledby="strict-h">
     <h2 id="strict-h">По какой формуле считают размер выборки?</h2>
     <p>Для сравнения двух долей p₁ и p₂ при двустороннем уровне α и мощности 1 − β размер каждой группы приблизительно равен формуле ниже. При α = 5% и мощности 80% множитель (z₁₋α/₂ + z₁₋β)² = (1.96 + 0.84)² ≈ 7.85.</p>
-    <div class="formula" role="math" aria-label="«Число гостей в группе — это квадрат суммы двух z-значений, умноженный на шум метрики и делённый на квадрат эффекта». Эффект стоит в знаменателе в квадрате: вдвое меньший эффект требует вчетверо больше гостей."><i>n</i> ≈ <span class="fr"><span>(<i>z</i><sub>1−<i>α</i>/2</sub> + <i>z</i><sub>1−<i>β</i></sub>)² · ( <i>p</i><sub>1</sub>(1 − <i>p</i><sub>1</sub>) + <i>p</i><sub>2</sub>(1 − <i>p</i><sub>2</sub>) )</span><span>(<i>p</i><sub>2</sub> − <i>p</i><sub>1</sub>)²</span></span></div>
+    <div class="formula" role="math" aria-label="«Число гостей в группе — это квадрат суммы двух z-значений, умноженный на шум метрики и делённый на квадрат эффекта». Эффект стоит в знаменателе в квадрате: вдвое меньший эффект требует вчетверо больше гостей."><i><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></i> ≈ <span class="fr"><span>(<i>z</i><sub>1−<i>α</i>/2</sub> + <i>z</i><sub>1−<i>β</i></sub>)² · ( <i>p</i><sub>1</sub>(1 − <i>p</i><sub>1</sub>) + <i>p</i><sub>2</sub>(1 − <i>p</i><sub>2</sub>) )</span><span>(<i>p</i><sub>2</sub> − <i>p</i><sub>1</sub>)²</span></span></div>
     <p class="t-read"><span class="lbl">Как читать формулу.</span> «Число гостей в группе — это квадрат суммы двух z-значений, умноженный на шум метрики и делённый на квадрат эффекта». Эффект стоит в знаменателе в квадрате: вдвое меньший эффект требует вчетверо больше гостей.</p>
   </section>
+
+
+
 
 
   <section class="t-sec" aria-labelledby="cafe-h">
@@ -80,6 +83,37 @@
       <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Алиса, аналитик</div><p class="say">Для мощности 80% нужно около 14 750 гостей на группу. При 2000 тест заметит такой эффект примерно в 18% случаев — то есть почти наверняка промолчит.</p></div></div>
       <div class="msg kot"><img class="ava" src="/ab-basics/img/ava-kot.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Котейка</div><p class="say">А чтобы заметить рост до 10.5%, гостей нужно вчетверо больше: около 58 000 в группе. Маленькие эффекты дорогие.</p></div></div>
     </div>
+  </section>
+
+  <section class="t-sec" aria-labelledby="lim-h">
+    <h2 id="lim-h">Когда расчёт размера выборки обманывает?</h2>
+    <p>Формула для долей предполагает независимых пользователей и известный разброс. Если метрика — выручка с китами, реальный разброс больше, чем кажется по истории, и выборка «на 80% мощности» на деле даёт меньше.</p>
+    <p>А MDE часто подгоняют под доступный трафик: «у нас 10 000 гостей — значит, MDE такой‑то». Это честно, только если такой эффект кому‑то нужен.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Чем размер выборки отличается от MDE?</h2>
+    <div class="t-table-wrap"><table class="t-table">
+      <thead><tr><th scope="col"></th><th scope="col">Размер выборки</th><th scope="col">MDE</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Что это</th><td>Сколько наблюдений нужно</td><td>Какой эффект тест способен заметить</td></tr>
+        <tr><th scope="row">Что задаёшь</th><td>MDE, α, мощность</td><td>Размер выборки, α, мощность</td></tr>
+        <tr><th scope="row">Связь</th><td><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> ∝ 1 / MDE²</td><td>MDE ∝ 1 / √n</td></tr>
+      </tbody>
+    </table></div>
+    <p class="t-pick">Если трафик не ограничен, задай MDE и посчитай выборку. Если трафик фиксирован, посчитай MDE и реши, нужен ли такой тест.</p>
+  </section>
+
+  <section class="t-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Какие задачи на размер выборки дают на собеседовании?</h2>
+    <details class="t-faq">
+      <summary><span class="q">Конверсия 5%, хотим заметить рост на 10% относительно (до 5.5%) при α = 5% и мощности 80%. Сколько пользователей нужно на группу?</span><span class="show">Показать ответ</span></summary>
+      <p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> ≈ 7.85 · (0.05 · 0.95 + 0.055 · 0.945) / 0.005² ≈ 7.85 · 0.0995/0.000025 ≈ 31 200 пользователей в каждой группе.</p>
+    </details>
+    <details class="t-faq">
+      <summary><span class="q">Во сколько раз вырастет размер выборки, если MDE уменьшить вдвое? А если уменьшить вдвое разброс метрики?</span><span class="show">Показать ответ</span></summary>
+      <p>Вдвое меньший MDE — вчетверо больше выборки: эффект стоит в знаменателе в квадрате. Вдвое меньшее стандартное отклонение — вчетверо меньше выборки: дисперсия стоит в числителе. Поэтому методы снижения дисперсии (например, CUPED) так ценятся.</p>
+    </details>
   </section>
 
   <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
@@ -95,38 +129,6 @@
       <div class="t-body"></div>
     </div>
     <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
-  </section>
-
-
-  <section class="t-sec" aria-labelledby="lim-h">
-    <h2 id="lim-h">Когда расчёт размера выборки обманывает?</h2>
-    <p>Формула для долей предполагает независимых пользователей и известный разброс. Если метрика — выручка с китами, реальный разброс больше, чем кажется по истории, и выборка «на 80% мощности» на деле даёт меньше.</p>
-    <p>А MDE часто подгоняют под доступный трафик: «у нас 10 000 гостей — значит, MDE такой‑то». Это честно, только если такой эффект кому‑то нужен.</p>
-  </section>
-
-  <section class="t-sec" aria-labelledby="cmp-h">
-    <h2 id="cmp-h">Чем размер выборки отличается от MDE?</h2>
-    <div class="t-table-wrap"><table class="t-table">
-      <thead><tr><th scope="col"></th><th scope="col">Размер выборки</th><th scope="col">MDE</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Что это</th><td>Сколько наблюдений нужно</td><td>Какой эффект тест способен заметить</td></tr>
-        <tr><th scope="row">Что задаёшь</th><td>MDE, α, мощность</td><td>Размер выборки, α, мощность</td></tr>
-        <tr><th scope="row">Связь</th><td>n ∝ 1 / MDE²</td><td>MDE ∝ 1 / √n</td></tr>
-      </tbody>
-    </table></div>
-    <p class="t-pick">Если трафик не ограничен, задай MDE и посчитай выборку. Если трафик фиксирован, посчитай MDE и реши, нужен ли такой тест.</p>
-  </section>
-
-  <section class="t-sec" aria-labelledby="faq-h">
-    <h2 id="faq-h">Какие задачи на размер выборки дают на собеседовании?</h2>
-    <details class="t-faq">
-      <summary><span class="q">Конверсия 5%, хотим заметить рост на 10% относительно (до 5.5%) при α = 5% и мощности 80%. Сколько пользователей нужно на группу?</span><span class="show">Показать ответ</span></summary>
-      <p>n ≈ 7.85 · (0.05 · 0.95 + 0.055 · 0.945) / 0.005² ≈ 7.85 · 0.0995/0.000025 ≈ 31 200 пользователей в каждой группе.</p>
-    </details>
-    <details class="t-faq">
-      <summary><span class="q">Во сколько раз вырастет размер выборки, если MDE уменьшить вдвое? А если уменьшить вдвое разброс метрики?</span><span class="show">Показать ответ</span></summary>
-      <p>Вдвое меньший MDE — вчетверо больше выборки: эффект стоит в знаменателе в квадрате. Вдвое меньшее стандартное отклонение — вчетверо меньше выборки: дисперсия стоит в числителе. Поэтому методы снижения дисперсии (например, CUPED) так ценятся.</p>
-    </details>
   </section>
 
   <section class="t-sec" aria-labelledby="err-h">
@@ -155,7 +157,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611312"></script>
-<script src="/terms/toys.js?v=202611312"></script>
+<script src="/terms/terms.js?v=202611314"></script>
+<script src="/terms/toys.js?v=202611314"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
    (<глава>?toy=<slug>, см. play/bridge.js). Правка игры в курсе = правка на /play/.
    credits.json — подписи «Игра из курса …» и список опубликованных игр для моста (bridge.js). */
 const fs = require('fs'), path = require('path'), vm = require('vm');
+const KATEX = require('./vendor/katex.min.js');
 const {load} = require('./play-data.js');
 const chrome = require('./chrome.js'), REL = require('./related.js');
 const SITE = 'https://dilyakhakimova.com';
@@ -61,6 +62,7 @@ ${extra}${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<tit
 <link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
 <link rel="stylesheet" href="/tokens.css?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
 <link rel="stylesheet" href="/play/play.css?v=${V}">
 </head>
 <body>
@@ -102,8 +104,11 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   // формула отдельной строкой без переноса (общий вид → подстановка → результат), таблица значений — компактная.
   // Если в тексте игры нет поля solution, шаги собираются из out, intuition/right и cheat — без отдельных блоков.
   // **результат** — вес 500 (<b>) в абзаце, формуле, списке и строке после формулы
-  const bold = s => typo(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
-  const formula = f => `<p class="formula">${bold(f)}</p>`;
+  // TeX в текстах игр: \( … \) — в строке, \[ … \] — отдельной строкой; типограф формулы не трогает (Диля, 23.11: «везде техом»)
+  const bold = s => { const tex = [];
+    s = s.replace(/\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)/g, (m, d, i) => '\u0000' + (tex.push([d || i, !!d]) - 1) + '\u0000');
+    return typo(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\u0000(\d+)\u0000/g, (_, k) => KATEX.renderToString(tex[k][0], {output: 'html', throwOnError: false, displayMode: tex[k][1]})); };
+  const formula = f => /^\\\[/.test(f) ? `<div class="formula tex">${bold(f)}</div>` : `<p class="formula">${bold(f)}</p>`;
   const stepHtml = st => `
         <li><b class="st-h">${typo(st.h)}.</b> ${st.p ? bold(st.p) : ''}${st.list ? `<ul>${st.list.map(li => `<li>${bold(li)}</li>`).join('')}</ul>` : ''}${(st.f || []).map(formula).join('')}${st.after ? ' ' + bold(st.after) : ''}${st.table ? `
           <table class="table sol-table"><thead><tr>${st.table[0].map((c, i) => `<th${i ? ' class="num"' : ''}>${typo(c)}</th>`).join('')}</tr></thead><tbody>${st.table.slice(1).map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="num"' : ''}>${typo(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : ''}</li>`;

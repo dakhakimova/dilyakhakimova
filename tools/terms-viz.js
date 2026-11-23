@@ -15,7 +15,9 @@ function svg(h, body, title){
 function tx(x, y, s, o = {}){
   const a = o.a || 'start', size = o.size || 17, fill = o.fill || C.t2, w = o.w || 400;
   const bg = o.bg ? `paint-order="stroke" stroke="${o.bg === true ? C.paper : o.bg}" stroke-width="5" stroke-linejoin="round"` : '';
-  return `<text x="${f1(x)}" y="${f1(y)}" text-anchor="${a}" font-size="${size}" font-weight="${w}" fill="${fill}" ${bg}>${esc(s)}</text>`;
+  // μ и σ — шрифтом формул KaTeX, как в тексте страницы (Диля, 23.11: «везде техом»)
+  const body = esc(s).replace(/([μσ])/g, '<tspan font-family="KaTeX_Math" font-style="italic">$1</tspan>');
+  return `<text x="${f1(x)}" y="${f1(y)}" text-anchor="${a}" font-size="${size}" font-weight="${w}" fill="${fill}" ${bg}>${body}</text>`;
 }
 const ln = (x1, y1, x2, y2, st = C.line, w = 1.5, dash = '') => `<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="${st}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
 const rect = (x, y, w, h, fill, o = '') => `<rect x="${f1(x)}" y="${f1(y)}" width="${f1(w)}" height="${f1(h)}" fill="${fill}" ${o}/>`;
@@ -50,17 +52,26 @@ viz['conditional-probability'] = L => {
 };
 
 viz['normal-distribution'] = L => {
-  const X = z => 230 + z * 62, base = 200, Y = d => base - d * 420;
-  const curve = (a, b) => { const p = []; for (let z = a; z <= b + 1e-9; z += .05) p.push([X(z), Y(phi(z))]); return p; };
-  const band = (k, op) => path([[X(-k), base], ...curve(-k, k), [X(k), base]], 'none', 0, C.a, `opacity="${op}"`);
-  const br = (k, y, s) => ln(X(-k), y, X(k), y, C.t3, 1.5) + ln(X(-k), y - 5, X(-k), y + 5, C.t3) + ln(X(k), y - 5, X(k), y + 5, C.t3) + tx(X(0), y - 7, s, {a: 'middle', size: 16, fill: C.ink});
-  return svg(336, [
-    band(3, .18), band(2, .22), band(1, .3),
+  // интерактив (Диля, 23.11): кнопки ±1σ, ±2σ, ±3σ — середина заливается от центра, хвосты краснеют, внизу доли. Сам переключатель — в build-terms.js.
+  const X = z => 230 + z * 62, base = 210, Y = d => base - d * 430;
+  const curve = (a, b) => { const p = []; for (let z = a; z <= b + 1e-9; z += .04) p.push([X(z), Y(phi(z))]); return p; };
+  const IN = {1: '68.3%', 2: '95.4%', 3: '99.7%'}, OUT = {1: '15.9%', 2: '2.3%', 3: '0.13%'};
+  const g = [];
+  for (const k of [1, 2, 3]){
+    g.push(`<g class="sg sg${k}" data-k="${k}">`,
+      `<clipPath id="sgc${k}"><rect class="sg-wipe" x="${f1(X(-k))}" y="0" width="${f1(X(k) - X(-k))}" height="${base}" style="transform-origin:${X(0)}px ${base}px"/></clipPath>`,
+      path([[X(-k), base], ...curve(-k, k), [X(k), base]], 'none', 0, C.a, `opacity=".38" clip-path="url(#sgc${k})"`),
+      `<g class="sg-tail">`, path([[X(-3.6), base], ...curve(-3.6, -k), [X(-k), base]], 'none', 0, C.red, 'opacity=".3"'), path([[X(k), base], ...curve(k, 3.6), [X(3.6), base]], 'none', 0, C.red, 'opacity=".3"'),
+      ln(X(-k), base, X(-k), Y(phi(k)) - 4, C.a, 1.5, '4 3'), ln(X(k), base, X(k), Y(phi(k)) - 4, C.a, 1.5, '4 3'),
+      tx(X(0), Y(phi(0)) + 70, IN[k], {a: 'middle', size: 26, fill: C.ink, w: 500, bg: true}),
+      k < 3 ? tx(X(-k) - 10, Y(phi(k)) - 14, OUT[k], {a: 'end', size: 16, fill: C.red, w: 500, bg: true}) + tx(X(k) + 10, Y(phi(k)) - 14, OUT[k], {size: 16, fill: C.red, w: 500, bg: true}) : tx(6, base - 26, OUT[k], {size: 16, fill: C.red, w: 500, bg: true}) + tx(W - 6, base - 26, OUT[k], {a: 'end', size: 16, fill: C.red, w: 500, bg: true}),
+      '</g></g>');
+  }
+  return svg(250, [
+    ...g,
     path(curve(-3.6, 3.6), C.pen, 2.5),
     ln(X(-3.6), base, X(3.6), base, C.t3, 1.5),
     ...[-3, -2, -1, 0, 1, 2, 3].map(k => ln(X(k), base, X(k), base + 6, C.t3) + tx(X(k), base + 24, k ? (k > 0 ? '+' : '−') + Math.abs(k) + 'σ' : L.mu, {a: 'middle', size: 15, fill: C.t3})),
-    br(1, 256, L.s1), br(2, 290, L.s2), br(3, 324, L.s3),
-    arrow(X(2.75), 120, X(2.35), Y(phi(2.3)) + 6), tx(X(2.75) - 6, 112, L.tail, {size: 16, fill: C.ink}),
   ].join(''), L.s1 + ' · ' + L.s2 + ' · ' + L.s3);
 };
 
@@ -433,4 +444,28 @@ err['normal-distribution'] = L => {
   return svg(3 * rowH + 20, out.join(''), [L.h1, L.h2, L.h3].join(' · '));
 };
 
-module.exports = {viz, lim, top, err};
+// clt[slug](L) — ЦПТ на чеках (Диля, 23.11): кнопки n = 1, 2, 5, 30; гистограмма средних n чеков и колокол с той же серединой и шириной σ/√n.
+const clt = {};
+clt['normal-distribution'] = L => {
+  const NS = [1, 2, 5, 30], R = 20000, lo = 0, hi = 2000, B = 50, bw = (hi - lo) / B;
+  const m = 500 * Math.exp(.32), sd = m * Math.sqrt(Math.exp(.64) - 1);
+  const X = v => 20 + (v - lo) / (hi - lo) * 420, base = 210, top = 30;
+  const r = rng(20261123), gz = gauss(r), out = [];
+  for (const n of NS){
+    const h = new Array(B).fill(0);
+    for (let i = 0; i < R; i++){ let sum = 0; for (let j = 0; j < n; j++) sum += 500 * Math.exp(.8 * gz()); const v = sum / n; if (v >= lo && v < hi) h[Math.floor((v - lo) / bw)]++; }
+    const dens = h.map(c => c / R / bw), s2 = sd / Math.sqrt(n), nd = v => phi((v - m) / s2) / s2;
+    const ymax = Math.max(...dens, nd(m)) * 1.05, Y = d => base - d / ymax * (base - top);
+    const g = [`<g class="cl cl${n}">`];
+    dens.forEach((d, i) => { if (d > 0) g.push(rect(X(lo + i * bw) + 1, Y(d), X(lo + bw) - X(lo) - 2, base - Y(d), C.a, 'opacity=".55"')); });
+    const pts = []; for (let k = 0; k <= 200; k++){ const v = lo + (hi - lo) * k / 200; pts.push([X(v), Y(nd(v))]); }
+    g.push(path(pts, C.t3, 2, 'none', 'stroke-dasharray="6 4"'), '</g>');
+    out.push(g.join(''));
+  }
+  out.push(ln(X(m), top - 6, X(m), base, C.ink, 1.2, '2 3'), tx(X(m) + 6, top + 6, L.mean, {size: 14, fill: C.ink, bg: true}));
+  out.push(ln(X(lo), base, X(hi), base, C.t3, 1.5), ...[0, 500, 1000, 1500, 2000].map(v => tx(X(v), base + 20, nf(v), {a: v ? (v === 2000 ? 'end' : 'middle') : 'start', size: 14, fill: C.t3})), tx(X(hi), base + 40, L.x, {a: 'end', size: 14, fill: C.t3, bg: true}));
+  out.push(rect(20, 262, 14, 10, C.a, 'opacity=".55"'), tx(40, 272, L.data, {size: 14}), ln(20, 292, 34, 292, C.t3, 2, '6 4'), tx(40, 297, L.bell, {size: 14}));
+  return svg(306, out.join(''), L.h);
+};
+
+module.exports = {viz, lim, top, err, clt};

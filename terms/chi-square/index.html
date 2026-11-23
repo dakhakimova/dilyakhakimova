@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611312">
-<link rel="stylesheet" href="/tokens.css?v=202611312">
-<link rel="stylesheet" href="/home.css?v=202611312">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611312">
-<link rel="stylesheet" href="/terms/terms.css?v=202611312">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611314">
+<link rel="stylesheet" href="/tokens.css?v=202611314">
+<link rel="stylesheet" href="/home.css?v=202611314">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611314">
+<link rel="stylesheet" href="/terms/terms.css?v=202611314">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"Критерий хи-квадрат","item":"https://dilyakhakimova.com/terms/chi-square/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/chi-square/#term","name":"Критерий хи-квадрат","description":"Критерий хи-квадрат (χ², критерий Пирсона) проверяет, насколько количества по категориям расходятся с ожидаемыми, и бывает ли такое расхождение просто из-за случайности. Им проверяют честность кубика, ровность сплита в A/B и связь двух категориальных признаков.","url":"https://dilyakhakimova.com/terms/chi-square/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь аналитика: термины с играми","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"Критерий хи-квадрат простыми словами","description":"Хи-квадрат (χ², критерий Пирсона) на примере кубика Котейки: как сравнить наблюдаемые количества с ожидаемыми и при чём тут проверка сплита в A/B.","url":"https://dilyakhakimova.com/terms/chi-square/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/chi-square/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Сплит 50/50, в группах 50 600 и 49 400 пользователей. Это нормально?","acceptedAnswer":{"@type":"Answer","text":"Ожидали по 50 000. χ² = 600²/50 000 + 600²/50 000 = 14.4 при одной степени свободы, p ≈ 0.00015. Такой перекос (SRM) почти наверняка значит баг в сплитовании или логировании: результаты теста нельзя читать, пока не найдёшь причину."}},{"@type":"Question","name":"Как связаны хи-квадрат для таблицы 2 × 2 и z-тест для двух долей?","acceptedAnswer":{"@type":"Answer","text":"Это один и тот же тест: без поправки Йейтса χ² для таблицы 2 × 2 равен квадрату z-статистики, и p-value совпадают."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -73,6 +73,9 @@
   </section>
 
 
+
+
+
   <section class="t-sec" aria-labelledby="cafe-h">
     <h2 id="cafe-h">Честный ли кубик у Котейки?</h2>
     <div class="chat" role="group" aria-label="Пример из кафе">
@@ -81,22 +84,6 @@
       <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt="" width="44" height="44" loading="lazy"><div class="bubble"><div class="who">Боб, продакт</div><p class="say">То есть у честного кубика такой перекос бывает реже чем в двух сериях из ста. Кубик конфискован.</p></div></div>
     </div>
   </section>
-
-  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
-    <h2 id="toy-h">Насколько неровно ложатся грани честного кубика?</h2>
-    
-    <div class="t-toy" data-ttoy="chi" data-s="{&quot;q&quot;:&quot;Честный кубик бросили 60 раз. Как обычно ложатся грани?&quot;,&quot;opts&quot;:[&quot;Почти поровну: каждая от 8 до 12 раз&quot;,&quot;Заметно вразнобой: от 5 до 15 раз — норма&quot;,&quot;Как угодно: по 60 броскам ничего не понять&quot;],&quot;modes&quot;:[&quot;Честный кубик&quot;,&quot;Кубик Котейки&quot;],&quot;run&quot;:&quot;Бросить 60 раз&quot;,&quot;many&quot;:&quot;1000 серий&quot;,&quot;bars&quot;:&quot;Сколько раз выпала каждая грань&quot;,&quot;hist&quot;:&quot;χ² в сериях: правее 11.07 — «кубик нечестный»&quot;,&quot;chi&quot;:&quot;χ²&quot;,&quot;p&quot;:&quot;p‑value&quot;,&quot;over&quot;:&quot;Выше порога 11.07: {k} из {n} серий ({pct})&quot;,&quot;vFair&quot;:&quot;χ² = {c}: такой разброс у честного кубика — обычное дело (p {pv}).&quot;,&quot;vBad&quot;:&quot;χ² = {c}: выше порога 11.07 — у честного кубика так бывает реже чем в 5% серий (p {pv}).&quot;}">
-      <div class="guess">
-        <p class="eyebrow">Твой прогноз</p>
-        <p class="q">Честный кубик бросили 60 раз. Как обычно ложатся грани?</p>
-        <div class="choice" role="group" aria-label="Твой прогноз"><button type="button" data-v="0" aria-pressed="false">Почти поровну: каждая от 8 до 12 раз</button><button type="button" data-v="1" aria-pressed="false">Заметно вразнобой: от 5 до 15 раз — норма</button><button type="button" data-v="2" aria-pressed="false">Как угодно: по 60 броскам ничего не понять</button></div>
-        <p class="note gnote" data-saved="Прогноз записан. Теперь проверь.">Выбери вариант — потом проверь на игре.</p>
-      </div>
-      <div class="t-body"></div>
-    </div>
-    <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
-  </section>
-
 
   <section class="t-sec" aria-labelledby="lim-h">
     <h2 id="lim-h">Когда хи-квадрату нельзя верить?</h2>
@@ -130,6 +117,21 @@
     </details>
   </section>
 
+  <section class="t-sec t-toy-sec" aria-labelledby="toy-h">
+    <h2 id="toy-h">Насколько неровно ложатся грани честного кубика?</h2>
+    
+    <div class="t-toy" data-ttoy="chi" data-s="{&quot;q&quot;:&quot;Честный кубик бросили 60 раз. Как обычно ложатся грани?&quot;,&quot;opts&quot;:[&quot;Почти поровну: каждая от 8 до 12 раз&quot;,&quot;Заметно вразнобой: от 5 до 15 раз — норма&quot;,&quot;Как угодно: по 60 броскам ничего не понять&quot;],&quot;modes&quot;:[&quot;Честный кубик&quot;,&quot;Кубик Котейки&quot;],&quot;run&quot;:&quot;Бросить 60 раз&quot;,&quot;many&quot;:&quot;1000 серий&quot;,&quot;bars&quot;:&quot;Сколько раз выпала каждая грань&quot;,&quot;hist&quot;:&quot;χ² в сериях: правее 11.07 — «кубик нечестный»&quot;,&quot;chi&quot;:&quot;χ²&quot;,&quot;p&quot;:&quot;p‑value&quot;,&quot;over&quot;:&quot;Выше порога 11.07: {k} из {n} серий ({pct})&quot;,&quot;vFair&quot;:&quot;χ² = {c}: такой разброс у честного кубика — обычное дело (p {pv}).&quot;,&quot;vBad&quot;:&quot;χ² = {c}: выше порога 11.07 — у честного кубика так бывает реже чем в 5% серий (p {pv}).&quot;}">
+      <div class="guess">
+        <p class="eyebrow">Твой прогноз</p>
+        <p class="q">Честный кубик бросили 60 раз. Как обычно ложатся грани?</p>
+        <div class="choice" role="group" aria-label="Твой прогноз"><button type="button" data-v="0" aria-pressed="false">Почти поровну: каждая от 8 до 12 раз</button><button type="button" data-v="1" aria-pressed="false">Заметно вразнобой: от 5 до 15 раз — норма</button><button type="button" data-v="2" aria-pressed="false">Как угодно: по 60 броскам ничего не понять</button></div>
+        <p class="note gnote" data-saved="Прогноз записан. Теперь проверь.">Выбери вариант — потом проверь на игре.</p>
+      </div>
+      <div class="t-body"></div>
+    </div>
+    <p class="note credit">Игра сделана для этой страницы.</p>  <!-- без вводного абзаца: игра сама начинается с «Сначала угадай» (решение Дили, 22.11.2026; Д19) -->
+  </section>
+
   <section class="t-sec" aria-labelledby="err-h">
     <h2 id="err-h">Где ошибаются с хи-квадратом?</h2>
     <ul class="list t-err">
@@ -156,7 +158,7 @@
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611312"></script>
-<script src="/terms/toys.js?v=202611312"></script>
+<script src="/terms/terms.js?v=202611314"></script>
+<script src="/terms/toys.js?v=202611314"></script>
 </body>
 </html>
