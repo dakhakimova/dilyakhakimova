@@ -61,7 +61,7 @@ ${chrome.header('play', false)}
     </div>
     <p class="ss-acts"><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
   </section>
-  <section class="play-out" aria-label="Как считается">
+  <details class="play-out srm-how"><summary>Как считается</summary>
     <div class="chi-f" role="img" aria-label="хи-квадрат равен сумме по всем группам: разница между «пришло» и «ждали» в квадрате, делённая на «ждали»">
       <div class="chi-row"><span class="chi-lhs">χ²&nbsp;=</span>
         <span class="chi-p p1"><b>Σ</b><i>по всем группам</i></span>
@@ -74,7 +74,7 @@ ${chrome.header('play', false)}
       <li><b>Порог SRM — p &lt; 0.0005.</b> Для двух групп это χ² больше 12.1, для трёх — больше 15.2: чем больше групп, тем больше χ² набегает случайно. При честном делении так бывает реже, чем в одном тесте из двух тысяч.</li>
       <li><b>Почему не p &lt; 0.05:</b> SRM проверяют в каждом тесте, и с обычным порогом то и дело были бы ложные срабатывания.</li>
     </ul>
-  </section>
+  </details>
 </main>
 ${chrome.footer()}
 <script src="/play/srm-check/srm.js?v=${V}"></script>
