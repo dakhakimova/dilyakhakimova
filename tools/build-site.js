@@ -59,11 +59,11 @@ function courses(){
     <li class="course${c.faded ? ' faded' : ''}" id="c-${c.id}">
       <figure class="art"><img src="${c.img}" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" alt="${esc(c.alt)}" onerror="this.parentNode.classList.add('missing')"><figcaption class="ph"></figcaption></figure>
       <p class="chips">${c.tag === 'free' ? `<span class="tag free">${nb(c.status)}</span>` : `<span class="price"><b>${nb(c.price || '')}</b></span>`}${chip(c.level)}${c.hours ? `<span class="tag">${c.hours.replace(/ /g, '&nbsp;')}</span>` : ''}${c.tag === 'free' ? '' : `<span class="tag muted">${nb(c.status)}</span>`}</p>
-      <h3><span class="path-n">${i + 1}.</span> <a href="${c.href}">${c.name}</a></h3>
+      <h3><span class="path-n">${i + 1}.</span> ${c.tag === 'free' ? `<a href="${c.href}">${c.name}</a>` : c.name}</h3>
       <p class="line">${nb(c.line)}</p>
       <dl><dt>Тема</dt><dd>${c.topic}</dd><dt>Внутри</dt><dd>${nb(c.in)}</dd></dl>
-      <p class="course-act"><a class="btn ghost" href="${c.href}" aria-label="Подробнее о курсе «${esc(c.name)}»">Подробнее</a></p>
-    </li>`;
+      ${c.tag === 'free' ? `<p class="course-act"><a class="btn ghost" href="${c.href}" aria-label="Подробнее о курсе «${esc(c.name)}»">Подробнее</a></p>` : ''}
+    </li>`;   // платные курсы пока без ссылок: их страницы ещё не вычитаны (Диля, 23.11); сами страницы на месте
   const html = head({title: 'Курсы по вероятности, статистике и A/B-тестам · Диля Хакимова',
     desc: 'Курсы по порядку «Весь путь»: от «Вероятности на пальцах» до продвинутого «A/B без мифов». Три бесплатных курса можно начать сразу, без регистрации.',
     url: '/courses/', css: ['/course.css', '/site/site.css'], og: '/img/probability-cover.jpg'}) + chrome.header('courses', true) + `
