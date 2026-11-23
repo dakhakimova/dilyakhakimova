@@ -31,7 +31,7 @@
   // обновление страницы — снова пример (как в калькуляторе SRM); ссылка с числами читается один раз
   const q = new URLSearchParams(location.search); const fromLink = [...q.keys()].some(k => k in DEF); q.delete('mode'); for (const k of Object.keys(DEF)) if (q.has(k)) st[k] = ['mode', 'metric', 'sides'].includes(k) ? q.get(k) : +q.get(k);
   if (location.search) history.replaceState(null, '', location.pathname);
-  const touched = new Set(fromLink ? Object.keys(DEF) : []);   // пока поле не трогали, в нём бледный пример
+  const touched = new Set(fromLink ? Object.keys(DEF).filter(k => k !== 'traffic' || q.has('traffic')) : []);   // пока поле не трогали, в нём бледный пример
   const fields = {base: $('ss-base'), mean: $('ss-mean'), sd: $('ss-sd'), rx: $('ss-rx'), sx: $('ss-sx'), ry: $('ss-ry'), sy: $('ss-sy'), rho: $('ss-rho'), mde: $('ss-mde'), pow: $('ss-pow'), n: $('ss-n'), traffic: $('ss-traffic'), split: $('ss-split')};
   Object.keys(fields).forEach(k => { if (!fields[k]) delete fields[k]; });   // поля, которых нет на странице (всего в эксперименте — только в итоге)
   const fmt = {base: v => nf(v, 2) + '%', mean: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), sd: v => nf(v, v < 10 ? 2 : v < 100 ? 1 : 0), rx: v => nf(v, 2), sx: v => nf(v, 2), ry: v => nf(v, 2), sy: v => nf(v, 2), rho: v => nf(v, 2), mde: v => nf(v, 1) + '%', pow: v => nf(v, 1) + '%', n: v => nf(v), traffic: v => nf(v), split: v => nf(v, 1) + '%'};
@@ -61,7 +61,7 @@
       const calcd = (k === st.mode) || (k === 'pow' && st.mode === 'pow');
       fields[k].readOnly = calcd; fields[k].classList.toggle('calc', calcd); fields[k].classList.toggle('ex', !calcd && !touched.has(k));
       fields[k].setAttribute('aria-label', calcd ? 'посчитано' : '');
-      if (k !== focusKeep) fields[k].value = fmt[k](st[k]).replace(/ /g, ' ');
+      if (k !== focusKeep) fields[k].value = k === 'traffic' && !touched.has('traffic') ? '' : fmt[k](st[k]).replace(/ /g, ' ');   // трафик не подставляем: пока не введён, дней нет
     }
     document.querySelectorAll('.ss-mode [data-mode]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.mode === st.mode)));
     document.querySelectorAll('[data-alpha]').forEach(b => b.setAttribute('aria-checked', String(+b.dataset.alpha === st.alpha)));
@@ -79,14 +79,14 @@
     if (st.sides !== 'two' || st.split !== 50) lines.push((st.sides === 'two' ? 'Ждём изменения в любую сторону' : 'Ждём только ' + (st.sides === 'left' ? 'падения' : 'роста')) + ', группы ' + nf(100 - st.split, 1) + ' на ' + nf(st.split, 1) + ' — меняется в «Дополнительно»');
     Object.entries(heard).forEach(([k, v]) => { if (v) lines.push({base: 'Доля', mean: 'Среднее', sd: 'Стандартное отклонение', mde: 'MDE', pow: 'Мощность', n: 'Всего в эксперименте', traffic: 'Трафик', split: 'Доля теста'}[k] + ': ' + v); });
     $('ss-heard').innerHTML = lines.map(l => '<li>' + l.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>').join('');
-    const d = days(st.n);
+    const hasT = touched.has('traffic') && st.traffic > 0, d = hasT ? days(st.n) : 0;
     const nT = Math.round(st.n * qT()), nC = st.n - nT;
     $('ss-big').innerHTML = st.mode === 'n' ? '<b>' + nf(st.n) + '</b> человек всего: ' + nf(nC) + ' в контроле и ' + nf(nT) + ' в тесте' : st.mode === 'mde' ? 'Заметит рост от <b>' + fmt.mde(st.mde) + '</b> относительных' : 'Мощность <b>' + fmt.pow(st.pow) + '</b>';
-    $('ss-when').textContent = 'При ' + nf(st.traffic) + ' человек в день это ' + daysW(d) + ' — тест закончится ' + date(d) + '.';
+    $('ss-when').textContent = hasT ? 'При ' + nf(st.traffic) + ' человек в день это ' + daysW(d) + ' — тест закончится ' + date(d) + '.' : 'Впиши трафик — посчитаю, сколько дней держать тест и когда он закончится.';
     const warn = [];
     if (st.split < 10 || st.split > 90) warn.push('доля теста ' + fmt.split(st.split) + ': при сильно неравных группах нужно больше людей, а точнее всего мерить при 50 на 50');
     if (st.n > 2e7) warn.push('больше 20 миллионов в эксперименте — точно ли такой маленький эффект важен?');
-    if (d > 90) warn.push('дольше 90 дней: за это время сменятся сезон и сама аудитория');
+    if (hasT && d > 90) warn.push('дольше 90 дней: за это время сменятся сезон и сама аудитория');
     if (st.mde > 100) warn.push('рост больше чем вдвое — обычно MDE в A/B-тестах от 1 до 20%');
     if (st.metric === 'share' && st.base >= 30) warn.push('доля ' + fmt.base(st.base) + ' — не имелась ли в виду ' + nf(st.base / 100, 2) + '%?');
     if (st.metric !== 'share' && st.sd > 10 * st.mean) warn.push('стандартное отклонение в 10 раз больше среднего — проверь выбросы');
@@ -94,7 +94,8 @@
     $('ss-warn').hidden = !warn.length; $('ss-warn').textContent = warn.length ? 'Проверь: ' + warn.join('; ') + '.' : '';
     // «что если»
     const p0 = st.base / 100;
-    $('ss-what').innerHTML = [2, 3, 5, 10, 20].map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${m}%</td><td class="num">${nf(n)}</td><td class="num">${nf(days(n))}</td></tr>`; }).join('');
+    const th = document.querySelector('.ss-table thead tr'); if (th) th.innerHTML = '<th>MDE</th><th class="num">всего людей</th>' + (hasT ? '<th class="num">дней</th>' : '');
+    $('ss-what').innerHTML = [2, 3, 5, 10, 20].map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${m}%</td><td class="num">${nf(n)}</td>${hasT ? '<td class="num">' + nf(days(n)) + '</td>' : ''}</tr>`; }).join('');
     drawCurve();
     // ссылка на расчёт — собирается при копировании, адрес страницы не меняем
   }
@@ -129,7 +130,7 @@
     el('line', {x1: L, x2: cx, y1: cy, y2: cy, stroke: '#E8644A', 'stroke-dasharray': '4 4', 'stroke-width': 1.5});
     el('circle', {cx, cy, r: 7, fill: '#E8644A', stroke: '#fff', 'stroke-width': 2, class: 'knob'});
     const lb = el('text', {x: cx + (cx > W * 0.6 ? -12 : 12), y: cy - 12, 'text-anchor': cx > W * 0.6 ? 'end' : 'start', class: 'lbl'});
-    lb.textContent = 'MDE ' + fmt.mde(st.mde) + ' · ' + short(st.n) + ' · ' + daysW(days(st.n));
+    lb.textContent = 'MDE ' + fmt.mde(st.mde) + ' · ' + short(st.n) + (touched.has('traffic') && st.traffic > 0 ? ' · ' + daysW(days(st.n)) : '');
   }
   if (svg){
     svg.setAttribute('tabindex', '0');
@@ -157,5 +158,5 @@
   calc(); render();
   // «Скопировать ссылку на расчёт» — адрес страницы уже содержит все числа
   const cp = $('ss-copy');
-  if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); const u = new URLSearchParams(); for (const k of Object.keys(DEF)) u.set(k, st[k]); const link = location.origin + location.pathname + '?' + u; try { await navigator.clipboard.writeText(link); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = link; } });
+  if (cp) cp.addEventListener('click', async () => { const note = $('ss-undo'); const u = new URLSearchParams(); for (const k of Object.keys(DEF)) if (k !== 'traffic' || touched.has('traffic')) u.set(k, st[k]); const link = location.origin + location.pathname + '?' + u; try { await navigator.clipboard.writeText(link); if (note) note.textContent = 'Ссылка скопирована.'; } catch(e) { if (note) note.textContent = link; } });
 })();

@@ -91,7 +91,7 @@ ${chrome.header('play', false)}
     </div>
     <p class="ss-step">3. Сколько дней держать</p>
     <div class="ss-form">
-      <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"><i>человек в день</i></label>
+      <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off" placeholder="например, 20 000"><i>человек в день</i></label>
     </div>
     <p class="ss-when ss-days" id="ss-when"></p>
     <figure class="ss-chart">
@@ -100,7 +100,7 @@ ${chrome.header('play', false)}
       <p class="note">Чем больше людей, тем меньший эффект заметен, но медленно: чтобы заметить вдвое меньший эффект, людей нужно вчетверо больше.</p>
     </figure>
     <figure class="ss-what">
-      <figcaption class="chart-head">Что если: срок теста при другом MDE</figcaption>
+      <figcaption class="chart-head">Что если: другой MDE</figcaption>
       <table class="chi-tab ss-table"><thead><tr><th>MDE</th><th class="num">всего людей</th><th class="num">дней</th></tr></thead><tbody id="ss-what"></tbody></table>
     </figure>
     <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
