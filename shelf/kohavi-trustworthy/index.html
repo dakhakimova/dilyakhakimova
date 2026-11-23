@@ -91,15 +91,15 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <li class="bk-idea" id="idea-1">
   <h2><span class="n" aria-hidden="true">1</span><span data-i18n="bk.i1.h">Можно ли угадать, какая идея сработает?</span></h2>
   <p data-i18n="bk.i1.p1">Авторы собрали истории тестов в Microsoft, Bing, Google и LinkedIn. Вывод неприятный: примерно треть идей улучшает метрики, треть ухудшает, треть ничего не меняет. В зрелых продуктах, где всё очевидное уже сделано, удачных ещё меньше — одна-две из десяти.</p>
-  <p data-i18n="bk.i1.p2">Значит, «я уверен, что новая витрина десертов поднимет заказы» — это ставка, а не знание. Тест нужен как раз потому, что чутьё ошибается чаще, чем кажется.</p>
+  <p data-i18n="bk.i1.p2">Значит, «я уверен, что новый онбординг поднимет конверсию» — это ставка, а не знание. Тест нужен как раз потому, что чутьё ошибается чаще, чем кажется.</p>
   <div class="bk-toy" data-toy="ideas">
-    <p class="chart-head" data-i18n="bk.i1.toy">Двадцать идей кафе: какие сработают</p>
-    <div class="seg" role="group" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Двадцать идей кафе: какие сработают">
+    <p class="chart-head" data-i18n="bk.i1.toy">Двадцать идей: какие сработают</p>
+    <div class="seg" role="group" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Двадцать идей: какие сработают">
       <button type="button" class="btn ghost" data-mode="young" aria-pressed="true" data-i18n="bk.i1.young">Молодой продукт</button>
       <button type="button" class="btn ghost" data-mode="mature" aria-pressed="false" data-i18n="bk.i1.mature">Зрелый продукт</button>
     </div>
     <div class="bk-share" aria-hidden="true"></div>
-    <svg class="bk-svg cups" viewBox="0 0 440 116" role="img" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Двадцать идей кафе: какие сработают"></svg>
+    <svg class="bk-svg cups" viewBox="0 0 440 116" role="img" data-i18n-attr="aria-label:bk.i1.toy" aria-label="Двадцать идей: какие сработают"></svg>
     <p class="legend-row"><span><i class="sw win"></i><span data-i18n="bk.i1.lg.win">помогла</span></span><span><i class="sw zero"></i><span data-i18n="bk.i1.lg.zero">ничего не дала</span></span><span><i class="sw loss"></i><span data-i18n="bk.i1.lg.loss">навредила</span></span></p>
     <p class="bk-out" aria-live="polite"></p>
     <p class="controls"><button type="button" class="btn" data-act="run" data-i18n="bk.i1.run">Ещё 20 идей</button></p>
@@ -128,16 +128,16 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <!-- идея 3: SRM — свой интерактив с χ² + ячейка Python -->
 <li class="bk-idea" id="idea-3">
   <h2><span class="n" aria-hidden="true">3</span><span data-i18n="bk.i3.h">Группы чуть разного размера — это мелочь?</span></h2>
-  <p data-i18n="bk.i3.p1">Если сплит 50/50, а в группах 500 000 и 493 000 гостей, это не мелочь, а SRM — перекос соотношения групп. Он значит, что какие‑то люди выпали из одной группы не случайно, и сравнивать оставшихся уже нечестно. По оценке авторов, такое случается в нескольких процентах тестов даже на зрелых платформах.</p>
-  <p data-i18n="bk.i3.p2">Любимая история книги: фильтр ботов отрезал в одной группе самых активных людей. Когда их вернули, вывод перевернулся — с «вариант хуже» на «вариант лучше». В кафе это антифрод, который считает ботом офис-менеджера с пятнадцатью заказами в день.</p>
+  <p data-i18n="bk.i3.p1">Если сплит 50/50, а в группах 500 000 и 493 000 пользователей, это не мелочь, а SRM — перекос соотношения групп. Он значит, что какие‑то люди выпали из одной группы не случайно, и сравнивать оставшихся уже нечестно. По оценке авторов, такое случается в нескольких процентах тестов даже на зрелых платформах.</p>
+  <p data-i18n="bk.i3.p2">Любимая история книги: фильтр ботов отрезал в одной группе самых активных людей. Когда их вернули, вывод перевернулся — с «вариант хуже» на «вариант лучше». В обычном продукте это антифрод, который принимает за бота самого активного покупателя.</p>
   <div class="bk-toy" data-toy="srm">
-    <p class="chart-head" data-i18n="bk.i3.toy">Сколько гостей можно потерять, чтобы никто не заметил</p>
+    <p class="chart-head" data-i18n="bk.i3.toy">Сколько пользователей можно потерять, чтобы никто не заметил</p>
     <label class="rng"><span data-i18n="bk.i3.n">Гостей в тесте</span> <output data-o="n"></output><input type="range" min="0" max="6" step="1" value="5" data-k="n"></label>
     <label class="rng"><span data-i18n="bk.i3.loss">Потеряли в группе B</span> <output data-o="loss"></output><input type="range" min="0" max="3" step="0.1" value="1.4" data-k="loss"></label>
-    <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько гостей можно потерять, чтобы никто не заметил"></svg>
+    <svg class="bk-svg split" viewBox="0 0 440 70" role="img" data-i18n-attr="aria-label:bk.i3.toy" aria-label="Сколько пользователей можно потерять, чтобы никто не заметил"></svg>
     <p class="big2"><b data-o="p"></b> <span data-i18n="bx.i3.p">p-value проверки SRM</span></p>
     <p class="verdict" aria-live="polite"></p>
-    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько гостей пришло в группы, с тем, сколько ждали при 50/50. Порог p < 0.0005 строже обычного 0.05: SRM проверяют в каждом тесте, ложные тревоги не нужны.</p>
+    <p class="figcap" data-i18n="bk.i3.cap">Проверка — χ²-критерий: сравниваем, сколько пользователей пришло в группы, с тем, сколько ждали при 50/50. Порог p < 0.0005 строже обычного 0.05: SRM проверяют в каждом тесте, ложные тревоги не нужны.</p>
   </div>
   <div class="cell" data-i18n-attr="data-title:bk.i3.code;data-note:bk.i3.code.note" data-title="Проверка SRM χ²-критерием" data-note="Поменяй n_a и n_b на числа из своего теста. Если сплит не 50/50, задай share_a.">
 <textarea spellcheck="false">import numpy as np
@@ -151,7 +151,7 @@ def srm_check(n_a, n_b, share_a=0.5):
     p = erfc(sqrt(chi2 / 2))   # p-value для χ² с одной степенью свободы
     return chi2, p
 
-# кафе: сплит 50/50, в группе B антифрод отрезал часть гостей
+# сплит 50/50, в группе B антифрод отрезал часть пользователей
 n_a, n_b = 500_000, 493_000
 chi2, p = srm_check(n_a, n_b)
 print(f"A = {n_a}, B = {n_b}, доля A = {n_a / (n_a + n_b):.4f}")
@@ -176,7 +176,7 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 <textarea spellcheck="false">import numpy as np
 
 rng = np.random.default_rng(1)
-tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 гостей в день в группе
+tests, days, per_day, conv = 1000, 20, 500, 0.10   # 1000 A/A-тестов по 20 дней, по 500 пользователей в день в группе
 
 # накопленные заказы в группах A и B; эффекта нет: конверсия одна и та же
 a = rng.binomial(per_day, conv, (tests, days)).cumsum(axis=1)
@@ -204,13 +204,13 @@ print(f"смотрим каждый день, стоп при «значимо»
     <iframe src="/play/aa-stand/?embed=1" title="A/A-стенд: какой бывает разница, когда разницы нет?" style="height:1150px" loading="lazy"></iframe>
     <p class="note noframe"><a href="/play/aa-stand/" data-i18n="bk.frame.open">Открыть игру отдельно →</a></p>
   </div>
-  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="Честная платформа даёт ровную гистограмму. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по гостям.">
+  <div class="cell" data-i18n-attr="data-title:bk.i5.code;data-note:bk.i5.code.note" data-title="A/A-стенд: 1000 прогонов и гистограмма p-value" data-note="Честная платформа даёт ровную гистограмму. Испорть её: поставь bad_variance = True, как будто дисперсию посчитали по заказам, а не по пользователям.">
 <textarea spellcheck="false">import numpy as np
 from math import erfc, sqrt
 
 rng = np.random.default_rng(7)
-runs, n, conv = 1000, 5000, 0.10   # 1000 A/A-тестов, по 5000 гостей в группе, конверсия 10%
-bad_variance = False               # True — дисперсию недооценили (например, считали по заказам, а не по гостям)
+runs, n, conv = 1000, 5000, 0.10   # 1000 A/A-тестов, по 5000 пользователей в группе, конверсия 10%
+bad_variance = False               # True — дисперсию недооценили (например, считали по заказам, а не по пользователям)
 
 a = rng.binomial(n, conv, runs)
 b = rng.binomial(n, conv, runs)
