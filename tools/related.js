@@ -18,7 +18,7 @@ function index(){
   const terms = J('terms/terms.json').terms.map(t => ({kind: 'term', slug: t.slug, published: !!t.published, topic: t.topic, href: `/terms/${t.slug}/`, title: TT[t.slug].name, line: TT[t.slug].card}));
   const chapters = J('courses/courses.json').chapters.map(c => Object.assign({kind: 'chapter', published: true, line: `«${c.course}», ${c.unit}`}, c));
   const shelf = J('shelf/shelf.json');
-  const books = shelf.books.filter(b => b.review).map(b => ({kind: 'book', slug: b.slug, published: !!b.published, topic: b.topic, href: b.review, title: `«${b.title_en || b.title_ru}»`, line: `${b.author} — разбор «Котейка читает»`}));
+  const books = shelf.books.filter(b => b.review).map(b => ({kind: 'book', slug: b.slug, published: !!b.published, topic: b.topic, href: b.review, title: `«${b.title_en || b.title_ru}»`, line: `${(b.title_en && b.author_en) || b.author} — разбор книги`}));
   return {toys, terms, chapters, books, articles: shelf.articles, shelfBooks: shelf.books};
 }
 

@@ -119,11 +119,11 @@ function shelf(){
       : `<span class="b-orig"><b>${esc(b.title_ru)}</b><span class="b-by">${by(b.author, b.year)}</span></span>`;
     const card = `<span class="b-card" role="tooltip" id="bc-${b.slug}"${isbn.length ? ` data-isbn="${isbn.join(' ')}" data-cover-alt="Обложка: ${esc(t)}"` : ''}><span class="b-txt"><span class="b-topic">книга · ${b.topic}</span>${orig}${b.about ? `<span class="b-about">${esc(nb(b.about))}</span>` : ''}${b.review ? '<span class="b-tap" aria-hidden="true">Нажми ещё раз, чтобы открыть разбор</span>' : ''}</span></span>`;
     // на узком корешке — короткое название (title_short), полное — в подсказке
-    const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(b.author.split(',')[0].trim().split(' ').pop())}</span>`;
+    const inner = `<span class="b-t"${lg}>${esc(b.title_short || t)}</span><span class="b-a">${esc(((b.title_en && b.author_en) || b.author).split(',')[0].trim().split(' ').pop())}</span>`;
     const st = `style="--h:${height}px; --w:${width}px; --hn:${height}; --wn:${width}; --c:${spineColor(b.slug)}"`;  // --hn/--wn — для полки-картинки (масштаб от ширины)
-    const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc(b.author)}`;
+    const label = `${esc(t)}${b.title_en && b.title_ru ? ` («${esc(b.title_ru)}»)` : ''}, ${esc((b.title_en && b.author_en) || b.author)}`;
     return b.review
-      ? `<li class="book live" data-topic="${b.topic}" data-slug="${b.slug}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор «Котейка читает»" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
+      ? `<li class="book live" data-topic="${b.topic}" data-slug="${b.slug}"><a class="spine" href="${b.review}" ${st} aria-label="${label} — разбор книги" aria-describedby="bc-${b.slug}">${inner}</a>${card}</li>`
       : `<li class="book" data-topic="${b.topic}" data-slug="${b.slug}"><button class="spine" type="button" ${st} aria-label="${label}" aria-describedby="bc-${b.slug}" aria-expanded="false">${inner}</button>${card}</li>`;
   };
   // список разборов под полкой (просьба Дили, 22.11): группы «Книги» → «Статьи», пустая группа не выводится;
@@ -171,7 +171,7 @@ function shelf(){
   const SHOW_MINE = false;
   const mine = SHOW_MINE ? (S.mine || []).filter(m => m.url).concat((S.mine || []).filter(m => !m.url)) : [];
   const html = head({title: 'Полка Котейки — книги и статьи для аналитика',
-    desc: 'Книжная полка аналитика: разборы книг «Котейка читает» и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
+    desc: 'Книжная полка аналитика: разборы книг и статьи об A/B-тестах. Наведи на корешок — увидишь, о чём книга.',
     url: '/shelf/', css: ['/site/site.css'], og: '/shelf/img/kotejka-reads-cover.jpg'}) + chrome.header('shelf', true) + `
 
 <main id="main" class="wrap shelf-page">

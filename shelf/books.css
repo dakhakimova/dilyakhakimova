@@ -177,3 +177,11 @@
   .bk-share .btn{flex:1 1 auto; justify-content:center}
   .crumbs li:last-child span{display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden}
 }
+
+/* паспорт книги: подпись слева, значение справа */
+.bk-facts{display:grid; gap:var(--s-2); margin:var(--s-3) 0 var(--s-5); max-width:40.5rem}
+.bk-facts > div{display:grid; grid-template-columns:7.5rem 1fr; gap:var(--s-3); align-items:baseline}
+.bk-facts dt{font-size:var(--fs-s); color:var(--text-3, var(--text-2)); font-weight:var(--fw-medium)}
+.bk-facts dd{margin:0; font-size:var(--fs-m, 1rem); color:var(--text-1)}
+.bk-facts .bk-lvl{display:flex; align-items:center; gap:var(--s-2)}
+@media (max-width:480px){.bk-facts > div{grid-template-columns:1fr; gap:2px}}

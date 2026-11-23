@@ -31,7 +31,7 @@ p{font:400 28px/1.35 Literata, serif; color:#4A463F; margin:0}
   const b = await chromium.launch(), p = await b.newPage({viewport: {width: 1200, height: 630}});
   fs.mkdirSync(path.join(ROOT, 'shelf/og'), {recursive: true});
   const shots = {
-    'kohavi-trustworthy': page('Как не выкатить баг, который притворился победой', 'Trustworthy Online Controlled Experiments · Кохави, Тан, Сюй', `<div class="bar">${bar}</div>`),
+    'kohavi-trustworthy': page('Как не выкатить баг, который притворился победой', 'Trustworthy Online Controlled Experiments · Kohavi, Tang, Xu', `<div class="bar">${bar}</div>`),
   };
   for (const [k, html] of Object.entries(shots)){
     await p.setContent(html); await p.evaluate(() => document.fonts.ready);
