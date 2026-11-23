@@ -145,7 +145,8 @@ ${chrome.header('')}
   <p class="eyebrow"><a href="/trainer/">Тренажёр собеседований</a> · ${t.code}</p>
   <h1>${typo(t.name)}</h1>
   <p class="t-def">${typo(t.lead)}</p>
-  <section class="tr-theory" aria-label="Коротко о теме">
+  <section class="tr-theory" aria-label="Шпаргалка">
+    <p class="tr-kind">Шпаргалка</p>
     ${t.theory.map(p => `<p>${typo(p)}</p>`).join('\n    ')}
     <p class="tr-where">Разбираем в курсах: ${courses}.${termLink}</p>
   </section>
