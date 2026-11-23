@@ -385,9 +385,10 @@ lim['normal-distribution'] = L => {
   neg.push([X(0), Y(phi(-1) / 10)], [X(0), base]);
   return svg(280, [path(neg, 'none', 0, C.red, 'opacity=".35"'), ln(X(-20), base, X(50), base, C.t3),
     ...[-20, 0, 10, 30, 50].map(v => tx(X(v), base + 22, (v < 0 ? '−' : '') + Math.abs(v), {a: 'middle', size: 15, fill: C.t3})),
-    path([[X(0), base], ...ex], C.a, 2.5), path(no, C.pen, 2, 'none', 'stroke-dasharray="6 4"'),
-    tx(X(2), Y(.1) - 6, L.real, {size: 15, fill: '#23418A', w: 500, bg: true}), tx(X(19), Y(.045), L.bell, {size: 15, fill: C.pen, bg: true}),
-    tx(X(-19), Y(.012) - 24, L.neg, {size: 15, fill: C.red, bg: true}), tx(X(50), base + 46, L.x, {a: 'end', size: 15, fill: C.t3})].join(''), L.real + ' · ' + L.bell);
+    path([[X(0), base], ...ex], C.a, 2.5), path(no, C.red, 2.5),
+    tx(X(2) + 8, Y(.1) - 6, L.real, {size: 15, fill: '#23418A', w: 500, bg: true}), tx(X(19), Y(.045), L.bell, {size: 15, fill: C.red, bg: true}),
+    // знак времени от нуля: слева красный «−», справа зелёный «+» (Диля, 23.11)
+    tx(X(0) - 10, base - 10, '−', {a: 'end', size: 24, fill: C.red, w: 500}), tx(X(0) + 10, base - 10, '+', {size: 24, fill: C.mint, w: 500, bg: true}), tx(X(50), base + 46, L.x, {a: 'end', size: 15, fill: C.t3})].join(''), L.real + ' · ' + L.bell);
 };
 
 lim['mann-whitney'] = L => {
@@ -414,7 +415,7 @@ err['normal-distribution'] = L => {
     if (extra) out.push(extra(X, Y, base));
     for (const c of curves){
       const pts = []; for (let k = 0; k <= 300; k++){ const v = lo + (hi - lo) * k / 300; pts.push([X(v), Y(c.f(v))]); }
-      out.push(path(pts, c.dash ? C.t3 : C.a, c.dash ? 2 : 2.5, 'none', c.dash ? 'stroke-dasharray="6 4"' : ''));
+      out.push(path(pts, c.dash ? C.red : C.a, 2.5));
     }
     out.push(ln(x0, base, x1, base, C.t3));
     return {X, Y, base};
@@ -440,7 +441,7 @@ err['normal-distribution'] = L => {
   out.push(tx(r3.X(80), r3.base - 78, L.t3a, {size: 14, fill: C.a, w: 500, bg: true}), tx(r3.X(-1560), r3.base - 8, L.t3b, {size: 14, fill: C.red, w: 500, bg: true}));
   // легенда
   const ly = 3 * rowH + 6;
-  out.push(ln(x0, ly, x0 + 30, ly, C.a, 2.5), tx(x0 + 38, ly + 5, L.data, {size: 14}), ln(x0 + 120, ly, x0 + 150, ly, C.t3, 2, '6 4'), tx(x0 + 158, ly + 5, L.bell, {size: 14}));
+  out.push(ln(x0, ly, x0 + 30, ly, C.a, 2.5), tx(x0 + 38, ly + 5, L.data, {size: 14}), ln(x0 + 120, ly, x0 + 150, ly, C.red, 2.5), tx(x0 + 158, ly + 5, L.bell, {size: 14}));
   return svg(3 * rowH + 20, out.join(''), [L.h1, L.h2, L.h3].join(' · '));
 };
 
