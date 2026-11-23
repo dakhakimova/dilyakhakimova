@@ -13,6 +13,12 @@
   const ln = (x1, y1, x2, y2, st = LINE, w = 1, dash = '') => `<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="${st}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
   const poly = (pts, st, w = 2.5) => `<path d="${pts.map((p, i) => (i ? 'L' : 'M') + f1(p[0]) + ' ' + f1(p[1])).join('')}" fill="none" stroke="${st}" stroke-width="${w}" stroke-linejoin="round"/>`;
 
+  // кубик: квадрат цвета группы и белые точки
+  const PIPS = {1: [[.5, .5]], 2: [[.27, .27], [.73, .73]], 3: [[.27, .27], [.5, .5], [.73, .73]], 4: [[.27, .27], [.73, .27], [.27, .73], [.73, .73]],
+    5: [[.27, .27], [.73, .27], [.5, .5], [.27, .73], [.73, .73]], 6: [[.27, .25], [.73, .25], [.27, .5], [.73, .5], [.27, .75], [.73, .75]]};
+  const die = (x, y, s, v, col) => `<rect x="${f1(x)}" y="${f1(y)}" width="${s}" height="${s}" rx="${f1(s * .2)}" fill="${col}"/>` +
+    PIPS[v].map(([px, py]) => `<circle cx="${f1(x + px * s)}" cy="${f1(y + py * s)}" r="${f1(s * .09)}" fill="#fff"/>`).join('');
+
   const SCENES = {
     // «Вероятность на пальцах»: суммы двух кубиков; столбик 7 — событие (красный), поверх — точная доля из 36
     dice(nw){
@@ -39,6 +45,10 @@
           const top7 = Y(Math.min(n ? cnt[7] / n : 0, ymax));
           h += `<g opacity="${op.toFixed(2)}">${txt(X(8) + 4, Math.min(Y(exact(7)), top7) + 4, nw ? '← 6 из 36' : '← 7: шесть способов из 36', {fill: CORAL_T, bg: true})}</g>`;
           if (!nw) h += txt(W - R, H - 6, 'сумма двух кубиков', {a: 'end', c: 'tick', fill: T3});
+          // красный и синий кубик с суммой 7 — перебирают шесть способов: 1+6, 2+5, … 6+1 (Диля, 23.11)
+          const k = final ? 2 : Math.floor(n / 90) % 6, a = k + 1, b = 6 - k;
+          h += die(L + 14, T + 2, nw ? 30 : 36, a, CORAL) + die(L + 14 + (nw ? 38 : 46), T + 2, nw ? 30 : 36, b, BLUE);
+          h += txt(L + 14 + (nw ? 76 : 92), T + 2 + (nw ? 21 : 25), '= 7', {c: 'lab', fill: CORAL_T});
           return h;
         },
       };
