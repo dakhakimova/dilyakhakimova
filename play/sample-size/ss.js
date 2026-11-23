@@ -95,7 +95,7 @@
     // «что если»
     const p0 = st.base / 100;
     const th = document.querySelector('.ss-table thead tr'); if (th) th.innerHTML = '<th>MDE</th><th class="num">всего людей</th>' + (hasT ? '<th class="num">дней</th>' : '');
-    $('ss-what').innerHTML = [2, 3, 5, 10, 20].map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${m}%</td><td class="num">${nf(n)}</td>${hasT ? '<td class="num">' + nf(days(n)) + '</td>' : ''}</tr>`; }).join('');
+    $('ss-what').innerHTML = [...new Set([0.1, 0.25, 0.5, 1, 2, 3, 5, 10, +st.mde.toFixed(2)])].sort((x, y) => x - y).map(m => { const n = nFor(p0, m / 100, st.mode === 'pow' ? 0.8 : st.pow / 100, st.alpha); return `<tr${Math.abs(m - st.mde) < 0.01 ? ' class="cur"' : ''}><td>${nf(m, 2)}%</td><td class="num">${nf(n)}</td>${hasT ? '<td class="num">' + nf(days(n)) + '</td>' : ''}</tr>`; }).join('');
     drawCurve();
     // ссылка на расчёт — собирается при копировании, адрес страницы не меняем
   }
