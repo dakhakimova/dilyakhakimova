@@ -39,21 +39,30 @@ ${chrome.header('play', false)}
 
   <section class="ss-card" aria-labelledby="srm-h">
     <h2 id="srm-h" class="vh">Калькулятор</h2>
-    <p class="ss-sentence">
-      <label>В контроле <input class="input ss-in" id="srm-a" inputmode="numeric" autocomplete="off"> пользователей</label>,
-      <label>в тесте <input class="input ss-in" id="srm-b" inputmode="numeric" autocomplete="off"></label>.
-      <label>План: контролю <input class="input ss-in srm-share" id="srm-s" inputmode="decimal" autocomplete="off"> всех</label>.
-    </p>
+    <div class="srm-form">
+      <fieldset class="srm-set"><legend>Пришло в группы, пользователей</legend>
+        <label class="srm-f"><span>Контроль</span><input class="input ss-in" id="srm-a" inputmode="numeric" autocomplete="off" placeholder="500 000"></label>
+        <label class="srm-f"><span>Тест</span><input class="input ss-in" id="srm-b" inputmode="numeric" autocomplete="off" placeholder="493 000"></label>
+      </fieldset>
+      <fieldset class="srm-set"><legend>План сплита</legend>
+        <label class="srm-f"><span>Контроль</span><input class="input ss-in srm-w" id="srm-wa" inputmode="decimal" autocomplete="off" placeholder="50"></label>
+        <label class="srm-f"><span>Тест</span><input class="input ss-in srm-w" id="srm-wb" inputmode="decimal" autocomplete="off" placeholder="50"></label>
+        <p class="note srm-hint">Можно в процентах или в любых долях: 50 и 50, 90 и 10, 30 и 30 — калькулятор сам пересчитает в доли.</p>
+      </fieldset>
+    </div>
     <ul class="ss-heard" id="srm-heard" aria-live="polite"></ul>
+    <div class="srm-res" id="srm-res" hidden>
+      <p class="chart-sub">Реальность и ожидание</p>
+      <table class="chi-tab" id="srm-tab"></table>
+      <p class="chart-sub">Сколько честных тестов дают χ² не меньше: чем дальше вправо, тем реже</p>
+      <svg class="bk-svg chi" id="srm-chart" viewBox="0 0 440 164" role="img" aria-label=""></svg>
+      <p class="chi-read" id="srm-read"></p>
+    </div>
     <div class="ss-out srm-out" role="status" aria-live="polite">
       <p class="ss-big" id="srm-big"></p>
       <p class="ss-when" id="srm-p"></p>
     </div>
-    <figure class="ss-what">
-      <figcaption class="chart-head">Реальность и ожидание</figcaption>
-      <table class="table ss-table srm-table"><thead><tr><th>Группа</th><th class="num">Ждали</th><th class="num">Пришло</th><th class="num">Разница</th><th class="num">Разница² / ждали</th></tr></thead><tbody id="srm-rows"></tbody><tfoot><tr><th colspan="4" class="num">Сумма: χ²</th><td class="num" id="srm-chi"></td></tr></tfoot></table>
-    </figure>
-    <p class="ss-acts"><button type="button" class="btn-text" id="srm-reset">Вернуть пример</button><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
+    <p class="ss-acts"><button type="button" class="btn-text" id="srm-reset">Подставить пример</button><button type="button" class="btn-text" id="srm-copy">Скопировать ссылку на расчёт</button><span class="note" id="srm-note" role="status"></span></p>
   </section>
   <section class="play-out"><p class="kicker">Почему так</p>
     <p>χ² = Σ (пришло − ждали)² / ждали по всем группам. «Ждали» — доля из плана сплита от всех пришедших. Если группы делились честно, χ² больше 12 бывает реже, чем в одном тесте из двух тысяч, поэтому порог SRM — p &lt; 0.0005, а не обычные 0.05: проверка идёт в каждом тесте, и с мягким порогом то и дело были бы ложные срабатывания.</p>
