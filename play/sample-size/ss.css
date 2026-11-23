@@ -75,3 +75,8 @@ details[hidden]{display:none}
 @media (max-width:560px){ .ss-page .ss-card .seg > .ss-mode-l{flex-basis:100%} }
 .ss-page [data-pml]{font:inherit}
 .ss-page .ss-rad{text-decoration:overline; text-decoration-thickness:1px; text-underline-offset:0}
+/* после теста: та же колонка подписей 15rem, что и до теста — переключатель метрики, таблица групп и поля мощности/α стоят в одну линию */
+@media (min-width:561px){
+  .ss-page .pm-head, .ss-page .pm-row{grid-template-columns:15rem 9rem 8rem}
+  .ss-page .pm-grid.mean .pm-head, .ss-page .pm-grid.mean .pm-row{grid-template-columns:15rem 9rem 7rem 8rem}
+}
