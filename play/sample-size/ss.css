@@ -28,3 +28,10 @@
 .ss-recent ul{list-style:none; padding:0; margin:var(--s-1) 0 0}
 @media (max-width:620px){ .ss-card{padding:var(--s-4)} .ss-sentence label{white-space:normal} }
 .ss-acts .btn-text + .btn-text{margin-left:var(--s-2)}
+
+/* поля столбиком: подпись · поле · единицы — ничего не прилипает (решение Дили, 23.11.2026) */
+.ss-form{display:grid; gap:var(--s-3); max-width:36rem}
+.ss-f{display:grid; grid-template-columns:14.5rem 9rem 1fr; align-items:center; gap:var(--s-3); font-size:var(--fs-m)}
+.ss-f .ss-in{width:100%}
+.ss-f i{font-style:normal; color:var(--text-2); font-size:var(--fs-s)}
+@media (max-width:560px){ .ss-f{grid-template-columns:1fr 7.5rem; } .ss-f span{grid-column:1 / -1} .ss-f i{grid-column:2} }

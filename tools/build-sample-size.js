@@ -44,13 +44,13 @@ ${chrome.header('play', false)}
       <button type="button" role="radio" data-mode="mde" aria-checked="false">MDE</button>
       <button type="button" role="radio" data-mode="pow" aria-checked="false">мощность</button>
     </div>
-    <p class="ss-sentence">
-      <label>Конверсия сейчас <input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"></label>,
-      <label>хочу заметить рост на <input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"> относительных</label>,
-      <label>с мощностью <input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"></label>,
-      <label>в каждой группе <input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"> человек</label>.
-      <label>В эксперимент приходит <input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"> человек в день</label>.
-    </p>
+    <div class="ss-form">
+      <label class="ss-f"><span>Конверсия сейчас</span><input class="input ss-in" id="ss-base" inputmode="decimal" autocomplete="off"><i></i></label>
+      <label class="ss-f"><span>Хочу заметить рост на</span><input class="input ss-in" id="ss-mde" inputmode="decimal" autocomplete="off"><i>относительных</i></label>
+      <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="ss-pow" inputmode="decimal" autocomplete="off"><i></i></label>
+      <label class="ss-f"><span>В каждой группе</span><input class="input ss-in" id="ss-n" inputmode="numeric" autocomplete="off"><i>человек</i></label>
+      <label class="ss-f"><span>Трафик в эксперимент</span><input class="input ss-in" id="ss-traffic" inputmode="numeric" autocomplete="off"><i>человек в день</i></label>
+    </div>
     <ul class="ss-heard" id="ss-heard" aria-live="polite"></ul>
     <details class="ss-more"><summary>Настроить: α</summary>
       <div class="seg" role="radiogroup" aria-label="Уровень значимости α"><span class="ss-mode-l">α:</span>

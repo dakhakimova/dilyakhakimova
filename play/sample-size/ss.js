@@ -55,7 +55,7 @@
     document.querySelectorAll('.ss-mode [data-mode]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.mode === st.mode)));
     document.querySelectorAll('[data-alpha]').forEach(b => b.setAttribute('aria-checked', String(+b.dataset.alpha === st.alpha)));
     const p = st.base, abs = p * st.mde / 100;
-    const lines = ['База ' + fmt.base(p) + ', рост на ' + fmt.mde(st.mde) + ' относительных = +' + nf(abs, 3) + ' п.п. (с ' + fmt.base(p) + ' до ' + nf(p + abs, 3) + '%)'];
+    const lines = ['База ' + fmt.base(p) + ', рост на ' + fmt.mde(st.mde) + ' относительных = +' + nf(abs, 3) + ' п.\u00a0п.: с ' + fmt.base(p) + ' до ' + nf(p + abs, 3) + '%'];
     Object.entries(heard).forEach(([k, v]) => { if (v) lines.push({base: 'Конверсия', mde: 'MDE', pow: 'Мощность', n: 'Размер группы', traffic: 'Трафик'}[k] + ': ' + v); });
     $('ss-heard').innerHTML = lines.map(l => '<li>' + l.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>').join('');
     const d = days(st.n);
