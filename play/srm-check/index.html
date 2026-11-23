@@ -9,12 +9,12 @@
 <link rel="canonical" href="https://dilyakhakimova.com/play/srm-check/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611269">
-<link rel="stylesheet" href="/tokens.css?v=202611269">
-<link rel="stylesheet" href="/home.css?v=202611269">
-<link rel="stylesheet" href="/play/play.css?v=202611269">
-<link rel="stylesheet" href="/play/sample-size/ss.css?v=202611269">
-<link rel="stylesheet" href="/play/srm-check/srm.css?v=202611269">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611270">
+<link rel="stylesheet" href="/tokens.css?v=202611270">
+<link rel="stylesheet" href="/home.css?v=202611270">
+<link rel="stylesheet" href="/play/play.css?v=202611270">
+<link rel="stylesheet" href="/play/sample-size/ss.css?v=202611270">
+<link rel="stylesheet" href="/play/srm-check/srm.css?v=202611270">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -39,21 +39,16 @@
 
   <section class="ss-card" aria-labelledby="srm-h">
     <h2 id="srm-h" class="vh">Калькулятор</h2>
-    <div class="srm-form">
-      <fieldset class="srm-set"><legend>Пришло в группы, пользователей</legend>
-        <label class="srm-f"><span>Контроль</span><input class="input ss-in" id="srm-a" inputmode="numeric" autocomplete="off" placeholder="500 000"></label>
-        <label class="srm-f"><span>Тест</span><input class="input ss-in" id="srm-b" inputmode="numeric" autocomplete="off" placeholder="493 000"></label>
-      </fieldset>
-      <fieldset class="srm-set"><legend>План сплита</legend>
-        <label class="srm-f"><span>Контроль</span><input class="input ss-in srm-w" id="srm-wa" inputmode="decimal" autocomplete="off" placeholder="50"></label>
-        <label class="srm-f"><span>Тест</span><input class="input ss-in srm-w" id="srm-wb" inputmode="decimal" autocomplete="off" placeholder="50"></label>
-        <p class="note srm-hint">Можно в процентах или в любых долях: 50 и 50, 90 и 10, 30 и 30 — калькулятор сам пересчитает в доли.</p>
-      </fieldset>
+    <div class="srm-grid" role="group" aria-label="Группы теста">
+      <div class="srm-head"><span>Группа</span><span>Пришло, пользователей</span><span>План сплита</span><span></span></div>
+      <div id="srm-rows-in"></div>
+      <p class="srm-add-row"><button type="button" class="btn-text" id="srm-add">+ Добавить группу</button></p>
+      <p class="note srm-hint">План — в процентах или в любых долях: 50 и 50, 90 и 10, 30 и 30 — калькулятор сам пересчитает в доли. Пусто — поровну.</p>
     </div>
     <ul class="ss-heard" id="srm-heard" aria-live="polite"></ul>
     <div class="srm-res" id="srm-res" hidden>
       <p class="chart-sub">Как разделились группы; пунктир — план сплита</p>
-      <svg class="bk-svg split" id="srm-bar" viewBox="0 0 440 70" role="img" aria-label=""></svg>
+      <svg class="bk-svg split" id="srm-bar" viewBox="0 0 440 90" role="img" aria-label=""></svg>
       <p class="chart-sub">Критерий χ²: сравнение реальности и ожидания</p>
       <table class="chi-tab" id="srm-tab"></table>
       <p class="chart-sub">Сколько честных тестов дают χ² не меньше: чем дальше вправо, тем реже</p>
@@ -75,8 +70,8 @@
       </div>
     </div>
     <ul class="srm-why">
-      <li><b>«Ждали»</b> — доля из плана сплита от всех пришедших: при 50 и 50 это половина.</li>
-      <li><b>Порог SRM — p &lt; 0.0005,</b> это χ² больше 12.1. При честном делении так бывает реже, чем в одном тесте из двух тысяч.</li>
+      <li><b>«Ждали»</b> — доля из плана сплита от всех пришедших: при 50 и 50 это половина. Групп может быть сколько угодно, сумма идёт по всем.</li>
+      <li><b>Порог SRM — p &lt; 0.0005.</b> Для двух групп это χ² больше 12.1, для трёх — больше 15.2: чем больше групп, тем больше χ² набегает случайно. При честном делении так бывает реже, чем в одном тесте из двух тысяч.</li>
       <li><b>Почему не p &lt; 0.05:</b> SRM проверяют в каждом тесте, и с обычным порогом то и дело были бы ложные срабатывания.</li>
     </ul>
   </section>
@@ -87,6 +82,6 @@
     <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
-<script src="/play/srm-check/srm.js?v=202611269"></script>
+<script src="/play/srm-check/srm.js?v=202611270"></script>
 </body>
 </html>

@@ -60,4 +60,19 @@
 .srm-why li:last-child{border-bottom:0}
 .srm-why b{font-weight:var(--fw-medium)}
 .play-out .chi-f{background:var(--paper, #F4F1EA)}
-.srm-sub{font-size:var(--fs-m); color:var(--text-2)}
+.ss-page h1 + .srm-sub{font:400 var(--fs-l)/1.35 var(--body); color:var(--text-2); margin:var(--s-2) 0 var(--s-4)}
+
+/* группы: строка = цвет и имя · пришло · план · убрать */
+.srm-grid{max-width:40rem}
+.srm-head, .srm-row{display:grid; grid-template-columns:7.5rem minmax(0, 12rem) 6.5rem 2.5rem; gap:var(--s-3); align-items:center}
+.srm-head{font:var(--fw-medium) var(--fs-s)/1.3 var(--body); color:var(--text-2); margin:0 0 var(--s-2)}
+.srm-row{margin:0 0 var(--s-3)}
+.srm-row .ss-in{width:100%}
+.srm-name{display:flex; align-items:center; gap:8px; font-size:var(--fs-m)}
+.srm-name i{width:12px; height:12px; border-radius:3px; flex:none}
+.srm-row .ss-in::placeholder{color:#D3CEC5; opacity:1; font-weight:400}
+.srm-del{width:36px; height:36px; border-radius:50%; border:1px solid var(--line-strong, #CFC8BB); background:var(--surface); color:var(--text-2); font-size:1.25rem; line-height:1; cursor:pointer}
+.srm-del:hover{border-color:var(--pen); color:var(--pen)}
+.srm-add-row{margin:0 0 var(--s-2)}
+.srm-add-row [hidden]{display:none}
+@media (max-width:560px){ .srm-head, .srm-row{grid-template-columns:6rem minmax(0,1fr) 4.5rem 2.25rem; gap:var(--s-2)} .srm-name{font-size:var(--fs-s)} }
