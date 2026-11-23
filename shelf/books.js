@@ -116,9 +116,19 @@
     const svg = box.querySelector('svg'), inp = k => box.querySelector(`[data-k=${k}]`), o = k => box.querySelector(`[data-o=${k}]`);
     const verdict = box.querySelector('.verdict');
     let n = 1000000; // размер теста — переключатель, ползунок один: сколько потеряли
+    // шкала ползунка растёт для маленьких тестов: на 10 000 SRM начинается только с потери около 7%
+    const MAXL = {10000: 12, 100000: 5, 1000000: 2};
+    const chiAt = (nn, l) => { const a = nn / 2, b = nn / 2 * (1 - l), e = (a + b) / 2; return ((a - e) ** 2 + (b - e) ** 2) / e; };
+    const lossAtThr = nn => { let lo = 0, hi = 0.5; for (let i = 0; i < 60; i++){ const m = (lo + hi) / 2; chiAt(nn, m) < 12.12 ? lo = m : hi = m; } return hi; };
+    const setN = (nn, keepShare) => {
+      const r = inp('loss'), old = +r.value / +r.max; n = nn; r.max = MAXL[n]; r.step = MAXL[n] > 5 ? 0.2 : 0.1;
+      r.value = keepShare ? Math.round(old * MAXL[n] / +r.step) * +r.step : r.value;
+      const t = box.querySelector('.srm-thr'); if (t) t.textContent = tr('bx.i3.thrloss', {n: NF.format(n), l: (lossAtThr(n) * 100).toFixed(1)});
+    };
     box.querySelectorAll('[data-n]').forEach(b => b.addEventListener('click', () => {
-      n = +b.dataset.n; box.querySelectorAll('[data-n]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); upd();
+      box.querySelectorAll('[data-n]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); setN(+b.dataset.n, true); upd();
     }));
+    setN(n, false);
     function upd(){
       const loss = +inp('loss').value / 100;
       const a = Math.round(n / 2), b = Math.round(n / 2 * (1 - loss)), e = (a + b) / 2;
