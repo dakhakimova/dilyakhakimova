@@ -521,7 +521,7 @@ function peekStats(){
   const any = aa.filter(r => r.any).length / n, g1 = AB.choice('g1');
   const head = g1 === '25' ? 'Ты угадал. ' : g1 ? 'Ты ставил на ' + (g1 === '50' ? 'больше половины' : g1 + '%') + '. ' : '';
   v.hidden = false; v.className = 'verdict ' + (g1 === '25' ? 'good' : 'bad');
-  v.innerHTML = head + 'Из ' + n + ' запусков A/A Боб нашёл несуществующий эффект в <b>' + share(any, 0) + '</b> случаев. Если смотреть только в последний день, выходит около <b>5%</b>, как и обещает порог. Каждый лишний взгляд — ещё один шанс, что шум случайно выйдет за полосу.';
+  v.innerHTML = head + 'Проведено A/A-тестов: ' + n + '. Несуществующий эффект «нашёлся» в <b>' + share(any, 0) + '</b> из них. Если смотреть только в последний день, выходит около <b>5%</b>, как и обещает порог. Каждый лишний взгляд — ещё один шанс, что шум случайно выйдет за полосу.';
 }
 document.querySelectorAll('[data-aa]').forEach(b => b.addEventListener('click', () => { for (let i = 0; i < +b.dataset.aa; i++) aa.push(oneAA()); drawPeek(); peekStats(); }));
 $('aa-reset').addEventListener('click', () => { aa = []; drawPeek(); peekStats(); });
