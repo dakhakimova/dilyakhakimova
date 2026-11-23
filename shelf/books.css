@@ -273,3 +273,20 @@
 .bk-rev .ci em::after{top:-13px}
 .bk-rev .d:empty{height:0}
 .bk-idea > p.note{margin-top:var(--s-4)}  /* сноска под визуализацией: между ними бывает <template> с кодом для ноутбука */
+/* гл. 4: картинка-лестница + табличка ступеней под ней */
+.bk-steps-fig{margin:var(--s-5) 0}
+.bk-steps-fig .art{margin:0; border-radius:var(--r-l); overflow:hidden; aspect-ratio:16/9; background:#EFEBE4; box-shadow:var(--sh-2)}
+.bk-steps-fig .art img{display:block; width:100%; height:auto}
+.bk-steps-fig .art .ph{display:none}
+.bk-steps-fig .art.missing{aspect-ratio:auto; box-shadow:none; background:transparent; outline:1px dashed rgba(36,34,31,.2); outline-offset:-1px}
+.bk-steps-fig .art.missing img{display:none}
+.bk-steps-fig .art.missing .ph{display:block; margin:0; padding:var(--s-2) var(--s-3); color:var(--text-3); font-size:var(--fs-xs)}
+.bk-steps{list-style:none; margin:var(--s-4) 0 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s-3)}
+.bk-steps > li{background:var(--surface); border-radius:var(--r-m); box-shadow:var(--sh-1, 0 1px 2px rgba(0,0,0,.06)); padding:var(--s-3); max-width:none}
+.bk-steps .sn{margin:0; display:flex; gap:8px; align-items:baseline; font:var(--fw-regular) var(--fs-h3)/1.1 var(--serif)}
+.bk-steps .si{color:var(--label-ink); font-variant-numeric:tabular-nums}
+.bk-steps .sf{margin:4px 0 var(--s-2); color:var(--test-ink); font-size:var(--fs-s); font-weight:var(--fw-medium)}
+.bk-steps ul{margin:0; padding:0 0 0 1em; font-size:var(--fs-s); line-height:1.4; color:var(--text-2)}
+.bk-steps ul li{margin:0 0 4px; max-width:none}
+@media (max-width:760px){.bk-steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.bk-steps{grid-template-columns:1fr}}

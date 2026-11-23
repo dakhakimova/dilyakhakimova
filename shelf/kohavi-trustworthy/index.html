@@ -35,7 +35,7 @@ function artFail(img){ img.closest('.art').classList.add('missing'); }
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
 <header class="top wrap" data-chrome>
-  <a class="home-line" href="/">← На главную</a>
+  <a class="home-line" href="/">← На главную</a>
   <nav id="site-nav" aria-label="Разделы сайта">
     <a href="/courses/" data-rub="courses">Курсы</a>
     <a href="/play/" data-rub="play">Игры</a>
@@ -174,7 +174,16 @@ print(f"смотрим каждый день, стоп при «значимо�
   <h2><span class="n" aria-hidden="true">4</span><span data-i18n="bk.c4.h">Сколько тестов нужно, чтобы культура заработала?</span></h2>
   <p class="bk-ch" data-i18n="bk.c4.ch">Глава 4</p>
   <p data-i18n="bk.c4.p1">Авторы делят путь компании на четыре ступени: ползти, идти, бежать, лететь. Примерно десяток тестов в год, потом тест в неделю, тест в день и, наконец, тысячи в год.</p>
-  <p data-i18n="bk.c4.p2">На каждой ступени своя работа. Сначала — логирование и первые тесты, которые реально повлияли на решения. Потом стандартные метрики и проверки доверия: A/A-тесты и SRM. Потом метрика-цель и тесты почти на каждое изменение. В конце — автоматизация и память о прошлых тестах.</p>
+  <figure class="bk-steps-fig">
+    <div class="art r169 drawn"><img src="/shelf/img/kohavi-maturity.jpg" width="1600" height="900" data-i18n-attr="alt:bk.c4.art.alt" alt="Котейка поднимается по четырём ступеням: ползёт с одной карточкой эксперимента, идёт со стопкой, бежит, летит на бумажном самолётике в вихре карточек" loading="lazy" onerror="artFail(this)"><p class="ph" data-i18n="bk.c4.art.ph">Здесь будет иллюстрация: Котейка поднимается по четырём ступеням — ползти, идти, бежать, лететь</p></div>
+    <ol class="bk-steps" data-i18n-attr="aria-label:bk.c4.tbl" aria-label="Четыре ступени зрелости: сколько тестов и что важно">
+      <li><p class="sn"><span class="si">1</span><span data-i18n="bk.c4.s1.n">Ползти</span></p><p class="sf" data-i18n="bk.c4.s1.f">≈10 тестов в год</p><ul><li data-i18n="bk.c4.s1.w1">логирование событий</li><li data-i18n="bk.c4.s1.w2">базовая статистика</li><li data-i18n="bk.c4.s1.w3">первые тесты, которые повлияли на решения</li></ul></li>
+      <li><p class="sn"><span class="si">2</span><span data-i18n="bk.c4.s2.n">Идти</span></p><p class="sf" data-i18n="bk.c4.s2.f">тест в неделю</p><ul><li data-i18n="bk.c4.s2.w1">стандартные метрики</li><li data-i18n="bk.c4.s2.w2">проверки доверия: A/A и SRM</li><li data-i18n="bk.c4.s2.w3">тесты запускают больше команд</li></ul></li>
+      <li><p class="sn"><span class="si">3</span><span data-i18n="bk.c4.s3.n">Бежать</span></p><p class="sf" data-i18n="bk.c4.s3.f">тест в день</p><ul><li data-i18n="bk.c4.s3.w1">полный набор метрик</li><li data-i18n="bk.c4.s3.w2">метрика-цель</li><li data-i18n="bk.c4.s3.w3">тестом проверяют почти каждое изменение</li></ul></li>
+      <li><p class="sn"><span class="si">4</span><span data-i18n="bk.c4.s4.n">Лететь</span></p><p class="sf" data-i18n="bk.c4.s4.f">тысячи в год</p><ul><li data-i18n="bk.c4.s4.w1">тест на каждое изменение</li><li data-i18n="bk.c4.s4.w2">команды читают отчёты без аналитика</li><li data-i18n="bk.c4.s4.w3">автоматизация</li><li data-i18n="bk.c4.s4.w4">память о прошлых тестах</li></ul></li>
+    </ol>
+  </figure>
+  <p data-i18n="bk.c4.p2">С каждой ступенью тестов становится в 4–5 раз больше, и у каждой ступени своя работа. Перескочить нельзя: без логирования и проверок доверия больше тестов значит больше неверных выводов.</p>
   <p class="bk-take"><span class="lf" data-i18n="bk.take">В работу:</span> <span data-i18n="bk.c4.take">пойми, на какой ступени твоя компания, и чини то, что нужно на ней, а не на следующей.</span></p>
 </li>
 <li class="bk-part" id="part-2"><p data-i18n="bk.part2">Часть II. Темы для всех</p></li>
@@ -441,8 +450,8 @@ print("SRM: отчёту не верим, ищем причину" if p &lt; 0.0
 
 <footer class="foot" data-chrome>
   <div class="wrap">
-    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
-    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
+    <p class="foot-line">Бесплатные курсы: <a href="/probability/">Вероятность на пальцах</a> · <a href="/signal/">Сигнал или шум</a> · <a href="/ab-basics/">A/B на пальцах</a></p>
+    <p class="foot-line"><a href="/about/">Об авторе</a> · © 2026 Диля Хакимова</p>
   </div>
 </footer>
 
