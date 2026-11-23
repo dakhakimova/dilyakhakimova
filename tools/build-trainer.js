@@ -16,7 +16,14 @@ function build(){
   const P = load('ru');
   const ctx = {}; ctx.globalThis = ctx;
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'i18n/site.js'), 'utf8'), ctx, {filename: 'i18n/site.js'});
-  const typo = s => ctx.I18N.typo('ru', String(s));
+  // формулы: \( … \) в текстах тренажёра → KaTeX при сборке (без скрипта на странице); типограф формулы не трогает
+  const katex = require('./vendor/katex.min.js');
+  const typo = s => {
+    const tex = [];
+    // \( … \) — в строке, \[ … \] — отдельной строкой по центру
+    const t = ctx.I18N.typo('ru', String(s).replace(/\\([\[(])(.+?)\\[\])]/g, (_, k, f) => { tex.push([f, k === '[']); return '\u0000' + (tex.length - 1) + '\u0000'; }));
+    return t.replace(/\u0000(\d+)\u0000/g, (_, i) => katex.renderToString(tex[i][0], {output: 'html', throwOnError: false, displayMode: tex[i][1]}));
+  };
   const plain = s => String(s).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ');
   const attr = s => plain(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, 'terms/terms.json'), 'utf8')).terms;
@@ -59,6 +66,9 @@ function build(){
 <link rel="stylesheet" href="/tokens.css?v=${V}">
 <link rel="stylesheet" href="/home.css?v=${V}">
 <link rel="stylesheet" href="/terms/terms.css?v=${V}">
+<link rel="preload" href="/fonts/katex/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/katex/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
 <link rel="stylesheet" href="/trainer/trainer.css?v=${V}">
 </head>
 <body class="t-page tr-page">
@@ -207,7 +217,7 @@ ${tpls}
   <p class="eyebrow">Тренажёр · первая версия</p>
   <h1>Тренажёр собеседований аналитика</h1>
   <p class="t-def">Вероятность, статистика, A/B-тесты и продуктовые кейсы — задачи с собеседований аналитика, каждая разобрана по полочкам и проверена симуляцией. SQL и Python здесь нет.</p>
-  ${hero ? `<img class="tr-hero" src="${hero}" alt="" width="1600" height="900">` : ''}
+  ${hero ? `<img class="tr-hero" src="${hero}" alt="" width="1600" height="900" fetchpriority="high">` : ''}
   <section class="tr-how" aria-labelledby="how-h">
     <h2 id="how-h">Как устроено</h2>
     <ol class="tr-steps">
