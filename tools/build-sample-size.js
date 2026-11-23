@@ -37,7 +37,11 @@ ${chrome.header('play', false)}
   <p class="play-meta srm-sub">Сколько дней держать тест?</p>
   <p class="lead">MDE — minimum detectable effect, минимально детектируемый эффект: самый маленький эффект, который тест успеет заметить. MDE, размер выборки и мощность связаны: поменяешь одно — поедут остальные. Задай два, третье калькулятор посчитает.</p>
 
-  <section class="ss-card" aria-labelledby="ss-h">
+  <div class="seg ss-mode ss-when-mode" role="radiogroup" aria-label="Когда считаем">
+    <button type="button" role="radio" data-when="pre" aria-checked="true">До теста: планирую</button>
+    <button type="button" role="radio" data-when="post" aria-checked="false">После теста: пост-MDE</button>
+  </div>
+  <section class="ss-card" id="ss-pre" aria-labelledby="ss-h">
     <h2 id="ss-h" class="vh">Калькулятор</h2>
     <div class="seg ss-mode" role="radiogroup" aria-label="Что посчитать">
       <span class="ss-mode-l">Посчитать:</span>
@@ -72,7 +76,36 @@ ${chrome.header('play', false)}
     </figure>
     <p class="ss-acts"><button type="button" class="btn-text" id="ss-copy">Скопировать ссылку на расчёт</button><span class="note" id="ss-undo" role="status"></span></p>
   </section>
-  <details class="play-out srm-how"><summary>Как считается</summary>
+  <section class="ss-card" id="ss-post" aria-labelledby="pm-h" hidden>
+    <h2 id="pm-h" class="vh">Пост-MDE</h2>
+    <p class="pm-lead">Тест закончился, и дисперсия, число людей и средние уже известны. Какой самый маленький эффект этот тест мог заметить? Если пост-MDE больше эффекта, который важен бизнесу, серый результат ничего не доказывает: такой эффект тест скорее всего не увидел бы.</p>
+    <div class="seg ss-mode" role="radiogroup" aria-label="Метрика">
+      <span class="ss-mode-l">Метрика:</span>
+      <button type="button" role="radio" data-metric="share" aria-checked="true">доля: конверсия, ретеншен</button>
+      <button type="button" role="radio" data-metric="mean" aria-checked="false">среднее: чек, время</button>
+    </div>
+    <div class="pm-grid">
+      <div class="pm-head"><span></span><span>Пользователей</span><span data-m="share">Конверсия</span><span data-m="mean" hidden>Среднее</span><span data-m="mean" hidden>Ст. отклонение</span></div>
+      <div class="pm-row"><span class="srm-name"><i style="background:#23418A"></i><b>Контроль</b></span><input class="input ss-in" id="pm-na" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Контроль: пользователей"><input class="input ss-in" id="pm-pa" inputmode="decimal" autocomplete="off" placeholder="4%" aria-label="Контроль: конверсия" data-m="share"><input class="input ss-in" id="pm-ma" inputmode="decimal" autocomplete="off" placeholder="850" aria-label="Контроль: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sa" inputmode="decimal" autocomplete="off" placeholder="1 200" aria-label="Контроль: стандартное отклонение" data-m="mean" hidden></div>
+      <div class="pm-row"><span class="srm-name"><i style="background:#E8644A"></i><b>Тест</b></span><input class="input ss-in" id="pm-nb" inputmode="numeric" autocomplete="off" placeholder="150 000" aria-label="Тест: пользователей"><input class="input ss-in" id="pm-pb" inputmode="decimal" autocomplete="off" placeholder="4.1%" aria-label="Тест: конверсия" data-m="share"><input class="input ss-in" id="pm-mb" inputmode="decimal" autocomplete="off" placeholder="860" aria-label="Тест: среднее" data-m="mean" hidden><input class="input ss-in" id="pm-sb" inputmode="decimal" autocomplete="off" placeholder="1 250" aria-label="Тест: стандартное отклонение" data-m="mean" hidden></div>
+    </div>
+    <div class="ss-form pm-opts">
+      <label class="ss-f"><span>Мощность</span><input class="input ss-in" id="pm-pow" inputmode="decimal" autocomplete="off" placeholder="80%"><i></i></label>
+      <label class="ss-f"><span>Уровень значимости α</span><input class="input ss-in" id="pm-alpha" inputmode="decimal" autocomplete="off" placeholder="0.05"><i>двусторонний тест</i></label>
+    </div>
+    <div class="ss-out srm-out idle" id="pm-out" role="status" aria-live="polite">
+      <p class="ss-big" id="pm-big">Впиши, сколько людей было в группах и что получилось.</p>
+      <p class="ss-when" id="pm-p"></p>
+    </div>
+    <details class="pm-how"><summary>Как считается</summary>
+      <ul class="srm-why">
+        <li><b>Шум разницы</b> — стандартная ошибка: SE = √(s²A / nA + s²B / nB). Для доли s² = p(1 − p).</li>
+        <li><b>Пост-MDE</b> = (z<sub>1−α/2</sub> + z<sub>мощность</sub>) · SE, при α = 0.05 и мощности 80% множитель 2.8. Делим на среднее контроля — получаем относительный.</li>
+        <li><b>Зачем:</b> до теста MDE считают по прикидке дисперсии, после — по настоящей. Если дисперсия оказалась больше, тест был слабее, чем планировали.</li>
+      </ul>
+    </details>
+  </section>
+  <details class="play-out srm-how" id="ss-pre-how"><summary>Как считается</summary>
     <ul class="srm-why">
       <li><b>Вдвое меньший эффект — вчетверо больше людей.</b> Шум группы падает как 1 / √n, поэтому сроки для MDE 3% и 10% различаются не втрое, а примерно в одиннадцать раз.</li>
       <li><b>Формула на салфетке:</b> n ≈ 16 · p(1 − p) / δ² на группу при α = 0.05 и мощности 80%, где δ — эффект в долях.</li>
@@ -82,6 +115,7 @@ ${chrome.header('play', false)}
 </main>
 ${chrome.footer()}
 <script src="/play/sample-size/ss.js?v=${V}"></script>
+<script src="/play/sample-size/post.js?v=${V}"></script>
 </body>
 </html>
 `;
