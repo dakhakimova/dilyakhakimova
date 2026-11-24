@@ -178,7 +178,7 @@
   const tail = (pm, k) => pm.slice(k).reduce((a, b) => a + b, 0);
   const head = (pm, k) => pm.slice(0, k + 1).reduce((a, b) => a + b, 0);
   // рисует столбики Bin(n, p); red(k) — в критической области; obs — наблюдение
-  function draw(cv, n, p, red, obs, kFrom, kTo){
+  function draw(cv, n, p, red, obs, kFrom, kTo, tags){
     const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g, pm = pmfs(n, p);
     const L = 44, R = 12, T = 14, B = 34, top = Math.max(...pm.slice(kFrom, kTo + 1)) * 1.12, step = Book.niceStep(top * 100, 4) / 100;
     axisY(c, L, R, T, h - T - B, w, 0, top, step, v => numT(100 * v, 1) + '%');
@@ -190,6 +190,15 @@
     }
     if (obs != null){ const x = L + (obs - kFrom + 0.5) * bw; c.strokeStyle = COL.ctrl; c.setLineDash([5, 4]); c.lineWidth = 1.6; c.beginPath(); c.moveTo(x, T); c.lineTo(x, h - B); c.stroke(); c.setLineDash([]); label(c, 'наблюдали ' + obs, x + 5, T + 10, COL.ctrl); }
     label(c, 'сколько выкупили из ' + n, L + (w - L - R) / 2, h - 4, COL.ink2, 'center');
+    // вероятность критической области — крупно над красными столбиками
+    (tags || []).forEach(([k, txt]) => {
+      const xb = L + (k - kFrom + 0.5) * bw, fs = Math.round(Math.max(16, Math.min(26, w / 32))), y = T + (h - T - B) * 0.2;
+      c.save(); c.font = '600 ' + fs + 'px Onest, sans-serif'; const tw = c.measureText(txt).width;
+      const x = Math.min(Math.max(xb - tw / 2, L + 4), w - R - tw);
+      c.fillStyle = COL.surface || '#FBF9F4'; c.fillRect(x - 6, y - fs, tw + 12, fs + 8);
+      c.fillStyle = COL.trap; c.textAlign = 'left'; c.fillText(txt, x, y); c.restore();
+      c.strokeStyle = COL.trap; c.lineWidth = 1.2; c.beginPath(); c.moveTo(xb, y + 10); c.lineTo(xb, h - B - 6); c.stroke();
+    });
     return pm;
   }
   // игра 1: порог и сторона
@@ -198,8 +207,8 @@
   const pm30 = pmfs(40, 0.5);
   function paint1(){
     const lo = 40 - k1;
-    draw(cv1, 40, 0.5, k => k >= k1 || (side === 2 && k <= lo), 25, 6, 34);
     const a = side === 1 ? tail(pm30, k1) : tail(pm30, k1) + head(pm30, lo), lim = side === 1 ? 0.05 : 0.025;
+    draw(cv1, 40, 0.5, k => k >= k1 || (side === 2 && k <= lo), 25, 6, 34, side === 1 ? [[k1 + 1.5, 'P(X ≥ ' + k1 + ') = ' + share(a, 2)]] : [[k1 + 1.5, share(tail(pm30, k1), 2)], [lo - 1.5, share(head(pm30, lo), 2)]]);
     const okA = side === 1 ? a <= 0.05 : tail(pm30, k1) <= 0.025;
     out1.innerHTML = (side === 1 ? 'Отвергаем, если X ≥ ' + k1 : 'Отвергаем, если X ≤ ' + lo + ' или X ≥ ' + k1) +
       ': ошибка первого рода <b>' + share(a, 2) + '</b>' + (side === 2 ? ' (по ' + share(tail(pm30, k1), 2) + ' в хвосте)' : '') + '. ' +
@@ -228,8 +237,8 @@
   const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector(".out");
   const pm50 = pmfs(50, 0.1); let k3 = 14;
   function paint3(){
-    draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20);
     const a = tail(pm50, k3);
+    draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20, [[k3 + 2, 'P(X ≥ ' + k3 + ') = ' + share(a, 2)]]);
     out3.innerHTML = 'Отвергаем, если X ≥ ' + k3 + ': ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
   }
   Stepper(g3.querySelector('.stepper'), v => { k3 = v; paint3(); });
