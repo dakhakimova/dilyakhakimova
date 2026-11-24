@@ -110,7 +110,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли 0.5%</button><button type="button" class="btn ghost" data-d="bern30" aria-pressed="false">Бернулли 30%</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">Парето</button>
     </span></div>
     <div class="controls"><span>Наблюдений в среднем <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>:</span></span><span class="seg" role="group" aria-label="Размер выборки">
-      <button type="button" class="btn ghost" data-n="1" aria-pressed="false">1</button><button type="button" class="btn ghost" data-n="5" aria-pressed="false">5</button><button type="button" class="btn ghost" data-n="30" aria-pressed="false">30</button><button type="button" class="btn ghost" data-n="100" aria-pressed="true">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
+      <button type="button" class="btn ghost" data-n="1" aria-pressed="true">1</button><button type="button" class="btn ghost" data-n="5" aria-pressed="false">5</button><button type="button" class="btn ghost" data-n="30" aria-pressed="false">30</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
     </span></div>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
@@ -290,7 +290,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     par:   {name: 'Парето, хвост 1.5', mu: 3, g: () => Math.pow(1 - Math.random(), -1 / 1.5)}
   };
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
-  let dk = 'logn', n = 100, sim = null;
+  let dk = 'logn', n = 1, sim = null;
   function run(){
     const d = D[dk], reps = 2000, m = new Float64Array(reps); let hit = 0;
     for (let r = 0; r < reps; r++){
