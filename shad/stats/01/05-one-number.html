@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Почему одной цифры мало · Занятие 1 · Данные и шум</title>
+<meta name="description" content="Почему одной цифры мало">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611586">
+<link rel="stylesheet" href="/tokens.css?v=202611586">
+<link rel="stylesheet" href="/signal/book.css?v=202611586">
+<link rel="stylesheet" href="/signal/free.css?v=202611586">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611586">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611586">
+</head>
+<body data-course="shad4" data-chapter="shad1-05" data-next="06-summary.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 1 · Данные и шум</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · Фича сработала?</summary><ol><li><a class="tb" href="01-feature.html#card-1"><span class="i" data-n="1"></span><span>Фича сработала?</span></a></li><li><a class="tb" href="01-feature.html#card-2"><span class="i" data-n="2"></span><span>Кейс: вернись через 20 минут</span></a></li><li><a class="tb" href="01-feature.html#card-3"><span class="i" data-n="3"></span><span>Тот же ряд по слоям</span></a></li><li><a class="tb" href="01-feature.html#card-4"><span class="i" data-n="4"></span><span>Кейс: самый медленный день</span></a></li><li><a class="tb" href="01-feature.html#card-5"><span class="i" data-n="5"></span><span>Задача: худший день без настройки</span></a></li><li><a class="tb" href="01-feature.html#card-6"><span class="i" data-n="6"></span><span>История: похвала и ругань</span></a></li><li><a class="tb" href="01-feature.html#card-7"><span class="i" data-n="7"></span><span>Регрессия к среднему</span></a></li><li><a class="tb" href="01-feature.html#card-8"><span class="i" data-n="8"></span><span>История: Гальтон и рост детей</span></a></li><li><a class="tb" href="01-feature.html#card-9"><span class="i" data-n="9"></span><span>Игра: чемпионы и отстающие</span></a></li><li><a class="tb" href="01-feature.html#card-10"><span class="i" data-n="10"></span><span>Задача: похожая зона</span></a></li><li><a class="tb" href="01-feature.html#card-11"><span class="i" data-n="11"></span><span>Вопрос: худший из пятидесяти</span></a></li><li><a class="tb" href="01-feature.html#card-12"><span class="i" data-n="12"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · Откуда берётся шум</summary><ol><li><a class="tb" href="02-noise.html#card-1"><span class="i" data-n="1"></span><span>Откуда берётся шум</span></a></li><li><a class="tb" href="02-noise.html#card-2"><span class="i" data-n="2"></span><span>История: демон Лапласа</span></a></li><li><a class="tb" href="02-noise.html#card-3"><span class="i" data-n="3"></span><span>Игра: фальшивая монетка</span></a></li><li><a class="tb" href="02-noise.html#card-4"><span class="i" data-n="4"></span><span>История: как профессор угадывает обманщиков</span></a></li><li><a class="tb" href="02-noise.html#card-5"><span class="i" data-n="5"></span><span>Задача: серии в 20 бросках</span></a></li><li><a class="tb" href="02-noise.html#card-6"><span class="i" data-n="6"></span><span>Смены стороны: распределение</span></a></li><li><a class="tb" href="02-noise.html#card-7"><span class="i" data-n="7"></span><span>История: монетка помнит, как лежала</span></a></li><li><a class="tb" href="02-noise.html#card-8"><span class="i" data-n="8"></span><span>Модель</span></a></li><li><a class="tb" href="02-noise.html#card-9"><span class="i" data-n="9"></span><span>Вопрос: вероятность выборов</span></a></li><li><a class="tb" href="02-noise.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · Какой шум нормален</summary><ol><li><a class="tb" href="03-normal-noise.html#card-1"><span class="i" data-n="1"></span><span>Какой шум нормален</span></a></li><li><a class="tb" href="03-normal-noise.html#card-2"><span class="i" data-n="2"></span><span>Случайная величина и распределение</span></a></li><li><a class="tb" href="03-normal-noise.html#card-3"><span class="i" data-n="3"></span><span>Ожидание и дисперсия</span></a></li><li><a class="tb" href="03-normal-noise.html#card-4"><span class="i" data-n="4"></span><span>Функция распределения</span></a></li><li><a class="tb" href="03-normal-noise.html#card-5"><span class="i" data-n="5"></span><span>Справочник семи распределений</span></a></li><li><a class="tb" href="03-normal-noise.html#card-6"><span class="i" data-n="6"></span><span>Практика: какая модель?</span></a></li><li><a class="tb" href="03-normal-noise.html#card-7"><span class="i" data-n="7"></span><span>Задача: 5 кликов вместо 10</span></a></li><li><a class="tb" href="03-normal-noise.html#card-8"><span class="i" data-n="8"></span><span>Задача: пустая минута</span></a></li><li><a class="tb" href="03-normal-noise.html#card-9"><span class="i" data-n="9"></span><span>Нормальное и 68–95–99.7</span></a></li><li><a class="tb" href="03-normal-noise.html#card-10"><span class="i" data-n="10"></span><span>ЦПТ</span></a></li><li><a class="tb" href="03-normal-noise.html#card-11"><span class="i" data-n="11"></span><span>Задача: худший из пятидесяти</span></a></li><li><a class="tb" href="03-normal-noise.html#card-12"><span class="i" data-n="12"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · Какую цифру показать</summary><ol><li><a class="tb" href="04-which-number.html#card-1"><span class="i" data-n="1"></span><span>Какую цифру показать</span></a></li><li><a class="tb" href="04-which-number.html#card-2"><span class="i" data-n="2"></span><span>Кейс: 4 000 поездок</span></a></li><li><a class="tb" href="04-which-number.html#card-3"><span class="i" data-n="3"></span><span>Среднее, медиана, мода, квантили</span></a></li><li><a class="tb" href="04-which-number.html#card-4"><span class="i" data-n="4"></span><span>Задача: экспоненциальная цена</span></a></li><li><a class="tb" href="04-which-number.html#card-5"><span class="i" data-n="5"></span><span>Порядок мер и форма</span></a></li><li><a class="tb" href="04-which-number.html#card-6"><span class="i" data-n="6"></span><span>История: сын маминой подруги</span></a></li><li><a class="tb" href="04-which-number.html#card-7"><span class="i" data-n="7"></span><span>Какая мера на какой вопрос</span></a></li><li><a class="tb" href="04-which-number.html#card-8"><span class="i" data-n="8"></span><span>Задача: кто приносит деньги</span></a></li><li><a class="tb" href="04-which-number.html#card-9"><span class="i" data-n="9"></span><span>Задача: сколько выручки делают киты</span></a></li><li><a class="tb" href="04-which-number.html#card-10"><span class="i" data-n="10"></span><span>Логарифм: ось и данные</span></a></li><li><a class="tb" href="04-which-number.html#card-11"><span class="i" data-n="11"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 5 · Почему одной цифры мало</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Итоги занятия 1</summary><ol><li><a class="tb" href="06-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 1</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Почему одной цифры мало">
+  <p class="kicker">Занятие 1 · блок 5</p>
+  <h1>Почему одной цифры мало</h1>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Зачем ты возишься с графиками? Пришли мне табличку describe(), я сам разберусь.</p></div></div>
+  </div>
+  <p class="lead">Мы выбрали правильное число под вопрос. Но любое число — это сжатие: часть информации выброшена. Посмотрим, что именно теряется и почему аналитик обязан <b>рисовать</b>.</p>
+</section>
+
+<section class="card" data-title="История: средний пилот">
+  <span class="step-tag">История</span>
+  <h2>Средний пилот</h2>
+  <figure class="art"><img src="img/05-pilots.jpg" alt="Пилоты разного роста у кабины, в кресле пунктирный силуэт среднего пилота"></figure>
+  <div class="story"><p>В 1950 году ВВС США измерили <b>4 063</b> пилота, чтобы спроектировать кабину «под среднего пилота». Лейтенант Гилберт Дэниелс взял 10 размеров, важных для кабины, — рост, обхват груди, длина рук — и проверил, сколько пилотов попадают в средний диапазон <b>по всем десяти</b>.</p>
+  <p><b>Ни одного.</b> Даже по трём размерам «средними» оказались меньше 3.5% пилотов. Кабина для среднего пилота была кабиной ни для кого. После этого ВВС потребовали регулируемые кресла и педали — то, что сейчас стоит в каждой машине.</p></div>
+  <p>Каждое из десяти средних посчитано правильно. Но «средний пилот» — объект, которого не существует. С пользователями так же: «средний пользователь» — удобная выдумка.</p>
+</section>
+
+<section class="card" data-title="Квартет Анскомба">
+  <span class="step-tag">История</span>
+  <h2>Квартет Анскомба</h2>
+  <p>Анскомб, 1973 год: четыре набора по 11 точек, у всех совпадают средние, дисперсии, корреляция и даже прямая регрессии.</p>
+  <figure class="chart"><img src="img/05-anscombe.png" alt="Четыре набора Анскомба: облако, парабола, прямая с выбросом, вертикальная палка с одной точкой"></figure>
+  <p>Одна картинка — облако, вторая — парабола, третья — прямая с одним выбросом, четвёртая — вертикальная палка и одна точка.</p>
+</section>
+
+<section class="card" data-title="Datasaurus">
+  <span class="step-tag">История</span>
+  <h2>Datasaurus</h2>
+  <div class="story"><p>В 2016 году Альберто Каиро нарисовал точками динозавра. Через год Джастин Матейка и Джордж Фицморис «доработали» его: двигали точки по чуть-чуть, пока средние, разбросы и корреляция оставались прежними, — и получили ещё 12 фигур, Datasaurus Dozen.</p></div>
+  <p><b>Вопрос залу.</b> У трёх наборов по 142 точки, одинаковые средние X и Y, разбросы и корреляция. Насколько похожими ты ожидаешь увидеть их картинки?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <figure class="chart"><img src="img/05-datasaurus.png" alt="Динозавр, звезда и круг с одинаковыми статистиками"></figure>
+    <div class="report-wrap"><table class="tails grid">
+      <thead><tr><th>Набор</th><th>среднее X</th><th>среднее Y</th><th>σ X</th><th>σ Y</th><th><span class="tx" data-tex="r"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span></span></span></span></span></th></tr></thead>
+      <tbody>
+        <tr><td>Динозавр</td><td>54.26</td><td>47.83</td><td>16.77</td><td>26.94</td><td>−0.06</td></tr>
+        <tr><td>Звезда</td><td>54.27</td><td>47.84</td><td>16.77</td><td>26.93</td><td>−0.06</td></tr>
+        <tr><td>Круг</td><td>54.27</td><td>47.84</td><td>16.76</td><td>26.93</td><td>−0.07</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ans">Статистики совпадают с точностью до сотых, а картинки — динозавр, звезда и круг. describe() — начало проверки, а не разведочный анализ.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Корреляция Пирсона">
+  <span class="step-tag">Определение</span>
+  <h2>Корреляция Пирсона <span class="tx" data-tex="r"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span></span></span></span></span></h2>
+  <div class="def"><p>Мера <b>линейной</b> связи двух признаков, от −1 до 1. <span class="tx" data-tex="r \approx 0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span> значит «нет линейной связи», а <b>не</b> «нет связи»: у круга и звезды <span class="nw"><span class="tx" data-tex="r \approx -0.06"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">0.06</span></span></span></span></span>,</span> а структура очевидна. Корреляция не доказывает причинность.</p></div>
+</section>
+
+<section class="card" data-title="Боксплот">
+  <span class="step-tag">Определение</span>
+  <h2>Боксплот, ящик с усами</h2>
+  <div class="def"><p>Коробка — от <span class="tx" data-tex="Q_1"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> до <span class="nw"><span class="tx" data-tex="Q_3"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>,</span> её ширина — IQR; черта внутри — медиана. Усы тянутся до <b>самых крайних реальных наблюдений</b> внутри границ <span class="tx" data-tex="Q_1 - 1.5\,\mathrm{IQR}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">1.5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">IQR</span></span></span></span></span></span> и <span class="tx" data-tex="Q_3 + 1.5\,\mathrm{IQR}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">1.5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">IQR</span></span></span></span></span></span> — правило Тьюки. Точки за усами рисуются отдельно — это <b>кандидаты на изучение</b>, а не приговор.</p></div>
+  <figure class="chart"><img src="img/05-boxplot.png" alt="Схема боксплота на выборке 1, 2, 2, 3, 5, 9, 20"></figure>
+  <details class="sol"><summary>Как получились числа на схеме</summary><div class="body">
+    <p class="stp">Выборка 1, 2, 2, 3, 5, 9, 20 упорядочена, <span class="nw"><span class="tx" data-tex="n = 7"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7</span></span></span></span></span>.</span> Медиана — 4-е значение: 3.</p>
+    <p class="stp"><span class="nw"><span class="tx" data-tex="Q_1"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>:</span> позиция <span class="nw"><span class="tx" data-tex="0.25 \cdot (7 - 1) = 1.5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.5</span></span></span></span></span>,</span> считая с нуля, — между 2 и 2, значит <span class="nw"><span class="tx" data-tex="Q_1 = 2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span>.</span> <span class="nw"><span class="tx" data-tex="Q_3"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>:</span> позиция <span class="tx" data-tex="0.75 \cdot 6 = 4.5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.75</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4.5</span></span></span></span></span> — посередине между 5 и 9, <span class="nw"><span class="tx" data-tex="Q_3 = 7"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7</span></span></span></span></span>.</span> <span class="nw"><span class="tx" data-tex="\mathrm{IQR} = 5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathrm">IQR</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span></span>,</span> <span class="nw"><span class="tx" data-tex="1.5\,\mathrm{IQR} = 7.5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">1.5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">IQR</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7.5</span></span></span></span></span>.</span></p>
+    <p class="stp">Границы: <span class="tx" data-tex="2 - 7.5 = -5.5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7.5</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">5.5</span></span></span></span></span> и <span class="nw"><span class="tx" data-tex="7 + 7.5 = 14.5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7.5</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">14.5</span></span></span></span></span>.</span></p>
+    <p class="ans">Усы — до реальных наблюдений 1 и 9, а не до −5.5 и 14.5. Точка 20 за границей — кандидат на изучение. Усы заканчиваются на настоящих точках, а не на расчётных границах — это самая частая путаница.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вопрос: три ящика-близнеца">
+  <span class="step-tag">Вопрос</span>
+  <h2>Три ящика-близнеца</h2>
+  <p>Три боксплота почти одинаковые. Значит ли это, что распределения похожи?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <figure class="chart"><img src="img/05-box-blind.png" alt="Три одинаковых боксплота и три разных гистограммы: равномерное, два горба, нормальное"></figure>
+    <p class="ans">Нет: это равномерное, смесь двух горбов и нормальное. Боксплот видит только квартили, форму он не видит. Хорош для сравнения групп, опасен как единственная картинка.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Практика: откуда два горба">
+  <span class="step-tag">Практика</span>
+  <h2>Откуда два горба?</h2>
+  <div class="chat">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">Я в отпуске в Йеллоустоне! Посчитала среднее время между извержениями гейзера. Туристам советую: ждите 71 минуту после извержения — увидите следующее.</p></div></div>
+  </div>
+  <p>Это <b>настоящие данные</b>: 272 извержения гейзера Old Faithful. Для каждого известны длительность извержения <code>duration</code>, мин, и время ожидания до следующего <code>waiting</code>, мин.</p>
+  <ol>
+    <li>Построй гистограмму <code>waiting</code>. Что видишь? Где среднее? Хороший ли совет дала Алиса?</li>
+    <li>Предложи гипотезу, <b>почему</b> горбов два, и поле, по которому её можно проверить.</li>
+    <li>Проверь: раздели данные и построй гистограммы по группам.</li>
+  </ol>
+  <div class="cell" data-title="Гейзер Old Faithful" data-files="/shad/stats/01/data/geyser.csv" data-packages="pandas matplotlib">
+<textarea spellcheck="false" aria-label="Гейзер Old Faithful">import pandas as pd
+import matplotlib.pyplot as plt
+
+geyser = pd.read_csv("geyser.csv")
+print(geyser.describe().round(1))
+
+plt.hist(geyser.waiting, bins=30, color="#23418A")
+plt.axvline(geyser.waiting.mean(), color="#C9413A", lw=2)
+plt.title("Ожидание до следующего извержения, мин")
+plt.show()
+
+# проверь гипотезу: раздели данные по другому полю
+</textarea>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <figure class="chart"><img src="img/05-geyser.png" alt="Ожидание с двумя горбами около 55 и 80 минут, связь с длительностью и гистограммы по типу извержения"></figure>
+    <p class="stp"><b>Шаг 1.</b> Два горба — около 55 и около 80 минут. Среднее ≈ 71 минута — почти в провале между горбами, ровно тогда, когда извержения бывают реже всего. Среднее честно посчитано и не описывает ни одного извержения.</p>
+    <p class="stp"><b>Шаг 2.</b> Гипотеза: горбы — два режима гейзера, и режим виден по <b>длительности</b> извержения. Длинное извержение «опустошает» гейзер — до следующего ждать дольше.</p>
+    <p class="stp"><b>Шаг 3.</b> После коротких извержений, меньше 3 мин, их 97, ожидание в среднем 54.5 мин; после длинных, их 175, — 80.0 мин. Горбы разошлись по группам.</p>
+    <p class="ans">Разделение по полю, <b>отличному</b> от объясняемого, — по <code>duration</code>, а не по <code>waiting</code>, — это проверка. Разрезать <code>waiting</code> по порогу 65 и сказать «вот две группы» — подгонка. И даже удачный разрез поддерживает гипотезу, но не доказывает механизм.</p>
+  </div></details>
+  <p>Продуктовые двойники гейзера: длительность сессии — быстро проверил цену или выбирал тариф и заказал; сумма заказа — розница или опт; время доставки — город или пригород. Увидел два горба — режь по кандидату: платформа, город, статус, тип дня, сценарий.</p>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Сначала картинка</h2>
+  <div class="takeaway"><p>Сводные числа сжимают данные и теряют форму. <b>Сначала картинка</b>: гистограмма для одного признака, диаграмма рассеяния для пары. Два горба — это вопрос «из каких групп смешаны данные?», а не повод считать среднее.</p></div>
+  <a class="next-step" href="06-summary.html"><b>Дальше: итоги занятия</b>Пять главных мыслей.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611586"></script>
+<script src="/signal/book.js?v=202611586"></script>
+<script src="/signal/py.js?v=202611586"></script>
+<script src="/shad/stats/04/shad.js?v=202611586"></script>
+
+</body>
+</html>

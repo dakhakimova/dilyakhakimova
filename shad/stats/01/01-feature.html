@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Фича сработала? · Занятие 1 · Данные и шум</title>
+<meta name="description" content="Фича сработала?">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611586">
+<link rel="stylesheet" href="/tokens.css?v=202611586">
+<link rel="stylesheet" href="/signal/book.css?v=202611586">
+<link rel="stylesheet" href="/signal/free.css?v=202611586">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611586">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611586">
+</head>
+<body data-course="shad4" data-chapter="shad1-01" data-next="02-noise.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 1 · Данные и шум</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <div class="lt cur"><h2>Блок 1 · Фича сработала?</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Блок 2 · Откуда берётся шум</summary><ol><li><a class="tb" href="02-noise.html#card-1"><span class="i" data-n="1"></span><span>Откуда берётся шум</span></a></li><li><a class="tb" href="02-noise.html#card-2"><span class="i" data-n="2"></span><span>История: демон Лапласа</span></a></li><li><a class="tb" href="02-noise.html#card-3"><span class="i" data-n="3"></span><span>Игра: фальшивая монетка</span></a></li><li><a class="tb" href="02-noise.html#card-4"><span class="i" data-n="4"></span><span>История: как профессор угадывает обманщиков</span></a></li><li><a class="tb" href="02-noise.html#card-5"><span class="i" data-n="5"></span><span>Задача: серии в 20 бросках</span></a></li><li><a class="tb" href="02-noise.html#card-6"><span class="i" data-n="6"></span><span>Смены стороны: распределение</span></a></li><li><a class="tb" href="02-noise.html#card-7"><span class="i" data-n="7"></span><span>История: монетка помнит, как лежала</span></a></li><li><a class="tb" href="02-noise.html#card-8"><span class="i" data-n="8"></span><span>Модель</span></a></li><li><a class="tb" href="02-noise.html#card-9"><span class="i" data-n="9"></span><span>Вопрос: вероятность выборов</span></a></li><li><a class="tb" href="02-noise.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · Какой шум нормален</summary><ol><li><a class="tb" href="03-normal-noise.html#card-1"><span class="i" data-n="1"></span><span>Какой шум нормален</span></a></li><li><a class="tb" href="03-normal-noise.html#card-2"><span class="i" data-n="2"></span><span>Случайная величина и распределение</span></a></li><li><a class="tb" href="03-normal-noise.html#card-3"><span class="i" data-n="3"></span><span>Ожидание и дисперсия</span></a></li><li><a class="tb" href="03-normal-noise.html#card-4"><span class="i" data-n="4"></span><span>Функция распределения</span></a></li><li><a class="tb" href="03-normal-noise.html#card-5"><span class="i" data-n="5"></span><span>Справочник семи распределений</span></a></li><li><a class="tb" href="03-normal-noise.html#card-6"><span class="i" data-n="6"></span><span>Практика: какая модель?</span></a></li><li><a class="tb" href="03-normal-noise.html#card-7"><span class="i" data-n="7"></span><span>Задача: 5 кликов вместо 10</span></a></li><li><a class="tb" href="03-normal-noise.html#card-8"><span class="i" data-n="8"></span><span>Задача: пустая минута</span></a></li><li><a class="tb" href="03-normal-noise.html#card-9"><span class="i" data-n="9"></span><span>Нормальное и 68–95–99.7</span></a></li><li><a class="tb" href="03-normal-noise.html#card-10"><span class="i" data-n="10"></span><span>ЦПТ</span></a></li><li><a class="tb" href="03-normal-noise.html#card-11"><span class="i" data-n="11"></span><span>Задача: худший из пятидесяти</span></a></li><li><a class="tb" href="03-normal-noise.html#card-12"><span class="i" data-n="12"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · Какую цифру показать</summary><ol><li><a class="tb" href="04-which-number.html#card-1"><span class="i" data-n="1"></span><span>Какую цифру показать</span></a></li><li><a class="tb" href="04-which-number.html#card-2"><span class="i" data-n="2"></span><span>Кейс: 4 000 поездок</span></a></li><li><a class="tb" href="04-which-number.html#card-3"><span class="i" data-n="3"></span><span>Среднее, медиана, мода, квантили</span></a></li><li><a class="tb" href="04-which-number.html#card-4"><span class="i" data-n="4"></span><span>Задача: экспоненциальная цена</span></a></li><li><a class="tb" href="04-which-number.html#card-5"><span class="i" data-n="5"></span><span>Порядок мер и форма</span></a></li><li><a class="tb" href="04-which-number.html#card-6"><span class="i" data-n="6"></span><span>История: сын маминой подруги</span></a></li><li><a class="tb" href="04-which-number.html#card-7"><span class="i" data-n="7"></span><span>Какая мера на какой вопрос</span></a></li><li><a class="tb" href="04-which-number.html#card-8"><span class="i" data-n="8"></span><span>Задача: кто приносит деньги</span></a></li><li><a class="tb" href="04-which-number.html#card-9"><span class="i" data-n="9"></span><span>Задача: сколько выручки делают киты</span></a></li><li><a class="tb" href="04-which-number.html#card-10"><span class="i" data-n="10"></span><span>Логарифм: ось и данные</span></a></li><li><a class="tb" href="04-which-number.html#card-11"><span class="i" data-n="11"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 5 · Почему одной цифры мало</summary><ol><li><a class="tb" href="05-one-number.html#card-1"><span class="i" data-n="1"></span><span>Почему одной цифры мало</span></a></li><li><a class="tb" href="05-one-number.html#card-2"><span class="i" data-n="2"></span><span>История: средний пилот</span></a></li><li><a class="tb" href="05-one-number.html#card-3"><span class="i" data-n="3"></span><span>Квартет Анскомба</span></a></li><li><a class="tb" href="05-one-number.html#card-4"><span class="i" data-n="4"></span><span>Datasaurus</span></a></li><li><a class="tb" href="05-one-number.html#card-5"><span class="i" data-n="5"></span><span>Корреляция Пирсона</span></a></li><li><a class="tb" href="05-one-number.html#card-6"><span class="i" data-n="6"></span><span>Боксплот</span></a></li><li><a class="tb" href="05-one-number.html#card-7"><span class="i" data-n="7"></span><span>Вопрос: три ящика-близнеца</span></a></li><li><a class="tb" href="05-one-number.html#card-8"><span class="i" data-n="8"></span><span>Практика: откуда два горба</span></a></li><li><a class="tb" href="05-one-number.html#card-9"><span class="i" data-n="9"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Итоги занятия 1</summary><ol><li><a class="tb" href="06-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 1</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Фича сработала?">
+  <p class="kicker">Занятие 1 · блок 1</p>
+  <h1>Фича сработала?</h1>
+  <figure class="art"><img src="img/01-hero.jpg" alt="Алиса за ноутбуком, Боб с телефоном показывает рост, Котейка в мешке"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Алиса, глянь! Запустили «вернись через 20 минут» — поездки сразу подскочили. Раскатываем на всех?</p></div></div>
+  </div>
+  <p class="lead">Это самый частый вопрос, который задают аналитику, и самый опасный: на него очень легко ответить «да», глядя на график «до и после».</p>
+  <p>Герои курса. <b>Боб</b> — продакт-менеджер Такси: умный, энергичный и всё время торопится с выводами. <b>Алиса</b> — аналитик, работает первый месяц: толковая, но спешит и попадает в ловушки — твоя задача её ловить. <b>Котейка</b> — мудрый кот из мешка: в мешке живут все наши данные, и только он знает, что внутри. Ответов Котейка не даёт — только правильные вопросы.</p>
+</section>
+
+<section class="card" data-title="Кейс: вернись через 20 минут">
+  <span class="step-tag">Кейс</span>
+  <h2>«Вернись через 20 минут — будет на 200 ₽ дешевле»</h2>
+  <p>В часы высокого спроса цена в Такси растёт, и часть людей закрывает приложение. Менеджер придумал фичу: показывать прогноз — «вернись через 20 минут, будет на 200 ₽ дешевле». Фичу выкатили. Вот график поездок, который Боб принёс Алисе.</p>
+  <figure class="chart"><img src="img/01-rides.png" alt="Поездки по дням: после запуска фичи стало больше"></figure>
+  <div class="chat">
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">После запуска поездок стало больше примерно на 15%. Фича работает — раскатываем!</p></div></div>
+  </div>
+  <p><b>Вопрос залу.</b> Алиса права? Что ещё могло измениться одновременно с запуском? Каких данных не хватает, чтобы оценить влияние именно фичи?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">Одновременно с запуском могли измениться: <b>сезонность</b> — день недели, конец месяца, предновогодний разгон; <b>погода</b> — в дождь поездок больше; <b>праздники и события</b>; <b>параллельные запуски</b> — промо, маркетинг, другая фича; <b>трафик</b> — новая реклама, изменения у конкурента; <b>логирование</b> — поездки стали иначе считать.</p>
+    <p class="ans">Не хватает <b>контрольной группы</b> — похожих пользователей без фичи за те же дни.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Тот же ряд по слоям">
+  <span class="step-tag">Разбор</span>
+  <h2>Из чего сложен этот график</h2>
+  <p>Этот ряд сгенерирован. В формуле четыре слагаемых: недельная сезонность, предновогодний разгон, два дождливых дня и случайный шум. Слагаемого «фича» в нём нет вообще.</p>
+  <figure class="chart"><img src="img/01-layers.png" alt="Тот же ряд по слоям: будни и выходные, предновогодний разгон, дождь и шум"></figure>
+  <p>А график «после стало больше» выглядит ровно как успех. У графика «до и после» нет встроенного ответа на вопрос «почему»: внешний мир меняется вместе с продуктом.</p>
+  <div class="takeaway"><p><b>До и после ≠ эффект.</b></p></div>
+  <details class="sol"><summary>Параметры генератора</summary><div class="body"><p class="stp">База 100 тыс. поездок, синусоида с периодом 7 дней и амплитудой 8, линейный рост до +25 за последние 11 дней, дождь +18 и +12 в дни 13–14, шум <span class="nw"><span class="tx" data-tex="N(0,\ 3^2)"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>.</span></p></div></details>
+</section>
+
+<section class="card" data-title="Кейс: самый медленный день">
+  <span class="step-tag">Кейс</span>
+  <h2>Самый медленный день доставки</h2>
+  <p>Обычно доставка занимает около <b>30 минут</b>. В самый медленный день месяца — <b>70</b>. Команда в тот же вечер поменяла настройку распределения заказов, и на следующий день получилось <b>35</b>.</p>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Настройка сэкономила 35 минут!</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">Уже пишу команде: поздравляю, минус 35 минут доставки!</p></div></div>
+  </div>
+  <p><b>Вопрос залу.</b> Стоит ли Алисе отправлять поздравление? Почему мы сравниваем именно с этим днём? Что было бы на следующий день, если бы настройку <b>не</b> меняли?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">День выбран <b>потому, что</b> он экстремально плохой: в нём совпали временные факторы — погода, пробки, сбой, нехватка курьеров — и случайные колебания. На следующий день эти совпадения, скорее всего, не повторятся, и время вернётся ближе к обычному <b>само</b>.</p>
+    <p class="ans">Настройка могла помочь, ничего не изменить или даже ухудшить — по этой паре дней мы не знаем. Проверим симуляцией.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: худший день без настройки">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 1.</span> Худший день без всякой настройки</h2>
+  <p>Пусть настройку <b>никто не трогал</b>. Среднее время доставки колеблется около 30 минут (±3), но примерно раз в 20 дней случается плохой день — снегопад, сбой, нехватка курьеров — и время подскакивает в среднем на 45 минут. Плохие дни независимы. Найдём в каждом месяце худший день и посмотрим на следующий. Повторим для 10 000 «месяцев».</p>
+  <ol>
+    <li>Предскажи до запуска: на сколько минут в среднем «улучшится» день после худшего?</li>
+    <li>Запусти ячейку и сравни.</li>
+  </ol>
+  <div class="cell" data-title="Худший день и следующий" data-packages="matplotlib">
+<textarea spellcheck="false" aria-label="Худший день и следующий">import numpy as np
+import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(1)
+# 10 000 месяцев по 31 дню, никаких изменений
+usual = rng.normal(30, 3, size=(10_000, 31))
+# плохой день — примерно раз в 20 дней
+bad = rng.random((10_000, 31)) &lt; 0.05
+months = usual + bad * rng.normal(45, 5, size=(10_000, 31))
+
+# худший из первых 30 дней и день после него
+worst_day = months[:, :30].argmax(axis=1)
+worst = months[np.arange(10_000), worst_day]
+next_day = months[np.arange(10_000), worst_day + 1]
+print(f"Худший день месяца в среднем:  {worst.mean():.1f} мин")
+print(f"Следующий день в среднем:      {next_day.mean():.1f} мин")
+print(f"«Экономия» без всякой настройки: {(worst - next_day).mean():.1f} мин")
+
+# сегодня против завтра: плохие дни красным
+today, tomorrow = months[:2000, :-1].ravel(), months[:2000, 1:].ravel()
+extreme = today > np.quantile(today, 0.95)
+plt.figure(figsize=(6, 5))
+plt.scatter(today[~extreme], tomorrow[~extreme], s=2, alpha=.15, color="#A3A19A")
+plt.scatter(today[extreme], tomorrow[extreme], s=4, alpha=.4, color="#C9413A", label="5% самых плохих дней")
+plt.plot([15, 95], [15, 95], ":", color="#2F2E2B", label="завтра = сегодня")
+plt.axhline(30, ls="--", color="#23418A")
+plt.xlabel("сегодня, мин"); plt.ylabel("завтра, мин"); plt.legend()
+plt.show()</textarea>
+  </div>
+  <figure class="chart"><img src="img/01-worst-day.png" alt="Слева один месяц: худший день 70 минут, следующий 35. Справа облако «сегодня против завтра»: плохие дни ниже диагонали"></figure>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Что выдала симуляция.</b> Худший день месяца в среднем ≈ 68.7 мин, следующий ≈ 31.0 мин: «экономия» ≈ 37.7 минуты без какого-либо изменения — почти как «минус 35» у Алисы.</p>
+    <p class="stp"><b>Шаг 2. Левый график.</b> Один из симулированных месяцев — ровно наш кейс: худший день 70, следующий 35, никакой настройки не было. Стрелка «вниз» нарисовалась сама.</p>
+    <p class="stp"><b>Шаг 3. Правый график.</b> Каждая точка — пара «сегодня → завтра». Если бы завтра повторяло сегодня, точки лежали бы на диагонали. Красное облако плохих дней лежит <b>ниже</b> диагонали, вокруг линии 30: завтра у них обычное. Их среднее — примерно 75 → 33.</p>
+    <p class="ans">Если выбирать момент для сравнения за то, что он необычный, улучшение гарантировано — и его можно приписать чему угодно: настройке, новому менеджеру, полнолунию.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="История: похвала и ругань">
+  <span class="step-tag">История</span>
+  <h2>Почему инструкторы считали, что ругать полезнее, чем хвалить</h2>
+  <div class="story"><p>Даниэль Канеман консультировал инструкторов израильских ВВС. Один из них возразил: «Когда я хвалю курсанта за отличную посадку, следующая обычно хуже. Когда ругаю за ужасную — следующая лучше. Так что не говорите мне, что похвала работает».</p>
+  <p>Инструктор видел то же, что мы в симуляции: после <b>необычно</b> хорошей посадки следующая чаще ближе к обычной — и после необычно плохой тоже. Его слова тут ни при чём.</p></div>
+</section>
+
+<section class="card" data-title="Регрессия к среднему">
+  <span class="step-tag">Определение</span>
+  <h2>Регрессия к среднему</h2>
+  <div class="def"><p>Если наблюдение отобрано <b>за то, что оно экстремальное</b>, следующее измерение того же объекта в среднем окажется ближе к обычному уровню — даже без каких-либо изменений. Откат идёт с <b>любой</b> стороны: очень плохое становится лучше, очень хорошее — хуже.</p></div>
+  <p>Слово «регрессия» здесь буквальное: лат. <i>regressio</i> — «возвращение, движение назад». Это не регрессионная модель, хотя её название пошло именно отсюда.</p>
+</section>
+
+<section class="card" data-title="История: Гальтон и рост детей">
+  <span class="step-tag">История</span>
+  <h2>Гальтон, рост детей и откуда взялась «линейная регрессия»</h2>
+  <div class="story"><p>В 1886 году Фрэнсис Гальтон собрал рост 928 взрослых детей и их родителей. У очень высоких родителей дети тоже высокие — но в среднем <b>ниже родителей</b>. У очень низких — выше родителей. Гальтон назвал это <i>regression towards mediocrity</i> — «возврат к посредственности».</p>
+  <p>Чтобы описать эффект, Гальтон провёл через облако точек прямую, и её наклон оказался <b>меньше единицы</b>. Её стали звать линией регрессии, а потом название прилипло к самому методу. Так что «линейная регрессия» названа в честь эффекта отката к среднему, хотя никакого отката в самом методе нет.</p></div>
+  <figure class="chart"><img src="img/01-galton.png" alt="Данные Гальтона: линия регрессии положе диагонали, дети самых высоких родителей ниже родителей"></figure>
+  <p>Пунктир — мир, где дети в точности повторяют родителей. Оранжевая линия — то, что получилось на самом деле: она положе. У самых высоких родителей, 181 см, дети в среднем 178 — всё ещё высокие, но ближе к середине.</p>
+  <p><b>Вопрос залу.</b> Возьмём <b>самых высоких детей</b>. Какими в среднем окажутся их родители: выше детей, такими же или ниже? Что это говорит о том, «тянет» ли что-то рост к среднему?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">У 10% самых высоких детей (в среднем 183 см) родители в среднем 177 см — <b>ниже</b> детей и ближе к среднему по всем родителям, 174 см.</p>
+    <p class="stp">Откат работает в <b>обе</b> стороны. Если бы существовала сила, «тянущая» потомков к середине, она не могла бы одновременно делать родителей высоких детей ниже их.</p>
+    <p class="stp">Регрессия к среднему — следствие неполной корреляции, здесь <span class="nw"><span class="tx" data-tex="r \approx 0.46"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.46</span></span></span></span></span>.</span> Рост ребёнка — это «наследуемая часть» плюс случайная добавка. Отбирая экстремальных по одной переменной, мы отбираем и удачную случайную добавку, а она не повторяется.</p>
+    <p class="ans">Для стандартизованных величин линия регрессии <span class="nw"><span class="tx" data-tex="\hat y = r\,x"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span></span></span></span></span>.</span> При <span class="tx" data-tex="|r| &amp;lt; 1"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span> предсказание всегда ближе к среднему, чем <span class="nw"><span class="tx" data-tex="x"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>,</span> — в какую сторону ни регрессируй.</p>
+  </div></details>
+  <details class="sol"><summary>О данных</summary><div class="body"><p class="stp">Рост дочерей Гальтон умножил на 1.08, чтобы сравнивать с сыновьями; рост родителей — среднее отца и матери, рост матери тоже ×1.08. Рост в таблице округлён, поэтому на графике точки слегка разброшены.</p></div></details>
+</section>
+
+<section class="card" data-title="Игра: чемпионы и отстающие">
+  <span class="step-tag">Игра</span>
+  <h2>Чемпионы и отстающие</h2>
+  <p>Проверим Гальтона на нас самих. <b>Раунд 1:</b> ответь в боте любым целым числом от 1 до 100 — первым, что пришло в голову. Пять самых больших — наши «чемпионы», пять самых маленьких — «отстающие». <b>Раунд 2:</b> сразу же ещё одно число от 1 до 100.</p>
+  <p><b>Вопрос залу.</b> Как сыграют чемпионы и отстающие во втором раунде?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">Числа случайные и независимые, поэтому во втором раунде у <b>любой</b> группы ожидание около 50. Чемпионы раунда 1, в среднем около 90, во втором раунде дают около 50, отстающие, около 10, — тоже около 50.</p>
+    <p class="stp">Это чистая регрессия к среднему: отбор по экстремальному значению отбирает <b>удачу</b>, а удача не повторяется. У Гальтона связь частичная, <span class="nw"><span class="tx" data-tex="r \approx 0.46"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.46</span></span></span></span></span>,</span> — и регрессия частичная; здесь связи нет, <span class="nw"><span class="tx" data-tex="r = 0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span>,</span> — регрессия полная.</p>
+    <p class="ans">Похвалили чемпионов — они сдали, отругали отстающих — подтянулись. Ругать полезнее? Нет: отобрали по крайности — дальше будет ближе к среднему, что бы мы ни делали.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: похожая зона">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 2.</span> Сравним с похожей группой</h2>
+  <p>Есть похожая зона доставки, где настройку <b>не меняли</b>. Снегопад накрыл обе зоны, и за те же два дня среднее время там изменилось с <b>65</b> до <b>40</b> минут.</p>
+  <ol>
+    <li>Посчитай изменение в каждой зоне.</li>
+    <li>Посчитай разницу изменений. Что она оценивает?</li>
+    <li>Какие условия нужны, чтобы верить этой разнице как эффекту настройки?</li>
+    <li>Можно ли по этим четырём числам уверенно сказать, что настройка помогла? Пока ответь на глаз — точно посчитаем, когда научимся мерить шум самой оценки.</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Изменения.</b> Зона с настройкой: <span class="tx" data-tex="35 - 70 = -35"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">35</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">70</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">35</span></span></span></span></span> мин. Зона без настройки: <span class="tx" data-tex="40 - 65 = -25"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">40</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">65</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">25</span></span></span></span></span> мин.</p>
+    <p class="stp"><b>Шаг 2. Разница изменений.</b> <span class="tx" data-tex="-35 - (-25) = -10"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">35</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">25</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">10</span></span></span></span></span> минут. Это оценка эффекта настройки <b>за вычетом</b> того, что произошло бы и так — регрессии, погоды, общего тренда, — если зоны сопоставимы.</p>
+    <p class="stp"><b>Шаг 3. Условия.</b> Зоны похожи и в них одинаково измеряют время; без настройки они менялись бы одинаково — параллельные тренды; ни в одной из них не было своих событий. Это идея <b>difference-in-differences</b>, «разность разностей»; подробно — на занятиях про A/B.</p>
+    <p class="stp"><b>Про уровни.</b> 70 и 65 не обязаны совпадать: метод сравнивает <b>изменения</b>, а не уровни. Наоборот, 65 в контрольной зоне в тот же день — хороший знак: её накрыл тот же снегопад. Обе зоны и на второй день выше 30 — снегопад был двухдневным; метод это переживает, если снег был одинаковым.</p>
+    <p class="ans">На глаз — вряд ли: день в каждой зоне шумит на ±3 минуты, а оценка собрана из <b>четырёх</b> таких дней, так что её шум сопоставим с самим эффектом в 10 минут. Точный расчёт — когда дойдём до стандартной ошибки.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вопрос: худший из пятидесяти">
+  <span class="step-tag">Вопрос</span>
+  <h2>Худший из пятидесяти — на глаз</h2>
+  <p>Боб придумал ритуал: каждую неделю разбирать на планёрке город с самым долгим временем доставки. Городов <b>50</b>, и пусть все они <b>одинаковые</b> — отличаются только случайностью. Насколько худший город недели окажется хуже среднего — просто так?</p>
+  <p>Запиши догадку: посчитаем в блоке 3, когда разберёмся с распределениями.</p>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>До и после — не эффект</h2>
+  <div class="takeaway"><p><b>До и после ≠ эффект.</b> Внешний мир меняется вместе с продуктом, а моменты, отобранные за экстремальность, сами возвращаются к норме. Нужен контроль — то, что было бы без изменения.</p></div>
+  <a class="next-step" href="02-noise.html"><b>Дальше: 2. Откуда берётся шум</b>Почему цифры скачут без всякой фичи.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611586"></script>
+<script src="/signal/book.js?v=202611586"></script>
+<script src="/signal/py.js?v=202611586"></script>
+<script src="/shad/stats/04/shad.js?v=202611586"></script>
+
+</body>
+</html>
