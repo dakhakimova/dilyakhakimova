@@ -343,8 +343,9 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   const pRow = document.getElementById('g1-prow');
   const setBern = p => { const b = D.bern; b.p = p; b.mu = p; FORM.bern = 'f(x) = p^{x}(1 - p)^{1 - x},\\quad x \\in \\{0, 1\\},\\quad p = ' + p; b.name = 'Бернулли, p = ' + p + ': μ = ' + p + ', σ ≈ ' + num(Math.sqrt(p * (1 - p)), 2); };
   setBern(0.005);
-  pick(g1, 'd', v => { dk = v; pRow.hidden = v !== 'bern'; run(); });
-  pick(pRow, 'p', v => { setBern(+v); run(); });
+  const resetN = () => { n = 1; document.getElementById('g1-n').value = 1; };
+  pick(g1, 'd', v => { dk = v; pRow.hidden = v !== 'bern'; resetN(); run(); });
+  pick(pRow, 'p', v => { setBern(+v); resetN(); run(); });
   const nIn = document.getElementById('g1-n');
   const setN = v => { n = Math.max(1, Math.min(5000, Math.round(+v) || 1)); nIn.value = n; run(); };
   nIn.addEventListener('change', () => setN(nIn.value));
