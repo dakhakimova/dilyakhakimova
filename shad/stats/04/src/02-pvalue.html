@@ -1,0 +1,192 @@
+{"title": "p-value", "short": "2. p-value", "h": "Глава 2 · p-value", "lead": "Леди с чаем, девять орлов из десяти и что p-value не значит", "next": "03-power.html"}
+<section class="card" data-title="Леди и чай">
+  <p class="kicker">Занятие 4 · глава 2</p>
+  <h1>p-value</h1>
+  <p class="lead">Таблица порогов для каждой задачи — неудобно. Индустрия сжала все критерии в одно число — <b>p-value</b>. Его спрашивают на каждом собеседовании и неправильно толкуют чаще всего.</p>
+  <figure class="art"><img src="img/02-tea.jpg" alt="Леди пробует чай из восьми чашек, рядом статистик записывает ответы"></figure>
+  <div class="story"><p>В 1920-х в Кембридже биолог Мюриэл Бристоль сказала, что по вкусу отличает, налили в чашку сначала молоко или сначала чай. Статистик Рональд Фишер предложил проверку: 8 чашек, в 4 сначала молоко, в 4 — чай, в случайном порядке; леди должна найти 4 «молочные». По рассказам очевидцев, она не ошиблась ни разу.</p>
+  <p>Из этой истории в книге Фишера «Планирование экспериментов» (1935) выросли нулевая гипотеза и рандомизация, а в его учебнике 1925 года — привычка считать «редким» то, что случается реже чем в 5% случаев.</p></div>
+  <div class="check" data-ans="70" data-ok="Верно: C₈⁴ = 70, угадать все четыре наугад можно с вероятностью 1/70 ≈ 1.4%."><label>Сколькими способами можно выбрать 4 чашки из 8?</label></div>
+</section>
+
+<section class="card" data-title="Определение p-value">
+  <span class="step-tag">Определение</span>
+  <h2>Что такое p-value</h2>
+  <div class="def">
+    <p><b>p-value</b> — вероятность, <b>если верна \(H_0\)</b>, получить значение статистики <b>такое же, как наблюдаемое, или ещё более экстремальное</b> в сторону альтернативы. Для Боба: \(p = P(X \ge 19 \mid p = 1/2) = 10.0\%\).</p>
+  </div>
+  <p><b>Что из этого следует:</b></p>
+  <ul>
+    <li><b>«\(p \le \alpha\)» ⇔ статистика в критической области.</b> Критическая область — самые экстремальные значения с суммарной вероятностью не больше \(\alpha\). Поэтому один протокол работает для всех критериев: посчитай p-value и сравни с \(\alpha\).</li>
+    <li><b>p-value — наименьшее \(\alpha\), при котором \(H_0\) ещё отвергается.</b> 19 выкупов отвергли бы при любом \(\alpha \ge 10.02\%\).</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Задача: 9 орлов из 10">
+  <span class="task-tag">Задача 5 · <span class="fire">🔥</span> с собеседования</span>
+  <h2>Девять орлов из десяти</h2>
+  <p>Монетку бросили 10 раз и получили <b>9 орлов</b>.</p>
+  <ol>
+    <li>Какова вероятность ровно такого исхода у честной монеты?</li>
+    <li>Проверяем «монета честная» против «нечестная» в любую сторону. Какой p-value? Отвергаем на уровне 5%?</li>
+    <li>Друг говорит: «Вероятность 9 орлов меньше 1% — значит, отвергаем». Что не так?</li>
+  </ol>
+  <div class="game" id="g1">
+    <p class="shad-note">Нажми на столбик — подсветятся исходы «такие же или экстремальнее».</p>
+    <div class="controls"><span class="seg" role="group" aria-label="Альтернатива">
+      <button type="button" class="btn ghost" data-side="2" aria-pressed="true">в любую сторону</button>
+      <button type="button" class="btn ghost" data-side="1" aria-pressed="false">только орлы</button>
+    </span></div>
+    <canvas aria-label="Распределение числа орлов из 10 у честной монеты"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="check" data-ans="0.98" data-tol="0.02" data-unit="%" data-ok="Верно: C₁₀⁹ / 1024 = 10/1024 ≈ 0.98%. Но это ещё не p-value."><label>1. \(P(\text{ровно 9 орлов})\)</label></div>
+  <div class="check" data-ans="2.15" data-tol="0.03" data-unit="%" data-ok="Верно: (10 + 1 + 1 + 10)/1024 = 22/1024 ≈ 2.15% — отвергаем на 5%." data-hint="«Экстремальнее» — это и 10 орлов, и столько же далеко в сторону решек."><label>2. Двустороннее p-value</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Гипотезы.</b> \(H_0\): монета честная, \(p = 1/2\); \(H_1\): \(p \ne 1/2\) — сторону заранее не знаем.</p>
+    <p class="stp"><b>Шаг 2.</b> Число орлов \(X \sim \mathrm{Bin}(10,\ 1/2)\): \(P(X = k) = C_{10}^{k}/1024\). Ровно 9: \(10/1024 \approx 0.98\%\) — это ответ на пункт 1, но <b>не</b> p-value.</p>
+    <p class="stp"><b>Шаг 3. p-value.</b> «Такие или экстремальнее» — исходы не ближе к 5, чем 9: 9 и 10 орлов, 1 и 0 орлов. \(p = (10 + 1 + 1 + 10)/1024 = 22/1024 \approx 2.15\%\). Одностороннее было бы \(11/1024 \approx 1.07\%\).</p>
+    <p class="stp"><b>Шаг 4. Ошибка друга.</b> Он взял вероятность <b>одного</b> исхода. При 1000 бросках ровно 500 орлов выпадает с вероятностью около 2.5% — «редкий исход», но монета честная. Решает вероятность всех исходов, которые свидетельствуют против \(H_0\) не слабее наблюдаемого.</p>
+    <p class="ans">\(P(9) = 10/1024 \approx 1\%\); двустороннее p-value \(22/1024 \approx 2.1\%\) — отвергаем на 5%. Вероятность одного исхода — не p-value.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Что значит p = 0.03">
+  <span class="step-tag">Вопрос</span>
+  <h2>Что из этого — p-value?</h2>
+  <div class="quiz" data-right="d">
+    <p class="q">Тест показал \(p = 0.03\). Какое утверждение верно?</p>
+    <div class="choice"><button type="button" data-v="a" data-why="Переставлены условие и событие: это P(H₀ | данные). Чтобы её посчитать, по Байесу нужна априорная вероятность H₀ — занятие 3.">Вероятность, что \(H_0\) верна, — 3%</button><button type="button" data-v="b" data-why="Вероятность ложного прокраса задаёт α до эксперимента, а доля ошибок среди прокрасов — снова Байес.">Вероятность, что мы ошиблись, отвергнув \(H_0\), — 3%</button><button type="button" data-v="c" data-why="z = Δ / SE, а SE падает как 1/√n: при огромной выборке крошечный эффект даёт крошечное p.">Эффект большой</button><button type="button" data-v="d">Если бы эффекта не было, такие же или ещё более экстремальные данные встречались бы в 3% случаев</button></div>
+    <p class="why">Это дословно определение: \(p = P(\text{данные такие или экстремальнее} \mid H_0)\). Условие — гипотеза, событие — данные.</p>
+  </div>
+</section>
+
+<section class="card" data-title="➕ Три клиники">
+  <span class="task-tag extra">Задача 6 · дополнительная</span>
+  <h2>Одна разница, три исследования</h2>
+  <p>Программа реабилитации после операции на колене. Через месяц балл подвижности (0–100) в группе с программой в среднем <b>52</b>, без неё — <b>50</b>, разброс в обеих группах \(\sigma \approx 7\). Три клиники провели одно и то же исследование: по <b>30</b>, <b>60</b> и <b>100</b> пациентов в группе. Где «эффект есть», а где «нет»?</p>
+  <div class="game" id="g2">
+    <div class="controls"><span>Пациентов в группе:</span><span class="seg" role="group" aria-label="Размер группы">
+      <button type="button" class="btn ghost" data-n="30" aria-pressed="true">30</button><button type="button" class="btn ghost" data-n="60" aria-pressed="false">60</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
+    </span></div>
+    <canvas aria-label="Распределение разности средних при H0 и наблюдаемая разница 2 балла"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="check" data-ans="4.3" data-tol="0.15" data-unit="%" data-ok="Верно: SE = 7·√(2/100) ≈ 0.99, z ≈ 2.02, p ≈ 4.3%."><label>p-value в клинике со 100 пациентами в группе</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">Стандартная ошибка разности средних \(\mathrm{SE} = \sigma\sqrt{2/n}\), статистика \(z = (52 - 50)/\mathrm{SE}\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
+    <table class="tails"><tr><th>\(n\) в группе</th><th>SE</th><th>\(z\)</th><th>p</th></tr>
+      <tr><td>30</td><td>1.81</td><td>1.11</td><td>0.27</td></tr><tr><td>60</td><td>1.28</td><td>1.56</td><td>0.12</td></tr><tr class="hit"><td>100</td><td>0.99</td><td>2.02</td><td>0.043</td></tr><tr><td>1000</td><td>0.31</td><td>6.39</td><td>\(1.7 \cdot 10^{-10}\)</td></tr></table>
+    <p class="ans">Разница везде одна и та же — 2 балла, а p меняется от 0.27 до \(10^{-10}\). p зависит от размера выборки и не измеряет величину эффекта; о величине говорит интервал (глава 6).</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Прогноз: A/A-тесты">
+  <span class="step-tag">Прогноз</span>
+  <h2>Как распределено p-value, если эффекта нет?</h2>
+  <p>Запустим много A/A-тестов: в обеих группах по 1000 пользователей, конверсия 10%, эффекта нет. У каждого посчитаем p-value.</p>
+  <div class="guess" data-key="aa" data-min="0" data-max="100" data-unit="%">
+    <div class="guess-row"><label class="field phrase" for="g-aa">Прокрасятся на уровне 5% примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g-aa">% A/A-тестов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
+    <p class="note">Напиши число — на следующей карточке прогоним тысячи тестов.</p>
+  </div>
+</section>
+
+<section class="card" data-title="Игра: гистограмма p-value">
+  <span class="step-tag">Поиграй</span>
+  <h2>Гистограмма p-value</h2>
+  <div class="game" id="g3">
+    <div class="controls">
+      <span class="seg" role="group" aria-label="Мир"><button type="button" class="btn ghost" data-w="0" aria-pressed="true">Эффекта нет (A/A)</button><button type="button" class="btn ghost" data-w="1" aria-pressed="false">Эффект +3 п. п.</button></span>
+      <button type="button" class="btn" id="g3-run">Провести 2000 тестов</button>
+    </div>
+    <canvas aria-label="Гистограмма p-value"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="card" data-title="p-value равномерно">
+  <span class="step-tag">Определение</span>
+  <h2>При верной \(H_0\) p-value распределено равномерно</h2>
+  <div class="def"><p>Если эффекта нет, p-value с равной вероятностью попадает в любой отрезок одной длины: \(P(p \le \alpha \mid H_0) = \alpha\) для любого \(\alpha\). Поэтому гистограмма p-value в A/A-тестах плоская, и ровно 5% из них «прокрашиваются» на уровне 5%. Когда эффект есть, p-value сгущается у нуля — тем сильнее, чем больше эффект и выборка.</p></div>
+  <details class="sol"><summary>Для любопытных: почему равномерно</summary><div class="body">
+    <p class="stp">Пусть статистика \(Z\) при \(H_0\) имеет непрерывную функцию распределения \(F(z) = P(Z \le z)\), и отвергаем при больших \(Z\). Тогда p-value — хвост от наблюдённого значения: \(p = 1 - F(Z)\).</p>
+    <p class="stp">1. Возьмём любое \(u \in (0, 1)\). Событие \(\{p \le u\}\) — это \(\{F(Z) \ge 1 - u\}\).</p>
+    <p class="stp">2. \(F\) возрастает, поэтому \(F(Z) \ge 1 - u \iff Z \ge F^{-1}(1 - u)\).</p>
+    <p class="stp">3. \(P(Z \ge F^{-1}(1 - u)) = 1 - (1 - u) = u\).</p>
+    <p class="stp">Итак, \(P(p \le u) = u\) — функция распределения равномерного закона на \([0, 1]\). Для двусторонних критериев то же с \(|Z|\). Для дискретных статистик, как биномиальная, равенство превращается в «\(\le\)»: критерий чуть консервативнее.</p>
+    <p class="ans">Проверка любого критерия на своих данных — A/A-симуляция: если гистограмма p-value не плоская, критерий врёт (занятие 5).</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог главы</span>
+  <h2>Что значит и чего не значит p-value</h2>
+  <div class="takeaway"><p>p-value — вероятность данных «таких или экстремальнее» <b>при условии \(H_0\)</b>. Это не вероятность \(H_0\), не вероятность ошибки и не размер эффекта. Если \(H_0\) верна, p-value равномерно — поэтому «\(p \le \alpha\)» ошибается ровно в доле \(\alpha\) случаев.</p></div>
+  <a class="next-step" href="03-power.html"><b>Дальше: 3. Две ошибки и мощность</b>Три странных критерия и осьминог Пауль.</a>
+</section>
+
+<script>
+(function(){
+  const BAR = '#A9B8DA';
+  const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
+  // 1: девять орлов
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
+  const pm = Array.from({length: 11}, (_, k) => binomPmf(10, k, 0.5));
+  let obs = 9, side = 2, bars = [];
+  const extreme = k => side === 2 ? Math.abs(k - 5) >= Math.abs(obs - 5) : (obs >= 5 ? k >= obs : k <= obs);
+  function paint1(){
+    const g = canvas(cv1, 0.38, 0.7); if (!g) return; const {c, w, h} = g, L = 44, R = 10, T = 14, B = 30, top = 0.27;
+    axisY(c, L, R, T, h - T - B, w, 0, top, 0.05, v => numT(100 * v, 0) + '%');
+    const bw = (w - L - R) / 11; bars = [];
+    for (let k = 0; k <= 10; k++){ const x = L + k * bw, hh = (h - T - B) * pm[k] / top; c.fillStyle = extreme(k) ? COL.trap : BAR; c.fillRect(x + bw * 0.12, h - B - hh, bw * 0.76, hh); label(c, String(k), x + bw / 2, h - B + 15, k === obs ? COL.ctrl : COL.ink2, 'center'); bars.push([x, x + bw, k]); }
+    label(c, 'орлов из 10', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
+    let s = 0, list = []; for (let k = 0; k <= 10; k++) if (extreme(k)){ s += pm[k] * 1024; list.push(k); }
+    out1.innerHTML = 'Наблюдали <b>' + obs + '</b> орлов. Ровно такой исход: ' + int(pm[obs] * 1024) + '/1024 = ' + share(pm[obs], 2) + '. «Такие или экстремальнее» (' + list.join(', ') + '): ' + int(s) + '/1024 = <b>' + share(s / 1024, 2) + '</b> — это p-value.';
+  }
+  cv1.addEventListener('click', e => { const r = cv1.getBoundingClientRect(), x = e.clientX - r.left, b = bars.find(q => x >= q[0] && x < q[1]); if (b){ obs = b[2]; paint1(); } });
+  cv1.style.cursor = 'pointer';
+  pick(g1, 'side', v => { side = +v; paint1(); });
+  // 2: три клиники
+  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas'), out2 = g2.querySelector('.out');
+  let n2 = 30;
+  function paint2(){
+    const g = canvas(cv2, 0.34, 0.62); if (!g) return; const {c, w, h} = g, L = 16, R = 16, T = 18, B = 30;
+    const se = 7 * Math.sqrt(2 / n2), z = 2 / se, p = 2 * (1 - normCdf(z)), lo = -6, hi = 6, X = v => L + (v - lo) / (hi - lo) * (w - L - R), top = normPdf(0) * 1.12, Y = v => h - B - (h - T - B) * v / top;
+    const cut = 1.96 * se;
+    Book.bellTails(c, X, Y, 0, se, lo, hi, -cut, cut, {fill: COL.trap, stroke: COL.gray, unit: true});
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = -6; v <= 6; v += 2) label(c, signed(v, 0), X(v), h - B + 15, COL.ink2, 'center');
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); c.moveTo(X(2), T); c.lineTo(X(2), h - B); c.stroke();
+    label(c, 'наблюдали +2', X(2) + 5, T + 10, COL.ctrl); label(c, 'красное — за ±1.96 SE', X(-6), T + 10, COL.trapInk);
+    label(c, 'разница средних, баллы; колокол — где она бывает без эффекта', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
+    out2.innerHTML = 'SE = 7·√(2/' + n2 + ') = ' + num(se, 2) + ', z = 2 / SE = ' + num(z, 2) + ', p = <b>' + (p < 0.001 ? num(p * 1e10, 1) + '·10⁻¹⁰' : share(p, 1)) + '</b> — ' + (p <= 0.05 ? '«эффект есть»' : '«эффекта нет»') + '. Разница та же, меняется только узость колокола.';
+  }
+  pick(g2, 'n', v => { n2 = +v; paint2(); });
+  // 3: гистограмма p-value
+  const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector('.out');
+  let world = 0, pv = null;
+  function sim(){
+    const n = 1000, res = [];
+    for (let i = 0; i < 2000; i++){ const a = binom(n, 0.10) / n, b = binom(n, world ? 0.13 : 0.10) / n, se = Math.sqrt(a * (1 - a) / n + b * (1 - b) / n); res.push(se ? 2 * (1 - normCdf(Math.abs(b - a) / se)) : 1); }
+    pv = res; paint3();
+  }
+  function paint3(){
+    const g = canvas(cv3, 0.4, 0.7); if (!g) return; const {c, w, h} = g, L = 44, R = 20, T = 14, B = 30;
+    if (!pv){ Book.invite(c, 'Нажми «Провести 2000 тестов»', w / 2, h / 2); return; }
+    const cnt = new Array(20).fill(0); pv.forEach(p => cnt[Math.min(19, Math.floor(p * 20))]++);
+    const top = Math.max(0.12, Math.max(...cnt) / pv.length * 1.1), step = top > 0.3 ? 0.1 : 0.02;
+    axisY(c, L, R, T, h - T - B, w, 0, top, step, v => numT(100 * v, 0) + '%');
+    const bw = (w - L - R) / 20;
+    cnt.forEach((v, i) => { const hh = (h - T - B) * v / pv.length / top; c.fillStyle = i === 0 ? COL.trap : BAR; c.fillRect(L + i * bw + 1, h - B - hh, bw - 2, hh); });
+    const ey = h - B - (h - T - B) * 0.05 / top; c.strokeStyle = COL.ink2; c.setLineDash([4, 4]); c.beginPath(); c.moveTo(L, ey); c.lineTo(w - R, ey); c.stroke(); c.setLineDash([]);
+    label(c, '5% тестов — плоский уровень', w - R - 4, ey - 6, COL.ink2, 'right');
+    for (let v = 0; v <= 1; v += 0.25) label(c, num(v, 2), L + v * (w - L - R), h - B + 15, COL.ink2, 'center');
+    label(c, 'p-value', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
+    const sh = cnt[0] / pv.length, gs = Book.guess('aa');
+    out3.innerHTML = (gs !== null && !world ? 'Твой прогноз — ' + shareT(gs / 100, 1) + '. ' : '') + 'Прокрасилось (p ≤ 0.05): <b>' + share(sh, 1) + '</b> тестов. ' + (world ? 'Эффект есть — p-value прижимается к нулю. Эта доля — мощность, о ней следующая глава.' : 'Эффекта нет — гистограмма плоская, в каждый столбик попадает около 5%.');
+  }
+  pick(g3, 'w', v => { world = +v; pv = null; paint3(); });
+  document.getElementById('g3-run').addEventListener('click', sim);
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+})();
+</script>

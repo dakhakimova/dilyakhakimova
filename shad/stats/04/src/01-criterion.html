@@ -1,0 +1,201 @@
+{"title": "Критерий своими руками", "short": "1. Критерий своими руками", "h": "Глава 1 · Критерий", "lead": "Доставка с примеркой: 19 из 30 — это доказательство?", "next": "02-pvalue.html"}
+<section class="card" data-title="Доставка с примеркой">
+  <p class="kicker">Занятие 4 · глава 1</p>
+  <h1>Критерий своими руками</h1>
+  <figure class="art"><img src="img/01-fitting.jpg" alt="Боб держит табличку 19 из 30, Алиса показывает инвесторам гистограмму, Котейка в мешке со свитером"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Алиса, у меня гениальная идея — доставка одежды с примеркой. Пилот прошёл, 63% выкупили! Инвесторам нести?</p></div></div>
+  </div>
+  <p class="lead">Любой A/B-тест в конце говорит «прокрасилось» или «нет». За этим стоит <b>статистический критерий</b> — правило, которое по данным решает, верить ли эффекту. Соберём его на самом маленьком примере, где всё видно глазами.</p>
+</section>
+
+<section class="card" data-title="Кейс: 19 из 30">
+  <span class="task-tag">Кейс 1</span>
+  <h2>19 выкупов из 30</h2>
+  <p>Курьер привозит одежду, клиент меряет дома и выкупает или отказывается. Доставка стоит <b>500 ₽</b>, выкупленный заказ приносит <b>1 000 ₽</b>. Выкуп — это +500 ₽, отказ — −500 ₽, поэтому бизнес окупается, если вероятность выкупа \(p\) <b>больше 1/2</b>.</p>
+  <p>Денег на большой пилот нет: Боб набрал <b>30 клиентов</b>, выкупили <b>19</b> — это 63%. Инвесторы: «Повтори пилот — может выйти 16 из 30. А может и 12».</p>
+  <p><b>Навскидку:</b> тебя 19 из 30 убеждает?</p>
+  <div class="choice" data-key="convince" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="yes" data-fb="Запомни ответ — через пару карточек проверим расчётом.">Да, 63% — это много</button>
+    <button type="button" data-v="no" data-fb="Запомни ответ — через пару карточек проверим расчётом.">Нет, клиентов слишком мало</button>
+  </div>
+  <p>Инвесторы готовы ошибочно дать деньги неокупаемому бизнесу <b>не чаще чем в 5% случаев</b>. Начиная со скольких выкупов из 30 им стоит давать деньги?</p>
+</section>
+
+<section class="card" data-title="Гипотезы и критерий">
+  <span class="step-tag">Определение</span>
+  <h2>Гипотезы, статистика, критерий</h2>
+  <div class="def">
+    <p><b>Нулевая гипотеза</b> \(H_0\) — «ничего интересного нет»: бизнес не окупается. Здесь \(H_0:\ p = 1/2\).</p>
+    <p><b>Альтернатива</b> \(H_1\) — то, что хотим доказать: \(H_1:\ p > 1/2\).</p>
+    <p><b>Статистика</b> — число, которое считаем по данным. Здесь — число выкупов \(X\) из 30. Если верна \(H_0\), то \(X \sim \mathrm{Bin}(30,\ 1/2)\).</p>
+    <p><b>Критерий</b> — правило «отвергаем \(H_0\), если статистика попала в <b>критическую область</b>». Здесь: «отвергаем, если \(X \ge k\)».</p>
+    <p><b>Уровень значимости</b> \(\alpha\) — допустимая вероятность отвергнуть верную \(H_0\): \(P(\text{отвергли} \mid H_0) \le \alpha\). Это <b>ошибка первого рода</b>. Её назначает тот, кто платит за ошибку, — здесь инвесторы, \(\alpha = 5\%\).</p>
+  </div>
+  <p>Главная идея: <b>мы не доказываем \(H_1\) напрямую</b>. Предполагаем, что эффекта нет, и смотрим, хватит ли у данных сил нас переубедить.</p>
+</section>
+
+<section class="card" data-title="Игра: найди порог">
+  <span class="step-tag">Поиграй</span>
+  <h2>Где начинается критическая область?</h2>
+  <p>Столбики — сколько выкупов бывает в мире <b>без эффекта</b>, при \(p = 1/2\). Двигай порог \(k\): красное — критическая область «\(X \ge k\)», её вероятность и есть ошибка первого рода.</p>
+  <div class="game" id="g1">
+    <div class="controls">
+      <span>Порог \(k\):</span>
+      <span class="stepper" data-min="10" data-max="28" data-v="23"><button class="btn ghost" type="button" aria-label="Меньше">−</button><output></output><button class="btn ghost" type="button" aria-label="Больше">+</button></span>
+      <span class="seg" role="group" aria-label="Альтернатива">
+        <button type="button" class="btn ghost" data-side="1" aria-pressed="true">\(p &gt; 1/2\)</button>
+        <button type="button" class="btn ghost" data-side="2" aria-pressed="false">\(p \ne 1/2\)</button>
+      </span>
+    </div>
+    <canvas aria-label="Распределение числа выкупов при H0 и критическая область"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="check" data-ans="20" data-ok="Верно: от 20 — 4.94%, от 19 — уже 10.02%." data-hint="Найди самый маленький порог, при котором красное ещё не больше 5%."><label>С какого числа выкупов давать деньги при α = 5%?</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Гипотезы.</b> Ожидаемая прибыль с доставки \(500p - 500(1-p) = 1000p - 500 > 0 \iff p > 1/2\). \(H_0:\ p = 1/2\), \(H_1:\ p > 1/2\) — односторонняя.</p>
+    <p class="stp"><b>Шаг 2. Статистика.</b> \(X\) — число выкупов; клиенты независимы, поэтому при \(H_0\) \(X \sim \mathrm{Bin}(30,\ 1/2)\): \(P(X = k) = C_{30}^{k} / 2^{30}\).</p>
+    <p class="stp"><b>Шаг 3.</b> \(\alpha = 5\%\).</p>
+    <p class="stp"><b>Шаг 4. Критическая область.</b> Ищем самый маленький \(k\), при котором \(P(X \ge k \mid H_0) \le 5\%\).</p>
+    <table class="tails"><tr><th>отвергаем, если</th><th>\(P(\,\cdot \mid H_0)\)</th></tr>
+      <tr><td>\(X \ge 18\)</td><td>18.08%</td></tr><tr><td>\(X \ge 19\)</td><td>10.02%</td></tr><tr class="hit"><td>\(X \ge 20\)</td><td>4.94%</td></tr><tr><td>\(X \ge 21\)</td><td>2.14%</td></tr><tr><td>\(X \ge 22\)</td><td>0.81%</td></tr></table>
+    <p class="stp">Порог 21 тоже даёт \(\alpha \le 5\%\), но отвергает реже, чем разрешено, — значит, чаще пропускает окупаемые бизнесы. Берём самый мягкий допустимый: \(X \ge 20\).</p>
+    <p class="stp"><b>Шаг 5. Решение.</b> 19 &lt; 20 — не в критической области, \(H_0\) не отвергаем. 19 из 30 не противоречат тому, что выкуп ровно 50%. Это <b>не</b> доказательство, что бизнес неокупаем: данных просто мало.</p>
+    <p class="ans">Критическая область \(X \ge 20\), её вероятность 4.94%. 19 в неё не попадает — денег не дают.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: α = 10%">
+  <span class="task-tag">Задача 2</span>
+  <h2>Инвесторы подобрели: \(\alpha = 10\%\)</h2>
+  <p>Инвесторы согласны ошибаться чаще — не больше 10% ложных «да». Изменится ли решение для 19 выкупов из 30? Сначала ответь навскидку.</p>
+  <div class="check" data-ans="20" data-ok="Верно: хвост «от 19» — 10.02%, это больше 10%." data-hint="Сравни хвост «от 19» с 10% — точно, до сотых."><label>С какого числа выкупов теперь начинается критическая область?</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">Ищем наименьший \(k\) с \(P(X \ge k) \le 10\%\): \(P(X \ge 19) = 10.02\%\) — <b>больше</b> 10%, хоть и на сотые; \(P(X \ge 20) = 4.94\%\) — подходит.</p>
+    <p class="stp">У дискретного распределения хвосты идут скачками: между 4.94% и 10.02% ничего нет, поэтому при любом \(\alpha\) от 4.94% до 10.01% критерий один и тот же.</p>
+    <p class="ans">Критическая область прежняя, \(X \ge 20\). Даже добрые инвесторы за 19 из 30 денег не дают: решает хвост, а не «на глаз почти».</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Одна сторона или две">
+  <span class="step-tag">Определение</span>
+  <h2>Односторонняя и двусторонняя альтернатива</h2>
+  <div class="def">
+    <p><b>Односторонняя:</b> \(H_1:\ p > 1/2\) — критическая область только справа, весь \(\alpha\) в одном хвосте.</p>
+    <p><b>Двусторонняя:</b> \(H_1:\ p \ne 1/2\) — отвергаем и при слишком больших, и при слишком маленьких значениях; \(\alpha\) делим поровну, по \(\alpha/2\) в каждый хвост.</p>
+  </div>
+  <p>В A/B-платформах по умолчанию <b>двусторонняя</b>: нужно замечать не только рост, но и падение метрик. Сторону выбирают <b>до</b> данных: выбрать её после того, как увидел знак эффекта, — значит тайком удвоить \(\alpha\).</p>
+  <div class="game" id="g2">
+    <canvas aria-label="Односторонний и двусторонний критерий"></canvas>
+    <p class="out"></p>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: в обе стороны">
+  <span class="task-tag">Задача 3</span>
+  <h2>Двусторонняя альтернатива</h2>
+  <p>Те же 30 клиентов, но вопрос другой: «выкуп отличается от 1/2 в любую сторону?», \(\alpha = 5\%\). Какой будет критическая область? Отвергаем ли \(H_0\) при 19 выкупах? Проверь себя на игре — включи \(p \ne 1/2\).</p>
+  <div class="check" data-ans="21" data-ok="Верно: «от 21» — 2.14%, влезает в 2.5%; «от 20» — 4.94%, уже нет."><label>Правая граница: отвергаем, если \(X \ge\)</label></div>
+  <div class="check" data-ans="9" data-ok="Верно: по симметрии P(X ≤ 9) = P(X ≥ 21) = 2.14%."><label>Левая граница: отвергаем, если \(X \le\)</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> \(H_0:\ p = 1/2\), \(H_1:\ p \ne 1/2\).</p>
+    <p class="stp"><b>Шаг 2.</b> При \(H_0\) \(X \sim \mathrm{Bin}(30,\ 1/2)\) симметрично относительно 15: \(P(X \ge k) = P(X \le 30 - k)\).</p>
+    <p class="stp"><b>Шаг 3.</b> \(\alpha = 5\%\) — по 2.5% в каждый хвост.</p>
+    <p class="stp"><b>Шаг 4.</b> Справа: \(P(X \ge 21) = 2.14\% \le 2.5\%\), \(P(X \ge 20) = 4.94\% > 2.5\%\) — правая часть \(X \ge 21\). Слева по симметрии \(X \le 9\). Вероятность всей области \(2 \cdot 2.14\% = 4.28\%\).</p>
+    <p class="stp"><b>Шаг 5.</b> 19 не в области — не отвергаем. Двустороннее p-value для 19 — \(2 \cdot 10.02\% \approx 20\%\).</p>
+    <p class="ans">\(X \le 9\) или \(X \ge 21\), всего 4.28%; при 19 \(H_0\) не отвергаем.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="➕ 10 из 50">
+  <span class="task-tag extra">Задача 4 · дополнительная</span>
+  <h2>Окупается каждый десятый: 10 из 50</h2>
+  <p>Другая бизнес-модель: доставка окупается, если выкупает <b>больше чем каждый десятый</b>. \(H_0:\ p = 0.1\), \(H_1:\ p > 0.1\), \(\alpha = 5\%\). В пилоте 50 клиентов, выкупили 10. Построй критерий и дай вердикт.</p>
+  <div class="game" id="g3">
+    <div class="controls">
+      <span>Порог \(k\):</span>
+      <span class="stepper" data-min="5" data-max="16" data-v="14"><button class="btn ghost" type="button" aria-label="Меньше">−</button><output></output><button class="btn ghost" type="button" aria-label="Больше">+</button></span>
+    </div>
+    <canvas aria-label="Распределение Bin(50, 0.1) и критическая область"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="check" data-ans="10" data-ok="Верно: от 10 — 2.45%, от 9 — уже 5.79%."><label>Критическая область: отвергаем, если \(X \ge\)</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">При \(H_0\) \(X \sim \mathrm{Bin}(50,\ 0.1)\), в среднем 5 выкупов; распределение уже несимметрично.</p>
+    <p class="stp">Хвосты: \(P(X \ge 9) = 5.79\%\) — больше 5%; \(P(X \ge 10) = 2.45\%\) — подходит. Критическая область \(X \ge 10\).</p>
+    <p class="ans">Наблюдали 10 — попали в область, p-value 2.45%. \(H_0\) отвергаем: выкупают больше каждого десятого, бизнес окупается.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог главы</span>
+  <h2>Критерий за четыре шага</h2>
+  <div class="takeaway"><p><b>Гипотезы → статистика и её распределение при \(H_0\) → \(\alpha\) → критическая область.</b> Решение принимает хвост распределения, а не красивая точечная оценка: 63% на 30 клиентах — ещё не доказательство.</p></div>
+  <a class="next-step" href="02-pvalue.html"><b>Дальше: 2. p-value</b>Леди, дегустирующая чай, и девять орлов из десяти.</a>
+</section>
+
+<script>
+(function(){
+  // хвосты биномиального распределения при H0
+  const pmfs = (n, p) => Array.from({length: n + 1}, (_, k) => binomPmf(n, k, p));
+  const tail = (pm, k) => pm.slice(k).reduce((a, b) => a + b, 0);
+  const head = (pm, k) => pm.slice(0, k + 1).reduce((a, b) => a + b, 0);
+  // рисует столбики Bin(n, p); red(k) — в критической области; obs — наблюдение
+  function draw(cv, n, p, red, obs, kFrom, kTo){
+    const g = canvas(cv, 0.42, 0.75); if (!g) return; const {c, w, h} = g, pm = pmfs(n, p);
+    const L = 44, R = 12, T = 14, B = 34, top = Math.max(...pm.slice(kFrom, kTo + 1)) * 1.12, step = Book.niceStep(top * 100, 4) / 100;
+    axisY(c, L, R, T, h - T - B, w, 0, top, step, v => numT(100 * v, 1) + '%');
+    const nb = kTo - kFrom + 1, bw = (w - L - R) / nb;
+    for (let k = kFrom; k <= kTo; k++){
+      const x = L + (k - kFrom) * bw, hh = (h - T - B) * pm[k] / top;
+      c.fillStyle = red(k) ? COL.trap : '#A9B8DA'; c.fillRect(x + bw * 0.1, h - B - hh, bw * 0.8, hh);
+      if (bw > 13 || k % 2 === 0) label(c, String(k), x + bw / 2, h - B + 15, k === obs ? COL.ctrl : COL.ink2, 'center');
+    }
+    if (obs != null){ const x = L + (obs - kFrom + 0.5) * bw; c.strokeStyle = COL.ctrl; c.setLineDash([5, 4]); c.lineWidth = 1.6; c.beginPath(); c.moveTo(x, T); c.lineTo(x, h - B); c.stroke(); c.setLineDash([]); label(c, 'наблюдали ' + obs, x + 5, T + 10, COL.ctrl); }
+    label(c, 'сколько выкупили из ' + n, L + (w - L - R) / 2, h - 4, COL.ink2, 'center');
+    return pm;
+  }
+  // игра 1: порог и сторона
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector(".out");
+  let side = 1, k1 = 23;
+  const pm30 = pmfs(30, 0.5);
+  function paint1(){
+    const lo = 30 - k1;
+    draw(cv1, 30, 0.5, k => k >= k1 || (side === 2 && k <= lo), 19, 0, 30);
+    const a = side === 1 ? tail(pm30, k1) : tail(pm30, k1) + head(pm30, lo), lim = side === 1 ? 0.05 : 0.025;
+    const okA = side === 1 ? a <= 0.05 : tail(pm30, k1) <= 0.025;
+    out1.innerHTML = (side === 1 ? 'Отвергаем, если X ≥ ' + k1 : 'Отвергаем, если X ≤ ' + lo + ' или X ≥ ' + k1) +
+      ': ошибка первого рода <b>' + share(a, 2) + '</b>' + (side === 2 ? ' (по ' + share(tail(pm30, k1), 2) + ' в хвосте)' : '') + '. ' +
+      (okA ? '✓ Укладывается в ' + (side === 1 ? '5%' : '2.5% на хвост') + '.' : '✗ Больше ' + (side === 1 ? '5%' : '2.5% на хвост') + ' — не годится.') +
+      ' 19 ' + (k1 <= 19 ? '<b>в</b> критической области.' : 'не в критической области.');
+  }
+  const st1 = Stepper(g1.querySelector('.stepper'), v => { k1 = v; paint1(); });
+  g1.querySelectorAll('[data-side]').forEach(b => b.addEventListener('click', () => {
+    side = +b.dataset.side; g1.querySelectorAll('[data-side]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); st1.set(Math.max(k1, 16));
+  }));
+  // картинка 2: две панели
+  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas');
+  function paint2(){
+    const g = canvas(cv2, 0.36, 1.1); if (!g) return; const {c, w, h} = g, mob = w < 620;
+    const pw = mob ? w : w / 2 - 8, ph = mob ? h / 2 - 6 : h, top = Math.max(...pm30) * 1.15;
+    [[0, 0, 'H₁: p > 1/2 — весь α справа', k => k >= 20, 'X ≥ 20: 4.94%'], [mob ? 0 : w / 2 + 8, mob ? h / 2 + 6 : 0, 'H₁: p ≠ 1/2 — по α/2 в хвост', k => k >= 21 || k <= 9, 'X ≤ 9 и X ≥ 21: по 2.14%']].forEach(([ox, oy, t, red, lab]) => {
+      const L = ox + 8, B = oy + ph - 22, T = oy + 44, bw = (pw - 16) / 31;
+      label(c, t, ox + pw / 2, oy + 14, COL.ink, 'center');
+      for (let k = 0; k <= 30; k++){ const hh = (B - T) * pm30[k] / top; c.fillStyle = red(k) ? COL.trap : '#A9B8DA'; c.fillRect(L + k * bw + bw * 0.1, B - hh, bw * 0.8, hh); if (k % 5 === 0) label(c, String(k), L + k * bw + bw / 2, B + 14, COL.ink2, 'center'); }
+      const x19 = L + 19.5 * bw; c.strokeStyle = COL.ctrl; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(x19, T); c.lineTo(x19, B); c.stroke(); c.setLineDash([]);
+      label(c, lab, ox + pw / 2, oy + 32, COL.trapInk, 'center'); label(c, '19', x19 + 4, T + 10, COL.ctrl);
+    });
+  }
+  g2.querySelector(".out").innerHTML = 'Для 19 выкупов: одностороннее p-value — <b>10.02%</b>, двустороннее — <b>20.04%</b>. Справа в двустороннем разрешено вдвое меньше ошибки, поэтому порог сдвинулся с 20 на 21.';
+  // игра 3: Bin(50, 0.1)
+  const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector(".out");
+  const pm50 = pmfs(50, 0.1); let k3 = 14;
+  function paint3(){
+    draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20);
+    const a = tail(pm50, k3);
+    out3.innerHTML = 'Отвергаем, если X ≥ ' + k3 + ': ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
+  }
+  Stepper(g3.querySelector('.stepper'), v => { k3 = v; paint3(); });
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+})();
+</script>
