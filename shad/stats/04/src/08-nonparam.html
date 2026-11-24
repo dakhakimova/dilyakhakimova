@@ -41,17 +41,17 @@
     <li><b>Критерий.</b> Отвергаем при больших значениях: для \(k = 3\) порог на 5% — 5.99.</li>
     <li><b>Связь с z-тестом.</b> Для конверсии в двух группах \(\chi^2\) и z-тест из блока 5 — один и тот же критерий: \(\chi^2 = z^2\).
       <ol class="reveal">
-        <li><b>Таблица 2×2.</b> Строки — группы A и B, столбцы — «конверсия» и «нет». В A конверсий \(x_A\) из \(n_A\), в B — \(x_B\) из \(n_B\), \(N = n_A + n_B\). \(H_0\): конверсия одна и та же, её оценка по обеим группам вместе — \(\hat p = \frac{x_A + x_B}{N}\). В клетке — наблюдали \(O\), под ним ожидали \(E\):
+        <li><b>Таблица 2×2.</b> Строки — группы A и B, столбцы — «конверсия» и «нет». В A конверсий \(x_A\) из \(n_A\), в B — \(x_B\) из \(n_B\), \(N = n_A + n_B\). \(H_0\): конверсия одна и та же, её оценка по обеим группам вместе — \(\hat p = \frac{x_A + x_B}{N}\). Клетку обозначим \(ij\): \(i\) — группа A или B, \(j\) — 1 для конверсии и 0 для «нет». В клетке — наблюдали \(O_{ij}\), под ним ожидали \(E_{ij}\):
           <div class="report-wrap"><table class="tails grid"><thead><tr><th></th><th>Конверсия</th><th>Нет</th><th>Всего</th></tr></thead><tbody>
-            <tr><td>A</td><td>\(x_A\)<br>\(E = n_A\hat p\)</td><td>\(n_A - x_A\)<br>\(E = n_A(1 - \hat p)\)</td><td>\(n_A\)</td></tr>
-            <tr><td>B</td><td>\(x_B\)<br>\(E = n_B\hat p\)</td><td>\(n_B - x_B\)<br>\(E = n_B(1 - \hat p)\)</td><td>\(n_B\)</td></tr>
+            <tr><td>A</td><td>\(O_{A1} = x_A\)<br>\(E_{A1} = n_A\hat p\)</td><td>\(O_{A0} = n_A - x_A\)<br>\(E_{A0} = n_A(1 - \hat p)\)</td><td>\(n_A\)</td></tr>
+            <tr><td>B</td><td>\(O_{B1} = x_B\)<br>\(E_{B1} = n_B\hat p\)</td><td>\(O_{B0} = n_B - x_B\)<br>\(E_{B0} = n_B(1 - \hat p)\)</td><td>\(n_B\)</td></tr>
             <tr><td><b>Всего</b></td><td>\(x_A + x_B = N\hat p\)</td><td>\(N(1 - \hat p)\)</td><td>\(N\)</td></tr>
           </tbody></table></div>
-          Суммы по строкам и столбцам у \(O\) и \(E\) одни и те же — на этом держится следующий шаг.</li>
-        <li><b>Все четыре отклонения одинаковы по модулю.</b> Отклонение в клетке — это \(O - E\), наблюдали минус ожидали. Обозначим отклонение в клетке «A, конверсия»:
-          <p class="formula">\[d = x_A - n_A\hat p.\]</p>
-          Итоги строк и столбцов у \(O\) и \(E\) одинаковые, поэтому остальные три отклонения — тоже \(\pm d\):
-          <div class="report-wrap"><table class="tails grid"><thead><tr><th>\(O - E\)</th><th>Конверсия</th><th>Нет</th><th>Всего</th></tr></thead><tbody>
+          Суммы по строкам и столбцам у \(O_{ij}\) и \(E_{ij}\) одни и те же — на этом держится следующий шаг.</li>
+        <li><b>Все четыре отклонения одинаковы по модулю.</b> Отклонение в клетке — это \(O_{ij} - E_{ij}\), наблюдали минус ожидали. Обозначим отклонение в клетке «A, конверсия»:
+          <p class="formula">\[d = O_{A1} - E_{A1} = x_A - n_A\hat p.\]</p>
+          Итоги строк и столбцов у \(O_{ij}\) и \(E_{ij}\) одинаковые, поэтому остальные три отклонения — тоже \(\pm d\):
+          <div class="report-wrap"><table class="tails grid"><thead><tr><th>\(O_{ij} - E_{ij}\)</th><th>Конверсия</th><th>Нет</th><th>Всего</th></tr></thead><tbody>
             <tr><td>A</td><td>\(+d\)</td><td>\(-d\)</td><td>0</td></tr>
             <tr><td>B</td><td>\(-d\)</td><td>\(+d\)</td><td>0</td></tr>
             <tr><td><b>Всего</b></td><td>0</td><td>0</td><td>0</td></tr>
@@ -59,10 +59,10 @@
           Чему равно \(d\): подставляем \(\hat p = \frac{x_A + x_B}{N}\) и \(N = n_A + n_B\):
           <p class="formula">\[d = x_A - n_A\frac{x_A + x_B}{N} = \frac{x_A n_B - x_B n_A}{N} = \frac{n_A n_B}{N}\,(\hat p_A - \hat p_B),\]</p>
           где \(\hat p_A = x_A/n_A\), \(\hat p_B = x_B/n_B\) — конверсии групп.</li>
-        <li><b>Складываем.</b> Во всех четырёх клетках \((O - E)^2 = d^2\), поэтому \(d^2\) выносится за сумму:
-          <p class="formula">\[\chi^2 = \sum \frac{(O - E)^2}{E} = d^2 \sum \frac{1}{E} = d^2\left(\frac{1}{n_A\hat p} + \frac{1}{n_A(1 - \hat p)} + \frac{1}{n_B\hat p} + \frac{1}{n_B(1 - \hat p)}\right).\]</p>
+        <li><b>Складываем.</b> Во всех четырёх клетках \((O_{ij} - E_{ij})^2 = d^2\), поэтому \(d^2\) выносится за сумму по клеткам:
+          <p class="formula">\[\chi^2 = \sum_{i,j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = d^2 \sum_{i,j} \frac{1}{E_{ij}} = d^2\left(\frac{1}{n_A\hat p} + \frac{1}{n_A(1 - \hat p)} + \frac{1}{n_B\hat p} + \frac{1}{n_B(1 - \hat p)}\right).\]</p>
           Четыре дроби — это все сочетания «группа × столбец», поэтому сумма раскладывается в произведение:
-          <p class="formula">\[\sum \frac{1}{E} = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\left(\frac{1}{\hat p} + \frac{1}{1 - \hat p}\right) = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\frac{1}{\hat p(1 - \hat p)},\]</p>
+          <p class="formula">\[\sum_{i,j} \frac{1}{E_{ij}} = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\left(\frac{1}{\hat p} + \frac{1}{1 - \hat p}\right) = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\frac{1}{\hat p(1 - \hat p)},\]</p>
           потому что \(\frac{1}{\hat p} + \frac{1}{1 - \hat p} = \frac{(1 - \hat p) + \hat p}{\hat p(1 - \hat p)} = \frac{1}{\hat p(1 - \hat p)}\). Осталось подставить \(d = \frac{n_A n_B}{N}(\hat p_A - \hat p_B)\) и заметить, что \(\frac{n_A n_B}{N} = 1\Big/\Big(\frac{1}{n_A} + \frac{1}{n_B}\Big)\): одна скобка сокращается, и
           <p class="formula">\[\chi^2 = \frac{(\hat p_B - \hat p_A)^2}{\hat p(1 - \hat p)\Big(\frac{1}{n_A} + \frac{1}{n_B}\Big)} = z^2,\]</p>
           где \(z\) — z-статистика для разницы конверсий с общей оценкой доли \(\hat p\) в знаменателе.
