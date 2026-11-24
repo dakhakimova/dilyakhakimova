@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611464">
-<link rel="stylesheet" href="/tokens.css?v=202611464">
-<link rel="stylesheet" href="/home.css?v=202611464">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611464">
-<link rel="stylesheet" href="/terms/terms.css?v=202611464">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611465">
+<link rel="stylesheet" href="/tokens.css?v=202611465">
+<link rel="stylesheet" href="/home.css?v=202611465">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611465">
+<link rel="stylesheet" href="/terms/terms.css?v=202611465">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"},{"@type":"ListItem","position":3,"name":"p-value","item":"https://dilyakhakimova.com/terms/p-value/"}]},{"@type":"DefinedTerm","@id":"https://dilyakhakimova.com/terms/p-value/#term","name":"p-value","description":"p-value — это доля случаев, в которых результат не слабее нашего получился бы сам по себе, если бы эффекта не было. По-русски его ещё называют p-значением; маленький p-value значит, что в мире без эффекта наш результат был бы редкостью.","url":"https://dilyakhakimova.com/terms/p-value/","inDefinedTermSet":{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь","url":"https://dilyakhakimova.com/terms/"}},{"@type":"LearningResource","name":"p-value","description":"p-value — это доля миров без эффекта, где результат не слабее твоего. Разбираем на A/B-тесте кафе, рисуем хвосты колокола и перечисляем частые ошибки.","url":"https://dilyakhakimova.com/terms/p-value/","inLanguage":"ru","learningResourceType":"interactive explanation","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"about":{"@id":"https://dilyakhakimova.com/terms/p-value/#term"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Что такое p-value?","acceptedAnswer":{"@type":"Answer","text":"Вероятность получить такое же или более сильное отклонение, если нулевая гипотеза верна. Это не вероятность того, что нулевая гипотеза верна, и не вероятность ошибиться."}},{"@type":"Question","name":"A/B-тест дал p = 0.04. Какова вероятность, что эффекта нет?","acceptedAnswer":{"@type":"Answer","text":"Из одного p-value этого не узнать: p считается при условии, что эффекта нет. Чтобы получить вероятность самой гипотезы, нужна доля работающих идей до теста — это формула Байеса."}},{"@type":"Question","name":"Как распределены p-value в 1000 A/A-тестов, если сплит исправен?","acceptedAnswer":{"@type":"Answer","text":"Равномерно от 0 до 1: примерно по 50 тестов в каждом интервале шириной 0.05. Горб у нуля на A/A значит, что сломан сплит или критерий."}},{"@type":"Question","name":"Чем уровень значимости 5% отличается от 1%?","acceptedAnswer":{"@type":"Answer","text":"Это порог, который выбирают до теста. При 1% ложных прокрасов меньше, но и настоящие эффекты чаще не замечаем: для той же мощности нужна выборка примерно в полтора раза больше."}},{"@type":"Question","name":"Котейка угадал исход 12 матчей из 14. Это доказывает, что он провидец?","acceptedAnswer":{"@type":"Answer","text":"Если он угадывает наугад (p = 1/2), вероятность угадать 12 и больше из 14 равна 106/16384 ≈ 0.65% — это односторонний p-value. Мало, но среди тысяч «предсказателей» такой найдётся случайно: никто не рассказывает про тех, кто угадал 7."}},{"@type":"Question","name":"Опозданий должно быть не больше 5%. За неделю опоздали 62 заказа из 1000. Это превышение или шум?","acceptedAnswer":{"@type":"Answer","text":"z = (0.062 − 0.05) / √(0.05 · 0.95/1000) ≈ 1.74. Односторонний p ≈ 0.04, двусторонний ≈ 0.08. Ответ зависит от того, какую гипотезу заявили до проверки, — и это хороший вопрос интервьюеру в ответ."}},{"@type":"Question","name":"Монетку бросили 10 раз, выпало 9 орлов. Каков p-value для гипотезы «монета честная»?","acceptedAnswer":{"@type":"Answer","text":"P(«9 или 10 орлов») = (10 + 1) / 1024 ≈ 1.1% — односторонний. Двусторонний учитывает и 0–1 орла: ≈ 2.1%. Вероятность ровно 9 орлов (10/1024) — не p-value."}}]}]}</script>
 </head>
 <body class="t-page">
@@ -207,6 +207,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
 </footer>
 
-<script src="/terms/terms.js?v=202611464"></script>
+<script src="/terms/terms.js?v=202611465"></script>
 </body>
 </html>

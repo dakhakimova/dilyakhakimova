@@ -150,3 +150,45 @@ window.tInv = (p, v) => { let lo = -60, hi = 60; for (let i = 0; i < 70; i++){ c
 })();
 // Python для ячеек с кодом — загружаем в фоне сразу, чтобы к слайду с кодом всё было готово
 if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.preload(), 1200);
+
+// Пошаговое раскрытие списка (ol.reveal): шаги появляются по одному, текущий подсвечен.
+// «Следующий шаг» под списком, стрелка вправо / PageDown / «Далее» сначала раскрывают шаги, потом листают слайд;
+// стрелка влево возвращает шаг. Клик по открытому шагу делает его текущим (Диля, 24.11).
+(function(){
+  const lists = [...document.querySelectorAll('ol.reveal')];
+  if (!lists.length) return;
+  const state = new Map();
+  lists.forEach(ol => {
+    const items = [...ol.children];
+    const bar = document.createElement('div'); bar.className = 'reveal-bar';
+    const nextB = Object.assign(document.createElement('button'), {type:'button', className:'btn ghost', textContent:'Следующий шаг'});
+    const allB = Object.assign(document.createElement('button'), {type:'button', className:'btn ghost', textContent:'Показать все'});
+    const cnt = document.createElement('span'); cnt.className = 'reveal-cnt';
+    bar.append(nextB, allB, cnt); ol.after(bar);
+    const st = {ol, items, shown: 1, cur: 0};
+    function paint(){
+      items.forEach((li, i) => { li.hidden = i >= st.shown; li.classList.toggle('cur', i === st.cur); });
+      cnt.textContent = 'шаг ' + (st.cur + 1) + ' из ' + items.length;
+      const done = st.shown >= items.length;
+      nextB.textContent = done ? 'Сначала' : 'Следующий шаг';
+      allB.hidden = done;
+    }
+    st.next = () => { if (st.shown < items.length){ st.shown++; st.cur = st.shown - 1; paint(); return true; } return false; };
+    st.prev = () => { if (st.shown > 1){ st.shown--; st.cur = st.shown - 1; paint(); return true; } return false; };
+    nextB.addEventListener('click', () => { if (!st.next()){ st.shown = 1; st.cur = 0; paint(); } });
+    allB.addEventListener('click', () => { st.shown = items.length; st.cur = -1; paint(); cnt.textContent = 'все шаги'; });
+    items.forEach((li, i) => li.addEventListener('click', e => { if (e.target.closest('a, button, details')) return; st.cur = i; paint(); }));
+    state.set(ol, st); paint();
+  });
+  const active = () => { const card = [...document.querySelectorAll('.card')].find(c => c.offsetParent !== null); return card ? [...card.querySelectorAll('ol.reveal')].map(o => state.get(o)) : []; };
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('textarea, input, select')) return;
+    const fwd = ['ArrowRight', 'PageDown'].includes(e.key), back = ['ArrowLeft', 'PageUp'].includes(e.key);
+    if (!fwd && !back) return;
+    const sts = active();
+    const done = fwd ? sts.some(s => s.next()) : [...sts].reverse().some(s => s.prev());
+    if (done){ e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+  const nb = document.getElementById('next');
+  if (nb) nb.addEventListener('click', e => { if (active().some(s => s.next())){ e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+})();

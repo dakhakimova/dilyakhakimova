@@ -179,3 +179,10 @@ body[data-course="shad4"] pre.code > code{font:400 .9375rem/1.55 ui-monospace, S
 /* Всё на слайде — одной ширины с текстом: ячейки кода, таблицы, выводы, игры (Диля, 24.11) */
 body[data-course="shad4"]{--col:calc(46 * 1.125rem)}  /* ширина колонки текста в rem, не зависит от кегля элемента */
 body[data-course="shad4"] .card > *, body[data-course="shad4"] .cell-help{max-width:var(--col); box-sizing:border-box}
+/* пошаговое раскрытие: текущий шаг — на подложке */
+ol.reveal > li{border-radius:10px; padding:8px 12px; margin-left:-12px; transition:background .2s; cursor:pointer}
+ol.reveal > li.cur{background:var(--pen-soft, #E6ECF7); box-shadow:inset 3px 0 0 var(--pen)}
+ol.reveal > li:not(.cur){color:var(--text-2)}
+.reveal-bar{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:16px 0 24px}
+.reveal-cnt{color:var(--text-3); font-size:.9375rem; font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion: reduce){ ol.reveal > li{transition:none} }
