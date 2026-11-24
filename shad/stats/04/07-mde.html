@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
-<link rel="stylesheet" href="/tokens.css?v=202611510">
-<link rel="stylesheet" href="/signal/book.css?v=202611510">
-<link rel="stylesheet" href="/signal/free.css?v=202611510">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611510">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611510">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611511">
+<link rel="stylesheet" href="/tokens.css?v=202611511">
+<link rel="stylesheet" href="/signal/book.css?v=202611511">
+<link rel="stylesheet" href="/signal/free.css?v=202611511">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611511">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611511">
 </head>
 <body data-course="shad4" data-chapter="shad4-07" data-next="08-nonparam.html">
 <nav class="top" aria-label="Навигация">
@@ -230,7 +230,7 @@ print(f"относительный MDE ≈ {mde / 0.44:.0%}, наблюдали 
     <li>Во сколько раз прокрасившийся результат в среднем <b>завышает</b> эффект?</li>
   </ol>
   <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">При правде +0.5%: мощность ≈ 5%, неверный знак у 31% прокрасившихся, завышение в 14 раз</p></div>
-  <p class="rule-why">При +1%: мощность 6%, неверный знак у 17%, завышение в 7 раз. «+8% ± 3%» при такой истории — скорее удачный шум, чем открытие. Перепроверить тестом, рассчитанным на эффект +0.5–1%, а после раскатки ждать ближе к истории, чем к +8%. Это ошибки знака и масштаба Гельмана и Карлина (type S и type M errors).</p></details>
+  <p class="rule-why">При +1%: мощность 6%, неверный знак у 17%, завышение в 7 раз. «+8% ± 3%» при такой истории — скорее удачный шум, чем открытие. У Кохави это закон Твимена: слишком интересная цифра обычно ошибочна — <a href="/shelf/kohavi-trustworthy/#ch-3">разбор главы 3</a>. Перепроверить тестом, рассчитанным на эффект +0.5–1%, а после раскатки ждать ближе к истории, чем к +8%. Это ошибки знака и масштаба Гельмана и Карлина (type S и type M errors).</p></details>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1. Правдоподобный эффект</b> берём из истории: за год фичи давали не больше +1% — проверим +0.5% и +1%.</p>
     <p class="stp"><b>Шаг 2. Мощность.</b> <span class="nw"><span class="tx" data-tex="\delta/\mathrm{SE} = 0.5/3 \approx 0.17"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mord">/</span><span class="mord"><span class="mord mathrm">SE</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0.5/3</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.17</span></span></span></span></span>:</span> колокол сдвинут всего на 0.17 SE, правее порога 1.96 — около 5%. Почти как <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>:</span> тест слеп.</p>
@@ -343,10 +343,10 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611510"></script>
-<script src="/signal/book.js?v=202611510"></script>
-<script src="/signal/py.js?v=202611510"></script>
-<script src="/shad/stats/04/shad.js?v=202611510"></script>
+<script src="/fonts/katex/katex.min.js?v=202611511"></script>
+<script src="/signal/book.js?v=202611511"></script>
+<script src="/signal/py.js?v=202611511"></script>
+<script src="/shad/stats/04/shad.js?v=202611511"></script>
 <script>
 (function(){
   // текст с нижними индексами: 'z_{1−α/2} = 1.96'
