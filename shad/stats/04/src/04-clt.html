@@ -1,0 +1,170 @@
+{"title": "ЦПТ на практике", "short": "4. ЦПТ на практике", "h": "Блок 4 · ЦПТ", "lead": "С какого n верить «±1.96 SE» — и когда никогда", "next": "05-ztest.html"}
+<section class="card" data-title="С какого n?">
+  <p class="kicker">Занятие 4 · блок 4</p>
+  <h1>ЦПТ на практике</h1>
+  <figure class="art"><img src="img/04-clt.jpg" alt="Забег распределений к финишу-колоколу: зелёный шар уже у финиша, хвостатые отстают"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Мы же A/B на сотне пользователей в группе считаем, «±1.96 SE» — и хорошо. Нормально же?</p></div></div>
+  </div>
+  <p class="lead">Дальше все критерии опираются на одно допущение: <b>среднее по выборке распределено почти нормально</b>. На нём держится «\(\pm 1.96\,\mathrm{SE}\)». Но «при большом \(n\)» — это сколько? Для конверсии 0.5% и для чеков ответы отличаются на порядки, а для некоторых метрик ЦПТ не работает никогда.</p>
+</section>
+
+<section class="card" data-title="Центральная предельная теорема">
+  <span class="step-tag">Определение</span>
+  <h2>Центральная предельная теорема</h2>
+  <div class="def">
+    <p>Пусть \(X_1, \dots, X_n\) — <b>независимые</b> наблюдения из <b>одного и того же</b> распределения со средним \(\mu\) и <b>конечной</b> дисперсией \(\sigma^2\). Тогда при большом \(n\) их среднее распределено приблизительно нормально:</p>
+    <p class="formula">\[\bar X \approx N\!\left(\mu,\ \frac{\sigma^2}{n}\right), \qquad \frac{\bar X - \mu}{\sigma/\sqrt{n}} \approx N(0, 1).\]</p>
+  </div>
+  <ul>
+    <li>Нормальным становится <b>среднее</b>, а не сами данные: чеки остаются скошенными, сколько их ни собирай.</li>
+    <li>Ширина колокола среднего — \(\sigma/\sqrt{n}\), это и есть стандартная ошибка \(\mathrm{SE}\).</li>
+    <li>Теорема говорит «при большом \(n\)», но <b>не говорит, при каком</b>: где-то хватает 5 наблюдений, где-то мало и миллиона. А если дисперсия бесконечна, теорема не работает вовсе.</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Вопрос: кто хуже всех">
+  <span class="step-tag">Вопрос</span>
+  <h2>С какого \(n\) верить «\(\pm 1.96\,\mathrm{SE}\)»?</h2>
+  <p>Строим интервал «среднее \(\pm 1.96\,\mathrm{SE}\)». Если ЦПТ сработала, он накрывает настоящее среднее в 95% случаев. При \(n = 100\) в группе — <b>где покрытие дальше всего от 95%?</b></p>
+  <div class="choice" data-key="worst" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="norm" data-fb="Проверим на следующем слайде.">Нормальное</button>
+    <button type="button" data-v="exp" data-fb="Проверим на следующем слайде.">Экспоненциальное — время между заказами</button>
+    <button type="button" data-v="logn" data-fb="Проверим на следующем слайде.">Лог-нормальное — чеки</button>
+    <button type="button" data-v="bern" data-fb="Проверим на следующем слайде.">Бернулли с \(p = 0.5\%\) — редкая конверсия</button>
+    <button type="button" data-v="par" data-fb="Проверим на следующем слайде.">Парето — очень тяжёлый хвост</button>
+  </div>
+</section>
+
+<section class="card" data-title="Визуализация: как среднее становится нормальным">
+  <span class="step-tag">Визуализация</span>
+  <h2>Как среднее становится нормальным</h2>
+  <p>Столбики — распределение <b>среднего</b> по \(n\) наблюдениям в 2000 повторах, линия — нормальная кривая. Под графиком — как часто интервал «среднее \(\pm 1.96\,\mathrm{SE}\)» накрыл настоящее среднее.</p>
+  <div class="game" id="g1">
+    <div class="controls"><span class="seg" role="group" aria-label="Распределение данных">
+      <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли 0.5%</button><button type="button" class="btn ghost" data-d="bern30" aria-pressed="false">Бернулли 30%</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">Парето</button>
+    </span></div>
+    <div class="controls"><span>Наблюдений в среднем \(n\):</span><span class="seg" role="group" aria-label="Размер выборки">
+      <button type="button" class="btn ghost" data-n="1" aria-pressed="false">1</button><button type="button" class="btn ghost" data-n="5" aria-pressed="false">5</button><button type="button" class="btn ghost" data-n="30" aria-pressed="false">30</button><button type="button" class="btn ghost" data-n="100" aria-pressed="true">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
+    </span></div>
+    <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="report-wrap"><table class="tails cov" aria-label="Покрытие интервала среднее ± 1.96 SE, цель 95%">
+    <tr><th>покрытие «\(\pm 1.96\,\mathrm{SE}\)», цель 95%</th><th>\(n = 100\)</th><th>\(n = 1\,000\)</th><th>\(n = 10\,000\)</th></tr>
+    <tr><td>нормальное</td><td>95.3%</td><td>94.6%</td><td>94.7%</td></tr>
+    <tr><td>экспоненциальное</td><td>95.0%</td><td>94.7%</td><td>95.3%</td></tr>
+    <tr><td>лог-нормальное, \(\sigma = 1\)</td><td class="bad">91.0%</td><td>94.3%</td><td>94.5%</td></tr>
+    <tr><td>Бернулли, \(p = 0.5\%\)</td><td class="bad">39.4%</td><td class="bad">86.6%</td><td>94.9%</td></tr>
+    <tr><td>Парето, хвост 1.5</td><td class="bad">69.5%</td><td class="bad">76.9%</td><td class="bad">79.3%</td></tr>
+  </table></div>
+  <p class="note">3000 повторов на клетку. Красное — заметно ниже 95%.</p>
+  <details class="sol"><summary>Почему так</summary><div class="body">
+    <p class="stp"><b>Редкая конверсия.</b> При \(n = 100\) ожидается \(100 \cdot 0.005 = 0.5\) конверсии: в большинстве выборок ни одной, \(\mathrm{SE}\) оценивается как ноль, интервал вырождается в точку. Среднее — не колокол, а пара столбиков.</p>
+    <p class="stp"><b>Чеки</b> — 91% при 100, догоняют к тысяче.</p>
+    <p class="stp"><b>Парето с хвостом 1.5</b> не догоняет никогда: дисперсия бесконечна, ЦПТ в привычной форме не работает, покрытие застревает около 80% даже на 10 000.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Правило 355·γ²">
+  <span class="step-tag">Определение</span>
+  <h2>Правило большого пальца: \(n > 355\,\gamma^2\)</h2>
+  <div class="def">
+    <p><b>Коэффициент асимметрии</b> — насколько распределение перекошено в одну сторону (у нормального 0):</p>
+    <p class="formula">\[\gamma = \mathbb{E}\!\left[\left(\frac{X - \mu}{\sigma}\right)^{3}\right].\]</p>
+    <p>Эмпирическое правило (Kohavi и соавторы, 2014): нормальное приближение для среднего хорошее, если</p>
+    <p class="formula">\[n > 355 \cdot \gamma^2.\]</p>
+  </div>
+  <ul>
+    <li>Это ориентир, а не теорема: при таком \(n\) ошибка в каждом хвосте 95%-го интервала отличается от номинальных 2.5% не больше чем на десятую их часть.</li>
+    <li>Главное в правиле — \(n \propto \gamma^2\): асимметрия вдвое больше — данных нужно вчетверо больше. Асимметрия среднего по \(n\) наблюдениям равна \(\gamma/\sqrt{n}\) — отсюда и квадрат.</li>
+    <li>При бесконечной дисперсии не поможет никакое \(n\): такие метрики обрезают (винзоризуют) или логарифмируют.</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Задача: 355·γ²">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 9.</span> Сколько нужно данных</h2>
+  <p>По правилу \(n > 355\,\gamma^2\) оцени, начиная с какого размера группы можно верить нормальному приближению:</p>
+  <ol>
+    <li>время между заказами — экспоненциальное распределение, \(\gamma = 2\);</li>
+    <li>чеки — лог-нормальное с \(\sigma = 1\): \(\gamma = (e^{\sigma^2} + 2)\sqrt{e^{\sigma^2} - 1} \approx 6.18\);</li>
+    <li>конверсия \(p = 0.5\%\): у Бернулли \(\gamma = \dfrac{1 - 2p}{\sqrt{p(1 - p)}}\).</li>
+  </ol>
+  <p>Совпадает ли это с таблицей покрытия?</p>
+  <details class="rule-d"><summary>Показать ответ</summary>
+    <div class="report-wrap"><table class="tails"><tr><th>метрика</th><th>\(\gamma\)</th><th>\(n > 355\,\gamma^2\)</th></tr>
+      <tr><td>время между заказами</td><td>2.00</td><td>≈ 1 400</td></tr>
+      <tr><td>чеки</td><td>6.18</td><td>≈ 13 600</td></tr>
+      <tr class="hit"><td>конверсия 0.5%</td><td>14.04</td><td>≈ 70 000</td></tr></table></div>
+    <p class="rule-why">С таблицей сходится: при 10 000 чеки уже в норме, а редкая конверсия только подходит к 95%. Для редких событий «сто пользователей в группе» — это ничего.</p>
+  </details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> Приближаем распределение <b>среднего</b> по группе. Удобная формула для третьего момента: \(\mathbb{E}(X - \mu)^3 = \mathbb{E}X^3 - 3\mu\,\mathbb{E}X^2 + 2\mu^3\).</p>
+    <p class="stp"><b>Экспоненциальное</b> (параметр \(\lambda\)): \(\mathbb{E}X^k = k!/\lambda^k\), поэтому \(\mu = 1/\lambda\), \(\sigma^2 = 1/\lambda^2\), \(\mathbb{E}(X - \mu)^3 = (6 - 6 + 2)/\lambda^3 = 2/\lambda^3\) и \(\gamma = 2\) при любом \(\lambda\).</p>
+    <p class="stp"><b>Лог-нормальное</b> \(X = e^Y\), \(Y \sim N(m, s^2)\): \(\mathbb{E}X^k = e^{km + k^2 s^2/2}\). С \(w = e^{s^2}\): \(\gamma = (w + 2)\sqrt{w - 1}\); при \(s = 1\): \((e + 2)\sqrt{e - 1} \approx 4.718 \cdot 1.311 \approx 6.18\).</p>
+    <p class="stp"><b>Бернулли:</b> \(\mu = p\), \(\sigma^2 = p(1 - p)\), \(\mathbb{E}(X - p)^3 = p(1 - p)^3 - (1 - p)p^3 = p(1 - p)(1 - 2p)\), откуда \(\gamma = \dfrac{1 - 2p}{\sqrt{p(1 - p)}}\); при \(p = 0.005\): \(0.99/0.0705 \approx 14.0\). При \(p = 0.5\) \(\gamma = 0\) — поэтому конверсия около 50% сходится быстро, а редкая медленно.</p>
+    <p class="stp"><b>Шаг 2.</b> \(355 \cdot 4 \approx 1\,420\); \(355 \cdot 38.2 \approx 13\,600\); \(355 \cdot 197 \approx 70\,000\).</p>
+    <p class="stp"><b>Почему \(\gamma^2\).</b> У суммы \(n\) независимых наблюдений третий центральный момент \(n\,\mathbb{E}(X - \mu)^3\), дисперсия \(n\sigma^2\), поэтому асимметрия суммы и среднего \(\dfrac{n\,\mathbb{E}(X - \mu)^3}{(n\sigma^2)^{3/2}} = \dfrac{\gamma}{\sqrt{n}}\). Приближение хорошее, когда она мала: \(\gamma/\sqrt{n} < c \iff n > \gamma^2/c^2\). Константа 355 — из поправки Эджворта (Boos, Hughes-Oliver, 2000).</p>
+    <p class="ans">Экспоненциальное — около 1 400; чеки — около 13 600; конверсия 0.5% — около 70 000.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Большое \(n\) — это сколько</h2>
+  <div class="takeaway"><p>ЦПТ работает «при большом \(n\)», но большое \(n\) зависит от асимметрии: \(n > 355\,\gamma^2\). Хуже всех — редкие события и тяжёлые хвосты; при бесконечной дисперсии не поможет никакой объём. Проверяй критерий на своих данных A/A-симуляцией.</p></div>
+  <a class="next-step" href="05-ztest.html"><b>Дальше: 5. z- и t-критерий</b>Стьюдент из пивоварни Guinness.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
+  // генераторы одного наблюдения и истинные средние
+  const D = {
+    unif:  {name: 'равномерное', mu: 0.5, g: () => Math.random()},
+    exp:   {name: 'экспоненциальное', mu: 1, g: () => -Math.log(1 - Math.random())},
+    logn:  {name: 'лог-нормальное, σ = 1', mu: Math.exp(0.5), g: () => Math.exp(gauss())},
+    bern:  {name: 'Бернулли, p = 0.5%', mu: 0.005, p: 0.005},
+    bern30:{name: 'Бернулли, p = 30%', mu: 0.3, p: 0.3},
+    par:   {name: 'Парето, хвост 1.5', mu: 3, g: () => Math.pow(1 - Math.random(), -1 / 1.5)}
+  };
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
+  let dk = 'logn', n = 100, sim = null;
+  function run(){
+    const d = D[dk], reps = 2000, m = new Float64Array(reps); let hit = 0;
+    for (let r = 0; r < reps; r++){
+      let mean, sd;
+      if (d.p != null){ const k = binom(n, d.p); mean = k / n; sd = n > 1 ? Math.sqrt(n / (n - 1) * mean * (1 - mean)) : 0; }
+      else { let s = 0, s2 = 0; for (let i = 0; i < n; i++){ const x = d.g(); s += x; s2 += x * x; } mean = s / n; sd = n > 1 ? Math.sqrt(Math.max(0, (s2 - n * mean * mean) / (n - 1))) : 0; }
+      m[r] = mean; if (n > 1 && Math.abs(mean - d.mu) <= 1.96 * sd / Math.sqrt(n)) hit++;
+    }
+    sim = {m: Array.from(m).sort((a, b) => a - b), cov: n > 1 ? hit / reps : null}; paint1();
+  }
+  function paint1(){
+    const g = canvas(cv1, 0.42, 0.8); if (!g || !sim) return; const {c, w, h} = g, L = 10, R = 10, T = 34, B = 34, d = D[dk];
+    const ms = sim.m, q = p => ms[Math.min(ms.length - 1, Math.floor(p * ms.length))];
+    let lo = q(0.005), hi = q(0.995), bins;
+    const disc = d.p != null;
+    if (disc){ const k0 = Math.floor(lo * n), k1 = Math.ceil(hi * n); lo = (k0 - 0.5) / n; hi = (k1 + 0.5) / n; bins = Math.min(60, k1 - k0 + 1); }
+    else bins = 40;
+    if (hi - lo < 1e-9){ hi = lo + 1; }
+    const bw = (hi - lo) / bins, cnt = new Array(bins).fill(0); ms.forEach(v => { const i = Math.floor((v - lo) / bw); if (i >= 0 && i < bins) cnt[i]++; });
+    const mean = ms.reduce((a, b) => a + b, 0) / ms.length, sdm = Math.sqrt(ms.reduce((a, b) => a + (b - mean) ** 2, 0) / ms.length) || 1e-9;
+    const dens = cnt.map(v => v / ms.length / bw), npk = normPdf(0) / sdm, top = Math.max(...dens, npk) * 1.08;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / top;
+    cnt.forEach((v, i) => { const y = Y(dens[i]); c.fillStyle = '#A9B8DA'; c.fillRect(X(lo + i * bw) + 1, y, Math.max(1, X(lo + (i + 1) * bw) - X(lo + i * bw) - 2), h - B - y); });
+    c.beginPath(); for (let k = 0; k <= 300; k++){ const x = lo + (hi - lo) * k / 300, px = X(x), py = Y(normPdf((x - mean) / sdm) / sdm); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = COL.trap; c.lineWidth = 2.5; c.stroke();
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    const step = Book.niceStep(hi - lo, 5); for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) big(c, num(v, step < 0.01 ? 3 : step < 0.1 ? 2 : step < 1 ? 1 : 0), X(v), h - B + 18, COL.ink2, 14, 400);
+    big(c, 'среднее по n = ' + n + ': ' + d.name, L, 20, COL.ink, 16, 600, 'left');
+    const cv = sim.cov;
+    out1.innerHTML = cv == null ? 'При \\(n = 1\\) среднее — это само наблюдение: видна форма исходного распределения. Интервал по одному наблюдению не построить.'
+      : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
+  }
+  pick(g1, 'd', v => { dk = v; run(); });
+  pick(g1, 'n', v => { n = +v; run(); });
+  window.addEventListener('resize', () => { if (!sim) run(); else paint1(); });
+})();
+</script>

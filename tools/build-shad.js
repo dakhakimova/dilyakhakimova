@@ -39,6 +39,12 @@ const nav = `<nav class="top" aria-label="Навигация">
 
 const files = fs.readdirSync(SRC).filter(f => /^\d\d-.*\.html$/.test(f)).sort();
 const metas = [];
+// всё оглавление занятия в боковой панели: текущий блок — карточки (заполняет book.js), остальные — раскрывашки со ссылками на слайды
+const ALL = files.map(f => { const raw = fs.readFileSync(path.join(SRC, f), 'utf8'); const meta = JSON.parse(raw.slice(0, raw.indexOf('\n')));
+  const titles = [...raw.matchAll(/<section class="card" data-title="([^"]*)"/g)].map(x => x[1]); return {f, meta, titles}; });
+const fullToc = cur => ALL.map(b => b.f === cur
+  ? `    <div class="lt cur"><h2>${b.meta.h}</h2>\n    <ol id="toc-list"></ol></div>`
+  : `    <details class="lt"><summary>${b.meta.h}</summary><ol>${b.titles.map((t, i) => `<li><a href="${b.f}#card-${i + 1}">${t}</a></li>`).join('')}</ol></details>`).join('\n');
 for (const f of files){
   const raw = fs.readFileSync(path.join(SRC, f), 'utf8'), nl = raw.indexOf('\n');
   const meta = JSON.parse(raw.slice(0, nl)); let body = raw.slice(nl + 1);
@@ -50,13 +56,12 @@ for (const f of files){
 <body data-course="shad4" data-chapter="shad4-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
 ${nav}
 <div class="reader" id="reader">
-  <aside class="toc-side" id="toc-side" aria-label="Карточки блока">
-    <h2>${meta.h}</h2>
-    <ol id="toc-list"></ol>
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+${fullToc(f)}
   </aside>
   <main class="stage">
     <div class="stage-head">
-      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки блока</button>
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
       <div class="progress" aria-hidden="true"><span id="prog"></span></div>
       <span class="count" id="count"></span>
     </div>
