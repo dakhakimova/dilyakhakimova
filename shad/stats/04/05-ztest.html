@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611477">
-<link rel="stylesheet" href="/tokens.css?v=202611477">
-<link rel="stylesheet" href="/signal/book.css?v=202611477">
-<link rel="stylesheet" href="/signal/free.css?v=202611477">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611477">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611477">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611478">
+<link rel="stylesheet" href="/tokens.css?v=202611478">
+<link rel="stylesheet" href="/signal/book.css?v=202611478">
+<link rel="stylesheet" href="/signal/free.css?v=202611478">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611478">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611478">
 </head>
 <body data-course="shad4" data-chapter="shad4-05" data-next="06-ci.html">
 <nav class="top" aria-label="Навигация">
@@ -628,6 +628,21 @@ for n_a, n_b in [(1000, 100), (100, 1000), (50, 5)]:
     <p class="stp"><b>Шаг 3.</b> По Стьюденту: <span class="tx" data-tex="2\,P(T_{24} \ge 2) \approx 0.0569"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0569</span></span></span></span></span> — не значимо. Порог для 5% при 24 степенях свободы — 2.06, а не 1.96.</p>
     <p class="ans"><span class="nw"><span class="tx" data-tex="p_z = 0.046"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.046</span></span></span></span></span>,</span> <span class="nw"><span class="tx" data-tex="p_t = 0.057"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.057</span></span></span></span></span>:</span> на малых <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> t по умолчанию — на больших он ничего не стоит, а на малых страхует от ошибки в оценке SE, но не от ненормальности данных.</p>
   </div></details>
+  <h3>Расчёт в коде</h3>
+  <div class="cell" data-title="p-value по нормальному и по Стьюденту" data-packages="scipy">
+<textarea spellcheck="false" aria-label="p-value по нормальному и по Стьюденту">from scipy import stats
+
+t = 2.0   # разница в единицах SE
+n = 25    # пользователей
+nu = n - 1
+
+p_z = 2 * stats.norm.sf(t)    # по нормальному
+p_t = 2 * stats.t.sf(t, nu)   # по Стьюденту
+
+print(f"p по нормальному: {p_z:.4f}")
+print(f"p по Стьюденту:   {p_t:.4f}")
+print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.ppf(0.975, nu):.2f}")</textarea>
+  </div>
 </section>
 
 <section class="card" data-title="История: Стьюдент из Guinness">
@@ -705,10 +720,10 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611477"></script>
-<script src="/signal/book.js?v=202611477"></script>
-<script src="/signal/py.js?v=202611477"></script>
-<script src="/shad/stats/04/shad.js?v=202611477"></script>
+<script src="/fonts/katex/katex.min.js?v=202611478"></script>
+<script src="/signal/book.js?v=202611478"></script>
+<script src="/signal/py.js?v=202611478"></script>
+<script src="/shad/stats/04/shad.js?v=202611478"></script>
 <script>
 (function(){
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };

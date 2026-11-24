@@ -205,6 +205,21 @@ for n_a, n_b in [(1000, 100), (100, 1000), (50, 5)]:
     <p class="stp"><b>Шаг 3.</b> По Стьюденту: \(2\,P(T_{24} \ge 2) \approx 0.0569\) — не значимо. Порог для 5% при 24 степенях свободы — 2.06, а не 1.96.</p>
     <p class="ans">\(p_z = 0.046\), \(p_t = 0.057\): на малых \(n\) t по умолчанию — на больших он ничего не стоит, а на малых страхует от ошибки в оценке SE, но не от ненормальности данных.</p>
   </div></details>
+  <h3>Расчёт в коде</h3>
+  <div class="cell" data-title="p-value по нормальному и по Стьюденту" data-packages="scipy">
+<textarea spellcheck="false" aria-label="p-value по нормальному и по Стьюденту">from scipy import stats
+
+t = 2.0   # разница в единицах SE
+n = 25    # пользователей
+nu = n - 1
+
+p_z = 2 * stats.norm.sf(t)    # по нормальному
+p_t = 2 * stats.t.sf(t, nu)   # по Стьюденту
+
+print(f"p по нормальному: {p_z:.4f}")
+print(f"p по Стьюденту:   {p_t:.4f}")
+print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.ppf(0.975, nu):.2f}")</textarea>
+  </div>
 </section>
 
 <section class="card" data-title="История: Стьюдент из Guinness">

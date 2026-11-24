@@ -203,3 +203,8 @@ details.sol > summary::-webkit-details-marker, details.rule-d > summary::-webkit
 details.sol > summary::before, details.rule-d > summary::before{content:""; flex:none; width:9px; height:9px; margin:0 4px 0 2px; border-right:2.2px solid currentColor; border-bottom:2.2px solid currentColor; transform:rotate(-45deg); transition:transform .15s}
 details.sol[open] > summary::before, details.rule-d[open] > summary::before{content:""; transform:rotate(45deg) translate(-2px, -2px)}
 @media (prefers-reduced-motion: reduce){ details.sol > summary::before, details.rule-d > summary::before{transition:none} }
+/* «Показать ответ» и «Решение» — одинаковые раскрывашки: тот же фон, рамка и отступы */
+body[data-course="shad4"] details.sol, body[data-course="shad4"] details.rule-d{margin:16px 0; padding:0; border:1px solid var(--line, #E4E1DA); border-radius:12px; background:var(--surface, #FBF9F4)}
+body[data-course="shad4"] details.sol > summary, body[data-course="shad4"] details.rule-d > summary{padding:14px 20px; min-height:0; margin:0}
+body[data-course="shad4"] details.rule-d[open] > :not(summary){margin-left:20px; margin-right:20px}
+body[data-course="shad4"] details.rule-d[open]{padding-bottom:16px}
