@@ -220,3 +220,7 @@ details.ans-d .rule-r{font:600 1.125rem/1.5 var(--body, Onest, sans-serif); colo
 details.ans-d .rule-why{margin-top:8px}
 /* картинка внутри шага раскрытия — на обычном фоне, не заливается цветом шага */
 body[data-course="shad4"] ol.reveal li .game{background:var(--surface, #FBF9F4); border:1px solid var(--line, #E4E1DA); border-radius:12px; padding:14px 16px; margin:14px 0}
+/* таблица с сеткой: границы у всех клеток, по центру (сопряжённость 2×2 и т. п.) */
+body[data-course="shad4"] table.tails.grid{border-collapse:collapse; background:var(--surface, #FBF9F4)}
+body[data-course="shad4"] table.tails.grid th, body[data-course="shad4"] table.tails.grid td{border:1px solid var(--line-strong, #CFCBC2); text-align:center; padding:10px 14px}
+body[data-course="shad4"] table.tails.grid th:first-child, body[data-course="shad4"] table.tails.grid td:first-child{text-align:left}
