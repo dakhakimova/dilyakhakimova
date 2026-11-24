@@ -60,7 +60,7 @@
           <p class="formula">\[d = x_A - n_A\frac{x_A + x_B}{N} = \frac{x_A n_B - x_B n_A}{N} = \frac{n_A n_B}{N}\,(\hat p_A - \hat p_B),\]</p>
           где \(\hat p_A = x_A/n_A\), \(\hat p_B = x_B/n_B\) — конверсии групп.</li>
         <li><b>Складываем.</b> Во всех четырёх клетках \((O_{ij} - E_{ij})^2 = d^2\), поэтому \(d^2\) выносится за сумму по клеткам:
-          <p class="formula">\[\chi^2 = \sum_{i,j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = d^2 \sum_{i,j} \frac{1}{E_{ij}} = d^2\left(\frac{1}{n_A\hat p} + \frac{1}{n_A(1 - \hat p)} + \frac{1}{n_B\hat p} + \frac{1}{n_B(1 - \hat p)}\right).\]</p>
+          <p class="formula">\[\begin{aligned}\chi^2 &= \sum_{i,j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = d^2 \sum_{i,j} \frac{1}{E_{ij}}\\ &= d^2\left(\frac{1}{n_A\hat p} + \frac{1}{n_A(1 - \hat p)} + \frac{1}{n_B\hat p} + \frac{1}{n_B(1 - \hat p)}\right).\end{aligned}\]</p>
           Четыре дроби — это все сочетания «группа × столбец», поэтому сумма раскладывается в произведение:
           <p class="formula">\[\sum_{i,j} \frac{1}{E_{ij}} = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\left(\frac{1}{\hat p} + \frac{1}{1 - \hat p}\right) = \left(\frac{1}{n_A} + \frac{1}{n_B}\right)\frac{1}{\hat p(1 - \hat p)},\]</p>
           потому что \(\frac{1}{\hat p} + \frac{1}{1 - \hat p} = \frac{(1 - \hat p) + \hat p}{\hat p(1 - \hat p)} = \frac{1}{\hat p(1 - \hat p)}\). Осталось подставить \(d = \frac{n_A n_B}{N}(\hat p_A - \hat p_B)\) и заметить, что \(\frac{n_A n_B}{N} = 1\Big/\Big(\frac{1}{n_A} + \frac{1}{n_B}\Big)\): одна скобка сокращается, и
