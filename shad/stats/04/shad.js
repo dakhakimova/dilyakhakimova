@@ -41,3 +41,13 @@
   const base = window.canvas;
   window.canvas = function(){ const g = base.apply(this, arguments); if (g && g.c) g.c.font = '15px Onest, system-ui, sans-serif'; return g; };
 })();
+
+// Формулы в текстах, которые пишут игры (.out и отклики): \( … \) → KaTeX прямо в браузере
+(function(){
+  const K = () => window.katex;
+  const R = el => { if (!K() || !el.innerHTML.includes('\\(')) return; el.innerHTML = el.innerHTML.replace(/\\\((.+?)\\\)/g, (_, t) => K().renderToString(t.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'), {throwOnError: false, strict: 'ignore'})); };
+  const watch = el => { R(el); new MutationObserver(() => R(el)).observe(el, {childList: true, characterData: true, subtree: true}); };
+  const go = () => document.querySelectorAll('.out, .qfb, p.fb, .why').forEach(watch);
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', go) : go();
+  document.addEventListener('click', () => setTimeout(() => document.querySelectorAll('.qfb, p.fb').forEach(R), 0));
+})();

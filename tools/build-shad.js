@@ -44,6 +44,8 @@ for (const f of files){
   const meta = JSON.parse(raw.slice(0, nl)); let body = raw.slice(nl + 1);
   const m = body.match(/<script>[\s\S]*<\/script>\s*$/); const script = m ? m[0] : ''; if (m) body = body.slice(0, m.index);
   const n = +f.slice(0, 2); metas.push({...meta, f, n});
+  // формулы в атрибутах прячем от tex.js (он вставил бы разметку прямо в атрибут) — рендерим их отдельно ниже
+  body = body.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => ` data-${k}="${v.replace(/\\\(/g, '⟪').replace(/\\\)/g, '⟫')}"`);
   const html = `${head(meta.title + ' · ' + LESSON, meta.desc || meta.title, f)}
 <body data-course="shad4" data-chapter="shad4-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
 ${nav}
@@ -65,6 +67,7 @@ ${body.trim()}
     </div>
   </main>
 </div>
+<script src="/fonts/katex/katex.min.js?v=${ver}"></script>
 <script src="/signal/book.js?v=${ver}"></script>
 <script src="/${DIR}/shad.js?v=${ver}"></script>
 ${script}
@@ -79,11 +82,11 @@ const PLAN = [
   ['01-criterion.html', 'Критерий своими руками', '24 выкупа из 40 — это доказательство? Гипотезы, статистика, критическая область, одно- и двусторонние критерии.'],
   ['02-pvalue.html', 'p-value', 'Леди с чаем, девять орлов из десяти и что p-value не значит. Почему в A/A-тестах p-value распределено равномерно.'],
   ['03-power.html', 'Две ошибки и мощность', 'Три странных критерия, два колокола, гребёнки средних и осьминог Пауль.'],
-  ['04-clt.html', 'ЦПТ на практике', 'С какого размера выборки верить «±1.96 SE» и когда колокол не наступает.'],
+  ['04-clt.html', 'ЦПТ на практике', 'С какого размера выборки верить «\\(\\pm 1.96\\,\\mathrm{SE}\\)» и когда колокол не наступает.'],
   ['05-ztest.html', 'z- и t-тест', 'Стьюдент из пивоварни Guinness, 25 наблюдений и вопрос про нормальность с собеседования.'],
   ['06-ci.html', 'Доверительные интервалы', 'Сколько интервалов накрывает правду, пересекающиеся интервалы и «не прокрасилось — значит можно».'],
-  ['07-mde.html', 'MDE и длительность', 'Сколько ждать, «10 против 9», MDE задним числом и баннер +8% ± 3%.'],
-  ['08-nonparam.html', 'χ² и Манн — Уитни', 'Камень-ножницы-бумага, почему Манн — Уитни не про медианы и случай Uber.'],
+  ['07-mde.html', 'MDE и длительность', 'Сколько ждать, «10 против 9», MDE задним числом и баннер \\(+8\\% \\pm 3\\%\\).'],
+  ['08-nonparam.html', '\\(\\chi^2\\) и Манн — Уитни', 'Камень-ножницы-бумага, почему Манн — Уитни не про медианы и случай Uber.'],
   ['09-multiple.html', 'Множественные проверки', 'Двадцать метрик, поправка Бонферрони и зелёные мармеладки.']
 ];
 const done = new Set(metas.map(m => m.f));
@@ -135,4 +138,19 @@ ${toc}
 </html>
 `);
 const tex = require('./tex.js');
-console.log('shad:', files.length, 'блоков; формул', tex.run([...metas.map(m => DIR + '/' + m.f)]));
+console.log('shad:', files.length, 'блоков; формул', tex.run([...metas.map(m => DIR + '/' + m.f), DIR + '/index.html']));
+// формулы в пояснениях квиза и откликах (data-why, data-fb) — book.js вставляет их как HTML, поэтому рендерим KaTeX и туда
+{
+  const KATEX = require('./vendor/katex.min.js');
+  const un = t => t.replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+  const esc = t => t.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  for (const m of metas){
+    const f = path.join(ROOT, DIR, m.f); let h = fs.readFileSync(f, 'utf8');
+    h = h.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => {
+      const raw = un(v); if (!/⟪/.test(raw)) return all;
+      const out = raw.replace(/⟪(.+?)⟫/g, (_, t) => KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore'}));
+      return ` data-${k}="${esc(out)}"`;
+    });
+    fs.writeFileSync(f, h);
+  }
+}

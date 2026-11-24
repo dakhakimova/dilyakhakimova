@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611442">
-<link rel="stylesheet" href="/tokens.css?v=202611442">
-<link rel="stylesheet" href="/signal/book.css?v=202611442">
-<link rel="stylesheet" href="/signal/free.css?v=202611442">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611442">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611442">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611443">
+<link rel="stylesheet" href="/tokens.css?v=202611443">
+<link rel="stylesheet" href="/signal/book.css?v=202611443">
+<link rel="stylesheet" href="/signal/free.css?v=202611443">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611443">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611443">
 </head>
 <body data-course="shad4" data-chapter="shad4-01" data-next="02-pvalue.html">
 <nav class="top" aria-label="Навигация">
@@ -235,8 +235,9 @@
     </div>
   </main>
 </div>
-<script src="/signal/book.js?v=202611442"></script>
-<script src="/shad/stats/04/shad.js?v=202611442"></script>
+<script src="/fonts/katex/katex.min.js?v=202611443"></script>
+<script src="/signal/book.js?v=202611443"></script>
+<script src="/shad/stats/04/shad.js?v=202611443"></script>
 <script>
 (function(){
   // хвосты биномиального распределения при H0
@@ -280,7 +281,7 @@
     seen.add(k1); const tab = document.getElementById('g1-tab');
     tab.querySelectorAll('tr[data-k]').forEach(r => { const k = +r.dataset.k, t = tail(pm30, k); r.classList.toggle('cur', k === k1); if (seen.has(k)){ r.querySelector('.v').textContent = share(t, 2); r.querySelector('.m').textContent = t <= 0.05 ? '✓' : '✗'; r.classList.toggle('bad', t > 0.05); r.classList.toggle('good', t <= 0.05); } });
     if (seen.has(26) && seen.has(25)) document.getElementById('g1-rule').hidden = false;
-    out1.innerHTML = (side === 1 ? 'Отвергаем, если X ≥ ' + k1 : 'Отвергаем, если X ≤ ' + lo + ' или X ≥ ' + k1) +
+    out1.innerHTML = (side === 1 ? 'Отвергаем, если \\(X \\ge ' + k1 + '\\)' : 'Отвергаем, если \\(X \\le ' + lo + '\\) или \\(X \\ge ' + k1 + '\\)') +
       ': ошибка первого рода <b>' + share(a, 2) + '</b>' + (side === 2 ? ' (по ' + share(tail(pm30, k1), 2) + ' в хвосте)' : '') + '. ' +
       (okA ? '✓ Укладывается в ' + (side === 1 ? '5%' : '2.5% на хвост') + '.' : '✗ Больше ' + (side === 1 ? '5%' : '2.5% на хвост') + ' — не годится.') +
       ' 24 ' + (k1 <= 24 ? '<b>в</b> критической области.' : 'не в критической области.');
@@ -307,7 +308,7 @@
   function paint3(){
     const a = tail(pm50, k3);
     draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20, [[k3, 'P(X ≥ ' + k3 + ') = ' + share(a, 2)]]);
-    out3.innerHTML = 'Отвергаем, если X ≥ ' + k3 + ': ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
+    out3.innerHTML = 'Отвергаем, если \\(X \\ge ' + k3 + '\\): ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
   }
   Stepper(g3.querySelector('.stepper'), v => { k3 = v; paint3(); });
 
@@ -342,8 +343,8 @@
       big(c, 'T', R - 6, B + 20, COL.ink2, 16, 500);
     });
     out4.innerHTML = shape === 'sym'
-      ? 'Симметричное распределение: двусторонние границы стоят на равном расстоянии от центра, и каждая дальше односторонней — в хвосте только α/2.'
-      : 'Скошенное распределение (длинный хвост вправо): правая граница далеко от центра, левая — почти у нуля. Площадь каждого хвоста при этом та же — α/2.';
+      ? 'Симметричное распределение: двусторонние границы стоят на равном расстоянии от центра, и каждая дальше односторонней — в хвосте только \\(\\alpha/2\\).'
+      : 'Скошенное распределение (длинный хвост вправо): правая граница далеко от центра, левая — почти у нуля. Площадь каждого хвоста при этом та же — \\(\\alpha/2\\).';
   }
   g4.querySelectorAll('[data-shape]').forEach(b => b.addEventListener('click', () => { shape = b.dataset.shape; g4.querySelectorAll('[data-shape]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint4(); }));
 
@@ -368,8 +369,8 @@
     [[r1, same ? '#0B5E47' : COL.ctrl], [r2, same ? '#0B5E47' : COL.ctrl]].forEach(([v, col]) => { c.strokeStyle = col; c.beginPath(); c.moveTo(X(v), fs + 22); c.lineTo(X(v), h - 28); c.stroke(); });
     c.setLineDash([]);
     out5.innerHTML = same
-      ? '<b>Правые пороги слились: ' + fz(r1) + '.</b> Односторонний на уровне ' + pc(a1) + ' отвергает справа ровно там же, где двусторонний на уровне ' + pc(a2) + '.'
-      : 'Правый порог одностороннего — ' + fz(r1) + ', двустороннего — ' + fz(r2) + '. ' + (r1 < r2 ? 'Односторонний отвергает раньше — он мощнее справа.' : 'Двусторонний отвергает справа раньше.') + ' Подбери α так, чтобы пороги слились.';
+      ? '<b>Правые пороги слились: \\(' + fz(r1) + '\\).</b> Односторонний на уровне ' + pc(a1) + ' отвергает справа ровно там же, где двусторонний на уровне ' + pc(a2) + '.'
+      : 'Правый порог одностороннего — \\(' + fz(r1) + '\\), двустороннего — \\(' + fz(r2) + '\\). ' + (r1 < r2 ? 'Односторонний отвергает раньше — он мощнее справа.' : 'Двусторонний отвергает справа раньше.') + ' Подбери α так, чтобы пороги слились.';
   }
   [['a1', v => a1 = +v], ['a2', v => a2 = +v]].forEach(([k, set]) => g5.querySelectorAll('[data-' + k + ']').forEach(b => b.addEventListener('click', () => { set(b.dataset[k]); g5.querySelectorAll('[data-' + k + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint5(); })));
   window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); paint5(); });
