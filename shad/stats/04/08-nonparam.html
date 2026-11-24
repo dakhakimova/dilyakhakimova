@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611536">
-<link rel="stylesheet" href="/tokens.css?v=202611536">
-<link rel="stylesheet" href="/signal/book.css?v=202611536">
-<link rel="stylesheet" href="/signal/free.css?v=202611536">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611536">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611536">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611537">
+<link rel="stylesheet" href="/tokens.css?v=202611537">
+<link rel="stylesheet" href="/signal/book.css?v=202611537">
+<link rel="stylesheet" href="/signal/free.css?v=202611537">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611537">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611537">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -56,10 +56,10 @@
     <div class="controls"><label class="field">Ходы <input type="text" id="g0-in" class="n-in" autocomplete="off" spellcheck="false" style="width:14em; text-transform:uppercase; letter-spacing:.08em"></label><button type="button" class="btn" id="g0-go">Посчитать</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
-  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги, сколько повторов подряд и сколько человек играло. Повторы нужны для второй проверки — зависит ли ход от предыдущего, а по числу игроков посчитаем, сколько было пар соседних ходов.</p>
+  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги и сколько повторов подряд. Повторы нужны для второй проверки — зависит ли ход от предыдущего. Пар соседних ходов у каждого 14, так что всего пар — 14 на число игроков, это посчитается само.</p>
   <div class="game" id="g0a">
     <div class="controls"><label class="field">Камень <input type="text" inputmode="numeric" class="n-in" data-k="К"></label><label class="field">Ножницы <input type="text" inputmode="numeric" class="n-in" data-k="Н"></label><label class="field">Бумага <input type="text" inputmode="numeric" class="n-in" data-k="Б"></label></div>
-    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Игроков <input type="text" inputmode="numeric" class="n-in" data-k="players"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
+    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
@@ -247,17 +247,17 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611536"></script>
-<script src="/signal/book.js?v=202611536"></script>
-<script src="/signal/py.js?v=202611536"></script>
-<script src="/shad/stats/04/shad.js?v=202611536"></script>
+<script src="/fonts/katex/katex.min.js?v=202611537"></script>
+<script src="/signal/book.js?v=202611537"></script>
+<script src="/signal/py.js?v=202611537"></script>
+<script src="/shad/stats/04/shad.js?v=202611537"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
   const norm = s => s.toUpperCase().replace(/[^КНБKNB]/g, '').replace(/K/g, 'К').replace(/N/g, 'Н').replace(/B/g, 'Б');
   function go(){
     const m = norm(inp.value);
-    if (m.length < 5){ out.innerHTML = 'Впиши хотя бы 5 ходов буквами К, Н, Б.'; return; }
+    if (m.length !== 15){ out.innerHTML = 'Нужно ровно 15 ходов буквами К, Н, Б — сейчас ' + m.length + '.'; return; }
     const cnt = {К: 0, Н: 0, Б: 0}; [...m].forEach(x => cnt[x]++);
     const n = m.length;
     let rep = 0; for (let i = 1; i < n; i++) if (m[i] === m[i - 1]) rep++;
@@ -299,10 +299,12 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
 
   // сводка аудитории: сохраняем и подставляем в код разбора
   const ga = document.getElementById('g0a'), outA = ga.querySelector('.out'), F = k => ga.querySelector('[data-k="' + k + '"]');
-  const KEYS = ['К', 'Н', 'Б', 'rep', 'players'];
+  const KEYS = ['К', 'Н', 'Б', 'rep'];
   function saveA(){
-    const v = {}; for (const k of KEYS){ const x = Math.round(+String(F(k).value).replace(/\s/g, '')); if (!(x >= 0)){ outA.innerHTML = 'Заполни все пять чисел.'; return; } v[k] = x; }
-    v.pairs = v['К'] + v['Н'] + v['Б'] - v.players;  // у каждого игрока пар соседних ходов на одну меньше, чем ходов
+    const v = {}; for (const k of KEYS){ const x = Math.round(+String(F(k).value).replace(/\s/g, '')); if (!(x >= 0)){ outA.innerHTML = 'Заполни все четыре числа.'; return; } v[k] = x; }
+    const tot = v['К'] + v['Н'] + v['Б'];
+    if (tot % 15){ outA.innerHTML = 'Всего ходов ' + tot + ' — не делится на 15. У каждого ровно 15 ходов, проверь сумму.'; return; }
+    v.pairs = tot / 15 * 14;  // 15 ходов — 14 пар соседних ходов у каждого игрока
     if (v.pairs < v.rep){ outA.innerHTML = 'Повторов не может быть больше, чем пар.'; return; }
     try { localStorage.setItem('shad-rps-aud', JSON.stringify(v)); } catch(e) {}
     const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
