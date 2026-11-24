@@ -17,8 +17,13 @@
     <p><b>MDE</b> (minimum detectable effect) — наименьший настоящий эффект, который эксперимент с данными \(n\) и \(\alpha\) поймает с заданной мощностью \(1 - \beta\), обычно 80%.</p>
   </div>
   <p class="formula">\[\mathrm{MDE} = (z_{1-\alpha/2} + z_{1-\beta}) \cdot \mathrm{SE} \approx (1.96 + 0.84) \cdot \mathrm{SE} = 2.8 \cdot \mathrm{SE}.\]</p>
-  <p>Откуда 2.8 — по картинке ниже, всё в единицах \(\mathrm{SE}\), \(\alpha = 5\%\), мощность 80%:</p>
-  <ol class="howto reveal">
+  <p>Откуда 2.8 — по картинке, всё в единицах \(\mathrm{SE}\). Картинка достраивается вместе с шагами; \(\alpha\) и мощность можно менять.</p>
+  <div class="game" id="gm">
+    <div class="controls"><span class="seg" role="group" aria-label="α"><span>\(\alpha\):</span><button type="button" class="btn ghost" data-a="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-a="0.05" aria-pressed="true">5%</button><button type="button" class="btn ghost" data-a="0.1" aria-pressed="false">10%</button></span><span class="seg" role="group" aria-label="мощность"><span>мощность:</span><button type="button" class="btn ghost" data-w="0.7" aria-pressed="false">70%</button><button type="button" class="btn ghost" data-w="0.8" aria-pressed="true">80%</button><button type="button" class="btn ghost" data-w="0.9" aria-pressed="false">90%</button></span></div>
+    <canvas aria-label="Два колокола: без эффекта и с эффектом, равным MDE; отрезки 1.96 и 0.84"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <ol class="howto reveal" id="mde-steps">
     <li><b>Серый колокол — мир без эффекта.</b> Там \(z = \Delta/\mathrm{SE} \sim N(0, 1)\). Критерий прокрашивает, когда \(z > 1.96\) — это порог. Левым хвостом при положительном эффекте пренебрегаем.</li>
     <li><b>Синий колокол — мир с настоящим эффектом \(\delta\).</b> Разброс тот же, центр сдвинут: \(z \sim N(\delta/\mathrm{SE},\ 1)\).</li>
     <li><b>Мощность</b> — доля синего колокола правее порога. Хотим 80%.</li>
@@ -194,6 +199,34 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
   const curve = (c, X, Y, f, lo, hi, col, lw) => { c.beginPath(); for (let k = 0; k <= 400; k++){ const x = lo + (hi - lo) * k / 400, px = X(x), py = Y(f(x)); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = col; c.lineWidth = lw || 2.2; c.stroke(); };
   const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
+  // картинка MDE, достраивается по шагам
+  const gm = document.getElementById('gm'), cvm = gm.querySelector('canvas'), outm = gm.querySelector('.out'), stepsOl = document.getElementById('mde-steps');
+  let A = 0.05, W = 0.8;
+  const stepNow = () => { const lis = [...stepsOl.children]; const cur = lis.findIndex(li => li.classList.contains('cur')); const shown = lis.filter(li => !li.hidden).length; return Math.max(cur + 1, shown); };
+  function paintM(){
+    const g = canvas(cvm, 0.5, 0.9); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 36, B = 96;
+    const za = normInv(1 - A / 2), zb = normInv(W), mde = za + zb, st = stepNow();
+    const lo = -3.6, hi = Math.max(6.4, mde + 3.4), X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.12);
+    const f1 = x => normPdf(x - mde);
+    if (st >= 3){ area(c, X, Y, f1, za, hi, h - B, 'rgba(35,65,138,.25)'); area(c, X, Y, f1, lo, za, h - B, 'rgba(230,180,60,.35)'); }
+    if (st >= 1) area(c, X, Y, normPdf, za, hi, h - B, 'rgba(201,65,58,.6)');
+    curve(c, X, Y, normPdf, lo, hi, COL.gray, 2.2);
+    if (st >= 2) curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 18, COL.ink2, 13, 400);
+    big(c, 'без эффекта', X(0), Y(normPdf(0)) - 8, COL.ink2, 14, 600);
+    if (st >= 2) big(c, 'эффект = MDE', X(mde), Y(normPdf(0)) - 8, COL.ctrl, 14, 600);
+    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 1.4; c.beginPath(); c.moveTo(X(za), T - 10); c.lineTo(X(za), h - B); c.stroke(); c.setLineDash([]); big(c, 'порог ' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); }
+    if (st >= 3) big(c, 'мощность ' + Math.round(W * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
+    const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); big(c, t, (X(a) + X(b)) / 2, y - 8, col, 14, 600); };
+    if (st >= 1) span(0, za, h - B + 44, num(za, 2), COL.ink);
+    if (st >= 4) span(za, mde, h - B + 44, num(zb, 2), '#8a6d1d');
+    if (st >= 5) span(0, mde, h - B + 80, 'MDE = ' + num(za, 2) + ' + ' + num(zb, 2) + ' = ' + num(mde, 2) + ' SE', COL.ctrl);
+    outm.innerHTML = st >= 5 ? '\\(\\mathrm{MDE} = (' + num(za, 2) + ' + ' + num(zb, 2) + ') \\cdot \\mathrm{SE} = ' + num(mde, 2) + '\\,\\mathrm{SE}\\) при \\(\\alpha = ' + Math.round(A * 100) + '\\%\\) и мощности ' + Math.round(W * 100) + '%.' : 'Открой шаги ниже — картинка достроится.';
+  }
+  gm.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-a]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); A = +b.dataset.a; paintM(); }));
+  gm.querySelectorAll('[data-w]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-w]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); W = +b.dataset.w; paintM(); }));
+  new MutationObserver(paintM).observe(stepsOl, {subtree: true, attributes: true, attributeFilter: ['class', 'hidden']});
   const g1 = document.getElementById('g1'), cv = g1.querySelector('canvas'), out = g1.querySelector('.out'), dIn = document.getElementById('g1-d');
   const PA = 0.05, PB = 0.053, PER = 5000;
   let days = 7;
@@ -217,7 +250,7 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
   }
   document.getElementById('g1-p').addEventListener('click', () => setD(days + 7));
   dIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') setD(dIn.value); }); dIn.addEventListener('change', () => setD(dIn.value));
-  window.addEventListener('resize', paint);
-  paint();
+  window.addEventListener('resize', () => { paint(); paintM(); });
+  paint(); paintM();
 })();
 </script>
