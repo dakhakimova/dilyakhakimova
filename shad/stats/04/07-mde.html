@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611506">
-<link rel="stylesheet" href="/tokens.css?v=202611506">
-<link rel="stylesheet" href="/signal/book.css?v=202611506">
-<link rel="stylesheet" href="/signal/free.css?v=202611506">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611506">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611506">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611507">
+<link rel="stylesheet" href="/tokens.css?v=202611507">
+<link rel="stylesheet" href="/signal/book.css?v=202611507">
+<link rel="stylesheet" href="/signal/free.css?v=202611507">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611507">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611507">
 </head>
 <body data-course="shad4" data-chapter="shad4-07" data-next="08-nonparam.html">
 <nav class="top" aria-label="Навигация">
@@ -177,8 +177,8 @@ for d in [7, 14, 21, 28]:
   <span class="step-tag">Задача с собеседования</span>
   <h2 class="task-h"><span class="tn">Задача 18.</span> Тест «10 против 9»</h2>
   <p>Менеджер приносит результат: «В тесте 10 пользователей, в контроле 9. Конверсия выросла с 44% до 60%!» Что ответишь?</p>
-  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">MDE ≈ 64%: такой тест увидел бы только рост конверсии с 44% почти до 100%</p></div>
-  <p class="rule-why">Наблюдаемый рост на 16% для него неотличим от шума: <span class="nw"><span class="tx" data-tex="z \approx 0.69"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.69</span></span></span></span></span>,</span> <span class="nw"><span class="tx" data-tex="p \approx 0.49"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6776em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.49</span></span></span></span></span>.</span> Ответ менеджеру: «Такой тест увидел бы только чудо — давай спланируем нормальный, вот таблица „дни — эффект“».</p></details>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">MDE ≈ 0.64 — разница долей в 64 процентных пункта: с 44% тест поймал бы только рост до 100% и выше, то есть никакой</p></div>
+  <p class="rule-why">MDE здесь — абсолютная разница долей, как и <span class="tx" data-tex="\delta"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span></span></span></span></span> в формуле. Наблюдаемая разница <span class="tx" data-tex="0.60 - 0.44 = 0.16"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.60</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.44</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.16</span></span></span></span></span> (в относительных <span class="nw"><span class="tx" data-tex="60/44 - 1 \approx 36\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">60/44</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">36%</span></span></span></span></span>),</span> а ловим только от <span class="tx" data-tex="0.64"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.64</span></span></span></span></span> (в относительных <span class="nw"><span class="tx" data-tex="0.64/0.44 \approx 145\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0.64/0.44</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">145%</span></span></span></span></span>).</span> Для такого теста она неотличима от шума: <span class="nw"><span class="tx" data-tex="z \approx 0.69"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.69</span></span></span></span></span>,</span> <span class="nw"><span class="tx" data-tex="p \approx 0.49"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6776em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.49</span></span></span></span></span>.</span> Ответ менеджеру: «Такой тест увидел бы только чудо — давай спланируем нормальный, вот таблица „дни — эффект“».</p></details>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1.</b> Для оценки сверху берём худшую дисперсию доли <span class="nw"><span class="tx" data-tex="p(1 - p) = 0.25"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.25</span></span></span></span></span>.</span></p>
     <p class="stp"><b>Шаг 2.</b> <span class="nw"><span class="tx" data-tex="\mathrm{SE} = \sqrt{0.25/10 + 0.25/9} \approx 0.23"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">SE</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">0.25/10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">0.25/9</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
@@ -210,8 +210,11 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 n_a, n_b = 9, 10
 # худший случай дисперсии доли p(1 − p) = 1/4 — оценка сверху
 se = sqrt(0.25 / n_a + 0.25 / n_b)
-print(f"SE разницы ≈ {se:.0%}, MDE ≈ 2.8 · SE ≈ {2.8 * se:.0%}")
-print("тест увидел бы только рост конверсии примерно с 44% до 100%")</textarea>
+mde = 2.8 * se
+# MDE — абсолютная разница долей
+print(f"SE разницы ≈ {se:.2f}, MDE ≈ 2.8 · SE ≈ {mde:.2f}")
+# в относительных к контролю 44%
+print(f"относительный MDE ≈ {mde / 0.44:.0%}, наблюдали {0.60 / 0.44 - 1:.0%}")</textarea>
   </div>
   <div class="takeaway"><p><b>MDE постфактум.</b> Эксперимент закончился и не прокрасился? Подставь фактические <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> и дисперсии и посчитай, какой эффект он <b>мог</b> поймать. «Эффект 20 ₽ этот тест не увидел бы — его MDE был 50 ₽» — вот и вся загадка «непрокраса». При маленькой мощности «не прокрасилось» почти ничего не значит.</p></div>
 </section>
@@ -330,10 +333,10 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611506"></script>
-<script src="/signal/book.js?v=202611506"></script>
-<script src="/signal/py.js?v=202611506"></script>
-<script src="/shad/stats/04/shad.js?v=202611506"></script>
+<script src="/fonts/katex/katex.min.js?v=202611507"></script>
+<script src="/signal/book.js?v=202611507"></script>
+<script src="/signal/py.js?v=202611507"></script>
+<script src="/shad/stats/04/shad.js?v=202611507"></script>
 <script>
 (function(){
   // текст с нижними индексами: 'z_{1−α/2} = 1.96'
