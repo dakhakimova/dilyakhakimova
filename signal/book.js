@@ -483,7 +483,7 @@ document.querySelectorAll('.card').forEach(card => {
   const allQ = [...document.querySelectorAll('.quiz')];
   Book._restoring = true;
   for (const [i, rec] of Object.entries(m)){
-    const q = allQ[+i], b = q && q.querySelector('.choice button[data-v="' + rec.v + '"]'); if (!b) continue;
+    const q = allQ[+i], b = q && q.querySelector('.choice button[data-v=1"' + rec.v + '"]'); if (!b) continue;
     q.dataset.first = rec.first || '1'; b.click();
   }
   Book._restoring = false;

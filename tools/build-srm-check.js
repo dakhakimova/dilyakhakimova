@@ -22,12 +22,12 @@ ${meta.published ? '' : '<meta name="robots" content="noindex, follow">\n'}<titl
 <link rel="canonical" href="https://dilyakhakimova.com/play/srm-check/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
-<link rel="stylesheet" href="/tokens.css?v=${V}">
-<link rel="stylesheet" href="/home.css?v=${V}">
-<link rel="stylesheet" href="/play/play.css?v=${V}">
-<link rel="stylesheet" href="/play/sample-size/ss.css?v=${V}">
-<link rel="stylesheet" href="/play/srm-check/srm.css?v=${V}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=1${V}">
+<link rel="stylesheet" href="/tokens.css?v=1${V}">
+<link rel="stylesheet" href="/home.css?v=1${V}">
+<link rel="stylesheet" href="/play/play.css?v=1${V}">
+<link rel="stylesheet" href="/play/sample-size/ss.css?v=1${V}">
+<link rel="stylesheet" href="/play/srm-check/srm.css?v=1${V}">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -77,7 +77,7 @@ ${chrome.header('play', false)}
   </details>
 </main>
 ${chrome.footer()}
-<script src="/play/srm-check/srm.js?v=${V}"></script>
+<script src="/play/srm-check/srm.js?v=1${V}"></script>
 </body>
 </html>
 `;

@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/04-noise.html">
 <title>Шум · Сигнал или шум</title>
 <meta name="description" content="Глава 4 бесплатного интерактивного курса «Сигнал или шум»: насколько скачет доля на n наблюдениях, коридор ±2 SD, закон больших чисел, рейтинг маленьких кафе и задачи с собеседований.">
-<script src="/play/bridge.js?v=202611509"></script>
+<script src="/play/bridge.js?v=1202611509"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611509">
-<link rel="stylesheet" href="/tokens.css?v=202611509">
-<link rel="stylesheet" href="/signal/book.css?v=202611509">
-<link rel="stylesheet" href="/signal/free.css?v=202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
+<link rel="stylesheet" href="/tokens.css?v=1202611509">
+<link rel="stylesheet" href="/signal/book.css?v=1202611509">
+<link rel="stylesheet" href="/signal/free.css?v=1202611509">
 <style>
 /* стили только этой страницы */
 .xref > span{flex:1}
@@ -21,10 +21,10 @@
 .sd-log b{color:var(--ink); font-weight:600}
 .alarm-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
 </head>
 <body data-course="signal" data-chapter="ch04" data-next="05-normal.html">
-<script src="/signal/progress.js?v=202611509"></script>
+<script src="/signal/progress.js?v=1202611509"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -297,7 +297,7 @@ _check()
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Боба?</p>
-    <div class="choice"><button type="button" data-v="a">Закон про неизменный процесс, а меню его меняет</button><button type="button" data-v="b" data-why="Закон не включается на каком‑то пороге. Он говорит, к чему ползёт доля, пока процесс не меняется, на любом числе гостей.">Закон начинает работать только после миллиона гостей</button><button type="button" data-v="c" data-why="Это ошибка игрока. Монетка и гости не помнят прошлых дней, никакого «возврата долга» нет: шум просто разбавляется новыми днями.">После плохих дней придут хорошие и всё выровняют</button><button type="button" data-v="d" data-why="Закон верен для любых повторяющихся опытов с постоянной вероятностью — и для монетки, и для гостей кафе.">Закон больших чисел верен только для монеток</button></div>
+    <div class="choice"><button type="button" data-v=1"a">Закон про неизменный процесс, а меню его меняет</button><button type="button" data-v=1"b" data-why="Закон не включается на каком‑то пороге. Он говорит, к чему ползёт доля, пока процесс не меняется, на любом числе гостей.">Закон начинает работать только после миллиона гостей</button><button type="button" data-v=1"c" data-why="Это ошибка игрока. Монетка и гости не помнят прошлых дней, никакого «возврата долга» нет: шум просто разбавляется новыми днями.">После плохих дней придут хорошие и всё выровняют</button><button type="button" data-v=1"d" data-why="Закон верен для любых повторяющихся опытов с постоянной вероятностью — и для монетки, и для гостей кафе.">Закон больших чисел верен только для монеток</button></div>
     <p class="why">Закон больших чисел говорит: пока вероятность заказа не меняется, доля ползёт к ней. Новое меню может изменить саму вероятность — тогда доля поползёт к новому числу. Проверить, изменилась ли она, и есть задача A/B‑теста.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -343,7 +343,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   <h2>Вопросы про шум</h2>
   <div class="quiz" data-right="b">
     <p class="q">Сплит теста честный: каждого гостя в группу A или B отправляет монетка. Что обычно происходит с разницей «гостей в A минус гостей в B», пока гостей становится всё больше?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="К половине ползёт доля гостей в A. Разницу в штуках закон не обещает: на 40 000 гостей она обычно порядка 160.">Стремится к нулю вместе с долей гостей в A</button><button type="button" data-v="b">Обычно растёт, примерно как <span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+    <div class="choice"><button type="button" data-v=1"a" data-why="К половине ползёт доля гостей в A. Разницу в штуках закон не обещает: на 40 000 гостей она обычно порядка 160.">Стремится к нулю вместе с долей гостей в A</button><button type="button" data-v=1"b">Обычно растёт, примерно как <span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
 c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
@@ -354,7 +354,7 @@ c5.3,-9.3,12,-14,20,-14
 H400000v40H845.2724
 s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
 c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span></button><button type="button" data-v="c" data-why="Разница блуждает, и её типичный размах растёт: около 8 на 100 гостей, около 160 на 40 000.">Держится около одного и того же числа</button></div>
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span></button><button type="button" data-v=1"c" data-why="Разница блуждает, и её типичный размах растёт: около 8 на 100 гостей, около 160 на 40 000.">Держится около одного и того же числа</button></div>
     <p class="why">Разброс числа гостей в A при <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> гостях — <span class="nw"><span class="tx" data-tex="\sqrt{n} / 2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
@@ -392,12 +392,12 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="c">
     <p class="q">В топе рейтинга конверсии — три самых маленьких кафе сети. Что вероятнее всего?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Может быть и так, но сначала посмотри на хвост рейтинга: если там тоже маленькие кафе, сервис ни при чём.">В маленьких кафе сервис душевнее, надо масштабировать</button><button type="button" data-v="b" data-why="Постоянные гости могут быть где угодно. Крайности у маленьких кафе появляются и без них, просто от малого n.">Маленьким кафе везёт с постоянными гостями</button><button type="button" data-v="c">У маленьких сильнее шум: они и в топе, и в хвосте</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Может быть и так, но сначала посмотри на хвост рейтинга: если там тоже маленькие кафе, сервис ни при чём.">В маленьких кафе сервис душевнее, надо масштабировать</button><button type="button" data-v=1"b" data-why="Постоянные гости могут быть где угодно. Крайности у маленьких кафе появляются и без них, просто от малого n.">Маленьким кафе везёт с постоянными гостями</button><button type="button" data-v=1"c">У маленьких сильнее шум: они и в топе, и в хвосте</button></div>
     <p class="why">При 50 гостях SD недельной конверсии — около 4 п. п., при 5000 — 0.4 п. п. Поэтому маленькие кафе занимают и вершину, и дно рейтинга. Честнее сравнивать с воронкой ±2 SD.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">У маленького кафе 20 гостей в день. Котейка смотрит конверсию за месяц. Шум ещё важен?</p>
-    <div class="choice"><button type="button" data-v="a">Да: у 600 гостей SD около 1.2 п. п.</button><button type="button" data-v="b" data-why="Месяц сглаживает только то, что в нём есть. Шум зависит от числа гостей, а не от числа дней.">Нет: за 30 дней шум усредняется сам</button><button type="button" data-v="c" data-why="Магического числа точек нет: важно, сколько всего гостей. 30 дней по 20 гостей — всего 600 наблюдений.">Нет: после 30 точек данных шума уже нет</button></div>
+    <div class="choice"><button type="button" data-v=1"a">Да: у 600 гостей SD около 1.2 п. п.</button><button type="button" data-v=1"b" data-why="Месяц сглаживает только то, что в нём есть. Шум зависит от числа гостей, а не от числа дней.">Нет: за 30 дней шум усредняется сам</button><button type="button" data-v=1"c" data-why="Магического числа точек нет: важно, сколько всего гостей. 30 дней по 20 гостей — всего 600 наблюдений.">Нет: после 30 точек данных шума уже нет</button></div>
     <p class="why">За месяц наберётся <span class="tx" data-tex="20 \cdot 30 = 600"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">20</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">30</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">600</span></span></span></span></span> гостей. SD доли <span class="nw"><span class="tx" data-tex="\sqrt{0.1 \cdot 0.9/600} \approx 0.012"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">0.1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">0.9/600</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
 c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
 c340,-704.7,510.7,-1060.3,512,-1067
@@ -412,7 +412,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Гостей в день стало вдвое больше. Во сколько раз сузится коридор ±2 SD дневной доли?</p>
-    <div class="choice"><button type="button" data-v="c" data-why="Вдвое уже коридор будет при вчетверо большем числе гостей: SD падает как корень из n.">Вдвое: гостей ведь вдвое больше</button><button type="button" data-v="b">В <span class="nw"><span class="tx" data-tex="\sqrt{2}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+    <div class="choice"><button type="button" data-v=1"c" data-why="Вдвое уже коридор будет при вчетверо большем числе гостей: SD падает как корень из n.">Вдвое: гостей ведь вдвое больше</button><button type="button" data-v=1"b">В <span class="nw"><span class="tx" data-tex="\sqrt{2}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
 c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
@@ -423,7 +423,7 @@ c5.3,-9.3,12,-14,20,-14
 H400000v40H845.2724
 s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
 c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span></span></span></span></span>,</span> то есть в 1.4 раза</button><button type="button" data-v="a" data-why="Коридор сужается, ведь SD доли — √(p(1 − p)/n), и n стоит в знаменателе.">Не изменится: конверсия та же</button><button type="button" data-v="d" data-why="В 4 раза уже коридор станет при 16-кратном росте гостей.">Вчетверо: квадрат от удвоения</button></div>
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span></span></span></span></span>,</span> то есть в 1.4 раза</button><button type="button" data-v=1"a" data-why="Коридор сужается, ведь SD доли — √(p(1 − p)/n), и n стоит в знаменателе.">Не изменится: конверсия та же</button><button type="button" data-v=1"d" data-why="В 4 раза уже коридор станет при 16-кратном росте гостей.">Вчетверо: квадрат от удвоения</button></div>
     <p class="why">SD доли = <span class="nw"><span class="tx" data-tex="\sqrt{p(1 - p)/n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal">n</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
 c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
 c340,-704.7,510.7,-1060.3,512,-1067
@@ -533,7 +533,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611509"></script>
+<script src="/signal/book.js?v=1202611509"></script>
 <script>
 const TXT = {
   ru: {
@@ -770,6 +770,6 @@ function ch04niceStep(range){ const raw = range / 5, e = Math.pow(10, Math.floor
   fresh();
 })();
 </script>
-<script src="/signal/py.js?v=202611509"></script>
+<script src="/signal/py.js?v=1202611509"></script>
 </body>
 </html>

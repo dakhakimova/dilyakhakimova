@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/11-errors.html">
 <title>Ошибки I и II рода · Сигнал или шум</title>
 <meta name="description" content="Глава 11 бесплатного интерактивного курса «Сигнал или шум»: ложные срабатывания и пропуски, α, β и мощность на двух колоколах, минимальный детектируемый эффект (MDE) и число гостей до теста.">
-<script src="/play/bridge.js?v=202611509"></script>
+<script src="/play/bridge.js?v=1202611509"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611509">
-<link rel="stylesheet" href="/tokens.css?v=202611509">
-<link rel="stylesheet" href="/signal/book.css?v=202611509">
-<link rel="stylesheet" href="/signal/free.css?v=202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
+<link rel="stylesheet" href="/tokens.css?v=1202611509">
+<link rel="stylesheet" href="/signal/book.css?v=1202611509">
+<link rel="stylesheet" href="/signal/free.css?v=1202611509">
 <style>
 /* таблица 2×2 «правда × решение» (глава 11) */
 .xtab.err2 td{text-align:left; font-size:.875rem; line-height:1.35; vertical-align:top}
@@ -23,10 +23,10 @@
 @media (max-width:620px){ .counts.c5{grid-template-columns:1fr 1fr} }
 .field .num{min-width:5.5em; display:inline-block}
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
 </head>
 <body data-course="signal" data-chapter="ch11" data-next="12-wins.html">
-<script src="/signal/progress.js?v=202611509"></script>
+<script src="/signal/progress.js?v=1202611509"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -49,7 +49,7 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">Конверсия 10%, по 10 000 гостей в группе. Шум доли одной группы — 0.30 заказа на 100 гостей. Какой шум у разницы двух групп?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Группы одинаковые, но шумят независимо: разница собирает шум обеих.">0.30: группы ведь одинаковые</button><button type="button" data-v="b">0.42: складываются дисперсии</button><button type="button" data-v="c" data-why="Складываются не сигмы, а их квадраты: √(0.30² + 0.30²) = 0.30·√2.">0.60: две ошибки складываются</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Группы одинаковые, но шумят независимо: разница собирает шум обеих.">0.30: группы ведь одинаковые</button><button type="button" data-v=1"b">0.42: складываются дисперсии</button><button type="button" data-v=1"c" data-why="Складываются не сигмы, а их квадраты: √(0.30² + 0.30²) = 0.30·√2.">0.60: две ошибки складываются</button></div>
     <p class="why">SE разности = <span class="tx" data-tex="\sqrt{\mathrm{SE}^{2} + \mathrm{SE}^{2}} = 0.30\cdot \sqrt{2} \approx 0.42"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.153em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.087em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mord"><span class="mord mathrm">SE</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8873em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">SE</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8873em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.047em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
 c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
 c340,-704.7,510.7,-1060.3,512,-1067
@@ -75,7 +75,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Провели 1000 A/A‑тестов. Как распределятся их p‑value?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Шум не любит маленькие p: p &lt; 0.05 выпадает ровно в 5% A/A, p &lt; 0.5 — в половине.">Скопятся у нуля: шум даёт малые p</button><button type="button" data-v="b" data-why="Эффекта нет, но p = 0.9 и p = 0.1 одинаково вероятны: каждое по своей десятой доле.">Скопятся у единицы: эффекта ведь нет</button><button type="button" data-v="c">Ровно: по 100 на каждую десятую</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Шум не любит маленькие p: p &lt; 0.05 выпадает ровно в 5% A/A, p &lt; 0.5 — в половине.">Скопятся у нуля: шум даёт малые p</button><button type="button" data-v=1"b" data-why="Эффекта нет, но p = 0.9 и p = 0.1 одинаково вероятны: каждое по своей десятой доле.">Скопятся у единицы: эффекта ведь нет</button><button type="button" data-v=1"c">Ровно: по 100 на каждую десятую</button></div>
     <p class="why">В мире без эффекта p‑value распределено равномерно: в отрезок 0–0.05 попадает 5% A/A, в 0.9–1 — 10%. Пик у нуля в A/A — признак бага. Это глава 9.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -253,7 +253,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Боба?</p>
-    <div class="choice"><button type="button" data-v="a">Тест мог быть слабым: смотри MDE и интервал</button><button type="button" data-v="b" data-why="Большой p значит, что разница обычная для шума, а не что эффекта нет. При малой мощности настоящий эффект часто даёт большой p.">Ничего: p = 0.4 доказывает, что эффекта нет</button><button type="button" data-v="c" data-why="Ждать, пока p нырнёт под 0.05, — подглядывание: так ложных побед становится больше 5%.">Надо было продолжать, пока p не станет 0.05</button></div>
+    <div class="choice"><button type="button" data-v=1"a">Тест мог быть слабым: смотри MDE и интервал</button><button type="button" data-v=1"b" data-why="Большой p значит, что разница обычная для шума, а не что эффекта нет. При малой мощности настоящий эффект часто даёт большой p.">Ничего: p = 0.4 доказывает, что эффекта нет</button><button type="button" data-v=1"c" data-why="Ждать, пока p нырнёт под 0.05, — подглядывание: так ложных побед становится больше 5%.">Надо было продолжать, пока p не станет 0.05</button></div>
     <p class="why">«Не прокрасилось» — это «не отличили от шума». Если MDE теста +2 заказа на 100 гостей, а кнопка даёт +0.5, тест промолчит примерно в 9 случаях из 10. Честный вывод — интервал: «эффект от −0.8 до +1.6, данных мало». Пропуск — ошибка II рода.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -378,17 +378,17 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   <h2>Вопросы про ошибки и мощность</h2>
   <div class="quiz" data-right="c">
     <p class="q">Мощность теста — 80%. Что это значит?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Мощность считают, предполагая, что эффект есть. Сказать, есть ли он, она не может.">Эффект есть с вероятностью 80%</button><button type="button" data-v="b" data-why="Доля настоящих среди прокрасившихся зависит ещё от того, как часто идеи работают, — это глава 12.">80% прокрасившихся тестов настоящие</button><button type="button" data-v="c">Эффект размера MDE ловим в 8 из 10</button><button type="button" data-v="d" data-why="У теста две разные ошибки. 20% — это пропуски среди тестов с эффектом, а ложные срабатывания считаются отдельно.">Тест ошибается в 20% случаев</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Мощность считают, предполагая, что эффект есть. Сказать, есть ли он, она не может.">Эффект есть с вероятностью 80%</button><button type="button" data-v=1"b" data-why="Доля настоящих среди прокрасившихся зависит ещё от того, как часто идеи работают, — это глава 12.">80% прокрасившихся тестов настоящие</button><button type="button" data-v=1"c">Эффект размера MDE ловим в 8 из 10</button><button type="button" data-v=1"d" data-why="У теста две разные ошибки. 20% — это пропуски среди тестов с эффектом, а ложные срабатывания считаются отдельно.">Тест ошибается в 20% случаев</button></div>
     <p class="why">Мощность — <span class="nw"><span class="tx" data-tex="P(\text{«прокрасилось»}\mid \text{«эффект }\delta\text{»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">прокрасилось</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">эффект</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mord text"><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span>.</span> Из 10 тестов с эффектом размером MDE прокрасятся примерно 8. Если эффект меньше, мощность ниже.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q"><span class="nw"><span class="tx" data-tex="\alpha = 5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">5%</span></span></span></span></span>.</span> Какая доля прокрасившихся тестов ложные?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="α — доля прокрасов среди пустых тестов, а не доля пустых среди прокрасов. Это разные условные вероятности.">Ровно 5%: это и есть <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span></button><button type="button" data-v="b">Зависит от доли рабочих идей</button><button type="button" data-v="c" data-why="α ничего не гарантирует про прокрасы: если почти все идеи пустые, ложных среди прокрасов может быть больше половины.">Не больше 5%: это гарантирует <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span></button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="α — доля прокрасов среди пустых тестов, а не доля пустых среди прокрасов. Это разные условные вероятности.">Ровно 5%: это и есть <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span></button><button type="button" data-v=1"b">Зависит от доли рабочих идей</button><button type="button" data-v=1"c" data-why="α ничего не гарантирует про прокрасы: если почти все идеи пустые, ложных среди прокрасов может быть больше половины.">Не больше 5%: это гарантирует <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span></button></div>
     <p class="why"><span class="nw"><span class="tx" data-tex="\alpha = P(\text{«прокрас»}\mid \text{«эффекта нет»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">прокрас</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">эффекта</span><span class="mord"> </span><span class="mord cyrillic_fallback">нет</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span>.</span> Доля ложных среди прокрасов — <span class="nw"><span class="tx" data-tex="P(\text{«эффекта нет»}\mid \text{«прокрас»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">эффекта</span><span class="mord"> </span><span class="mord cyrillic_fallback">нет</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">прокрас</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span>,</span> и она зависит от того, сколько идей работает, и от мощности. Посчитаем в главе 12.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Гостей в группе стало вдвое больше. Что будет с MDE?</p>
-    <div class="choice"><button type="button" data-v="a">Уменьшится примерно в 1.4 раза</button><button type="button" data-v="b" data-why="MDE пропорционален SE, а SE падает как 1/√n. Чтобы MDE упал вдвое, гостей нужно вчетверо больше.">Уменьшится в 2 раза</button><button type="button" data-v="c" data-why="MDE зависит от n: это эффект, который заметим на этих данных.">Не изменится: его задали до теста</button></div>
+    <div class="choice"><button type="button" data-v=1"a">Уменьшится примерно в 1.4 раза</button><button type="button" data-v=1"b" data-why="MDE пропорционален SE, а SE падает как 1/√n. Чтобы MDE упал вдвое, гостей нужно вчетверо больше.">Уменьшится в 2 раза</button><button type="button" data-v=1"c" data-why="MDE зависит от n: это эффект, который заметим на этих данных.">Не изменится: его задали до теста</button></div>
     <p class="why">MDE = 2.8·SE, а SE ∝ <span class="nw"><span class="tx" data-tex="1/\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
@@ -415,7 +415,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Боб хочет <span class="tx" data-tex="\alpha = 1\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">1%</span></span></span></span></span> вместо 5% при тех же гостях. Чем он заплатит?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Ложных побед правда станет меньше, но бесплатно это не бывает: порог выше, и настоящие эффекты чаще до него не дотягивают.">Ничем: ложных побед просто меньше</button><button type="button" data-v="b" data-why="При тех же данных строгий порог убавляет одну ошибку, прибавляя другую. Обе сразу уменьшает только больше данных.">Ничем: меньше станет обеих ошибок</button><button type="button" data-v="c">Будет чаще пропускать эффекты</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Ложных побед правда станет меньше, но бесплатно это не бывает: порог выше, и настоящие эффекты чаще до него не дотягивают.">Ничем: ложных побед просто меньше</button><button type="button" data-v=1"b" data-why="При тех же данных строгий порог убавляет одну ошибку, прибавляя другую. Обе сразу уменьшает только больше данных.">Ничем: меньше станет обеих ошибок</button><button type="button" data-v=1"c">Будет чаще пропускать эффекты</button></div>
     <p class="why">Порог сдвигается с 1.96 до 2.58 SE. Эффект, который ловили в 80% тестов, теперь ловим примерно в 59%. Вернуть мощность можно, только добавив гостей — примерно в 1.5 раза.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -451,7 +451,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611509"></script>
+<script src="/signal/book.js?v=1202611509"></script>
 <script>
 const TXT = {
   ru: {
@@ -579,6 +579,6 @@ const seOf = n => 100 * Math.sqrt(2 * P0 * (1 - P0) / n);   // SE разност
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=202611509"></script>
+<script src="/signal/py.js?v=1202611509"></script>
 </body>
 </html>

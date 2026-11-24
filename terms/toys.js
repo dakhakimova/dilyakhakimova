@@ -37,7 +37,7 @@
       choice.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
       gnote.textContent = gnote.dataset.saved; }));
     // после первого действия — подсветить верный вариант прогноза
-    const reveal = () => { if (choice.classList.contains('done')) return; choice.classList.add('done'); choice.querySelector(`[data-v="${RIGHT[id]}"]`).setAttribute('data-right', ''); };
+    const reveal = () => { if (choice.classList.contains('done')) return; choice.classList.add('done'); choice.querySelector(`[data-v=1"${RIGHT[id]}"]`).setAttribute('data-right', ''); };
     ({tt, mw, chi, ss})[id](body, S, reveal);
   }
 

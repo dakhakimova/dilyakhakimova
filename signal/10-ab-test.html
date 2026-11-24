@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/10-ab-test.html">
 <title>A/B на простой метрике · Сигнал или шум</title>
 <meta name="description" content="Глава 10 бесплатного интерактивного курса «Сигнал или шум»: z-тест для двух конверсий и двух средних, p-value и 95-процентный интервал разницы — руками, на двух колоколах и в коде.">
-<script src="/play/bridge.js?v=202611509"></script>
+<script src="/play/bridge.js?v=1202611509"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611509">
-<link rel="stylesheet" href="/tokens.css?v=202611509">
-<link rel="stylesheet" href="/signal/book.css?v=202611509">
-<link rel="stylesheet" href="/signal/free.css?v=202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
+<link rel="stylesheet" href="/tokens.css?v=1202611509">
+<link rel="stylesheet" href="/signal/book.css?v=1202611509">
+<link rel="stylesheet" href="/signal/free.css?v=1202611509">
 <style>
 /* живая формула с подставленными числами (глава 10) */
 .live{background:var(--surface); border:1px solid rgba(36,34,31,.10); border-radius:12px; padding:10px 14px; margin:12px 0; font:400 .9375rem/1.6 var(--body); font-variant-numeric:tabular-nums}
@@ -24,10 +24,10 @@
 .grp-h{font:600 .8125rem/1.3 var(--body); color:var(--muted); margin:10px 0 2px}
 .xtab td.cold{color:var(--muted)}
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
 </head>
 <body data-course="signal" data-chapter="ch10" data-next="11-errors.html">
-<script src="/signal/progress.js?v=202611509"></script>
+<script src="/signal/progress.js?v=1202611509"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -50,12 +50,12 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="a">
     <p class="q">Доставка в среднем едет 30 минут, стандартное отклонение — 5 минут, распределение похоже на колокол. Один заказ ехал 42 минуты. Насколько это необычно?</p>
-    <div class="choice"><button type="button" data-v="a">z = 2.4: так едет меньше 1% заказов</button><button type="button" data-v="b" data-why="12 минут — это отклонение в минутах. z-оценка меряет его в сигмах: 12 минут нужно разделить на 5.">z = 12: заказ ехал на 12 минут дольше среднего</button><button type="button" data-v="c" data-why="z-оценка — не отношение к среднему. Она считает, сколько сигм между заказом и средним.">z = 1.4: заказ ехал в 1.4 раза дольше</button></div>
+    <div class="choice"><button type="button" data-v=1"a">z = 2.4: так едет меньше 1% заказов</button><button type="button" data-v=1"b" data-why="12 минут — это отклонение в минутах. z-оценка меряет его в сигмах: 12 минут нужно разделить на 5.">z = 12: заказ ехал на 12 минут дольше среднего</button><button type="button" data-v=1"c" data-why="z-оценка — не отношение к среднему. Она считает, сколько сигм между заказом и средним.">z = 1.4: заказ ехал в 1.4 раза дольше</button></div>
     <p class="why">z = (42 − 30) / 5 = 2.4: заказ ехал на 2.4 сигмы дольше среднего. Дальше 2.4 сигмы вправо лежит меньше 1% колокола, примерно 1 заказ из 120. Это глава 5: сигма — линейка колокола.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">После новой упаковки пришла 31 жалоба на пролитый суп. Что спросить первым?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Без знаменателя это сравнение тоже врёт: если супов стало вдвое больше, жалоб и так станет больше.">Сколько жалоб было на старую упаковку</button><button type="button" data-v="b">Сколько супов доставили за это время</button><button type="button" data-v="c" data-why="Курьеры могут быть важны, но сначала нужно понять, много ли это — 31 жалоба.">Какие курьеры возили пролитые супы</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Без знаменателя это сравнение тоже врёт: если супов стало вдвое больше, жалоб и так станет больше.">Сколько жалоб было на старую упаковку</button><button type="button" data-v=1"b">Сколько супов доставили за это время</button><button type="button" data-v=1"c" data-why="Курьеры могут быть важны, но сначала нужно понять, много ли это — 31 жалоба.">Какие курьеры возили пролитые супы</button></div>
     <p class="why">31 жалоба — числитель без знаменателя. 31 из 300 супов и 31 из 30 000 — совсем разные истории. Это глава 8: сначала спроси, откуда данные и от чего доля.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -143,10 +143,10 @@
   </div>
   <p><b>Сначала угадай:</b> как часто в мире Котейки разница получается не меньше 0.65 заказа на 100 гостей в любую сторону?</p>
   <div class="choice" data-key="g2" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="half" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Часто: в половине A/A</button>
-    <button type="button" data-v="fifth" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Иногда: в 1 из 5</button>
-    <button type="button" data-v="few" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Редко: в 3 из 100</button>
-    <button type="button" data-v="never" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Почти никогда: в 1 из 10 000</button>
+    <button type="button" data-v=1"half" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Часто: в половине A/A</button>
+    <button type="button" data-v=1"fifth" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Иногда: в 1 из 5</button>
+    <button type="button" data-v=1"few" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Редко: в 3 из 100</button>
+    <button type="button" data-v=1"never" data-fb="Записали. Насыплем A/A‑тесты и посчитаем." aria-pressed="false">Почти никогда: в 1 из 10 000</button>
   </div>
   <div class="sheet c-white">
     <p class="chart-title">Колокол — разницы в мире без эффекта; флажок — наша разница; красное — p‑value</p>
@@ -205,10 +205,10 @@ s76,-153,76,-153s77,-151,77,-151c0.7,0.7,35.7,202,105,604c67.3,400.7,102,602.7,1
   <p>Тест отверг мир без эффекта. Но ноль — только один кандидат на правду. Спросим данные Боба и про других: «а если кнопка даёт ровно +1 заказ на 100 гостей?» Тогда разницы в тестах легли бы колоколом вокруг +1. Смотрим, где на этом колоколе наша разница +0.65. Если в хвосте, кандидат гаснет, если в теле — остаётся жив.</p>
   <p><b>Сначала угадай:</b> какие кандидаты останутся живы?</p>
   <div class="choice" data-key="edges" role="group" aria-label="Твой ответ">
-    <button type="button" data-v="n1" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Узко: от +0.55 до +0.75</button>
-    <button type="button" data-v="n3" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0.35 до +0.95</button>
-    <button type="button" data-v="n6" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0.05 до +1.25</button>
-    <button type="button" data-v="n12" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Широко: от −0.55 до +1.85</button>
+    <button type="button" data-v=1"n1" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Узко: от +0.55 до +0.75</button>
+    <button type="button" data-v=1"n3" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0.35 до +0.95</button>
+    <button type="button" data-v=1"n6" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">От +0.05 до +1.25</button>
+    <button type="button" data-v=1"n12" data-fb="Записали. Проверим всех кандидатов по очереди." aria-pressed="false">Широко: от −0.55 до +1.85</button>
   </div>
   <div class="sheet c-white">
     <p class="chart-title">Колокол — разницы тестов, если правда равна кандидату; красное — хвосты по 2.5%; кружки — кандидаты. Ось — разница, заказов на 100 гостей</p>
@@ -370,7 +370,7 @@ _check()
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в словах Боба?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="1 − p — это доля миров без эффекта, где разница вышла меньше нашей. О шансе, что эффект есть, она ничего не говорит.">Ничего: 1 − p и есть шанс, что эффект есть</button><button type="button" data-v="b">p посчитан в мире, где эффекта нет</button><button type="button" data-v="c" data-why="Деление p пополам даёт односторонний p‑value, но тоже не шанс эффекта.">Надо было взять 1 − p/2, то есть 98.4%</button><button type="button" data-v="d" data-why="Так p тоже читать нельзя: шанс эффекта по одному p‑value не посчитать ни так, ни наоборот.">Шанс эффекта 3.3%, а не 96.7%</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="1 − p — это доля миров без эффекта, где разница вышла меньше нашей. О шансе, что эффект есть, она ничего не говорит.">Ничего: 1 − p и есть шанс, что эффект есть</button><button type="button" data-v=1"b">p посчитан в мире, где эффекта нет</button><button type="button" data-v=1"c" data-why="Деление p пополам даёт односторонний p‑value, но тоже не шанс эффекта.">Надо было взять 1 − p/2, то есть 98.4%</button><button type="button" data-v=1"d" data-why="Так p тоже читать нельзя: шанс эффекта по одному p‑value не посчитать ни так, ни наоборот.">Шанс эффекта 3.3%, а не 96.7%</button></div>
     <p class="why">p‑value — это <span class="nw"><span class="tx" data-tex="P(\text{«такая разница или больше»}\mid \text{«эффекта нет»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">такая</span><span class="mord"> </span><span class="mord cyrillic_fallback">разница</span><span class="mord"> </span><span class="mord cyrillic_fallback">или</span><span class="mord"> </span><span class="mord cyrillic_fallback">больше</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">эффекта</span><span class="mord"> </span><span class="mord cyrillic_fallback">нет</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span>.</span> Боб хочет <span class="tx" data-tex="P(\text{«эффект есть»}\mid \text{«такая разница»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">эффект</span><span class="mord"> </span><span class="mord cyrillic_fallback">есть</span><span class="mord">»</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">такая</span><span class="mord"> </span><span class="mord cyrillic_fallback">разница</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span> — это другая условная вероятность, и для неё нужно знать, как часто идеи вообще работают. Это Байес из «Вероятности на пальцах», <a href="/probability/06-bayes.html">шаг 6</a>, и тема главы 12.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -452,22 +452,22 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   <h2>Вопросы про z-тест и p‑value</h2>
   <div class="quiz" data-right="c">
     <p class="q">В тесте нового фото блюд p = 0.12. Что это говорит об эффекте?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="p‑value не вероятность, что эффекта нет: его считали, предполагая, что эффекта нет.">Эффекта нет с вероятностью 88%</button><button type="button" data-v="b" data-why="p больше порога не доказывает отсутствие эффекта: маленький эффект часто не виден на малых n.">Эффекта точно нет: p больше 0.05</button><button type="button" data-v="c">Его пока не отличить от шума</button><button type="button" data-v="d" data-why="p не вероятность эффекта ни в какую сторону. Это доля миров без эффекта с такой же разницей.">Эффект есть с вероятностью 12%</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="p‑value не вероятность, что эффекта нет: его считали, предполагая, что эффекта нет.">Эффекта нет с вероятностью 88%</button><button type="button" data-v=1"b" data-why="p больше порога не доказывает отсутствие эффекта: маленький эффект часто не виден на малых n.">Эффекта точно нет: p больше 0.05</button><button type="button" data-v=1"c">Его пока не отличить от шума</button><button type="button" data-v=1"d" data-why="p не вероятность эффекта ни в какую сторону. Это доля миров без эффекта с такой же разницей.">Эффект есть с вероятностью 12%</button></div>
     <p class="why">p = 0.12 значит: без эффекта такая или большая разница бывает в 12 тестах из 100. Это не редкость, поэтому шум объясняет данные. Но и эффект их объясняет — данных просто мало, чтобы выбрать. Посмотри на интервал: он широкий и задевает ноль.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">За месяц в каждой группе по 4 млн гостей. Эффект +0.05 заказа на 100 гостей, p = 0.02. Что верно?</p>
-    <div class="choice"><button type="button" data-v="a">Эффект, скорее всего, есть, но крошечный</button><button type="button" data-v="b" data-why="Маленький p говорит, что разницу трудно списать на шум, а не что она большая. При 4 млн гостей заметна и мелочь.">Эффект большой: ведь p очень маленький</button><button type="button" data-v="c" data-why="Значимость ничего не говорит о пользе: выкатка может стоить дороже, чем принесёт +0.05 заказа на 100 гостей.">Значимо — значит, обязательно выкатываем</button></div>
+    <div class="choice"><button type="button" data-v=1"a">Эффект, скорее всего, есть, но крошечный</button><button type="button" data-v=1"b" data-why="Маленький p говорит, что разницу трудно списать на шум, а не что она большая. При 4 млн гостей заметна и мелочь.">Эффект большой: ведь p очень маленький</button><button type="button" data-v=1"c" data-why="Значимость ничего не говорит о пользе: выкатка может стоить дороже, чем принесёт +0.05 заказа на 100 гостей.">Значимо — значит, обязательно выкатываем</button></div>
     <p class="why">SE здесь около 0.02 заказа на 100 гостей, поэтому даже +0.05 — это 2.4 SE. Интервал — примерно от +0.01 до +0.09: эффект есть, но это 1 лишний заказ на 2000 гостей. Значимо — не значит важно: решает, окупится ли выкатка.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Интервал разницы — от +0.05 до +1.25 заказа на 100 гостей (95%). Как его честно прочитать?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Повторный тест тоже шумит, поэтому его разница попадает в первый интервал реже, чем в 95% случаев, — в среднем примерно в 83%.">В него попадёт разница 95% повторных A/B‑тестов</button><button type="button" data-v="b">95% таких вилок накрывают истинный эффект</button><button type="button" data-v="c" data-why="Интервал — про средний эффект на группу, а не про каждого гостя. Кто‑то из гостей вообще не заметил кнопку.">У 95% гостей прирост от 0.05 до 1.25 заказа</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Повторный тест тоже шумит, поэтому его разница попадает в первый интервал реже, чем в 95% случаев, — в среднем примерно в 83%.">В него попадёт разница 95% повторных A/B‑тестов</button><button type="button" data-v=1"b">95% таких вилок накрывают истинный эффект</button><button type="button" data-v=1"c" data-why="Интервал — про средний эффект на группу, а не про каждого гостя. Кто‑то из гостей вообще не заметил кнопку.">У 95% гостей прирост от 0.05 до 1.25 заказа</button></div>
     <p class="why">95% — свойство способа строить интервалы: если повторять тест много раз, в 95 случаях из 100 вилка накроет истинный эффект. Практически это читают так: эффекты внутри не противоречат данным, снаружи — противоречат.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Двусторонний p = 0.08, односторонний — 0.04. Какой взять в отчёт?</p>
-    <div class="choice"><button type="button" data-v="a" data-why="Выбор по виду данных — подгонка: так ложных побед становится больше заявленных 5%.">Односторонний: он меньше и чувствительнее</button><button type="button" data-v="b" data-why="Односторонний тест честен, если вопрос в одну сторону задан до теста, — например, «не превысили ли норму опозданий».">Двусторонний: односторонний — это нечестно</button><button type="button" data-v="c">Тот, о котором договорились до теста</button></div>
+    <div class="choice"><button type="button" data-v=1"a" data-why="Выбор по виду данных — подгонка: так ложных побед становится больше заявленных 5%.">Односторонний: он меньше и чувствительнее</button><button type="button" data-v=1"b" data-why="Односторонний тест честен, если вопрос в одну сторону задан до теста, — например, «не превысили ли норму опозданий».">Двусторонний: односторонний — это нечестно</button><button type="button" data-v=1"c">Тот, о котором договорились до теста</button></div>
     <p class="why">Двусторонний p вдвое больше одностороннего, потому что считает перекосы в обе стороны. Какой из них нужен, решает вопрос, а не данные. Если выбирать после того, как увидел p, порог 5% перестаёт быть порогом 5%.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -542,7 +542,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </main>
 </div>
 
-<script src="/signal/book.js?v=202611509"></script>
+<script src="/signal/book.js?v=1202611509"></script>
 <script>
 const TXT = {
   ru: {
@@ -760,6 +760,6 @@ const TXT = {
   upd();
 })();
 </script>
-<script src="/signal/py.js?v=202611509"></script>
+<script src="/signal/py.js?v=1202611509"></script>
 </body>
 </html>

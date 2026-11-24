@@ -40,10 +40,10 @@ ${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel="c
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tokens.css?v=${V}">
-<link rel="stylesheet" href="${FONTS}?v=${V}">
-<link rel="stylesheet" href="/home.css?v=${V}">
-${css.map(c => `<link rel="stylesheet" href="${c}?v=${V}">`).join('\n')}
+<link rel="stylesheet" href="/tokens.css?v=1${V}">
+<link rel="stylesheet" href="${FONTS}?v=1${V}">
+<link rel="stylesheet" href="/home.css?v=1${V}">
+${css.map(c => `<link rel="stylesheet" href="${c}?v=1${V}">`).join('\n')}
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -236,7 +236,7 @@ ${books.length || arts.length ? `
   </section>
 ` : ''}</main>
 ` + chrome.footer() + `
-<script src="/site/shelf.js?v=${V}"></script>
+<script src="/site/shelf.js?v=1${V}"></script>
 </body>
 </html>
 `;
@@ -260,7 +260,7 @@ function stampAll(){
     // вернуть рисунки, файл которых уже появился
     html = html.replace(/<!--missing-art (\S+) (\S+) -->/g, (all, src, b64) => fs.existsSync(path.join(ROOT, src.split('?')[0])) ? Buffer.from(b64, 'base64').toString('utf8') : all);
     // единая версия ассетов
-    html = html.replace(/(\.(?:css|js))\?v=\d+/g, `$1?v=${V}`);
+    html = html.replace(/(\.(?:css|js))\?v=1\d+/g, `$1?v=1${V}`);
     fs.writeFileSync(file, html);
   }
   // неопубликованные курсы: страница есть, но noindex и не видна в навигации

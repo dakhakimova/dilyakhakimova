@@ -21,11 +21,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611509">
-<link rel="stylesheet" href="/tokens.css?v=202611509">
-<link rel="stylesheet" href="/home.css?v=202611509">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611509">
-<link rel="stylesheet" href="/terms/terms.css?v=202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
+<link rel="stylesheet" href="/tokens.css?v=1202611509">
+<link rel="stylesheet" href="/home.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
+<link rel="stylesheet" href="/terms/terms.css?v=1202611509">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dilyakhakimova.com/"},{"@type":"ListItem","position":2,"name":"Словарь аналитика","item":"https://dilyakhakimova.com/terms/"}]},{"@type":"DefinedTermSet","@id":"https://dilyakhakimova.com/terms/#set","name":"Словарь","url":"https://dilyakhakimova.com/terms/","author":{"@type":"Person","name":"Диля Хакимова","url":"https://dilyakhakimova.com/about/"},"hasDefinedTerm":[{"@type":"DefinedTerm","name":"Нормальное распределение","url":"https://dilyakhakimova.com/terms/normal-distribution/"}]}]}</script>
 </head>
 <body class="t-page">
@@ -72,7 +72,7 @@
 
 <script>
 (function(){var q=document.getElementById('t-q');if(!q)return;var li=[].slice.call(document.querySelectorAll('.cat-list > li')),abc=document.querySelector('.t-abc'),em=document.querySelector('.t-empty'),msg="Термина «{q}» в словаре пока нет.";
-function go(){var D=/[‐-―-]/g,v=q.value.trim().toLowerCase().replace(D,'-'),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.replace(D,'-').indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
+function go(){var D=/[‐-―-]/g,v=1q.value.trim().toLowerCase().replace(D,'-'),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.replace(D,'-').indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
 q.addEventListener('input',go);em.querySelector('button').addEventListener('click',function(){q.value='';go();q.focus()})})();
 </script>
 </body>
