@@ -167,19 +167,34 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
     bar.append(nextB, allB, cnt); ol.after(bar);
     const start = +(ol.dataset.start ?? 1); const st = {ol, items, shown: start, cur: start - 1};
     function paint(){
+      gates();
       items.forEach((li, i) => { li.hidden = i >= st.shown; li.classList.toggle('cur', i === st.cur); });
       cnt.textContent = st.shown ? 'шаг ' + (st.cur + 1) + ' из ' + items.length : items.length + ' шагов';
       const done = st.shown >= items.length;
       nextB.textContent = done ? 'Сначала' : st.shown ? 'Следующий шаг' : 'Показать первый шаг';
       allB.hidden = done;
     }
-    st.next = () => { if (st.shown < items.length){ st.shown++; st.cur = st.shown - 1; paint(); return true; } return false; };
+    st.next = () => { if (ol.hidden) return false; if (st.shown < items.length){ st.shown++; st.cur = st.shown - 1; paint(); return true; } return false; };
     st.prev = () => { if (st.shown > start){ st.shown--; st.cur = st.shown - 1; paint(); return true; } return false; };
     nextB.addEventListener('click', () => { if (!st.next()){ st.shown = start; st.cur = start - 1; paint(); } });
     allB.addEventListener('click', () => { st.shown = items.length; st.cur = -1; paint(); cnt.textContent = 'все шаги'; });
     items.forEach((li, i) => li.addEventListener('click', e => { if (e.target.closest('a, button, details')) return; st.cur = i; paint(); }));
+    st.bar = bar; st.done = () => st.shown >= items.length;
     state.set(ol, st); paint();
   });
+  // список с data-start="0" и его заголовок появляются, только когда предыдущий список на слайде раскрыт до конца
+  function gates(){
+    lists.forEach(ol => {
+      if (ol.dataset.start !== '0') return;
+      const st = state.get(ol); if (!st) return;
+      const card = ol.closest('.card'), before = [...card.querySelectorAll('ol.reveal')].filter(o => o !== ol && (o.compareDocumentPosition(ol) & Node.DOCUMENT_POSITION_FOLLOWING));
+      const prev = before.length ? state.get(before[before.length - 1]) : null;
+      const open = !prev || prev.done() || st.shown > 0;
+      const h = ol.previousElementSibling && /^H[2-4]$/.test(ol.previousElementSibling.tagName) ? ol.previousElementSibling : null;
+      [ol, st.bar, h].forEach(e => { if (e) e.hidden = !open; });
+    });
+  }
+  gates();
   const active = () => { const card = [...document.querySelectorAll('.card')].find(c => c.offsetParent !== null); return card ? [...card.querySelectorAll('ol.reveal')].map(o => state.get(o)) : []; };
   document.addEventListener('keydown', e => {
     if (e.target.closest('textarea, input, select')) return;
