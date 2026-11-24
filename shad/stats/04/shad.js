@@ -106,12 +106,13 @@
     const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'toggle calc-btn'; btn.textContent = '🧮 Калькулятор'; btn.setAttribute('aria-expanded', 'false');
     head.appendChild(btn);
     const box = document.createElement('div'); box.className = 'calc-pop'; box.hidden = true;
-    box.innerHTML = '<div class="calc-line"><input type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 2^10, C(14,12), 1-(1-0.0065)^50"><button type="button" class="btn">=</button></div><ol class="calc-hist"></ol><p class="calc-help">Можно: + − × / ^, скобки, C(n,k), n!, sqrt(), ln(), exp(), Phi(z), проценты 5%.</p>';
+    box.innerHTML = '<div class="calc-line"><input type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 2^10, C(14,12), 1-(1-0.0065)^50"><button type="button" class="btn calc-eq">=</button><button type="button" class="btn ghost calc-clr">Очистить</button></div><ol class="calc-hist"></ol><p class="calc-help">Можно: + − × / ^, скобки, C(n,k), n!, sqrt(), ln(), exp(), Phi(z), проценты 5%. Esc — стереть строку.</p>';
     head.after(box);
     const inp = box.querySelector('input'), hist = box.querySelector('.calc-hist');
     const run = () => { const t = inp.value.trim(); if (!t) return; let r; try { r = fmt(ev(t)); } catch (e) { r = 'не понимаю выражение'; } const li = document.createElement('li'); li.innerHTML = '<span class="q"></span> = <b></b>'; li.querySelector('.q').textContent = t; li.querySelector('b').textContent = r; hist.prepend(li); while (hist.children.length > 6) hist.lastChild.remove(); inp.select(); };
-    box.querySelector('button').addEventListener('click', run);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); e.stopPropagation(); });
+    box.querySelector('.calc-eq').addEventListener('click', run);
+    box.querySelector('.calc-clr').addEventListener('click', () => { inp.value = ''; hist.innerHTML = ''; inp.focus(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); if (e.key === 'Escape'){ inp.value = ''; } e.stopPropagation(); });
     btn.addEventListener('click', () => { box.hidden = !box.hidden; btn.setAttribute('aria-expanded', String(!box.hidden)); if (!box.hidden) inp.focus(); });
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
