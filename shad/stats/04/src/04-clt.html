@@ -175,6 +175,9 @@
     c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
     const step = Book.niceStep(hi - lo, 5); for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) big(c, num(v, step < 0.01 ? 3 : step < 0.1 ? 2 : step < 1 ? 1 : 0), X(v), h - B + 18, COL.ink2, 14, 400);
     big(c, 'среднее по n = ' + n + ' · ' + d.name, L, 20, COL.ink, 16, 600, 'left');
+    if (sim.cov != null){ const fs2 = Math.round(Math.max(20, Math.min(30, w / 28))), ok = sim.cov >= 0.94;
+      big(c, 'покрытие ' + share(sim.cov, 1) + (ok ? ' ✓' : ''), w - R - 4, 20 + fs2 + 10, COL.trap, fs2, 700, 'right');
+      big(c, 'цель 95%', w - R - 4, 20 + fs2 + 32, COL.ink2, 14, 500, 'right'); }
     const cv = sim.cov;
     out1.innerHTML = cv == null ? 'При \\(n = 1\\) среднее — это само наблюдение: видна форма исходного распределения. Интервал по одному наблюдению не построить.'
       : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (dk === 'pareto' ? 'ЦПТ не сработает ни при каком \\(n\\): дисперсия бесконечна.' : cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
