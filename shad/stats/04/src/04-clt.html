@@ -49,6 +49,7 @@
     <div class="controls" id="g1-prow" hidden><span>Вероятность успеха \(p\):</span><span class="seg" role="group" aria-label="p"><button type="button" class="btn ghost" data-p="0.005" aria-pressed="true">0.5%</button><button type="button" class="btn ghost" data-p="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-p="0.05" aria-pressed="false">5%</button><button type="button" class="btn ghost" data-p="0.3" aria-pressed="false">30%</button></span></div>
     <div class="controls"><label class="field">Наблюдений в среднем \(n\) = <input type="number" id="g1-n" class="n-in" min="1" max="10000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
     <p class="dist-f" aria-live="polite"></p>
+    <p class="chart-t"></p>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
@@ -177,10 +178,10 @@
     c.beginPath(); for (let k = 0; k <= 300; k++){ const x = lo + (hi - lo) * k / 300, px = X(x), py = Y(normPdf((x - mean) / sdm) / sdm); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = COL.trap; c.lineWidth = 2.5; c.stroke();
     c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
     const step = Book.niceStep(hi - lo, 5); for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) big(c, num(v, step < 0.01 ? 3 : step < 0.1 ? 2 : step < 1 ? 1 : 0), X(v), h - B + 18, COL.ink2, 14, 400);
-    big(c, 'среднее по n = ' + n + ' · ' + d.name, L, 20, COL.ink, 16, 600, 'left');
+    g1.querySelector('.chart-t').textContent = 'Среднее по n = ' + n + ' · ' + d.name;
     if (sim.cov != null){ const fs2 = Math.round(Math.max(20, Math.min(30, w / 28))), ok = sim.cov >= 0.94;
-      big(c, share(sim.cov, 1) + (ok ? ' ✓' : ''), w - R - 4, 20 + fs2 + 10, COL.trap, fs2, 700, 'right');
-      big(c, 'покрытие, цель 95%', w - R - 4, 20 + fs2 + 32, COL.ink2, 15, 500, 'right'); }
+      big(c, share(sim.cov, 1) + (ok ? ' ✓' : ''), w - R - 4, fs2 + 4, COL.trap, fs2, 700, 'right');
+      big(c, 'покрытие, цель 95%', w - R - 4, fs2 + 26, COL.ink2, 15, 500, 'right'); }
     const cv = sim.cov;
     out1.innerHTML = cv == null ? 'При \\(n = 1\\) среднее — это само наблюдение: видна форма исходного распределения. Интервал по одному наблюдению не построить.'
       : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (dk === 'pareto' ? 'ЦПТ не сработает ни при каком \\(n\\): дисперсия бесконечна.' : cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
