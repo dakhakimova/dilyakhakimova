@@ -45,8 +45,8 @@
   <p>Конверсия сейчас 5.0%, хотим заметить рост до 5.3%. В эксперимент приходит 10 000 новых пользователей в день, сплит 50/50, \(\alpha = 5\%\).</p>
   <div class="game" id="g1">
     <div class="controls"><label class="field">Дней <input type="text" inputmode="numeric" class="n-in" id="g1-d" value="7"></label><button type="button" class="btn ghost" id="g1-p">+7</button></div>
-    <p class="chart-t">Оценка разницы в единицах SE: серый — эффекта нет, синий — рост до 5.3%</p>
-    <canvas aria-label="Два колокола: без эффекта и с ростом до 5.3%, закрашена мощность"></canvas>
+    <p class="chart-t">Какой рост ловим с мощностью 80% в зависимости от длительности</p>
+    <canvas aria-label="График: MDE падает с ростом числа дней как один делить на корень из n; пунктир — цель 5.3%"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
@@ -264,20 +264,30 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
   let days = 7;
   const setD = x => { days = Math.max(1, Math.min(365, Math.round(+String(x).replace(/\s/g, '')) || 7)); dIn.value = days; paint(); };
   function paint(){
-    const g = canvas(cv, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 40, B = 32;
-    const n = PER * days, se = Math.sqrt((PA * (1 - PA) + PB * (1 - PB)) / n), shift = (PB - PA) / se;
-    const lo = -3.5, hi = Math.max(6.5, shift + 3.5), X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.08);
-    const f1 = x => normPdf(x - shift), power = 1 - normCdf(1.96 - shift), mde = 2.8 * Math.sqrt(2 * PA * (1 - PA) / n);
-    area(c, X, Y, f1, 1.96, hi, h - B, 'rgba(35,65,138,.28)');
-    area(c, X, Y, f1, lo, 1.96, h - B, 'rgba(230,180,60,.35)');
-    area(c, X, Y, normPdf, 1.96, hi, h - B, 'rgba(201,65,58,.6)');
-    curve(c, X, Y, normPdf, lo, hi, COL.gray); curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
-    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
-    for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 20, COL.ink2, 14, 400);
-    c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 1.4; c.beginPath(); c.moveTo(X(1.96), T - 20); c.lineTo(X(1.96), h - B); c.stroke(); c.setLineDash([]);
-    big(c, 'порог 1.96', X(1.96) + 6, T - 24, COL.ink, 15, 600, 'left');
-    const px = Math.max(shift, 1.96) + 1.4; big(c, 'мощность ' + Math.round(power * 100) + '%', Math.min(X(px) + 6, w - R - 4), Y(normPdf(px - shift)) - 12, COL.ctrl, 17, 700, X(px) + 150 > w ? 'right' : 'left');
-    if (power < 0.97) big(c, 'β = ' + Math.round((1 - power) * 100) + '%', X(Math.min(shift, 1.96) - 0.9), h - B - 14, '#8a6d1d', 15, 700);
+    const g = canvas(cv, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 64, R = 16, T = 24, B = 44;
+    const K = normInv(0.975) + normInv(0.8), V = 2 * PA * (1 - PA);
+    const mdeAt = d => K * Math.sqrt(V / (PER * d));  // MDE = (z_{1−α/2} + z_{1−β}) √((σ_A² + σ_B²)/n), n = 5 000 · дни
+    const n = PER * days, se = Math.sqrt((PA * (1 - PA) + PB * (1 - PB)) / n), power = 1 - normCdf(1.96 - (PB - PA) / se), mde = mdeAt(days);
+    const dStar = K * K * V / (PER * (PB - PA) ** 2);  // когда MDE дойдёт до 0.3%
+    const dMax = Math.max(42, Math.ceil((days + 7) / 7) * 7), yMax = PA + mdeAt(1) * 1.02 > 0.065 ? 0.065 : PA + mdeAt(1) * 1.02;
+    const X = d => L + (d - 0) / dMax * (w - L - R), Y = v => h - B - (v - PA) / (yMax - PA) * (h - T - B);
+    // сетка по неделям
+    c.lineWidth = 1; c.strokeStyle = 'rgba(0,0,0,.07)';
+    for (let d = 7; d <= dMax; d += 7){ c.beginPath(); c.moveTo(X(d), T); c.lineTo(X(d), h - B); c.stroke(); big(c, String(d), X(d), h - B + 20, COL.ink2, 13, 400); }
+    for (let v = PA; v <= yMax + 1e-9; v += 0.005){ c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); big(c, num(v * 100, 1) + '%', L - 8, Y(v) + 4, COL.ink2, 13, 400, 'right'); }
+    big(c, 'дней', w - R, h - B + 38, COL.ink2, 13, 500, 'right');
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.moveTo(L, T); c.lineTo(L, h - B); c.stroke();
+    // цель 5.3%
+    c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 1.6; c.beginPath(); c.moveTo(L, Y(PB)); c.lineTo(w - R, Y(PB)); c.stroke(); c.setLineDash([]);
+    big(c, 'хотим 5.3%', w - R, Y(PB) - 8, '#8a6d1d', 14, 700, 'right');
+    // кривая: 5% + MDE
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.6; c.beginPath(); let first = true;
+    for (let k = 0; k <= 400; k++){ const d = 0.5 + k / 400 * (dMax - 0.5), v = PA + mdeAt(d); if (v > yMax) continue; first ? c.moveTo(X(d), Y(v)) : c.lineTo(X(d), Y(v)); first = false; }
+    c.stroke();
+    if (dStar <= dMax){ c.fillStyle = '#8a6d1d'; c.beginPath(); c.arc(X(dStar), Y(PB), 5, 0, 7); c.fill(); big(c, '≈ ' + Math.ceil(dStar) + ' дней', X(dStar), Y(PB) + 22, '#8a6d1d', 13, 700); }
+    // текущая длительность
+    const vy = PA + mde; c.setLineDash([3, 4]); c.strokeStyle = COL.ctrl; c.lineWidth = 1.2; c.beginPath(); c.moveTo(X(days), h - B); c.lineTo(X(days), Y(Math.min(vy, yMax))); c.stroke(); c.setLineDash([]);
+    if (vy <= yMax){ c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(days), Y(vy), 7, 0, 7); c.fill(); big(c, num(vy * 100, 2) + '%', X(days) + 10, Y(vy) - 10, COL.ctrl, 15, 700, 'left'); }
     out.innerHTML = days + ' ' + (days % 10 === 1 && days % 100 !== 11 ? 'день' : days % 10 >= 2 && days % 10 <= 4 && (days % 100 < 10 || days % 100 >= 20) ? 'дня' : 'дней') + ' — по ' + num(n, 0) + ' в группе. Рост до 5.3% поймаем с вероятностью <b>' + Math.round(power * 100) + '%</b>. С мощностью 80% ловим рост до <b>' + num((PA + mde) * 100, 2) + '%</b> и больше.';
   }
   document.getElementById('g1-p').addEventListener('click', () => setD(days + 7));
