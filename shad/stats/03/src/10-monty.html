@@ -1,0 +1,143 @@
+{"title": "Монти Холл и дни рождения", "short": "10. Монти Холл", "h": "Блок 10 · Монти Холл и дни рождения", "lead": "Как получены данные и сколько на самом деле вариантов", "next": "11-summary.html"}
+<section class="card" data-title="Монти Холл и дни рождения">
+  <p class="kicker">Занятие 3 · блок 10</p>
+  <h1>Монти Холл и дни рождения</h1>
+  <figure class="art"><img src="img/10-monty.jpg" alt="Три двери на телешоу, за одной открытой — коза"></figure>
+  <p class="lead">Две задачи, на которых интуиция ломается у всех и которые любят на собеседованиях. Обе — на условную вероятность. «Парадоксами» их называют не из-за противоречия, а потому, что верный ответ спорит с интуицией.</p>
+</section>
+
+<section class="card" data-title="Менять дверь или нет?">
+  <span class="step-tag">Игра</span>
+  <h2>Менять дверь или нет?</h2>
+  <p>Ты на телешоу. Перед тобой три двери: за одной — машина, за двумя — козы. Ты выбираешь дверь. Ведущий, который <b>знает</b>, где машина, открывает другую дверь — там коза — и предлагает поменять выбор. Менять или нет?</p>
+  <div class="game" id="gm3">
+    <div class="doors" style="display:flex;gap:12px;justify-content:center;margin:8px 0">
+      <button type="button" class="btn ghost door" data-d="0" style="width:90px;height:110px;font-size:28px">1</button>
+      <button type="button" class="btn ghost door" data-d="1" style="width:90px;height:110px;font-size:28px">2</button>
+      <button type="button" class="btn ghost door" data-d="2" style="width:90px;height:110px;font-size:28px">3</button>
+    </div>
+    <div class="controls"><button type="button" class="btn" id="gm3-sw" disabled>Поменять</button><button type="button" class="btn ghost" id="gm3-st" disabled>Оставить</button><button type="button" class="btn ghost" id="gm3-sim">Сыграть 1 000 раз</button></div>
+    <p class="out" aria-live="polite">Выбери дверь.</p>
+  </div>
+</section>
+
+<section class="card" data-title="Как Монти Холл поссорил читателей">
+  <span class="step-tag">История</span>
+  <h2>Как Монти Холл поссорил читателей с Мэрилин вос Савант</h2>
+  <div class="story"><p>В 1990 году эту задачу прислали Мэрилин вос Савант — она вела колонку ответов читателям в журнале <i>Parade</i>. Она ответила: «Меняйте дверь — шанс выиграть 2/3». Ей пришло около 10 000 писем, большинство — с уверенным «там 50 на 50», почти тысяча — от людей с научной степенью. Права оказалась она: учителя по всей стране разыгрывали игру с классами, и «менять» выигрывало примерно в двух случаях из трёх. Даже Пол Эрдёш, по рассказу коллеги, согласился, только увидев симуляцию.</p></div>
+  <div class="takeaway"><p>Здесь ошибаются и профессионалы. Если интуиция спорит с расчётом, не спорь, а напиши десять строк симуляции и посмотри.</p></div>
+</section>
+
+<section class="card" data-title="Почему менять выгоднее">
+  <span class="step-tag">Решение</span>
+  <h2>Почему менять выгоднее</h2>
+  <ol class="howto reveal">
+    <li><b>Равновероятные исходы.</b> 300 игр, мы всегда выбираем дверь 1. Машина за дверью 1, 2, 3 — по 100 игр.</li>
+    <li><b>Правило ведущего.</b> Машина за 1: ведущий открывает 2 или 3 наугад — дверь 3 в 50 играх. Машина за 2: открыть можно только 3 — во всех 100. Машина за 3: дверь 3 не открывает.</li>
+    <li><b>Оставляем совместимые с наблюдением</b> «открыта дверь 3, там коза»: \(50 + 100 + 0 = 150\) игр.</li>
+    <li><b>Перевзвешиваем.</b> Машина за дверью 2 — в 100 из 150, \(2/3\); за нашей дверью — в 50 из 150, \(1/3\).</li>
+    <li><b>Интуиция через 100 дверей.</b> Ты выбрал одну дверь из 100, ведущий открыл 98 с козами и оставил одну. Машина почти наверняка там.</li>
+    <li><b>Если ведущий не знает</b> и открывает дверь наугад: машина за 1 — 50 игр, за 2 — 50 игр, за 3 — 50 игр, но там машина, и эти игры с наблюдением «коза» не совпадают. Остаются 50 и 50 — шансы \(1/2\).</li>
+  </ol>
+  <div class="takeaway"><p>Менять — \(2/3\), не менять — \(1/3\). Одна и та же картинка «открыта дверь с козой» значит разное в зависимости от того, <b>как появились данные</b>, — как в опросе оставшихся и как с подглядыванием в A/B-тестах.</p></div>
+</section>
+
+<section class="card" data-title="Дни рождения">
+  <span class="step-tag">Игра</span>
+  <h2>Парадокс дней рождения</h2>
+  <figure class="art"><img src="img/10-birthdays.jpg" alt="Аудитория, полная студентов"></figure>
+  <p>Какова вероятность, что в этой аудитории найдутся <b>двое с одинаковым днём рождения</b>? Назови догадку, потом проверим: каждый называет свой день рождения.</p>
+  <div class="def"><p>Проще посчитать вероятность, что совпадений <b>нет</b>: второй человек не совпал с первым — \(364/365\), третий не совпал с двумя — \(363/365\), и так далее:</p></div>
+  <p class="formula">\[P(\text{нет совпадений}) = \prod_{k=0}^{n-1}\frac{365 - k}{365}, \qquad P(\text{есть}) = 1 - P(\text{нет}).\]</p>
+  <div class="game" id="gbd">
+    <div class="controls"><label class="field">Людей в аудитории <input type="text" inputmode="numeric" class="n-in" id="gbd-n" value="23"></label><button type="button" class="btn ghost" id="gbd-n10">+10</button></div>
+    <p class="chart-t">Вероятность хотя бы одного совпадения дней рождения</p>
+    <canvas aria-label="График вероятности совпадения дней рождения от числа людей"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Числа:</b> 20 человек — 41%, 23 — 51%, 30 — 71%, 40 — 89%, 50 — 97%.</p>
+    <p class="stp"><b>Шаг 2. Прикидка через пары.</b> При 23 людях пар \(23 \cdot 22/2 = 253\); \(1 - e^{-253/365} \approx 0.50\).</p>
+    <p class="stp"><b>Шаг 3. «Со мной».</b> \(1 - (364/365)^{22} \approx 6\%\) — в 8 раз меньше. Интуиция думает про себя, а пар — 253.</p>
+    <p class="stp"><b>Шаг 4. В продукте.</b> Случайные 6-значные промокоды, \(10^6\) вариантов: 50% совпадения при \(k^2/(2 \cdot 10^6) \approx \ln 2\), то есть уже примерно после 1 200 кодов.</p>
+    <p class="ans">23 человека — 51%, потому что пар 253. Совпадение именно с тобой — только 6%.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: два ребёнка">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 25.</span> Два ребёнка</h2>
+  <p>В семье двое детей. Известно, что <b>хотя бы один</b> из них мальчик. Какова вероятность, что оба — мальчики? А если известно, что мальчик — <b>старший</b> ребёнок?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Исходы</b> (старший, младший), равновероятные: ММ, МД, ДМ, ДД.</p>
+    <p class="stp"><b>Шаг 2. «Хотя бы один мальчик»</b> исключает только ДД: остаются ММ, МД, ДМ — оба мальчики в 1 из 3.</p>
+    <p class="stp"><b>Шаг 3. «Старший — мальчик»</b>: остаются ММ, МД — 1 из 2.</p>
+    <p class="ans">\(1/3\) и \(1/2\). Разница — в том, какое условие сообщили: та же мысль, что в Монти Холле.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Перечисли варианты</h2>
+  <div class="takeaway"><p>Интуиция о вероятностях ломается, когда мы не замечаем, <b>как получены данные</b> — ведущий знает или нет, — или <b>сколько вариантов</b> на самом деле: пар в комнате больше, чем людей. Лекарство одно: перечисли варианты или посчитай в штуках.</p></div>
+  <a class="next-step" href="11-summary.html"><b>Дальше: итоги занятия</b>Что забрать с собой.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  // Монти Холл
+  const g = document.getElementById('gm3');
+  if (g){
+    const out = g.querySelector('.out'), doors = [...g.querySelectorAll('.door')], sw = document.getElementById('gm3-sw'), st = document.getElementById('gm3-st');
+    let car, pick, opened, stat = {sw: [0, 0], st: [0, 0]};
+    const reset = () => { car = Math.floor(Math.random() * 3); pick = opened = null; doors.forEach((d, i) => { d.textContent = i + 1; d.disabled = false; }); sw.disabled = st.disabled = true; };
+    const statTxt = () => { const f = ([w, n]) => n ? num(100 * w / n, 0) + '% из ' + n : 'игр пока нет'; return '<br>Твои игры: меняя — ' + f(stat.sw) + ', оставляя — ' + f(stat.st) + '.'; };
+    doors.forEach((d, i) => d.addEventListener('click', () => {
+      if (pick !== null) return; pick = i;
+      const can = [0, 1, 2].filter(k => k !== pick && k !== car); opened = can[Math.floor(Math.random() * can.length)];
+      doors[opened].textContent = '🐐'; doors[opened].disabled = true; doors[pick].textContent = '✋ ' + (pick + 1);
+      sw.disabled = st.disabled = false;
+      out.innerHTML = 'Ты выбрал дверь ' + (pick + 1) + '. Ведущий открыл дверь ' + (opened + 1) + ' — там коза. Меняешь?' + statTxt();
+    }));
+    const finish = change => {
+      const final = change ? [0, 1, 2].find(k => k !== pick && k !== opened) : pick, win = final === car;
+      const s = change ? stat.sw : stat.st; s[1]++; if (win) s[0]++;
+      doors.forEach((d, k) => { d.textContent = k === car ? '🚗' : '🐐'; d.disabled = true; });
+      out.innerHTML = (win ? '<b>Машина!</b>' : '<b>Коза.</b>') + ' Ты ' + (change ? 'поменял' : 'оставил') + ' выбор. Выбери дверь, чтобы сыграть ещё.' + statTxt();
+      sw.disabled = st.disabled = true; pick = -1; setTimeout(reset, 1500);
+    };
+    sw.addEventListener('click', () => finish(true)); st.addEventListener('click', () => finish(false));
+    document.getElementById('gm3-sim').addEventListener('click', () => {
+      let a = 0, b = 0; for (let i = 0; i < 1000; i++){ const c = Math.floor(Math.random() * 3), p = Math.floor(Math.random() * 3); if (p === c) b++; else a++; }
+      out.innerHTML = '1 000 игр: менять выигрывает в <b>' + num(a / 10, 1) + '%</b>, оставлять — в <b>' + num(b / 10, 1) + '%</b>.' + statTxt();
+    });
+    reset();
+  }
+  // Дни рождения
+  const b = document.getElementById('gbd');
+  if (b){
+    const cv = b.querySelector('canvas'), out = b.querySelector('.out'), nI = document.getElementById('gbd-n');
+    let N = 23;
+    const pAny = n => { let q = 1; for (let k = 0; k < n; k++) q *= (365 - k) / 365; return 1 - q; };
+    function paint(){
+      const gg = canvas(cv, 0.42, 0.8); if (!gg) return; const {c, w, h} = gg, L = 52, R = 16, T = 16, B = 40;
+      const nMax = Math.max(80, Math.ceil(N * 1.2 / 10) * 10), X = n => L + n / nMax * (w - L - R), Y = p => h - B - (h - T - B) * p;
+      c.lineWidth = 1; c.strokeStyle = COL.grid;
+      [0, 0.25, 0.5, 0.75, 1].forEach(v => { c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); big(c, Math.round(v * 100) + '%', L - 8, Y(v) + 5, COL.ink2, 13, 400, 'right'); });
+      const stp = nMax > 150 ? 50 : nMax > 80 ? 20 : 10; for (let n = 0; n <= nMax; n += stp) big(c, String(n), X(n), h - B + 20, COL.ink2, 13, 400);
+      big(c, 'людей', w - R, h - B + 36, COL.ink2, 12, 500, 'right');
+      c.strokeStyle = COL.ctrl; c.lineWidth = 2.6; c.beginPath(); for (let n = 1; n <= nMax; n++){ n === 1 ? c.moveTo(X(n), Y(pAny(n))) : c.lineTo(X(n), Y(pAny(n))); } c.stroke();
+      const p = pAny(N);
+      c.setLineDash([3, 4]); c.lineWidth = 1.2; c.beginPath(); c.moveTo(X(N), h - B); c.lineTo(X(N), Y(p)); c.stroke(); c.setLineDash([]);
+      c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(N), Y(p), 7, 0, 7); c.fill();
+      big(c, num(p * 100, 1) + '%', X(N) + (X(N) > w - 120 ? -10 : 10), Y(p) + 22, COL.ctrl, 16, 700, X(N) > w - 120 ? 'right' : 'left');
+      out.innerHTML = 'Людей ' + N + ', пар ' + (N * (N - 1) / 2).toLocaleString('ru-RU') + '. Хотя бы одно совпадение — с вероятностью <b>' + num(100 * p, 1) + '%</b>; совпадение именно с тобой — ' + num(100 * (1 - Math.pow(364 / 365, N - 1)), 1) + '%.';
+    }
+    const set = v => { N = Math.max(2, Math.min(366, Math.round(+String(v).replace(/\s/g, '')) || 23)); nI.value = N; paint(); };
+    document.getElementById('gbd-n10').addEventListener('click', () => set(N + 10));
+    nI.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') set(nI.value); }); nI.addEventListener('change', () => set(nI.value));
+    window.addEventListener('resize', paint); if (window.ResizeObserver) new ResizeObserver(() => paint()).observe(cv); paint();
+  }
+})();
+</script>

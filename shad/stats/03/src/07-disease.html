@@ -1,0 +1,117 @@
+{"title": "Тест на редкую болезнь", "short": "7. Редкая болезнь", "h": "Блок 7 · Тест на редкую болезнь", "lead": "Игнорирование базовой частоты, формула Байеса и антифрод", "next": "08-bayes-update.html"}
+<section class="card" data-title="Тест на редкую болезнь">
+  <p class="kicker">Занятие 3 · блок 7</p>
+  <h1>Тест на редкую болезнь</h1>
+  <figure class="art"><img src="img/07-disease.jpg" alt="Робот-сканер антифрода проверяет очередь платежей, среди них енот в маске"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Антифрод-модель точная на 98%. Если она заблокировала платёж — это почти точно мошенник?</p></div></div>
+  </div>
+  <p class="lead">Самая частая ошибка с вероятностями — спутать «тест точный» и «положительный результат почти наверняка верный». Её делают врачи, судьи и аналитики антифрода.</p>
+</section>
+
+<section class="card" data-title="Задача: положительный тест">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 20.</span> Положительный тест</h2>
+  <p>Болезнью болеет <b>1%</b> людей. Тест находит болезнь у <b>90%</b> больных, а у здоровых ошибочно даёт положительный результат в <b>9%</b> случаев. Человек сдал тест, результат положительный. Какова вероятность, что он болен?</p>
+  <p>Сначала назови число навскидку — потом посчитаем на 1 000 людей.</p>
+  <div class="game" id="gd">
+    <div class="controls">
+      <label class="field">Болеют, % <input type="text" inputmode="decimal" class="n-in" id="gd-p" value="1"></label><button type="button" class="btn ghost" id="gd-p1">+1</button>
+      <label class="field">Находит у больных, % <input type="text" inputmode="decimal" class="n-in" id="gd-s" value="90"></label>
+      <label class="field">Ложные тревоги, % <input type="text" inputmode="decimal" class="n-in" id="gd-f" value="9"></label>
+    </div>
+    <p class="chart-t">1 000 человек: каждая клетка — человек</p>
+    <canvas aria-label="Сетка из 1000 клеток: больные, здоровые, положительные тесты"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. На 1 000 человек:</b> больных 10, здоровых 990.</p>
+    <p class="stp"><b>Шаг 2. Положительный тест:</b> у больных \(10 \cdot 0.9 = 9\) — настоящие находки; у здоровых \(990 \cdot 0.09 \approx 89\) — ложные тревоги.</p>
+    <p class="stp"><b>Шаг 3.</b> Всех положительных \(9 + 89 = 98\), из них больны 9.</p>
+    <p class="stp"><b>Шаг 4. Формулой</b> — то же, только всё разделено на 1 000:</p>
+    <p class="formula">\[\frac{0.9 \cdot 0.01}{0.9 \cdot 0.01 + 0.09 \cdot 0.99} = \frac{0.009}{0.0981} \approx 9.2\%.\]</p>
+    <p class="stp"><b>Шаг 5. Почему не 90%.</b> 90% — это \(P(+ \mid \text{болен})\), а спрашивают \(P(\text{болен} \mid +)\). Здоровых в 99 раз больше, и даже их 9% ошибок в 10 раз перевешивают 9 настоящих находок.</p>
+    <p class="ans">9 из 98 положительных больны — около 9%, а не 90%. Ошибка «90%» называется <b>игнорированием базовой частоты</b>.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Формула Байеса">
+  <span class="step-tag">Определение</span>
+  <h2>Формула Байеса — выводится в три шага</h2>
+  <p>Байес — <b>не новое определение</b>, а определение условной вероятности, в котором числитель и знаменатель расписаны через известное. \(H\) — гипотеза «болен», \(D\) — данные «тест положительный».</p>
+  <ol class="howto reveal">
+    <li><b>Определение:</b> \(P(H \mid D) = \dfrac{P(H \text{ и } D)}{P(D)}\).</li>
+    <li><b>Числитель — правило умножения:</b> \(P(H \text{ и } D) = P(H)\,P(D \mid H)\).</li>
+    <li><b>Знаменатель — полная вероятность</b> по группам «\(H\)» и «не \(H\)»: \(P(D) = P(D \mid H)P(H) + P(D \mid \text{не } H)P(\text{не } H)\).</li>
+    <li><b>Подставляем:</b>
+      <p class="formula">\[P(H \mid D) = \frac{P(D \mid H)\,P(H)}{P(D \mid H)P(H) + P(D \mid \text{не } H)P(\text{не } H)}.\]</p></li>
+  </ol>
+  <div class="report-wrap"><table class="tails grid">
+    <thead><tr><th>Обозначение</th><th>Название</th><th>В задаче</th></tr></thead>
+    <tbody>
+      <tr><td>\(P(H)\)</td><td>априорная вероятность, до данных</td><td>доля больных, 1%</td></tr>
+      <tr><td>\(P(D \mid H)\)</td><td>чувствительность теста</td><td>90%</td></tr>
+      <tr><td>\(P(D \mid \text{не } H)\)</td><td>доля ложных тревог</td><td>9%</td></tr>
+      <tr><td>\(P(H \mid D)\)</td><td>апостериорная вероятность, после данных</td><td>9.2%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="takeaway"><p><b>Ловушка: игнорирование базовой частоты.</b> «Тест точный на 90% — значит, болен с вероятностью 90%» путает \(P(+ \mid \text{болен})\) и \(P(\text{болен} \mid +)\) и забывает, сколько больных вообще. Когда событие редкое, даже хороший тест даёт больше ложных тревог, чем находок.</p></div>
+</section>
+
+<section class="card" data-title="Задача: антифрод">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 21.</span> Антифрод: сколько из заблокированных — честные?</h2>
+  <p>Среди платежей <b>1%</b> мошеннических. Модель ловит <b>70%</b> мошеннических платежей и по ошибке блокирует <b>2%</b> честных. Модель заблокировала платёж. Какова вероятность, что это действительно мошенник? Что ответить Бобу?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. На 100 000 платежей:</b> мошеннических 1 000, честных 99 000.</p>
+    <p class="stp"><b>Шаг 2. Заблокировано:</b> мошеннических \(1000 \cdot 0.7 = 700\), честных \(99\,000 \cdot 0.02 = 1980\); всего 2 680.</p>
+    <p class="stp"><b>Шаг 3.</b> \(700/2680 \approx 26\%\) — три четверти заблокированных платежей честные.</p>
+    <p class="stp"><b>Шаг 4. Откуда «точная на 98%».</b> Модель права в \(700 + 99\,000 \cdot 0.98 = 97\,720\) случаях из 100 000: почти все платежи честные, и она их пропускает. Общая точность при редком событии — плохой ориентир.</p>
+    <p class="ans">Мошенников среди заблокированных 26%. Бобу: блокировать без проверки нельзя — отправлять на ручную проверку или поднять порог.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Считай в штуках</h2>
+  <div class="takeaway"><p>При редком событии «положительный результат» чаще всего ложный. Считай в штуках на 1 000 или 100 000 случаев: сколько настоящих находок, сколько ложных тревог. Общая «точность» модели без базовой частоты ничего не значит.</p></div>
+  <a class="next-step" href="08-bayes-update.html"><b>Дальше: 8. Байес как обновление</b>Свидетель, такси и второй тест.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const g = document.getElementById('gd'); if (!g) return;
+  const cv = g.querySelector('canvas'), out = g.querySelector('.out');
+  const pI = document.getElementById('gd-p'), sI = document.getElementById('gd-s'), fI = document.getElementById('gd-f');
+  let P = 1, S = 90, F = 9;
+  const rd = v => +String(v).replace(',', '.').replace(/\s/g, '');
+  const clamp = (v, d) => { v = rd(v); return isFinite(v) ? Math.max(0, Math.min(100, v)) : d; };
+  // фиксированный порядок клеток, чтобы ложные тревоги были разбросаны
+  const order = Array.from({length: 1000}, (_, i) => i); let s = 7;
+  for (let i = 999; i > 0; i--){ s = (s * 16807) % 2147483647; const j = s % (i + 1); [order[i], order[j]] = [order[j], order[i]]; }
+  function paint(){
+    const gg = canvas(cv, 0.5, 0.9); if (!gg) return; const {c, w, h} = gg;
+    const cols = 50, rows = 20, cell = Math.min((w - 4) / cols, (h - 30) / rows), x0 = (w - cell * cols) / 2;
+    const sick = Math.round(P * 10), tp = Math.round(sick * S / 100), fp = Math.round((1000 - sick) * F / 100);
+    // клетка k: первые sick — больные (первые tp из них с «+»); среди здоровых fp случайных с «+»
+    const healthyPos = new Set(order.filter(i => i >= sick).slice(0, fp));
+    for (let k = 0; k < 1000; k++){
+      const r = Math.floor(k / cols), q = k % cols, x = x0 + q * cell, y = r * cell;
+      const isSick = k < sick, pos = isSick ? k < tp : healthyPos.has(k);
+      c.fillStyle = isSick ? (pos ? '#C9413A' : '#E9A9A4') : (pos ? '#3D6FB6' : '#E6E8EC');
+      c.fillRect(x + 1, y + 1, cell - 2, cell - 2);
+    }
+    const ly = rows * cell + 20;
+    [['#C9413A', 'болен, тест +'], ['#E9A9A4', 'болен, тест −'], ['#3D6FB6', 'здоров, тест +'], ['#E6E8EC', 'здоров, тест −']].forEach(([cl, t], i) => {
+      const x = x0 + i * (cell * cols / 4); c.fillStyle = cl; c.fillRect(x, ly - 10, 12, 12); big(c, t, x + 18, ly, COL.ink2, 13, 500, 'left');
+    });
+    const pos = tp + fp, post = pos ? tp / pos : 0;
+    out.innerHTML = 'Больных <b>' + sick + '</b>, у них положительный тест — <b>' + tp + '</b>. Здоровых ' + (1000 - sick) + ', ложных тревог — <b>' + fp + '</b>. Положительных всего ' + pos + ', из них больны ' + tp + ': \\(P(\\text{болен} \\mid +) \\approx ' + num(100 * post, 1) + '\\%\\).';
+  }
+  const set = () => { P = clamp(pI.value, 1); S = clamp(sI.value, 90); F = clamp(fI.value, 9); pI.value = P; sI.value = S; fI.value = F; paint(); };
+  document.getElementById('gd-p1').addEventListener('click', () => { pI.value = Math.min(100, P + 1); set(); });
+  [pI, sI, fI].forEach(el => { el.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') set(); }); el.addEventListener('change', set); });
+  window.addEventListener('resize', paint); if (window.ResizeObserver) new ResizeObserver(() => paint()).observe(cv); paint();
+})();
+</script>

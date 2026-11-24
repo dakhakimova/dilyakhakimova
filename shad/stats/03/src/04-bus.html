@@ -1,0 +1,135 @@
+{"title": "Почему автобус всегда опаздывает", "short": "4. Автобус", "h": "Блок 4 · Почему автобус всегда опаздывает", "lead": "Inspection paradox: среднее зависит от того, чьими глазами считаем", "next": "05-causation.html"}
+<section class="card" data-title="Почему автобус всегда опаздывает">
+  <p class="kicker">Занятие 3 · блок 4</p>
+  <h1>Почему автобус всегда опаздывает</h1>
+  <figure class="art"><img src="img/04-bus.jpg" alt="Остановка, толпа ждёт автобус, Котейка смотрит на часы"></figure>
+  <p class="lead">Ещё одна ловушка отбора, самая неочевидная: <b>чьими глазами</b> мы считаем среднее. Среднее на семью и на ребёнка, на автобус и на пассажира, на пользователя и на сессию — разные числа.</p>
+</section>
+
+<section class="card" data-title="Сколько детей в семье?">
+  <span class="step-tag">Кейс</span>
+  <h2 class="task-h"><span class="tn">Задача 11.</span> Сколько детей в семье?</h2>
+  <p>В группе из 15 студентов каждого спросили: <b>сколько детей у твоих родителей, считая тебя?</b></p>
+  <div class="report-wrap"><table class="tails grid">
+    <thead><tr><th>Детей у родителей</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+    <tbody><tr><td>Сколько студентов так ответили</td><td>4</td><td>7</td><td>3</td><td>1</td></tr></tbody>
+  </table></div>
+  <p>Среднее по ответам — \(31/15 \approx 2.07\). Можно ли сказать, что в семьях наших студентов в среднем 2.07 ребёнка? Если нет — как по этим же ответам оценить среднее <b>на семью</b>?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Кого спрашивали.</b> Ответили 15 <b>детей</b>, а вопрос — про <b>семьи</b>. Семья с \(k\) детьми попадает в опрос через каждого ребёнка: «голосует» \(k\) раз.</p>
+    <p class="stp"><b>Шаг 2. Вес \(1/k\).</b> Ответ «нас \(k\)» — это \(1/k\) семьи: \(4 \cdot 1 + 7 \cdot \tfrac12 + 3 \cdot \tfrac13 + 1 \cdot \tfrac14 = 8.75\) семьи.</p>
+    <p class="stp"><b>Шаг 3. Среднее на семью</b> \(= 15/8.75 \approx 1.71\) — гармоническое среднее ответов \(n/\sum 1/k_i\).</p>
+    <p class="ans">Оба числа верны: 2.07 — в какой семье растёт типичный ребёнок, 1.71 — сколько детей в типичной семье. Семьи без детей так не учесть: их нет среди отвечающих.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Парадокс наблюдателя">
+  <span class="step-tag">Определение</span>
+  <h2>Inspection paradox — парадокс наблюдателя</h2>
+  <div class="def"><p>Если объект попадает в выборку с вероятностью, пропорциональной своему «размеру» — длине интервала, числу детей, числу пассажиров, — то среднее по выборке больше настоящего среднего:</p></div>
+  <p class="formula">\[\mathbb E[\text{размер глазами наблюдателя}] = \frac{\mathbb E[X^2]}{\mathbb E[X]} = \mathbb E[X] + \frac{\mathrm{Var}\,X}{\mathbb E[X]} \ \ge\ \mathbb E[X].\]</p>
+  <ol class="howto reveal">
+    <li><b>Откуда.</b> Объект размера \(x\) видят с весом \(x\), поэтому среднее глазами наблюдателя — \(\frac{\sum x \cdot x}{\sum x} = \mathbb E[X^2]/\mathbb E[X]\).</li>
+    <li><b>Через дисперсию.</b> \(\mathbb E[X^2] = \mathrm{Var}\,X + (\mathbb E X)^2\) — формула из занятия 1. Перекос тем больше, чем больше разброс размеров; если все размеры одинаковы, перекоса нет.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Мэрия против пассажиров">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 12.</span> Мэрия против пассажиров: кто прав?</h2>
+  <p>Мэрия утверждает: в час с остановки отходят <b>4 автобуса</b>, то есть в среднем раз в <b>15 минут</b>. Ты месяц приходишь на остановку в случайное время, и по твоим наблюдениям автобусы ходят раз в <b>20–30 минут</b>. Пусть на самом деле интервалы в течение часа такие: <b>10, 35, 10 и 5 минут</b>.</p>
+  <ol>
+    <li>Какой средний интервал получается у мэрии?</li>
+    <li>В какой интервал чаще всего попадает пассажир, пришедший в случайный момент? С какой вероятностью?</li>
+    <li>Какой средний интервал «видит» пассажир и сколько он в среднем ждёт?</li>
+    <li>Кто прав?</li>
+  </ol>
+  <div class="game" id="gb">
+    <div class="controls"><button type="button" class="btn" id="gb-add">+20 пассажиров</button><button type="button" class="btn ghost" id="gb-even">Ровный график</button><button type="button" class="btn ghost" id="gb-reset">Сбросить</button></div>
+    <p class="chart-t">Час на остановке: интервалы между автобусами и пассажиры, пришедшие в случайный момент</p>
+    <canvas aria-label="Шкала часа с интервалами между автобусами и точками пассажиров"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Мэрия</b> считает по интервалам, каждый весит 1: \((10 + 35 + 10 + 5)/4 = 15\) мин.</p>
+    <p class="stp"><b>Шаг 2. Пассажир</b> попадает в интервал \(t\) с вероятностью \(t/60\): 17%, <b>58%</b>, 17%, 8%. Больше половины пассажиров — внутри одного длинного интервала.</p>
+    <p class="stp"><b>Шаг 3. Интервал глазами пассажира</b> — среднее тех же интервалов с весами \(t/60\):</p>
+    <p class="formula">\[\sum_t \frac{t}{60} \cdot t = \frac{10^2 + 35^2 + 10^2 + 5^2}{60} = \frac{1450}{60} \approx 24.2 \text{ мин}.\]</p>
+    <p class="stp">Значение \(t\) входит дважды: как длина интервала и как его вес. Проверка формулой: \(\sigma^2 = 137.5\), \(15 + 137.5/15 \approx 24.2\).</p>
+    <p class="stp"><b>Шаг 4. Ожидание.</b> Внутри интервала приходишь равномерно и ждёшь в среднем половину: \(24.2/2 \approx 12\) мин, а не \(15/2 = 7.5\).</p>
+    <p class="ans">Правы оба: 15 минут — средний интервал между автобусами, 24 минуты — интервал, который застаёт пассажир. Чем неравномернее ходят автобусы, тем дольше ждать при том же расписании «4 в час».</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Не только в продукте">
+  <span class="step-tag">Примеры</span>
+  <h2>Парадокс наблюдателя повсюду</h2>
+  <ol class="howto reveal">
+    <li><b>Размер класса.</b> Два класса, 10 и 50 учеников. Глазами школы — 30, глазами ученика — \((10 \cdot 10 + 50 \cdot 50)/60 \approx 43\).</li>
+    <li><b>Парадокс дружбы.</b> Аня дружит с Борей, Витей и Галей, а они — только с Аней. Друзей у человека в среднем 1.5, а у друга — 2: популярные люди чаще оказываются чьими-то друзьями.</li>
+    <li><b>Заполненность самолётов.</b> Два рейса по 200 мест: 20 и 180 пассажиров. У авиакомпании средняя заполненность 50%, а пассажир в среднем видит 82% — «самолёты всегда полные».</li>
+    <li><b>В продукте.</b> Метрики «по событиям» против «по пользователям»: активные пользователи весят больше. Средняя длина сессии по событиям завышена.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Задача: средний размер группы">
+  <span class="step-tag">Задача с собеседования</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 13.</span> Средний размер группы</h2>
+  <p>Деканат сообщает: средний размер учебной группы — около <b>35</b> человек. Студенты в опросе называют размер своих групп, и среднее по их ответам — около <b>93</b>. Никто не врёт.</p>
+  <ol>
+    <li>Как такое возможно?</li>
+    <li>У тебя есть только опрос студентов. Как восстановить по нему число деканата?</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Игрушечный пример.</b> 9 групп по 20 человек и одна поточная на 200, всего 380 студентов. Деканат: \(380/10 = 38\). Опрос: \((180 \cdot 20 + 200 \cdot 200)/380 \approx 115\).</p>
+    <p class="stp"><b>Шаг 2. Восстановление.</b> Каждому ответу вес \(1/x\): \(180 \cdot \tfrac{1}{20} + 200 \cdot \tfrac{1}{200} = 10\) групп, среднее \(380/10 = 38\).</p>
+    <p class="ans">Группа на \(x\) человек попадает в опрос \(x\) раз, поэтому среднее по студентам завышено. Восстановить — гармоническим средним \(n/\sum 1/x_i\), как с семьями. В SQL это ошибка «среднее по таблице событий вместо таблицы объектов»: сначала GROUP BY до одной строки на объект, потом среднее.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Чьими глазами</h2>
+  <div class="takeaway"><p>Прежде чем считать среднее, реши, <b>чьими глазами</b>: на семью или на ребёнка, на автобус или на пассажира, на пользователя или на сессию. Если объекты попадают в выборку пропорционально размеру, среднее завышено на \(\mathrm{Var}\,X/\mathbb E X\).</p></div>
+  <a class="next-step" href="05-causation.html"><b>Дальше: 5. Корреляция ≠ причинность</b>Мороженое, утопленники и общая схема.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const g = document.getElementById('gb'); if (!g) return;
+  const cv = g.querySelector('canvas'), out = g.querySelector('.out');
+  const UNEVEN = [10, 35, 10, 5], EVEN = [15, 15, 15, 15];
+  const CLR = ['#3D6FB6', '#C9413A', '#2F9E6B', '#D98A1F'];
+  let iv = UNEVEN, pax = [];
+  const idx = t => { let s = 0; for (let i = 0; i < iv.length; i++){ s += iv[i]; if (t < s) return i; } return iv.length - 1; };
+  function paint(){
+    const gg = canvas(cv, 0.3, 0.6); if (!gg) return; const {c, w, h} = gg, L = 20, R = 20;
+    const X = t => L + t / 60 * (w - L - R), y0 = h * 0.62;
+    let s = 0;
+    iv.forEach((d, i) => {
+      c.fillStyle = CLR[i] + '22'; c.fillRect(X(s), y0 - 8, X(s + d) - X(s), 16);
+      big(c, d + ' мин', (X(s) + X(s + d)) / 2, y0 + 34, CLR[i], 14, 600);
+      s += d;
+    });
+    s = 0; c.fillStyle = COL.ink || '#222';
+    [0].concat(iv).forEach(d => { s += d; c.beginPath(); c.moveTo(X(s), y0 - 16); c.lineTo(X(s), y0 + 16); c.lineWidth = 3; c.strokeStyle = COL.ink2; c.stroke(); });
+    big(c, '🚌', X(0), y0 - 24, COL.ink2, 16, 400); s = 0; iv.forEach(d => { s += d; big(c, '🚌', X(s), y0 - 24, COL.ink2, 16, 400); });
+    pax.forEach(p => { c.fillStyle = CLR[idx(p.t)]; c.beginPath(); c.arc(X(p.t), y0 - 40 - p.j * (h * 0.4), 4, 0, 7); c.fill(); });
+    const mayor = 60 / iv.length, eye = iv.reduce((a, d) => a + d * d, 0) / 60;
+    let txt = 'Мэрия: средний интервал <b>' + num(mayor, 1) + '</b> мин. Глазами пассажира: <b>' + num(eye, 1) + '</b> мин, ждать в среднем <b>' + num(eye / 2, 1) + '</b> мин.';
+    if (pax.length){
+      const cnt = iv.map(() => 0); let wait = 0, seen = 0;
+      pax.forEach(p => { const i = idx(p.t); cnt[i]++; let e = 0; for (let k = 0; k <= i; k++) e += iv[k]; wait += e - p.t; seen += iv[i]; });
+      txt += '<br>Пришло ' + pax.length + ' пассажиров: ' + cnt.map((k, i) => '<span style="color:' + CLR[i] + '">' + num(100 * k / pax.length, 0) + '%</span>').join(' · ') + ' по интервалам; застали интервал в среднем ' + num(seen / pax.length, 1) + ' мин, ждали ' + num(wait / pax.length, 1) + ' мин.';
+    }
+    out.innerHTML = txt;
+  }
+  document.getElementById('gb-add').addEventListener('click', () => { for (let i = 0; i < 20; i++) pax.push({t: Math.random() * 60, j: Math.random()}); paint(); });
+  const ev = document.getElementById('gb-even');
+  ev.addEventListener('click', () => { iv = iv === UNEVEN ? EVEN : UNEVEN; ev.textContent = iv === UNEVEN ? 'Ровный график' : 'Неровный график'; paint(); });
+  document.getElementById('gb-reset').addEventListener('click', () => { pax = []; paint(); });
+  window.addEventListener('resize', paint); if (window.ResizeObserver) new ResizeObserver(() => paint()).observe(cv); paint();
+})();
+</script>

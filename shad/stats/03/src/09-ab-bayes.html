@@ -1,0 +1,67 @@
+{"title": "Эксперимент прокрасился", "short": "9. Эксперимент прокрасился", "h": "Блок 9 · Эксперимент прокрасился", "lead": "Мощность, ошибка второго рода и доля настоящих побед среди прокрасов", "next": "10-monty.html"}
+<section class="card" data-title="Эксперимент прокрасился">
+  <p class="kicker">Занятие 3 · блок 9</p>
+  <h1>Эксперимент прокрасился</h1>
+  <figure class="art"><img src="img/09-experiments.jpg" alt="Стена с кубками: часть настоящие, часть картонные"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Тест прокрасился — значит, фича точно работает? Раскатываем?</p></div></div>
+  </div>
+  <p class="lead">«Прокрасился» — это как положительный тест: бывает настоящим, бывает ложной тревогой. Посчитаем по Байесу, какая доля прокрасившихся экспериментов — настоящие.</p>
+</section>
+
+<section class="card" data-title="Мощность и ошибка второго рода">
+  <span class="step-tag">Определение</span>
+  <h2>Мощность теста и ошибка второго рода</h2>
+  <p>У A/B-теста две возможные ошибки — по одной на каждый «мир»:</p>
+  <div class="report-wrap"><table class="tails grid">
+    <thead><tr><th></th><th>Тест прокрасился</th><th>Тест не прокрасился</th></tr></thead>
+    <tbody>
+      <tr><td><b>Эффекта нет</b></td><td>ошибка I рода, вероятность \(\alpha\), обычно 5%</td><td>верно</td></tr>
+      <tr><td><b>Эффект есть</b></td><td>верно — вероятность этого и есть <b>мощность</b></td><td>ошибка II рода, вероятность \(\beta\)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="def"><p><b>Мощность</b> \(= P(\text{прокрасился} \mid \text{эффект есть}) = 1 - \beta\) — доля настоящих эффектов, которые тест замечает. Мощность 80%: из 100 работающих идей тест «увидит» 80, а 20 пропустит.</p></div>
+  <p>Мощность выше, если эффект <b>больше</b>, выборка <b>больше</b>, метрика <b>менее шумная</b> и \(\alpha\) <b>больше</b>. Как её считать и выбирать размер выборки — занятие 4.</p>
+</section>
+
+<section class="card" data-title="Задача: 1 000 экспериментов">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 24.</span> 1 000 экспериментов</h2>
+  <p>Команда за год запускает 1 000 A/B-тестов. По опыту, <b>10%</b> идей действительно что-то улучшают. Если эффект есть, тест его замечает с вероятностью <b>80%</b>. Если эффекта нет, тест всё равно прокрашивается в <b>5%</b> случаев. Эксперимент прокрасился. Какова вероятность, что эффект настоящий? А если хороших идей не 10%, а 30%?</p>
+  <div class="game" id="ge">
+    <div class="controls"><label class="field">Хороших идей, % <input type="text" inputmode="decimal" class="n-in" id="ge-pi" value="10"></label><button type="button" class="btn ghost" id="ge-pi10">+10</button><label class="field">Мощность, % <input type="text" inputmode="decimal" class="n-in" id="ge-pw" value="80"></label><label class="field">\(\alpha\), % <input type="text" inputmode="decimal" class="n-in" id="ge-a" value="5"></label></div>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. На 1 000 экспериментов:</b> хороших идей 100, пустых 900.</p>
+    <p class="stp"><b>Шаг 2. Прокрасились:</b> хорошие \(100 \cdot 0.8 = 80\), пустые \(900 \cdot 0.05 = 45\); всего 125.</p>
+    <p class="stp"><b>Шаг 3.</b> \(80/125 = 64\%\) — каждая третья «победа» ложная.</p>
+    <p class="stp"><b>Шаг 4. При 30% хороших:</b> \(300 \cdot 0.8 = 240\), \(700 \cdot 0.05 = 35\), \(240/275 \approx 87\%\).</p>
+    <figure class="chart"><img src="img/09-experiments.png" alt="Доля настоящих побед среди прокрасившихся в зависимости от доли хороших идей"></figure>
+    <p class="stp"><b>Шаг 5. Почему не 95%.</b> \(\alpha = P(\text{прокрасился} \mid \text{эффекта нет})\), а вопрос про \(P(\text{эффект есть} \mid \text{прокрасился})\) — та же путаница \(P(A \mid B)\) и \(P(B \mid A)\).</p>
+    <p class="ans">64% при 10% хороших идей, 87% при 30%. \(\alpha = 5\%\) — это не «95% уверенности». Рычаги: сильнее гипотезы, мощнее тесты, не подглядывать и не смотреть 20 метрик, перепроверять неожиданные победы.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Прокрасилось — не значит работает</h2>
+  <div class="takeaway"><p>Доля настоящих побед зависит от того, насколько часто хорошие идеи, от мощности теста и от \(\alpha\) — ровно как в задаче про редкую болезнь.</p></div>
+  <a class="next-step" href="10-monty.html"><b>Дальше: 10. Монти Холл и дни рождения</b>Две задачи, на которых ломается интуиция.</a>
+</section>
+
+<script>
+(function(){
+  const g = document.getElementById('ge'); if (!g) return;
+  const out = g.querySelector('.out'), piI = document.getElementById('ge-pi'), pwI = document.getElementById('ge-pw'), aI = document.getElementById('ge-a');
+  const rd = (v, d) => { v = +String(v).replace(',', '.').replace(/\s/g, ''); return isFinite(v) ? Math.max(0, Math.min(100, v)) : d; };
+  function paint(){
+    const pi = rd(piI.value, 10), pw = rd(pwI.value, 80), a = rd(aI.value, 5); piI.value = pi; pwI.value = pw; aI.value = a;
+    const good = 1000 * pi / 100, bad = 1000 - good, tp = good * pw / 100, fp = bad * a / 100, all = tp + fp;
+    out.innerHTML = 'Из 1 000 экспериментов хороших ' + num(good, 0) + ', пустых ' + num(bad, 0) + '. Прокрасились ' + num(all, 0) + ': настоящих <b>' + num(tp, 0) + '</b>, ложных <b>' + num(fp, 0) + '</b>. \\(P(\\text{эффект} \\mid \\text{прокрасился}) \\approx ' + num(all ? 100 * tp / all : 0, 0) + '\\%\\).';
+  }
+  document.getElementById('ge-pi10').addEventListener('click', () => { piI.value = Math.min(100, rd(piI.value, 10) + 10); paint(); });
+  [piI, pwI, aI].forEach(el => { el.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') paint(); }); el.addEventListener('change', paint); });
+  paint();
+})();
+</script>

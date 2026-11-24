@@ -1,0 +1,61 @@
+{"title": "Байес как обновление", "short": "8. Байес как обновление", "h": "Блок 8 · Байес как обновление", "lead": "Сегодняшнее «после» — завтрашнее «до»: второй тест, шансы и свидетель", "next": "09-ab-bayes.html"}
+<section class="card" data-title="Байес как обновление">
+  <p class="kicker">Занятие 3 · блок 8</p>
+  <h1>Байес как обновление</h1>
+  <figure class="art"><img src="img/08-taxi.jpg" alt="Ночная улица под дождём, такси уезжает, свидетель под зонтом"></figure>
+  <p class="lead">Формула Байеса — это правило, как <b>менять мнение</b> с новыми данными: что знали до, что увидели, что знаем теперь. А сегодняшнее «после» становится завтрашним «до».</p>
+</section>
+
+<section class="card" data-title="Задача: второй тест">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 22.</span> Второй тест</h2>
+  <p>Человек с положительным тестом из блока 7 сдал <b>второй, независимый</b> тест — тоже положительный. Тест тот же: находит 90% больных, ложно срабатывает у 9% здоровых. Какова теперь вероятность, что он болен?</p>
+  <div class="game" id="gt">
+    <div class="controls"><label class="field">Положительных тестов подряд <input type="text" inputmode="numeric" class="n-in" id="gt-k" value="1"></label><button type="button" class="btn ghost" id="gt-k1">+1</button></div>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Новый старт</b> — 98 положительных из прошлой задачи: 9 больных и 89 здоровых. Априорная вероятность теперь 9.2%.</p>
+    <p class="stp"><b>Шаг 2. Второй тест у них:</b> больные с «+» \(9 \cdot 0.9 = 8.1\), здоровые с «+» \(89 \cdot 0.09 \approx 8.0\). Больны \(8.1/16.1 \approx 50\%\).</p>
+    <p class="stp"><b>Шаг 3. Через шансы.</b> Отношение правдоподобий \(0.9/0.09 = 10\): каждый «+» умножает шансы «болен : здоров» в 10 раз. До тестов \(1 : 99\) → \(10 : 99\), 9% → \(100 : 99\), 50% → \(1000 : 99\), 91%.</p>
+    <p class="stp"><b>Оговорка.</b> Это верно, если ошибки тестов <b>независимы</b> при данном диагнозе. Если ложное срабатывание связано с самим человеком, второй тест почти ничего не добавит.</p>
+    <p class="ans">После второго теста — около 50%, после третьего — 91%.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: свидетель и такси">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 23.</span> Свидетель и такси</h2>
+  <p>В городе 85% такси зелёные и 15% синие. Ночью такси сбило пешехода и уехало. Свидетель говорит: такси было <b>синее</b>. Проверка показала, что ночью свидетель правильно называет цвет в <b>80%</b> случаев. Какова вероятность, что такси действительно синее?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. На 100 ночных такси:</b> синих 15, зелёных 85.</p>
+    <p class="stp"><b>Шаг 2. Свидетель скажет «синее»:</b> про синие \(15 \cdot 0.8 = 12\), про зелёные по ошибке \(85 \cdot 0.2 = 17\); всего 29.</p>
+    <p class="stp"><b>Шаг 3. Формулой:</b> \(\dfrac{0.8 \cdot 0.15}{0.8 \cdot 0.15 + 0.2 \cdot 0.85} = \dfrac{0.12}{0.29} \approx 41\%\).</p>
+    <p class="ans">12 из 29 — около 41%, а не 80%. Зелёных в 5.7 раза больше, и 20% ошибок по ним дают больше «синих», чем настоящие синие.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Улики накапливаются</h2>
+  <div class="takeaway"><p>Апостериорная вероятность после одних данных — априорная для следующих. Сильная улика при маленьком «до» даёт лишь умеренное «после»; уверенность растёт, когда накапливаются <b>независимые</b> улики.</p></div>
+  <a class="next-step" href="09-ab-bayes.html"><b>Дальше: 9. Эксперимент прокрасился</b>Какая доля побед — настоящие.</a>
+</section>
+
+<script>
+(function(){
+  const g = document.getElementById('gt'); if (!g) return;
+  const out = g.querySelector('.out'), kI = document.getElementById('gt-k');
+  let K = 1;
+  function paint(){
+    const rows = []; let odds = 1 / 99;
+    rows.push('до тестов: \\(1 : 99\\), \\(1\\%\\)');
+    for (let i = 1; i <= K; i++){ odds *= 10; rows.push('после ' + i + '-го «+»: шансы \\(' + Math.pow(10, i).toLocaleString('ru-RU') + ' : 99\\), \\(P(\\text{болен}) \\approx ' + num(100 * odds / (1 + odds), 1) + '\\%\\)'); }
+    out.innerHTML = rows.join('<br>');
+  }
+  const set = v => { K = Math.max(1, Math.min(8, Math.round(+String(v).replace(/\s/g, '')) || 1)); kI.value = K; paint(); };
+  document.getElementById('gt-k1').addEventListener('click', () => set(K + 1));
+  kI.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') set(kI.value); }); kI.addEventListener('change', () => set(kI.value));
+  paint();
+})();
+</script>
