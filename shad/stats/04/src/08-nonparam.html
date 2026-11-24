@@ -14,10 +14,10 @@
     <div class="controls"><label class="field">Ходы <input type="text" id="g0-in" class="n-in" autocomplete="off" spellcheck="false" style="width:14em; text-transform:uppercase; letter-spacing:.08em"></label><button type="button" class="btn" id="g0-go">Посчитать</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
-  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги и сколько повторов подряд. Пар соседних ходов у каждого на один меньше, чем ходов.</p>
+  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги, сколько повторов подряд и сколько человек играло. Повторы нужны для второй проверки — зависит ли ход от предыдущего, а по числу игроков посчитаем, сколько было пар соседних ходов.</p>
   <div class="game" id="g0a">
     <div class="controls"><label class="field">Камень <input type="text" inputmode="numeric" class="n-in" data-k="К"></label><label class="field">Ножницы <input type="text" inputmode="numeric" class="n-in" data-k="Н"></label><label class="field">Бумага <input type="text" inputmode="numeric" class="n-in" data-k="Б"></label></div>
-    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Пар <input type="text" inputmode="numeric" class="n-in" data-k="pairs"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
+    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Игроков <input type="text" inputmode="numeric" class="n-in" data-k="players"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
@@ -94,11 +94,7 @@ if my_moves:
     print("Твои ходы:", ", ".join(f"{k} {c}" for k, c in zip("КНБ", o)))
     print(f"χ² = {((o - e) ** 2 / e).sum():.2f}, повторов {rep} из {len(m) - 1}")</textarea>
   </div>
-  <details class="sol"><summary>Разбор на примере</summary><div class="body">
-    <p class="stp"><b>Проверка 1 — частоты ходов.</b> \(H_0\): каждый ход с вероятностью 1/3. 600 ходов, ожидаем по 200. К 216, Н 186, Б 198: \(\chi^2 = \tfrac{256}{200} + \tfrac{196}{200} + \tfrac{4}{200} = 2.28\), \(p \approx 0.32\) — не отвергаем. Камень «жмут на силу» чаще, но на таком объёме перекос в пределах шума.</p>
-    <p class="stp"><b>Проверка 2 — повторы.</b> \(H_0\): повтор с вероятностью 1/3. 112 повторов из 560 пар — 20%: \(\mathrm{SE} = \sqrt{\tfrac13 \cdot \tfrac23 / 560} = 0.0199\), \(z = -0.133/0.0199 \approx -6.7\) — отвергаем с огромным запасом: люди избегают повторов.</p>
-    <p class="ans">Заметный глазу перекос может быть шумом, а незаметный — железным эффектом; решает не впечатление, а критерий. И человек — плохой генератор случайности, поэтому в A/B пользователей разбивает хеш-функция, а не человек.</p>
-  </div></details>
+  <details class="sol"><summary>Разбор на данных аудитории</summary><div class="body" id="rps-sol"></div></details>
 </section>
 
 <section class="card" data-title="Манн–Уитни: что проверяет">
@@ -231,19 +227,40 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
 
   // сводка аудитории: сохраняем и подставляем в код разбора
   const ga = document.getElementById('g0a'), outA = ga.querySelector('.out'), F = k => ga.querySelector('[data-k="' + k + '"]');
-  const KEYS = ['К', 'Н', 'Б', 'rep', 'pairs'];
+  const KEYS = ['К', 'Н', 'Б', 'rep', 'players'];
   function saveA(){
     const v = {}; for (const k of KEYS){ const x = Math.round(+String(F(k).value).replace(/\s/g, '')); if (!(x >= 0)){ outA.innerHTML = 'Заполни все пять чисел.'; return; } v[k] = x; }
+    v.pairs = v['К'] + v['Н'] + v['Б'] - v.players;  // у каждого игрока пар соседних ходов на одну меньше, чем ходов
     if (v.pairs < v.rep){ outA.innerHTML = 'Повторов не может быть больше, чем пар.'; return; }
     try { localStorage.setItem('shad-rps-aud', JSON.stringify(v)); } catch(e) {}
     const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
     if (ta){ ta.value = ta.value.replace(/^moves = \{.*\}.*$/m, 'moves = {"К": ' + v['К'] + ', "Н": ' + v['Н'] + ', "Б": ' + v['Б'] + '}   # сколько раз сыграли каждый ход').replace(/^repeats, pairs = .*$/m, 'repeats, pairs = ' + v.rep + ', ' + v.pairs + '                # ход повторил предыдущий; всего пар соседних ходов'); ta.dispatchEvent(new Event('input')); }
+    renderSol(v, true);
     const n = v['К'] + v['Н'] + v['Б'];
     outA.innerHTML = 'Всего ходов ' + n + ': камень ' + Math.round(v['К'] / n * 100) + '%, ножницы ' + Math.round(v['Н'] / n * 100) + '%, бумага ' + Math.round(v['Б'] / n * 100) + '%; повторов ' + Math.round(v.rep / v.pairs * 100) + '%. Числа подставлены в код разбора — проверим их, когда введём критерий.';
+  }
+
+  // разбор: таблица и расчёт на сводке аудитории (пока её нет — на числах примера)
+  const sol = document.getElementById('rps-sol');
+  const KX = (t, d) => window.katex ? katex.renderToString(t, {throwOnError: false, displayMode: !!d}) : t;
+  function renderSol(v, mine){
+    const O = ['К', 'Н', 'Б'].map(k => v[k]), n = O[0] + O[1] + O[2], E = n / 3, terms = O.map(o => (o - E) ** 2 / E), chi = terms[0] + terms[1] + terms[2], pc = Math.exp(-chi / 2);
+    const names = ['Камень', 'Ножницы', 'Бумага'], f = x => Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : num(x, 1);
+    let rows = O.map((o, i) => '<tr><td>' + names[i] + '</td><td>' + o + '</td><td>' + f(E) + '</td><td>' + (o - E > 0 ? '+' : o - E < 0 ? '−' : '') + f(Math.abs(o - E)) + '</td><td>' + num(terms[i], 2) + '</td></tr>').join('');
+    rows += '<tr><td><b>Сумма</b></td><td><b>' + n + '</b></td><td><b>' + n + '</b></td><td><b>0</b></td><td><b>' + KX('\\chi^2 = ' + num(chi, 2)) + '</b></td></tr>';
+    const sh = v.rep / v.pairs, se = Math.sqrt(1 / 3 * 2 / 3 / v.pairs), z = (sh - 1 / 3) / se, pz = 2 * (1 - normCdf(Math.abs(z)));
+    const pf = p => p < 0.001 ? KX('p < 0.001') : KX('p \\approx ' + num(p, 3));
+    sol.innerHTML = '<p class="stp">' + (mine ? 'Числа — из сводки аудитории выше.' : 'Сводки аудитории ещё нет — разбираем на числах примера; введи свои выше, и разбор пересчитается.') + '</p>'
+      + '<p class="stp"><b>Проверка 1 — равновероятны ли ходы.</b> ' + KX('H_0') + ': каждый ход с вероятностью 1/3. Всего ' + n + ' ходов, при ' + KX('H_0') + ' ожидаем по ' + KX('E = ' + n + '/3 = ' + f(E)) + '.</p>'
+      + '<div class="report-wrap"><table class="tails"><thead><tr><th>Ход</th><th>Наблюдали ' + KX('O') + '</th><th>Ожидали ' + KX('E') + '</th><th>' + KX('O - E') + '</th><th>' + KX('\\frac{(O - E)^2}{E}') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+      + '<p class="stp">Степеней свободы ' + KX('3 - 1 = 2') + ', порог на 5% — 5.99. ' + KX('\\chi^2 = ' + num(chi, 2)) + ', ' + pf(pc) + ': ' + (chi > 5.99 ? '<b>отвергаем</b> — ходы выбирают неравновероятно.' : '<b>не отвергаем</b> — перекос в пределах шума.') + '</p>'
+      + '<p class="stp"><b>Проверка 2 — независимы ли ходы.</b> ' + KX('H_0') + ': ход повторяет предыдущий с вероятностью 1/3. Повторов ' + v.rep + ' из ' + v.pairs + ' пар — ' + num(sh * 100, 1) + '%. ' + KX('\\sigma = \\sqrt{\\tfrac13 \\cdot \\tfrac23 / ' + v.pairs + '} = ' + num(se, 4)) + ', ' + KX('z = (' + num(sh, 3) + ' - 0.333)/' + num(se, 4) + ' \\approx ' + num(z, 1)) + ', ' + pf(pz) + ': ' + (Math.abs(z) > 1.96 ? '<b>отвергаем</b>' + (z < 0 ? ' — люди избегают повторов.' : ' — повторяют чаще случайного.') : '<b>не отвергаем</b>.') + '</p>'
+      + '<p class="ans">' + (chi <= 5.99 && Math.abs(z) > 1.96 ? 'По частотам ходы выглядят случайными, а по последовательности — нет: заметный глазу перекос оказался шумом, а незаметный — эффектом. ' : '') + 'Решает не впечатление, а критерий. И человек — плохой генератор случайности, поэтому в A/B пользователей разбивает хеш-функция, а не человек.</p>';
   }
   document.getElementById('g0a-go').addEventListener('click', saveA);
   ga.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') saveA(); }));
   try { const sv = JSON.parse(localStorage.getItem('shad-rps-aud') || 'null'); if (sv){ KEYS.forEach(k => F(k).value = sv[k]); addEventListener('load', saveA); } } catch(e) {}
+  renderSol({К: 216, Н: 186, Б: 198, rep: 112, pairs: 560}, false);
 
   try { const saved = localStorage.getItem('shad-rps'); if (saved){ inp.value = saved; addEventListener('load', go); } } catch(e) {}
   inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') go(); });

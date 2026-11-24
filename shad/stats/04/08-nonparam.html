@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611532">
-<link rel="stylesheet" href="/tokens.css?v=202611532">
-<link rel="stylesheet" href="/signal/book.css?v=202611532">
-<link rel="stylesheet" href="/signal/free.css?v=202611532">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611532">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611532">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611534">
+<link rel="stylesheet" href="/tokens.css?v=202611534">
+<link rel="stylesheet" href="/signal/book.css?v=202611534">
+<link rel="stylesheet" href="/signal/free.css?v=202611534">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611534">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611534">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -56,10 +56,10 @@
     <div class="controls"><label class="field">Ходы <input type="text" id="g0-in" class="n-in" autocomplete="off" spellcheck="false" style="width:14em; text-transform:uppercase; letter-spacing:.08em"></label><button type="button" class="btn" id="g0-go">Посчитать</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
-  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги и сколько повторов подряд. Пар соседних ходов у каждого на один меньше, чем ходов.</p>
+  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги, сколько повторов подряд и сколько человек играло. Повторы нужны для второй проверки — зависит ли ход от предыдущего, а по числу игроков посчитаем, сколько было пар соседних ходов.</p>
   <div class="game" id="g0a">
     <div class="controls"><label class="field">Камень <input type="text" inputmode="numeric" class="n-in" data-k="К"></label><label class="field">Ножницы <input type="text" inputmode="numeric" class="n-in" data-k="Н"></label><label class="field">Бумага <input type="text" inputmode="numeric" class="n-in" data-k="Б"></label></div>
-    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Пар <input type="text" inputmode="numeric" class="n-in" data-k="pairs"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
+    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Игроков <input type="text" inputmode="numeric" class="n-in" data-k="players"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
@@ -157,20 +157,7 @@ if my_moves:
     print("Твои ходы:", ", ".join(f"{k} {c}" for k, c in zip("КНБ", o)))
     print(f"χ² = {((o - e) ** 2 / e).sum():.2f}, повторов {rep} из {len(m) - 1}")</textarea>
   </div>
-  <details class="sol"><summary>Разбор на примере</summary><div class="body">
-    <p class="stp"><b>Проверка 1 — частоты ходов.</b> <span class="nw"><span class="tx" data-tex="H_0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>:</span> каждый ход с вероятностью 1/3. 600 ходов, ожидаем по 200. К 216, Н 186, Б 198: <span class="nw"><span class="tx" data-tex="\chi^2 = \tfrac{256}{200} + \tfrac{196}{200} + \tfrac{4}{200} = 2.28"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">χ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">200</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">256</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">200</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">196</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">200</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2.28</span></span></span></span></span>,</span> <span class="tx" data-tex="p \approx 0.32"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6776em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.32</span></span></span></span></span> — не отвергаем. Камень «жмут на силу» чаще, но на таком объёме перекос в пределах шума.</p>
-    <p class="stp"><b>Проверка 2 — повторы.</b> <span class="nw"><span class="tx" data-tex="H_0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>:</span> повтор с вероятностью 1/3. 112 повторов из 560 пар — 20%: <span class="nw"><span class="tx" data-tex="\mathrm{SE} = \sqrt{\tfrac13 \cdot \tfrac23 / 560} = 0.0199"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">SE</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.84em;vertical-align:-0.6049em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2351em;"><span class="svg-align" style="top:-3.8em;"><span class="pstrut" style="height:3.8em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord">/560</span></span></span><span style="top:-3.1951em;"><span class="pstrut" style="height:3.8em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.88em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.88em" viewBox="0 0 400000 1944" preserveAspectRatio="xMinYMin slice"><path d="M983 90
-l0 -0
-c4,-6.7,10,-10,18,-10 H400000v40
-H1013.1s-83.4,268,-264.1,840c-180.7,572,-277,876.3,-289,913c-4.7,4.7,-12.7,7,-24,7
-s-12,0,-12,0c-1.3,-3.3,-3.7,-11.7,-7,-25c-35.3,-125.3,-106.7,-373.3,-214,-744
-c-10,12,-21,25,-33,39s-32,39,-32,39c-6,-5.3,-15,-14,-27,-26s25,-30,25,-30
-c26.7,-32.7,52,-63,76,-91s52,-60,52,-60s208,722,208,722
-c56,-175.3,126.3,-397.3,211,-666c84.7,-268.7,153.8,-488.2,207.5,-658.5
-c53.7,-170.3,84.5,-266.8,92.5,-289.5z
-M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6049em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0199</span></span></span></span></span>,</span> <span class="tx" data-tex="z = -0.133/0.0199 \approx -6.7"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mord">0.133/0.0199</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">6.7</span></span></span></span></span> — отвергаем с огромным запасом: люди избегают повторов.</p>
-    <p class="ans">Заметный глазу перекос может быть шумом, а незаметный — железным эффектом; решает не впечатление, а критерий. И человек — плохой генератор случайности, поэтому в A/B пользователей разбивает хеш-функция, а не человек.</p>
-  </div></details>
+  <details class="sol"><summary>Разбор на данных аудитории</summary><div class="body" id="rps-sol"></div></details>
 </section>
 
 <section class="card" data-title="Манн⁠–⁠Уитни: что проверяет">
@@ -260,10 +247,10 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611532"></script>
-<script src="/signal/book.js?v=202611532"></script>
-<script src="/signal/py.js?v=202611532"></script>
-<script src="/shad/stats/04/shad.js?v=202611532"></script>
+<script src="/fonts/katex/katex.min.js?v=202611534"></script>
+<script src="/signal/book.js?v=202611534"></script>
+<script src="/signal/py.js?v=202611534"></script>
+<script src="/shad/stats/04/shad.js?v=202611534"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
@@ -312,19 +299,40 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
 
   // сводка аудитории: сохраняем и подставляем в код разбора
   const ga = document.getElementById('g0a'), outA = ga.querySelector('.out'), F = k => ga.querySelector('[data-k="' + k + '"]');
-  const KEYS = ['К', 'Н', 'Б', 'rep', 'pairs'];
+  const KEYS = ['К', 'Н', 'Б', 'rep', 'players'];
   function saveA(){
     const v = {}; for (const k of KEYS){ const x = Math.round(+String(F(k).value).replace(/\s/g, '')); if (!(x >= 0)){ outA.innerHTML = 'Заполни все пять чисел.'; return; } v[k] = x; }
+    v.pairs = v['К'] + v['Н'] + v['Б'] - v.players;  // у каждого игрока пар соседних ходов на одну меньше, чем ходов
     if (v.pairs < v.rep){ outA.innerHTML = 'Повторов не может быть больше, чем пар.'; return; }
     try { localStorage.setItem('shad-rps-aud', JSON.stringify(v)); } catch(e) {}
     const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
     if (ta){ ta.value = ta.value.replace(/^moves = \{.*\}.*$/m, 'moves = {"К": ' + v['К'] + ', "Н": ' + v['Н'] + ', "Б": ' + v['Б'] + '}   # сколько раз сыграли каждый ход').replace(/^repeats, pairs = .*$/m, 'repeats, pairs = ' + v.rep + ', ' + v.pairs + '                # ход повторил предыдущий; всего пар соседних ходов'); ta.dispatchEvent(new Event('input')); }
+    renderSol(v, true);
     const n = v['К'] + v['Н'] + v['Б'];
     outA.innerHTML = 'Всего ходов ' + n + ': камень ' + Math.round(v['К'] / n * 100) + '%, ножницы ' + Math.round(v['Н'] / n * 100) + '%, бумага ' + Math.round(v['Б'] / n * 100) + '%; повторов ' + Math.round(v.rep / v.pairs * 100) + '%. Числа подставлены в код разбора — проверим их, когда введём критерий.';
+  }
+
+  // разбор: таблица и расчёт на сводке аудитории (пока её нет — на числах примера)
+  const sol = document.getElementById('rps-sol');
+  const KX = (t, d) => window.katex ? katex.renderToString(t, {throwOnError: false, displayMode: !!d}) : t;
+  function renderSol(v, mine){
+    const O = ['К', 'Н', 'Б'].map(k => v[k]), n = O[0] + O[1] + O[2], E = n / 3, terms = O.map(o => (o - E) ** 2 / E), chi = terms[0] + terms[1] + terms[2], pc = Math.exp(-chi / 2);
+    const names = ['Камень', 'Ножницы', 'Бумага'], f = x => Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : num(x, 1);
+    let rows = O.map((o, i) => '<tr><td>' + names[i] + '</td><td>' + o + '</td><td>' + f(E) + '</td><td>' + (o - E > 0 ? '+' : o - E < 0 ? '−' : '') + f(Math.abs(o - E)) + '</td><td>' + num(terms[i], 2) + '</td></tr>').join('');
+    rows += '<tr><td><b>Сумма</b></td><td><b>' + n + '</b></td><td><b>' + n + '</b></td><td><b>0</b></td><td><b>' + KX('\\chi^2 = ' + num(chi, 2)) + '</b></td></tr>';
+    const sh = v.rep / v.pairs, se = Math.sqrt(1 / 3 * 2 / 3 / v.pairs), z = (sh - 1 / 3) / se, pz = 2 * (1 - normCdf(Math.abs(z)));
+    const pf = p => p < 0.001 ? KX('p < 0.001') : KX('p \\approx ' + num(p, 3));
+    sol.innerHTML = '<p class="stp">' + (mine ? 'Числа — из сводки аудитории выше.' : 'Сводки аудитории ещё нет — разбираем на числах примера; введи свои выше, и разбор пересчитается.') + '</p>'
+      + '<p class="stp"><b>Проверка 1 — равновероятны ли ходы.</b> ' + KX('H_0') + ': каждый ход с вероятностью 1/3. Всего ' + n + ' ходов, при ' + KX('H_0') + ' ожидаем по ' + KX('E = ' + n + '/3 = ' + f(E)) + '.</p>'
+      + '<div class="report-wrap"><table class="tails"><thead><tr><th>Ход</th><th>Наблюдали ' + KX('O') + '</th><th>Ожидали ' + KX('E') + '</th><th>' + KX('O - E') + '</th><th>' + KX('\\frac{(O - E)^2}{E}') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+      + '<p class="stp">Степеней свободы ' + KX('3 - 1 = 2') + ', порог на 5% — 5.99. ' + KX('\\chi^2 = ' + num(chi, 2)) + ', ' + pf(pc) + ': ' + (chi > 5.99 ? '<b>отвергаем</b> — ходы выбирают неравновероятно.' : '<b>не отвергаем</b> — перекос в пределах шума.') + '</p>'
+      + '<p class="stp"><b>Проверка 2 — независимы ли ходы.</b> ' + KX('H_0') + ': ход повторяет предыдущий с вероятностью 1/3. Повторов ' + v.rep + ' из ' + v.pairs + ' пар — ' + num(sh * 100, 1) + '%. ' + KX('\\sigma = \\sqrt{\\tfrac13 \\cdot \\tfrac23 / ' + v.pairs + '} = ' + num(se, 4)) + ', ' + KX('z = (' + num(sh, 3) + ' - 0.333)/' + num(se, 4) + ' \\approx ' + num(z, 1)) + ', ' + pf(pz) + ': ' + (Math.abs(z) > 1.96 ? '<b>отвергаем</b>' + (z < 0 ? ' — люди избегают повторов.' : ' — повторяют чаще случайного.') : '<b>не отвергаем</b>.') + '</p>'
+      + '<p class="ans">' + (chi <= 5.99 && Math.abs(z) > 1.96 ? 'По частотам ходы выглядят случайными, а по последовательности — нет: заметный глазу перекос оказался шумом, а незаметный — эффектом. ' : '') + 'Решает не впечатление, а критерий. И человек — плохой генератор случайности, поэтому в A/B пользователей разбивает хеш-функция, а не человек.</p>';
   }
   document.getElementById('g0a-go').addEventListener('click', saveA);
   ga.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') saveA(); }));
   try { const sv = JSON.parse(localStorage.getItem('shad-rps-aud') || 'null'); if (sv){ KEYS.forEach(k => F(k).value = sv[k]); addEventListener('load', saveA); } } catch(e) {}
+  renderSol({К: 216, Н: 186, Б: 198, rep: 112, pairs: 560}, false);
 
   try { const saved = localStorage.getItem('shad-rps'); if (saved){ inp.value = saved; addEventListener('load', go); } } catch(e) {}
   inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') go(); });
