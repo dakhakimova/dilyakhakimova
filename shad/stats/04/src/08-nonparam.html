@@ -133,7 +133,11 @@ if my_moves:
     <li><b>Дисперсия \(U\) при \(H_0\).</b> Пары зависимы — один и тот же пользователь сидит в целой строке, — поэтому дисперсия не \(n_A n_B/4\). Без ничьих
       <p class="formula">\[\mathrm{Var}\,U = \frac{n_A n_B\,(n_A + n_B + 1)}{12}.\]</p>
       <ol class="reveal">
-        <li><b>Через ранги.</b> Выстроим всех \(N = n_A + n_B\) пользователей по возрастанию и дадим ранги \(1, \dots, N\). Пусть \(R_B\) — сумма рангов группы B. Пользователь B с рангом \(r\) обгоняет всех, кто ниже, кроме своих из B. Сложив по B, получаем \(U = R_B - \frac{n_B(n_B + 1)}{2}\): вычитаемое — константа, значит, \(\mathrm{Var}\,U = \mathrm{Var}\,R_B\).
+        <li><b>Через ранги.</b> Выстроим всех \(N = n_A + n_B\) пользователей по возрастанию, как в очередь, и пронумеруем места: это ранги \(1, \dots, N\). Возьмём пользователя B на месте \(r\). Перед ним стоят \(r - 1\) человек — часть из A, часть из B:
+          <p class="formula">\[r = 1 + \underbrace{(\text{из A ниже})}_{\text{его победы}} + (\text{своих из B ниже}).\]</p>
+          Сложим по всем пользователям B. Слева — сумма их мест \(R_B\). Справа: единиц \(n_B\), побед в сумме \(U\), а своих ниже у пользователей B по порядку всегда \(0, 1, \dots, n_B - 1\), как бы ни легли метки:
+          <p class="formula">\[R_B = n_B + U + \frac{n_B(n_B - 1)}{2} \quad\Rightarrow\quad U = R_B - \frac{n_B(n_B + 1)}{2}.\]</p>
+          Вычитаемое — константа, значит, \(\mathrm{Var}\,U = \mathrm{Var}\,R_B\).
           <div class="game" id="gr">
             <div class="controls"><button type="button" class="btn" id="gr-new">Перемешать метки</button></div>
             <canvas aria-label="Восемь пользователей по возрастанию с рангами 1–8, четверо из A и четверо из B"></canvas>
@@ -317,13 +321,13 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
     const g = canvas(cvr, 0.2, 0.42);
     if (g){ const {c, w, h} = g, N = lab.length, cw = Math.min(70, (w - 20) / N), x0 = (w - cw * N) / 2, y0 = 26, bh = Math.min(52, h - 60);
     bigx(c, 'меньше', x0, 14, COL.ink2, 12, 500, 'left'); bigx(c, 'больше →', x0 + cw * N, 14, COL.ink2, 12, 500, 'right');
-    lab.forEach((l, i) => { const x = x0 + cw * i; c.fillStyle = l === 'B' ? COL.ctrl : '#D9D6CF'; c.fillRect(x + 3, y0, cw - 6, bh); bigx(c, l, x + cw / 2, y0 + bh / 2 + 6, l === 'B' ? '#fff' : COL.ink, 17, 700); bigx(c, 'ранг ' + (i + 1), x + cw / 2, y0 + bh + 18, COL.ink2, 12, 500); }); }
+    lab.forEach((l, i) => { const x = x0 + cw * i; c.fillStyle = l === 'B' ? COL.ctrl : '#D9D6CF'; c.fillRect(x + 3, y0, cw - 6, bh); bigx(c, l, x + cw / 2, y0 + bh / 2 + 6, l === 'B' ? '#fff' : COL.ink, 17, 700); bigx(c, 'место ' + (i + 1), x + cw / 2, y0 + bh + 18, COL.ink2, 12, 500); }); }
     let rows = '', RB = 0, own = 0, U = 0, sumBelow = 0;
     lab.forEach((l, i) => { if (l !== 'B') return; const r = i + 1, k = own, win = r - 1 - k; RB += r; sumBelow += r - 1; U += win;
-      rows += '<tr><td>' + r + '</td><td>' + (r - 1) + '</td><td>' + k + '</td><td><b>' + win + '</b></td></tr>'; own++; });
-    tabr.innerHTML = '<div class="report-wrap"><table class="tails grid"><thead><tr><th>Ранг B ' + KXr('r') + '</th><th>Ниже всего ' + KXr('r - 1') + '</th><th>Из них своих B</th><th>Побед над A</th></tr></thead><tbody>' + rows
-      + '<tr><td><b>' + KXr('R_B = ' + RB) + '</b></td><td><b>' + KXr(sumBelow + ' = R_B - 4') + '</b></td><td><b>' + KXr('0 + 1 + 2 + 3 = 6') + '</b></td><td><b>' + KXr('U = ' + U) + '</b></td></tr></tbody></table></div>';
-    outr.innerHTML = 'Своих ниже у B всегда \\(0, 1, 2, 3\\) — по порядку, как бы ни легли метки. Поэтому \\(U = (R_B - 4) - 6 = R_B - 10 = ' + RB + ' - 10 = ' + U + '\\), а в общем виде \\(U = R_B - n_B - \\frac{n_B(n_B - 1)}{2} = R_B - \\frac{n_B(n_B + 1)}{2}\\).';
+      rows += '<tr><td>' + r + '</td><td>1</td><td><b>' + win + '</b></td><td>' + k + '</td></tr>'; own++; });
+    tabr.innerHTML = '<div class="report-wrap"><table class="tails grid"><thead><tr><th>Место B ' + KXr('r') + '</th><th>' + KXr('= 1') + '</th><th>+ побед над A</th><th>+ своих B ниже</th></tr></thead><tbody>' + rows
+      + '<tr><td><b>' + KXr('R_B = ' + RB) + '</b></td><td><b>' + KXr('n_B = 4') + '</b></td><td><b>' + KXr('U = ' + U) + '</b></td><td><b>' + KXr('0 + 1 + 2 + 3 = 6') + '</b></td></tr></tbody></table></div>';
+    outr.innerHTML = 'Каждая строка: место = 1 + побед + своих ниже. Перемешай метки: меняются места и победы, а последний столбец всегда \\(0, 1, 2, 3\\). Итог по столбцам: \\(' + RB + ' = 4 + ' + U + ' + 6\\), то есть \\(U = R_B - 10\\).';
   }
   document.getElementById('gr-new').addEventListener('click', shuffle);
   window.addEventListener('resize', paintR); shuffle();
