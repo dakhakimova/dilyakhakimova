@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611503">
-<link rel="stylesheet" href="/tokens.css?v=202611503">
-<link rel="stylesheet" href="/signal/book.css?v=202611503">
-<link rel="stylesheet" href="/signal/free.css?v=202611503">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611503">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611503">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611504">
+<link rel="stylesheet" href="/tokens.css?v=202611504">
+<link rel="stylesheet" href="/signal/book.css?v=202611504">
+<link rel="stylesheet" href="/signal/free.css?v=202611504">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611504">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611504">
 </head>
 <body data-course="shad4" data-chapter="shad4-07" data-next="08-nonparam.html">
 <nav class="top" aria-label="Навигация">
@@ -309,10 +309,10 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611503"></script>
-<script src="/signal/book.js?v=202611503"></script>
-<script src="/signal/py.js?v=202611503"></script>
-<script src="/shad/stats/04/shad.js?v=202611503"></script>
+<script src="/fonts/katex/katex.min.js?v=202611504"></script>
+<script src="/signal/book.js?v=202611504"></script>
+<script src="/signal/py.js?v=202611504"></script>
+<script src="/shad/stats/04/shad.js?v=202611504"></script>
 <script>
 (function(){
   // текст с нижними индексами: 'z_{1−α/2} = 1.96'
@@ -345,7 +345,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 18, COL.ink2, 13, 400);
     big(c, 'без эффекта', X(0), Y(normPdf(0)) - 8, COL.ink2, 14, 600);
     if (st >= 2){ big(c, D != null ? 'эффект ' + num(mde, 2) + ' SE' : 'эффект = MDE', X(mde), Y(normPdf(0)) - 26, COL.ctrl, 14, 600); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(mde), Y(normPdf(0)), 7, 0, 7); c.fill(); big(c, '↔ тяни', X(mde), Y(normPdf(0)) - 10, COL.ctrl, 12, 500); }
-    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 2; [za, -za].forEach(v => { c.beginPath(); c.moveTo(X(v), T - 10); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]); big(c, 'порог ±' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); rich(c, 'α/2 = ' + num(aNow * 50, 1) + '%', X(-za) - 8, Y(normPdf(za)) - 8, '#C9413A', 14, 700, 'right'); rich(c, 'α/2', X(za) + 8, Y(normPdf(za)) - 8, '#C9413A', 14, 700, 'left'); }
+    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 2; [za, -za].forEach(v => { c.beginPath(); c.moveTo(X(v), Y(normPdf(za)) - 2); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]);  rich(c, 'α/2 = ' + num(aNow * 50, 1) + '%', X(-za) - 4, Y(normPdf(za)) - 8, '#C9413A', 14, 700, 'right'); rich(c, 'α/2', X(za) + 6, h - B - 8, '#C9413A', 13, 700, 'left'); }
     if (st >= 3) big(c, 'мощность ' + Math.round(wNow * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
     const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); rich(c, t, (X(a) + X(b)) / 2, y - 10, col, 14, 600); };
     if (st >= 1) span(0, za, h - B + 44, 'z_{1−α/2} = ' + num(za, 2), COL.ink);
@@ -354,7 +354,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     ctr(0, COL.ink2, 'центр 0');
     if (st >= 2) ctr(mde, COL.ctrl, 'центр ' + num(mde, 2));
     // тот же порог на сером: от него до центра столько же, сколько у синего от порога до центра
-    if (st >= 4){ c.save(); c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), h - B); c.lineTo(X(m), h - B + (Y(normPdf(m)) - 4 - h + B) * pc); c.stroke(); c.restore(); if (pc >= 1) big(c, num(wNow * 100, 0) + '% правее', X(m) - 6, Y(normPdf(m)) - 22, '#8a6d1d', 13, 700, 'right'); if (m < -0.05 && pc >= 1) rich(c, 'z_{β} = −' + num(-m, 2), X(m) - 6, Y(normPdf(m)) - 4, '#8a6d1d', 13, 700, 'right'); if (zb > 0.05 && p1 >= 1) span(m, 0, h - B + 44, 'z_{1−β}', '#8a6d1d'); }
+    if (st >= 4){ c.save(); c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), h - B); c.lineTo(X(m), h - B + (Y(normPdf(m)) - 4 - h + B) * pc); c.stroke(); c.restore(); if (pc >= 1){ big(c, num(wNow * 100, 0) + '% правее', X(m) - 6, Y(normPdf(m)) - 22, '#8a6d1d', 13, 700, 'right'); if (m < -0.05) rich(c, 'z_{β} = −' + num(-m, 2), X(m) - 6, Y(normPdf(m)) - 4, '#8a6d1d', 13, 700, 'right'); } if (zb > 0.05 && p1 >= 1) span(m, 0, h - B + 44, 'z_{1−β}', '#8a6d1d'); }
     // отрезок z_{1−β}: растёт на сером от z_β до нуля, потом переезжает на синий — от порога до центра
     if (st >= 4 && zb > 0.05){ const yS = Y(normPdf(0) * 0.3), seg = (a, b, al) => { c.save(); c.globalAlpha = al; c.strokeStyle = '#8a6d1d'; c.lineWidth = 3; c.beginPath(); c.moveTo(X(a), yS); c.lineTo(X(b), yS); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), yS - 7); c.lineTo(X(v), yS + 7); c.stroke(); }); c.restore(); };
       seg(m, m + zb * p1, 1); if (p1 >= 1) rich(c, 'z_{1−β}', X(m / 2), yS - 12, '#8a6d1d', 14, 700);
