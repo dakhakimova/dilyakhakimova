@@ -40,7 +40,7 @@
   <h2>Одна реализация — один интервал</h2>
   <p>Сверху — колокол, из которого эксперимент «вытягивает» оценку разницы \(\hat\Delta\): центр в настоящей разнице 0.6%, разброс \(\sigma\). Каждый запуск — новая реализация эксперимента: точка из колокола и интервал \(\hat\Delta \pm 1.96\,s\) вокруг неё.</p>
   <div class="game" id="g0">
-    <div class="controls"><button type="button" class="btn" id="g0-one">Новая реализация</button><button type="button" class="btn ghost" id="g0-20">×20</button></div>
+    <div class="controls"><button type="button" class="btn" id="g0-one">+1 реализация</button><button type="button" class="btn ghost" id="g0-20">+10</button><button type="button" class="btn ghost" id="g0-100">+100</button></div>
     <canvas aria-label="Нормальное распределение оценки и интервалы отдельных реализаций"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
@@ -210,7 +210,7 @@ print(f"парные разности:  SE = {se_pair:.2%}, z = {d / se_pair:.2f
   let reals = [];
   function addReal(k){
     for (let i = 0; i < k; i++){ const a = binomDraw(N0, PA) / N0, b = binomDraw(N0, PB) / N0, d = b - a, se = Math.sqrt(a * (1 - a) / N0 + b * (1 - b) / N0); reals.unshift({d, lo: d - 1.96 * se, hi: d + 1.96 * se}); }
-    reals = reals.slice(0, 20); paint0();
+    paint0();
   }
   let total = 0, cover = 0;
   function paint0(){
@@ -223,20 +223,22 @@ print(f"парные разности:  SE = {se_pair:.2%}, z = {d / se_pair:.2f
     c.beginPath(); for (let k = 0; k <= 300; k++){ const v = lo + (hi - lo) * k / 300; k ? c.lineTo(X(v), Yb(pdf(v))) : c.moveTo(X(v), Yb(pdf(v))); } c.strokeStyle = COL.gray; c.lineWidth = 2.2; c.stroke();
     c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, base); c.lineTo(w - R, base); c.stroke();
     big(c, '95%', X(TRUE), Yb(pdf(TRUE)) + 40, COL.ctrl, 15, 700); big(c, '2.5%', X(q1) - 26, base - 10, RED, 13, 700); big(c, '2.5%', X(q2) + 26, base - 10, RED, 13, 700);
-    const rowsTop = base + 30, B = 30, dy = (h - rowsTop - B) / 20;
+    const rowsTop = base + 30, B = 30, dy = (h - rowsTop - B) / Math.max(20, reals.length), thin = reals.length > 60;
     c.setLineDash([4, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.2; [q1, q2].forEach(v => { c.beginPath(); c.moveTo(X(v), T0); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]);
     c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), T0 - 6); c.lineTo(X(TRUE), h - B); c.stroke();
     big(c, 'правда 0.6%', X(TRUE) + 6, T0 - 8, COL.ink, 14, 600, 'left');
     reals.forEach((r, i) => { const y = rowsTop + (i + 0.5) * dy, m = r.lo > TRUE || r.hi < TRUE, col = m ? RED : BLUE; c.globalAlpha = i === 0 ? 1 : 0.75;
-      c.strokeStyle = col; c.lineWidth = i === 0 ? 3 : 1.8; c.beginPath(); c.moveTo(X(Math.max(lo, r.lo)), y); c.lineTo(X(Math.min(hi, r.hi)), y); c.stroke();
-      c.fillStyle = col; c.beginPath(); c.arc(X(r.d), y, i === 0 ? 5 : 3.5, 0, 7); c.fill(); c.globalAlpha = 1; });
+      c.strokeStyle = col; c.lineWidth = i === 0 ? 3 : thin ? Math.max(0.8, dy * 0.6) : 1.8; c.beginPath(); c.moveTo(X(Math.max(lo, r.lo)), y); c.lineTo(X(Math.min(hi, r.hi)), y); c.stroke();
+      if (!thin || i === 0){ c.fillStyle = col; c.beginPath(); c.arc(X(r.d), y, i === 0 ? 5 : 3.5, 0, 7); c.fill(); } c.globalAlpha = 1; });
     if (reals.length){ const r = reals[0]; c.setLineDash([2, 3]); c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(X(r.d), Yb(pdf(r.d))); c.lineTo(X(r.d), rowsTop + 0.5 * dy); c.stroke(); c.setLineDash([]); c.fillStyle = COL.ink; c.beginPath(); c.arc(X(r.d), Yb(pdf(r.d)), 4, 0, 7); c.fill(); }
     for (let v = Math.ceil(lo * 1000) / 1000; v <= hi; v += 0.002){ const t = Math.round(v * 1000) / 10; big(c, (t < 0 ? '−' : '') + num(Math.abs(t), 1) + '%', X(v), h - B + 20, COL.ink2, 13, 400); }
-    out0.innerHTML = reals.length ? 'Последняя реализация: \\(\\hat\\Delta = ' + num(reals[0].d * 100, 2) + '\\%\\), интервал от ' + num(reals[0].lo * 100, 2) + '% до ' + num(reals[0].hi * 100, 2) + '% — ' + (reals[0].lo > TRUE || reals[0].hi < TRUE ? '<b>промах</b>.' : '<b>накрыл</b> правду.') + ' Всего накрыли ' + cover + ' из ' + total + '.' : '';
+    out0.innerHTML = reals.length ? 'Последняя реализация: \\(\\hat\\Delta = ' + num(reals[0].d * 100, 2) + '\\%\\), интервал от ' + num(reals[0].lo * 100, 2) + '% до ' + num(reals[0].hi * 100, 2) + '% — ' + (reals[0].lo > TRUE || reals[0].hi < TRUE ? '<b>промах</b>.' : '<b>накрыл</b> правду.') + ' Всего реализаций <b>' + total + '</b>, накрыли правду <b>' + cover + '</b> — ' + num(100 * cover / total, 1) + '%.' : '';
   }
   const addCount = k => { const before = reals.length; addReal(k); };
-  document.getElementById('g0-one').addEventListener('click', () => { addReal(1); const r = reals[0]; total++; if (!(r.lo > TRUE || r.hi < TRUE)) cover++; paint0(); });
-  document.getElementById('g0-20').addEventListener('click', () => { for (let i = 0; i < 20; i++){ addReal(1); const r = reals[0]; total++; if (!(r.lo > TRUE || r.hi < TRUE)) cover++; } paint0(); });
+  const addK = k => { for (let i = 0; i < k; i++){ addReal(1); const r = reals[0]; total++; if (!(r.lo > TRUE || r.hi < TRUE)) cover++; } paint0(); };
+  document.getElementById('g0-one').addEventListener('click', () => addK(1));
+  document.getElementById('g0-20').addEventListener('click', () => addK(10));
+  document.getElementById('g0-100').addEventListener('click', () => addK(100));
   // 2: интервалы групп и интервал разницы
   const cv2 = document.getElementById('g2').querySelector('canvas');
   function paint2(){
