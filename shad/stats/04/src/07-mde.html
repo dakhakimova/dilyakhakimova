@@ -213,6 +213,8 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
     const f1 = x => normPdf(x - mde);
     if (st >= 3){ area(c, X, Y, f1, za, hi, h - B, 'rgba(35,65,138,.25)'); area(c, X, Y, f1, lo, za, h - B, 'rgba(230,180,60,.35)'); }
     if (st >= 1){ area(c, X, Y, normPdf, za, hi, h - B, 'rgba(201,65,58,.6)'); area(c, X, Y, normPdf, lo, -za, h - B, 'rgba(201,65,58,.6)'); }
+    const m = -zb;  // зеркальная точка на сером: правее неё та же доля, что у синего правее порога
+    if (st >= 4) area(c, X, Y, normPdf, m, hi, h - B, 'rgba(138,109,29,.13)');
     curve(c, X, Y, normPdf, lo, hi, COL.gray, 2.2);
     if (st >= 2) curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
     c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
@@ -223,6 +225,12 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
     if (st >= 3) big(c, 'мощность ' + Math.round(wNow * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
     const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); rich(c, t, (X(a) + X(b)) / 2, y - 10, col, 14, 600); };
     if (st >= 1) span(0, za, h - B + 44, 'z_{1−α/2} = ' + num(za, 2), COL.ink);
+    // центры обоих колоколов
+    const ctr = (v, col, t) => { c.save(); c.setLineDash([2, 4]); c.strokeStyle = col; c.lineWidth = 1.4; c.beginPath(); c.moveTo(X(v), h - B); c.lineTo(X(v), Y(normPdf(0))); c.stroke(); c.restore(); c.fillStyle = col; c.beginPath(); c.arc(X(v), h - B, 4, 0, 7); c.fill(); big(c, t, X(v) + 5, Y(normPdf(0) * 0.55), col, 12, 600, 'left'); };
+    ctr(0, COL.ink2, 'центр 0');
+    if (st >= 2) ctr(mde, COL.ctrl, 'центр ' + num(mde, 2));
+    // тот же порог на сером: от него до центра столько же, сколько у синего от порога до центра
+    if (st >= 4){ c.save(); c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), h - B); c.lineTo(X(m), Y(normPdf(m)) - 4); c.stroke(); c.restore(); big(c, num(wNow * 100, 0) + '% правее', X(m) - 6, Y(normPdf(m)) - 4, '#8a6d1d', 13, 700, 'right'); if (zb > 0.05) span(m, 0, h - B + 44, 'z_{1−β} = ' + num(zb, 2), '#8a6d1d'); }
     if (st >= 4 && Math.abs(zb) > 0.05) span(za, mde, h - B + 44, (D == null || Math.abs(wNow - W) <= 0.005 ? 'z_{1−β} = ' : '') + (zb < 0 ? '−' : '') + num(Math.abs(zb), 2), '#8a6d1d');
     if (st >= 5) span(0, mde, h - B + 80, (D != null && Math.abs(wNow - W) > 0.005 ? 'эффект = ' : 'MDE = ') + num(za, 2) + (zb < 0 ? ' − ' : ' + ') + num(Math.abs(zb), 2) + ' = ' + num(mde, 2) + ' SE', COL.ctrl);
     outm.innerHTML = D != null ? 'Эффект ' + num(mde, 2) + ' SE: центр синего ' + (zb < 0 ? 'левее' : 'правее') + ' порога на ' + num(Math.abs(zb), 2) + ', мощность <b>' + num(wNow * 100, 0) + '%</b>. ' + (Math.abs(wNow - W) <= 0.005 ? 'Ровно ' + Math.round(W * 100) + '%: центр на ' + num(normInv(W), 2) + ' правее порога — это и есть \\(z_{1-\\beta}\\), а эффект ' + num(za, 2) + ' + ' + num(normInv(W), 2) + ' = MDE.' : 'Двигай, пока мощность не станет ' + Math.round(W * 100) + '%.') : st >= 5 ? '\\(\\mathrm{MDE} = (' + num(za, 2) + ' + ' + num(zb, 2) + ') \\cdot \\mathrm{SE} = ' + num(mde, 2) + '\\,\\mathrm{SE}\\) при \\(\\alpha = ' + Math.round(A * 100) + '\\%\\) и мощности ' + Math.round(W * 100) + '%. Потяни синий колокол — посмотри, откуда ' + num(normInv(W), 2) + '.' : 'Открой шаги ниже — картинка достроится.';
