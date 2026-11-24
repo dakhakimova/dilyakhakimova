@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611492">
-<link rel="stylesheet" href="/tokens.css?v=202611492">
-<link rel="stylesheet" href="/signal/book.css?v=202611492">
-<link rel="stylesheet" href="/signal/free.css?v=202611492">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611492">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611492">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611493">
+<link rel="stylesheet" href="/tokens.css?v=202611493">
+<link rel="stylesheet" href="/signal/book.css?v=202611493">
+<link rel="stylesheet" href="/signal/free.css?v=202611493">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611493">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611493">
 </head>
 <body data-course="shad4" data-chapter="shad4-07" data-next="08-nonparam.html">
 <nav class="top" aria-label="Навигация">
@@ -309,10 +309,10 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611492"></script>
-<script src="/signal/book.js?v=202611492"></script>
-<script src="/signal/py.js?v=202611492"></script>
-<script src="/shad/stats/04/shad.js?v=202611492"></script>
+<script src="/fonts/katex/katex.min.js?v=202611493"></script>
+<script src="/signal/book.js?v=202611493"></script>
+<script src="/signal/py.js?v=202611493"></script>
+<script src="/shad/stats/04/shad.js?v=202611493"></script>
 <script>
 (function(){
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
@@ -320,31 +320,40 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
   // картинка MDE, достраивается по шагам
   const gm = document.getElementById('gm'), cvm = gm.querySelector('canvas'), outm = gm.querySelector('.out'), stepsOl = document.getElementById('mde-steps');
-  let A = 0.05, W = 0.8;
+  let A = 0.05, W = 0.8, D = null;  // D — центр синего колокола, который тянут мышкой
   const stepNow = () => { const lis = [...stepsOl.children]; const cur = lis.findIndex(li => li.classList.contains('cur')); const shown = lis.filter(li => !li.hidden).length; return Math.max(cur + 1, shown); };
   function paintM(){
     const g = canvas(cvm, 0.5, 0.9); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 36, B = 96;
-    const za = normInv(1 - A / 2), zb = normInv(W), mde = za + zb, st = stepNow();
+    const st = stepNow(), za = normInv(1 - A / 2), mde = D != null ? D : za + normInv(W);
+    const aNow = 2 * (1 - normCdf(za)), wNow = 1 - normCdf(za - mde) + normCdf(-za - mde), zb = mde - za;
     const lo = -3.6, hi = Math.max(6.4, mde + 3.4), X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.12);
     const f1 = x => normPdf(x - mde);
     if (st >= 3){ area(c, X, Y, f1, za, hi, h - B, 'rgba(35,65,138,.25)'); area(c, X, Y, f1, lo, za, h - B, 'rgba(230,180,60,.35)'); }
-    if (st >= 1) area(c, X, Y, normPdf, za, hi, h - B, 'rgba(201,65,58,.6)');
+    if (st >= 1){ area(c, X, Y, normPdf, za, hi, h - B, 'rgba(201,65,58,.6)'); area(c, X, Y, normPdf, lo, -za, h - B, 'rgba(201,65,58,.6)'); }
     curve(c, X, Y, normPdf, lo, hi, COL.gray, 2.2);
     if (st >= 2) curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
     c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
     for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 18, COL.ink2, 13, 400);
     big(c, 'без эффекта', X(0), Y(normPdf(0)) - 8, COL.ink2, 14, 600);
-    if (st >= 2) big(c, 'эффект = MDE', X(mde), Y(normPdf(0)) - 8, COL.ctrl, 14, 600);
-    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 1.4; c.beginPath(); c.moveTo(X(za), T - 10); c.lineTo(X(za), h - B); c.stroke(); c.setLineDash([]); big(c, 'порог ' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); }
-    if (st >= 3) big(c, 'мощность ' + Math.round(W * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
+    if (st >= 2){ big(c, D != null ? 'эффект ' + num(mde, 2) + ' SE' : 'эффект = MDE', X(mde), Y(normPdf(0)) - 26, COL.ctrl, 14, 600); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(mde), Y(normPdf(0)), 7, 0, 7); c.fill(); big(c, '↔ тяни', X(mde), Y(normPdf(0)) - 10, COL.ctrl, 12, 500); }
+    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 2; [za, -za].forEach(v => { c.beginPath(); c.moveTo(X(v), T - 10); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]); big(c, 'порог ±' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); big(c, 'α = ' + num(aNow * 100, 1) + '%', X(-za) - 6, h - B - 8, '#C9413A', 14, 700, 'right'); }
+    if (st >= 3) big(c, 'мощность ' + Math.round(wNow * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
     const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); big(c, t, (X(a) + X(b)) / 2, y - 8, col, 14, 600); };
-    if (st >= 1) span(0, za, h - B + 44, num(za, 2), COL.ink);
-    if (st >= 4) span(za, mde, h - B + 44, num(zb, 2), '#8a6d1d');
-    if (st >= 5) span(0, mde, h - B + 80, 'MDE = ' + num(za, 2) + ' + ' + num(zb, 2) + ' = ' + num(mde, 2) + ' SE', COL.ctrl);
-    outm.innerHTML = st >= 5 ? '\\(\\mathrm{MDE} = (' + num(za, 2) + ' + ' + num(zb, 2) + ') \\cdot \\mathrm{SE} = ' + num(mde, 2) + '\\,\\mathrm{SE}\\) при \\(\\alpha = ' + Math.round(A * 100) + '\\%\\) и мощности ' + Math.round(W * 100) + '%.' : 'Открой шаги ниже — картинка достроится.';
+    if (st >= 1) span(0, za, h - B + 44, 'z₁₋α/₂ = ' + num(za, 2), COL.ink);
+    if (st >= 4 && Math.abs(zb) > 0.05) span(za, mde, h - B + 44, (D == null || Math.abs(wNow - W) <= 0.005 ? 'z₁₋β = ' : '') + (zb < 0 ? '−' : '') + num(Math.abs(zb), 2), '#8a6d1d');
+    if (st >= 5) span(0, mde, h - B + 80, (D != null && Math.abs(wNow - W) > 0.005 ? 'эффект = ' : 'MDE = ') + num(za, 2) + (zb < 0 ? ' − ' : ' + ') + num(Math.abs(zb), 2) + ' = ' + num(mde, 2) + ' SE', COL.ctrl);
+    outm.innerHTML = D != null ? 'Эффект ' + num(mde, 2) + ' SE: центр синего ' + (zb < 0 ? 'левее' : 'правее') + ' порога на ' + num(Math.abs(zb), 2) + ', мощность <b>' + num(wNow * 100, 0) + '%</b>. ' + (Math.abs(wNow - W) <= 0.005 ? 'Ровно ' + Math.round(W * 100) + '%: центр на ' + num(normInv(W), 2) + ' правее порога — это и есть \\(z_{1-\\beta}\\), а эффект ' + num(za, 2) + ' + ' + num(normInv(W), 2) + ' = MDE.' : 'Двигай, пока мощность не станет ' + Math.round(W * 100) + '%.') : st >= 5 ? '\\(\\mathrm{MDE} = (' + num(za, 2) + ' + ' + num(zb, 2) + ') \\cdot \\mathrm{SE} = ' + num(mde, 2) + '\\,\\mathrm{SE}\\) при \\(\\alpha = ' + Math.round(A * 100) + '\\%\\) и мощности ' + Math.round(W * 100) + '%. Потяни синий колокол — посмотри, откуда 0.84.' : 'Открой шаги ниже — картинка достроится.';
   }
-  gm.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-a]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); A = +b.dataset.a; paintM(); }));
-  gm.querySelectorAll('[data-w]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-w]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); W = +b.dataset.w; paintM(); }));
+  gm.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-a]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); A = +b.dataset.a; D = null; paintM(); }));
+  gm.querySelectorAll('[data-w]').forEach(b => b.addEventListener('click', () => { gm.querySelectorAll('[data-w]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); W = +b.dataset.w; D = null; paintM(); }));
+  // синий колокол тянут прямо на картинке (гайд 49d): порог ±1.96 стоит, мощность меняется
+  let dragging = false;
+  const toVal = e => { const r = cvm.getBoundingClientRect(), lo = -3.6, hi = Math.max(6.4, normInv(1 - A / 2) + normInv(W) + 3.4); return lo + (e.clientX - r.left - 10) / (r.width - 20) * (hi - lo); };
+  const setCenter = e => { let v = Math.max(0, Math.min(6, toVal(e))); const m0 = normInv(1 - A / 2) + normInv(W); if (Math.abs(v - m0) < 0.06) v = m0; D = v; paintM(); };
+  cvm.style.touchAction = 'none'; cvm.style.cursor = 'ew-resize';
+  cvm.addEventListener('pointerdown', e => { if (stepNow() < 2) return; dragging = true; cvm.setPointerCapture(e.pointerId); setCenter(e); });
+  cvm.addEventListener('pointermove', e => { if (dragging) setCenter(e); });
+  cvm.addEventListener('pointerup', () => { dragging = false; });
   new MutationObserver(paintM).observe(stepsOl, {subtree: true, attributes: true, attributeFilter: ['class', 'hidden']});
   const g1 = document.getElementById('g1'), cv = g1.querySelector('canvas'), out = g1.querySelector('.out'), dIn = document.getElementById('g1-d');
   const PA = 0.05, PB = 0.053, PER = 5000;
