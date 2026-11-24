@@ -176,3 +176,6 @@ pre.code .c-fn{color:#8AB4F8}
 body[data-course="shad4"] .report-wrap{width:fit-content}
 body[data-course="shad4"] .report-wrap > table{width:auto}
 body[data-course="shad4"] pre.code > code{font:400 .9375rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace}
+/* Всё на слайде — одной ширины с текстом: ячейки кода, таблицы, выводы, игры (Диля, 24.11) */
+body[data-course="shad4"]{--col:calc(46 * 1.125rem)}  /* ширина колонки текста в rem, не зависит от кегля элемента */
+body[data-course="shad4"] .card > *, body[data-course="shad4"] .cell-help{max-width:var(--col); box-sizing:border-box}
