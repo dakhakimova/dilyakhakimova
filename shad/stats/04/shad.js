@@ -85,3 +85,34 @@
   const init = () => document.querySelectorAll('.calc[data-kind="binom"]').forEach(build);
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
+
+// Калькулятор на каждом слайде: кнопка «Калькулятор» в шапке, выражения вида 2^10, C(14,12), 1-(1-0.0065)^50, sqrt(2/100), Phi(1.96)
+(function(){
+  const fact = n => { n = Math.round(n); let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; };
+  const C = (n, k) => { n = Math.round(n); k = Math.round(k); if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return Math.round(r * 1e6) / 1e6 === Math.round(r) ? Math.round(r) : r; };
+  const Phi = z => (typeof normCdf === 'function') ? normCdf(z) : NaN;
+  function ev(src){
+    let s = String(src).replace(/C\(\s*([^,;()]+?)\s*[,;]\s*([^,;()]+?)\s*\)/g, 'C($1;$2)').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/−/g, '-').replace(/√/g, 'sqrt').replace(/\s+/g, '');
+    s = s.replace(/;/g, ',');
+    if (!/^[0-9+\-*/^().!,a-zA-Zπ%]*$/.test(s)) throw 0;
+    const words = s.match(/[a-zA-Zπ]+/g) || [];
+    if (words.some(w => !['C', 'sqrt', 'ln', 'log', 'exp', 'pi', 'e', 'Phi', 'π'].includes(w))) throw 0;
+    s = s.replace(/(\d+(?:\.\d+)?|\))!/g, 'fact($1)').replace(/\^/g, '**').replace(/π|\bpi\b/g, 'Math.PI').replace(/\bsqrt\b/g, 'Math.sqrt').replace(/\bln\b/g, 'Math.log').replace(/\blog\b/g, 'Math.log10').replace(/\bexp\b/g, 'Math.exp').replace(/\be\b/g, 'Math.E').replace(/(\d+(?:\.\d+)?)%/g, '($1/100)');
+    return Function('C', 'fact', 'Phi', '"use strict"; return (' + s + ');')(C, fact, Phi);
+  }
+  const fmt = v => !isFinite(v) ? '—' : Math.abs(v) >= 1e9 || (Math.abs(v) < 1e-4 && v !== 0) ? v.toExponential(4) : String(Math.round(v * 1e6) / 1e6);
+  function init(){
+    const head = document.querySelector('.stage-head'); if (!head) return;
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'toggle calc-btn'; btn.textContent = '🧮 Калькулятор'; btn.setAttribute('aria-expanded', 'false');
+    head.appendChild(btn);
+    const box = document.createElement('div'); box.className = 'calc-pop'; box.hidden = true;
+    box.innerHTML = '<div class="calc-line"><input type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 2^10, C(14,12), 1-(1-0.0065)^50"><button type="button" class="btn">=</button></div><ol class="calc-hist"></ol><p class="calc-help">Можно: + − × / ^, скобки, C(n,k), n!, sqrt(), ln(), exp(), Phi(z), проценты 5%.</p>';
+    head.after(box);
+    const inp = box.querySelector('input'), hist = box.querySelector('.calc-hist');
+    const run = () => { const t = inp.value.trim(); if (!t) return; let r; try { r = fmt(ev(t)); } catch (e) { r = 'не понимаю выражение'; } const li = document.createElement('li'); li.innerHTML = '<span class="q"></span> = <b></b>'; li.querySelector('.q').textContent = t; li.querySelector('b').textContent = r; hist.prepend(li); while (hist.children.length > 6) hist.lastChild.remove(); inp.select(); };
+    box.querySelector('button').addEventListener('click', run);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); e.stopPropagation(); });
+    btn.addEventListener('click', () => { box.hidden = !box.hidden; btn.setAttribute('aria-expanded', String(!box.hidden)); if (!box.hidden) inp.focus(); });
+  }
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+})();
