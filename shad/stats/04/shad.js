@@ -113,6 +113,9 @@
     box.querySelector('.calc-eq').addEventListener('click', run);
     box.querySelector('.calc-clr').addEventListener('click', () => { inp.value = ''; hist.innerHTML = ''; inp.focus(); });
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); if (e.key === 'Escape'){ inp.value = ''; } e.stopPropagation(); });
+    const close = () => { box.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+    if (typeof Book !== 'undefined' && Book.onShow) Book.onShow(close);
+    window.addEventListener('hashchange', close);
     btn.addEventListener('click', () => { box.hidden = !box.hidden; btn.setAttribute('aria-expanded', String(!box.hidden)); if (!box.hidden) inp.focus(); });
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
