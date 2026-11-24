@@ -190,7 +190,7 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
       const card = ol.closest('.card'), before = [...card.querySelectorAll('ol.reveal')].filter(o => o !== ol && (o.compareDocumentPosition(ol) & Node.DOCUMENT_POSITION_FOLLOWING));
       const prev = before.length ? state.get(before[before.length - 1]) : null;
       const open = !prev || prev.done() || st.shown > 0;
-      const h = ol.previousElementSibling && /^H[2-4]$/.test(ol.previousElementSibling.tagName) ? ol.previousElementSibling : null;
+      const pe = ol.previousElementSibling, h = pe && (/^H[2-4]$/.test(pe.tagName) || pe.classList.contains('reveal-h')) ? pe : null;
       [ol, st.bar, h].forEach(e => { if (e) e.hidden = !open; });
     });
   }

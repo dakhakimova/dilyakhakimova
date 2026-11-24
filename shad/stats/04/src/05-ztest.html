@@ -22,19 +22,19 @@
     <li><b>Критерий</b>: двусторонний, отвергаем при \(|z| \ge 1.96\); \(p = 2\,P\big(N(0,1) \ge |z|\big)\).</li>
     <li><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b>, для конверсии \(s^2 = \hat p(1 - \hat p)\). Получаем статистику, которую считают на практике:
       <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\sqrt{\dfrac{s_A^2}{n_A} + \dfrac{s_B^2}{n_B}}} \xrightarrow{d} N(0, 1) \quad \text{при } H_0.\]</p>
-      <p>Почему замена не портит сходимость — разберём ниже.</p></li>
-  </ol>
-  <h3>Почему с выборочными \(s\) всё ещё \(N(0, 1)\)</h3>
-  <ol class="howto reveal reveal-y" data-start="0">
-    <li><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)
-      <p class="formula">\[P\big(|\bar X - \mathbb{E}X| > \varepsilon\big) \to 0, \qquad \text{пишут } \bar X \xrightarrow{P} \mathbb{E}X.\]</p></li>
-    <li><b>Что из него следует: \(s \xrightarrow{P} \sigma\).</b> Выборочная дисперсия — тоже среднее: \(s^2 \approx \overline{X^2} - \bar X^2\). По ЗБЧ \(\overline{X^2} \xrightarrow{P} \mathbb{E}X^2\) и \(\bar X \xrightarrow{P} \mathbb{E}X\), значит \(s^2 \xrightarrow{P} \mathbb{E}X^2 - (\mathbb{E}X)^2 = \sigma^2\). Нужна конечная дисперсия — то же условие, что и для ЦПТ. Поэтому корень с выборочными \(s\) приближается к корню с истинными \(\sigma\):
-      <p class="formula">\[\frac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta} \xrightarrow{P} 1, \qquad \widehat{\mathrm{SE}}_\Delta = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
-    <li><b>Теорема Слуцкого.</b> Если \(Y_n \xrightarrow{d} Y\) и \(C_n \xrightarrow{P} c\), где \(c\) — число, то
-      <p class="formula">\[Y_n \cdot C_n \xrightarrow{d} c\,Y.\]</p></li>
-    <li><b>Что из неё следует: \(z \xrightarrow{d} N(0, 1)\).</b> Разложим статистику на два множителя:
-      <p class="formula">\[\frac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \underbrace{\frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}}_{\xrightarrow{P} 1}.\]</p>
-      <p>Первый множитель сходится к \(N(0, 1)\) по ЦПТ — шаги 1–4 выше, второй к 1 — шаг 2. По Слуцкому с \(c = 1\) произведение \(\xrightarrow{d} N(0, 1)\). На малых \(n\) второй множитель ещё заметно гуляет — это поправляет t-критерий.</p></li>
+      <p class="reveal-h"><b>Почему с выборочными \(s\) всё ещё \(N(0, 1)\)</b></p>
+      <ol class="howto reveal reveal-y" data-start="0">
+        <li><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)
+          <p class="formula">\[P\big(|\bar X - \mathbb{E}X| > \varepsilon\big) \to 0, \qquad \text{пишут } \bar X \xrightarrow{P} \mathbb{E}X.\]</p></li>
+        <li><b>Что из него следует: \(s \xrightarrow{P} \sigma\).</b> Выборочная дисперсия — тоже среднее: \(s^2 \approx \overline{X^2} - \bar X^2\). По ЗБЧ \(\overline{X^2} \xrightarrow{P} \mathbb{E}X^2\) и \(\bar X \xrightarrow{P} \mathbb{E}X\), значит \(s^2 \xrightarrow{P} \mathbb{E}X^2 - (\mathbb{E}X)^2 = \sigma^2\). Нужна конечная дисперсия — то же условие, что и для ЦПТ. Поэтому корень с выборочными \(s\) приближается к корню с истинными \(\sigma\):
+          <p class="formula">\[\frac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta} \xrightarrow{P} 1, \qquad \widehat{\mathrm{SE}}_\Delta = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
+        <li><b>Теорема Слуцкого.</b> Если \(Y_n \xrightarrow{d} Y\) и \(C_n \xrightarrow{P} c\), где \(c\) — число, то
+          <p class="formula">\[Y_n \cdot C_n \xrightarrow{d} c\,Y.\]</p></li>
+        <li><b>Что из неё следует: \(z \xrightarrow{d} N(0, 1)\).</b> Разложим статистику на два множителя:
+          <p class="formula">\[\frac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \underbrace{\frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}}_{\xrightarrow{P} 1}.\]</p>
+          <p>Первый множитель сходится к \(N(0, 1)\) по ЦПТ — шаги 1–4 выше, второй к 1 — шаг 2. По Слуцкому с \(c = 1\) произведение \(\xrightarrow{d} N(0, 1)\). На малых \(n\) второй множитель ещё заметно гуляет — это поправляет t-критерий.</p></li>
+      </ol>
+    </li>
   </ol>
 </section>
 
