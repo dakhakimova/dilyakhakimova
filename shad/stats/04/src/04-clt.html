@@ -44,9 +44,9 @@
   <p>Столбики — распределение <b>среднего</b> по \(n\) наблюдениям в повторах эксперимента (от 600 до 4000 — чем больше \(n\), тем меньше повторов, чтобы считалось быстро), линия — нормальная кривая. Под графиком — как часто интервал «среднее \(\pm 1.96\,\mathrm{SE}\)» накрыл настоящее среднее.</p>
   <div class="game" id="g1">
     <div class="controls"><span class="seg" role="group" aria-label="Распределение данных">
-      <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">киты</button><button type="button" class="btn ghost" data-d="pareto" aria-pressed="false">Парето</button>
+      <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли</button><button type="button" class="btn ghost" data-d="bin10" aria-pressed="false">Bin(10, 0.1)</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">киты</button><button type="button" class="btn ghost" data-d="pareto" aria-pressed="false">Парето</button>
     </span></div>
-    <div class="controls" id="g1-prow" hidden><span>Вероятность успеха \(p\):</span><span class="seg" role="group" aria-label="p"><button type="button" class="btn ghost" data-p="0.005" aria-pressed="true">0.5%</button><button type="button" class="btn ghost" data-p="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-p="0.05" aria-pressed="false">5%</button><button type="button" class="btn ghost" data-p="0.3" aria-pressed="false">30%</button></span></div>
+    <div class="controls" id="g1-prow" hidden><span>Вероятность успеха \(p\):</span><span class="seg" role="group" aria-label="p"><button type="button" class="btn ghost" data-p="0.005" aria-pressed="true">0.5%</button><button type="button" class="btn ghost" data-p="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-p="0.05" aria-pressed="false">5%</button><button type="button" class="btn ghost" data-p="0.3" aria-pressed="false">30%</button><button type="button" class="btn ghost" data-p="0.5" aria-pressed="false">50%</button></span></div>
     <div class="controls"><label class="field">Наблюдений в среднем \(n\) = <input type="number" id="g1-n" class="n-in" min="1" max="10000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
     <p class="dist-f" aria-live="polite"></p>
     <p class="chart-t"></p>
@@ -63,6 +63,21 @@
     <tr><td>Парето, \(\alpha = 1.5\) — дисперсия бесконечна</td><td class="bad">69.5%</td><td class="bad">76.9%</td><td class="bad">79.3%</td></tr>
   </table></div>
   <p class="note">3000 повторов на клетку. Красное — заметно ниже 95%.</p>
+  <h3>Что было в AB Week: «сошлось на глаз» и хвосты</h3>
+  <p>На картинке колокол может выглядеть нормальным, а хвосты — нет. Доли t-статистики за порогами ±1.96, цель по 2.5% в каждом хвосте, 40 000 повторов:</p>
+  <div class="report-wrap"><table class="tails" aria-label="Хвосты t-статистики для распределений из AB Week">
+    <tr><th>распределение</th><th>\(\gamma\)</th><th>\(n\)</th><th>левый хвост</th><th>правый</th><th>вместе</th></tr>
+    <tr><td>Бернулли, \(p = 50\%\)</td><td>0</td><td>30</td><td>2.1%</td><td>2.1%</td><td>4.2%</td></tr>
+    <tr><td>Бернулли, \(p = 30\%\)</td><td>0.87</td><td>15</td><td>3.4%</td><td>1.6%</td><td>5.0%</td></tr>
+    <tr><td>Bin(10, 0.1)</td><td>0.84</td><td>30</td><td class="bad">4.9%</td><td>1.9%</td><td>6.8%</td></tr>
+    <tr><td>равномерное U(−1, 1)</td><td>0</td><td>15</td><td>3.7%</td><td>3.7%</td><td>7.4%</td></tr>
+    <tr><td>экспоненциальное, среднее 1 000</td><td>2</td><td>100</td><td class="bad">4.9%</td><td class="bad">1.3%</td><td>6.2%</td></tr>
+  </table></div>
+  <ul>
+    <li><b>У биномиального и Бернулли есть параметры с быстрой сходимостью:</b> при \(p\) около 30–50% асимметрия маленькая, и уже 15–30 наблюдений дают почти ровные хвосты. Bin(10, 0.1) — по сути 10 Бернулли с \(p = 10\%\) в одном наблюдении, поэтому \(\gamma = 0.84\) вместо 2.67.</li>
+    <li><b>У экспоненциального таких параметров нет:</b> асимметрия всегда 2 при любом среднем — масштаб не меняет форму. На \(n = 100\) колокол на глаз нормальный, а хвосты перекошены: 4.9% против 1.3%.</li>
+    <li>У равномерного хвосты симметричны, но при малых \(n\) тяжеловаты из-за t-статистики: SE оценена по 15 наблюдениям.</li>
+  </ul>
   <details class="sol"><summary>Почему так</summary><div class="body">
     <p class="stp"><b>Редкая конверсия.</b> При \(n = 100\) ожидается \(100 \cdot 0.005 = 0.5\) конверсии: в большинстве выборок ни одной, \(\mathrm{SE}\) оценивается как ноль, интервал вырождается в точку. Среднее — не колокол, а пара столбиков.</p>
     <p class="stp"><b>Чеки</b> — 91% при 100, догоняют к тысяче.</p>
@@ -252,6 +267,7 @@ hist(wins, "винзоризация", cap)</textarea>
     exp:   {name: 'экспоненциальное, λ = 1: μ = 1, σ = 1', mu: 1, g: () => -Math.log(1 - Math.random())},
     logn:  {name: 'лог-нормальное, ln X ~ N(0, 1): μ ≈ 1.65, σ ≈ 2.16', mu: Math.exp(0.5), g: () => Math.exp(gauss())},
     bern:  {name: 'Бернулли', mu: 0.005, p: 0.005},
+    bin10: {name: 'биномиальное Bin(10, 0.1): μ = 1, σ ≈ 0.95', mu: 1, disc: true, g: () => binom(10, 0.1)},
     par:   {name: 'киты: ln X ~ N(0, 2²): μ ≈ 7.39, σ ≈ 54', mu: Math.exp(2), g: () => Math.exp(2 * gauss())},
     pareto:{name: 'Парето, xₘ = 1, α = 1.5: μ = 3, σ = ∞ — ЦПТ нет', mu: 3, g: () => Math.pow(1 - Math.random(), -1 / 1.5)}
   };
@@ -262,6 +278,7 @@ hist(wins, "винзоризация", cap)</textarea>
     exp: 'f(x) = \\lambda e^{-\\lambda x},\\quad x \\ge 0,\\quad \\lambda = 1',
     logn: 'f(x) = \\frac{1}{x\\,s\\sqrt{2\\pi}}\\, e^{-\\frac{(\\ln x - m)^2}{2s^2}},\\quad x > 0,\\quad m = 0,\\ s = 1',
     bern: 'f(x) = p^{x}(1 - p)^{1 - x},\\quad x \\in \\{0, 1\\},\\quad p = ' + 0.005,
+    bin10: 'P(X = k) = C_{10}^{k}\\, 0.1^{k}\\, 0.9^{10 - k},\\quad k = 0, 1, \\dots, 10',
     par: 'f(x) = \\frac{1}{x\\,s\\sqrt{2\\pi}}\\, e^{-\\frac{(\\ln x - m)^2}{2s^2}},\\quad x > 0,\\quad m = 0,\\ s = 2',
     pareto: 'f(x) = \\frac{\\alpha\\, x_m^{\\alpha}}{x^{\\alpha + 1}},\\quad x \\ge x_m,\\quad x_m = 1,\\ \\alpha = 1.5'
   };
@@ -289,7 +306,7 @@ hist(wins, "винзоризация", cap)</textarea>
     // диапазон: чтобы нормальная кривая не обрезалась, но не левее, чем может быть среднее (0, у Парето — 1)
     const smin = dk === 'pareto' ? 1 : 0;
     let lo = Math.max(smin, Math.min(q(0.005), mean0 - 3.5 * sd0)), hi = Math.max(q(0.995), mean0 + 3.5 * sd0), bins;
-    const disc = d.p != null;
+    const disc = d.p != null || d.disc;
     if (disc){ const k0 = Math.floor(lo * n), k1 = Math.ceil(hi * n); lo = (k0 - 0.5) / n; hi = (k1 + 0.5) / n; bins = Math.min(60, k1 - k0 + 1); }
     else bins = 40;
     if (hi - lo < 1e-9){ hi = lo + 1; }
