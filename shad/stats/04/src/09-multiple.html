@@ -1,4 +1,4 @@
-{"title": "Множественные проверки", "short": "9. Множественные проверки", "h": "Блок 9 · много проверок", "lead": "Двадцать метрик, поправка Бонферрони и зелёные мармеладки", "next": "10-summary.html"}
+{"title": "Множественные проверки", "short": "9. Множественные проверки", "h": "Блок 9 · много проверок", "lead": "Двадцать гипотез, поправка Бонферрони и зелёные мармеладки", "next": "10-summary.html"}
 <section class="card" data-title="Много проверок сразу">
   <p class="kicker">Занятие 4 · блок 9</p>
   <h1>Много проверок сразу</h1>
@@ -6,58 +6,42 @@
   <div class="chat">
     <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">В эксперименте 20 метрик, и одна прокрасилась! Значит, эффект есть — пишу отчёт про неё.</p></div></div>
   </div>
-  <p class="lead">В настоящем A/B смотрят не одну метрику, а десятки, плюс срезы. Каждая проверка честна по отдельности, а вместе они почти гарантируют хотя бы один ложный прокрас. Это та же история, что с осьминогом Паулем.</p>
+  <p class="lead">В настоящем A/B смотрят не одну метрику, а десятки, плюс срезы и группы. Каждая пара «метрика × срез» — отдельная гипотеза. Каждая проверка честна по отдельности, а вместе они почти гарантируют хотя бы один ложный прокрас. Это та же история, что с осьминогом Паулем.</p>
 </section>
 
-<section class="card" data-title="Визуализация: 20 метрик в A/A">
+<section class="card" data-title="Визуализация: 20 гипотез в A/A">
   <span class="step-tag">Визуализация</span>
-  <h2>20 метрик в A/A-эксперименте</h2>
-  <p>Эффекта нет ни в одной метрике. Каждый запуск — новый A/A-эксперимент: у каждой метрики своё p-value, красным — прокрасившиеся на уровне 5%.</p>
+  <h2>20 гипотез в A/A-эксперименте</h2>
+  <p>Гипотеза — это метрика, срез или группа, которую проверяем. Эффекта нет ни в одной. Каждый запуск — новый A/A-эксперимент: у каждой гипотезы своё p-value, красным — прокрасившиеся на уровне 5%.</p>
   <div class="game" id="g1">
-    <div class="controls"><label class="field">Метрик <input type="text" inputmode="numeric" class="n-in" id="g1-m" value="20"></label><button type="button" class="btn" id="g1-run">Новый эксперимент</button></div>
-    <p class="chart-t">p-value каждой метрики в последнем эксперименте</p>
-    <canvas aria-label="p-value метрик, прокрасившиеся красным"></canvas>
+    <div class="controls"><label class="field">Гипотез <input type="text" inputmode="numeric" class="n-in" id="g1-m" value="20"></label><button type="button" class="btn" id="g1-run">Новый эксперимент</button></div>
+    <p class="chart-t">p-value каждой гипотезы в последнем эксперименте</p>
+    <canvas aria-label="p-value гипотез, прокрасившиеся красным"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
 
-<section class="card" data-title="Задача: 20 метрик">
+<section class="card" data-title="Задача: 20 гипотез">
   <span class="step-tag">Задача</span>
-  <h2 class="task-h"><span class="tn">Задача 22.</span> 20 метрик в одном тесте</h2>
-  <p>Боб смотрит в A/A-тесте, где эффекта нет нигде, <b>20 независимых метрик</b>, каждую на уровне 5%.</p>
+  <h2 class="task-h"><span class="tn">Задача 22.</span> 20 гипотез в одном тесте</h2>
+  <p>Боб проверяет в A/A-тесте, где эффекта нет нигде, <b>20 независимых гипотез</b> — метрики, срезы, группы, — каждую на уровне 5%.</p>
   <ol>
     <li>С какой вероятностью хотя бы одна из них прокрасится?</li>
-    <li>Какой уровень значимости поставить на каждую метрику, чтобы вероятность хотя бы одного ложного прокраса была не больше 5%?</li>
+    <li>Какой уровень значимости поставить на каждую гипотезу, чтобы вероятность хотя бы одного ложного прокраса была не больше 5%?</li>
   </ol>
-  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">\(1 - 0.95^{20} \approx 64\%\); Бонферрони — \(0.05/20 = 0.25\%\) на метрику</p></div>
-  <p class="rule-why">Это не ошибка критерия, это ошибка того, кто смотрит на 20 метрик и рассказывает про одну. На практике заранее объявляют одну-две главные метрики, а остальные считают диагностическими.</p></details>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">\(1 - 0.95^{20} \approx 64\%\); Бонферрони — \(0.05/20 = 0.25\%\) на гипотезу</p></div>
+  <p class="rule-why">Это не ошибка критерия, это ошибка того, кто проверяет 20 гипотез и рассказывает про одну. На практике заранее объявляют одну-две главные метрики, а остальные считают диагностическими.</p></details>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1.</b> \(m = 20\) независимых проверок, в каждой \(H_0\) верна, \(\alpha = 5\%\).</p>
     <p class="stp"><b>Шаг 2.</b> Каждая не прокрашивается с вероятностью 0.95; независимые события перемножаются: \(P(\text{ни одной}) = 0.95^{20} \approx 0.358\), \(P(\text{хотя бы одна}) \approx 64\%\).</p>
     <p class="stp"><b>Шаг 3. Бонферрони.</b> \(P(\text{хотя бы одна}) \le \sum P(\text{каждая}) = m\,\alpha_1\). Хотим не больше 5% → \(\alpha_1 = 0.05/20 = 0.25\%\). Проверка: \(1 - (1 - 0.0025)^{20} \approx 4.9\%\).</p>
     <p class="stp"><b>Шаг 4. Профилактика.</b> Главная метрика — заранее; остальные метрики и срезы — для диагностики и новых гипотез, а не для решения.</p>
   </div></details>
-  <div class="cell" data-title="20 метрик: формула">
-<textarea spellcheck="false" aria-label="20 метрик: формула">m, alpha = 20, 0.05     # метрик и уровень значимости каждой
-
-p_any = 1 - (1 - alpha) ** m
-print(f"P(хотя бы один ложный прокрас из {m}) = 1 − 0.95^{m} = {p_any:.1%}")
-
-a1 = alpha / m          # поправка Бонферрони
-print(f"Бонферрони: α на метрику = 0.05 / {m} = {a1:.2%}")
-print(f"проверка: 1 − (1 − {a1})^{m} = {1 - (1 - a1) ** m:.1%}")</textarea>
-  </div>
-  <div class="cell" data-title="20 метрик: симуляция A/A">
-<textarea spellcheck="false" aria-label="20 метрик: симуляция A/A">import numpy as np
-
-rng = np.random.default_rng(0)
-R, m = 10_000, 20                       # A/A-экспериментов, метрик в каждом
-
-p = rng.uniform(0, 1, (R, m))           # при H0 p-value равномерно (блок 2)
-any_raw = (p &lt; 0.05).any(axis=1).mean()
-any_bonf = (p &lt; 0.05 / m).any(axis=1).mean()
-print(f"без поправки хотя бы одна прокрасилась в {any_raw:.1%} экспериментов")
-print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
+  <div class="game" id="g2">
+    <div class="controls"><label class="field">Гипотез \(m\) <input type="text" inputmode="numeric" class="n-in" id="g2-m" value="20"></label><button type="button" class="btn ghost" id="g2-m10">+10</button><label class="field">Ложных прокрасов не меньше \(x\) <input type="text" inputmode="numeric" class="n-in" id="g2-x" value="1"></label><button type="button" class="btn ghost" id="g2-x1">+1</button></div>
+    <p class="chart-t">Вероятность хотя бы \(x\) ложных прокрасов при \(\alpha = 5\%\), если эффекта нет нигде</p>
+    <canvas aria-label="График: вероятность хотя бы x ложных прокрасов в зависимости от числа гипотез"></canvas>
+    <p class="out" aria-live="polite"></p>
   </div>
 </section>
 
@@ -66,7 +50,7 @@ print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
   <h2>Поправка Бонферрони</h2>
   <div class="def"><p>Если проверяем \(m\) гипотез, вероятность <b>хотя бы одного</b> ложного прокраса не больше суммы вероятностей каждого:</p></div>
   <p class="formula">\[P(\text{хотя бы один}) \le m \cdot \alpha_1.\]</p>
-  <p>Значит, если каждую гипотезу проверять на уровне \(\alpha/m\), хотя бы один ложный прокрас случится с вероятностью не больше \(\alpha\). Неравенство верно и для зависимых метрик. Цена — потеря мощности на каждой метрике. Мягче и мощнее — методы Холма и Бенджамини–Хохберга, о них на занятии 6.</p>
+  <p>Значит, если каждую гипотезу проверять на уровне \(\alpha/m\), хотя бы один ложный прокрас случится с вероятностью не больше \(\alpha\). Неравенство верно и для зависимых гипотез. Цена — потеря мощности на каждой гипотезе. Мягче и мощнее — методы Холма и Бенджамини–Хохберга, о них на занятии 6.</p>
 </section>
 
 <section class="card" data-title="История: мармеладки и прыщи">
@@ -94,7 +78,7 @@ print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
 <section class="card" data-title="Вывод">
   <span class="step-tag">Итог блока</span>
   <h2>Много проверок — много ложных открытий</h2>
-  <div class="takeaway"><p>Из 20 пустых метрик хотя бы одна прокрасится с вероятностью 64%. Главную метрику объявляй заранее, для пачки проверок — поправка: Бонферрони, а мягче — Холм и Бенджамини–Хохберг на занятии 6.</p></div>
+  <div class="takeaway"><p>Из 20 пустых гипотез хотя бы одна прокрасится с вероятностью 64%. Главную метрику объявляй заранее, для пачки проверок — поправка: Бонферрони, а мягче — Холм и Бенджамини–Хохберг на занятии 6.</p></div>
   <a class="next-step" href="10-summary.html"><b>Дальше: итоги и блиц</b>Семь главных мыслей занятия и вопросы с собеседования.</a>
 </section>
 
@@ -119,11 +103,39 @@ print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
     last.forEach((p, i) => { const x = L + (i + 0.5) * bw, hit = p < t; c.fillStyle = hit ? '#C9413A' : COL.ctrl; c.beginPath(); c.arc(x, Y(p), hit ? 7 : 5, 0, 7); c.fill(); if (m <= 30) big(c, String(i + 1), x, h - B + 18, COL.ink2, 12, 400); });
     big(c, 'p < ' + (bonf ? num(t * 100, 2) + '%' : '5%'), w - R - 4, Y(Math.max(t, 0.012)) - 6, '#C9413A', 14, 600, 'right');
     const k = last.filter(p => p < t).length;
-    out.innerHTML = 'В этом эксперименте прокрасилось ' + k + ' из ' + m + '. За ' + runs + ' ' + (runs % 10 === 1 && runs % 100 !== 11 ? 'эксперимент' : runs % 10 >= 2 && runs % 10 <= 4 && (runs % 100 < 10 || runs % 100 >= 20) ? 'эксперимента' : 'экспериментов') + ' хотя бы одна метрика прокрасилась в <b>' + hits + '</b>, это ' + num(100 * hits / runs, 0) + '%. Теория: ' + num(100 * (1 - Math.pow(1 - t, m)), 1) + '%.';
+    out.innerHTML = 'В этом эксперименте прокрасилось ' + k + ' из ' + m + '. За ' + runs + ' ' + (runs % 10 === 1 && runs % 100 !== 11 ? 'эксперимент' : runs % 10 >= 2 && runs % 10 <= 4 && (runs % 100 < 10 || runs % 100 >= 20) ? 'эксперимента' : 'экспериментов') + ' хотя бы одна гипотеза прокрасилась в <b>' + hits + '</b>, это ' + num(100 * hits / runs, 0) + '%. Теория: ' + num(100 * (1 - Math.pow(1 - t, m)), 1) + '%.';
   }
   document.getElementById('g1-run').addEventListener('click', () => run(1));
   mIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') reset(); }); mIn.addEventListener('change', reset);
   window.addEventListener('resize', paint);
   reset();
+
+  // задача 22: P(хотя бы x ложных прокрасов из m), X ~ Bin(m, 0.05)
+  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas'), out2 = g2.querySelector('.out'), mI = document.getElementById('g2-m'), xI = document.getElementById('g2-x');
+  let M2 = 20, X2 = 1; const A2 = 0.05;
+  const lc = (n, k) => { let r = 0; for (let i = 1; i <= k; i++) r += Math.log(n - k + i) - Math.log(i); return r; };
+  const atLeast = (m, x) => { if (x <= 0) return 1; if (x > m) return 0; let s = 0; for (let k = 0; k < x; k++) s += Math.exp(lc(m, k) + k * Math.log(A2) + (m - k) * Math.log(1 - A2)); return Math.max(0, 1 - s); };
+  const setM = v => { M2 = Math.max(1, Math.min(500, Math.round(+String(v).replace(/\s/g, '')) || 20)); mI.value = M2; paint2(); };
+  const setX = v => { X2 = Math.max(1, Math.min(50, Math.round(+String(v).replace(/\s/g, '')) || 1)); xI.value = X2; paint2(); };
+  function paint2(){
+    const gg = canvas(cv2, 0.42, 0.8); if (!gg) return; const {c, w, h} = gg, L = 52, R = 16, T = 16, B = 40;
+    const mMax = Math.max(100, Math.ceil(M2 * 1.25 / 10) * 10), X = m => L + m / mMax * (w - L - R), Y = p => h - B - (h - T - B) * p;
+    c.lineWidth = 1; c.strokeStyle = COL.grid;
+    [0, 0.25, 0.5, 0.75, 1].forEach(v => { c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); big(c, Math.round(v * 100) + '%', L - 8, Y(v) + 5, COL.ink2, 13, 400, 'right'); });
+    const st = mMax > 200 ? 50 : mMax > 100 ? 25 : 10; for (let m = 0; m <= mMax; m += st) big(c, String(m), X(m), h - B + 20, COL.ink2, 13, 400);
+    big(c, 'гипотез', w - R, h - B + 36, COL.ink2, 12, 500, 'right');
+    c.setLineDash([5, 4]); c.strokeStyle = '#C9413A'; c.beginPath(); c.moveTo(L, Y(0.05)); c.lineTo(w - R, Y(0.05)); c.stroke(); c.setLineDash([]); big(c, '5%', w - R, Y(0.05) - 6, '#C9413A', 13, 600, 'right');
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2.6; c.beginPath(); for (let m = 1; m <= mMax; m++){ const px = X(m), py = Y(atLeast(m, X2)); m === 1 ? c.moveTo(px, py) : c.lineTo(px, py); } c.stroke();
+    const p = atLeast(M2, X2);
+    c.setLineDash([3, 4]); c.strokeStyle = COL.ctrl; c.lineWidth = 1.2; c.beginPath(); c.moveTo(X(M2), h - B); c.lineTo(X(M2), Y(p)); c.stroke(); c.setLineDash([]);
+    c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(M2), Y(p), 7, 0, 7); c.fill();
+    big(c, num(p * 100, 1) + '%', X(M2) + (X(M2) > w - 120 ? -10 : 10), Y(p) - 10, COL.ctrl, 16, 700, X(M2) > w - 120 ? 'right' : 'left');
+    const ex = M2 * A2;
+    out2.innerHTML = 'Из ' + M2 + ' пустых гипотез хотя бы ' + X2 + ' ' + (X2 === 1 ? 'ложный прокрас' : 'ложных прокраса') + ' — с вероятностью <b>' + num(p * 100, 1) + '%</b>. В среднем ложных прокрасов \\(m\\alpha = ' + num(ex, 1) + '\\): число ложных прокрасов \\(\\sim \\mathrm{Bin}(' + M2 + ',\\ 0.05)\\).';
+  }
+  document.getElementById('g2-m10').addEventListener('click', () => setM(M2 + 10));
+  document.getElementById('g2-x1').addEventListener('click', () => setX(X2 + 1));
+  [[mI, setM], [xI, setX]].forEach(([el, f]) => { el.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') f(el.value); }); el.addEventListener('change', () => f(el.value)); });
+  window.addEventListener('resize', paint2); paint2();
 })();
 </script>
