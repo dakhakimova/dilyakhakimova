@@ -23,6 +23,7 @@
           // numpy есть всегда; ещё пакеты Pyodide — атрибутом data-packages="scipy" у любой ячейки страницы (грузятся долго, лучше без них)
           const extra = [...document.querySelectorAll('.cell[data-packages]')].flatMap(c => c.dataset.packages.split(/[\s,]+/)).filter(Boolean);
           await py.loadPackage([...new Set(['numpy', ...extra])]);
+          py.runPython("import warnings; warnings.filterwarnings('ignore', category=DeprecationWarning)");  // без служебных предупреждений pandas
           // файлы с данными: data-files="/путь/history.csv" у любой ячейки — кладём в рабочую папку Python под своим именем
           const files = [...new Set([...document.querySelectorAll('.cell[data-files]')].flatMap(c => c.dataset.files.split(/[\s,]+/)).filter(Boolean))];
           for (const f of files){ const r = await fetch(f); if (!r.ok) throw new Error('Не загрузился файл ' + f); py.FS.writeFile(f.split('/').pop(), new Uint8Array(await r.arrayBuffer())); }
