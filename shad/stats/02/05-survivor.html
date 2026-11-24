@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ошибка выжившего · Занятие 2 · Метрики</title>
+<meta name="description" content="Ошибка выжившего">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611587">
+<link rel="stylesheet" href="/tokens.css?v=202611587">
+<link rel="stylesheet" href="/signal/book.css?v=202611587">
+<link rel="stylesheet" href="/signal/free.css?v=202611587">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611587">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611587">
+</head>
+<body data-course="shad4" data-chapter="shad2-05" data-next="06-summary.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 2 · Метрики</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · Насколько верить числу</summary><ol><li><a class="tb" href="01-trust.html#card-1"><span class="i" data-n="1"></span><span>Насколько верить числу</span></a></li><li><a class="tb" href="01-trust.html#card-2"><span class="i" data-n="2"></span><span>Параметр и оценка</span></a></li><li><a class="tb" href="01-trust.html#card-3"><span class="i" data-n="3"></span><span>Игра: мудрость толпы</span></a></li><li><a class="tb" href="01-trust.html#card-4"><span class="i" data-n="4"></span><span>Почему «за 2σ» — сигнал</span></a></li><li><a class="tb" href="01-trust.html#card-5"><span class="i" data-n="5"></span><span>Ошибка первого рода</span></a></li><li><a class="tb" href="01-trust.html#card-6"><span class="i" data-n="6"></span><span>Стандартная ошибка среднего</span></a></li><li><a class="tb" href="01-trust.html#card-7"><span class="i" data-n="7"></span><span>Колокол среднего сжимается</span></a></li><li><a class="tb" href="01-trust.html#card-8"><span class="i" data-n="8"></span><span>Задача: 540 ₽ — это сколько?</span></a></li><li><a class="tb" href="01-trust.html#card-9"><span class="i" data-n="9"></span><span>Задача: зоны доставки</span></a></li><li><a class="tb" href="01-trust.html#card-10"><span class="i" data-n="10"></span><span>Откуда 1.96</span></a></li><li><a class="tb" href="01-trust.html#card-11"><span class="i" data-n="11"></span><span>История: правило пяти</span></a></li><li><a class="tb" href="01-trust.html#card-12"><span class="i" data-n="12"></span><span>Задача: откуда 93.75%</span></a></li><li><a class="tb" href="01-trust.html#card-13"><span class="i" data-n="13"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="01-trust.html#card-14"><span class="i" data-n="14"></span><span>Задача: маленькие школы</span></a></li><li><a class="tb" href="01-trust.html#card-15"><span class="i" data-n="15"></span><span>Задача: погрешность CTR</span></a></li><li><a class="tb" href="01-trust.html#card-16"><span class="i" data-n="16"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · Логичная гипотеза проваливается</summary><ol><li><a class="tb" href="02-cookie-cats.html#card-1"><span class="i" data-n="1"></span><span>Логичная гипотеза проваливается</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-2"><span class="i" data-n="2"></span><span>Кейс: ворота в Cookie Cats</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-3"><span class="i" data-n="3"></span><span>z⁠-⁠статистика</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-4"><span class="i" data-n="4"></span><span>Задача: шум или эффект?</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-5"><span class="i" data-n="5"></span><span>Три урока Cookie Cats</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-6"><span class="i" data-n="6"></span><span>Зачем считать только тех, кого касается</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-7"><span class="i" data-n="7"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-8"><span class="i" data-n="8"></span><span>Сколько нужно наблюдений</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-9"><span class="i" data-n="9"></span><span>Задача: любители кофе</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · Какая метрика хорошая</summary><ol><li><a class="tb" href="03-good-metric.html#card-1"><span class="i" data-n="1"></span><span>Какая метрика хорошая</span></a></li><li><a class="tb" href="03-good-metric.html#card-2"><span class="i" data-n="2"></span><span>Роли метрик</span></a></li><li><a class="tb" href="03-good-metric.html#card-3"><span class="i" data-n="3"></span><span>Четыре свойства</span></a></li><li><a class="tb" href="03-good-metric.html#card-4"><span class="i" data-n="4"></span><span>Кейс: кликбейт</span></a></li><li><a class="tb" href="03-good-metric.html#card-5"><span class="i" data-n="5"></span><span>История: закон Гудхарта</span></a></li><li><a class="tb" href="03-good-metric.html#card-6"><span class="i" data-n="6"></span><span>Как повысить чувствительность</span></a></li><li><a class="tb" href="03-good-metric.html#card-7"><span class="i" data-n="7"></span><span>История: метрики над метриками</span></a></li><li><a class="tb" href="03-good-metric.html#card-8"><span class="i" data-n="8"></span><span>Задача: подбери метрики</span></a></li><li><a class="tb" href="03-good-metric.html#card-9"><span class="i" data-n="9"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="03-good-metric.html#card-10"><span class="i" data-n="10"></span><span>Чувствительность = сигнал / шум</span></a></li><li><a class="tb" href="03-good-metric.html#card-11"><span class="i" data-n="11"></span><span>Задача: два аналитика — два числа</span></a></li><li><a class="tb" href="03-good-metric.html#card-12"><span class="i" data-n="12"></span><span>Задача: как проверить новую метрику</span></a></li><li><a class="tb" href="03-good-metric.html#card-13"><span class="i" data-n="13"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · Деревья метрик</summary><ol><li><a class="tb" href="04-trees.html#card-1"><span class="i" data-n="1"></span><span>Деревья метрик</span></a></li><li><a class="tb" href="04-trees.html#card-2"><span class="i" data-n="2"></span><span>Дерево метрик</span></a></li><li><a class="tb" href="04-trees.html#card-3"><span class="i" data-n="3"></span><span>Задача: GMV упал на 8%</span></a></li><li><a class="tb" href="04-trees.html#card-4"><span class="i" data-n="4"></span><span>Задача: минуты просмотра</span></a></li><li><a class="tb" href="04-trees.html#card-5"><span class="i" data-n="5"></span><span>Задача: воронка акции</span></a></li><li><a class="tb" href="04-trees.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 5 · Ошибка выжившего</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Итоги занятия 2</summary><ol><li><a class="tb" href="06-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 2</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Ошибка выжившего">
+  <p class="kicker">Занятие 2 · блок 5</p>
+  <h1>Ошибка выжившего</h1>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Опросили пользователей — 90% довольны. Значит, с продуктом всё хорошо?</p></div></div>
+  </div>
+  <p class="lead">Данные — это всегда те, кто до них «дожил»: зарегистрировался, дошёл до шага, остался в продукте, ответил на опрос. Если выбывание связано с тем, что мы измеряем, выводы по оставшимся систематически врут.</p>
+</section>
+
+<section class="card" data-title="История: Вальд и бомбардировщики">
+  <span class="step-tag">История</span>
+  <h2>Абрахам Вальд и бомбардировщики</h2>
+  <figure class="art"><img src="img/05-wald.jpg" alt="Алиса, Боб и Котейка над схемой самолёта с пробоинами на крыльях и фюзеляже"></figure>
+  <div class="story"><p>1943 год, Колумбийский университет, Группа статистических исследований. Военные приносят схемы пробоин на вернувшихся бомбардировщиках: больше всего дыр в крыльях и фюзеляже, почти нет — в двигателях. Предложение: укрепить броню там, где больше пробоин.</p>
+  <p>Статистик Абрахам Вальд возразил: укреплять надо <b>двигатели</b>. Самолёты с пробоинами в двигателях просто <b>не вернулись</b> — их нет в выборке. Пробоины в крыльях самолёт переживает, поэтому мы их и видим.</p></div>
+</section>
+
+<section class="card" data-title="Задача: пенсионеры в «Сапсане»">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 14.</span> Пенсионеры в «Сапсане»</h2>
+  <div class="story"><p>Моя родственница утверждает, что благосостояние пенсионеров заметно выросло. Раньше она в поездах часто видела бедно одетых бабушек с яйцом и солью в спичечном коробке. Сейчас она часто ездит на «Сапсане» в командировки из Петербурга в Москву и обратно — и видит много благообразных, хорошо одетых стариков.</p></div>
+  <ol>
+    <li>Верно ли она использует свои наблюдения для выводов?</li>
+    <li>Как называется ошибка, если даже не сравнивать с обычным поездом?</li>
+    <li>Какие смещения есть в её выборке пенсионеров? Назови хотя бы два.</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> Нет: она сравнивает разные обстоятельства — обычный поезд тогда и «Сапсан» сейчас. Даже сравнивая «Сапсан» 20 лет назад и сейчас, она видела бы только тех, кто в нём едет.</p>
+    <p class="stp"><b>Шаг 2.</b> Это <b>ошибка выжившего</b>, систематическая ошибка отбора: она видит только тех пенсионеров, кто «дожил» до вагона «Сапсана».</p>
+    <p class="ans">Смещения: <b>деньги</b> — в «Сапсан» попадают те, кому хватает на дорогой билет; <b>время</b> — она ездит в будни днём; <b>география</b> — почти все жители двух столиц, где доходы выше; <b>здоровье</b> — путешествуют самые бодрые.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: опрос тех, кто остался">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 15.</span> Опрос тех, кто остался</h2>
+  <p>Год назад у сервиса было 10 000 пользователей: 50% довольных, 30% нейтральных, 20% недовольных. За год ушли 10% довольных, 30% нейтральных и 70% недовольных. Оставшимся разослали опрос, и ответили все.</p>
+  <ol>
+    <li>Какую долю недовольных покажет опрос?</li>
+    <li>Во сколько раз это меньше настоящей доли недовольных год назад?</li>
+    <li>Как надо было устроить исследование?</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> Остались: довольных <span class="nw"><span class="tx" data-tex="5000 \cdot 0.9 = 4500"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5000</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.9</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4500</span></span></span></span></span>,</span> нейтральных <span class="nw"><span class="tx" data-tex="3000 \cdot 0.7 = 2100"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3000</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.7</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2100</span></span></span></span></span>,</span> недовольных <span class="nw"><span class="tx" data-tex="2000 \cdot 0.3 = 600"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2000</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.3</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">600</span></span></span></span></span>,</span> всего 7 200. Доля недовольных в опросе <span class="nw"><span class="tx" data-tex="600/7200 \approx 8.3\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">600/7200</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">8.3%</span></span></span></span></span>.</span></p>
+    <p class="stp"><b>Шаг 2.</b> Было 20% — опрос занижает долю недовольных в <span class="tx" data-tex="20/8.3 \approx 2.4"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">20/8.3</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2.4</span></span></span></span></span> раза. Довольных опрос покажет 62.5% вместо 50%.</p>
+    <figure class="chart"><img src="img/05-survey.png" alt="Год назад 50/30/20%, в опросе оставшихся 62/29/8%"></figure>
+    <p class="ans">Опрашивать <b>когорту целиком</b>, включая ушедших, — пусть с меньшим откликом, — или новых пользователей сразу, до оттока; долю ушедших показывать рядом с результатом. Продуктовые двойники: NPS по активным пользователям, «подписчики тратят больше», воронка только по дошедшим до шага. На занятии 3 этот пересчёт в штуках превратится в формулу Байеса.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Не только в продукте">
+  <span class="step-tag">Примеры</span>
+  <h2>Ошибка выжившего в других сферах</h2>
+  <ol class="howto reveal">
+    <li><b>Кошки и высота.</b> Ветклиника в Нью-Йорке, 1987, 132 случая: кошки, упавшие с 7-го этажа и выше, травмировались в среднем не тяжелее упавших с 5–6-го. Одно из объяснений — отбор: разбившихся насмерть к ветеринару не везут, и чем выше этаж, тем больше их выпадает из выборки.</li>
+    <li><b>Доходность инвестфондов</b>, условные числа. 10 лет назад открылись 100 фондов; 40 худших закрылись и исчезли из базы. Выжившие 60 приносят 8% в год, закрытые приносили 0.5%, все вместе — около 5%. База «существующих фондов» говорит 8%.</li>
+    <li><b>Книги про успех.</b> Из 1 000 стартапов выжили 10, и во всех книгах про них основатели вставали в 5 утра. Если среди 990 провалившихся в 5 утра вставала такая же доля, привычка ничего не объясняет.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Кого нет в данных?</h2>
+  <div class="takeaway"><p>Прежде чем делать вывод по данным, спроси: <b>кто не попал</b> в эти данные и связано ли выпадение с тем, что мы измеряем? Если связано — выборка смещена, и никакой размер выборки это не исправит: шум уменьшится, смещение останется. В A/B это анализ «только тех, кто дошёл до шага», когда тест влияет на доходимость.</p></div>
+  <a class="next-step" href="06-summary.html"><b>Дальше: итоги занятия</b>Пять главных мыслей.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611587"></script>
+<script src="/signal/book.js?v=202611587"></script>
+<script src="/shad/stats/04/shad.js?v=202611587"></script>
+
+</body>
+</html>

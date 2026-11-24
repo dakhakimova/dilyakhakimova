@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Какая метрика хорошая · Занятие 2 · Метрики</title>
+<meta name="description" content="Какая метрика хорошая">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611587">
+<link rel="stylesheet" href="/tokens.css?v=202611587">
+<link rel="stylesheet" href="/signal/book.css?v=202611587">
+<link rel="stylesheet" href="/signal/free.css?v=202611587">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611587">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611587">
+</head>
+<body data-course="shad4" data-chapter="shad2-03" data-next="04-trees.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 2 · Метрики</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · Насколько верить числу</summary><ol><li><a class="tb" href="01-trust.html#card-1"><span class="i" data-n="1"></span><span>Насколько верить числу</span></a></li><li><a class="tb" href="01-trust.html#card-2"><span class="i" data-n="2"></span><span>Параметр и оценка</span></a></li><li><a class="tb" href="01-trust.html#card-3"><span class="i" data-n="3"></span><span>Игра: мудрость толпы</span></a></li><li><a class="tb" href="01-trust.html#card-4"><span class="i" data-n="4"></span><span>Почему «за 2σ» — сигнал</span></a></li><li><a class="tb" href="01-trust.html#card-5"><span class="i" data-n="5"></span><span>Ошибка первого рода</span></a></li><li><a class="tb" href="01-trust.html#card-6"><span class="i" data-n="6"></span><span>Стандартная ошибка среднего</span></a></li><li><a class="tb" href="01-trust.html#card-7"><span class="i" data-n="7"></span><span>Колокол среднего сжимается</span></a></li><li><a class="tb" href="01-trust.html#card-8"><span class="i" data-n="8"></span><span>Задача: 540 ₽ — это сколько?</span></a></li><li><a class="tb" href="01-trust.html#card-9"><span class="i" data-n="9"></span><span>Задача: зоны доставки</span></a></li><li><a class="tb" href="01-trust.html#card-10"><span class="i" data-n="10"></span><span>Откуда 1.96</span></a></li><li><a class="tb" href="01-trust.html#card-11"><span class="i" data-n="11"></span><span>История: правило пяти</span></a></li><li><a class="tb" href="01-trust.html#card-12"><span class="i" data-n="12"></span><span>Задача: откуда 93.75%</span></a></li><li><a class="tb" href="01-trust.html#card-13"><span class="i" data-n="13"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="01-trust.html#card-14"><span class="i" data-n="14"></span><span>Задача: маленькие школы</span></a></li><li><a class="tb" href="01-trust.html#card-15"><span class="i" data-n="15"></span><span>Задача: погрешность CTR</span></a></li><li><a class="tb" href="01-trust.html#card-16"><span class="i" data-n="16"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · Логичная гипотеза проваливается</summary><ol><li><a class="tb" href="02-cookie-cats.html#card-1"><span class="i" data-n="1"></span><span>Логичная гипотеза проваливается</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-2"><span class="i" data-n="2"></span><span>Кейс: ворота в Cookie Cats</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-3"><span class="i" data-n="3"></span><span>z⁠-⁠статистика</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-4"><span class="i" data-n="4"></span><span>Задача: шум или эффект?</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-5"><span class="i" data-n="5"></span><span>Три урока Cookie Cats</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-6"><span class="i" data-n="6"></span><span>Зачем считать только тех, кого касается</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-7"><span class="i" data-n="7"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-8"><span class="i" data-n="8"></span><span>Сколько нужно наблюдений</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-9"><span class="i" data-n="9"></span><span>Задача: любители кофе</span></a></li><li><a class="tb" href="02-cookie-cats.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 3 · Какая метрика хорошая</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Блок 4 · Деревья метрик</summary><ol><li><a class="tb" href="04-trees.html#card-1"><span class="i" data-n="1"></span><span>Деревья метрик</span></a></li><li><a class="tb" href="04-trees.html#card-2"><span class="i" data-n="2"></span><span>Дерево метрик</span></a></li><li><a class="tb" href="04-trees.html#card-3"><span class="i" data-n="3"></span><span>Задача: GMV упал на 8%</span></a></li><li><a class="tb" href="04-trees.html#card-4"><span class="i" data-n="4"></span><span>Задача: минуты просмотра</span></a></li><li><a class="tb" href="04-trees.html#card-5"><span class="i" data-n="5"></span><span>Задача: воронка акции</span></a></li><li><a class="tb" href="04-trees.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 5 · Ошибка выжившего</summary><ol><li><a class="tb" href="05-survivor.html#card-1"><span class="i" data-n="1"></span><span>Ошибка выжившего</span></a></li><li><a class="tb" href="05-survivor.html#card-2"><span class="i" data-n="2"></span><span>История: Вальд и бомбардировщики</span></a></li><li><a class="tb" href="05-survivor.html#card-3"><span class="i" data-n="3"></span><span>Задача: пенсионеры в «Сапсане»</span></a></li><li><a class="tb" href="05-survivor.html#card-4"><span class="i" data-n="4"></span><span>Задача: опрос тех, кто остался</span></a></li><li><a class="tb" href="05-survivor.html#card-5"><span class="i" data-n="5"></span><span>Не только в продукте</span></a></li><li><a class="tb" href="05-survivor.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Итоги занятия 2</summary><ol><li><a class="tb" href="06-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 2</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Какая метрика хорошая">
+  <p class="kicker">Занятие 2 · блок 3</p>
+  <h1>Какая метрика хорошая</h1>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Давай просто смотреть на выручку. Деньги — это же главное?</p></div></div>
+  </div>
+  <p class="lead">В Cookie Cats метрику выбрали удачно — и всё равно чуть не ошиблись с горизонтом. Разберём, по каким свойствам выбирают метрики и почему идеальной метрики не бывает.</p>
+</section>
+
+<section class="card" data-title="Роли метрик">
+  <span class="step-tag">Определение</span>
+  <h2>Роли метрик в эксперименте</h2>
+  <div class="def"><p>Одна и та же метрика в разных экспериментах играет разные роли.</p></div>
+  <ul>
+    <li><b>Целевая</b> (OEC, overall evaluation criterion) — то, ради чего меняем продукт и по чему принимаем решение в этом эксперименте. Например, удержание 7-го дня в Cookie Cats.</li>
+    <li><b>Прокси-метрика</b> — быстрая и чувствительная замена целевой, если целевую ждать слишком долго. Например, конверсия в первую покупку вместо годовой выручки.</li>
+    <li><b>Защитная</b> (guardrail) — то, что мы не имеем права сломать, даже если целевая растёт: время загрузки, отмены, жалобы, выручка. Выкатывая новую кнопку, роста выручки никто не ждёт, но её падение надо заметить обязательно.</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Четыре свойства">
+  <span class="step-tag">Определение</span>
+  <h2>Четыре свойства хорошей метрики</h2>
+  <ol class="howto reveal">
+    <li><b>Согласованность с целью.</b> Рост метрики означает, что продукт стал лучше для пользователя или бизнеса.</li>
+    <li><b>Направленность.</b> Если метрика выросла — однозначно хорошо или однозначно плохо, без «ну, смотря почему».</li>
+    <li><b>Чувствительность.</b> Метрика замечает важные изменения за разумный срок и на разумном числе пользователей. Чем меньше шум относительно эффекта, тем она чувствительнее.</li>
+    <li><b>Стабильность.</b> Без изменений метрика не «прыгает» сама по себе: в A/A⁠-⁠тесте она не показывает эффект чаще, чем обещает уровень ошибки.</li>
+  </ol>
+  <div class="takeaway"><p><b>Главный конфликт: направленность против чувствительности.</b> Выручка идеально направлена, но очень шумная: один крупный заказ сдвигает её сильнее, чем маленькое изменение продукта. Клики чувствительны, реагируют на всё за день, но направленность мутная: лента стала интереснее или авторы научились писать жёлтые заголовки?</p></div>
+</section>
+
+<section class="card" data-title="Кейс: кликбейт">
+  <span class="step-tag">Кейс</span>
+  <h2>Кликбейт</h2>
+  <p><i>Кликбейт</i> (clickbait, «наживка для кликов») — заголовок, который обещает больше, чем даёт сам материал.</p>
+  <p>Рекомендательная лента новостей. После обновления алгоритма <b>кликов по статьям стало на 12% больше</b>. Команда готовит релиз. Но среднее <b>время чтения</b> статьи после клика упало с 70 до 40 секунд, а доля пользователей, вернувшихся через неделю, не изменилась.</p>
+  <p><b>Вопрос залу.</b> Ты аналитик этой ленты. Что скажешь команде про рост кликов на 12%? Какие две цифры добавишь к решению?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">Рост кликов сам по себе <b>не интерпретируем</b>: клик — обещание, а не ценность. Падение времени чтения с 70 до 40 секунд — признак кликбейта: заголовки стали заманчивее, а статьи — разочаровывать. Обманутое ожидание со временем сжигает доверие, просто удержание недели этого ещё не видит.</p>
+    <p class="ans">Добавить <b>время чтения или долю дочитываний</b> как защитную метрику и <b>удержание на длинном горизонте</b>, 4 недели, как целевую. Не катить, пока не ясно, что удержание не падает: клики — прокси, которая здесь сломалась.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="История: закон Гудхарта">
+  <span class="step-tag">История</span>
+  <h2>Закон Гудхарта и гвоздевая фабрика</h2>
+  <figure class="art"><img src="img/03-nails.jpg" alt="Фабрика: огромный гвоздь на весах и лента с крошечными гвоздиками"></figure>
+  <div class="story"><p>Экономист Чарльз Гудхарт в 1975 году заметил: когда метрика становится целью, она перестаёт быть хорошей метрикой. Старая карикатура про советскую фабрику гвоздей: план в тоннах — фабрика выпускает один гигантский гвоздь; план в штуках — миллионы крошечных гвоздиков, которыми ничего не прибьёшь.</p>
+  <p>Кликбейт — та же история: оптимизировали клики — получили ферму кликов. Поэтому у целевой метрики почти всегда есть пара защитных, которые ловят «читерство».</p></div>
+</section>
+
+<section class="card" data-title="Как повысить чувствительность">
+  <span class="step-tag">Определение</span>
+  <h2>Как повысить чувствительность метрики</h2>
+  <div class="def"><p>Метрика чувствительнее, если в ней <b>сильнее сигнал</b> или <b>меньше шум</b>.</p></div>
+  <ol class="howto reveal">
+    <li><b>Прокси ближе к изменению</b> — сигнал сильнее. «Доля кликнувших по выдаче» вместо «сессий на пользователя»: в Bing клик-метрики заметно чувствительнее (Dmitriev, Wu, 2016).</li>
+    <li><b>Нормировать, а не считать штуки</b> — шум меньше. «Запросов на сессию» вместо «запросов на пользователя». Подробно — занятие 3.</li>
+    <li><b>Триггер: считать только тех, кого изменение касается</b> — сигнал не размазан. Только дошедшие до ворот в Cookie Cats, только открывшие новый экран.</li>
+    <li><b>Бинаризация с порогом</b> — шум меньше. «Купил на 1 000 ₽ и больше за неделю» (0/1) вместо GMV (gross merchandise value, оборот) на пользователя.</li>
+    <li><b>Обрезка выбросов</b> (capping) — «киты» не раскачивают среднее. В Bing обрезка выручки на $10 позволила ловить эффекты примерно на 30% меньше.</li>
+    <li><b>Учесть данные до теста</b> — убираем разницу между людьми, которая была и без теста: CUPED, стратификация.</li>
+    <li><b>Больше данных или дольше тест</b> — шум падает как <span class="nw"><span class="tx" data-tex="1/\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0503em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span></span>.</span></li>
+  </ol>
+  <div class="takeaway"><p><b>Плата за чувствительность</b> — согласованность с целью. Бинаризация не видит рост выше порога, прокси может разойтись с тем, что важно бизнесу. Поэтому чувствительную метрику проверяют на связь с целевой.</p></div>
+</section>
+
+<section class="card" data-title="История: метрики над метриками">
+  <span class="step-tag">История</span>
+  <h2>Как Microsoft оценивает сами метрики</h2>
+  <div class="story"><p>В поиске Bing метрики проверяют <b>на корпусе прошлых экспериментов</b> (Dmitriev, Wu, «Measuring Metrics», 2016). Часть экспериментов размечена экспертами как хорошие или плохие для пользователя; факт выкатки меткой не считают — он ненадёжен.</p></div>
+  <p><b>Метаметрики</b> — числа, которыми оценивают метрику на этом корпусе:</p>
+  <ul>
+    <li><b>Sensitivity</b> — среднее <span class="tx" data-tex="|t|"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal">t</span><span class="mord">∣</span></span></span></span></span> по экспериментам: насколько сильно метрика вообще реагирует;</li>
+    <li><b>BinarySensitivity</b> — доля экспериментов, где метрика значима, <span class="nw"><span class="tx" data-tex="|t| &amp;gt; 1.96"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal">t</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.96</span></span></span></span></span>;</span></li>
+    <li><b>LabelAgreement</b> — доля, где метрика значима <b>и</b> её направление совпало с экспертной меткой;</li>
+    <li><b>LabelDisagreement</b> — значима, но направление <b>против</b> метки.</li>
+  </ul>
+  <p><b>Что нашли.</b> Клик-метрики — самые согласованные из простых; «сессии на пользователя», интуитивно лучшая метрика ценности, — наименее согласованная: её трудно сдвинуть в коротком эксперименте. Замена «времени до клика» на «время до длинного клика» дала +84% к чувствительности и +200% к согласию с метками. Если корпуса нет, метрику проверяют на <b>намеренно ухудшенных</b> экспериментах: хорошая метрика обязана их поймать.</p>
+</section>
+
+<section class="card" data-title="Задача: подбери метрики">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 8.</span> Подбери метрики к изменению</h2>
+  <p>Для каждого изменения назови <b>целевую</b> метрику, <b>прокси</b>, если целевую ждать долго, и одну-две <b>защитные</b>. Для каждой метрики скажи, однозначна ли её направленность.</p>
+  <ol>
+    <li>Пуш «скидка 20% на первую поездку» новым пользователям сервиса такси.</li>
+    <li>Новый алгоритм ранжирования ресторанов в приложении доставки еды.</li>
+    <li>Ускорение загрузки главного экрана приложения с 2.5 до 1.5 секунды.</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Пуш со скидкой.</b> Целевая — доля новых пользователей со <b>второй</b> поездкой за 4 недели: первую скидка «покупает», ценность — в повторной. Прокси — первая поездка за 7 дней: быстрая, но направленность мутная, скидка может привлечь «одноразовых». Защитные — выручка на пользователя за 4 недели, отписки от пушей.</p>
+    <p class="stp"><b>Ранжирование ресторанов.</b> Целевая — заказы или GMV на пользователя. Прокси — конверсия из открытия приложения в заказ. Защитные — средний чек (не продвигаем ли только дешёвое), время доставки и отмены (не продвигаем ли дальние рестораны), разнообразие ресторанов.</p>
+    <p class="stp"><b>Ускорение загрузки.</b> Ускорение большое, на 40%, но конверсия в заказ сдвинется от него слабо: на решение купить влияют цены, ассортимент, привычка. К тому же выигрыш у тех, у кого экран и правда грузился долго, а у остальных ничего не меняется — эффект размазан. Нужна прокси ближе к изменению: доля сессий, дошедших до каталога, или доля ушедших во время загрузки. Защитные — частота сбоев и выручка.</p>
+    <p class="ans">Целевая — про ценность для пользователя на длинном горизонте; прокси — быстрая, но с риском Гудхарта; защитные — то, что изменение может незаметно сломать.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Не только в продукте">
+  <span class="step-tag">Примеры</span>
+  <h2>Прокси-метрики и закон Гудхарта в других сферах</h2>
+  <ol class="howto reveal">
+    <li><b>Кардиология, испытание CAST, 1989.</b> Препараты энкаинид и флекаинид отлично подавляли лишние сокращения сердца после инфаркта — прокси улучшалась. Но смертность за ~10 месяцев: 7.7% на препарате против 3.0% на плацебо. Испытание остановили.</li>
+    <li><b>Торцетрапиб, 2007.</b> Поднимал «хороший» холестерин на 72% и снижал «плохой» на 25% — по прокси идеальное лекарство. Но смертей 93 против 59 в контроле. Прокси работает, только пока изменение действует на цель <b>через</b> прокси; у торцетрапиба был побочный путь — рост давления.</li>
+    <li><b>Крысиные хвосты в Ханое, 1902.</b> Власти платили за крысиный хвост. Хвостов сдавали всё больше, а по городу бегали бесхвостые крысы: их ловили, отрезали хвост и отпускали размножаться.</li>
+    <li><b>Составная конечная точка.</b> Смерть от инфаркта редка, скажем 1% в год; «смерть, или инфаркт, или инсульт» — около 4%. Событий вчетверо больше — нужно в разы меньше пациентов. Цена та же: составная метрика должна двигаться в ту же сторону, что и цель.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Чувствительность = сигнал / шум">
+  <span class="step-tag">Для любопытных</span>
+  <p class="extra-note">Дополнительно — если останется время</p>
+  <h2>Чувствительность — отношение сигнала к шуму</h2>
+  <p>Две метрики, обе выросли на 5%. Почему одну эксперимент «видит» на 60 тысячах пользователей, а другую — только на 250 тысячах?</p>
+  <ol class="howto reveal">
+    <li><b>Обозначения.</b> В каждой группе <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> пользователей, <span class="tx" data-tex="\mu"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span></span> — среднее метрики в контроле, <span class="tx" data-tex="\sigma"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span></span> — разброс между пользователями. Эффект в процентах <span class="nw"><span class="tx" data-tex="\delta = \Delta/\mu"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Δ/</span><span class="mord mathnormal">μ</span></span></span></span></span>.</span></li>
+    <li><b>Шум разницы.</b> <span class="nw"><span class="tx" data-tex="\sigma\sqrt{2/n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">2/</span><span class="mord mathnormal">n</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span></span></span></span></span>.</span></li>
+    <li><b>Сколько «ширин шума» в эффекте.</b> <span class="nw"><span class="tx" data-tex="z = \dfrac{\Delta}{\sigma\sqrt{2/n}} = \dfrac{\delta}{\mathrm{CV}}\sqrt{\dfrac n2}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4903em;vertical-align:-1.13em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.175em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">2/</span><span class="mord mathnormal">n</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.13em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.44em;vertical-align:-0.9442em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathrm" style="margin-right:0.0139em;">CV</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4958em;"><span class="svg-align" style="top:-4.4em;"><span class="pstrut" style="height:4.4em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-3.4558em;"><span class="pstrut" style="height:4.4em;"></span><span class="hide-tail" style="min-width:1.02em;height:2.48em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="2.48em" viewBox="0 0 400000 2592" preserveAspectRatio="xMinYMin slice"><path d="M424,2478
+c-1.3,-0.7,-38.5,-172,-111.5,-514c-73,-342,-109.8,-513.3,-110.5,-514
+c0,-2,-10.7,14.3,-32,49c-4.7,7.3,-9.8,15.7,-15.5,25c-5.7,9.3,-9.8,16,-12.5,20
+s-5,7,-5,7c-4,-3.3,-8.3,-7.7,-13,-13s-13,-13,-13,-13s76,-122,76,-122s77,-121,77,-121
+s209,968,209,968c0,-2,84.7,-361.7,254,-1079c169.3,-717.3,254.7,-1077.7,256,-1081
+l0 -0c4,-6.7,10,-10,18,-10 H400000
+v40H1014.6
+s-87.3,378.7,-272.6,1166c-185.3,787.3,-279.3,1182.3,-282,1185
+c-2,6,-10,9,-24,9
+c-8,0,-12,-0.7,-12,-2z M1001 80
+h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9442em;"><span></span></span></span></span></span></span></span></span></span>,</span> где <span class="tx" data-tex="\mathrm{CV} = \sigma/\mu"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.0139em;">CV</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mord">/</span><span class="mord mathnormal">μ</span></span></span></span></span> — коэффициент вариации: насколько типичный пользователь отличается от среднего, в долях самого среднего. У роста пассажиров <span class="nw"><span class="tx" data-tex="\mathrm{CV} \approx 0.05"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.0139em;">CV</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.05</span></span></span></span></span>,</span> у выручки на пользователя — 5–10.</li>
+    <li><b>Сколько нужно пользователей.</b> Хотим <span class="nw"><span class="tx" data-tex="z = 2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span>:</span> <span class="nw"><span class="tx" data-tex="n = 2\left(\dfrac{2\,\mathrm{CV}}{\delta}\right)^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.604em;vertical-align:-0.95em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.0139em;">CV</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.654em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</span> При <span class="nw"><span class="tx" data-tex="\delta = 5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">5%</span></span></span></span></span>:</span> <span class="nw"><span class="tx" data-tex="n = 3200\,\mathrm{CV}^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8873em;"></span><span class="mord">3200</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord mathrm" style="margin-right:0.0139em;">CV</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8873em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</span> Вдвое больший CV — вчетверо больше пользователей.</li>
+  </ol>
+  <figure class="chart"><img src="img/03-cv.png" alt="CV и нужный трафик для четырёх метрик: конверсия 4.4 и 60 тыс., сырая выручка 8.9 и 250 тыс."></figure>
+  <p>Быстрые прокси — клик, конверсию — любят за чувствительность, а деньги — за согласованность с целью. Сравнение честное, только если относительный эффект у метрик одинаковый.</p>
+</section>
+
+<section class="card" data-title="Задача: два аналитика — два числа">
+  <span class="step-tag">Задача с собеседования</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 9.</span> Два аналитика — два числа</h2>
+  <p>Менеджер попросил двух аналитиков посчитать <b>среднедневную посещаемость</b> сервиса. Один насчитал 5 млн, другой — 7 млн. Как так получилось? Что сделаешь, чтобы найти расхождение?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">Главное — задача сформулирована нечётко, и хороший кандидат начинает с уточняющих вопросов.</p>
+    <ol>
+      <li><b>Единица:</b> посетитель — это кука, устройство или логин?</li>
+      <li><b>«Среднедневная»:</b> среднее DAU за период или «уникальные за месяц / 30»? MAU/30 меньше среднего DAU: человек, заходивший 20 дней, в MAU считается один раз.</li>
+      <li><b>Период и сезонность:</b> прошлая неделя или год, входят ли выходные.</li>
+      <li><b>Источник и фильтры:</b> разные логи, боты, сотрудники, тестовые аккаунты, дубли.</li>
+      <li><b>Часовой пояс</b> границы суток.</li>
+    </ol>
+    <p class="ans">Взять один день и один срез, посчитать обоими способами и найти первое расхождение; затем письменно зафиксировать определение метрики. У хорошей метрики одно определение.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: как проверить новую метрику">
+  <span class="step-tag">Задача с собеседования</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 10.</span> Как проверить новую метрику</h2>
+  <p>Мы придумали новую метрику. Как убедиться, что ей можно верить и принимать по ней решения в экспериментах?</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">Перечислить свойства мало — нужно сказать, <b>как каждое проверить</b>.</p>
+    <ul>
+      <li><b>Согласованность с целью:</b> на истории экспериментов направление эффекта совпадает с долгосрочной целевой; явно плохие изменения — сломанная кнопка — должны её ронять.</li>
+      <li><b>Направленность:</b> до эксперимента договорились, рост — это хорошо или плохо.</li>
+      <li><b>Чувствительность:</b> доля прошлых экспериментов, где метрика прокрасилась; MDE при обычном трафике; CV.</li>
+      <li><b>Стабильность:</b> в A/A⁠-⁠тестах ложных прокрасов около 5%; метрика не скачет от логирования и ботов.</li>
+      <li><b>Устойчивость к накрутке:</b> как её можно «оптимизировать», не улучшив продукт, и какие защитные метрики это поймают.</li>
+    </ul>
+    <p class="ans">На практике — корпус прошлых экспериментов с экспертной разметкой и метаметрики, как в Bing; если корпуса нет — намеренно ухудшенные эксперименты.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Решение — по связке метрик</h2>
+  <div class="takeaway"><p>Хорошая метрика согласована с целью, однозначно направлена, чувствительна и стабильна. Всех четырёх свойств сразу почти никогда нет, поэтому решение принимают по <b>связке</b>: целевая + быстрая прокси + защитные. Как только метрика становится целью, её начинают «оптимизировать» — защитные метрики ловят это.</p></div>
+  <a class="next-step" href="04-trees.html"><b>Дальше: 4. Деревья метрик</b>GMV упал на 8% — где течёт?</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611587"></script>
+<script src="/signal/book.js?v=202611587"></script>
+<script src="/shad/stats/04/shad.js?v=202611587"></script>
+
+</body>
+</html>
