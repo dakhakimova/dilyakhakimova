@@ -18,7 +18,7 @@
       <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \mathrm{SE}_\Delta^2\big), \qquad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
     <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\mathrm{SE}_\Delta} \xrightarrow{d} N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
     <li><b>При \(H_0:\ \mu_A = \mu_B\) разность \(\mu\) равна нулю</b> — как в блоке 1, предполагаем, что \(H_0\) верна:
-      <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \xrightarrow{d} N(0, 1) \quad \text{при } H_0.\]</p></li>
+      <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\sqrt{\dfrac{\sigma_A^2}{n_A} + \dfrac{\sigma_B^2}{n_B}}} \xrightarrow{d} N(0, 1) \quad \text{при } H_0.\]</p></li>
     <li><b>Критерий</b>: двусторонний, отвергаем при \(|z| \ge 1.96\); \(p = 2\,P\big(N(0,1) \ge |z|\big)\).</li>
     <li><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b> (для конверсии \(s^2 = \hat p(1 - \hat p)\)). Это законно по <b>теореме Слуцкого</b>: \(\dfrac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \cdot \dfrac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}\), первый множитель \(\xrightarrow{d} N(0,1)\), второй \(\xrightarrow{P} 1\) по ЗБЧ, значит произведение \(\xrightarrow{d} N(0,1)\). На малых \(n\) второй множитель ещё гуляет — это поправляет t-критерий.
       <p><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)</p>
