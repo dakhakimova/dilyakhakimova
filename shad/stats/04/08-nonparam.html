@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611552">
-<link rel="stylesheet" href="/tokens.css?v=202611552">
-<link rel="stylesheet" href="/signal/book.css?v=202611552">
-<link rel="stylesheet" href="/signal/free.css?v=202611552">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611552">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611552">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611553">
+<link rel="stylesheet" href="/tokens.css?v=202611553">
+<link rel="stylesheet" href="/signal/book.css?v=202611553">
+<link rel="stylesheet" href="/signal/free.css?v=202611553">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611553">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611553">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -274,10 +274,10 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611552"></script>
-<script src="/signal/book.js?v=202611552"></script>
-<script src="/signal/py.js?v=202611552"></script>
-<script src="/shad/stats/04/shad.js?v=202611552"></script>
+<script src="/fonts/katex/katex.min.js?v=202611553"></script>
+<script src="/signal/book.js?v=202611553"></script>
+<script src="/signal/py.js?v=202611553"></script>
+<script src="/shad/stats/04/shad.js?v=202611553"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
@@ -348,6 +348,11 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     });
     bigx(c, 'A →', gx0 + cell * NA + 6, top + cell * 0.65, COL.ink2, 12, 600, 'left'); bigx(c, 'B ↓', gx0 - 6, top + cell * 0.1 + 4, COL.ctrl, 12, 600, 'right');
     const P = U / (NA * NB);
+    // рядом с сеткой — доля побед B
+    const xr = gx0 + cell * NA + 28, ym = top + cell * (NB / 2 + 1);
+    bigx(c, 'побед B', xr, ym - 22, COL.ink2, 14, 600, 'left');
+    bigx(c, Math.round(P * 100) + '%', xr, ym + 14, COL.ctrl, 32, 700, 'left');
+    bigx(c, 'U = ' + (U % 1 ? num(U, 1) : U) + ' из ' + NA * NB, xr, ym + 40, COL.ink2, 13, 500, 'left');
     outu.innerHTML = '\\(U = ' + (U % 1 ? num(U, 1) : U) + '\\) из \\(' + NA + ' \\cdot ' + NB + ' = ' + NA * NB + '\\): \\(\\tfrac{U}{n_A n_B} = ' + num(P, 2) + '\\). ' + (SC === 'same' ? 'Распределения одинаковые — около половины клеток синие, \\(P(X_B > X_A) = 1/2\\).' : SC === 'shift' ? 'B сдвинута вправо — синих заметно больше половины.' : 'B шире при том же центре: в среднем синих около половины, но разброс \\(U\\) от выборки к выборке другой — поэтому тест может ошибаться чаще \\(\\alpha\\).');
   }
   gu.querySelectorAll('[data-s]').forEach(b => b.addEventListener('click', () => { gu.querySelectorAll('[data-s]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); SC = b.dataset.s; gen(); }));
