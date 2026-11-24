@@ -23,14 +23,21 @@
           // numpy есть всегда; ещё пакеты Pyodide — атрибутом data-packages="scipy" у любой ячейки страницы (грузятся долго, лучше без них)
           const extra = [...document.querySelectorAll('.cell[data-packages]')].flatMap(c => c.dataset.packages.split(/[\s,]+/)).filter(Boolean);
           await py.loadPackage([...new Set(['numpy', ...extra])]);
+          // файлы с данными: data-files="/путь/history.csv" у любой ячейки — кладём в рабочую папку Python под своим именем
+          const files = [...new Set([...document.querySelectorAll('.cell[data-files]')].flatMap(c => c.dataset.files.split(/[\s,]+/)).filter(Boolean))];
+          for (const f of files){ const r = await fetch(f); if (!r.ok) throw new Error('Не загрузился файл ' + f); py.FS.writeFile(f.split('/').pop(), new Uint8Array(await r.arrayBuffer())); }
           resolve(py);
         } catch (e) { reject(e); }
       };
       s.onerror = () => reject(new Error('Не удалось загрузить Python. Проверьте интернет и обновите страницу.'));
       document.head.appendChild(s);
     });
+    pyReady.catch(() => { pyReady = null; });  // сбой сети — следующий запуск попробует заново
     return pyReady;
   }
+
+  // заранее загрузить Python в фоне (на живых слайдах — чтобы к нужному слайду всё было готово)
+  window.PyCells = {preload: () => loadPy(() => {}).catch(() => { pyReady = null; })};
 
   function esc(t){ return t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
@@ -143,6 +150,7 @@
       run.disabled = true; if (check) check.disabled = true;
       let buf = '';
       try {
+        status('Считаю… (в первый раз ещё загружается Python, до 15 секунд)', 'info');
         const py = await loadPy(status);
         out.textContent = '';
         py.setStdout({batched: s => { buf += s + '\n'; }});

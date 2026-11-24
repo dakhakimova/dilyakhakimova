@@ -74,7 +74,7 @@ ${body.trim()}
 </div>
 <script src="/fonts/katex/katex.min.js?v=${ver}"></script>
 <script src="/signal/book.js?v=${ver}"></script>
-<script src="/${DIR}/shad.js?v=${ver}"></script>
+${/class="cell"/.test(body) ? '<script src="/signal/py.js?v=' + ver + '"></script>\n' : ''}<script src="/${DIR}/shad.js?v=${ver}"></script>
 ${script}
 </body>
 </html>

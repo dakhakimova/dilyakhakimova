@@ -148,3 +148,5 @@ window.tInv = (p, v) => { let lo = -60, hi = 60; for (let i = 0; i < 70; i++){ c
   const go = () => document.querySelectorAll('pre.code > code').forEach(el => { if (!el.dataset.hl){ el.innerHTML = hl(el.textContent); el.dataset.hl = '1'; } });
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', go) : go();
 })();
+// Python для ячеек с кодом — загружаем в фоне сразу, чтобы к слайду с кодом всё было готово
+if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.preload(), 1200);
