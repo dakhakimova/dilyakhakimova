@@ -90,13 +90,7 @@
   <figure class="art"><img src="img/03-octopus.jpg" alt="Осьминог выбирает кормушку с флагом"></figure>
   <p>Осьминог Пауль из аквариума в Оберхаузене «предсказывал» исходы футбольных матчей, выбирая кормушку с флагом одной из команд. На чемпионате Европы 2008 года и чемпионате мира 2010 года из 14 прогнозов верными оказались <b>12</b>. Директор: «Нам предлагают купить осьминога. Проверь: он угадывает случайно или нет?»</p>
   <div class="calc" data-kind="binom" data-n="14" data-k="12" data-p="0.5" data-m="50"></div>
-  <p><b>Покупаем?</b> Сначала подумай, а потом запусти чемпионат с «оракулами».</p>
-  <div class="game" id="g3">
-    <div class="controls"><span>«Оракулов» на чемпионате:</span><span class="seg" role="group" aria-label="Сколько оракулов"><button type="button" class="btn ghost" data-m="1" aria-pressed="false">1</button><button type="button" class="btn ghost" data-m="50" aria-pressed="true">50</button></span>
-      <button type="button" class="btn" id="g3-run">Провести 100 чемпионатов</button></div>
-    <canvas aria-label="Сколько чемпионатов породили своего Пауля"></canvas>
-    <p class="out" aria-live="polite"></p>
-  </div>
+  <p><b>Покупаем?</b> «Оракулов» на тех чемпионатах были десятки: попугаи, черепахи, слоны. Поменяй \(m\) в калькуляторе.</p>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1.</b> \(H_0\): угадывает с вероятностью 1/2; \(H_1\): чаще. \(X\) — число верных из 14, при \(H_0\) \(X \sim \mathrm{Bin}(14,\ 1/2)\).</p>
     <p class="stp"><b>Шаг 2.</b> \(p = P(X \ge 12) = \dfrac{C_{14}^{12} + C_{14}^{13} + C_{14}^{14}}{2^{14}} = \dfrac{91 + 14 + 1}{16\,384} \approx 0.65\%\) — для одного осьминога отвергаем.</p>
@@ -170,21 +164,6 @@
   }
   pick(g2, 'n', v => { n2 = +v; ma = mb = null; run2(); });
   document.getElementById('g2-run').addEventListener('click', run2);
-  // 3: оракулы
-  const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector('.out');
-  let m3 = 50, res = null;
-  function run3(){ res = []; for (let t = 0; t < 100; t++){ let best = 0; for (let i = 0; i < m3; i++) best = Math.max(best, binom(14, 0.5)); res.push(best); } paint3(); }
-  function paint3(){
-    const g = canvas(cv3, 0.3, 0.7); if (!g) return; const {c, w, h} = g;
-    if (!res){ Book.invite(c, 'Нажми «Провести 100 чемпионатов»', w / 2, h / 2); return; }
-    const cols = w < 520 ? 10 : 20, rows = Math.ceil(100 / cols), s = Math.min((w - 10) / cols, (h - 10) / rows), ox = (w - cols * s) / 2;
-    res.forEach((b, i) => { const x = ox + (i % cols) * s + s / 2, y = 5 + Math.floor(i / cols) * s + s / 2; c.fillStyle = b >= 12 ? COL.trap : COL.fillC; c.beginPath(); c.arc(x, y, s * 0.38, 0, 2 * Math.PI); c.fill(); if (b >= 12 && s > 22){ c.fillStyle = '#fff'; c.font = '600 11px Onest, sans-serif'; c.textAlign = 'center'; c.fillText(String(b), x, y + 4); c.textAlign = 'left'; } });
-    const k = res.filter(b => b >= 12).length;
-    out3.innerHTML = 'Красные кружки — чемпионаты, где хоть один из ' + m3 + ' «оракулов» угадал 12 или больше из 14: <b>' + k + ' из 100</b>. ' + (m3 > 1 ? 'Теория: \\(1 - (1 - 0.0065)^{50} \\approx 28\\%\\).' : 'Теория для одного оракула: 0.65%.');
-  }
-  pick(g3, 'm', v => { m3 = +v; res = null; paint3(); });
-  document.getElementById('g3-run').addEventListener('click', run3);
-
   // 4: те же средние, меньше дисперсия
   const g4 = document.getElementById('g4'), cv4 = g4.querySelector('canvas'), out4 = g4.querySelector('.out'), r4 = document.getElementById('g4-s'), sv4 = document.getElementById('g4-sv');
   function paint4(){
@@ -204,6 +183,6 @@
     out4.innerHTML = '\\(\\mathrm{SE} = ' + sg + '\\sqrt{2/100} = ' + num(se, 2) + '\\), \\(\\alpha = 5\\%\\) (красное), \\(\\beta = ' + num(100 * (1 - pw), 0) + '\\%\\) (жёлтое), мощность \\(1 - \\beta = ' + num(100 * pw, 0) + '\\%\\).';
   }
   r4.addEventListener('input', paint4);
-  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); });
+  window.addEventListener('resize', () => { paint1(); paint2(); paint4(); });
 })();
 </script>
