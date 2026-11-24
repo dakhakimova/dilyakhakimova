@@ -197,3 +197,9 @@ ol.reveal ol.reveal{margin:8px 0 0} ol.reveal ol.reveal > li{margin-left:0} .rev
 .rv-arrow:disabled{color:var(--line-strong, #CFC8BB); cursor:default}
 .rv-arrow.up svg{width:22px; height:22px}
 .reveal-cnt{margin-left:8px}
+/* раскрывашки: шеврон, как у пошагового раскрытия, а не мелкий треугольник (Диля, 24.11) */
+details.sol > summary, details.rule-d > summary{display:flex; align-items:center; gap:12px; list-style:none}
+details.sol > summary::-webkit-details-marker, details.rule-d > summary::-webkit-details-marker{display:none}
+details.sol > summary::before, details.rule-d > summary::before{content:""; flex:none; width:9px; height:9px; margin:0 4px 0 2px; border-right:2.2px solid currentColor; border-bottom:2.2px solid currentColor; transform:rotate(-45deg); transition:transform .15s}
+details.sol[open] > summary::before, details.rule-d[open] > summary::before{content:""; transform:rotate(45deg) translate(-2px, -2px)}
+@media (prefers-reduced-motion: reduce){ details.sol > summary::before, details.rule-d > summary::before{transition:none} }
