@@ -153,7 +153,7 @@
       const x = Math.min(Math.max(xb - tw / 2, L + 4), w - R - tw);
       c.fillStyle = COL.surface || '#FBF9F4'; c.fillRect(x - 6, y - fs, tw + 12, fs + 8);
       c.fillStyle = COL.trap; c.textAlign = 'left'; c.fillText(txt, x, y); c.restore();
-      c.strokeStyle = COL.trap; c.lineWidth = 1.2; c.beginPath(); c.moveTo(xb, y + 10); c.lineTo(xb, h - B - 6); c.stroke();
+      c.strokeStyle = COL.trap; c.lineWidth = 1.2; c.beginPath(); c.moveTo(xb, y + 10); c.lineTo(xb, h - B - (h - T - B) * pm[k] / top - 4); c.stroke();
     });
     return pm;
   }
@@ -164,7 +164,7 @@
   function paint1(){
     const lo = 40 - k1;
     const a = side === 1 ? tail(pm30, k1) : tail(pm30, k1) + head(pm30, lo), lim = side === 1 ? 0.05 : 0.025;
-    draw(cv1, 40, 0.5, k => k >= k1 || (side === 2 && k <= lo), 25, 6, 34, side === 1 ? [[k1 + 1.5, 'P(X ≥ ' + k1 + ') = ' + share(a, 2)]] : [[k1 + 1.5, share(tail(pm30, k1), 2)], [lo - 1.5, share(head(pm30, lo), 2)]]);
+    draw(cv1, 40, 0.5, k => k >= k1 || (side === 2 && k <= lo), 25, 6, 34, side === 1 ? [[k1, 'P(X ≥ ' + k1 + ') = ' + share(a, 2)]] : [[k1, share(tail(pm30, k1), 2)], [lo, share(head(pm30, lo), 2)]]);
     const okA = side === 1 ? a <= 0.05 : tail(pm30, k1) <= 0.025;
     out1.innerHTML = (side === 1 ? 'Отвергаем, если X ≥ ' + k1 : 'Отвергаем, если X ≤ ' + lo + ' или X ≥ ' + k1) +
       ': ошибка первого рода <b>' + share(a, 2) + '</b>' + (side === 2 ? ' (по ' + share(tail(pm30, k1), 2) + ' в хвосте)' : '') + '. ' +
@@ -192,7 +192,7 @@
   const pm50 = pmfs(50, 0.1); let k3 = 14;
   function paint3(){
     const a = tail(pm50, k3);
-    draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20, [[k3 + 2, 'P(X ≥ ' + k3 + ') = ' + share(a, 2)]]);
+    draw(cv3, 50, 0.1, k => k >= k3, 10, 0, 20, [[k3, 'P(X ≥ ' + k3 + ') = ' + share(a, 2)]]);
     out3.innerHTML = 'Отвергаем, если X ≥ ' + k3 + ': ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
   }
   Stepper(g3.querySelector('.stepper'), v => { k3 = v; paint3(); });
