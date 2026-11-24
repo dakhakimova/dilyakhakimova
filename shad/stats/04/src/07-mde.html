@@ -1,0 +1,223 @@
+{"title": "MDE и длительность", "short": "7. MDE и длительность", "h": "Блок 7 · MDE", "lead": "Сколько держать эксперимент, «10 против 9» и почему прокрас на слабом тесте завышен", "next": "08-nonparam.html"}
+<section class="card" data-title="Сколько держать тест?">
+  <p class="kicker">Занятие 4 · блок 7</p>
+  <h1>MDE и размер выборки</h1>
+  <figure class="art"><img src="img/07-mde.jpg" alt="Календарь эксперимента и лупа над маленьким эффектом"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Сколько держать эксперимент? Давай неделю, нам надо быстрее.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">Смотря какой рост ты хочешь заметить. За неделю маленький эффект мы просто не увидим.</p></div></div>
+  </div>
+  <p class="lead">Самый частый вопрос к аналитику до эксперимента — «сколько держать?». Ответ даёт <b>MDE</b>. Это ещё и язык переговоров: менеджер не знает слов «мощность» и «\(\beta\)», но таблицу «столько дней — ловим такой эффект» понимает сразу.</p>
+</section>
+
+<section class="card" data-title="Что такое MDE">
+  <span class="step-tag">Определение</span>
+  <h2>MDE — минимальный обнаружимый эффект</h2>
+  <div class="def">
+    <p><b>MDE</b> (minimum detectable effect) — наименьший настоящий эффект, который эксперимент с данными \(n\) и \(\alpha\) поймает с заданной мощностью, обычно 80%.</p>
+  </div>
+  <p class="formula">\[\mathrm{MDE} = (z_{1-\alpha/2} + z_{1-\beta}) \cdot \mathrm{SE}_\Delta \approx (1.96 + 0.84) \cdot \mathrm{SE}_\Delta = 2.8 \cdot \mathrm{SE}_\Delta.\]</p>
+  <p>Откуда 2.8 — по картинке ниже, всё в единицах \(\mathrm{SE}_\Delta\), \(\alpha = 5\%\), мощность 80%:</p>
+  <ol class="howto reveal">
+    <li><b>Серый колокол — мир без эффекта.</b> Там \(z = \Delta/\mathrm{SE}_\Delta \sim N(0, 1)\). Критерий прокрашивает, когда \(z > 1.96\) — это порог. Левым хвостом при положительном эффекте пренебрегаем.</li>
+    <li><b>Синий колокол — мир с настоящим эффектом \(\delta\).</b> Разброс тот же, центр сдвинут: \(z \sim N(\delta/\mathrm{SE}_\Delta,\ 1)\).</li>
+    <li><b>Мощность</b> — доля синего колокола правее порога. Хотим 80%.</li>
+    <li><b>Где должен стоять порог.</b> У стандартного нормального 80% массы правее точки \(-0.84\). Значит, порог — на 0.84 левее центра синего колокола.</li>
+    <li><b>Складываем отрезки.</b> От нуля до порога 1.96, от порога до центра синего 0.84. Центр синего — в \(1.96 + 0.84 = 2.8\), то есть \(\delta = 2.8\,\mathrm{SE}_\Delta\). Это и есть MDE.</li>
+    <li><b>Размер выборки.</b> При \(n\) в каждой группе \(\mathrm{SE}_\Delta = \sqrt{(\sigma_A^2 + \sigma_B^2)/n}\). Из \(\delta = 2.8\,\mathrm{SE}_\Delta\):
+      <p class="formula">\[n = \frac{(z_{1-\alpha/2} + z_{1-\beta})^2\,(\sigma_A^2 + \sigma_B^2)}{\delta^2} \approx \frac{7.85\,(\sigma_A^2 + \sigma_B^2)}{\delta^2}.\]</p>
+      <p>\(n\) стоит под корнем: чтобы MDE уменьшить вдвое, нужно <b>вчетверо</b> больше данных. \(\delta\) — абсолютная разница в единицах метрики: для конверсии 5.0% → 5.3% это 0.003, а не «+6%».</p></li>
+  </ol>
+</section>
+
+<section class="card" data-title="Визуализация: дни и MDE">
+  <span class="step-tag">Визуализация</span>
+  <h2>Сколько дней — какой рост ловим</h2>
+  <p>Конверсия сейчас 5.0%, хотим заметить рост до 5.3%. В эксперимент приходит 10 000 новых пользователей в день, сплит 50/50, \(\alpha = 5\%\).</p>
+  <div class="game" id="g1">
+    <div class="controls"><label class="field">Дней <input type="text" inputmode="numeric" class="n-in" id="g1-d" value="7"></label><button type="button" class="btn ghost" id="g1-p">+7</button></div>
+    <p class="chart-t">Оценка разницы в единицах SE: серый — эффекта нет, синий — рост до 5.3%</p>
+    <canvas aria-label="Два колокола: без эффекта и с ростом до 5.3%, закрашена мощность"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: сколько дней держать тест">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 17.</span> Сколько дней держать тест</h2>
+  <p>Конверсия в заказ — <b>5%</b>. Боб хочет ловить рост <b>до 5.3%</b>. В эксперимент приходит <b>10 000</b> новых пользователей в день, сплит 50/50. \(\alpha = 5\%\), мощность 80%.</p>
+  <ol>
+    <li>Сколько пользователей нужно в каждую группу и сколько это дней?</li>
+    <li>Боб: «Долго. Давай \(\alpha = 10\%\) и мощность 70%». Сколько дней тогда? Сформулируй риски одним предложением.</li>
+    <li>Какой рост поймает тест за 7, 14, 21 и 28 дней?</li>
+  </ol>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">≈ 85 200 на группу, 17 дней → 21 день, полными неделями</p></div>
+  <p class="rule-why">С \(\alpha = 10\%\) и мощностью 70% — ≈ 51 100 на группу, 10–11 дней → 14. Риски: каждая десятая пустышка прокрасится, и три из десяти настоящих эффектов такого размера мы пропустим. За 7 дней ловим рост до 5.46% и больше, за 14 — до 5.33%, за 21 — до 5.27%, за 28 — до 5.23%.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Вход.</b> \(\delta = 0.003\) — абсолютный эффект. \(\sigma_A^2 + \sigma_B^2 = 0.05 \cdot 0.95 + 0.053 \cdot 0.947 = 0.0977\). В группу приходит 5 000 в день.</p>
+    <p class="stp"><b>Шаг 2. Квантили.</b> \(z_{0.975} + z_{0.8} = 1.960 + 0.842 = 2.802\), в квадрате 7.85.</p>
+    <p class="stp"><b>Шаг 3. Размер группы.</b> \(n = 7.85 \cdot 0.0977 / 0.003^2 \approx 85\,200\).</p>
+    <p class="stp"><b>Шаг 4. Дни.</b> \(85\,200/5\,000 \approx 17\) → вверх до полных недель, <b>21 день</b>: будни и выходные ведут себя по-разному, неполная неделя перекосит выборку.</p>
+    <p class="stp"><b>Шаг 5. Вариант Боба.</b> \(z_{0.95} + z_{0.7} = 1.645 + 0.524 = 2.169\), в квадрате 4.71: \(n \approx 51\,100\) → 10.2 дня → <b>14 дней</b>.</p>
+    <p class="stp"><b>Шаг 6. Таблица для Боба.</b> При \(d\) днях \(n = 5\,000\,d\), \(\mathrm{MDE} = 2.8\sqrt{2 \cdot 0.0475/n}\). Здесь дисперсия обеих групп взята при 5% — для таблицы это допустимое упрощение.</p>
+    <p class="ans">«За неделю увидим только рост до 5.46% и больше. Хочешь ловить 5.3% — нужны три недели. Можно две, если согласен на риски выше».</p>
+  </div></details>
+  <h3>Расчёт в коде</h3>
+  <div class="cell" data-title="Размер выборки и MDE по дням">
+<textarea spellcheck="false" aria-label="Размер выборки и MDE по дням">from statistics import NormalDist
+z = NormalDist().inv_cdf
+
+p_a, p_b = 0.050, 0.053             # конверсия сейчас и рост, который хотим ловить
+var = p_a * (1 - p_a) + p_b * (1 - p_b)
+delta = p_b - p_a
+per_day = 10_000 / 2                # пользователей в группу за день, сплит 50/50
+r = lambda v: f"{v:,.0f}".replace(",", " ")
+
+for alpha, power in [(0.05, 0.80), (0.10, 0.70)]:
+    n = (z(1 - alpha / 2) + z(power)) ** 2 * var / delta ** 2
+    print(f"α = {alpha:.0%}, мощность {power:.0%}: n = {r(n)} на группу → {n / per_day:.1f} дня")
+
+print("\nсколько дней → какой рост ловим (α = 5%, мощность 80%):")
+k = z(0.975) + z(0.80)
+for d in [7, 14, 21, 28]:
+    se = (2 * p_a * (1 - p_a) / (per_day * d)) ** 0.5
+    print(f"{d:&gt;2} дней: с 5.0% до {p_a + k * se:.2%} и больше")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: 10 против 9">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 18.</span> Тест «10 против 9»</h2>
+  <p>Менеджер приносит результат: «В тесте 10 пользователей, в контроле 9. Конверсия выросла с 44% до 60%!» Что ответишь?</p>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">MDE ≈ 64%: такой тест увидел бы только рост конверсии с 44% почти до 100%</p></div>
+  <p class="rule-why">Наблюдаемый рост на 16% для него неотличим от шума: \(z \approx 0.69\), \(p \approx 0.49\). Ответ менеджеру: «Такой тест увидел бы только чудо — давай спланируем нормальный, вот таблица „дни — эффект“».</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> Для оценки сверху берём худшую дисперсию доли \(p(1 - p) = 0.25\).</p>
+    <p class="stp"><b>Шаг 2.</b> \(\mathrm{SE}_\Delta = \sqrt{0.25/10 + 0.25/9} \approx 0.23\), \(\mathrm{MDE} \approx 2.8 \cdot 0.23 \approx 0.64\).</p>
+    <p class="stp"><b>Шаг 3.</b> С фактическими долями: \(\mathrm{SE} \approx \sqrt{0.444 \cdot 0.556/9 + 0.6 \cdot 0.4/10} \approx 0.227\), \(z = 0.156/0.227 \approx 0.69\), \(p \approx 0.49\).</p>
+  </div></details>
+  <div class="cell" data-title="MDE постфактум для 10 и 9 пользователей">
+<textarea spellcheck="false" aria-label="MDE постфактум для 10 и 9 пользователей">from math import sqrt
+
+n_a, n_b = 9, 10
+# худший случай дисперсии доли p(1 − p) = 1/4 — оценка сверху
+se = sqrt(0.25 / n_a + 0.25 / n_b)
+print(f"SE разницы ≈ {se:.0%}, MDE ≈ 2.8 · SE ≈ {2.8 * se:.0%}")
+print("тест увидел бы только рост конверсии примерно с 44% до 100%")</textarea>
+  </div>
+  <div class="takeaway"><p><b>MDE постфактум.</b> Эксперимент закончился и не прокрасился? Подставь фактические \(n\) и дисперсии и посчитай, какой эффект он <b>мог</b> поймать. «Эффект 20 ₽ этот тест не увидел бы — его MDE был 50 ₽» — вот и вся загадка «непрокраса». При маленькой мощности «не прокрасилось» почти ничего не значит.</p></div>
+</section>
+
+<section class="card" data-title="Задача: баннер +8% ± 3%">
+  <span class="step-tag">Задача</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 19.</span> Баннер: +8% ± 3% к выручке</h2>
+  <p>Новый баннер дал <b>+8% к выручке</b>, SE = 3%, \(p \approx 0.008\) — «прокрасилось». Но за год ни одна фича не дала больше <b>+1%</b>. Пусть настоящий эффект баннера +0.5% или +1%. Какая у такого теста мощность? Как часто прокрасившийся результат получает <b>неверный знак</b> и во сколько раз в среднем <b>завышает</b> эффект?</p>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">При правде +0.5%: мощность ≈ 5%, неверный знак у 31% прокрасившихся, завышение в 14 раз</p></div>
+  <p class="rule-why">При +1%: мощность 6%, неверный знак у 17%, завышение в 7 раз. «+8% ± 3%» при такой истории — скорее удачный шум, чем открытие. Перепроверить тестом, рассчитанным на эффект +0.5–1%, а после раскатки ждать ближе к истории, чем к +8%. Это ошибки знака и масштаба Гельмана и Карлина (type S и type M errors).</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Правдоподобный эффект</b> берём из истории: за год фичи давали не больше +1% — проверим +0.5% и +1%.</p>
+    <p class="stp"><b>Шаг 2. Мощность.</b> \(\delta/\mathrm{SE} = 0.5/3 \approx 0.17\): колокол сдвинут всего на 0.17 SE, правее порога 1.96 — около 5%. Почти как \(\alpha\): тест слеп.</p>
+    <p class="stp"><b>Шаг 3. Ошибка знака.</b> Прокрасы — это хвосты по обе стороны, и заметная их часть слева: около 31% прокрасившихся имеют неверный знак.</p>
+    <p class="stp"><b>Шаг 4. Ошибка масштаба.</b> Прокрашиваются только оценки дальше \(1.96 \cdot 3\% \approx 5.9\%\) от нуля, а правда 0.5% — в среднем завышение в 14 раз.</p>
+  </div></details>
+  <div class="cell" data-title="Ошибки знака и масштаба">
+<textarea spellcheck="false" aria-label="Ошибки знака и масштаба">import numpy as np
+
+rng = np.random.default_rng(0)
+se = 3.0                                    # SE теста, %
+for true in [0.5, 1.0, 8.0]:                # настоящий эффект, %
+    est = rng.normal(true, se, 1_000_000)   # миллион повторов теста
+    sig = np.abs(est / se) &gt; 1.96           # прокрасились
+    print(f"правда +{true}%: мощность {sig.mean():.1%}, "
+          f"неверный знак у прокрасившихся {(est[sig] &lt; 0).mean():.0%}, "
+          f"завышение ×{np.abs(est[sig]).mean() / true:.1f}")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="История: красивые родители">
+  <span class="step-tag">История</span>
+  <p class="extra-note">Дополнительно — если останется время</p>
+  <h2>Красивые родители и дочери</h2>
+  <p><b>Что заявили.</b> В 2007 году в научном журнале вышла статья: у родителей, которых интервьюеры оценили как «очень красивых», доля дочерей среди детей на 8% выше, чем у остальных. Около 3 000 человек, \(p < 0.05\).</p>
+  <p><b>Что смущает.</b> Доля девочек среди новорождённых — одна из самых устойчивых величин в демографии, около 48.5%. Возраст родителей, очерёдность рождения, сезон сдвигают её не больше чем на 1%, даже голод — максимум на 3%. Красота родителей, если и влияет, то на десятые доли процента.</p>
+  <p><b>Расчёт Гельмана.</b> «Очень красивых» в выборке около 250–300 человек. SE разницы двух долей около 50%: \(\sqrt{0.25/250 + 0.25/2\,700} \approx 3.3\%\). Почти всю ошибку даёт маленькая группа. Прокрасится только разница больше \(1.96 \cdot 3.3 \approx 6.5\%\), а правдоподобный эффект — 0.1–0.3%. Мощность около 5%, как у пустышки.</p>
+  <p><b>Что тогда значит прокрас.</b> Почти чистый шум, который случайно перешагнул порог. Среди «значимых» результатов такого исследования в 47% будет обратный знак, а размер в среднем ≈ 7.7% — ровно такое число и вышло в статье.</p>
+  <div class="takeaway"><p>Когда мощность маленькая, значимым может оказаться только сильно завышенный результат — прокрас тут не находка, а лотерея. И это не экзотика: медианная мощность исследований в нейронауке — около 21% (Button и соавторы, 2013).</p></div>
+  <p class="src">Gelman, Weakliem, «Of Beauty, Sex and Power», American Scientist, 2009; Gelman, Carlin, 2014.</p>
+</section>
+
+<section class="card" data-title="Задача: +337% с лендинга">
+  <span class="step-tag">Задача</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 20.</span> «+337%» с лендинга</h2>
+  <p>Публичная «база удачных тестов» хвалится: новая кнопка на лендинге дала <b>+337%</b> конверсии — 3 заявки из 82 против 12 из 75, \(p \approx 0.009\).</p>
+  <ol>
+    <li>Сколько пользователей на группу нужно, чтобы с мощностью 80% поймать реалистичный рост +10% при базовой конверсии 3.7%?</li>
+    <li>Какая мощность у этого теста для роста +10%? Что после этого значит «прокрасилось»?</li>
+  </ol>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">Нужно ≈ 41 000 на группу, а было 80: мощность ≈ 5%, почти как \(\alpha\)</p></div>
+  <p class="rule-why">Среди таких «побед» большинство — шум, а настоящий эффект, если он есть, завышен в десятки раз. «+337%» — сигнал проверить мощность, а не повод праздновать.</p></details>
+  <div class="cell" data-title="Мощность «+337%»">
+<textarea spellcheck="false" aria-label="Мощность «+337%»">from math import sqrt
+from statistics import NormalDist
+N = NormalDist()
+
+base, lift, n = 0.037, 0.10, 80     # конверсия, реалистичный рост +10%, пользователей в группе
+d = base * lift                     # абсолютный эффект
+n_req = 2.8 ** 2 * 2 * base * (1 - base) / d ** 2
+se = sqrt(2 * base * (1 - base) / n)
+power = (1 - N.cdf(1.96 - d / se)) + N.cdf(-1.96 - d / se)
+
+print(f"нужно ≈ {round(n_req, -2):,.0f} на группу".replace(",", " "))
+print(f"при n = {n}: мощность {power:.1%}")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Вопрос: новинку — только на 1%?">
+  <span class="step-tag">Вопрос</span>
+  <h2>Новинку — только на 1%?</h2>
+  <p>Боб боится рисковать: «Давай дадим новую версию 1% пользователей, а 99% оставим в контроле». Во сколько раз дольше придётся ждать тот же MDE, чем при 50/50?</p>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">В \(\tfrac{1}{4p(1-p)}\) раз: 90/10 — в 2.8 раза, 99/1 — в 25 раз дольше</p></div>
+  <p class="rule-why">\(\mathrm{SE}_\Delta \propto \sqrt{\tfrac{1}{pN} + \tfrac{1}{(1-p)N}} = \sqrt{\tfrac{1}{p(1-p)N}}\). Огромный контроль почти не помогает: узкое место — маленькая группа. Хотите осторожности — начните с 5–10% на пару дней ради поломок, а для вывода переходите к 50/50.</p></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>MDE и длительность</h2>
+  <div class="takeaway"><p>\(\mathrm{MDE} \approx 2.8 \cdot \mathrm{SE}_\Delta\) при \(\alpha = 5\%\) и мощности 80%; \(n = 7.85\,(\sigma_A^2 + \sigma_B^2)/\delta^2\). Вдвое меньший эффект — вчетверо больше данных. Длительность — полными неделями. С менеджером говори таблицей «дни — MDE». Прокрас на слабом тесте завышен.</p></div>
+  <a class="next-step" href="08-nonparam.html"><b>Дальше: 8. \(\chi^2\) и Манн–Уитни</b>Какой критерий на какой вопрос отвечает.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const curve = (c, X, Y, f, lo, hi, col, lw) => { c.beginPath(); for (let k = 0; k <= 400; k++){ const x = lo + (hi - lo) * k / 400, px = X(x), py = Y(f(x)); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = col; c.lineWidth = lw || 2.2; c.stroke(); };
+  const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
+  const g1 = document.getElementById('g1'), cv = g1.querySelector('canvas'), out = g1.querySelector('.out'), dIn = document.getElementById('g1-d');
+  const PA = 0.05, PB = 0.053, PER = 5000;
+  let days = 7;
+  const setD = x => { days = Math.max(1, Math.min(365, Math.round(+String(x).replace(/\s/g, '')) || 7)); dIn.value = days; paint(); };
+  function paint(){
+    const g = canvas(cv, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 40, B = 32;
+    const n = PER * days, se = Math.sqrt((PA * (1 - PA) + PB * (1 - PB)) / n), shift = (PB - PA) / se;
+    const lo = -3.5, hi = Math.max(6.5, shift + 3.5), X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.08);
+    const f1 = x => normPdf(x - shift), power = 1 - normCdf(1.96 - shift), mde = 2.8 * Math.sqrt(2 * PA * (1 - PA) / n);
+    area(c, X, Y, f1, 1.96, hi, h - B, 'rgba(35,65,138,.28)');
+    area(c, X, Y, f1, lo, 1.96, h - B, 'rgba(230,180,60,.35)');
+    area(c, X, Y, normPdf, 1.96, hi, h - B, 'rgba(201,65,58,.6)');
+    curve(c, X, Y, normPdf, lo, hi, COL.gray); curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 20, COL.ink2, 14, 400);
+    c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 1.4; c.beginPath(); c.moveTo(X(1.96), T - 20); c.lineTo(X(1.96), h - B); c.stroke(); c.setLineDash([]);
+    big(c, 'порог 1.96', X(1.96) + 6, T - 24, COL.ink, 15, 600, 'left');
+    const px = Math.max(shift, 1.96) + 1.4; big(c, 'мощность ' + Math.round(power * 100) + '%', Math.min(X(px) + 6, w - R - 4), Y(normPdf(px - shift)) - 12, COL.ctrl, 17, 700, X(px) + 150 > w ? 'right' : 'left');
+    if (power < 0.97) big(c, 'β = ' + Math.round((1 - power) * 100) + '%', X(Math.min(shift, 1.96) - 0.9), h - B - 14, '#8a6d1d', 15, 700);
+    out.innerHTML = days + ' ' + (days % 10 === 1 && days % 100 !== 11 ? 'день' : days % 10 >= 2 && days % 10 <= 4 && (days % 100 < 10 || days % 100 >= 20) ? 'дня' : 'дней') + ' — по ' + num(n, 0) + ' в группе. Рост до 5.3% поймаем с вероятностью <b>' + Math.round(power * 100) + '%</b>. С мощностью 80% ловим рост до <b>' + num((PA + mde) * 100, 2) + '%</b> и больше.';
+  }
+  document.getElementById('g1-p').addEventListener('click', () => setD(days + 7));
+  dIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') setD(dIn.value); }); dIn.addEventListener('change', () => setD(dIn.value));
+  window.addEventListener('resize', paint);
+  paint();
+})();
+</script>
