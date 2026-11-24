@@ -45,7 +45,7 @@ for (const f of files){
   const m = body.match(/<script>[\s\S]*<\/script>\s*$/); const script = m ? m[0] : ''; if (m) body = body.slice(0, m.index);
   const n = +f.slice(0, 2); metas.push({...meta, f, n});
   // формулы в атрибутах прячем от tex.js (он вставил бы разметку прямо в атрибут) — рендерим их отдельно ниже
-  body = body.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => ` data-${k}="${v.replace(/\\\(/g, '⟪').replace(/\\\)/g, '⟫')}"`);
+  body = body.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => ` data-${k}="${v.replace(/\\\(/g, '⟪').replace(/\\\)/g, '⟫').replace(/\\\[/g, '⟦').replace(/\\\]/g, '⟧')}"`);
   const html = `${head(meta.title + ' · ' + LESSON, meta.desc || meta.title, f)}
 <body data-course="shad4" data-chapter="shad4-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
 ${nav}
@@ -147,8 +147,8 @@ console.log('shad:', files.length, 'блоков; формул', tex.run([...met
   for (const m of metas){
     const f = path.join(ROOT, DIR, m.f); let h = fs.readFileSync(f, 'utf8');
     h = h.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => {
-      const raw = un(v); if (!/⟪/.test(raw)) return all;
-      const out = raw.replace(/⟪(.+?)⟫/g, (_, t) => KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore'}));
+      const raw = un(v); if (!/[⟪⟦]/.test(raw)) return all;
+      const out = raw.replace(/⟦(.+?)⟧/g, (_, t) => '<span class="tx-d">' + KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore', displayMode: true}) + '</span>').replace(/⟪(.+?)⟫/g, (_, t) => KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore'}));
       return ` data-${k}="${esc(out)}"`;
     });
     fs.writeFileSync(f, h);
