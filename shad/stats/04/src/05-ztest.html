@@ -26,11 +26,11 @@
         <li><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)
           <p class="formula">\[P\big(|\bar X - \mathbb{E}X| > \varepsilon\big) \to 0, \qquad \text{пишут } \bar X \xrightarrow{P} \mathbb{E}X.\]</p></li>
         <li><b>Что из него следует: \(s_A \xrightarrow{P} \sigma_A\), \(s_B \xrightarrow{P} \sigma_B\).</b> Выборочная дисперсия группы — тоже среднее: \(s_A^2 \approx \overline{X_A^2} - \bar X_A^2\). По ЗБЧ \(\overline{X_A^2} \xrightarrow{P} \mathbb{E}X_A^2\) и \(\bar X_A \xrightarrow{P} \mathbb{E}X_A\), значит \(s_A^2 \xrightarrow{P} \mathbb{E}X_A^2 - (\mathbb{E}X_A)^2 = \sigma_A^2\); для B так же. Нужна конечная дисперсия — то же условие, что и для ЦПТ. Поэтому корень с выборочными \(s\) приближается к корню с истинными \(\sigma\):
-          <p class="formula">\[\frac{\sigma}{\mathrm{SE}} \xrightarrow{P} 1, \qquad \mathrm{SE} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \sigma = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
+          <p class="formula">\[\frac{\sigma}{s} \xrightarrow{P} 1, \qquad s = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \sigma = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
         <li><b>Теорема Слуцкого.</b> Если \(Y_n \xrightarrow{d} Y\) и \(C_n \xrightarrow{P} c\), где \(c\) — число, то
           <p class="formula">\[Y_n \cdot C_n \xrightarrow{d} c\,Y.\]</p></li>
         <li><b>Что из неё следует: \(z \xrightarrow{d} N(0, 1)\).</b> Разложим статистику на два множителя:
-          <p class="formula">\[\frac{\bar X_B - \bar X_A}{\mathrm{SE}} = \underbrace{\frac{\bar X_B - \bar X_A}{\sigma}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\sigma}{\mathrm{SE}}}_{\xrightarrow{P} 1}.\]</p>
+          <p class="formula">\[\frac{\bar X_B - \bar X_A}{s} = \underbrace{\frac{\bar X_B - \bar X_A}{\sigma}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\sigma}{s}}_{\xrightarrow{P} 1}.\]</p>
           <p>Первый множитель сходится к \(N(0, 1)\) по ЦПТ — шаги 1–4 выше, второй к 1 — шаг 2. По Слуцкому с \(c = 1\) произведение \(\xrightarrow{d} N(0, 1)\). На малых \(n\) второй множитель ещё заметно гуляет — это поправляет t-критерий.</p></li>
       </ol>
     </li>
@@ -54,9 +54,9 @@
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1. Дисперсии.</b> Метрика 0/1: \(s_A^2 = 0.1 \cdot 0.9 = 0.09\), \(s_B^2 = 0.106 \cdot 0.894 \approx 0.0948\).</p>
     <p class="stp"><b>Шаг 2. Разница.</b> \(\Delta = 10.6\% - 10.0\% = 0.006\).</p>
-    <p class="stp"><b>Шаг 3. SE.</b> \(\mathrm{SE} = \sqrt{0.09/20\,000 + 0.0948/20\,000} = \sqrt{9.24 \cdot 10^{-6}} \approx 0.00304\).</p>
+    <p class="stp"><b>Шаг 3. Стандартная ошибка.</b> \(s = \sqrt{0.09/20\,000 + 0.0948/20\,000} = \sqrt{9.24 \cdot 10^{-6}} \approx 0.00304\).</p>
     <p class="stp"><b>Шаг 4.</b> \(z = 0.006/0.00304 \approx 1.97\); \(p = 2\,P(N(0,1) \ge 1.97) \approx 0.048\). При \(n\) в десятки тысяч t и z совпадают.</p>
-    <p class="ans">\(\mathrm{SE} \approx 0.304\%\), \(z \approx 1.97\), \(p \approx 0.048\) — прокрасилось на 5%, впритык.</p>
+    <p class="ans">\(s \approx 0.304\%\), \(z \approx 1.97\), \(p \approx 0.048\) — прокрасилось на 5%, впритык.</p>
   </div></details>
   <h3>Расчёт в коде</h3>
   <div class="cell" data-title="z-тест для двух конверсий">
@@ -257,8 +257,8 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
     <p class="out" aria-live="polite"></p>
   </div>
   <details class="sol"><summary>Решение</summary><div class="body">
-    <p class="stp">52 и 50 — выборочные средние, 7 — оценка разброса по выборке; истинных параметров мы не знаем. Стандартная ошибка разности средних \(\mathrm{SE} = s\sqrt{2/n}\) с \(s \approx 7\), статистика \(z = (52 - 50)/\mathrm{SE}\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
-    <table class="tails"><tr><th>\(n\) в группе</th><th>SE</th><th>\(z\)</th><th>p</th></tr>
+    <p class="stp">52 и 50 — выборочные средние, 7 — оценка разброса по выборке; истинных параметров мы не знаем. Стандартная ошибка разности средних \(s = \sqrt{s_A^2/n + s_B^2/n} = 7\sqrt{2/n}\), раз \(s_A \approx s_B \approx 7\), статистика \(z = (52 - 50)/s\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
+    <table class="tails"><tr><th>\(n\) в группе</th><th>\(s\)</th><th>\(z\)</th><th>p</th></tr>
       <tr><td>30</td><td>1.81</td><td>1.11</td><td>0.27</td></tr><tr><td>60</td><td>1.28</td><td>1.56</td><td>0.12</td></tr><tr class="hit"><td>100</td><td>0.99</td><td>2.02</td><td>0.043</td></tr><tr><td>1000</td><td>0.31</td><td>6.39</td><td>\(1.7 \cdot 10^{-10}\)</td></tr></table>
     <p class="stp">Строго, раз разброс оценён по выборке, — t-критерий Уэлча; при 30 и больше в группе он даёт почти те же p (при 30: 0.27 против 0.27).</p>
     <p class="ans">Разница везде одна и та же — 2 балла, а p меняется от 0.27 до \(10^{-10}\). p зависит от размера выборки и не измеряет величину эффекта; о величине говорит интервал (блок 6).</p>
@@ -268,7 +268,7 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
 <section class="card" data-title="Вывод">
   <span class="step-tag">Итог блока</span>
   <h2>z и t</h2>
-  <div class="takeaway"><p>A/B-тест на среднем: \(t = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}}\), \(\mathrm{SE} = \sqrt{s_A^2/n_A + s_B^2/n_B}\). По умолчанию — t-критерий Уэлча: на больших \(n\) он совпадает с z, на малых страхует. Нормальность нужна среднему, а не данным.</p></div>
+  <div class="takeaway"><p>A/B-тест на среднем: \(t = \dfrac{\bar X_B - \bar X_A}{s}\), \(s = \sqrt{s_A^2/n_A + s_B^2/n_B}\). По умолчанию — t-критерий Уэлча: на больших \(n\) он совпадает с z, на малых страхует. Нормальность нужна среднему, а не данным.</p></div>
   <a class="next-step" href="06-ci.html"><b>Дальше: 6. Доверительные интервалы</b>Сколько интервалов накрывает правду.</a>
 </section>
 
@@ -293,7 +293,7 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
     big(c, '±1.96', X(1.96), h - B + 18, COL.trapInk, 14, 600);
     const zc = Math.max(lo, Math.min(hi, z)); c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X(zc), T - 6); c.lineTo(X(zc), h - B); c.stroke();
     big(c, 'z = ' + num(z, 2), X(zc) + (zc > 2.5 ? -6 : 6), T - 10, COL.ctrl, 16, 700, zc > 2.5 ? 'right' : 'left');
-    out1.innerHTML = '\\(\\mathrm{SE} = \\sqrt{\\frac{p_A(1-p_A)}{n} + \\frac{p_B(1-p_B)}{n}} = ' + num(100 * se, 3) + '\\%\\), \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\) — ' + (Math.abs(z) >= 1.96 ? '<b>прокрасилось</b>' : '<b>не прокрасилось</b>') + ' на уровне 5%.';
+    out1.innerHTML = '\\(s = \\sqrt{\\frac{p_A(1-p_A)}{n} + \\frac{p_B(1-p_B)}{n}} = ' + num(100 * se, 3) + '\\%\\), \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\) — ' + (Math.abs(z) >= 1.96 ? '<b>прокрасилось</b>' : '<b>не прокрасилось</b>') + ' на уровне 5%.';
   }
   g1.addEventListener('input', paint1);
   // 2: Стьюдент против нормального
@@ -332,7 +332,7 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
     c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); c.moveTo(X(2), T); c.lineTo(X(2), h - B); c.stroke();
     label(c, 'наблюдали +2', X(2) + 5, T + 10, COL.ctrl); label(c, 'красное — за ±1.96 SE', X(-6), T + 10, COL.trapInk);
     label(c, 'разница средних, баллы; колокол — где она бывает без эффекта', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
-    outC.innerHTML = '\\(\\mathrm{SE} = s\\sqrt{2/n} = 7\\sqrt{2/' + nC + '} = ' + num(se, 2) + '\\), \\(z = 2/\\mathrm{SE} = ' + num(z, 2) + '\\), \\(p = ' + (p < 0.001 ? num(p * 1e10, 1) + '\\cdot 10^{-10}' : num(p * 100, 1) + '\\%') + '\\) — ' + (p <= 0.05 ? '«эффект есть»' : '«эффекта нет»') + '. Разница та же, меняется только узость колокола.';
+    outC.innerHTML = '\\(s = 7\\sqrt{2/n} = 7\\sqrt{2/' + nC + '} = ' + num(se, 2) + '\\), \\(z = 2/s = ' + num(z, 2) + '\\), \\(p = ' + (p < 0.001 ? num(p * 1e10, 1) + '\\cdot 10^{-10}' : num(p * 100, 1) + '\\%') + '\\) — ' + (p <= 0.05 ? '«эффект есть»' : '«эффекта нет»') + '. Разница та же, меняется только узость колокола.';
   }
   pick(gC, 'n', v => { nC = +v; paintC(); });
 
