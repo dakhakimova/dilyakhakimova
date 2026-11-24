@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Интерактивная версия занятий ШАД «Прикладная статистика для аналитика» (осень 2026).
    Источник — фрагменты shad/stats/04/src/NN-*.html: первая строка — JSON с метаданными
-   {"title": "...", "h": "Глава 1 · Критерий своими руками", "next": "02-pvalue.html"}, дальше — карточки <section class="card">
+   {"title": "...", "h": "Блок 1 · Критерий своими руками", "next": "02-pvalue.html"}, дальше — карточки <section class="card">
    и необязательный <script> страницы. Скрипт собирает страницы shad/stats/04/NN-*.html и оглавление index.html,
    потом прогоняет формулы через tools/tex.js. Страницы закрыты от поисковиков (noindex) и не связаны с остальным сайтом,
    пока Диля не вычитает: решение 24.11.2026. */
@@ -48,13 +48,13 @@ for (const f of files){
 <body data-course="shad4" data-chapter="shad4-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
 ${nav}
 <div class="reader" id="reader">
-  <aside class="toc-side" id="toc-side" aria-label="Карточки главы">
+  <aside class="toc-side" id="toc-side" aria-label="Карточки блока">
     <h2>${meta.h}</h2>
     <ol id="toc-list"></ol>
   </aside>
   <main class="stage">
     <div class="stage-head">
-      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки главы</button>
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Карточки блока</button>
       <div class="progress" aria-hidden="true"><span id="prog"></span></div>
       <span class="count" id="count"></span>
     </div>
@@ -82,7 +82,7 @@ ${nav}
 <main class="wrap shad-toc">
   <p class="kicker">${COURSE}</p>
   <h1>${LESSON}</h1>
-  <p class="lead">Интерактивная версия занятия: девять глав по блокам лекции. В задачах можно проверить свой ответ числом, решение спрятано под раскрывашкой, а там, где идею лучше видно на графике, — игра.</p>
+  <p class="lead">Интерактивная версия занятия: девять блоков лекции. В задачах можно проверить свой ответ числом, решение спрятано под раскрывашкой, а там, где идею лучше видно на графике, — игра.</p>
   <ol class="shad-list">
 ${toc}
   </ol>
@@ -91,4 +91,4 @@ ${toc}
 </html>
 `);
 const tex = require('./tex.js');
-console.log('shad:', files.length, 'глав; формул', tex.run([...metas.map(m => DIR + '/' + m.f)]));
+console.log('shad:', files.length, 'блоков; формул', tex.run([...metas.map(m => DIR + '/' + m.f)]));

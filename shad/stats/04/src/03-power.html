@@ -1,0 +1,171 @@
+{"title": "Две ошибки и мощность", "short": "3. Две ошибки и мощность", "h": "Блок 3 · Мощность", "lead": "Три странных критерия, два колокола, гребёнки средних и осьминог Пауль", "next": "04-clt.html"}
+<section class="card" data-title="Вторая ошибка">
+  <p class="kicker">Занятие 4 · блок 3</p>
+  <h1>Две ошибки и мощность</h1>
+  <p class="lead">\(\alpha\) отвечает за одну ошибку — выкатить пустышку. Но есть и вторая: не заметить работающую фичу. Квартал разработки, а тест сказал «эффекта нет», потому что был слеп. Без второй ошибки критерий можно сделать каким угодно «надёжным» — и бесполезным.</p>
+  <div class="report-wrap"><table class="xtab" aria-label="Четыре исхода проверки гипотезы">
+    <tr><th></th><th>\(H_0\) верна — эффекта нет</th><th>\(H_1\) верна — эффект есть</th></tr>
+    <tr><th>не отвергли \(H_0\)</th><td>верно</td><td><b>ошибка второго рода</b>, вероятность \(\beta\)</td></tr>
+    <tr><th>отвергли \(H_0\)</th><td><b>ошибка первого рода</b>, вероятность \(\alpha\)</td><td>верно, вероятность \(1 - \beta\) — <b>мощность</b></td></tr>
+  </table></div>
+  <div class="def">
+    <p>\(\beta = P(\text{не отвергли} \mid H_1)\) — пропустили настоящий эффект. <b>Мощность</b> \(= 1 - \beta = P(\text{отвергли} \mid H_1)\). Она зависит от размера эффекта: маленький эффект ловится реже.</p>
+    <p>Стандарт индустрии: \(\alpha = 5\%\), мощность 80%. Это договорённость, а не закон: выбирают из цены двух ошибок.</p>
+  </div>
+</section>
+
+<section class="card" data-title="Три странных критерия">
+  <span class="step-tag">Вопрос</span>
+  <h2>Три странных критерия</h2>
+  <p>Оцени \(\alpha\) и мощность каждого критерия:</p>
+  <ol>
+    <li>«Никогда не давать денег» — всегда отвечаем «эффекта нет».</li>
+    <li>«Всегда давать деньги».</li>
+    <li>Подбрасываем монетку, которая падает орлом с вероятностью 5%; если орёл — отвергаем \(H_0\), на данные не смотрим.</li>
+  </ol>
+  <div class="check" data-ans="5" data-unit="%" data-ok="Верно: решение не зависит от данных, поэтому отвергаем с вероятностью 5% в любом мире — и α, и мощность равны 5%."><label>Мощность критерия-монетки</label></div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">Для каждого критерия считаем \(P(\text{отвергли} \mid H_0) = \alpha\) и \(P(\text{отвергли} \mid H_1)\) = мощность.</p>
+    <p class="stp"><b>«Никогда не отвергать».</b> \(P(\text{отвергли}) = 0\) в любом мире: \(\alpha = 0\), мощность 0.</p>
+    <p class="stp"><b>«Всегда отвергать».</b> \(P(\text{отвергли}) = 1\) в любом мире: \(\alpha = 1\), мощность 1.</p>
+    <p class="stp"><b>Монетка.</b> Решение не зависит от данных: \(\alpha\) = мощность = 5%. Формально это корректный критерий уровня 5%. Любой разумный критерий того же уровня должен давать мощность <b>больше</b> \(\alpha\) — иначе он не лучше монетки.</p>
+    <p class="ans">1) \(\alpha = 0\), мощность 0; 2) \(\alpha = 1\), мощность 1; 3) \(\alpha\) = мощность = 5%. Требование к критерию — всегда пара: \(\alpha\) и мощность.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Игра: два колокола">
+  <span class="step-tag">Поиграй</span>
+  <h2>Два колокола: \(\alpha\), \(\beta\) и мощность</h2>
+  <p>Серый колокол — статистика в мире без эффекта, синий — в мире с эффектом. Он сдвинут на <b>эффект, делённый на стандартную ошибку</b>. Вертикальная линия — порог 1.96: правее говорим «эффект есть». Красное — \(\alpha\), жёлтое — \(\beta\).</p>
+  <div class="game" id="g1">
+    <div class="controls"><label class="field">Сдвиг колоколов, в SE <input type="range" id="g1-d" min="0" max="45" step="1" value="28"></label> <output id="g1-dv"></output></div>
+    <canvas aria-label="Два колокола: без эффекта и с эффектом"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <p>Эффект меньше — колокола ближе, \(\beta\) растёт. Данных больше — SE меньше, сдвиг в единицах SE больше, обе ошибки при том же пороге падают. Единственный способ уменьшить обе ошибки сразу — раздвинуть колокола: больше данных или меньше дисперсия. Запомни сдвиг <b>2.8 SE</b> — он вернётся в блоке про MDE.</p>
+  <div class="check" data-ans="2.8" data-tol="0.06" data-ok="Верно: 1.96 + 0.84 ≈ 2.8 — порог плюс ещё 0.84 SE, чтобы 80% синего колокола оказалось правее порога." data-hint="Подвинь ползунок, пока мощность не станет 80%."><label>При каком сдвиге (в SE) мощность ровно 80%?</label></div>
+</section>
+
+<section class="card" data-title="Прогноз: гребёнки">
+  <span class="task-tag extra">Задача 7 · дополнительная</span>
+  <h2>Гребёнки средних: откуда берётся мощность</h2>
+  <p>Новое лекарство снижает давление: в среднем <b>135</b> мм рт. ст. против <b>140</b> без него. Разброс давления у людей большой — \(\sigma = 15\), один и тот же в обеих группах. Эксперимент повторили 60 раз с <b>1</b>, <b>10</b> и <b>100</b> пациентами в группе; каждый раз считаем среднее давление в каждой группе.</p>
+  <p><b>Прогноз:</b> при каком размере группы средние с лекарством и без перестанут перемешиваться?</p>
+  <div class="choice" data-key="comb" role="group" aria-label="Твой ответ">
+    <button type="button" data-v="1" data-fb="Посмотрим на следующей карточке.">Уже при 1</button>
+    <button type="button" data-v="10" data-fb="Посмотрим на следующей карточке.">При 10</button>
+    <button type="button" data-v="100" data-fb="Посмотрим на следующей карточке.">При 100</button>
+    <button type="button" data-v="more" data-fb="Посмотрим на следующей карточке.">Нужно больше 100</button>
+  </div>
+</section>
+
+<section class="card" data-title="Игра: гребёнки">
+  <span class="step-tag">Поиграй</span>
+  <h2>60 повторов эксперимента</h2>
+  <p>Кривые — давление <b>у отдельных людей</b>: серое — без лекарства, синее — с лекарством. Черты — <b>средние по группе</b> в 60 повторах.</p>
+  <div class="game" id="g2">
+    <div class="controls"><span>Пациентов в группе:</span><span class="seg" role="group" aria-label="Размер группы">
+      <button type="button" class="btn ghost" data-n="1" aria-pressed="true">1</button><button type="button" class="btn ghost" data-n="10" aria-pressed="false">10</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="400" aria-pressed="false">400</button>
+    </span><button type="button" class="btn" id="g2-run">Повторить 60 раз</button></div>
+    <canvas aria-label="Распределение давления у людей и средние по группам"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Почему растёт мощность, если разброс людей не меняется?</summary><div class="body">
+    <p class="stp">Разброс людей — \(\sigma = 15\) — постоянен, сколько бы пациентов ни набрали. Сужаются <b>средние</b>: их разброс \(\mathrm{SE} = \sigma/\sqrt{n}\). При \(n = 1\) гребёнки широкие и перемешаны, при 10 начинают расходиться, при 100 — две узкие кучки.</p>
+    <p class="ans">Мощность около 6%, 11% и 64% при \(n = 1\), 10 и 100: даже сотни пациентов мало для эффекта в треть \(\sigma\). Это те же два колокола, только собранные руками.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: осьминог Пауль">
+  <span class="task-tag">Задача 8</span>
+  <h2>Осьминог Пауль</h2>
+  <figure class="art"><img src="img/03-octopus.jpg" alt="Осьминог выбирает кормушку с флагом"></figure>
+  <p>Осьминог Пауль из аквариума в Оберхаузене «предсказывал» исходы футбольных матчей, выбирая кормушку с флагом одной из команд. На чемпионате Европы 2008 года и чемпионате мира 2010 года из 14 прогнозов верными оказались <b>12</b>. Директор: «Нам предлагают купить осьминога. Проверь: он угадывает случайно или нет?»</p>
+  <div class="check" data-ans="0.65" data-tol="0.02" data-unit="%" data-ok="Верно: (91 + 14 + 1) / 16 384 = 106 / 16 384 ≈ 0.65%."><label>p-value: \(P(X \ge 12 \mid \text{наугад})\)</label></div>
+  <p><b>Покупаем?</b> Сначала подумай, а потом запусти чемпионат с «оракулами».</p>
+  <div class="game" id="g3">
+    <div class="controls"><span>«Оракулов» на чемпионате:</span><span class="seg" role="group" aria-label="Сколько оракулов"><button type="button" class="btn ghost" data-m="1" aria-pressed="false">1</button><button type="button" class="btn ghost" data-m="50" aria-pressed="true">50</button></span>
+      <button type="button" class="btn" id="g3-run">Провести 100 чемпионатов</button></div>
+    <canvas aria-label="Сколько чемпионатов породили своего Пауля"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> \(H_0\): угадывает с вероятностью 1/2; \(H_1\): чаще. \(X\) — число верных из 14, при \(H_0\) \(X \sim \mathrm{Bin}(14,\ 1/2)\).</p>
+    <p class="stp"><b>Шаг 2.</b> \(p = P(X \ge 12) = \dfrac{C_{14}^{12} + C_{14}^{13} + C_{14}^{14}}{2^{14}} = \dfrac{91 + 14 + 1}{16\,384} \approx 0.65\%\) — для одного осьминога отвергаем.</p>
+    <p class="stp"><b>Шаг 3. Сколько было попыток.</b> «Оракулов» в те годы были десятки: попугаи, черепахи, слоны, свиньи. Если их 50 и все гадают наугад, вероятность, что <b>хотя бы один</b> угадает 12 из 14: \(1 - (1 - 0.0065)^{50} \approx 28\%\). Газеты написали про того, кто угадал, — ошибка выжившего.</p>
+    <p class="ans">p-value ≈ 0.65% честно для одного осьминога, но оракулов были десятки: с 50 оракулами «Пауль» находится почти в каждом третьем чемпионате. Не покупаем. Это множественные проверки — блок 9.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Две ошибки</h2>
+  <div class="takeaway"><p>У критерия две ошибки: \(\alpha\) — ложный прокрас, \(\beta\) — пропущенный эффект; мощность \(1 - \beta\). Уменьшить обе сразу можно только данными или снижением дисперсии. p-value, посчитанное для «победителя» из многих попыток, обманывает.</p></div>
+  <a class="next-step" href="04-clt.html"><b>Дальше: 4. ЦПТ на практике</b>С какого n верить «±1.96 SE»?</a>
+</section>
+
+<script>
+(function(){
+  const BAR = '#A9B8DA', OCH = '#E9D49B';
+  const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
+  // 1: два колокола
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out'), r1 = document.getElementById('g1-d'), dv = document.getElementById('g1-dv');
+  function paint1(){
+    const d = +r1.value / 10; dv.textContent = num(d, 1);
+    const g = canvas(cv1, 0.36, 0.66); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 14, B = 30, lo = -4, hi = 8.5;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.1), z = 1.96;
+    // β — часть синего левее порога, α — часть серого правее
+    c.fillStyle = OCH; Book.bell(c, X, Y, d, 1, lo, z, {close: true}); c.fill();
+    c.fillStyle = 'rgba(201,65,58,.55)'; Book.bell(c, X, Y, 0, 1, z, hi, {close: true}); c.fill();
+    c.lineWidth = 2.5; c.strokeStyle = COL.gray; Book.bell(c, X, Y, 0, 1, lo, hi); c.stroke();
+    c.strokeStyle = COL.ctrl; Book.bell(c, X, Y, d, 1, lo, hi); c.stroke();
+    c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(z), T); c.lineTo(X(z), h - B); c.stroke();
+    label(c, 'порог 1.96', X(z) + 5, T + 10, COL.ink);
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = -4; v <= 8; v += 2) label(c, String(v), X(v), h - B + 15, COL.ink2, 'center');
+    label(c, 'z-статистика', w / 2, h - 2, COL.ink2, 'center');
+    const pw = 1 - normCdf(z - d);
+    out1.innerHTML = 'α = <b>5%</b> (красное), β = <b>' + share(1 - pw, 0) + '</b> (жёлтое), мощность = <b>' + share(pw, 0) + '</b>.';
+  }
+  r1.addEventListener('input', paint1);
+  // 2: гребёнки
+  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas'), out2 = g2.querySelector('.out');
+  let n2 = 1, ma = null, mb = null;
+  function run2(){ const se = 15 / Math.sqrt(n2); ma = Array.from({length: 60}, () => 140 + se * gauss()); mb = Array.from({length: 60}, () => 135 + se * gauss()); paint2(); }
+  function paint2(){
+    const g = canvas(cv2, 0.34, 0.7); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 10, B = 30, lo = 95, hi = 180;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * 0.92 * v / normPdf(0);
+    c.lineWidth = 2; c.strokeStyle = '#CFCDC6'; Book.bell(c, X, Y, 140, 15, lo, hi, {unit: true}); c.stroke();
+    c.strokeStyle = '#9DB4DE'; Book.bell(c, X, Y, 135, 15, lo, hi, {unit: true}); c.stroke();
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = 100; v <= 180; v += 20) label(c, String(v), X(v), h - B + 15, COL.ink2, 'center');
+    label(c, 'давление, мм рт. ст.', w / 2, h - 2, COL.ink2, 'center');
+    if (!ma){ Book.invite(c, 'Нажми «Повторить 60 раз»', w / 2, (h - B) * 0.45); return; }
+    const hb = (h - T - B) * 0.22;
+    c.lineWidth = 1.5;
+    mb.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = COL.ctrl; c.beginPath(); c.moveTo(X(v), T + (h - T - B) * 0.2); c.lineTo(X(v), T + (h - T - B) * 0.2 + hb); c.stroke(); });
+    ma.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = '#8F8D86'; c.beginPath(); c.moveTo(X(v), T + (h - T - B) * 0.5); c.lineTo(X(v), T + (h - T - B) * 0.5 + hb); c.stroke(); });
+    label(c, 'с лекарством', L + 4, T + (h - T - B) * 0.2 - 4, COL.ctrl);
+    label(c, 'без лекарства', L + 4, T + (h - T - B) * 0.5 - 4, '#6B6A65');
+    const pw = 1 - normCdf(1.96 - 5 / (15 * Math.sqrt(2 / n2))) + normCdf(-1.96 - 5 / (15 * Math.sqrt(2 / n2)));
+    out2.innerHTML = 'n = ' + n2 + ': разброс средних SE = 15/√' + n2 + ' = ' + num(15 / Math.sqrt(n2), 1) + ' мм. Мощность t-теста ≈ <b>' + share(pw, 0) + '</b>.';
+  }
+  pick(g2, 'n', v => { n2 = +v; ma = mb = null; run2(); });
+  document.getElementById('g2-run').addEventListener('click', run2);
+  // 3: оракулы
+  const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector('.out');
+  let m3 = 50, res = null;
+  function run3(){ res = []; for (let t = 0; t < 100; t++){ let best = 0; for (let i = 0; i < m3; i++) best = Math.max(best, binom(14, 0.5)); res.push(best); } paint3(); }
+  function paint3(){
+    const g = canvas(cv3, 0.3, 0.7); if (!g) return; const {c, w, h} = g;
+    if (!res){ Book.invite(c, 'Нажми «Провести 100 чемпионатов»', w / 2, h / 2); return; }
+    const cols = w < 520 ? 10 : 20, rows = Math.ceil(100 / cols), s = Math.min((w - 10) / cols, (h - 10) / rows), ox = (w - cols * s) / 2;
+    res.forEach((b, i) => { const x = ox + (i % cols) * s + s / 2, y = 5 + Math.floor(i / cols) * s + s / 2; c.fillStyle = b >= 12 ? COL.trap : COL.fillC; c.beginPath(); c.arc(x, y, s * 0.38, 0, 2 * Math.PI); c.fill(); if (b >= 12 && s > 22){ c.fillStyle = '#fff'; c.font = '600 11px Onest, sans-serif'; c.textAlign = 'center'; c.fillText(String(b), x, y + 4); c.textAlign = 'left'; } });
+    const k = res.filter(b => b >= 12).length;
+    out3.innerHTML = 'Красные кружки — чемпионаты, где хоть один из ' + m3 + ' «оракулов» угадал 12 или больше из 14: <b>' + k + ' из 100</b>. ' + (m3 > 1 ? 'Теория: 1 − (1 − 0.0065)⁵⁰ ≈ 28%.' : 'Теория для одного оракула: 0.65%.');
+  }
+  pick(g3, 'm', v => { m3 = +v; res = null; paint3(); });
+  document.getElementById('g3-run').addEventListener('click', run3);
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+})();
+</script>
