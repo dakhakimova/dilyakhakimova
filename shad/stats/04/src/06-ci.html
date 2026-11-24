@@ -31,6 +31,18 @@
   <div class="takeaway"><p><b>Чего интервал не значит:</b> «настоящий эффект лежит в этом отрезке с вероятностью 95%». Эффект — не случайная величина, он либо внутри, либо нет. 95% — свойство процедуры: из 100 таких интервалов около 95 накроют правду.</p></div>
 </section>
 
+<section class="card" data-title="Визуализация: откуда берётся интервал">
+  <span class="step-tag">Визуализация</span>
+  <h2>Одна реализация — один интервал</h2>
+  <p>Сверху — колокол, из которого эксперимент «вытягивает» оценку разницы \(\hat\Delta\): центр в настоящей разнице 0.6%, разброс \(\sigma_\Delta\). Каждый запуск — новая реализация эксперимента: точка из колокола и интервал \(\hat\Delta \pm 1.96\,\mathrm{SE}_\Delta\) вокруг неё.</p>
+  <div class="game" id="g0">
+    <div class="controls"><button type="button" class="btn" id="g0-one">Новая реализация</button><button type="button" class="btn ghost" id="g0-20">×20</button></div>
+    <canvas aria-label="Нормальное распределение оценки и интервалы отдельных реализаций"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <p>Пунктиры — границы средних 95% колокола. Если точка упала между ними, её интервал накрывает правду; если в красный хвост — промах. Поэтому накрывают 95% интервалов.</p>
+</section>
+
 <section class="card" data-title="Визуализация: 100 интервалов">
   <span class="step-tag">Визуализация</span>
   <h2>Сколько интервалов накрывает правду</h2>
@@ -188,6 +200,39 @@ print(f"парные разности:  SE = {se_pair:.2%}, z = {d / se_pair:.2f
   }
   document.getElementById('g1-run').addEventListener('click', sim);
   nIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') sim(); }); nIn.addEventListener('change', sim);
+  // 0: колокол и отдельные реализации
+  const g0 = document.getElementById('g0'), cv0 = g0.querySelector('canvas'), out0 = g0.querySelector('.out');
+  const N0 = 20000, SD0 = Math.sqrt(PA * (1 - PA) / N0 + PB * (1 - PB) / N0);
+  let reals = [];
+  function addReal(k){
+    for (let i = 0; i < k; i++){ const a = binomDraw(N0, PA) / N0, b = binomDraw(N0, PB) / N0, d = b - a, se = Math.sqrt(a * (1 - a) / N0 + b * (1 - b) / N0); reals.unshift({d, lo: d - 1.96 * se, hi: d + 1.96 * se}); }
+    reals = reals.slice(0, 20); paint0();
+  }
+  let total = 0, cover = 0;
+  function paint0(){
+    const g = canvas(cv0, 0.72, 1.2); if (!g) return; const {c, w, h} = g, L = 10, R = 10;
+    const lo = TRUE - 4.2 * SD0, hi = TRUE + 4.2 * SD0, X = v => L + (v - lo) / (hi - lo) * (w - L - R);
+    const top = h * 0.3, base = top, T0 = 22, Yb = v => base - (base - T0) * v / normPdf(0);
+    const pdf = v => normPdf((v - TRUE) / SD0), q1 = TRUE - 1.96 * SD0, q2 = TRUE + 1.96 * SD0;
+    const fill = (a, b, col) => { c.beginPath(); c.moveTo(X(a), base); for (let k = 0; k <= 120; k++){ const v = a + (b - a) * k / 120; c.lineTo(X(v), Yb(pdf(v))); } c.lineTo(X(b), base); c.closePath(); c.fillStyle = col; c.fill(); };
+    fill(lo, q1, 'rgba(201,65,58,.55)'); fill(q2, hi, 'rgba(201,65,58,.55)'); fill(q1, q2, 'rgba(35,65,138,.14)');
+    c.beginPath(); for (let k = 0; k <= 300; k++){ const v = lo + (hi - lo) * k / 300; k ? c.lineTo(X(v), Yb(pdf(v))) : c.moveTo(X(v), Yb(pdf(v))); } c.strokeStyle = COL.gray; c.lineWidth = 2.2; c.stroke();
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, base); c.lineTo(w - R, base); c.stroke();
+    big(c, '95%', X(TRUE), Yb(pdf(TRUE)) + 40, COL.ctrl, 15, 700); big(c, '2.5%', X(q1) - 26, base - 10, RED, 13, 700); big(c, '2.5%', X(q2) + 26, base - 10, RED, 13, 700);
+    const rowsTop = base + 30, B = 30, dy = (h - rowsTop - B) / 20;
+    c.setLineDash([4, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.2; [q1, q2].forEach(v => { c.beginPath(); c.moveTo(X(v), T0); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]);
+    c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), T0 - 6); c.lineTo(X(TRUE), h - B); c.stroke();
+    big(c, 'правда 0.6%', X(TRUE) + 6, T0 - 8, COL.ink, 14, 600, 'left');
+    reals.forEach((r, i) => { const y = rowsTop + (i + 0.5) * dy, m = r.lo > TRUE || r.hi < TRUE, col = m ? RED : BLUE; c.globalAlpha = i === 0 ? 1 : 0.75;
+      c.strokeStyle = col; c.lineWidth = i === 0 ? 3 : 1.8; c.beginPath(); c.moveTo(X(Math.max(lo, r.lo)), y); c.lineTo(X(Math.min(hi, r.hi)), y); c.stroke();
+      c.fillStyle = col; c.beginPath(); c.arc(X(r.d), y, i === 0 ? 5 : 3.5, 0, 7); c.fill(); c.globalAlpha = 1; });
+    if (reals.length){ const r = reals[0]; c.setLineDash([2, 3]); c.strokeStyle = COL.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(X(r.d), Yb(pdf(r.d))); c.lineTo(X(r.d), rowsTop + 0.5 * dy); c.stroke(); c.setLineDash([]); c.fillStyle = COL.ink; c.beginPath(); c.arc(X(r.d), Yb(pdf(r.d)), 4, 0, 7); c.fill(); }
+    for (let v = Math.ceil(lo * 1000) / 1000; v <= hi; v += 0.002){ const t = Math.round(v * 1000) / 10; big(c, (t < 0 ? '−' : '') + num(Math.abs(t), 1) + '%', X(v), h - B + 20, COL.ink2, 13, 400); }
+    out0.innerHTML = reals.length ? 'Последняя реализация: \\(\\hat\\Delta = ' + num(reals[0].d * 100, 2) + '\\%\\), интервал от ' + num(reals[0].lo * 100, 2) + '% до ' + num(reals[0].hi * 100, 2) + '% — ' + (reals[0].lo > TRUE || reals[0].hi < TRUE ? '<b>промах</b>.' : '<b>накрыл</b> правду.') + ' Всего накрыли ' + cover + ' из ' + total + '.' : '';
+  }
+  const addCount = k => { const before = reals.length; addReal(k); };
+  document.getElementById('g0-one').addEventListener('click', () => { addReal(1); const r = reals[0]; total++; if (!(r.lo > TRUE || r.hi < TRUE)) cover++; paint0(); });
+  document.getElementById('g0-20').addEventListener('click', () => { for (let i = 0; i < 20; i++){ addReal(1); const r = reals[0]; total++; if (!(r.lo > TRUE || r.hi < TRUE)) cover++; } paint0(); });
   // 2: интервалы групп и интервал разницы
   const cv2 = document.getElementById('g2').querySelector('canvas');
   function paint2(){
@@ -201,7 +246,7 @@ print(f"парные разности:  SE = {se_pair:.2%}, z = {d / se_pair:.2f
     c.setLineDash([5, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(XD(0), h * 0.78 - 26); c.lineTo(XD(0), h * 0.78 + 14); c.stroke(); c.setLineDash([]);
     big(c, 'ноль', XD(0), h * 0.78 + 30, COL.ink2, 13, 500);
   }
-  window.addEventListener('resize', () => { paint1(); paint2(); });
-  sim(); paint2();
+  window.addEventListener('resize', () => { paint0(); paint1(); paint2(); });
+  sim(); paint2(); paint0();
 })();
 </script>
