@@ -28,7 +28,7 @@
 
 <section class="card" data-title="Задача: 9 орлов из 10">
   <span class="step-tag">Задача с собеседования</span>
-  <h2 class="task-h"><span class="tn">Задача 5.</span> Девять орлов из десяти</h2>
+  <h2 class="task-h"><span class="tn">Задача 6.</span> Девять орлов из десяти</h2>
   <p>Монетку бросили 10 раз и получили <b>9 орлов</b>.</p>
   <ol>
     <li>Какова вероятность ровно такого исхода у честной монеты?</li>
@@ -61,27 +61,6 @@
     <div class="choice"><button type="button" data-v="a" data-why="3% — это \(P(D \mid H_0)\): вероятность увидеть такие или ещё более экстремальные данные \(D\), <b>если эффекта нет</b>. А вариант спрашивает наоборот — \(P(H_0 \mid D)\): насколько вероятно, что эффекта нет, <b>раз мы увидели такие данные</b>.</p><p>Условие и событие переставляет только формула Байеса:\[P(H_0 \mid D) = \frac{P(D \mid H_0)\,P(H_0)}{P(D \mid H_0)\,P(H_0) + P(D \mid H_1)\,P(H_1)}\]Для неё нужны ещё доля работающих идей \(P(H_1)\) и мощность \(P(D \mid H_1)\).</p><p>Пример: работает одна идея из десяти, \(P(H_0) = 0.9\), мощность 80%:\[P(H_0 \mid D) = \frac{0.03 \cdot 0.9}{0.03 \cdot 0.9 + 0.8 \cdot 0.1} \approx 25\%\]— а вовсе не 3%. Подробно — занятие 3.">Вероятность, что \(H_0\) верна, — 3%</button><button type="button" data-v="b" data-why="Вероятность ошибки «отвергли, а эффекта нет» среди всех отвержений — это \(P(H_0 \mid \text{отвергли})\). А \(\alpha\) и p-value — про обратное: \(\alpha = P(\text{отвергли} \mid H_0)\) — как часто прокрасится тест, <b>если эффекта нет</b>; его выбирают до эксперимента.</p><p>Доля ложных среди прокрасов считается по Байесу:\[P(H_0 \mid \text{отвергли}) = \frac{\alpha\,P(H_0)}{\alpha\,P(H_0) + (1 - \beta)\,P(H_1)}\]Нужны доля работающих идей \(P(H_1)\) и мощность \(1 - \beta\).</p><p>Пример: \(\alpha = 5\%\), работает одна идея из десяти, мощность 80%:\[P(H_0 \mid \text{отвергли}) = \frac{0.05 \cdot 0.9}{0.05 \cdot 0.9 + 0.8 \cdot 0.1} = \frac{0.045}{0.125} = 36\%\]— больше трети прокрасов ложные, хотя \(\alpha\) всего 5%. Подробно — занятие 3.">Вероятность, что мы ошиблись, отвергнув \(H_0\), — 3%</button><button type="button" data-v="c" data-why="p-value говорит, насколько данные <b>неожиданны</b> при \(H_0\), а не насколько велик эффект. Для разности средних\[z = \frac{\Delta}{\mathrm{SE}}, \qquad \mathrm{SE} = \sigma\sqrt{2/n}\]и SE падает как \(1/\sqrt{n}\). Поэтому одно и то же маленькое \(p\) дают и большой эффект на малой выборке, и крошечный эффект на огромной.</p><p>Пример: \(\sigma = 7\), разница всего \(\Delta = 0.2\) балла, \(n = 50\,000\) в группе:\[\mathrm{SE} = 7\sqrt{2/50\,000} = 0.044, \quad z = 0.2/0.044 = 4.5, \quad p \approx 6 \cdot 10^{-6}\]— «очень значимо», хотя эффект ничтожный. О размере эффекта говорит интервал (блок 6), а не p.">Эффект большой</button><button type="button" data-v="d">Если бы эффекта не было, такие же или ещё более экстремальные данные встречались бы в 3% случаев</button></div>
     <p class="why">Это дословно определение: \(p = P(\text{данные такие или экстремальнее} \mid H_0)\). Условие — гипотеза, событие — данные.</p>
   </div>
-</section>
-
-<section class="card" data-title="Три клиники">
-  <span class="step-tag">Задача</span>
-  <h2 class="task-h"><span class="tn">Задача 6.</span> Одна разница, три исследования</h2>
-  <p class="extra-note">Дополнительная задача — если останется время</p>
-  <p>Три клиники проверили одну и ту же программу реабилитации после операции на колене: <b>30</b>, <b>60</b> и <b>100</b> пациентов в каждой группе. Через месяц измерили балл подвижности (0–100). Так совпало, что выборки во всех трёх клиниках получились одинаковыми по средним: в группе с программой средний балл <b>52</b>, без неё — <b>50</b>, выборочное стандартное отклонение в обеих группах около 7. Где «эффект есть», а где «нет»?</p>
-  <div class="game" id="g2">
-    <div class="controls"><span>Пациентов в группе:</span><span class="seg" role="group" aria-label="Размер группы">
-      <button type="button" class="btn ghost" data-n="30" aria-pressed="true">30</button><button type="button" class="btn ghost" data-n="60" aria-pressed="false">60</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
-    </span></div>
-    <canvas aria-label="Распределение разности средних при H0 и наблюдаемая разница 2 балла"></canvas>
-    <p class="out" aria-live="polite"></p>
-  </div>
-  <details class="sol"><summary>Решение</summary><div class="body">
-    <p class="stp">52 и 50 — выборочные средние, 7 — оценка разброса по выборке; истинных параметров мы не знаем. Стандартная ошибка разности средних \(\mathrm{SE} = s\sqrt{2/n}\) с \(s \approx 7\), статистика \(z = (52 - 50)/\mathrm{SE}\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
-    <table class="tails"><tr><th>\(n\) в группе</th><th>SE</th><th>\(z\)</th><th>p</th></tr>
-      <tr><td>30</td><td>1.81</td><td>1.11</td><td>0.27</td></tr><tr><td>60</td><td>1.28</td><td>1.56</td><td>0.12</td></tr><tr class="hit"><td>100</td><td>0.99</td><td>2.02</td><td>0.043</td></tr><tr><td>1000</td><td>0.31</td><td>6.39</td><td>\(1.7 \cdot 10^{-10}\)</td></tr></table>
-    <p class="stp">Строго при оценённом разбросе нужен t-критерий (блок 5); при таких \(n\) он даёт почти те же p.</p>
-    <p class="ans">Разница везде одна и та же — 2 балла, а p меняется от 0.27 до \(10^{-10}\). p зависит от размера выборки и не измеряет величину эффекта; о величине говорит интервал (блок 6).</p>
-  </div></details>
 </section>
 
 <section class="card" data-title="Гистограмма p-value">
@@ -159,22 +138,6 @@
   cv1.addEventListener('click', e => { const r = cv1.getBoundingClientRect(), x = e.clientX - r.left, b = bars.find(q => x >= q[0] && x < q[1]); if (b){ obs = b[2]; paint1(); } });
   cv1.style.cursor = 'pointer';
   pick(g1, 'side', v => { side = +v; paint1(); });
-  // 2: три клиники
-  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas'), out2 = g2.querySelector('.out');
-  let n2 = 30;
-  function paint2(){
-    const g = canvas(cv2, 0.34, 0.62); if (!g) return; const {c, w, h} = g, L = 16, R = 16, T = 18, B = 30;
-    const se = 7 * Math.sqrt(2 / n2), z = 2 / se, p = 2 * (1 - normCdf(z)), lo = -6, hi = 6, X = v => L + (v - lo) / (hi - lo) * (w - L - R), top = normPdf(0) * 1.12, Y = v => h - B - (h - T - B) * v / top;
-    const cut = 1.96 * se;
-    Book.bellTails(c, X, Y, 0, se, lo, hi, -cut, cut, {fill: COL.trap, stroke: COL.gray, unit: true});
-    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
-    for (let v = -6; v <= 6; v += 2) label(c, signed(v, 0), X(v), h - B + 15, COL.ink2, 'center');
-    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); c.moveTo(X(2), T); c.lineTo(X(2), h - B); c.stroke();
-    label(c, 'наблюдали +2', X(2) + 5, T + 10, COL.ctrl); label(c, 'красное — за ±1.96 SE', X(-6), T + 10, COL.trapInk);
-    label(c, 'разница средних, баллы; колокол — где она бывает без эффекта', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
-    out2.innerHTML = '\\(\\mathrm{SE} = s\\sqrt{2/n} = 7\\sqrt{2/' + n2 + '} = ' + num(se, 2) + '\\), \\(z = 2/\\mathrm{SE} = ' + num(z, 2) + '\\), \\(p = ' + (p < 0.001 ? num(p * 1e10, 1) + '\\cdot 10^{-10}' : num(p * 100, 1) + '\\%') + '\\) — ' + (p <= 0.05 ? '«эффект есть»' : '«эффекта нет»') + '. Разница та же, меняется только узость колокола.';
-  }
-  pick(g2, 'n', v => { n2 = +v; paint2(); });
   // 3: гистограмма p-value
   const g3 = document.getElementById('g3'), cv3 = g3.querySelector('canvas'), out3 = g3.querySelector('.out');
   let world = 0, pv = null;
@@ -200,6 +163,6 @@
   }
   pick(g3, 'w', v => { world = +v; pv = null; paint3(); });
   document.getElementById('g3-run').addEventListener('click', sim);
-  window.addEventListener('resize', () => { paint0(); paint1(); paint2(); paint3(); });
+  window.addEventListener('resize', () => { paint0(); paint1(); paint3(); });
 })();
 </script>
