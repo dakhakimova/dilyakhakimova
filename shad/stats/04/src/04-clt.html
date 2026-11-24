@@ -106,7 +106,7 @@
   <ul>
     <li>Это ориентир, а не теорема: при таком \(n\) ошибка в каждом хвосте 95%-го интервала отличается от номинальных 2.5% не больше чем на десятую их часть.</li>
     <li>Главное в правиле — \(n \propto \gamma^2\): асимметрия вдвое больше — данных нужно вчетверо больше. Асимметрия среднего по \(n\) наблюдениям равна \(\gamma/\sqrt{n}\) — отсюда и квадрат.</li>
-    <li>Метрики с «китами» обрезают (винзоризуют) или логарифмируют: асимметрия падает, и нужного \(n\) хватает. При бесконечной дисперсии не помогло бы никакое \(n\), но в реальных метриках дисперсия конечна.</li>
+    <li>Метрики с «китами» обрезают сверху — это называется винзоризацией: асимметрия падает, и нужного \(n\) хватает. При бесконечной дисперсии не помогло бы никакое \(n\), но в реальных метриках дисперсия конечна.</li>
   </ul>
   <details class="sol"><summary>Доказательство: асимметрия среднего равна \(\gamma/\sqrt{n}\)</summary><div class="body">
     <p class="stp"><b>Шаг 1. Центрируем.</b> Пусть \(Y_i = X_i - \mu\): независимые, \(\mathbb{E}Y_i = 0\), \(\mathbb{E}Y_i^2 = \sigma^2\), \(\mathbb{E}Y_i^3 = \mu_3\), так что \(\gamma = \mu_3/\sigma^3\). Обозначим \(S = Y_1 + \dots + Y_n = n(\bar X - \mu)\).</p>
@@ -162,7 +162,6 @@
     <li><b>Группа меньше</b> — уменьши асимметрию или смени метод:
       <ul>
         <li>обрезать хвост (винзоризация, например по 99.9-му перцентилю) — асимметрия падает в разы, правило пересчитай для обрезанной метрики;</li>
-        <li>логарифм — но тогда проверяешь гипотезу уже не про среднее;</li>
         <li>бутстрап или перестановочный тест вместо нормального приближения.</li>
       </ul></li>
     <li><b>Проверь A/A-симуляцией на своих данных</b>, держит ли критерий 5%, — самый честный способ.</li>
@@ -190,33 +189,6 @@ g_cap = stats.skew(np.minimum(x, cap))
 print(f"после обрезки γ = {g_cap:.1f}, "
       f"нужно n > {355 * g_cap**2:,.0f}")</code></pre>
   <div class="takeaway"><p><b>Три оговорки.</b> Оценка \(\hat\gamma\) сама неустойчива на тяжёлых хвостах — один «кит» её резко меняет, поэтому считай на большой истории или после обрезки. Правило написано для <b>одного</b> среднего: у разности средних двух <b>равных</b> групп с одинаковым распределением асимметрии частично гасят друг друга, и сравнение устойчивее, чем говорит правило; при неравных группах (90/10) гашение слабее, и правило важно. Порог 355 — ориентир на ошибку в каждом хвосте; для одностороннего теста запас нужен честный.</p></div>
-</section>
-
-<section class="card" data-title="Визуализация: что делает логарифм">
-  <span class="step-tag">Визуализация</span>
-  <h2>Что делает логарифм со скошенной метрикой</h2>
-  <p>Чеки 20 000 покупок: медиана 1 100 ₽, среднее 2 250 ₽ — хвост дорогих заказов тянет среднее вправо. Логарифм сжимает большие значения сильнее малых: разница между 1 000 и 10 000 ₽ становится такой же, как между 10 000 и 100 000.</p>
-  <div class="game" id="gl">
-    <div class="controls"><span class="seg" role="group" aria-label="Шкала">
-      <button type="button" class="btn ghost" data-l="raw" aria-pressed="true">чек как есть</button><button type="button" class="btn ghost" data-l="log" aria-pressed="false">\(\ln(\text{чек})\)</button>
-    </span></div>
-    <p class="chart-t"></p>
-    <canvas aria-label="Гистограмма чеков до и после логарифма"></canvas>
-    <p class="out" aria-live="polite"></p>
-  </div>
-  <h3>Как читать результат теста на логарифмах</h3>
-  <p>Гипотеза \(H_0:\ \mathbb{E}\ln X_A = \mathbb{E}\ln X_B\) — это равенство <b>геометрических средних</b> \(\mathrm{GM} = e^{\mathbb{E}\ln X}\), «типичного» чека. Разница средних логарифмов \(\Delta = \overline{\ln X_B} - \overline{\ln X_A}\) переводится обратно экспонентой:</p>
-  <p class="formula">\[\frac{\mathrm{GM}_B}{\mathrm{GM}_A} = e^{\Delta}.\]</p>
-  <p>Например, \(\Delta = 0.05\): \(e^{0.05} \approx 1.051\) — типичный чек вырос на 5.1%.</p>
-  <p>Интервал тоже: если для \(\Delta\) он \([0.01;\ 0.09]\), то для отношения — \([e^{0.01};\ e^{0.09}] = [1.010;\ 1.094]\), то есть рост от 1.0% до 9.4%.</p>
-  <p><b>Когда это то же, что тест на среднем.</b> Если эффект сдвигает все чеки в одно и то же число раз (у лог-нормального меняется \(\mu\), а \(\sigma\) прежняя), то геометрическое среднее, медиана и обычное среднее меняются в одно и то же число раз — вывод совпадает. Если эффект меняет хвост — нет, ведь у лог-нормального \(\mathbb{E}X = e^{\mu + \sigma^2/2}\).</p>
-  <div class="report-wrap"><table class="tails" aria-label="Пример: логарифмы растут, а выручка падает">
-    <tr><th></th><th>\(\mu\)</th><th>\(\sigma\)</th><th>геом. среднее \(e^{\mu}\)</th><th>среднее \(e^{\mu + \sigma^2/2}\)</th></tr>
-    <tr><td>A</td><td>7.00</td><td>1.2</td><td>1 097 ₽</td><td>2 253 ₽</td></tr>
-    <tr><td>B</td><td>7.05</td><td>1.1</td><td>1 153 ₽ <b class="okc">+5.1%</b></td><td>2 111 ₽ <b class="bad">−6.3%</b></td></tr>
-  </table></div>
-  <p>Тест на логарифмах в такой ситуации прокрасится «в плюс», а выручка упала: эффект срезал дорогие заказы. Поэтому логарифм берём, только если вопрос продукта — про типичный чек, а не про выручку.</p>
-  <div class="takeaway"><p><b>Цена логарифма.</b> Среднее логарифмов — это логарифм <b>геометрического</b> среднего, а не обычного. Тест на \(\ln(\text{чек})\) отвечает, сдвинулся ли «типичный» чек, а не выросла ли выручка: можно увеличить средний \(\ln\), уронив выручку за счёт пары крупных заказов. Нули логарифм не переносит — берут \(\ln(1 + x)\), и смысл меняется ещё сильнее.</p></div>
 </section>
 
 <section class="card" data-title="Вывод">
@@ -327,25 +299,6 @@ print(f"после обрезки γ = {g_cap:.1f}, "
     outm.innerHTML = 'Плюсы справа — <b>' + num(pos, 2) + '</b>, минусы слева — <b>' + num(neg, 2).replace('-', '−') + '</b>, сумма \\(\\mu_3 = ' + num(m3, 2) + '\\), асимметрия \\(\\gamma = \\mu_3/\\sigma^3 \\approx ' + num(gam, 2) + '\\). ' + (Math.abs(gam) < 0.05 ? 'Вклады зеркальны и гасят друг друга.' : gam > 0 ? 'Мало значений справа, но они далеко — в кубе перевешивают.' : 'Хвост влево — перевешивают минусы.');
   }
   pick(gm, 'm', v => { mk = v; paintm(); });
-  // логарифм
-  const gl = document.getElementById('gl'), cvl = gl.querySelector('canvas'), outl = gl.querySelector('.out');
-  let lk = 'raw'; const chk = Array.from({length: 20000}, () => Math.exp(7 + 1.2 * gauss()));
-  const skew = a => { const n = a.length, m = a.reduce((x, y) => x + y, 0) / n; let s2 = 0, s3 = 0; a.forEach(v => { const d = v - m; s2 += d * d; s3 += d * d * d; }); s2 /= n; s3 /= n; return s3 / Math.pow(s2, 1.5); };
-  const sRaw = skew(chk), lchk = chk.map(Math.log), sLog = skew(lchk);
-  function paintl(){
-    const g = canvas(cvl, 0.4, 0.75); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 10, B = 30;
-    const a = lk === 'raw' ? chk : lchk, srt = a.slice().sort((x, y) => x - y), lo = lk === 'raw' ? 0 : srt[Math.floor(srt.length * 0.001)], hi = srt[Math.floor(srt.length * (lk === 'raw' ? 0.98 : 0.999))], N = 50, bw = (hi - lo) / N, cnt = new Array(N).fill(0);
-    a.forEach(v => { const i = Math.floor((v - lo) / bw); if (i >= 0 && i < N) cnt[i]++; });
-    const top = Math.max(...cnt) * 1.08, X = v => L + (v - lo) / (hi - lo) * (w - L - R);
-    cnt.forEach((v, i) => { const hh = (h - T - B) * v / top; c.fillStyle = '#A9B8DA'; c.fillRect(X(lo + i * bw) + 1, h - B - hh, Math.max(1, (w - L - R) / N - 2), hh); });
-    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
-    const step = Book.niceStep(hi - lo, 5); for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) big(c, lk === 'raw' ? String(Math.round(v)) : num(v, 1), X(v), h - B + 18, COL.ink2, 14, 400);
-    const mean = a.reduce((x, y) => x + y, 0) / a.length, med = srt[Math.floor(srt.length / 2)];
-    [[mean, 'среднее', COL.trap], [med, 'медиана', COL.ctrl]].forEach(([v, t, col], j) => { if (v < lo || v > hi) return; c.strokeStyle = col; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(X(v), T + 4); c.lineTo(X(v), h - B); c.stroke(); c.setLineDash([]); big(c, t, X(v) + (j ? -6 : 6), T + 18 + j * 18, col, 15, 600, j ? 'right' : 'left'); });
-    gl.querySelector('.chart-t').innerHTML = lk === 'raw' ? 'Чек, ₽ (без 2% самых дорогих — иначе не видно формы)' : 'Логарифм чека';
-    outl.innerHTML = lk === 'raw' ? 'Асимметрия \\(\\hat\\gamma \\approx ' + num(sRaw, 1) + '\\): длинный хвост вправо, среднее далеко от медианы. По правилу нужно \\(n > ' + String(Math.round(355 * sRaw * sRaw)).replace(/\B(?=(\d{3})+(?!\d))/g, '\\,') + '\\).' : 'Асимметрия \\(\\hat\\gamma \\approx ' + num(Math.abs(sLog) < 0.005 ? 0 : sLog, 2) + '\\): после логарифма колокол почти симметричен, среднее и медиана совпали — ЦПТ сработает уже на сотне.';
-  }
-  pick(gl, 'l', v => { lk = v; paintl(); });
-  window.addEventListener('resize', () => { if (!sim) run(); else paint1(); paintm(); paintl(); });
+  window.addEventListener('resize', () => { if (!sim) run(); else paint1(); paintm(); });
 })();
 </script>
