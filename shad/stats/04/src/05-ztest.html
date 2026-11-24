@@ -1,0 +1,218 @@
+{"title": "z- и t-критерий", "short": "5. z- и t-критерий", "h": "Блок 5 · z и t", "lead": "Кнопка 10.0% → 10.6%, Стьюдент из пивоварни Guinness и нормальность", "next": "06-ci.html"}
+<section class="card" data-title="Это победа?">
+  <p class="kicker">Занятие 4 · блок 5</p>
+  <h1>z- и t-критерий для A/B</h1>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Новую кнопку «Оформить» показали половине пользователей. Конверсия 10.6% против 10.0%. Это победа?</p></div></div>
+  </div>
+  <p class="lead">В блоке 1 была одна группа и известное распределение. В A/B две группы и десятки тысяч пользователей, но схема та же: гипотезы, статистика, её распределение при \(H_0\), критическая область. Статистика теперь — <b>разница средних в единицах стандартной ошибки</b>.</p>
+</section>
+
+<section class="card" data-title="Откуда z-статистика">
+  <span class="step-tag">Определение</span>
+  <h2>Откуда z-статистика: вывод по шагам</h2>
+  <p>В группах A и B по \(n_A\) и \(n_B\) независимых пользователей; настоящие (неизвестные) средние метрики \(\mu_A, \mu_B\), дисперсии \(\sigma_A^2, \sigma_B^2\); по данным считаем выборочные средние \(\bar X_A, \bar X_B\).</p>
+  <ol class="howto">
+    <li><b>Каждое среднее почти нормально</b> (ЦПТ, блок 4): \(\bar X_A \approx N\big(\mu_A,\ \sigma_A^2/n_A\big)\), \(\bar X_B \approx N\big(\mu_B,\ \sigma_B^2/n_B\big)\).</li>
+    <li><b>Разность тоже нормальна.</b> Группы независимы; центр \(\mathbb{E}(\bar X_B - \bar X_A) = \mu_B - \mu_A\), дисперсии независимых величин складываются, минус не мешает — \(\mathbb{D}(-X) = \mathbb{D}X\):
+      <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \mathrm{SE}_\Delta^2\big), \qquad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
+    <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\mathrm{SE}_\Delta} \approx N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
+    <li><b>При \(H_0:\ \mu_A = \mu_B\) разность \(\mu\) равна нулю</b> — как в блоке 1, предполагаем, что \(H_0\) верна:
+      <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \approx N(0, 1) \quad \text{при } H_0.\]</p></li>
+    <li><b>Критерий</b>: двусторонний, отвергаем при \(|z| \ge 1.96\); \(p = 2\,P\big(N(0,1) \ge |z|\big)\).</li>
+    <li><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b> (для конверсии \(s^2 = \hat p(1 - \hat p)\)). Это законно по <b>теореме Слуцкого</b>: \(\dfrac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \cdot \dfrac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}\), первый множитель \(\xrightarrow{d} N(0,1)\), второй \(\xrightarrow{P} 1\) по ЗБЧ, значит произведение \(\xrightarrow{d} N(0,1)\). На малых \(n\) второй множитель ещё гуляет — это поправляет t-критерий.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Задача: кнопка 10.0% → 10.6%">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 10.</span> Новая кнопка: 10.0% → 10.6%</h2>
+  <p>В каждой группе по <b>20 000</b> пользователей. Конверсия в контроле <b>10.0%</b>, в тесте <b>10.6%</b>. Посчитай SE разности, z-статистику и двустороннее p-value. Прокрасилось на уровне 5%?</p>
+  <div class="game" id="g1">
+    <div class="controls">
+      <label class="field">\(n\) в группе <input type="number" class="n-in" data-f="n" min="10" max="10000000" step="1000" value="20000"></label>
+      <label class="field">\(p_A\), % <input type="number" class="n-in" data-f="pa" min="0.1" max="99" step="0.1" value="10.0"></label>
+      <label class="field">\(p_B\), % <input type="number" class="n-in" data-f="pb" min="0.1" max="99" step="0.1" value="10.6"></label>
+    </div>
+    <canvas aria-label="Распределение z при H0 и наблюдаемое z"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="rule-d"><summary>Показать ответ</summary><div class="rule"><span class="rule-k">z-критерий · \(\alpha = 5\%\)</span><p class="rule-r">\(z = 1.97 \ge 1.96\) — прокрасилось, впритык</p></div>
+  <p class="rule-why">\(\mathrm{SE}_\Delta \approx 0.304\%\), \(p \approx 0.048\). Эффект может быть почти нулевым — в блоке 6 посмотрим на это через интервал, в блоке 9 — что будет, если у Боба 20 метрик.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Дисперсии.</b> Метрика 0/1: \(s_A^2 = 0.1 \cdot 0.9 = 0.09\), \(s_B^2 = 0.106 \cdot 0.894 \approx 0.0948\).</p>
+    <p class="stp"><b>Шаг 2. Разница.</b> \(\Delta = 10.6\% - 10.0\% = 0.006\).</p>
+    <p class="stp"><b>Шаг 3. SE.</b> \(\mathrm{SE}_\Delta = \sqrt{0.09/20\,000 + 0.0948/20\,000} = \sqrt{9.24 \cdot 10^{-6}} \approx 0.00304\).</p>
+    <p class="stp"><b>Шаг 4.</b> \(z = 0.006/0.00304 \approx 1.97\); \(p = 2\,P(N(0,1) \ge 1.97) \approx 0.048\). При \(n\) в десятки тысяч t и z совпадают.</p>
+    <p class="ans">\(\mathrm{SE} \approx 0.304\%\), \(z \approx 1.97\), \(p \approx 0.048\) — прокрасилось на 5%, впритык.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="t-критерий: откуда Стьюдент">
+  <span class="step-tag">Определение</span>
+  <h2>t-критерий: откуда Стьюдент</h2>
+  <div class="def">
+    <p>Статистика та же, только с выборочными дисперсиями: \(t = \dfrac{\bar X_B - \bar X_A}{\sqrt{s_A^2/n_A + s_B^2/n_B}}\). Но при \(H_0\) она распределена не нормально, а по <b>Стьюденту</b>: у него тяжелее хвосты — он учитывает, что SE оценена с ошибкой. При \(n\) в сотни и больше t и z практически совпадают.</p>
+  </div>
+  <ul>
+    <li><b>Точно Стьюдент</b> получается, только если <b>сами данные нормальны</b>: тогда среднее нормально при любом \(n\), а выборочная дисперсия от него не зависит (так вывел Госсет). Для двух групп с разными дисперсиями даже при нормальных данных распределение Уэлча — хорошее приближение, а не точная формула.</li>
+    <li><b>Данные не нормальны</b> (выручка, чеки, время — никогда): точного Стьюдента нет, t работает приближённо благодаря ЦПТ и теореме Слуцкого — при большом \(n\) \(t \xrightarrow{d} N(0, 1)\). На малых \(n\) и скошенных данных не гарантирован ни z, ни t: поправка Стьюдента лечит только неточность SE, но не ненормальность среднего.</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Уэлч: что он делает">
+  <span class="step-tag">Определение</span>
+  <h2>t-критерий Уэлча — дефолт в A/B</h2>
+  <p>В SciPy — <code>ttest_ind(..., equal_var=False)</code>. Две вещи:</p>
+  <ol>
+    <li><b>SE из раздельных дисперсий</b> \(\sqrt{s_A^2/n_A + s_B^2/n_B}\) вместо общей (pooled). При равных группах обе формулы SE совпадают.</li>
+    <li><b>Степени свободы по Уэлчу — Саттертуэйту</b> вместо \(n_A + n_B - 2\):
+      <p class="formula">\[\nu = \frac{\big(s_A^2/n_A + s_B^2/n_B\big)^2}{\dfrac{(s_A^2/n_A)^2}{n_A - 1} + \dfrac{(s_B^2/n_B)^2}{n_B - 1}}.\]</p>
+      Если одна группа даёт почти весь вклад в SE, \(\nu \approx\) её размер минус 1: степени свободы определяет маленькая или шумная группа.</li>
+  </ol>
+  <div class="report-wrap"><table class="tails sig" aria-label="Доля ложных прокрасов при 5% без эффекта">
+    <tr><th>группы<br><small>разброс 1 и 3</small></th><th>общая дисперсия</th><th>раздельные SE + нормальное</th><th>Уэлч</th><th>\(\nu\)</th></tr>
+    <tr><td>1 000 и 100, шумная — меньшая</td><td class="bad">36%</td><td>5.3%</td><td class="okc">4.9%</td><td>≈ 100</td></tr>
+    <tr><td>100 и 1 000, шумная — большая</td><td class="bad">0%</td><td>5.3%</td><td class="okc">5.2%</td><td>≈ 330</td></tr>
+    <tr><td>50 и 5, шумная — меньшая</td><td class="bad">39%</td><td class="bad">12%</td><td class="okc">5.1%</td><td>≈ 4</td></tr>
+  </table></div>
+  <p>Главную ошибку общей дисперсии лечат <b>раздельные SE</b>, и это не зависит от \(n\). Степени свободы важны, только когда \(\nu\) мало: в A/B с тысячами в группе t = z, но в узком срезе, где в одной группе 5 человек, \(\nu \approx 4\). Поэтому Уэлч — по умолчанию.</p>
+</section>
+
+<section class="card" data-title="Визуализация: Стьюдент и нормальное">
+  <span class="step-tag">Визуализация</span>
+  <h2>Хвосты Стьюдента и порог для 5%</h2>
+  <div class="game" id="g2">
+    <div class="controls"><label class="field">Степеней свободы \(\nu\) = <input type="number" class="n-in" id="g2-v" min="1" max="1000" step="1" value="3"></label><button type="button" class="btn ghost" id="g2-plus">+1</button><button type="button" class="btn ghost" id="g2-x2">×2</button></div>
+    <canvas aria-label="Плотность Стьюдента и нормальная, пороги для 5%"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: 25 наблюдений">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 11.</span> 25 наблюдений: z или t?</h2>
+  <p>В узком срезе — 25 пользователей. Разница с гипотезой оказалась ровно <b>2 SE</b>. Посчитай двустороннее p-value по нормальному распределению и по Стьюденту с 24 степенями свободы. Прокрасилось?</p>
+  <details class="rule-d"><summary>Показать ответ</summary><div class="rule"><span class="rule-k">Одна и та же двойка — два вердикта</span><p class="rule-r">\(p_z = 0.046\) — значимо, \(p_t = 0.057\) — нет</p></div>
+  <p class="rule-why">В калькуляторе: <code>2*(1-Phi(2))</code> и <code>2*(1-T(2, 24))</code>. На малых \(n\) выбор распределения — выбор вердикта; правильно — Стьюдент, дисперсию мы оценивали.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> Статистика дана: \(t = 2\), SE оценена по 25 наблюдениям, \(\nu = n - 1 = 24\).</p>
+    <p class="stp"><b>Шаг 2.</b> По \(N(0, 1)\): \(2\,P(Z \ge 2) = 2 \cdot 0.0228 = 0.0455\) — значимо на 5%.</p>
+    <p class="stp"><b>Шаг 3.</b> По Стьюденту: \(2\,P(T_{24} \ge 2) \approx 0.0569\) — не значимо. Порог для 5% при 24 степенях свободы — 2.06, а не 1.96.</p>
+    <p class="ans">\(p_z = 0.046\), \(p_t = 0.057\): на малых \(n\) t по умолчанию — на больших он ничего не стоит, а на малых страхует.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="История: Стьюдент из Guinness">
+  <span class="step-tag">История</span>
+  <h2>Стьюдент из пивоварни Guinness</h2>
+  <figure class="art"><img src="img/05-guinness.jpg" alt="Химик пивоварни с пробами ячменя"></figure>
+  <div class="story"><p>t-распределение придумал Уильям Госсет — химик дублинской пивоварни Guinness. Ему нужно было судить о качестве ячменя и солода по нескольким пробам, а не по тысячам: нормальное приближение на таких выборках ошибалось. Пивоварня не разрешала сотрудникам публиковать результаты под своим именем, и статья 1908 года «Вероятная ошибка среднего» вышла под псевдонимом <b>Student</b>.</p></div>
+</section>
+
+<section class="card" data-title="Задача: нормальность для t">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 12.</span> t-тесту нужны нормальные данные?</h2>
+  <p>«Перед t-тестом надо проверить данные на нормальность, например критерием Шапиро — Уилка. Если не нормальные — t-тест нельзя». Согласен?</p>
+  <details class="rule-d"><summary>Показать ответ</summary><div class="rule"><span class="rule-k">Ответ</span><p class="rule-r">Нет: нужна нормальность среднего (ЦПТ), а не данных</p></div>
+  <p class="rule-why">Проверка — A/A-симуляция на своих данных, а не Шапиро — Уилк.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Что приближаем.</b> t-статистика — разность <b>средних</b>, делённая на SE. Ей нужна приблизительная нормальность средних, а не данных.</p>
+    <p class="stp"><b>Шаг 2. Асимметрия и \(n\).</b> По ЦПТ среднее нормализуется при \(n \gtrsim 355\gamma^2\) (блок 4); для большинства продуктовых метрик на тысячах пользователей это выполнено.</p>
+    <p class="stp"><b>Шаг 3. Хвост.</b> Опасны не «ненормальные» данные, а тяжёлые хвосты и единичные гиганты: тогда обрезать или брать другой критерий.</p>
+    <p class="stp"><b>Шаг 4. Проверка.</b> Шапиро — Уилк бесполезен: на больших \(n\) отвергает нормальность почти всегда, на малых не видит перекоса. Правильная проверка — A/A-симуляция: если ложных прокрасов около \(\alpha\) и p-value равномерны, t-тест годится.</p>
+    <p class="ans">Нет: нужна нормальность среднего, а не данных; проверка — A/A-симуляция.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: три клиники">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 13.</span> Одна разница, три исследования</h2>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <p>Три клиники проверили одну и ту же программу реабилитации после операции на колене: <b>30</b>, <b>60</b> и <b>100</b> пациентов в каждой группе. Через месяц измерили балл подвижности (0–100). Так совпало, что выборки во всех трёх клиниках получились одинаковыми по средним: в группе с программой средний балл <b>52</b>, без неё — <b>50</b>, выборочное стандартное отклонение в обеих группах около 7. Где «эффект есть», а где «нет»?</p>
+  <div class="game" id="gC">
+    <div class="controls"><span>Пациентов в группе:</span><span class="seg" role="group" aria-label="Размер группы">
+      <button type="button" class="btn ghost" data-n="30" aria-pressed="true">30</button><button type="button" class="btn ghost" data-n="60" aria-pressed="false">60</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
+    </span></div>
+    <canvas aria-label="Распределение разности средних при H0 и наблюдаемая разница 2 балла"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp">52 и 50 — выборочные средние, 7 — оценка разброса по выборке; истинных параметров мы не знаем. Стандартная ошибка разности средних \(\mathrm{SE} = s\sqrt{2/n}\) с \(s \approx 7\), статистика \(z = (52 - 50)/\mathrm{SE}\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
+    <table class="tails"><tr><th>\(n\) в группе</th><th>SE</th><th>\(z\)</th><th>p</th></tr>
+      <tr><td>30</td><td>1.81</td><td>1.11</td><td>0.27</td></tr><tr><td>60</td><td>1.28</td><td>1.56</td><td>0.12</td></tr><tr class="hit"><td>100</td><td>0.99</td><td>2.02</td><td>0.043</td></tr><tr><td>1000</td><td>0.31</td><td>6.39</td><td>\(1.7 \cdot 10^{-10}\)</td></tr></table>
+    <p class="stp">Строго, раз разброс оценён по выборке, — t-критерий Уэлча; при 30 и больше в группе он даёт почти те же p (при 30: 0.27 против 0.27).</p>
+    <p class="ans">Разница везде одна и та же — 2 балла, а p меняется от 0.27 до \(10^{-10}\). p зависит от размера выборки и не измеряет величину эффекта; о величине говорит интервал (блок 6).</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>z и t</h2>
+  <div class="takeaway"><p>A/B-тест на среднем: \(t = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta}\), \(\mathrm{SE}_\Delta = \sqrt{s_A^2/n_A + s_B^2/n_B}\). По умолчанию — t-критерий Уэлча: на больших \(n\) он совпадает с z, на малых страхует. Нормальность нужна среднему, а не данным.</p></div>
+  <a class="next-step" href="06-ci.html"><b>Дальше: 6. Доверительные интервалы</b>Сколько интервалов накрывает правду.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
+  const curve = (c, X, Y, f, lo, hi, col, lw) => { c.beginPath(); for (let k = 0; k <= 400; k++){ const x = lo + (hi - lo) * k / 400, px = X(x), py = Y(f(x)); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = col; c.lineWidth = lw || 2.2; c.stroke(); };
+  const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
+  // 1: z-тест для конверсии
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
+  const f1 = k => +String(g1.querySelector('[data-f="' + k + '"]').value).replace(',', '.');
+  function paint1(){
+    const n = Math.max(2, Math.round(f1('n'))), pa = f1('pa') / 100, pb = f1('pb') / 100;
+    const se = Math.sqrt(pa * (1 - pa) / n + pb * (1 - pb) / n), z = (pb - pa) / se, p = 2 * (1 - normCdf(Math.abs(z)));
+    const g = canvas(cv1, 0.34, 0.66); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 30, B = 32, lo = -4.5, hi = 4.5;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.08);
+    area(c, X, Y, normPdf, lo, -1.96, h - B, 'rgba(201,65,58,.55)'); area(c, X, Y, normPdf, 1.96, hi, h - B, 'rgba(201,65,58,.55)');
+    curve(c, X, Y, normPdf, lo, hi, COL.gray);
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = -4; v <= 4; v += 2) big(c, String(v).replace('-', '−'), X(v), h - B + 18, COL.ink2, 14, 400);
+    big(c, '±1.96', X(1.96), h - B + 18, COL.trapInk, 14, 600);
+    const zc = Math.max(lo, Math.min(hi, z)); c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X(zc), T - 6); c.lineTo(X(zc), h - B); c.stroke();
+    big(c, 'z = ' + num(z, 2), X(zc) + (zc > 2.5 ? -6 : 6), T - 10, COL.ctrl, 16, 700, zc > 2.5 ? 'right' : 'left');
+    out1.innerHTML = '\\(\\mathrm{SE}_\\Delta = \\sqrt{\\frac{p_A(1-p_A)}{n} + \\frac{p_B(1-p_B)}{n}} = ' + num(100 * se, 3) + '\\%\\), \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\) — ' + (Math.abs(z) >= 1.96 ? '<b>прокрасилось</b>' : '<b>не прокрасилось</b>') + ' на уровне 5%.';
+  }
+  g1.addEventListener('input', paint1);
+  // 2: Стьюдент против нормального
+  const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas'), out2 = g2.querySelector('.out'), vIn = document.getElementById('g2-v');
+  let v = 3; const setV = x => { v = Math.max(1, Math.min(1000, Math.round(+x) || 1)); vIn.value = v; paint2(); };
+  function paint2(){
+    const g = canvas(cv2, 0.4, 0.75); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 30, B = 32, lo = -6, hi = 6;
+    const X = x => L + (x - lo) / (hi - lo) * (w - L - R), Y = y => h - B - (h - T - B) * y / (normPdf(0) * 1.08);
+    const tq = tInv(0.975, v), tp = x => tPdf(x, v);
+    area(c, X, Y, tp, lo, -tq, h - B, 'rgba(201,65,58,.55)'); area(c, X, Y, tp, tq, hi, h - B, 'rgba(201,65,58,.55)');
+    curve(c, X, Y, normPdf, lo, hi, COL.gray, 2); curve(c, X, Y, tp, lo, hi, COL.ctrl, 2.6);
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let x = -6; x <= 6; x += 2) big(c, String(x).replace('-', '−'), X(x), h - B + 18, COL.ink2, 14, 400);
+    c.setLineDash([5, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.5; [-1.96, 1.96].forEach(x => { c.beginPath(); c.moveTo(X(x), T); c.lineTo(X(x), h - B); c.stroke(); }); c.setLineDash([]);
+    big(c, 'серое — нормальное, синее — Стьюдент с ν = ' + v, L, 18, COL.ink, 15, 600, 'left');
+    out2.innerHTML = 'Порог для 5% (двусторонний): у Стьюдента с \\(\\nu = ' + v + '\\) — <b>' + num(tq, 2) + '</b>, у нормального — 1.96 (серый пунктир). ' + (tq - 1.96 < 0.02 ? 'Почти совпали.' : 'Хвосты тяжелее — порог дальше.');
+  }
+  vIn.addEventListener('change', () => setV(vIn.value)); vIn.addEventListener('keydown', e => { if (e.key === 'Enter') setV(vIn.value); e.stopPropagation(); });
+  document.getElementById('g2-plus').addEventListener('click', () => setV(v + 1));
+  document.getElementById('g2-x2').addEventListener('click', () => setV(v * 2));
+
+  // три клиники
+  const gC = document.getElementById('gC'), cvC = gC.querySelector('canvas'), outC = gC.querySelector('.out');
+  let nC = 30;
+  function paintC(){
+    const g = canvas(cvC, 0.34, 0.62); if (!g) return; const {c, w, h} = g, L = 16, R = 16, T = 18, B = 30;
+    const se = 7 * Math.sqrt(2 / nC), z = 2 / se, p = 2 * (1 - normCdf(z)), lo = -6, hi = 6, X = v => L + (v - lo) / (hi - lo) * (w - L - R), top = normPdf(0) * 1.12, Y = v => h - B - (h - T - B) * v / top;
+    const cut = 1.96 * se;
+    Book.bellTails(c, X, Y, 0, se, lo, hi, -cut, cut, {fill: COL.trap, stroke: COL.gray, unit: true});
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = -6; v <= 6; v += 2) label(c, signed(v, 0), X(v), h - B + 15, COL.ink2, 'center');
+    c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.beginPath(); c.moveTo(X(2), T); c.lineTo(X(2), h - B); c.stroke();
+    label(c, 'наблюдали +2', X(2) + 5, T + 10, COL.ctrl); label(c, 'красное — за ±1.96 SE', X(-6), T + 10, COL.trapInk);
+    label(c, 'разница средних, баллы; колокол — где она бывает без эффекта', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
+    outC.innerHTML = '\\(\\mathrm{SE} = s\\sqrt{2/n} = 7\\sqrt{2/' + nC + '} = ' + num(se, 2) + '\\), \\(z = 2/\\mathrm{SE} = ' + num(z, 2) + '\\), \\(p = ' + (p < 0.001 ? num(p * 1e10, 1) + '\\cdot 10^{-10}' : num(p * 100, 1) + '\\%') + '\\) — ' + (p <= 0.05 ? '«эффект есть»' : '«эффекта нет»') + '. Разница та же, меняется только узость колокола.';
+  }
+  pick(gC, 'n', v => { nC = +v; paintC(); });
+
+  window.addEventListener('resize', () => { paint1(); paint2(); paintC(); });
+})();
+</script>

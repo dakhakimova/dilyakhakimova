@@ -1,3 +1,8 @@
+// Распределение Стьюдента: плотность, функция распределения и квантиль (для игр и калькулятора)
+window.tPdf = (x, v) => Math.exp(lgamma((v + 1) / 2) - lgamma(v / 2)) / Math.sqrt(v * Math.PI) * Math.pow(1 + x * x / v, -(v + 1) / 2);
+window.tCdf = (t, v) => { if (v > 400) return normCdf(t); const a = Math.abs(t), N = 2000, h = a / N; let s = tPdf(0, v) + tPdf(a, v); for (let i = 1; i < N; i++) s += (i % 2 ? 4 : 2) * tPdf(i * h, v); const half = s * h / 3; return t >= 0 ? 0.5 + half : 0.5 - half; };
+window.tInv = (p, v) => { let lo = -60, hi = 60; for (let i = 0; i < 70; i++){ const m = (lo + hi) / 2; if (tCdf(m, v) < p) lo = m; else hi = m; } return (lo + hi) / 2; };
+
 /* Занятие 4 ШАД: общие помощники поверх /signal/book.js.
    Проверка ответа: <div class="check" data-ans="20" data-tol="0.5" data-unit="%" data-ok="…" data-hint="…"><label>…</label></div>
    — поле и кнопка дорисовываются сами; принимаются запятая и точка, знак % можно не писать.
@@ -91,14 +96,15 @@
   const fact = n => { n = Math.round(n); let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; };
   const C = (n, k) => { n = Math.round(n); k = Math.round(k); if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return Math.round(r * 1e6) / 1e6 === Math.round(r) ? Math.round(r) : r; };
   const Phi = z => (typeof normCdf === 'function') ? normCdf(z) : NaN;
+  const T = (t, v) => window.tCdf(t, v);
   function ev(src){
-    let s = String(src).replace(/[Сс]/g, 'C').replace(/\bc\(/g, 'C(').replace(/[Хх]/g, '*').replace(/C\(\s*([^,;()]+?)\s*[,;]\s*([^,;()]+?)\s*\)/g, 'C($1;$2)').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/−/g, '-').replace(/√/g, 'sqrt').replace(/\s+/g, '');
+    let s = String(src).replace(/[Сс]/g, 'C').replace(/\bc\(/g, 'C(').replace(/[Хх]/g, '*').replace(/([CT])\(\s*([^,;()]+?)\s*[,;]\s*([^,;()]+?)\s*\)/g, '$1($2;$3)').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/−/g, '-').replace(/√/g, 'sqrt').replace(/\s+/g, '');
     s = s.replace(/;/g, ',');
     if (!/^[0-9+\-*/^().!,a-zA-Zπ%]*$/.test(s)) throw 0;
     const words = s.match(/[a-zA-Zπ]+/g) || [];
-    if (words.some(w => !['C', 'sqrt', 'ln', 'log', 'exp', 'pi', 'e', 'Phi', 'π'].includes(w))) throw 0;
+    if (words.some(w => !['C', 'sqrt', 'ln', 'log', 'exp', 'pi', 'e', 'Phi', 'T', 'π'].includes(w))) throw 0;
     s = s.replace(/(\d+(?:\.\d+)?|\))!/g, 'fact($1)').replace(/\^/g, '**').replace(/π|\bpi\b/g, 'Math.PI').replace(/\bsqrt\b/g, 'Math.sqrt').replace(/\bln\b/g, 'Math.log').replace(/\blog\b/g, 'Math.log10').replace(/\bexp\b/g, 'Math.exp').replace(/\be\b/g, 'Math.E').replace(/(\d+(?:\.\d+)?)%/g, '($1/100)');
-    return Function('C', 'fact', 'Phi', '"use strict"; return (' + s + ');')(C, fact, Phi);
+    return Function('C', 'fact', 'Phi', 'T', '"use strict"; return (' + s + ');')(C, fact, Phi, T);
   }
   const fmt = v => !isFinite(v) ? '—' : Math.abs(v) >= 1e9 || (Math.abs(v) < 1e-4 && v !== 0) ? v.toExponential(4) : String(Math.round(v * 1e6) / 1e6);
   function init(){
@@ -106,7 +112,7 @@
     const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'toggle calc-btn'; btn.textContent = '🧮 Калькулятор'; btn.setAttribute('aria-expanded', 'false');
     head.appendChild(btn);
     const box = document.createElement('div'); box.className = 'calc-pop'; box.hidden = true;
-    box.innerHTML = '<div class="calc-line"><input type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 2^10, C(14,12), 1-(1-0.0065)^50"><button type="button" class="btn calc-eq">=</button><button type="button" class="btn ghost calc-clr">Очистить</button></div><ol class="calc-hist"></ol><p class="calc-help">Можно: + − × / ^, скобки, C(n,k), n!, sqrt(), ln(), exp(), Phi(z), проценты 5%. Esc — стереть строку.</p>';
+    box.innerHTML = '<div class="calc-line"><input type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="например 2^10, C(14,12), 1-(1-0.0065)^50"><button type="button" class="btn calc-eq">=</button><button type="button" class="btn ghost calc-clr">Очистить</button></div><ol class="calc-hist"></ol><p class="calc-help">Можно: + − × / ^, скобки, C(n,k), n!, sqrt(), ln(), exp(), Phi(z), T(t, ν) — функция распределения Стьюдента, проценты 5%. Esc — стереть строку.</p>';
     head.after(box);
     const inp = box.querySelector('input'), hist = box.querySelector('.calc-hist');
     const run = () => { const t = inp.value.trim(); if (!t) return; let r; try { r = fmt(ev(t)); } catch (e) { r = 'не понимаю выражение'; } const li = document.createElement('li'); li.innerHTML = '<span class="q"></span> = <b></b>'; li.querySelector('.q').textContent = t; li.querySelector('b').textContent = r; hist.prepend(li); while (hist.children.length > 6) hist.lastChild.remove(); inp.select(); };
@@ -119,4 +125,26 @@
     btn.addEventListener('click', () => { box.hidden = !box.hidden; btn.setAttribute('aria-expanded', String(!box.hidden)); if (!box.hidden) inp.focus(); });
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+})();
+
+// Подсветка Python в <pre class="code"> (правило гайда: весь код подсвечиваем)
+(function(){
+  const KW = new Set(['import','from','as','def','return','for','in','if','elif','else','while','with','lambda','and','or','not','is','None','True','False','class','try','except','yield','pass','break','continue','print']);
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  function hl(src){
+    const re = /(#[^\n]*)|([rbfRBF]{0,2}"(?:\\.|[^"\\\n])*"|[rbfRBF]{0,2}'(?:\\.|[^'\\\n])*')|(\b\d+(?:\.\d+)?(?:e-?\d+)?\b)|([A-Za-z_]\w*)(?=\s*\()|([A-Za-z_]\w*)/g;
+    let out = '', last = 0, m;
+    while ((m = re.exec(src))){
+      out += esc(src.slice(last, m.index)); last = re.lastIndex;
+      const t = esc(m[0]);
+      if (m[1]) out += '<span class="c-com">' + t + '</span>';
+      else if (m[2]) out += '<span class="c-str">' + t + '</span>';
+      else if (m[3]) out += '<span class="c-num">' + t + '</span>';
+      else if (m[4]) out += KW.has(m[4]) ? '<span class="c-kw">' + t + '</span>' : '<span class="c-fn">' + t + '</span>';
+      else out += KW.has(m[5]) ? '<span class="c-kw">' + t + '</span>' : t;
+    }
+    return out + esc(src.slice(last));
+  }
+  const go = () => document.querySelectorAll('pre.code > code').forEach(el => { if (!el.dataset.hl){ el.innerHTML = hl(el.textContent); el.dataset.hl = '1'; } });
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', go) : go();
 })();
