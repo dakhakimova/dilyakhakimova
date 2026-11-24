@@ -14,7 +14,7 @@
   <p>В группах A и B по \(n_A\) и \(n_B\) независимых пользователей; настоящие (неизвестные) средние метрики \(\mu_A, \mu_B\), дисперсии \(\sigma_A^2, \sigma_B^2\); по данным считаем выборочные средние \(\bar X_A, \bar X_B\).</p>
   <ol class="howto reveal">
     <li><b>Каждое среднее почти нормально</b> (ЦПТ, блок 4): \(\bar X_A \approx N\big(\mu_A,\ \sigma_A^2/n_A\big)\), \(\bar X_B \approx N\big(\mu_B,\ \sigma_B^2/n_B\big)\).</li>
-    <li><b>Разность тоже нормальна.</b> Группы независимы; центр \(\mathbb{E}(\bar X_B - \bar X_A) = \mu_B - \mu_A\), дисперсии независимых величин складываются, минус не мешает — \(\mathbb{D}(-X) = \mathbb{D}X\):
+    <li><b>Разность тоже <a href="/terms/normal-distribution/#sum-h">нормальна</a>.</b> Группы независимы; центр \(\mathbb{E}(\bar X_B - \bar X_A) = \mu_B - \mu_A\), дисперсии независимых величин складываются, минус не мешает — \(\mathbb{D}(-X) = \mathbb{D}X\):
       <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \mathrm{SE}_\Delta^2\big), \qquad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
     <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\mathrm{SE}_\Delta} \approx N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
     <li><b>При \(H_0:\ \mu_A = \mu_B\) разность \(\mu\) равна нулю</b> — как в блоке 1, предполагаем, что \(H_0\) верна:
