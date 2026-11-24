@@ -48,10 +48,6 @@
     <div class="controls">
       <span>Порог \(k\):</span>
       <span class="stepper" data-min="14" data-max="34" data-v="29"><button class="btn ghost" type="button" aria-label="Меньше">−</button><output></output><button class="btn ghost" type="button" aria-label="Больше">+</button></span>
-      <span class="seg" role="group" aria-label="Альтернатива">
-        <button type="button" class="btn ghost" data-side="1" aria-pressed="true">\(p &gt; 1/2\)</button>
-        <button type="button" class="btn ghost" data-side="2" aria-pressed="false">\(p \ne 1/2\)</button>
-      </span>
     </div>
     <canvas aria-label="Распределение числа выкупов при H0 и критическая область"></canvas>
     <p class="out" aria-live="polite"></p>
@@ -94,7 +90,7 @@
   </div>
 
   <h3>Задача 3. Двусторонняя альтернатива</h3>
-  <p>Те же 40 клиентов, но вопрос другой: «выкуп отличается от 1/2 в любую сторону?», \(\alpha = 5\%\). Какой будет критическая область? Отвергаем ли \(H_0\) при 25 выкупах? Проверь себя на игре — включи \(p \ne 1/2\).</p>
+  <p>Те же 40 клиентов, но вопрос другой: «выкуп отличается от 1/2 в любую сторону?», \(\alpha = 5\%\). Какой будет критическая область? Отвергаем ли \(H_0\) при 25 выкупах?</p>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1.</b> \(H_0:\ p = 1/2\), \(H_1:\ p \ne 1/2\).</p>
     <p class="stp"><b>Шаг 2.</b> При \(H_0\) \(X \sim \mathrm{Bin}(40,\ 1/2)\) симметрично относительно 20: \(P(X \ge k) = P(X \le 40 - k)\).</p>
@@ -176,9 +172,7 @@
       ' 25 ' + (k1 <= 25 ? '<b>в</b> критической области.' : 'не в критической области.');
   }
   const st1 = Stepper(g1.querySelector('.stepper'), v => { k1 = v; paint1(); });
-  g1.querySelectorAll('[data-side]').forEach(b => b.addEventListener('click', () => {
-    side = +b.dataset.side; g1.querySelectorAll('[data-side]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); st1.set(Math.max(k1, 21));
-  }));
+
   // картинка 2: две панели
   const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas');
   function paint2(){
