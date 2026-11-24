@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611494">
-<link rel="stylesheet" href="/tokens.css?v=202611494">
-<link rel="stylesheet" href="/signal/book.css?v=202611494">
-<link rel="stylesheet" href="/signal/free.css?v=202611494">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611494">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611494">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611495">
+<link rel="stylesheet" href="/tokens.css?v=202611495">
+<link rel="stylesheet" href="/signal/book.css?v=202611495">
+<link rel="stylesheet" href="/signal/free.css?v=202611495">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611495">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611495">
 </head>
 <body data-course="shad4" data-chapter="shad4-07" data-next="08-nonparam.html">
 <nav class="top" aria-label="Навигация">
@@ -309,12 +309,14 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611494"></script>
-<script src="/signal/book.js?v=202611494"></script>
-<script src="/signal/py.js?v=202611494"></script>
-<script src="/shad/stats/04/shad.js?v=202611494"></script>
+<script src="/fonts/katex/katex.min.js?v=202611495"></script>
+<script src="/signal/book.js?v=202611495"></script>
+<script src="/signal/py.js?v=202611495"></script>
+<script src="/shad/stats/04/shad.js?v=202611495"></script>
 <script>
 (function(){
+  // текст с нижними индексами: 'z_{1−α/2} = 1.96'
+  const rich = (c, t, x, y, col, fs, wt, al) => { const parts = t.split(/(_\{[^}]*\})/).filter(Boolean).map(q => q.startsWith('_{') ? {s: q.slice(2, -1), sub: true} : {s: q, sub: false}); c.save(); c.fillStyle = col; const f = sub => (wt || 500) + ' ' + (sub ? Math.round(fs * 0.72) : fs) + 'px Onest, sans-serif'; let W = 0; parts.forEach(q => { c.font = f(q.sub); q.w = c.measureText(q.s).width; W += q.w; }); let x0 = al === 'left' ? x : al === 'right' ? x - W : x - W / 2; c.textAlign = 'left'; parts.forEach(q => { c.font = f(q.sub); c.fillText(q.s, x0, q.sub ? y + fs * 0.28 : y); x0 += q.w; }); c.restore(); };
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
   const curve = (c, X, Y, f, lo, hi, col, lw) => { c.beginPath(); for (let k = 0; k <= 400; k++){ const x = lo + (hi - lo) * k / 400, px = X(x), py = Y(f(x)); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = col; c.lineWidth = lw || 2.2; c.stroke(); };
   const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
@@ -336,11 +338,11 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     for (let v = Math.ceil(lo); v <= hi; v++) big(c, v < 0 ? '−' + (-v) : String(v), X(v), h - B + 18, COL.ink2, 13, 400);
     big(c, 'без эффекта', X(0), Y(normPdf(0)) - 8, COL.ink2, 14, 600);
     if (st >= 2){ big(c, D != null ? 'эффект ' + num(mde, 2) + ' SE' : 'эффект = MDE', X(mde), Y(normPdf(0)) - 26, COL.ctrl, 14, 600); c.fillStyle = COL.ctrl; c.beginPath(); c.arc(X(mde), Y(normPdf(0)), 7, 0, 7); c.fill(); big(c, '↔ тяни', X(mde), Y(normPdf(0)) - 10, COL.ctrl, 12, 500); }
-    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 2; [za, -za].forEach(v => { c.beginPath(); c.moveTo(X(v), T - 10); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]); big(c, 'порог ±' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); big(c, 'α = ' + num(aNow * 100, 1) + '%', X(-za) - 6, h - B - 8, '#C9413A', 14, 700, 'right'); }
+    if (st >= 1){ c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 2; [za, -za].forEach(v => { c.beginPath(); c.moveTo(X(v), T - 10); c.lineTo(X(v), h - B); c.stroke(); }); c.setLineDash([]); big(c, 'порог ±' + num(za, 2), X(za) + 6, T - 14, COL.ink, 14, 600, 'left'); big(c, 'α = ' + num(aNow * 100, 1) + '%', X(-za) - 8, Y(normPdf(za)) - 8, '#C9413A', 14, 700, 'right'); }
     if (st >= 3) big(c, 'мощность ' + Math.round(wNow * 100) + '%', X(mde + 1.3), Y(normPdf(1.3)) - 10, COL.ctrl, 15, 700, 'left');
-    const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); big(c, t, (X(a) + X(b)) / 2, y - 8, col, 14, 600); };
-    if (st >= 1) span(0, za, h - B + 44, 'z₁₋α/₂ = ' + num(za, 2), COL.ink);
-    if (st >= 4 && Math.abs(zb) > 0.05) span(za, mde, h - B + 44, (D == null || Math.abs(wNow - W) <= 0.005 ? 'z₁₋β = ' : '') + (zb < 0 ? '−' : '') + num(Math.abs(zb), 2), '#8a6d1d');
+    const span = (a, b, y, t, col) => { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(a), y); c.lineTo(X(b), y); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), y - 6); c.lineTo(X(v), y + 6); c.stroke(); }); rich(c, t, (X(a) + X(b)) / 2, y - 10, col, 14, 600); };
+    if (st >= 1) span(0, za, h - B + 44, 'z_{1−α/2} = ' + num(za, 2), COL.ink);
+    if (st >= 4 && Math.abs(zb) > 0.05) span(za, mde, h - B + 44, (D == null || Math.abs(wNow - W) <= 0.005 ? 'z_{1−β} = ' : '') + (zb < 0 ? '−' : '') + num(Math.abs(zb), 2), '#8a6d1d');
     if (st >= 5) span(0, mde, h - B + 80, (D != null && Math.abs(wNow - W) > 0.005 ? 'эффект = ' : 'MDE = ') + num(za, 2) + (zb < 0 ? ' − ' : ' + ') + num(Math.abs(zb), 2) + ' = ' + num(mde, 2) + ' SE', COL.ctrl);
     outm.innerHTML = D != null ? 'Эффект ' + num(mde, 2) + ' SE: центр синего ' + (zb < 0 ? 'левее' : 'правее') + ' порога на ' + num(Math.abs(zb), 2) + ', мощность <b>' + num(wNow * 100, 0) + '%</b>. ' + (Math.abs(wNow - W) <= 0.005 ? 'Ровно ' + Math.round(W * 100) + '%: центр на ' + num(normInv(W), 2) + ' правее порога — это и есть \\(z_{1-\\beta}\\), а эффект ' + num(za, 2) + ' + ' + num(normInv(W), 2) + ' = MDE.' : 'Двигай, пока мощность не станет ' + Math.round(W * 100) + '%.') : st >= 5 ? '\\(\\mathrm{MDE} = (' + num(za, 2) + ' + ' + num(zb, 2) + ') \\cdot \\mathrm{SE} = ' + num(mde, 2) + '\\,\\mathrm{SE}\\) при \\(\\alpha = ' + Math.round(A * 100) + '\\%\\) и мощности ' + Math.round(W * 100) + '%. Потяни синий колокол — посмотри, откуда ' + num(normInv(W), 2) + '.' : 'Открой шаги ниже — картинка достроится.';
   }
