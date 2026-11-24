@@ -122,12 +122,12 @@
   const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
   // генераторы одного наблюдения и истинные средние
   const D = {
-    unif:  {name: 'равномерное', mu: 0.5, g: () => Math.random()},
-    exp:   {name: 'экспоненциальное', mu: 1, g: () => -Math.log(1 - Math.random())},
-    logn:  {name: 'лог-нормальное, σ = 1', mu: Math.exp(0.5), g: () => Math.exp(gauss())},
-    bern:  {name: 'Бернулли, p = 0.5%', mu: 0.005, p: 0.005},
-    bern30:{name: 'Бернулли, p = 30%', mu: 0.3, p: 0.3},
-    par:   {name: 'Парето, хвост 1.5', mu: 3, g: () => Math.pow(1 - Math.random(), -1 / 1.5)}
+    unif:  {name: 'равномерное U(0, 1): μ = 0.5, σ ≈ 0.29', mu: 0.5, g: () => Math.random()},
+    exp:   {name: 'экспоненциальное, λ = 1: μ = 1, σ = 1', mu: 1, g: () => -Math.log(1 - Math.random())},
+    logn:  {name: 'лог-нормальное, ln X ~ N(0, 1): μ ≈ 1.65, σ ≈ 2.16', mu: Math.exp(0.5), g: () => Math.exp(gauss())},
+    bern:  {name: 'Бернулли, p = 0.005: μ = 0.005, σ ≈ 0.07', mu: 0.005, p: 0.005},
+    bern30:{name: 'Бернулли, p = 0.3: μ = 0.3, σ ≈ 0.46', mu: 0.3, p: 0.3},
+    par:   {name: 'Парето, xₘ = 1, α = 1.5: μ = 3, σ = ∞', mu: 3, g: () => Math.pow(1 - Math.random(), -1 / 1.5)}
   };
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
   let dk = 'logn', n = 1, sim = null;
@@ -157,7 +157,7 @@
     c.beginPath(); for (let k = 0; k <= 300; k++){ const x = lo + (hi - lo) * k / 300, px = X(x), py = Y(normPdf((x - mean) / sdm) / sdm); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = COL.trap; c.lineWidth = 2.5; c.stroke();
     c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
     const step = Book.niceStep(hi - lo, 5); for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) big(c, num(v, step < 0.01 ? 3 : step < 0.1 ? 2 : step < 1 ? 1 : 0), X(v), h - B + 18, COL.ink2, 14, 400);
-    big(c, 'среднее по n = ' + n + ': ' + d.name, L, 20, COL.ink, 16, 600, 'left');
+    big(c, 'среднее по n = ' + n + ' · ' + d.name, L, 20, COL.ink, 16, 600, 'left');
     const cv = sim.cov;
     out1.innerHTML = cv == null ? 'При \\(n = 1\\) среднее — это само наблюдение: видна форма исходного распределения. Интервал по одному наблюдению не построить.'
       : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
