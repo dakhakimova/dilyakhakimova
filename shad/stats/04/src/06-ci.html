@@ -18,12 +18,14 @@
   </div>
   <p>Откуда формула для разницы средних:</p>
   <ol class="howto reveal">
-    <li><b>По ЦПТ</b> оценка разницы почти нормальна вокруг настоящей: \(\hat\Delta = \bar X_B - \bar X_A \approx N\big(\Delta,\ \mathrm{SE}_\Delta^2\big)\).</li>
+    <li><b>По ЦПТ</b> оценка разницы почти нормальна вокруг настоящей, \(\sigma_\Delta\) — её настоящее стандартное отклонение: \(\hat\Delta = \bar X_B - \bar X_A \approx N\big(\Delta,\ \sigma_\Delta^2\big)\).</li>
     <li><b>95% массы нормального</b> — в пределах 1.96 стандартных отклонений от центра:
-      <p class="formula">\[P\big(|\hat\Delta - \Delta| \le 1.96\,\mathrm{SE}_\Delta\big) = 95\%.\]</p></li>
+      <p class="formula">\[P\big(|\hat\Delta - \Delta| \le 1.96\,\sigma_\Delta\big) = 95\%.\]</p></li>
     <li><b>Переворачиваем.</b> «Оценка не дальше 1.96 SE от правды» — то же самое, что «правда не дальше 1.96 SE от оценки»:
-      <p class="formula">\[P\big(\Delta \in [\hat\Delta - 1.96\,\mathrm{SE}_\Delta;\ \hat\Delta + 1.96\,\mathrm{SE}_\Delta]\big) = 95\%.\]</p>
+      <p class="formula">\[P\big(\Delta \in [\hat\Delta - 1.96\,\sigma_\Delta;\ \hat\Delta + 1.96\,\sigma_\Delta]\big) = 95\%.\]</p>
       <p>Случаен здесь отрезок, а не \(\Delta\): он строится по данным.</p></li>
+    <li><b>Подставляем оценку.</b> Настоящая \(\sigma_\Delta = \sqrt{\sigma_A^2/n_A + \sigma_B^2/n_B}\) неизвестна — берём её оценку \(\mathrm{SE}_\Delta = \sqrt{s_A^2/n_A + s_B^2/n_B}\), это законно по Слуцкому, как в блоке 5. Интервал:
+      <p class="formula">\[\hat\Delta \pm 1.96\,\mathrm{SE}_\Delta.\]</p></li>
     <li><b>Связь с p-value.</b> Ноль вне интервала \(\iff |\hat\Delta| > 1.96\,\mathrm{SE}_\Delta \iff |z| > 1.96 \iff p < 0.05\). Интервал — это все значения эффекта, которые критерий на уровне 5% <b>не</b> отвергает.</li>
   </ol>
   <div class="takeaway"><p><b>Чего интервал не значит:</b> «настоящий эффект лежит в этом отрезке с вероятностью 95%». Эффект — не случайная величина, он либо внутри, либо нет. 95% — свойство процедуры: из 100 таких интервалов около 95 накроют правду.</p></div>

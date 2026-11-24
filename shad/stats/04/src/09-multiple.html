@@ -1,0 +1,131 @@
+{"title": "Множественные проверки", "short": "9. Множественные проверки", "h": "Блок 9 · много проверок", "lead": "Двадцать метрик, поправка Бонферрони и зелёные мармеладки", "next": "10-summary.html"}
+<section class="card" data-title="Много проверок сразу">
+  <p class="kicker">Занятие 4 · блок 9</p>
+  <h1>Много проверок сразу</h1>
+  <figure class="art"><img src="img/09-jellybeans.jpg" alt="Мармеладки двадцати цветов"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">В эксперименте 20 метрик, и одна прокрасилась! Значит, эффект есть — пишу отчёт про неё.</p></div></div>
+  </div>
+  <p class="lead">В настоящем A/B смотрят не одну метрику, а десятки, плюс срезы. Каждая проверка честна по отдельности, а вместе они почти гарантируют хотя бы один ложный прокрас. Это та же история, что с осьминогом Паулем.</p>
+</section>
+
+<section class="card" data-title="Визуализация: 20 метрик в A/A">
+  <span class="step-tag">Визуализация</span>
+  <h2>20 метрик в A/A-эксперименте</h2>
+  <p>Эффекта нет ни в одной метрике. Каждый запуск — новый A/A-эксперимент: у каждой метрики своё p-value, красным — прокрасившиеся на уровне 5%.</p>
+  <div class="game" id="g1">
+    <div class="controls"><label class="field">Метрик <input type="text" inputmode="numeric" class="n-in" id="g1-m" value="20"></label><button type="button" class="btn" id="g1-run">Новый эксперимент</button><button type="button" class="btn ghost" id="g1-100">×100</button><button type="button" class="btn ghost" id="g1-b" aria-pressed="false">Бонферрони</button></div>
+    <p class="chart-t">p-value каждой метрики в последнем эксперименте</p>
+    <canvas aria-label="p-value метрик, прокрасившиеся красным"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: 20 метрик">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 22.</span> 20 метрик в одном тесте</h2>
+  <p>Боб смотрит в A/A-тесте, где эффекта нет нигде, <b>20 независимых метрик</b>, каждую на уровне 5%.</p>
+  <ol>
+    <li>С какой вероятностью хотя бы одна из них прокрасится?</li>
+    <li>Какой уровень значимости поставить на каждую метрику, чтобы вероятность хотя бы одного ложного прокраса была не больше 5%?</li>
+  </ol>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">\(1 - 0.95^{20} \approx 64\%\); Бонферрони — \(0.05/20 = 0.25\%\) на метрику</p></div>
+  <p class="rule-why">Это не ошибка критерия, это ошибка того, кто смотрит на 20 метрик и рассказывает про одну. На практике заранее объявляют одну-две главные метрики, а остальные считают диагностическими.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> \(m = 20\) независимых проверок, в каждой \(H_0\) верна, \(\alpha = 5\%\).</p>
+    <p class="stp"><b>Шаг 2.</b> Каждая не прокрашивается с вероятностью 0.95; независимые события перемножаются: \(P(\text{ни одной}) = 0.95^{20} \approx 0.358\), \(P(\text{хотя бы одна}) \approx 64\%\).</p>
+    <p class="stp"><b>Шаг 3. Бонферрони.</b> \(P(\text{хотя бы одна}) \le \sum P(\text{каждая}) = m\,\alpha_1\). Хотим не больше 5% → \(\alpha_1 = 0.05/20 = 0.25\%\). Проверка: \(1 - (1 - 0.0025)^{20} \approx 4.9\%\).</p>
+    <p class="stp"><b>Шаг 4. Профилактика.</b> Главная метрика — заранее; остальные метрики и срезы — для диагностики и новых гипотез, а не для решения.</p>
+  </div></details>
+  <div class="cell" data-title="20 метрик: формула">
+<textarea spellcheck="false" aria-label="20 метрик: формула">m, alpha = 20, 0.05     # метрик и уровень значимости каждой
+
+p_any = 1 - (1 - alpha) ** m
+print(f"P(хотя бы один ложный прокрас из {m}) = 1 − 0.95^{m} = {p_any:.1%}")
+
+a1 = alpha / m          # поправка Бонферрони
+print(f"Бонферрони: α на метрику = 0.05 / {m} = {a1:.2%}")
+print(f"проверка: 1 − (1 − {a1})^{m} = {1 - (1 - a1) ** m:.1%}")</textarea>
+  </div>
+  <div class="cell" data-title="20 метрик: симуляция A/A">
+<textarea spellcheck="false" aria-label="20 метрик: симуляция A/A">import numpy as np
+
+rng = np.random.default_rng(0)
+R, m = 10_000, 20                       # A/A-экспериментов, метрик в каждом
+
+p = rng.uniform(0, 1, (R, m))           # при H0 p-value равномерно (блок 2)
+any_raw = (p &lt; 0.05).any(axis=1).mean()
+any_bonf = (p &lt; 0.05 / m).any(axis=1).mean()
+print(f"без поправки хотя бы одна прокрасилась в {any_raw:.1%} экспериментов")
+print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Поправка Бонферрони">
+  <span class="step-tag">Определение</span>
+  <h2>Поправка Бонферрони</h2>
+  <div class="def"><p>Если проверяем \(m\) гипотез, вероятность <b>хотя бы одного</b> ложного прокраса не больше суммы вероятностей каждого:</p></div>
+  <p class="formula">\[P(\text{хотя бы один}) \le m \cdot \alpha_1.\]</p>
+  <p>Значит, если каждую гипотезу проверять на уровне \(\alpha/m\), хотя бы один ложный прокрас случится с вероятностью не больше \(\alpha\). Неравенство верно и для зависимых метрик. Цена — потеря мощности на каждой метрике. Мягче и мощнее — методы Холма и Бенджамини–Хохберга, о них на занятии 6.</p>
+</section>
+
+<section class="card" data-title="История: мармеладки и прыщи">
+  <span class="step-tag">История</span>
+  <h2>Мармеладки и прыщи</h2>
+  <p>В комиксе xkcd «Significant», № 882, учёные проверяют, вызывают ли мармеладки прыщи: связи нет. Тогда проверяют по отдельности 20 цветов — и у зелёных мармеладок \(p < 0.05\). Наутро в газете: «Зелёные мармеладки связаны с прыщами! Вероятность совпадения — всего 5%».</p>
+  <div class="takeaway"><p>Это ровно задача 22: из 20 проверок одна прокрасилась бы и случайно — с вероятностью 64%.</p></div>
+</section>
+
+<section class="card" data-title="Сколько «побед» ложные">
+  <span class="step-tag">Определение</span>
+  <p class="extra-note">Дополнительно — если останется время</p>
+  <h2>Сколько «побед» ложные: архивы компаний</h2>
+  <p>Доля ложных среди прокрасившихся зависит не только от \(\alpha\) и мощности, но и от того, <b>как часто идеи вообще работают</b> — занятие 3. Кохави с соавторами собрали долю удачных идей в крупных компаниях. При \(\alpha = 2.5\%\) в сторону улучшения и мощности 80%:</p>
+  <div class="report-wrap"><table class="tails" aria-label="Доля удачных идей и ложных побед">
+    <tr><th>компания</th><th>удачных идей</th><th>ложных среди «побед»</th></tr>
+    <tr><td>Microsoft</td><td>≈ 33%</td><td>≈ 6%</td></tr>
+    <tr><td>Bing</td><td>≈ 15%</td><td>≈ 15%</td></tr>
+    <tr><td>Booking, Netflix</td><td>≈ 10%</td><td>≈ 22%</td></tr>
+    <tr><td>Airbnb, поиск</td><td>≈ 8%</td><td>≈ 26%</td></tr>
+  </table></div>
+  <p>Чем зрелее продукт, тем реже идеи работают — и тем больше среди «побед» шума при тех же \(\alpha\) и мощности. Отсюда практика: важные победы перепроверяют повтором. У Spotify выигрывает около 12% экспериментов, зато чему-то учатся в 64% — нейтральный результат хорошо спланированного теста тоже ценен.</p>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Много проверок — много ложных открытий</h2>
+  <div class="takeaway"><p>Из 20 пустых метрик хотя бы одна прокрасится с вероятностью 64%. Главную метрику объявляй заранее, для пачки проверок — поправка: Бонферрони, а мягче — Холм и Бенджамини–Хохберг на занятии 6.</p></div>
+  <a class="next-step" href="10-summary.html"><b>Дальше: итоги и блиц</b>Семь главных мыслей занятия и вопросы с собеседования.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const g = document.getElementById('g1'), cv = g.querySelector('canvas'), out = g.querySelector('.out'), mIn = document.getElementById('g1-m'), bB = document.getElementById('g1-b');
+  let m = 20, bonf = false, last = [], runs = 0, hits = 0;
+  const thr = () => bonf ? 0.05 / m : 0.05;
+  const one = () => Array.from({length: m}, () => Math.random());
+  function run(k){
+    for (let i = 0; i < k; i++){ last = one(); runs++; if (last.some(p => p < thr())) hits++; }
+    paint();
+  }
+  function reset(){ m = Math.max(1, Math.min(200, Math.round(+String(mIn.value).replace(/\s/g, '')) || 20)); mIn.value = m; runs = 0; hits = 0; run(1); }
+  function paint(){
+    const gg = canvas(cv, 0.36, 0.7); if (!gg || !last.length) return; const {c, w, h} = gg, L = 46, R = 10, T = 14, B = 28;
+    const Y = p => h - B - (h - T - B) * p, bw = (w - L - R) / m;
+    [0, 0.25, 0.5, 0.75, 1].forEach(v => { c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); big(c, String(v), L - 8, Y(v) + 5, COL.ink2, 13, 400, 'right'); });
+    const t = thr();
+    c.fillStyle = 'rgba(201,65,58,.12)'; c.fillRect(L, Y(Math.max(t, 0.012)), w - L - R, Y(0) - Y(Math.max(t, 0.012)));
+    last.forEach((p, i) => { const x = L + (i + 0.5) * bw, hit = p < t; c.fillStyle = hit ? '#C9413A' : COL.ctrl; c.beginPath(); c.arc(x, Y(p), hit ? 7 : 5, 0, 7); c.fill(); if (m <= 30) big(c, String(i + 1), x, h - B + 18, COL.ink2, 12, 400); });
+    big(c, 'p < ' + (bonf ? num(t * 100, 2) + '%' : '5%'), w - R - 4, Y(Math.max(t, 0.012)) - 6, '#C9413A', 14, 600, 'right');
+    const k = last.filter(p => p < t).length;
+    out.innerHTML = 'В этом эксперименте прокрасилось ' + k + ' из ' + m + '. За ' + runs + ' ' + (runs % 10 === 1 && runs % 100 !== 11 ? 'эксперимент' : runs % 10 >= 2 && runs % 10 <= 4 && (runs % 100 < 10 || runs % 100 >= 20) ? 'эксперимента' : 'экспериментов') + ' хотя бы одна метрика прокрасилась в <b>' + hits + '</b>, это ' + num(100 * hits / runs, 0) + '%. Теория: ' + num(100 * (1 - Math.pow(1 - t, m)), 1) + '%.';
+  }
+  document.getElementById('g1-run').addEventListener('click', () => run(1));
+  document.getElementById('g1-100').addEventListener('click', () => run(100));
+  bB.addEventListener('click', () => { bonf = !bonf; bB.setAttribute('aria-pressed', String(bonf)); runs = 0; hits = 0; run(1); });
+  mIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') reset(); }); mIn.addEventListener('change', reset);
+  window.addEventListener('resize', paint);
+  reset();
+})();
+</script>
