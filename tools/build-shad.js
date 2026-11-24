@@ -156,6 +156,10 @@ console.log('shad:', files.length, 'блоков; формул', tex.run([...met
       const out = raw.replace(/⟦(.+?)⟧/g, (_, t) => '<span class="tx-d">' + KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore', displayMode: true}) + '</span>').replace(/⟪(.+?)⟫/g, (_, t) => KATEX.renderToString(t.replace(/−/g, '-'), {output: 'html', throwOnError: false, strict: 'ignore'}));
       return ` data-${k}="${esc(out)}"`;
     });
+    // пара фамилий «Шапиро–Уилк» не рвётся на строки: склейка U+2060 вокруг короткого тире (Диля, 24.11)
+    h = h.replace(/([А-Яа-яЁё])–([А-Яа-яЁё])/g, '$1\u2060–\u2060$2');
     fs.writeFileSync(f, h);
   }
 }
+// тире между фамилиями (гайд 119a): проверяем исходники занятия при каждой сборке
+try { require('child_process').execFileSync('node', [require('path').join(__dirname, 'check-names.js'), ...require('fs').readdirSync(require('path').join(__dirname, '..', DIR, 'src')).filter(f => f.endsWith('.html')).map(f => require('path').join(DIR, 'src', f))], {stdio: 'inherit'}); } catch (e) { console.error('Исправь тире между фамилиями — см. выше'); process.exitCode = 1; }
