@@ -211,15 +211,15 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
     const st = stepNow(), za = normInv(1 - A / 2), mde = D != null ? D : za + normInv(W);
     if (st >= 4 && prevSt < 4) t0 = performance.now(); if (st < 4) t0 = null; prevSt = st;
     const el = t0 == null || D != null ? 1e9 : performance.now() - t0, cl = v => Math.max(0, Math.min(1, v)), ease = v => v * v * (3 - 2 * v);
-    const p1 = cl(el / 600), p2 = ease(cl((el - 1200) / 1100));
-    if (el < 2400) requestAnimationFrame(paintM);
+    const pc = cl(el / 500), p1 = cl((el - 900) / 600), p2 = ease(cl((el - 2100) / 1100));  // отсечка z_β → первый отрезок → второй
+    if (el < 3300) requestAnimationFrame(paintM);
     const aNow = 2 * (1 - normCdf(za)), wNow = 1 - normCdf(za - mde) + normCdf(-za - mde), zb = mde - za;
     const lo = -3.6, hi = Math.max(6.4, za + normInv(W) + 3.4), X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.12);
     const f1 = x => normPdf(x - mde);
     if (st >= 3){ area(c, X, Y, f1, za, hi, h - B, 'rgba(35,65,138,.25)'); area(c, X, Y, f1, lo, za, h - B, 'rgba(230,180,60,.35)'); }
     if (st >= 1){ area(c, X, Y, normPdf, za, hi, h - B, 'rgba(201,65,58,.6)'); area(c, X, Y, normPdf, lo, -za, h - B, 'rgba(201,65,58,.6)'); }
     const m = -zb;  // зеркальная точка на сером: правее неё та же доля, что у синего правее порога
-    if (st >= 4) area(c, X, Y, normPdf, m, hi, h - B, 'rgba(138,109,29,.13)');
+    if (st >= 4) area(c, X, Y, normPdf, m, hi, h - B, 'rgba(138,109,29,' + (0.13 * pc).toFixed(3) + ')');
     curve(c, X, Y, normPdf, lo, hi, COL.gray, 2.2);
     if (st >= 2) curve(c, X, Y, f1, lo, hi, COL.ctrl, 2.6);
     c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
@@ -235,7 +235,7 @@ print(f"при n = {n}: мощность {power:.1%}")</textarea>
     ctr(0, COL.ink2, 'центр 0');
     if (st >= 2) ctr(mde, COL.ctrl, 'центр ' + num(mde, 2));
     // тот же порог на сером: от него до центра столько же, сколько у синего от порога до центра
-    if (st >= 4){ c.save(); c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), h - B); c.lineTo(X(m), Y(normPdf(m)) - 4); c.stroke(); c.restore(); big(c, num(wNow * 100, 0) + '% правее', X(m) - 6, Y(normPdf(m)) - 22, '#8a6d1d', 13, 700, 'right'); if (m < -0.05) rich(c, 'z_{β} = −' + num(-m, 2), X(m) - 6, Y(normPdf(m)) - 4, '#8a6d1d', 13, 700, 'right'); if (zb > 0.05 && p1 >= 1) span(m, 0, h - B + 44, 'z_{1−β}', '#8a6d1d'); }
+    if (st >= 4){ c.save(); c.setLineDash([5, 4]); c.strokeStyle = '#8a6d1d'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(m), h - B); c.lineTo(X(m), h - B + (Y(normPdf(m)) - 4 - h + B) * pc); c.stroke(); c.restore(); if (pc >= 1) big(c, num(wNow * 100, 0) + '% правее', X(m) - 6, Y(normPdf(m)) - 22, '#8a6d1d', 13, 700, 'right'); if (m < -0.05 && pc >= 1) rich(c, 'z_{β} = −' + num(-m, 2), X(m) - 6, Y(normPdf(m)) - 4, '#8a6d1d', 13, 700, 'right'); if (zb > 0.05 && p1 >= 1) span(m, 0, h - B + 44, 'z_{1−β}', '#8a6d1d'); }
     // отрезок z_{1−β}: растёт на сером от z_β до нуля, потом переезжает на синий — от порога до центра
     if (st >= 4 && zb > 0.05){ const yS = Y(normPdf(0) * 0.3), seg = (a, b, al) => { c.save(); c.globalAlpha = al; c.strokeStyle = '#8a6d1d'; c.lineWidth = 3; c.beginPath(); c.moveTo(X(a), yS); c.lineTo(X(b), yS); c.stroke(); [a, b].forEach(v => { c.beginPath(); c.moveTo(X(v), yS - 7); c.lineTo(X(v), yS + 7); c.stroke(); }); c.restore(); };
       seg(m, m + zb * p1, 1); if (p1 >= 1) rich(c, 'z_{1−β}', X(m / 2), yS - 12, '#8a6d1d', 14, 700);
