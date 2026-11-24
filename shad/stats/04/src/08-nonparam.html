@@ -328,7 +328,7 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
     lab.forEach((l, i) => { if (l !== 'B') return; const r = i + 1, k = own, win = r - 1 - k; RB += r; sumBelow += r - 1; U += win;
       rows += '<tr><td>' + r + '</td><td>1</td><td><b>' + win + '</b></td><td>' + k + '</td></tr>'; own++; });
     tabr.innerHTML = '<div class="report-wrap"><table class="tails grid"><thead><tr><th>Место B ' + KXr('r') + '</th><th>' + KXr('= 1') + '</th><th>+ побед над A</th><th>+ своих B ниже</th></tr></thead><tbody>' + rows
-      + '<tr><td><b>' + KXr('R_B = ' + RB) + '</b></td><td><b>' + KXr('n_B = 4') + '</b></td><td><b>' + KXr('U = ' + U) + '</b></td><td><b>' + KXr('0 + 1 + 2 + 3 = 6') + '</b></td></tr></tbody></table></div>';
+      + '<tr><td><b>' + KXr('R_B = ' + RB) + '</b></td><td><b>' + KXr('n_B = 4') + '</b></td><td><b>' + KXr('U = ' + U) + '</b></td><td><b>' + KXr('0 + 1 + 2 + 3 = \\tfrac{n_B(n_B - 1)}{2} = 6') + '</b></td></tr></tbody></table></div>';
     outr.innerHTML = 'Каждая строка: место = 1 + побед + своих ниже. Перемешай метки: меняются места и победы, а последний столбец всегда \\(0, 1, 2, 3\\). Итог по столбцам: \\(' + RB + ' = 4 + ' + U + ' + 6\\), то есть \\(U = R_B - 10\\).';
   }
   document.getElementById('gr-new').addEventListener('click', shuffle);
