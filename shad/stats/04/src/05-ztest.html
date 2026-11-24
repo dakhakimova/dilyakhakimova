@@ -293,7 +293,7 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
     big(c, '±1.96', X(1.96), h - B + 18, COL.trapInk, 14, 600);
     const zc = Math.max(lo, Math.min(hi, z)); c.strokeStyle = COL.ctrl; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X(zc), T - 6); c.lineTo(X(zc), h - B); c.stroke();
     big(c, 'z = ' + num(z, 2), X(zc) + (zc > 2.5 ? -6 : 6), T - 10, COL.ctrl, 16, 700, zc > 2.5 ? 'right' : 'left');
-    out1.innerHTML = '\\(\\mathrm{SE}_\\Delta = \\sqrt{\\frac{p_A(1-p_A)}{n} + \\frac{p_B(1-p_B)}{n}} = ' + num(100 * se, 3) + '\\%\\), \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\) — ' + (Math.abs(z) >= 1.96 ? '<b>прокрасилось</b>' : '<b>не прокрасилось</b>') + ' на уровне 5%.';
+    out1.innerHTML = '\\(\\mathrm{SE} = \\sqrt{\\frac{p_A(1-p_A)}{n} + \\frac{p_B(1-p_B)}{n}} = ' + num(100 * se, 3) + '\\%\\), \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\) — ' + (Math.abs(z) >= 1.96 ? '<b>прокрасилось</b>' : '<b>не прокрасилось</b>') + ' на уровне 5%.';
   }
   g1.addEventListener('input', paint1);
   // 2: Стьюдент против нормального
