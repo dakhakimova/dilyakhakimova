@@ -6,7 +6,8 @@
   <figure class="art"><img src="img/02-tea.jpg" alt="Леди пробует чай из восьми чашек, рядом статистик записывает ответы"></figure>
   <div class="story"><p>В 1920-х в Кембридже биолог Мюриэл Бристоль сказала, что по вкусу отличает, налили в чашку сначала молоко или сначала чай. Статистик Рональд Фишер предложил проверку: 8 чашек, в 4 сначала молоко, в 4 — чай, в случайном порядке; леди должна найти 4 «молочные». По рассказам очевидцев, она не ошиблась ни разу.</p>
   <p>Из этой истории в книге Фишера «Планирование экспериментов» (1935) выросли нулевая гипотеза и рандомизация, а в его учебнике 1925 года — привычка считать «редким» то, что случается реже чем в 5% случаев.</p></div>
-  <div class="check" data-ans="70" data-ok="Верно: C₈⁴ = 70, угадать все четыре наугад можно с вероятностью 1/70 ≈ 1.4%."><label>Сколькими способами можно выбрать 4 чашки из 8?</label></div>
+  <p><b>Вопрос залу:</b> с какой вероятностью можно угадать все четыре «молочные» чашки наугад?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Способов выбрать 4 чашки из 8 — \(C_8^4 = 70\), верный один: \(1/70 \approx 1.4\%\). Это и есть p-value опыта с леди: меньше 5% — гипотезу «угадывает наугад» отвергаем.</p></div></details>
 </section>
 
 <section class="card" data-title="Определение p-value">
@@ -40,8 +41,6 @@
     <canvas aria-label="Распределение числа орлов из 10 у честной монеты"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
-  <div class="check" data-ans="0.98" data-tol="0.02" data-unit="%" data-ok="Верно: C₁₀⁹ / 1024 = 10/1024 ≈ 0.98%. Но это ещё не p-value."><label>1. \(P(\text{ровно 9 орлов})\)</label></div>
-  <div class="check" data-ans="2.15" data-tol="0.03" data-unit="%" data-ok="Верно: (10 + 1 + 1 + 10)/1024 = 22/1024 ≈ 2.15% — отвергаем на 5%." data-hint="«Экстремальнее» — это и 10 орлов, и столько же далеко в сторону решек."><label>2. Двустороннее p-value</label></div>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1. Гипотезы.</b> \(H_0\): монета честная, \(p = 1/2\); \(H_1\): \(p \ne 1/2\) — сторону заранее не знаем.</p>
     <p class="stp"><b>Шаг 2.</b> Число орлов \(X \sim \mathrm{Bin}(10,\ 1/2)\): \(P(X = k) = C_{10}^{k}/1024\). Ровно 9: \(10/1024 \approx 0.98\%\) — это ответ на пункт 1, но <b>не</b> p-value.</p>
@@ -72,7 +71,6 @@
     <canvas aria-label="Распределение разности средних при H0 и наблюдаемая разница 2 балла"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
-  <div class="check" data-ans="4.3" data-tol="0.15" data-unit="%" data-ok="Верно: SE = 7·√(2/100) ≈ 0.99, z ≈ 2.02, p ≈ 4.3%."><label>p-value в клинике со 100 пациентами в группе</label></div>
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp">Стандартная ошибка разности средних \(\mathrm{SE} = \sigma\sqrt{2/n}\), статистика \(z = (52 - 50)/\mathrm{SE}\), двустороннее \(p = 2\,(1 - \Phi(|z|))\).</p>
     <table class="tails"><tr><th>\(n\) в группе</th><th>SE</th><th>\(z\)</th><th>p</th></tr>
@@ -81,19 +79,11 @@
   </div></details>
 </section>
 
-<section class="card" data-title="Прогноз: A/A-тесты">
-  <span class="step-tag">Прогноз</span>
-  <h2>Как распределено p-value, если эффекта нет?</h2>
-  <p>Запустим много A/A-тестов: в обеих группах по 1000 пользователей, конверсия 10%, эффекта нет. У каждого посчитаем p-value.</p>
-  <div class="guess" data-key="aa" data-min="0" data-max="100" data-unit="%">
-    <div class="guess-row"><label class="field phrase" for="g-aa">Прокрасятся на уровне 5% примерно <input type="text" inputmode="decimal" autocomplete="off" class="guess-in" id="g-aa">% A/A-тестов</label><div class="controls"><button class="btn" type="button">Запомнить</button></div></div>
-    <p class="note">Напиши число — на следующей карточке прогоним тысячи тестов.</p>
-  </div>
-</section>
-
-<section class="card" data-title="Игра: гистограмма p-value">
+<section class="card" data-title="Гистограмма p-value">
   <span class="step-tag">Поиграй</span>
-  <h2>Гистограмма p-value</h2>
+  <h2>Как распределено p-value, если эффекта нет?</h2>
+  <p>Запустим много A/A-тестов: в обеих группах по 1000 пользователей, конверсия 10%, эффекта нет. У каждого посчитаем p-value. <b>Вопрос залу:</b> какая доля прокрасится на уровне 5%? Как будет выглядеть гистограмма p-value?</p>
+
   <div class="game" id="g3">
     <div class="controls">
       <span class="seg" role="group" aria-label="Мир"><button type="button" class="btn ghost" data-w="0" aria-pressed="true">Эффекта нет (A/A)</button><button type="button" class="btn ghost" data-w="1" aria-pressed="false">Эффект +3 п. п.</button></span>
@@ -102,11 +92,8 @@
     <canvas aria-label="Гистограмма p-value"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
-</section>
 
-<section class="card" data-title="p-value равномерно">
-  <span class="step-tag">Определение</span>
-  <h2>При верной \(H_0\) p-value распределено равномерно</h2>
+  <h3>При верной \(H_0\) p-value распределено равномерно</h3>
   <div class="def"><p>Если эффекта нет, p-value с равной вероятностью попадает в любой отрезок одной длины: \(P(p \le \alpha \mid H_0) = \alpha\) для любого \(\alpha\). Поэтому гистограмма p-value в A/A-тестах плоская, и ровно 5% из них «прокрашиваются» на уровне 5%. Когда эффект есть, p-value сгущается у нуля — тем сильнее, чем больше эффект и выборка.</p></div>
   <details class="sol"><summary>Для любопытных: почему равномерно</summary><div class="body">
     <p class="stp">Пусть статистика \(Z\) при \(H_0\) имеет непрерывную функцию распределения \(F(z) = P(Z \le z)\), и отвергаем при больших \(Z\). Тогда p-value — хвост от наблюдённого значения: \(p = 1 - F(Z)\).</p>
@@ -182,8 +169,8 @@
     label(c, '5% тестов — плоский уровень', w - R - 4, ey - 6, COL.ink2, 'right');
     for (let v = 0; v <= 1; v += 0.25) label(c, num(v, 2), L + v * (w - L - R), h - B + 15, COL.ink2, 'center');
     label(c, 'p-value', L + (w - L - R) / 2, h - 2, COL.ink2, 'center');
-    const sh = cnt[0] / pv.length, gs = Book.guess('aa');
-    out3.innerHTML = (gs !== null && !world ? 'Твой прогноз — ' + shareT(gs / 100, 1) + '. ' : '') + 'Прокрасилось (p ≤ 0.05): <b>' + share(sh, 1) + '</b> тестов. ' + (world ? 'Эффект есть — p-value прижимается к нулю. Эта доля — мощность, о ней следующий блок.' : 'Эффекта нет — гистограмма плоская, в каждый столбик попадает около 5%.');
+    const sh = cnt[0] / pv.length;
+    out3.innerHTML = 'Прокрасилось (p ≤ 0.05): <b>' + share(sh, 1) + '</b> тестов. ' + (world ? 'Эффект есть — p-value прижимается к нулю. Эта доля — мощность, о ней следующий блок.' : 'Эффекта нет — гистограмма плоская, в каждый столбик попадает около 5%.');
   }
   pick(g3, 'w', v => { world = +v; pv = null; paint3(); });
   document.getElementById('g3-run').addEventListener('click', sim);
