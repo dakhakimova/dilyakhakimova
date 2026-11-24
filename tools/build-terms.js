@@ -22,7 +22,7 @@ function galBlock(g){
       <div class="sg-ctl"><button type="button" class="chip-btn gal-again">${g.again}</button></div>
       <figcaption class="figcap">${g.cap}</figcaption>
       <script>(function(){
-var f=document.currentScript.closest('figure'),cv=1f.querySelector('canvas'),c=cv.getContext('2d'),n=10,N=1000,MS=90,GAP=11,cnt,fly,raf=0,R=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var f=document.currentScript.closest('figure'),cv=f.querySelector('canvas'),c=cv.getContext('2d'),n=10,N=1000,MS=90,GAP=11,cnt,fly,raf=0,R=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var BLUE='#23418A',ORA='#E8644A',GRID='#CFC8BB',INK='#5E5A53',RED='#C9413A';
 function size(){var w=cv.clientWidth||600,h=Math.round(w*.72),d=window.devicePixelRatio||1;cv.width=w*d;cv.height=h*d;cv.style.height=h+'px';c.setTransform(d,0,0,d,0,0);return{w:w,h:h}}
 function binom(k){var r=1;for(var i=0;i<k;i++)r=r*(n-i)/(i+1);return r/Math.pow(2,n)}
@@ -68,19 +68,19 @@ function zFig(z, typo){
       <svg class="viz-svg z-svg" viewBox="0 0 460 250" role="img" aria-label="${z.aria}" xmlns="http://www.w3.org/2000/svg"><g class="z-ax"></g><path class="z-std" fill="none" stroke="#C9413A" stroke-width="2.5"/><path class="z-c" fill="rgba(35,65,138,.12)" stroke="#23418A" stroke-width="2.5"/><g class="z-pt"><line stroke="#E8644A" stroke-width="1.5" stroke-dasharray="4 3"/><circle r="5" fill="#E8644A"/><text font-size="14" fill="#B5492F" font-weight="500" text-anchor="middle" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></g><text class="z-lb" font-size="15" fill="#23418A" font-weight="500" paint-order="stroke" stroke="#FBF9F4" stroke-width="5"></text></svg>
       <div class="sg-ctl" role="group" aria-label="${z.label}">${btn}</div>
       <p class="sg-out" aria-live="polite">${T[0]}</p>
-      <script>(function(){var f=document.currentScript.closest('figure'),sv=1f.querySelector('svg'),pa=sv.querySelector('.z-c'),pt=sv.querySelector('.z-pt'),lb=sv.querySelector('.z-lb'),o=f.querySelector('.sg-out'),T=${JSON.stringify(T).replace(/</g, '\\u003c')},
+      <script>(function(){var f=document.currentScript.closest('figure'),sv=f.querySelector('svg'),pa=sv.querySelector('.z-c'),pt=sv.querySelector('.z-pt'),lb=sv.querySelector('.z-lb'),o=f.querySelector('.sg-out'),T=${JSON.stringify(T).replace(/</g, '\\u003c')},
 MU=3,SG=2,X0=7,sh=false,sc=false,lo=-9,hi=9,base=205,H=170,X=function(v){return 20+(v-lo)/(hi-lo)*420},Y=function(d){return base-d/.42*H},cur=[MU,SG,X0],raf=0,
 NS='http://www.w3.org/2000/svg',ax=sv.querySelector('.z-ax');
 function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;ax.appendChild(e)}
 el('line',{x1:X(lo),y1:base,x2:X(hi),y2:base,stroke:'#5E5A53','stroke-width':1.5});[-8,-6,-4,-2,0,2,4,6,8].forEach(function(v){el('line',{x1:X(v),y1:base,x2:X(v),y2:base+5,stroke:'#5E5A53'});el('text',{x:X(v),y:base+21,'font-size':13,fill:'#5E5A53','text-anchor':'middle'},String(v).replace('-','−'))});
-function nf(v){v=1Math.round(v*10)/10;return String(v).replace('-','−')}
-function draw(m,s,p){var d='M'+X(lo)+' '+base;for(var v=1lo;v<=hi+1e-9;v+=.05){var q=Math.exp(-Math.pow((v-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI));d+='L'+X(v).toFixed(1)+' '+Math.max(8,Y(q)).toFixed(1)}pa.setAttribute('d',d+'L'+X(hi)+' '+base+'Z');
+function nf(v){v=Math.round(v*10)/10;return String(v).replace('-','−')}
+function draw(m,s,p){var d='M'+X(lo)+' '+base;for(var v=lo;v<=hi+1e-9;v+=.05){var q=Math.exp(-Math.pow((v-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI));d+='L'+X(v).toFixed(1)+' '+Math.max(8,Y(q)).toFixed(1)}pa.setAttribute('d',d+'L'+X(hi)+' '+base+'Z');
 var yp=Math.max(8,Y(Math.exp(-Math.pow((p-m)/s,2)/2)/(s*Math.sqrt(2*Math.PI))));var c=pt.querySelector('circle'),ln=pt.querySelector('line'),tx=pt.querySelector('text');c.setAttribute('cx',X(p));c.setAttribute('cy',base);ln.setAttribute('x1',X(p));ln.setAttribute('x2',X(p));ln.setAttribute('y1',base);ln.setAttribute('y2',yp);tx.setAttribute('x',X(p)+14);tx.setAttribute('y',base-10);tx.textContent=nf(p);
 var ym=Y(1/(s*Math.sqrt(2*Math.PI)));lb.setAttribute('x',X(m)+(s>1.2?s*24+6:24));lb.setAttribute('y',Math.max(22,ym+(s>1.2?4:16)));lb.textContent='N('+nf(m)+', '+nf(s)+'²)'}
 function target(){var k=sc?SG:1,m=sh?0:MU;return[m/k,SG/k,(X0-(sh?MU:0))/k]}
 function go(){var a=cur.slice(),b=target(),t0=null,R=matchMedia('(prefers-reduced-motion: reduce)').matches;o.innerHTML=T[(sh?1:0)+(sc?2:0)];cancelAnimationFrame(raf);
 function st(ts){if(t0===null)t0=ts;var u=R?1:Math.min(1,(ts-t0)/700),e=u*u*(3-2*u);cur=[a[0]+(b[0]-a[0])*e,a[1]+(b[1]-a[1])*e,a[2]+(b[2]-a[2])*e];draw(cur[0],cur[1],cur[2]);if(u<1)raf=requestAnimationFrame(st)}raf=requestAnimationFrame(st)}
-(function(){var d='M'+X(lo)+' '+base;for(var v=1lo;v<=hi+1e-9;v+=.05){d+='L'+X(v).toFixed(1)+' '+Y(Math.exp(-v*v/2)/Math.sqrt(2*Math.PI)).toFixed(1)}sv.querySelector('.z-std').setAttribute('d',d)})();
+(function(){var d='M'+X(lo)+' '+base;for(var v=lo;v<=hi+1e-9;v+=.05){d+='L'+X(v).toFixed(1)+' '+Y(Math.exp(-v*v/2)/Math.sqrt(2*Math.PI)).toFixed(1)}sv.querySelector('.z-std').setAttribute('d',d)})();
 f.querySelectorAll('.sg-ctl button').forEach(function(x){x.addEventListener('click',function(){if(x.dataset.k==='0')sh=!sh;else sc=!sc;x.setAttribute('aria-pressed',x.dataset.k==='0'?sh:sc);go()})});draw(MU,SG,X0)})();</script>
     </figure>`;
 }
@@ -188,11 +188,11 @@ ${o.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<link rel=
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${FONTS}?v=1${V}">
-<link rel="stylesheet" href="/tokens.css?v=1${V}">
-<link rel="stylesheet" href="/home.css?v=1${V}">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${V}">
-<link rel="stylesheet" href="/terms/terms.css?v=1${V}">
+<link rel="stylesheet" href="${FONTS}?v=${V}">
+<link rel="stylesheet" href="/tokens.css?v=${V}">
+<link rel="stylesheet" href="/home.css?v=${V}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
+<link rel="stylesheet" href="/terms/terms.css?v=${V}">
 <script type="application/ld+json">${json(o.ld)}</script>
 </head>
 <body class="t-page">
@@ -216,7 +216,7 @@ ${chrome.header('terms', o.url === '/terms/')}
       <div class="guess">
         <p class="eyebrow">${t('tt.guessLabel')}</p>
         <p class="q">${s.q}</p>
-        <div class="choice" role="group" aria-label="${attr(t('tt.guessLabel'))}">${s.opts.map((o, i) => `<button type="button" data-v=1"${i}" aria-pressed="false">${o}</button>`).join('')}</div>
+        <div class="choice" role="group" aria-label="${attr(t('tt.guessLabel'))}">${s.opts.map((o, i) => `<button type="button" data-v="${i}" aria-pressed="false">${o}</button>`).join('')}</div>
         <p class="note gnote" data-saved="${attr(t('tt.saved'))}">${t('tt.pick')}</p>
       </div>
       <div class="t-body"></div>
@@ -446,8 +446,8 @@ f.querySelectorAll('.sg-ctl button').forEach(function(b){b.addEventListener('cli
   <p class="share-row t-share"><button class="btn-text" type="button" data-act="share">${t('terms.share')}</button><span class="note" role="status"></span></p>
 </main>
 ${foot()}
-<script src="/terms/terms.js?v=1${V}"></script>${isNew ? `
-<script src="/terms/toys.js?v=1${V}"></script>` : ''}
+<script src="/terms/terms.js?v=${V}"></script>${isNew ? `
+<script src="/terms/toys.js?v=${V}"></script>` : ''}
 </body>
 </html>
 `;
@@ -497,7 +497,7 @@ ${foot()}
 ${foot()}
 <script>
 (function(){var q=document.getElementById('t-q');if(!q)return;var li=[].slice.call(document.querySelectorAll('.cat-list > li')),abc=document.querySelector('.t-abc'),em=document.querySelector('.t-empty'),msg=${json(RU['terms.hub.none'])};
-function go(){var D=/[\u2010-\u2015\-]/g,v=1q.value.trim().toLowerCase().replace(D,'-'),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.replace(D,'-').indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
+function go(){var D=/[\u2010-\u2015\-]/g,v=q.value.trim().toLowerCase().replace(D,'-'),n=0;li.forEach(function(x){var h=!!v&&x.dataset.q.replace(D,'-').indexOf(v)<0;x.hidden=h;if(!h)n++});abc.hidden=!!v;em.hidden=n>0;if(!n)em.firstChild.textContent=msg.replace('{q}',q.value.trim())}
 q.addEventListener('input',go);em.querySelector('button').addEventListener('click',function(){q.value='';go();q.focus()})})();
 </script>
 </body>

@@ -72,20 +72,20 @@ function build(){
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1${V}">
-<link rel="stylesheet" href="/tokens.css?v=1${V}">
-<link rel="stylesheet" href="/home.css?v=1${V}">
-<link rel="stylesheet" href="/terms/terms.css?v=1${V}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
+<link rel="stylesheet" href="/tokens.css?v=${V}">
+<link rel="stylesheet" href="/home.css?v=${V}">
+<link rel="stylesheet" href="/terms/terms.css?v=${V}">
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/katex/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${V}">
-<link rel="stylesheet" href="/trainer/trainer.css?v=1${V}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
+<link rel="stylesheet" href="/trainer/trainer.css?v=${V}">
 </head>
 <body class="t-page tr-page">
 <a class="skip" href="#main">Перейти к содержанию</a>
 ${chrome.header('')}
 `;
-  const foot = () => `\n<script src="/trainer/trainer.js?v=1${V}" defer></script>\n` + chrome.footer() + '\n';
+  const foot = () => `\n<script src="/trainer/trainer.js?v=${V}" defer></script>\n` + chrome.footer() + '\n';
   const write = (rel, html) => { const f = path.join(ROOT, rel); fs.mkdirSync(path.dirname(f), {recursive: true}); fs.writeFileSync(f, html); };
 
   const TYPE = {calc: 'Расчёт', idea: 'На понимание'};

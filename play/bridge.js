@@ -1,5 +1,5 @@
 /* Мост между главами бесплатных курсов и страницами игр /play/<slug>/.
-   Подключается в <head> каждой главы (до progress.js и движка): <script src="/play/bridge.js?v=1…"></script>
+   Подключается в <head> каждой главы (до progress.js и движка): <script src="/play/bridge.js?v=…"></script>
 
    Разметка в главе (подробно — /home/claude/play-guide.md, §4):
      <section class="card" data-toy="galton">       — карточка с игрой (slug латиницей);

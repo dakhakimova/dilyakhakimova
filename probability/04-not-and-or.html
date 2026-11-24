@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/04-not-and-or.html">
 <title>Не, и, или · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 4 бесплатного интерактивного курса «Вероятность на пальцах»: парадокс дней рождения, «хотя бы один» через «ни одного», правила «и» и «или», задачи с собеседований.">
-<script src="/play/bridge.js?v=1202611509"></script>
+<script src="/play/bridge.js?v=202611510"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
-<link rel="stylesheet" href="/tokens.css?v=1202611509">
-<link rel="stylesheet" href="/signal/book.css?v=1202611509">
-<link rel="stylesheet" href="/signal/free.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
+<link rel="stylesheet" href="/tokens.css?v=202611510">
+<link rel="stylesheet" href="/signal/book.css?v=202611510">
+<link rel="stylesheet" href="/signal/free.css?v=202611510">
 <style>
 /* стили только этой страницы */
 .controls[hidden], .kot-says[hidden], .verdict[hidden]{display:none}
@@ -26,10 +26,10 @@
 .legend-row i.ochre{background:#C9A43A}
 @media (max-width:620px){ .p4-stats{grid-template-columns:1fr 1fr} .p4-stats > div:last-child{grid-column:1 / -1} }
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611510">
 </head>
 <body data-course="probability" data-chapter="p04" data-next="05-conditional.html">
-<script src="/signal/progress.js?v=1202611509"></script>
+<script src="/signal/progress.js?v=202611510"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -52,12 +52,12 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">Котейка бросает два кубика. Сумма 7 — посуду моет Боб, сумма 12 — Алиса. Кому выпадает чаще?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Сумм действительно 11, но они не равновероятны: у одних много клеток в таблице 6 × 6, у других одна.">Поровну: сумм 11, у каждой шанс 1/11</button><button type="button" data-v=1"b">Бобу: у семёрки 6 клеток из 36</button><button type="button" data-v=1"c" data-why="Синий 3 и красный 4 — это не то же, что синий 4 и красный 3. Пар с суммой 7 шесть.">Поровну: обе суммы — одна пара чисел</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Сумм действительно 11, но они не равновероятны: у одних много клеток в таблице 6 × 6, у других одна.">Поровну: сумм 11, у каждой шанс 1/11</button><button type="button" data-v="b">Бобу: у семёрки 6 клеток из 36</button><button type="button" data-v="c" data-why="Синий 3 и красный 4 — это не то же, что синий 4 и красный 3. Пар с суммой 7 шесть.">Поровну: обе суммы — одна пара чисел</button></div>
     <p class="why">Исходов 36: синий кубик × красный. Сумма 7 — шесть клеток (1 + 6, 2 + 5, … 6 + 1), сумма 12 — одна (6 + 6). Боб моет посуду в 6 вечерах из 36, Алиса — в одном.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">В понедельник десерт заказали 8 гостей из 10, во вторник — 2 из 10. Что скорее всего случилось?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Меню не менялось. По 10 гостей доля легко скачет от 2 до 8 из 10 и при одной и той же правде.">Во вторник повар испортил рецепт десерта</button><button type="button" data-v=1"b" data-why="10 гостей — короткая серия: по ней долю не узнать, она скачет.">Настоящая доля десерта в кафе — 80%</button><button type="button" data-v=1"c">Обычный разброс маленьких порций по 10</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Меню не менялось. По 10 гостей доля легко скачет от 2 до 8 из 10 и при одной и той же правде.">Во вторник повар испортил рецепт десерта</button><button type="button" data-v="b" data-why="10 гостей — короткая серия: по ней долю не узнать, она скачет.">Настоящая доля десерта в кафе — 80%</button><button type="button" data-v="c">Обычный разброс маленьких порций по 10</button></div>
     <p class="why">Короткая серия скачет, длинная успокаивается — шаг 2. По 10 гостей при честной половине «8 и больше» бывает примерно в 55 днях из 1000, «2 и меньше» — тоже в 55.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -172,9 +172,9 @@
   <h2>Хотя бы одна из ста</h2>
   <p>В гирлянде 100 лампочек, каждая перегорает за год с шансом 1%. Как часто за год перегорит хотя бы одна?</p>
   <div class="choice" data-key="lamps" role="group" aria-label="Твой прогноз">
-    <button type="button" data-v=1"all" data-fb="Логика понятна: 100 · 1% = 100%. Проверим на тысяче гирлянд." aria-pressed="false">Почти всегда: 100 раз по 1%</button>
-    <button type="button" data-v=1"two3" data-fb="Ставка записана. Проверим на тысяче гирлянд." aria-pressed="false">Примерно в двух годах из трёх</button>
-    <button type="button" data-v=1"one" data-fb="Каждая лампочка надёжна — но их сотня. Проверим на тысяче гирлянд." aria-pressed="false">Редко: лампочки же надёжные</button>
+    <button type="button" data-v="all" data-fb="Логика понятна: 100 · 1% = 100%. Проверим на тысяче гирлянд." aria-pressed="false">Почти всегда: 100 раз по 1%</button>
+    <button type="button" data-v="two3" data-fb="Ставка записана. Проверим на тысяче гирлянд." aria-pressed="false">Примерно в двух годах из трёх</button>
+    <button type="button" data-v="one" data-fb="Каждая лампочка надёжна — но их сотня. Проверим на тысяче гирлянд." aria-pressed="false">Редко: лампочки же надёжные</button>
   </div>
   <div class="sheet c-white">
     <p class="chart-title">Гирлянда: горящие и перегоревшие лампочки</p>
@@ -285,7 +285,7 @@ _check()
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так у Боба, если шаги не влияют друг на друга?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Складывать здесь нечего: 7 · 90% = 630%, так не бывает. И нужны все шаги сразу, а не хотя бы один.">Надо сложить шансы: выйдет больше 100%</button><button type="button" data-v=1"b">Нужны все семь «и» — перемножаем: 48%</button><button type="button" data-v=1"c" data-why="Средний шаг и правда надёжен на 90%, но заказу нужны все семь шагов сразу — а это «и», произведение.">Всё верно: средний шаг надёжен на 90%</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Складывать здесь нечего: 7 · 90% = 630%, так не бывает. И нужны все шаги сразу, а не хотя бы один.">Надо сложить шансы: выйдет больше 100%</button><button type="button" data-v="b">Нужны все семь «и» — перемножаем: 48%</button><button type="button" data-v="c" data-why="Средний шаг и правда надёжен на 90%, но заказу нужны все семь шагов сразу — а это «и», произведение.">Всё верно: средний шаг надёжен на 90%</button></div>
     <p class="why">«Вовремя» — это шаг 1 <b>и</b> шаг 2 <b>и</b> … шаг 7. Для независимых шагов: <span class="nw"><span class="tx" data-tex="0.9^{7} \approx 0.478"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.</span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.478</span></span></span></span></span>.</span> Из 1000 заказов вовремя приедут около 478 — меньше половины. Длинная цепочка из вероятных шагов вероятной быть не обязана.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -327,22 +327,22 @@ _check()
   <h2>Вопросы про «не, и, или»</h2>
   <div class="quiz" data-right="b">
     <p class="q">У каждого из 50 курьеров шанс опоздать сегодня 2%, независимо от других. Как часто опоздает хотя бы один?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="2% — шанс для одного курьера. Курьеров 50, и опоздать может любой.">Около 2%, как у одного курьера</button><button type="button" data-v=1"b">Около 64%: единица минус «никто»</button><button type="button" data-v=1"c" data-why="50 · 2% = 1 — это среднее число опоздавших. Бывают дни, когда не опоздал никто, и дни, когда опоздали двое.">Ровно 100%: пятьдесят раз по 2%</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="2% — шанс для одного курьера. Курьеров 50, и опоздать может любой.">Около 2%, как у одного курьера</button><button type="button" data-v="b">Около 64%: единица минус «никто»</button><button type="button" data-v="c" data-why="50 · 2% = 1 — это среднее число опоздавших. Бывают дни, когда не опоздал никто, и дни, когда опоздали двое.">Ровно 100%: пятьдесят раз по 2%</button></div>
     <p class="why">Все вовремя: <span class="nw"><span class="tx" data-tex="0.98^{50} \approx 0.364"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">0.9</span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">50</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.364</span></span></span></span></span>.</span> Хотя бы один опоздает: <span class="tx" data-tex="1 - 0.364 \approx 0.636"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.364</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.636</span></span></span></span></span> — примерно в 64 днях из 100.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Гость оформляет либо доставку, либо самовывоз — одновременно нельзя. Эти два события независимы?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Не пересекаются — значит, наоборот, сильно связаны: одно исключает другое.">Да: они не пересекаются, значит, не влияют</button><button type="button" data-v=1"b" data-why="Даже если доли доставки и самовывоза равны, это не делает события независимыми.">Да, если доли доставки и самовывоза равны</button><button type="button" data-v=1"c">Нет: узнав одно, знаешь, что второго нет</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Не пересекаются — значит, наоборот, сильно связаны: одно исключает другое.">Да: они не пересекаются, значит, не влияют</button><button type="button" data-v="b" data-why="Даже если доли доставки и самовывоза равны, это не делает события независимыми.">Да, если доли доставки и самовывоза равны</button><button type="button" data-v="c">Нет: узнав одно, знаешь, что второго нет</button></div>
     <p class="why">Независимость — когда одно ничего не говорит о другом. А здесь «доставка» сразу говорит «не самовывоз». Числами: <span class="nw"><span class="tx" data-tex="P(\text{«оба»}) = 0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">оба</span><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span>,</span> а <span class="tx" data-tex="P(\text{«доставка»}) \cdot P(\text{«самовывоз»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">доставка</span><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">самовывоз</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span> больше нуля. Несовместные события с ненулевыми вероятностями всегда зависимы.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">40% гостей берут кофе, 30% — круассан. Какая доля берёт хотя бы одно из двух?</p>
-    <div class="choice"><button type="button" data-v=1"a">От 40 до 70%, смотря сколько берут оба</button><button type="button" data-v=1"b" data-why="Сумма верна, только если кофе с круассаном вместе не берёт никто.">Ровно 70%: сорок плюс тридцать процентов</button><button type="button" data-v=1"c" data-why="Произведение — это «и» для независимых событий, причём «оба», а не «хотя бы одно».">Ровно 12%: сорок умножить на тридцать</button></div>
+    <div class="choice"><button type="button" data-v="a">От 40 до 70%, смотря сколько берут оба</button><button type="button" data-v="b" data-why="Сумма верна, только если кофе с круассаном вместе не берёт никто.">Ровно 70%: сорок плюс тридцать процентов</button><button type="button" data-v="c" data-why="Произведение — это «и» для независимых событий, причём «оба», а не «хотя бы одно».">Ровно 12%: сорок умножить на тридцать</button></div>
     <p class="why"><span class="nw"><span class="tx" data-tex="P(\text{«кофе или круассан»}) = 40\% + 30\% - P(\text{«оба»})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">кофе</span><span class="mord"> </span><span class="mord cyrillic_fallback">или</span><span class="mord"> </span><span class="mord cyrillic_fallback">круассан</span><span class="mord">»</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.0833em;"></span><span class="mord">40%</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.0833em;"></span><span class="mord">30%</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">«</span><span class="mord cyrillic_fallback">оба</span><span class="mord">»</span></span><span class="mclose">)</span></span></span></span></span>.</span> Если все любители круассанов берут и кофе, выйдет 40%, если вместе не берёт никто — 70%. Без доли «оба» ответ не узнать.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Шевалье де Мере в XVII веке спорил: что вероятнее — хотя бы одна шестёрка за 4 броска кубика или хотя бы пара шестёрок за 24 броска двух кубиков?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Так рассуждал сам де Мере: 4 · 1/6 = 24 · 1/36 = 2/3. Но «хотя бы раз» складывать нельзя.">Поровну: четыре шестых — то же, что 24/36</button><button type="button" data-v=1"b">Одна шестёрка: 51.8% против 49.1%</button><button type="button" data-v=1"c" data-why="Бросков больше, но и пару шестёрок выбросить в шесть раз труднее. Считай через «ни разу».">Пара шестёрок: ведь бросков в шесть раз больше</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Так рассуждал сам де Мере: 4 · 1/6 = 24 · 1/36 = 2/3. Но «хотя бы раз» складывать нельзя.">Поровну: четыре шестых — то же, что 24/36</button><button type="button" data-v="b">Одна шестёрка: 51.8% против 49.1%</button><button type="button" data-v="c" data-why="Бросков больше, но и пару шестёрок выбросить в шесть раз труднее. Считай через «ни разу».">Пара шестёрок: ведь бросков в шесть раз больше</button></div>
     <p class="why">Через «ни разу»: <span class="tx" data-tex="1 - (5/6)^{4} \approx 0.518"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">5/6</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.518</span></span></span></span></span> и <span class="nw"><span class="tx" data-tex="1 - (35/36)^{24} \approx 0.491"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">35/36</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.491</span></span></span></span></span>.</span> По легенде, де Мере заметил на практике, что вторая ставка проигрывает, и написал Паскалю — с этой переписки началась теория вероятностей.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -378,7 +378,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=1202611509"></script>
+<script src="/signal/book.js?v=202611510"></script>
 <script>
 const TXT = {
   ru: {
@@ -581,6 +581,6 @@ const TXT = {
   window.addEventListener('resize', draw);
 })();
 </script>
-<script src="/signal/py.js?v=1202611509"></script>
+<script src="/signal/py.js?v=202611510"></script>
 </body>
 </html>

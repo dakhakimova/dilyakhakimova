@@ -59,11 +59,11 @@ ${extra}${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}<tit
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1${V}">
-<link rel="stylesheet" href="/tokens.css?v=1${V}">
-<link rel="stylesheet" href="/home.css?v=1${V}">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${V}">
-<link rel="stylesheet" href="/play/play.css?v=1${V}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
+<link rel="stylesheet" href="/tokens.css?v=${V}">
+<link rel="stylesheet" href="/home.css?v=${V}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">
+<link rel="stylesheet" href="/play/play.css?v=${V}">
 </head>
 <body>
 <a class="skip" href="#main">${t('skip')}</a>
@@ -170,7 +170,7 @@ ${chrome.header('play', /\/play\/$/.test(url))}
   </div>
 </main>
 ${foot()}
-<script src="/play/play.js?v=1${V}"></script>
+<script src="/play/play.js?v=${V}"></script>
 </body>
 </html>
 `;

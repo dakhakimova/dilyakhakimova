@@ -24,12 +24,12 @@ const head = (title, desc, canon) => `<!DOCTYPE html>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1${ver}">
-<link rel="stylesheet" href="/tokens.css?v=1${ver}">
-<link rel="stylesheet" href="/signal/book.css?v=1${ver}">
-<link rel="stylesheet" href="/signal/free.css?v=1${ver}">
-<link rel="stylesheet" href="/${DIR}/shad.css?v=1${ver}">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${ver}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=${ver}">
+<link rel="stylesheet" href="/tokens.css?v=${ver}">
+<link rel="stylesheet" href="/signal/book.css?v=${ver}">
+<link rel="stylesheet" href="/signal/free.css?v=${ver}">
+<link rel="stylesheet" href="/${DIR}/shad.css?v=${ver}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${ver}">
 </head>`;
 
 const nav = `<nav class="top" aria-label="Навигация">
@@ -72,9 +72,9 @@ ${body.trim()}
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=1${ver}"></script>
-<script src="/signal/book.js?v=1${ver}"></script>
-${/class="cell"/.test(body) ? '<script src="/signal/py.js?v=1' + ver + '"></script>\n' : ''}<script src="/${DIR}/shad.js?v=1${ver}"></script>
+<script src="/fonts/katex/katex.min.js?v=${ver}"></script>
+<script src="/signal/book.js?v=${ver}"></script>
+${/class="cell"/.test(body) ? '<script src="/signal/py.js?v=' + ver + '"></script>\n' : ''}<script src="/${DIR}/shad.js?v=${ver}"></script>
 ${script}
 </body>
 </html>
@@ -110,11 +110,11 @@ fs.writeFileSync(path.join(ROOT, DIR, 'index.html'), `<!DOCTYPE html>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1${ver}">
-<link rel="stylesheet" href="/tokens.css?v=1${ver}">
-<link rel="stylesheet" href="/home.css?v=1${ver}">
-<link rel="stylesheet" href="/course.css?v=1${ver}">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${ver}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=${ver}">
+<link rel="stylesheet" href="/tokens.css?v=${ver}">
+<link rel="stylesheet" href="/home.css?v=${ver}">
+<link rel="stylesheet" href="/course.css?v=${ver}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${ver}">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>

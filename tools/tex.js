@@ -49,7 +49,7 @@ function processHtml0(html){
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, t) => (n++, render(t, true)))
     .replace(/\\\(([\s\S]+?)\\\)([,.;:!?»)]*)/g, (_, t, p) => (n++, p ? `<span class="nw">${render(t, false)}${p}</span>` : render(t, false)))).join('');
   let out = body;
-  if (n && !/katex\.min\.css/.test(out)) out = out.replace(/<\/head>/, `<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1${V}">\n</head>`);
+  if (n && !/katex\.min\.css/.test(out)) out = out.replace(/<\/head>/, `<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${V}">\n</head>`);
   return {html: out, n};
 }
 

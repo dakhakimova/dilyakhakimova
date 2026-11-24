@@ -60,7 +60,7 @@ function boiler(){
         const own = await p.$('.t-toy');
         if (own){
           await own.scrollIntoViewIfNeeded();
-          await p.click('.t-toy .choice button[data-v=1"0"]');
+          await p.click('.t-toy .choice button[data-v="0"]');
           await p.click('.t-toy .t-ctl .btn:not(.ghost)'); await p.waitForTimeout(1200);
           if (!(await p.isVisible('.t-toy .verdict'))) errs.push(`${tag}: своя игра — нет вердикта`);
           if (!(await p.$('.t-toy .choice.done [data-right]'))) errs.push(`${tag}: не подсвечен верный прогноз`);

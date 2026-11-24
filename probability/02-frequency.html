@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/02-frequency.html">
 <title>Вероятность как частота · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 2 бесплатного интерактивного курса «Вероятность на пальцах»: бегущая доля, почему короткие серии скачут, закон больших чисел, ошибка игрока и задачи с собеседований.">
-<script src="/play/bridge.js?v=1202611509"></script>
+<script src="/play/bridge.js?v=202611510"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
-<link rel="stylesheet" href="/tokens.css?v=1202611509">
-<link rel="stylesheet" href="/signal/book.css?v=1202611509">
-<link rel="stylesheet" href="/signal/free.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
+<link rel="stylesheet" href="/tokens.css?v=202611510">
+<link rel="stylesheet" href="/signal/book.css?v=202611510">
+<link rel="stylesheet" href="/signal/free.css?v=202611510">
 <style>
 .kot-says[hidden]{display:none}
 /* блоки отзывов */
@@ -25,10 +25,10 @@
 @media (max-width:620px){ .rev{grid-template-columns:repeat(5,1fr); gap:6px} .rev .blk{padding:4px; gap:2px} }
 .legend-row i.dot{width:10px; height:10px; border-radius:50%}
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611510">
 </head>
 <body data-course="probability" data-chapter="p02" data-next="03-counting.html">
-<script src="/signal/progress.js?v=1202611509"></script>
+<script src="/signal/progress.js?v=202611510"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -94,9 +94,9 @@
   <h2>Бегущая доля: короткая серия скачет, длинная успокаивается</h2>
   <p>Сначала прикинь: если бросить монетку 10 000 раз, как часто доля орлов окажется в пределах 49–51%?</p>
   <div class="choice" data-key="g10k" role="group" aria-label="Твой ответ">
-    <button type="button" data-v=1"most" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Почти всегда</button>
-    <button type="button" data-v=1"half" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Примерно в половине серий</button>
-    <button type="button" data-v=1"rare" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Редко: 2% — это узко</button>
+    <button type="button" data-v="most" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Почти всегда</button>
+    <button type="button" data-v="half" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Примерно в половине серий</button>
+    <button type="button" data-v="rare" data-fb="Запомнили. Проверим веером из 50 серий." aria-pressed="false">Редко: 2% — это узко</button>
   </div>
   <div class="sheet c-white">
     <p class="chart-title">Доля орлов по мере бросков, шкала логарифмическая</p>
@@ -271,7 +271,7 @@ _check()
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Что не так в рассуждении Боба?</p>
-    <div class="choice"><button type="button" data-v=1"a">Монетка не помнит прошлых бросков: решка — ½</button><button type="button" data-v=1"b" data-why="Пять орлов подряд у честной монетки бывают: в 1 серии из 32. Монетка от этого не портится, и шестой бросок по-прежнему ½.">После пяти орлов монетка, скорее всего, кривая — ставь на орла</button><button type="button" data-v=1"c" data-why="Доля и правда вернётся к ½, но разбавлением: новые броски топят старый перекос. Шанс решки в шестом броске от этого не растёт.">Всё верно: закон больших чисел требует решек</button></div>
+    <div class="choice"><button type="button" data-v="a">Монетка не помнит прошлых бросков: решка — ½</button><button type="button" data-v="b" data-why="Пять орлов подряд у честной монетки бывают: в 1 серии из 32. Монетка от этого не портится, и шестой бросок по-прежнему ½.">После пяти орлов монетка, скорее всего, кривая — ставь на орла</button><button type="button" data-v="c" data-why="Доля и правда вернётся к ½, но разбавлением: новые броски топят старый перекос. Шанс решки в шестом броске от этого не растёт.">Всё верно: закон больших чисел требует решек</button></div>
     <p class="why">У монетки нет памяти: шанс решки в шестом броске ½, как и в первом. Доля орлов вернётся к половине потому, что за пятью орлами последуют тысячи обычных бросков, а не потому, что решек «задолжали».</p>
   </div>
   <p class="note quiz-score"></p>
@@ -305,7 +305,7 @@ _check()
   <h2>Четыре вопроса про частоту</h2>
   <div class="quiz" data-right="c">
     <p class="q">Бросков монетки становится всё больше. Что происходит с разницей «орлы минус решки»?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Монетка ничего не выравнивает: у неё нет памяти. Выравнивается только доля, и то разбавлением.">Уменьшается: монетка постепенно выравнивает счёт</button><button type="button" data-v=1"b" data-why="В начале разница маленькая, но потом она обычно уходит от нуля — примерно на √n.">Всё время держится возле нуля</button><button type="button" data-v=1"c">Обычно растёт, хотя доля стремится к ½</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Монетка ничего не выравнивает: у неё нет памяти. Выравнивается только доля, и то разбавлением.">Уменьшается: монетка постепенно выравнивает счёт</button><button type="button" data-v="b" data-why="В начале разница маленькая, но потом она обычно уходит от нуля — примерно на √n.">Всё время держится возле нуля</button><button type="button" data-v="c">Обычно растёт, хотя доля стремится к ½</button></div>
     <p class="why">Разница обычно растёт примерно как <span class="nw"><span class="tx" data-tex="\sqrt{n}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.2397em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
@@ -321,17 +321,17 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </div>
   <div class="quiz" data-right="b">
     <p class="q">В понедельник десерт взяли 7 гостей из 10. Что из этого следует?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Десять гостей — маленькая порция. При честных 50% «семь и больше» бывает примерно в каждом шестом дне.">Доля десертов в кафе — 70%, так в отчёт и запишем</button><button type="button" data-v=1"b">Почти ничего: на десяти гостях доля скачет</button><button type="button" data-v=1"c" data-why="Сравнивать дни по десять гостей можно, но разница 7 и 3 легко получается и без всякого меню.">Понедельничное меню продаёт лучше вторничного</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Десять гостей — маленькая порция. При честных 50% «семь и больше» бывает примерно в каждом шестом дне.">Доля десертов в кафе — 70%, так в отчёт и запишем</button><button type="button" data-v="b">Почти ничего: на десяти гостях доля скачет</button><button type="button" data-v="c" data-why="Сравнивать дни по десять гостей можно, но разница 7 и 3 легко получается и без всякого меню.">Понедельничное меню продаёт лучше вторничного</button></div>
     <p class="why">На десяти гостях доля гуляет от 20 до 80% почти всегда. Чтобы говорить о доле десертов, нужны сотни гостей.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">В топе рейтинга кафе по доле пятёрок — сплошь маленькие кафе. Почему так может быть?</p>
-    <div class="choice"><button type="button" data-v=1"a">У них мало отзывов, и доля сильно скачет</button><button type="button" data-v=1"b" data-why="Возможно, но тогда маленькие кафе не стояли бы и в самом низу рейтинга. А они там тоже есть.">Маленькие кафе действительно готовят лучше всех</button><button type="button" data-v=1"c" data-why="Без данных о накрутке это догадка. Простое объяснение — размер выборки — работает и без неё.">Большие кафе получают больше накрученных плохих отзывов</button></div>
+    <div class="choice"><button type="button" data-v="a">У них мало отзывов, и доля сильно скачет</button><button type="button" data-v="b" data-why="Возможно, но тогда маленькие кафе не стояли бы и в самом низу рейтинга. А они там тоже есть.">Маленькие кафе действительно готовят лучше всех</button><button type="button" data-v="c" data-why="Без данных о накрутке это догадка. Простое объяснение — размер выборки — работает и без неё.">Большие кафе получают больше накрученных плохих отзывов</button></div>
     <p class="why">Маленькие порции чаще дают крайности в обе стороны: маленькие кафе оказываются и в самом верху, и в самом низу. Это свойство выборки, а не кухни.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Какой оценке хороших отзывов стоит доверять больше: 10 из 10 или 96 из 100?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="10 из 10 правдоподобно и для кафе с 90% хороших отзывов: так выходит примерно в трети блоков по 10.">10 из 10: у кафе ни одного плохого отзыва</button><button type="button" data-v=1"b" data-why="Доли близки, но за ними разное количество данных, а значит, разная надёжность.">Одинаково: обе доли выше 95 процентов</button><button type="button" data-v=1"c">96 из 100: отзывов вдесятеро больше</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="10 из 10 правдоподобно и для кафе с 90% хороших отзывов: так выходит примерно в трети блоков по 10.">10 из 10: у кафе ни одного плохого отзыва</button><button type="button" data-v="b" data-why="Доли близки, но за ними разное количество данных, а значит, разная надёжность.">Одинаково: обе доли выше 95 процентов</button><button type="button" data-v="c">96 из 100: отзывов вдесятеро больше</button></div>
     <p class="why">При 95% хороших отзывов идеальные 10 из 10 выпадают в 60% блоков, так что «100%» на десяти отзывах — частое везение. 96 из 100 опирается на в десять раз больше данных.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -378,7 +378,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   </main>
 </div>
 
-<script src="/signal/book.js?v=1202611509"></script>
+<script src="/signal/book.js?v=202611510"></script>
 <script>
 const TXT = {
   ru: {
@@ -583,6 +583,6 @@ const TXT = {
   run();
 })();
 </script>
-<script src="/signal/py.js?v=1202611509"></script>
+<script src="/signal/py.js?v=202611510"></script>
 </body>
 </html>

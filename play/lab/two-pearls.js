@@ -42,7 +42,7 @@
   async function run(api){
     const pick = api.guess, hit = pick.filter(v => PEARLS.includes(v)).length;
     card.querySelectorAll('.lab-pick .opts button').forEach(b => { b.classList.toggle('ok', PEARLS.includes(b.dataset.v)); b.classList.toggle('miss', pick.includes(b.dataset.v) && !PEARLS.includes(b.dataset.v)); });
-    const name = v => card.querySelector('.opts button[data-v=1"' + v + '"]').textContent.trim();
+    const name = v => card.querySelector('.opts button[data-v="' + v + '"]').textContent.trim();
     det.innerHTML = '';
     const items = [...new Set([...pick, ...PEARLS])];
     for (const v of items){ const p = document.createElement('p'); p.innerHTML = '<b>' + name(v) + '.</b> ' + WHY[v]; det.appendChild(p); await Lab.sleep(250); }

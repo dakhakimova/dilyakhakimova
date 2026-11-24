@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/signal/08-traps.html">
 <title>Симпсон, Берксон, ошибка выжившего и автобус · Сигнал или шум</title>
 <meta name="description" content="Глава 8 бесплатного интерактивного курса «Сигнал или шум»: парадокс инспекции на автобусной остановке, парадокс Симпсона в доставке, Берксон и ошибка выжившего — как проверить данные до расчётов, задачи с собеседований.">
-<script src="/play/bridge.js?v=1202611509"></script>
+<script src="/play/bridge.js?v=202611510"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
-<link rel="stylesheet" href="/tokens.css?v=1202611509">
-<link rel="stylesheet" href="/signal/book.css?v=1202611509">
-<link rel="stylesheet" href="/signal/free.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
+<link rel="stylesheet" href="/tokens.css?v=202611510">
+<link rel="stylesheet" href="/signal/book.css?v=202611510">
+<link rel="stylesheet" href="/signal/free.css?v=202611510">
 <style>
 /* стили только этой страницы */
 .nsel button{min-height:44px}
@@ -22,10 +22,10 @@
 .readout8{font-variant-numeric:tabular-nums}
 .simp td.down8{color:var(--truth)} .simp td.up8{color:var(--trap-ink)}
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611510">
 </head>
 <body data-course="signal" data-chapter="ch08" data-next="09-aa.html">
-<script src="/signal/progress.js?v=1202611509"></script>
+<script src="/signal/progress.js?v=202611510"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Сигнал или шум</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -48,12 +48,12 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="c">
     <p class="q">Курьеры подъезжают к кафе случайно, интервалы — экспонента со средним 10 минут. Котейка ждёт курьера уже 6 минут. Сколько ему ждать ещё в среднем?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Так было бы при строгом расписании «раз в 10 минут». У экспоненты прошлое ожидание ничего не приближает.">4 минуты: 10 минус уже прошедшие 6</button><button type="button" data-v=1"b" data-why="Половина интервала — ответ для строгого расписания и прихода в случайный момент. Здесь интервалы случайные.">5 минут: в среднем полинтервала</button><button type="button" data-v=1"c">10 минут, как будто только пришёл</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Так было бы при строгом расписании «раз в 10 минут». У экспоненты прошлое ожидание ничего не приближает.">4 минуты: 10 минус уже прошедшие 6</button><button type="button" data-v="b" data-why="Половина интервала — ответ для строгого расписания и прихода в случайный момент. Здесь интервалы случайные.">5 минут: в среднем полинтервала</button><button type="button" data-v="c">10 минут, как будто только пришёл</button></div>
     <p class="why">У экспоненты нет памяти: <span class="nw"><span class="tx" data-tex="P(T &gt; t + s \mid T &gt; s) = P(T &gt; t)"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6984em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span>.</span> Прождав 6 минут, Котейка в том же положении, что и в начале: в среднем ещё 10 минут.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Средний чек 640 ₽, медиана 350 ₽: у чеков длинный правый хвост. Какая доля гостей тратит больше среднего чека?</p>
-    <div class="choice"><button type="button" data-v=1"a">Меньше половины гостей</button><button type="button" data-v=1"b" data-why="Ровно половина выше медианы, а среднее при правом хвосте лежит правее медианы.">Ровно половина гостей</button><button type="button" data-v=1"c" data-why="Наоборот: банкеты тянут среднее вверх, и выше него оказывается меньшинство.">Больше половины гостей</button></div>
+    <div class="choice"><button type="button" data-v="a">Меньше половины гостей</button><button type="button" data-v="b" data-why="Ровно половина выше медианы, а среднее при правом хвосте лежит правее медианы.">Ровно половина гостей</button><button type="button" data-v="c" data-why="Наоборот: банкеты тянут среднее вверх, и выше него оказывается меньшинство.">Больше половины гостей</button></div>
     <p class="why">При правом хвосте среднее правее медианы, поэтому выше среднего — меньше половины гостей; у логнормальных чеков с такими параметрами примерно 29 из 100. Это было в главе 6.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -88,9 +88,9 @@
   </div>
   <p>Пусть интервалы между автобусами случайные, <span data-toy-hide>как время между заказами из главы 6, </span>по экспоненте со средним 10 минут. Сколько Котейка ждёт в среднем, если приходит на остановку в случайный момент?</p>
   <div class="choice" data-key="wait" role="group" aria-label="Твой ответ">
-    <button type="button" data-v=1"5" data-fb="Половина интервала — логично для расписания. Проверим на случайных интервалах." aria-pressed="false">5 минут</button>
-    <button type="button" data-v=1"7.5" data-fb="Где‑то между — осторожная ставка. Проверим." aria-pressed="false">7.5 минуты</button>
-    <button type="button" data-v=1"10" data-fb="Смелая ставка: целый интервал. Проверим на следующей карточке." aria-pressed="false">10 минут</button>
+    <button type="button" data-v="5" data-fb="Половина интервала — логично для расписания. Проверим на случайных интервалах." aria-pressed="false">5 минут</button>
+    <button type="button" data-v="7.5" data-fb="Где‑то между — осторожная ставка. Проверим." aria-pressed="false">7.5 минуты</button>
+    <button type="button" data-v="10" data-fb="Смелая ставка: целый интервал. Проверим на следующей карточке." aria-pressed="false">10 минут</button>
   </div>
 </section>
 
@@ -268,7 +268,7 @@ _check()
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Что не так в выводе Боба?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Объём здесь не главное: даже на миллионе гостей вывод был бы тем же, потому что ошибка в том, кто попал в группу «больше года».">Мало данных, нужна выборка побольше</button><button type="button" data-v=1"c" data-why="Среднее или медиана — вопрос второй. Главное, что «постоянные» — не те же люди, что новички, а отобранные.">Нужно сравнивать медианы, а не средние</button><button type="button" data-v=1"b">Гости с маленьким чеком чаще уходят</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Объём здесь не главное: даже на миллионе гостей вывод был бы тем же, потому что ошибка в том, кто попал в группу «больше года».">Мало данных, нужна выборка побольше</button><button type="button" data-v="c" data-why="Среднее или медиана — вопрос второй. Главное, что «постоянные» — не те же люди, что новички, а отобранные.">Нужно сравнивать медианы, а не средние</button><button type="button" data-v="b">Гости с маленьким чеком чаще уходят</button></div>
     <p class="why">В группу «больше года» попали те, кто остался. Если гости с маленьким чеком уходят чаще, у оставшихся чек выше, даже если никто не начал тратить больше. Честная проверка — следить за одними и теми же гостями: как менялся чек каждого от первого месяца к двенадцатому.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -314,22 +314,22 @@ _check()
   <h2>Четыре вопроса про данные</h2>
   <div class="quiz" data-right="c">
     <p class="q">Доля отменённых заказов упала и у новичков, и у постоянных гостей. Что с общей долей отмен?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Это верно только при той же структуре. Если новичков, у которых отмен больше, стало заметно больше, общая доля может вырасти.">Упала: если везде лучше, то в целом тоже</button><button type="button" data-v=1"b" data-why="Вырасти она может, но не обязана: всё зависит от того, как поменялась доля новичков.">Выросла: так всегда бывает при Симпсоне</button><button type="button" data-v=1"c">Зависит от смены доли новичков</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Это верно только при той же структуре. Если новичков, у которых отмен больше, стало заметно больше, общая доля может вырасти.">Упала: если везде лучше, то в целом тоже</button><button type="button" data-v="b" data-why="Вырасти она может, но не обязана: всё зависит от того, как поменялась доля новичков.">Выросла: так всегда бывает при Симпсоне</button><button type="button" data-v="c">Зависит от смены доли новичков</button></div>
     <p class="why">Общая доля — среднее долей групп с весами по числу заказов. Веса поменялись — общая доля может пойти в любую сторону. Сначала смотри на структуру, потом на итог.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Опрос в приложении собрал 50 000 ответов «довольны ли доставкой». Случайный обзвон — 500. Чему верить больше?</p>
-    <div class="choice"><button type="button" data-v=1"a">Обзвону: в нём нет отбора по желанию</button><button type="button" data-v=1"b" data-why="Размер убирает шум, но не смещение: 50 000 ответов тех, кто сам захотел ответить, повторят то же искажение увереннее.">Опросу: 50 000 точнее, чем 500</button><button type="button" data-v=1"c" data-why="Среднее двух результатов унаследует смещение опроса, причём с огромным весом.">Среднему двух результатов с весами n</button></div>
+    <div class="choice"><button type="button" data-v="a">Обзвону: в нём нет отбора по желанию</button><button type="button" data-v="b" data-why="Размер убирает шум, но не смещение: 50 000 ответов тех, кто сам захотел ответить, повторят то же искажение увереннее.">Опросу: 50 000 точнее, чем 500</button><button type="button" data-v="c" data-why="Среднее двух результатов унаследует смещение опроса, причём с огромным весом.">Среднему двух результатов с весами n</button></div>
     <p class="why">В опросе отвечает тот, кто захотел, — обычно очень довольные и очень недовольные. Большая выборка сужает шум, но смещение не трогает. У 500 случайных гостей шум больше, зато он честный.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">После новой упаковки пришла 31 жалоба на пролитый суп. Это много?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="31 — только числитель. Без числа заказов с супом и прошлой нормы сравнить не с чем.">Много: раньше жалоб почти не было</button><button type="button" data-v=1"b">Нельзя сказать без числа заказов и нормы</button><button type="button" data-v=1"c" data-why="Жалоба — это не случайный гость: как часто недовольные пишут, тоже нужно знать. Но сначала — знаменатель.">Мало: недовольные всегда жалуются громче</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="31 — только числитель. Без числа заказов с супом и прошлой нормы сравнить не с чем.">Много: раньше жалоб почти не было</button><button type="button" data-v="b">Нельзя сказать без числа заказов и нормы</button><button type="button" data-v="c" data-why="Жалоба — это не случайный гость: как часто недовольные пишут, тоже нужно знать. Но сначала — знаменатель.">Мало: недовольные всегда жалуются громче</button></div>
     <p class="why">Нужен знаменатель: сколько было заказов с супом, и норма: сколько жалоб было со старой упаковкой на столько же заказов. Ещё важно, не появилась ли кнопка «пожаловаться» на видном месте: тогда жалоб больше без всякого ухудшения.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Котейка приходит на остановку в случайный момент. Автобусы ходят строго раз в 10 минут. Сколько он ждёт в среднем?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="10 минут ждут в среднем при экспоненциальных интервалах. При строгом расписании все интервалы одинаковые.">10 минут, как при случайных интервалах</button><button type="button" data-v=1"b" data-why="Ждать дольше полинтервала заставляют только неровные интервалы. Здесь их нет.">Больше 5: длинные интервалы ловят чаще</button><button type="button" data-v=1"c">5 минут, ровно полинтервала</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="10 минут ждут в среднем при экспоненциальных интервалах. При строгом расписании все интервалы одинаковые.">10 минут, как при случайных интервалах</button><button type="button" data-v="b" data-why="Ждать дольше полинтервала заставляют только неровные интервалы. Здесь их нет.">Больше 5: длинные интервалы ловят чаще</button><button type="button" data-v="c">5 минут, ровно полинтервала</button></div>
     <p class="why">Все интервалы по 10 минут, длинных нет: <span class="nw"><span class="tx" data-tex="E[T^{2}]/(2E[T]) = 100/20 = 5"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mclose">])</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">100/20</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span></span>.</span> Парадокс инспекции начинается, когда интервалы разные.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -364,7 +364,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=1202611509"></script>
+<script src="/signal/book.js?v=202611510"></script>
 <script>
 const TXT = {
   ru: {
@@ -504,6 +504,6 @@ const TXT = {
   gen();
 })();
 </script>
-<script src="/signal/py.js?v=1202611509"></script>
+<script src="/signal/py.js?v=202611510"></script>
 </body>
 </html>

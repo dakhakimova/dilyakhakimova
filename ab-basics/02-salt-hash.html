@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/ab-basics/02-salt-hash.html">
 <title>Монетка, соль и хеш · A/B на пальцах</title>
 <meta name="description" content="Шаг 2 интерактивного курса «A/B на пальцах»: как приложение делит пользователей на группы, чтобы каждый всегда попадал в одну и ту же.">
-<script src="/play/bridge.js?v=1202611509"></script>
+<script src="/play/bridge.js?v=202611510"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
-<link rel="stylesheet" href="/tokens.css?v=1202611509">
-<link rel="stylesheet" href="/signal/book.css?v=1202611509">
-<link rel="stylesheet" href="ab.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
+<link rel="stylesheet" href="/tokens.css?v=202611510">
+<link rel="stylesheet" href="/signal/book.css?v=202611510">
+<link rel="stylesheet" href="ab.css?v=202611510">
 </head>
 <body data-chapter="ab02" data-next="03-noise.html">
 <nav class="top" aria-label="Навигация">
@@ -51,9 +51,9 @@
   </div>
   <p data-toy-hide>Представь гостя, который открывает приложение каждый день. Что с ним будет при таком способе?</p>
   <div class="choice" data-key="g1" role="group" aria-label="Твой ответ">
-    <button type="button" data-v=1"same" data-fb="Хотелось бы. Но монетку Боб бросает при каждом заходе. Проживём с этим гостем неделю и посмотрим." aria-pressed="false">Он всегда будет в одной группе</button>
-    <button type="button" data-v=1"jump" data-fb="Подозрение по делу. Проживём с этим гостем неделю и посмотрим, что он увидит." aria-pressed="false">Он будет прыгать между группами</button>
-    <button type="button" data-v=1"idk" data-fb="Может быть. Проживём с гостем неделю и посмотрим, что он увидит." aria-pressed="false">Ничего страшного не случится</button>
+    <button type="button" data-v="same" data-fb="Хотелось бы. Но монетку Боб бросает при каждом заходе. Проживём с этим гостем неделю и посмотрим." aria-pressed="false">Он всегда будет в одной группе</button>
+    <button type="button" data-v="jump" data-fb="Подозрение по делу. Проживём с этим гостем неделю и посмотрим, что он увидит." aria-pressed="false">Он будет прыгать между группами</button>
+    <button type="button" data-v="idk" data-fb="Может быть. Проживём с гостем неделю и посмотрим, что он увидит." aria-pressed="false">Ничего страшного не случится</button>
   </div>
   <div class="sheet c-white">
     <div class="daysrow" id="days-rand"><b>Случайно при каждом заходе</b></div>
@@ -71,9 +71,9 @@
   <p>Почти 300 лет назад корабельный врач проверял, помогают ли от цинги лимоны. Сыграем в его опыт. На корабле 40 больных моряков: 20 болеют легко, 20 тяжело. За неделю лёгкие обычно выздоравливают, тяжёлые — редко. А лимоны в нашей игре <b>не делают ничего</b>.</p>
   <p>Лимоны раздаёт врач Боб. Он добрый и даёт их тем, кому, как ему кажется, они нужнее. Что покажет сравнение «с лимонами» и «без»?</p>
   <div class="choice" data-key="g3" role="group" aria-label="Твой прогноз">
-    <button type="button" data-v=1"same" data-fb="Логично: лимоны же ничего не делают. Проверим, так ли это, когда раздаёт Боб.">Разницы не будет</button>
-    <button type="button" data-v=1"good" data-fb="Посмотрим, кому именно Боб их раздаст. Проверим на корабле.">Лимоны «помогут»</button>
-    <button type="button" data-v=1"bad" data-fb="Интересная версия. Проверим на корабле.">Лимоны «навредят»</button>
+    <button type="button" data-v="same" data-fb="Логично: лимоны же ничего не делают. Проверим, так ли это, когда раздаёт Боб.">Разницы не будет</button>
+    <button type="button" data-v="good" data-fb="Посмотрим, кому именно Боб их раздаст. Проверим на корабле.">Лимоны «помогут»</button>
+    <button type="button" data-v="bad" data-fb="Интересная версия. Проверим на корабле.">Лимоны «навредят»</button>
   </div>
   <p class="note" id="g3-note" role="status">Выбери вариант.</p>
   <div class="sheet c-white">
@@ -210,17 +210,17 @@
   <h2>Три вопроса про деление</h2>
   <div class="quiz" data-right="a">
     <p class="q">Гость открыл приложение с телефона, а вечером с ноутбука. Вход по одному и тому же аккаунту. Какую версию он увидит вечером?</p>
-    <div class="choice"><button type="button" data-v=1"b" data-why="Монетку заново не бросают: группа считается из id и названия эксперимента, а они не поменялись.">Случайную: при новом входе монетку бросят заново</button><button type="button" data-v=1"a">Ту же, что видел утром на телефоне</button><button type="button" data-v=1"c" data-why="Устройство и порядок входов не важны: важен id аккаунта. Он тот же, значит, и группа та же, что утром.">Ту, что была открыта на ноутбуке последней</button></div>
+    <div class="choice"><button type="button" data-v="b" data-why="Монетку заново не бросают: группа считается из id и названия эксперимента, а они не поменялись.">Случайную: при новом входе монетку бросят заново</button><button type="button" data-v="a">Ту же, что видел утром на телефоне</button><button type="button" data-v="c" data-why="Устройство и порядок входов не важны: важен id аккаунта. Он тот же, значит, и группа та же, что утром.">Ту, что была открыта на ноутбуке последней</button></div>
     <p class="why">Группа считается по хешу от id и соли. id тот же, соль та же, значит, и ячейка та же. Поэтому для эксперимента важно, чтобы id был одинаковым на всех устройствах.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Сплит 50/50, в эксперименте 1000 человек. В тесте оказалось 516, в контроле 484. Это баг?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Ровно 500 выходит редко, примерно в 2–3 случаях из 100: монетка не обязана выпадать строго поровну. Вспомни игру с 1000 гостей.">Да, при 50/50 должно выйти ровно 500</button><button type="button" data-v=1"c" data-why="На тысяче гостей небольшой перекос от бага не отличить от случая — его ловят на больших числах — шаг 10. 516 — обычное колебание.">Да, хеш раздаёт ячейки с перекосом</button><button type="button" data-v=1"b">Нет, это обычный разброс для тысячи</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Ровно 500 выходит редко, примерно в 2–3 случаях из 100: монетка не обязана выпадать строго поровну. Вспомни игру с 1000 гостей.">Да, при 50/50 должно выйти ровно 500</button><button type="button" data-v="c" data-why="На тысяче гостей небольшой перекос от бага не отличить от случая — его ловят на больших числах — шаг 10. 516 — обычное колебание.">Да, хеш раздаёт ячейки с перекосом</button><button type="button" data-v="b">Нет, это обычный разброс для тысячи</button></div>
     <p class="why">При 1000 гостях число в тесте обычно гуляет примерно от 470 до 530, как в игре. 516 — нормально. А вот при миллионе гостей такой же перекос в процентах был бы подозрителен: к этому вернёмся в шаге 10.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Две команды запустили свои эксперименты, но хешируют только id, без названия эксперимента. Что плохого?</p>
-    <div class="choice"><button type="button" data-v=1"c">В тесте у обеих команд одни и те же люди</button><button type="button" data-v=1"a" data-why="Каждый эксперимент и правда поделится 50/50. Опасность в другом: у каждого человека будет одна ячейка на все эксперименты.">Ничего: каждый эксперимент всё равно делится 50/50</button><button type="button" data-v=1"b" data-why="Размеры будут нормальные, около половины в каждой группе. Беда не в размере, а в том, кто именно в группах.">Группы двух экспериментов получатся разного размера</button></div>
+    <div class="choice"><button type="button" data-v="c">В тесте у обеих команд одни и те же люди</button><button type="button" data-v="a" data-why="Каждый эксперимент и правда поделится 50/50. Опасность в другом: у каждого человека будет одна ячейка на все эксперименты.">Ничего: каждый эксперимент всё равно делится 50/50</button><button type="button" data-v="b" data-why="Размеры будут нормальные, около половины в каждой группе. Беда не в размере, а в том, кто именно в группах.">Группы двух экспериментов получатся разного размера</button></div>
     <p class="why">Без соли ячейка у человека одна на все эксперименты. Тестовые группы совпадут, и эффекты двух фич смешаются: непонятно, что сработало.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -255,8 +255,8 @@
   </main>
 </div>
 
-<script src="/signal/progress.js?v=1202611509"></script>
-<script src="course.js?v=1202611509"></script>
+<script src="/signal/progress.js?v=202611510"></script>
+<script src="course.js?v=202611510"></script>
 <script>
 // FNV-1a, 32 бита: простой и честный хеш для учебных целей
 function fnv(str){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)){ h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }

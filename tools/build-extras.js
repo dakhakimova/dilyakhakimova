@@ -17,9 +17,9 @@ ${PUBLISHED ? '' : '<meta name="robots" content="noindex, follow">\n'}<title>П�
 <link rel="canonical" href="https://dilyakhakimova.com/extras/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1${V}">
-<link rel="stylesheet" href="/tokens.css?v=1${V}">
-<link rel="stylesheet" href="/home.css?v=1${V}">
+<link rel="stylesheet" href="/fonts/fonts.css?v=${V}">
+<link rel="stylesheet" href="/tokens.css?v=${V}">
+<link rel="stylesheet" href="/home.css?v=${V}">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>

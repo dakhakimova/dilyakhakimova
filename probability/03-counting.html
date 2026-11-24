@@ -6,14 +6,14 @@
 <link rel="canonical" href="https://dilyakhakimova.com/probability/03-counting.html">
 <title>Считаем исходы · Вероятность на пальцах</title>
 <meta name="description" content="Шаг 3 бесплатного интерактивного курса «Вероятность на пальцах»: дерево исходов, правило умножения, перестановки и C(n, k), треугольник Паскаля, задачи с собеседований.">
-<script src="/play/bridge.js?v=1202611509"></script>
+<script src="/play/bridge.js?v=202611510"></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=1202611509">
-<link rel="stylesheet" href="/tokens.css?v=1202611509">
-<link rel="stylesheet" href="/signal/book.css?v=1202611509">
-<link rel="stylesheet" href="/signal/free.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611510">
+<link rel="stylesheet" href="/tokens.css?v=202611510">
+<link rel="stylesheet" href="/signal/book.css?v=202611510">
+<link rel="stylesheet" href="/signal/free.css?v=202611510">
 <style>
 .kot-says[hidden]{display:none}
 /* меню-конструктор */
@@ -48,10 +48,10 @@
 .shelves div b{color:var(--muted); font-weight:500; font-size:.75rem; display:block}
 @media (max-width:620px){ .shelves{grid-template-columns:1fr 1fr} }
 </style>
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=1202611509">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611510">
 </head>
 <body data-course="probability" data-chapter="p03" data-next="04-not-and-or.html">
-<script src="/signal/progress.js?v=1202611509"></script>
+<script src="/signal/progress.js?v=202611510"></script>
 <nav class="top" aria-label="Навигация">
   <span class="top-l"><a class="home-line" href="/">← На главную</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Вероятность на пальцах</a></span>
   <span><a href="./">Оглавление курса</a> · <span id="sp-badge"><a href="/account.html">Войти</a></span></span>
@@ -74,12 +74,12 @@
   <h2>Сначала вспомним</h2>
   <div class="quiz" data-right="b">
     <p class="q">Алиса выбирает десерт дня двумя монетками: два орла — эклер, две решки — тарт, разные — чизкейк. Какой десерт будет чаще?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Исходов три по названию, но «разные» — это сразу два исхода: ОР и РО.">Все поровну, по трети дней</button><button type="button" data-v=1"b">Чизкейк: «разные» — это ОР и РО</button><button type="button" data-v=1"c" data-why="Эклер и тарт в равном положении: у каждого один исход из четырёх.">Эклер: орлы выпадают чаще решек</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Исходов три по названию, но «разные» — это сразу два исхода: ОР и РО.">Все поровну, по трети дней</button><button type="button" data-v="b">Чизкейк: «разные» — это ОР и РО</button><button type="button" data-v="c" data-why="Эклер и тарт в равном положении: у каждого один исход из четырёх.">Эклер: орлы выпадают чаще решек</button></div>
     <p class="why">Исходов четыре: ОО, ОР, РО, РР. «Разные» — два из них, поэтому чизкейк будет в половине дней, эклер и тарт — по четверти.</p>
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Котейка бросает синий и красный кубики. Сколько всего равновероятных исходов?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="6 + 6 — это число граней на двух кубиках, а исход — пара значений.">12: по шесть граней у каждого из кубиков</button><button type="button" data-v=1"b" data-why="21 получится, если считать «3 и 5» и «5 и 3» одним исходом. Но кубики подписаны, и это две разные клетки.">21: «3 и 5» и «5 и 3» — одно и то же</button><button type="button" data-v=1"c">36: каждая грань с каждой гранью</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="6 + 6 — это число граней на двух кубиках, а исход — пара значений.">12: по шесть граней у каждого из кубиков</button><button type="button" data-v="b" data-why="21 получится, если считать «3 и 5» и «5 и 3» одним исходом. Но кубики подписаны, и это две разные клетки.">21: «3 и 5» и «5 и 3» — одно и то же</button><button type="button" data-v="c">36: каждая грань с каждой гранью</button></div>
     <p class="why">Таблица <span class="nw"><span class="tx" data-tex="6 \times 6"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span></span>:</span> шесть значений синего на шесть значений красного — 36 клеток, все равновероятны. Это и есть правило умножения, с которого начнётся шаг.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -207,9 +207,9 @@
   <h2>Команда и скамейка</h2>
   <p>Сначала прикинь: в кафе 10 бариста. Чего больше — разных пар на смену или разных восьмёрок на субботний аврал?</p>
   <div class="choice" data-key="g-pairs" role="group" aria-label="Твой ответ">
-    <button type="button" data-v=1"pairs" data-fb="Так отвечает большинство: пары кажутся «разнообразнее». Проверь правилом ниже." aria-pressed="false">Пар больше</button>
-    <button type="button" data-v=1"eights" data-fb="Интересно: обычно отвечают наоборот. Проверь правилом ниже." aria-pressed="false">Восьмёрок больше</button>
-    <button type="button" data-v=1"same" data-fb="Запомнили. Проверь правилом ниже — и подумай, кто остаётся на скамейке." aria-pressed="false">Поровну</button>
+    <button type="button" data-v="pairs" data-fb="Так отвечает большинство: пары кажутся «разнообразнее». Проверь правилом ниже." aria-pressed="false">Пар больше</button>
+    <button type="button" data-v="eights" data-fb="Интересно: обычно отвечают наоборот. Проверь правилом ниже." aria-pressed="false">Восьмёрок больше</button>
+    <button type="button" data-v="same" data-fb="Запомнили. Проверь правилом ниже — и подумай, кто остаётся на скамейке." aria-pressed="false">Поровну</button>
   </div>
   <div class="layers">
     <div class="story"><span class="lt">История</span><p>Выбрать 8 бариста на аврал — то же самое, что выбрать двоих, кто останется дома. Каждой восьмёрке соответствует ровно одна «скамейка» из двух. С десертами так же: собрать коробку из 3 — то же, что выбрать 5, которые останутся на витрине.</p></div>
@@ -285,7 +285,7 @@ _check()
   </div>
   <div class="quiz" data-right="c">
     <p class="q">Что не так в подсчёте Боба?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Без деления каждая коробка посчитана шесть раз — по разу на каждый порядок трёх десертов.">Делить не нужно: коробок 336</button><button type="button" data-v=1"b" data-why="В коробке три разных десерта: взятый десерт второй раз не выбирают, поэтому 8, потом 7, потом 6.">Надо <span class="nw"><span class="tx" data-tex="8 \cdot 8 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>:</span> десерты могут повторяться</button><button type="button" data-v=1"c">Делить надо на 3! = 6, а не на 2</button><button type="button" data-v=1"d" data-why="«Делим на 2» годится только для пар: у двух вещей два порядка. У трёх их шесть.">Всё верно: порядок не важен — делим на 2</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Без деления каждая коробка посчитана шесть раз — по разу на каждый порядок трёх десертов.">Делить не нужно: коробок 336</button><button type="button" data-v="b" data-why="В коробке три разных десерта: взятый десерт второй раз не выбирают, поэтому 8, потом 7, потом 6.">Надо <span class="nw"><span class="tx" data-tex="8 \cdot 8 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>:</span> десерты могут повторяться</button><button type="button" data-v="c">Делить надо на 3! = 6, а не на 2</button><button type="button" data-v="d" data-why="«Делим на 2» годится только для пар: у двух вещей два порядка. У трёх их шесть.">Всё верно: порядок не важен — делим на 2</button></div>
     <p class="why">У трёх десертов 3! = 6 порядков, и все шесть дают одну коробку. Поэтому <span class="num">336/6 = 56</span> коробок. «Делим на 2» верно только для пар.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -327,22 +327,22 @@ _check()
   <h2>Четыре вопроса про подсчёт</h2>
   <div class="quiz" data-right="c">
     <p class="q">Что вероятнее при десяти бросках честной монетки: ОООООООООО или ОРРОРООРОР?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Каждая конкретная цепочка из 10 бросков — одна ветка из 1024. Пёстрая ничем не лучше.">Пёстрая: она похожа на случайность</button><button type="button" data-v=1"b" data-why="Монетка не помнит прошлых бросков, ей не «пора» менять сторону.">Пёстрая: десять орлов подряд не бывает</button><button type="button" data-v=1"c">Обе одинаково: по 1 из 1024</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Каждая конкретная цепочка из 10 бросков — одна ветка из 1024. Пёстрая ничем не лучше.">Пёстрая: она похожа на случайность</button><button type="button" data-v="b" data-why="Монетка не помнит прошлых бросков, ей не «пора» менять сторону.">Пёстрая: десять орлов подряд не бывает</button><button type="button" data-v="c">Обе одинаково: по 1 из 1024</button></div>
     <p class="why">Конкретная цепочка из 10 бросков — одна ветка дерева из 1024. Пёстрых цепочек много, поэтому «какая‑нибудь пёстрая» выпадает часто, но каждая отдельная так же редка, как десять орлов.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Сколько разных исходов у десяти бросков монетки?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Два исхода на бросок складываются только если бросок один. Каждый новый бросок раздваивает все ветки.">20: по два исхода на каждый из бросков</button><button type="button" data-v=1"b">1024: каждый бросок удваивает ветки</button><button type="button" data-v=1"c" data-why="Это число возможных значений «сколько орлов», а не исходов: «5 орлов» — это 252 разные цепочки.">11: орлов бывает от нуля до десяти</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Два исхода на бросок складываются только если бросок один. Каждый новый бросок раздваивает все ветки.">20: по два исхода на каждый из бросков</button><button type="button" data-v="b">1024: каждый бросок удваивает ветки</button><button type="button" data-v="c" data-why="Это число возможных значений «сколько орлов», а не исходов: «5 орлов» — это 252 разные цепочки.">11: орлов бывает от нуля до десяти</button></div>
     <p class="why">Каждый бросок умножает число веток на 2: <span class="num"><span class="tx" data-tex="2^{10} = 1024"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1024</span></span></span></span></span></span>. «Сколько орлов» принимает всего 11 значений, но каждое собирает разное число цепочек.</p>
   </div>
   <div class="quiz" data-right="a">
     <p class="q">Боб: «Эклер с лимонадом почти никто не берёт, так что <span class="tx" data-tex="4 \cdot 3 = 12"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">12</span></span></span></span></span> комбо — неверный подсчёт». Прав ли он?</p>
-    <div class="choice"><button type="button" data-v=1"a">Нет: 12 — число вариантов, а не популярность</button><button type="button" data-v=1"b" data-why="Правило умножения считает варианты выбора. Вкусы гостей влияют на то, как часто берут комбо, а не на то, сколько их в меню.">Да: умножать можно, только если выборы независимы по вкусу</button><button type="button" data-v=1"c" data-why="Непопулярное комбо всё равно стоит в меню, его можно заказать. Клетка таблицы от этого не исчезает.">Да: непопулярные комбо надо вычесть — их будет 11</button></div>
+    <div class="choice"><button type="button" data-v="a">Нет: 12 — число вариантов, а не популярность</button><button type="button" data-v="b" data-why="Правило умножения считает варианты выбора. Вкусы гостей влияют на то, как часто берут комбо, а не на то, сколько их в меню.">Да: умножать можно, только если выборы независимы по вкусу</button><button type="button" data-v="c" data-why="Непопулярное комбо всё равно стоит в меню, его можно заказать. Клетка таблицы от этого не исчезает.">Да: непопулярные комбо надо вычесть — их будет 11</button></div>
     <p class="why">Умножение отвечает на вопрос «сколько вариантов можно собрать». Сколько раз какой из них закажут — другой вопрос, про частоты.</p>
   </div>
   <div class="quiz" data-right="b">
     <p class="q">Из 10 бариста выбирают троих на смену, внутри смены все равны. Сколько способов?</p>
-    <div class="choice"><button type="button" data-v=1"a" data-why="Делить на 2 нужно для пар. У троих 3! = 6 порядков, и все шесть дают одну смену.">360: <span class="nw"><span class="tx" data-tex="10 \cdot 9 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>,</span> делённое на 2</button><button type="button" data-v=1"b">120: <span class="nw"><span class="tx" data-tex="10 \cdot 9 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>,</span> делённое на 3!</button><button type="button" data-v=1"c" data-why="720 — это «полки»: порядок посчитан. В смене порядка нет, поэтому каждая смена учтена шесть раз.">720: порядок внутри смены тоже считаем</button><button type="button" data-v=1"d" data-why="10 · 3 не связано с выбором: на каждое следующее место вариантов становится меньше, и их надо перемножать.">30: десять бариста на три места</button></div>
+    <div class="choice"><button type="button" data-v="a" data-why="Делить на 2 нужно для пар. У троих 3! = 6 порядков, и все шесть дают одну смену.">360: <span class="nw"><span class="tx" data-tex="10 \cdot 9 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>,</span> делённое на 2</button><button type="button" data-v="b">120: <span class="nw"><span class="tx" data-tex="10 \cdot 9 \cdot 8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span>,</span> делённое на 3!</button><button type="button" data-v="c" data-why="720 — это «полки»: порядок посчитан. В смене порядка нет, поэтому каждая смена учтена шесть раз.">720: порядок внутри смены тоже считаем</button><button type="button" data-v="d" data-why="10 · 3 не связано с выбором: на каждое следующее место вариантов становится меньше, и их надо перемножать.">30: десять бариста на три места</button></div>
     <p class="why"><span class="num">C(10, 3) = 720/3! = 120</span>. Делим на число порядков внутри одной смены, а не на 2.</p>
   </div>
   <p class="note quiz-score"></p>
@@ -379,7 +379,7 @@ _check()
   </main>
 </div>
 
-<script src="/signal/book.js?v=1202611509"></script>
+<script src="/signal/book.js?v=202611510"></script>
 <script>
 const TXT = {
   ru: {
@@ -507,6 +507,6 @@ const TXT = {
   update();
 })();
 </script>
-<script src="/signal/py.js?v=1202611509"></script>
+<script src="/signal/py.js?v=202611510"></script>
 </body>
 </html>
