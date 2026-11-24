@@ -121,3 +121,7 @@ details.rule-d .rule{margin-top:12px}
 /* номер задачи — часть заголовка, а не отдельная мелкая метка */
 .card .task-h .tn{color:var(--pen)}
 body[data-course="shad4"] .card h3.task-h{font:500 1.625rem/1.25 var(--serif); margin:32px 0 12px}
+/* метка над заголовком — одна на все слайды: шрифт, размер и отступ до заголовка одинаковые (дизайн-система 2.10: метка → h2 — 8) */
+body[data-course="shad4"] .card > .kicker, body[data-course="shad4"] .card > .step-tag{display:block; font:600 .8125rem/1.2 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--label-ink); background:none; border:0; padding:0; margin:8px 0 8px}
+body[data-course="shad4"] .card > .kicker + h1, body[data-course="shad4"] .card > .step-tag + h2{margin-top:0}
+body[data-course="shad4"] .card > h2.task-h:first-child{margin-top:8px}
