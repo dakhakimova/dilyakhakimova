@@ -48,6 +48,7 @@
     </span></div>
     <div class="controls" id="g1-prow" hidden><span>Вероятность успеха \(p\):</span><span class="seg" role="group" aria-label="p"><button type="button" class="btn ghost" data-p="0.005" aria-pressed="true">0.5%</button><button type="button" class="btn ghost" data-p="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-p="0.05" aria-pressed="false">5%</button><button type="button" class="btn ghost" data-p="0.3" aria-pressed="false">30%</button></span></div>
     <div class="controls"><label class="field">Наблюдений в среднем \(n\) = <input type="number" id="g1-n" class="n-in" min="1" max="5000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
+    <p class="dist-f" aria-live="polite"></p>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
@@ -135,7 +136,19 @@
   };
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
   let dk = 'logn', n = 1, sim = null;
+  const FORM = {
+    unif: 'f(x) = 1,\\quad 0 \\le x \\le 1',
+    exp: 'f(x) = \\lambda e^{-\\lambda x},\\quad x \\ge 0,\\quad \\lambda = 1',
+    logn: 'f(x) = \\frac{1}{x\\,s\\sqrt{2\\pi}}\\, e^{-\\frac{(\\ln x - m)^2}{2s^2}},\\quad x > 0,\\quad m = 0,\\ s = 1',
+    bern: 'f(x) = p^{x}(1 - p)^{1 - x},\\quad x \\in \\{0, 1\\},\\quad p = ' + 0.005,
+    par: 'f(x) = \\frac{1}{x\\,s\\sqrt{2\\pi}}\\, e^{-\\frac{(\\ln x - m)^2}{2s^2}},\\quad x > 0,\\quad m = 0,\\ s = 2',
+    pareto: 'f(x) = \\frac{\\alpha\\, x_m^{\\alpha}}{x^{\\alpha + 1}},\\quad x \\ge x_m,\\quad x_m = 1,\\ \\alpha = 1.5'
+  };
+  const fEl = g1.querySelector('.dist-f');
+  const showF = () => { fEl.innerHTML = window.katex ? window.katex.renderToString(FORM[dk], {throwOnError: false, displayMode: true}) : FORM[dk]; };
+
   function run(){
+    showF();
     const d = D[dk], reps = 2000, m = new Float64Array(reps); let hit = 0;
     for (let r = 0; r < reps; r++){
       let mean, sd;
@@ -164,10 +177,10 @@
     big(c, 'среднее по n = ' + n + ' · ' + d.name, L, 20, COL.ink, 16, 600, 'left');
     const cv = sim.cov;
     out1.innerHTML = cv == null ? 'При \\(n = 1\\) среднее — это само наблюдение: видна форма исходного распределения. Интервал по одному наблюдению не построить.'
-      : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
+      : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (dk === 'pareto' ? 'ЦПТ не сработает ни при каком \\(n\\): дисперсия бесконечна.' : cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
   }
   const pRow = document.getElementById('g1-prow');
-  const setBern = p => { const b = D.bern; b.p = p; b.mu = p; b.name = 'Бернулли, p = ' + p + ': μ = ' + p + ', σ ≈ ' + num(Math.sqrt(p * (1 - p)), 2); };
+  const setBern = p => { const b = D.bern; b.p = p; b.mu = p; FORM.bern = 'f(x) = p^{x}(1 - p)^{1 - x},\\quad x \\in \\{0, 1\\},\\quad p = ' + p; b.name = 'Бернулли, p = ' + p + ': μ = ' + p + ', σ ≈ ' + num(Math.sqrt(p * (1 - p)), 2); };
   setBern(0.005);
   pick(g1, 'd', v => { dk = v; pRow.hidden = v !== 'bern'; run(); });
   pick(pRow, 'p', v => { setBern(+v); run(); });
