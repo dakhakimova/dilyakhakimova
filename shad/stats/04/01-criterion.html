@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611438">
-<link rel="stylesheet" href="/tokens.css?v=202611438">
-<link rel="stylesheet" href="/signal/book.css?v=202611438">
-<link rel="stylesheet" href="/signal/free.css?v=202611438">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611438">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611438">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611439">
+<link rel="stylesheet" href="/tokens.css?v=202611439">
+<link rel="stylesheet" href="/signal/book.css?v=202611439">
+<link rel="stylesheet" href="/signal/free.css?v=202611439">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611439">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611439">
 </head>
 <body data-course="shad4" data-chapter="shad4-01" data-next="02-pvalue.html">
 <nav class="top" aria-label="Навигация">
@@ -196,8 +196,8 @@
     </div>
   </main>
 </div>
-<script src="/signal/book.js?v=202611438"></script>
-<script src="/shad/stats/04/shad.js?v=202611438"></script>
+<script src="/signal/book.js?v=202611439"></script>
+<script src="/shad/stats/04/shad.js?v=202611439"></script>
 <script>
 (function(){
   // хвосты биномиального распределения при H0
@@ -228,6 +228,7 @@
     });
     return pm;
   }
+  const big = (c, t, x, y, col, fs, wt) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = 'center'; c.fillText(t, x, y); c.restore(); };
   // игра 1: порог и сторона
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector(".out");
   let side = 1, k1 = 29; const seen = new Set();
@@ -250,14 +251,14 @@
   // картинка 2: две панели
   const g2 = document.getElementById('g2'), cv2 = g2.querySelector('canvas');
   function paint2(){
-    const g = canvas(cv2, 0.36, 1.1); if (!g) return; const {c, w, h} = g, mob = w < 620;
+    const g = canvas(cv2, 0.4, 1.2); if (!g) return; const {c, w, h} = g, mob = w < 620;
     const pw = mob ? w : w / 2 - 8, ph = mob ? h / 2 - 6 : h, top = Math.max(...pm30) * 1.15;
     [[0, 0, 'H₁: p > 1/2 — весь α справа', k => k >= 26, 'X ≥ 26: 4.03%'], [mob ? 0 : w / 2 + 8, mob ? h / 2 + 6 : 0, 'H₁: p ≠ 1/2 — по α/2 в хвост', k => k >= 27 || k <= 13, 'X ≤ 13 и X ≥ 27: по 1.92%']].forEach(([ox, oy, t, red, lab]) => {
-      const L = ox + 8, B = oy + ph - 22, T = oy + 44, bw = (pw - 16) / 31, K0 = 5;
-      label(c, t, ox + pw / 2, oy + 14, COL.ink, 'center');
-      for (let k = K0; k <= K0 + 30; k++){ const i = k - K0, hh = (B - T) * pm30[k] / top; c.fillStyle = red(k) ? COL.trap : '#A9B8DA'; c.fillRect(L + i * bw + bw * 0.1, B - hh, bw * 0.8, hh); if (k % 5 === 0) label(c, String(k), L + i * bw + bw / 2, B + 14, COL.ink2, 'center'); }
+      const fs = Math.round(Math.max(15, Math.min(19, pw / 24))), L = ox + 8, B = oy + ph - 26, T = oy + 2 * fs + 30, bw = (pw - 16) / 31, K0 = 5;
+      big(c, t, ox + pw / 2, oy + fs + 2, COL.ink, fs, 500);
+      for (let k = K0; k <= K0 + 30; k++){ const i = k - K0, hh = (B - T) * pm30[k] / top; c.fillStyle = red(k) ? COL.trap : '#A9B8DA'; c.fillRect(L + i * bw + bw * 0.1, B - hh, bw * 0.8, hh); if (k % 5 === 0) big(c, String(k), L + i * bw + bw / 2, B + 20, COL.ink2, 15, 400); }
       const x19 = L + (24 - K0 + 0.5) * bw; c.strokeStyle = COL.ctrl; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(x19, T); c.lineTo(x19, B); c.stroke(); c.setLineDash([]);
-      label(c, lab, ox + pw / 2, oy + 32, COL.trapInk, 'center'); label(c, '24', x19 + 4, T + 10, COL.ctrl);
+      big(c, lab, ox + pw / 2, oy + 2 * fs + 12, COL.trapInk, fs, 600); c.save(); c.font = '600 15px Onest, sans-serif'; c.fillStyle = COL.ctrl; c.fillText('24', x19 + 5, T + 12); c.restore();
     });
   }
   g2.querySelector(".out").innerHTML = 'Для 24 выкупов: одностороннее p-value — <b>13.41%</b>, двустороннее — <b>26.82%</b>. Справа в двустороннем разрешено вдвое меньше ошибки, поэтому порог сдвинулся с 26 на 27.';
@@ -282,7 +283,7 @@
   const d4 = dens.skew, Q = {sym: {r5: 1.645, l5: -1.645, r25: 1.96, l25: -1.96}, skew: {r5: q(d4, 0.95), l5: q(d4, 0.05), r25: q(d4, 0.975), l25: q(d4, 0.025)}};
   function paint4(){
     const d = dens[shape], qq = Q[shape];
-    const g = canvas(cv4, 0.3, 1.4); if (!g) return; const {c, w, h} = g, mob = w < 620;
+    const g = canvas(cv4, 0.34, 1.5); if (!g) return; const {c, w, h} = g, mob = w < 620;
     const pw = mob ? w : (w - 32) / 3, ph = mob ? (h - 24) / 3 : h;
     let top = 0; for (let x = d.lo; x <= d.hi; x += (d.hi - d.lo) / 200) top = Math.max(top, d.f(x)); top *= 1.12;
     const f2 = v => { const r = Math.round(v * 1000) / 1000; return String(Math.abs(r) < 2 ? r : Math.round(r * 100) / 100).replace('-', '−'); };
@@ -292,14 +293,14 @@
       ['Двусторонняя: θ ≠ θ₀', [[d.lo, qq.l25], [qq.r25, d.hi]], 'T ≤ ' + f2(qq.l25) + ' и T ≥ ' + f2(qq.r25) + ': по 2.5%']
     ];
     panels.forEach(([t, regs, lab], i) => {
-      const ox = mob ? 0 : i * (pw + 16), oy = mob ? i * (ph + 12) : 0, L = ox + 6, R = ox + pw - 6, B = oy + ph - 20, T = oy + 46;
+      const ox = mob ? 0 : i * (pw + 16), oy = mob ? i * (ph + 12) : 0, L = ox + 6, R = ox + pw - 6, B = oy + ph - 24, T = oy + 66, fs = Math.round(Math.max(15, Math.min(19, pw / 17)));
       const X = v => L + (v - d.lo) / (d.hi - d.lo) * (R - L), Y = v => B - (B - T) * v / top;
-      label(c, t, ox + pw / 2, oy + 14, COL.ink, 'center');
-      label(c, lab, ox + pw / 2, oy + 32, COL.trapInk, 'center');
+      big(c, t, ox + pw / 2, oy + fs + 2, COL.ink, fs, 500);
+      big(c, lab, ox + pw / 2, oy + 2 * fs + 12, COL.trapInk, fs, 600);
       regs.forEach(([a, b]) => { c.beginPath(); c.moveTo(X(a), B); for (let x = a; x <= b; x += (d.hi - d.lo) / 300) c.lineTo(X(x), Y(d.f(x))); c.lineTo(X(b), Y(d.f(b))); c.lineTo(X(b), B); c.closePath(); c.fillStyle = COL.trap; c.fill(); });
       c.beginPath(); for (let x = d.lo; x <= d.hi; x += (d.hi - d.lo) / 300) { const px = X(x), py = Y(d.f(x)); x === d.lo ? c.moveTo(px, py) : c.lineTo(px, py); } c.strokeStyle = '#7F93C4'; c.lineWidth = 2.2; c.stroke();
       c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B); c.lineTo(R, B); c.stroke();
-      label(c, 'T', R - 4, B + 14, COL.ink2, 'right');
+      big(c, 'T', R - 6, B + 20, COL.ink2, 16, 500);
     });
     out4.innerHTML = shape === 'sym'
       ? 'Симметричное распределение: двусторонние границы стоят на равном расстоянии от центра, и каждая дальше односторонней — в хвосте только α/2.'

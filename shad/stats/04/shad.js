@@ -34,3 +34,10 @@
     return {get: () => v, set};
   };
 })();
+
+// Слайды для живой лекции: подписи на графиках крупнее, чем в книге (15 px вместо 12)
+(function(){
+  if (typeof window.canvas !== 'function') return;
+  const base = window.canvas;
+  window.canvas = function(){ const g = base.apply(this, arguments); if (g && g.c) g.c.font = '15px Onest, system-ui, sans-serif'; return g; };
+})();
