@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611534">
-<link rel="stylesheet" href="/tokens.css?v=202611534">
-<link rel="stylesheet" href="/signal/book.css?v=202611534">
-<link rel="stylesheet" href="/signal/free.css?v=202611534">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611534">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611534">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611536">
+<link rel="stylesheet" href="/tokens.css?v=202611536">
+<link rel="stylesheet" href="/signal/book.css?v=202611536">
+<link rel="stylesheet" href="/signal/free.css?v=202611536">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611536">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611536">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -247,10 +247,10 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611534"></script>
-<script src="/signal/book.js?v=202611534"></script>
-<script src="/signal/py.js?v=202611534"></script>
-<script src="/shad/stats/04/shad.js?v=202611534"></script>
+<script src="/fonts/katex/katex.min.js?v=202611536"></script>
+<script src="/signal/book.js?v=202611536"></script>
+<script src="/signal/py.js?v=202611536"></script>
+<script src="/shad/stats/04/shad.js?v=202611536"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
@@ -326,7 +326,11 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
       + '<p class="stp"><b>Проверка 1 — равновероятны ли ходы.</b> ' + KX('H_0') + ': каждый ход с вероятностью 1/3. Всего ' + n + ' ходов, при ' + KX('H_0') + ' ожидаем по ' + KX('E = ' + n + '/3 = ' + f(E)) + '.</p>'
       + '<div class="report-wrap"><table class="tails"><thead><tr><th>Ход</th><th>Наблюдали ' + KX('O') + '</th><th>Ожидали ' + KX('E') + '</th><th>' + KX('O - E') + '</th><th>' + KX('\\frac{(O - E)^2}{E}') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
       + '<p class="stp">Степеней свободы ' + KX('3 - 1 = 2') + ', порог на 5% — 5.99. ' + KX('\\chi^2 = ' + num(chi, 2)) + ', ' + pf(pc) + ': ' + (chi > 5.99 ? '<b>отвергаем</b> — ходы выбирают неравновероятно.' : '<b>не отвергаем</b> — перекос в пределах шума.') + '</p>'
-      + '<p class="stp"><b>Проверка 2 — независимы ли ходы.</b> ' + KX('H_0') + ': ход повторяет предыдущий с вероятностью 1/3. Повторов ' + v.rep + ' из ' + v.pairs + ' пар — ' + num(sh * 100, 1) + '%. ' + KX('\\sigma = \\sqrt{\\tfrac13 \\cdot \\tfrac23 / ' + v.pairs + '} = ' + num(se, 4)) + ', ' + KX('z = (' + num(sh, 3) + ' - 0.333)/' + num(se, 4) + ' \\approx ' + num(z, 1)) + ', ' + pf(pz) + ': ' + (Math.abs(z) > 1.96 ? '<b>отвергаем</b>' + (z < 0 ? ' — люди избегают повторов.' : ' — повторяют чаще случайного.') : '<b>не отвергаем</b>.') + '</p>'
+      + '<p class="stp"><b>Проверка 2 — независимы ли ходы.</b> ' + KX('H_0') + ': следующий ход не зависит от предыдущего. Тогда в каждой паре соседних ходов второй совпадёт с первым с вероятностью 1/3 — какой бы ни был первый ход. Пары — это ' + v.pairs + ' «монеток» с вероятностью успеха 1/3, и при ' + KX('H_0') + ' они независимы, поэтому число повторов ' + KX('\\sim \\mathrm{Bin}(' + v.pairs + ',\\ 1/3)') + '.</p>'
+      + '<div class="report-wrap"><table class="tails"><thead><tr><th>Пара</th><th>Наблюдали ' + KX('O') + '</th><th>Ожидали ' + KX('E') + '</th><th>' + KX('O - E') + '</th><th>' + KX('\\frac{(O - E)^2}{E}') + '</th></tr></thead><tbody>'
+      + [['Повтор', v.rep, v.pairs / 3], ['Смена хода', v.pairs - v.rep, v.pairs * 2 / 3]].map(([t, o, e]) => '<tr><td>' + t + '</td><td>' + o + '</td><td>' + num(e, 1) + '</td><td>' + (o - e > 0 ? '+' : '−') + num(Math.abs(o - e), 1) + '</td><td>' + num((o - e) ** 2 / e, 2) + '</td></tr>').join('')
+      + '<tr><td><b>Сумма</b></td><td><b>' + v.pairs + '</b></td><td><b>' + v.pairs + '</b></td><td><b>0</b></td><td><b>' + KX('\\chi^2 = ' + num(z * z, 1)) + '</b></td></tr></tbody></table></div>'
+      + '<p class="stp">Это тот же ' + KX('\\chi^2') + ', только с двумя категориями: одна степень свободы, и ' + KX('\\chi^2 = z^2') + ', как в связи с z⁠-⁠тестом выше. Через z: доля повторов ' + num(sh * 100, 1) + '%, ' + KX('\\sigma = \\sqrt{\\tfrac13 \\cdot \\tfrac23 / ' + v.pairs + '} = ' + num(se, 4)) + ', ' + KX('z = (' + num(sh, 3) + ' - 0.333)/' + num(se, 4) + ' \\approx ' + num(z, 1)) + ', ' + pf(pz) + ': ' + (Math.abs(z) > 1.96 ? '<b>отвергаем</b>' + (z < 0 ? ' — люди избегают повторов.' : ' — повторяют чаще случайного.') : '<b>не отвергаем</b>.') + '</p>'
       + '<p class="ans">' + (chi <= 5.99 && Math.abs(z) > 1.96 ? 'По частотам ходы выглядят случайными, а по последовательности — нет: заметный глазу перекос оказался шумом, а незаметный — эффектом. ' : '') + 'Решает не впечатление, а критерий. И человек — плохой генератор случайности, поэтому в A/B пользователей разбивает хеш-функция, а не человек.</p>';
   }
   document.getElementById('g0a-go').addEventListener('click', saveA);
