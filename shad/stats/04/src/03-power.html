@@ -58,7 +58,7 @@
     <button type="button" data-v="more" data-fb="Нажми «Повторить 60 раз» и проверь.">Нужно больше 100</button>
   </div>
 
-  <p>Кривые — давление <b>у отдельных людей</b>: серое — без лекарства, синее — с лекарством. Черты — <b>средние по группе</b> в 60 повторах.</p>
+  <p>Сверху — давление <b>отдельных людей</b>, снизу — <b>средние по группе</b>: их колокол и 60 повторов эксперимента чертами. Меняй размер группы и смотри, что двигается.</p>
   <div class="game" id="g2">
     <div class="controls"><span>Пациентов в группе:</span><span class="seg" role="group" aria-label="Размер группы">
       <button type="button" class="btn ghost" data-n="1" aria-pressed="true">1</button><button type="button" class="btn ghost" data-n="10" aria-pressed="false">10</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="400" aria-pressed="false">400</button>
@@ -102,6 +102,7 @@
 <script>
 (function(){
   const BAR = '#A9B8DA', OCH = '#E9D49B';
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
   const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
   // 1: два колокола
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out'), r1 = document.getElementById('g1-d'), dv = document.getElementById('g1-dv');
@@ -128,22 +129,31 @@
   let n2 = 1, ma = null, mb = null;
   function run2(){ const se = 15 / Math.sqrt(n2); ma = Array.from({length: 60}, () => 140 + se * gauss()); mb = Array.from({length: 60}, () => 135 + se * gauss()); paint2(); }
   function paint2(){
-    const g = canvas(cv2, 0.34, 0.7); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 10, B = 30, lo = 95, hi = 180;
-    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * 0.92 * v / normPdf(0);
-    c.lineWidth = 2; c.strokeStyle = '#CFCDC6'; Book.bell(c, X, Y, 140, 15, lo, hi, {unit: true}); c.stroke();
-    c.strokeStyle = '#9DB4DE'; Book.bell(c, X, Y, 135, 15, lo, hi, {unit: true}); c.stroke();
-    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
-    for (let v = 100; v <= 180; v += 20) label(c, String(v), X(v), h - B + 15, COL.ink2, 'center');
-    label(c, 'давление, мм рт. ст.', w / 2, h - 2, COL.ink2, 'center');
-    if (!ma){ Book.invite(c, 'Нажми «Повторить 60 раз»', w / 2, (h - B) * 0.45); return; }
-    const hb = (h - T - B) * 0.22;
-    c.lineWidth = 1.5;
-    mb.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = COL.ctrl; c.beginPath(); c.moveTo(X(v), T + (h - T - B) * 0.2); c.lineTo(X(v), T + (h - T - B) * 0.2 + hb); c.stroke(); });
-    ma.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = '#8F8D86'; c.beginPath(); c.moveTo(X(v), T + (h - T - B) * 0.5); c.lineTo(X(v), T + (h - T - B) * 0.5 + hb); c.stroke(); });
-    label(c, 'с лекарством', L + 4, T + (h - T - B) * 0.2 - 4, COL.ctrl);
-    label(c, 'без лекарства', L + 4, T + (h - T - B) * 0.5 - 4, '#6B6A65');
+    const g = canvas(cv2, 0.56, 1.0); if (!g) return; const {c, w, h} = g, L = 10, R = 10, lo = 95, hi = 180;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), fs = 15;
+    // верх: люди — разброс 15, не зависит от n
+    const B1 = h * 0.40, T1 = 30, Y1 = v => B1 - (B1 - T1) * v / normPdf(0);
+    big(c, 'Люди: давление одного пациента, σ = 15 — от n не зависит', L, 18, COL.ink2, fs, 500, 'left');
+    c.lineWidth = 2; c.strokeStyle = '#B9B7B0'; Book.bell(c, X, Y1, 140, 15, lo, hi, {unit: true}); c.stroke();
+    c.strokeStyle = '#9DB4DE'; Book.bell(c, X, Y1, 135, 15, lo, hi, {unit: true}); c.stroke();
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B1); c.lineTo(w - R, B1); c.stroke();
+    // низ: средние по группе — колокол с SE = 15/√n, сужается с ростом n
+    const se = 15 / Math.sqrt(n2), B2 = h - 64, T2 = B1 + 54, Y2 = v => B2 - (B2 - T2) * v / normPdf(0);
+    big(c, 'Средние по группе из ' + n2 + ': SE = 15/√' + n2 + ' = ' + num(se, 1), L, B1 + 34, COL.ink, fs, 600, 'left');
+    [[140, '#8F8D86', 'rgba(143,141,134,.18)'], [135, COL.ctrl, 'rgba(35,65,138,.15)']].forEach(([m, col, fill]) => {
+      c.beginPath(); c.moveTo(X(lo), B2); for (let x = lo; x <= hi; x += 0.1){ c.lineTo(X(x), Y2(normPdf((x - m) / se))); } c.lineTo(X(hi), B2); c.closePath(); c.fillStyle = fill; c.fill();
+      c.beginPath(); for (let x = lo; x <= hi; x += 0.1){ const px = X(x), py = Y2(normPdf((x - m) / se)); x === lo ? c.moveTo(px, py) : c.lineTo(px, py); } c.strokeStyle = col; c.lineWidth = 2.2; c.stroke();
+    });
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B2); c.lineTo(w - R, B2); c.stroke();
+    // черты — 60 повторов, полупрозрачные: где гуще, там темнее
+    if (ma){
+      c.lineWidth = 2;
+      mb.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = 'rgba(35,65,138,.45)'; c.beginPath(); c.moveTo(X(v), B2 + 6); c.lineTo(X(v), B2 + 20); c.stroke(); });
+      ma.forEach(v => { if (v < lo || v > hi) return; c.strokeStyle = 'rgba(110,108,102,.45)'; c.beginPath(); c.moveTo(X(v), B2 + 22); c.lineTo(X(v), B2 + 36); c.stroke(); });
+    }
+    for (let v = 100; v <= 180; v += 20) big(c, String(v), X(v), h - 8, COL.ink2, 14, 400);
     const pw = 1 - normCdf(1.96 - 5 / (15 * Math.sqrt(2 / n2))) + normCdf(-1.96 - 5 / (15 * Math.sqrt(2 / n2)));
-    out2.innerHTML = '\\(n = ' + n2 + '\\): разброс средних \\(\\mathrm{SE} = 15/\\sqrt{' + n2 + '} = ' + num(15 / Math.sqrt(n2), 1) + '\\) мм. Мощность t-теста \\(\\approx ' + num(100 * pw, 0) + '\\%\\).';
+    out2.innerHTML = 'Синее — с лекарством (135), серое — без (140). Черты под осью — средние в 60 повторах. \\(n = ' + n2 + '\\): \\(\\mathrm{SE} = 15/\\sqrt{' + n2 + '} = ' + num(se, 1) + '\\) мм, мощность t-теста \\(\\approx ' + num(100 * pw, 0) + '\\%\\).';
   }
   pick(g2, 'n', v => { n2 = +v; ma = mb = null; run2(); });
   document.getElementById('g2-run').addEventListener('click', run2);
