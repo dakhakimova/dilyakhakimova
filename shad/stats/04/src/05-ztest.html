@@ -16,11 +16,14 @@
     <li><b>Каждое среднее почти нормально</b> (ЦПТ, блок 4): \(\bar X_A \approx N\big(\mu_A,\ \sigma_A^2/n_A\big)\), \(\bar X_B \approx N\big(\mu_B,\ \sigma_B^2/n_B\big)\).</li>
     <li><b>Разность тоже <a href="/terms/normal-distribution/#sum-h">нормальна</a>.</b> Группы независимы; центр \(\mathbb{E}(\bar X_B - \bar X_A) = \mu_B - \mu_A\), дисперсии независимых величин складываются, минус не мешает — \(\mathbb{D}(-X) = \mathbb{D}X\):
       <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \mathrm{SE}_\Delta^2\big), \qquad \mathrm{SE}_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
-    <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\mathrm{SE}_\Delta} \approx N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
+    <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\mathrm{SE}_\Delta} \xrightarrow{d} N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
     <li><b>При \(H_0:\ \mu_A = \mu_B\) разность \(\mu\) равна нулю</b> — как в блоке 1, предполагаем, что \(H_0\) верна:
-      <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \approx N(0, 1) \quad \text{при } H_0.\]</p></li>
+      <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \xrightarrow{d} N(0, 1) \quad \text{при } H_0.\]</p></li>
     <li><b>Критерий</b>: двусторонний, отвергаем при \(|z| \ge 1.96\); \(p = 2\,P\big(N(0,1) \ge |z|\big)\).</li>
-    <li><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b> (для конверсии \(s^2 = \hat p(1 - \hat p)\)). Это законно по <b>теореме Слуцкого</b>: \(\dfrac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \cdot \dfrac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}\), первый множитель \(\xrightarrow{d} N(0,1)\), второй \(\xrightarrow{P} 1\) по ЗБЧ, значит произведение \(\xrightarrow{d} N(0,1)\). На малых \(n\) второй множитель ещё гуляет — это поправляет t-критерий.</li>
+    <li><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b> (для конверсии \(s^2 = \hat p(1 - \hat p)\)). Это законно по <b>теореме Слуцкого</b>: \(\dfrac{\bar X_B - \bar X_A}{\widehat{\mathrm{SE}}_\Delta} = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} \cdot \dfrac{\mathrm{SE}_\Delta}{\widehat{\mathrm{SE}}_\Delta}\), первый множитель \(\xrightarrow{d} N(0,1)\), второй \(\xrightarrow{P} 1\) по ЗБЧ, значит произведение \(\xrightarrow{d} N(0,1)\). На малых \(n\) второй множитель ещё гуляет — это поправляет t-критерий.
+      <p><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)</p>
+      <p class="formula">\[P\big(|\bar X - \mathbb{E}X| > \varepsilon\big) \to 0, \qquad \text{пишут } \bar X \xrightarrow{P} \mathbb{E}X.\]</p>
+      <p><b>Почему \(s \xrightarrow{P} \sigma\).</b> Выборочная дисперсия — тоже среднее: \(s^2 \approx \overline{X^2} - \bar X^2\). По ЗБЧ \(\overline{X^2} \xrightarrow{P} \mathbb{E}X^2\) и \(\bar X \xrightarrow{P} \mathbb{E}X\), значит \(s^2 \xrightarrow{P} \mathbb{E}X^2 - (\mathbb{E}X)^2 = \sigma^2\). Отсюда \(\widehat{\mathrm{SE}}_\Delta / \mathrm{SE}_\Delta \xrightarrow{P} 1\). Нужна конечная дисперсия — это то же условие, что и для ЦПТ.</p></li>
   </ol>
 </section>
 
