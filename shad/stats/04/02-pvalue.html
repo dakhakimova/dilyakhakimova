@@ -49,6 +49,9 @@
   <div class="def">
     <p><b>p-value</b> — вероятность, <b>если верна <span class="tx" data-tex="H_0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></b>, получить значение статистики <b>такое же, как наблюдаемое, или ещё более экстремальное</b> в сторону альтернативы. Для Боба: <span class="nw"><span class="tx" data-tex="p = P(X \ge 24 \mid p = 1/2) = 13.4\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">24</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">13.4%</span></span></span></span></span>.</span></p>
   </div>
+  <div class="game" id="g0">
+    <canvas aria-label="p-value для 24 выкупов из 40: наблюдаемое значение и всё, что экстремальнее"></canvas>
+  </div>
   <p><b>Что из этого следует:</b></p>
   <ul>
     <li><b>«<span class="nw"><span class="tx" data-tex="p \le \alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>»</span> ⇔ статистика в критической области.</b> Критическая область — самые экстремальные значения с суммарной вероятностью не больше <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>.</span> Поэтому один протокол работает для всех критериев: посчитай p-value и сравни с <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>.</span></li>
@@ -164,6 +167,27 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 (function(){
   const BAR = '#A9B8DA';
   const pick = (box, attr, f) => box.querySelectorAll('[data-' + attr + ']').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('[data-' + attr + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); f(b.dataset[attr]); }));
+
+  // 0: картинка к определению — наблюдаемое 24, стрелка в сторону альтернативы, залитый хвост
+  const g0 = document.getElementById('g0'), cv0 = g0.querySelector('canvas');
+  const pm40 = Array.from({length: 41}, (_, k) => binomPmf(40, k, 0.5));
+  function paint0(){
+    const g = canvas(cv0, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 70, B = 56, k0 = 8, k1 = 32, nb = k1 - k0 + 1, bw = (w - L - R) / nb, top = Math.max(...pm40) * 1.08;
+    const X = k => L + (k - k0 + 0.5) * bw, fs = Math.round(Math.max(15, Math.min(22, w / 40)));
+    for (let k = k0; k <= k1; k++){ const hh = (h - T - B) * pm40[k] / top; c.fillStyle = k >= 24 ? COL.trap : '#A9B8DA'; c.fillRect(X(k) - bw * 0.4, h - B - hh, bw * 0.8, hh); if (k % 2 === 0 || bw > 22) label(c, String(k), X(k), h - B + 18, k === 24 ? COL.ctrl : COL.ink2, 'center'); }
+    c.strokeStyle = COL.grid; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    label(c, 'сколько выкупили из 40, если верна H₀', w / 2, h - 6, COL.ink2, 'center');
+    // наблюдаемое
+    const xo = X(24); c.strokeStyle = COL.ctrl; c.lineWidth = 2; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(xo - bw / 2, T - 30); c.lineTo(xo - bw / 2, h - B); c.stroke(); c.setLineDash([]);
+    c.save(); c.font = '600 ' + fs + 'px Onest, sans-serif'; c.fillStyle = COL.ctrl; c.textAlign = 'right'; c.fillText('наблюдали 24', xo - bw / 2 - 8, T - 34); c.restore();
+    // стрелка в сторону экстремальных
+    const ya = T - 16, xa = xo - bw / 2 + 6, xb = Math.min(X(31), w - R - 10);
+    c.strokeStyle = COL.trap; c.fillStyle = COL.trap; c.lineWidth = 2.5; c.beginPath(); c.moveTo(xa, ya); c.lineTo(xb, ya); c.stroke();
+    c.beginPath(); c.moveTo(xb + 10, ya); c.lineTo(xb - 2, ya - 7); c.lineTo(xb - 2, ya + 7); c.closePath(); c.fill();
+    c.save(); c.font = '600 ' + fs + 'px Onest, sans-serif'; c.fillStyle = COL.trap; c.textAlign = 'left'; c.fillText('так же или экстремальнее', xa, ya - 12); c.restore();
+    // подпись площади
+    c.save(); c.font = '600 ' + fs + 'px Onest, sans-serif'; c.fillStyle = COL.trap; c.textAlign = 'left'; c.fillText('p-value = залитая площадь', xa, T + (h - T - B) * 0.25); c.fillText('= P(X ≥ 24) = 13.41%', xa, T + (h - T - B) * 0.25 + fs + 6); c.restore();
+  }
   // 1: девять орлов
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out');
   const pm = Array.from({length: 11}, (_, k) => binomPmf(10, k, 0.5));
@@ -222,7 +246,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   }
   pick(g3, 'w', v => { world = +v; pv = null; paint3(); });
   document.getElementById('g3-run').addEventListener('click', sim);
-  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+  window.addEventListener('resize', () => { paint0(); paint1(); paint2(); paint3(); });
 })();
 </script>
 
