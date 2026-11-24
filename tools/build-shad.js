@@ -44,7 +44,7 @@ const ALL = files.map(f => { const raw = fs.readFileSync(path.join(SRC, f), 'utf
   const titles = [...raw.matchAll(/<section class="card" data-title="([^"]*)"/g)].map(x => x[1]); return {f, meta, titles}; });
 const fullToc = cur => ALL.map(b => b.f === cur
   ? `    <div class="lt cur"><h2>${b.meta.h}</h2>\n    <ol id="toc-list"></ol></div>`
-  : `    <details class="lt"><summary>${b.meta.h}</summary><ol>${b.titles.map((t, i) => `<li><a href="${b.f}#card-${i + 1}">${t}</a></li>`).join('')}</ol></details>`).join('\n');
+  : `    <details class="lt"><summary>${b.meta.h}</summary><ol>${b.titles.map((t, i) => `<li><a class="tb" href="${b.f}#card-${i + 1}"><span class="i" data-n="${i + 1}"></span><span>${t}</span></a></li>`).join('')}</ol></details>`).join('\n');
 for (const f of files){
   const raw = fs.readFileSync(path.join(SRC, f), 'utf8'), nl = raw.indexOf('\n');
   const meta = JSON.parse(raw.slice(0, nl)); let body = raw.slice(nl + 1);
