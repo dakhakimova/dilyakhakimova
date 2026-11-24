@@ -24,6 +24,21 @@
           const extra = [...document.querySelectorAll('.cell[data-packages]')].flatMap(c => c.dataset.packages.split(/[\s,]+/)).filter(Boolean);
           await py.loadPackage([...new Set(['numpy', ...extra])]);
           py.runPython("import warnings; warnings.filterwarnings('ignore', category=DeprecationWarning)");  // без служебных предупреждений pandas
+          // графики matplotlib: plt.show() сохраняет картинку, ячейка показывает её под выводом
+          if (extra.includes('matplotlib')) py.runPython(`
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt, io, base64
+plt.rcParams.update({"axes.spines.top": False, "axes.spines.right": False, "font.size": 11})
+_imgs = []
+def _show(*a, **k):
+    for n in plt.get_fignums():
+        buf = io.BytesIO()
+        plt.figure(n).savefig(buf, format="png", dpi=120, bbox_inches="tight")
+        _imgs.append(base64.b64encode(buf.getvalue()).decode())
+    plt.close("all")
+plt.show = _show
+`);
           // файлы с данными: data-files="/путь/history.csv" у любой ячейки — кладём в рабочую папку Python под своим именем
           const files = [...new Set([...document.querySelectorAll('.cell[data-files]')].flatMap(c => c.dataset.files.split(/[\s,]+/)).filter(Boolean))];
           for (const f of files){ const r = await fetch(f); if (!r.ok) throw new Error('Не загрузился файл ' + f); py.FS.writeFile(f.split('/').pop(), new Uint8Array(await r.arrayBuffer())); }
@@ -156,8 +171,11 @@
         out.textContent = '';
         py.setStdout({batched: s => { buf += s + '\n'; }});
         py.setStderr({batched: s => { buf += s + '\n'; }});
+        const hasImgs = py.globals.has('_imgs');
+        if (hasImgs) py.runPython('_imgs.clear()');
         await py.runPythonAsync(ta.value);
         let html = esc(buf);
+        if (hasImgs){ const imgs = py.globals.get('_imgs').toJs(); for (const b of imgs) html += '<img class="cell-img" alt="График из ячейки" src="data:image/png;base64,' + b + '">'; }
         if (withCheck){
           attempts++;
           const src = document.getElementById(cell.dataset.check).textContent;
