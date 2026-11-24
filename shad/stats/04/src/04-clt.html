@@ -174,43 +174,36 @@
   <h2>Проверим на данных: выручка доставки</h2>
   <p>История за две недели: 200 000 пользователей, выручка каждого за это время. Планируем эксперимент по 50 000 пользователей в группе. Код запускается прямо здесь, в браузере, — его можно менять.</p>
   <h3>1. Сводка</h3>
-  <div class="cell" data-title="Сводка" data-files="/shad/stats/04/data/history.csv">
-<textarea spellcheck="false" aria-label="Сводка">import numpy as np
+  <div class="cell" data-title="Сводка" data-files="/shad/stats/04/data/history.csv" data-packages="pandas">
+<textarea spellcheck="false" aria-label="Сводка">import pandas as pd
 
-x = np.loadtxt("history.csv", skiprows=1)  # выручка на пользователя за 2 недели
-r = lambda v: f"{v:,.0f}".replace(",", " ")  # 10 000 вместо 10,000
+x = pd.read_csv("history.csv")["revenue"]  # выручка на пользователя за 2 недели
+pd.options.display.float_format = lambda v: f"{v:,.0f}".replace(",", " ")
 
-print("пользователей  ", r(len(x)))
-print(f"доля с покупкой  {np.mean(x &gt; 0):.1%}")
-print("среднее        ", r(x.mean()), "₽")
-print("ст. отклонение ", r(x.std()), "₽")
-for q in [0.5, 0.9, 0.99, 0.999]:
-    print(f"квантиль {q:&lt;5}  ", r(np.quantile(x, q)), "₽")
-print("максимум       ", r(x.max()), "₽")</textarea>
+print(x.describe(percentiles=[0.5, 0.9, 0.99, 0.999]))
+print(f"доля с покупкой {(x &gt; 0).mean():.1%}")</textarea>
   </div>
   <h3>2. Асимметрия и правило</h3>
   <div class="cell" data-title="Асимметрия">
-<textarea spellcheck="false" aria-label="Асимметрия">def skew(a):
-    d = a - a.mean()
-    return (d**3).mean() / (d**2).mean() ** 1.5
+<textarea spellcheck="false" aria-label="Асимметрия">r = lambda v: f"{v:,.0f}".replace(",", " ")  # 10 000 вместо 10,000
 
 def report(name, a):
-    g = skew(a)
+    g = a.skew()
     print(f"{name}: среднее {r(a.mean())} ₽, γ = {g:.1f}, нужно n &gt; {r(355 * g**2)}")
 
 report("как есть", x)</textarea>
   </div>
   <h3>3. Выбросить 1% выбросов</h3>
   <div class="cell" data-title="Без выбросов">
-<textarea spellcheck="false" aria-label="Без выбросов">cap = np.quantile(x, 0.99)  # порог — 99-й перцентиль
-trimmed = x[x &lt;= cap]       # выбросить 1% самых больших
+<textarea spellcheck="false" aria-label="Без выбросов">cap = x.quantile(0.99)  # порог — 99-й перцентиль
+trimmed = x[x &lt;= cap]   # выбросить 1% самых больших
 
 report("без 1% выбросов", trimmed)
 print("выбросили", r(len(x) - len(trimmed)), "пользователей")</textarea>
   </div>
   <h3>4. Винзоризация: заменить порогом</h3>
   <div class="cell" data-title="Винзоризация">
-<textarea spellcheck="false" aria-label="Винзоризация">wins = np.minimum(x, cap)  # большие значения заменить порогом
+<textarea spellcheck="false" aria-label="Винзоризация">wins = x.clip(upper=cap)  # большие значения заменить порогом
 
 report("винзоризация", wins)
 print("порог", r(cap), "₽, пользователей по-прежнему", r(len(wins)))</textarea>
