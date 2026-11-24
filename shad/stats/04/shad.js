@@ -207,3 +207,5 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
   const nb = document.getElementById('next');
   if (nb) nb.addEventListener('click', e => { if (active().some(s => s.next())){ e.preventDefault(); e.stopImmediatePropagation(); } }, true);
 })();
+// холсты слайда, открытого по прямой ссылке: перерисовать, когда страница и шрифты загрузились
+window.addEventListener('load', () => { (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => window.dispatchEvent(new Event('resize')), 50)); });
