@@ -153,7 +153,7 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
 
 // Пошаговое раскрытие (ol.reveal): шаги появляются по одному, текущий подсвечен. Вложенный ol.reveal внутри шага —
 // подшаги: идут сразу за своим шагом, подсвечены жёлтым, а шаг-родитель в это время не подсвечен.
-// Управление одно на весь список — стрелки ↓ и ↑ под ним; стрелка вправо / PageDown / «Далее» тоже раскрывают,
+// Управление одно на весь список — стрелки ↓ и ↑ под ним; стрелка вправо / PageDown тоже раскрывают,
 // стрелка влево / PageUp — назад. Клик по открытому шагу подсвечивает его (Диля, 24.11).
 (function(){
   const tops = [...document.querySelectorAll('ol.reveal')].filter(ol => !ol.parentElement.closest('ol.reveal'));
@@ -204,8 +204,7 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
     const done = fwd ? sts.some(s => s.next()) : [...sts].reverse().some(s => s.prev());
     if (done){ e.preventDefault(); e.stopImmediatePropagation(); }
   }, true);
-  const nb = document.getElementById('next');
-  if (nb) nb.addEventListener('click', e => { if (active().some(s => s.next())){ e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+  // кнопка «Далее» не раскрывает шаги — она всегда ведёт на следующий слайд (Диля, 24.11)
 })();
 // холсты слайда, открытого по прямой ссылке: перерисовать, когда страница и шрифты загрузились
 window.addEventListener('load', () => { (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => window.dispatchEvent(new Event('resize')), 50)); });
