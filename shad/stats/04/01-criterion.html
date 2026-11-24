@@ -136,6 +136,16 @@
   </div>
   <p>У скошенного распределения двусторонняя область <b>несимметрична</b>: левая и правая границы стоят на разном расстоянии от центра, а вероятности хвостов те же — по <span class="nw"><span class="tx" data-tex="\alpha/2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord">/2</span></span></span></span></span>.</span></p>
   <div class="takeaway"><p><b>Односторонний критерий на правильном хвосте мощнее.</b> Весь <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span> в одном хвосте — граница ближе к центру: 1.645 вместо 1.96, и настоящий эффект в эту сторону ловится чаще. Цена — он слеп к эффекту в другую сторону.</p><p><b>Односторонний на уровне 5% равносилен двустороннему на уровне 10%</b> с той стороны: у двустороннего 10% в каждом хвосте те же 5%, и правая граница та же — 1.645.</p></div>
+  <div class="game" id="g5">
+    <div class="controls">
+      <span>Односторонний, <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>:</span></span><span class="seg" role="group" aria-label="α одностороннего"><button type="button" class="btn ghost" data-a1="0.025" aria-pressed="false">2.5%</button><button type="button" class="btn ghost" data-a1="0.05" aria-pressed="true">5%</button><button type="button" class="btn ghost" data-a1="0.1" aria-pressed="false">10%</button></span>
+    </div>
+    <div class="controls">
+      <span>Двусторонний, <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>:</span></span><span class="seg" role="group" aria-label="α двустороннего"><button type="button" class="btn ghost" data-a2="0.05" aria-pressed="true">5%</button><button type="button" class="btn ghost" data-a2="0.1" aria-pressed="false">10%</button><button type="button" class="btn ghost" data-a2="0.2" aria-pressed="false">20%</button></span>
+    </div>
+    <canvas aria-label="Односторонний и двусторонний критерий один под другим"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
 </section>
 
 <section class="card" data-title="Наш случай: одна сторона или две">
@@ -228,7 +238,7 @@
     });
     return pm;
   }
-  const big = (c, t, x, y, col, fs, wt) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = 'center'; c.fillText(t, x, y); c.restore(); };
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
   // игра 1: порог и сторона
   const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector(".out");
   let side = 1, k1 = 29; const seen = new Set();
@@ -307,7 +317,33 @@
       : 'Скошенное распределение (длинный хвост вправо): правая граница далеко от центра, левая — почти у нуля. Площадь каждого хвоста при этом та же — α/2.';
   }
   g4.querySelectorAll('[data-shape]').forEach(b => b.addEventListener('click', () => { shape = b.dataset.shape; g4.querySelectorAll('[data-shape]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint4(); }));
-  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); });
+
+  // одно- и двусторонний один под другим: выбираем α, смотрим, где пороги совпадают
+  const g5 = document.getElementById('g5'), cv5 = g5.querySelector('canvas'), out5 = g5.querySelector('.out');
+  let a1 = 0.05, a2 = 0.05; const fz = v => String(Math.round(v * 1000) / 1000).replace('-', '−'), pc = a => String(Math.round(a * 1000) / 10) + '%';
+  function paint5(){
+    const g = canvas(cv5, 0.54, 1.1); if (!g) return; const {c, w, h} = g;
+    const lo = -3.6, hi = 3.6, L = 10, R = 10, X = v => L + (v - lo) / (hi - lo) * (w - L - R);
+    const r1 = normInv(1 - a1), r2 = normInv(1 - a2 / 2), same = Math.abs(r1 - r2) < 1e-6, ph = (h - 70) / 2;
+    const fs = Math.round(Math.max(15, Math.min(18, w / 40)));
+    [[0, 'Односторонний, α = ' + pc(a1), [[r1, hi]], [r1]], [ph + 44, 'Двусторонний, α = ' + pc(a2) + ' — по ' + pc(a2 / 2) + ' в хвосте', [[lo, -r2], [r2, hi]], [-r2, r2]]].forEach(([oy, t, regs, cuts]) => {
+      const B = oy + ph, T = oy + fs + 18, Y = v => B - (B - T) * v / (normPdf(0) * 1.05);
+      big(c, t, L, oy + fs, COL.ink, fs, 600, 'left');
+      regs.forEach(([a, b]) => { c.beginPath(); c.moveTo(X(a), B); for (let x = a; x <= b; x += 0.02) c.lineTo(X(x), Y(normPdf(x))); c.lineTo(X(b), B); c.closePath(); c.fillStyle = COL.trap; c.fill(); });
+      c.beginPath(); for (let x = lo; x <= hi; x += 0.02){ const px = X(x), py = Y(normPdf(x)); x === lo ? c.moveTo(px, py) : c.lineTo(px, py); } c.strokeStyle = '#7F93C4'; c.lineWidth = 2.2; c.stroke();
+      c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B); c.lineTo(w - R, B); c.stroke();
+      cuts.forEach(v => big(c, fz(v), X(v) + 6, B + 18, COL.trapInk, 15, 600, 'left'));
+    });
+    // правый порог через оба графика
+    c.setLineDash([6, 5]); c.lineWidth = same ? 3 : 1.5;
+    [[r1, same ? '#0B5E47' : COL.ctrl], [r2, same ? '#0B5E47' : COL.ctrl]].forEach(([v, col]) => { c.strokeStyle = col; c.beginPath(); c.moveTo(X(v), fs + 22); c.lineTo(X(v), h - 28); c.stroke(); });
+    c.setLineDash([]);
+    out5.innerHTML = same
+      ? '<b>Правые пороги слились: ' + fz(r1) + '.</b> Односторонний на уровне ' + pc(a1) + ' отвергает справа ровно там же, где двусторонний на уровне ' + pc(a2) + '.'
+      : 'Правый порог одностороннего — ' + fz(r1) + ', двустороннего — ' + fz(r2) + '. ' + (r1 < r2 ? 'Односторонний отвергает раньше — он мощнее справа.' : 'Двусторонний отвергает справа раньше.') + ' Подбери α так, чтобы пороги слились.';
+  }
+  [['a1', v => a1 = +v], ['a2', v => a2 = +v]].forEach(([k, set]) => g5.querySelectorAll('[data-' + k + ']').forEach(b => b.addEventListener('click', () => { set(b.dataset[k]); g5.querySelectorAll('[data-' + k + ']').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint5(); })));
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); paint5(); });
 })();
 </script>
 
