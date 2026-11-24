@@ -105,13 +105,13 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <section class="card" data-title="Визуализация: как среднее становится нормальным">
   <span class="step-tag">Визуализация</span>
   <h2>Как среднее становится нормальным</h2>
-  <p>Столбики — распределение <b>среднего</b> по <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> наблюдениям в 2000 повторах, линия — нормальная кривая. Под графиком — как часто интервал «среднее <span class="nw"><span class="tx" data-tex="\pm 1.96\,\mathrm{SE}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1.96</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">SE</span></span></span></span></span></span>»</span> накрыл настоящее среднее.</p>
+  <p>Столбики — распределение <b>среднего</b> по <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> наблюдениям в повторах эксперимента (от 600 до 4000 — чем больше <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>,</span> тем меньше повторов, чтобы считалось быстро), линия — нормальная кривая. Под графиком — как часто интервал «среднее <span class="nw"><span class="tx" data-tex="\pm 1.96\,\mathrm{SE}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1.96</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">SE</span></span></span></span></span></span>»</span> накрыл настоящее среднее.</p>
   <div class="game" id="g1">
     <div class="controls"><span class="seg" role="group" aria-label="Распределение данных">
       <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">киты</button><button type="button" class="btn ghost" data-d="pareto" aria-pressed="false">Парето</button>
     </span></div>
     <div class="controls" id="g1-prow" hidden><span>Вероятность успеха <span class="nw"><span class="tx" data-tex="p"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span></span>:</span></span><span class="seg" role="group" aria-label="p"><button type="button" class="btn ghost" data-p="0.005" aria-pressed="true">0.5%</button><button type="button" class="btn ghost" data-p="0.01" aria-pressed="false">1%</button><button type="button" class="btn ghost" data-p="0.05" aria-pressed="false">5%</button><button type="button" class="btn ghost" data-p="0.3" aria-pressed="false">30%</button></span></div>
-    <div class="controls"><label class="field">Наблюдений в среднем <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> = <input type="number" id="g1-n" class="n-in" min="1" max="5000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
+    <div class="controls"><label class="field">Наблюдений в среднем <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> = <input type="number" id="g1-n" class="n-in" min="1" max="10000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
     <p class="dist-f" aria-live="polite"></p>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
@@ -307,7 +307,10 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 
   function run(){
     showF();
-    const d = D[dk], reps = 2000, m = new Float64Array(reps); let hit = 0;
+    if (n * 600 > 2e6){ out1.textContent = 'Считаю…'; setTimeout(run2, 20); } else run2();
+  }
+  function run2(){
+    const d = D[dk], reps = Math.max(600, Math.min(4000, Math.round(4e6 / n))), m = new Float64Array(reps); let hit = 0;
     for (let r = 0; r < reps; r++){
       let mean, sd;
       if (d.p != null){ const k = binom(n, d.p); mean = k / n; sd = n > 1 ? Math.sqrt(n / (n - 1) * mean * (1 - mean)) : 0; }
@@ -347,7 +350,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   pick(g1, 'd', v => { dk = v; pRow.hidden = v !== 'bern'; resetN(); run(); });
   pick(pRow, 'p', v => { setBern(+v); resetN(); run(); });
   const nIn = document.getElementById('g1-n');
-  const setN = v => { n = Math.max(1, Math.min(5000, Math.round(+v) || 1)); nIn.value = n; run(); };
+  const setN = v => { n = Math.max(1, Math.min(10000, Math.round(+v) || 1)); nIn.value = n; run(); };
   nIn.addEventListener('change', () => setN(nIn.value));
   nIn.addEventListener('keydown', e => { if (e.key === 'Enter') setN(nIn.value); e.stopPropagation(); });
   document.getElementById('g1-plus').addEventListener('click', () => setN(n + 1));
