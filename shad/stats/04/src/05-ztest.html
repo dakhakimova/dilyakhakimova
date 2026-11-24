@@ -15,8 +15,8 @@
   <ol class="howto reveal">
     <li><b>Каждое среднее почти нормально</b> (ЦПТ, блок 4): \(\bar X_A \approx N\big(\mu_A,\ \sigma_A^2/n_A\big)\), \(\bar X_B \approx N\big(\mu_B,\ \sigma_B^2/n_B\big)\).</li>
     <li><b>Разность тоже <a href="/terms/normal-distribution/#sum-h">нормальна</a>.</b> Группы независимы; центр \(\mathbb{E}(\bar X_B - \bar X_A) = \mu_B - \mu_A\), дисперсии независимых величин складываются, минус не мешает — \(\mathbb{D}(-X) = \mathbb{D}X\):
-      <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \sigma_\Delta^2\big), \qquad \sigma_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
-    <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\sigma_\Delta} \xrightarrow{d} N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
+      <p class="formula">\[\bar X_B - \bar X_A \approx N\big(\mu_B - \mu_A,\ \sigma^2\big), \qquad \sigma = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
+    <li><b>Стандартизуем</b>: \(\dfrac{(\bar X_B - \bar X_A) - (\mu_B - \mu_A)}{\sigma} \xrightarrow{d} N(0, 1)\). Но \(\mu_A, \mu_B\) неизвестны.</li>
     <li><b>При \(H_0:\ \mu_A = \mu_B\) разность \(\mu\) равна нулю</b> — как в блоке 1, предполагаем, что \(H_0\) верна:
       <p class="formula">\[z = \frac{\bar X_B - \bar X_A}{\sqrt{\dfrac{\sigma_A^2}{n_A} + \dfrac{\sigma_B^2}{n_B}}} \xrightarrow{d} N(0, 1) \quad \text{при } H_0.\]</p>
       <p><b>Неизвестные \(\sigma\) заменяем выборочными \(s\)</b>, для конверсии \(s^2 = \hat p(1 - \hat p)\). Получаем статистику, которую считают на практике:</p>
@@ -25,12 +25,12 @@
       <ol class="howto reveal">
         <li><b>Закон больших чисел.</b> Если \(X_1, \dots, X_n\) независимы, одинаково распределены и \(\mathbb{E}X\) конечно, то выборочное среднее сходится к нему по вероятности: для любого \(\varepsilon > 0\)
           <p class="formula">\[P\big(|\bar X - \mathbb{E}X| > \varepsilon\big) \to 0, \qquad \text{пишут } \bar X \xrightarrow{P} \mathbb{E}X.\]</p></li>
-        <li><b>Что из него следует: \(s \xrightarrow{P} \sigma\).</b> Выборочная дисперсия — тоже среднее: \(s^2 \approx \overline{X^2} - \bar X^2\). По ЗБЧ \(\overline{X^2} \xrightarrow{P} \mathbb{E}X^2\) и \(\bar X \xrightarrow{P} \mathbb{E}X\), значит \(s^2 \xrightarrow{P} \mathbb{E}X^2 - (\mathbb{E}X)^2 = \sigma^2\). Нужна конечная дисперсия — то же условие, что и для ЦПТ. Поэтому корень с выборочными \(s\) приближается к корню с истинными \(\sigma\):
-          <p class="formula">\[\frac{\sigma_\Delta}{\mathrm{SE}_\Delta} \xrightarrow{P} 1, \qquad \mathrm{SE}_\Delta = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \sigma_\Delta = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
+        <li><b>Что из него следует: \(s_A \xrightarrow{P} \sigma_A\), \(s_B \xrightarrow{P} \sigma_B\).</b> Выборочная дисперсия группы — тоже среднее: \(s_A^2 \approx \overline{X_A^2} - \bar X_A^2\). По ЗБЧ \(\overline{X_A^2} \xrightarrow{P} \mathbb{E}X_A^2\) и \(\bar X_A \xrightarrow{P} \mathbb{E}X_A\), значит \(s_A^2 \xrightarrow{P} \mathbb{E}X_A^2 - (\mathbb{E}X_A)^2 = \sigma_A^2\); для B так же. Нужна конечная дисперсия — то же условие, что и для ЦПТ. Поэтому корень с выборочными \(s\) приближается к корню с истинными \(\sigma\):
+          <p class="formula">\[\frac{\sigma}{\mathrm{SE}} \xrightarrow{P} 1, \qquad \mathrm{SE} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}, \quad \sigma = \sqrt{\frac{\sigma_A^2}{n_A} + \frac{\sigma_B^2}{n_B}}.\]</p></li>
         <li><b>Теорема Слуцкого.</b> Если \(Y_n \xrightarrow{d} Y\) и \(C_n \xrightarrow{P} c\), где \(c\) — число, то
           <p class="formula">\[Y_n \cdot C_n \xrightarrow{d} c\,Y.\]</p></li>
         <li><b>Что из неё следует: \(z \xrightarrow{d} N(0, 1)\).</b> Разложим статистику на два множителя:
-          <p class="formula">\[\frac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta} = \underbrace{\frac{\bar X_B - \bar X_A}{\sigma_\Delta}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\sigma_\Delta}{\mathrm{SE}_\Delta}}_{\xrightarrow{P} 1}.\]</p>
+          <p class="formula">\[\frac{\bar X_B - \bar X_A}{\mathrm{SE}} = \underbrace{\frac{\bar X_B - \bar X_A}{\sigma}}_{\xrightarrow{d} N(0,\,1)} \cdot \underbrace{\frac{\sigma}{\mathrm{SE}}}_{\xrightarrow{P} 1}.\]</p>
           <p>Первый множитель сходится к \(N(0, 1)\) по ЦПТ — шаги 1–4 выше, второй к 1 — шаг 2. По Слуцкому с \(c = 1\) произведение \(\xrightarrow{d} N(0, 1)\). На малых \(n\) второй множитель ещё заметно гуляет — это поправляет t-критерий.</p></li>
       </ol>
     </li>
@@ -54,7 +54,7 @@
   <details class="sol"><summary>Решение</summary><div class="body">
     <p class="stp"><b>Шаг 1. Дисперсии.</b> Метрика 0/1: \(s_A^2 = 0.1 \cdot 0.9 = 0.09\), \(s_B^2 = 0.106 \cdot 0.894 \approx 0.0948\).</p>
     <p class="stp"><b>Шаг 2. Разница.</b> \(\Delta = 10.6\% - 10.0\% = 0.006\).</p>
-    <p class="stp"><b>Шаг 3. SE.</b> \(\mathrm{SE}_\Delta = \sqrt{0.09/20\,000 + 0.0948/20\,000} = \sqrt{9.24 \cdot 10^{-6}} \approx 0.00304\).</p>
+    <p class="stp"><b>Шаг 3. SE.</b> \(\mathrm{SE} = \sqrt{0.09/20\,000 + 0.0948/20\,000} = \sqrt{9.24 \cdot 10^{-6}} \approx 0.00304\).</p>
     <p class="stp"><b>Шаг 4.</b> \(z = 0.006/0.00304 \approx 1.97\); \(p = 2\,P(N(0,1) \ge 1.97) \approx 0.048\). При \(n\) в десятки тысяч t и z совпадают.</p>
     <p class="ans">\(\mathrm{SE} \approx 0.304\%\), \(z \approx 1.97\), \(p \approx 0.048\) — прокрасилось на 5%, впритык.</p>
   </div></details>
@@ -268,7 +268,7 @@ print(f"порог для 5%: z — {stats.norm.ppf(0.975):.2f}, t — {stats.t.
 <section class="card" data-title="Вывод">
   <span class="step-tag">Итог блока</span>
   <h2>z и t</h2>
-  <div class="takeaway"><p>A/B-тест на среднем: \(t = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}_\Delta}\), \(\mathrm{SE}_\Delta = \sqrt{s_A^2/n_A + s_B^2/n_B}\). По умолчанию — t-критерий Уэлча: на больших \(n\) он совпадает с z, на малых страхует. Нормальность нужна среднему, а не данным.</p></div>
+  <div class="takeaway"><p>A/B-тест на среднем: \(t = \dfrac{\bar X_B - \bar X_A}{\mathrm{SE}}\), \(\mathrm{SE} = \sqrt{s_A^2/n_A + s_B^2/n_B}\). По умолчанию — t-критерий Уэлча: на больших \(n\) он совпадает с z, на малых страхует. Нормальность нужна среднему, а не данным.</p></div>
   <a class="next-step" href="06-ci.html"><b>Дальше: 6. Доверительные интервалы</b>Сколько интервалов накрывает правду.</a>
 </section>
 
