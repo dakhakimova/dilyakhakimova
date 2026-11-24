@@ -23,16 +23,21 @@ from scipy import stats
 moves = {"К": 216, "Н": 186, "Б": 198}   # сколько раз сыграли каждый ход
 repeats, pairs = 112, 560                # ход повторил предыдущий; всего пар соседних ходов
 
+# Проверка 1. H0: каждый ход — К, Н или Б — с вероятностью 1/3
 O = np.array(list(moves.values()))
 E = np.full(3, O.sum() / 3)
 chi2 = ((O - E) ** 2 / E).sum()
+print("Проверка 1. H0: все ходы равновероятны")
 print("доли ходов:", ", ".join(f"{k} {v / O.sum():.1%}" for k, v in moves.items()))
 print(f"χ² = {chi2:.2f}, p-value = {stats.chi2.sf(chi2, df=2):.3f}")
 print("порог на 5% для 3 категорий — 5.99")
 
+# Проверка 2. H0: ходы независимы, поэтому ход повторяет предыдущий с вероятностью 1/3
 share = repeats / pairs
 z = (share - 1 / 3) / np.sqrt(1 / 3 * 2 / 3 / pairs)
 p_rep = 2 * stats.norm.sf(abs(z))
+print()
+print("Проверка 2. H0: ход повторяет предыдущий с вероятностью 1/3")
 print(f"повторов хода {share:.1%} вместо 33.3%: z = {z:.1f}, p-value = {p_rep:.1e}")</textarea>
   </div>
   <details class="sol"><summary>Разбор на примере</summary><div class="body">

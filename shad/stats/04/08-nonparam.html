@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611520">
-<link rel="stylesheet" href="/tokens.css?v=202611520">
-<link rel="stylesheet" href="/signal/book.css?v=202611520">
-<link rel="stylesheet" href="/signal/free.css?v=202611520">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611520">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611520">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611521">
+<link rel="stylesheet" href="/tokens.css?v=202611521">
+<link rel="stylesheet" href="/signal/book.css?v=202611521">
+<link rel="stylesheet" href="/signal/free.css?v=202611521">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611521">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611521">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -65,16 +65,21 @@ from scipy import stats
 moves = {"К": 216, "Н": 186, "Б": 198}   # сколько раз сыграли каждый ход
 repeats, pairs = 112, 560                # ход повторил предыдущий; всего пар соседних ходов
 
+# Проверка 1. H0: каждый ход — К, Н или Б — с вероятностью 1/3
 O = np.array(list(moves.values()))
 E = np.full(3, O.sum() / 3)
 chi2 = ((O - E) ** 2 / E).sum()
+print("Проверка 1. H0: все ходы равновероятны")
 print("доли ходов:", ", ".join(f"{k} {v / O.sum():.1%}" for k, v in moves.items()))
 print(f"χ² = {chi2:.2f}, p⁠-⁠value = {stats.chi2.sf(chi2, df=2):.3f}")
 print("порог на 5% для 3 категорий — 5.99")
 
+# Проверка 2. H0: ходы независимы, поэтому ход повторяет предыдущий с вероятностью 1/3
 share = repeats / pairs
 z = (share - 1 / 3) / np.sqrt(1 / 3 * 2 / 3 / pairs)
 p_rep = 2 * stats.norm.sf(abs(z))
+print()
+print("Проверка 2. H0: ход повторяет предыдущий с вероятностью 1/3")
 print(f"повторов хода {share:.1%} вместо 33.3%: z = {z:.1f}, p⁠-⁠value = {p_rep:.1e}")</textarea>
   </div>
   <details class="sol"><summary>Разбор на примере</summary><div class="body">
@@ -193,10 +198,10 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611520"></script>
-<script src="/signal/book.js?v=202611520"></script>
-<script src="/signal/py.js?v=202611520"></script>
-<script src="/shad/stats/04/shad.js?v=202611520"></script>
+<script src="/fonts/katex/katex.min.js?v=202611521"></script>
+<script src="/signal/book.js?v=202611521"></script>
+<script src="/signal/py.js?v=202611521"></script>
+<script src="/shad/stats/04/shad.js?v=202611521"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
