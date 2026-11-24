@@ -29,12 +29,26 @@
   <p class="formula">\[\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}.\]</p>
   <ol class="howto reveal">
     <li><b>Распределение \(\chi^2\).</b> Это сумма квадратов независимых стандартных нормальных:
-      <p class="formula">\[\chi^2_k = Z_1^2 + Z_2^2 + \dots + Z_k^2,\qquad Z_i \sim N(0, 1),\]</p>
-      <p>\(k\) — число степеней свободы. Мы его уже видели: Стьюдент из блока 5 — это \(t_\nu = Z\big/\sqrt{\chi^2_\nu/\nu}\).</p><p>Дальше покажем: при верности нулевой гипотезы статистика критерия распределена почти как \(\chi^2_{k-1}\).</p></li>
+      <p class="formula">\[\chi^2_\nu = Z_1^2 + Z_2^2 + \dots + Z_\nu^2,\qquad Z_i \sim N(0, 1),\]</p>
+      <p>\(\nu\) — число степеней свободы. Мы его уже видели: Стьюдент из блока 5 — это \(t_\nu = Z\big/\sqrt{\chi^2_\nu/\nu}\).</p><p>Дальше покажем: при верности нулевой гипотезы статистика критерия распределена почти как \(\chi^2_{k-1}\).</p>
+      <div class="game" id="gx">
+        <div class="controls"><label class="field">Степеней свободы \(\nu\) <input type="text" inputmode="numeric" class="n-in" id="gx-k" value="2"></label><button type="button" class="btn ghost" id="gx-p">+1</button></div>
+        <canvas aria-label="Плотность распределения хи-квадрат с k степенями свободы, правый хвост 5% закрашен"></canvas>
+        <p class="out" aria-live="polite"></p>
+      </div></li>
     <li><b>Каждое слагаемое</b> — квадрат величины \(\frac{O_i - E_i}{\sqrt{E_i}}\). При \(H_0\) частота \(O_i\) колеблется вокруг \(E_i\) с дисперсией около \(E_i\), и если \(E_i\) не слишком маленькие, ориентир — от 5, эта величина почти стандартная нормальная. Значит, статистика — сумма квадратов почти нормальных.</li>
     <li><b>Почему \(k - 1\), а не \(k\).</b> Отклонения связаны: \(\sum O_i = \sum E_i = n\). Если камней больше ожидаемого, то ножниц и бумаги вместе ровно на столько же меньше. Свободных слагаемых \(k - 1\), и при \(H_0\) статистика распределена как \(\chi^2_{k-1}\).</li>
     <li><b>Критерий.</b> Отвергаем при больших значениях: для \(k = 3\) порог на 5% — 5.99.</li>
-    <li><b>Связь с z-тестом.</b> Для двух групп и конверсии, таблицы 2×2, \(\chi^2\) без поправки Йейтса совпадает с квадратом z-статистики из блока 5 при объединённой оценке доли: \(\chi^2 = z^2\). Один и тот же критерий в двух нарядах.</li>
+    <li><b>Связь с z-тестом.</b> Для конверсии в двух группах \(\chi^2\) и z-тест из блока 5 — один и тот же критерий: \(\chi^2 = z^2\).
+      <ol class="reveal">
+        <li><b>Таблица 2×2.</b> Строки — группы A и B размером \(n_A\), \(n_B\), \(N = n_A + n_B\); столбцы — «конверсия» и «нет». \(H_0\): конверсия одна и та же, её оценка по обеим группам вместе — \(\hat p\). Ожидаемые количества: \(E = n_A\hat p,\ n_A(1 - \hat p),\ n_B\hat p,\ n_B(1 - \hat p)\).</li>
+        <li><b>Все четыре отклонения одинаковы по модулю.</b> Суммы по строкам и столбцам у \(O\) и \(E\) совпадают, поэтому если в одной клетке на \(d\) больше ожидаемого, в соседних на \(d\) меньше. Посчитав, получаем \(d = \frac{n_A n_B}{N}(\hat p_B - \hat p_A)\).</li>
+        <li><b>Складываем.</b> \(\chi^2 = d^2 \sum \frac{1}{E} = d^2 \Big(\frac{1}{n_A} + \frac{1}{n_B}\Big)\frac{1}{\hat p(1 - \hat p)}\). Подставляем \(d\) и \(\frac{1}{n_A} + \frac{1}{n_B} = \frac{N}{n_A n_B}\):
+          <p class="formula">\[\chi^2 = \frac{(\hat p_B - \hat p_A)^2}{\hat p(1 - \hat p)\Big(\frac{1}{n_A} + \frac{1}{n_B}\Big)} = z^2,\]</p>
+          где \(z\) — z-статистика для разницы конверсий с общей оценкой доли \(\hat p\) в знаменателе.</li>
+        <li><b>Распределения тоже сходятся.</b> У таблицы 2×2 одна степень свободы, а \(\chi^2_1 = Z^2\) по определению. Порог \(3.84 = 1.96^2\), и p-value у двух критериев одинаковые.</li>
+        <li><b>На практике.</b> <code>scipy.stats.chi2_contingency</code> для таблицы 2×2 по умолчанию вносит поправку на непрерывность (поправку Йейтса), и тогда \(\chi^2\) чуть меньше \(z^2\). Чтобы совпало, передай <code>correction=False</code>.</li>
+      </ol></li>
   </ol>
 </section>
 
@@ -187,6 +201,34 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
     out.innerHTML = 'Ходов ' + n + ': камень <b>' + cnt['К'] + '</b>, ножницы <b>' + cnt['Н'] + '</b>, бумага <b>' + cnt['Б'] + '</b>. Повторов хода подряд: <b>' + rep + ' из ' + pairs + '</b>. Добавь свои числа в общую сводку ниже.';
   }
   document.getElementById('g0-go').addEventListener('click', go);
+  // распределение χ²_k: плотность, порог 5% и среднее
+  const curve = (c, X, Y, f, lo, hi, col, lw) => { c.beginPath(); for (let k = 0; k <= 400; k++){ const x = lo + (hi - lo) * k / 400, px = X(x), py = Y(f(x)); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.strokeStyle = col; c.lineWidth = lw || 2.2; c.stroke(); };
+  const area = (c, X, Y, f, a, b, B, col) => { c.beginPath(); c.moveTo(X(a), B); for (let k = 0; k <= 200; k++){ const x = a + (b - a) * k / 200; c.lineTo(X(x), Y(f(x))); } c.lineTo(X(b), B); c.closePath(); c.fillStyle = col; c.fill(); };
+  const gx = document.getElementById('gx'), cvx = gx.querySelector('canvas'), outx = gx.querySelector('.out'), kIn = document.getElementById('gx-k');
+  const bigx = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const lgamma = z => { const g = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5]; let x = z, y = z, t = x + 5.5; t -= (x + 0.5) * Math.log(t); let ser = 1.000000000190015; for (const q of g) ser += q / ++y; return -t + Math.log(2.5066282746310005 * ser / x); };
+  const chiPdf = (x, k) => x <= 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.log(2) - lgamma(k / 2));
+  const chiSf = (x, k) => { const N = 2000, hi = x + 60 + 10 * k; let s = 0, h = (hi - x) / N; for (let i = 0; i <= N; i++){ const w = i === 0 || i === N ? 1 : i % 2 ? 4 : 2; s += w * chiPdf(x + i * h, k); } return s * h / 3; };
+  const chiQ = (p, k) => { let lo = 0, hi = k + 20 * Math.sqrt(2 * k) + 20; for (let it = 0; it < 60; it++){ const m = (lo + hi) / 2; chiSf(m, k) > p ? lo = m : hi = m; } return (lo + hi) / 2; };
+  let K = 2;
+  const setK = x => { K = Math.max(1, Math.min(50, Math.round(+String(x).replace(/\s/g, '')) || 2)); kIn.value = K; paintX(); };
+  function paintX(){
+    const g = canvas(cvx, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 30, B = 32;
+    const q = chiQ(0.05, K), hi = Math.max(12, q * 1.35), f = x => chiPdf(x, K);
+    let top = 0; for (let i = 1; i <= 300; i++) top = Math.max(top, f(i / 300 * hi)); top = Math.min(top, 0.6);
+    const X = v => L + v / hi * (w - L - R), Y = v => h - B - (h - T - B) * Math.min(v, top * 1.1) / (top * 1.1);
+    area(c, X, Y, f, q, hi, h - B, 'rgba(201,65,58,.55)');
+    curve(c, X, Y, f, 0.001, hi, COL.ctrl, 2.6);
+    c.strokeStyle = COL.ink2; c.lineWidth = 1.2; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    const st = hi > 30 ? 10 : hi > 15 ? 5 : 2; for (let v = 0; v <= hi; v += st) bigx(c, String(v), X(v), h - B + 20, COL.ink2, 13, 400);
+    c.setLineDash([5, 4]); c.strokeStyle = COL.ink; c.lineWidth = 1.6; c.beginPath(); c.moveTo(X(q), Y(f(q)) - 30); c.lineTo(X(q), h - B); c.stroke(); c.setLineDash([]);
+    bigx(c, 'порог ' + num(q, 2), X(q) + 6, Y(f(q)) - 36, COL.ink, 14, 600, 'left'); bigx(c, '5%', X(q) + 8, Y(f(q)) - 10, '#C9413A', 14, 700, 'left');
+    outx.innerHTML = '\\(\\chi^2_{' + K + '}\\): среднее \\(\\nu = ' + K + '\\) — каждое \\(Z_i^2\\) в среднем даёт 1. Правее ' + num(q, 2) + ' лежат 5% — это порог критерия при \\(k = ' + (K + 1) + '\\) категориях.';
+  }
+  document.getElementById('gx-p').addEventListener('click', () => setK(K + 1));
+  kIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') setK(kIn.value); }); kIn.addEventListener('change', () => setK(kIn.value));
+  window.addEventListener('resize', paintX); paintX();
+
   // сводка аудитории: сохраняем и подставляем в код разбора
   const ga = document.getElementById('g0a'), outA = ga.querySelector('.out'), F = k => ga.querySelector('[data-k="' + k + '"]');
   const KEYS = ['К', 'Н', 'Б', 'rep', 'pairs'];
