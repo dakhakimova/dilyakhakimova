@@ -158,10 +158,11 @@ body[data-course="shad4"] .card .extra-note{margin:-4px 0 16px; font:500 .9375re
 body[data-course="shad4"] .game .controls{flex-wrap:wrap}
 body[data-course="shad4"] .game .seg{display:inline-flex; flex-wrap:wrap; gap:8px; max-width:100%}
 body[data-course="shad4"] .stage{min-width:0}
-body[data-course="shad4"] .report-wrap{overflow-x:auto; max-width:100%}
+body[data-course="shad4"] .report-wrap{overflow-x:auto; max-width:var(--measure)}
+body[data-course="shad4"] .card > table, body[data-course="shad4"] .card > .tails{max-width:var(--measure)}
 body[data-course="shad4"] .game .chart-t{margin:12px 0 0; font:600 1rem/1.35 var(--body); color:var(--ink)}
 /* код на слайде и пошаговый список */
-body[data-course="shad4"] pre.code{background:#1F2430; color:#E8E6E1; border-radius:12px; padding:16px 18px; margin:20px 0; overflow-x:auto; font:400 .9375rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; max-width:100%; box-sizing:border-box; width:100%}
+body[data-course="shad4"] pre.code{background:#1F2430; color:#E8E6E1; border-radius:12px; padding:16px 18px; margin:20px 0; overflow-x:auto; font:400 .9375rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; max-width:var(--measure); box-sizing:border-box; width:fit-content; min-width:min(100%, 32em)}
 body[data-course="shad4"] .howto > li{margin:8px 0}
 body[data-course="shad4"] .howto ul{margin:6px 0 0; padding-left:20px}
 .tails td.okc{color:var(--good-ink); font-weight:600}
@@ -172,3 +173,5 @@ pre.code .c-num{color:#F6C177}
 pre.code .c-com{color:#8B93A7; font-style:italic}
 pre.code .c-fn{color:#8AB4F8}
 .tails td b.okc{color:var(--good-ink)} .tails td b.bad{color:var(--l3)}
+body[data-course="shad4"] .report-wrap{width:fit-content}
+body[data-course="shad4"] .report-wrap > table{width:auto}
