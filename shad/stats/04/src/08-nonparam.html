@@ -37,6 +37,9 @@
 <textarea spellcheck="false" aria-label="Разбор игры по аудитории">import numpy as np
 from scipy import stats
 
+# твои ходы из игры — подставятся сами, когда нажмёшь «Посчитать»
+my_moves = ""
+
 # числа из сводки по аудитории — впиши свои
 moves = {"К": 216, "Н": 186, "Б": 198}   # сколько раз сыграли каждый ход
 repeats, pairs = 112, 560                # ход повторил предыдущий; всего пар соседних ходов
@@ -56,7 +59,17 @@ z = (share - 1 / 3) / np.sqrt(1 / 3 * 2 / 3 / pairs)
 p_rep = 2 * stats.norm.sf(abs(z))
 print()
 print("Проверка 2. H0: ход повторяет предыдущий с вероятностью 1/3")
-print(f"повторов хода {share:.1%} вместо 33.3%: z = {z:.1f}, p-value = {p_rep:.1e}")</textarea>
+print(f"повторов хода {share:.1%} вместо 33.3%: z = {z:.1f}, p-value = {p_rep:.1e}")
+
+# то же для твоих ходов
+if my_moves:
+    m = my_moves
+    o = np.array([m.count(k) for k in "КНБ"])
+    e = len(m) / 3
+    rep = sum(a == b for a, b in zip(m, m[1:]))
+    print()
+    print("Твои ходы:", ", ".join(f"{k} {c}" for k, c in zip("КНБ", o)))
+    print(f"χ² = {((o - e) ** 2 / e).sum():.2f}, повторов {rep} из {len(m) - 1}")</textarea>
   </div>
   <details class="sol"><summary>Разбор на примере</summary><div class="body">
     <p class="stp"><b>Проверка 1 — частоты ходов.</b> \(H_0\): каждый ход с вероятностью 1/3. 600 ходов, ожидаем по 200. К 216, Н 186, Б 198: \(\chi^2 = \tfrac{256}{200} + \tfrac{196}{200} + \tfrac{4}{200} = 2.28\), \(p \approx 0.32\) — не отвергаем. Камень «жмут на силу» чаще, но на таком объёме перекос в пределах шума.</p>
@@ -155,12 +168,17 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
     const m = norm(inp.value);
     if (m.length < 5){ out.innerHTML = 'Впиши хотя бы 5 ходов буквами К, Н, Б.'; return; }
     const cnt = {К: 0, Н: 0, Б: 0}; [...m].forEach(x => cnt[x]++);
-    const n = m.length, E = n / 3, chi = Object.values(cnt).reduce((a, o) => a + (o - E) ** 2 / E, 0);
+    const n = m.length;
     let rep = 0; for (let i = 1; i < n; i++) if (m[i] === m[i - 1]) rep++;
-    const pairs = n - 1, exp = pairs / 3;
-    out.innerHTML = 'Ходов ' + n + ': камень ' + cnt['К'] + ', ножницы ' + cnt['Н'] + ', бумага ' + cnt['Б'] + ' — \\(\\chi^2 = ' + num(chi, 2) + '\\), ' + (chi > 5.99 ? '<b>больше порога 5.99</b>: перекос значим даже на твоих ходах.' : 'меньше порога 5.99: на ' + n + ' ходах перекос не отличить от шума.') + '<br>Повторов хода подряд: <b>' + rep + ' из ' + pairs + '</b>, а у случайного игрока в среднем ' + num(exp, 1) + '. ' + (rep < exp - 1 ? 'Ты избегаешь повторов — как большинство людей.' : rep > exp + 1 ? 'Ты повторяешь чаще случайного.' : 'Почти как у случайного.');
+    const pairs = n - 1;
+    try { localStorage.setItem('shad-rps', m); } catch(e) {}
+    // подставляем ходы в ячейку разбора
+    const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
+    if (ta && /^my_moves = ".*"$/m.test(ta.value)){ ta.value = ta.value.replace(/^my_moves = ".*"$/m, 'my_moves = "' + m + '"'); ta.dispatchEvent(new Event('input')); }
+    out.innerHTML = 'Ходов ' + n + ': камень <b>' + cnt['К'] + '</b>, ножницы <b>' + cnt['Н'] + '</b>, бумага <b>' + cnt['Б'] + '</b>. Повторов хода подряд: <b>' + rep + ' из ' + pairs + '</b>. Ходы сохранились и сами подставятся в код разбора — вернёмся к ним, когда введём критерий.';
   }
   document.getElementById('g0-go').addEventListener('click', go);
+  try { const saved = localStorage.getItem('shad-rps'); if (saved){ inp.value = saved; addEventListener('load', go); } } catch(e) {}
   inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') go(); });
 })();
 </script>
