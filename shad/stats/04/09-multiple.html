@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611574">
-<link rel="stylesheet" href="/tokens.css?v=202611574">
-<link rel="stylesheet" href="/signal/book.css?v=202611574">
-<link rel="stylesheet" href="/signal/free.css?v=202611574">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611574">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611574">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611575">
+<link rel="stylesheet" href="/tokens.css?v=202611575">
+<link rel="stylesheet" href="/signal/book.css?v=202611575">
+<link rel="stylesheet" href="/signal/free.css?v=202611575">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611575">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611575">
 </head>
 <body data-course="shad4" data-chapter="shad4-09" data-next="10-summary.html">
 <nav class="top" aria-label="Навигация">
@@ -56,7 +56,7 @@
   <h2>20 метрик в A/A⁠-⁠эксперименте</h2>
   <p>Эффекта нет ни в одной метрике. Каждый запуск — новый A/A⁠-⁠эксперимент: у каждой метрики своё p⁠-⁠value, красным — прокрасившиеся на уровне 5%.</p>
   <div class="game" id="g1">
-    <div class="controls"><label class="field">Метрик <input type="text" inputmode="numeric" class="n-in" id="g1-m" value="20"></label><button type="button" class="btn" id="g1-run">Новый эксперимент</button><button type="button" class="btn ghost" id="g1-100">×100</button><button type="button" class="btn ghost" id="g1-b" aria-pressed="false">Бонферрони</button></div>
+    <div class="controls"><label class="field">Метрик <input type="text" inputmode="numeric" class="n-in" id="g1-m" value="20"></label><button type="button" class="btn" id="g1-run">Новый эксперимент</button></div>
     <p class="chart-t">p⁠-⁠value каждой метрики в последнем эксперименте</p>
     <canvas aria-label="p⁠-⁠value метрик, прокрасившиеся красным"></canvas>
     <p class="out" aria-live="polite"></p>
@@ -145,14 +145,14 @@ print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611574"></script>
-<script src="/signal/book.js?v=202611574"></script>
-<script src="/signal/py.js?v=202611574"></script>
-<script src="/shad/stats/04/shad.js?v=202611574"></script>
+<script src="/fonts/katex/katex.min.js?v=202611575"></script>
+<script src="/signal/book.js?v=202611575"></script>
+<script src="/signal/py.js?v=202611575"></script>
+<script src="/shad/stats/04/shad.js?v=202611575"></script>
 <script>
 (function(){
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
-  const g = document.getElementById('g1'), cv = g.querySelector('canvas'), out = g.querySelector('.out'), mIn = document.getElementById('g1-m'), bB = document.getElementById('g1-b');
+  const g = document.getElementById('g1'), cv = g.querySelector('canvas'), out = g.querySelector('.out'), mIn = document.getElementById('g1-m');
   let m = 20, bonf = false, last = [], runs = 0, hits = 0;
   const thr = () => bonf ? 0.05 / m : 0.05;
   const one = () => Array.from({length: m}, () => Math.random());
@@ -173,8 +173,6 @@ print(f"с Бонферрони — в {any_bonf:.1%}")</textarea>
     out.innerHTML = 'В этом эксперименте прокрасилось ' + k + ' из ' + m + '. За ' + runs + ' ' + (runs % 10 === 1 && runs % 100 !== 11 ? 'эксперимент' : runs % 10 >= 2 && runs % 10 <= 4 && (runs % 100 < 10 || runs % 100 >= 20) ? 'эксперимента' : 'экспериментов') + ' хотя бы одна метрика прокрасилась в <b>' + hits + '</b>, это ' + num(100 * hits / runs, 0) + '%. Теория: ' + num(100 * (1 - Math.pow(1 - t, m)), 1) + '%.';
   }
   document.getElementById('g1-run').addEventListener('click', () => run(1));
-  document.getElementById('g1-100').addEventListener('click', () => run(100));
-  bB.addEventListener('click', () => { bonf = !bonf; bB.setAttribute('aria-pressed', String(bonf)); runs = 0; hits = 0; run(1); });
   mIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') reset(); }); mIn.addEventListener('change', reset);
   window.addEventListener('resize', paint);
   reset();
