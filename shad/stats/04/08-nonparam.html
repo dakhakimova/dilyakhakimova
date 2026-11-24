@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611526">
-<link rel="stylesheet" href="/tokens.css?v=202611526">
-<link rel="stylesheet" href="/signal/book.css?v=202611526">
-<link rel="stylesheet" href="/signal/free.css?v=202611526">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611526">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611526">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611527">
+<link rel="stylesheet" href="/tokens.css?v=202611527">
+<link rel="stylesheet" href="/signal/book.css?v=202611527">
+<link rel="stylesheet" href="/signal/free.css?v=202611527">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611527">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611527">
 </head>
 <body data-course="shad4" data-chapter="shad4-08" data-next="09-multiple.html">
 <nav class="top" aria-label="Навигация">
@@ -54,6 +54,12 @@
   <p>Представь, что играешь 15 раз подряд. Впиши 15 ходов одной строкой буквами К, Н, Б — например «КНББК…». Не думай долго, играй, как играл бы с другом.</p>
   <div class="game" id="g0">
     <div class="controls"><label class="field">Ходы <input type="text" id="g0-in" class="n-in" autocomplete="off" spellcheck="false" style="width:14em; text-transform:uppercase; letter-spacing:.08em"></label><button type="button" class="btn" id="g0-go">Посчитать</button></div>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <p>Теперь сводка по аудитории: сложите свои числа — сколько всего камней, ножниц и бумаги и сколько повторов подряд. Пар соседних ходов у каждого на один меньше, чем ходов.</p>
+  <div class="game" id="g0a">
+    <div class="controls"><label class="field">Камень <input type="text" inputmode="numeric" class="n-in" data-k="К"></label><label class="field">Ножницы <input type="text" inputmode="numeric" class="n-in" data-k="Н"></label><label class="field">Бумага <input type="text" inputmode="numeric" class="n-in" data-k="Б"></label></div>
+    <div class="controls"><label class="field">Повторов <input type="text" inputmode="numeric" class="n-in" data-k="rep"></label><label class="field">Пар <input type="text" inputmode="numeric" class="n-in" data-k="pairs"></label><button type="button" class="btn" id="g0a-go">Сохранить</button></div>
     <p class="out" aria-live="polite"></p>
   </div>
 </section>
@@ -240,10 +246,10 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611526"></script>
-<script src="/signal/book.js?v=202611526"></script>
-<script src="/signal/py.js?v=202611526"></script>
-<script src="/shad/stats/04/shad.js?v=202611526"></script>
+<script src="/fonts/katex/katex.min.js?v=202611527"></script>
+<script src="/signal/book.js?v=202611527"></script>
+<script src="/signal/py.js?v=202611527"></script>
+<script src="/shad/stats/04/shad.js?v=202611527"></script>
 <script>
 (function(){
   const inp = document.getElementById('g0-in'), out = document.querySelector('#g0 .out');
@@ -259,9 +265,25 @@ print(f"+ «кит» 1 000 ₽:     t⁠-⁠тест p = {t2:.3f}, Манн⁠�
     // подставляем ходы в ячейку разбора
     const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
     if (ta && /^my_moves = ".*"$/m.test(ta.value)){ ta.value = ta.value.replace(/^my_moves = ".*"$/m, 'my_moves = "' + m + '"'); ta.dispatchEvent(new Event('input')); }
-    out.innerHTML = 'Ходов ' + n + ': камень <b>' + cnt['К'] + '</b>, ножницы <b>' + cnt['Н'] + '</b>, бумага <b>' + cnt['Б'] + '</b>. Повторов хода подряд: <b>' + rep + ' из ' + pairs + '</b>. Ходы сохранились и сами подставятся в код разбора — вернёмся к ним, когда введём критерий.';
+    out.innerHTML = 'Ходов ' + n + ': камень <b>' + cnt['К'] + '</b>, ножницы <b>' + cnt['Н'] + '</b>, бумага <b>' + cnt['Б'] + '</b>. Повторов хода подряд: <b>' + rep + ' из ' + pairs + '</b>. Добавь свои числа в общую сводку ниже.';
   }
   document.getElementById('g0-go').addEventListener('click', go);
+  // сводка аудитории: сохраняем и подставляем в код разбора
+  const ga = document.getElementById('g0a'), outA = ga.querySelector('.out'), F = k => ga.querySelector('[data-k="' + k + '"]');
+  const KEYS = ['К', 'Н', 'Б', 'rep', 'pairs'];
+  function saveA(){
+    const v = {}; for (const k of KEYS){ const x = Math.round(+String(F(k).value).replace(/\s/g, '')); if (!(x >= 0)){ outA.innerHTML = 'Заполни все пять чисел.'; return; } v[k] = x; }
+    if (v.pairs < v.rep){ outA.innerHTML = 'Повторов не может быть больше, чем пар.'; return; }
+    try { localStorage.setItem('shad-rps-aud', JSON.stringify(v)); } catch(e) {}
+    const ta = document.querySelector('.cell[data-title="Разбор игры по аудитории"] textarea');
+    if (ta){ ta.value = ta.value.replace(/^moves = \{.*\}.*$/m, 'moves = {"К": ' + v['К'] + ', "Н": ' + v['Н'] + ', "Б": ' + v['Б'] + '}   # сколько раз сыграли каждый ход').replace(/^repeats, pairs = .*$/m, 'repeats, pairs = ' + v.rep + ', ' + v.pairs + '                # ход повторил предыдущий; всего пар соседних ходов'); ta.dispatchEvent(new Event('input')); }
+    const n = v['К'] + v['Н'] + v['Б'];
+    outA.innerHTML = 'Всего ходов ' + n + ': камень ' + Math.round(v['К'] / n * 100) + '%, ножницы ' + Math.round(v['Н'] / n * 100) + '%, бумага ' + Math.round(v['Б'] / n * 100) + '%; повторов ' + Math.round(v.rep / v.pairs * 100) + '%. Числа подставлены в код разбора — проверим их, когда введём критерий.';
+  }
+  document.getElementById('g0a-go').addEventListener('click', saveA);
+  ga.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') saveA(); }));
+  try { const sv = JSON.parse(localStorage.getItem('shad-rps-aud') || 'null'); if (sv){ KEYS.forEach(k => F(k).value = sv[k]); addEventListener('load', saveA); } } catch(e) {}
+
   try { const saved = localStorage.getItem('shad-rps'); if (saved){ inp.value = saved; addEventListener('load', go); } } catch(e) {}
   inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') go(); });
 })();
