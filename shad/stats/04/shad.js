@@ -165,17 +165,17 @@ if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.
     const allB = Object.assign(document.createElement('button'), {type:'button', className:'btn ghost', textContent:'Показать все'});
     const cnt = document.createElement('span'); cnt.className = 'reveal-cnt';
     bar.append(nextB, allB, cnt); ol.after(bar);
-    const st = {ol, items, shown: 1, cur: 0};
+    const start = +(ol.dataset.start ?? 1); const st = {ol, items, shown: start, cur: start - 1};
     function paint(){
       items.forEach((li, i) => { li.hidden = i >= st.shown; li.classList.toggle('cur', i === st.cur); });
-      cnt.textContent = 'шаг ' + (st.cur + 1) + ' из ' + items.length;
+      cnt.textContent = st.shown ? 'шаг ' + (st.cur + 1) + ' из ' + items.length : items.length + ' шагов';
       const done = st.shown >= items.length;
-      nextB.textContent = done ? 'Сначала' : 'Следующий шаг';
+      nextB.textContent = done ? 'Сначала' : st.shown ? 'Следующий шаг' : 'Показать первый шаг';
       allB.hidden = done;
     }
     st.next = () => { if (st.shown < items.length){ st.shown++; st.cur = st.shown - 1; paint(); return true; } return false; };
-    st.prev = () => { if (st.shown > 1){ st.shown--; st.cur = st.shown - 1; paint(); return true; } return false; };
-    nextB.addEventListener('click', () => { if (!st.next()){ st.shown = 1; st.cur = 0; paint(); } });
+    st.prev = () => { if (st.shown > start){ st.shown--; st.cur = st.shown - 1; paint(); return true; } return false; };
+    nextB.addEventListener('click', () => { if (!st.next()){ st.shown = start; st.cur = start - 1; paint(); } });
     allB.addEventListener('click', () => { st.shown = items.length; st.cur = -1; paint(); cnt.textContent = 'все шаги'; });
     items.forEach((li, i) => li.addEventListener('click', e => { if (e.target.closest('a, button, details')) return; st.cur = i; paint(); }));
     state.set(ol, st); paint();
