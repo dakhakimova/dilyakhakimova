@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611451">
-<link rel="stylesheet" href="/tokens.css?v=202611451">
-<link rel="stylesheet" href="/signal/book.css?v=202611451">
-<link rel="stylesheet" href="/signal/free.css?v=202611451">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611451">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611451">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611452">
+<link rel="stylesheet" href="/tokens.css?v=202611452">
+<link rel="stylesheet" href="/signal/book.css?v=202611452">
+<link rel="stylesheet" href="/signal/free.css?v=202611452">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611452">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611452">
 </head>
 <body data-course="shad4" data-chapter="shad4-04" data-next="05-ztest.html">
 <nav class="top" aria-label="Навигация">
@@ -109,9 +109,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     <div class="controls"><span class="seg" role="group" aria-label="Распределение данных">
       <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли 0.5%</button><button type="button" class="btn ghost" data-d="bern30" aria-pressed="false">Бернулли 30%</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">Парето</button>
     </span></div>
-    <div class="controls"><span>Наблюдений в среднем <span class="nw"><span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>:</span></span><span class="seg" role="group" aria-label="Размер выборки">
-      <button type="button" class="btn ghost" data-n="1" aria-pressed="true">1</button><button type="button" class="btn ghost" data-n="5" aria-pressed="false">5</button><button type="button" class="btn ghost" data-n="30" aria-pressed="false">30</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
-    </span></div>
+    <div class="controls"><label class="field">Наблюдений в среднем <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> = <input type="number" id="g1-n" class="n-in" min="1" max="5000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
@@ -273,9 +271,9 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611451"></script>
-<script src="/signal/book.js?v=202611451"></script>
-<script src="/shad/stats/04/shad.js?v=202611451"></script>
+<script src="/fonts/katex/katex.min.js?v=202611452"></script>
+<script src="/signal/book.js?v=202611452"></script>
+<script src="/shad/stats/04/shad.js?v=202611452"></script>
 <script>
 (function(){
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
@@ -323,7 +321,11 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
   }
   pick(g1, 'd', v => { dk = v; run(); });
-  pick(g1, 'n', v => { n = +v; run(); });
+  const nIn = document.getElementById('g1-n');
+  const setN = v => { n = Math.max(1, Math.min(5000, Math.round(+v) || 1)); nIn.value = n; run(); };
+  nIn.addEventListener('change', () => setN(nIn.value));
+  nIn.addEventListener('keydown', e => { if (e.key === 'Enter') setN(nIn.value); e.stopPropagation(); });
+  document.getElementById('g1-plus').addEventListener('click', () => setN(n + 1));
   window.addEventListener('resize', () => { if (!sim) run(); else paint1(); });
 })();
 </script>

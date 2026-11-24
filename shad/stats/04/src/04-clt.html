@@ -45,9 +45,7 @@
     <div class="controls"><span class="seg" role="group" aria-label="Распределение данных">
       <button type="button" class="btn ghost" data-d="unif" aria-pressed="false">равномерное</button><button type="button" class="btn ghost" data-d="exp" aria-pressed="false">экспоненциальное</button><button type="button" class="btn ghost" data-d="logn" aria-pressed="true">лог-нормальное</button><button type="button" class="btn ghost" data-d="bern" aria-pressed="false">Бернулли 0.5%</button><button type="button" class="btn ghost" data-d="bern30" aria-pressed="false">Бернулли 30%</button><button type="button" class="btn ghost" data-d="par" aria-pressed="false">Парето</button>
     </span></div>
-    <div class="controls"><span>Наблюдений в среднем \(n\):</span><span class="seg" role="group" aria-label="Размер выборки">
-      <button type="button" class="btn ghost" data-n="1" aria-pressed="true">1</button><button type="button" class="btn ghost" data-n="5" aria-pressed="false">5</button><button type="button" class="btn ghost" data-n="30" aria-pressed="false">30</button><button type="button" class="btn ghost" data-n="100" aria-pressed="false">100</button><button type="button" class="btn ghost" data-n="1000" aria-pressed="false">1000</button>
-    </span></div>
+    <div class="controls"><label class="field">Наблюдений в среднем \(n\) = <input type="number" id="g1-n" class="n-in" min="1" max="5000" step="1" value="1"></label><button type="button" class="btn ghost" id="g1-plus">+1</button></div>
     <canvas aria-label="Гистограмма средних и нормальная кривая"></canvas>
     <p class="out" aria-live="polite"></p>
   </div>
@@ -165,7 +163,11 @@
       : 'Интервал «среднее \\(\\pm 1.96\\,\\mathrm{SE}\\)» накрыл настоящее среднее в <b>' + share(cv, 1) + '</b> повторов (цель 95%). ' + (cv < 0.93 ? 'ЦПТ ещё не сработала.' : 'Нормальное приближение работает.');
   }
   pick(g1, 'd', v => { dk = v; run(); });
-  pick(g1, 'n', v => { n = +v; run(); });
+  const nIn = document.getElementById('g1-n');
+  const setN = v => { n = Math.max(1, Math.min(5000, Math.round(+v) || 1)); nIn.value = n; run(); };
+  nIn.addEventListener('change', () => setN(nIn.value));
+  nIn.addEventListener('keydown', e => { if (e.key === 'Enter') setN(nIn.value); e.stopPropagation(); });
+  document.getElementById('g1-plus').addEventListener('click', () => setN(n + 1));
   window.addEventListener('resize', () => { if (!sim) run(); else paint1(); });
 })();
 </script>
