@@ -9,9 +9,13 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const V = require('./version.js');
 const ver = typeof V === 'string' ? V : (V.version || V.V || V);
-const DIR = 'shad/stats/04', SRC = path.join(ROOT, DIR, 'src');
-const LESSON = 'Занятие 4 · Проверка гипотез';
 const COURSE = 'Прикладная статистика для аналитика · ШАД';
+const SHARED = 'shad/stats/04';   // общие shad.css и shad.js лежат в папке занятия 4
+const LESSONS = require('./shad-lessons.js');
+for (const L of LESSONS){ if (fs.existsSync(path.join(ROOT, L.dir, 'src'))) buildLesson(L); }
+
+function buildLesson(L){
+const DIR = L.dir, SRC = path.join(ROOT, DIR, 'src'), LESSON = L.lesson, PLAN = L.plan;
 
 const head = (title, desc, canon) => `<!DOCTYPE html>
 <html lang="ru">
@@ -28,7 +32,7 @@ const head = (title, desc, canon) => `<!DOCTYPE html>
 <link rel="stylesheet" href="/tokens.css?v=${ver}">
 <link rel="stylesheet" href="/signal/book.css?v=${ver}">
 <link rel="stylesheet" href="/signal/free.css?v=${ver}">
-<link rel="stylesheet" href="/${DIR}/shad.css?v=${ver}">
+<link rel="stylesheet" href="/${SHARED}/shad.css?v=${ver}">
 <link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${ver}">
 </head>`;
 
@@ -53,7 +57,7 @@ for (const f of files){
   // формулы в атрибутах прячем от tex.js (он вставил бы разметку прямо в атрибут) — рендерим их отдельно ниже
   body = body.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => ` data-${k}="${v.replace(/\\\(/g, '⟪').replace(/\\\)/g, '⟫').replace(/\\\[/g, '⟦').replace(/\\\]/g, '⟧')}"`);
   const html = `${head(meta.title + ' · ' + LESSON, meta.desc || meta.title, f)}
-<body data-course="shad4" data-chapter="shad4-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
+<body data-course="shad4" data-chapter="shad${L.n}-${f.slice(0, 2)}"${meta.next ? ` data-next="${meta.next}"` : ''}>
 ${nav}
 <div class="reader" id="reader">
   <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
@@ -74,7 +78,7 @@ ${body.trim()}
 </div>
 <script src="/fonts/katex/katex.min.js?v=${ver}"></script>
 <script src="/signal/book.js?v=${ver}"></script>
-${/class="cell"/.test(body) ? '<script src="/signal/py.js?v=' + ver + '"></script>\n' : ''}<script src="/${DIR}/shad.js?v=${ver}"></script>
+${/class="cell"/.test(body) ? '<script src="/signal/py.js?v=' + ver + '"></script>\n' : ''}<script src="/${SHARED}/shad.js?v=${ver}"></script>
 ${script}
 </body>
 </html>
@@ -83,18 +87,6 @@ ${script}
 }
 
 // оглавление — в шаблоне лендингов курсов (home.css + course.css), как /signal/
-const PLAN = [
-  ['01-criterion.html', 'Критерий своими руками', '24 выкупа из 40 — это доказательство? Гипотезы, статистика, критическая область, одно- и двусторонние критерии.'],
-  ['02-pvalue.html', 'p-value', 'Леди с чаем, девять орлов из десяти и что p-value не значит. Почему в A/A-тестах p-value распределено равномерно.'],
-  ['03-power.html', 'Две ошибки и мощность', 'Три странных критерия, два колокола, гребёнки средних и осьминог Пауль.'],
-  ['04-clt.html', 'ЦПТ на практике', 'С какого размера выборки верить «\\(\\pm 1.96\\,\\mathrm{SE}\\)» и когда колокол не наступает.'],
-  ['05-ztest.html', 'z- и t-тест', 'Стьюдент из пивоварни Guinness, 25 наблюдений и вопрос про нормальность с собеседования.'],
-  ['06-ci.html', 'Доверительные интервалы', 'Сколько интервалов накрывает правду, пересекающиеся интервалы и «не прокрасилось — значит можно».'],
-  ['07-mde.html', 'MDE и длительность', 'Сколько ждать, «10 против 9», MDE задним числом и баннер \\(+8\\% \\pm 3\\%\\).'],
-  ['08-nonparam.html', '\\(\\chi^2\\) и Манн–Уитни', 'Камень-ножницы-бумага, почему Манн–Уитни не про медианы и случай Uber.'],
-  ['09-multiple.html', 'Множественные проверки', 'Двадцать метрик, поправка Бонферрони и зелёные мармеладки.'],
-  ['10-summary.html', 'Итоги и блиц', 'Семь главных мыслей занятия и четыре вопроса с собеседования.']
-];
 const done = new Set(metas.map(m => m.f));
 const toc = PLAN.map(([f, t, d], i) => done.has(f)
   ? `      <li><span class="n">${i + 1}</span><h3><a href="${f}">${t}</a></h3><p class="d">${d}</p></li>`
@@ -106,7 +98,7 @@ fs.writeFileSync(path.join(ROOT, DIR, 'index.html'), `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${LESSON} · ${COURSE}</title>
-<meta name="description" content="Интерактивная версия занятия 4 курса ШАД «Прикладная статистика для аналитика».">
+<meta name="description" content="Интерактивная версия занятия ${L.n} курса ШАД «Прикладная статистика для аналитика».">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -125,11 +117,11 @@ fs.writeFileSync(path.join(ROOT, DIR, 'index.html'), `<!DOCTYPE html>
 <section class="c-hero wrap">
   <div>
     <p class="chips"><span class="tag">ШАД</span><span class="tag">Прикладная статистика для аналитика</span></p>
-    <h1>Занятие 4. Проверка гипотез</h1>
-    <p class="sub">Интерактивная версия занятия: девять блоков, как в лекции. В задачах можно проверить ответ числом, решение спрятано под «Решением», а там, где идею лучше видно на графике, — игра.</p>
-    <p class="ctas"><a class="btn" href="01-criterion.html">Начать</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
+    <h1>${L.h1}</h1>
+    <p class="sub">Интерактивная версия занятия: ${L.blocks}, как в лекции. В задачах можно проверить ответ числом, решение спрятано под «Решением», а там, где идею лучше видно на графике, — игра.</p>
+    <p class="ctas"><a class="btn" href="${PLAN[0][0]}">Начать</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
   </div>
-  <figure class="art"><img width="1200" height="675" src="img/10-signs.jpg" alt="Боб несёт стрелку +8%, Алиса смотрит в лупу, Котейка в мешке"></figure>
+  ${L.hero ? `<figure class="art"><img width="1200" height="675" src="${L.hero[0]}" alt="${L.hero[1]}"></figure>` : ''}
 </section>
 <section class="wrap block" id="toc">
   <div class="col">
@@ -170,3 +162,4 @@ console.log('shad:', files.length, 'блоков; формул', tex.run([...met
 }
 // тире между фамилиями (гайд 119a): проверяем исходники занятия при каждой сборке
 try { require('child_process').execFileSync('node', [require('path').join(__dirname, 'check-names.js'), ...require('fs').readdirSync(require('path').join(__dirname, '..', DIR, 'src')).filter(f => f.endsWith('.html')).map(f => require('path').join(DIR, 'src', f))], {stdio: 'inherit'}); } catch (e) { console.error('Исправь тире между фамилиями — см. выше'); process.exitCode = 1; }
+}
