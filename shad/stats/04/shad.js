@@ -151,51 +151,51 @@ window.tInv = (p, v) => { let lo = -60, hi = 60; for (let i = 0; i < 70; i++){ c
 // Python для ячеек с кодом — загружаем в фоне сразу, чтобы к слайду с кодом всё было готово
 if (document.querySelector('.cell') && window.PyCells) setTimeout(() => PyCells.preload(), 1200);
 
-// Пошаговое раскрытие списка (ol.reveal): шаги появляются по одному, текущий подсвечен.
-// «Следующий шаг» под списком, стрелка вправо / PageDown / «Далее» сначала раскрывают шаги, потом листают слайд;
-// стрелка влево возвращает шаг. Клик по открытому шагу делает его текущим (Диля, 24.11).
+// Пошаговое раскрытие (ol.reveal): шаги появляются по одному, текущий подсвечен. Вложенный ol.reveal внутри шага —
+// подшаги: идут сразу за своим шагом, подсвечены жёлтым, а шаг-родитель в это время не подсвечен.
+// Управление одно на весь список — стрелки ↓ и ↑ под ним; стрелка вправо / PageDown / «Далее» тоже раскрывают,
+// стрелка влево / PageUp — назад. Клик по открытому шагу подсвечивает его (Диля, 24.11).
 (function(){
-  const lists = [...document.querySelectorAll('ol.reveal')];
-  if (!lists.length) return;
-  const state = new Map();
-  lists.forEach(ol => {
-    const items = [...ol.children];
-    const bar = document.createElement('div'); bar.className = 'reveal-bar';
-    const nextB = Object.assign(document.createElement('button'), {type:'button', className:'btn ghost', textContent:'Следующий шаг'});
-    const allB = Object.assign(document.createElement('button'), {type:'button', className:'btn ghost', textContent:'Показать все'});
-    const cnt = document.createElement('span'); cnt.className = 'reveal-cnt';
-    bar.append(nextB, allB, cnt); ol.after(bar);
-    const start = +(ol.dataset.start ?? 1); const st = {ol, items, shown: start, cur: start - 1};
-    function paint(){
-      gates();
-      items.forEach((li, i) => { li.hidden = i >= st.shown; li.classList.toggle('cur', i === st.cur); });
-      cnt.textContent = st.shown ? 'шаг ' + (st.cur + 1) + ' из ' + items.length : items.length + ' шагов';
-      const done = st.shown >= items.length;
-      nextB.textContent = done ? 'Сначала' : st.shown ? 'Следующий шаг' : 'Показать первый шаг';
-      allB.hidden = done;
-    }
-    st.next = () => { if (ol.hidden) return false; if (st.shown < items.length){ st.shown++; st.cur = st.shown - 1; paint(); return true; } return false; };
-    st.prev = () => { if (st.shown > start){ st.shown--; st.cur = st.shown - 1; paint(); return true; } return false; };
-    nextB.addEventListener('click', () => { if (!st.next()){ st.shown = start; st.cur = start - 1; paint(); } });
-    allB.addEventListener('click', () => { st.shown = items.length; st.cur = -1; paint(); cnt.textContent = 'все шаги'; });
-    items.forEach((li, i) => li.addEventListener('click', e => { if (e.target.closest('a, button, details')) return; st.cur = i; paint(); }));
-    st.bar = bar; st.done = () => st.shown >= items.length;
-    state.set(ol, st); paint();
-  });
-  // список с data-start="0" и его заголовок появляются, только когда предыдущий список на слайде раскрыт до конца
-  function gates(){
-    lists.forEach(ol => {
-      if (ol.dataset.start !== '0') return;
-      const st = state.get(ol); if (!st) return;
-      const card = ol.closest('.card'), before = [...card.querySelectorAll('ol.reveal')].filter(o => o !== ol && (o.compareDocumentPosition(ol) & Node.DOCUMENT_POSITION_FOLLOWING));
-      const prev = before.length ? state.get(before[before.length - 1]) : null;
-      const open = !prev || prev.done() || st.shown > 0;
-      const pe = ol.previousElementSibling, h = pe && (/^H[2-4]$/.test(pe.tagName) || pe.classList.contains('reveal-h')) ? pe : null;
-      [ol, st.bar, h].forEach(e => { if (e) e.hidden = !open; });
+  const tops = [...document.querySelectorAll('ol.reveal')].filter(ol => !ol.parentElement.closest('ol.reveal'));
+  if (!tops.length) return;
+  const all = [];
+  tops.forEach(ol => {
+    const seq = [];
+    [...ol.children].forEach((li, i) => {
+      seq.push({li, label: String(i + 1)});
+      const sub = li.querySelector(':scope > ol.reveal');
+      if (sub) [...sub.children].forEach((s, j) => seq.push({li: s, label: (i + 1) + '.' + (j + 1), sub, parent: li}));
     });
-  }
-  gates();
-  const active = () => { const card = [...document.querySelectorAll('.card')].find(c => c.offsetParent !== null); return card ? [...card.querySelectorAll('ol.reveal')].map(o => state.get(o)) : []; };
+    const bar = document.createElement('div'); bar.className = 'reveal-bar';
+    const chev = d => '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="' + d + '" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const up = Object.assign(document.createElement('button'), {type: 'button', className: 'rv-arrow up', innerHTML: chev('M6 15l6-6 6 6'), title: 'Предыдущий шаг'});
+    const down = Object.assign(document.createElement('button'), {type: 'button', className: 'rv-arrow', innerHTML: chev('M6 9l6 6 6-6'), title: 'Следующий шаг'});
+    up.setAttribute('aria-label', 'Предыдущий шаг'); down.setAttribute('aria-label', 'Следующий шаг');
+    const cnt = document.createElement('span'); cnt.className = 'reveal-cnt';
+    bar.append(down, up, cnt); ol.after(bar);
+    const st = {k: 0, cur: 0, seq};
+    function paint(scroll){
+      seq.forEach((e, i) => { e.li.hidden = i > st.k; e.li.classList.toggle('cur', i === st.cur); });
+      ol.querySelectorAll('ol.reveal').forEach(sub => {
+        const open = seq.some((e, i) => e.sub === sub && i <= st.k);
+        sub.hidden = !open;
+        const h = sub.previousElementSibling; if (h && h.classList.contains('reveal-h')) h.hidden = !open;
+      });
+      const tops = seq.filter(e => !e.sub).length;
+      cnt.textContent = 'шаг ' + seq[st.cur].label + ' из ' + tops;
+      down.disabled = st.k >= seq.length - 1; up.disabled = st.k <= 0;
+      if (scroll) seq[st.cur].li.scrollIntoView({block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    }
+    st.next = () => { if (st.k < seq.length - 1){ st.k++; st.cur = st.k; paint(true); return true; } return false; };
+    st.prev = () => { if (st.k > 0){ st.k--; st.cur = st.k; paint(true); return true; } return false; };
+    down.addEventListener('click', st.next); up.addEventListener('click', st.prev);
+    seq.forEach((e, i) => e.li.addEventListener('click', ev => {
+      if (ev.target.closest('a, button, details') || ev.defaultPrevented) return;
+      ev.preventDefault(); st.cur = i; paint(false);
+    }));
+    st.ol = ol; all.push(st); paint(false);
+  });
+  const active = () => all.filter(s => s.ol.offsetParent !== null);
   document.addEventListener('keydown', e => {
     if (e.target.closest('textarea, input, select')) return;
     const fwd = ['ArrowRight', 'PageDown'].includes(e.key), back = ['ArrowLeft', 'PageUp'].includes(e.key);

@@ -183,9 +183,17 @@ body[data-course="shad4"] .card > *, body[data-course="shad4"] .cell-help{max-wi
 ol.reveal > li{border-radius:10px; padding:8px 12px; margin-left:-12px; transition:background .2s; cursor:pointer}
 ol.reveal > li.cur{background:var(--pen-soft, #E6ECF7); box-shadow:inset 3px 0 0 var(--pen)}
 ol.reveal > li:not(.cur){color:var(--text-2)}
+ol.reveal > li:has(li.cur){color:var(--text-1)}
 .reveal-bar{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:16px 0 24px}
 .reveal-cnt{color:var(--text-3); font-size:.9375rem; font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion: reduce){ ol.reveal > li{transition:none} }
 ol.howto > li > p:not(.formula){margin:12px 0 0}
-ol.reveal-y > li.cur{background:var(--butter, #FBF1C9); box-shadow:inset 3px 0 0 #C9A227}
-ol.reveal ol.reveal{margin:8px 0 0} ol.reveal ol.reveal > li{margin-left:0} .reveal-h{margin:16px 0 4px} ol.reveal li .reveal-bar{margin:12px 0 4px}
+ol.reveal ol.reveal > li.cur{background:var(--butter, #FBF1C9); box-shadow:inset 3px 0 0 #C9A227; color:var(--text-1)}
+ol.reveal ol.reveal{margin:8px 0 0} ol.reveal ol.reveal > li{margin-left:0} .reveal-h{margin:16px 0 4px} 
+.reveal-bar{gap:4px}
+/* раскрытие — стрелка-шеврон, а не кнопка: кнопка обещает переход, а здесь раскрывается текст (Диля, 24.11) */
+.rv-arrow{display:inline-grid; place-items:center; width:44px; height:44px; padding:0; border:0; border-radius:50%; background:transparent; color:var(--pen); cursor:pointer}
+.rv-arrow:hover:not(:disabled){background:var(--pen-hover-bg, rgba(35,65,138,.08))}
+.rv-arrow:disabled{color:var(--line-strong, #CFC8BB); cursor:default}
+.rv-arrow.up svg{width:22px; height:22px}
+.reveal-cnt{margin-left:8px}
