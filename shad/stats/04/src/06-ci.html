@@ -1,0 +1,205 @@
+{"title": "Доверительные интервалы", "short": "6. Доверительные интервалы", "h": "Блок 6 · интервалы", "lead": "Насколько выросло, сколько интервалов накрывает правду и почему пересечение — не тест", "next": "07-mde.html"}
+<section class="card" data-title="Насколько выросло?">
+  <p class="kicker">Занятие 4 · блок 6</p>
+  <h1>Доверительный интервал</h1>
+  <figure class="art"><img src="img/06-intervals.jpg" alt="Ряд отрезков-интервалов, большинство накрывает вертикальную линию правды"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Кнопка прокрасилась, \(p = 0.048\)! Значит, конверсия выросла на 0.6%, вписываю в бизнес-план.</p></div></div>
+    <div class="msg alice"><img class="ava" src="/ab-basics/img/ava-alice.jpg" alt=""><div class="bubble"><div class="who">Алиса</div><p class="say">0.6% — это то, что выпало в этот раз. А сколько может быть на самом деле — и в худшем случае?</p></div></div>
+  </div>
+  <p class="lead">«Прокрасилось» — один бит. Бизнесу важнее, <b>насколько</b> выросло и чего ждать в худшем случае. Это говорит доверительный интервал — и заодно говорит, прокрасилось ли.</p>
+</section>
+
+<section class="card" data-title="Что такое доверительный интервал">
+  <span class="step-tag">Определение</span>
+  <h2>Доверительный интервал</h2>
+  <div class="def">
+    <p><b>95%-й доверительный интервал</b> — правило, которое по данным строит отрезок так, что <b>до эксперимента</b> вероятность накрыть настоящее значение параметра — 95%.</p>
+  </div>
+  <p>Откуда формула для разницы средних:</p>
+  <ol class="howto reveal">
+    <li><b>По ЦПТ</b> оценка разницы почти нормальна вокруг настоящей: \(\hat\Delta = \bar X_B - \bar X_A \approx N\big(\Delta,\ \mathrm{SE}_\Delta^2\big)\).</li>
+    <li><b>95% массы нормального</b> — в пределах 1.96 стандартных отклонений от центра:
+      <p class="formula">\[P\big(|\hat\Delta - \Delta| \le 1.96\,\mathrm{SE}_\Delta\big) = 95\%.\]</p></li>
+    <li><b>Переворачиваем.</b> «Оценка не дальше 1.96 SE от правды» — то же самое, что «правда не дальше 1.96 SE от оценки»:
+      <p class="formula">\[P\big(\Delta \in [\hat\Delta - 1.96\,\mathrm{SE}_\Delta;\ \hat\Delta + 1.96\,\mathrm{SE}_\Delta]\big) = 95\%.\]</p>
+      <p>Случаен здесь отрезок, а не \(\Delta\): он строится по данным.</p></li>
+    <li><b>Связь с p-value.</b> Ноль вне интервала \(\iff |\hat\Delta| > 1.96\,\mathrm{SE}_\Delta \iff |z| > 1.96 \iff p < 0.05\). Интервал — это все значения эффекта, которые критерий на уровне 5% <b>не</b> отвергает.</li>
+  </ol>
+  <div class="takeaway"><p><b>Чего интервал не значит:</b> «настоящий эффект лежит в этом отрезке с вероятностью 95%». Эффект — не случайная величина, он либо внутри, либо нет. 95% — свойство процедуры: из 100 таких интервалов около 95 накроют правду.</p></div>
+</section>
+
+<section class="card" data-title="Визуализация: 100 интервалов">
+  <span class="step-tag">Визуализация</span>
+  <h2>Сколько интервалов накрывает правду</h2>
+  <p>Боб повторяет один и тот же эксперимент 100 раз. Настоящие конверсии 10.0% и 10.6%, настоящая разница 0.6% — чёрная линия. Каждый повтор даёт свой интервал.</p>
+  <div class="game" id="g1">
+    <div class="controls"><label class="field">\(n\) в группе <input type="text" inputmode="numeric" class="n-in" id="g1-n" value="20000"></label><button type="button" class="btn" id="g1-run">Ещё 100 повторов</button></div>
+    <p class="chart-t">100 повторов одного эксперимента, разница конверсий B − A</p>
+    <canvas aria-label="100 доверительных интервалов, красные не накрыли настоящую разницу"></canvas>
+    <p class="key"><span style="color:#23418A">●</span> накрыл правду &nbsp; <span style="color:#C9413A">●</span> промахнулся &nbsp; — чёрная линия: правда, пунктир: ноль</p>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Почему так</summary><div class="body">
+    <p class="stp"><b>Красных около пяти</b> — это и есть 95%: процедура промахивается в 5% повторов.</p>
+    <p class="stp"><b>Ноль задевает примерно половина интервалов.</b> Эффект настоящий, а прокрашивается только половина повторов — мощность этого эксперимента около 50%. Увеличь \(n\) в 4 раза: интервалы станут вдвое уже, и ноль будут задевать редко. К мощности вернёмся в блоке 7.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Задача: интервал для кнопки">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 14.</span> Интервал для кнопки</h2>
+  <p>Кнопка из блока 5: конверсия 10.0% → 10.6%, по 20 000 в группе, \(\mathrm{SE}_\Delta = 0.304\%\). Построй 95%-й интервал для разницы. Что сказать Бобу о худшем и лучшем сценарии? Как интервал согласуется с \(p = 0.048\)?</p>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">От 0.004% до 1.2%: рост есть, но в худшем случае почти нулевой</p></div>
+  <p class="rule-why">Ноль лишь чуть левее нижней границы — это и есть \(p = 0.048\), «впритык». Для бизнес-плана берут нижнюю границу как пессимистичный сценарий.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> \(\hat\Delta = 10.6\% - 10.0\% = 0.6\%\), \(\mathrm{SE}_\Delta = 0.304\%\) — из задачи 10.</p>
+    <p class="stp"><b>Шаг 2. Интервал.</b> \(\hat\Delta \pm 1.96\,\mathrm{SE}_\Delta = 0.6\% \pm 0.596\%\), то есть от 0.004% до 1.196%.</p>
+    <p class="stp"><b>Шаг 3. Связь с p-value.</b> Ноль вне интервала \(\iff p < 0.05\). Ноль всего на 0.004% левее границы — поэтому \(p\) чуть меньше 0.05.</p>
+    <p class="stp"><b>Шаг 4. Вывод для Боба.</b> Пессимистичный сценарий — почти ноль, оптимистичный — +1.2%. Катить или нет, зависит от того, окупается ли кнопка при нижней границе.</p>
+  </div></details>
+  <h3>Расчёт в коде</h3>
+  <div class="cell" data-title="Интервал для разницы конверсий">
+<textarea spellcheck="false" aria-label="Интервал для разницы конверсий">from math import sqrt
+
+n = 20_000                 # пользователей в каждой группе
+p_a, p_b = 0.100, 0.106    # конверсия в контроле и тесте
+
+d = p_b - p_a
+se = sqrt(p_a * (1 - p_a) / n + p_b * (1 - p_b) / n)
+lo, hi = d - 1.96 * se, d + 1.96 * se
+
+print(f"разница {d:.2%}, SE {se:.3%}")
+print(f"95%-й интервал: от {lo:.3%} до {hi:.3%}")
+print("ноль вне интервала — прокрасилось" if lo &gt; 0 or hi &lt; 0 else "ноль внутри — не прокрасилось")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: интервалы пересеклись">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 15.</span> Интервалы пересеклись — значит, разницы нет?</h2>
+  <p>Алиса построила отдельный 95%-й интервал для конверсии каждой группы: контроль от 9.58% до 10.42%, тест от 10.17% до 11.03%. Интервалы пересекаются. Боб: «Значит, разницы нет». Прав ли он, если \(p = 0.048\)? Что не так в способе?</p>
+  <div class="game" id="g2">
+    <p class="chart-t">Интервалы групп и интервал разницы</p>
+    <canvas aria-label="Интервалы групп пересекаются, а интервал разницы не задевает ноль"></canvas>
+  </div>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">Нет: пересечение интервалов групп — не тест, нужен один интервал для разницы</p></div>
+  <p class="rule-why">Правило «интервалы не пересеклись» требует \(|z| > 2.77\) — это уровень значимости около 0.6%, а не 5%, и мощность сильно ниже.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Отдельные интервалы.</b> \(\mathrm{SE}_A = \sqrt{0.09/20\,000} = 0.212\%\), \(\mathrm{SE}_B = \sqrt{0.0948/20\,000} = 0.218\%\). Контроль \(10.0\% \pm 0.416\%\), тест \(10.6\% \pm 0.426\%\) — пересекаются.</p>
+    <p class="stp"><b>Шаг 2. Когда два отрезка не пересекаются.</b> Расстояние между центрами больше суммы полуширин: \(|\Delta| > 1.96\,\mathrm{SE}_A + 1.96\,\mathrm{SE}_B\).</p>
+    <p class="stp"><b>Шаг 3. А критерий требует меньшего:</b> \(|\Delta| > 1.96\sqrt{\mathrm{SE}_A^2 + \mathrm{SE}_B^2}\). При сложении независимых ошибок складываются квадраты: \(\sqrt{0.212^2 + 0.218^2} = 0.304\% < 0.212 + 0.218 = 0.430\%\).</p>
+    <p class="stp"><b>Шаг 4. Какой критерий применил Боб.</b> При равных SE сумма полуширин \(2 \cdot 1.96\,\mathrm{SE}\), а \(\mathrm{SE}_\Delta = \sqrt{2}\,\mathrm{SE}\). Правило — это \(|z| > 1.96 \cdot 2/\sqrt{2} = 2.77\), его уровень значимости \(2\,P(Z \ge 2.77) \approx 0.56\%\).</p>
+    <p class="ans">Разница значима, \(p = 0.048\). Строй один интервал — для разницы.</p>
+  </div></details>
+  <div class="cell" data-title="Уровень значимости правила «не пересеклись»">
+<textarea spellcheck="false" aria-label="Уровень значимости правила «не пересеклись»">from math import sqrt
+from statistics import NormalDist
+
+# правило «интервалы групп не пересеклись» при равных SE:
+# |Δ| &gt; 1.96 · (SE + SE) = 1.96 · 2 · SE, а SE разницы = √2 · SE
+z_rule = 1.96 * 2 / sqrt(2)
+alpha = 2 * (1 - NormalDist().cdf(z_rule))
+
+print(f"«не пересеклись» ⇔ |z| &gt; {z_rule:.2f}")
+print(f"настоящий уровень значимости {alpha:.2%} вместо 5%")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Вопрос: не прокрасилось — значит, можно?">
+  <span class="step-tag">Вопрос</span>
+  <h2>Не прокрасилось — значит, можно?</h2>
+  <p>Сеть универмагов Kohl's хотела открываться на час позже, чтобы сэкономить на персонале; руководство разделилось пополам. Провели эксперимент на 100 магазинах: значимого падения продаж нет. Это доказательство, что продажи не упадут? Что добавить к отчёту, чтобы решение было честным?</p>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">Нет: «не отвергли» не значит «эффекта нет» — нужна граница, нижний край интервала разницы</p></div>
+  <p class="rule-why">Честный отчёт: интервал, например от −1.8% до +0.6%. Падение больше 1.8% данные исключают, меньшее — нет. Если экономия на персонале окупает и −1.8%, можно открываться позже. Это тест «не хуже» (non-inferiority): допустимую потерю выбирают <b>до</b> эксперимента и проверяют, что весь интервал правее неё.</p></details>
+</section>
+
+<section class="card" data-title="Задача: две модели на 500 задачах">
+  <span class="step-tag">Задача</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 16.</span> Две модели на одних 500 задачах</h2>
+  <p>Две LLM-модели прогнали на одном наборе из <b>500 задач</b>: модель А решила <b>66%</b>, модель Б — <b>62%</b>. По отдельным задачам: 40 решила только А, 20 — только Б, остальные обе решили или обе провалили.</p>
+  <ol>
+    <li>Навскидку: разница 4% на 500 задачах значима?</li>
+    <li>Посчитай p-value, считая доли независимыми. А потом — по парным разностям: задачи-то одни и те же.</li>
+  </ol>
+  <details class="rule-d ans-d"><summary>Показать ответ</summary><div class="rule"><p class="rule-r">Как независимые: \(p \approx 0.19\). По парным разностям: \(p \approx 0.01\)</p></div>
+  <p class="rule-why">Задачи одни и те же: лёгкие решают обе модели, трудные проваливают обе, и этот общий разброс вычитается. Остаются 60 задач, где модели разошлись, 40 против 20, — SE вдвое уже. Это парный критерий, для долей — критерий Мак-Немара.</p></details>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Как независимые.</b> \(\mathrm{SE} = \sqrt{0.66 \cdot 0.34/500 + 0.62 \cdot 0.38/500} = 3.03\%\), \(z = 4/3.03 = 1.32\), \(p = 0.19\).</p>
+    <p class="stp"><b>Шаг 2. Парные разности.</b> Для каждой задачи \(D_i = \) «решила А» − «решила Б»: 40 раз \(+1\), 20 раз \(-1\), 440 раз 0. Среднее \(\bar D = 20/500 = 4\%\).</p>
+    <p class="stp"><b>Шаг 3.</b> \(\mathrm{SE} = s_D/\sqrt{500} = 1.54\%\), \(z = 2.60\), \(p = 0.009\).</p>
+    <p class="stp"><b>Где это в жизни.</b> Лидерборды LLM обычно показывают точность без ошибки, хотя это доля и ей нужна SE. А вопросы, пришедшие группами по одному тексту, требуют кластерных ошибок — об этом статья Evan Miller «Adding Error Bars to Evals» (Anthropic, 2024). Числа в задаче — наши.</p>
+  </div></details>
+  <div class="cell" data-title="Независимые доли против парных разностей">
+<textarea spellcheck="false" aria-label="Независимые доли против парных разностей">import numpy as np
+from statistics import NormalDist
+
+n, a_only, b_only = 500, 40, 20   # задач; решила только А; решила только Б
+p_a, p_b = 0.66, 0.62
+d = p_a - p_b
+p_value = lambda z: 2 * (1 - NormalDist().cdf(abs(z)))
+
+# как будто две независимые выборки
+se_ind = np.sqrt(p_a * (1 - p_a) / n + p_b * (1 - p_b) / n)
+print(f"независимые доли: SE = {se_ind:.2%}, z = {d / se_ind:.2f}, p = {p_value(d / se_ind):.3f}")
+
+# парные разности «А − Б» по каждой задаче: +1, −1 или 0
+diff = np.r_[np.ones(a_only), -np.ones(b_only), np.zeros(n - a_only - b_only)]
+se_pair = diff.std(ddof=1) / np.sqrt(n)
+print(f"парные разности:  SE = {se_pair:.2%}, z = {d / se_pair:.2f}, p = {p_value(d / se_pair):.3f}")</textarea>
+  </div>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Доверительный интервал</h2>
+  <div class="takeaway"><p>Интервал разницы \(\hat\Delta \pm 1.96\,\mathrm{SE}_\Delta\) показывает и величину эффекта, и значимость: ноль вне интервала \(\iff p < 0.05\). 95% — про процедуру, а не про конкретный отрезок. Пересечение интервалов групп — не тест. «Не прокрасилось» — это граница, а не «эффекта нет».</p></div>
+  <a class="next-step" href="07-mde.html"><b>Дальше: 7. MDE и длительность</b>Сколько ждать и что можно заметить.</a>
+</section>
+
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const RED = '#C9413A', BLUE = COL.ctrl;
+  // 1: 100 интервалов
+  const g1 = document.getElementById('g1'), cv1 = g1.querySelector('canvas'), out1 = g1.querySelector('.out'), nIn = document.getElementById('g1-n');
+  const PA = 0.100, PB = 0.106, TRUE = PB - PA, K = 100;
+  let rows = [], nCur = 20000;
+  const binomDraw = (n, p) => { const m = n * p, s = Math.sqrt(n * p * (1 - p)); return Math.max(0, Math.min(n, Math.round(m + s * gauss()))); };
+  function sim(){
+    nCur = Math.max(100, Math.min(10000000, Math.round(+String(nIn.value).replace(/\s/g, '')) || 20000)); nIn.value = nCur;
+    rows = Array.from({length: K}, () => { const a = binomDraw(nCur, PA) / nCur, b = binomDraw(nCur, PB) / nCur, d = b - a, se = Math.sqrt(a * (1 - a) / nCur + b * (1 - b) / nCur); return {d, lo: d - 1.96 * se, hi: d + 1.96 * se}; });
+    paint1();
+  }
+  function paint1(){
+    const g = canvas(cv1, 0.62, 1.1); if (!g || !rows.length) return; const {c, w, h} = g, L = 10, R = 10, T = 14, B = 34;
+    const se0 = Math.sqrt(PA * (1 - PA) / nCur + PB * (1 - PB) / nCur), span = Math.max(4.2 * se0, 0.004), lo = TRUE - span, hi = TRUE + span;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), dy = (h - T - B) / K;
+    const step = Book.niceStep((hi - lo) * 100, 6);
+    for (let v = Math.ceil(lo * 100 / step) * step; v <= hi * 100 + 1e-9; v += step){ c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(X(v / 100), T); c.lineTo(X(v / 100), h - B); c.stroke(); big(c, (Math.abs(v) < 1e-9 ? '0' : (v < 0 ? '−' : '') + num(Math.abs(v), step < 0.1 ? 2 : 1)) + '%', X(v / 100), h - B + 20, COL.ink2, 14, 400); }
+    let miss = 0, zero = 0;
+    rows.forEach((r, i) => { const m = r.lo > TRUE || r.hi < TRUE; if (m) miss++; if (r.lo <= 0 && r.hi >= 0) zero++; const y = T + (i + 0.5) * dy; c.strokeStyle = m ? RED : BLUE; c.lineWidth = m ? 2.2 : 1.4; c.beginPath(); c.moveTo(X(Math.max(lo, r.lo)), y); c.lineTo(X(Math.min(hi, r.hi)), y); c.stroke(); c.fillStyle = m ? RED : BLUE; c.beginPath(); c.arc(X(r.d), y, 1.8, 0, 7); c.fill(); });
+    c.strokeStyle = COL.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(X(TRUE), T - 6); c.lineTo(X(TRUE), h - B); c.stroke();
+    if (lo < 0){ c.setLineDash([5, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(0), T); c.lineTo(X(0), h - B); c.stroke(); c.setLineDash([]); }
+    out1.innerHTML = 'Накрыли правду <b>' + (K - miss) + ' из ' + K + '</b>, промахнулись ' + miss + '. Задевают ноль, то есть не прокрасились, <b>' + zero + ' из ' + K + '</b>.';
+  }
+  document.getElementById('g1-run').addEventListener('click', sim);
+  nIn.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') sim(); }); nIn.addEventListener('change', sim);
+  // 2: интервалы групп и интервал разницы
+  const cv2 = document.getElementById('g2').querySelector('canvas');
+  function paint2(){
+    const g = canvas(cv2, 0.42, 0.8); if (!g) return; const {c, w, h} = g, L = 150, R = 20;
+    const row = (y, lbl, m, hw, lo, hi, col, unit, dec = 2) => { const X = v => L + (v - lo) / (hi - lo) * (w - L - R); c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, y + 14); c.lineTo(w - R, y + 14); c.stroke(); c.strokeStyle = col; c.lineWidth = 4; c.beginPath(); c.moveTo(X(m - hw), y); c.lineTo(X(m + hw), y); c.stroke(); c.fillStyle = col; c.beginPath(); c.arc(X(m), y, 5, 0, 7); c.fill(); big(c, lbl, 8, y + 5, COL.ink, 15, 600, 'left'); big(c, num(m - hw, dec) + unit, X(m - hw), y - 12, col, 13, 500); big(c, num(m + hw, dec) + unit, X(m + hw), y - 12, col, 13, 500); return X; };
+    const XA = row(h * 0.2, 'контроль', 10.0, 0.416, 9.4, 11.2, BLUE, '%');
+    row(h * 0.42, 'тест', 10.6, 0.426, 9.4, 11.2, '#E8644A', '%');
+    c.fillStyle = 'rgba(201,65,58,.12)'; c.fillRect(XA(10.174), h * 0.2 - 10, XA(10.416) - XA(10.174), h * 0.22 + 20);
+    big(c, 'пересекаются', (XA(10.174) + XA(10.416)) / 2, h * 0.2 - 28, RED, 13, 600);
+    const XD = row(h * 0.78, 'разница B − A', 0.6, 0.596, -0.6, 1.6, COL.ink, '%', 3);
+    c.setLineDash([5, 4]); c.strokeStyle = COL.gray; c.lineWidth = 1.5; c.beginPath(); c.moveTo(XD(0), h * 0.78 - 26); c.lineTo(XD(0), h * 0.78 + 14); c.stroke(); c.setLineDash([]);
+    big(c, 'ноль', XD(0), h * 0.78 + 30, COL.ink2, 13, 500);
+  }
+  window.addEventListener('resize', () => { paint1(); paint2(); });
+  sim(); paint2();
+})();
+</script>
