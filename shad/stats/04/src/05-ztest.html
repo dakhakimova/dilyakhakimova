@@ -49,6 +49,21 @@
     <p class="stp"><b>Шаг 4.</b> \(z = 0.006/0.00304 \approx 1.97\); \(p = 2\,P(N(0,1) \ge 1.97) \approx 0.048\). При \(n\) в десятки тысяч t и z совпадают.</p>
     <p class="ans">\(\mathrm{SE} \approx 0.304\%\), \(z \approx 1.97\), \(p \approx 0.048\) — прокрасилось на 5%, впритык.</p>
   </div></details>
+  <h3>Расчёт в коде</h3>
+  <div class="cell" data-title="z-тест для двух конверсий">
+<textarea spellcheck="false" aria-label="z-тест для двух конверсий">from math import sqrt
+from statistics import NormalDist
+
+n_a, n_b = 20_000, 20_000  # пользователей в группах
+p_a, p_b = 0.100, 0.106    # конверсия в контроле и тесте
+
+se = sqrt(p_a * (1 - p_a) / n_a + p_b * (1 - p_b) / n_b)
+z = (p_b - p_a) / se
+p_value = 2 * (1 - NormalDist().cdf(abs(z)))  # двусторонний
+
+print(f"SE = {se:.3%}, z = {z:.2f}, p-value = {p_value:.3f}")
+print("прокрасилось" if p_value &lt; 0.05 else "не прокрасилось", "на уровне 5%")</textarea>
+  </div>
 </section>
 
 <section class="card" data-title="t-критерий: откуда Стьюдент">
