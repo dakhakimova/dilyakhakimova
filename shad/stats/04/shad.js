@@ -92,7 +92,7 @@
   const C = (n, k) => { n = Math.round(n); k = Math.round(k); if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return Math.round(r * 1e6) / 1e6 === Math.round(r) ? Math.round(r) : r; };
   const Phi = z => (typeof normCdf === 'function') ? normCdf(z) : NaN;
   function ev(src){
-    let s = String(src).replace(/[Сс]/g, 'C').replace(/[Хх]/g, '*').replace(/C\(\s*([^,;()]+?)\s*[,;]\s*([^,;()]+?)\s*\)/g, 'C($1;$2)').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/−/g, '-').replace(/√/g, 'sqrt').replace(/\s+/g, '');
+    let s = String(src).replace(/[Сс]/g, 'C').replace(/\bc\(/g, 'C(').replace(/[Хх]/g, '*').replace(/C\(\s*([^,;()]+?)\s*[,;]\s*([^,;()]+?)\s*\)/g, 'C($1;$2)').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/−/g, '-').replace(/√/g, 'sqrt').replace(/\s+/g, '');
     s = s.replace(/;/g, ',');
     if (!/^[0-9+\-*/^().!,a-zA-Zπ%]*$/.test(s)) throw 0;
     const words = s.match(/[a-zA-Zπ]+/g) || [];
