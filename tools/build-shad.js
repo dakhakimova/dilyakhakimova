@@ -74,18 +74,62 @@ ${script}
   fs.writeFileSync(path.join(ROOT, DIR, f), html);
 }
 
-// оглавление
-const toc = metas.map(m => `      <li><a href="${m.f}"><span class="n">${m.n}</span><span><b>${m.short || m.title}</b>${m.lead ? '<br><span class="muted">' + m.lead + '</span>' : ''}</span></a></li>`).join('\n');
-fs.writeFileSync(path.join(ROOT, DIR, 'index.html'), `${head(LESSON + ' · ' + COURSE, 'Интерактивная версия занятия 4 курса ШАД «Прикладная статистика для аналитика»: критерии, p-value, мощность, ЦПТ, z- и t-тест, интервалы, MDE, χ², Манн — Уитни, множественные проверки.')}
-<body class="shad-index">
-${nav}
-<main class="wrap shad-toc">
-  <p class="kicker">${COURSE}</p>
-  <h1>${LESSON}</h1>
-  <p class="lead">Интерактивная версия занятия: девять блоков лекции. В задачах можно проверить свой ответ числом, решение спрятано под раскрывашкой, а там, где идею лучше видно на графике, — игра.</p>
-  <ol class="shad-list">
+// оглавление — в шаблоне лендингов курсов (home.css + course.css), как /signal/
+const PLAN = [
+  ['01-criterion.html', 'Критерий своими руками', '19 выкупов из 30 — это доказательство? Гипотезы, статистика, критическая область, одно- и двусторонние критерии.'],
+  ['02-pvalue.html', 'p-value', 'Леди с чаем, девять орлов из десяти и что p-value не значит. Почему в A/A-тестах p-value распределено равномерно.'],
+  ['03-power.html', 'Две ошибки и мощность', 'Три странных критерия, два колокола, гребёнки средних и осьминог Пауль.'],
+  ['04-clt.html', 'ЦПТ на практике', 'С какого размера выборки верить «±1.96 SE» и когда колокол не наступает.'],
+  ['05-ztest.html', 'z- и t-тест', 'Стьюдент из пивоварни Guinness, 25 наблюдений и вопрос про нормальность с собеседования.'],
+  ['06-ci.html', 'Доверительные интервалы', 'Сколько интервалов накрывает правду, пересекающиеся интервалы и «не прокрасилось — значит можно».'],
+  ['07-mde.html', 'MDE и длительность', 'Сколько ждать, «10 против 9», MDE задним числом и баннер +8% ± 3%.'],
+  ['08-nonparam.html', 'χ² и Манн — Уитни', 'Камень-ножницы-бумага, почему Манн — Уитни не про медианы и случай Uber.'],
+  ['09-multiple.html', 'Множественные проверки', 'Двадцать метрик, поправка Бонферрони и зелёные мармеладки.']
+];
+const done = new Set(metas.map(m => m.f));
+const toc = PLAN.map(([f, t, d], i) => done.has(f)
+  ? `      <li><span class="n">${i + 1}</span><h3><a href="${f}">${t}</a></h3><p class="d">${d}</p></li>`
+  : `      <li class="soon"><span class="n">${i + 1}</span><h3>${t}</h3><p class="d">${d}</p><p class="x">Скоро</p></li>`).join('\n');
+fs.writeFileSync(path.join(ROOT, DIR, 'index.html'), `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>${LESSON} · ${COURSE}</title>
+<meta name="description" content="Интерактивная версия занятия 4 курса ШАД «Прикладная статистика для аналитика».">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=${ver}">
+<link rel="stylesheet" href="/tokens.css?v=${ver}">
+<link rel="stylesheet" href="/home.css?v=${ver}">
+<link rel="stylesheet" href="/course.css?v=${ver}">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=${ver}">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <a class="home-line" href="/">← dilyakhakimova.com</a>
+</header>
+<main id="main">
+<section class="c-hero wrap">
+  <div>
+    <p class="chips"><span class="tag">ШАД</span><span class="tag">Прикладная статистика для аналитика</span></p>
+    <h1>Занятие 4. Проверка гипотез</h1>
+    <p class="sub">Интерактивная версия занятия: девять блоков, как в лекции. В задачах можно проверить ответ числом, решение спрятано под «Решением», а там, где идею лучше видно на графике, — игра.</p>
+    <p class="ctas"><a class="btn" href="01-criterion.html">Начать</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
+  </div>
+  <figure class="art"><img width="1200" height="675" src="img/01-fitting.jpg" alt="Боб и курьер с примеркой у двери"></figure>
+</section>
+<section class="wrap block" id="toc">
+  <div class="col">
+    <h2>Оглавление</h2>
+    <ol class="modules" role="list">
 ${toc}
-  </ol>
+    </ol>
+  </div>
+</section>
 </main>
 </body>
 </html>
