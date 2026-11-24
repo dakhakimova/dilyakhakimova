@@ -88,6 +88,18 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   <details class="sol"><summary>Почему именно 2.8</summary><div class="body"><p class="ans"><span class="nw"><span class="tx" data-tex="1.96 + 0.84 \approx 2.8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.96</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.84</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2.8</span></span></span></span></span>:</span> порог плюс ещё 0.84 SE, чтобы 80% синего колокола оказалось правее порога (<span class="nw"><span class="tx" data-tex="\Phi(0.84) \approx 0.8"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord">0.84</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.8</span></span></span></span></span>).</span></p></div></details>
 </section>
 
+<section class="card" data-title="Визуализация: меньше дисперсия">
+  <span class="step-tag">Визуализация</span>
+  <h2>Те же средние, меньше разброс</h2>
+  <p>Средние на месте: без лекарства разница средних в среднем 0, с лекарством — 5 мм рт. ст., в каждой группе по 100 пациентов. Меняем только разброс метрики <span class="nw"><span class="tx" data-tex="\sigma"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span></span>.</span> Колокола — распределение разности средних в двух мирах; вертикаль — правый порог <span class="tx" data-tex="1.96\,\mathrm{SE}"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">1.96</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">SE</span></span></span></span></span></span> двустороннего критерия, красное — <span class="tx" data-tex="\alpha = 5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">5%</span></span></span></span></span> в двух хвостах.</p>
+  <div class="game" id="g4">
+    <div class="controls"><label class="field">Разброс <span class="nw"><span class="tx" data-tex="\sigma"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span></span></span></span></span>,</span> мм <input type="range" id="g4-s" min="5" max="20" step="1" value="15"></label> <output id="g4-sv"></output></div>
+    <canvas aria-label="Два колокола разности средних при разном разбросе"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <p>Эффект тот же, <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> тот же — а колокола сужаются и расходятся, порог подъезжает к нулю, жёлтое <span class="tx" data-tex="\beta"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0528em;">β</span></span></span></span></span> тает. Так работают методы снижения дисперсии: CUPED, стратификация, выбор менее шумной метрики (занятие 6).</p>
+</section>
+
 <section class="card" data-title="Прогноз: гребёнки">
   <span class="step-tag">Задача</span>
   <h2 class="task-h"><span class="tn">Задача 7.</span> Гребёнки средних: откуда берётся мощность</h2>
@@ -174,7 +186,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / (normPdf(0) * 1.1), z = 1.96;
     // β — часть синего левее порога, α — часть серого правее
     c.fillStyle = OCH; Book.bell(c, X, Y, d, 1, lo, z, {close: true}); c.fill();
-    c.fillStyle = 'rgba(201,65,58,.55)'; Book.bell(c, X, Y, 0, 1, z, hi, {close: true}); c.fill();
+    c.fillStyle = 'rgba(201,65,58,.55)'; Book.bell(c, X, Y, 0, 1, z, hi, {close: true}); c.fill(); Book.bell(c, X, Y, 0, 1, lo, -z, {close: true}); c.fill();
     c.lineWidth = 2.5; c.strokeStyle = COL.gray; Book.bell(c, X, Y, 0, 1, lo, hi); c.stroke();
     c.strokeStyle = COL.ctrl; Book.bell(c, X, Y, d, 1, lo, hi); c.stroke();
     c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(z), T); c.lineTo(X(z), h - B); c.stroke();
@@ -233,7 +245,27 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
   }
   pick(g3, 'm', v => { m3 = +v; res = null; paint3(); });
   document.getElementById('g3-run').addEventListener('click', run3);
-  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+
+  // 4: те же средние, меньше дисперсия
+  const g4 = document.getElementById('g4'), cv4 = g4.querySelector('canvas'), out4 = g4.querySelector('.out'), r4 = document.getElementById('g4-s'), sv4 = document.getElementById('g4-sv');
+  function paint4(){
+    const sg = +r4.value, n = 100, se = sg * Math.sqrt(2 / n), d = 5, cut = 1.96 * se; sv4.textContent = String(sg);
+    const g = canvas(cv4, 0.4, 0.75); if (!g) return; const {c, w, h} = g, L = 10, R = 10, T = 30, B = 34, lo = -8, hi = 13;
+    const X = v => L + (v - lo) / (hi - lo) * (w - L - R), top = normPdf(0) / (5 * Math.sqrt(0.02)) * 1.06, Y = v => h - B - (h - T - B) * v / top;
+    const pdf = (x, m) => normPdf((x - m) / se) / se;
+    const area = (a, b, m, col) => { c.beginPath(); c.moveTo(X(a), h - B); for (let x = a; x <= b; x += 0.02) c.lineTo(X(x), Y(pdf(x, m))); c.lineTo(X(b), h - B); c.closePath(); c.fillStyle = col; c.fill(); };
+    area(lo, cut, d, OCH); area(cut, hi, 0, 'rgba(201,65,58,.6)'); area(lo, -cut, 0, 'rgba(201,65,58,.6)');
+    [[0, COL.gray], [d, COL.ctrl]].forEach(([m, col]) => { c.beginPath(); for (let x = lo; x <= hi; x += 0.02){ const px = X(x), py = Y(pdf(x, m)); x === lo ? c.moveTo(px, py) : c.lineTo(px, py); } c.strokeStyle = col; c.lineWidth = 2.5; c.stroke(); });
+    c.strokeStyle = COL.ink; c.lineWidth = 1.5; c.beginPath(); c.moveTo(X(cut), T - 10); c.lineTo(X(cut), h - B); c.stroke();
+    big(c, 'порог ' + num(cut, 2), X(cut) + 6, T - 14, COL.ink, 15, 600, 'left');
+    c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, h - B); c.lineTo(w - R, h - B); c.stroke();
+    for (let v = -5; v <= 10; v += 5) big(c, String(v), X(v), h - B + 18, COL.ink2, 14, 400);
+    big(c, 'без эффекта', X(0), Y(pdf(0, 0)) - 8, COL.ink2, 14, 600); big(c, 'эффект 5', X(d), Y(pdf(d, d)) - 8, COL.ctrl, 14, 600);
+    const pw = 1 - normCdf((cut - d) / se);
+    out4.innerHTML = '\\(\\mathrm{SE} = ' + sg + '\\sqrt{2/100} = ' + num(se, 2) + '\\), \\(\\alpha = 5\\%\\) (красное), \\(\\beta = ' + num(100 * (1 - pw), 0) + '\\%\\) (жёлтое), мощность \\(1 - \\beta = ' + num(100 * pw, 0) + '\\%\\).';
+  }
+  r4.addEventListener('input', paint4);
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); });
 })();
 </script>
 
