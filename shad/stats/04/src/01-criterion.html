@@ -76,13 +76,29 @@
   </div></details>
 </section>
 
-<section class="card" data-title="Одна сторона или две">
+<section class="card" data-title="Три вида альтернатив">
   <span class="step-tag">Определение</span>
-  <h2>Односторонняя и двусторонняя альтернатива</h2>
+  <h2>Правосторонняя, левосторонняя и двусторонняя альтернатива</h2>
+  <p>В общем виде: \(H_0:\ \theta = \theta_0\), статистика \(T\), её распределение при \(H_0\) известно. Вид критической области задаёт альтернатива.</p>
   <div class="def">
-    <p><b>Односторонняя:</b> \(H_1:\ p > 1/2\) — критическая область только справа, весь \(\alpha\) в одном хвосте.</p>
-    <p><b>Двусторонняя:</b> \(H_1:\ p \ne 1/2\) — отвергаем и при слишком больших, и при слишком маленьких значениях; \(\alpha\) делим поровну, по \(\alpha/2\) в каждый хвост.</p>
+    <p><b>Правосторонняя</b> \(H_1:\ \theta > \theta_0\) — отвергаем, если \(T \ge k\); весь \(\alpha\) в правом хвосте: \(P(T \ge k \mid H_0) \le \alpha\).</p>
+    <p><b>Левосторонняя</b> \(H_1:\ \theta < \theta_0\) — отвергаем, если \(T \le k\); весь \(\alpha\) в левом хвосте: \(P(T \le k \mid H_0) \le \alpha\).</p>
+    <p><b>Двусторонняя</b> \(H_1:\ \theta \ne \theta_0\) — отвергаем, если \(T \le k_л\) или \(T \ge k_п\); по \(\alpha/2\) в каждом хвосте.</p>
   </div>
+  <div class="game" id="g4">
+    <div class="controls"><span>Распределение \(T\) при \(H_0\):</span><span class="seg" role="group" aria-label="Форма распределения">
+      <button type="button" class="btn ghost" data-shape="sym" aria-pressed="true">симметричное</button><button type="button" class="btn ghost" data-shape="skew" aria-pressed="false">скошенное</button>
+    </span></div>
+    <canvas aria-label="Критические области для трёх альтернатив"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <p>У скошенного распределения двусторонняя область <b>несимметрична</b>: левая и правая границы стоят на разном расстоянии от центра, а вероятности хвостов те же — по \(\alpha/2\).</p>
+</section>
+
+<section class="card" data-title="Наш случай: одна сторона или две">
+  <span class="step-tag">Визуализация</span>
+  <h2>Для кейса Боба</h2>
+  <p>Здесь \(\theta = p\), \(\theta_0 = 1/2\), \(T = X\) — число выкупов из 40. Боба интересует только «окупается», поэтому альтернатива <b>правосторонняя</b>: \(H_1:\ p > 1/2\). Если бы спрашивали «выкуп отличается от половины в любую сторону» — двусторонняя.</p>
   <p>В A/B-платформах по умолчанию <b>двусторонняя</b>: нужно замечать не только рост, но и падение метрик. Сторону выбирают <b>до</b> данных: выбрать её после того, как увидел знак эффекта, — значит тайком удвоить \(\alpha\).</p>
   <div class="game" id="g2">
     <canvas aria-label="Односторонний и двусторонний критерий"></canvas>
@@ -196,6 +212,42 @@
     out3.innerHTML = 'Отвергаем, если X ≥ ' + k3 + ': ошибка первого рода <b>' + share(a, 2) + '</b>. ' + (a <= 0.05 ? '✓ Укладывается в 5%.' : '✗ Больше 5%.') + ' 10 выкупов ' + (k3 <= 10 ? '<b>в</b> области.' : 'не в области.');
   }
   Stepper(g3.querySelector('.stepper'), v => { k3 = v; paint3(); });
-  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); });
+
+  // общий вид: три альтернативы на симметричном или скошенном распределении
+  const g4 = document.getElementById('g4'), cv4 = g4.querySelector('canvas'), out4 = g4.querySelector('.out');
+  let shape = 'sym';
+  // плотности: стандартная нормальная и χ² с 4 степенями свободы (скошенная вправо)
+  const dens = {sym: {f: x => Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI), lo: -4, hi: 4},
+                skew: {f: x => x <= 0 ? 0 : x * Math.exp(-x / 2) / 4, lo: 0, hi: 16}};
+  function cdfNum(d, x){ const N = 800, a = d.lo; let s = 0, hx = (x - a) / N; if (x <= a) return 0; for (let i = 0; i < N; i++) s += d.f(a + (i + 0.5) * hx); return s * hx; }
+  function q(d, u){ let a = d.lo, b = d.hi; for (let it = 0; it < 50; it++){ const m = (a + b) / 2; if (cdfNum(d, m) < u) a = m; else b = m; } return (a + b) / 2; }
+  const d4 = dens.skew, Q = {sym: {r5: 1.645, l5: -1.645, r25: 1.96, l25: -1.96}, skew: {r5: q(d4, 0.95), l5: q(d4, 0.05), r25: q(d4, 0.975), l25: q(d4, 0.025)}};
+  function paint4(){
+    const d = dens[shape], qq = Q[shape];
+    const g = canvas(cv4, 0.3, 1.4); if (!g) return; const {c, w, h} = g, mob = w < 620;
+    const pw = mob ? w : (w - 32) / 3, ph = mob ? (h - 24) / 3 : h;
+    let top = 0; for (let x = d.lo; x <= d.hi; x += (d.hi - d.lo) / 200) top = Math.max(top, d.f(x)); top *= 1.12;
+    const f2 = v => { const r = Math.round(v * 1000) / 1000; return String(Math.abs(r) < 2 ? r : Math.round(r * 100) / 100).replace('-', '−'); };
+    const panels = [
+      ['Правосторонняя: θ > θ₀', [[qq.r5, d.hi]], 'T ≥ ' + f2(qq.r5) + ': 5%'],
+      ['Левосторонняя: θ < θ₀', [[d.lo, qq.l5]], 'T ≤ ' + f2(qq.l5) + ': 5%'],
+      ['Двусторонняя: θ ≠ θ₀', [[d.lo, qq.l25], [qq.r25, d.hi]], 'T ≤ ' + f2(qq.l25) + ' и T ≥ ' + f2(qq.r25) + ': по 2.5%']
+    ];
+    panels.forEach(([t, regs, lab], i) => {
+      const ox = mob ? 0 : i * (pw + 16), oy = mob ? i * (ph + 12) : 0, L = ox + 6, R = ox + pw - 6, B = oy + ph - 20, T = oy + 46;
+      const X = v => L + (v - d.lo) / (d.hi - d.lo) * (R - L), Y = v => B - (B - T) * v / top;
+      label(c, t, ox + pw / 2, oy + 14, COL.ink, 'center');
+      label(c, lab, ox + pw / 2, oy + 32, COL.trapInk, 'center');
+      regs.forEach(([a, b]) => { c.beginPath(); c.moveTo(X(a), B); for (let x = a; x <= b; x += (d.hi - d.lo) / 300) c.lineTo(X(x), Y(d.f(x))); c.lineTo(X(b), Y(d.f(b))); c.lineTo(X(b), B); c.closePath(); c.fillStyle = COL.trap; c.fill(); });
+      c.beginPath(); for (let x = d.lo; x <= d.hi; x += (d.hi - d.lo) / 300) { const px = X(x), py = Y(d.f(x)); x === d.lo ? c.moveTo(px, py) : c.lineTo(px, py); } c.strokeStyle = '#7F93C4'; c.lineWidth = 2.2; c.stroke();
+      c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, B); c.lineTo(R, B); c.stroke();
+      label(c, 'T', R - 4, B + 14, COL.ink2, 'right');
+    });
+    out4.innerHTML = shape === 'sym'
+      ? 'Симметричное распределение: двусторонние границы стоят на равном расстоянии от центра, и каждая дальше односторонней — в хвосте только α/2.'
+      : 'Скошенное распределение (длинный хвост вправо): правая граница далеко от центра, левая — почти у нуля. Площадь каждого хвоста при этом та же — α/2.';
+  }
+  g4.querySelectorAll('[data-shape]').forEach(b => b.addEventListener('click', () => { shape = b.dataset.shape; g4.querySelectorAll('[data-shape]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint4(); }));
+  window.addEventListener('resize', () => { paint1(); paint2(); paint3(); paint4(); });
 })();
 </script>
