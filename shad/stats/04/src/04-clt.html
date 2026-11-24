@@ -165,13 +165,16 @@
   function paint1(){
     const g = canvas(cv1, 0.42, 0.8); if (!g || !sim) return; const {c, w, h} = g, L = 10, R = 10, T = 34, B = 34, d = D[dk];
     const ms = sim.m, q = p => ms[Math.min(ms.length - 1, Math.floor(p * ms.length))];
-    let lo = q(0.005), hi = q(0.995), bins;
+    const heavy = dk === 'par' || dk === 'pareto', mean0 = ms.reduce((a, b) => a + b, 0) / ms.length, sd0 = heavy ? (q(0.75) - q(0.25)) / 1.349 : Math.sqrt(ms.reduce((a, b) => a + (b - mean0) ** 2, 0) / ms.length);
+    // диапазон: чтобы нормальная кривая не обрезалась, но не левее, чем может быть среднее (0, у Парето — 1)
+    const smin = dk === 'pareto' ? 1 : 0;
+    let lo = Math.max(smin, Math.min(q(0.005), mean0 - 3.5 * sd0)), hi = Math.max(q(0.995), mean0 + 3.5 * sd0), bins;
     const disc = d.p != null;
     if (disc){ const k0 = Math.floor(lo * n), k1 = Math.ceil(hi * n); lo = (k0 - 0.5) / n; hi = (k1 + 0.5) / n; bins = Math.min(60, k1 - k0 + 1); }
     else bins = 40;
     if (hi - lo < 1e-9){ hi = lo + 1; }
     const bw = (hi - lo) / bins, cnt = new Array(bins).fill(0); ms.forEach(v => { const i = Math.floor((v - lo) / bw); if (i >= 0 && i < bins) cnt[i]++; });
-    const mean = ms.reduce((a, b) => a + b, 0) / ms.length, sdm = Math.sqrt(ms.reduce((a, b) => a + (b - mean) ** 2, 0) / ms.length) || 1e-9;
+    const mean = mean0, sdm = sd0 || 1e-9;
     const dens = cnt.map(v => v / ms.length / bw), npk = normPdf(0) / sdm, top = Math.max(...dens, npk) * 1.08;
     const X = v => L + (v - lo) / (hi - lo) * (w - L - R), Y = v => h - B - (h - T - B) * v / top;
     cnt.forEach((v, i) => { const y = Y(dens[i]); c.fillStyle = '#A9B8DA'; c.fillRect(X(lo + i * bw) + 1, y, Math.max(1, X(lo + (i + 1) * bw) - X(lo + i * bw) - 2), h - B - y); });
