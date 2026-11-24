@@ -159,6 +159,37 @@ print("прокрасилось" if p_value &lt; 0.05 else "не прокрас�
     <li><b>z с раздельными SE</b> — SE считается правильно, но порог 1.96 от нормального. Хватает, пока групп сотни; при группе из 5 человек — 12%.</li>
     <li><b>Уэлч</b> — раздельные SE и порог от Стьюдента с \(\nu\) из формулы выше: везде около 5%.</li>
   </ul>
+  <p>Таблица — результат этой симуляции на 20 000 повторов; здесь 2 000, поэтому числа гуляют на полпроцента.</p>
+  <div class="cell" data-title="Откуда числа: A/A-симуляция" data-packages="scipy">
+<textarea spellcheck="false" aria-label="Откуда числа: A/A-симуляция">import numpy as np
+from scipy import stats
+
+rng = np.random.default_rng(1)
+R = 2000  # A/A-тестов на каждую строку
+
+for n_a, n_b in [(1000, 100), (100, 1000), (50, 5)]:
+    a = rng.normal(0, 1, (R, n_a))  # тихая группа, σ = 1
+    b = rng.normal(0, 3, (R, n_b))  # шумная группа, σ = 3
+    diff = b.mean(1) - a.mean(1)
+    va, vb = a.var(1, ddof=1), b.var(1, ddof=1)
+
+    # 1. t с общей дисперсией (классический Стьюдент)
+    pooled = ((n_a - 1) * va + (n_b - 1) * vb) / (n_a + n_b - 2)
+    t = diff / np.sqrt(pooled * (1 / n_a + 1 / n_b))
+    p_pooled = 2 * stats.t.sf(abs(t), n_a + n_b - 2)
+
+    # 2. z с раздельными SE
+    se = np.sqrt(va / n_a + vb / n_b)
+    p_z = 2 * stats.norm.sf(abs(diff / se))
+
+    # 3. Уэлч: раздельные SE и Стьюдент с ν
+    nu = se**4 / ((va / n_a)**2 / (n_a - 1) + (vb / n_b)**2 / (n_b - 1))
+    p_welch = 2 * stats.t.sf(abs(diff / se), nu)
+
+    print(f"{n_a} и {n_b}: общая {np.mean(p_pooled &lt; 0.05):.1%}, "
+          f"z {np.mean(p_z &lt; 0.05):.1%}, Уэлч {np.mean(p_welch &lt; 0.05):.1%}, "
+          f"ν ≈ {np.median(nu):.0f}")</textarea>
+  </div>
   <p>Главную ошибку общей дисперсии лечат <b>раздельные SE</b>, и это не зависит от \(n\). Степени свободы важны, только когда \(\nu\) мало: в A/B с тысячами в группе t = z, но в узком срезе, где в одной группе 5 человек, \(\nu \approx 4\). Поэтому Уэлч — по умолчанию.</p>
 </section>
 
