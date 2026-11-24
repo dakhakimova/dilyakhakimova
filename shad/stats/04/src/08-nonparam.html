@@ -254,11 +254,11 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
 
   // Манн–Уитни: все пары «B против A» сеткой
   const gu = document.getElementById('gu'), cvu = gu.querySelector('canvas'), outu = gu.querySelector('.out');
-  const NA = 7, NB = 7; let SC = 'same', A = [], Bv = [];
+  const NA = 10, NB = 10; let SC = 'same', A = [], Bv = [];
   const gauss1 = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
   const gen = () => { A = Array.from({length: NA}, () => Math.round(50 + 15 * gauss1())).sort((a, b) => a - b); Bv = Array.from({length: NB}, () => Math.round((SC === 'shift' ? 65 : 50) + (SC === 'wide' ? 35 : 15) * gauss1())).sort((a, b) => a - b); paintU(); };
   function paintU(){
-    const g = canvas(cvu, 0.5, 1.05); if (!g) return; const {c, w, h} = g;
+    const g = canvas(cvu, 0.6, 1.25); if (!g) return; const {c, w, h} = g;
     const lo = Math.min(...A, ...Bv) - 8, hi = Math.max(...A, ...Bv) + 8, L = 40, R = 16, X = v => L + (v - lo) / (hi - lo) * (w - L - R);
     // ось со значениями
     const yA = 34, yB = 74; c.strokeStyle = COL.grid; c.lineWidth = 1; [yA, yB].forEach(y => { c.beginPath(); c.moveTo(L, y); c.lineTo(w - R, y); c.stroke(); });
@@ -276,7 +276,7 @@ print(f"+ «кит» 1 000 ₽:     t-тест p = {t2:.3f}, Манн–Уитн
     });
     bigx(c, 'A →', gx0 + cell * NA + 6, top + cell * 0.65, COL.ink2, 12, 600, 'left'); bigx(c, 'B ↓', gx0 - 6, top + cell * 0.1 + 4, COL.ctrl, 12, 600, 'right');
     const P = U / (NA * NB);
-    outu.innerHTML = 'Синяя клетка — пара, где у B больше, бледная — ничья, она идёт за половину. \\(U = ' + (U % 1 ? num(U, 1) : U) + '\\) из \\(' + NA + ' \\cdot ' + NB + ' = ' + NA * NB + '\\): \\(\\tfrac{U}{n_A n_B} = ' + num(P, 2) + '\\). ' + (SC === 'same' ? 'Распределения одинаковые — около половины клеток синие, \\(P(X_B > X_A) = 1/2\\).' : SC === 'shift' ? 'B сдвинута вправо — синих заметно больше половины.' : 'B шире при том же центре: в среднем синих около половины, но разброс \\(U\\) от выборки к выборке другой — поэтому тест может ошибаться чаще \\(\\alpha\\).');
+    outu.innerHTML = '\\(U = ' + (U % 1 ? num(U, 1) : U) + '\\) из \\(' + NA + ' \\cdot ' + NB + ' = ' + NA * NB + '\\): \\(\\tfrac{U}{n_A n_B} = ' + num(P, 2) + '\\). ' + (SC === 'same' ? 'Распределения одинаковые — около половины клеток синие, \\(P(X_B > X_A) = 1/2\\).' : SC === 'shift' ? 'B сдвинута вправо — синих заметно больше половины.' : 'B шире при том же центре: в среднем синих около половины, но разброс \\(U\\) от выборки к выборке другой — поэтому тест может ошибаться чаще \\(\\alpha\\).');
   }
   gu.querySelectorAll('[data-s]').forEach(b => b.addEventListener('click', () => { gu.querySelectorAll('[data-s]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); SC = b.dataset.s; gen(); }));
   document.getElementById('gu-new').addEventListener('click', gen);
