@@ -1,0 +1,149 @@
+/* Слайды для показа на лекции (/games/…/). Один файл = одна лекция: <section class="s"> на слайд.
+   Холст 1600×900, масштабируется под окно. Цвета и шрифты — как у сайта (home.css): стол в точку, бумага,
+   Literata + Onest + Marck Script; синий --pen — главное, коралл — акцент, оранжевый --test — «прогноз/вариант Б». */
+:root{
+  --desk:#E9E5DE; --dot:rgba(120,110,90,.22); --paper:#FBFAF6; --white:#fff; --sunk:#F3F0EA;
+  --ink:#24221F; --warm-700:#4A463F; --muted:#5E5A53;
+  --pen:#23418A; --coral:#E8644A; --coral-600:#A63D28; --ctrl:#3D7DC4; --ctrl-bg:#E6EEF8;
+  --test:#E59157; --test-ink:#A85A24; --good:#0E7E5F; --good-bg:#E2F1E7; --bad:#C9413A;
+  --butter:#FBF1C9; --sky:#E1EBF7; --rose:#FBE4E4;
+  --serif:"Literata", Georgia, serif; --script:"Marck Script", cursive; --body:"Onest", "Segoe UI", system-ui, sans-serif;
+  --sh-1:0 1px 2px rgba(60,40,10,.10), 0 1px 1px rgba(60,40,10,.04);
+  --sh-2:0 1px 2px rgba(60,40,10,.08), 0 6px 14px -6px rgba(60,40,10,.22);
+  --sh-3:0 2px 4px rgba(60,40,10,.06), 0 20px 34px -18px rgba(60,40,10,.48);
+}
+*{box-sizing:border-box}
+html,body{margin:0; height:100%; overflow:hidden}
+body{background:var(--desk) radial-gradient(var(--dot) 1px, transparent 1.2px) 0 0/18px 18px; color:var(--ink); font:400 30px/1.4 var(--body)}
+[hidden]{display:none !important}
+b,strong{font-weight:600}
+:focus-visible{outline:3px solid var(--pen); outline-offset:3px; border-radius:8px}
+
+/* холст */
+#deck{position:absolute; left:50%; top:50%; width:1600px; height:900px; transform-origin:0 0}
+.s{position:absolute; inset:0; background:var(--paper); border-radius:20px; box-shadow:var(--sh-3); padding:64px 88px 72px; display:none; flex-direction:column; overflow:hidden}
+.s.on{display:flex}
+.s.sec{background:var(--pen); color:#fff; justify-content:center}
+.s.sec h2{color:#fff; font-size:84px}
+.s.sec .kicker{color:#F7C6B9}
+.s.sec p{color:#DDE4F4; max-width:24em}
+
+/* типографика */
+h1{font:400 84px/1.05 var(--serif); letter-spacing:-.02em; margin:0 0 24px; text-wrap:balance}
+h2{font:400 58px/1.12 var(--serif); letter-spacing:-.01em; margin:0 0 28px; text-wrap:balance}
+h3{font:600 32px/1.25 var(--body); margin:0 0 12px}
+p{margin:0 0 18px; max-width:30em}
+.kicker{font:400 40px/1.1 var(--script); color:var(--coral-600); margin:0 0 10px}
+.lead{font:400 36px/1.4 var(--serif)}
+.small{font-size:24px; color:var(--muted)}
+.src{position:absolute; left:88px; bottom:26px; font-size:18px; color:var(--muted); max-width:70%}
+.src a{color:inherit}
+.big-num{font:700 120px/1 var(--serif); color:var(--pen); font-variant-numeric:tabular-nums}
+ul.pts{margin:0; padding:0 0 0 1.1em}
+ul.pts li{margin:0 0 14px}
+ul.pts li::marker{color:var(--coral)}
+.hl{background:linear-gradient(transparent 58%, var(--butter) 58%)}
+.c-pen{color:var(--pen)} .c-coral{color:var(--coral-600)} .c-test{color:var(--test-ink)} .c-good{color:var(--good)} .c-muted{color:var(--muted)}
+
+/* раскладки */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; flex:1; min-height:0}
+.split.wide-l{grid-template-columns:1.25fr 1fr}
+.split.wide-r{grid-template-columns:1fr 1.35fr}
+.split > *{min-width:0}
+.cols3{display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
+.cols2{display:grid; grid-template-columns:repeat(2,1fr); gap:32px}
+.grow{flex:1; min-height:0}
+.center{display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; flex:1}
+.center p{margin-left:auto; margin-right:auto}
+.art{width:100%; border-radius:16px; display:block}
+.art.cover{position:absolute; right:0; bottom:0; width:62%; border-radius:0}
+.card{background:var(--white); border-radius:16px; box-shadow:var(--sh-2); padding:28px 32px}
+.card h3{margin-top:0}
+.plate{background:var(--white); border-radius:12px; box-shadow:var(--sh-1); padding:20px 26px; border-left:6px solid var(--coral)}
+.plate.blue{border-left-color:var(--pen)}
+.tag{display:inline-block; font:600 18px/1 var(--body); letter-spacing:.06em; text-transform:uppercase; padding:8px 12px; border-radius:8px; background:var(--sky); color:var(--pen)}
+.tag.coral{background:var(--rose); color:var(--coral-600)}
+.tag.game{background:var(--butter); color:#6A5410}
+
+/* реплики героев */
+.say{display:flex; gap:18px; align-items:flex-start; margin:0 0 18px}
+.say .who{flex:none; width:64px; height:64px; border-radius:50%; display:grid; place-items:center; font:600 26px/1 var(--serif); color:#fff}
+.say.alice .who{background:var(--ctrl)} .say.bob .who{background:#5E8C4E} .say.kot .who{background:var(--test)}
+.say .bub{background:var(--white); border-radius:4px 18px 18px 18px; box-shadow:var(--sh-1); padding:16px 22px; font:400 30px/1.35 var(--serif)}
+
+/* фрагменты: показываются по нажатию → */
+.f{opacity:0; transform:translateY(10px); transition:opacity .35s, transform .35s}
+.f.vis{opacity:1; transform:none}
+.f.fade-only{transform:none}
+@media (prefers-reduced-motion: reduce){ .f{transition:none; transform:none} }
+
+/* кнопки внутри слайда */
+.btn{font:600 24px/1 var(--body); padding:16px 26px; border-radius:999px; border:2px solid var(--pen); background:var(--pen); color:#fff; cursor:pointer}
+.btn:hover{background:#1A3270}
+.btn.ghost{background:transparent; color:var(--pen)}
+.btn.ghost:hover{background:var(--ctrl-bg)}
+.seg{display:inline-flex; background:var(--sunk); border-radius:999px; padding:6px; gap:6px}
+.seg button{font:600 24px/1 var(--body); border:0; background:transparent; padding:14px 24px; border-radius:999px; cursor:pointer; color:var(--warm-700)}
+.seg button.on{background:var(--white); color:var(--ink); box-shadow:var(--sh-1)}
+
+/* квиз-прогноз */
+.quiz .opts{display:flex; flex-direction:column; gap:14px; margin:8px 0 22px}
+.quiz .opts.row{flex-direction:row; flex-wrap:wrap}
+.quiz .opt{font:400 28px/1.3 var(--body); text-align:left; padding:18px 24px; border-radius:14px; border:2px solid transparent; background:var(--white); box-shadow:var(--sh-1); cursor:pointer; color:var(--ink)}
+.quiz .opt:hover{border-color:var(--ctrl)}
+.quiz .opt.pick{border-color:var(--pen); background:var(--ctrl-bg)}
+.quiz.done .opt[data-ok]{border-color:var(--good); background:var(--good-bg)}
+.quiz.done .opt.pick:not([data-ok]){border-color:var(--bad); background:var(--rose)}
+.quiz .ans{display:none} .quiz.done .ans{display:block}
+
+/* столбики */
+.bars{display:flex; flex-direction:column; gap:16px}
+.bars .row{display:grid; grid-template-columns:var(--lw,300px) 1fr; gap:18px; align-items:center}
+.bars .lab{font-size:26px; line-height:1.2}
+.bars .lab small{display:block; font-size:19px; color:var(--muted)}
+.bars .track{position:relative; height:48px; background:var(--sunk); border-radius:10px}
+.bars .bar{position:absolute; left:0; top:0; bottom:0; width:0; border-radius:10px; background:var(--pen); transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.bars .val{position:absolute; top:50%; transform:translateY(-50%); left:calc(var(--w,0%) + 14px); font:600 28px/1 var(--body); font-variant-numeric:tabular-nums; transition:left .8s cubic-bezier(.2,.7,.2,1); white-space:nowrap}
+.bars .val.in{left:auto; right:calc(100% - var(--w,0%) + 14px); color:#fff}
+.bar.pen{background:var(--pen)} .bar.coral{background:var(--coral)} .bar.test{background:var(--test)} .bar.ctrl{background:var(--ctrl)} .bar.muted{background:#B9B2A6} .bar.good{background:var(--good)}
+
+.vbars{display:flex; align-items:flex-end; gap:40px; height:420px; padding:0 0 0 10px; border-bottom:2px solid #CFC8BC}
+.vbars .col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; position:relative}
+.vbars .bar{width:100%; max-width:150px; height:0; border-radius:10px 10px 0 0; background:var(--pen); transition:height .8s cubic-bezier(.2,.7,.2,1)}
+.vbars .val{font:600 30px/1 var(--body); margin:0 0 10px; font-variant-numeric:tabular-nums}
+.vbars-labs{display:flex; gap:40px; padding:12px 0 0 10px}
+.vbars-labs div{flex:1; text-align:center; font-size:24px; line-height:1.2}
+.vbars-labs small{display:block; color:var(--muted); font-size:19px}
+
+/* ввод результатов зала */
+.hall{background:var(--butter); border-radius:14px; padding:18px 22px; font-size:22px}
+.hall .row{display:flex; align-items:center; gap:12px; margin:6px 0}
+.hall .bars .row{display:grid; margin:0}
+.hall input{font:600 24px/1 var(--body); width:110px; padding:8px 10px; border-radius:8px; border:1px solid rgba(36,34,31,.25); background:#fff}
+.hall textarea{width:100%; height:120px; font:400 20px/1.3 ui-monospace, monospace; border-radius:8px; border:1px solid rgba(36,34,31,.25); padding:10px}
+
+/* служебная панель */
+.ui{position:fixed; right:16px; bottom:12px; display:flex; gap:8px; align-items:center; font:500 15px/1 var(--body); color:var(--muted); z-index:5; opacity:.35; transition:opacity .2s}
+.ui:hover, .ui:focus-within{opacity:1}
+.ui button{font:500 15px/1 var(--body); border:0; background:var(--white); color:var(--ink); border-radius:999px; padding:9px 13px; box-shadow:var(--sh-1); cursor:pointer}
+.ui .num{font-variant-numeric:tabular-nums; min-width:64px; text-align:center}
+#prog{position:fixed; left:0; bottom:0; height:4px; background:var(--coral); width:0; transition:width .3s; z-index:4}
+.notes{display:none}
+#notes{position:fixed; left:16px; right:16px; bottom:56px; max-height:38vh; overflow:auto; background:#24221F; color:#F3F0EA; border-radius:14px; padding:18px 22px; font:400 18px/1.5 var(--body); z-index:6; box-shadow:var(--sh-3)}
+#notes b{color:#fff}
+
+/* обзор всех слайдов */
+#overview{position:fixed; inset:0; overflow:auto; background:rgba(233,229,222,.97); z-index:8; padding:24px; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:14px; align-content:start}
+#overview button{font:500 15px/1.3 var(--body); text-align:left; background:var(--white); border:0; border-radius:10px; padding:12px 14px; box-shadow:var(--sh-1); cursor:pointer; min-height:72px}
+#overview button.cur{outline:3px solid var(--coral)}
+#overview button span{display:block; color:var(--muted); font-size:13px; margin-bottom:4px}
+
+/* печать: по слайду на страницу */
+@media print{
+  @page{size:1600px 900px; margin:0}
+  html,body{overflow:visible; height:auto; background:#fff}
+  #deck{position:static; transform:none !important; width:auto; height:auto}
+  .s{position:relative; display:flex !important; width:1600px; height:900px; break-after:page; border-radius:0; box-shadow:none}
+  .f{opacity:1 !important; transform:none !important}
+  .ui, #prog, #notes, #overview{display:none !important}
+}

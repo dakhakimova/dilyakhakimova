@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Всё относительно · Поведенческая экономика 1</title>
+<meta name="description" content="Слайды лекции «Всё относительно»: приманки, якоря, дефолты, бесплатное и социальные нормы — поведенческая экономика в курсе теории игр.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Marck+Script&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../slides/deck.css?v=20261126">
+<style>
+.art.cover{width:58% !important}
+/* иллюзия Эббингауза, тарелки, плоскость признаков, кривая боли — общие мелочи этой лекции */
+.fig svg{width:100%; height:auto; display:block}
+.fig text{font-family:var(--body)}
+.anchor-out{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start}
+.anchor-out .r{font:600 64px/1 var(--serif); color:var(--pen)}
+.formcard{background:#fff; border-radius:14px; box-shadow:var(--sh-2); padding:26px 30px; font-size:26px}
+.formcard .box{display:inline-grid; place-items:center; width:38px; height:38px; border:3px solid var(--ink); border-radius:6px; margin-right:14px; vertical-align:middle; font:700 26px/1 var(--body); color:var(--pen)}
+.price-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+.price-cards .card{text-align:center; padding:28px 18px}
+.price-cards .card .p{font:600 54px/1 var(--serif); color:var(--pen); margin:10px 0 6px}
+.price-cards .card.decoy{opacity:.92; outline:3px dashed var(--coral); outline-offset:-3px}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+.duo .card .p{font:600 46px/1 var(--serif)}
+table.t{border-collapse:collapse; font-size:26px; width:100%}
+table.t th, table.t td{padding:14px 16px; text-align:center; border-bottom:1px solid rgba(36,34,31,.12)}
+table.t th{font-weight:600; color:var(--muted); font-size:22px}
+table.t td:first-child, table.t th:first-child{text-align:left}
+#anc-bars .track{height:28px} #anc-bars .val{font-size:20px} #anc-bars .lab{font-size:18px !important}
+table.t .hot{color:var(--coral-600); font-weight:600}
+</style>
+</head>
+<body data-deck="Поведенческая экономика 1">
+<div id="deck">
+
+<!-- ============ 1. Обложка ============ -->
+<section class="s" data-title="Обложка">
+  <div style="position:relative; z-index:1; max-width:600px">
+    <p class="kicker">Теория игр · поведенческая экономика, часть 1</p>
+    <h1>Всё относительно</h1>
+    <p class="lead">Приманки, якоря, дефолты, бесплатное и социальные нормы: почему иррациональность предсказуема</p>
+    <p class="small" style="margin-top:40px">Диля Хакимова · по книге Дэна Ариели «Предсказуемая иррациональность»</p>
+  </div>
+  <img class="art cover" src="img/pi01-00-cover.jpg" alt="Алиса, Боб и Котейка разглядывают оптическую иллюзию с кругами">
+  <aside class="notes">Сегодня весёлая лекция, она житейски полезна всем. Обещаю: все кейсы старые, но поведение людей с тех пор не поменялось.</aside>
+</section>
+
+<section class="s" data-title="Чем мы пользовались до сих пор">
+  <p class="kicker">Что мы предполагали</p>
+  <h2>Рациональный игрок</h2>
+  <div class="split wide-l">
+    <ul class="pts">
+      <li>знает, чего хочет: у него есть полезность</li>
+      <li>умеет решать оптимизационную задачу</li>
+      <li>на одни и те же варианты всегда отвечает одинаково</li>
+      <li class="f">…а люди так себя ведут не всегда. <span class="hl">Но ошибаются одинаково</span> — и это можно предсказать</li>
+    </ul>
+    <div>
+      <div class="say bob f"><div class="who" aria-hidden="true">Б</div><div class="bub">Я-то точно выбираю рационально. Меня не обманешь.</div></div>
+      <div class="say alice f"><div class="who" aria-hidden="true">А</div><div class="bub">Проверим. Сегодня будем записывать, сколько раз ты ошибёшься.</div></div>
+      <div class="say kot f"><div class="who" aria-hidden="true">К</div><div class="bub">Мяу. Я единственный тут случайный — и то честно.</div></div>
+    </div>
+  </div>
+  <aside class="notes">Базовое предположение курса — рациональность. Поведенческая экономика: стык психологии, социологии и экономики; к экспериментам там всегда вопросы о качестве. Выборки часто сотни человек — по ходу буду помечать, что реплицировалось, а что нет.</aside>
+</section>
+
+<section class="s sec" data-title="Раздел: относительность">
+  <p class="kicker">Часть 1</p>
+  <h2>Правда об относительности</h2>
+  <p>Мы почти никогда не знаем, сколько что-то стоит само по себе. Мы сравниваем с тем, что рядом.</p>
+</section>
+
+<section class="s" data-title="Иллюзия: два одинаковых круга">
+  <h2>Какой оранжевый круг больше?</h2>
+  <div class="split wide-r" data-sw="both">
+    <div>
+      <div class="seg" role="group" aria-label="Окружение кругов">
+        <button type="button" data-k="both">С окружением</button>
+        <button type="button" data-k="bare">Убрать окружение</button>
+      </div>
+      <p class="f" style="margin-top:36px">Круги одинаковые. Глаз сравнивает их <b>с соседями</b>, а не меряет линейкой.</p>
+      <p class="f">Мозг ленивый: ему проще сравнить, чем оценить. С решениями так же.</p>
+    </div>
+    <div class="fig" aria-label="Иллюзия Эббингауза">
+      <svg viewBox="0 0 760 400" role="img" aria-label="Два одинаковых оранжевых круга: левый окружён большими кругами, правый — маленькими">
+        <g data-show="both">
+          <circle cx="190" cy="200" r="70" fill="#B9C9E6"/><circle cx="190" cy="40" r="0"/>
+          <circle cx="190" cy="62" r="62" fill="#B9C9E6"/><circle cx="190" cy="338" r="62" fill="#B9C9E6"/>
+          <circle cx="70" cy="131" r="62" fill="#B9C9E6"/><circle cx="310" cy="131" r="62" fill="#B9C9E6"/>
+          <circle cx="70" cy="269" r="62" fill="#B9C9E6"/><circle cx="310" cy="269" r="62" fill="#B9C9E6"/>
+          <g fill="#B9C9E6">
+            <circle cx="570" cy="148" r="14"/><circle cx="570" cy="252" r="14"/><circle cx="518" cy="200" r="14"/><circle cx="622" cy="200" r="14"/>
+            <circle cx="533" cy="163" r="14"/><circle cx="607" cy="163" r="14"/><circle cx="533" cy="237" r="14"/><circle cx="607" cy="237" r="14"/>
+          </g>
+        </g>
+        <circle cx="190" cy="200" r="34" fill="#E59157"/>
+        <circle cx="570" cy="200" r="34" fill="#E59157"/>
+      </svg>
+    </div>
+  </div>
+  <aside class="notes">Включить окружение, спросить зал, какой больше, потом убрать окружение. В боте можно проголосовать до показа.</aside>
+</section>
+
+<section class="s" data-title="Подписка на Economist">
+  <div class="split">
+    <div class="quiz">
+      <p class="kicker">Прогноз · 1997 год</p>
+      <h2>Какую подписку вы бы выбрали?</h2>
+      <div class="opts">
+        <button type="button" class="opt">Только онлайн — <b>$59</b></button>
+        <button type="button" class="opt">Только бумажный журнал — <b>$125</b></button>
+        <button type="button" class="opt">Бумага + онлайн — <b>$125</b></button>
+      </div>
+      <p class="small">Голосуем в боте <b>@nash_tiger_bot</b> → игра «Подписка». Половина зала видит три варианта, половина — два.</p>
+    </div>
+    <img class="art" src="img/pi01-01-subscription.jpg" alt="Боб выбирает между тремя вариантами подписки, Котейка показывает лапой на средний">
+  </div>
+  <aside class="notes">Журнал Economist запустил онлайн-версию. Вопрос: зачем второй вариант, если третий за ту же цену строго лучше? Его же никто не выберет.</aside>
+</section>
+
+<section class="s" data-title="Подписка: результат" data-sw="a">
+  <h2>Вариант, который никто не берёт, всё меняет</h2>
+  <div class="split wide-l" style="align-items:start">
+    <div>
+      <div class="seg" role="group" aria-label="Версия опроса" style="margin-bottom:28px">
+        <button type="button" data-k="a">Три варианта</button>
+        <button type="button" data-k="b">Без «только бумаги»</button>
+      </div>
+      <div class="bars" style="--lw:330px">
+        <div class="row" data-c="ctrl" data-v-a="16" data-v-b="68"><div class="lab">Онлайн <small>$59</small></div></div>
+        <div class="row" data-c="muted" data-v-a="0" data-v-b="" data-show="a"><div class="lab">Бумага <small>$125 — приманка</small></div></div>
+        <div class="row" data-c="pen" data-v-a="84" data-v-b="32"><div class="lab">Бумага + онлайн <small>$125</small></div></div>
+      </div>
+      <p class="f" style="margin-top:30px">Приманка (decoy) — вариант, который <b>строго хуже</b> соседа. Её не покупают, но рядом с ней сосед выглядит выгодно.</p>
+    </div>
+    <div class="hall" data-target="#hall-econ">
+      <b>Наш зал</b> <span class="small">(вписать числа из бота)</span>
+      <div class="row">Онлайн <input type="number" min="0" data-i="0" aria-label="Онлайн, человек"></div>
+      <div class="row">Бумага <input type="number" min="0" data-i="1" aria-label="Бумага, человек"></div>
+      <div class="row">Бумага + онлайн <input type="number" min="0" data-i="2" aria-label="Бумага и онлайн, человек"></div>
+      <div class="bars" id="hall-econ" data-max="100" style="--lw:150px; margin-top:12px">
+        <div class="row" data-c="ctrl" data-hall="0"><div class="lab" style="font-size:20px">Онлайн</div></div>
+        <div class="row" data-c="muted" data-hall="1"><div class="lab" style="font-size:20px">Бумага</div></div>
+        <div class="row" data-c="pen" data-hall="2"><div class="lab" style="font-size:20px">Оба</div></div>
+      </div>
+      <p class="tot small" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+  <p class="src">Ariely, «Predictably Irrational», гл. 1: по 100 студентов MIT Sloan в каждой версии.</p>
+  <aside class="notes">С приманкой: 16 / 0 / 84. Без неё: 68 / 32. Студенты Sloan не бедствуют и все читают Economist — а распределение перевернулось из-за варианта, который никто не выбрал.</aside>
+</section>
+
+<section class="s" data-title="Как работает приманка">
+  <h2>Как работает приманка</h2>
+  <div class="split wide-r">
+    <div>
+      <p>A и B хороши по-разному — сравнить трудно, выбор болезненный.</p>
+      <p class="f">Добавим <b class="c-coral">A−</b>: чуть хуже A по всем статьям.</p>
+      <p class="f">Теперь A есть с чем сравнить, и A выигрывает <span class="hl">чаще, чем без A−</span>.</p>
+      <p class="f small">Агент по недвижимости показывает два разных дома, а потом — копию одного из них с протекающей крышей. Угадайте, какой дом продаётся.</p>
+    </div>
+    <div class="fig">
+      <svg viewBox="0 0 700 520" role="img" aria-label="Плоскость двух признаков: A и B далеко друг от друга, A− рядом с A и чуть хуже">
+        <line x1="70" y1="460" x2="670" y2="460" stroke="#24221F" stroke-width="3"/>
+        <line x1="70" y1="460" x2="70" y2="30" stroke="#24221F" stroke-width="3"/>
+        <text x="670" y="500" text-anchor="end" font-size="24" fill="#5E5A53">признак 1 (например, цена ниже) →</text>
+        <text x="30" y="40" font-size="24" fill="#5E5A53" transform="rotate(-90 30 40)" text-anchor="end">признак 2 (например, площадь) →</text>
+        <circle cx="230" cy="110" r="30" fill="#23418A"/><text x="230" y="119" text-anchor="middle" font-size="28" font-weight="600" fill="#fff">A</text>
+        <circle cx="560" cy="360" r="30" fill="#E59157"/><text x="560" y="369" text-anchor="middle" font-size="28" font-weight="600" fill="#fff">B</text>
+        <g class="f fade-only">
+          <circle cx="190" cy="160" r="26" fill="#fff" stroke="#E8644A" stroke-width="4"/><text x="190" y="168" text-anchor="middle" font-size="22" font-weight="600" fill="#A63D28">A−</text>
+          <path d="M210 145 L222 128" stroke="#E8644A" stroke-width="3" marker-end="url(#arr)"/>
+        </g>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#E8644A"/></marker></defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Три телевизора">
+  <div class="split">
+    <div>
+      <p class="kicker">Магазин</p>
+      <h2>Три телевизора на витрине</h2>
+      <p>Маленький и дешёвый, огромный и дорогой — и средний, чуть дороже маленького.</p>
+      <p class="f">«Большой — это уже слишком. А средний — экран заметно больше, а цена почти та же».</p>
+      <p class="f"><b>Продавцу нужен средний.</b> Крайние варианты на витрине нужны, чтобы его было с чем сравнить.</p>
+    </div>
+    <img class="art" src="img/pi01-02-tv-shop.jpg" alt="Боб стоит у среднего из трёх телевизоров">
+  </div>
+</section>
+
+<section class="s" data-title="Меню ресторана">
+  <div class="split">
+    <img class="art" src="img/pi01-03-menu-decoy.jpg" alt="Боб смотрит на самое дорогое блюдо в меню, Алиса показывает на скромное">
+    <div>
+      <p class="kicker">Грег Рапп, консультант ресторанов</p>
+      <h2>Меню — тоже окружение</h2>
+      <ul class="pts">
+        <li class="f">Самое дорогое блюдо почти не заказывают. Оно нужно, чтобы <b>второе по цене</b> выглядело разумным</li>
+        <li class="f">Поэтому второе по цене — то, что у шефа получается лучше всего и приносит больше маржи</li>
+        <li class="f">Дорогие закуски сообщают: «ресторан дорогой» — и за основное блюдо платят больше</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Сэндвич на большой тарелке кажется меньше — если хотите есть меньше, берите маленькую тарелку. Из чата прошлого года: «чем дороже ресторан, тем больше тарелка и меньше порция».</aside>
+</section>
+
+<section class="s" data-title="Рим или Париж">
+  <div class="split">
+    <div>
+      <p class="kicker">Турагентство</p>
+      <h2>Рим или Париж?</h2>
+      <p>Два тура, всё одинаковое: перелёт, отель, экскурсии, завтраки. Выбрать трудно.</p>
+      <p class="f">Агентство хочет продать Рим. Добавляет <b class="c-coral">Рим−</b>: тот же тур, но без завтрака.</p>
+      <p class="f">Рим− не покупают. Зато Рим теперь <span class="hl">очевидно лучше, чем хоть что-то рядом</span>.</p>
+      <p class="f small">Работает, только когда человек не знает, чего хочет. Если Париж — мечта детства, приманка бессильна.</p>
+    </div>
+    <img class="art" src="img/pi01-04-rome-paris.jpg" alt="Алиса держит буклеты Рима и Парижа, на стойке лежит третий буклет Рима">
+  </div>
+</section>
+
+<section class="s" data-title="Джерри и Том">
+  <div class="split wide-l">
+    <div class="quiz">
+      <p class="kicker">Эксперимент в MIT</p>
+      <h2>С кем вы пойдёте на вечеринку?</h2>
+      <p>Два одинаково привлекательных по опросу лица: Джерри и Том. На половину листовок добавили «Джерри−» — его же, но чуть подпорченного в фотошопе.</p>
+      <div class="opts row">
+        <button type="button" class="opt" data-ok>Выберут Джерри</button>
+        <button type="button" class="opt">Выберут Тома</button>
+        <button type="button" class="opt">Поровну</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Показать</button>
+      <div class="ans" style="margin-top:20px">
+        <div class="bars" data-max="100" style="--lw:260px">
+          <div class="row" data-c="pen" data-v="75"><div class="lab">Джерри <small>рядом Джерри−</small></div></div>
+          <div class="row" data-c="muted" data-v="25"><div class="lab">Том</div></div>
+        </div>
+        <p class="small" style="margin-top:14px">С «Томом−» всё зеркально: выбирали Тома.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Практический вывод</h3>
+      <p style="font-size:28px">Идёте на вечеринку — возьмите друга, похожего на вас, но чуть менее эффектного.</p>
+      <p class="small">Шутка. Наполовину.</p>
+    </div>
+  </div>
+  <p class="src">Ariely, гл. 1. Числа — около 75% против 25%.</p>
+</section>
+
+<section class="s" data-title="Хлебопечка">
+  <div class="split">
+    <img class="art" src="img/pi01-05-bread-machine.jpg" alt="Алиса ставит рядом с одинокой хлебопечкой вторую, побольше">
+    <div>
+      <p class="kicker">Williams-Sonoma</p>
+      <h2>Хлебопечку никто не покупал</h2>
+      <p>Новый товар, сравнивать не с чем, — продаж нет.</p>
+      <p class="f">Консультанты: поставьте рядом <b>большую, громоздкую и дорогую</b> версию.</p>
+      <p class="f">Большую не брали. А продажи маленькой взлетели: «зачем мне такая махина? А вот домашняя — почему бы и нет».</p>
+    </div>
+  </div>
+</section>
+
+<section class="s sec" data-title="Раздел: относительность вредит">
+  <p class="kicker">Часть 1½</p>
+  <h2>Когда сравнение делает хуже</h2>
+  <p>Деньги — самая простая линейка, чтобы сравнивать людей. И самая опасная.</p>
+</section>
+
+<section class="s" data-title="Зарплата соседа">
+  <div class="split">
+    <div class="quiz">
+      <h2>Где вы будете довольнее?</h2>
+      <div class="opts">
+        <button type="button" class="opt">$90 000 в год, но все вокруг получают больше</button>
+        <button type="button" class="opt" data-ok>$85 000 в год, и вы получаете больше коллег</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Как отвечают люди</button>
+      <p class="ans" style="margin-top:18px">Большинство выбирают меньше денег, но первое место в своей компании. Удовлетворённость зависит не только от суммы, но и от окружения.</p>
+    </div>
+    <img class="art" src="img/pi01-06-salary-envelope.jpg" alt="Боб заглядывает в конверт с зарплатой Алисы">
+  </div>
+  <aside class="notes">Если сотрудники делают разное, их трудно сравнивать. Зарплата — ярлык, по которому людей можно упорядочить.</aside>
+</section>
+
+<section class="s" data-title="Раскрытие зарплат топ-менеджеров">
+  <div class="split wide-r" style="align-items:end">
+    <div class="quiz">
+      <p class="kicker">США, 1993</p>
+      <h2>Зарплаты CEO обязали публиковать. Что дальше?</h2>
+      <div class="opts">
+        <button type="button" class="opt">Разрыв сократится: стыдно</button>
+        <button type="button" class="opt" data-ok>Разрыв вырастет: появится рейтинг</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Что произошло</button>
+      <p class="ans small" style="margin-top:16px">Каждый CEO увидел, сколько получает сосед, — и пошёл просить столько же.</p>
+    </div>
+    <div>
+      <p class="small" style="margin:0 0 8px">Во сколько раз зарплата CEO выше средней зарплаты в компании</p>
+      <div class="vbars" data-unit="×" data-max="380">
+        <div class="col" data-v="36" data-c="muted" data-label="36×"></div>
+        <div class="col" data-v="131" data-c="ctrl" data-label="131×"></div>
+        <div class="col f" data-v="369" data-c="coral" data-label="369×"></div>
+      </div>
+      <div class="vbars-labs"><div>1976</div><div>1993 <small>до закона</small></div><div>после <small>раскрытия</small></div></div>
+    </div>
+  </div>
+  <p class="src">Ariely, гл. 1. Поэтому главный страх HR — когда зарплаты внутри компании становятся общим знанием.</p>
+</section>
+
+<section class="s" data-title="Три причины или десять">
+  <div class="split">
+    <div>
+      <p class="kicker">Вопрос перед решением — тоже окружение</p>
+      <h2>Напишите, почему этот человек вам дорог</h2>
+      <div class="duo">
+        <div class="card"><div class="p c-pen">3</div><p style="margin:8px 0 0">причины — пишутся легко</p></div>
+        <div class="card"><div class="p c-coral">10</div><p style="margin:8px 0 0">причин — ломаются на пятой</p></div>
+      </div>
+      <p class="f" style="margin-top:28px">Кто мучился с десятью, потом готов <b>потратить на подарок меньше</b>: «не могу придумать десять — может, не так уж и люблю?»</p>
+    </div>
+    <div>
+      <h3>Шкала тоже подсказывает</h3>
+      <div class="formcard f">
+        <p style="margin:0 0 10px">Как часто вы чистите зубы нитью?</p>
+        <p class="small" style="margin:0 0 6px">A: раз в день · раз в неделю · раз в месяц · реже</p>
+        <p class="small" style="margin:0">B: 5 раз в день · 3 раза в день · раз в день · реже</p>
+      </div>
+      <p class="f small" style="margin-top:18px">Тот же ответ в B выглядит как «я плохо слежу за зубами» — и к стоматологу идут чаще.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Ручка и пиджак">
+  <h2>Сэкономить $8: перейдёте через дорогу?</h2>
+  <div class="cols2" data-sw="pen">
+    <div class="quiz card">
+      <h3>Ручка за <span class="c-pen">$15</span></h3>
+      <p>Кассир: «Напротив такая же — за $7»</p>
+      <div class="opts row"><button type="button" class="opt">Пойду</button><button type="button" class="opt">Не пойду</button></div>
+    </div>
+    <div class="quiz card">
+      <h3>Пиджак за <span class="c-pen">$498</span></h3>
+      <p>Кассир: «Напротив такой же — за $490»</p>
+      <div class="opts row"><button type="button" class="opt">Пойду</button><button type="button" class="opt">Не пойду</button></div>
+    </div>
+  </div>
+  <p class="f" style="margin-top:28px">Выигрыш одинаковый — $8. Но за ручкой идут, за пиджаком — нет: экономию мы считаем <b>в долях от суммы</b>, а не в долларах.</p>
+  <p class="f small">Отсюда люди, которые ищут самое дешёвое молоко, а вечером идут в дорогой ресторан. И допродажи при покупке машины: кожаные кресла за $2000 рядом с ценой машины кажутся мелочью.</p>
+</section>
+
+<section class="s" data-title="Боль платежа">
+  <h2>Боль от трат: чувствительна к мелочи, слепа к крупному</h2>
+  <div class="split wide-r">
+    <div>
+      <p>Чем больше сумма, тем меньше чувствуется каждый следующий доллар.</p>
+      <p class="f">$8 рядом с $15 — заметный скачок боли.</p>
+      <p class="f">$8 рядом с $498 — почти ничего.</p>
+      <p class="f small">Миллион и миллион плюс один доллар не различает никто.</p>
+    </div>
+    <div class="fig">
+      <svg viewBox="0 0 760 480" role="img" aria-label="Вогнутая кривая: боль от траты быстро растёт на малых суммах и выходит на плато на больших">
+        <line x1="70" y1="420" x2="730" y2="420" stroke="#24221F" stroke-width="3"/>
+        <line x1="70" y1="420" x2="70" y2="30" stroke="#24221F" stroke-width="3"/>
+        <text x="730" y="458" text-anchor="end" font-size="24" fill="#5E5A53">сумма траты →</text>
+        <text x="40" y="40" font-size="24" fill="#5E5A53" transform="rotate(-90 40 40)" text-anchor="end">насколько больно →</text>
+        <path d="M70 420.0 L80 394.5 L90 370.8 L100 348.9 L110 328.6 L120 309.8 L130 292.5 L140 276.4 L150 261.4 L160 247.6 L170 234.9 L180 223.0 L190 212.1 L200 201.9 L210 192.5 L220 183.8 L230 175.8 L240 168.3 L250 161.4 L260 155.0 L270 149.1 L280 143.6 L290 138.5 L300 133.8 L310 129.5 L320 125.4 L330 121.7 L340 118.2 L350 115.0 L360 112.1 L370 109.3 L380 106.8 L390 104.4 L400 102.3 L410 100.2 L420 98.4 L430 96.6 L440 95.0 L450 93.5 L460 92.2 L470 90.9 L480 89.7 L490 88.6 L500 87.6 L510 86.7 L520 85.8 L530 85.0 L540 84.3 L550 83.6 L560 83.0 L570 82.4 L580 81.8 L590 81.3 L600 80.9 L610 80.4 L620 80.0 L630 79.6 L640 79.3 L650 79.0 L660 78.7 L670 78.4 L680 78.2 L690 77.9 L700 77.7 L710 77.5 L720 77.3 L730 77.2" fill="none" stroke="#23418A" stroke-width="5"/>
+        <g class="f fade-only">
+          <line x1="85" y1="420" x2="85" y2="382" stroke="#E59157" stroke-width="3" stroke-dasharray="6 6"/>
+          <line x1="125" y1="420" x2="125" y2="301" stroke="#E59157" stroke-width="3" stroke-dasharray="6 6"/>
+          <rect x="85" y="301" width="40" height="81" fill="#E59157" opacity=".4"/>
+          <text x="138" y="350" font-size="24" font-weight="600" fill="#A85A24">$8 от $15: заметно</text>
+        </g>
+        <g class="f fade-only">
+          <line x1="650" y1="420" x2="650" y2="79" stroke="#E8644A" stroke-width="3" stroke-dasharray="6 6"/>
+          <line x1="690" y1="420" x2="690" y2="78" stroke="#E8644A" stroke-width="3" stroke-dasharray="6 6"/>
+          <rect x="650" y="77" width="40" height="3" fill="#E8644A"/>
+          <text x="636" y="230" font-size="24" font-weight="600" fill="#A63D28" text-anchor="end">$8 от $498: почти ничего</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="s sec" data-title="Раздел: якоря">
+  <p class="kicker">Часть 2</p>
+  <h2>Якоря</h2>
+  <p>Первое число, которое мы увидели, становится точкой отсчёта — даже если оно не имеет отношения к делу.</p>
+</section>
+
+<section class="s" data-title="Чёрный жемчуг">
+  <div class="split wide-l">
+    <div>
+      <p class="kicker">1973, Французская Полинезия</p>
+      <h2>Как продать чёрный жемчуг</h2>
+      <p>Сальвадор Ассаэль выводит на рынок чёрный жемчуг. Покупатели не понимают: это брак? испорченный белый?</p>
+      <p class="f">Он <b>забирает весь жемчуг с рынка на год</b>, копит самые крупные и красивые жемчужины.</p>
+      <p class="f">Потом — витрина Гарри Уинстона на Пятой авеню рядом с бриллиантами и рубинами, глянцевые журналы, актрисы.</p>
+      <p class="f">Новый якорь: <span class="hl">чёрный жемчуг — это роскошь</span>. Год паузы нужен был, чтобы забылся старый.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <svg viewBox="0 0 300 300" width="280" height="280" role="img" aria-label="Чёрная жемчужина">
+        <defs><radialGradient id="pearl" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#8C93A8"/><stop offset=".35" stop-color="#3A3F52"/><stop offset="1" stop-color="#14161F"/></radialGradient></defs>
+        <circle cx="150" cy="150" r="110" fill="url(#pearl)"/><ellipse cx="112" cy="104" rx="26" ry="16" fill="#fff" opacity=".55"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Гусята Лоренца">
+  <div class="split">
+    <img class="art" src="img/pi01-07-goslings.jpg" alt="Котейка гордо идёт впереди, за ним цепочкой гусята">
+    <div>
+      <p class="kicker">Импринтинг</p>
+      <h2>Гусята идут за первым, кого увидели</h2>
+      <p>Конрад Лоренц: только что вылупившиеся гусята считают мамой первый движущийся объект. Его гусята ходили за его сапогами.</p>
+      <p class="f">У людей то же с ценами: <b>первая цена</b>, которую мы увидели за вещь, становится «правильной».</p>
+      <p class="f">Вопрос: насколько случайным может быть этот первый ориентир — и всё равно работать?</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Игра «Якорь»">
+  <div class="split">
+    <div>
+      <p class="tag game">Играем в боте</p>
+      <h2 style="margin-top:20px">Игра «Якорь»</h2>
+      <ol class="pts" style="padding-left:1.2em">
+        <li>Напишите <b>две последние цифры</b> своего телефона</li>
+        <li>Купили бы вы предмет за столько долларов? Да / нет</li>
+        <li>Теперь всерьёз: сколько вы готовы за него заплатить?</li>
+      </ol>
+      <p class="f small">У Ариели были мышка, клавиатура, книга по дизайну, бельгийский шоколад и две бутылки вина. Вместо телефона — последние две цифры номера социального страхования.</p>
+    </div>
+    <img class="art" src="img/pi01-08-anchor-auction.jpg" alt="Алиса проводит аукцион, студенты поднимают карточки">
+  </div>
+  <aside class="notes">Сначала цифры и «да/нет», потом настоящий аукцион второй цены. После аукциона спросили: повлияли ли цифры? Все уверенно ответили: нет.</aside>
+</section>
+
+<section class="s" data-title="Якорь: результат Ариели">
+  <h2>Две случайные цифры двигают цену в разы</h2>
+  <div class="split wide-l" style="align-items:start">
+    <table class="t" aria-label="Средние ставки по группам последних цифр">
+      <thead><tr><th>Последние цифры</th><th>00–19</th><th>20–39</th><th>40–59</th><th>60–79</th><th>80–99</th></tr></thead>
+      <tbody>
+        <tr><td>Трекбол</td><td>$8,64</td><td>$11,82</td><td>$13,45</td><td>$21,18</td><td class="hot">$26,18</td></tr>
+        <tr><td>Клавиатура</td><td>$16,09</td><td>$26,82</td><td>$29,27</td><td>$34,55</td><td class="hot">$55,64</td></tr>
+        <tr><td>Книга по дизайну</td><td>$12,82</td><td>$16,18</td><td>$15,82</td><td>$19,27</td><td class="hot">$30,00</td></tr>
+        <tr><td>Шоколад</td><td>$9,55</td><td>$10,64</td><td>$12,45</td><td>$13,27</td><td class="hot">$20,64</td></tr>
+        <tr><td>Вино попроще</td><td>$8,64</td><td>$14,45</td><td>$12,55</td><td>$15,45</td><td class="hot">$27,91</td></tr>
+        <tr><td>Вино получше</td><td>$11,73</td><td>$22,45</td><td>$18,09</td><td>$24,55</td><td class="hot">$37,55</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <p class="f">Те, у кого цифры 80–99, ставили <b>в 2–3 раза больше</b>, чем те, у кого 00–19.</p>
+      <p class="f">При этом <b>внутри</b> столбца всё рационально: клавиатура дороже мышки, хорошее вино дороже простого.</p>
+      <p class="f plate">Якорь задаёт уровень, а порядок предметов — нет. Это и называют <b>когерентной произвольностью</b>.</p>
+    </div>
+  </div>
+  <p class="src">Ariely, Loewenstein & Prelec, QJE 2003; таблица — из гл. 2 «Predictably Irrational». Сверить числа со своим старым слайдом перед лекцией.</p>
+</section>
+
+<section class="s" data-title="Якорь: наш зал">
+  <h2>А что у нас?</h2>
+  <div class="anchor-out">
+    <div class="hall">
+      <b>Вставьте ответы из бота</b> — по строке: <code>цифры цена</code>
+      <textarea id="anc-in" style="height:96px" aria-label="Ответы зала: две цифры и цена через пробел" placeholder="07 15&#10;83 40&#10;45 25"></textarea>
+      <p class="small" style="margin:8px 0 0">Можно скопировать из выгрузки бота как есть: возьмём первые два числа в каждой строке.</p>
+      <div style="margin-top:16px">Корреляция цифр и цены: <span class="r" id="anc-r">—</span></div>
+      <p class="small" id="anc-n" style="margin:6px 0 0"></p>
+      <p class="small" style="margin:14px 0 6px">Средняя цена по группам цифр</p>
+      <div class="bars" id="anc-bars" data-unit="$" style="--lw:100px; gap:8px"></div>
+    </div>
+    <div>
+      <div class="fig"><svg id="anc-plot" viewBox="0 0 640 420" role="img" aria-label="Точки: две цифры и названная цена"></svg></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Якорь на всю жизнь">
+  <div class="split">
+    <div>
+      <p class="kicker">Переезды в США</p>
+      <h2>Цена жилья, к которой привыкли</h2>
+      <p>Переехали из дешёвого города в дорогой — снимают <b>жильё хуже</b>: за те же деньги, что привыкли платить.</p>
+      <p class="f">Из дорогого в дешёвый — наоборот, жильё лучше.</p>
+      <p class="f">Перестраиваются годами. Якорь со старого места приезжает вместе с чемоданами.</p>
+    </div>
+    <div class="card">
+      <h3>Звуки за деньги</h3>
+      <p class="small">Дали послушать противный звук, затем спросили: «Послушаете ещё раз за 10¢?» другой группе — «за 90¢?». Потом: «Сколько вам нужно заплатить?»</p>
+      <div class="bars" data-unit="¢" data-max="90" style="--lw:200px">
+        <div class="row" data-c="ctrl" data-v="33"><div class="lab">Якорь 10¢</div></div>
+        <div class="row" data-c="coral" data-v="73"><div class="lab">Якорь 90¢</div></div>
+      </div>
+      <p class="small f" style="margin-top:14px">Попытки сдвинуть якорь на следующих звуках почти не помогли: первый якорь держит.</p>
+    </div>
+  </div>
+  <p class="src">Simonsohn & Loewenstein, 2006; звуки — Ariely, Loewenstein & Prelec, 2003 (гл. 2).</p>
+</section>
+
+<section class="s" data-title="Очередь за самим собой">
+  <div class="split">
+    <img class="art" src="img/pi01-10-coffee-anchor.jpg" alt="Боб с кошельком стоит между дешёвым киоском и уютной дорогой кофейней">
+    <div>
+      <p class="kicker">Самостадность</p>
+      <h2>Мы встаём в очередь за собой</h2>
+      <p>Starbucks не стал спорить с дешёвым кофе на каждом углу. Он <b>отстроился</b>: запах, диваны, имя на стакане, «tall · grande · venti».</p>
+      <p class="f">Первый раз дорого и страшно — берёте маленький. Понравилось.</p>
+      <p class="f">Во второй раз решение уже есть: <span class="hl">вы сами себе якорь</span>. А грамм кофе в большом стакане выгоднее…</p>
+    </div>
+  </div>
+  <aside class="notes">Моя история: первый раз в московском кафе в 2000 году — шок от цены за чай. Мама в Сербии в ресторанах сейчас переживает так же. Рецепт: не показывать маме чек.</aside>
+</section>
+
+<section class="s" data-title="Том Сойер">
+  <div class="split">
+    <div>
+      <p class="kicker">Якорь можно перевернуть</p>
+      <h2>Том Сойер красит забор</h2>
+      <p>Наказание? Нет: «Когда ещё нашему брату дают покрасить забор!» Друзья отдают ему сокровища за право поработать.</p>
+      <div class="card f" style="margin-top:20px">
+        <h3>Ариели читает стихи</h3>
+        <p class="small" style="margin:0">Одной аудитории: «Сколько вы заплатите, чтобы послушать?» Другой: «Сколько мне заплатить вам, чтобы вы слушали?»</p>
+        <p style="margin:12px 0 0; font-size:26px">В обеих группах <b>чем длиннее стих, тем больше денег</b> — только в одной платят они, в другой платят им.</p>
+      </div>
+    </div>
+    <img class="art" src="img/pi01-09-tom-sawyer.jpg" alt="Боб красит длинный белый забор, Алиса с яблоком хочет попробовать">
+  </div>
+</section>
+
+<section class="s sec" data-title="Раздел: дефолты">
+  <p class="kicker">Часть 3</p>
+  <h2>Дефолты</h2>
+  <p>Когда решать больно, мы выбираем то, что выбирается само.</p>
+</section>
+
+<section class="s" data-title="Донорство органов: прогноз">
+  <div class="split">
+    <div class="quiz">
+      <h2>Где больше согласных быть донорами?</h2>
+      <p>Соседние, культурно близкие страны. Нидерланды тратят много на социальную рекламу, Бельгия — нет.</p>
+      <div class="opts row">
+        <button type="button" class="opt">Нидерланды</button>
+        <button type="button" class="opt" data-ok>Бельгия</button>
+        <button type="button" class="opt">Примерно поровну</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Показать</button>
+      <p class="ans" style="margin-top:18px"><b>Бельгия — 98%, Нидерланды — 28%.</b> Разница в одной галочке в анкете.</p>
+    </div>
+    <img class="art" src="img/pi01-11-donor-form.jpg" alt="Две одинаковые анкеты: в одной галочка стоит, в другой нет">
+  </div>
+</section>
+
+<section class="s" data-title="Донорство: все страны">
+  <h2>Где галочку надо ставить, а где — снимать</h2>
+  <div class="split wide-l" style="align-items:start">
+    <div class="bars" data-max="100" style="--lw:230px; gap:10px">
+      <div class="row" data-c="ctrl" data-v="4.25" data-label="4,25%"><div class="lab">Дания</div></div>
+      <div class="row" data-c="ctrl" data-v="12"><div class="lab">Германия</div></div>
+      <div class="row" data-c="ctrl" data-v="17.17" data-label="17,17%"><div class="lab">Великобритания</div></div>
+      <div class="row" data-c="ctrl" data-v="27.5" data-label="27,5%"><div class="lab">Нидерланды</div></div>
+      <div class="row" data-c="coral" data-v="85.9" data-label="85,9%"><div class="lab">Швеция</div></div>
+      <div class="row" data-c="coral" data-v="98"><div class="lab">Бельгия</div></div>
+      <div class="row" data-c="coral" data-v="99.5" data-label="99,5%"><div class="lab">Польша</div></div>
+      <div class="row" data-c="coral" data-v="99.91" data-label="99,91%"><div class="lab">Франция</div></div>
+      <div class="row" data-c="coral" data-v="99.98" data-label="99,98%"><div class="lab">Австрия</div></div>
+    </div>
+    <div>
+      <div class="formcard"><span class="box" aria-hidden="true"></span>Хочу участвовать <span class="small">— синие страны</span></div>
+      <div class="formcard" style="margin-top:16px"><span class="box" aria-hidden="true"></span>Не хочу участвовать <span class="small">— коралловые</span></div>
+      <p class="f" style="margin-top:24px">Спросили, почему так решили, — у каждого нашлось разумное объяснение. Хотя на самом деле <b>решения не было</b>.</p>
+      <p class="f small">Оговорка из «Nudge» (2021): это доля согласий в реестре, а не число пересадок; сами Талер и Санстейн против «согласия по умолчанию» в донорстве.</p>
+    </div>
+  </div>
+  <p class="src">Johnson & Goldstein, Science 2003.</p>
+</section>
+
+<section class="s" data-title="Дженерики и врачи">
+  <div class="cols2" style="flex:1; align-items:center">
+    <div class="card">
+      <p class="kicker">Страховая компания</p>
+      <h3>Перейти на дженерики?</h3>
+      <p class="small">Открытка: «Можно перейти на дешёвый аналог, ответьте письмом». — Почти никто не ответил.</p>
+      <p class="f small">Потом: «Ответить нужно в любом случае, иначе лекарство перестанет приходить». — <b>Многие переключились.</b></p>
+      <p class="f" style="font-size:26px; margin:0">Принудительный выбор убирает дефолт «ничего не делать».</p>
+    </div>
+    <div class="card">
+      <p class="kicker">Врачи и замена сустава</p>
+      <h3>Одно непроверенное лекарство или два?</h3>
+      <p class="small">Пациент с болью в бедре. Врачам говорят: забыли попробовать одно лекарство — или забыли попробовать два.</p>
+      <p class="f" style="font-size:26px">С двумя вариантами выбрать труднее — и <b>72%</b> отправляют на операцию: это дефолт хирурга.</p>
+    </div>
+  </div>
+  <p class="src">Redelmeier & Shafir, JAMA 1995.</p>
+</section>
+
+<section class="s" data-title="Джем: 6 или 24">
+  <div class="split" data-sw="a">
+    <div class="quiz">
+      <p class="kicker">Супермаркет, стойка с дегустацией</p>
+      <h2>Где купят больше: 6 вкусов или 24?</h2>
+      <div class="opts row">
+        <button type="button" class="opt" data-ok>6 вкусов</button>
+        <button type="button" class="opt">24 вкуса</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Показать</button>
+      <div class="ans" style="margin-top:18px">
+        <div class="seg" role="group" aria-label="Показатель" style="margin-bottom:18px"><button type="button" data-k="a">Подошли к стойке</button><button type="button" data-k="b">Купили</button></div>
+        <div class="bars" data-max="60" style="--lw:150px">
+          <div class="row" data-c="test" data-v-a="40" data-v-b="30"><div class="lab">6 вкусов</div></div>
+          <div class="row" data-c="pen" data-v-a="60" data-v-b="3"><div class="lab">24 вкуса</div></div>
+        </div>
+      </div>
+    </div>
+    <img class="art" src="img/pi01-12-jam-table.jpg" alt="Алиса пробует джем с маленькой стойки, Боб растерян перед огромной">
+  </div>
+  <p class="src">Iyengar & Lepper, 2000. Метаанализ Scheibehenne и др. (2010) нашёл, что в среднем эффект «слишком большого выбора» близок к нулю: он сильный, когда человек не знает, чего хочет.</p>
+  <aside class="notes">Важно: разнообразие нужно тем, кто уже покупает джем. А чтобы сформировать новую привычку, выбор должен быть простым. Моя история: первый поход в сербский супермаркет, где ни одного знакомого бренда.</aside>
+</section>
+
+<section class="s" data-title="Вывод про дефолты">
+  <div class="center">
+    <p class="kicker">Правило</p>
+    <h2>Хотите, чтобы люди что-то сделали, — сделайте это дефолтом</h2>
+    <p class="lead f">Не хотите — добавьте шагов, длинную инструкцию и выбор из двадцати четырёх вариантов.</p>
+    <div class="say alice f" style="text-align:left; margin-top:20px"><div class="who" aria-hidden="true">А</div><div class="bub">Боб, а у тебя в продукте автопродление подписки включено по умолчанию?</div></div>
+  </div>
+</section>
+
+<section class="s sec" data-title="Раздел: бесплатное">
+  <p class="kicker">Часть 4</p>
+  <h2>Цена ноль</h2>
+  <p>Ноль — не просто маленькая цена. Это другая цена.</p>
+</section>
+
+<section class="s" data-title="Игра «Бесплатно»">
+  <div class="split">
+    <div>
+      <p class="tag game">Играем в боте</p>
+      <h2 style="margin-top:20px">Одна конфета в руки</h2>
+      <div class="duo" style="margin-bottom:22px">
+        <div class="card"><h3>Трюфель</h3><p class="small" style="margin:0">дорогой бельгийский</p><div class="p c-pen">25¢</div></div>
+        <div class="card"><h3>Kisses</h3><p class="small" style="margin:0">простая шоколадка</p><div class="p c-pen">1¢</div></div>
+      </div>
+      <p class="small">Половина зала видит эти цены, половина — на цент дешевле обе.</p>
+    </div>
+    <img class="art" src="img/pi01-13-free-chocolate.jpg" alt="Стойка с двумя мисками конфет; Боб тянется к дешёвым, Алиса держит трюфель">
+  </div>
+</section>
+
+<section class="s" data-title="Бесплатно: результат" data-sw="a">
+  <h2>Минус один цент для обеих конфет</h2>
+  <div class="split wide-l" style="align-items:start">
+    <div>
+      <div class="seg" role="group" aria-label="Цены" style="margin-bottom:28px"><button type="button" data-k="a">25¢ и 1¢</button><button type="button" data-k="b">24¢ и 0¢</button></div>
+      <div class="bars" data-max="100" style="--lw:240px">
+        <div class="row" data-c="pen" data-v-a="73" data-v-b="31"><div class="lab">Трюфель</div></div>
+        <div class="row" data-c="test" data-v-a="27" data-v-b="69"><div class="lab">Kisses</div></div>
+      </div>
+      <p class="f" style="margin-top:28px">Разница в выгоде не изменилась. Но у бесплатного <b>нет минусов</b>: даже если не понравится, мы ничего не потеряли.</p>
+    </div>
+    <div class="hall" data-target="#hall-choc">
+      <b>Наш зал, версия «0¢»</b>
+      <div class="row">Трюфель <input type="number" min="0" data-i="0" aria-label="Трюфель, человек"></div>
+      <div class="row">Kisses <input type="number" min="0" data-i="1" aria-label="Kisses, человек"></div>
+      <div class="bars" id="hall-choc" data-max="100" style="--lw:130px; margin-top:12px">
+        <div class="row" data-c="pen" data-hall="0"><div class="lab" style="font-size:20px">Трюфель</div></div>
+        <div class="row" data-c="test" data-hall="1"><div class="lab" style="font-size:20px">Kisses</div></div>
+      </div>
+      <p class="tot small" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+  <p class="src">Shampanier, Mazar & Ariely, Marketing Science 2007; гл. 3 «Predictably Irrational».</p>
+</section>
+
+<section class="s" data-title="Хеллоуин и подарочные карты">
+  <div class="cols2" style="flex:1; align-items:center">
+    <div class="card">
+      <p class="kicker">Хеллоуин</p>
+      <h3>Детям сначала дали по 3 конфеты Kisses</h3>
+      <p class="small">«Маленький батончик за одну конфету или большой — за две?» — берут большой. Рационально.</p>
+      <p class="f">«Маленький <b>бесплатно</b> или большой за одну?» — берут <b>бесплатный</b>.</p>
+      <p class="f small">Повторили на студентах MIT — то же самое.</p>
+    </div>
+    <div class="card quiz">
+      <p class="kicker">Подарочные карты Amazon</p>
+      <h3>Какую взять?</h3>
+      <div class="opts">
+        <button type="button" class="opt">Карта на $10 — <b>бесплатно</b> <span class="small">(выгода $10)</span></button>
+        <button type="button" class="opt" data-ok>Карта на $20 — за <b>$7</b> <span class="small">(выгода $13)</span></button>
+      </div>
+      <button type="button" class="btn ghost reveal">Что выбирают</button>
+      <p class="ans small" style="margin-top:14px">Почти все берут бесплатную. Когда то же предложение сдвигают на доллар ($10 за $1 против $20 за $8), большинство выбирают $20.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Бесплатная доставка">
+  <div class="split">
+    <div>
+      <p class="kicker">Amazon</p>
+      <h2>Бесплатная доставка от второй книги</h2>
+      <p>Продажи выросли везде — кроме Франции.</p>
+      <p class="f">Французы рациональнее? Нет: там доставку сделали не бесплатной, а <b>за 1 франк</b> — около 20 центов.</p>
+      <p class="f">Сделали ноль — продажи выросли, как везде.</p>
+      <div class="quiz f card" style="margin-top:8px; padding:18px 22px">
+        <p style="margin:0 0 10px; font-size:24px">Книга + доставка: что привлекательнее?</p>
+        <div class="opts row" style="margin:0; gap:10px">
+          <button type="button" class="opt" style="font-size:22px; padding:12px 16px">0 + $20</button>
+          <button type="button" class="opt" style="font-size:22px; padding:12px 16px">$10 + $10</button>
+          <button type="button" class="opt" style="font-size:22px; padding:12px 16px">$20 + 0</button>
+        </div>
+      </div>
+    </div>
+    <img class="art" src="img/pi01-14-free-shipping.jpg" alt="Боб докладывает в корзину вторую книгу ради бесплатной доставки">
+  </div>
+  <aside class="notes">Доставка — издержки, за которые мы ничего не получаем. Поэтому «бесплатно» сильнее всего работает именно на ней.</aside>
+</section>
+
+<section class="s" data-title="AOL и безлимит">
+  <div class="split wide-l">
+    <div>
+      <p class="kicker">America Online, 1996</p>
+      <h2>Интернет без счётчика</h2>
+      <p>Интернет продавали по часам. AOL перешла на безлимит за фиксированную плату и оценила спрос по тем, кто вылезал за пакет.</p>
+      <p class="f">За ночь подключений стало почти <b>вдвое больше</b>, сессии стали длиннее. Пришлось докупать каналы у конкурентов.</p>
+      <p class="f">Заплатил один раз — дальше каждый час бесплатный. Так же устроен годовой абонемент в спортзал.</p>
+    </div>
+    <div class="card">
+      <h3>Магический ноль</h3>
+      <ul class="pts" style="font-size:26px">
+        <li>«0 калорий» звучит иначе, чем «1 калория»</li>
+        <li class="f">Ночь музеев: очередь на два часа под дождём</li>
+        <li class="f">Бесплатная вакцина от гриппа, бесплатный чекап, бесплатная парковка для электромобиля — ноль как инструмент</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="s sec" data-title="Раздел: социальные нормы">
+  <p class="kicker">Часть 5</p>
+  <h2>Цена социальных норм</h2>
+  <p>Мы живём в двух мирах: в одном помогают, в другом платят. Смешивать их дорого.</p>
+</section>
+
+<section class="s" data-title="Заплатить маме за ужин">
+  <div class="split">
+    <img class="art" src="img/pi01-15-family-dinner.jpg" alt="Семейный ужин: Боб достаёт кошелёк, все в шоке">
+    <div>
+      <h2>«Мам, сколько я должен за ужин?»</h2>
+      <p>Новый год, родители старались весь день. Вы встаёте из-за стола и предлагаете заплатить. Щедро.</p>
+      <p class="f">Вечер испорчен. На следующий Новый год — полуфабрикаты.</p>
+      <p class="f plate blue">Социальные нормы: «я помогаю, потому что мы свои». <br>Рыночные нормы: «я работаю, потому что мне платят».</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Круги в квадраты">
+  <div class="split" data-sw="money">
+    <div class="quiz">
+      <p class="kicker">5 минут: перетаскивать кружки в квадраты</p>
+      <h2>Кто сделает больше?</h2>
+      <div class="opts row">
+        <button type="button" class="opt">Заплатили $5</button>
+        <button type="button" class="opt">Заплатили 50¢</button>
+        <button type="button" class="opt" data-ok>Просто попросили</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Показать</button>
+      <div class="ans" style="margin-top:18px">
+        <div class="seg" role="group" aria-label="Чем вознаградили" style="margin-bottom:18px"><button type="button" data-k="money">Деньгами</button><button type="button" data-k="candy">Конфетами</button></div>
+        <div class="bars" data-unit="" data-max="180" style="--lw:300px">
+          <div class="row" data-c="pen" data-v-money="159" data-v-candy="169"><div class="lab" data-show="money">$5</div><div class="lab" data-show="candy">Конфеты Godiva за $5</div></div>
+          <div class="row" data-c="muted" data-v-money="101" data-v-candy="162"><div class="lab" data-show="money">50¢</div><div class="lab" data-show="candy">Snickers за 50¢</div></div>
+          <div class="row" data-c="coral" data-v-money="168" data-v-candy="168"><div class="lab">Просьба</div></div>
+        </div>
+      </div>
+    </div>
+    <img class="art" src="img/pi01-16-circles-task.jpg" alt="Студенты перетаскивают кружки в квадраты на экранах">
+  </div>
+  <p class="src">Heyman & Ariely, Psychological Science 2004; гл. 4.</p>
+  <aside class="notes">50 центов — «меня не оценили», работают спустя рукава. Конфета — подарок, а не плата: все стараются. Но если сказать «шоколадка стоит 50 центов» — снова рынок.</aside>
+</section>
+
+<section class="s" data-title="Адвокаты и колесо">
+  <div class="cols2" style="flex:1; align-items:center">
+    <div class="card">
+      <p class="kicker">Ассоциация пенсионеров США</p>
+      <h3>Юристы для пенсионеров</h3>
+      <p class="small">Попросили адвокатов брать с пенсионеров по $30 в час. — Почти никто не согласился: «$30 вместо $300?»</p>
+      <p class="f">Попросили вести дела <b>бесплатно</b>. — <b>Согласились многие</b>: это уже не скидка, а доброе дело.</p>
+    </div>
+    <div class="card">
+      <p class="kicker">Спущенное колесо</p>
+      <h3>«Помогите, я заплачу $3»</h3>
+      <p class="small">Девушке со спущенным колесом помогают охотнее, если она <b>ничего не предлагает</b>.</p>
+      <p class="f">$3 переключают в рынок, а за $3 менять колесо никто не станет.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-title="Подарок или деньги">
+  <div class="split">
+    <div>
+      <h2>Подарок или деньги?</h2>
+      <p>Чтобы обрадовать человека так же, как продуманным подарком, денег надо дать <b>больше</b>, чем подарок стоит.</p>
+      <p class="f">Подарок → сертификат → деньги: на одну и ту же сумму радуют по убыванию.</p>
+      <p class="f small">Если подарок угадан. Бесполезная вещь проигрывает деньгам.</p>
+    </div>
+    <img class="art" src="img/pi01-17-gift-vs-money.jpg" alt="Алиса дарит коробку с бантом, Боб протягивает конверт с деньгами">
+  </div>
+</section>
+
+<section class="s" data-title="Детский сад и штраф">
+  <div class="split">
+    <div class="quiz">
+      <p class="kicker">Хайфа, 10 детских садов</p>
+      <h2>За опоздание ввели штраф. Опозданий станет…</h2>
+      <div class="opts row">
+        <button type="button" class="opt">меньше</button>
+        <button type="button" class="opt">столько же</button>
+        <button type="button" class="opt" data-ok>больше</button>
+      </div>
+      <button type="button" class="btn ghost reveal">Показать</button>
+      <div class="ans" style="margin-top:16px">
+        <p>Опозданий стало <b>примерно вдвое больше</b>. Чувство вины превратилось в цену — и цена оказалась ниже часа воспитательницы.</p>
+        <p class="small">Штраф потом отменили — а опоздания так и остались: однажды разрушенную норму назад не вернуть.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Рыночная норма в офисе</h3>
+      <p class="small" style="margin:0 0 12px">Полный контракт: пропуск в 8:30, обед по часам. В 17:00 все встают и уходят.</p>
+      <p class="small" style="margin:0 0 12px">Неполный контракт: гибкий график, кофе с печеньем, о вас заботятся «как дома».</p>
+      <p style="margin:0">Когда горит проект, во втором случае люди остаются на выходные — потому что они в мире <b>социальных</b> норм.</p>
+    </div>
+  </div>
+  <p class="src">Gneezy & Rustichini, «A Fine is a Price», J. Legal Studies 2000.</p>
+</section>
+
+<section class="s" data-title="Итог">
+  <div class="split wide-l">
+    <div>
+      <p class="kicker">Итог</p>
+      <h2>Три вопроса для продакта</h2>
+      <div class="card f" style="margin-bottom:16px"><h3 class="c-pen">Что рядом?</h3><p class="small" style="margin:0">Приманка, третий вариант, порядок в меню. Решаем, сравнивая.</p></div>
+      <div class="card f" style="margin-bottom:16px"><h3 class="c-pen">Что было первым?</h3><p class="small" style="margin:0">Якорь: первая цена, первая привычка, первое решение.</p></div>
+      <div class="card f"><h3 class="c-pen">Что бесплатно и что по умолчанию?</h3><p class="small" style="margin:0">Ноль и дефолт — самые сильные рычаги. Плюс не смешивайте деньги и дружбу.</p></div>
+    </div>
+    <div>
+      <img class="art" src="img/pi01-18-next.jpg" alt="Алиса, Боб и Котейка уходят по дорожке">
+      <p class="f lead" style="margin-top:24px">В следующий раз: <b>а если враг — это ты сам завтрашний?</b></p>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="../slides/deck.js?v=20261126"></script>
+<script>
+/* «Якорь»: точки зала, корреляция и средние по группам цифр */
+(function(){
+  const inp = document.getElementById('anc-in'), plot = document.getElementById('anc-plot');
+  const rOut = document.getElementById('anc-r'), nOut = document.getElementById('anc-n'), bars = document.getElementById('anc-bars');
+  const groups = [[0,19],[20,39],[40,59],[60,79],[80,99]];
+  bars.innerHTML = groups.map((g,i) => `<div class="row" data-c="${i<2?'ctrl':i<3?'muted':'coral'}"><div class="lab" style="font-size:20px">${String(g[0]).padStart(2,'0')}–${g[1]}</div></div>`).join('');
+  function draw(){
+    const pts = inp.value.split('\n').map(l => (l.match(/-?\d+(?:[.,]\d+)?/g) || []).map(x => +x.replace(',', '.'))).filter(a => a.length >= 2 && a[0] >= 0 && a[0] <= 99).map(a => [a[0], a[1]]);
+    const n = pts.length; let svg = '';
+    const maxY = Math.max(10, ...pts.map(p => p[1])) * 1.1;
+    const X = x => 60 + x / 99 * 560, Y = y => 380 - y / maxY * 350;
+    svg += `<line x1="60" y1="380" x2="630" y2="380" stroke="#24221F" stroke-width="2"/><line x1="60" y1="380" x2="60" y2="20" stroke="#24221F" stroke-width="2"/>`;
+    svg += `<text x="630" y="410" text-anchor="end" font-size="18" fill="#5E5A53">две последние цифры →</text><text x="18" y="24" font-size="18" fill="#5E5A53" transform="rotate(-90 18 24)" text-anchor="end">цена →</text>`;
+    pts.forEach(p => { svg += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="7" fill="#23418A" opacity=".7"/>`; });
+    if(n >= 3){
+      const mx = pts.reduce((s,p)=>s+p[0],0)/n, my = pts.reduce((s,p)=>s+p[1],0)/n;
+      let sxy=0,sxx=0,syy=0; pts.forEach(p=>{ sxy+=(p[0]-mx)*(p[1]-my); sxx+=(p[0]-mx)**2; syy+=(p[1]-my)**2; });
+      const r = sxx && syy ? sxy/Math.sqrt(sxx*syy) : 0, b = sxx ? sxy/sxx : 0, a = my - b*mx;
+      svg += `<line x1="${X(0)}" y1="${Y(a)}" x2="${X(99)}" y2="${Y(a+b*99)}" stroke="#E8644A" stroke-width="4"/>`;
+      rOut.textContent = r.toFixed(2).replace('.', ',');
+    } else rOut.textContent = '—';
+    nOut.textContent = n ? `ответов: ${n}` : '';
+    plot.innerHTML = svg;
+    bars.querySelectorAll('.row').forEach((row,i) => {
+      const g = groups[i], vs = pts.filter(p => p[0]>=g[0] && p[0]<=g[1]).map(p=>p[1]);
+      row.dataset.v = vs.length ? Math.round(vs.reduce((s,v)=>s+v,0)/vs.length*10)/10 : '';
+    });
+    Deck.refresh(bars.closest('.s'), false);
+  }
+  inp.addEventListener('input', draw); draw();
+})();
+</script>
+</body>
+</html>
