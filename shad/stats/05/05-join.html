@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кого мы потеряли при join · Занятие 5 · A/B⁠-⁠тесты в индустрии</title>
+<meta name="description" content="Кого мы потеряли при join">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611589">
+<link rel="stylesheet" href="/tokens.css?v=202611589">
+<link rel="stylesheet" href="/signal/book.css?v=202611589">
+<link rel="stylesheet" href="/signal/free.css?v=202611589">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611589">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611589">
+</head>
+<body data-course="shad4" data-chapter="shad5-05" data-next="06-bootstrap.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 5 · A/B⁠-⁠тесты в индустрии</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · Разбиение и SRM</summary><ol><li><a class="tb" href="01-split.html#card-1"><span class="i" data-n="1"></span><span>Разбиение и SRM</span></a></li><li><a class="tb" href="01-split.html#card-2"><span class="i" data-n="2"></span><span>Разбиение по хешу и соль</span></a></li><li><a class="tb" href="01-split.html#card-3"><span class="i" data-n="3"></span><span>Плохо перемешали</span></a></li><li><a class="tb" href="01-split.html#card-4"><span class="i" data-n="4"></span><span>SRM</span></a></li><li><a class="tb" href="01-split.html#card-5"><span class="i" data-n="5"></span><span>Задача: 50 600 против 49 400</span></a></li><li><a class="tb" href="01-split.html#card-6"><span class="i" data-n="6"></span><span>Арбетнот, 1710</span></a></li><li><a class="tb" href="01-split.html#card-7"><span class="i" data-n="7"></span><span>Антифрод съел лучших клиентов</span></a></li><li><a class="tb" href="01-split.html#card-8"><span class="i" data-n="8"></span><span>SRM как температура</span></a></li><li><a class="tb" href="01-split.html#card-9"><span class="i" data-n="9"></span><span>Проверка сплита классификатором</span></a></li><li><a class="tb" href="01-split.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · Проверка критерия симуляцией</summary><ol><li><a class="tb" href="02-aa.html#card-1"><span class="i" data-n="1"></span><span>Проверка критерия симуляцией</span></a></li><li><a class="tb" href="02-aa.html#card-2"><span class="i" data-n="2"></span><span>A/A⁠-⁠тест на истории</span></a></li><li><a class="tb" href="02-aa.html#card-3"><span class="i" data-n="3"></span><span>Задача: 1 000 A/A и 68 прокрасов</span></a></li><li><a class="tb" href="02-aa.html#card-4"><span class="i" data-n="4"></span><span>FPR и мощность симуляцией</span></a></li><li><a class="tb" href="02-aa.html#card-5"><span class="i" data-n="5"></span><span>Задача: как сравнить два критерия</span></a></li><li><a class="tb" href="02-aa.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · Единица наблюдения и ratio-метрики</summary><ol><li><a class="tb" href="03-units.html#card-1"><span class="i" data-n="1"></span><span>Единица наблюдения</span></a></li><li><a class="tb" href="03-units.html#card-2"><span class="i" data-n="2"></span><span>Ratio-метрика и единица наблюдения</span></a></li><li><a class="tb" href="03-units.html#card-3"><span class="i" data-n="3"></span><span>Задача: CTR по событиям</span></a></li><li><a class="tb" href="03-units.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · Дельта-метод, линеаризация, бакеты</summary><ol><li><a class="tb" href="04-delta.html#card-1"><span class="i" data-n="1"></span><span>Дельта-метод, линеаризация, бакеты</span></a></li><li><a class="tb" href="04-delta.html#card-2"><span class="i" data-n="2"></span><span>Дельта-метод</span></a></li><li><a class="tb" href="04-delta.html#card-3"><span class="i" data-n="3"></span><span>Задача: дельта-метод для CTR</span></a></li><li><a class="tb" href="04-delta.html#card-4"><span class="i" data-n="4"></span><span>Линеаризация и бакеты</span></a></li><li><a class="tb" href="04-delta.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 5 · Кого мы потеряли при join</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Блок 6 · Бутстрап</summary><ol><li><a class="tb" href="06-bootstrap.html#card-1"><span class="i" data-n="1"></span><span>Бутстрап</span></a></li><li><a class="tb" href="06-bootstrap.html#card-2"><span class="i" data-n="2"></span><span>Бутстрап: определение</span></a></li><li><a class="tb" href="06-bootstrap.html#card-3"><span class="i" data-n="3"></span><span>Задача: интервал для медианы чека</span></a></li><li><a class="tb" href="06-bootstrap.html#card-4"><span class="i" data-n="4"></span><span>Бутстрап или t⁠-⁠тест?</span></a></li><li><a class="tb" href="06-bootstrap.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 7 · Подглядывание</summary><ol><li><a class="tb" href="07-peeking.html#card-1"><span class="i" data-n="1"></span><span>Подглядывание</span></a></li><li><a class="tb" href="07-peeking.html#card-2"><span class="i" data-n="2"></span><span>Подглядывание в A/A</span></a></li><li><a class="tb" href="07-peeking.html#card-3"><span class="i" data-n="3"></span><span>Как смотреть честно</span></a></li><li><a class="tb" href="07-peeking.html#card-4"><span class="i" data-n="4"></span><span>Три лестницы</span></a></li><li><a class="tb" href="07-peeking.html#card-5"><span class="i" data-n="5"></span><span>Задача: остановить на пятый день?</span></a></li><li><a class="tb" href="07-peeking.html#card-6"><span class="i" data-n="6"></span><span>Подержим ещё месяц?</span></a></li><li><a class="tb" href="07-peeking.html#card-7"><span class="i" data-n="7"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 8 · A/B на аудитории</summary><ol><li><a class="tb" href="08-audience.html#card-1"><span class="i" data-n="1"></span><span>A/B на аудитории</span></a></li><li><a class="tb" href="08-audience.html#card-2"><span class="i" data-n="2"></span><span>Сколько лет?</span></a></li><li><a class="tb" href="08-audience.html#card-3"><span class="i" data-n="3"></span><span>Задача: пайплайн на данных зала</span></a></li><li><a class="tb" href="08-audience.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 9 · Выбросы и собеседование</summary><ol><li><a class="tb" href="09-outliers.html#card-1"><span class="i" data-n="1"></span><span>Выбросы и собеседование</span></a></li><li><a class="tb" href="09-outliers.html#card-2"><span class="i" data-n="2"></span><span>Винзоризация</span></a></li><li><a class="tb" href="09-outliers.html#card-3"><span class="i" data-n="3"></span><span>Корпоратив на 300 капучино</span></a></li><li><a class="tb" href="09-outliers.html#card-4"><span class="i" data-n="4"></span><span>Блиц с собеседования</span></a></li><li><a class="tb" href="09-outliers.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Итоги занятия 5</summary><ol><li><a class="tb" href="10-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 5</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Кого мы потеряли при join">
+  <p class="kicker">Занятие 5 · блок 5</p>
+  <h1>Кого мы потеряли при join</h1>
+  <figure class="art"><img src="img/05-join.jpg" alt="Длинный стол, половина мест пуста — гости-силуэты, Алиса с планшетом считает"></figure>
+  <p class="lead">Метрику «на пользователя» считают по таблице событий. Если склеить назначение с событиями неправильно, из знаменателя пропадают люди без событий — и метрика меняет смысл. Это ошибка выжившего из занятия 2, спрятанная в одном слове SQL.</p>
+</section>
+
+<section class="card" data-title="Задача: 4% или 13%?">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 6.</span> 4% или 13%?</h2>
+  <p>В тест назначено 100 000 пользователей. В таблице событий за время теста есть 30 000 из них, сделали заказ 4 000. Алиса считает конверсию так: <code>назначения INNER JOIN события</code> → заказавшие / строки. Боб — <code>назначения LEFT JOIN события</code>.</p>
+  <ol>
+    <li>Какие конверсии получатся?</li>
+    <li>Тест ускорил загрузку приложения, и событий «открыл приложение» стало больше. Какой способ покажет выдуманный эффект?</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Left join:</b> <span class="tx" data-tex="4000/100\,000 = 4\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4000/100</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">000</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">4%</span></span></span></span></span> — конверсия назначенных.</p>
+    <p class="stp"><b>Шаг 2. Inner join:</b> <span class="tx" data-tex="4000/30\,000 \approx 13.3\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4000/30</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">000</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">13.3%</span></span></span></span></span> — конверсия «активных».</p>
+    <p class="stp"><b>Шаг 3. Кто попал в события,</b> зависит от поведения, а поведение меняет тест. Быстрая загрузка добавила в события малоактивных людей: знаменатель «активных» растёт быстрее заказов, и конверсия активных может упасть, хотя заказов стало больше. Или наоборот.</p>
+    <p class="ans">13.3% при inner join против 4% при left join. Правильный знаменатель — все назначенные: их состав тест не меняет. Inner join покажет выдуманный эффект.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Полная популяция эксперимента">
+  <span class="step-tag">Определение</span>
+  <h2>Полная популяция эксперимента</h2>
+  <div class="def"><p>Знаменатель метрики «на пользователя» — <b>все назначенные</b> в группу, включая тех, у кого нет ни одного события: у них метрика 0.</p></div>
+  <ul>
+    <li><b>Нет лога назначений?</b> Разбиение детерминировано, поэтому <span class="tx" data-tex="\mathrm{hash}(\text{user\_id},\ \text{соль})"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mord"><span class="mord mathrm">hash</span></span><span class="mopen">(</span><span class="mord text"><span class="mord">user_id</span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord cyrillic_fallback">соль</span></span><span class="mclose">)</span></span></span></span></span> пересчитывается для всей популяции, которая могла попасть в тест. Проверка восстановления — SRM на восстановленных группах.</li>
+    <li><b>Ratio по событиям</b> <span class="nw"><span class="tx" data-tex="\sum Y/\sum X"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">Y</span><span class="mord">/</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span></span></span></span></span>:</span> пользователи с <span class="tx" data-tex="X = 0"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span> ничего не добавляют — там inner и left join дают одно число.</li>
+  </ul>
+</section>
+
+<section class="card" data-title="Задача: витрина в «Десертах»">
+  <span class="step-tag">Задача</span>
+  <p class="extra-note">Дополнительная задача — если останется время</p>
+  <h2 class="task-h"><span class="tn">Задача 7.</span> Витрина в «Десертах»: разбавление</h2>
+  <p>Новую витрину видят только гости, открывшие раздел «Десерты», — <b>10%</b> всех. На них выручка выросла на <b>6%</b>, на остальных эффекта нет.</p>
+  <ol>
+    <li>Какой эффект увидим, если считать по всем пользователям теста?</li>
+    <li>Во сколько раз дольше придётся ждать, чтобы поймать эффект «по всем», чем «по открывшим»? Разброс метрики считай одинаковым.</li>
+    <li>Какое число нести в бизнес-кейс?</li>
+  </ol>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Пункт 1.</b> <span class="nw"><span class="tx" data-tex="0.1 \cdot 6\% = 0.6\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">6%</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">0.6%</span></span></span></span></span>.</span></p>
+    <p class="stp"><b>Пункт 2.</b> Нужное <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> растёт как <span class="nw"><span class="tx" data-tex="1/\text{эффект}^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1484em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mord"><span class="mord text"><span class="mord cyrillic_fallback">эффект</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8984em;"><span style="top:-3.1473em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>:</span> эффект в 10 раз меньше — пользователей нужно в 100 раз больше. Но «всех» набирается в 10 раз быстрее, чем открывших, — итого в 10 раз дольше.</p>
+    <p class="stp">Поэтому анализируют <b>триггерную часть</b>: тех, кто дошёл до места изменения в <b>обеих</b> группах; в контроле логируют «увидел бы».</p>
+    <p class="ans">0.6% по всем; ждать в ≈ 10 раз дольше, поэтому анализируют триггерную часть. В бизнес-кейс — разбавленные 0.6%: раскатка поднимет всю выручку на 0.6%, а не на 6%.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Подписчики тратят на 40% больше">
+  <span class="step-tag">Вопрос залу</span>
+  <h2>Подписчики тратят на 40% больше</h2>
+  <p>В тесте группе B показывали предложение подписки. Отчёт: «Оформившие подписку тратят на 40% больше остальных — подписка работает!» А сравнение «вся группа B против всей группы A» дало разницу около нуля. Чему верить?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">«Оформившие против остальных» — уже не эксперимент: подписку оформляют те, кто и так тратил больше. Честная оценка — <b>по назначению</b>: все, кому показали, против всех в контроле, даже если большинство не нажали.</p>
+    <p class="stp">Так было и в медицине: в Иллинойсе в 2016–2018 годах оздоровительную программу для сотрудников назначили по жребию. По жребию эффект на расходы и здоровье — около нуля, а «записавшиеся против незаписавшихся» внутри той же компании дали большой «эффект»: записывались те, кто и так был здоровее.</p>
+    <p class="ans">Верим сравнению по назначению, ≈ 0: оформившие сами себя отобрали.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Время до второго заказа">
+  <span class="step-tag">Вопрос залу</span>
+  <p class="extra-note">Дополнительно — если останется время</p>
+  <h2>Время до второго заказа</h2>
+  <p>Тест длится две недели. Метрика — «среднее время до второго заказа» по тем, кто успел сделать второй заказ. В тесте 4.1 дня, в контроле 5.3. Это ускорение?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Не обязательно. Это <b>цензура</b>: у многих второй заказ ещё не случился, а среднее по случившимся занижено — в выборку попали только быстрые. Если тест чуть иначе отбирает, кто успел, разница появится и без ускорения. Честнее — доля сделавших второй заказ за фиксированные 7 дней от первого, для тех, кто пришёл не позже чем за 7 дней до конца теста.</p></div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Знаменатель — все назначенные</h2>
+  <div class="takeaway"><p>Метрика на пользователя — по всем назначенным: left join, нули включены. Inner join по событиям отбирает выживших, а тест может изменить, кто выжил. Сравнивают группы по назначению, а не «сделавших» с «не сделавшими».</p></div>
+  <a class="next-step" href="06-bootstrap.html"><b>Дальше: 6. Бутстрап</b>Интервал для медианы и всего остального.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611589"></script>
+<script src="/signal/book.js?v=202611589"></script>
+<script src="/shad/stats/04/shad.js?v=202611589"></script>
+
+</body>
+</html>

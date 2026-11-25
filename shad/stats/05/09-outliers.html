@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Выбросы и собеседование · Занятие 5 · A/B⁠-⁠тесты в индустрии</title>
+<meta name="description" content="Выбросы и собеседование">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611589">
+<link rel="stylesheet" href="/tokens.css?v=202611589">
+<link rel="stylesheet" href="/signal/book.css?v=202611589">
+<link rel="stylesheet" href="/signal/free.css?v=202611589">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611589">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611589">
+</head>
+<body data-course="shad4" data-chapter="shad5-09" data-next="10-summary.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 5 · A/B⁠-⁠тесты в индустрии</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · Разбиение и SRM</summary><ol><li><a class="tb" href="01-split.html#card-1"><span class="i" data-n="1"></span><span>Разбиение и SRM</span></a></li><li><a class="tb" href="01-split.html#card-2"><span class="i" data-n="2"></span><span>Разбиение по хешу и соль</span></a></li><li><a class="tb" href="01-split.html#card-3"><span class="i" data-n="3"></span><span>Плохо перемешали</span></a></li><li><a class="tb" href="01-split.html#card-4"><span class="i" data-n="4"></span><span>SRM</span></a></li><li><a class="tb" href="01-split.html#card-5"><span class="i" data-n="5"></span><span>Задача: 50 600 против 49 400</span></a></li><li><a class="tb" href="01-split.html#card-6"><span class="i" data-n="6"></span><span>Арбетнот, 1710</span></a></li><li><a class="tb" href="01-split.html#card-7"><span class="i" data-n="7"></span><span>Антифрод съел лучших клиентов</span></a></li><li><a class="tb" href="01-split.html#card-8"><span class="i" data-n="8"></span><span>SRM как температура</span></a></li><li><a class="tb" href="01-split.html#card-9"><span class="i" data-n="9"></span><span>Проверка сплита классификатором</span></a></li><li><a class="tb" href="01-split.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · Проверка критерия симуляцией</summary><ol><li><a class="tb" href="02-aa.html#card-1"><span class="i" data-n="1"></span><span>Проверка критерия симуляцией</span></a></li><li><a class="tb" href="02-aa.html#card-2"><span class="i" data-n="2"></span><span>A/A⁠-⁠тест на истории</span></a></li><li><a class="tb" href="02-aa.html#card-3"><span class="i" data-n="3"></span><span>Задача: 1 000 A/A и 68 прокрасов</span></a></li><li><a class="tb" href="02-aa.html#card-4"><span class="i" data-n="4"></span><span>FPR и мощность симуляцией</span></a></li><li><a class="tb" href="02-aa.html#card-5"><span class="i" data-n="5"></span><span>Задача: как сравнить два критерия</span></a></li><li><a class="tb" href="02-aa.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · Единица наблюдения и ratio-метрики</summary><ol><li><a class="tb" href="03-units.html#card-1"><span class="i" data-n="1"></span><span>Единица наблюдения</span></a></li><li><a class="tb" href="03-units.html#card-2"><span class="i" data-n="2"></span><span>Ratio-метрика и единица наблюдения</span></a></li><li><a class="tb" href="03-units.html#card-3"><span class="i" data-n="3"></span><span>Задача: CTR по событиям</span></a></li><li><a class="tb" href="03-units.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · Дельта-метод, линеаризация, бакеты</summary><ol><li><a class="tb" href="04-delta.html#card-1"><span class="i" data-n="1"></span><span>Дельта-метод, линеаризация, бакеты</span></a></li><li><a class="tb" href="04-delta.html#card-2"><span class="i" data-n="2"></span><span>Дельта-метод</span></a></li><li><a class="tb" href="04-delta.html#card-3"><span class="i" data-n="3"></span><span>Задача: дельта-метод для CTR</span></a></li><li><a class="tb" href="04-delta.html#card-4"><span class="i" data-n="4"></span><span>Линеаризация и бакеты</span></a></li><li><a class="tb" href="04-delta.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 5 · Кого мы потеряли при join</summary><ol><li><a class="tb" href="05-join.html#card-1"><span class="i" data-n="1"></span><span>Кого мы потеряли при join</span></a></li><li><a class="tb" href="05-join.html#card-2"><span class="i" data-n="2"></span><span>Задача: 4% или 13%?</span></a></li><li><a class="tb" href="05-join.html#card-3"><span class="i" data-n="3"></span><span>Полная популяция эксперимента</span></a></li><li><a class="tb" href="05-join.html#card-4"><span class="i" data-n="4"></span><span>Задача: витрина в «Десертах»</span></a></li><li><a class="tb" href="05-join.html#card-5"><span class="i" data-n="5"></span><span>Подписчики тратят на 40% больше</span></a></li><li><a class="tb" href="05-join.html#card-6"><span class="i" data-n="6"></span><span>Время до второго заказа</span></a></li><li><a class="tb" href="05-join.html#card-7"><span class="i" data-n="7"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 6 · Бутстрап</summary><ol><li><a class="tb" href="06-bootstrap.html#card-1"><span class="i" data-n="1"></span><span>Бутстрап</span></a></li><li><a class="tb" href="06-bootstrap.html#card-2"><span class="i" data-n="2"></span><span>Бутстрап: определение</span></a></li><li><a class="tb" href="06-bootstrap.html#card-3"><span class="i" data-n="3"></span><span>Задача: интервал для медианы чека</span></a></li><li><a class="tb" href="06-bootstrap.html#card-4"><span class="i" data-n="4"></span><span>Бутстрап или t⁠-⁠тест?</span></a></li><li><a class="tb" href="06-bootstrap.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 7 · Подглядывание</summary><ol><li><a class="tb" href="07-peeking.html#card-1"><span class="i" data-n="1"></span><span>Подглядывание</span></a></li><li><a class="tb" href="07-peeking.html#card-2"><span class="i" data-n="2"></span><span>Подглядывание в A/A</span></a></li><li><a class="tb" href="07-peeking.html#card-3"><span class="i" data-n="3"></span><span>Как смотреть честно</span></a></li><li><a class="tb" href="07-peeking.html#card-4"><span class="i" data-n="4"></span><span>Три лестницы</span></a></li><li><a class="tb" href="07-peeking.html#card-5"><span class="i" data-n="5"></span><span>Задача: остановить на пятый день?</span></a></li><li><a class="tb" href="07-peeking.html#card-6"><span class="i" data-n="6"></span><span>Подержим ещё месяц?</span></a></li><li><a class="tb" href="07-peeking.html#card-7"><span class="i" data-n="7"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 8 · A/B на аудитории</summary><ol><li><a class="tb" href="08-audience.html#card-1"><span class="i" data-n="1"></span><span>A/B на аудитории</span></a></li><li><a class="tb" href="08-audience.html#card-2"><span class="i" data-n="2"></span><span>Сколько лет?</span></a></li><li><a class="tb" href="08-audience.html#card-3"><span class="i" data-n="3"></span><span>Задача: пайплайн на данных зала</span></a></li><li><a class="tb" href="08-audience.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 9 · Выбросы и собеседование</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Итоги занятия 5</summary><ol><li><a class="tb" href="10-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 5</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Выбросы и собеседование">
+  <p class="kicker">Занятие 5 · блок 9</p>
+  <h1>Выбросы и собеседование</h1>
+  <p class="lead">Один кит меняет средний чек и раздувает дисперсию — t⁠-⁠тест слепнет, как на занятии 4. Убрать кита нельзя «по вкусу» — можно по правилу, заданному заранее.</p>
+</section>
+
+<section class="card" data-title="Винзоризация">
+  <span class="step-tag">Определение</span>
+  <h2>Винзоризация</h2>
+  <div class="def"><p><b>Винзоризация</b> — значения выше порога, например 99-го перцентиля, заменяются на сам порог. Порог считают по <b>объединённым</b> данным обеих групп или по истории и фиксируют <b>до</b> теста.</p></div>
+  <p>Дисперсия падает, мощность растёт. Цена — метрика немного другая, сумма без хвоста, и это надо сказать в отчёте.</p>
+  <div class="takeaway"><p><b>Нельзя:</b> удалять «неудобных» пользователей после того, как увидели результат, и выбирать порог отдельно в каждой группе.</p></div>
+</section>
+
+<section class="card" data-title="Корпоратив на 300 капучино">
+  <span class="step-tag">Вопрос залу</span>
+  <h2>Корпоратив на 300 капучино</h2>
+  <p>В середине теста один офис заказал 300 капучино на корпоратив — и попал в группу B. Средняя выручка B резко выросла, но p⁠-⁠value почему-то стал <b>больше</b>. Как так и что делать?</p>
+  <details class="sol"><summary>Ответ</summary><div class="body">
+    <p class="stp">Один заказ сдвигает среднее, но ещё сильнее раздувает дисперсию: SE растёт как корень из суммы квадратов, и <span class="tx" data-tex="z"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.044em;">z</span></span></span></span></span> падает.</p>
+    <p class="stp">Лечение — правило, заданное <b>до</b> теста: винзоризация с порогом по объединённым данным или отдельная метрика для оптовых заказов.</p>
+    <p class="ans">Кит раздувает SE сильнее, чем среднее. Эффект кэпа огромен: в Bing ограничение выручки на пользователя снизило нужную выборку примерно со 114 до 10 тысяч — асимметрия упала с 18 до 5, а нужное <span class="tx" data-tex="n"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> зависит от неё квадратично, как в формуле <span class="tx" data-tex="355\gamma^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord">355</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0556em;">γ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> из занятия 4.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Блиц с собеседования">
+  <span class="step-tag">Собеседование</span>
+  <h2>Блиц с собеседования</h2>
+  <ol class="howto reveal">
+    <li>«В тесте пользователей больше, чем в контроле, на 1.5%. Это важно?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Посчитать SRM <span class="nw"><span class="tx" data-tex="\chi^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">χ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>:</span> при сотнях тысяч пользователей 1.5% — почти наверняка SRM. Пока причина не найдена, результатам не верить.</p></div></details></li>
+    <li>«CTR вырос значимо, а выручка нет. Как так?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Разные метрики: CTR — про клики, выручка — про деньги. И CTR, посчитанный по показам, мог прокраситься ложно — единица наблюдения. Проверить дельта-методом и посмотреть MDE выручки.</p></div></details></li>
+    <li>«Можно ли посчитать t⁠-⁠тест по заказам, если делили пользователей?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Нет: заказы одного пользователя зависимы, SE занижена. Нужен дельта-метод, линеаризация или бакеты по пользователям.</p></div></details></li>
+    <li>«Зачем A/A⁠-⁠тест, если в нём заведомо нет эффекта?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Проверить разбиение (SRM), логирование и сам критерий: доля прокрасов ≈ <span class="nw"><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span>,</span> p⁠-⁠value равномерны. На истории — дёшево и без пользователей.</p></div></details></li>
+    <li>«Модель предсказывает, что заказ опоздает, с точностью 95%. Главный признак — „оператор звонил гостю“. Выкатываем?»
+      <details class="sol"><summary>Ответ</summary><div class="body">
+        <p class="stp">Признак записан <b>из-за исхода</b>: оператор звонит, когда заказ уже опаздывает. В момент прогноза его ещё нет — модель выучила последствие.</p>
+        <p class="ans">Нет. Так же провалилась нашумевшая «модель, распознающая преступников по лицу»: «преступников» сняли на фото для документов, где не улыбаются, а «законопослушных» — на фото из интернета, где улыбаются, и модель выучила улыбку. Первый вопрос к любой модели — как и когда попали в данные признак и люди.</p>
+      </div></details></li>
+    <li>«Выручка в B за неделю на 12% выше контроля. Что проверишь первым?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Закон Твимена: всё, что выглядит необычно, скорее всего, ошибка. Удачные изменения в Bing двигают метрики на 0.1–1%. +12% за неделю — сначала SRM, логирование, дубли событий, кто попал в группы, и только потом праздник.</p></div></details></li>
+    <li>«Приложение станет на 0.1 секунды медленнее ради новой функции. Это важно?»
+      <details class="sol"><summary>Ответ</summary><div class="body"><p class="ans">Важно: в Amazon замедление на 100 мс стоило около 1% продаж. Скорость — метрика-ограничитель, её проверяют в каждом тесте. Эффект замедления можно измерить честно — специально замедлить в A/B.</p></div></details></li>
+  </ol>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Правило — заранее</h2>
+  <div class="takeaway"><p>Выбросы лечат правилом, заданным до теста: винзоризацией с порогом по объединённым данным или отдельной метрикой. Удалять «неудобных» после результата нельзя.</p></div>
+  <a class="next-step" href="10-summary.html"><b>Дальше: итоги занятия</b>Восемь главных мыслей.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611589"></script>
+<script src="/signal/book.js?v=202611589"></script>
+<script src="/shad/stats/04/shad.js?v=202611589"></script>
+
+</body>
+</html>

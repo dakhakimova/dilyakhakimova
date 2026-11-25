@@ -1,0 +1,98 @@
+{"title": "Проверка критерия симуляцией", "short": "2. A/A и симуляции", "h": "Блок 2 · Проверка критерия симуляцией", "lead": "A/A на истории: держит ли критерий α и какая у него мощность", "next": "03-units.html"}
+<section class="card" data-title="Проверка критерия симуляцией">
+  <p class="kicker">Занятие 5 · блок 2</p>
+  <h1>Проверка критерия симуляцией</h1>
+  <p class="lead">На занятии 4 мы увидели: t-тест держит \(\alpha\), если сработала ЦПТ. А сработала ли она на <b>вашей</b> метрике, формула не скажет. Скажет симуляция на исторических данных — главный инструмент аналитика платформы: так проверяют любой критерий и любую метрику.</p>
+</section>
+
+<section class="card" data-title="A/A-тест на истории">
+  <span class="step-tag">Определение</span>
+  <h2>A/A-тест и проверка критерия на истории</h2>
+  <div class="def"><p><b>A/A-тест</b> — эксперимент, в котором обе группы видят одно и то же. Эффекта нет по построению, поэтому честный критерий прокрашивается в доле \(\alpha\) экспериментов, а p-value распределены равномерно.</p></div>
+  <ol class="howto reveal">
+    <li>Берём исторические данные метрики за период, равный длительности теста.</li>
+    <li>Много раз, \(R = 1000\) и больше, случайно делим пользователей на две группы — каждый раз с новой солью.</li>
+    <li>Считаем критерий, записываем p-value.</li>
+    <li><b>FPR</b> (false positive rate) — доля \(p &lt; \alpha\). Сравниваем с \(\alpha\) с учётом шума: \(\mathrm{SE} = \sqrt{\alpha(1 - \alpha)/R}\). Смотрим и на гистограмму p-value.</li>
+    <li><b>Мощность</b> — то же, но в одну из групп искусственно добавляем эффект, например умножаем выручку на 1.03. Доля прокрасов — мощность при этом эффекте.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Задача: 1 000 A/A и 68 прокрасов">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 2.</span> 1 000 A/A и 68 прокрасов</h2>
+  <p>Алиса прогнала 1 000 A/A-разбиений своей метрики, t-тест на уровне 5% прокрасился в <b>68</b>. Это нормальный шум или критерий врёт?</p>
+  <div class="game" id="ga">
+    <div class="controls"><label class="field">Прокрасов из 1 000 <input type="text" inputmode="numeric" class="n-in" id="ga-k" value="68"></label><button type="button" class="btn ghost" id="ga-k1">+1</button></div>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Если критерий честен,</b> число прокрасов \(\sim \mathrm{Bin}(1000,\ 0.05)\): ожидаем 50, \(\mathrm{SE}\) доли \(= \sqrt{0.05 \cdot 0.95/1000} = 0.0069\), то есть 0.69%.</p>
+    <p class="stp"><b>Шаг 2.</b> FPR = 6.8%, \(z = (0.068 - 0.05)/0.0069 \approx 2.61\), \(p \approx 0.009\). Для сравнения: 55 прокрасов — \(z \approx 0.73\), норма.</p>
+    <p class="stp"><b>Шаг 3. Где искать причину:</b> зависимые наблюдения — события вместо пользователей, тяжёлые хвосты, ошибка в разбиении. Гистограмма p-value покажет, где лишняя масса.</p>
+    <p class="ans">6.8% — это 2.6 SE выше 5%, \(p \approx 0.009\): критерий, скорее всего, завышает \(\alpha\).</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="FPR и мощность симуляцией">
+  <span class="step-tag">Симуляция</span>
+  <h2>FPR и мощность t-теста на истории выручки</h2>
+  <p>Выручка на пользователя за неделю: 70% не платят, у остальных — логнормальная выручка с тяжёлым хвостом. Делим 500 раз, к тесту добавляем эффект ×1.00, ×1.02, ×1.05, ×1.10.</p>
+  <div class="cell" data-title="FPR и мощность t-теста на истории выручки" data-packages="scipy">
+<textarea spellcheck="false" aria-label="FPR и мощность t-теста на истории выручки">import numpy as np
+from scipy import stats
+
+rng = np.random.default_rng(42)
+users = 20_000
+# выручка на пользователя за неделю
+hist = np.where(rng.random(users) &lt; 0.3, rng.lognormal(6.6, 0.9, users), 0)
+
+def share_rejected(effect, R=500):
+    rej = 0
+    for _ in range(R):
+        g = rng.random(users) &lt; 0.5
+        a, b = hist[g], hist[~g] * effect
+        rej += stats.ttest_ind(a, b, equal_var=False).pvalue &lt; 0.05
+    return rej / R
+
+for eff in [1.00, 1.02, 1.05, 1.10]:
+    r = share_rejected(eff)
+    print(f"эффект ×{eff:.2f}:  доля прокрасов {r:.1%}" + ("   ← FPR" if eff == 1 else "   ← мощность"))</textarea>
+  </div>
+  <p>Ожидаемый результат: ×1.00 — около 5%, это FPR; ×1.02 — около 8%, ×1.05 — около 26%, ×1.10 — около 79%, это мощность. На такой выборке эффект 2% почти не виден.</p>
+</section>
+
+<section class="card" data-title="Задача: как сравнить два критерия">
+  <span class="step-tag">Задача с собеседования</span>
+  <h2 class="task-h"><span class="tn">Задача 3.</span> Как сравнить два критерия</h2>
+  <p>«У нас есть t-тест и новый критерий, который придумал коллега. Как понять, какой лучше?»</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1.</b> История метрики за длительность теста.</p>
+    <p class="stp"><b>Шаг 2.</b> 1 000 и больше разбиений с разными солями; на каждом — оба критерия.</p>
+    <p class="stp"><b>Шаг 3.</b> FPR каждого ≈ 5% с учётом шума? Критерий, который завышает \(\alpha\), отбрасываем — его «мощность» ничего не значит.</p>
+    <p class="stp"><b>Шаг 4.</b> На тех же разбиениях добавляем эффект реалистичного вида — ×1.02 к выручке теста, сдвиг конверсии — и считаем долю прокрасов каждого критерия.</p>
+    <p class="ans">Лучше тот, у кого при корректном \(\alpha\) мощность выше; если мощности близки — тот, что проще и понятнее.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Проверяй критерий на своих данных</h2>
+  <div class="takeaway"><p>Проверка критерия — A/A на истории: доля прокрасов ≈ \(\alpha\) с учётом шума \(\sqrt{\alpha(1 - \alpha)/R}\), p-value равномерны. Мощность — то же с добавленным эффектом.</p></div>
+  <a class="next-step" href="03-units.html"><b>Дальше: 3. Единица наблюдения</b>Почему t-тест по событиям врёт.</a>
+</section>
+
+<script>
+(function(){
+  const g = document.getElementById('ga'); if (!g) return;
+  const out = g.querySelector('.out'), kI = document.getElementById('ga-k');
+  function paint(){
+    let k = Math.round(+String(kI.value).replace(/\s/g, '')); if (!isFinite(k) || k < 0) k = 68; k = Math.min(1000, k); kI.value = k;
+    const se = Math.sqrt(0.05 * 0.95 / 1000), z = (k / 1000 - 0.05) / se, p = 2 * (1 - normCdf(Math.abs(z)));
+    out.innerHTML = 'FPR = ' + num(k / 10, 1) + '%, ожидаем 5% ± 0.69%. \\(z = ' + num(z, 2) + '\\), \\(p = ' + num(p, 3) + '\\). ' + (p < 0.05 ? '<b>Критерий, скорее всего, врёт.</b>' : 'В пределах шума.');
+  }
+  document.getElementById('ga-k1').addEventListener('click', () => { kI.value = (+kI.value || 0) + 1; paint(); });
+  kI.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') paint(); }); kI.addEventListener('change', paint);
+  paint();
+})();
+</script>

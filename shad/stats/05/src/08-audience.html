@@ -1,0 +1,74 @@
+{"title": "A/B на аудитории", "short": "8. A/B на аудитории", "h": "Блок 8 · A/B на аудитории", "lead": "Игра «Сколько лет?» и полный пайплайн: SRM, критерий, интервал, вывод", "next": "09-outliers.html"}
+<section class="card" data-title="A/B на аудитории">
+  <p class="kicker">Занятие 5 · блок 8</p>
+  <h1>A/B на аудитории</h1>
+  <figure class="art"><img src="img/08-anchor.jpg" alt="Две половины аудитории: над одной висит якорь с числом 9, над другой — со 140"></figure>
+  <p class="lead">Проведём настоящий эксперимент — на вас. Бот случайно разделил вас на две группы. Пройдём весь путь: разбиение, проверка SRM, критерий, интервал, вывод. Что именно мы меняли — скажу после.</p>
+</section>
+
+<section class="card" data-title="Сколько лет?">
+  <span class="step-tag">Игра</span>
+  <h2>Сколько лет?</h2>
+  <p>Бот задаст два вопроса о Махатме Ганди. Ответь на оба <b>быстро, не гугля</b>: сначала «да» или «нет», потом число — сколько ему было лет, когда он умер.</p>
+  <p>После игры впиши сюда числа из сводки бота.</p>
+  <div class="game" id="gan">
+    <div class="report-wrap"><table class="tails grid">
+      <thead><tr><th>Группа</th><th>Человек</th><th>Средний ответ</th><th>Стандартное отклонение</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td><input type="text" inputmode="numeric" class="n-in" id="an-na" value="20"></td><td><input type="text" inputmode="decimal" class="n-in" id="an-ma" value="55"></td><td><input type="text" inputmode="decimal" class="n-in" id="an-sa" value="15"></td></tr>
+        <tr><td>B</td><td><input type="text" inputmode="numeric" class="n-in" id="an-nb" value="20"></td><td><input type="text" inputmode="decimal" class="n-in" id="an-mb" value="68"></td><td><input type="text" inputmode="decimal" class="n-in" id="an-sb" value="14"></td></tr>
+      </tbody>
+    </table></div>
+    <p class="out" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="card" data-title="Задача: пайплайн на данных зала">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 10.</span> Полный пайплайн на данных зала</h2>
+  <p>Проведи анализ эксперимента по сводке: проверь SRM, посчитай разницу, SE, t-критерий Уэлча, 95%-й интервал и сформулируй вывод словами. Числа для примера: A — 20 человек, среднее 55, отклонение 15; B — 20 человек, среднее 68, отклонение 14.</p>
+  <details class="sol"><summary>Решение</summary><div class="body">
+    <p class="stp"><b>Шаг 1. Разбиение и SRM.</b> Роли раздал бот случайно. \(n_A = n_B = 20\): \(\chi^2 = 0\), SRM нет.</p>
+    <p class="stp"><b>Шаг 2. Метрика и единица.</b> Ответ «сколько лет» на человека; единица рандомизации — человек.</p>
+    <p class="stp"><b>Шаг 3. Разница.</b> \(\Delta = 68 - 55 = 13\) лет.</p>
+    <p class="stp"><b>Шаг 4. SE.</b> \(\sqrt{15^2/20 + 14^2/20} = \sqrt{11.25 + 9.8} \approx 4.59\).</p>
+    <p class="stp"><b>Шаг 5. t и p.</b> \(t = 13/4.59 \approx 2.83\); степеней свободы Уэлча ≈ 38; \(p \approx 0.007\).</p>
+    <p class="stp"><b>Шаг 6. Интервал.</b> \(13 \pm 2.02 \cdot 4.59 \approx [3.7;\ 22.3]\) года.</p>
+    <p class="stp"><b>Шаг 7. Что меняли.</b> В первом вопросе «да или нет» стояло число-якорь: у группы A — 9 лет, у группы B — 140. Оба числа абсурдны, но оценка тянется к якорю.</p>
+    <p class="ans">Якорь «140» сдвигает оценку возраста вверх на 4–22 года по сравнению с «9», \(p \approx 0.007\). Эффект настоящий: группы отличались только якорем. Обычно разница 10–20 лет.</p>
+  </div></details>
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Пайплайн целиком</h2>
+  <div class="takeaway"><p>Разбиение → SRM → метрика на единицу рандомизации → критерий → интервал → вывод словами. На вас он только что сработал.</p></div>
+  <a class="next-step" href="09-outliers.html"><b>Дальше: 9. Выбросы и собеседование</b>Что делать с китами.</a>
+</section>
+
+<script>
+(function(){
+  const g = document.getElementById('gan'); if (!g) return;
+  const out = g.querySelector('.out'), ids = ['na', 'ma', 'sa', 'nb', 'mb', 'sb'], el = {};
+  ids.forEach(k => el[k] = document.getElementById('an-' + k));
+  const KEY = 'shad5-anchor';
+  try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) ids.forEach(k => { if (s[k] != null) el[k].value = s[k]; }); } catch (e) {}
+  const rd = v => +String(v).replace(',', '.').replace(/\s/g, '');
+  // квантиль и p-value t-распределения через приближения к нормальному
+  const tq = (p, df) => { const z = normInv(p); return z + (z ** 3 + z) / (4 * df) + (5 * z ** 5 + 16 * z ** 3 + 3 * z) / (96 * df * df); };
+  const tp = (t, df) => { const a = Math.abs(t), z = a * (1 - 1 / (4 * df)) / Math.sqrt(1 + a * a / (2 * df)); return 2 * (1 - normCdf(z)); };
+  function paint(){
+    const v = {}; ids.forEach(k => v[k] = rd(el[k].value));
+    if (ids.some(k => !isFinite(v[k])) || v.na < 2 || v.nb < 2){ out.innerHTML = 'Впиши числа: в каждой группе хотя бы два человека.'; return; }
+    try { localStorage.setItem(KEY, JSON.stringify(Object.fromEntries(ids.map(k => [k, el[k].value])))); } catch (e) {}
+    const n = v.na + v.nb, E = n / 2, chi = ((v.na - E) ** 2 + (v.nb - E) ** 2) / E, psrm = 2 * (1 - normCdf(Math.sqrt(chi)));
+    const va = v.sa ** 2 / v.na, vb = v.sb ** 2 / v.nb, se = Math.sqrt(va + vb), d = v.mb - v.ma, t = d / se;
+    const df = (va + vb) ** 2 / (va * va / (v.na - 1) + vb * vb / (v.nb - 1)), q = tq(0.975, df), p = tp(t, df);
+    out.innerHTML = 'SRM: \\(\\chi^2 = ' + num(chi, 2) + '\\), \\(p = ' + num(psrm, 2) + '\\) — ' + (psrm < 0.05 ? '<b>группы разошлись с планом</b>' : 'норма') + '.<br>'
+      + 'Разница \\(\\Delta = ' + num(d, 1) + '\\) года, \\(\\mathrm{SE} = ' + num(se, 2) + '\\), \\(t = ' + num(t, 2) + '\\), степеней свободы ≈ ' + num(df, 0) + ', \\(p \\approx ' + num(p, 4) + '\\).<br>'
+      + '95%-й интервал разницы: [' + num(d - q * se, 1) + '; ' + num(d + q * se, 1) + '] года.';
+  }
+  ids.forEach(k => { el[k].addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') paint(); }); el[k].addEventListener('change', paint); });
+  paint();
+})();
+</script>
