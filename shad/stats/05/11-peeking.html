@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Подглядывание · Занятие 5 · Интервалы, MDE и A/B в индустрии</title>
+<meta name="description" content="Подглядывание">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611605">
+<link rel="stylesheet" href="/tokens.css?v=202611605">
+<link rel="stylesheet" href="/signal/book.css?v=202611605">
+<link rel="stylesheet" href="/signal/free.css?v=202611605">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611605">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611605">
+</head>
+<body data-course="shad4" data-chapter="shad5-11" data-next="12-audience.html">
+<nav class="top" aria-label="Навигация">
+  <span class="top-l"><a class="home-line" href="/">dilyakhakimova.com</a> <span class="top-sep" aria-hidden="true">/</span> <a class="course" href="./">Занятие 5 · Интервалы, MDE и A/B в индустрии</a></span>
+  <span><a href="./">Оглавление занятия</a></span>
+</nav>
+<div class="reader" id="reader">
+  <aside class="toc-side" id="toc-side" aria-label="Оглавление занятия">
+    <details class="lt"><summary>Блок 1 · интервалы</summary><ol><li><a class="tb" href="01-ci.html#card-1"><span class="i" data-n="1"></span><span>Насколько выросло?</span></a></li><li><a class="tb" href="01-ci.html#card-2"><span class="i" data-n="2"></span><span>Что такое доверительный интервал</span></a></li><li><a class="tb" href="01-ci.html#card-3"><span class="i" data-n="3"></span><span>Визуализация: откуда берётся интервал</span></a></li><li><a class="tb" href="01-ci.html#card-4"><span class="i" data-n="4"></span><span>Визуализация: 100 интервалов</span></a></li><li><a class="tb" href="01-ci.html#card-5"><span class="i" data-n="5"></span><span>Задача: интервал для кнопки</span></a></li><li><a class="tb" href="01-ci.html#card-6"><span class="i" data-n="6"></span><span>Задача: интервалы пересеклись</span></a></li><li><a class="tb" href="01-ci.html#card-7"><span class="i" data-n="7"></span><span>Вопрос: не прокрасилось — значит, можно?</span></a></li><li><a class="tb" href="01-ci.html#card-8"><span class="i" data-n="8"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 2 · MDE</summary><ol><li><a class="tb" href="02-mde.html#card-1"><span class="i" data-n="1"></span><span>Сколько держать тест?</span></a></li><li><a class="tb" href="02-mde.html#card-2"><span class="i" data-n="2"></span><span>Что такое MDE</span></a></li><li><a class="tb" href="02-mde.html#card-3"><span class="i" data-n="3"></span><span>Визуализация: дни и MDE</span></a></li><li><a class="tb" href="02-mde.html#card-4"><span class="i" data-n="4"></span><span>Задача: сколько дней держать тест</span></a></li><li><a class="tb" href="02-mde.html#card-5"><span class="i" data-n="5"></span><span>Задача: 10 против 9</span></a></li><li><a class="tb" href="02-mde.html#card-6"><span class="i" data-n="6"></span><span>Задача: баннер +8% ± 3%</span></a></li><li><a class="tb" href="02-mde.html#card-7"><span class="i" data-n="7"></span><span>История: красивые родители</span></a></li><li><a class="tb" href="02-mde.html#card-8"><span class="i" data-n="8"></span><span>Задача: +337% с лендинга</span></a></li><li><a class="tb" href="02-mde.html#card-9"><span class="i" data-n="9"></span><span>Вопрос: новинку — только на 1%?</span></a></li><li><a class="tb" href="02-mde.html#card-10"><span class="i" data-n="10"></span><span>Чем плох долгий эксперимент</span></a></li><li><a class="tb" href="02-mde.html#card-11"><span class="i" data-n="11"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 3 · какой критерий</summary><ol><li><a class="tb" href="03-nonparam.html#card-1"><span class="i" data-n="1"></span><span>Какой критерий выбрать</span></a></li><li><a class="tb" href="03-nonparam.html#card-2"><span class="i" data-n="2"></span><span>Игра: камень, ножницы, бумага</span></a></li><li><a class="tb" href="03-nonparam.html#card-3"><span class="i" data-n="3"></span><span>Критерий χ²</span></a></li><li><a class="tb" href="03-nonparam.html#card-4"><span class="i" data-n="4"></span><span>Разбор игры по аудитории</span></a></li><li><a class="tb" href="03-nonparam.html#card-5"><span class="i" data-n="5"></span><span>Манн⁠–⁠Уитни: что проверяет</span></a></li><li><a class="tb" href="03-nonparam.html#card-6"><span class="i" data-n="6"></span><span>Задача: Манн⁠–⁠Уитни и медианы</span></a></li><li><a class="tb" href="03-nonparam.html#card-7"><span class="i" data-n="7"></span><span>Вопрос: Uber и Манн⁠–⁠Уитни</span></a></li><li><a class="tb" href="03-nonparam.html#card-8"><span class="i" data-n="8"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 4 · много проверок</summary><ol><li><a class="tb" href="04-multiple.html#card-1"><span class="i" data-n="1"></span><span>Много проверок сразу</span></a></li><li><a class="tb" href="04-multiple.html#card-2"><span class="i" data-n="2"></span><span>Визуализация: 20 гипотез в A/A</span></a></li><li><a class="tb" href="04-multiple.html#card-3"><span class="i" data-n="3"></span><span>Задача: 20 гипотез</span></a></li><li><a class="tb" href="04-multiple.html#card-4"><span class="i" data-n="4"></span><span>Поправка Бонферрони</span></a></li><li><a class="tb" href="04-multiple.html#card-5"><span class="i" data-n="5"></span><span>История: мармеладки и прыщи</span></a></li><li><a class="tb" href="04-multiple.html#card-6"><span class="i" data-n="6"></span><span>Сколько «побед» ложные</span></a></li><li><a class="tb" href="04-multiple.html#card-7"><span class="i" data-n="7"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 5 · Разбиение и SRM</summary><ol><li><a class="tb" href="05-split.html#card-1"><span class="i" data-n="1"></span><span>Разбиение и SRM</span></a></li><li><a class="tb" href="05-split.html#card-2"><span class="i" data-n="2"></span><span>Разбиение по хешу и соль</span></a></li><li><a class="tb" href="05-split.html#card-3"><span class="i" data-n="3"></span><span>Плохо перемешали</span></a></li><li><a class="tb" href="05-split.html#card-4"><span class="i" data-n="4"></span><span>SRM</span></a></li><li><a class="tb" href="05-split.html#card-5"><span class="i" data-n="5"></span><span>Задача: 50 600 против 49 400</span></a></li><li><a class="tb" href="05-split.html#card-6"><span class="i" data-n="6"></span><span>Арбетнот, 1710</span></a></li><li><a class="tb" href="05-split.html#card-7"><span class="i" data-n="7"></span><span>Антифрод съел лучших клиентов</span></a></li><li><a class="tb" href="05-split.html#card-8"><span class="i" data-n="8"></span><span>SRM как температура</span></a></li><li><a class="tb" href="05-split.html#card-9"><span class="i" data-n="9"></span><span>Проверка сплита классификатором</span></a></li><li><a class="tb" href="05-split.html#card-10"><span class="i" data-n="10"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 6 · Проверка критерия симуляцией</summary><ol><li><a class="tb" href="06-aa.html#card-1"><span class="i" data-n="1"></span><span>Проверка критерия симуляцией</span></a></li><li><a class="tb" href="06-aa.html#card-2"><span class="i" data-n="2"></span><span>A/A⁠-⁠тест на истории</span></a></li><li><a class="tb" href="06-aa.html#card-3"><span class="i" data-n="3"></span><span>Задача: 1 000 A/A и 68 прокрасов</span></a></li><li><a class="tb" href="06-aa.html#card-4"><span class="i" data-n="4"></span><span>FPR и мощность симуляцией</span></a></li><li><a class="tb" href="06-aa.html#card-5"><span class="i" data-n="5"></span><span>Задача: как сравнить два критерия</span></a></li><li><a class="tb" href="06-aa.html#card-6"><span class="i" data-n="6"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 7 · Единица наблюдения и ratio-метрики</summary><ol><li><a class="tb" href="07-units.html#card-1"><span class="i" data-n="1"></span><span>Единица наблюдения</span></a></li><li><a class="tb" href="07-units.html#card-2"><span class="i" data-n="2"></span><span>Ratio-метрика и единица наблюдения</span></a></li><li><a class="tb" href="07-units.html#card-3"><span class="i" data-n="3"></span><span>Задача: CTR по событиям</span></a></li><li><a class="tb" href="07-units.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 8 · Дельта-метод, линеаризация, бакеты</summary><ol><li><a class="tb" href="08-delta.html#card-1"><span class="i" data-n="1"></span><span>Дельта-метод, линеаризация, бакеты</span></a></li><li><a class="tb" href="08-delta.html#card-2"><span class="i" data-n="2"></span><span>Дельта-метод</span></a></li><li><a class="tb" href="08-delta.html#card-3"><span class="i" data-n="3"></span><span>Задача: дельта-метод для CTR</span></a></li><li><a class="tb" href="08-delta.html#card-4"><span class="i" data-n="4"></span><span>Линеаризация и бакеты</span></a></li><li><a class="tb" href="08-delta.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 9 · Кого мы потеряли при join</summary><ol><li><a class="tb" href="09-join.html#card-1"><span class="i" data-n="1"></span><span>Кого мы потеряли при join</span></a></li><li><a class="tb" href="09-join.html#card-2"><span class="i" data-n="2"></span><span>Задача: 4% или 13%?</span></a></li><li><a class="tb" href="09-join.html#card-3"><span class="i" data-n="3"></span><span>Полная популяция эксперимента</span></a></li><li><a class="tb" href="09-join.html#card-4"><span class="i" data-n="4"></span><span>Задача: витрина в «Десертах»</span></a></li><li><a class="tb" href="09-join.html#card-5"><span class="i" data-n="5"></span><span>Подписчики тратят на 40% больше</span></a></li><li><a class="tb" href="09-join.html#card-6"><span class="i" data-n="6"></span><span>Время до второго заказа</span></a></li><li><a class="tb" href="09-join.html#card-7"><span class="i" data-n="7"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 10 · Бутстрап</summary><ol><li><a class="tb" href="10-bootstrap.html#card-1"><span class="i" data-n="1"></span><span>Бутстрап</span></a></li><li><a class="tb" href="10-bootstrap.html#card-2"><span class="i" data-n="2"></span><span>Бутстрап: определение</span></a></li><li><a class="tb" href="10-bootstrap.html#card-3"><span class="i" data-n="3"></span><span>Задача: интервал для медианы чека</span></a></li><li><a class="tb" href="10-bootstrap.html#card-4"><span class="i" data-n="4"></span><span>Бутстрап или t⁠-⁠тест?</span></a></li><li><a class="tb" href="10-bootstrap.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <div class="lt cur"><h2>Блок 11 · Подглядывание</h2>
+    <ol id="toc-list"></ol></div>
+    <details class="lt"><summary>Блок 12 · A/B на аудитории</summary><ol><li><a class="tb" href="12-audience.html#card-1"><span class="i" data-n="1"></span><span>A/B на аудитории</span></a></li><li><a class="tb" href="12-audience.html#card-2"><span class="i" data-n="2"></span><span>Сколько лет?</span></a></li><li><a class="tb" href="12-audience.html#card-3"><span class="i" data-n="3"></span><span>Задача: пайплайн на данных зала</span></a></li><li><a class="tb" href="12-audience.html#card-4"><span class="i" data-n="4"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Блок 13 · Выбросы и собеседование</summary><ol><li><a class="tb" href="13-outliers.html#card-1"><span class="i" data-n="1"></span><span>Выбросы и собеседование</span></a></li><li><a class="tb" href="13-outliers.html#card-2"><span class="i" data-n="2"></span><span>Винзоризация</span></a></li><li><a class="tb" href="13-outliers.html#card-3"><span class="i" data-n="3"></span><span>Корпоратив на 300 капучино</span></a></li><li><a class="tb" href="13-outliers.html#card-4"><span class="i" data-n="4"></span><span>Блиц с собеседования</span></a></li><li><a class="tb" href="13-outliers.html#card-5"><span class="i" data-n="5"></span><span>Вывод</span></a></li></ol></details>
+    <details class="lt"><summary>Итоги занятия 5</summary><ol><li><a class="tb" href="14-summary.html#card-1"><span class="i" data-n="1"></span><span>Итоги занятия 5</span></a></li><li><a class="tb" href="14-summary.html#card-2"><span class="i" data-n="2"></span><span>Блиц с собеседования</span></a></li></ol></details>
+  </aside>
+  <main class="stage">
+    <div class="stage-head">
+      <button class="toggle" id="toc-toggle" type="button" aria-controls="toc-side" aria-expanded="true">☰ Оглавление</button>
+      <div class="progress" aria-hidden="true"><span id="prog"></span></div>
+      <span class="count" id="count"></span>
+    </div>
+<section class="card" data-title="Подглядывание">
+  <p class="kicker">Занятие 5 · блок 11</p>
+  <h1>Подглядывание</h1>
+  <figure class="art"><img src="img/07-peeking.jpg" alt="Боб открывает духовку, не дождавшись таймера, пирог опадает"></figure>
+  <div class="chat">
+    <div class="msg bob"><img class="ava" src="/ab-basics/img/ava-bob.jpg" alt=""><div class="bubble"><div class="who">Боб</div><p class="say">Тест прокрасился на пятый день. Останавливаю — зачем ждать?</p></div></div>
+  </div>
+  <p class="lead"><span class="tx" data-tex="\alpha = 5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">5%</span></span></span></span></span> гарантирован, если данные смотрят <b>один раз</b> — в конце. Боб смотрит каждый день и останавливает тест, как только прокрасилось. Каждый взгляд — ещё одна попытка, как двадцать гипотез в блоке 4, и ложные прокрасы копятся.</p>
+</section>
+
+<section class="card" data-title="Подглядывание в A/A">
+  <span class="step-tag">Игра</span>
+  <h2>Подглядывание в A/A</h2>
+  <p>A/A⁠-⁠тест на 14 дней, каждый день по 500 новых пользователей в группе. Линия — z⁠-⁠статистика по накопленным данным. Красная — тест, который хоть раз вышел за ±1.96.</p>
+  <div class="game" id="gp">
+    <div class="controls"><button type="button" class="btn" id="gp-20">+20 тестов</button><button type="button" class="btn ghost" id="gp-500">+500</button><button type="button" class="btn ghost" id="gp-reset">Сбросить</button></div>
+    <p class="chart-t">z по дням в A/A⁠-⁠тестах</p>
+    <canvas aria-label="Траектории z⁠-⁠статистики по 14 дням в A/A⁠-⁠тестах и пороги ±1.96"></canvas>
+    <p class="out" aria-live="polite"></p>
+  </div>
+  <div class="takeaway"><p>Смотрим один раз в конце — около 5% ложных прокрасов. Смотрим каждый день и останавливаемся при первом прокрасе — около 22%.</p></div>
+</section>
+
+<section class="card" data-title="Как смотреть честно">
+  <span class="step-tag">Определение</span>
+  <h2>Как смотреть честно</h2>
+  <ol class="howto reveal">
+    <li><b>Фиксированный горизонт.</b> Длительность считается заранее по MDE из блока 2, решение принимается один раз в конце. Смотреть на дашборд можно, <b>решать</b> — нет.</li>
+    <li><b>Последовательный план:</b> заранее назначенные моменты проверки с более строгими порогами. План О'Брайена⁠–⁠Флеминга с 5 проверками даёт пороги для <span class="tx" data-tex="|z|"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mord">∣</span></span></span></span></span> примерно 4.56, 3.23, 2.63, 2.28, 2.04 — суммарный <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span> остаётся 5%. Рано остановиться можно только при очень сильном эффекте.</li>
+    <li><b>Аварийная остановка</b> при сильном ухудшении ключевых метрик допустима: это решение о вреде, а не о победе.</li>
+  </ol>
+</section>
+
+<section class="card" data-title="Три лестницы">
+  <span class="step-tag">Для любопытных</span>
+  <h2>Три лестницы для подглядывания</h2>
+  <p>14 ежедневных взглядов, 20 000 симуляций. Пороги подобраны так, чтобы <span class="nw"><span class="tx" data-tex="\alpha = 5\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">5%</span></span></span></span></span>;</span> эффект такой, что фиксированный тест ловит его с мощностью 80%.</p>
+  <div class="report-wrap"><table class="tails grid">
+    <thead><tr><th>План</th><th>Порог в 1-й день</th><th>в 14-й день</th><th><span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span></th><th>Мощность</th><th>Средний стоп</th><th>Эффект у остановленных</th></tr></thead>
+    <tbody>
+      <tr><td>фиксированный, 1 взгляд</td><td>—</td><td>1.96</td><td>5%</td><td>80%</td><td>14 дн.</td><td>×1.13</td></tr>
+      <tr><td>каждый день по 1.96</td><td>1.96</td><td>1.96</td><td>22%</td><td>87%</td><td>6.6 дн.</td><td>×1.6</td></tr>
+      <tr><td>Покок</td><td>2.61</td><td>2.61</td><td>5%</td><td>67%</td><td>9.6 дн.</td><td>×1.7</td></tr>
+      <tr><td>О'Брайен⁠–⁠Флеминг</td><td>7.88</td><td>2.11</td><td>5%</td><td>78%</td><td>10.7 дн.</td><td>×1.3</td></tr>
+    </tbody>
+  </table></div>
+  <p>Покок держит один порог каждый день, О'Брайен⁠–⁠Флеминг — очень строгий в начале и почти 1.96 в конце, поэтому почти не теряет мощности. Последний столбец — насколько завышен эффект у тестов, которые прокрасились: кто остановился рано, тот остановился, когда шум был за него. Даже у фиксированного плана значимые эффекты завышены на 13% — это та же мысль, что «большой эффект — подозрительно» из блока 2.</p>
+</section>
+
+<section class="card" data-title="Задача: остановить на пятый день?">
+  <span class="step-tag">Задача</span>
+  <h2 class="task-h"><span class="tn">Задача 17.</span> Остановить на пятый день?</h2>
+  <p>Тест рассчитан на 14 дней. На пятый день <span class="nw"><span class="tx" data-tex="p = 0.03"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.03</span></span></span></span></span>.</span> Боб хочет остановить и раскатывать. Что ответишь?</p>
+  
+</section>
+
+<section class="card" data-title="Подержим ещё месяц?">
+  <span class="step-tag">Вопрос залу</span>
+  <p class="extra-note">Дополнительно — если останется время</p>
+  <h2>Подержим ещё месяц — точнее будет?</h2>
+  <p>Метрика — «сессий на пользователя», тест идёт две недели, эффект не прокрасился. Боб: «Продлим до месяца, интервал сузится вдвое». Так ли это?</p>
+  
+</section>
+
+<section class="card" data-title="Вывод">
+  <span class="step-tag">Итог блока</span>
+  <h2>Решать — один раз</h2>
+  <div class="takeaway"><p>Решение — один раз, в конце расчётной длительности. Хочешь смотреть чаще — закладывай последовательный план с более строгими порогами заранее.</p></div>
+  <a class="next-step" href="12-audience.html"><b>Дальше: 12. A/B на аудитории</b>Полный пайплайн на ваших ответах.</a>
+</section>
+    <div class="pager">
+      <button class="btn ghost" id="prev" type="button">← Назад</button>
+      <button class="btn" id="next" type="button">Далее</button>
+    </div>
+  </main>
+</div>
+<script src="/fonts/katex/katex.min.js?v=202611605"></script>
+<script src="/signal/book.js?v=202611605"></script>
+<script src="/shad/stats/04/shad.js?v=202611605"></script>
+<script>
+(function(){
+  const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
+  const g = document.getElementById('gp'); if (!g) return;
+  const cv = g.querySelector('canvas'), out = g.querySelector('.out');
+  const D = 14, gauss = () => { const u = Math.random() || 1e-9, v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const paths = []; let nAny = 0, nEnd = 0, total = 0;
+  const run = () => { const z = []; let s = 0; for (let d = 1; d <= D; d++){ s += gauss(); z.push(s / Math.sqrt(d)); } const any = z.some(v => Math.abs(v) > 1.96), end = Math.abs(z[D - 1]) > 1.96; total++; if (any) nAny++; if (end) nEnd++; return {z, any}; };
+  function paint(){
+    const gg = canvas(cv, 0.45, 0.85); if (!gg) return; const {c, w, h} = gg, L = 40, R = 16, T = 12, B = 34;
+    const X = d => L + (d - 1) / (D - 1) * (w - L - R), Y = z => T + (h - T - B) * (4 - z) / 8;
+    [-4, -2, 0, 2, 4].forEach(v => { c.strokeStyle = COL.grid; c.lineWidth = 1; c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); big(c, String(v), L - 8, Y(v) + 5, COL.ink2, 12, 400, 'right'); });
+    for (let d = 1; d <= D; d += (d < 2 ? 1 : 2)) big(c, String(d), X(d), h - B + 18, COL.ink2, 12, 400);
+    big(c, 'день', w - R, h - B + 32, COL.ink2, 12, 500, 'right');
+    c.setLineDash([5, 4]); c.strokeStyle = '#C9413A'; c.lineWidth = 1.2; [1.96, -1.96].forEach(v => { c.beginPath(); c.moveTo(L, Y(v)); c.lineTo(w - R, Y(v)); c.stroke(); }); c.setLineDash([]);
+    paths.slice(-60).forEach(p => { c.strokeStyle = p.any ? 'rgba(201,65,58,0.75)' : 'rgba(61,111,182,0.35)'; c.lineWidth = p.any ? 1.6 : 1; c.beginPath(); p.z.forEach((v, i) => { const y = Y(Math.max(-4, Math.min(4, v))); i ? c.lineTo(X(i + 1), y) : c.moveTo(X(1), y); }); c.stroke(); });
+    out.innerHTML = total ? 'A/A⁠-⁠тестов: ' + total.toLocaleString('ru-RU') + '. Хоть раз прокрасился за 14 дней: <b>' + num(100 * nAny / total, 1) + '%</b>. Прокрасился в конце, на 14-й день: <b>' + num(100 * nEnd / total, 1) + '%</b>.' : 'Нажми «+20 тестов».';
+  }
+  const add = k => { for (let i = 0; i < k; i++) paths.push(run()); if (paths.length > 200) paths.splice(0, paths.length - 200); paint(); };
+  document.getElementById('gp-20').addEventListener('click', () => add(20));
+  document.getElementById('gp-500').addEventListener('click', () => add(500));
+  document.getElementById('gp-reset').addEventListener('click', () => { paths.length = 0; nAny = nEnd = total = 0; paint(); });
+  window.addEventListener('resize', paint); if (window.ResizeObserver) new ResizeObserver(() => paint()).observe(cv); paint();
+})();
+</script>
+
+</body>
+</html>

@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Занятие 5 · A/B-тесты в индустрии · Прикладная статистика для аналитика · ШАД</title>
+<title>Занятие 5 · Интервалы, MDE и A/B в индустрии · Прикладная статистика для аналитика · ШАД</title>
 <meta name="description" content="Интерактивная версия занятия 5 курса ШАД «Прикладная статистика для аналитика».">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611604">
-<link rel="stylesheet" href="/tokens.css?v=202611604">
-<link rel="stylesheet" href="/home.css?v=202611604">
-<link rel="stylesheet" href="/course.css?v=202611604">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611604">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611605">
+<link rel="stylesheet" href="/tokens.css?v=202611605">
+<link rel="stylesheet" href="/home.css?v=202611605">
+<link rel="stylesheet" href="/course.css?v=202611605">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611605">
 </head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
@@ -24,9 +24,9 @@
 <section class="c-hero wrap">
   <div>
     <p class="chips"><span class="tag">ШАД</span><span class="tag">Прикладная статистика для аналитика</span></p>
-    <h1>Занятие 5. A/B-тесты в индустрии</h1>
-    <p class="sub">Интерактивная версия занятия: девять блоков, как в лекции. В задачах можно проверить ответ числом, решение спрятано под «Решением», а там, где идею лучше видно на графике, — игра.</p>
-    <p class="ctas"><a class="btn" href="01-split.html">Начать</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
+    <h1>Занятие 5. Интервалы, MDE и A/B-тесты в индустрии</h1>
+    <p class="sub">Интерактивная версия занятия: тринадцать блоков, как в лекции. В задачах можно проверить ответ числом, решение спрятано под «Решением», а там, где идею лучше видно на графике, — игра.</p>
+    <p class="ctas"><a class="btn" href="01-ci.html">Начать</a><a class="btn ghost" href="#toc">Оглавление ↓</a></p>
   </div>
   <figure class="art"><img width="1200" height="675" src="img/01-split.jpg" alt="Машина делит человечков на две колбы, Котейка дёргает рычаг"></figure>
 </section>
@@ -34,16 +34,20 @@
   <div class="col">
     <h2>Оглавление</h2>
     <ol class="modules" role="list">
-      <li><span class="n">1</span><h3><a href="01-split.html">Разбиение и SRM</a></h3><p class="d">Хеш с солью, лотерея призыва 1969 года, 50 600 против 49 400 и антифрод, съевший лучших клиентов.</p></li>
-      <li><span class="n">2</span><h3><a href="02-aa.html">Проверка критерия симуляцией</a></h3><p class="d">1 000 A/A и 68 прокрасов: держит ли критерий <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span> и какая у него мощность.</p></li>
-      <li><span class="n">3</span><h3><a href="03-units.html">Единица наблюдения</a></h3><p class="d">Делим пользователей, считаем по показам — и CTR прокрашивает A/A в 15% случаев.</p></li>
-      <li><span class="n">4</span><h3><a href="04-delta.html">Дельта-метод, линеаризация, бакеты</a></h3><p class="d">Три честных способа посчитать SE для ratio-метрики.</p></li>
-      <li><span class="n">5</span><h3><a href="05-join.html">Кого мы потеряли при join</a></h3><p class="d">4% или 13%, витрина в «Десертах» и подписчики, которые тратят на 40% больше.</p></li>
-      <li><span class="n">6</span><h3><a href="06-bootstrap.html">Бутстрап</a></h3><p class="d">Интервал для медианы чека своими руками и когда хватит t-теста.</p></li>
-      <li><span class="n">7</span><h3><a href="07-peeking.html">Подглядывание</a></h3><p class="d">14 взглядов — 22% ложных прокрасов, О'Брайен–Флеминг и переоценка ранних побед.</p></li>
-      <li><span class="n">8</span><h3><a href="08-audience.html">A/B на аудитории</a></h3><p class="d">Игра «Сколько лет?» и полный пайплайн на ваших ответах.</p></li>
-      <li><span class="n">9</span><h3><a href="09-outliers.html">Выбросы и блиц</a></h3><p class="d">Винзоризация, корпоратив на 300 капучино и семь вопросов с собеседования.</p></li>
-      <li><span class="n">10</span><h3><a href="10-summary.html">Итоги занятия</a></h3><p class="d">Восемь главных мыслей.</p></li>
+      <li><span class="n">1</span><h3><a href="01-ci.html">Доверительные интервалы</a></h3><p class="d">Сколько интервалов накрывает правду, пересекающиеся интервалы и «не прокрасилось — значит можно».</p></li>
+      <li><span class="n">2</span><h3><a href="02-mde.html">MDE и длительность</a></h3><p class="d">Сколько ждать, «10 против 9», MDE задним числом и баннер <span class="nw"><span class="tx" data-tex="+8\% \pm 3\%"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">8%</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">3%</span></span></span></span></span>.</span></p></li>
+      <li><span class="n">3</span><h3><a href="03-nonparam.html"><span class="tx" data-tex="\chi^2"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">χ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> и Манн–Уитни</a></h3><p class="d">Камень-ножницы-бумага, почему Манн–Уитни не про медианы и случай Uber.</p></li>
+      <li><span class="n">4</span><h3><a href="04-multiple.html">Множественные проверки</a></h3><p class="d">Двадцать гипотез, поправка Бонферрони и зелёные мармеладки.</p></li>
+      <li><span class="n">5</span><h3><a href="05-split.html">Разбиение и SRM</a></h3><p class="d">Хеш с солью, лотерея призыва 1969 года, 50 600 против 49 400 и антифрод, съевший лучших клиентов.</p></li>
+      <li><span class="n">6</span><h3><a href="06-aa.html">Проверка критерия симуляцией</a></h3><p class="d">1 000 A/A и 68 прокрасов: держит ли критерий <span class="tx" data-tex="\alpha"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span> и какая у него мощность.</p></li>
+      <li><span class="n">7</span><h3><a href="07-units.html">Единица наблюдения</a></h3><p class="d">Делим пользователей, считаем по показам — и CTR прокрашивает A/A в 15% случаев.</p></li>
+      <li><span class="n">8</span><h3><a href="08-delta.html">Дельта-метод, линеаризация, бакеты</a></h3><p class="d">Три честных способа посчитать SE для ratio-метрики.</p></li>
+      <li><span class="n">9</span><h3><a href="09-join.html">Кого мы потеряли при join</a></h3><p class="d">4% или 13%, витрина в «Десертах» и подписчики, которые тратят на 40% больше.</p></li>
+      <li><span class="n">10</span><h3><a href="10-bootstrap.html">Бутстрап</a></h3><p class="d">Интервал для медианы чека своими руками и когда хватит t-теста.</p></li>
+      <li><span class="n">11</span><h3><a href="11-peeking.html">Подглядывание</a></h3><p class="d">14 взглядов — 22% ложных прокрасов, О'Брайен–Флеминг и переоценка ранних побед.</p></li>
+      <li><span class="n">12</span><h3><a href="12-audience.html">A/B на аудитории</a></h3><p class="d">Игра «Сколько лет?» и полный пайплайн на ваших ответах.</p></li>
+      <li><span class="n">13</span><h3><a href="13-outliers.html">Выбросы и блиц</a></h3><p class="d">Винзоризация, корпоратив на 300 капучино и семь вопросов с собеседования.</p></li>
+      <li><span class="n">14</span><h3><a href="14-summary.html">Итоги и блиц</a></h3><p class="d">Восемь главных мыслей.</p></li>
     </ol>
   </div>
 </section>
