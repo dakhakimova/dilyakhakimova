@@ -34,7 +34,7 @@ const NF = {};
 // useGrouping 'min2': «1024», но «10 000» (как в текстах курса). Браузеры без Intl.NumberFormat v3 (до Chrome 106,
 // Firefox 116, Safari 15.4) читают строку как true и группируют и четырёхзначные («1 024») — ничего не ломается.
 // Для ru по правилам сайта: десятичная точка («10.4»), тысячи — неразрывный пробел с пяти знаков («1024», «10 000»), % вплотную.
-const grp5 = s => s.replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+const grp5 = s => s.replace(/^-(?=0(\.0+)?(?![.\d]))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
 const nf = (d, min = d) => NF[d + ':' + min] || (NF[d + ':' + min] = LANG === 'ru'
   ? (f => ({format: x => grp5(f.format(x))}))(new Intl.NumberFormat('en-US', {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: false}))
   : new Intl.NumberFormat(LANG, {maximumFractionDigits: d, minimumFractionDigits: min, useGrouping: 'min2'}));

@@ -6,7 +6,7 @@
   const I = window.I18N || {}, RU = I.ru || {};
   const tr = (k, o = {}) => (I.typo ? I.typo('ru', RU[k] || k) : (RU[k] || k)).replace(/\{(\w+)\}/g, (_, x) => x in o ? o[x] : '');
   // числа: десятичная точка, тысячи через неразрывный пробел, % вплотную
-  const ruF = o => { const f = new Intl.NumberFormat('en-US', Object.assign({useGrouping: false}, o)); return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'))}; };
+  const ruF = o => { const f = new Intl.NumberFormat('en-US', Object.assign({useGrouping: false}, o)); return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(?![.\d]))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'))}; };
   const NF = ruF({});
   const pct = (x, d = 0) => ruF({style: 'percent', minimumFractionDigits: d, maximumFractionDigits: d}).format(x);
   const SVG = 'http://www.w3.org/2000/svg';

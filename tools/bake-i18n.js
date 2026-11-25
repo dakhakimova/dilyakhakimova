@@ -26,7 +26,7 @@ function loadDicts(files){
 // Числа: для ru — десятичная точка, тысячи через неразрывный пробел с пяти знаков, % вплотную («0.05», «1000», «10 000», «90%»).
 const numFormat = (lang, o = {}, from = 5) => { if (lang !== 'ru') return new Intl.NumberFormat(lang, o);
   const f = new Intl.NumberFormat('en-US', Object.assign({}, o, {useGrouping: false}));
-  return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d+)/, (_, a, d) => a + (d.length >= from ? d.replace(/\B(?=(\d{3})+$)/g, '\u00a0') : d))}; };
+  return {format: x => f.format(x).replace(/^-(?=0(\.0+)?(?![.\d]))/, '').replace(/^(\D*)(\d+)/, (_, a, d) => a + (d.length >= from ? d.replace(/\B(?=(\d{3})+$)/g, '\u00a0') : d))}; };
 // Метка примерного времени прохождения бесплатного курса — поле hours в courses/courses.json (одно место на сайт).
 // Разметка: <span class="tag" data-hours="<id курса>"></span> — содержимое вписывается при сборке, пробелы неразрывные.
 const HOURS = Object.fromEntries(JSON.parse(fs.readFileSync(path.join(ROOT, 'courses/courses.json'), 'utf8')).courses.filter(c => c.hours).map(c => [c.id, c.hours]));

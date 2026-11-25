@@ -7,7 +7,7 @@
   const C = {a: '#23418A', b: '#E8644A', red: '#C9413A', pen: '#23418A', ink: '#24221F', t3: '#5E5A53', line: '#CFC8BB', soft: '#ECE9E2', mint: '#0E7E5F'};
   const RIGHT = {tt: 2, mw: 1, chi: 1, ss: 1};
   // числа: десятичная точка, тысячи через неразрывный пробел с пяти знаков («1600», «10 000» — как типограф сайта), % вплотную
-  const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+  const nf = (x, d = 0) => x.toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: false}).replace(/^-(?=0(\.0+)?(?![.\d]))/, '').replace(/^(\D*)(\d{5,})/, (_, a, n) => a + n.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
   const pct = x => nf(x * 100, x < .1 && x > 0 ? 1 : 0) + '%';
   const pf = p => p < .001 ? '< 0.001' : nf(p, p < .1 ? 3 : 2);
   const pv = p => p < .001 ? '< 0.001' : '= ' + pf(p);

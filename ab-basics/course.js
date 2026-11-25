@@ -8,7 +8,7 @@ const MLEN = [31,28,31,30,31,30,31,31,30,31,30,31];
 const MSTART = MLEN.reduce((a, d, i) => (a.push(i ? a[i - 1] + MLEN[i - 1] : 0), a), []);
 const dayLabel = d => { let m = 11; while (MSTART[m] > d) m--; return (d - MSTART[m] + 1) + ' ' + MON[m]; };
 // Числа: десятичная точка, тысячи через неразрывный пробел с пяти знаков («1000», «10 000»), % вплотную («10.4%»).
-const grp = s => s.replace(/^-(?=0(\.0+)?(\D|$))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
+const grp = s => s.replace(/^-(?=0(\.0+)?(?![.\d]))/, '').replace(/^(\D*)(\d{5,})/, (_, a, d) => a + d.replace(/\B(?=(\d{3})+$)/g, '\u00a0'));
 const num = (x, d = 1) => grp(x.toLocaleString('en-US', {maximumFractionDigits: d, minimumFractionDigits: d, useGrouping: false}));
 const pct = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + num(Math.abs(100 * x), d) + '%';
 const share = (x, d = 1) => num(100 * x, d) + '%';
