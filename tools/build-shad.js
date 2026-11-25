@@ -14,6 +14,23 @@ const SHARED = 'shad/stats/04';   // общие shad.css и shad.js лежат �
 const LESSONS = require('./shad-lessons.js');
 for (const L of LESSONS){ if (fs.existsSync(path.join(ROOT, L.dir, 'src'))) buildLesson(L); }
 
+// Версия для студентов: убираем решения и ответы (hideSolutions в shad-lessons.js), исходники не трогаем.
+// Снимаются <details class="sol"> с заголовком «Решение»/«Ответ» и все <details class="rule-d"> («Показать ответ», «Показать критерий»).
+function stripSolutions(html){
+  const isAnswer = open => /class="[^"]*rule-d/.test(open) || (/class="[^"]*\bsol\b/.test(open) && /^\s*<summary>\s*(Решение|Ответ)\s*<\/summary>/.test(open.slice(open.indexOf('>') + 1)));
+  let out = '', i = 0;
+  const re = /<details\b[^>]*>/g;
+  for (let m; (m = re.exec(html)); ){
+    if (m.index < i) continue;
+    // ищем парный </details> с учётом вложенных
+    let depth = 0, j = m.index, end = -1; const tag = /<\/?details\b[^>]*>/g; tag.lastIndex = m.index;
+    for (let x; (x = tag.exec(html)); ){ depth += x[0][1] === '/' ? -1 : 1; if (depth === 0){ end = x.index + x[0].length; break; } }
+    if (end < 0) break;
+    if (isAnswer(html.slice(m.index, Math.min(end, m.index + 300)))){ out += html.slice(i, m.index); i = end; re.lastIndex = end; }
+  }
+  return out + html.slice(i);
+}
+
 function buildLesson(L){
 const DIR = L.dir, SRC = path.join(ROOT, DIR, 'src'), LESSON = L.lesson, PLAN = L.plan;
 
@@ -53,6 +70,7 @@ for (const f of files){
   const raw = fs.readFileSync(path.join(SRC, f), 'utf8'), nl = raw.indexOf('\n');
   const meta = JSON.parse(raw.slice(0, nl)); let body = raw.slice(nl + 1);
   const m = body.match(/<script>[\s\S]*<\/script>\s*$/); const script = m ? m[0] : ''; if (m) body = body.slice(0, m.index);
+  if (L.hideSolutions) body = stripSolutions(body);
   const n = +f.slice(0, 2); metas.push({...meta, f, n});
   // формулы в атрибутах прячем от tex.js (он вставил бы разметку прямо в атрибут) — рендерим их отдельно ниже
   body = body.replace(/ data-(why|fb)="([^"]*)"/g, (all, k, v) => ` data-${k}="${v.replace(/\\\(/g, '⟪').replace(/\\\)/g, '⟫').replace(/\\\[/g, '⟦').replace(/\\\]/g, '⟧')}"`);
