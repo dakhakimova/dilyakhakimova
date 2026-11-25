@@ -9,12 +9,12 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css?v=202611597">
-<link rel="stylesheet" href="/tokens.css?v=202611597">
-<link rel="stylesheet" href="/signal/book.css?v=202611597">
-<link rel="stylesheet" href="/signal/free.css?v=202611597">
-<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611597">
-<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611597">
+<link rel="stylesheet" href="/fonts/fonts.css?v=202611598">
+<link rel="stylesheet" href="/tokens.css?v=202611598">
+<link rel="stylesheet" href="/signal/book.css?v=202611598">
+<link rel="stylesheet" href="/signal/free.css?v=202611598">
+<link rel="stylesheet" href="/shad/stats/04/shad.css?v=202611598">
+<link rel="stylesheet" href="/fonts/katex/katex.min.css?v=202611598">
 </head>
 <body data-course="shad4" data-chapter="shad4-04" data-next="05-ztest.html">
 <nav class="top" aria-label="Навигация">
@@ -337,7 +337,12 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </ul></li>
     <li><b>Проверь A/A⁠-⁠симуляцией на своих данных</b>, держит ли критерий 5%, — самый честный способ.</li>
   </ol>
-  <div class="takeaway"><p><b>Три оговорки.</b> Оценка <span class="tx" data-tex="\hat\gamma"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0556em;">γ</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></span> сама неустойчива на тяжёлых хвостах — один «кит» её резко меняет, поэтому считай на большой истории или после обрезки. Правило написано для <b>одного</b> среднего: у разности средних двух <b>равных</b> групп с одинаковым распределением асимметрии гасят друг друга, и сравнение устойчивее, чем говорит правило; при неравных группах (90/10) гашения почти нет, и правило важно. Порог 355 рассчитан так, чтобы <b>каждый хвост</b> по отдельности держал свою долю ошибки. Двусторонний тест прощает больше: перекос переносит ошибку из одного хвоста в другой, и в сумме она меняется меньше. Односторонний смотрит в один хвост, и для него правило нужно в полную силу.</p></div>
+  <div class="takeaway"><p><b>Три оговорки к правилу</b></p>
+    <ul>
+      <li><b>Оценка <span class="tx" data-tex="\hat\gamma"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0556em;">γ</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></span> неустойчива.</b> На тяжёлых хвостах один «кит» резко её меняет — считай на большой истории или после обрезки.</li>
+      <li><b>Правило — для одного среднего.</b> У разности средних двух <b>равных</b> групп с одинаковым распределением асимметрии гасят друг друга, и сравнение устойчивее, чем говорит правило. При неравных группах (90/10) гашения почти нет — правило важно.</li>
+      <li><b>Порог 355 — для каждого хвоста.</b> Двусторонний тест прощает больше: перекос переносит ошибку из одного хвоста в другой, и в сумме она меняется меньше. Односторонний смотрит в один хвост — для него правило в полную силу.</li>
+    </ul></div>
 </section>
 
 <section class="card" data-title="Проверим на данных">
@@ -418,10 +423,10 @@ hist(wins, "винзоризация", cap)</textarea>
     </div>
   </main>
 </div>
-<script src="/fonts/katex/katex.min.js?v=202611597"></script>
-<script src="/signal/book.js?v=202611597"></script>
-<script src="/signal/py.js?v=202611597"></script>
-<script src="/shad/stats/04/shad.js?v=202611597"></script>
+<script src="/fonts/katex/katex.min.js?v=202611598"></script>
+<script src="/signal/book.js?v=202611598"></script>
+<script src="/signal/py.js?v=202611598"></script>
+<script src="/shad/stats/04/shad.js?v=202611598"></script>
 <script>
 (function(){
   const big = (c, t, x, y, col, fs, wt, al) => { c.save(); c.font = (wt || 500) + ' ' + fs + 'px Onest, sans-serif'; c.fillStyle = col; c.textAlign = al || 'center'; c.fillText(t, x, y); c.restore(); };
