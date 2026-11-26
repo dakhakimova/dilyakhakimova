@@ -345,3 +345,22 @@
   .bk-tiers .tier > *{align-self:start}
   .bk-tiers .tier > .tn{align-self:end}
 }
+
+/* правки по вычитке 26.11: путь эксперимента, слои, таблица Симпсона, прокрутка широких таблиц */
+.tab-scroll{max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch}
+.tab-scroll > table{margin-top:var(--s-3)}
+.bk-steps.five{grid-template-columns:1fr; gap:8px}
+.bk-steps.five > li{display:grid; grid-template-columns:13em 1fr; column-gap:var(--s-4); align-items:start; padding:12px 16px}
+.bk-steps.five .sf{margin:2px 0 0} .bk-steps.five ul{grid-column:2; grid-row:1 / span 2; margin:0}
+.bk-steps > li.hot{box-shadow:inset 0 3px 0 var(--test), var(--sh-1, 0 1px 2px rgba(0,0,0,.06))}
+@media (max-width:560px){.bk-steps.five > li{grid-template-columns:1fr} .bk-steps.five ul{grid-column:1; grid-row:auto; margin-top:8px}}
+.bk-simp th:first-child{white-space:normal}
+.bk-layers .lay-rows{display:grid; gap:6px; max-width:560px}
+.bk-layers .lr{display:grid; grid-template-columns:minmax(9em,1fr) auto; gap:var(--s-3); align-items:baseline; background:var(--surface); border-radius:var(--r-m); padding:10px 14px; box-shadow:var(--sh-1, 0 1px 2px rgba(0,0,0,.06))}
+.bk-layers .ln{color:var(--text-2); font-size:var(--fs-s)}
+.bk-layers .le{font-size:var(--fs-s); white-space:nowrap}
+.bk-layers .le b{display:inline-block; min-width:1.8em; text-align:center; border-radius:999px; color:#fff; font-weight:var(--fw-medium); margin-left:6px}
+.bk-layers .le b.ctrl{background:var(--ctrl)} .bk-layers .le b.test{background:var(--test-ink, #B8432B)}
+.bk-simp tbody tr.bad td{color:var(--test-ink, #B8432B); font-weight:var(--fw-medium)}
+.bk-simp tbody tr:last-child th, .bk-simp tbody tr:last-child td{border-bottom:0}
+@media (max-width:440px){.bk-layers .lr{grid-template-columns:1fr; gap:2px}}
